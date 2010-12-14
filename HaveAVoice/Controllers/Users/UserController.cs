@@ -346,7 +346,7 @@ namespace HaveAVoice.Controllers.Users
 
 
         public ActionResult FanFeed() {
-            return null;
+            return null; //comment
         }
     }
 }
