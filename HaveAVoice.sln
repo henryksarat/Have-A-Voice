@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaveAVoice", "HaveAVoice\HaveAVoice.csproj", "{0ADBB9E5-A775-41B0-9247-BBF8A701FA18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaveAVoice.Tests", "HaveAVoice.Tests\HaveAVoice.Tests.csproj", "{3A8FA171-CFF4-46C4-963F-064C9022A3DB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0ADBB9E5-A775-41B0-9247-BBF8A701FA18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0ADBB9E5-A775-41B0-9247-BBF8A701FA18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0ADBB9E5-A775-41B0-9247-BBF8A701FA18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0ADBB9E5-A775-41B0-9247-BBF8A701FA18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A8FA171-CFF4-46C4-963F-064C9022A3DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A8FA171-CFF4-46C4-963F-064C9022A3DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A8FA171-CFF4-46C4-963F-064C9022A3DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A8FA171-CFF4-46C4-963F-064C9022A3DB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

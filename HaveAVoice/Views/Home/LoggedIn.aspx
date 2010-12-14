@@ -1,0 +1,70 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInModel>" %>
+<%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
+	Logged In
+</asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="col-24 user-panel">
+        <div class="col-3">
+            <img src="http://davidzuckerman.com/adobe/wp-content/uploads/2007/04/profile.jpg" alt="Current Profile" class="profile" />
+        </div>
+        <div class="col-15">
+            #CONTROL PANEL#
+        </div>
+        <div class="col-6 advertisement">
+            &nbsp;
+        </div>
+    </div>
+    
+    <div class="clear">&nbsp;</div>
+    
+    <div class="col-3 left-nav">
+        #LEFT NAVIGATION#
+    </div>
+    
+    <div class="col-21">
+        <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
+
+        <h2>Welcome, <%= HAVUserInformationFactory.GetUserInformation().Details.Username %></h2>
+    
+        <br /><br />
+        FanFeed:<br />
+        <% foreach (var item in Model.FanIssueReplys) { %>
+            Username: <%= item.User.Username %>
+            IssueReply: <%= item.Reply %><br /><br />
+        <% } %>
+
+        <br /> /><br />
+        Officials Feed:<br />
+        <% foreach (var item in Model.OfficialsReplys) { %>
+            Username: <%= item.User.Username %>
+            IssueReply: <%= item.Reply %><br /><br />
+        <% } %>
+    
+        <br /><br />
+
+        <% using (Html.BeginForm("AddZipCodeFilter", "Home")) { %>
+            Zip Code:
+            <%= Html.TextBox("ZipCode") %>
+            <%= Html.ValidationMessage("ZipCode", "*")%>
+            <p>
+                <input type="submit" value="Submit" />
+            </p>
+        <% } %>
+        <br /><br />
+
+        <% using (Html.BeginForm("AddCityStateFilter", "Home")) { %>
+            City:
+            <%= Html.TextBox("City", "")%>
+            <%= Html.ValidationMessage("City", "*")%><br />
+            State:
+            <%= Html.TextBox("State", "")%>
+            <%= Html.ValidationMessage("State", "*")%><br />
+            <p>
+                <input type="submit" value="Submit" />
+            </p>
+        <% } %>
+    </div>
+</asp:Content>

@@ -1,0 +1,21 @@
+C:\Users\Henryk\documents\visual studio 2010\Projects\HaveAVoice\HaveAVoice\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Henryk\documents\visual studio 2010\Projects\HaveAVoice\HaveAVoice\bin\HaveAVoice.dll
+C:\Users\Henryk\documents\visual studio 2010\Projects\HaveAVoice\HaveAVoice\bin\HaveAVoice.pdb
+C:\Users\Henryk\documents\visual studio 2010\Projects\HaveAVoice\HaveAVoice\bin\Recaptcha.dll
+C:\Users\Henryk\documents\visual studio 2010\Projects\HaveAVoice\HaveAVoice\obj\Debug\HaveAVoice.dll
+C:\Users\Henryk\documents\visual studio 2010\Projects\HaveAVoice\HaveAVoice\obj\Debug\HaveAVoice.pdb
+C:\Users\Henryk\Desktop\HaveAVoice\HaveAVoice\bin\HaveAVoice.dll
+C:\Users\Henryk\Desktop\HaveAVoice\HaveAVoice\bin\HaveAVoice.pdb
+C:\Users\Henryk\Desktop\HaveAVoice\HaveAVoice\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Henryk\Desktop\HaveAVoice\HaveAVoice\obj\Debug\HaveAVoice.dll
+C:\Users\Henryk\Desktop\HaveAVoice\HaveAVoice\obj\Debug\HaveAVoice.pdb
+F:\HaveAVoice\HaveAVoice\bin\HaveAVoice.dll
+F:\HaveAVoice\HaveAVoice\bin\HaveAVoice.pdb
+F:\HaveAVoice\HaveAVoice\obj\Debug\ResolveAssemblyReference.cache
+F:\HaveAVoice\HaveAVoice\obj\Debug\HaveAVoice.dll
+F:\HaveAVoice\HaveAVoice\obj\Debug\HaveAVoice.pdb
+G:\HaveAVoice\HaveAVoice\bin\HaveAVoice.dll
+G:\HaveAVoice\HaveAVoice\bin\HaveAVoice.pdb
+G:\HaveAVoice\HaveAVoice\obj\Debug\ResolveAssemblyReference.cache
+G:\HaveAVoice\HaveAVoice\obj\Debug\HaveAVoice.dll
+G:\HaveAVoice\HaveAVoice\obj\Debug\HaveAVoice.pdb

@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3A8FA171-CFF4-46C4-963F-064C9022A3DB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HaveAVoice.Tests</RootNamespace>
+    <AssemblyName>HaveAVoice.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Moq">
+      <HintPath>..\..\..\..\Visual Studio 2008\Projects\HaveAVoice\HaveAVoice\bin\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\Admin\AdminControllerTest.cs" />
+    <Compile Include="Controllers\Admin\FeedbackControllerTest.cs" />
+    <Compile Include="Controllers\Admin\PermissionControllerTest.cs" />
+    <Compile Include="Controllers\Admin\RestrictionControllerTest.cs" />
+    <Compile Include="Controllers\Admin\RoleControllerTest.cs" />
+    <Compile Include="Controllers\ControllerTestCase.cs" />
+    <Compile Include="Controllers\Home\HomeControllerTest.cs" />
+    <Compile Include="Controllers\Issues\IssueReplyCommentControllerTest.cs" />
+    <Compile Include="Controllers\Issues\IssueControllerTest.cs" />
+    <Compile Include="Controllers\Issues\IssueReplyControllerTest.cs" />
+    <Compile Include="Controllers\Users\ComplaintControllerTest.cs" />
+    <Compile Include="Controllers\Users\UserControllerTest.cs" />
+    <Compile Include="Helpers\Action\HAVActionHelperTest.cs" />
+    <Compile Include="Helpers\PermissionTestHelper.cs" />
+    <Compile Include="Helpers\RestrictionLogTest.cs" />
+    <Compile Include="Helpers\HAVUserInformationTest.cs" />
+    <Compile Include="Models\DatamodelFactory.cs" />
+    <Compile Include="Models\ExtraModels\UserModels\CreateUserModelTest.cs" />
+    <Compile Include="Models\Repositories\UserFeatures\EntityHAVMessageRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\UserFeatures\EntityHAVHomeRepositoryTest.cs" />
+    <Compile Include="Models\Services\AdminFeatures\HAVRestrictionServiceTest.cs" />
+    <Compile Include="Models\Services\AdminFeatures\HAVRoleServiceTest.cs" />
+    <Compile Include="Models\Services\UserFeatures\HAVHomeServiceTest.cs" />
+    <Compile Include="Models\Services\UserFeatures\HAVProfileServiceTest.cs" />
+    <Compile Include="Models\Services\UserFeatures\HAVComplaintServiceTest.cs" />
+    <Compile Include="Models\Services\UserFeatures\HAVIssueServiceTest.cs" />
+    <Compile Include="Controllers\Users\MessageControllerTest.cs" />
+    <Compile Include="Models\Services\UserFeatures\HAVMessageServiceTest.cs" />
+    <Compile Include="Models\Services\UserFeatures\HAVUserServiceTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HaveAVoice\HaveAVoice.csproj">
+      <Project>{0ADBB9E5-A775-41B0-9247-BBF8A701FA18}</Project>
+      <Name>HaveAVoice</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

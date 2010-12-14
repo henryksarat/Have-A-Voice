@@ -1,0 +1,397 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0ADBB9E5-A775-41B0-9247-BBF8A701FA18}</ProjectGuid>
+    <ProjectTypeGuids>{F85E285D-A4E0-4152-9332-AB1D724D3325};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HaveAVoice</RootNamespace>
+    <AssemblyName>HaveAVoice</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Recaptcha">
+      <HintPath>..\..\..\..\Visual Studio 2008\Projects\HaveAVoice\HaveAVoice\bin\Recaptcha.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\ActionFilters\ExportModelStateToTempData.cs" />
+    <Compile Include="Controllers\ActionFilters\ImportModelStateFromTempData.cs" />
+    <Compile Include="Controllers\ActionFilters\ModelStateTempDataTransfer.cs" />
+    <Compile Include="Controllers\Admin\AdminBaseController.cs" />
+    <Compile Include="Controllers\Admin\AdminController.cs" />
+    <Compile Include="Controllers\Helpers\ErrorHelper.cs" />
+    <Compile Include="Controllers\Issues\IssueReplyCommentController.cs" />
+    <Compile Include="Controllers\Users\BoardController.cs" />
+    <Compile Include="Controllers\Users\BoardReplyController.cs" />
+    <Compile Include="Controllers\Users\CalendarController.cs" />
+    <Compile Include="Controllers\Users\FeedbackController.cs" />
+    <Compile Include="Controllers\Issues\IssueReplyController.cs" />
+    <Compile Include="Helpers\HAVPermissionHelper.cs" />
+    <Compile Include="Helpers\RoleHelper.cs" />
+    <Compile Include="Controllers\Admin\RestrictionController.cs" />
+    <Compile Include="Controllers\Admin\PermissionController.cs" />
+    <Compile Include="Controllers\Admin\RoleController.cs" />
+    <Compile Include="Controllers\Errors\ErrorController.cs" />
+    <Compile Include="Controllers\HAVBaseController.cs" />
+    <Compile Include="Controllers\Home\HomeController.cs" />
+    <Compile Include="Controllers\Issues\IssueController.cs" />
+    <Compile Include="Controllers\Issues\SearchController.cs" />
+    <Compile Include="Controllers\Shared\SharedController.cs" />
+    <Compile Include="Controllers\Users\ComplaintController.cs" />
+    <Compile Include="Controllers\Users\MessageController.cs" />
+    <Compile Include="Controllers\Users\ProfileController.cs" />
+    <Compile Include="Controllers\Users\UserController.cs" />
+    <Compile Include="Helpers\ComplaintHelper.cs" />
+    <Compile Include="Helpers\Enums\ComplaintType.cs" />
+    <Compile Include="Helpers\Relation.cs" />
+    <Compile Include="Helpers\UI\ImageHelper.cs" />
+    <Compile Include="Helpers\HAVPermission.cs" />
+    <Compile Include="Helpers\UserInformation\UserSettings.cs" />
+    <Compile Include="Helpers\Enums\ForgotPasswordPhase.cs" />
+    <Compile Include="Helpers\Enums\PrivacyAction.cs" />
+    <Compile Include="Helpers\Enums\PrivacySetting.cs" />
+    <Compile Include="Helpers\Enums\Roles.cs" />
+    <Compile Include="Helpers\Exceptions\EmailException.cs" />
+    <Compile Include="Helpers\Exceptions\NullRoleException.cs" />
+    <Compile Include="Helpers\Exceptions\NullUserException.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\ActionMethods\AcceptParameterAttribute.cs" />
+    <Compile Include="Helpers\ActionMethods\CaptchaValidatorAttribute.cs" />
+    <Compile Include="Models\Repositories\UserFeatures\EntityHAVBoardRepository.cs" />
+    <Compile Include="Models\Repositories\UserFeatures\EntityHAVFeedbackRepository.cs" />
+    <Compile Include="Models\Repositories\UserFeatures\IHAVBoardRepository.cs" />
+    <Compile Include="Models\Repositories\UserFeatures\IHAVFeedbackRepository.cs" />
+    <Compile Include="Models\ServiceConstants.cs" />
+    <Compile Include="Models\Services\UserFeatures\HAVBoardService.cs" />
+    <Compile Include="Models\Services\UserFeatures\HAVFeedbackService.cs" />
+    <Compile Include="Models\Services\UserFeatures\IHAVBoardService.cs" />
+    <Compile Include="Models\Services\UserFeatures\IHAVFeedbackService.cs" />
+    <Compile Include="Models\View\Binders\BinderHelper.cs" />
+    <Compile Include="Helpers\CaptchaHelper.cs" />
+    <Compile Include="Helpers\UI\IssueReplyHelper.cs" />
+    <Compile Include="Helpers\UI\CheckBoxHelper.cs" />
+    <Compile Include="Helpers\CloneHelper.cs" />
+    <Compile Include="Helpers\DateHelper.cs" />
+    <Compile Include="Helpers\Enums\RestrictionList.cs" />
+    <Compile Include="Helpers\Enums\Disposition.cs" />
+    <Compile Include="Helpers\HAVConstants.cs" />
+    <Compile Include="Helpers\HAVEmail.cs" />
+    <Compile Include="Helpers\UserInformation\HAVUserInformationFactory.cs" />
+    <Compile Include="Helpers\IHAVEmail.cs" />
+    <Compile Include="Helpers\UI\IssueHelper.cs" />
+    <Compile Include="Helpers\UserInformation\IUserInformation.cs" />
+    <Compile Include="Helpers\UI\MessageHelper.cs" />
+    <Compile Include="Helpers\Pair.cs" />
+    <Compile Include="Helpers\UserInformation\RestrictionLog.cs" />
+    <Compile Include="Helpers\SelectionHelper.cs" />
+    <Compile Include="Helpers\TimezoneHelper.cs" />
+    <Compile Include="Helpers\UI\UserHelper.cs" />
+    <Compile Include="Helpers\UserInformation\UserInformationHelper.cs" />
+    <Compile Include="Helpers\UserInformation\UserInformation.cs" />
+    <Compile Include="Models\Repositories\UserFeatures\EntityHAVCalendarRepository.cs" />
+    <Compile Include="Models\Repositories\UserFeatures\IHAVCalendarRepository.cs" />
+    <Compile Include="Models\Services\UserFeatures\HAVCalendarService.cs" />
+    <Compile Include="Models\Services\UserFeatures\IHAVCalendarService.cs" />
+    <Compile Include="Models\View\Binders\ProfileModelBinder.cs" />
+    <Compile Include="Models\Wrappers\BoardReplyWrapper.cs" />
+    <Compile Include="Models\Wrappers\BoardWrapper.cs" />
+    <Compile Include="Models\View\BoardModel.cs" />
+    <Compile Include="Models\View\Builders\ProfileModelBuilder.cs" />
+    <Compile Include="Models\View\Builders\UserInformationModelBuilder.cs" />
+    <Compile Include="Models\View\ComplaintModel.cs" />
+    <Compile Include="Models\View\Binders\ComlpaintModelBinder.cs" />
+    <Compile Include="Models\View\EditIssueReplyModel.cs" />
+    <Compile Include="Models\View\ErrorModel.cs" />
+    <Compile Include="Models\View\IssueModel.cs" />
+    <Compile Include="Models\View\Binders\IssueModelBinder.cs" />
+    <Compile Include="Models\View\IssueReplyDetailsModel.cs" />
+    <Compile Include="Models\View\Binders\IssueReplyDetailsModelBinder.cs" />
+    <Compile Include="Models\View\IssueReplyModel.cs" />
+    <Compile Include="Models\View\IssueWithDispositionModel.cs" />
+    <Compile Include="Models\View\LoggedInModel.cs" />
+    <Compile Include="Models\View\MessageBuilder.cs" />
+    <Compile Include="Models\View\MessageInbox.cs" />
+    <Compile Include="Models\View\MessageModel.cs" />
+    <Compile Include="Models\View\NotLoggedInModel.cs" />
+    <Compile Include="Models\View\PermissionModel.cs" />
+    <Compile Include="Models\View\Binders\PermissionModelBinder.cs" />
+    <Compile Include="Models\View\ProfileModel.cs" />
+    <Compile Include="Models\View\RestrictionModel.cs" />
+    <Compile Include="Models\View\Binders\RestrictionModelBinder.cs" />
+    <Compile Include="Models\View\RoleModel.cs" />
+    <Compile Include="Models\View\Binders\RoleModelBinder.cs" />
+    <Compile Include="Models\View\SelectionModel.cs" />
+    <Compile Include="Models\View\SiteSectionsEnum.cs" />
+    <Compile Include="Models\View\CreateUserModelBuilder.cs" />
+    <Compile Include="Models\View\Binders\CreateUserModelBuilderBinder.cs" />
+    <Compile Include="Models\View\EditUserModel.cs" />
+    <Compile Include="Models\View\Binders\EditUserModelBinder.cs" />
+    <Compile Include="Models\View\StringWrapper.cs" />
+    <Compile Include="Models\View\SwitchUserRoles.cs" />
+    <Compile Include="Models\View\UserDetailsModel.cs" />
+    <Compile Include="Models\View\UserInformationModel.cs" />
+    <Compile Include="Models\View\UserPicturesModel.cs" />
+    <Compile Include="Models\View\Binders\UserPicturesModelBinder.cs" />
+    <Compile Include="Models\View\ViewMessageModel.cs" />
+    <Compile Include="Models\View\Binders\ViewMessageModelBinder.cs" />
+    <Compile Include="Models\HaveAVoiceDBModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HaveAVoiceDBModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\AdminFeatures\EntityHAVErrorRepository.cs" />
+    <Compile Include="Models\Repositories\AdminFeatures\IHAVErrorRepository.cs" />
+    <Compile Include="Models\Repositories\AdminFeatures\EntityHAVRestrictionRepository.cs" />
+    <Compile Include="Models\Repositories\AdminFeatures\IHAVRestrictionRepository.cs" />
+    <Compile Include="Models\Repositories\AdminFeatures\EntityHAVRoleRepository.cs" />
+    <Compile Include="Models\Repositories\AdminFeatures\IHAVRoleRepository.cs" />
+    <Compile Include="Models\Repositories\HAVBaseRepository.cs" />
+    <Compile Include="Models\Repositories\IHAVBaseRepository.cs" />
+    <Compile Include="Models\Repositories\UserFeatures\EntityHAVHomeRepository.cs" />
+    <Compile Include="Models\Repositories\UserFeatures\EntityHAVProfileRepository.cs" />
+    <Compile Include="Models\Repositories\UserFeatures\IHAVHomeRepository.cs" />
+    <Compile Include="Models\Repositories\UserFeatures\EntityHAVComplaintRepository.cs" />
+    <Compile Include="Models\Repositories\UserFeatures\EntityHAVIssueRepository.cs" />
+    <Compile Include="Models\Repositories\UserFeatures\EntityHAVSearchRepository.cs" />
+    <Compile Include="Models\Repositories\UserFeatures\IHAVComplaintRepository.cs" />
+    <Compile Include="Models\Repositories\UserFeatures\IHAVIssueRepository.cs" />
+    <Compile Include="Models\Repositories\UserFeatures\IHAVProfileRepository.cs" />
+    <Compile Include="Models\Repositories\UserFeatures\IHAVSearchRepository.cs" />
+    <Compile Include="Models\Repositories\UserFeatures\EntityHAVMessageRepository.cs" />
+    <Compile Include="Models\Repositories\UserFeatures\IHAVMessageRepository.cs" />
+    <Compile Include="Models\Repositories\UserFeatures\EntityHAVUserRepository.cs" />
+    <Compile Include="Models\Repositories\UserFeatures\IHAVUserRepository.cs" />
+    <Compile Include="Models\Services\AdminFeatures\HAVErrorService.cs" />
+    <Compile Include="Models\Services\AdminFeatures\IHAVErrorService.cs" />
+    <Compile Include="Models\Services\AdminFeatures\HAVRestrictionService.cs" />
+    <Compile Include="Models\Services\AdminFeatures\IHAVRestrictionService.cs" />
+    <Compile Include="Models\Services\AdminFeatures\HAVRoleService.cs" />
+    <Compile Include="Models\Services\AdminFeatures\IHAVRoleService.cs" />
+    <Compile Include="Models\Services\HAVBaseService.cs" />
+    <Compile Include="Models\Services\IHAVBaseService.cs" />
+    <Compile Include="Models\Services\UserFeatures\HAVHomeService.cs" />
+    <Compile Include="Models\Services\UserFeatures\HAVProfileService.cs" />
+    <Compile Include="Models\Services\UserFeatures\IHAVHomeService.cs" />
+    <Compile Include="Models\Services\UserFeatures\HAVComplaintService.cs" />
+    <Compile Include="Models\Services\UserFeatures\HAVIssueService.cs" />
+    <Compile Include="Models\Services\UserFeatures\HAVSearchService.cs" />
+    <Compile Include="Models\Services\UserFeatures\IHAVComplaintService.cs" />
+    <Compile Include="Models\Services\UserFeatures\IHAVIssueService.cs" />
+    <Compile Include="Models\Services\UserFeatures\IHAVProfileService.cs" />
+    <Compile Include="Models\Services\UserFeatures\IHAVSearchService.cs" />
+    <Compile Include="Models\Services\UserFeatures\HAVMessageService.cs" />
+    <Compile Include="Models\Services\UserFeatures\IHAVMessageService.cs" />
+    <Compile Include="Models\Services\UserFeatures\HAVUserService.cs" />
+    <Compile Include="Models\Services\UserFeatures\IHAVUserService.cs" />
+    <Compile Include="Models\Validation\IValidationDictionary.cs" />
+    <Compile Include="Models\Validation\ModelStateWrapper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\hsarat_haveavoice.mdf" />
+    <Content Include="App_Data\hsarat_haveavoice_log.ldf">
+      <DependentUpon>hsarat_haveavoice.mdf</DependentUpon>
+    </Content>
+    <Content Include="Content\framework.css" />
+    <Content Include="Content\images\comment.png" />
+    <Content Include="Content\images\dislike-sm.png" />
+    <Content Include="Content\images\dislike.png" />
+    <Content Include="Content\images\like-sm.png" />
+    <Content Include="Content\images\like.png" />
+    <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\popular.png" />
+    <Content Include="Content\images\search.png" />
+    <Content Include="Content\images\settings.png" />
+    <Content Include="Content\images\star.png" />
+    <Content Include="Content\reset.css" />
+    <Content Include="Content\tempjquery.js" />
+    <Content Include="Global.asax" />
+    <Content Include="UserPictures\93_946098097.jpg" />
+    <Content Include="Views\Account\ChangePassword.aspx" />
+    <Content Include="Views\Account\ChangePasswordSuccess.aspx" />
+    <Content Include="Views\Account\LogOn.aspx" />
+    <Content Include="Views\Account\Register.aspx" />
+    <Content Include="Views\Admin\Index.aspx" />
+    <Content Include="Views\BoardReply\Edit.aspx" />
+    <Content Include="Views\Board\Edit.aspx" />
+    <Content Include="Views\Board\View.aspx" />
+    <Content Include="Views\Calendar\Complaint\Complaint.aspx" />
+    <Content Include="Views\Error\Index.aspx" />
+    <Content Include="Views\Calendar\Show.aspx" />
+    <Content Include="Views\Feedback\Index.aspx" />
+    <Content Include="Views\Feedback\View.aspx" />
+    <Content Include="Views\File\Index.aspx" />
+    <Content Include="Views\File\Upload.aspx" />
+    <Content Include="Views\Home\About.aspx" />
+    <Content Include="Views\Home\Index.aspx" />
+    <Content Include="Views\Home\LoggedIn.aspx" />
+    <Content Include="Views\Home\NotLoggedIn.aspx" />
+    <Content Include="Views\IssueReplyComment\Edit.aspx" />
+    <Content Include="Views\IssueReply\Edit.aspx" />
+    <Content Include="Views\Issue\Create.aspx" />
+    <Content Include="Views\Issue\Edit.aspx" />
+    <Content Include="Views\Issue\Index.aspx" />
+    <Content Include="Views\Issue\View.aspx" />
+    <Content Include="Views\IssueReply\View.aspx" />
+    <Content Include="Views\Listener\ListenToUser.aspx" />
+    <Content Include="Views\Message\Index.aspx" />
+    <Content Include="Views\Message\SendMessage.aspx" />
+    <Content Include="Views\Message\ViewMessage.aspx" />
+    <Content Include="Views\Permission\Create.aspx" />
+    <Content Include="Views\Permission\Delete.aspx" />
+    <Content Include="Views\Permission\Edit.aspx" />
+    <Content Include="Views\Permission\Index.aspx" />
+    <Content Include="Views\Restriction\Create.aspx" />
+    <Content Include="Views\Restriction\Delete.aspx" />
+    <Content Include="Views\Restriction\Edit.aspx" />
+    <Content Include="Views\Restriction\Index.aspx" />
+    <Content Include="Views\Role\Create.aspx" />
+    <Content Include="Views\Role\Delete.aspx" />
+    <Content Include="Views\Role\Edit.aspx" />
+    <Content Include="Views\Role\Index.aspx" />
+    <Content Include="Views\Role\SwitchUserRoles.aspx" />
+    <Content Include="Views\Search\Index.aspx" />
+    <Content Include="Views\Shared\Tabs.ascx" />
+    <Content Include="Views\Shared\Error.aspx" />
+    <Content Include="Views\Shared\LogOnUserControl.ascx" />
+    <Content Include="Views\Shared\Result.aspx" />
+    <Content Include="Views\Shared\PrivacyTabs.ascx" />
+    <Content Include="Views\Tabs\Network.aspx" />
+    <Content Include="Views\Tabs\Popular.aspx" />
+    <Content Include="Views\User\ActivateAccount.aspx" />
+    <Content Include="Views\User\ChangePassword.aspx" />
+    <Content Include="Views\User\Create.aspx" />
+    <Content Include="Views\User\Edit.aspx" />
+    <Content Include="Views\User\EditPrivacy.aspx" />
+    <Content Include="Views\Profile\Fans.aspx" />
+    <Content Include="Views\Profile\FansOf.aspx" />
+    <Content Include="Views\User\ForgotPassword.aspx" />
+    <Content Include="Views\User\Gallery.aspx" />
+    <Content Include="Views\User\Login.aspx" />
+    <Content Include="Views\Profile\Show.aspx" />
+    <Content Include="Views\User\UserList.aspx" />
+    <Content Include="Views\User\UserPictures.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Content\site.css" />
+    <Content Include="Scripts\jquery-1.4.1.js" />
+    <Content Include="Scripts\jquery-1.4.1.min.js" />
+    <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\MicrosoftAjax.js" />
+    <Content Include="Scripts\MicrosoftAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\App_LocalResources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Site.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Models\HaveAVoiceDBModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>HaveAVoiceDBModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target> -->
+  <Target Name="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(ProjectDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>5442</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

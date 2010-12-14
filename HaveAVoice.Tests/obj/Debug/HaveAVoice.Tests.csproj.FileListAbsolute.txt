@@ -1,0 +1,37 @@
+c:\users\henryk\documents\visual studio 2010\Projects\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.Tests.dll.config
+c:\users\henryk\documents\visual studio 2010\Projects\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.Tests.dll
+c:\users\henryk\documents\visual studio 2010\Projects\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.Tests.pdb
+c:\users\henryk\documents\visual studio 2010\Projects\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.dll
+c:\users\henryk\documents\visual studio 2010\Projects\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.pdb
+c:\users\henryk\documents\visual studio 2010\Projects\HaveAVoice\HaveAVoice.Tests\obj\Debug\ResolveAssemblyReference.cache
+c:\users\henryk\documents\visual studio 2010\Projects\HaveAVoice\HaveAVoice.Tests\obj\Debug\HaveAVoice.Tests.dll
+c:\users\henryk\documents\visual studio 2010\Projects\HaveAVoice\HaveAVoice.Tests\obj\Debug\HaveAVoice.Tests.pdb
+C:\Users\Henryk\documents\visual studio 2010\Projects\HaveAVoice\HaveAVoice.Tests\bin\Debug\Recaptcha.dll
+C:\Users\Henryk\documents\visual studio 2010\Projects\HaveAVoice\HaveAVoice.Tests\bin\Debug\Moq.dll
+C:\Users\Henryk\Desktop\HaveAVoice\HaveAVoice.Tests\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.Tests.dll.config
+C:\Users\Henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.Tests.dll
+C:\Users\Henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.Tests.pdb
+C:\Users\Henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.dll
+C:\Users\Henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\Recaptcha.dll
+C:\Users\Henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.pdb
+C:\Users\Henryk\Desktop\HaveAVoice\HaveAVoice.Tests\obj\Debug\HaveAVoice.Tests.dll
+C:\Users\Henryk\Desktop\HaveAVoice\HaveAVoice.Tests\obj\Debug\HaveAVoice.Tests.pdb
+F:\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.Tests.dll.config
+F:\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.Tests.dll
+F:\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.Tests.pdb
+F:\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.dll
+F:\HaveAVoice\HaveAVoice.Tests\bin\Debug\Recaptcha.dll
+F:\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.pdb
+F:\HaveAVoice\HaveAVoice.Tests\obj\Debug\ResolveAssemblyReference.cache
+F:\HaveAVoice\HaveAVoice.Tests\obj\Debug\HaveAVoice.Tests.dll
+F:\HaveAVoice\HaveAVoice.Tests\obj\Debug\HaveAVoice.Tests.pdb
+G:\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.Tests.dll.config
+G:\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.Tests.dll
+G:\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.Tests.pdb
+G:\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.dll
+G:\HaveAVoice\HaveAVoice.Tests\bin\Debug\Recaptcha.dll
+G:\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.pdb
+G:\HaveAVoice\HaveAVoice.Tests\obj\Debug\ResolveAssemblyReference.cache
+G:\HaveAVoice\HaveAVoice.Tests\obj\Debug\HaveAVoice.Tests.dll
+G:\HaveAVoice\HaveAVoice.Tests\obj\Debug\HaveAVoice.Tests.pdb

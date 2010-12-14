@@ -1,0 +1,11 @@
+[remote "HAV"]
+	url = git@192.168.1.3
+	puttykeyfile = C:/Users/Henryk/Desktop/private.ppk
+[remote "hav"]
+	url = git@192.168.1.3:~/haveavoice.git/.git
+	puttykeyfile = C:/Users/Henryk/Desktop/private.ppk
+[remote]
+	url = git@192.168.1.3:/haveavoice.git
+[remote "hv"]
+	url = git@192.168.1.3:~/haveavoice.git
+	puttykeyfile = C:/Users/Henryk/Desktop/private.ppk

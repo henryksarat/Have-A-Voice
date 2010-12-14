@@ -1,0 +1,63 @@
+<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title><%= "have a voice | " %> <asp:ContentPlaceHolder ID="TitleContent" runat="server" /></title>
+    <link href="../../Content/reset.css" rel="Stylesheet" type="text/css" />
+    <link href="../../Content/framework.css" rel="Stylesheet" type="text/css" />
+    <link href="../../Content/site.css" rel="stylesheet" type="text/css" />
+	<link type="text/css" href="../../Content/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
+        	
+	<script type="text/javascript" src="../../Content/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="../../Content/jquery-ui-1.7.2.custom.min.js"></script>
+</head>
+
+<body>
+    <div class="header">
+		<div class="container-24">
+			<div class="col-6">
+				<img src="/Content/images/logo.png" alt="Have a voice" />
+			</div>
+            <% Html.RenderPartial("LogOnUserControl"); %>
+			<div class="clear">&nbsp;</div>
+		</div>
+	</div>
+
+    <div class="clear">&nbsp;</div>
+
+    <div class="container">
+        <div class="container-24">
+            <!--
+            <div class="col-24 user-panel">
+                <div class="col-3">
+                    #CURRENT PROFILE IMAGE#
+                </div>
+                <div class="col-15">
+                    #CONTROL PANEL#
+                </div>
+                <div class="col-6 advertisement">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="clear">&nbsp;</div>
+            <div class="col-3 left-nav">
+                #LEFT NAVIGATION#
+            </div>
+            <div class="col-21">
+            //-->
+                <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+            <!--
+            </div>
+            //-->
+        </div>
+    </div>
+    <div class="clear">&nbsp;</div>
+    <div class="container-24">
+	    <div class="col-24 footer">
+			Copyright &copy; Have a Voice 2008-2010. All rights reserved.<br />
+			<a href="#">Terms of Use</a> | <a href="#">Privacy Policy</a> | <a href="#">About Have a Voice</a> | <a href="#">Contact Us</a> | <a href="#">Help</a>
+	    </div>
+    </div>
+</body>
+</html>

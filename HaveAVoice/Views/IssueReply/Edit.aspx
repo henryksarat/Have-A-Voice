@@ -1,0 +1,35 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.IssueReply>" %>
+<%@ Import Namespace="HaveAVoice.Helpers.Enums" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
+	EditIssueReply
+</asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+
+    <h2>Edit your issue reply</h2>
+
+    <% using (Html.BeginForm()) { %>
+        <%= Html.ValidationSummary("Your reply wasn't posted. Please correct your errors and try again.") %>
+        <p>
+            <%= Html.Encode(ViewData["Message"]) %>
+        </p>
+
+        <p>
+            <%= Html.TextArea("Reply", Model.Reply, 5, 30, null)%>
+            <%= Html.ValidationMessage("Reply", "*") %>
+        </p>
+        <table>
+            <tr>
+                <td><label for="Like">Like</label> <%= Html.RadioButton("Disposition", (int)Disposition.LIKE, Model.Disposition == (int)Disposition.LIKE ? true : false)%></td>
+                <td><label for="Dislike">Dislike</label> <%= Html.RadioButton("Disposition", (int)Disposition.DISLIKE, Model.Disposition == (int)Disposition.DISLIKE ? true : false)%></td>
+                <td><%= Html.ValidationMessage("Disposition", "*")%></td>
+            </tr>
+        </table>
+
+        <p>
+            <input type="submit" value="Submit" />
+        </p>
+    <% } %>
+
+</asp:Content>

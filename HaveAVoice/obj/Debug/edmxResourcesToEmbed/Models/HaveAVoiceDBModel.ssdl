@@ -1,0 +1,1380 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HaveAVoice.Models.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="HaveAVoiceModelsStoreContainer">
+    <EntitySet Name="AuditBoard" EntityType="HaveAVoice.Models.Store.AuditBoard" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AuditBoardReplies" EntityType="HaveAVoice.Models.Store.AuditBoardReplies" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AuditIssueReplyComments" EntityType="HaveAVoice.Models.Store.AuditIssueReplyComments" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AuditIssueReplys" EntityType="HaveAVoice.Models.Store.AuditIssueReplys" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AuditIssues" EntityType="HaveAVoice.Models.Store.AuditIssues" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Board" EntityType="HaveAVoice.Models.Store.Board" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BoardReply" EntityType="HaveAVoice.Models.Store.BoardReply" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Events" EntityType="HaveAVoice.Models.Store.Events" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Fans" EntityType="HaveAVoice.Models.Store.Fans" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Feedback" EntityType="HaveAVoice.Models.Store.Feedback" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FilteredCityState" EntityType="HaveAVoice.Models.Store.FilteredCityState" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FilteredZipCode" EntityType="HaveAVoice.Models.Store.FilteredZipCode" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Permissions" EntityType="HaveAVoice.Models.Store.Permissions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProfilePictures" EntityType="HaveAVoice.Models.Store.ProfilePictures" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RolePermissions" EntityType="HaveAVoice.Models.Store.RolePermissions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Roles" EntityType="HaveAVoice.Models.Store.Roles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="sysdiagrams" EntityType="HaveAVoice.Models.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserRoles" EntityType="HaveAVoice.Models.Store.UserRoles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="HaveAVoice.Models.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ErrorLog" EntityType="HaveAVoice.Models.Store.ErrorLog" store:Type="Tables" Schema="hsarat_admin" />
+    <EntitySet Name="IssueComplaints" EntityType="HaveAVoice.Models.Store.IssueComplaints" store:Type="Tables" Schema="hsarat_admin" />
+    <EntitySet Name="IssueDisposition" EntityType="HaveAVoice.Models.Store.IssueDisposition" store:Type="Tables" Schema="hsarat_admin" />
+    <EntitySet Name="IssueReplyCommentComplaints" EntityType="HaveAVoice.Models.Store.IssueReplyCommentComplaints" store:Type="Tables" Schema="hsarat_admin" />
+    <EntitySet Name="IssueReplyComments" EntityType="HaveAVoice.Models.Store.IssueReplyComments" store:Type="Tables" Schema="hsarat_admin" />
+    <EntitySet Name="IssueReplyComplaints" EntityType="HaveAVoice.Models.Store.IssueReplyComplaints" store:Type="Tables" Schema="hsarat_admin" />
+    <EntitySet Name="IssueReplyDisposition" EntityType="HaveAVoice.Models.Store.IssueReplyDisposition" store:Type="Tables" Schema="hsarat_admin" />
+    <EntitySet Name="IssueReplys" EntityType="HaveAVoice.Models.Store.IssueReplys" store:Type="Tables" Schema="hsarat_admin" />
+    <EntitySet Name="Issues" EntityType="HaveAVoice.Models.Store.Issues" store:Type="Tables" Schema="hsarat_admin" />
+    <EntitySet Name="MergeComplaints" EntityType="HaveAVoice.Models.Store.MergeComplaints" store:Type="Tables" Schema="hsarat_admin" />
+    <EntitySet Name="Messages" EntityType="HaveAVoice.Models.Store.Messages" store:Type="Tables" Schema="hsarat_admin" />
+    <EntitySet Name="ProfileComplaints" EntityType="HaveAVoice.Models.Store.ProfileComplaints" store:Type="Tables" Schema="hsarat_admin" />
+    <EntitySet Name="Replys" EntityType="HaveAVoice.Models.Store.Replys" store:Type="Tables" Schema="hsarat_admin" />
+    <EntitySet Name="Restrictions" EntityType="HaveAVoice.Models.Store.Restrictions" store:Type="Tables" Schema="hsarat_admin" />
+    <EntitySet Name="Timezones" EntityType="HaveAVoice.Models.Store.Timezones" store:Type="Tables" Schema="hsarat_admin" />
+    <EntitySet Name="UserPictureComplaints" EntityType="HaveAVoice.Models.Store.UserPictureComplaints" store:Type="Tables" Schema="hsarat_admin" />
+    <EntitySet Name="UserPictures" EntityType="HaveAVoice.Models.Store.UserPictures" store:Type="Tables" Schema="hsarat_admin" />
+    <EntitySet Name="UserPrivacySettings" EntityType="HaveAVoice.Models.Store.UserPrivacySettings" store:Type="Tables" Schema="hsarat_admin" />
+    <EntitySet Name="WhoIsOnline" EntityType="HaveAVoice.Models.Store.WhoIsOnline" store:Type="Tables" Schema="hsarat_admin" />
+    <AssociationSet Name="FK_AuditBoard_Board" Association="HaveAVoice.Models.Store.FK_AuditBoard_Board">
+      <End Role="Board" EntitySet="Board" />
+      <End Role="AuditBoard" EntitySet="AuditBoard" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AuditBoard_Users" Association="HaveAVoice.Models.Store.FK_AuditBoard_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="AuditBoard" EntitySet="AuditBoard" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AuditBoardReplies_BoardReply" Association="HaveAVoice.Models.Store.FK_AuditBoardReplies_BoardReply">
+      <End Role="BoardReply" EntitySet="BoardReply" />
+      <End Role="AuditBoardReplies" EntitySet="AuditBoardReplies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AuditBoardReplies_Users" Association="HaveAVoice.Models.Store.FK_AuditBoardReplies_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="AuditBoardReplies" EntitySet="AuditBoardReplies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AuditIssueReplyComments_IssueReplyComments" Association="HaveAVoice.Models.Store.FK_AuditIssueReplyComments_IssueReplyComments">
+      <End Role="IssueReplyComments" EntitySet="IssueReplyComments" />
+      <End Role="AuditIssueReplyComments" EntitySet="AuditIssueReplyComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AuditIssueReplyComments_Users" Association="HaveAVoice.Models.Store.FK_AuditIssueReplyComments_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="AuditIssueReplyComments" EntitySet="AuditIssueReplyComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AuditIssueReplys_IssueReplys" Association="HaveAVoice.Models.Store.FK_AuditIssueReplys_IssueReplys">
+      <End Role="IssueReplys" EntitySet="IssueReplys" />
+      <End Role="AuditIssueReplys" EntitySet="AuditIssueReplys" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AuditIssueReplys_Users" Association="HaveAVoice.Models.Store.FK_AuditIssueReplys_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="AuditIssueReplys" EntitySet="AuditIssueReplys" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AuditIssues_Issues" Association="HaveAVoice.Models.Store.FK_AuditIssues_Issues">
+      <End Role="Issues" EntitySet="Issues" />
+      <End Role="AuditIssues" EntitySet="AuditIssues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AuditIssues_Users" Association="HaveAVoice.Models.Store.FK_AuditIssues_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="AuditIssues" EntitySet="AuditIssues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Board_OwnerUserId_Users" Association="HaveAVoice.Models.Store.FK_Board_OwnerUserId_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Board" EntitySet="Board" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Board_PostedUserId_Users" Association="HaveAVoice.Models.Store.FK_Board_PostedUserId_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Board" EntitySet="Board" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BoardReply_Board" Association="HaveAVoice.Models.Store.FK_BoardReply_Board">
+      <End Role="Board" EntitySet="Board" />
+      <End Role="BoardReply" EntitySet="BoardReply" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BoardReply_Users" Association="HaveAVoice.Models.Store.FK_BoardReply_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="BoardReply" EntitySet="BoardReply" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ErrorLog_Users" Association="HaveAVoice.Models.Store.FK_ErrorLog_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="ErrorLog" EntitySet="ErrorLog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Events_Users" Association="HaveAVoice.Models.Store.FK_Events_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Events" EntitySet="Events" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Fans_FanUserId_Users" Association="HaveAVoice.Models.Store.FK_Fans_FanUserId_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Fans" EntitySet="Fans" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Fans_SourceUserId_Users" Association="HaveAVoice.Models.Store.FK_Fans_SourceUserId_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Fans" EntitySet="Fans" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Feedback_Users" Association="HaveAVoice.Models.Store.FK_Feedback_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Feedback" EntitySet="Feedback" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FilteredCityState_Users" Association="HaveAVoice.Models.Store.FK_FilteredCityState_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="FilteredCityState" EntitySet="FilteredCityState" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FilteredZipCode_Users" Association="HaveAVoice.Models.Store.FK_FilteredZipCode_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="FilteredZipCode" EntitySet="FilteredZipCode" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IssueComplaints_FiledByUserId_Users" Association="HaveAVoice.Models.Store.FK_IssueComplaints_FiledByUserId_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="IssueComplaints" EntitySet="IssueComplaints" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IssueComplaints_Issues" Association="HaveAVoice.Models.Store.FK_IssueComplaints_Issues">
+      <End Role="Issues" EntitySet="Issues" />
+      <End Role="IssueComplaints" EntitySet="IssueComplaints" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IssueDisposition_Issues" Association="HaveAVoice.Models.Store.FK_IssueDisposition_Issues">
+      <End Role="Issues" EntitySet="Issues" />
+      <End Role="IssueDisposition" EntitySet="IssueDisposition" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IssueDisposition_Users" Association="HaveAVoice.Models.Store.FK_IssueDisposition_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="IssueDisposition" EntitySet="IssueDisposition" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IssueReplyCommentComplaints_FiledByUserId_Users" Association="HaveAVoice.Models.Store.FK_IssueReplyCommentComplaints_FiledByUserId_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="IssueReplyCommentComplaints" EntitySet="IssueReplyCommentComplaints" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IssueReplyCommentComplaints_IssueReplyComments" Association="HaveAVoice.Models.Store.FK_IssueReplyCommentComplaints_IssueReplyComments">
+      <End Role="IssueReplyComments" EntitySet="IssueReplyComments" />
+      <End Role="IssueReplyCommentComplaints" EntitySet="IssueReplyCommentComplaints" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IssueReplyComments_IssueReplys" Association="HaveAVoice.Models.Store.FK_IssueReplyComments_IssueReplys">
+      <End Role="IssueReplys" EntitySet="IssueReplys" />
+      <End Role="IssueReplyComments" EntitySet="IssueReplyComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IssueReplyComments_Users" Association="HaveAVoice.Models.Store.FK_IssueReplyComments_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="IssueReplyComments" EntitySet="IssueReplyComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IssueReplyComplaints_FiledByUserId_Users" Association="HaveAVoice.Models.Store.FK_IssueReplyComplaints_FiledByUserId_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="IssueReplyComplaints" EntitySet="IssueReplyComplaints" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IssueReplyComplaints_IssueReplys" Association="HaveAVoice.Models.Store.FK_IssueReplyComplaints_IssueReplys">
+      <End Role="IssueReplys" EntitySet="IssueReplys" />
+      <End Role="IssueReplyComplaints" EntitySet="IssueReplyComplaints" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IssueReplyDisposition_IssueReplys" Association="HaveAVoice.Models.Store.FK_IssueReplyDisposition_IssueReplys">
+      <End Role="IssueReplys" EntitySet="IssueReplys" />
+      <End Role="IssueReplyDisposition" EntitySet="IssueReplyDisposition" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IssueReplyDisposition_Users" Association="HaveAVoice.Models.Store.FK_IssueReplyDisposition_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="IssueReplyDisposition" EntitySet="IssueReplyDisposition" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IssueReplys_Issues" Association="HaveAVoice.Models.Store.FK_IssueReplys_Issues">
+      <End Role="Issues" EntitySet="Issues" />
+      <End Role="IssueReplys" EntitySet="IssueReplys" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IssueReplys_Users" Association="HaveAVoice.Models.Store.FK_IssueReplys_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="IssueReplys" EntitySet="IssueReplys" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Issues_Users" Association="HaveAVoice.Models.Store.FK_Issues_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Issues" EntitySet="Issues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Message_Users_FromUserId" Association="HaveAVoice.Models.Store.FK_Message_Users_FromUserId">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Messages" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Message_Users_ToUserId" Association="HaveAVoice.Models.Store.FK_Message_Users_ToUserId">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Messages" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfileComplaints_FiledByUserId_Users" Association="HaveAVoice.Models.Store.FK_ProfileComplaints_FiledByUserId_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="ProfileComplaints" EntitySet="ProfileComplaints" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfileComplaints_TowardUserId_Users" Association="HaveAVoice.Models.Store.FK_ProfileComplaints_TowardUserId_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="ProfileComplaints" EntitySet="ProfileComplaints" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfilePictures_Users" Association="HaveAVoice.Models.Store.FK_ProfilePictures_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="ProfilePictures" EntitySet="ProfilePictures" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Replys_Messages" Association="HaveAVoice.Models.Store.FK_Replys_Messages">
+      <End Role="Messages" EntitySet="Messages" />
+      <End Role="Replys" EntitySet="Replys" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Replys_User" Association="HaveAVoice.Models.Store.FK_Replys_User">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Replys" EntitySet="Replys" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Restrictions_Users_CreatedByUserId" Association="HaveAVoice.Models.Store.FK_Restrictions_Users_CreatedByUserId">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Restrictions" EntitySet="Restrictions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RolePermissions_Permissions" Association="HaveAVoice.Models.Store.FK_RolePermissions_Permissions">
+      <End Role="Permissions" EntitySet="Permissions" />
+      <End Role="RolePermissions" EntitySet="RolePermissions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RolePermissions_Roles" Association="HaveAVoice.Models.Store.FK_RolePermissions_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="RolePermissions" EntitySet="RolePermissions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserPictureComplaints_FiledByUserId_Users" Association="HaveAVoice.Models.Store.FK_UserPictureComplaints_FiledByUserId_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UserPictureComplaints" EntitySet="UserPictureComplaints" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserPictureComplaints_UserPictures" Association="HaveAVoice.Models.Store.FK_UserPictureComplaints_UserPictures">
+      <End Role="UserPictures" EntitySet="UserPictures" />
+      <End Role="UserPictureComplaints" EntitySet="UserPictureComplaints" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserPictures_Users" Association="HaveAVoice.Models.Store.FK_UserPictures_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UserPictures" EntitySet="UserPictures" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserPrivacySettings_Users" Association="HaveAVoice.Models.Store.FK_UserPrivacySettings_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UserPrivacySettings" EntitySet="UserPrivacySettings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRoles_Roles" Association="HaveAVoice.Models.Store.FK_UserRoles_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="UserRoles" EntitySet="UserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRoles_Users" Association="HaveAVoice.Models.Store.FK_UserRoles_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UserRoles" EntitySet="UserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WhoIsOnline_Users" Association="HaveAVoice.Models.Store.FK_WhoIsOnline_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="WhoIsOnline" EntitySet="WhoIsOnline" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="AuditBoard">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="BoardId" Type="int" Nullable="false" />
+    <Property Name="Message" Type="text" Nullable="false" />
+    <Property Name="DateTimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedByUserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AuditBoardReplies">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="BoardReplyId" Type="int" Nullable="false" />
+    <Property Name="Message" Type="text" Nullable="false" />
+    <Property Name="DateTimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedByUserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AuditIssueReplyComments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IssueReplyCommentId" Type="int" Nullable="false" />
+    <Property Name="Comment" Type="text" Nullable="false" />
+    <Property Name="DateTimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedByUserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AuditIssueReplys">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IssueReplyId" Type="int" Nullable="false" />
+    <Property Name="Reply" Type="text" Nullable="false" />
+    <Property Name="Disposition" Type="int" Nullable="false" />
+    <Property Name="DateTimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedByUserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AuditIssues">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IssueId" Type="int" Nullable="false" />
+    <Property Name="Title" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="Description" Type="text" Nullable="false" />
+    <Property Name="DateTimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedByUserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Board">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="OwnerUserId" Type="int" Nullable="false" />
+    <Property Name="PostedUserId" Type="int" Nullable="false" />
+    <Property Name="Message" Type="text" Nullable="false" />
+    <Property Name="DateTimeStamp" Type="smalldatetime" Nullable="false" />
+    <Property Name="Viewed" Type="bit" Nullable="false" />
+    <Property Name="UpdatedByUserId" Type="int" />
+    <Property Name="UpdatedDateTimeStamp" Type="datetime" />
+    <Property Name="Deleted" Type="bit" Nullable="false" />
+    <Property Name="DeletedByUserId" Type="int" />
+  </EntityType>
+  <EntityType Name="BoardReply">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="BoardId" Type="int" Nullable="false" />
+    <Property Name="Message" Type="text" Nullable="false" />
+    <Property Name="DateTimeStamp" Type="smalldatetime" Nullable="false" />
+    <Property Name="UpdatedByUserId" Type="int" />
+    <Property Name="UpdatedDateTimeStamp" Type="datetime" />
+    <Property Name="Deleted" Type="bit" Nullable="false" />
+    <Property Name="DeletedByUserId" Type="int" />
+  </EntityType>
+  <EntityType Name="Events">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Date" Type="smalldatetime" Nullable="false" />
+    <Property Name="Information" Type="text" Nullable="false" />
+    <Property Name="Deleted" Type="bit" Nullable="false" />
+    <Property Name="DeletedUserId" Type="int" />
+  </EntityType>
+  <EntityType Name="Fans">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="FanUserId" Type="int" Nullable="false" />
+    <Property Name="SourceUserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Feedback">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Text" Type="text" Nullable="false" />
+    <Property Name="DateTimeStamp" Type="smalldatetime" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FilteredCityState">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="City" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="State" Type="varchar" Nullable="false" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="FilteredZipCode">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="ZipCode" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Permissions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Description" Type="varchar" Nullable="false" MaxLength="500" />
+    <Property Name="Deleted" Type="bit" Nullable="false" />
+    <Property Name="EditByUserId" Type="int" />
+    <Property Name="DeletedByUserId" Type="int" />
+  </EntityType>
+  <EntityType Name="ProfilePictures">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="URL" Type="varchar" Nullable="false" MaxLength="500" />
+    <Property Name="DefaultPicture" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RolePermissions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="RoleId" Type="int" Nullable="false" />
+    <Property Name="PermissionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Description" Type="varchar" Nullable="false" MaxLength="200" />
+    <Property Name="DefaultRole" Type="bit" Nullable="false" />
+    <Property Name="RestrictionId" Type="int" Nullable="false" />
+    <Property Name="Deleted" Type="bit" Nullable="false" />
+    <Property Name="EditedByUserId" Type="int" />
+    <Property Name="DeletedByUserId" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="UserRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="RoleId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Email" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="Password" Type="varchar" Nullable="false" MaxLength="200" />
+    <Property Name="FirstName" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="MiddleName" Type="varchar" MaxLength="100" />
+    <Property Name="LastName" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="City" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="State" Type="char" Nullable="false" MaxLength="2" />
+    <Property Name="DateOfBirth" Type="date" Nullable="false" />
+    <Property Name="LastLogin" Type="datetime" Nullable="false" />
+    <Property Name="RegistrationDate" Type="datetime" Nullable="false" />
+    <Property Name="RegistrationIp" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="Newsletter" Type="bit" Nullable="false" />
+    <Property Name="UTCOffset" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Website" Type="varchar" MaxLength="100" />
+    <Property Name="AboutMe" Type="text" />
+    <Property Name="CookieHash" Type="varchar" MaxLength="500" />
+    <Property Name="CookieCreationDate" Type="smalldatetime" />
+    <Property Name="ActivationCode" Type="varchar" MaxLength="100" />
+    <Property Name="ForgotPasswordHash" Type="varchar" MaxLength="500" />
+    <Property Name="ForgotPasswordHashDateTimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="ErrorLog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Exception" Type="text" Nullable="false" />
+    <Property Name="InnerException" Type="text" Nullable="false" />
+    <Property Name="StackTrace" Type="text" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="DateTimeStamp" Type="smalldatetime" Nullable="false" />
+    <Property Name="Details" Type="text" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IssueComplaints">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="FiledByUserId" Type="int" Nullable="false" />
+    <Property Name="IssueId" Type="int" Nullable="false" />
+    <Property Name="Complaint" Type="text" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IssueDisposition">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IssueId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Disposition" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IssueReplyCommentComplaints">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="FiledByUserId" Type="int" Nullable="false" />
+    <Property Name="IssueReplyCommentId" Type="int" Nullable="false" />
+    <Property Name="Complaint" Type="text" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IssueReplyComments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IssueReplyId" Type="int" Nullable="false" />
+    <Property Name="Comment" Type="text" Nullable="false" />
+    <Property Name="DateTimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="UpdatedByUserId" Type="int" />
+    <Property Name="UpdatedDateTimeStamp" Type="datetime" />
+    <Property Name="Deleted" Type="bit" Nullable="false" />
+    <Property Name="DeletedByUserId" Type="int" />
+  </EntityType>
+  <EntityType Name="IssueReplyComplaints">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="FiledByUserId" Type="int" Nullable="false" />
+    <Property Name="IssueReplyId" Type="int" Nullable="false" />
+    <Property Name="Complaint" Type="text" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IssueReplyDisposition">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IssueReplyId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Disposition" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IssueReplys">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IssueId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Reply" Type="text" Nullable="false" />
+    <Property Name="DateTimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="Anonymous" Type="bit" Nullable="false" />
+    <Property Name="Disposition" Type="int" Nullable="false" />
+    <Property Name="UpdatedUserId" Type="int" />
+    <Property Name="UpdatedDateTimeStamp" Type="datetime" />
+    <Property Name="Deleted" Type="bit" Nullable="false" />
+    <Property Name="DeletedByUserId" Type="int" />
+  </EntityType>
+  <EntityType Name="Issues">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="Description" Type="text" Nullable="false" />
+    <Property Name="DateTimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="StartedByUserId" Type="int" Nullable="false" />
+    <Property Name="UpdatedByUserId" Type="int" />
+    <Property Name="UpdatedDateTimeStamp" Type="datetime" />
+    <Property Name="Deleted" Type="bit" Nullable="false" />
+    <Property Name="DeletedByUserId" Type="int" />
+  </EntityType>
+  <EntityType Name="MergeComplaints">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="FiledByUserId" Type="int" Nullable="false" />
+    <Property Name="MergeRequestId" Type="int" Nullable="false" />
+    <Property Name="Complaint" Type="text" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Messages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ToUserId" Type="int" Nullable="false" />
+    <Property Name="FromUserId" Type="int" Nullable="false" />
+    <Property Name="Subject" Type="varchar" Nullable="false" MaxLength="250" />
+    <Property Name="Body" Type="text" Nullable="false" />
+    <Property Name="DateTimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="ToViewed" Type="bit" Nullable="false" />
+    <Property Name="FromViewed" Type="bit" Nullable="false" />
+    <Property Name="ToDeleted" Type="bit" Nullable="false" />
+    <Property Name="FromDeleted" Type="bit" Nullable="false" />
+    <Property Name="RepliedTo" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProfileComplaints">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="FiledByUserId" Type="int" Nullable="false" />
+    <Property Name="TowardUserId" Type="int" Nullable="false" />
+    <Property Name="Complaint" Type="text" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Replys">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ReplyUserId" Type="int" Nullable="false" />
+    <Property Name="MessageId" Type="int" Nullable="false" />
+    <Property Name="Body" Type="text" Nullable="false" />
+    <Property Name="DateTimeStamp" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Restrictions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Description" Type="varchar" Nullable="false" MaxLength="200" />
+    <Property Name="IssuePostsWithinTimeLimit" Type="int" Nullable="false" />
+    <Property Name="IssuePostsTimeLimit" Type="bigint" Nullable="false" />
+    <Property Name="IssuePostsWaitTimeBeforePostSeconds" Type="bigint" Nullable="false" />
+    <Property Name="IssueReportsBeforeLockout" Type="int" Nullable="false" />
+    <Property Name="IssueReplyPostsWithinTimeLimit" Type="int" Nullable="false" />
+    <Property Name="IssueReplyPostsTimeLimit" Type="bigint" Nullable="false" />
+    <Property Name="IssueReplyPostsWaitTimeBeforePostSeconds" Type="bigint" Nullable="false" />
+    <Property Name="IssueReplyCommentPostsWithinTimeLimit" Type="int" Nullable="false" />
+    <Property Name="IssueReplyCommentPostsTimeLimit" Type="bigint" Nullable="false" />
+    <Property Name="IssueReplyCommentPostsWaitTimeBeforePostSeconds" Type="bigint" Nullable="false" />
+    <Property Name="MergeIssueRequestWithinTimeLimit" Type="int" Nullable="false" />
+    <Property Name="MergeIssueRequestTimeLimit" Type="bigint" Nullable="false" />
+    <Property Name="MergeIssueRequestWaitTimeBeforePostSeconds" Type="bigint" Nullable="false" />
+    <Property Name="CreatedByUserId" Type="int" Nullable="false" />
+    <Property Name="EditedByUserId" Type="int" />
+    <Property Name="EditedDateTimeStamp" Type="smalldatetime" />
+    <Property Name="Deleted" Type="bit" Nullable="false" />
+    <Property Name="DeletedByUserId" Type="int" />
+    <Property Name="DeletedDateTimeStamp" Type="smalldatetime" />
+  </EntityType>
+  <EntityType Name="Timezones">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Region" Type="varchar" Nullable="false" MaxLength="80" />
+    <Property Name="UTCOffset" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserPictureComplaints">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="FiledByUserId" Type="int" Nullable="false" />
+    <Property Name="UserPictureId" Type="int" Nullable="false" />
+    <Property Name="Complaint" Type="text" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserPictures">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="ImageName" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="ProfilePicture" Type="bit" Nullable="false" />
+    <Property Name="DateTimeStamp" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserPrivacySettings">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="DisplayProfileToNonLoggedIn" Type="bit" Nullable="false" />
+    <Property Name="DisplayProfileToLoggedInUsers" Type="bit" Nullable="false" />
+    <Property Name="DisplayProfileToFriends" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WhoIsOnline">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="DateTimeStamp" Type="smalldatetime" Nullable="false" />
+    <Property Name="IpAddress" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="ForceLogOut" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_AuditBoard_Board">
+    <End Role="Board" Type="HaveAVoice.Models.Store.Board" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AuditBoard" Type="HaveAVoice.Models.Store.AuditBoard" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Board">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AuditBoard">
+        <PropertyRef Name="BoardId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AuditBoard_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
+    <End Role="AuditBoard" Type="HaveAVoice.Models.Store.AuditBoard" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AuditBoard">
+        <PropertyRef Name="UpdatedByUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AuditBoardReplies_BoardReply">
+    <End Role="BoardReply" Type="HaveAVoice.Models.Store.BoardReply" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AuditBoardReplies" Type="HaveAVoice.Models.Store.AuditBoardReplies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BoardReply">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AuditBoardReplies">
+        <PropertyRef Name="BoardReplyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AuditBoardReplies_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
+    <End Role="AuditBoardReplies" Type="HaveAVoice.Models.Store.AuditBoardReplies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AuditBoardReplies">
+        <PropertyRef Name="UpdatedByUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AuditIssueReplyComments_IssueReplyComments">
+    <End Role="IssueReplyComments" Type="HaveAVoice.Models.Store.IssueReplyComments" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AuditIssueReplyComments" Type="HaveAVoice.Models.Store.AuditIssueReplyComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IssueReplyComments">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AuditIssueReplyComments">
+        <PropertyRef Name="IssueReplyCommentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AuditIssueReplyComments_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
+    <End Role="AuditIssueReplyComments" Type="HaveAVoice.Models.Store.AuditIssueReplyComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AuditIssueReplyComments">
+        <PropertyRef Name="UpdatedByUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AuditIssueReplys_IssueReplys">
+    <End Role="IssueReplys" Type="HaveAVoice.Models.Store.IssueReplys" Multiplicity="1" />
+    <End Role="AuditIssueReplys" Type="HaveAVoice.Models.Store.AuditIssueReplys" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IssueReplys">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AuditIssueReplys">
+        <PropertyRef Name="IssueReplyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AuditIssueReplys_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
+    <End Role="AuditIssueReplys" Type="HaveAVoice.Models.Store.AuditIssueReplys" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AuditIssueReplys">
+        <PropertyRef Name="UpdatedByUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AuditIssues_Issues">
+    <End Role="Issues" Type="HaveAVoice.Models.Store.Issues" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AuditIssues" Type="HaveAVoice.Models.Store.AuditIssues" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Issues">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AuditIssues">
+        <PropertyRef Name="IssueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AuditIssues_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AuditIssues" Type="HaveAVoice.Models.Store.AuditIssues" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AuditIssues">
+        <PropertyRef Name="UpdatedByUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Board_OwnerUserId_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Board" Type="HaveAVoice.Models.Store.Board" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Board">
+        <PropertyRef Name="OwnerUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Board_PostedUserId_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
+    <End Role="Board" Type="HaveAVoice.Models.Store.Board" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Board">
+        <PropertyRef Name="PostedUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BoardReply_Board">
+    <End Role="Board" Type="HaveAVoice.Models.Store.Board" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="BoardReply" Type="HaveAVoice.Models.Store.BoardReply" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Board">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BoardReply">
+        <PropertyRef Name="BoardId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BoardReply_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
+    <End Role="BoardReply" Type="HaveAVoice.Models.Store.BoardReply" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BoardReply">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ErrorLog_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ErrorLog" Type="HaveAVoice.Models.Store.ErrorLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ErrorLog">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Events_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Events" Type="HaveAVoice.Models.Store.Events" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Events">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Fans_FanUserId_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Fans" Type="HaveAVoice.Models.Store.Fans" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Fans">
+        <PropertyRef Name="FanUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Fans_SourceUserId_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
+    <End Role="Fans" Type="HaveAVoice.Models.Store.Fans" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Fans">
+        <PropertyRef Name="SourceUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Feedback_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Feedback" Type="HaveAVoice.Models.Store.Feedback" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Feedback">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FilteredCityState_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
+    <End Role="FilteredCityState" Type="HaveAVoice.Models.Store.FilteredCityState" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FilteredCityState">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FilteredZipCode_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
+    <End Role="FilteredZipCode" Type="HaveAVoice.Models.Store.FilteredZipCode" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FilteredZipCode">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IssueComplaints_FiledByUserId_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IssueComplaints" Type="HaveAVoice.Models.Store.IssueComplaints" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IssueComplaints">
+        <PropertyRef Name="FiledByUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IssueComplaints_Issues">
+    <End Role="Issues" Type="HaveAVoice.Models.Store.Issues" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IssueComplaints" Type="HaveAVoice.Models.Store.IssueComplaints" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Issues">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IssueComplaints">
+        <PropertyRef Name="IssueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IssueDisposition_Issues">
+    <End Role="Issues" Type="HaveAVoice.Models.Store.Issues" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IssueDisposition" Type="HaveAVoice.Models.Store.IssueDisposition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Issues">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IssueDisposition">
+        <PropertyRef Name="IssueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IssueDisposition_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IssueDisposition" Type="HaveAVoice.Models.Store.IssueDisposition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IssueDisposition">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IssueReplyCommentComplaints_FiledByUserId_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
+    <End Role="IssueReplyCommentComplaints" Type="HaveAVoice.Models.Store.IssueReplyCommentComplaints" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IssueReplyCommentComplaints">
+        <PropertyRef Name="FiledByUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IssueReplyCommentComplaints_IssueReplyComments">
+    <End Role="IssueReplyComments" Type="HaveAVoice.Models.Store.IssueReplyComments" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IssueReplyCommentComplaints" Type="HaveAVoice.Models.Store.IssueReplyCommentComplaints" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IssueReplyComments">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IssueReplyCommentComplaints">
+        <PropertyRef Name="IssueReplyCommentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IssueReplyComments_IssueReplys">
+    <End Role="IssueReplys" Type="HaveAVoice.Models.Store.IssueReplys" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IssueReplyComments" Type="HaveAVoice.Models.Store.IssueReplyComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IssueReplys">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IssueReplyComments">
+        <PropertyRef Name="IssueReplyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IssueReplyComments_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
+    <End Role="IssueReplyComments" Type="HaveAVoice.Models.Store.IssueReplyComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IssueReplyComments">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IssueReplyComplaints_FiledByUserId_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
+    <End Role="IssueReplyComplaints" Type="HaveAVoice.Models.Store.IssueReplyComplaints" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IssueReplyComplaints">
+        <PropertyRef Name="FiledByUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IssueReplyComplaints_IssueReplys">
+    <End Role="IssueReplys" Type="HaveAVoice.Models.Store.IssueReplys" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IssueReplyComplaints" Type="HaveAVoice.Models.Store.IssueReplyComplaints" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IssueReplys">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IssueReplyComplaints">
+        <PropertyRef Name="IssueReplyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IssueReplyDisposition_IssueReplys">
+    <End Role="IssueReplys" Type="HaveAVoice.Models.Store.IssueReplys" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IssueReplyDisposition" Type="HaveAVoice.Models.Store.IssueReplyDisposition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IssueReplys">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IssueReplyDisposition">
+        <PropertyRef Name="IssueReplyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IssueReplyDisposition_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
+    <End Role="IssueReplyDisposition" Type="HaveAVoice.Models.Store.IssueReplyDisposition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IssueReplyDisposition">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IssueReplys_Issues">
+    <End Role="Issues" Type="HaveAVoice.Models.Store.Issues" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IssueReplys" Type="HaveAVoice.Models.Store.IssueReplys" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Issues">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IssueReplys">
+        <PropertyRef Name="IssueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IssueReplys_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IssueReplys" Type="HaveAVoice.Models.Store.IssueReplys" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IssueReplys">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Issues_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
+    <End Role="Issues" Type="HaveAVoice.Models.Store.Issues" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Issues">
+        <PropertyRef Name="StartedByUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Message_Users_FromUserId">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
+    <End Role="Messages" Type="HaveAVoice.Models.Store.Messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Messages">
+        <PropertyRef Name="FromUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Message_Users_ToUserId">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Messages" Type="HaveAVoice.Models.Store.Messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Messages">
+        <PropertyRef Name="ToUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProfileComplaints_FiledByUserId_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
+    <End Role="ProfileComplaints" Type="HaveAVoice.Models.Store.ProfileComplaints" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProfileComplaints">
+        <PropertyRef Name="FiledByUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProfileComplaints_TowardUserId_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
+    <End Role="ProfileComplaints" Type="HaveAVoice.Models.Store.ProfileComplaints" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProfileComplaints">
+        <PropertyRef Name="TowardUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProfilePictures_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
+    <End Role="ProfilePictures" Type="HaveAVoice.Models.Store.ProfilePictures" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProfilePictures">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Replys_Messages">
+    <End Role="Messages" Type="HaveAVoice.Models.Store.Messages" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Replys" Type="HaveAVoice.Models.Store.Replys" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Messages">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Replys">
+        <PropertyRef Name="MessageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Replys_User">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
+    <End Role="Replys" Type="HaveAVoice.Models.Store.Replys" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Replys">
+        <PropertyRef Name="ReplyUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Restrictions_Users_CreatedByUserId">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
+    <End Role="Restrictions" Type="HaveAVoice.Models.Store.Restrictions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Restrictions">
+        <PropertyRef Name="CreatedByUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RolePermissions_Permissions">
+    <End Role="Permissions" Type="HaveAVoice.Models.Store.Permissions" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="RolePermissions" Type="HaveAVoice.Models.Store.RolePermissions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Permissions">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RolePermissions">
+        <PropertyRef Name="PermissionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RolePermissions_Roles">
+    <End Role="Roles" Type="HaveAVoice.Models.Store.Roles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="RolePermissions" Type="HaveAVoice.Models.Store.RolePermissions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RolePermissions">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserPictureComplaints_FiledByUserId_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
+    <End Role="UserPictureComplaints" Type="HaveAVoice.Models.Store.UserPictureComplaints" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserPictureComplaints">
+        <PropertyRef Name="FiledByUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserPictureComplaints_UserPictures">
+    <End Role="UserPictures" Type="HaveAVoice.Models.Store.UserPictures" Multiplicity="1" />
+    <End Role="UserPictureComplaints" Type="HaveAVoice.Models.Store.UserPictureComplaints" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserPictures">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserPictureComplaints">
+        <PropertyRef Name="UserPictureId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserPictures_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
+    <End Role="UserPictures" Type="HaveAVoice.Models.Store.UserPictures" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserPictures">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserPrivacySettings_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserPrivacySettings" Type="HaveAVoice.Models.Store.UserPrivacySettings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserPrivacySettings">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRoles_Roles">
+    <End Role="Roles" Type="HaveAVoice.Models.Store.Roles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserRoles" Type="HaveAVoice.Models.Store.UserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRoles_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserRoles" Type="HaveAVoice.Models.Store.UserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WhoIsOnline_Users">
+    <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="WhoIsOnline" Type="HaveAVoice.Models.Store.WhoIsOnline" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WhoIsOnline">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

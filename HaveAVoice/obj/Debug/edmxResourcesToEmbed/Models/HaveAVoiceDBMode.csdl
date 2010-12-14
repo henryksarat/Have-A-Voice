@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HaveAVoice.Models" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
+  <EntityContainer Name="HaveAVoiceEntities">
+    <EntitySet Name="PermissionSet" EntityType="HaveAVoice.Models.Permission" />
+    <EntitySet Name="RolePermissionSet" EntityType="HaveAVoice.Models.RolePermission" />
+    <EntitySet Name="RoleSet" EntityType="HaveAVoice.Models.Role" />
+    <EntitySet Name="sysdiagrams" EntityType="HaveAVoice.Models.sysdiagrams" />
+    <EntitySet Name="UserRoleSet" EntityType="HaveAVoice.Models.UserRole" />
+    <EntitySet Name="UserSet" EntityType="HaveAVoice.Models.User" />
+    <AssociationSet Name="FK_RolePermissions_Permissions" Association="HaveAVoice.Models.FK_RolePermissions_Permissions">
+      <End Role="Permissions" EntitySet="PermissionSet" />
+      <End Role="RolePermissions" EntitySet="RolePermissionSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RolePermissions_Roles" Association="HaveAVoice.Models.FK_RolePermissions_Roles">
+      <End Role="Roles" EntitySet="RoleSet" />
+      <End Role="RolePermissions" EntitySet="RolePermissionSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRoles_Roles" Association="HaveAVoice.Models.FK_UserRoles_Roles">
+      <End Role="Roles" EntitySet="RoleSet" />
+      <End Role="UserRoles" EntitySet="UserRoleSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRoles_Users" Association="HaveAVoice.Models.FK_UserRoles_Users">
+      <End EntitySet="UserSet" Role="Users" />
+      <End EntitySet="UserRoleSet" Role="UserRoles" />
+    </AssociationSet>
+    <EntitySet Name="ErrorLog" EntityType="HaveAVoice.Models.ErrorLog" />
+    <AssociationSet Name="FK_ErrorLog_Users" Association="HaveAVoice.Models.FK_ErrorLog_Users">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="ErrorLog" EntitySet="ErrorLog" />
+    </AssociationSet>
+    <EntitySet Name="MessageSet" EntityType="HaveAVoice.Models.Message" />
+    <EntitySet Name="ReplySet" EntityType="HaveAVoice.Models.Reply" />
+    <AssociationSet Name="FK_Message_Users_FromUserId1" Association="HaveAVoice.Models.FK_Message_Users_FromUserId1">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="Messages" EntitySet="MessageSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Message_Users_ToUserId1" Association="HaveAVoice.Models.FK_Message_Users_ToUserId1">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="Messages" EntitySet="MessageSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Replys_Users" Association="HaveAVoice.Models.FK_Replys_Users">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="Replys" EntitySet="ReplySet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Replys_Messages" Association="HaveAVoice.Models.FK_Replys_Messages">
+      <End Role="Messages" EntitySet="MessageSet" />
+      <End Role="Replys" EntitySet="ReplySet" />
+    </AssociationSet>
+    <EntitySet Name="ListenerSet" EntityType="HaveAVoice.Models.Listener" />
+    <AssociationSet Name="FK_Listeners_ListenedToUserId_Listeners" Association="HaveAVoice.Models.FK_Listeners_ListenedToUserId_Listeners">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="Listeners" EntitySet="ListenerSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Listeners_ListeningUserId_Users" Association="HaveAVoice.Models.FK_Listeners_ListeningUserId_Users">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="Listeners" EntitySet="ListenerSet" />
+    </AssociationSet>
+    <EntitySet Name="TimezoneSet" EntityType="HaveAVoice.Models.Timezone" />
+    <EntitySet Name="IssueSet" EntityType="HaveAVoice.Models.Issue" />
+    <AssociationSet Name="FK_Issues_Users" Association="HaveAVoice.Models.FK_Issues_Users">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="Issues" EntitySet="IssueSet" />
+    </AssociationSet>
+    <EntitySet Name="IssueReplySet" EntityType="HaveAVoice.Models.IssueReply" />
+    <AssociationSet Name="FK_IssueReplys_Users" Association="HaveAVoice.Models.FK_IssueReplys_Users">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="IssueReplys" EntitySet="IssueReplySet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IssueReplys_Issues" Association="HaveAVoice.Models.FK_IssueReplys_Issues">
+      <End Role="Issue" EntitySet="IssueSet" />
+      <End Role="IssueReplys" EntitySet="IssueReplySet" />
+    </AssociationSet>
+    <EntitySet Name="IssueReplyCommentSet" EntityType="HaveAVoice.Models.IssueReplyComment" />
+    <AssociationSet Name="FK_IssueReplyComments_Users" Association="HaveAVoice.Models.FK_IssueReplyComments_Users">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="IssueReplyComments" EntitySet="IssueReplyCommentSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IssueReplyComments_IssueReplys" Association="HaveAVoice.Models.FK_IssueReplyComments_IssueReplys">
+      <End Role="IssueReply" EntitySet="IssueReplySet" />
+      <End Role="IssueReplyComments" EntitySet="IssueReplyCommentSet" />
+    </AssociationSet>
+    <EntitySet Name="UserPictureSet" EntityType="HaveAVoice.Models.UserPicture" />
+    <AssociationSet Name="FK_UserPictures_Users" Association="HaveAVoice.Models.FK_UserPictures_Users">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="UserPictures" EntitySet="UserPictureSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Permission">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="500" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="RolePermissions" Relationship="HaveAVoice.Models.FK_RolePermissions_Permissions" FromRole="Permissions" ToRole="RolePermissions" />
+  </EntityType>
+  <EntityType Name="RolePermission">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Permission" Relationship="HaveAVoice.Models.FK_RolePermissions_Permissions" FromRole="RolePermissions" ToRole="Permissions" />
+    <NavigationProperty Name="Role" Relationship="HaveAVoice.Models.FK_RolePermissions_Roles" FromRole="RolePermissions" ToRole="Roles" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="RolePermissions" Relationship="HaveAVoice.Models.FK_RolePermissions_Roles" FromRole="Roles" ToRole="RolePermissions" />
+    <NavigationProperty Name="UserRoles" Relationship="HaveAVoice.Models.FK_UserRoles_Roles" FromRole="Roles" ToRole="UserRoles" />
+    <Property Name="DefaultRole" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="UserRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Role" Relationship="HaveAVoice.Models.FK_UserRoles_Roles" FromRole="UserRoles" ToRole="Roles" />
+    <NavigationProperty Name="User" Relationship="HaveAVoice.Models.FK_UserRoles_Users" FromRole="UserRoles" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property MaxLength="50" Unicode="false" FixedLength="false" Name="FirstName" Type="String" Nullable="false" />
+    <Property MaxLength="50" Unicode="false" FixedLength="false" Name="LastName" Type="String" Nullable="false" />
+    <Property MaxLength="50" Unicode="false" FixedLength="false" Name="Username" Type="String" Nullable="false" />
+    <Property MaxLength="200" Unicode="false" FixedLength="false" Name="Password" Type="String" Nullable="false" />
+    <Property Name="DateOfBirth" Type="DateTime" Nullable="false" />
+    <Property Name="RegistrationDate" Type="DateTime" Nullable="false" />
+    <Property MaxLength="20" Unicode="false" FixedLength="false" Name="RegistrationIp" Type="String" Nullable="false" />
+    <Property Name="Newsletter" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="UserRoles" Relationship="HaveAVoice.Models.FK_UserRoles_Users" FromRole="Users" ToRole="UserRoles" />
+    <Property Name="Email" Type="String" Nullable="false" />
+    <Property Name="LastLogin" Type="DateTime" Nullable="false" />
+    <Property Name="UTCOffset" Type="String" Nullable="false" />
+    <Property Name="CookieHash" Type="String" Nullable="true" />
+    <Property Name="CookieCreationDate" Type="DateTime" Nullable="true" />
+    <NavigationProperty Name="ErrorLog" Relationship="HaveAVoice.Models.FK_ErrorLog_Users" FromRole="User" ToRole="ErrorLog" />
+    <Property Name="ActivationCode" Type="String" Nullable="true" />
+    <NavigationProperty Name="FromUsers" Relationship="HaveAVoice.Models.FK_Message_Users_FromUserId1" FromRole="User" ToRole="Messages" />
+    <NavigationProperty Name="ToUsers" Relationship="HaveAVoice.Models.FK_Message_Users_ToUserId1" FromRole="User" ToRole="Messages" />
+    <NavigationProperty Name="ReplyUsers" Relationship="HaveAVoice.Models.FK_Replys_Users" FromRole="User" ToRole="Replys" />
+    <NavigationProperty Name="ListeningUsers" Relationship="HaveAVoice.Models.FK_Listeners_ListenedToUserId_Listeners" FromRole="User" ToRole="Listeners" />
+    <NavigationProperty Name="ListenedToUsers" Relationship="HaveAVoice.Models.FK_Listeners_ListeningUserId_Users" FromRole="User" ToRole="Listeners" />
+    <NavigationProperty Name="IssuesStartedByUsers" Relationship="HaveAVoice.Models.FK_Issues_Users" FromRole="User" ToRole="Issues" />
+    <NavigationProperty Name="IssueReplysByUser" Relationship="HaveAVoice.Models.FK_IssueReplys_Users" FromRole="User" ToRole="IssueReplys" />
+    <NavigationProperty Name="IssueReplyCommentsByUser" Relationship="HaveAVoice.Models.FK_IssueReplyComments_Users" FromRole="User" ToRole="IssueReplyComments" />
+    <NavigationProperty Name="UserPictures" Relationship="HaveAVoice.Models.FK_UserPictures_Users" FromRole="User" ToRole="UserPictures" />
+    <Property Name="City" Type="String" Nullable="false" />
+    <Property Name="State" Type="String" Nullable="false" />
+    <Property Name="MiddleName" Type="String" Nullable="true" />
+  </EntityType>
+  <Association Name="FK_RolePermissions_Permissions">
+    <End Role="Permissions" Type="HaveAVoice.Models.Permission" Multiplicity="1" />
+    <End Role="RolePermissions" Type="HaveAVoice.Models.RolePermission" Multiplicity="*" />
+  </Association>
+  <Association Name="FK_RolePermissions_Roles">
+    <End Role="Roles" Type="HaveAVoice.Models.Role" Multiplicity="1" />
+    <End Role="RolePermissions" Type="HaveAVoice.Models.RolePermission" Multiplicity="*" />
+  </Association>
+  <Association Name="FK_UserRoles_Roles">
+    <End Role="Roles" Type="HaveAVoice.Models.Role" Multiplicity="1" />
+    <End Role="UserRoles" Type="HaveAVoice.Models.UserRole" Multiplicity="*" />
+  </Association>
+  <Association Name="FK_UserRoles_Users">
+    <End Type="HaveAVoice.Models.User" Multiplicity="1" Role="Users" />
+    <End Type="HaveAVoice.Models.UserRole" Multiplicity="*" Role="UserRoles" />
+  </Association>
+  <EntityType Name="ErrorLog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Exception" Type="String" Nullable="false" />
+    <Property Name="InnerException" Type="String" Nullable="false" />
+    <Property Name="StackTrace" Type="String" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="HaveAVoice.Models.FK_ErrorLog_Users" FromRole="ErrorLog" ToRole="User" />
+    <Property Name="DateTimeStamp" Type="DateTime" Nullable="false" />
+    <Property Name="Details" Type="String" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_ErrorLog_Users">
+    <End Type="HaveAVoice.Models.User" Role="User" Multiplicity="1" />
+    <End Type="HaveAVoice.Models.ErrorLog" Role="ErrorLog" Multiplicity="*" />
+  </Association>
+  <EntityType Name="Message">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Subject" Type="String" Nullable="false" />
+    <Property Name="Body" Type="String" Nullable="false" />
+    <Property Name="DateTimeStamp" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="FromUser" Relationship="HaveAVoice.Models.FK_Message_Users_FromUserId1" FromRole="Messages" ToRole="User" />
+    <NavigationProperty Name="ToUser" Relationship="HaveAVoice.Models.FK_Message_Users_ToUserId1" FromRole="Messages" ToRole="User" />
+    <NavigationProperty Name="Replys" Relationship="HaveAVoice.Models.FK_Replys_Messages" FromRole="Messages" ToRole="Replys" />
+    <Property Name="ToDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="FromDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="RepliedTo" Type="Boolean" Nullable="false" />
+    <Property Name="ToViewed" Type="Boolean" Nullable="false" />
+    <Property Name="FromViewed" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Reply">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Body" Type="String" Nullable="false" />
+    <NavigationProperty Name="ReplyUser" Relationship="HaveAVoice.Models.FK_Replys_Users" FromRole="Replys" ToRole="User" />
+    <NavigationProperty Name="Message" Relationship="HaveAVoice.Models.FK_Replys_Messages" FromRole="Replys" ToRole="Messages" />
+    <Property Name="DateTimeStamp" Type="DateTime" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Message_Users_FromUserId1">
+    <End Type="HaveAVoice.Models.User" Role="User" Multiplicity="1" />
+    <End Type="HaveAVoice.Models.Message" Role="Messages" Multiplicity="*" />
+  </Association>
+  <Association Name="FK_Message_Users_ToUserId1">
+    <End Type="HaveAVoice.Models.User" Role="User" Multiplicity="1" />
+    <End Type="HaveAVoice.Models.Message" Role="Messages" Multiplicity="*" />
+  </Association>
+  <Association Name="FK_Replys_Users">
+    <End Type="HaveAVoice.Models.User" Role="User" Multiplicity="1" />
+    <End Type="HaveAVoice.Models.Reply" Role="Replys" Multiplicity="*" />
+  </Association>
+  <Association Name="FK_Replys_Messages">
+    <End Type="HaveAVoice.Models.Message" Role="Messages" Multiplicity="1" />
+    <End Type="HaveAVoice.Models.Reply" Role="Replys" Multiplicity="*" />
+  </Association>
+  <EntityType Name="Listener">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ListeningUser" Relationship="HaveAVoice.Models.FK_Listeners_ListenedToUserId_Listeners" FromRole="Listeners" ToRole="User" />
+    <NavigationProperty Name="ListenedToUser" Relationship="HaveAVoice.Models.FK_Listeners_ListeningUserId_Users" FromRole="Listeners" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_Listeners_ListenedToUserId_Listeners">
+    <End Type="HaveAVoice.Models.User" Role="User" Multiplicity="1" />
+    <End Type="HaveAVoice.Models.Listener" Role="Listeners" Multiplicity="*" />
+  </Association>
+  <Association Name="FK_Listeners_ListeningUserId_Users">
+    <End Type="HaveAVoice.Models.User" Role="User" Multiplicity="1" />
+    <End Type="HaveAVoice.Models.Listener" Role="Listeners" Multiplicity="*" />
+  </Association>
+  <EntityType Name="Timezone">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Region" Type="String" Nullable="false" />
+    <Property Name="UTCOffset" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Issue">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="DateTimeStamp" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="HaveAVoice.Models.FK_Issues_Users" FromRole="Issues" ToRole="User" />
+    <Property Name="Title" Type="String" Nullable="false" />
+    <Property Name="Description" Type="String" Nullable="false" />
+    <NavigationProperty Name="IssueReplys" Relationship="HaveAVoice.Models.FK_IssueReplys_Issues" FromRole="Issue" ToRole="IssueReplys" />
+  </EntityType>
+  <Association Name="FK_Issues_Users">
+    <End Type="HaveAVoice.Models.User" Role="User" Multiplicity="1" />
+    <End Type="HaveAVoice.Models.Issue" Role="Issues" Multiplicity="*" />
+  </Association>
+  <EntityType Name="IssueReply">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Reply" Type="String" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="HaveAVoice.Models.FK_IssueReplys_Users" FromRole="IssueReplys" ToRole="User" />
+    <NavigationProperty Name="Issue" Relationship="HaveAVoice.Models.FK_IssueReplys_Issues" FromRole="IssueReplys" ToRole="Issue" />
+    <Property Name="DateTimeStamp" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="IssueReplyComments" Relationship="HaveAVoice.Models.FK_IssueReplyComments_IssueReplys" FromRole="IssueReply" ToRole="IssueReplyComments" />
+    <Property Name="Anonymous" Type="Boolean" Nullable="false" />
+    <Property Name="Disposition" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_IssueReplys_Users">
+    <End Type="HaveAVoice.Models.User" Role="User" Multiplicity="1" />
+    <End Type="HaveAVoice.Models.IssueReply" Role="IssueReplys" Multiplicity="*" />
+  </Association>
+  <Association Name="FK_IssueReplys_Issues">
+    <End Type="HaveAVoice.Models.Issue" Role="Issue" Multiplicity="1" />
+    <End Type="HaveAVoice.Models.IssueReply" Role="IssueReplys" Multiplicity="*" />
+  </Association>
+  <EntityType Name="IssueReplyComment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Comment" Type="String" Nullable="false" />
+    <Property Name="DateTimeStamp" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="HaveAVoice.Models.FK_IssueReplyComments_Users" FromRole="IssueReplyComments" ToRole="User" />
+    <NavigationProperty Name="IssueReply" Relationship="HaveAVoice.Models.FK_IssueReplyComments_IssueReplys" FromRole="IssueReplyComments" ToRole="IssueReply" />
+  </EntityType>
+  <Association Name="FK_IssueReplyComments_Users">
+    <End Type="HaveAVoice.Models.User" Role="User" Multiplicity="1" />
+    <End Type="HaveAVoice.Models.IssueReplyComment" Role="IssueReplyComments" Multiplicity="*" />
+  </Association>
+  <Association Name="FK_IssueReplyComments_IssueReplys">
+    <End Type="HaveAVoice.Models.IssueReply" Role="IssueReply" Multiplicity="1" />
+    <End Type="HaveAVoice.Models.IssueReplyComment" Role="IssueReplyComments" Multiplicity="*" />
+  </Association>
+  <EntityType Name="UserPicture">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="ImageName" Type="String" Nullable="false" />
+    <Property Name="ProfilePicture" Type="Boolean" Nullable="false" />
+    <Property Name="DateTimeStamp" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="HaveAVoice.Models.FK_UserPictures_Users" FromRole="UserPictures" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_UserPictures_Users">
+    <End Type="HaveAVoice.Models.User" Role="User" Multiplicity="1" />
+    <End Type="HaveAVoice.Models.UserPicture" Role="UserPictures" Multiplicity="*" />
+  </Association>
+</Schema>
