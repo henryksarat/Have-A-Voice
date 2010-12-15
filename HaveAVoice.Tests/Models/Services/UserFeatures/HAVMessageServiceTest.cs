@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using Moq;
 using HaveAVoice.Repositories;
 using HaveAVoice.Services;
-using HaveAVoice.Models.Validation;
+using HaveAVoice.Validation;
 using HaveAVoice.Models;
 using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Repositories.UserFeatures;

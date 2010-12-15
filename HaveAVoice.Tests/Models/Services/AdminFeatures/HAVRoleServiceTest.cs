@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Web.Mvc;
 using Moq;
-using HaveAVoice.Models.Validation;
+using HaveAVoice.Validation;
 using HaveAVoice.Services;
 using HaveAVoice.Repositories;
 using HaveAVoice.Models;

@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace HaveAVoice.Models.Validation
+namespace HaveAVoice.Validation
 {
     public class ModelStateWrapper : IValidationDictionary
     {

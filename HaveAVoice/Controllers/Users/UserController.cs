@@ -10,7 +10,7 @@ using HaveAVoice.Models;
 using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
 using HaveAVoice.Services;
-using HaveAVoice.Models.Validation;
+using HaveAVoice.Validation;
 using HaveAVoice.Services.UserFeatures;
 using System.Text;
 using HaveAVoice.Helpers.Enums;

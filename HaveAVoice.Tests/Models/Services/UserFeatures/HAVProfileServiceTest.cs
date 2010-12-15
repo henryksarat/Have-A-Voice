@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Web.Mvc;
 using Moq;
-using HaveAVoice.Models.Validation;
+using HaveAVoice.Validation;
 using HaveAVoice.Repositories;
 using HaveAVoice.Models;
 using HaveAVoice.Helpers.Enums;

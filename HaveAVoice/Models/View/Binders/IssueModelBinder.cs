@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using HaveAVoice.Models;
-using HaveAVoice.Models.Validation;
+using HaveAVoice.Validation;
 using HaveAVoice.Helpers;
 using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Services.UserFeatures;

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using HaveAVoice.Models.Validation;
+using HaveAVoice.Validation;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Helpers.Enums;

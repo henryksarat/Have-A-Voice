@@ -9,7 +9,7 @@ using HaveAVoice.Models;
 using HaveAVoice.Repositories;
 using HaveAVoice.Services;
 using HaveAVoice.Services.AdminFeatures;
-using HaveAVoice.Models.Validation;
+using HaveAVoice.Validation;
 using HaveAVoice.Models.View;
 
 namespace HaveAVoice.Controllers.Admin {

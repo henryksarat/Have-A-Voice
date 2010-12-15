@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using HaveAVoice.Models.Validation;
+using HaveAVoice.Validation;
 using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;

@@ -1,4 +1,4 @@
-﻿using HaveAVoice.Models.Validation;
+﻿using HaveAVoice.Validation;
 using System.Collections.Generic;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.AdminFeatures;

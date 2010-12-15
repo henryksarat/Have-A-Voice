@@ -5,7 +5,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Models.Validation;
+using HaveAVoice.Validation;
 using HaveAVoice.Services;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;

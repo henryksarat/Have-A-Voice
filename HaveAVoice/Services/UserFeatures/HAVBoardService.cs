@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using HaveAVoice.Repositories.UserFeatures;
-using HaveAVoice.Models.Validation;
+using HaveAVoice.Validation;
 using HaveAVoice.Repositories;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models.View;

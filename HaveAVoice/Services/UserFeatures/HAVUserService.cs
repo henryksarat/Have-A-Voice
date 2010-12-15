@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Web;
-using HaveAVoice.Models.Validation;
+using HaveAVoice.Validation;
 using System.Collections.Generic;
 using HaveAVoice.Repositories;
 using System.Text.RegularExpressions;

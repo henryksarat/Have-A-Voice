@@ -7,7 +7,7 @@ using Moq;
 using HaveAVoice.Helpers;
 using HaveAVoice.Repositories;
 using HaveAVoice.Services;
-using HaveAVoice.Models.Validation;
+using HaveAVoice.Validation;
 using HaveAVoice.Controllers.Admin;
 using HaveAVoice.Models.View;
 using HaveAVoice.Services.AdminFeatures;
