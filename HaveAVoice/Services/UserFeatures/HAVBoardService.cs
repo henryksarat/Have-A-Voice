@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using HaveAVoice.Models.Repositories.UserFeatures;
+using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Models.Validation;
-using HaveAVoice.Models.Repositories;
+using HaveAVoice.Repositories;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models.View;
 using HaveAVoice.Models;

@@ -5,7 +5,7 @@ using HaveAVoice.Controllers.Users;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
-using HaveAVoice.Models.Repositories.UserFeatures;
+using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services.UserFeatures;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;

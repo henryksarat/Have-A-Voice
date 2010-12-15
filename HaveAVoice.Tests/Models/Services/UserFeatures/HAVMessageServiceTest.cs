@@ -2,12 +2,12 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Web.Mvc;
 using Moq;
-using HaveAVoice.Models.Repositories;
+using HaveAVoice.Repositories;
 using HaveAVoice.Services;
 using HaveAVoice.Models.Validation;
 using HaveAVoice.Models;
 using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Models.Repositories.UserFeatures;
+using HaveAVoice.Repositories.UserFeatures;
 
 namespace HaveAVoice.Tests.Models.Services.UserFeatures {
     [TestClass]

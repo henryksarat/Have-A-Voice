@@ -2,11 +2,12 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Collections;
-using HaveAVoice.Models.Repositories;
+using HaveAVoice.Repositories;
 using HaveAVoice.Helpers;
-using HaveAVoice.Models.Repositories.UserFeatures;
+using HaveAVoice.Repositories.UserFeatures;
+using HaveAVoice.Models;
 
-namespace HaveAVoice.Models.Repositories.AdminFeatures {
+namespace HaveAVoice.Repositories.AdminFeatures {
     public class EntityHAVRoleRepository : HAVBaseRepository, IHAVRoleRepository {
         public Permission CreatePermission(User aCreatedByUser, Permission aPermissionToCreate) {
             aPermissionToCreate.EditByUserId = aCreatedByUser.Id;

@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Models;
-using HaveAVoice.Models.Repositories;
+using HaveAVoice.Repositories;
 using HaveAVoice.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;

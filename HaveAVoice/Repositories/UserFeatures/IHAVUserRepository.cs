@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using HaveAVoice.Models.View;
+using HaveAVoice.Models;
 
-namespace HaveAVoice.Models.Repositories.UserFeatures {
+namespace HaveAVoice.Repositories.UserFeatures {
     public interface IHAVUserRepository {
         User CreateUser(User userToCreate);
         User GetUser(int id);

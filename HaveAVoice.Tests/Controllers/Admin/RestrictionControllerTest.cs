@@ -5,13 +5,13 @@ using HaveAVoice.Models;
 using System.Web.Mvc;
 using Moq;
 using HaveAVoice.Helpers;
-using HaveAVoice.Models.Repositories;
+using HaveAVoice.Repositories;
 using HaveAVoice.Services;
 using HaveAVoice.Models.Validation;
 using HaveAVoice.Controllers.Admin;
 using HaveAVoice.Models.View;
 using HaveAVoice.Services.AdminFeatures;
-using HaveAVoice.Models.Repositories.AdminFeatures;
+using HaveAVoice.Repositories.AdminFeatures;
 using HaveAVoice.Models.View.Builders;
 using HaveAVoice.Tests.Helpers;
 

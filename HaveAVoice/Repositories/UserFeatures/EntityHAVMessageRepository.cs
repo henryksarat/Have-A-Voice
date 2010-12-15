@@ -4,11 +4,10 @@ using System.Linq;
 using System.Web;
 using HaveAVoice.Models.View;
 using System.Data.Objects;
+using HaveAVoice.Models;
 
-namespace HaveAVoice.Models.Repositories.UserFeatures {
+namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVMessageRepository : HAVBaseRepository, IHAVMessageRepository {
-
-        #region IHAVMessageRepository Members
 
         public Message CreateMessage(int toUserId, int fromUserId, Message messageToCreate) {
             IHAVUserRepository userRepository = new EntityHAVUserRepository();
@@ -137,7 +136,5 @@ namespace HaveAVoice.Models.Repositories.UserFeatures {
                         }).ToList<InboxMessage>();    
             }
         }
-
-        #endregion
     }
 }

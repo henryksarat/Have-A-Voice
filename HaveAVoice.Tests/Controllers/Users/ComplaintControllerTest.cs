@@ -4,7 +4,7 @@ using HaveAVoice.Controllers.Users;
 using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
-using HaveAVoice.Models.Repositories.UserFeatures;
+using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Models.Validation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

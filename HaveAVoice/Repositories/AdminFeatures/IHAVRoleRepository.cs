@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using HaveAVoice.Models;
 
-namespace HaveAVoice.Models.Repositories.AdminFeatures {
+namespace HaveAVoice.Repositories.AdminFeatures {
     public interface IHAVRoleRepository {
         //Roles
         Role GetRole(int id);

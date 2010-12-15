@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using HaveAVoice.Models.Validation;
 using HaveAVoice.Helpers.Enums;
-using HaveAVoice.Models.Repositories;
+using HaveAVoice.Repositories;
 using HaveAVoice.Models.View;
-using HaveAVoice.Models.Repositories.UserFeatures;
+using HaveAVoice.Repositories.UserFeatures;
 using System;
 using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Helpers;

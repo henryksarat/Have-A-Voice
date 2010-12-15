@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using HaveAVoice.Models;
 
-namespace HaveAVoice.Models.Repositories.UserFeatures {
+namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVComplaintRepository : HAVBaseRepository, IHAVComplaintRepository {
         IHAVUserRepository theUserRepo;
         

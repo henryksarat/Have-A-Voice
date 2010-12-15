@@ -2,9 +2,10 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Collections;
-using HaveAVoice.Models.Repositories;
+using HaveAVoice.Repositories;
+using HaveAVoice.Models;
 
-namespace HaveAVoice.Models.Repositories.AdminFeatures {
+namespace HaveAVoice.Repositories.AdminFeatures {
     public class EntityHAVErrorRepository : HAVBaseRepository, IHAVErrorRepository {
 
         public IEnumerable<ErrorLog> GetAllErrors() {

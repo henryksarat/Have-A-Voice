@@ -7,7 +7,7 @@ using Moq;
 using HaveAVoice.Models;
 using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Models.View;
-using HaveAVoice.Models.Repositories.UserFeatures;
+using HaveAVoice.Repositories.UserFeatures;
 
 namespace HaveAVoice.Tests.Models.Repositories.UserFeatures {
 

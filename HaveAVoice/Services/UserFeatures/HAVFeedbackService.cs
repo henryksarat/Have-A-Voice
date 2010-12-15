@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using HaveAVoice.Models.Validation;
-using HaveAVoice.Models.Repositories.UserFeatures;
-using HaveAVoice.Models.Repositories;
+using HaveAVoice.Repositories.UserFeatures;
+using HaveAVoice.Repositories;
 using HaveAVoice.Models;
 
 namespace HaveAVoice.Services.UserFeatures {

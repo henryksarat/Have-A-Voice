@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using HaveAVoice.Models;
 
-namespace HaveAVoice.Models.Repositories.UserFeatures {
+namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVBoardRepository : HAVBaseRepository, IHAVBoardRepository {
         public Board FindBoardByBoardId(int aBoardId) {
             return (from b in GetEntities().Boards

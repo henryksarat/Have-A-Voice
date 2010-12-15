@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using HaveAVoice.Models.View;
 using HaveAVoice.Services;
-using HaveAVoice.Models.Repositories;
+using HaveAVoice.Repositories;
 
 namespace HaveAVoice.Controllers.Shared
 {

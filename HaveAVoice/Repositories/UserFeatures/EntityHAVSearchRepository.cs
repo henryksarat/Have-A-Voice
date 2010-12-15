@@ -1,6 +1,7 @@
 ﻿using System.Linq;
+using HaveAVoice.Models;
 
-namespace HaveAVoice.Models.Repositories.UserFeatures {
+namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVSearchRepository : HAVBaseRepository, IHAVSearchRepository {
 
         public string SearchResult(string aSearchString) {

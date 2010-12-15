@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using HaveAVoice.Models.Validation;
-using HaveAVoice.Models.Repositories;
-using HaveAVoice.Models.Repositories.AdminFeatures;
+using HaveAVoice.Repositories;
+using HaveAVoice.Repositories.AdminFeatures;
 using HaveAVoice.Models.View;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models;

@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Models.View;
 using System.Data.Objects;
+using HaveAVoice.Models;
 
-namespace HaveAVoice.Models.Repositories.UserFeatures {
+namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVIssueRepository : HAVBaseRepository, IHAVIssueRepository {
          public IEnumerable<Issue> GetLatestIssues() {
             return GetEntities().Issues.ToList<Issue>();

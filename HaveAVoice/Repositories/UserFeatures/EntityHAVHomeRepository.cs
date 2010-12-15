@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Models.View;
 using System.Data.Objects;
+using HaveAVoice.Models;
 
-namespace HaveAVoice.Models.Repositories.UserFeatures {
+namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVHomeRepository : HAVBaseRepository, IHAVHomeRepository {
         private static double ISSUE_DISPOSITION_WEIGHT = 0.2;
         private static double ISSUE_REPLY_WEIGHT = 0.8;

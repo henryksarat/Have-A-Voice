@@ -1,4 +1,4 @@
-﻿namespace HaveAVoice.Models.Repositories.UserFeatures {
+﻿namespace HaveAVoice.Repositories.UserFeatures {
     public interface IHAVSearchRepository {
         string SearchResult(string aSearchString);
     }

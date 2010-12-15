@@ -5,15 +5,15 @@ using HaveAVoice.Helpers;
 using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
-using HaveAVoice.Models.Repositories;
-using HaveAVoice.Models.Repositories.UserFeatures;
+using HaveAVoice.Repositories;
+using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Models.Validation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Web;
-using HaveAVoice.Models.Repositories.AdminFeatures;
+using HaveAVoice.Repositories.AdminFeatures;
 using System.Collections.Generic;
 using HaveAVoice.Models.View.Builders;
 

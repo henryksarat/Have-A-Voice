@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using HaveAVoice.Exceptions;
 using HaveAVoice.Models.View;
 using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Models.Repositories.AdminFeatures;
+using HaveAVoice.Repositories.AdminFeatures;
+using HaveAVoice.Models;
 
-namespace HaveAVoice.Models.Repositories.UserFeatures {
+namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVUserRepository : HAVBaseRepository, IHAVUserRepository {
 
         public User CreateUser(User userToCreate) {

@@ -1,13 +1,13 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Web.Mvc;
 using Moq;
-using HaveAVoice.Models.Repositories;
+using HaveAVoice.Repositories;
 using HaveAVoice.Services;
 using HaveAVoice.Models.Validation;
 using HaveAVoice.Models;
 using System.Collections.Generic;
 using HaveAVoice.Services.AdminFeatures;
-using HaveAVoice.Models.Repositories.AdminFeatures;
+using HaveAVoice.Repositories.AdminFeatures;
 using HaveAVoice.Models.View.Builders;
 using HaveAVoice.Models.View;
 using HaveAVoice.Tests.Helpers;

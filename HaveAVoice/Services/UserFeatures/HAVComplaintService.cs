@@ -1,6 +1,6 @@
 ﻿using HaveAVoice.Models.Validation;
-using HaveAVoice.Models.Repositories;
-using HaveAVoice.Models.Repositories.UserFeatures;
+using HaveAVoice.Repositories;
+using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Models.View;
 using HaveAVoice.Models;
 

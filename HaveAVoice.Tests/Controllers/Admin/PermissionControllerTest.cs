@@ -4,14 +4,14 @@ using System.Web.Mvc;
 using HaveAVoice.Controllers.Admin;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models;
-using HaveAVoice.Models.Repositories;
+using HaveAVoice.Repositories;
 using HaveAVoice.Services;
 using HaveAVoice.Models.Validation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using HaveAVoice.Models.View;
 using HaveAVoice.Services.AdminFeatures;
-using HaveAVoice.Models.Repositories.AdminFeatures;
+using HaveAVoice.Repositories.AdminFeatures;
 using HaveAVoice.Tests.Helpers;
 
 namespace HaveAVoice.Tests.Controllers.Admin {

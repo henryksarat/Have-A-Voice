@@ -1,8 +1,9 @@
 ﻿using System;
 using HaveAVoice.Helpers.UserInformation;
-using HaveAVoice.Models.Repositories.UserFeatures;
+using HaveAVoice.Repositories.UserFeatures;
+using HaveAVoice.Models;
 
-namespace HaveAVoice.Models.Repositories {
+namespace HaveAVoice.Repositories {
     public class HAVBaseRepository : IHAVBaseRepository {
         private static HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
         private static int ERROR_USER_ID = 91;

@@ -8,7 +8,7 @@ using HaveAVoice.Models;
 using HaveAVoice.Models.Validation;
 using HaveAVoice.Models.View;
 using HaveAVoice.Services;
-using HaveAVoice.Models.Repositories;
+using HaveAVoice.Repositories;
 using HaveAVoice.Helpers;
 using HaveAVoice.Services.AdminFeatures;
 

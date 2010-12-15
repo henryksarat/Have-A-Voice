@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using HaveAVoice.Models.View;
 using HaveAVoice.Services;
-using HaveAVoice.Models.Repositories;
+using HaveAVoice.Repositories;
 using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Controllers.Admin {

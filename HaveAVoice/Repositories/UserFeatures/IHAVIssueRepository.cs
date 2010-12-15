@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Models.View;
+using HaveAVoice.Models;
 
-namespace HaveAVoice.Models.Repositories.UserFeatures {
+namespace HaveAVoice.Repositories.UserFeatures {
     public interface IHAVIssueRepository {
         IEnumerable<Issue> GetLatestIssues();
         IEnumerable<IssueWithDispositionModel> GetIssues(User aUser);

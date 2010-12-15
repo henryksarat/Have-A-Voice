@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HaveAVoice.Models;
-using HaveAVoice.Models.Repositories.UserFeatures;
+using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Models.View;
 
 namespace HaveAVoice.Tests.Models.Repositories.UserFeatures {

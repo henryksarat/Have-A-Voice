@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using HaveAVoice.Models;
 
-namespace HaveAVoice.Models.Repositories.UserFeatures {
+namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVCalendarRepository : HAVBaseRepository, IHAVCalendarRepository {
         public void AddEvent(int aUserId, DateTime aDate, string anInformation) {
             IHAVUserRepository myUserRepo = new EntityHAVUserRepository();

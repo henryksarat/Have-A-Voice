@@ -2,14 +2,14 @@
 using System.Web;
 using HaveAVoice.Models.Validation;
 using System.Collections.Generic;
-using HaveAVoice.Models.Repositories;
+using HaveAVoice.Repositories;
 using System.Text.RegularExpressions;
 using HaveAVoice.Helpers;
 using HaveAVoice.Exceptions;
 using HaveAVoice.Models.View;
-using HaveAVoice.Models.Repositories.UserFeatures;
+using HaveAVoice.Repositories.UserFeatures;
 using System.Web.Mvc;
-using HaveAVoice.Models.Repositories.AdminFeatures;
+using HaveAVoice.Repositories.AdminFeatures;
 using HaveAVoice.Models;
 
 

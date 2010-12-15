@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Collections;
-using HaveAVoice.Models.Repositories.UserFeatures;
+using HaveAVoice.Repositories.UserFeatures;
+using HaveAVoice.Models;
 
-namespace HaveAVoice.Models.Repositories.AdminFeatures {
+namespace HaveAVoice.Repositories.AdminFeatures {
     public class EntityHAVRestrictionRepository : HAVBaseRepository, IHAVRestrictionRepository {
         public void CreateRestriction(User aCreatedByUser, Restriction aRestrictionToCreate) {
             IHAVUserRepository myUserRepo = new EntityHAVUserRepository();
