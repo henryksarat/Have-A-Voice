@@ -7,7 +7,7 @@ using HaveAVoice.Models;
 using HaveAVoice.Models.Validation;
 using HaveAVoice.Helpers;
 using HaveAVoice.Helpers.Enums;
-using HaveAVoice.Models.Services.UserFeatures;
+using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Helpers.UserInformation;
 
 namespace HaveAVoice.Models.View {

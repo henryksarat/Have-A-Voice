@@ -3,13 +3,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Web.Mvc;
 using Moq;
 using HaveAVoice.Models.Validation;
-using HaveAVoice.Models.Services;
 using HaveAVoice.Models.Repositories;
 using HaveAVoice.Models;
 using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Models.View;
-using HaveAVoice.Models.Services.UserFeatures;
+using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Models.Repositories.UserFeatures;
+using HaveAVoice.Services;
 
 
 namespace HaveAVoice.Tests.Models.Services.UserFeatures {

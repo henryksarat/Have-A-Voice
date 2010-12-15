@@ -5,10 +5,10 @@ using System.Web.Mvc;
 using HaveAVoice.Models;
 using HaveAVoice.Models.Validation;
 using HaveAVoice.Models.View;
-using HaveAVoice.Models.Services;
+using HaveAVoice.Services;
 using HaveAVoice.Models.Repositories;
 using HaveAVoice.Helpers;
-using HaveAVoice.Models.Services.UserFeatures;
+using HaveAVoice.Services.UserFeatures;
 
 namespace HaveAVoice.Controllers.Users
 {

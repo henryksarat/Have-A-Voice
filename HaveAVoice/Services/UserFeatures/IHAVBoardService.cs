@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using HaveAVoice.Models.View;
+using HaveAVoice.Models;
 
-namespace HaveAVoice.Models.Services.UserFeatures {
+namespace HaveAVoice.Services.UserFeatures {
     public interface IHAVBoardService {
         Board FindBoard(int aBoardId);
         BoardModel GetBoard(UserInformationModel aUser, int boardId);

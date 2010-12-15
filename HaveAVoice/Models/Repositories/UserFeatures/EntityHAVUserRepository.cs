@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using HaveAVoice.Exceptions;
 using HaveAVoice.Models.View;
-using HaveAVoice.Models.Services.UserFeatures;
+using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Models.Repositories.AdminFeatures;
 
 namespace HaveAVoice.Models.Repositories.UserFeatures {

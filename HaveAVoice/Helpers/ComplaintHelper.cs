@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Models.View;
 using HaveAVoice.Models;
-using HaveAVoice.Models.Services.UserFeatures;
+using HaveAVoice.Services.UserFeatures;
 
 namespace HaveAVoice.Helpers
 {

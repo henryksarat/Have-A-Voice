@@ -5,8 +5,9 @@ using System.Web;
 using HaveAVoice.Models.Validation;
 using HaveAVoice.Models.Repositories.UserFeatures;
 using HaveAVoice.Models.Repositories;
+using HaveAVoice.Models;
 
-namespace HaveAVoice.Models.Services.UserFeatures {
+namespace HaveAVoice.Services.UserFeatures {
     public class HAVFeedbackService : HAVBaseService, IHAVFeedbackService {
         private IValidationDictionary theValidationDictionary;
         private IHAVFeedbackRepository theRepository;

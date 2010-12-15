@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using HaveAVoice.Models.View;
+using HaveAVoice.Models;
 
-namespace HaveAVoice.Models.Services.UserFeatures {
+namespace HaveAVoice.Services.UserFeatures {
     public interface IHAVUserService {
         User GetUser(int userId);
         bool CreateUser(User aUserToCreate, bool aCaptchaValid, bool anAgreement, string anIpAddress);

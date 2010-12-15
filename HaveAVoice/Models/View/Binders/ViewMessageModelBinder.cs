@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using HaveAVoice.Helpers;
-using HaveAVoice.Models.Services;
+using HaveAVoice.Services;
 using HaveAVoice.Models.Validation;
-using HaveAVoice.Models.Services.UserFeatures;
+using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Helpers.UserInformation;
 
 namespace HaveAVoice.Models.View {

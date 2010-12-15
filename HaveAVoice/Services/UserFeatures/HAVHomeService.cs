@@ -6,9 +6,10 @@ using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Models.View;
 using HaveAVoice.Helpers;
 using System;
+using HaveAVoice.Models;
 
 
-namespace HaveAVoice.Models.Services.UserFeatures {
+namespace HaveAVoice.Services.UserFeatures {
     public class HAVHomeService : HAVBaseService, IHAVHomeService {
         private IValidationDictionary theValidationDictionary;
         private IHAVHomeRepository theRepository;

@@ -2,11 +2,11 @@
 using System.Web.Mvc;
 using Moq;
 using HaveAVoice.Models.Validation;
-using HaveAVoice.Models.Services;
+using HaveAVoice.Services;
 using HaveAVoice.Models.Repositories;
 using HaveAVoice.Models;
 using System.Collections.Generic;
-using HaveAVoice.Models.Services.AdminFeatures;
+using HaveAVoice.Services.AdminFeatures;
 using HaveAVoice.Models.Repositories.AdminFeatures;
 using HaveAVoice.Models.View;
 using HaveAVoice.Models.View.Builders;

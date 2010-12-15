@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using HaveAVoice.Models.View;
-using HaveAVoice.Models.Services;
+using HaveAVoice.Services;
 using HaveAVoice.Models.Repositories;
 using HaveAVoice.Helpers;
 

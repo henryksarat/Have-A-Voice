@@ -7,10 +7,10 @@ using System.Web.Mvc.Ajax;
 using HaveAVoice.Models;
 using HaveAVoice.Models.Validation;
 using HaveAVoice.Models.View;
-using HaveAVoice.Models.Services;
+using HaveAVoice.Services;
 using HaveAVoice.Models.Repositories;
 using HaveAVoice.Helpers;
-using HaveAVoice.Models.Services.AdminFeatures;
+using HaveAVoice.Services.AdminFeatures;
 
 namespace HaveAVoice.Controllers.Errors
 {

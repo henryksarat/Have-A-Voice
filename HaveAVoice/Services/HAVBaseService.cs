@@ -5,7 +5,7 @@ using System.Web;
 using HaveAVoice.Models.Repositories;
 using HaveAVoice.Helpers;
 
-namespace HaveAVoice.Models.Services {
+namespace HaveAVoice.Services {
     public class HAVBaseService : IHAVBaseService{
         private static IHAVBaseRepository theBaseRespository;
 

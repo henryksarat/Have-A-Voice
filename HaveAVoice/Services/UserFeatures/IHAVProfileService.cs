@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using HaveAVoice.Models.View.Builders;
+using HaveAVoice.Models;
 
-namespace HaveAVoice.Models.Services.UserFeatures {
+namespace HaveAVoice.Services.UserFeatures {
     public interface IHAVProfileService {
         ProfileModelBuilder Profile(int aUserId, User aViewingUser);
         IEnumerable<Fan> FindFansForUser(int aUserId);

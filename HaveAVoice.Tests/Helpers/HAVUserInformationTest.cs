@@ -6,7 +6,7 @@ using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
-using HaveAVoice.Models.Services.UserFeatures;
+using HaveAVoice.Services.UserFeatures;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using HaveAVoice.Models.View.Builders;

@@ -2,7 +2,7 @@
 using HaveAVoice.Models.Repositories;
 using HaveAVoice.Models.Repositories.UserFeatures;
 
-namespace HaveAVoice.Models.Services.UserFeatures {
+namespace HaveAVoice.Services.UserFeatures {
     public class HAVSearchService : HAVBaseService, IHAVSearchService{
         private IValidationDictionary theValidationDictionary;
         private IHAVSearchRepository theRepository;

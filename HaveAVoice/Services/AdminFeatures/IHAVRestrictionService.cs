@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using HaveAVoice.Models.View;
+using HaveAVoice.Models;
 
-namespace HaveAVoice.Models.Services.AdminFeatures {
+namespace HaveAVoice.Services.AdminFeatures {
     public interface IHAVRestrictionService {
         Restriction GetRestriction(int restrictionId);
         IEnumerable<Restriction> GetAllRestrictions();

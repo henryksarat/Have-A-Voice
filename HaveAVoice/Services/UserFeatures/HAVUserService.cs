@@ -10,9 +10,10 @@ using HaveAVoice.Models.View;
 using HaveAVoice.Models.Repositories.UserFeatures;
 using System.Web.Mvc;
 using HaveAVoice.Models.Repositories.AdminFeatures;
+using HaveAVoice.Models;
 
 
-namespace HaveAVoice.Models.Services.UserFeatures {
+namespace HaveAVoice.Services.UserFeatures {
     public class HAVUserService : HAVBaseService, IHAVUserService {
         public const string REMEMBER_ME_COOKIE = "HaveAVoiceRememberMeCookie";
         public const int REMEMBER_ME_COOKIE_HOURS = 4;

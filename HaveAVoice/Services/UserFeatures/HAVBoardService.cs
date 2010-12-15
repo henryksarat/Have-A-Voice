@@ -7,8 +7,9 @@ using HaveAVoice.Models.Validation;
 using HaveAVoice.Models.Repositories;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models.View;
+using HaveAVoice.Models;
 
-namespace HaveAVoice.Models.Services.UserFeatures {
+namespace HaveAVoice.Services.UserFeatures {
     public class HAVBoardService : HAVBaseService, IHAVBoardService {
         private IHAVBoardRepository theRepository;
         private IValidationDictionary theValidationDictionary;

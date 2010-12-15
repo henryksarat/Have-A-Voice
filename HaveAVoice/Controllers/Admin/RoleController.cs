@@ -7,8 +7,8 @@ using HaveAVoice.Helpers;
 using HaveAVoice.Helpers.ActionMethods;
 using HaveAVoice.Models;
 using HaveAVoice.Models.Repositories;
-using HaveAVoice.Models.Services;
-using HaveAVoice.Models.Services.AdminFeatures;
+using HaveAVoice.Services;
+using HaveAVoice.Services.AdminFeatures;
 using HaveAVoice.Models.Validation;
 using HaveAVoice.Models.View;
 

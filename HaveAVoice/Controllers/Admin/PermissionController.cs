@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using HaveAVoice.Models;
-using HaveAVoice.Models.Services;
+using HaveAVoice.Services;
 using HaveAVoice.Models.Validation;
 using HaveAVoice.Models.Repositories;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models.View;
-using HaveAVoice.Models.Services.AdminFeatures;
+using HaveAVoice.Services.AdminFeatures;
 
 namespace HaveAVoice.Controllers.Admin {
     public class PermissionController : AdminBaseController {

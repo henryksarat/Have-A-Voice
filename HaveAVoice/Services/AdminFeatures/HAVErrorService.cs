@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using HaveAVoice.Models.Repositories;
 using HaveAVoice.Models.Repositories.AdminFeatures;
+using HaveAVoice.Models;
 
-namespace HaveAVoice.Models.Services.AdminFeatures {
+namespace HaveAVoice.Services.AdminFeatures {
     public class HAVErrorService : HAVBaseService, IHAVErrorService {
         private IValidationDictionary theValidationDictionary;
         private IHAVErrorRepository theRepository;

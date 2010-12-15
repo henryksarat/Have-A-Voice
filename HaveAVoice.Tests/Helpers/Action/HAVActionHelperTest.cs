@@ -4,7 +4,7 @@ using System.Web;
 using HaveAVoice.Helpers;
 using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Models;
-using HaveAVoice.Models.Services.UserFeatures;
+using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Models.View;
 using HaveAVoice.Models.View.Builders;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HaveAVoice.Controllers.Users;
-using HaveAVoice.Models.Services.UserFeatures;
+using HaveAVoice.Services.UserFeatures;
 using Moq;
 using HaveAVoice.Tests.Helpers;
 using HaveAVoice.Helpers;

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using HaveAVoice.Models.View;
+using HaveAVoice.Models;
 
-namespace HaveAVoice.Models.Services.UserFeatures {
+namespace HaveAVoice.Services.UserFeatures {
     public interface IHAVMessageService {
         bool CreateMessage(int toUserId, int fromUserId, Message messageToCreate);
         IEnumerable<InboxMessage> GetMessagesForUser(User toUser);

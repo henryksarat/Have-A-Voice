@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using HaveAVoice.Models.Validation;
 using HaveAVoice.Helpers;
-using HaveAVoice.Models.Services.UserFeatures;
+using HaveAVoice.Services.UserFeatures;
 
 namespace HaveAVoice.Models.View {
     public class IssueReplyDetailsModelBinder : IModelBinder {

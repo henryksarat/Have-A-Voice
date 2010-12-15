@@ -4,8 +4,9 @@ using HaveAVoice.Models.Repositories;
 using HaveAVoice.Models.Repositories.AdminFeatures;
 using HaveAVoice.Models.View;
 using HaveAVoice.Helpers;
+using HaveAVoice.Models;
 
-namespace HaveAVoice.Models.Services.AdminFeatures {
+namespace HaveAVoice.Services.AdminFeatures {
     public class HAVRestrictionService : HAVBaseService, IHAVRestrictionService {
         private IValidationDictionary theValidationDictionary;
         private IHAVRestrictionRepository theRepository;

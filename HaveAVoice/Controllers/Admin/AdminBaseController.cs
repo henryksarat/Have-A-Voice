@@ -1,6 +1,6 @@
 ﻿
 using HaveAVoice.Helpers;
-using HaveAVoice.Models.Services;
+using HaveAVoice.Services;
 using System.Web.Routing;
 using System.Web.Mvc;
 

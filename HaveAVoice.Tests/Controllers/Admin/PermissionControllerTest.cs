@@ -5,12 +5,12 @@ using HaveAVoice.Controllers.Admin;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models;
 using HaveAVoice.Models.Repositories;
-using HaveAVoice.Models.Services;
+using HaveAVoice.Services;
 using HaveAVoice.Models.Validation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using HaveAVoice.Models.View;
-using HaveAVoice.Models.Services.AdminFeatures;
+using HaveAVoice.Services.AdminFeatures;
 using HaveAVoice.Models.Repositories.AdminFeatures;
 using HaveAVoice.Tests.Helpers;
 

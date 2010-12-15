@@ -5,7 +5,7 @@ using HaveAVoice.Models.View;
 using System;
 using HaveAVoice.Helpers.Enums;
 using System.Collections.Generic;
-using HaveAVoice.Models.Services.UserFeatures;
+using HaveAVoice.Services.UserFeatures;
 
 namespace HaveAVoice.Helpers.UserInformation {
     public class UserInformation : IUserInformation {

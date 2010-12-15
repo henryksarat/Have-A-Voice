@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
-using HaveAVoice.Models.Services;
+using HaveAVoice.Services;
 using System.Web.Routing;
 using HaveAVoice.Helpers;
 using HaveAVoice.Helpers.UserInformation;

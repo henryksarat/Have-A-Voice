@@ -2,8 +2,9 @@
 using HaveAVoice.Models.Repositories;
 using HaveAVoice.Models.Repositories.UserFeatures;
 using HaveAVoice.Models.View;
+using HaveAVoice.Models;
 
-namespace HaveAVoice.Models.Services.UserFeatures {
+namespace HaveAVoice.Services.UserFeatures {
     public class HAVComplaintService : HAVBaseService, IHAVComplaintService {
         private IHAVComplaintRepository theRepository;
         private IValidationDictionary theValidationDictionary;

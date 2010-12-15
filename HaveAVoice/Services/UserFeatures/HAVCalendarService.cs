@@ -7,8 +7,9 @@ using HaveAVoice.Models.Repositories.UserFeatures;
 using System;
 using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Helpers;
+using HaveAVoice.Models;
 
-namespace HaveAVoice.Models.Services.UserFeatures {
+namespace HaveAVoice.Services.UserFeatures {
     public class HAVCalendarService : HAVBaseService, IHAVCalendarService {
         private IValidationDictionary theValidationDictionary;
         private IHAVCalendarRepository theRepository;

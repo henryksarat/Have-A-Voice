@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using HaveAVoice.Models;
 
-namespace HaveAVoice.Models.Services.UserFeatures {
+namespace HaveAVoice.Services.UserFeatures {
     public interface IHAVComplaintService {
         bool MergeComplaint(User aFiledBy, string aComplaint, int aMergeRequestId);
         bool IssueComplaint(User aFiledBy, string aComplaint, int aIssueId);
