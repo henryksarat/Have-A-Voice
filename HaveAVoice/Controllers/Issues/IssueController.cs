@@ -2,16 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using HaveAVoice.Helpers.Enums;
+using HaveAVoice.Helpers;
 using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
+using HaveAVoice.Models.Wrappers;
 using HaveAVoice.Repositories;
 using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Validation;
-using HaveAVoice.Helpers;
-using HaveAVoice.Controllers.Helpers;
 
 namespace HaveAVoice.Controllers.Issues
 {
@@ -19,14 +18,17 @@ namespace HaveAVoice.Controllers.Issues
     {
         private static string GET_LATEST_ISSUES_ERROR = "Unable to get the latest myIssues.";
         private static string NO_ISSUES = "There are no latest myIssues to display.";
+
+        private static string POST_SUCCESS = "Issue posted succesfully.";
+        private static string DELETE_SUCCESS = "Issue deleted succesfully.";
+        private static string EDIT_SUCCESS = "Issue edited successfully!";
+        private static string REPLY_SUCCESS = "Reply posted successfully!";
+        private static string DISPOSITION_SUCCESS = "Disposition added successfully!";
+
         private static string CREATING_ISSUE_ERROR = "Error creating issue. Please try again.";
         private static string CREATING_COMMENT_ERROR = "Error posting comment for the issue reply. Please try again.";
         private static string DISPOSITION_ERROR = "An error occurred while adding your disposition to the issue.";
         private static string DELETE_ISSUE_ERROR = "An error orror occurred while deleting the issue. Please try again.";
-        private static string DELETE_ISSUE_REPLY_ERROR = "An error occurred while deleting the reply. Please try again.";
-        private static string DELETE_ISSUE = "Issue deleted succesfully.";
-        private static string DELETE_ISSUE_REPLY = "Reply deleted succesfully.";
-        private static string EDIT_SUCCESS = "Issue edited successfully!";
         private static string EDIT_ISSUE_LOAD_ERROR = "Error while retrieving your original issue. Please try again.";
         private static string EDIT_ISSUE_ERROR = "Error editing the issue. Please try again.";
 
@@ -62,6 +64,7 @@ namespace HaveAVoice.Controllers.Issues
             return View("Index", myIssues);
         }
 
+        [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Create() {
             if (!IsLoggedIn()) {
                 return RedirectToAction("Login", "User");
@@ -74,7 +77,7 @@ namespace HaveAVoice.Controllers.Issues
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Create([Bind(Exclude = "Id, DateTimeStamp")] Issue issueToCreate) {
+        public ActionResult Create(IssueWrapper anIssueWrapper) {
             if (!IsLoggedIn()) {
                 return RedirectToAction("Login", "User");
             }
@@ -82,17 +85,18 @@ namespace HaveAVoice.Controllers.Issues
             UserInformationModel myUser = GetUserInformatonModel();
 
             try {
-                if (theService.CreateIssue(myUser, issueToCreate)) {
-                    return SendToResultPage("Issue created successfully!");
+                if (theService.CreateIssue(myUser, anIssueWrapper.ToModel())) {
+                    TempData["Message"] = POST_SUCCESS;
+                    return RedirectToAction("Index");
                 }
             } catch (Exception e) {
                 LogError(e, CREATING_ISSUE_ERROR);
                 ViewData["Message"] = CREATING_ISSUE_ERROR;
             }
-
-            return View("Create", issueToCreate);
+            return View("Create", anIssueWrapper);
         }
 
+        [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult View(int id) {
             if (!IsLoggedIn()) {
                 return RedirectToAction("Login", "User");
@@ -131,7 +135,8 @@ namespace HaveAVoice.Controllers.Issues
 
             try {
                 if (theService.CreateIssueReply(myUserInformation, issueModel)) {
-                    return SendToResultPage("Reply posted to issue!");
+                    TempData["Message"] = REPLY_SUCCESS;
+                    return RedirectToAction("View", new { id = issueModel.Issue.Id });
                 }
             } catch (Exception e) {
                 LogError(e, CREATING_COMMENT_ERROR);
@@ -152,10 +157,11 @@ namespace HaveAVoice.Controllers.Issues
                 return SendToErrorPage(DISPOSITION_ERROR);
             }
 
+            TempData["Message"] = DISPOSITION_SUCCESS;
             return RedirectToAction("Index");
         }
                                             
-        public ActionResult Delete(int issueId) {
+        public ActionResult Delete(int id) {
             if (!IsLoggedIn()) {
                 return RedirectToAction("Login", "User");
             }
@@ -164,15 +170,17 @@ namespace HaveAVoice.Controllers.Issues
             }
             UserInformationModel myUserInfo = GetUserInformatonModel();
             try {
-                theService.DeleteIssue(myUserInfo, issueId);
+                theService.DeleteIssue(myUserInfo, id);
             } catch (Exception myException) {
                 LogError(myException, DELETE_ISSUE_ERROR);
                 return SendToErrorPage(DELETE_ISSUE_ERROR);
             }
 
-            return SendToResultPage(DELETE_ISSUE);
+            TempData["Message"] = DELETE_SUCCESS;
+            return RedirectToAction("Index");
         }
 
+        [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Edit(int id) {
             if (!IsLoggedIn()) {
                 return RedirectToAction("Login", "User");
@@ -185,7 +193,7 @@ namespace HaveAVoice.Controllers.Issues
             try {
                 Issue myIssue = theService.GetIssue(id);
                 if (myUserInformation.Details.Id == myIssue.User.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Edit_Any_Issue)) {
-                    return View("Edit", myIssue);
+                    return View("Edit", IssueWrapper.Build(myIssue));
                 } else {
                     return SendToErrorPage(HAVConstants.PAGE_NOT_FOUND);
                 }
@@ -196,22 +204,23 @@ namespace HaveAVoice.Controllers.Issues
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Edit(Issue anIssue) {
+        public ActionResult Edit(IssueWrapper anIssueWrapper) {
             if (!IsLoggedIn()) {
                 return RedirectToAction("Login", "User");
             }
             
             try {
-                bool myResult = theService.EditIssue(GetUserInformatonModel(), anIssue);
+                bool myResult = theService.EditIssue(GetUserInformatonModel(), anIssueWrapper.ToModel());
                 if (myResult) {
-                    return SendToResultPage(EDIT_SUCCESS);
+                    TempData["Message"] = EDIT_SUCCESS;
+                    return RedirectToAction("View", new {id = anIssueWrapper.Id});
                 }
             } catch (Exception myException) {
                 LogError(myException, EDIT_ISSUE_ERROR);
                 ViewData["Message"] = EDIT_ISSUE_ERROR;
             }
 
-            return View("Edit", anIssue);
+            return View("Edit", anIssueWrapper);
         }
 
         public override ActionResult SendToResultPage(string aTitle, string aDetails) {

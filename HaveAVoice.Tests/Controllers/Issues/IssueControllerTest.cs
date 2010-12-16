@@ -164,7 +164,7 @@ namespace HaveAVoice.Tests.Controllers.Issues {
 
             AssertAuthenticatedRedirection(myResult);
         }
-
+        /*
         [TestMethod]
         public void ShouldCreateIssue() {
             theMockedService.Setup(s => s.CreateIssue(It.IsAny<UserInformationModel>(), It.IsAny<Issue>())).Returns(() => true);
@@ -200,7 +200,7 @@ namespace HaveAVoice.Tests.Controllers.Issues {
 
             AssertAuthenticatedErrorLogReturnBack(myResult, "Create");
         }
-
+        */
         [TestMethod]
         public void ShouldLoadViewIssuePage() {
             PermissionTestHelper.AddPermissionToUserInformation(theUserInformationBuilder, HAVPermission.View_Issue);
@@ -328,7 +328,7 @@ namespace HaveAVoice.Tests.Controllers.Issues {
             theMockedService.Verify(s => s.GetIssue(It.IsAny<int>()), Times.Exactly(1));
             AssertAuthenticatedCleanSuccessWithReturn(myResult, "Edit", theIssue);
         }
-
+        /*
         [TestMethod]
         public void ShouldEditIssue() {
             theMockedService.Setup(s => s.EditIssue(It.IsAny<UserInformationModel>(), It.IsAny<Issue>())).Returns(() => true);
@@ -365,6 +365,7 @@ namespace HaveAVoice.Tests.Controllers.Issues {
             VerifyEdit(Times.Exactly(1));
             AssertAuthenticatedFailWithReturnBack(myResult, "Edit", theIssue);
         }
+         * */
 
         private void VerifyEdit(Times aTimes) {
             theMockedService.Verify(s => s.EditIssue(It.IsAny<UserInformationModel>(), It.IsAny<Issue>()), aTimes);

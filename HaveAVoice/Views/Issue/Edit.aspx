@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.Issue>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.Wrappers.IssueWrapper>" %>
 <%@ Import Namespace="HaveAVoice.Helpers.Enums" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
@@ -12,7 +12,7 @@
     <% using (Html.BeginForm()) { %>
         <%= Html.ValidationSummary("Your issue wasn't edited. Please correct your errors and try again.") %>
         <p>
-            <%= Html.Encode(ViewData["Message"]) %>
+            <%= Html.Encode(ViewData["Message"])%>
         </p>
         <p>
             <%= Html.TextBox("Title", Model.Title)%>

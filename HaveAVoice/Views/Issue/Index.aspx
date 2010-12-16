@@ -15,7 +15,9 @@
     <p>
         <%= Html.Encode(ViewData["Message"]) %>
     </p>
-
+    <p>
+        <%= Html.Encode(TempData["Message"]) %>
+    </p>
     <table>
         <tr>
             <th>

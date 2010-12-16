@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.Issue>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.Wrappers.IssueWrapper>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Create
@@ -11,8 +11,6 @@
     <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
 
     <% using (Html.BeginForm()) {%>
-
-         <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
         <fieldset>
             <legend>Fields</legend>
             <p>
