@@ -132,7 +132,7 @@ namespace HaveAVoice.Tests.Controllers.Issues {
             theMockedService.Verify(s => s.GetIssueReply(It.IsAny<int>()), Times.Exactly(1));
             AssertAuthenticatedCleanSuccessWithReturn(myResult, "Edit", theIssueReply);
         }
-
+        /*
         [TestMethod]
         public void ShouldEditReply() {
             theMockedService.Setup(s => s.EditIssueReply(It.IsAny<UserInformationModel>(), It.IsAny<IssueReply>())).Returns(() => true);
@@ -169,7 +169,7 @@ namespace HaveAVoice.Tests.Controllers.Issues {
             VerifyEdit(Times.Exactly(1));
             AssertAuthenticatedFailWithReturnBack(myResult, "Edit", theIssueReply);
         }
-
+        */
         #endregion
 
         #region "View"

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.IssueReply>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.IssueReplyWrapper>" %>
 <%@ Import Namespace="HaveAVoice.Helpers.Enums" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
@@ -16,8 +16,8 @@
         </p>
 
         <p>
-            <%= Html.TextArea("Reply", Model.Reply, 5, 30, null)%>
-            <%= Html.ValidationMessage("Reply", "*") %>
+            <%= Html.TextArea("Body", Model.Body, 5, 30, null)%>
+            <%= Html.ValidationMessage("Body", "*")%>
         </p>
         <table>
             <tr>

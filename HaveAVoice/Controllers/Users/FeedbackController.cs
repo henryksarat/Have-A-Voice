@@ -93,7 +93,7 @@ namespace HaveAVoice.Controllers.Users
         }
 
         public override ActionResult SendToResultPage(string title, string details) {
-            return SendToResultPage(SiteSectionsEnum.Complaint, title, details);
+            return SendToResultPage(SiteSectionsEnum.Feedback, title, details);
         }
     }
 }

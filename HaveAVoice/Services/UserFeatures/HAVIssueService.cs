@@ -203,7 +203,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
         private bool ValidateReply(string aReply, int aDisposition) {
             if (aReply.Trim().Length == 0) {
-                theValidationDictionary.AddError("Reply", aReply, "Reply is required.");
+                theValidationDictionary.AddError("Body", aReply, "Reply is required.");
             }
             if (aDisposition == (int)Disposition.NONE) {
                 theValidationDictionary.AddError("Disposition", aDisposition.ToString(), "Disposition is required.");
@@ -218,7 +218,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
         private bool ValidateComment(string aComment) {
             if (aComment.Trim().Length == 0) {
-                theValidationDictionary.AddError("Comment", aComment, "Comment is required.");
+                theValidationDictionary.AddError("Body", aComment, "Comment is required.");
             }
 
             return theValidationDictionary.isValid;
