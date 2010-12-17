@@ -14,11 +14,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HaveAVoice.Controllers.Issues {
     public class IssueReplyCommentController : HAVBaseController {
-        private static string DELETE_COMMENT = "Comment deleted succesfully.";
-        private static string DELETE_COMMENT_ERROR = "An error occurred while deleting the comment. Please try again.";
+        private static string DELETE_SUCCESS = "Comment deleted succesfully.";
         private static string EDIT_SUCCESS = "Comment edited successfully!";
-        private static string EDIT_COMMENT_LOAD_ERROR = "Error while retrieving your original comment. Please try again.";
-        private string EDIT_COMMENT_ERROR = "Error editing the comment. Please try again.";
+
+        private static string DELETE_ERROR = "An error occurred while deleting the comment. Please try again.";
+        private static string EDIT_LOAD_ERROR = "Error while retrieving your original comment. Please try again.";
+        private static string EDIT_ERROR = "Error editing the comment. Please try again.";
         
         private IHAVIssueService theService;
 
@@ -32,7 +33,8 @@ namespace HaveAVoice.Controllers.Issues {
             theService = aService;
         }
 
-        public ActionResult Delete(int issueReplyId, int issueReplyCommentId) {
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult Delete(int id, int replyId) {
             if (!IsLoggedIn()) {
                 return RedirectToAction("Login", "User");
             }
@@ -41,16 +43,17 @@ namespace HaveAVoice.Controllers.Issues {
                 return SendToErrorPage(HAVConstants.PAGE_NOT_FOUND);
             }
             try {
-                theService.DeleteIssueReplyComment(GetUserInformatonModel(), issueReplyCommentId);
-                TempData["Message"] = DELETE_COMMENT;
+                theService.DeleteIssueReplyComment(GetUserInformatonModel(), id);
+                TempData["Message"] = DELETE_SUCCESS;
             } catch (Exception myException) {
-                LogError(myException, DELETE_COMMENT_ERROR);
-                TempData["Message"] = DELETE_COMMENT_ERROR;
+                LogError(myException, DELETE_ERROR);
+                TempData["Message"] = DELETE_ERROR;
             }
 
-            return RedirectToAction("View", "IssueReply", new { id = issueReplyId });
+            return RedirectToAction("View", "IssueReply", new { id = replyId });
         }
 
+        [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Edit(int id) {
             if (!IsLoggedIn()) {
                 return RedirectToAction("Login", "User");
@@ -64,34 +67,34 @@ namespace HaveAVoice.Controllers.Issues {
                 IssueReplyComment myComment = theService.GetIssueReplyComment(id);
 
                 if (myUserInformation.Details.Id == myComment.User.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Edit_Any_Issue_Reply_Comment)) {
-                    return View("Edit", myComment);
+                    return View("Edit", IssueReplyCommentWrapper.Build(myComment));
                 } else {
                     return SendToErrorPage(HAVConstants.PAGE_NOT_FOUND);
                 }
             } catch (Exception myException) {
-                LogError(myException, EDIT_COMMENT_LOAD_ERROR);
-                return SendToErrorPage(EDIT_COMMENT_LOAD_ERROR);
+                LogError(myException, EDIT_LOAD_ERROR);
+                return SendToErrorPage(EDIT_LOAD_ERROR);
             }
         }
-
         
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Edit(IssueReplyComment aComment) {
+        public ActionResult Edit(IssueReplyCommentWrapper aCommentWrapper) {
             if (!IsLoggedIn()) {
                 return RedirectToAction("Login", "User");
             }
             
             try {
-                bool myResult = theService.EditIssueReplyComment(GetUserInformatonModel(), aComment);
+                bool myResult = theService.EditIssueReplyComment(GetUserInformatonModel(), aCommentWrapper.ToModel());
                 if (myResult) {
-                    return SendToResultPage(EDIT_SUCCESS);
+                    TempData["Message"] = EDIT_SUCCESS;
+                    return RedirectToAction("View", "IssueReply", new { id = aCommentWrapper.IssueReplyId});
                 }
             } catch (Exception myException) {
-                LogError(myException, EDIT_COMMENT_ERROR);
-                ViewData["Message"] = EDIT_COMMENT_ERROR;
+                LogError(myException, EDIT_ERROR);
+                ViewData["Message"] = EDIT_ERROR;
             }
 
-            return View("Edit", aComment);
+            return View("Edit", aCommentWrapper);
         }
         public override ActionResult SendToResultPage(string aTitle, string aDetails) {
             return SendToResultPage(SiteSectionsEnum.IssueReplyComment, aTitle, aDetails);

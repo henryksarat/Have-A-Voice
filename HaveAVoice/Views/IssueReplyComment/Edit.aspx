@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.IssueReplyComment>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.IssueReplyCommentWrapper>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Edit
@@ -15,8 +15,9 @@
         </p>
 
         <p>
-            <%= Html.TextBox("Comment", Model.Comment)%>
-            <%= Html.ValidationMessage("Comment", "*") %>
+            <%= Html.Hidden("IssueReplyId", Model.IssueReplyId) %>
+            <%= Html.TextBox("Body", Model.Body)%>
+            <%= Html.ValidationMessage("Body", "*")%>
         </p>
         <p>
             <input type="submit" value="Submit" />

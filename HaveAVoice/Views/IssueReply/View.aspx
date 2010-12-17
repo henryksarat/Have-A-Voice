@@ -40,7 +40,7 @@
                                         <%= Html.ActionLink("Edit", "Edit", "IssueReplyComment", new { id = comment.Id }, null)%>
                                     <% } %>
                                     <% if (comment.User.Id == HAVUserInformationFactory.GetUserInformation().Details.Id || HAVPermissionHelper.AllowedToPerformAction(HAVUserInformationFactory.GetUserInformation(), HAVPermission.Delete_Any_Issue_Reply_Comment)) { %>
-                                        <%= Html.ActionLink("Delete", "Delete", "IssueReplyComment", new { issueReplyId = Model.IssueReply.Id, issueReplyCommentId = comment.Id }, null)%>
+                                        <%= Html.ActionLink("Delete", "Delete", "IssueReplyComment", new { id = comment.Id, replyId = Model.IssueReply.Id }, null)%>
                                     <% } %>
                                 </p>
                             <%}%>
@@ -58,7 +58,7 @@
                     HAVUserInformationFactory.IsLoggedIn() ? Model.Comment : "You must be logged in to reply", 5, 30,
                     HAVUserInformationFactory.IsLoggedIn() ? null : new { @readonly = "readonly" })%>
                     
-                <%= Html.ValidationMessage("Comment", "*")%>
+                <%= Html.ValidationMessage("Body", "*")%>
             </p>
             
             <p>
