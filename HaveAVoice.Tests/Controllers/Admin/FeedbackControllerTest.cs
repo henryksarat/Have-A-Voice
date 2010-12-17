@@ -69,7 +69,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
 
             AssertAuthenticatedRedirection(myResult);
         }
-
+        /*
         public void ShouldSubmitFeedback() {
             var myResult = theController.Index(FEEDBACK) as ViewResult;
 
@@ -93,6 +93,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
 
             AssertAuthenticatedErrorLogReturnBack(myResult, "Index");
         }
+         * */
 
         protected override Controller GetController() {
             return theController;

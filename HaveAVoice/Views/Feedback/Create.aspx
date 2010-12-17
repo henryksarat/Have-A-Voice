@@ -15,6 +15,9 @@
                  <%= Html.Encode(ViewData["Message"]) %>
         </p>
         <p>
+                 <%= Html.Encode(TempData["Message"]) %>
+        </p>
+        <p>
             <%= Html.TextArea("Feedback", new { style = "width:300px; height: 200px" })%>
             <%= Html.ValidationMessage("Feedback", "*")%>
         </p>

@@ -10,6 +10,7 @@ using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Validation;
 using HaveAVoice.Models.View;
 using HaveAVoice.Helpers;
+using HaveAVoice.Controllers.ActionFilters;
 
 namespace HaveAVoice.Controllers.Users
 {
@@ -31,13 +32,15 @@ namespace HaveAVoice.Controllers.Users
             theFeedbackService = aService;
         }
 
+        [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Index() {
             if (!IsLoggedIn()) {
                 return RedirectToAction("Login", "User");
             }
-            return View("Index");
+            return View("Create");
         }
 
+        [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult View() {
             if (!IsLoggedIn()) {
                 return RedirectToAction("Login", "User");
@@ -62,22 +65,31 @@ namespace HaveAVoice.Controllers.Users
             return View("View", myFeedback);
         }
 
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult Create() {
+            if (!IsLoggedIn()) {
+                return RedirectToAction("Login", "User");
+            }
+            return View("Create");
+        }
+
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Index(string feedback) {
+        public ActionResult Create(string feedback) {
             if (!IsLoggedIn()) {
                 return RedirectToAction("Login", "User");
             }
             User myUser = GetUserInformatonModel().Details;
             try {
                 if (theFeedbackService.AddFeedback(myUser, feedback)) {
-                    return SendToResultPage(FEEDBACK_SUCCESS);
+                    TempData["Message"] = FEEDBACK_SUCCESS;
+                    return RedirectToAction("Create");
                 }
             } catch (Exception e) {
                 LogError(e, FEEDBACK_ERROR);
                 ViewData["Message"] = FEEDBACK_ERROR;
             }
 
-            return View("Index");
+            return View("Create");
         }
 
         public override ActionResult SendToResultPage(string title, string details) {
