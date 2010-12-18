@@ -36,11 +36,11 @@
         </div>
 
         <div class="col-12">
-            <div rel="match" class="dislike">
+            <div rel="match" class="p-a10 b-wht">
                 <% foreach (var item in Model.DislikedIssues) { %>
                     <%= IssueHelper.BuildIssueDisplay(item.Issue, false) %> 
                 <% } %>
-                <div class="alpha grid_10 omega right">
+                <div class="right">
 				    <a href="#" class="more-dislike">More Topics Disliked By Members &gt;&gt;</a>
 			    </div>
                 <div class="clear">&nbsp;</div>
