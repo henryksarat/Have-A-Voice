@@ -27,7 +27,7 @@ namespace HaveAVoice.Controllers.Admin {
 
         public ActionResult Index() {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             if (!HAVPermissionHelper.AllowedToPerformAction(GetUserInformatonModel(), HAVPermission.View_Permissions)) {
                 return SendToErrorPage(PAGE_NOT_FOUND);
@@ -59,7 +59,7 @@ namespace HaveAVoice.Controllers.Admin {
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Create(PermissionModel model) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             try {
                 if (theService.CreatePermission(GetUserInformatonModel(), model.Permission)) {
@@ -75,7 +75,7 @@ namespace HaveAVoice.Controllers.Admin {
 
         public ActionResult Edit(int id) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             UserInformationModel myUserInformation = GetUserInformatonModel();
             if (!HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Edit_Permission)) {
@@ -99,7 +99,7 @@ namespace HaveAVoice.Controllers.Admin {
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Edit(Permission permission) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             try {
                 if (theService.EditPermission(GetUserInformatonModel(), permission)) {
@@ -114,7 +114,7 @@ namespace HaveAVoice.Controllers.Admin {
 
         public ActionResult Delete(int id) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             UserInformationModel myUserInformation = GetUserInformatonModel();
             if (!HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Delete_Permission)) {
@@ -138,7 +138,7 @@ namespace HaveAVoice.Controllers.Admin {
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Delete(Permission permission) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             try {
                 theService.DeletePermission(GetUserInformatonModel(), permission);
@@ -149,7 +149,7 @@ namespace HaveAVoice.Controllers.Admin {
             }
         }
 
-        public override ActionResult SendToResultPage(string title, string details) {
+        protected override ActionResult SendToResultPage(string title, string details) {
             return SendToResultPage(SiteSectionsEnum.Permission, title, details);
         }
     }

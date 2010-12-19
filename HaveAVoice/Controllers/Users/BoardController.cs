@@ -39,7 +39,7 @@ namespace HaveAVoice.Controllers.Users
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult View(int id) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             BoardModel myBoardModel;
 
@@ -56,7 +56,7 @@ namespace HaveAVoice.Controllers.Users
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
         public ActionResult Create(int sourceUserId, string message) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             UserInformationModel myPostingUser = GetUserInformatonModel();
             try {
@@ -75,7 +75,7 @@ namespace HaveAVoice.Controllers.Users
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult Edit(int id) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             BoardWrapper myBoardWrapper;
             try {
@@ -97,7 +97,7 @@ namespace HaveAVoice.Controllers.Users
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
         public ActionResult Edit(BoardWrapper aBoard) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             try {
                 bool myBoardResult =  theService.EditBoardMessage(GetUserInformatonModel(), aBoard.ToModel());
@@ -115,7 +115,7 @@ namespace HaveAVoice.Controllers.Users
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult Delete(int profileUserId, int boardId) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             UserInformationModel myUserInfo = GetUserInformatonModel();
             if (!HAVPermissionHelper.AllowedToPerformAction(myUserInfo, HAVPermission.Delete_Board_Message, HAVPermission.Delete_Any_Board_Message)) {
@@ -131,7 +131,7 @@ namespace HaveAVoice.Controllers.Users
 
             return RedirectToAction("Show", "Profile", new { id = profileUserId });
         }
-        public override ActionResult SendToResultPage(string aTitle, string aDetails) {
+        protected override ActionResult SendToResultPage(string aTitle, string aDetails) {
             return SendToResultPage(SiteSectionsEnum.Board, aTitle, aDetails);
         }
     }

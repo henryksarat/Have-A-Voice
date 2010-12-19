@@ -151,13 +151,13 @@ namespace HaveAVoice.Controllers.Users
             }
         }
 
-        public override ActionResult SendToResultPage(string title, string details) {
+        protected override ActionResult SendToResultPage(string title, string details) {
             return SendToResultPage(SiteSectionsEnum.User, title, details);
         }
 
         public ActionResult Edit() {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             } 
             User myUser = GetUserInformaton();
 
@@ -189,7 +189,7 @@ namespace HaveAVoice.Controllers.Users
 
         public ActionResult UserPictures() {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             } 
             int myUserId = GetUserInformaton().Id;
             IEnumerable<UserPicture> userPictures = theService.GetUserPictures(myUserId);
@@ -240,7 +240,7 @@ namespace HaveAVoice.Controllers.Users
 
         public ActionResult EditPrivacy() {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             } 
             User myUser = GetUserInformaton();
             UserPrivacySetting myPrivacy;
@@ -258,7 +258,7 @@ namespace HaveAVoice.Controllers.Users
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult EditPrivacy(UserPrivacySetting aUserPrivacySetting) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             } 
             User myUser = GetUserInformaton();
             try {
@@ -314,7 +314,7 @@ namespace HaveAVoice.Controllers.Users
 
         public ActionResult Gallery() {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             int myUserId = GetUserInformaton().Id;
 
@@ -331,7 +331,7 @@ namespace HaveAVoice.Controllers.Users
 
         public ActionResult BecomeAFan(int id) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
             try {

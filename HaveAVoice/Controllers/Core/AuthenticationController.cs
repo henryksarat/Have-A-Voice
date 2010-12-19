@@ -86,7 +86,7 @@ namespace HaveAVoice.Controllers.Core {
             Session["UserInformation"] = userModel;
         }
 
-        public override ActionResult SendToResultPage(string aTitle, string aDetails) {
+        protected override ActionResult SendToResultPage(string aTitle, string aDetails) {
             throw new NotImplementedException();
         }
     }

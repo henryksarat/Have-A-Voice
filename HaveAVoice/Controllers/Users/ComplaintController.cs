@@ -35,7 +35,7 @@ namespace HaveAVoice.Controllers.Users
 
         public ActionResult Complaint(string complaintType, int sourceId) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
 
             User myUser = GetUserInformaton();
@@ -103,7 +103,7 @@ namespace HaveAVoice.Controllers.Users
             return SendToResultPage("Complaint logged successfully!");
         }
 
-        public override ActionResult SendToResultPage(string title, string details) {
+        protected override ActionResult SendToResultPage(string title, string details) {
             return SendToResultPage(SiteSectionsEnum.Complaint, title, details);
         }
     }

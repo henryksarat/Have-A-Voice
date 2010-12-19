@@ -36,7 +36,7 @@ namespace HaveAVoice.Controllers.Issues {
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Delete(int id, int replyId) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             UserInformationModel myUserInfo = GetUserInformatonModel();
             if (!HAVPermissionHelper.AllowedToPerformAction(myUserInfo, HAVPermission.Delete_Issue_Reply_Comment, HAVPermission.Delete_Any_Issue_Reply_Comment)) {
@@ -56,7 +56,7 @@ namespace HaveAVoice.Controllers.Issues {
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Edit(int id) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             UserInformationModel myUserInformation = GetUserInformatonModel();
             if (!HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Edit_Issue_Reply_Comment, HAVPermission.Edit_Any_Issue_Reply_Comment)) {
@@ -80,7 +80,7 @@ namespace HaveAVoice.Controllers.Issues {
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Edit(IssueReplyCommentWrapper aCommentWrapper) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             
             try {
@@ -96,7 +96,7 @@ namespace HaveAVoice.Controllers.Issues {
 
             return View("Edit", aCommentWrapper);
         }
-        public override ActionResult SendToResultPage(string aTitle, string aDetails) {
+        protected override ActionResult SendToResultPage(string aTitle, string aDetails) {
             return SendToResultPage(SiteSectionsEnum.IssueReplyComment, aTitle, aDetails);
         }
     }

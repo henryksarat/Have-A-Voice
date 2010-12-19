@@ -35,7 +35,7 @@ namespace HaveAVoice.Controllers.Users
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Index() {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             return View("Create");
         }
@@ -43,7 +43,7 @@ namespace HaveAVoice.Controllers.Users
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult View() {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             if (!HAVPermissionHelper.AllowedToPerformAction(GetUserInformatonModel(), HAVPermission.View_Feedback)) {
                 return SendToErrorPage(PAGE_NOT_FOUND);
@@ -68,7 +68,7 @@ namespace HaveAVoice.Controllers.Users
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Create() {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             return View("Create");
         }
@@ -76,7 +76,7 @@ namespace HaveAVoice.Controllers.Users
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Create(string feedback) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             User myUser = GetUserInformatonModel().Details;
             try {
@@ -92,7 +92,7 @@ namespace HaveAVoice.Controllers.Users
             return View("Create");
         }
 
-        public override ActionResult SendToResultPage(string title, string details) {
+        protected override ActionResult SendToResultPage(string title, string details) {
             return SendToResultPage(SiteSectionsEnum.Feedback, title, details);
         }
     }

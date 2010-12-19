@@ -43,7 +43,7 @@ namespace HaveAVoice.Controllers.Issues {
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Delete(int id, int issueId) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             UserInformationModel myUserInfo = GetUserInformatonModel();
             if (!HAVPermissionHelper.AllowedToPerformAction(myUserInfo, HAVPermission.Delete_Issue_Reply, HAVPermission.Delete_Any_Issue_Reply)) {
@@ -64,7 +64,7 @@ namespace HaveAVoice.Controllers.Issues {
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Edit(int id) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             UserInformationModel myUserInformation = GetUserInformatonModel();
             if (!HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Edit_Issue_Reply, HAVPermission.Edit_Any_Issue_Reply)) {
@@ -88,7 +88,7 @@ namespace HaveAVoice.Controllers.Issues {
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Edit(IssueReplyWrapper aReplyWrapper) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             try {
                 bool myResult = theService.EditIssueReply(GetUserInformatonModel(), aReplyWrapper.ToModel());
@@ -107,7 +107,7 @@ namespace HaveAVoice.Controllers.Issues {
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult View(int id) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             if (!HAVPermissionHelper.AllowedToPerformAction(GetUserInformatonModel(), HAVPermission.View_Issue_Reply)) {
                 return SendToErrorPage(HAVConstants.PAGE_NOT_FOUND);
@@ -130,7 +130,7 @@ namespace HaveAVoice.Controllers.Issues {
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult View(IssueReplyDetailsModel issueReplyDetails) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             UserInformationModel myUserInformation = GetUserInformatonModel();
             try {
@@ -148,7 +148,7 @@ namespace HaveAVoice.Controllers.Issues {
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Disposition(int id, int issueId, int disposition) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             User aUser = GetUserInformaton();
             try {
@@ -163,7 +163,7 @@ namespace HaveAVoice.Controllers.Issues {
             return RedirectToAction("View", "Issue", new { id = issueId });
         }
 
-        public override ActionResult SendToResultPage(string aTitle, string aDetails) {
+        protected override ActionResult SendToResultPage(string aTitle, string aDetails) {
             return SendToResultPage(SiteSectionsEnum.IssueReply, aTitle, aDetails);
         }
     }

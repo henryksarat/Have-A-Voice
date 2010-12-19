@@ -11,15 +11,29 @@ namespace HaveAVoice.Controllers  {
     public abstract class HAVBaseController : Controller {
         private IHAVBaseService theErrorService;
         public IUserInformation theUserInformation;
+       
+        public HAVBaseController(IHAVBaseService baseService) {
+            theErrorService = baseService;
+        }
+
+        public void AddMessageToSession(SiteSectionsEnum siteSection, string title, string details) {
+            MessageModel messageModel = new MessageModel();
+            messageModel.Origin = siteSection;
+            messageModel.Title = title;
+            messageModel.Details = details;
+            Session["Message"] = messageModel;
+        }
+
+        public void AddErrorToSession(string error) {
+            ErrorModel errorModel = new ErrorModel();
+            errorModel.ErrorMessage = error;
+            Session["ErrorMessage"] = errorModel;
+        }
 
         protected override void Initialize(RequestContext rc) {
             base.Initialize(rc);
             HAVUserInformationFactory.SetInstance(UserInformation.Instance());
             theErrorService.ResetConnection();
-        }
-       
-        public HAVBaseController(IHAVBaseService baseService) {
-            theErrorService = baseService;
         }
 
         protected User GetUserInformaton() {
@@ -45,20 +59,6 @@ namespace HaveAVoice.Controllers  {
             return RedirectToAction("Result", "Shared");
         }
 
-        public void AddMessageToSession(SiteSectionsEnum siteSection, string title, string details) {
-            MessageModel messageModel = new MessageModel();
-            messageModel.Origin = siteSection;
-            messageModel.Title = title;
-            messageModel.Details = details;
-            Session["Message"] = messageModel;
-        }
-
-        public void AddErrorToSession(string error) {
-            ErrorModel errorModel = new ErrorModel();
-            errorModel.ErrorMessage = error;
-            Session["ErrorMessage"] = errorModel;
-        }
-
         protected ActionResult SendToResultPage(string details) {
             return SendToResultPage(null, details);
         }
@@ -66,6 +66,11 @@ namespace HaveAVoice.Controllers  {
         protected void LogError(Exception anException, string aDetails) {
             theErrorService.LogError(anException, aDetails);
         }
-        public abstract ActionResult SendToResultPage(string aTitle, string aDetails);
+
+        protected ActionResult RedirectToLogin() {
+            return RedirectToAction("Login", "Authentication");
+        }
+
+        protected abstract ActionResult SendToResultPage(string aTitle, string aDetails);
     }
 }
