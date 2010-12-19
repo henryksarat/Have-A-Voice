@@ -38,7 +38,7 @@
 	</script>
 
     <div class="col-18">
-    <% using (Html.BeginForm("Login", "User")) {%>
+    <% using (Html.BeginForm("Login", "Authentication")) {%>
         <div class="col-2 sign-in">
             Sign In
         </div>
@@ -67,7 +67,7 @@
     <% } %>
 
     <!-- Logon: -->
-    <!--[ <%/*= Html.ActionLink("Log In", "Login", "User")*/%> ] -->
+    <!--[ <%/*= Html.ActionLink("Log In", "Login", "Authentication")*/%> ] -->
     </div>
 <% } else { %>
     <div class="col-12">
@@ -81,7 +81,7 @@
     <div class="col-6">
 	    <ul class="right">
             <li><a href="#">SETTINGS</a></li>
-            <li><%= Html.ActionLink("LOGOUT", "LogOut", "User")%></li>
+            <li><%= Html.ActionLink("LOGOUT", "LogOut", "Authentication")%></li>
         </ul>
 	</div>
 <% } %>

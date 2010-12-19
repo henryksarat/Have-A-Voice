@@ -78,63 +78,6 @@ namespace HaveAVoice.Controllers.Users
             return View("Create", aUserToCreate);
         }
 
-        public ActionResult Login() {
-            return View("Login");
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Login(string email, string password, bool rememberMe) {
-            UserInformationModel userModel = null;
-            try {
-                userModel = theService.AuthenticateUser(email, password);
-            } catch (Exception e) {
-                LogError(e, "Unable to authenticate the User.");
-                ViewData["Message"] = "Error authenticating. Please try again.";
-                return View("Login");
-            }
-
-            if (userModel != null) {
-                theService.AddToWhoIsOnline(userModel.Details, HttpContext.Request.UserHostAddress);
-
-                CreateUserInformationSession(userModel);
-                if (rememberMe) {
-                    theService.CreateRememberMeCredentials(userModel.Details);
-                }
-            } else {
-                ViewData["Message"] = "Incorrect aUsername and aPassword combination.";
-                return View("Login");
-            }
-
-            return RedirectToAction("LoggedIn", "Home");
-        }
-
-        private void CreateUserInformationSession(UserInformationModel userModel) {
-            Session["UserInformation"] = userModel;
-        }
-
-        public ActionResult ActivateAccount(string id) {
-            try {
-                UserInformationModel userModel = theService.ActivateNewUser(id);
-                CreateUserInformationSession(userModel);
-                return View("Index");
-            } catch (NullUserException) {
-                ViewData["Message"] = "That activation code doesn't exist for a user.";
-            } catch (NullRoleException e) {
-                LogError(e, "Unable to activate the account because of a role issue.");
-                ViewData["Message"] = "Couldn't activate the account because of something on our end. Please try again later.";
-            } catch(Exception e) {
-                LogError(e,  "Couldn't activate the account for some reason.");
-                ViewData["Message"] = "Error while activating your account, please try again.";
-            }
-            return View("ActivateAccount");   
-        }
-
-        public ActionResult LogOut() {
-            theService.RemoveFromWhoIsOnline(GetUserInformaton(), HttpContext.Request.UserHostAddress);
-            Session.Clear();
-            return View("Login");
-        }
-
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult UserList() {
             try {
@@ -148,10 +91,6 @@ namespace HaveAVoice.Controllers.Users
                 LogError(exception, "Unable to get the User List");
                 return SendToErrorPage("Unable to retrieve the userToListenTo list, please try again."); 
             }
-        }
-
-        protected override ActionResult SendToResultPage(string title, string details) {
-            return SendToResultPage(SiteSectionsEnum.User, title, details);
         }
 
         public ActionResult Edit() {
@@ -343,9 +282,12 @@ namespace HaveAVoice.Controllers.Users
             return RedirectToAction("Show", "Profile", id);
         }
 
-
         public ActionResult FanFeed() {
             return null;
+        }
+
+        protected override ActionResult SendToResultPage(string title, string details) {
+            return SendToResultPage(SiteSectionsEnum.User, title, details);
         }
     }
 }

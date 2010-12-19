@@ -183,14 +183,14 @@ namespace HaveAVoice.Helpers.UI {
             var myUserlink = new TagBuilder("a");
             myUserlink.MergeAttribute("class", "profile");
             myUserlink.MergeAttribute("href", "#");
-            myUserlink.InnerHtml = myUsername
+            myUserlink.InnerHtml = myUsername;
             myContextDiv.InnerHtml += myUserlink.ToString();
             
             myContextDiv.InnerHtml += anIssue.Title;
             
             var mySpan = new TagBuilder("span");
             mySpan.MergeAttribute("class", "profile");
-            mySpan.InnerHtml = "On %%POST DATE%% by " + myUsername + " - %%COUNTRY%% (%%STATE%%)"
+            mySpan.InnerHtml = "On %%POST DATE%% by " + myUsername + " - %%COUNTRY%% (%%STATE%%)";
             myContextDiv.InnerHtml += mySpan.ToString();
             
             var myContextSpan = new TagBuilder("span");

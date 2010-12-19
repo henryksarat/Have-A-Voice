@@ -12,6 +12,13 @@ using HaveAVoice.Exceptions;
 
 namespace HaveAVoice.Controllers.Core {
     public class AuthenticationController : HAVBaseController {
+        private static string AUTHENTICAITON_ERROR = "Error authenticating. Please try again.";
+        private static string INCORRECT_LOGIN = "Incorrect username and password combination.";
+        private static string INVALID_ACTIVATION_CODE = "Invalid activation code.";
+        private static string SPECIFIC_ROLE_ERROR = "Unable to activate the account because of a role issue.";
+        private static string OUR_ERROR = "Couldn't activate the account because of something on our end. Please try again later.";
+        private static string ACTIVATION_ERROR = "Error while activating your account. Please try again.";
+
         private IHAVUserService theService;
         private IValidationDictionary theValidationDictionary;
 
@@ -37,8 +44,8 @@ namespace HaveAVoice.Controllers.Core {
             try {
                 userModel = theService.AuthenticateUser(email, password);
             } catch (Exception e) {
-                LogError(e, "Unable to authenticate the User.");
-                ViewData["Message"] = "Error authenticating. Please try again.";
+                LogError(e, AUTHENTICAITON_ERROR);
+                ViewData["Message"] = AUTHENTICAITON_ERROR;
                 return View("Login");
             }
 
@@ -50,11 +57,11 @@ namespace HaveAVoice.Controllers.Core {
                     theService.CreateRememberMeCredentials(userModel.Details);
                 }
             } else {
-                ViewData["Message"] = "Incorrect aUsername and aPassword combination.";
+                ViewData["Message"] = INCORRECT_LOGIN;
                 return View("Login");
             }
 
-            return RedirectToAction("LoggedIn", "Home");
+            return RedirectToPostLogin();
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
@@ -62,15 +69,15 @@ namespace HaveAVoice.Controllers.Core {
             try {
                 UserInformationModel userModel = theService.ActivateNewUser(id);
                 CreateUserInformationSession(userModel);
-                return RedirectToAction("LoggedIn", "Home", null);
+                return RedirectToPostLogin();
             } catch (NullUserException) {
-                ViewData["Message"] = "That activation code doesn't exist for a user.";
+                ViewData["Message"] = INVALID_ACTIVATION_CODE;
             } catch (NullRoleException e) {
-                LogError(e, "Unable to activate the account because of a role issue.");
-                ViewData["Message"] = "Couldn't activate the account because of something on our end. Please try again later.";
+                LogError(e, SPECIFIC_ROLE_ERROR);
+                ViewData["Message"] = OUR_ERROR;
             } catch (Exception e) {
-                LogError(e, "Couldn't activate the account for some reason.");
-                ViewData["Message"] = "Error while activating your account, please try again.";
+                LogError(e, ACTIVATION_ERROR);
+                ViewData["Message"] = ACTIVATION_ERROR;
             }
             return View("ActivateAccount");
         }
@@ -82,8 +89,12 @@ namespace HaveAVoice.Controllers.Core {
             return RedirectToAction("Login");
         }
 
-        private void CreateUserInformationSession(UserInformationModel userModel) {
-            Session["UserInformation"] = userModel;
+        private ActionResult RedirectToPostLogin() {
+            return RedirectToAction("LoggedIn", "User");
+        }
+
+        private void CreateUserInformationSession(UserInformationModel aUserModel) {
+            Session["UserInformation"] = aUserModel;
         }
 
         protected override ActionResult SendToResultPage(string aTitle, string aDetails) {
