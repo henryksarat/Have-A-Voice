@@ -456,12 +456,12 @@ namespace HaveAVoice.Services.UserFeatures {
             if (aUser.Username.Trim().Length == 0) {
                 theValidationDictionary.AddError("Username", aUser.Username.Trim(), "Username is required.");
             } else if (theRepository.UsernameRegistered(aUser.Username)) {
-                theValidationDictionary.AddError("Username", aUser.Username.Trim(), "Someone already registered with that aUsername. Please try another one.");
+                theValidationDictionary.AddError("Username", aUser.Username.Trim(), "Someone already registered with that username. Please try another one.");
             }
             if (aUser.Email.Trim().Length == 0) {
                 theValidationDictionary.AddError("Email", aUser.Email.Trim(), "E-mail is required.");
             } else if (theRepository.EmailRegistered(aUser.Email.Trim())) {
-                theValidationDictionary.AddError("Email", aUser.Email.Trim(), "Someone already registered with that myException-mail. Please try another one.");
+                theValidationDictionary.AddError("Email", aUser.Email.Trim(), "Someone already registered with that email. Please try another one.");
             }
 
             return ValidateUser(aUser);

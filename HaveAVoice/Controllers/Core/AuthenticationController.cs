@@ -66,20 +66,21 @@ namespace HaveAVoice.Controllers.Core {
 
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult ActivateAccount(string id) {
+            string myError;
             try {
                 UserInformationModel userModel = theService.ActivateNewUser(id);
                 CreateUserInformationSession(userModel);
                 return RedirectToPostLogin();
             } catch (NullUserException) {
-                ViewData["Message"] = INVALID_ACTIVATION_CODE;
+                myError = INVALID_ACTIVATION_CODE;
             } catch (NullRoleException e) {
                 LogError(e, SPECIFIC_ROLE_ERROR);
-                ViewData["Message"] = OUR_ERROR;
+                myError = OUR_ERROR;
             } catch (Exception e) {
                 LogError(e, ACTIVATION_ERROR);
-                ViewData["Message"] = ACTIVATION_ERROR;
+                myError = ACTIVATION_ERROR;
             }
-            return View("ActivateAccount");
+            return SendToErrorPage(myError);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
