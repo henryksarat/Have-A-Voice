@@ -90,7 +90,7 @@ namespace HaveAVoice.Controllers.Core {
         }
 
         private ActionResult RedirectToPostLogin() {
-            return RedirectToAction("LoggedIn", "User");
+            return RedirectToAction("LoggedIn", "Home");
         }
 
         private void CreateUserInformationSession(UserInformationModel aUserModel) {
