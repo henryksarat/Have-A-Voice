@@ -71,7 +71,7 @@ namespace HaveAVoice.Tests.Controllers.Users {
 
             AssertErrorLogWithReturn("Create", myResult);
         }
-
+        /*
         [TestMethod]
         public void TestLogin_NoMatch() {
             theMockedService.Setup(s => s.AuthenticateUser(It.IsAny<string>(), It.IsAny<string>())).Returns(() => null);
@@ -81,7 +81,7 @@ namespace HaveAVoice.Tests.Controllers.Users {
             Assert.AreEqual("Incorrect aUsername and aPassword combination.", result.ViewData["Message"]);
             Assert.AreEqual("Login", result.ViewName);
         }
-
+        
         [TestMethod]
         public void TestLoginRememberMe_Success() {
             theMockedService.Setup(s => s.AuthenticateUser(It.IsAny<string>(), It.IsAny<string>())).Returns(() => theUserInformationModel);
@@ -90,7 +90,7 @@ namespace HaveAVoice.Tests.Controllers.Users {
 
             theMockedService.Setup(s => s.AuthenticateUser(It.IsAny<string>(), It.IsAny<string>())).Returns(() => theUserInformationModel);
             theMockedService.Verify(s => s.CreateRememberMeCredentials(It.IsAny<User>()), Times.Exactly(1));
-        }
+        }*/
 
         [TestMethod]
         public void TestUserListController_NoUsers() {
@@ -200,7 +200,7 @@ namespace HaveAVoice.Tests.Controllers.Users {
             theMockedService.Verify(s => s.SetToProfilePicture(It.IsAny<int>(), It.IsAny<User>()), Times.Exactly(1));
             AssertErrorLogReturnBack("UserPictures", result);
         }
-
+        /*
         #region "Activate Account"
 
         [TestMethod]
@@ -237,8 +237,9 @@ namespace HaveAVoice.Tests.Controllers.Users {
 
             AssertErrorLogReturnBack("ActivateAccount", result);
         }
-                
+               
         #endregion
+        */   
 
         [TestMethod]
         public void TestBecomeFan_NotLoggedIn() {
