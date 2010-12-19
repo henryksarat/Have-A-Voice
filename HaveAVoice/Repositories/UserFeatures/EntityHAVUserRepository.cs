@@ -266,10 +266,10 @@ namespace HaveAVoice.Repositories.UserFeatures {
             return (from u in GetEntities().Users
                     join ur in GetEntities().UserRoles on u.Id equals ur.User.Id
                     join r in GetEntities().Roles on ur.Role.Id equals r.Id
-                    join res in GetEntities().Restrictions on r.Restriction.Id equals res.Id 
+                    join res in GetEntities().Restrictions on r.Restriction.Id equals res.Id
                     where u.Id == aUser.Id
                     select res).FirstOrDefault<Restriction>();
-                    
+
         }
 
         public UserPrivacySetting GetUserPrivacySettingsForUser(User aUser) {

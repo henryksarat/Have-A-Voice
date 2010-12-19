@@ -26,11 +26,9 @@ namespace HaveAVoice.Controllers.Users
         private static string CREATE_ACCOUNT_SUCCESS = "User account created! But before you can start doing "
                         + "anything on the site you have to activate your account. Please check your aEmail "
                         + " on how to activate your account.";
-        private static string EMAIL_ERROR = "Coulnd't send myException-mail so the User has been activated.";
-        private static string CREATE_ACCOUNT_ERROR_MESSAGE = "Your account was not created because of something on our end, "
-                        + "sorry!. Please wait a few minutes and try again.";
+        private static string EMAIL_ERROR = "Couldn't send activation e-mail so the User has been activated.";
+        private static string CREATE_ACCOUNT_ERROR_MESSAGE = "An error has occurred. Please try again.";
         private static string CREATE_ACCOUNT_ERROR = "Unable to create a user account.";
-        private static string ERROR = "An error has occurred, please try again.";
 
         
         private IHAVUserService theService;
@@ -47,6 +45,7 @@ namespace HaveAVoice.Controllers.Users
             theService = service;
         }
 
+        [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Index() {
             if (Session["UserInformation"] == null)
                 return View("Login");
@@ -54,16 +53,15 @@ namespace HaveAVoice.Controllers.Users
                 return RedirectToAction("Index", "Message");
         }
 
+        [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Create() {
-            IEnumerable<SelectListItem> states =
-                new SelectList(HAVConstants.STATES, "Select");
-            return View("Create", new CreateUserModelBuilder().States(states));
+            IEnumerable<SelectListItem> myStates = new SelectList(HAVConstants.STATES, "Select");
+            return View("Create", new CreateUserModelBuilder().States(myStates));
         }
 
         [CaptchaValidator]  
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Create(CreateUserModelBuilder aUserToCreate, bool captchaValid) {
-
             try {
                 bool myResult = theService.CreateUser(aUserToCreate.Build(), captchaValid, aUserToCreate.Agreement(), HttpContext.Request.UserHostAddress);
                 if (myResult) {
@@ -137,6 +135,7 @@ namespace HaveAVoice.Controllers.Users
             return View("Login");
         }
 
+        [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult UserList() {
             try {
                 List<UserDetailsModel> userList = theService.GetUserList(GetUserInformaton()).ToList<UserDetailsModel>();
@@ -157,7 +156,7 @@ namespace HaveAVoice.Controllers.Users
 
         public ActionResult Edit() {
             if (!IsLoggedIn()) {
-                return RedirectToLogin();
+                return RedirectToAction("Login", "User");
             } 
             User myUser = GetUserInformaton();
 
@@ -189,7 +188,7 @@ namespace HaveAVoice.Controllers.Users
 
         public ActionResult UserPictures() {
             if (!IsLoggedIn()) {
-                return RedirectToLogin();
+                return RedirectToAction("Login", "User");
             } 
             int myUserId = GetUserInformaton().Id;
             IEnumerable<UserPicture> userPictures = theService.GetUserPictures(myUserId);
@@ -240,7 +239,7 @@ namespace HaveAVoice.Controllers.Users
 
         public ActionResult EditPrivacy() {
             if (!IsLoggedIn()) {
-                return RedirectToLogin();
+                return RedirectToAction("Login", "User");
             } 
             User myUser = GetUserInformaton();
             UserPrivacySetting myPrivacy;
@@ -258,7 +257,7 @@ namespace HaveAVoice.Controllers.Users
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult EditPrivacy(UserPrivacySetting aUserPrivacySetting) {
             if (!IsLoggedIn()) {
-                return RedirectToLogin();
+                return RedirectToAction("Login", "User");
             } 
             User myUser = GetUserInformaton();
             try {
@@ -284,10 +283,10 @@ namespace HaveAVoice.Controllers.Users
                 }
             } catch (EmailException e) {
                 LogError(e, "Error sending the email.");
-                ViewData["Message"] = ERROR;
+                ViewData["Message"] = HAVConstants.ERROR;
             } catch (Exception e) {
                 LogError(e, new StringBuilder().AppendFormat("Unable to perform the forgot password function. [email={0}]", email).ToString());
-                ViewData["Message"] = ERROR;
+                ViewData["Message"] = HAVConstants.ERROR;
             }
 
             return View("ForgotPassword");
@@ -314,7 +313,7 @@ namespace HaveAVoice.Controllers.Users
 
         public ActionResult Gallery() {
             if (!IsLoggedIn()) {
-                return RedirectToLogin();
+                return RedirectToAction("Login", "User");
             }
             int myUserId = GetUserInformaton().Id;
 
@@ -331,7 +330,7 @@ namespace HaveAVoice.Controllers.Users
 
         public ActionResult BecomeAFan(int id) {
             if (!IsLoggedIn()) {
-                return RedirectToLogin();
+                return RedirectToAction("Login", "User");
             }
             User myUser = GetUserInformaton();
             try {

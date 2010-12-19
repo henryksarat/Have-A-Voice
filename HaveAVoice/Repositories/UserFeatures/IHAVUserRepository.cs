@@ -17,7 +17,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         bool UsernameRegistered(string username);
         IEnumerable<UserDetailsModel> GetUserList(User user);
         IEnumerable<Timezone> GetTimezones();
- 
+
         void AddProfilePicture(string anImageURL, User aUser);
         void SetToProfilePicture(int aUserPictureId, User aUser);
         UserPicture GetProfilePicture(int aUserId);
@@ -46,6 +46,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
         User FindUserByActivationCode(string activationCode);
         void RemoveUserFromRole(User aUser, Role aRole);
         UserRole AddUserToRole(User user, Role role);
-        void AddDefaultUserPrivacySettings(User aUser);        
+        void AddDefaultUserPrivacySettings(User aUser);
     }
 }

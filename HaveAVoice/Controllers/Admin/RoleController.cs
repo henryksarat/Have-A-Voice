@@ -113,9 +113,9 @@ namespace HaveAVoice.Controllers.Admin {
                 return RedirectToLogin();
             }
             UserInformationModel myUserInformation = GetUserInformatonModel();
-           // if (!HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Edit_Role)) {
-             //   return SendToErrorPage(PAGE_NOT_FOUND);
-            //}
+            if (!HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Edit_Role)) {
+                return SendToErrorPage(PAGE_NOT_FOUND);
+            }
 
             Role role = null;
             try {
