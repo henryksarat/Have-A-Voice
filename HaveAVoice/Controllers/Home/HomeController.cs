@@ -42,7 +42,7 @@ namespace HaveAVoice.Controllers.Home {
 
         public ActionResult LoggedIn() {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             LoggedInModel myModel = new LoggedInModel();
             User myUser = GetUserInformaton();
@@ -58,7 +58,7 @@ namespace HaveAVoice.Controllers.Home {
 
         public ActionResult AddCityStateFilter(string city, string state) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             LoggedInModel myModel = new LoggedInModel();
             User myUser = GetUserInformaton();
@@ -78,7 +78,7 @@ namespace HaveAVoice.Controllers.Home {
 
         public ActionResult AddZipCodeFilter(string zipCode) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             LoggedInModel myModel = new LoggedInModel();
             User myUser = GetUserInformaton();
@@ -95,7 +95,7 @@ namespace HaveAVoice.Controllers.Home {
             return View("LoggedIn", myModel);
         }
 
-        public override ActionResult SendToResultPage(string title, string details) {
+        protected override ActionResult SendToResultPage(string title, string details) {
             throw new NotImplementedException();
         }
     }

@@ -2,6 +2,7 @@
 using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Models;
+using HaveAVoice.Models.View;
 
 namespace HaveAVoice.Repositories {
     public class HAVBaseRepository : IHAVBaseRepository {
@@ -34,7 +35,11 @@ namespace HaveAVoice.Repositories {
         }
 
         private User GetUserInformaton() {
-            return HAVUserInformationFactory.GetUserInformation().Details;
+            UserInformationModel myUserInformation = HAVUserInformationFactory.GetUserInformation();
+            if (myUserInformation != null) {
+                return myUserInformation.Details;
+            }
+            return null;
         }
 
         public void ResetConnection() {

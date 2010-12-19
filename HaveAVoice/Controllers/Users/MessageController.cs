@@ -31,7 +31,7 @@ namespace HaveAVoice.Controllers.Users
         public ActionResult Index() {
             User user = GetUserInformaton();
             if (user == null) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
 
             try {
@@ -53,7 +53,7 @@ namespace HaveAVoice.Controllers.Users
         public ActionResult Index(List<Int32> selectedMessages) {
             User user = GetUserInformaton();
             if (user == null) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
 
             try {
@@ -68,7 +68,7 @@ namespace HaveAVoice.Controllers.Users
 
         public ActionResult SendMessage(int toUserId) {
             if (GetUserInformaton() == null) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
 
             try {
@@ -86,7 +86,7 @@ namespace HaveAVoice.Controllers.Users
         public ActionResult SendMessage([Bind(Exclude = "Id, ToUserId, FromUserId")] Message messageToCreate, User toUser) {
             User user = GetUserInformaton();
             if (user == null) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
 
             try {
@@ -107,7 +107,7 @@ namespace HaveAVoice.Controllers.Users
             User user = GetUserInformaton();
 
             if (user == null) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
 
             try {
@@ -135,7 +135,7 @@ namespace HaveAVoice.Controllers.Users
         public ActionResult ViewMessage(ViewMessageModel viewMessageModel) {
             User user = GetUserInformaton();
             if (user == null) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
 
             try {
@@ -151,7 +151,7 @@ namespace HaveAVoice.Controllers.Users
             return View("ViewMessage", viewMessageModel);
         }
 
-        public override ActionResult SendToResultPage(string title, string details) {
+        protected override ActionResult SendToResultPage(string title, string details) {
             return SendToResultPage(SiteSectionsEnum.Message, title, details);
         }
 

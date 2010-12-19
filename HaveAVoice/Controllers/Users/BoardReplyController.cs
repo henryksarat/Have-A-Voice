@@ -39,7 +39,7 @@ namespace HaveAVoice.Controllers.Users
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
         public ActionResult Create(int boardId, string message) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             try {
                 if (theService.PostReplyToBoard(GetUserInformatonModel(), boardId, message)) {
@@ -56,7 +56,7 @@ namespace HaveAVoice.Controllers.Users
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult Edit(int id) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             try {
                 BoardReply myReply = theService.FindBoardReply(id);
@@ -76,7 +76,7 @@ namespace HaveAVoice.Controllers.Users
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
         public ActionResult Edit(BoardReplyWrapper aBoardReplyWrapper) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             try {
                 if (theService.EditBoardReply(GetUserInformatonModel(), aBoardReplyWrapper.ToModel())) {
@@ -93,7 +93,7 @@ namespace HaveAVoice.Controllers.Users
         [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
         public ActionResult Delete(int boardId, int boardReplyId) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             UserInformationModel myUserInfo = GetUserInformatonModel();
             if (!HAVPermissionHelper.AllowedToPerformAction(myUserInfo, HAVPermission.Delete_Board_Reply, HAVPermission.Delete_Any_Board_Reply)) {
@@ -110,7 +110,7 @@ namespace HaveAVoice.Controllers.Users
             return RedirectToAction("View", "Board", new { id = boardId });
         }
 
-        public override ActionResult SendToResultPage(string aTitle, string aDetails) {
+        protected override ActionResult SendToResultPage(string aTitle, string aDetails) {
             return SendToResultPage(SiteSectionsEnum.BoardReply, aTitle, aDetails);
         }
     }

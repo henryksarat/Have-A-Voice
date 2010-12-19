@@ -40,7 +40,7 @@ namespace HaveAVoice.Controllers.Users
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult AddEvent(DateTime date, string information) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             int myUserId = GetUserInformaton().Id;
             try {
@@ -59,7 +59,7 @@ namespace HaveAVoice.Controllers.Users
 
         public ActionResult DeleteEvent(int eventId) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             try {
                 theEventService.DeleteEvent(GetUserInformatonModel(), eventId);
@@ -76,7 +76,7 @@ namespace HaveAVoice.Controllers.Users
 
         public ActionResult GetEvents() {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             int myUserId = GetUserInformaton().Id;
             IEnumerable<Event> myList = new List<Event>();
@@ -92,7 +92,7 @@ namespace HaveAVoice.Controllers.Users
             return View("Show", myList);
         }
 
-        public override ActionResult SendToResultPage(string title, string details) {
+        protected override ActionResult SendToResultPage(string title, string details) {
             throw new NotImplementedException();
         }
     }

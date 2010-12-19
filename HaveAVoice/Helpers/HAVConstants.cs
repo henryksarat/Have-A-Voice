@@ -12,6 +12,7 @@ namespace HaveAVoice.Helpers {
         public const string NO_PROFILE_PICTURE_IMAGE = "no_profile_picture.jpg";
         public const long SECONDS_BEFORE_USER_TIMEOUT = 60 * 5;
         public static string PAGE_NOT_FOUND = "You do not have access.";
+        public static string ERROR = "An error has occurred. Please try again.";
 
         public static List<string> STATES = new List<string>() { 
                 "Select",

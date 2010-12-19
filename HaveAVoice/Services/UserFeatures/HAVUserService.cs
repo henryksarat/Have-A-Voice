@@ -39,126 +39,7 @@ namespace HaveAVoice.Services.UserFeatures {
             theEmailService = aEmailService;
         }
 
-        #region "Validation"
-        private bool ValidateAgreement(bool aAgreement) {
-            if(aAgreement == false) {
-                theValidationDictionary.AddError("Agreement", "false", "You must agree to the terms.");
-            }
 
-            return theValidationDictionary.isValid;
-        }
-
-        private bool ValidCaptchaImage(bool captchaValid) {
-            if (captchaValid == false) {
-                theValidationDictionary.AddError("Captcha", "false", "Captcha image verification failure.");
-            }
-
-            return theValidationDictionary.isValid;
-        }
-
-        private bool ValidateNewUser(User aUser) {
-            if (aUser.Password.Trim().Length == 0) {
-                theValidationDictionary.AddError("Password", aUser.Password.Trim(), "Password is required.");
-            }
-            if (aUser.Username.Trim().Length == 0) {
-                theValidationDictionary.AddError("Username", aUser.Username.Trim(), "Username is required.");
-            } else if (theRepository.UsernameRegistered(aUser.Username)) {
-                theValidationDictionary.AddError("Username", aUser.Username.Trim(), "Someone already registered with that aUsername. Please try another one.");    
-            }
-            if (aUser.Email.Trim().Length == 0) {
-                theValidationDictionary.AddError("Email", aUser.Email.Trim(), "E-mail is required.");
-            } else if (theRepository.EmailRegistered(aUser.Email.Trim())) {
-                theValidationDictionary.AddError("Email", aUser.Email.Trim(), "Someone already registered with that myException-mail. Please try another one.");
-            }
-
-            return ValidateUser(aUser);
-        }
-
-        private bool ValidateEditedUser(User aUser, string aOriginalUsername, string aOriginalEmail) {
-            ValidateUsername(aUser, aOriginalUsername);
-            ValidEmail(aUser.Email, aOriginalEmail);
-            return ValidateUser(aUser);
-        }
-
-        private void ValidateUsername(User aUser, string aOriginalUsername) {
-            if (aUser.Username.Trim().Length == 0) {
-                theValidationDictionary.AddError("Username", aUser.Username.Trim(), "Username is required.");
-            } else if (aOriginalUsername != null && (aOriginalUsername != aUser.Username)
-                && (theRepository.UsernameRegistered(aUser.Username))) {
-                theValidationDictionary.AddError("Username", aUser.Username, "Someone already registered with that aUsername. Please try another one.");
-            }
-        }
-
-        private bool ValidateUser(User aUser) {
-            if(aUser.FirstName.Trim().Length == 0) {
-                theValidationDictionary.AddError("FirstName", aUser.FirstName.Trim(), "First name is required.");
-            }
-            if(aUser.LastName.Trim().Length == 0) {
-                theValidationDictionary.AddError("LastName", aUser.LastName.Trim(), "Last name is required.");
-            }
-            if(aUser.City.Trim().Length == 0) {
-                theValidationDictionary.AddError("City", aUser.City.Trim(), "City is required.");
-            }
-            if(aUser.State.Trim().Length != 2) {
-                theValidationDictionary.AddError("State", aUser.State.Trim(), "State is required.");
-            }
-            if (aUser.Email.Length > 0 && !Regex.IsMatch(aUser.Email, @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$")) {
-                theValidationDictionary.AddError("Email", aUser.Email, "Invalid aEmail address.");
-            }
-            if (aUser.DateOfBirth.Year == 1) {
-                theValidationDictionary.AddError("DateOfBirth", aUser.DateOfBirth.ToString(), "Date of Birth required.");
-            }
-            if (aUser.DateOfBirth > DateTime.Today.AddYears(-18)) {
-                theValidationDictionary.AddError("DateOfBirth", aUser.DateOfBirth.ToString(), "You must be at least 18 years old.");
-            }
-
-
-            return theValidationDictionary.isValid;
-        }
-
-        private bool ValidatePassword(string aPassword, string aRetypedPassword) {
-            if (aPassword.Trim().Length == 0) {
-                theValidationDictionary.AddError("Password", "", "Password is required.");
-            }
-            if (aRetypedPassword == null || aRetypedPassword.Trim().Length == 0) {
-                theValidationDictionary.AddError("RetypedPassword", "", "Please type your password again.");
-            } else if (!aPassword.Equals(aRetypedPassword)) {
-                theValidationDictionary.AddError("RetypedPassword", "", "Passwords must match.");
-            }
-            
-            return theValidationDictionary.isValid;
-        }
-
-        private bool ValidateUser(User aUser, string anEmail) {
-            bool myResult = true;
-            if (aUser == null) {
-                theValidationDictionary.AddError("Email", anEmail, "That email doesn't match the requested account.");
-                myResult = false;
-            }
-
-            return myResult;
-        }
-
-        private bool ValidForgotPasswordHash(string aHash) {
-            if (aHash.Trim().Length == 0) {
-                theValidationDictionary.AddError("ForgotPasswordHash", aHash, "Error reading the forgot password hash. Please click the link in the email again.");
-            }
-            
-            return theValidationDictionary.isValid;
-        }
-
-        private bool ValidEmail(string anEmail, string anOriginalEmail) {
-            if (anEmail.Trim().Length == 0) {
-                theValidationDictionary.AddError("Email", anEmail.Trim(), "E-mail is required.");
-            } else if (anOriginalEmail != null && (anOriginalEmail != anEmail)
-                && (theRepository.EmailRegistered(anEmail))) {
-                    theValidationDictionary.AddError("Email", anEmail, "Someone already registered with that myException-mail. Please try another one.");
-            }
-
-            return theValidationDictionary.isValid;
-        }
-
-        #endregion
 
         public bool CreateUser(User aUserToCreate, bool aCaptchaValid, bool aAgreement, string aIpAddress) {
             if (!ValidateNewUser(aUserToCreate)) {
@@ -203,7 +84,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 throw new NullUserException("There is no user matching that activation code.");
             }
 
-            
+
             Role myNotConfirmedRole = theRoleRepository.GetNotConfirmedUserRole();
             if (myNotConfirmedRole == null) {
                 throw new NullRoleException("There is no \"Not confirmed\" role");
@@ -213,8 +94,9 @@ namespace HaveAVoice.Services.UserFeatures {
                 throw new NullReferenceException("There is no default role.");
             }
 
-            theRepository.RemoveUserFromRole(myUser, myNotConfirmedRole);
-            theRepository.AddUserToRole(myUser, myDefaultRole);
+            List<int> myUsers = new List<int>();
+            myUsers.Add(myUser.Id);
+            theRoleRepository.MoveUsersToRole(myUsers, myNotConfirmedRole.Id, myDefaultRole.Id);
             theRepository.AddDefaultUserPrivacySettings(myUser);
             return myUser;
         }
@@ -550,5 +432,125 @@ namespace HaveAVoice.Services.UserFeatures {
             theRepository.AddFan(aUser, aSourceUserId);
         }
 
+        #region Validation"
+        private bool ValidateAgreement(bool aAgreement) {
+            if (aAgreement == false) {
+                theValidationDictionary.AddError("Agreement", "false", "You must agree to the terms.");
+            }
+
+            return theValidationDictionary.isValid;
+        }
+
+        private bool ValidCaptchaImage(bool captchaValid) {
+            if (captchaValid == false) {
+                theValidationDictionary.AddError("Captcha", "false", "Captcha image verification failure.");
+            }
+
+            return theValidationDictionary.isValid;
+        }
+
+        private bool ValidateNewUser(User aUser) {
+            if (aUser.Password.Trim().Length == 0) {
+                theValidationDictionary.AddError("Password", aUser.Password.Trim(), "Password is required.");
+            }
+            if (aUser.Username.Trim().Length == 0) {
+                theValidationDictionary.AddError("Username", aUser.Username.Trim(), "Username is required.");
+            } else if (theRepository.UsernameRegistered(aUser.Username)) {
+                theValidationDictionary.AddError("Username", aUser.Username.Trim(), "Someone already registered with that aUsername. Please try another one.");
+            }
+            if (aUser.Email.Trim().Length == 0) {
+                theValidationDictionary.AddError("Email", aUser.Email.Trim(), "E-mail is required.");
+            } else if (theRepository.EmailRegistered(aUser.Email.Trim())) {
+                theValidationDictionary.AddError("Email", aUser.Email.Trim(), "Someone already registered with that myException-mail. Please try another one.");
+            }
+
+            return ValidateUser(aUser);
+        }
+
+        private bool ValidateEditedUser(User aUser, string aOriginalUsername, string aOriginalEmail) {
+            ValidateUsername(aUser, aOriginalUsername);
+            ValidEmail(aUser.Email, aOriginalEmail);
+            return ValidateUser(aUser);
+        }
+
+        private void ValidateUsername(User aUser, string aOriginalUsername) {
+            if (aUser.Username.Trim().Length == 0) {
+                theValidationDictionary.AddError("Username", aUser.Username.Trim(), "Username is required.");
+            } else if (aOriginalUsername != null && (aOriginalUsername != aUser.Username)
+                && (theRepository.UsernameRegistered(aUser.Username))) {
+                theValidationDictionary.AddError("Username", aUser.Username, "Someone already registered with that aUsername. Please try another one.");
+            }
+        }
+
+        private bool ValidateUser(User aUser) {
+            if (aUser.FirstName.Trim().Length == 0) {
+                theValidationDictionary.AddError("FirstName", aUser.FirstName.Trim(), "First name is required.");
+            }
+            if (aUser.LastName.Trim().Length == 0) {
+                theValidationDictionary.AddError("LastName", aUser.LastName.Trim(), "Last name is required.");
+            }
+            if (aUser.City.Trim().Length == 0) {
+                theValidationDictionary.AddError("City", aUser.City.Trim(), "City is required.");
+            }
+            if (aUser.State.Trim().Length != 2) {
+                theValidationDictionary.AddError("State", aUser.State.Trim(), "State is required.");
+            }
+            if (aUser.Email.Length > 0 && !Regex.IsMatch(aUser.Email, @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$")) {
+                theValidationDictionary.AddError("Email", aUser.Email, "Invalid email address.");
+            }
+            if (aUser.DateOfBirth.Year == 1) {
+                theValidationDictionary.AddError("DateOfBirth", aUser.DateOfBirth.ToString(), "Date of Birth required.");
+            }
+            if (aUser.DateOfBirth > DateTime.Today.AddYears(-18)) {
+                theValidationDictionary.AddError("DateOfBirth", aUser.DateOfBirth.ToString(), "You must be at least 18 years old.");
+            }
+
+
+            return theValidationDictionary.isValid;
+        }
+
+        private bool ValidatePassword(string aPassword, string aRetypedPassword) {
+            if (aPassword.Trim().Length == 0) {
+                theValidationDictionary.AddError("Password", "", "Password is required.");
+            }
+            if (aRetypedPassword == null || aRetypedPassword.Trim().Length == 0) {
+                theValidationDictionary.AddError("RetypedPassword", "", "Please type your password again.");
+            } else if (!aPassword.Equals(aRetypedPassword)) {
+                theValidationDictionary.AddError("RetypedPassword", "", "Passwords must match.");
+            }
+
+            return theValidationDictionary.isValid;
+        }
+
+        private bool ValidateUser(User aUser, string anEmail) {
+            bool myResult = true;
+            if (aUser == null) {
+                theValidationDictionary.AddError("Email", anEmail, "That email doesn't match the requested account.");
+                myResult = false;
+            }
+
+            return myResult;
+        }
+
+        private bool ValidForgotPasswordHash(string aHash) {
+            if (aHash.Trim().Length == 0) {
+                theValidationDictionary.AddError("ForgotPasswordHash", aHash, "Error reading the forgot password hash. Please click the link in the email again.");
+            }
+
+            return theValidationDictionary.isValid;
+        }
+
+        private bool ValidEmail(string anEmail, string anOriginalEmail) {
+            if (anEmail.Trim().Length == 0) {
+                theValidationDictionary.AddError("Email", anEmail.Trim(), "E-mail is required.");
+            } else if (anOriginalEmail != null && (anOriginalEmail != anEmail)
+                && (theRepository.EmailRegistered(anEmail))) {
+                theValidationDictionary.AddError("Email", anEmail, "Someone already registered with that myException-mail. Please try another one.");
+            }
+
+            return theValidationDictionary.isValid;
+        }
+
+        #endregion
     }
 }

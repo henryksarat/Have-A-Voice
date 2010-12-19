@@ -33,7 +33,7 @@ namespace HaveAVoice.Controllers.Issues
         }
 
 
-        public override ActionResult SendToResultPage(string title, string details) {
+        protected override ActionResult SendToResultPage(string title, string details) {
             return View();
         }
     }

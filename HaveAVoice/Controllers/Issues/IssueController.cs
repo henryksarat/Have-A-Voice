@@ -46,7 +46,7 @@ namespace HaveAVoice.Controllers.Issues
 
         public ActionResult Index() {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
 
             IEnumerable<IssueWithDispositionModel> myIssues;
@@ -67,7 +67,7 @@ namespace HaveAVoice.Controllers.Issues
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Create() {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             if(!HAVPermissionHelper.AllowedToPerformAction(GetUserInformatonModel(), HAVPermission.Post_Issue)) {
                 return SendToErrorPage(HAVConstants.PAGE_NOT_FOUND);
@@ -79,7 +79,7 @@ namespace HaveAVoice.Controllers.Issues
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Create(IssueWrapper anIssueWrapper) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
 
             UserInformationModel myUser = GetUserInformatonModel();
@@ -99,7 +99,7 @@ namespace HaveAVoice.Controllers.Issues
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult View(int id) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             if(!HAVPermissionHelper.AllowedToPerformAction(GetUserInformatonModel(), HAVPermission.View_Issue)) {
                 return SendToErrorPage(HAVConstants.PAGE_NOT_FOUND);
@@ -129,7 +129,7 @@ namespace HaveAVoice.Controllers.Issues
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult View(IssueModel issueModel) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             UserInformationModel myUserInformation = GetUserInformatonModel();
 
@@ -147,7 +147,7 @@ namespace HaveAVoice.Controllers.Issues
 
         public ActionResult Disposition(int issueId, int disposition) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             User aUser = GetUserInformaton();
             try {
@@ -163,7 +163,7 @@ namespace HaveAVoice.Controllers.Issues
                                             
         public ActionResult Delete(int id) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             if (!HAVPermissionHelper.AllowedToPerformAction(GetUserInformatonModel(), HAVPermission.Delete_Issue, HAVPermission.Delete_Any_Issue)) {
                 return SendToErrorPage(HAVConstants.PAGE_NOT_FOUND);
@@ -183,7 +183,7 @@ namespace HaveAVoice.Controllers.Issues
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Edit(int id) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             UserInformationModel myUserInformation = GetUserInformatonModel();
             if (!HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Edit_Issue, HAVPermission.Edit_Any_Issue)) {
@@ -206,7 +206,7 @@ namespace HaveAVoice.Controllers.Issues
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Edit(IssueWrapper anIssueWrapper) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             
             try {
@@ -223,7 +223,7 @@ namespace HaveAVoice.Controllers.Issues
             return View("Edit", anIssueWrapper);
         }
 
-        public override ActionResult SendToResultPage(string aTitle, string aDetails) {
+        protected override ActionResult SendToResultPage(string aTitle, string aDetails) {
             return SendToResultPage(SiteSectionsEnum.Issue, aTitle, aDetails);
         }
     }

@@ -43,7 +43,7 @@ namespace HaveAVoice.Controllers.Admin {
 
         public ActionResult Index() {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             if (!HAVPermissionHelper.AllowedToPerformAction(GetUserInformatonModel(), HAVPermission.View_Roles)) {
                 return SendToErrorPage(PAGE_NOT_FOUND);
@@ -66,7 +66,7 @@ namespace HaveAVoice.Controllers.Admin {
 
         public ActionResult Create() {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
 
             if(!HAVPermissionHelper.AllowedToPerformAction(GetUserInformatonModel(), HAVPermission.Create_Role)) {
@@ -87,7 +87,7 @@ namespace HaveAVoice.Controllers.Admin {
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Create(RoleModel model) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
 
             try {
@@ -110,12 +110,12 @@ namespace HaveAVoice.Controllers.Admin {
 
         public ActionResult Edit(int id) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             UserInformationModel myUserInformation = GetUserInformatonModel();
-           // if (!HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Edit_Role)) {
-             //   return SendToErrorPage(PAGE_NOT_FOUND);
-            //}
+            if (!HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Edit_Role)) {
+                return SendToErrorPage(PAGE_NOT_FOUND);
+            }
 
             Role role = null;
             try {
@@ -142,7 +142,7 @@ namespace HaveAVoice.Controllers.Admin {
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Edit(RoleModel role) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
 
             try {
@@ -165,7 +165,7 @@ namespace HaveAVoice.Controllers.Admin {
 
         public ActionResult Delete(int id) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             UserInformationModel myUserInformation = GetUserInformatonModel();
             if (!HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Delete_Role)) {
@@ -189,7 +189,7 @@ namespace HaveAVoice.Controllers.Admin {
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Delete(Role roleToDelete) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
 
             try {
@@ -203,7 +203,7 @@ namespace HaveAVoice.Controllers.Admin {
 
         public ActionResult SwitchUserRoles() {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             UserInformationModel myUserInformation = GetUserInformatonModel();
             if (!HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Switch_Users_Role)) {
@@ -230,7 +230,7 @@ namespace HaveAVoice.Controllers.Admin {
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult SwitchUserRoles(int CurrentRoleId, int MoveToRoleId) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             UserInformationModel myUserInformation = GetUserInformatonModel();
             if (!HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Switch_Users_Role)) {
@@ -251,7 +251,7 @@ namespace HaveAVoice.Controllers.Admin {
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult SwitchUserRoles(int[] SelectedUserIds, int CurrentRoleId, int MoveToRoleId) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             UserInformationModel myUserInformation = GetUserInformatonModel();
             if (!HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Switch_Users_Role)) {
@@ -322,7 +322,7 @@ namespace HaveAVoice.Controllers.Admin {
             return SelectionHelper.UserSelection(aSelectedUsers, myUsers);
         }
 
-        public override ActionResult SendToResultPage(string title, string details) {
+        protected override ActionResult SendToResultPage(string title, string details) {
             return SendToResultPage(SiteSectionsEnum.Role, title, details);
         }
 

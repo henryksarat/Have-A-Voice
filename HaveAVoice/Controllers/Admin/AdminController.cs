@@ -22,7 +22,7 @@ namespace HaveAVoice.Controllers.Admin {
 
         public ActionResult Index() {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             if (!HAVPermissionHelper.AllowedToPerformAction(GetUserInformatonModel(), HAVPermission.View_Admin)) {
                 return SendToErrorPage(PAGE_NOT_FOUND);
@@ -30,7 +30,7 @@ namespace HaveAVoice.Controllers.Admin {
             return View("Index");
         }
 
-        public override ActionResult SendToResultPage(string title, string details) {
+        protected override ActionResult SendToResultPage(string title, string details) {
             return SendToResultPage(SiteSectionsEnum.Admin, title, details);
         }
     }

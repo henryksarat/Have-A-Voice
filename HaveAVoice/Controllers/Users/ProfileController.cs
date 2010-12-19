@@ -49,7 +49,7 @@ namespace HaveAVoice.Controllers.Users
 
         public ActionResult Fans(int id) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             IEnumerable<Fan> myFans = new List<Fan>();
             try {
@@ -65,7 +65,7 @@ namespace HaveAVoice.Controllers.Users
 
         public ActionResult FansOf(int id) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             IEnumerable<Fan> myFans = new List<Fan>();
             try {
@@ -80,7 +80,7 @@ namespace HaveAVoice.Controllers.Users
         }
 
 
-        public override ActionResult SendToResultPage(string aTitle, string aDetails) {
+        protected override ActionResult SendToResultPage(string aTitle, string aDetails) {
             return SendToResultPage(SiteSectionsEnum.Profile, aTitle, aDetails);
         }
     }

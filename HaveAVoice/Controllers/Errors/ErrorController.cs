@@ -32,7 +32,7 @@ namespace HaveAVoice.Controllers.Errors
             return View(theService.GetAllErrors().ToList<ErrorLog>());
         }
 
-        public override ActionResult SendToResultPage(string title, string details) {
+        protected override ActionResult SendToResultPage(string title, string details) {
             return SendToResultPage(SiteSectionsEnum.None, title, details);
         }
     }

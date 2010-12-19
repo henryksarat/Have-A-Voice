@@ -33,7 +33,7 @@ namespace HaveAVoice.Controllers.Admin {
 
         public ActionResult Index() {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             if (!HAVPermissionHelper.AllowedToPerformAction(GetUserInformatonModel(), HAVPermission.View_Restrictions)) {
                 return SendToErrorPage(PAGE_NOT_FOUND);
@@ -57,7 +57,7 @@ namespace HaveAVoice.Controllers.Admin {
 
         public ActionResult Create() {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
 
             if (!HAVPermissionHelper.AllowedToPerformAction(GetUserInformatonModel(), HAVPermission.Create_Restriction)) {
@@ -70,7 +70,7 @@ namespace HaveAVoice.Controllers.Admin {
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Create(RestrictionModel aRestriction) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
             try {
@@ -87,7 +87,7 @@ namespace HaveAVoice.Controllers.Admin {
 
         public ActionResult Delete(int id) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
 
             if (!HAVPermissionHelper.AllowedToPerformAction(GetUserInformatonModel(), HAVPermission.Delete_Restriction)) {
@@ -112,7 +112,7 @@ namespace HaveAVoice.Controllers.Admin {
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Delete(Restriction restrictionToDelete) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             try {
                 bool myResult = theService.DeleteRestriction(GetUserInformatonModel(), restrictionToDelete);
@@ -128,7 +128,7 @@ namespace HaveAVoice.Controllers.Admin {
 
         public ActionResult Edit(int id) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
 
             if (!HAVPermissionHelper.AllowedToPerformAction(GetUserInformatonModel(), HAVPermission.Edit_Restriction)) {
@@ -153,7 +153,7 @@ namespace HaveAVoice.Controllers.Admin {
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Edit(Restriction restriction) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
 
             try {
@@ -168,7 +168,7 @@ namespace HaveAVoice.Controllers.Admin {
             return View("Edit", restriction);
         }
 
-        public override ActionResult SendToResultPage(string title, string details) {
+        protected override ActionResult SendToResultPage(string title, string details) {
             return SendToResultPage(SiteSectionsEnum.Restriction, title, details);
         }
     }

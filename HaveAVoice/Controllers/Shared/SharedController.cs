@@ -29,7 +29,7 @@ namespace HaveAVoice.Controllers.Shared
 
 
 
-        public override ActionResult SendToResultPage(string title, string details) {
+        protected override ActionResult SendToResultPage(string title, string details) {
             throw new NotImplementedException();
         }
     }
