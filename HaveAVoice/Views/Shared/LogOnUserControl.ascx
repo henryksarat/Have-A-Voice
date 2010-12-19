@@ -2,13 +2,47 @@
 <%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 
 <% if (!HAVUserInformationFactory.IsLoggedIn()) { %>
+	<script type="text/javascript" language="javascript">
+		$(function() {
+			$("form label").click(function() {
+				var inpt = $(this).prev("input");
+				if (inpt.val() == '') {
+					$(this).fadeTo('fast', 0.4);
+				} else {
+					$(this).fadeTo('fast', 0.0);
+				}
+			});
+			$("form input").bind("focus", function() {
+				var lbl = $(this).next("label");
+				if (this.val() == '') {
+					lbl.fadeTo('fast', 0.4);
+				} else {
+					lbl.fadeTo('fast', 0.0);
+				}
+			}).bind("blur", function() {
+				var lbl = $(this).next("label");
+				if ($(this).val() == '') {
+					lbl.fadeTo('fast', 1.0);
+				} else {
+					lbl.fadeTo('fast', 0.0)
+				}
+			}).bind("keypress", function() {
+				var lbl = $(this).next("label");
+				if ($(this).val() == '') {
+					lbl.fadeTo('fast', 0.4);
+				} else {
+					lbl.fadeTo('fast', 0.0);
+				}
+			});
+		});
+	</script>
+
     <div class="col-18">
     <% using (Html.BeginForm("Login", "User")) {%>
         <div class="col-2 sign-in">
             Sign In
         </div>
         <div class="col-15">
-
             <div class="col-5 rel">
                 <%= Html.TextBox("Email", null, new{@class = "login"})%>
                 <%= Html.ValidationMessage("Email", "*")%>

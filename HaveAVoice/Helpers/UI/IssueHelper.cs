@@ -169,45 +169,50 @@ namespace HaveAVoice.Helpers.UI {
             } 
 
             var myOuterDiv = new TagBuilder("div");
-            string myStyle = "grid_10 omega margin-32b font-12";
-            if (anIsLike) {
-                myStyle += " alpha";
-            }
+            string myStyle = "m-btm30";
             myOuterDiv.MergeAttribute("class", myStyle);
 
             var myDivImageWrapper = new TagBuilder("div");
-            myDivImageWrapper.MergeAttribute("class", "alpha grid_2 omega");
-            myDivImageWrapper.InnerHtml = "<img src=\"" + myAvatarURL + "\" alt=\"Hitomi Tanaka\" width=\"50\" height=\"50\"  />";
+            myDivImageWrapper.MergeAttribute("class", "col-2 center m-rgt10");
+            myDivImageWrapper.InnerHtml = "<img src=\"" + myAvatarURL + "\" alt=\"" + myUsername + "\" class=\"profile\"  />";
             myOuterDiv.InnerHtml = myDivImageWrapper.ToString();
 
             var myContextDiv = new TagBuilder("div");
-            myContextDiv.MergeAttribute("class", "alpha grid_8");
+            myContextDiv.MergeAttribute("class", "col-9");
+            
+            var myUserlink = new TagBuilder("a");
+            myUserlink.MergeAttribute("class", "profile");
+            myUserlink.MergeAttribute("href", "#");
+            myUserlink.InnerHtml = myUsername
+            myContextDiv.InnerHtml += myUserlink.ToString();
+            
+            myContextDiv.InnerHtml += anIssue.Title;
+            
+            var mySpan = new TagBuilder("span");
+            mySpan.MergeAttribute("class", "profile");
+            mySpan.InnerHtml = "On %%POST DATE%% by " + myUsername + " - %%COUNTRY%% (%%STATE%%)"
+            myContextDiv.InnerHtml += mySpan.ToString();
+            
             var myContextSpan = new TagBuilder("span");
             myContextSpan.MergeAttribute("class", "teal2");
             myContextSpan.InnerHtml = myUsername + ": ";
             myContextDiv.InnerHtml = myContextSpan.ToString(); 
             myContextDiv.InnerHtml += anIssue.Title;
-            var myParagraph = new TagBuilder("p");
-            myParagraph.MergeAttribute("class", "grey padding-6v");
-            myParagraph.InnerHtml = "On 12/21/2012 by Hitomi Tanaka - United States (Illinois)";
-            myContextDiv.InnerHtml += myParagraph.ToString();
-            var myLikeDiv = new TagBuilder("div");
-            myLikeDiv.MergeAttribute("class", "alpha grid_3");
-            string myLike = new StringBuilder().AppendFormat("<a href=\"/Issue/IssueDisposition?issueId={0}&disposition={1}\" class=\"like\"><img src=\"/Content/images/like-sm.png\" alt=\"like\" />(9999) Like</a>", anIssue.Id, Disposition.LIKE).ToString();
-            myLikeDiv.InnerHtml = myLike;
-            myContextDiv.InnerHtml += myLikeDiv.ToString();
-            var myDislikeDiv = new TagBuilder("div");
-            myDislikeDiv.MergeAttribute("class", "grid_3 omega");
-            string myDislike = new StringBuilder().AppendFormat("<a href=\"/Issue/IssueDisposition?issueId={0}&disposition={1}\" class=\"dislike\"><img src=\"/Content/images/dislike-sm.png\" alt=\"dislike\" />(0) Dislike</a>", anIssue.Id, Disposition.DISLIKE).ToString();
-            myDislikeDiv.InnerHtml = myDislike;
-            myContextDiv.InnerHtml += myDislikeDiv.ToString();
-            myOuterDiv.InnerHtml += myContextDiv.ToString();
 
+            string myLike = new StringBuilder().AppendFormat("<a href=\"/Issue/IssueDisposition?issueId={0}&disposition={1}\" class=\"like\"><img src=\"/Content/images/like-sm.png\" alt=\"Like\" />Like</a>", anIssue.Id, Disposition.LIKE).ToString();
+            myContextDiv.InnerHtml += myLike.ToString();
+
+            string myDislike = new StringBuilder().AppendFormat("<a href=\"/Issue/IssueDisposition?issueId={0}&disposition={1}\" class=\"dislike\">Dislike<img src=\"/Content/images/dislike-sm.png\" alt=\"Dislike\" /></a>", anIssue.Id, Disposition.DISLIKE).ToString();
+            myContextDiv.InnerHtml += myDislike.ToString();
 
             var myClearDiv = new TagBuilder("div");
             myClearDiv.MergeAttribute("class", "clear");
+            myClearDiv.InnerHtml = "&nbsp;";
+            myContextDiv.InnerHtml += myClearDiv.ToString();
 
-            return myOuterDiv.ToString() + myClearDiv.ToString();
+			myOuterDiv.InnerHtml += myContextDiv.ToString();
+
+            return myOuterDiv.ToString();
         }
     }
 }

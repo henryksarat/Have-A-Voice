@@ -10,7 +10,7 @@
         <%= Html.Encode(ViewData["Message"]) %>
     </p>
     <%/* Html.RenderPartial("Tabs"); */%>
-    <div class="col-24 m-top20">
+    <div class="col-24 m-top20 not-logged">
         <div class="col-1">&nbsp;</div>
         <div class="col-10 center p-t5 p-b5 t-tab">
 			<img src="/Content/images/like.png" alt="Thumbs Up" align="top" />

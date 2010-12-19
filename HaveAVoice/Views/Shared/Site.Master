@@ -28,28 +28,7 @@
 
     <div class="container">
         <div class="container-24">
-            <!--
-            <div class="col-24 user-panel">
-                <div class="col-3">
-                    #CURRENT PROFILE IMAGE#
-                </div>
-                <div class="col-15">
-                    #CONTROL PANEL#
-                </div>
-                <div class="col-6 advertisement">
-                    &nbsp;
-                </div>
-            </div>
-            <div class="clear">&nbsp;</div>
-            <div class="col-3 left-nav">
-                #LEFT NAVIGATION#
-            </div>
-            <div class="col-21">
-            //-->
-                <asp:ContentPlaceHolder ID="MainContent" runat="server" />
-            <!--
-            </div>
-            //-->
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         </div>
     </div>
     <div class="clear">&nbsp;</div>

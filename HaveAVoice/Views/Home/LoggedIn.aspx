@@ -21,7 +21,7 @@
     <div class="clear">&nbsp;</div>
     
     <div class="col-3 left-nav">
-        #LEFT NAVIGATION#
+        <% Html.RenderPartial("LeftNavigation"); %>
     </div>
     
     <div class="col-21">
