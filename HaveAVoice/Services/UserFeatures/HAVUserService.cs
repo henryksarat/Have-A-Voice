@@ -24,11 +24,6 @@ namespace HaveAVoice.Services.UserFeatures {
         private IHAVUserRepository theUserRepo;
         private IHAVEmail theEmailService;
 
-        //Need to create instance in binders :(
-        //Move out the methods we need into a new anAuthService!!
-        public HAVUserService() :
-            this(null) { }
-
         public HAVUserService(IValidationDictionary theValidationDictionary)
             : this(theValidationDictionary, new HAVAuthenticationService(), new HAVUserPictureService(), new EntityHAVUserRepository(), new HAVEmail(), new HAVBaseRepository()) { }
         
