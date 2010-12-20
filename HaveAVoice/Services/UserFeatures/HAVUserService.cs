@@ -202,15 +202,6 @@ namespace HaveAVoice.Services.UserFeatures {
             return theRepository.GetUserPicture(aUserPictureId);
         }
 
-        public UserPrivacySetting GetUserPrivacySettings(User aUser) {
-            return theRepository.GetUserPrivacySettingsForUser(aUser);
-        }
-
-
-        public void UpdatePrivacySettings(User aUser, UserPrivacySetting aUserPrivacySetting) {
-            theRepository.UpdatePrivacySettings(aUser, aUserPrivacySetting);
-        }
-
         public bool ForgotPasswordRequest(string anEmail) {
             if (!ValidEmail(anEmail, null)) {
                 return false;

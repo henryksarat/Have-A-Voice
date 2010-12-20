@@ -95,7 +95,7 @@ namespace HaveAVoice.Controllers.Users
 
         public ActionResult Edit() {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             } 
             User myUser = GetUserInformaton();
 
@@ -127,7 +127,7 @@ namespace HaveAVoice.Controllers.Users
 
         public ActionResult UserPictures() {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             } 
             int myUserId = GetUserInformaton().Id;
             IEnumerable<UserPicture> userPictures = theService.GetUserPictures(myUserId);
@@ -175,41 +175,6 @@ namespace HaveAVoice.Controllers.Users
             return View("UserPictures", aUserPicturesModel);
         }
 
-
-        public ActionResult EditPrivacy() {
-            if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
-            } 
-            User myUser = GetUserInformaton();
-            UserPrivacySetting myPrivacy;
-            try {
-                myPrivacy = theService.GetUserPrivacySettings(myUser);
-            } catch (Exception e) {
-                LogError(e, new StringBuilder().AppendFormat("Error retrieving the user privacy settings. [userId={0}]", myUser.Id).ToString());
-                return SendToErrorPage("Error retrieving your privacy settings. Please try again."); 
-            }           
-            
-            return View("EditPrivacy", myPrivacy);
-        }
-
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult EditPrivacy(UserPrivacySetting aUserPrivacySetting) {
-            if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
-            } 
-            User myUser = GetUserInformaton();
-            try {
-                theService.UpdatePrivacySettings(myUser, aUserPrivacySetting);
-                return SendToResultPage(EDIT_SUCCESS);
-            } catch (Exception e) {
-                LogError(e, new StringBuilder().AppendFormat("Unable to update the user privacy settings. [userId={0};userPrivacySettingsId{1}]", myUser.Id, aUserPrivacySetting.Id).ToString());
-                ViewData["Message"] = "Error updating your privacy settings. Please try again.";
-
-            }
-            return View("EditPrivacy", aUserPrivacySetting);
-        }
-
         public ActionResult ForgotPassword() {
             return View("ForgotPassword");
         }
@@ -252,7 +217,7 @@ namespace HaveAVoice.Controllers.Users
 
         public ActionResult Gallery() {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             int myUserId = GetUserInformaton().Id;
 
@@ -269,7 +234,7 @@ namespace HaveAVoice.Controllers.Users
 
         public ActionResult BecomeAFan(int id) {
             if (!IsLoggedIn()) {
-                return RedirectToAction("Login", "User");
+                return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
             try {

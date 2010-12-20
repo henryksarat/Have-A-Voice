@@ -24,11 +24,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
         UserPicture GetUserPicture(int userPictureId);
         void DeleteUserPicture(int aUserPictureId);
 
-        Restriction GetRestrictionsForUser(User aUser);
-
-        UserPrivacySetting GetUserPrivacySettingsForUser(User aUser);
-        void UpdatePrivacySettings(User aUser, UserPrivacySetting aUserPrivacySetting);
-
         void UpdateUserForgotPasswordHash(string anEmail, string aHashCode);
         User GetUserByEmailAndForgotPasswordHash(string anEmail, string aHashCode);
         void ChangePassword(int aUserId, string aPassword);
@@ -37,6 +32,5 @@ namespace HaveAVoice.Repositories.UserFeatures {
         
         void RemoveUserFromRole(User aUser, Role aRole);
         UserRole AddUserToRole(User user, Role role);
-        void AddDefaultUserPrivacySettings(User aUser);
     }
 }

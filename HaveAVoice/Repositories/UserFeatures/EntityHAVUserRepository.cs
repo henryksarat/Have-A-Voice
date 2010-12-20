@@ -231,38 +231,10 @@ namespace HaveAVoice.Repositories.UserFeatures {
             GetEntities().SaveChanges();
         }
 
-        public Restriction GetRestrictionsForUser(User aUser) {
-            return (from u in GetEntities().Users
-                    join ur in GetEntities().UserRoles on u.Id equals ur.User.Id
-                    join r in GetEntities().Roles on ur.Role.Id equals r.Id
-                    join res in GetEntities().Restrictions on r.Restriction.Id equals res.Id
-                    where u.Id == aUser.Id
-                    select res).FirstOrDefault<Restriction>();
-
-        }
-
-        public UserPrivacySetting GetUserPrivacySettingsForUser(User aUser) {
-            return (from p in GetEntities().UserPrivacySettings
-                    where p.User.Id == aUser.Id
-                    select p).FirstOrDefault<UserPrivacySetting>();
-        }
-
         UserPicture IHAVUserRepository.GetUserPicture(int userPictureId) {
             return (from up in GetEntities().UserPictures
                     where up.Id == userPictureId
                     select up).FirstOrDefault<UserPicture>();
-        }
-
-        public void UpdatePrivacySettings(User aUser, UserPrivacySetting aUserPrivacySetting) {
-            UserPrivacySetting mySettings = GetUserPrivacySettings(aUserPrivacySetting);
-            GetEntities().ApplyCurrentValues(mySettings.EntityKey.EntitySetName, aUserPrivacySetting);
-            GetEntities().SaveChanges();
-        }
-
-        private UserPrivacySetting GetUserPrivacySettings(UserPrivacySetting aUserPrivacySetting) {
-            return (from p in GetEntities().UserPrivacySettings
-                    where p.Id == aUserPrivacySetting.Id
-                    select p).FirstOrDefault<UserPrivacySetting>();
         }
 
         public void UpdateUserForgotPasswordHash(string anEmail, string aHashCode) {
@@ -295,13 +267,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
             myFan.User = myUserRepository.GetUser(aUser.Id);
             myFan.SourceUser = myUserRepository.GetUser(aSourceUserId);
             GetEntities().Fans.AddObject(myFan);
-            GetEntities().SaveChanges();
-        }
-
-        public void AddDefaultUserPrivacySettings(User aUser) {
-            UserPrivacySetting myPrivacySettings = UserPrivacySetting.CreateUserPrivacySetting(0, false, false, false);
-            myPrivacySettings.User = GetUser(aUser.Id);
-            GetEntities().AddToUserPrivacySettings(myPrivacySettings);
             GetEntities().SaveChanges();
         }
 

@@ -15,14 +15,16 @@ namespace HaveAVoice.Services.UserFeatures {
         public static string REMEMBER_ME_COOKIE = "HaveAVoiceRememberMeCookie";
         public static int REMEMBER_ME_COOKIE_HOURS = 4;
 
+        private IHAVUserPrivacySettingsService thePrivacySettingsService;
         private IHAVAuthenticationRepository theAuthRepo;
         private IHAVUserRepository theUserRepo;
         private IHAVRoleRepository theRoleRepo;
 
         public HAVAuthenticationService()
-            : this(new HAVBaseRepository(), new EntityHAVAuthenticationRepository(), new EntityHAVUserRepository(), new EntityHAVRoleRepository()) { }
+            : this(new HAVBaseRepository(), new HAVUserPrivacySettingsService(),  new EntityHAVAuthenticationRepository(), new EntityHAVUserRepository(), new EntityHAVRoleRepository()) { }
         
-        public HAVAuthenticationService(IHAVBaseRepository baseRepository, IHAVAuthenticationRepository anAuthRepo, IHAVUserRepository aUserRepo, IHAVRoleRepository aRoleRepo) : base(baseRepository) {
+        public HAVAuthenticationService(IHAVBaseRepository baseRepository, IHAVUserPrivacySettingsService aPrivacyService, IHAVAuthenticationRepository anAuthRepo, IHAVUserRepository aUserRepo, IHAVRoleRepository aRoleRepo) : base(baseRepository) {
+            thePrivacySettingsService = aPrivacyService;
             theAuthRepo = anAuthRepo;
             theUserRepo = aUserRepo;
             theRoleRepo = aRoleRepo;
@@ -36,14 +38,14 @@ namespace HaveAVoice.Services.UserFeatures {
                 return null;
             }
 
-            IEnumerable<Permission> myPermissions = theAuthRepo.GetPermissionsForUser(myUser);
-            Restriction myRestriction = theUserRepo.GetRestrictionsForUser(myUser);
+            IEnumerable<Permission> myPermissions = theAuthRepo.FindPermissionsForUser(myUser);
+            Restriction myRestriction = theAuthRepo.FindRestrictionsForUser(myUser);
 
             if (myRestriction == null) {
                 throw new Exception("The user has no restriction.");
             }
 
-            UserPrivacySetting myPrivacySettings = theUserRepo.GetUserPrivacySettingsForUser(myUser);
+            UserPrivacySetting myPrivacySettings = thePrivacySettingsService.FindUserPrivacySettingsForUser(myUser);
 
             if (myPrivacySettings == null) {
                 throw new Exception("The user has no privacy settings.");
@@ -63,9 +65,9 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public UserInformationModel ActivateNewUser(string activationCode) {
             User myUser = ActivateUser(activationCode);
-            IEnumerable<Permission> permissions = theAuthRepo.GetPermissionsForUser(myUser);
-            Restriction myRestriction = theUserRepo.GetRestrictionsForUser(myUser);
-            UserPrivacySetting myPrivacySettings = theUserRepo.GetUserPrivacySettingsForUser(myUser);
+            IEnumerable<Permission> permissions = theAuthRepo.FindPermissionsForUser(myUser);
+            Restriction myRestriction = theAuthRepo.FindRestrictionsForUser(myUser);
+            UserPrivacySetting myPrivacySettings = thePrivacySettingsService.FindUserPrivacySettingsForUser(myUser);
             return new UserInformationModel(myUser, permissions, myRestriction, myPrivacySettings);
         }
 
@@ -102,7 +104,7 @@ namespace HaveAVoice.Services.UserFeatures {
             List<int> myUsers = new List<int>();
             myUsers.Add(myUser.Id);
             theRoleRepo.MoveUsersToRole(myUsers, myNotConfirmedRole.Id, myDefaultRole.Id);
-            theUserRepo.AddDefaultUserPrivacySettings(myUser);
+            thePrivacySettingsService.AddDefaultUserPrivacySettings(myUser);
             return myUser;
         }
 

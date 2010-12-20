@@ -11,9 +11,6 @@ namespace HaveAVoice.Services.UserFeatures {
         bool EditUser(EditUserModel aUserToEdit);
         EditUserModel GetUserForEdit(User aUser);
 
-        UserPrivacySetting GetUserPrivacySettings(User aUser);
-        void UpdatePrivacySettings(User aUser, UserPrivacySetting aUserPrivacySetting);
-
         UserPicture GetProfilePicture(int aUserId);
         IEnumerable<UserPicture> GetUserPictures(int aUserId);
         UserPicture GetUserPicture(int aUserPictureId);
