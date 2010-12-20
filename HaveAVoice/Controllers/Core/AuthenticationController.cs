@@ -19,18 +19,21 @@ namespace HaveAVoice.Controllers.Core {
         private static string OUR_ERROR = "Couldn't activate the account because of something on our end. Please try again later.";
         private static string ACTIVATION_ERROR = "Error while activating your account. Please try again.";
 
-        private IHAVUserService theService;
+        private IHAVAuthenticationService theAuthService;
+        private IHAVWhoIsOnlineService theWhoIsOnlineService;
         private IValidationDictionary theValidationDictionary;
 
         public AuthenticationController() :
             base(new HAVBaseService(new HAVBaseRepository())) {
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
-            theService = new HAVUserService(theValidationDictionary);
+            theAuthService = new HAVAuthenticationService();
+            theWhoIsOnlineService = new HAVWhoIsOnlineService();
         }
 
-        public AuthenticationController(IHAVUserService service, IHAVBaseService baseService)
+        public AuthenticationController(IHAVBaseService baseService, IHAVAuthenticationService anAuthService, IHAVWhoIsOnlineService aWhoIsOnlineService)
             : base(baseService) {
-            theService = service;
+            theAuthService = anAuthService;
+            theWhoIsOnlineService = aWhoIsOnlineService;
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
@@ -42,7 +45,7 @@ namespace HaveAVoice.Controllers.Core {
         public ActionResult Login(string email, string password, bool rememberMe) {
             UserInformationModel userModel = null;
             try {
-                userModel = theService.AuthenticateUser(email, password);
+                userModel = theAuthService.AuthenticateUser(email, password);
             } catch (Exception e) {
                 LogError(e, AUTHENTICAITON_ERROR);
                 ViewData["Message"] = AUTHENTICAITON_ERROR;
@@ -50,11 +53,11 @@ namespace HaveAVoice.Controllers.Core {
             }
 
             if (userModel != null) {
-                theService.AddToWhoIsOnline(userModel.Details, HttpContext.Request.UserHostAddress);
+                theWhoIsOnlineService.AddToWhoIsOnline(userModel.Details, HttpContext.Request.UserHostAddress);
 
                 CreateUserInformationSession(userModel);
                 if (rememberMe) {
-                    theService.CreateRememberMeCredentials(userModel.Details);
+                    theAuthService.CreateRememberMeCredentials(userModel.Details);
                 }
             } else {
                 ViewData["Message"] = INCORRECT_LOGIN;
@@ -68,7 +71,7 @@ namespace HaveAVoice.Controllers.Core {
         public ActionResult ActivateAccount(string id) {
             string myError;
             try {
-                UserInformationModel userModel = theService.ActivateNewUser(id);
+                UserInformationModel userModel = theAuthService.ActivateNewUser(id);
                 CreateUserInformationSession(userModel);
                 return RedirectToPostLogin();
             } catch (NullUserException) {
@@ -85,7 +88,7 @@ namespace HaveAVoice.Controllers.Core {
 
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult LogOut() {
-            theService.RemoveFromWhoIsOnline(GetUserInformaton(), HttpContext.Request.UserHostAddress);
+            theWhoIsOnlineService.RemoveFromWhoIsOnline(GetUserInformaton(), HttpContext.Request.UserHostAddress);
             Session.Clear();
             return RedirectToAction("Login");
         }

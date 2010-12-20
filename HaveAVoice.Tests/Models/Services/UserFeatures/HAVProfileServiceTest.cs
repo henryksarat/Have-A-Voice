@@ -28,27 +28,27 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
         [TestInitialize]
         public void Initialize() {
             theModelState = new ModelStateDictionary();
-            theMockRepository = new Mock<IHAVProfileRepository>();
+            theUserRepo = new Mock<IHAVProfileRepository>();
             theBaseRepository = new Mock<IHAVBaseRepository>();
             theMockedBaseService = new Mock<IHAVBaseService>();
 
-            theUserService = new HAVProfileService(new ModelStateWrapper(theModelState),
-                                                               theMockRepository.Object,
+            theAuthService = new HAVProfileService(new ModelStateWrapper(theModelState),
+                                                               theUserRepo.Object,
                                                                theBaseRepository.Object);
 
         }
         
         [TestMethod]
         public void TestPostToBoardSuccess() {
-            bool myResult = theUserService.PostToBoard(theUser, theViewingUser, "Hey how are you?");
-            theMockRepository.Verify(r => r.AddToBoard(It.IsAny<User>(), It.IsAny<User>(), It.IsAny<string>()), Times.Exactly(1));
+            bool myResult = theAuthService.PostToBoard(theUser, theViewingUser, "Hey how are you?");
+            theUserRepo.Verify(r => r.AddToBoard(It.IsAny<User>(), It.IsAny<User>(), It.IsAny<string>()), Times.Exactly(1));
             Assert.IsTrue(myResult);
         }
 
         [TestMethod]
         public void TestPostToBoardRequiredMessage() {
-            bool myResult = theUserService.PostToBoard(theUser, theViewingUser, string.Empty);
-            theMockRepository.Verify(r => r.AddToBoard(It.IsAny<User>(), It.IsAny<User>(), It.IsAny<string>()), Times.Never());
+            bool myResult = theAuthService.PostToBoard(theUser, theViewingUser, string.Empty);
+            theUserRepo.Verify(r => r.AddToBoard(It.IsAny<User>(), It.IsAny<User>(), It.IsAny<string>()), Times.Never());
             Assert.IsFalse(myResult);
             var myError = theModelState["BoardMessage"].Errors[0];
             Assert.AreEqual("You must enter text to post on this user's board.", myError.ErrorMessage);

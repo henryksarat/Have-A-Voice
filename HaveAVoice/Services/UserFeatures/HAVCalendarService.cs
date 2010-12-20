@@ -6,8 +6,8 @@ using HaveAVoice.Models.View;
 using HaveAVoice.Repositories.UserFeatures;
 using System;
 using HaveAVoice.Helpers.UserInformation;
-using HaveAVoice.Helpers;
 using HaveAVoice.Models;
+using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVCalendarService : HAVBaseService, IHAVCalendarService {
@@ -46,7 +46,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public void DeleteEvent(UserInformationModel anUserInformation, int anEventId) {
-            bool myAdminOverride = HAVPermissionHelper.AllowedToPerformAction(anUserInformation, Helpers.HAVPermission.Delete_Any_Event);
+            bool myAdminOverride = HAVPermissionHelper.AllowedToPerformAction(anUserInformation, HAVPermission.Delete_Any_Event);
             theRepository.DeleteEvent(anUserInformation.Details, anEventId, myAdminOverride);
         }
 

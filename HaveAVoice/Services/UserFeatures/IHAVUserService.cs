@@ -6,10 +6,6 @@ namespace HaveAVoice.Services.UserFeatures {
     public interface IHAVUserService {
         User GetUser(int userId);
         bool CreateUser(User aUserToCreate, bool aCaptchaValid, bool anAgreement, string anIpAddress);
-        UserInformationModel AuthenticateUser(string anEmail, string aPassword);
-        void CreateRememberMeCredentials(User aUserModel);
-        User ReadRememberMeCredentials();
-        UserInformationModel ActivateNewUser(string anActivationCode);
         IEnumerable<UserDetailsModel> GetUserList(User anExcludedUser);
         IEnumerable<Timezone> GetTimezones();
         bool EditUser(EditUserModel aUserToEdit);
@@ -23,8 +19,6 @@ namespace HaveAVoice.Services.UserFeatures {
         UserPicture GetUserPicture(int aUserPictureId);
         void SetToProfilePicture(int aUserPictureId, User aUser);
         void DeleteUserPictures(List<int> aUserPictureIds);
-
-        IEnumerable<Permission> GetPermissionsForUser(User aUser);
 
         bool ForgotPasswordRequest(string anEmail);
         bool ForgotPasswordProcess(string anEmail, string aForgotPasswordHash);

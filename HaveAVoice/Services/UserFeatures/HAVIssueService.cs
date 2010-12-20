@@ -156,7 +156,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public bool DeleteIssue(UserInformationModel aDeletingUser, int anIssueId) {
-            bool myAdminOverride = HAVPermissionHelper.AllowedToPerformAction(aDeletingUser, Helpers.HAVPermission.Delete_Any_Issue);
+            bool myAdminOverride = HAVPermissionHelper.AllowedToPerformAction(aDeletingUser, HAVPermission.Delete_Any_Issue);
             Issue myIssue = GetIssue(anIssueId);
             if (myIssue.User.Id == aDeletingUser.Details.Id || myAdminOverride) {
                 theRepository.DeleteIssue(aDeletingUser.Details, myIssue, myAdminOverride);
@@ -166,7 +166,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public bool DeleteIssueReply(UserInformationModel aDeletingUser, int anIssueReplyId) {
-            bool myAdminOverride = HAVPermissionHelper.AllowedToPerformAction(aDeletingUser, Helpers.HAVPermission.Delete_Any_Issue_Reply);
+            bool myAdminOverride = HAVPermissionHelper.AllowedToPerformAction(aDeletingUser, HAVPermission.Delete_Any_Issue_Reply);
             IssueReply myReply = GetIssueReply(anIssueReplyId);
             if (myReply.User.Id == aDeletingUser.Details.Id || myAdminOverride) {
                 theRepository.DeleteIssueReply(aDeletingUser.Details, myReply, myAdminOverride);
@@ -176,7 +176,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public bool DeleteIssueReplyComment(UserInformationModel aDeletingUser, int anIssueReplyCommentId) {
-            bool myAdminOverride = HAVPermissionHelper.AllowedToPerformAction(aDeletingUser, Helpers.HAVPermission.Delete_Any_Issue_Reply_Comment);
+            bool myAdminOverride = HAVPermissionHelper.AllowedToPerformAction(aDeletingUser, HAVPermission.Delete_Any_Issue_Reply_Comment);
             IssueReplyComment myComment = GetIssueReplyComment(anIssueReplyCommentId);
 
             if (myComment.User.Id == aDeletingUser.Details.Id || myAdminOverride) {

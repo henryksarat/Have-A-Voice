@@ -25,12 +25,10 @@ namespace HaveAVoice.Repositories.UserFeatures {
         UserPicture GetUserPicture(int userPictureId);
         void DeleteUserPicture(int aUserPictureId);
 
-        IEnumerable<Permission> GetPermissionsForUser(User aUser);
         Restriction GetRestrictionsForUser(User aUser);
 
         UserPrivacySetting GetUserPrivacySettingsForUser(User aUser);
         void UpdatePrivacySettings(User aUser, UserPrivacySetting aUserPrivacySetting);
-
 
         void UpdateUserForgotPasswordHash(string anEmail, string aHashCode);
         User GetUserByEmailAndForgotPasswordHash(string anEmail, string aHashCode);

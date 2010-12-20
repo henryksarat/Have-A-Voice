@@ -11,33 +11,31 @@ using HaveAVoice.Repositories.UserFeatures;
 using System.Web.Mvc;
 using HaveAVoice.Repositories.AdminFeatures;
 using HaveAVoice.Models;
+using HaveAVoice.Services.Helpers;
 
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVUserService : HAVBaseService, IHAVUserService {
-        public const string REMEMBER_ME_COOKIE = "HaveAVoiceRememberMeCookie";
-        public const int REMEMBER_ME_COOKIE_HOURS = 4;
         public const double FORGOT_PASSWORD_MAX_DAYS = 15;
 
         private IValidationDictionary theValidationDictionary;
+        private IHAVAuthenticationService theAuthService;
         private IHAVUserRepository theRepository;
-        private IHAVRoleRepository theRoleRepository;
         private IHAVEmail theEmailService;
 
         //Need to create instance in binders :(
-        //Move out the methods we need into a new aUserService!!
+        //Move out the methods we need into a new anAuthService!!
         public HAVUserService() :
             this(null) { }
 
         public HAVUserService(IValidationDictionary theValidationDictionary)
-            : this(theValidationDictionary, new EntityHAVUserRepository(), 
-            new EntityHAVRoleRepository(), new HAVEmail(), new HAVBaseRepository()) { }
+            : this(theValidationDictionary, new HAVAuthenticationService(), new EntityHAVUserRepository(), new HAVEmail(), new HAVBaseRepository()) { }
         
-        public HAVUserService(IValidationDictionary aValidationDictionary, IHAVUserRepository aRepository, IHAVRoleRepository aRoleRepository,
+        public HAVUserService(IValidationDictionary aValidationDictionary, IHAVAuthenticationService anAuthService,  IHAVUserRepository aRepository,
             IHAVEmail aEmailService, IHAVBaseRepository baseRepository) : base(baseRepository) {
             theValidationDictionary = aValidationDictionary;
+            theAuthService = anAuthService;
             theRepository = aRepository;
-            theRoleRepository = aRoleRepository;
             theEmailService = aEmailService;
         }
 
@@ -66,7 +64,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
             if (myEmailException != null) {
                 try {
-                    ActivateUser(aUserToCreate.ActivationCode);
+                    theAuthService.ActivateNewUser(aUserToCreate.ActivationCode);
                 } catch (Exception e) {
                     theRepository.DeleteUser(aUserToCreate);
                     throw e;
@@ -77,39 +75,11 @@ namespace HaveAVoice.Services.UserFeatures {
             return true;
         }
 
-        private User ActivateUser(string anActivationCode) {
-            User myUser = theRepository.FindUserByActivationCode(anActivationCode);
-
-            if (myUser == null) {
-                throw new NullUserException("There is no user matching that activation code.");
-            }
-
-
-            Role myNotConfirmedRole = theRoleRepository.GetNotConfirmedUserRole();
-            if (myNotConfirmedRole == null) {
-                throw new NullRoleException("There is no \"Not confirmed\" role");
-            }
-            Role myDefaultRole = theRoleRepository.GetDefaultRole();
-            if (myDefaultRole == null) {
-                throw new NullReferenceException("There is no default role.");
-            }
-
-            List<int> myUsers = new List<int>();
-            myUsers.Add(myUser.Id);
-            theRoleRepository.MoveUsersToRole(myUsers, myNotConfirmedRole.Id, myDefaultRole.Id);
-            theRepository.AddDefaultUserPrivacySettings(myUser);
-            return myUser;
-        }
-
-        private void RemoveUserFromNotConfirmedRole(User myUser) {
-
-        }
-
         private User CompleteAddingFieldsToUser(User aUserToCreate, string aIpAddress) {
             TimeZone myTimezone = TimeZone.CurrentTimeZone;
             aUserToCreate.UTCOffset = myTimezone.GetUtcOffset(DateTime.Now).ToString();
 
-            aUserToCreate.Password = HashPassword(aUserToCreate.Password);
+            aUserToCreate.Password = PasswordHelper.HashPassword(aUserToCreate.Password);
             aUserToCreate.RegistrationDate = DateTime.UtcNow;
             aUserToCreate.RegistrationIp = aIpAddress;
             aUserToCreate.LastLogin = DateTime.UtcNow;
@@ -127,77 +97,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 throw new EmailException("Couldn't send aEmail.", e);
             }
         }
-
-        private string HashPassword(string aPassword) {
-            return System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(aPassword, "SHA1");
-        }
         
-        public UserInformationModel AuthenticateUser(string anEmail, string aPassword) {
-            aPassword = HashPassword(aPassword);
-            User myUser = theRepository.GetUser(anEmail, aPassword);
-            
-            if (myUser == null) {
-                return null;
-            }
-
-            IEnumerable<Permission> myPermissions = theRepository.GetPermissionsForUser(myUser);
-            Restriction myRestriction = theRepository.GetRestrictionsForUser(myUser);
-
-            if (myRestriction == null) {
-                throw new Exception("The user has no restriction.");
-            }
-            
-            UserPrivacySetting myPrivacySettings = theRepository.GetUserPrivacySettingsForUser(myUser);
-            
-            if (myPrivacySettings == null) {
-                throw new Exception("The user has no privacy settings.");
-            }
-
-            return new UserInformationModel(myUser, myPermissions, myRestriction, myPrivacySettings);
-        }
-
-        public void CreateRememberMeCredentials(User aUser) {
-            string myCookieHash = CreateCookieHash(aUser);
-            HttpCookie aCookie = new HttpCookie(REMEMBER_ME_COOKIE);
-            aCookie["UserId"] = aUser.Id.ToString();
-            aCookie["CookieHash"] = myCookieHash;
-            aCookie.Expires = DateTime.Today.AddHours(REMEMBER_ME_COOKIE_HOURS);
-            HttpContext.Current.Response.Cookies.Add(aCookie);
-        }
-
-        private string CreateCookieHash(User aUser) {
-            string myTime = DateTime.Now.ToString();
-            string myCookieHash =
-                System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(aUser.Id + DateTime.Now.ToString(), "SHA1");
-            aUser.CookieHash = myCookieHash;
-            aUser.CookieCreationDate = DateTime.Now;
-            theRepository.UpdateUser(aUser);
-            return myCookieHash;
-        }
-
-
-        public User ReadRememberMeCredentials() {
-            HttpCookie myCookie = HttpContext.Current.Request.Cookies.Get(REMEMBER_ME_COOKIE);
-            if (myCookie != null) {
-                int userId = Int32.Parse(myCookie["UserId"]);
-                string cookieHash = myCookie["CookieHash"];
-                User myUser = theRepository.GetUserFromCookieHash(userId, cookieHash);
-                myCookie.Expires = DateTime.Now.AddDays(REMEMBER_ME_COOKIE_HOURS);
-                theRepository.UpdateCookieHashCreationDate(myUser);
-                return myUser;
-            } else {
-                return null;
-            }
-        }
-
-        public UserInformationModel ActivateNewUser(string activationCode) {
-            User myUser = ActivateUser(activationCode);
-            IEnumerable<Permission> permissions = theRepository.GetPermissionsForUser(myUser);
-            Restriction myRestriction = theRepository.GetRestrictionsForUser(myUser);
-            UserPrivacySetting myPrivacySettings = theRepository.GetUserPrivacySettingsForUser(myUser);
-            return new UserInformationModel(myUser, permissions, myRestriction, myPrivacySettings);
-        }
-
         public User GetUser(int aUserId) {
             try {
                 return theRepository.GetUser(aUserId);
@@ -231,7 +131,7 @@ namespace HaveAVoice.Services.UserFeatures {
             } else if (!ValidatePassword(password, aUser.RetypedPassword)) {
                 return false;
             } else {
-                aUser.UserInformation.Password = HashPassword(password);
+                aUser.UserInformation.Password = PasswordHelper.HashPassword(password);
             }
 
             if (ShouldUploadImage(isValidFileImage, aUser.ImageFile.FileName)) {
@@ -244,7 +144,6 @@ namespace HaveAVoice.Services.UserFeatures {
             return true;
             
         }
-
 
         private bool ValidateFileImage(string aImageFile) {
             if(!(String.IsNullOrEmpty(aImageFile)) && !(aImageFile.EndsWith(".jpg")) && !(aImageFile.EndsWith(".jpeg")) && !(aImageFile.EndsWith(".gif"))) {
@@ -297,10 +196,6 @@ namespace HaveAVoice.Services.UserFeatures {
             foreach(int userPictureId in aUserPictureIds) {
                 theRepository.DeleteUserPicture(userPictureId);
             }
-        }
-
-        public IEnumerable<Permission> GetPermissionsForUser(User aUser) {
-            return theRepository.GetPermissionsForUser(aUser);
         }
 
         public UserPicture GetUserPicture(int aUserPictureId) {
@@ -374,7 +269,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 return false;
             }
 
-            string myPassword = HashPassword(aPassword);
+            string myPassword = PasswordHelper.HashPassword(aPassword);
             theRepository.ChangePassword(myUser.Id, myPassword);
 
             return true;
