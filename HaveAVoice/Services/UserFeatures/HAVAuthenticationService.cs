@@ -74,9 +74,9 @@ namespace HaveAVoice.Services.UserFeatures {
             if (myCookie != null) {
                 int userId = Int32.Parse(myCookie["UserId"]);
                 string cookieHash = myCookie["CookieHash"];
-                User myUser = theUserRepo.GetUserFromCookieHash(userId, cookieHash);
+                User myUser = theAuthRepo.FindUserByCookieHash(userId, cookieHash);
                 myCookie.Expires = DateTime.Now.AddDays(REMEMBER_ME_COOKIE_HOURS);
-                theUserRepo.UpdateCookieHashCreationDate(myUser);
+                theAuthRepo.UpdateCookieHashCreationDate(myUser);
                 return myUser;
             } else {
                 return null;
@@ -84,7 +84,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         private User ActivateUser(string anActivationCode) {
-            User myUser = theUserRepo.FindUserByActivationCode(anActivationCode);
+            User myUser = theAuthRepo.FindUserByActivationCode(anActivationCode);
 
             if (myUser == null) {
                 throw new NullUserException("There is no user matching that activation code.");

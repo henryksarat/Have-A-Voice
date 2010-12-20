@@ -89,21 +89,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     select c).FirstOrDefault();
         }
 
-        public User GetUserFromCookieHash(int userId, string cookieHash) {
-            DateTime dateTimeCookieExpires = DateTime.Now.AddHours(HAVAuthenticationService.REMEMBER_ME_COOKIE_HOURS);
-            return (from c in GetEntities().Users
-                    where c.Id == userId
-                    && c.CookieHash == cookieHash
-                    && c.CookieCreationDate >= dateTimeCookieExpires
-                    select c).FirstOrDefault();
-        }
-
-        public User UpdateCookieHashCreationDate(User user) {
-            user.CookieCreationDate = DateTime.Now;
-            UpdateUser(user);
-            return user;
-        }
-
         public void DeleteUser(User userToDelete) {
             User originalUser = GetUser(userToDelete.Id);
             GetEntities().DeleteObject(originalUser);
@@ -131,12 +116,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
             GetEntities().DeleteObject(userRole);
             GetEntities().SaveChanges();
-        }
-
-        public User FindUserByActivationCode(string activationCode) {
-            return (from c in GetEntities().Users
-                    where c.ActivationCode == activationCode
-                    select c).FirstOrDefault();
         }
 
         public IEnumerable<UserDetailsModel> GetUserList(User user) {
@@ -319,14 +298,12 @@ namespace HaveAVoice.Repositories.UserFeatures {
             GetEntities().SaveChanges();
         }
 
-
         public void AddDefaultUserPrivacySettings(User aUser) {
             UserPrivacySetting myPrivacySettings = UserPrivacySetting.CreateUserPrivacySetting(0, false, false, false);
             myPrivacySettings.User = GetUser(aUser.Id);
             GetEntities().AddToUserPrivacySettings(myPrivacySettings);
             GetEntities().SaveChanges();
         }
-
 
         public void UpdateUser(User userToEdit) {
             User originalUser = GetUser(userToEdit.Id);

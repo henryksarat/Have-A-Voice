@@ -304,7 +304,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
 
             Assert.IsTrue(myEmailException);
         }
-         * */
+         
 
         [TestMethod]
         public void TestCreateAccount_EmailExceptionAndActivationException() {
@@ -325,7 +325,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
             Assert.AreEqual(false, emailExceptionThrown);
             Assert.AreEqual(true, exceptionThrown);
         }
-
+        * */
         /*
         [TestMethod]
         public void ShouldActivateAccount() {

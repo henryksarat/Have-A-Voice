@@ -9,8 +9,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         void UpdateUser(User userToEdit);
         User GetUser(string email, string password);
         User GetUser(string email);
-        User GetUserFromCookieHash(int userId, string cookieHash);
-        User UpdateCookieHashCreationDate(User user);
+
         void DeleteUser(User userToDelete);
         User DeleteUserFromRole(int userId, int roleId);
         bool EmailRegistered(string email);
@@ -35,7 +34,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         void ChangePassword(int aUserId, string aPassword);
 
         void AddFan(User aUser, int aSourceUserId);
-        User FindUserByActivationCode(string activationCode);
+        
         void RemoveUserFromRole(User aUser, Role aRole);
         UserRole AddUserToRole(User user, Role role);
         void AddDefaultUserPrivacySettings(User aUser);
