@@ -102,7 +102,7 @@ namespace HaveAVoice.Controllers.Core {
         }
 
         protected override ActionResult SendToResultPage(string aTitle, string aDetails) {
-            throw new NotImplementedException();
+            return SendToResultPage(SiteSectionsEnum.Authentication, aTitle, aDetails);
         }
     }
 }

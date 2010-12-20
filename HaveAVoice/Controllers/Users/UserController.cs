@@ -21,7 +21,6 @@ using HaveAVoice.Helpers.UserInformation;
 namespace HaveAVoice.Controllers.Users
 {
     public class UserController : HAVBaseController {
-        private static string NOT_ALLOWED = "You are not allowed to view that page.";
         private static string EDIT_SUCCESS = "Your account has been edited successfully!";
         private static string CREATE_ACCOUNT_SUCCESS = "User account created! But before you can start doing "
                         + "anything on the site you have to activate your account. Please check your aEmail "
@@ -125,56 +124,6 @@ namespace HaveAVoice.Controllers.Users
             return View("Edit", userToEdit);
         }
 
-        public ActionResult UserPictures() {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            } 
-            int myUserId = GetUserInformaton().Id;
-            IEnumerable<UserPicture> userPictures = theService.GetUserPictures(myUserId);
-            UserPicture profilePicture = theService.GetProfilePicture(myUserId);
-
-            return View("UserPictures", new UserPicturesModel(profilePicture, userPictures, new List<int>()));
-
-        }
-
-        [ActionName("UserPictures")]
-        [AcceptParameter(Name = "button", Value = "SetProfilePicture")]
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult UserPictures_SetProfilePicture(UserPicturesModel aUserPicturesModel) {
-            if (aUserPicturesModel.SelectedUserPictures.Count != 1) {
-                ViewData["Message"] = "Please select only ONE image to be your profile image.";
-            } else {
-                try {
-                    theService.SetToProfilePicture(aUserPicturesModel.SelectedUserPictures.First(), GetUserInformaton());
-                    return SendToResultPage("New profile picture set!");
-                } catch (Exception e) {
-                    LogError(e, "Error setting profile picture. Please try again.");
-                    ViewData["Message"] = "An error occurred while trying to set your new profile picture.";
-                }
-            }        
-
-            return View("UserPictures", aUserPicturesModel);
-        }
-
-        [ActionName("UserPictures")]
-        [AcceptParameter(Name = "button", Value = "Delete")]
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult UserPictures_Delete(UserPicturesModel aUserPicturesModel) {
-            if(aUserPicturesModel.SelectedUserPictures.Count == 0) {
-                ViewData["Message"] = "To delete a picture you have to at least select one.";
-            } else {
-                try {
-                    theService.DeleteUserPictures(aUserPicturesModel.SelectedUserPictures);
-                    return SendToResultPage("Pictures deleted.");
-                } catch(Exception e) {
-                    LogError(e, "Error deleting userToListenTo pictures.");
-                    ViewData["Message"] = "An error occurred while trying to delete the pictures.";
-                }
-            }
-
-            return View("UserPictures", aUserPicturesModel);
-        }
-
         public ActionResult ForgotPassword() {
             return View("ForgotPassword");
         }
@@ -213,23 +162,6 @@ namespace HaveAVoice.Controllers.Users
             }
 
             return View("ForgotPassword", new StringWrapper(forgotPasswordHash));
-        }
-
-        public ActionResult Gallery() {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            int myUserId = GetUserInformaton().Id;
-
-            IEnumerable<UserPicture> myPictures = new List<UserPicture>();
-            try {
-                myPictures = theService.GetUserPictures(myUserId);
-            } catch (Exception e) {
-                LogError(e, new StringBuilder().AppendFormat("Unable to get the user pictures. [userId={0}]", myUserId).ToString());
-                SendToErrorPage("Unable to load your gallery. Please try again.");
-            }
-
-            return View("Gallery", myPictures);
         }
 
         public ActionResult BecomeAFan(int id) {

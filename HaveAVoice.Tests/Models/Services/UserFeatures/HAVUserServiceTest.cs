@@ -37,6 +37,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
         private Mock<IHAVBaseRepository> theBaseRepository;
         private Mock<IHAVBaseService> theBaseService;
         private Mock<IHAVAuthenticationService> theAuthService;
+        private Mock<IHAVUserPictureService> theUserPictureService;
         private User theUser;
         private CreateUserModelBuilder theModelBuilder;
         private EditUserModel theEditUserModel;
@@ -45,6 +46,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
         public void Initialize() {
             theModelState = new ModelStateDictionary();
             theAuthService = new Mock<IHAVAuthenticationService>();
+            theUserPictureService = new Mock<IHAVUserPictureService>();
             theMockedService = new Mock<IHAVUserService>();
             theUserRepo = new Mock<IHAVUserRepository>();
             theMockedEmailService = new Mock<IHAVEmail>();
@@ -53,7 +55,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
 
             theUserRepo.Setup(r => r.CreateUser(It.IsAny<User>())).Returns(() => theUser);
             theMockedEmailService.Setup(e => e.SendEmail(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()));
-            theService = new HAVUserService(new ModelStateWrapper(theModelState), theAuthService.Object, theUserRepo.Object, theMockedEmailService.Object, theBaseRepository.Object);
+            theService = new HAVUserService(new ModelStateWrapper(theModelState), theAuthService.Object, theUserPictureService.Object, theUserRepo.Object, theMockedEmailService.Object, theBaseRepository.Object);
 
             theMockUserInformation = new Mock<IUserInformation>();
             theMockUserInformation.Setup(f => f.GetUserInformaton()).Returns(() => new UserInformationModelBuilder(new User()).Build());
@@ -283,14 +285,14 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
         [TestMethod]
         public void TestCreateUserCantSendEmail() {
             theMockedEmailService.Setup(e => e.SendEmail(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Throws<Exception>();
-            theService = new HAVUserService(new ModelStateWrapper(theModelState), theUserRepo.Object, theMockRoleRepo.Object,
+            theUserPictureService = new HAVUserService(new ModelStateWrapper(theModelState), theUserRepo.Object, theMockRoleRepo.Object,
                                                                theMockedEmailService.Object, theBaseRepository.Object);
             theUserRepo.Setup(r => r.FindUserByActivationCode(It.IsAny<string>())).Returns(() => theUser);
             theMockRoleRepo.Setup(r => r.GetNotConfirmedUserRole()).Returns(() => new Role());
             theMockRoleRepo.Setup(r => r.GetDefaultRole()).Returns(() => new Role());
             bool myEmailException = false;
             try {
-                bool myResult = theService.CreateUser(theModelBuilder.Build(), CAPTCHA_VALID, AGREEMENT, IP_ADDRESS);
+                bool myResult = theUserPictureService.CreateUser(theModelBuilder.Build(), CAPTCHA_VALID, AGREEMENT, IP_ADDRESS);
             } catch (EmailException) {
                 myEmailException = true;
                 theMockedEmailService.Verify(email => email.SendEmail(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(1));
@@ -314,7 +316,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
             bool emailExceptionThrown = false;
             bool exceptionThrown = false;
             try {
-                var result = theService.CreateUser(theModelBuilder.Build(), CAPTCHA_VALID, AGREEMENT, IP_ADDRESS);
+                var result = theUserPictureService.CreateUser(theModelBuilder.Build(), CAPTCHA_VALID, AGREEMENT, IP_ADDRESS);
             } catch (EmailException) {
                 emailExceptionThrown = true;
             } catch (Exception) {
@@ -335,7 +337,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
             theUserRepo.Setup(r => r.GetRestrictionsForUser(It.IsAny<User>())).Returns(() => new Restriction());
             theUserRepo.Setup(r => r.GetUserPrivacySettingsForUser(It.IsAny<User>())).Returns(() => new UserPrivacySetting());
 
-            UserInformationModel myResult = theService.ActivateNewUser(string.Empty);
+            UserInformationModel myResult = theUserPictureService.ActivateNewUser(string.Empty);
 
             Assert.IsNotNull(myResult);
   
@@ -349,7 +351,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
             WhoIsOnline onlineEntry = WhoIsOnline.CreateWhoIsOnline(0, DateTime.UtcNow, IP_ADDRESS, false);
             theUserRepo.Setup(r => r.GetWhoIsOnlineEntry(It.IsAny<User>(), It.IsAny<string>())).Returns(() => onlineEntry);
 
-            var result = theService.IsOnline(theUser, IP_ADDRESS);
+            var result = theUserPictureService.IsOnline(theUser, IP_ADDRESS);
 
             Assert.IsTrue(result);
         }
@@ -360,7 +362,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
             WhoIsOnline onlineEntry = WhoIsOnline.CreateWhoIsOnline(0, expirtyTime, IP_ADDRESS, false);
             theUserRepo.Setup(r => r.GetWhoIsOnlineEntry(It.IsAny<User>(), It.IsAny<string>())).Returns(() => onlineEntry);
 
-            var result = theService.IsOnline(theUser, IP_ADDRESS);
+            var result = theUserPictureService.IsOnline(theUser, IP_ADDRESS);
 
             Assert.IsFalse(result);
         }
@@ -370,7 +372,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
             WhoIsOnline onlineEntry = WhoIsOnline.CreateWhoIsOnline(0, DateTime.UtcNow, IP_ADDRESS, true);
             theUserRepo.Setup(r => r.GetWhoIsOnlineEntry(It.IsAny<User>(), It.IsAny<string>())).Returns(() => onlineEntry);
 
-            var result = theService.IsOnline(theUser, IP_ADDRESS);
+            var result = theUserPictureService.IsOnline(theUser, IP_ADDRESS);
 
             Assert.IsFalse(result);
         }

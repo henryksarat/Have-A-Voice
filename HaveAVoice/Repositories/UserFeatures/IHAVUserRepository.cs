@@ -17,13 +17,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
         IEnumerable<UserDetailsModel> GetUserList(User user);
         IEnumerable<Timezone> GetTimezones();
 
-        void AddProfilePicture(string anImageURL, User aUser);
-        void SetToProfilePicture(int aUserPictureId, User aUser);
-        UserPicture GetProfilePicture(int aUserId);
-        IEnumerable<UserPicture> GetUserPictures(int aUserId);
-        UserPicture GetUserPicture(int userPictureId);
-        void DeleteUserPicture(int aUserPictureId);
-
         void UpdateUserForgotPasswordHash(string anEmail, string aHashCode);
         User GetUserByEmailAndForgotPasswordHash(string anEmail, string aHashCode);
         void ChangePassword(int aUserId, string aPassword);

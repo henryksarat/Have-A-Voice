@@ -23,6 +23,7 @@ namespace HaveAVoice.Tests.Controllers.Users {
         private Mock<IHAVComplaintService> theMockedService;
         private Mock<IHAVUserService> theMockedUserService;
         private Mock<IHAVIssueService> theMockIssueService;
+        private Mock<IHAVUserPictureService> theMockUserPictureService;
         private Mock<IHAVComplaintRepository> theMockRepository;
         private ComplaintController theController;
 
@@ -31,14 +32,15 @@ namespace HaveAVoice.Tests.Controllers.Users {
             theMockedService = new Mock<IHAVComplaintService>();
             theMockedUserService = new Mock<IHAVUserService>();
             theMockIssueService = new Mock<IHAVIssueService>();
+            theMockUserPictureService = new Mock<IHAVUserPictureService>();
             theMockRepository = new Mock<IHAVComplaintRepository>();
 
             theService = new HAVComplaintService(new ModelStateWrapper(theModelState),
                                                                    theMockRepository.Object,
                                                                    theBaseRepository.Object);
 
-            theController = new ComplaintController(theMockedService.Object, theMockedBaseService.Object, 
-                theMockedUserService.Object, theMockIssueService.Object);
+            theController = new ComplaintController(theMockedService.Object, theMockedBaseService.Object,
+                theMockedUserService.Object, theMockIssueService.Object, theMockUserPictureService.Object);
             theController.ControllerContext = GetControllerContext();
 
             theIssue = Issue.CreateIssue(COMPLAINT_SOURCE_ID, COMPLAINT, COMPLAINT_DESCRIPTION, DateTime.UtcNow, false);

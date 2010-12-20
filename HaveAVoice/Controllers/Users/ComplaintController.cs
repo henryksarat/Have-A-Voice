@@ -16,6 +16,7 @@ namespace HaveAVoice.Controllers.Users
         private IHAVComplaintService theService;
         private IHAVUserService theUserService;
         private IHAVIssueService theIssueService;
+        private IHAVUserPictureService theUserPictureService;
 
         public ComplaintController()
             : base(new HAVBaseService(new HAVBaseRepository())) {
@@ -23,14 +24,16 @@ namespace HaveAVoice.Controllers.Users
             theService = new HAVComplaintService(myModelWrapper);
             theUserService = new HAVUserService(myModelWrapper);
             theIssueService = new HAVIssueService(myModelWrapper);
+            theUserPictureService = new HAVUserPictureService();
         }
 
         public ComplaintController(IHAVComplaintService aService, IHAVBaseService aBaseService, 
-            IHAVUserService aUserService, IHAVIssueService aIssueService)
+            IHAVUserService aUserService, IHAVIssueService aIssueService, IHAVUserPictureService aUserPictureService)
             : base(aBaseService) {
             theService = aService;
             theUserService = aUserService;
             theIssueService = aIssueService;
+            theUserPictureService = aUserPictureService;
         }
 
         public ActionResult Complaint(string complaintType, int sourceId) {
@@ -42,7 +45,7 @@ namespace HaveAVoice.Controllers.Users
             ComplaintType myType = (ComplaintType)Enum.Parse(typeof(ComplaintType), complaintType);
             ComplaintModel.Builder myBuilder = new ComplaintModel.Builder(sourceId, myType);
             try {
-                ComplaintHelper.FillComplaintModelBuilder(myBuilder, theUserService, theIssueService);
+                ComplaintHelper.FillComplaintModelBuilder(myBuilder, theUserService, theIssueService, theUserPictureService);
             } catch (Exception e) {
                 LogError(e, String.Format("Unable get complaint info. [complaintModel={0}]", myBuilder.Build().ToString()));
                 return SendToErrorPage("Unable to get the necessary information for the complaint. Please try again.");

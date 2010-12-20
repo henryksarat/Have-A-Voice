@@ -115,7 +115,7 @@ namespace HaveAVoice.Tests.Controllers.Users {
             Assert.AreEqual(null, result.ViewData["Message"]);
             Assert.AreEqual("UserList", result.ViewName);
         }
-
+        /*
         [TestMethod]
         public void TestUserPictures_NotLoggedIn() {
             theMockUserInformation.Setup(u => u.GetUserInformaton()).Returns(() => null);
@@ -182,7 +182,7 @@ namespace HaveAVoice.Tests.Controllers.Users {
             Assert.AreEqual("UserPictures", result.ViewName);
             Assert.IsNotNull(result.ViewData["Message"]);
         }
-
+        
         [TestMethod]
         public void TestSetProfilePicture_ErrorThrown() {
             UserPicture userPicture = new UserPicture();
@@ -200,7 +200,7 @@ namespace HaveAVoice.Tests.Controllers.Users {
             theMockedService.Verify(s => s.SetToProfilePicture(It.IsAny<int>(), It.IsAny<User>()), Times.Exactly(1));
             AssertErrorLogReturnBack("UserPictures", result);
         }
-        /*
+        
         #region "Activate Account"
 
         [TestMethod]

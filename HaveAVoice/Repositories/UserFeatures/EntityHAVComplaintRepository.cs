@@ -16,9 +16,9 @@ namespace HaveAVoice.Repositories.UserFeatures {
             throw new NotImplementedException();
         }
 
-        public void AddIssueComplaint(User filedBy, string complaint, int issueId) {
+        public void AddIssueComplaint(User filedBy, string aComplaint, int issueId) {
             IHAVIssueRepository issueRepo = new EntityHAVIssueRepository();
-            IssueComplaint issueComplaint = IssueComplaint.CreateIssueComplaint(0, complaint);
+            IssueComplaint issueComplaint = IssueComplaint.CreateIssueComplaint(0, aComplaint);
             issueComplaint.FiledByUser = theUserRepo.GetUser(filedBy.Id);
             issueComplaint.Issue = issueRepo.GetIssue(issueId);
             
@@ -26,9 +26,9 @@ namespace HaveAVoice.Repositories.UserFeatures {
             GetEntities().SaveChanges();
         }
 
-        public void AddIssueReplyComplaint(User filedBy, string complaint, int issueReplyId) {
+        public void AddIssueReplyComplaint(User filedBy, string aComplaint, int issueReplyId) {
             IHAVIssueRepository issueRepo = new EntityHAVIssueRepository();
-            IssueReplyComplaint issueReplyComplaint = IssueReplyComplaint.CreateIssueReplyComplaint(0, complaint);
+            IssueReplyComplaint issueReplyComplaint = IssueReplyComplaint.CreateIssueReplyComplaint(0, aComplaint);
             issueReplyComplaint.FiledByUser = theUserRepo.GetUser(filedBy.Id);
             issueReplyComplaint.IssueReply = issueRepo.GetIssueReply(issueReplyId);
 
@@ -36,16 +36,16 @@ namespace HaveAVoice.Repositories.UserFeatures {
             GetEntities().SaveChanges();
         }
 
-        public void AddIssueReplyCommentComplaint(User filedBy, string complaint, int issueReplyCommentId) {
+        public void AddIssueReplyCommentComplaint(User filedBy, string aComplaint, int issueReplyCommentId) {
             IHAVIssueRepository issueRepo = new EntityHAVIssueRepository();
-            IssueReplyCommentComplaint issueReplyCommentComplaint = IssueReplyCommentComplaint.CreateIssueReplyCommentComplaint(0, filedBy.Id, issueReplyCommentId, complaint);
+            IssueReplyCommentComplaint issueReplyCommentComplaint = IssueReplyCommentComplaint.CreateIssueReplyCommentComplaint(0, filedBy.Id, issueReplyCommentId, aComplaint);
 
             GetEntities().AddToIssueReplyCommentComplaints(issueReplyCommentComplaint);
             GetEntities().SaveChanges();
         }
 
-        public void AddProfileComplaint(User filedBy, string complaint, int towardUserId) {
-            ProfileComplaint profileComplaint = ProfileComplaint.CreateProfileComplaint(0, complaint);
+        public void AddProfileComplaint(User filedBy, string aComplaint, int towardUserId) {
+            ProfileComplaint profileComplaint = ProfileComplaint.CreateProfileComplaint(0, aComplaint);
             profileComplaint.FiledByUser = theUserRepo.GetUser(filedBy.Id);
             profileComplaint.TowardUser = theUserRepo.GetUser(towardUserId);
 
@@ -53,16 +53,14 @@ namespace HaveAVoice.Repositories.UserFeatures {
             GetEntities().SaveChanges();
         }
 
-        public void AddUserPictureComplaint(User filedBy, string complaint, int pictureId) {
-            UserPictureComplaint userPicutreComplaint = UserPictureComplaint.CreateUserPictureComplaint(0, complaint);
-            userPicutreComplaint.FiledByUser = theUserRepo.GetUser(filedBy.Id);
-            userPicutreComplaint.UserPicture = theUserRepo.GetUserPicture(pictureId);
+        public void AddUserPictureComplaint(User filedBy, string aComplaint, int pictureId) {
+            UserPictureComplaint userPicutreComplaint = UserPictureComplaint.CreateUserPictureComplaint(0, filedBy.Id, pictureId, aComplaint);
 
             GetEntities().AddToUserPictureComplaints(userPicutreComplaint);
             GetEntities().SaveChanges();
         }
 
-        public void AddMergeComplaint(User filedBy, string complaint, int mergeRequestId) {
+        public void AddMergeComplaint(User filedBy, string aComplaint, int mergeRequestId) {
             throw new NotImplementedException();
         }
     }

@@ -21,6 +21,8 @@ namespace HaveAVoice.Models.View {
         BoardReply,
         Admin,
         Feedback,
-        UserPrivacySettings
+        UserPrivacySettings,
+        Authentication,
+        UserPictures
     };
 }

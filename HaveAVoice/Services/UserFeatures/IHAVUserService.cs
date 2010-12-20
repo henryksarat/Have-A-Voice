@@ -11,12 +11,6 @@ namespace HaveAVoice.Services.UserFeatures {
         bool EditUser(EditUserModel aUserToEdit);
         EditUserModel GetUserForEdit(User aUser);
 
-        UserPicture GetProfilePicture(int aUserId);
-        IEnumerable<UserPicture> GetUserPictures(int aUserId);
-        UserPicture GetUserPicture(int aUserPictureId);
-        void SetToProfilePicture(int aUserPictureId, User aUser);
-        void DeleteUserPictures(List<int> aUserPictureIds);
-
         bool ForgotPasswordRequest(string anEmail);
         bool ForgotPasswordProcess(string anEmail, string aForgotPasswordHash);
         bool ChangePassword(string anEmail, string aForgotPasswordHash, string aPassword, string aRetypedPassword);

@@ -20,7 +20,8 @@ namespace HaveAVoice.Services.UserFeatures {
 
         private IValidationDictionary theValidationDictionary;
         private IHAVAuthenticationService theAuthService;
-        private IHAVUserRepository theRepository;
+        private IHAVUserPictureService theUserPictureService;
+        private IHAVUserRepository theUserRepo;
         private IHAVEmail theEmailService;
 
         //Need to create instance in binders :(
@@ -29,13 +30,14 @@ namespace HaveAVoice.Services.UserFeatures {
             this(null) { }
 
         public HAVUserService(IValidationDictionary theValidationDictionary)
-            : this(theValidationDictionary, new HAVAuthenticationService(), new EntityHAVUserRepository(), new HAVEmail(), new HAVBaseRepository()) { }
+            : this(theValidationDictionary, new HAVAuthenticationService(), new HAVUserPictureService(), new EntityHAVUserRepository(), new HAVEmail(), new HAVBaseRepository()) { }
         
-        public HAVUserService(IValidationDictionary aValidationDictionary, IHAVAuthenticationService anAuthService,  IHAVUserRepository aRepository,
+        public HAVUserService(IValidationDictionary aValidationDictionary, IHAVAuthenticationService anAuthService, IHAVUserPictureService aUserPictureService,  IHAVUserRepository aUserRepo,
             IHAVEmail aEmailService, IHAVBaseRepository baseRepository) : base(baseRepository) {
             theValidationDictionary = aValidationDictionary;
             theAuthService = anAuthService;
-            theRepository = aRepository;
+            theUserPictureService = aUserPictureService;
+            theUserRepo = aUserRepo;
             theEmailService = aEmailService;
         }
 
@@ -53,7 +55,7 @@ namespace HaveAVoice.Services.UserFeatures {
             }
 
             aUserToCreate = CompleteAddingFieldsToUser(aUserToCreate, aIpAddress);
-            aUserToCreate = theRepository.CreateUser(aUserToCreate);
+            aUserToCreate = theUserRepo.CreateUser(aUserToCreate);
 
             EmailException myEmailException = null;
             try {
@@ -66,7 +68,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 try {
                     theAuthService.ActivateNewUser(aUserToCreate.ActivationCode);
                 } catch (Exception e) {
-                    theRepository.DeleteUser(aUserToCreate);
+                    theUserRepo.DeleteUser(aUserToCreate);
                     throw e;
                 }
                 throw new EmailException("Couldn't send aEmail.", myEmailException);
@@ -100,7 +102,7 @@ namespace HaveAVoice.Services.UserFeatures {
         
         public User GetUser(int aUserId) {
             try {
-                return theRepository.GetUser(aUserId);
+                return theUserRepo.GetUser(aUserId);
             } catch (Exception exception) {
                 string details = "Unable to get userToListenTo.";
                 LogError(exception, details);
@@ -109,12 +111,12 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public IEnumerable<UserDetailsModel> GetUserList(User aExcludedUser) {
-            return theRepository.GetUserList(aExcludedUser);
+            return theUserRepo.GetUserList(aExcludedUser);
         }
 
 
         public IEnumerable<Timezone> GetTimezones() {
-            return theRepository.GetTimezones();
+            return theUserRepo.GetTimezones();
         }
 
         public bool EditUser(EditUserModel aUser) {
@@ -136,10 +138,10 @@ namespace HaveAVoice.Services.UserFeatures {
 
             if (ShouldUploadImage(isValidFileImage, aUser.ImageFile.FileName)) {
                 string imageName = UploadImage(aUser.ImageFile, aUser.UserInformation);
-                theRepository.AddProfilePicture(imageName, aUser.UserInformation);
+                theUserPictureService.AddProfilePicture(aUser.UserInformation, imageName);
             }
 
-            theRepository.UpdateUser(aUser.UserInformation);
+            theUserRepo.UpdateUser(aUser.UserInformation);
 
             return true;
             
@@ -166,48 +168,12 @@ namespace HaveAVoice.Services.UserFeatures {
             return fileName;
         }
 
-        public string GetProfilePictureURL(User aUser) {
-            UserPicture profilePicture = theRepository.GetProfilePicture(aUser.Id);
-            string profilePictureImageName;
-
-            if (profilePicture == null) {
-                profilePictureImageName = HAVConstants.NO_PROFILE_PICTURE_IMAGE;
-            } else {
-                profilePictureImageName = profilePicture.ImageName;
-            }
-
-            string filePath = HAVConstants.USER_PICTURE_LOCATION + "/" + profilePictureImageName;
-            return filePath;
-        }
-
-        public IEnumerable<UserPicture> GetUserPictures(int aUserId) {
-            return theRepository.GetUserPictures(aUserId);
-        }
-
-        public UserPicture GetProfilePicture(int aUserId) {
-            return theRepository.GetProfilePicture(aUserId);
-        }
-
-        public void SetToProfilePicture(int aUserPictureId, User aUser) {
-            theRepository.SetToProfilePicture(aUserPictureId, aUser);
-        }
-
-        public void DeleteUserPictures(List<int> aUserPictureIds) {
-            foreach(int userPictureId in aUserPictureIds) {
-                theRepository.DeleteUserPicture(userPictureId);
-            }
-        }
-
-        public UserPicture GetUserPicture(int aUserPictureId) {
-            return theRepository.GetUserPicture(aUserPictureId);
-        }
-
         public bool ForgotPasswordRequest(string anEmail) {
             if (!ValidEmail(anEmail, null)) {
                 return false;
             }
 
-            User myUser = theRepository.GetUser(anEmail);
+            User myUser = theUserRepo.GetUser(anEmail);
 
             if (myUser == null) {
                 theValidationDictionary.AddError("Email", anEmail, "That is not a valid email.");
@@ -216,7 +182,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
             string myForgotPasswordHash =
                 System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(anEmail + DateTime.UtcNow.ToString(), "SHA1");
-            theRepository.UpdateUserForgotPasswordHash(anEmail, myForgotPasswordHash);
+            theUserRepo.UpdateUserForgotPasswordHash(anEmail, myForgotPasswordHash);
 
             SendActivationCode(anEmail, myForgotPasswordHash);
 
@@ -234,7 +200,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
 
         public bool ForgotPasswordProcess(string anEmail, string aForgotPasswordHash) {
-            User myUser = theRepository.GetUserByEmailAndForgotPasswordHash(anEmail, aForgotPasswordHash);
+            User myUser = theUserRepo.GetUserByEmailAndForgotPasswordHash(anEmail, aForgotPasswordHash);
             DateTime myDateTime = (DateTime)myUser.ForgotPasswordHashDateTimeStamp;
             
             TimeSpan myDifference = DateTime.UtcNow - myDateTime;
@@ -247,7 +213,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
 
         public bool ChangePassword(string anEmail, string aForgotPasswordHash, string aPassword, string aRetypedPassword) {
-            User myUser = theRepository.GetUserByEmailAndForgotPasswordHash(anEmail, aForgotPasswordHash);
+            User myUser = theUserRepo.GetUserByEmailAndForgotPasswordHash(anEmail, aForgotPasswordHash);
             if (!ValidateUser(myUser, anEmail)) {
                 return false;
             }
@@ -261,7 +227,7 @@ namespace HaveAVoice.Services.UserFeatures {
             }
 
             string myPassword = PasswordHelper.HashPassword(aPassword);
-            theRepository.ChangePassword(myUser.Id, myPassword);
+            theUserRepo.ChangePassword(myUser.Id, myPassword);
 
             return true;
         }
@@ -273,8 +239,8 @@ namespace HaveAVoice.Services.UserFeatures {
                 new SelectList(TimezoneHelper.GetTimeZones(), TimezoneHelper.GetTimezone(aUser.UTCOffset));
             IEnumerable<SelectListItem> states =
                 new SelectList(HAVConstants.STATES, aUser.State);
-            User user = theRepository.GetUser(myUserId);
-            string profilePictureURL = GetProfilePictureURL(user);
+            User user = theUserRepo.GetUser(myUserId);
+            string profilePictureURL = theUserPictureService.GetProfilePictureURL(user);
 
             return new EditUserModel.Builder(user)
             .setTimezones(timezones)
@@ -284,7 +250,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public void AddFan(User aUser, int aSourceUserId) {
-            theRepository.AddFan(aUser, aSourceUserId);
+            theUserRepo.AddFan(aUser, aSourceUserId);
         }
 
         #region Validation"
@@ -310,12 +276,12 @@ namespace HaveAVoice.Services.UserFeatures {
             }
             if (aUser.Username.Trim().Length == 0) {
                 theValidationDictionary.AddError("Username", aUser.Username.Trim(), "Username is required.");
-            } else if (theRepository.UsernameRegistered(aUser.Username)) {
+            } else if (theUserRepo.UsernameRegistered(aUser.Username)) {
                 theValidationDictionary.AddError("Username", aUser.Username.Trim(), "Someone already registered with that username. Please try another one.");
             }
             if (aUser.Email.Trim().Length == 0) {
                 theValidationDictionary.AddError("Email", aUser.Email.Trim(), "E-mail is required.");
-            } else if (theRepository.EmailRegistered(aUser.Email.Trim())) {
+            } else if (theUserRepo.EmailRegistered(aUser.Email.Trim())) {
                 theValidationDictionary.AddError("Email", aUser.Email.Trim(), "Someone already registered with that email. Please try another one.");
             }
 
@@ -332,7 +298,7 @@ namespace HaveAVoice.Services.UserFeatures {
             if (aUser.Username.Trim().Length == 0) {
                 theValidationDictionary.AddError("Username", aUser.Username.Trim(), "Username is required.");
             } else if (aOriginalUsername != null && (aOriginalUsername != aUser.Username)
-                && (theRepository.UsernameRegistered(aUser.Username))) {
+                && (theUserRepo.UsernameRegistered(aUser.Username))) {
                 theValidationDictionary.AddError("Username", aUser.Username, "Someone already registered with that aUsername. Please try another one.");
             }
         }
@@ -399,7 +365,7 @@ namespace HaveAVoice.Services.UserFeatures {
             if (anEmail.Trim().Length == 0) {
                 theValidationDictionary.AddError("Email", anEmail.Trim(), "E-mail is required.");
             } else if (anOriginalEmail != null && (anOriginalEmail != anEmail)
-                && (theRepository.EmailRegistered(anEmail))) {
+                && (theUserRepo.EmailRegistered(anEmail))) {
                 theValidationDictionary.AddError("Email", anEmail, "Someone already registered with that myException-mail. Please try another one.");
             }
 
