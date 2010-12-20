@@ -10,14 +10,14 @@ using HaveAVoice.Services.UserFeatures;
 namespace HaveAVoice.Helpers.UserInformation {
     public class UserInformation : IUserInformation {
         private HttpContextBase theHttpContext;
-        private IHAVUserService theUserService;
+        private IHAVWhoIsOnlineService theWhoIsOnlineService;
 
         private UserInformation() {
         }
 
-        private UserInformation(HttpContextBase httpContext, IHAVUserService userService) {
-            theHttpContext = httpContext;
-            theUserService = userService;
+        private UserInformation(HttpContextBase aHttpBaseContext, IHAVWhoIsOnlineService aWhoIsOnlineService) {
+            theHttpContext = aHttpBaseContext;
+            theWhoIsOnlineService = aWhoIsOnlineService;
         }
 
         public UserInformationModel GetUserInformaton() {
@@ -31,7 +31,7 @@ namespace HaveAVoice.Helpers.UserInformation {
 
         private UserInformationModel UpdateUserOnlineStatus(UserInformationModel myUserInformationModel, string ipAddress) {
             try {
-                if (!theUserService.IsOnline(myUserInformationModel.Details, ipAddress)) {
+                if (!theWhoIsOnlineService.IsOnline(myUserInformationModel.Details, ipAddress)) {
                     theHttpContext.Session.Clear();
                     myUserInformationModel = null;
                 }
@@ -42,11 +42,11 @@ namespace HaveAVoice.Helpers.UserInformation {
         }
 
         public static UserInformation Instance() {
-            return new UserInformation(new HttpContextWrapper(HttpContext.Current), new HAVUserService());
+            return new UserInformation(new HttpContextWrapper(HttpContext.Current), new HAVWhoIsOnlineService());
         }
 
-        public static UserInformation Instance(HttpContextBase httpBaseContext, IHAVUserService userService) {
-            return new UserInformation(httpBaseContext, userService);
+        public static UserInformation Instance(HttpContextBase aHttpBaseContext, IHAVWhoIsOnlineService aWhoIsOnlineService) {
+            return new UserInformation(aHttpBaseContext, aWhoIsOnlineService);
         }
 
         public bool AllowedToPerformAction(HAVPermission aPermission) {

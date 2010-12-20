@@ -23,14 +23,14 @@ namespace HaveAVoice.Tests.Helpers {
         private User theUser;
         private List<Permission> thePermissions;
         private Restriction theRestriction;
-        private Mock<IHAVUserService> theMockedService;
+        private Mock<IHAVWhoIsOnlineService> theMockedService;
         private UserInformationModelBuilder theUserInformationModelBuilder;
         private UserPrivacySetting theUserPrivacySettings;
 
         [TestInitialize]
         public void Initialize() {
             theContextBase = new Mock<HttpContextBase>();
-            theMockedService = new Mock<IHAVUserService>();
+            theMockedService = new Mock<IHAVWhoIsOnlineService>();
             theUserInformation = UserInformation.Instance(theContextBase.Object, theMockedService.Object);
             theUser = new User();
             thePermissions = new List<Permission>();

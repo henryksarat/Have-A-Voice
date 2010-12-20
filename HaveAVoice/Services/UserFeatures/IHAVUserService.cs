@@ -26,10 +26,6 @@ namespace HaveAVoice.Services.UserFeatures {
 
         IEnumerable<Permission> GetPermissionsForUser(User aUser);
 
-        void AddToWhoIsOnline(User aCurrentUser, string aCurrentIpAddress);
-        bool IsOnline(User aCurrentUser, string aCurrentIpAddress);
-        void RemoveFromWhoIsOnline(User currentUser, string currentIpAddress);
-
         bool ForgotPasswordRequest(string anEmail);
         bool ForgotPasswordProcess(string anEmail, string aForgotPasswordHash);
         bool ChangePassword(string anEmail, string aForgotPasswordHash, string aPassword, string aRetypedPassword);

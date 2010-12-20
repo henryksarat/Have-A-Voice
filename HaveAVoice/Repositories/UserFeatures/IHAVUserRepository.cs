@@ -28,12 +28,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
         IEnumerable<Permission> GetPermissionsForUser(User aUser);
         Restriction GetRestrictionsForUser(User aUser);
 
-        void AddToWhoIsOnline(User currentUser, string currentIpAddress);
-        void UpdateTimeOfWhoIsOnline(User currentUser, string currentIpAddress);
-        void MarkForceLogOutOfOtherUsers(User currentUser, string currentIpAddress);
-        void RemoveFromWhoIsOnline(User currentUser, string currentIpAddress);
-        WhoIsOnline GetWhoIsOnlineEntry(User currentUser, string currentIpAddress);
-
         UserPrivacySetting GetUserPrivacySettingsForUser(User aUser);
         void UpdatePrivacySettings(User aUser, UserPrivacySetting aUserPrivacySetting);
 

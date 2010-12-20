@@ -32,7 +32,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
             theBaseRepository = new Mock<IHAVBaseRepository>();
             theMockedBaseService = new Mock<IHAVBaseService>();
 
-            theService = new HAVProfileService(new ModelStateWrapper(theModelState),
+            theUserService = new HAVProfileService(new ModelStateWrapper(theModelState),
                                                                theMockRepository.Object,
                                                                theBaseRepository.Object);
 
@@ -40,14 +40,14 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
         
         [TestMethod]
         public void TestPostToBoardSuccess() {
-            bool myResult = theService.PostToBoard(theUser, theViewingUser, "Hey how are you?");
+            bool myResult = theUserService.PostToBoard(theUser, theViewingUser, "Hey how are you?");
             theMockRepository.Verify(r => r.AddToBoard(It.IsAny<User>(), It.IsAny<User>(), It.IsAny<string>()), Times.Exactly(1));
             Assert.IsTrue(myResult);
         }
 
         [TestMethod]
         public void TestPostToBoardRequiredMessage() {
-            bool myResult = theService.PostToBoard(theUser, theViewingUser, string.Empty);
+            bool myResult = theUserService.PostToBoard(theUser, theViewingUser, string.Empty);
             theMockRepository.Verify(r => r.AddToBoard(It.IsAny<User>(), It.IsAny<User>(), It.IsAny<string>()), Times.Never());
             Assert.IsFalse(myResult);
             var myError = theModelState["BoardMessage"].Errors[0];

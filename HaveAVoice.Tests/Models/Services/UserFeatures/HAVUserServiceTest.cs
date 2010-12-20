@@ -342,6 +342,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
   
         }
 
+        /*
         [TestMethod]
         public void TestWhoIsOnline_IsOnline() {
             WhoIsOnline onlineEntry = WhoIsOnline.CreateWhoIsOnline(0, DateTime.UtcNow, IP_ADDRESS, false);
@@ -372,7 +373,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
 
             Assert.IsFalse(result);
         }
-
+        */
         [TestMethod]
         public void TestForgotPasswordProcess_NotExpiredHash() {
             theUser.ForgotPasswordHashDateTimeStamp = DateTime.UtcNow.AddDays(-15);

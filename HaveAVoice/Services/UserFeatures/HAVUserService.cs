@@ -24,6 +24,8 @@ namespace HaveAVoice.Services.UserFeatures {
         private IHAVRoleRepository theRoleRepository;
         private IHAVEmail theEmailService;
 
+        //Need to create instance in binders :(
+        //Move out the methods we need into a new aUserService!!
         public HAVUserService() :
             this(null) { }
 
@@ -38,8 +40,6 @@ namespace HaveAVoice.Services.UserFeatures {
             theRoleRepository = aRoleRepository;
             theEmailService = aEmailService;
         }
-
-
 
         public bool CreateUser(User aUserToCreate, bool aCaptchaValid, bool aAgreement, string aIpAddress) {
             if (!ValidateNewUser(aUserToCreate)) {
@@ -127,8 +127,6 @@ namespace HaveAVoice.Services.UserFeatures {
                 throw new EmailException("Couldn't send aEmail.", e);
             }
         }
-
-       
 
         private string HashPassword(string aPassword) {
             return System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(aPassword, "SHA1");
@@ -304,35 +302,6 @@ namespace HaveAVoice.Services.UserFeatures {
         public IEnumerable<Permission> GetPermissionsForUser(User aUser) {
             return theRepository.GetPermissionsForUser(aUser);
         }
-
-
-        public void AddToWhoIsOnline(User aCurrentUser, string aCurrentIpAddress) {
-            theRepository.RemoveFromWhoIsOnline(aCurrentUser, aCurrentIpAddress);
-            theRepository.AddToWhoIsOnline(aCurrentUser, aCurrentIpAddress);
-            theRepository.MarkForceLogOutOfOtherUsers(aCurrentUser, aCurrentIpAddress);
-        }
-
-
-        public bool IsOnline(User aCurrentUser, string aCurrentIpAddress) {
-            WhoIsOnline onlineUser = theRepository.GetWhoIsOnlineEntry(aCurrentUser, aCurrentIpAddress);
-            DateTime expiryTime = DateTime.UtcNow.AddSeconds(-1 * HAVConstants.SECONDS_BEFORE_USER_TIMEOUT);
-
-            bool isOnline = true;
-            if (onlineUser.DateTimeStamp.CompareTo(expiryTime) < 0 || onlineUser.ForceLogOut) {
-                theRepository.RemoveFromWhoIsOnline(aCurrentUser, aCurrentIpAddress);
-                isOnline = false;
-            } else {
-                theRepository.UpdateTimeOfWhoIsOnline(aCurrentUser, aCurrentIpAddress);
-            }
-
-            return isOnline;
-        }
-
-
-        public void RemoveFromWhoIsOnline(User aCurrentUser, string aCurrentIpAddress) {
-            theRepository.RemoveFromWhoIsOnline(aCurrentUser, aCurrentIpAddress);
-        }
-
 
         public UserPicture GetUserPicture(int aUserPictureId) {
             return theRepository.GetUserPicture(aUserPictureId);
