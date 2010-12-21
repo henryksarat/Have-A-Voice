@@ -27,6 +27,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
 
         private ModelStateDictionary theModelState;
         private IHAVHomeService theService;
+        private Mock<IHAVUserPictureService> theUserPictureService;
         private Mock<IHAVHomeRepository> theMockRepository;
         private Mock<IHAVBaseRepository> theBaseRepository;
         private Mock<IHAVBaseService> theBaseService;
@@ -39,7 +40,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
             theBaseRepository = new Mock<IHAVBaseRepository>();
             theBaseService = new Mock<IHAVBaseService>();
 
-            theService = new HAVHomeService(new ModelStateWrapper(theModelState), theMockRepository.Object, theBaseRepository.Object);
+            theService = new HAVHomeService(new ModelStateWrapper(theModelState), theUserPictureService.Object, theMockRepository.Object, theBaseRepository.Object);
         }
 
         [TestMethod]

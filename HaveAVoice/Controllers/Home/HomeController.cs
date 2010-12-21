@@ -44,8 +44,8 @@ namespace HaveAVoice.Controllers.Home {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            LoggedInModel myModel = new LoggedInModel();
             User myUser = GetUserInformaton();
+            LoggedInModel myModel = new LoggedInModel(myUser);
             try {
                 myModel = theService.LoggedIn(myUser);
             } catch (Exception e) {
@@ -60,8 +60,8 @@ namespace HaveAVoice.Controllers.Home {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            LoggedInModel myModel = new LoggedInModel();
             User myUser = GetUserInformaton();
+            LoggedInModel myModel = new LoggedInModel(myUser);
             try {
                 myModel = theService.LoggedIn(myUser);
                 if (theService.AddCityStateFilter(myUser, city, state)) {
@@ -80,8 +80,8 @@ namespace HaveAVoice.Controllers.Home {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            LoggedInModel myModel = new LoggedInModel();
             User myUser = GetUserInformaton();
+            LoggedInModel myModel = new LoggedInModel(myUser);
             try {
                 myModel = theService.LoggedIn(myUser);
                 if (theService.AddZipCodeFilter(myUser, zipCode)) {

@@ -8,14 +8,15 @@ using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Models.View {
     public class UserPicturesModel {
+        public int UserId { get; set; }
         public string ProfilePictureURL { get; set; }
         public IEnumerable<UserPicture> UserPictures { get; set; }
         public List<int> SelectedUserPictures { get; set; }
 
-        public UserPicturesModel(UserPicture aProfilePicture, IEnumerable<UserPicture> aUserPictures, List<int> aSelectedUserPictures) {
-            this.ProfilePictureURL = HAVConstants.USER_PICTURE_LOCATION + "/" + aProfilePicture.ImageName;
-            this.UserPictures = aUserPictures;
-            this.SelectedUserPictures = aSelectedUserPictures;
+        public UserPicturesModel() {
+            this.ProfilePictureURL = HAVConstants.NO_PROFILE_PICTURE;
+            this.UserPictures = new List<UserPicture>();
+            this.SelectedUserPictures = new List<int>();
         }
     }
 }

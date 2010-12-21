@@ -8,7 +8,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="col-24 user-panel">
         <div class="col-3">
-            <img src="http://davidzuckerman.com/adobe/wp-content/uploads/2007/04/profile.jpg" alt="Current Profile" class="profile" />
+            <img src="<%=Model.ProfilePictureURL %>" alt="Current Profile" class="profile" />
         </div>
         <div class="col-15">
             #CONTROL PANEL#
@@ -17,7 +17,6 @@
             &nbsp;
         </div>
     </div>
-    
     <div class="clear">&nbsp;</div>
     
     <div class="col-3 left-nav">
@@ -27,7 +26,7 @@
     <div class="col-21">
         <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
 
-        <h2>Welcome, <%= HAVUserInformationFactory.GetUserInformation().Details.Username %></h2>
+        <h2>Welcome, <%= Model.User.Username %></h2>
     
         <br /><br />
         FanFeed:<br />

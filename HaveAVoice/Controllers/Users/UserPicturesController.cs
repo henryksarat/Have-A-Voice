@@ -10,10 +10,24 @@ using HaveAVoice.Models;
 using HaveAVoice.Models.View;
 using HaveAVoice.Helpers.ActionMethods;
 using System.Text;
+using HaveAVoice.Helpers;
+using HaveAVoice.Controllers.Helpers;
 
 namespace HaveAVoice.Controllers.Users
 {
     public class UserPicturesController : HAVBaseController {
+        private static string PROFILE_PICTURE_SUCCESS = "New profile picture set!";
+        private static string DELETE_SUCCESS = "Pictures deleted successfully!";
+
+        private static string PROFILE_PICTURE_ERROR = "Error setting the profile picture. Please try again.";
+        private static string GALLERY_ERROR = "Unable to load your gallery. Please try again.";
+        private static string SELECT_ONE_ERROR = "Please select only ONE image.";
+        private static string SELECT_ONE_OR_MORE_ERROR = "Please select AT LEAST one or more images.";
+
+        private const string EDIT_VIEW = "Edit";
+        private static string GALLERY_VIEW = "Gallery";
+        
+
         private IHAVUserPictureService theUserPictureService;
 
         public UserPicturesController() : 
@@ -36,65 +50,77 @@ namespace HaveAVoice.Controllers.Users
             try {
                 myPictures = theUserPictureService.GetUserPictures(myUserId);
             } catch (Exception e) {
-                LogError(e, new StringBuilder().AppendFormat("Unable to get the user pictures. [userId={0}]", myUserId).ToString());
-                SendToErrorPage("Unable to load your gallery. Please try again.");
+                LogError(e, GALLERY_ERROR);
+                SendToErrorPage(GALLERY_ERROR);
             }
 
-            return View("Gallery", myPictures);
+            return View(GALLERY_VIEW, myPictures);
         }
 
-        public ActionResult UserPictures() {
+        public ActionResult Edit() {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            int myUserId = GetUserInformaton().Id;
-            IEnumerable<UserPicture> userPictures = theUserPictureService.GetUserPictures(myUserId);
-            UserPicture profilePicture = theUserPictureService.GetProfilePicture(myUserId);
+            User myUser = GetUserInformaton();
+            IEnumerable<UserPicture> userPictures = theUserPictureService.GetUserPictures(myUser.Id);
+            string profilePicture = theUserPictureService.GetProfilePictureURL(myUser);
 
-            return View("UserPictures", new UserPicturesModel(profilePicture, userPictures, new List<int>()));
+            UserPicturesModel myModel = new UserPicturesModel() {
+                UserId = myUser.Id,
+                ProfilePictureURL = profilePicture,
+                UserPictures = userPictures
+            };
+
+            return View(EDIT_VIEW, myModel);
 
         }
 
-        [ActionName("UserPictures")]
+        [ActionName(EDIT_VIEW)]
         [AcceptParameter(Name = "button", Value = "SetProfilePicture")]
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult UserPictures_SetProfilePicture(UserPicturesModel aUserPicturesModel) {
+        public ActionResult Edit_SetProfilePicture(UserPicturesModel aUserPicturesModel) {
             if (aUserPicturesModel.SelectedUserPictures.Count != 1) {
-                ViewData["Message"] = "Please select only ONE image to be your profile image.";
+                ViewData["Message"] = SELECT_ONE_ERROR;
             } else {
                 try {
                     theUserPictureService.SetToProfilePicture(GetUserInformaton(), aUserPicturesModel.SelectedUserPictures.First());
-                    return SendToResultPage("New profile picture set!");
+                    TempData["Message"] = PROFILE_PICTURE_SUCCESS;
+                    return RedirectToProfile();
                 } catch (Exception e) {
-                    LogError(e, "Error setting profile picture. Please try again.");
-                    ViewData["Message"] = "An error occurred while trying to set your new profile picture.";
+                    LogError(e, PROFILE_PICTURE_ERROR);
+                    ViewData["Message"] = PROFILE_PICTURE_ERROR;
                 }
             }
 
-            return View("UserPictures", aUserPicturesModel);
+            return View(EDIT_VIEW, aUserPicturesModel);
         }
 
-        [ActionName("UserPictures")]
+        [ActionName(EDIT_VIEW)]
         [AcceptParameter(Name = "button", Value = "Delete")]
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult UserPictures_Delete(UserPicturesModel aUserPicturesModel) {
+        public ActionResult Edit_Delete(UserPicturesModel aUserPicturesModel) {
             if (aUserPicturesModel.SelectedUserPictures.Count == 0) {
-                ViewData["Message"] = "To delete a picture you have to at least select one.";
+                ViewData["Message"] = SELECT_ONE_OR_MORE_ERROR;
             } else {
                 try {
                     theUserPictureService.DeleteUserPictures(aUserPicturesModel.SelectedUserPictures);
-                    return SendToResultPage("Pictures deleted.");
+                    return SendToResultPage(DELETE_SUCCESS);
                 } catch (Exception e) {
-                    LogError(e, "Error deleting userToListenTo pictures.");
-                    ViewData["Message"] = "An error occurred while trying to delete the pictures.";
+                    LogError(e, HAVConstants.ERROR);
+                    ViewData["Message"] = HAVConstants.ERROR;
                 }
             }
 
-            return View("UserPictures", aUserPicturesModel);
+            return View(EDIT_VIEW, aUserPicturesModel);
         }
 
         protected override ActionResult SendToResultPage(string aTitle, string aDetails) {
             return SendToResultPage(SiteSectionsEnum.UserPictures, aTitle, aDetails);
         }
+
+        private ActionResult RedirectToProfile() {
+            return RedirectToAction("LoggedIn", "Home");
+        }
+
     }
 }

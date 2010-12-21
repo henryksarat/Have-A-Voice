@@ -10,7 +10,8 @@ namespace HaveAVoice.Models.View {
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext) {
             IHAVUserPictureService myUserPictureService = new HAVUserPictureService();
 
-            int userId = Int32.Parse(BinderHelper.GetA(bindingContext, "userId"));
+            int userId = Int32.Parse(BinderHelper.GetA(bindingContext, "UserId"));
+            string myProfilePictureURL = BinderHelper.GetA(bindingContext, "ProfilePictureURL");
             string selectedProfilePictureIds = BinderHelper.GetA(bindingContext, "SelectedProfilePictureId").Trim();
 
             IEnumerable<UserPicture> userPictures = myUserPictureService.GetUserPictures(userId);
@@ -25,7 +26,12 @@ namespace HaveAVoice.Models.View {
                 }
             }
 
-            return new UserPicturesModel(profilePicture, userPictures, selectedProfilePictures);
+            return new UserPicturesModel() {
+                UserId = userId,
+                ProfilePictureURL = myProfilePictureURL,
+                UserPictures = userPictures,
+                SelectedUserPictures = selectedProfilePictures
+            };
         }
     }
 }

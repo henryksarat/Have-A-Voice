@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.UserPicturesModel>" %>
 <%@ Import Namespace="HaveAVoice.Helpers" %>
+<%@ Import Namespace="HaveAVoice.Helpers.UI" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	UserPictures
@@ -12,9 +13,11 @@
     <% using(Html.BeginForm()) {%>
     <p>
         <strong>Current profile picture:</strong><br />
+        <%= Html.Hidden("ProfilePictureURL", Model.ProfilePictureURL) %>
+        <%= Html.Hidden("UserId", Model.UserId) %>
         <a href="<%= Model.ProfilePictureURL %>"><img src="<%= Model.ProfilePictureURL %>"  style="border-style: none"  alt="" width="100px" height="100px" /></a>
     <p style="color:Red">
-        <%= Html.Encode(ViewData["ErrorMessage"]) %>
+        <%= Html.Encode(ViewData["Message"]) %>
     </p>
     </p>
     <table>

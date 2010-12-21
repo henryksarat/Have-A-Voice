@@ -12,30 +12,33 @@ using HaveAVoice.Models;
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVHomeService : HAVBaseService, IHAVHomeService {
         private IValidationDictionary theValidationDictionary;
-        private IHAVHomeRepository theRepository;
+        private IHAVUserPictureService theUserPictureService;
+        private IHAVHomeRepository theHomeRepository;
 
         public HAVHomeService(IValidationDictionary aValidationDictionary)
-            : this(aValidationDictionary, new EntityHAVHomeRepository(), new HAVBaseRepository()) { }
+            : this(aValidationDictionary, new HAVUserPictureService(), new EntityHAVHomeRepository(), new HAVBaseRepository()) { }
 
-        public HAVHomeService(IValidationDictionary aValidationDictionary, IHAVHomeRepository aRepository,
-                                            IHAVBaseRepository baseRepository) : base(baseRepository) {
+        public HAVHomeService(IValidationDictionary aValidationDictionary, IHAVUserPictureService aUserPictureService, 
+                                            IHAVHomeRepository aRepository, IHAVBaseRepository baseRepository) : base(baseRepository) {
             theValidationDictionary = aValidationDictionary;
-            theRepository = aRepository;
+            theUserPictureService = aUserPictureService;
+            theHomeRepository = aRepository;
         }
 
         public NotLoggedInModel NotLoggedIn() {
                 return new NotLoggedInModel() {
-                    LikedIssues = theRepository.GetMostPopularIssues(Disposition.LIKE),
-                    DislikedIssues = theRepository.GetMostPopularIssues(Disposition.DISLIKE),
-                    NewestIssueReplys = theRepository.NewestIssueReplys(),
-                    MostPopularIssueReplys = theRepository.GetMostPopularIssueReplys()
+                    LikedIssues = theHomeRepository.GetMostPopularIssues(Disposition.LIKE),
+                    DislikedIssues = theHomeRepository.GetMostPopularIssues(Disposition.DISLIKE),
+                    NewestIssueReplys = theHomeRepository.NewestIssueReplys(),
+                    MostPopularIssueReplys = theHomeRepository.GetMostPopularIssueReplys()
             };
         }
 
         public LoggedInModel LoggedIn(User aUser) {
-            IEnumerable<IssueReply> myIssueReplys = theRepository.FanFeed(aUser);
-            IEnumerable<IssueReply> myOfficialsReplys = theRepository.OfficialsFeed(RoleHelper.OfficialRoles());
-            return new LoggedInModel() {
+            IEnumerable<IssueReply> myIssueReplys = theHomeRepository.FanFeed(aUser);
+            IEnumerable<IssueReply> myOfficialsReplys = theHomeRepository.OfficialsFeed(RoleHelper.OfficialRoles());
+            return new LoggedInModel(aUser) {
+                ProfilePictureURL = theUserPictureService.GetProfilePictureURL(aUser),
                 FanIssueReplys = myIssueReplys,
                 OfficialsReplys = myOfficialsReplys
             };
@@ -47,7 +50,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 theValidationDictionary.AddError("ZipCode", aZipCode.ToString(), "Invalid zip code.");
             }
 
-            if (theValidationDictionary.isValid && theRepository.ZipCodeFilterExists(aUser, Int32.Parse(aZipCode))) {
+            if (theValidationDictionary.isValid && theHomeRepository.ZipCodeFilterExists(aUser, Int32.Parse(aZipCode))) {
                 theValidationDictionary.AddError("ZipCode", aZipCode.ToString(), "This zip code filter already exists.");
             }
 
@@ -61,7 +64,7 @@ namespace HaveAVoice.Services.UserFeatures {
             if (aState.Length == 0) {
                 theValidationDictionary.AddError("State", aState, "Invalid state.");
             }
-            if(theValidationDictionary.isValid && theRepository.CityStateFilterExists(aUser, aCity, aState)) {
+            if(theValidationDictionary.isValid && theHomeRepository.CityStateFilterExists(aUser, aCity, aState)) {
                 theValidationDictionary.AddError("City", aCity, "That city/state filter already exists.");
             }
 
@@ -73,7 +76,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 return false;
             }
             int myZipCode = Convert.ToInt32(aZipCode);
-            theRepository.AddZipCodeFilter(aUser, myZipCode);
+            theHomeRepository.AddZipCodeFilter(aUser, myZipCode);
             return true;
         }
 
@@ -82,7 +85,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 return false;
             }
 
-            theRepository.AddCityStateFilter(aUser, aCity, aState);
+            theHomeRepository.AddCityStateFilter(aUser, aCity, aState);
             return true;
 
         }
