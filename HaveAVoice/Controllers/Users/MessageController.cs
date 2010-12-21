@@ -23,6 +23,11 @@ namespace HaveAVoice.Controllers.Users
         private const string RETRIEVE_ERROR = "Error retrieving the message. Please try again.";
         private const string REPLY_ERROR = "An error occurred while sending the reply. Please try again.";
 
+        private const string ERROR_MESSAGE_VIEWDATA = "Message";
+        private const string INBOX_VIEW = "Index";
+        private const string CREATE_VIEW = "Create";
+        private const string VIEW_MESSAGE_VIEW = "View";
+
         private IHAVMessageService theService;
         private IHAVUserService theUserService;
         private IHAVUserPictureService theUserPicturesService;
@@ -52,10 +57,10 @@ namespace HaveAVoice.Controllers.Users
                 List<InboxMessage> messages = theService.GetMessagesForUser(myUser).ToList<InboxMessage>();
 
                 if (messages.Count == 0) {
-                    ViewData["Message"] = NO_MESSAGES;
+                    ViewData[ERROR_MESSAGE_VIEWDATA] = NO_MESSAGES;
                 }
 
-                return View("Index", messages);
+                return View(INBOX_VIEW, messages);
             } catch (Exception e) {
                 LogError(e, INBOX_LOAD_ERROR);
                 return SendToErrorPage(INBOX_LOAD_ERROR);
@@ -73,10 +78,10 @@ namespace HaveAVoice.Controllers.Users
                 theService.DeleteMessages(selectedMessages, myUser);
             } catch (Exception e) {
                 LogError(e, HAVConstants.ERROR);
-                ViewData["Message"] = HAVConstants.ERROR;
+                TempData[ERROR_MESSAGE_VIEWDATA] = HAVConstants.ERROR;
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction(INBOX_VIEW);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
@@ -85,17 +90,20 @@ namespace HaveAVoice.Controllers.Users
                 return RedirectToLogin();
             }
 
+            if (isSelf(id)) {
+                return RedirectToAction(INBOX_VIEW);
+            }
+
             try {
                 User myUser = theUserService.GetUser(id);
                 string myProfilePictureUrl = theUserPicturesService.GetProfilePictureURL(myUser);
                 MessageWrapper myMessage = MessageWrapper.Build(myUser, myProfilePictureUrl);
-                return View("Create", myMessage);
+                return View(CREATE_VIEW, myMessage);
             } catch (Exception e) {
                 LogError(e,  USER_RETRIEVAL_ERROR);
                 return SendToErrorPage(USER_RETRIEVAL_ERROR);
             }
         }
-
 
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Create(MessageWrapper aMessage) {
@@ -110,10 +118,10 @@ namespace HaveAVoice.Controllers.Users
                 }
             } catch (Exception e) {
                 LogError(e, SEND_ERROR);
-                ViewData["Message"] = SEND_ERROR;
+                ViewData[ERROR_MESSAGE_VIEWDATA] = SEND_ERROR;
             }
 
-            return View("Create", aMessage);
+            return View(CREATE_VIEW, aMessage);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
@@ -123,10 +131,10 @@ namespace HaveAVoice.Controllers.Users
             }
 
             User myUser = GetUserInformaton();
-
+            
             try {
                 if (!theService.AllowedToViewMessageThread(myUser, id)) {
-                    return Redirect("Index");
+                    return RedirectToAction(INBOX_VIEW);
                 }
             } catch (Exception e) {
                 LogError(e, RETRIEVE_ERROR);
@@ -141,7 +149,7 @@ namespace HaveAVoice.Controllers.Users
                 return SendToErrorPage(RETRIEVE_ERROR);
             }
 
-            return View("View", new ViewMessageModel(myMessageToDisplay));
+            return View(VIEW_MESSAGE_VIEW, new ViewMessageModel(myMessageToDisplay));
         }
 
 
@@ -158,10 +166,14 @@ namespace HaveAVoice.Controllers.Users
                 }
             } catch (Exception e) {
                 LogError(e, REPLY_ERROR);
-                ViewData["Message"] = REPLY_ERROR;
+                ViewData[ERROR_MESSAGE_VIEWDATA] = REPLY_ERROR;
             }
 
-            return View("View", viewMessageModel);
+            return View(VIEW_MESSAGE_VIEW, viewMessageModel);
+        }
+
+        private bool isSelf(int id) {
+            return GetUserInformaton().Id == id;
         }
 
         protected override ActionResult SendToResultPage(string title, string details) {

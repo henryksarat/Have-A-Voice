@@ -111,8 +111,8 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         public static class Helpers {
             public static List<InboxMessage> GenerateInbox(User aUser, List<Message> aMessages, List<Reply> aReplys) {
-                //Get the last comment for a message for the user,
-                //ordered by the comment DateTimeStamp, then by the message DateTimeStamp
+                //Get the last reply for a message for the user,
+                //ordered by the reply DateTimeStamp or by the message DateTimeStamp
                 return (from m in aMessages
                         let allReplys = aReplys.Where(r2 => m.Id == r2.Message.Id).OrderByDescending(r3 => r3.DateTimeStamp).ToList<Reply>()
                         let latestReply = allReplys.FirstOrDefault<Reply>()
