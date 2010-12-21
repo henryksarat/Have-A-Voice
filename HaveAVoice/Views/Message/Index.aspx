@@ -15,7 +15,10 @@
        { %>
        
             <p>
-               <%= Html.Encode(ViewData["ErrorMessage"]) %>
+               <%= Html.Encode(ViewData["Message"]) %>
+            </p>
+            <p>
+               <%= Html.Encode(TempData["Message"]) %>
             </p>
             <% if (Model != null) { %>
                 <% foreach (var item in Model) { %>

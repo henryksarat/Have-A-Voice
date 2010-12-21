@@ -114,22 +114,22 @@ namespace HaveAVoice.Repositories.UserFeatures {
                 //Get the last comment for a message for the user,
                 //ordered by the comment DateTimeStamp, then by the message DateTimeStamp
                 return (from m in aMessages
-                        let r = aReplys.Where(r2 => m.Id == r2.Message.Id).OrderByDescending(r3 => r3.DateTimeStamp).ToList<Reply>()
-                        let r2 = r.FirstOrDefault<Reply>()
+                        let allReplys = aReplys.Where(r2 => m.Id == r2.Message.Id).OrderByDescending(r3 => r3.DateTimeStamp).ToList<Reply>()
+                        let latestReply = allReplys.FirstOrDefault<Reply>()
                         where (m.ToDeleted == false
                         && m.ToUserId == aUser.Id)
                         || (m.FromDeleted == false
                         && m.FromUserId == aUser.Id
-                        && r.Count() > 0)
-                        orderby m.DateTimeStamp descending
+                        && allReplys.Count() > 0)
+                        orderby (latestReply != null ? latestReply.DateTimeStamp : m.DateTimeStamp) descending
                         select new InboxMessage {
                             MessageId = m.Id,
                             Subject = m.Subject,
                             FromUsername = m.FromUser.Username,
                             FromUserId = m.FromUser.Id,
-                            LastReply = (r2 == null ? m.Body : r2.Body),
+                            LastReply = (latestReply == null ? m.Body : latestReply.Body),
                             Viewed = (m.ToUserId == aUser.Id ? m.ToViewed : m.FromViewed),
-                            DateTimeStamp = (r2 == null ? m.DateTimeStamp : r2.DateTimeStamp)
+                            DateTimeStamp = (latestReply == null ? m.DateTimeStamp : latestReply.DateTimeStamp)
                         }).ToList<InboxMessage>();    
             }
         }
