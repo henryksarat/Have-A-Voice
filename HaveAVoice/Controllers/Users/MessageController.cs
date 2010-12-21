@@ -19,13 +19,15 @@ namespace HaveAVoice.Controllers.Users
 
         public MessageController() : 
             base(new HAVBaseService(new HAVBaseRepository())) {
-            theService = new HAVMessageService(new ModelStateWrapper(this.ModelState));
+            IValidationDictionary myValidationDictionary = new ModelStateWrapper(this.ModelState);
+            theService = new HAVMessageService(myValidationDictionary);
+            theUserService = new HAVUserService(myValidationDictionary);
         }
 
-        public MessageController(IHAVMessageService service, IHAVBaseService baseService, IHAVUserService userService)
-            : base(baseService) {
-            theService = service;
-            theUserService = userService;
+        public MessageController(IHAVBaseService aBaseService, IHAVMessageService aMessageService, IHAVUserService aUserService)
+            : base(aBaseService) {
+            theService = aMessageService;
+            theUserService = aUserService;
         }
 
         public ActionResult Index() {
@@ -66,15 +68,15 @@ namespace HaveAVoice.Controllers.Users
             return View("Index");
         }
 
-        public ActionResult SendMessage(int toUserId) {
+        public ActionResult SendMessage(int id) {
             if (GetUserInformaton() == null) {
                 return RedirectToLogin();
             }
 
             try {
-                ViewData["ToUser"] = theUserService.GetUser(toUserId);
+                ViewData["ToUser"] = theUserService.GetUser(id);
             } catch (Exception e) {
-                LogError(e, "Unable to get myUser data for the myUser with the id " + toUserId);
+                LogError(e, "Unable to get myUser data for the myUser with the id " + id);
                 return SendToErrorPage("Unable to get the information for that myUser. Please try again.");
             }
 
@@ -83,21 +85,21 @@ namespace HaveAVoice.Controllers.Users
 
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult SendMessage([Bind(Exclude = "Id, ToUserId, FromUserId")] Message messageToCreate, User toUser) {
+        public ActionResult SendMessage(Message messageToCreate) {
             User user = GetUserInformaton();
             if (user == null) {
                 return RedirectToLogin();
             }
-
+            
             try {
-                if (!theService.CreateMessage(toUser.Id, user.Id, messageToCreate)) {
-                    ViewData["ToUser"] = theUserService.GetUser(toUser.Id);
-                    return View("SendMessage", toUser);
+                if (!theService.CreateMessage(user.Id, messageToCreate)) {
+                    ViewData["ToUser"] = theUserService.GetUser(messageToCreate.ToUserId);
+                    return View("SendMessage", messageToCreate.ToUserId);
                 }
             } catch (Exception e) {
-                LogError(e, "Unable to send a message from the myUser with the id " + user.Id + " to the myUser with the id with " + toUser.Id);
+                LogError(e, "Unable to send a message from the myUser with the id " + user.Id + " to the myUser with the id with " + 32);
                 ViewData["Message"] = "Unable to send the message! Please try again in a few minutes.";
-                return View("SendMessage", toUser);
+               // return View("SendMessage", toUser);
             }
 
             return SendToResultPage("Message sent successfully!");

@@ -44,11 +44,11 @@ namespace HaveAVoice.Services.UserFeatures {
 
         #endregion
 
-        public bool CreateMessage(int toUserId, int fromUserId, Message messageToCreate) {
+        public bool CreateMessage(int fromUserId, Message messageToCreate) {
             if (!ValidateMessage(messageToCreate)) {
                 return false;
             }
-            theRepository.CreateMessage(toUserId, fromUserId, messageToCreate);
+            theRepository.CreateMessage(fromUserId, messageToCreate);
             return true;
         }
 
@@ -79,7 +79,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public bool AllowedToViewMessageThread(User user, int messageId) {
             Message message = theRepository.GetMessage(messageId);
-            return (message.ToUser.Id == user.Id || message.FromUser.Id == user.Id);
+            return (message.ToUserId == user.Id || message.FromUserId == user.Id);
         }
     }
 }

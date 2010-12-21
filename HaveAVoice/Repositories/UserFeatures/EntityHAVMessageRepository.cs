@@ -9,13 +9,9 @@ using HaveAVoice.Models;
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVMessageRepository : HAVBaseRepository, IHAVMessageRepository {
 
-        public Message CreateMessage(int toUserId, int fromUserId, Message messageToCreate) {
+        public Message CreateMessage(int fromUserId, Message messageToCreate) {
             IHAVUserRepository userRepository = new EntityHAVUserRepository();
-            User toUser = userRepository.GetUser(toUserId);
-            User fromUser = userRepository.GetUser(fromUserId);
-
-            messageToCreate.ToUser = toUser;
-            messageToCreate.FromUser = fromUser;
+            messageToCreate.FromUserId = fromUserId;
             messageToCreate.DateTimeStamp = DateTime.UtcNow;
 
             GetEntities().AddToMessages(messageToCreate);
@@ -34,9 +30,9 @@ namespace HaveAVoice.Repositories.UserFeatures {
             foreach (Int32 messageId in messagesToDelete) {
                 var message = GetMessage(messageId);
 
-                if (message.ToUser.Id == user.Id) {
+                if (message.ToUserId == user.Id) {
                     message.ToDeleted = true;
-                } else if (message.FromUser.Id == user.Id) {
+                } else if (message.FromUserId == user.Id) {
                     message.FromDeleted = true;
                 }
 
@@ -65,7 +61,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
             bool updatedRepliedTo = false;
 
-            if (message.ToUser.Id == replyUser.Id && message.RepliedTo == false) {
+            if (message.ToUserId == replyUser.Id && message.RepliedTo == false) {
                 message.RepliedTo = true;
                 updatedRepliedTo = true;
             }
@@ -82,10 +78,10 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         public Message ChangeMessageViewedStateForMe(int messageId, User toUser, bool viewed) {
             Message message = GetMessage(messageId);
-            if (message.FromUser.Id == toUser.Id) {
+            if (message.FromUserId == toUser.Id) {
                 message.FromViewed = viewed;
                 message.FromDeleted = false;
-            } else if (message.ToUser.Id == toUser.Id) {
+            } else if (message.ToUserId == toUser.Id) {
                 message.ToViewed = viewed;
                 message.FromDeleted = false;
             }
@@ -98,10 +94,10 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         public Message ChangeMessageViewedStateForThem(int messageId, User toUser, bool viewed) {
             Message message = GetMessage(messageId);
-            if (message.FromUser.Id == toUser.Id) {
+            if (message.FromUserId == toUser.Id) {
                 message.ToViewed = viewed;
                 message.ToDeleted = false;
-            } else if (message.ToUser.Id == toUser.Id) {
+            } else if (message.ToUserId == toUser.Id) {
                 message.FromViewed = viewed;
                 message.FromDeleted = false;
             }
@@ -114,15 +110,15 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         public static class Helpers {
             public static List<InboxMessage> GenerateInbox(User aUser, List<Message> aMessages, List<Reply> aReplys) {
-                //Get the last comment for a message for the userToListenTo,
+                //Get the last comment for a message for the user,
                 //ordered by the comment DateTimeStamp, then by the message DateTimeStamp
                 return (from m in aMessages
                         let r = aReplys.Where(r2 => m.Id == r2.Message.Id).OrderByDescending(r3 => r3.DateTimeStamp).ToList<Reply>()
                         let r2 = r.FirstOrDefault<Reply>()
                         where (m.ToDeleted == false
-                        && m.ToUser.Id == aUser.Id)
+                        && m.ToUserId == aUser.Id)
                         || (m.FromDeleted == false
-                        && m.FromUser.Id == aUser.Id
+                        && m.FromUserId == aUser.Id
                         && r.Count() > 0)
                         orderby m.DateTimeStamp descending
                         select new InboxMessage {
@@ -131,7 +127,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
                             FromUsername = m.FromUser.Username,
                             FromUserId = m.FromUser.Id,
                             LastReply = (r2 == null ? m.Body : r2.Body),
-                            Viewed = (m.ToUser.Id == aUser.Id ? m.ToViewed : m.FromViewed),
+                            Viewed = (m.ToUserId == aUser.Id ? m.ToViewed : m.FromViewed),
                             DateTimeStamp = (r2 == null ? m.DateTimeStamp : r2.DateTimeStamp)
                         }).ToList<InboxMessage>();    
             }

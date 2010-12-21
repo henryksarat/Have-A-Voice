@@ -6,6 +6,8 @@ using System.Web;
 namespace HaveAVoice.Models.View {
     public class MessageBuilder {
         private int theId;
+        private int theToUserId;
+        private int theFromUserId;
         private String theSubject = string.Empty;
         private String theBody = string.Empty;
         private DateTime theDateTimeStamp = DateTime.Now;
@@ -18,7 +20,17 @@ namespace HaveAVoice.Models.View {
         public MessageBuilder(int anId) { 
             theId = anId;
         }
-        
+
+        public MessageBuilder ToUserId(int aToUserId) {
+            theToUserId = aToUserId;
+            return this;
+        }
+
+        public MessageBuilder FromUserId(int aFromUserId) {
+            theFromUserId = aFromUserId;
+            return this;
+        }
+
         public MessageBuilder Subject(String aSubject) {
             theSubject = aSubject;
             return this;
@@ -60,7 +72,7 @@ namespace HaveAVoice.Models.View {
             return this;
         }
         public Message Build() {
-            return Message.CreateMessage(theId, theSubject, theBody, theDateTimeStamp, 
+            return Message.CreateMessage(theId, theToUserId, theFromUserId, theSubject, theBody, theDateTimeStamp, 
                 theToViewed, theFromViewed, theToDeleted, theFromDeleted, theRepliedTo);
         }
     }

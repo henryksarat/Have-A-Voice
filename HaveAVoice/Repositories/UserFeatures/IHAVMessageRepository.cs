@@ -5,7 +5,7 @@ using HaveAVoice.Models;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public interface IHAVMessageRepository {
-        Message CreateMessage(int toUserId, int fromUserId, Message messageToCreate);
+        Message CreateMessage(int fromUserId, Message messageToCreate);
         IEnumerable<InboxMessage> GetMessagesForUser(User toUser);
         void DeleteMessages(List<Int32> messagesToDelete, User user);
         Message GetMessage(int messageId);

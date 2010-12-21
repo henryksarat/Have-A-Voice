@@ -13,7 +13,7 @@ namespace HaveAVoice.Tests.Models.Repositories.UserFeatures {
         private User theToUser = User.CreateUser(1, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new DateTime(), new DateTime(), new DateTime(), string.Empty, false, string.Empty);
         private User theFromUser = User.CreateUser(2, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new DateTime(), new DateTime(), new DateTime(), string.Empty, false, string.Empty);
         private MessageBuilder theMessageBuilder = new MessageBuilder(1).Subject("subject1").Body("body1");
-        private Reply theReply1 = Reply.CreateReply(0, string.Empty, new DateTime());
+        private Reply theReply1 = Reply.CreateReply(0, 0,0, string.Empty, new DateTime());
         
         private List<Message> theMessages = new List<Message>();
         private List<Reply> theReplys = new List<Reply>();

@@ -11,9 +11,10 @@
 
     <%= Html.ValidationSummary("Send was unsuccessful. Please correct the errors and try again.") %>
 
-    <% using (Html.BeginForm(new { toUser = ((User)ViewData["ToUser"]) })) {%>
+    <% using (Html.BeginForm()) {%>
+        <%= Html.Hidden("ToUserId",  ((User)ViewData["ToUser"]).Id)%>
         <p>
-             <%= Html.Encode(ViewData["ErrorMessage"]) %>
+             <%= Html.Encode(ViewData["Message"]) %>
         </p>
             <p>
                 <%= Html.TextBox("Subject", "", new { style = "width:300px;" })%>

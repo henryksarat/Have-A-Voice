@@ -47,21 +47,21 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
 
         [TestMethod]
         public void CreateValidMessage() {
-            Message message = Message.CreateMessage(0, MESSAGE_SUBJECT, MESSAGE_BODY,
+            Message message = Message.CreateMessage(0, 0, 0, MESSAGE_SUBJECT, MESSAGE_BODY,
                 MESSAGE_DATE, TO_VIEWED, FROM_VIEWED, TO_DELETED, FROM_DELETED, REPLIED_TO);
-            bool result = theService.CreateMessage(TO_USER_ID, FROM_USER_ID, message);
-            theMockRepository.Verify(r => r.CreateMessage(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<Message>()), Times.Exactly(1));
+            bool result = theService.CreateMessage(FROM_USER_ID, message);
+            theMockRepository.Verify(r => r.CreateMessage(It.IsAny<int>(), It.IsAny<Message>()), Times.Exactly(1));
             Assert.IsTrue(result);
         }
 
         [TestMethod]
         public void CreateValidMessage_RequiredSubject() {
-            Message message = Message.CreateMessage(0, string.Empty, MESSAGE_BODY,
+            Message message = Message.CreateMessage(0, 0, 0, string.Empty, MESSAGE_BODY,
                 MESSAGE_DATE, TO_VIEWED, FROM_VIEWED, TO_DELETED, FROM_DELETED, REPLIED_TO);
 
-            bool result = theService.CreateMessage(TO_USER_ID, FROM_USER_ID, message);
+            bool result = theService.CreateMessage(FROM_USER_ID, message);
 
-            theMockRepository.Verify(r => r.CreateMessage(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<Message>()), Times.Never());
+            theMockRepository.Verify(r => r.CreateMessage(It.IsAny<int>(), It.IsAny<Message>()), Times.Never());
             Assert.IsFalse(result);
             var error = theModelState["Subject"].Errors[0];
             Assert.AreEqual("Subject is required.", error.ErrorMessage);
@@ -69,12 +69,12 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
 
         [TestMethod]
         public void CreateValidMessage_RequiredBody() {
-            Message message = Message.CreateMessage(0, MESSAGE_SUBJECT, string.Empty,
+            Message message = Message.CreateMessage(0, 0, 0, MESSAGE_SUBJECT, string.Empty,
                 MESSAGE_DATE, TO_VIEWED, FROM_VIEWED, TO_DELETED, FROM_DELETED, REPLIED_TO);
 
-            bool result = theService.CreateMessage(TO_USER_ID, FROM_USER_ID, message);
+            bool result = theService.CreateMessage(FROM_USER_ID, message);
 
-            theMockRepository.Verify(r => r.CreateMessage(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<Message>()), Times.Never());
+            theMockRepository.Verify(r => r.CreateMessage(It.IsAny<int>(), It.IsAny<Message>()), Times.Never());
             Assert.IsFalse(result);
             var error = theModelState["Body"].Errors[0];
             Assert.AreEqual("Body is required.", error.ErrorMessage);

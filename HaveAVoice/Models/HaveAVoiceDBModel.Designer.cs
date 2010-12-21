@@ -25,12 +25,8 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_ErrorLog_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "ErrorLog", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.ErrorLog))]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueReplys_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "IssueReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueReply))]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Issues_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Issue", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Issue))]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Message_Users_FromUserId", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Message", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Message))]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Message_Users_ToUserId", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Message", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Message))]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserPictures_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "UserPicture", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserPicture))]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueReplys_Issues", "Issue", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Issue), "IssueReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueReply))]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Replys_User", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Reply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Reply))]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Replys_Messages", "Message", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Message), "Reply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Reply))]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Restrictions_Users_CreatedByUserId", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Restriction", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Restriction))]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Roles_Restrictions", "Restriction", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Restriction), "Role", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Role))]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Roles_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Role", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Role))]
@@ -73,6 +69,10 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_BoardReply_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "BoardReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.BoardReply), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserPictureComplaints_FiledByUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "UserPictureComplaint", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserPictureComplaint), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserPictureComplaints_UserPictures", "UserPicture", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.UserPicture), "UserPictureComplaint", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserPictureComplaint), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Message_Users_FromUserId", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Message", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Message), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Message_Users_ToUserId", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Message", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Message), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Replys_User", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Reply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Reply), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Replys_Messages", "Message", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Message), "Reply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Reply), true)]
 
 #endregion
 
@@ -271,22 +271,6 @@ namespace HaveAVoice.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<Message> Messages
-        {
-            get
-            {
-                if ((_Messages == null))
-                {
-                    _Messages = base.CreateObjectSet<Message>("Messages");
-                }
-                return _Messages;
-            }
-        }
-        private ObjectSet<Message> _Messages;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<Timezone> Timezones
         {
             get
@@ -315,22 +299,6 @@ namespace HaveAVoice.Models
             }
         }
         private ObjectSet<UserPicture> _UserPictures;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Reply> Replys
-        {
-            get
-            {
-                if ((_Replys == null))
-                {
-                    _Replys = base.CreateObjectSet<Reply>("Replys");
-                }
-                return _Replys;
-            }
-        }
-        private ObjectSet<Reply> _Replys;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -731,6 +699,38 @@ namespace HaveAVoice.Models
             }
         }
         private ObjectSet<UserPictureComplaint> _UserPictureComplaints;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Message> Messages
+        {
+            get
+            {
+                if ((_Messages == null))
+                {
+                    _Messages = base.CreateObjectSet<Message>("Messages");
+                }
+                return _Messages;
+            }
+        }
+        private ObjectSet<Message> _Messages;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Reply> Replys
+        {
+            get
+            {
+                if ((_Replys == null))
+                {
+                    _Replys = base.CreateObjectSet<Reply>("Replys");
+                }
+                return _Replys;
+            }
+        }
+        private ObjectSet<Reply> _Replys;
 
         #endregion
         #region AddTo Methods
@@ -808,14 +808,6 @@ namespace HaveAVoice.Models
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the Messages EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToMessages(Message message)
-        {
-            base.AddObject("Messages", message);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the Timezones EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToTimezones(Timezone timezone)
@@ -829,14 +821,6 @@ namespace HaveAVoice.Models
         public void AddToUserPictures(UserPicture userPicture)
         {
             base.AddObject("UserPictures", userPicture);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Replys EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToReplys(Reply reply)
-        {
-            base.AddObject("Replys", reply);
         }
     
         /// <summary>
@@ -1037,6 +1021,22 @@ namespace HaveAVoice.Models
         public void AddToUserPictureComplaints(UserPictureComplaint userPictureComplaint)
         {
             base.AddObject("UserPictureComplaints", userPictureComplaint);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Messages EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToMessages(Message message)
+        {
+            base.AddObject("Messages", message);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Replys EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToReplys(Reply reply)
+        {
+            base.AddObject("Replys", reply);
         }
 
         #endregion
@@ -6218,6 +6218,8 @@ namespace HaveAVoice.Models
         /// Create a new Message object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="toUserId">Initial value of the ToUserId property.</param>
+        /// <param name="fromUserId">Initial value of the FromUserId property.</param>
         /// <param name="subject">Initial value of the Subject property.</param>
         /// <param name="body">Initial value of the Body property.</param>
         /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
@@ -6226,10 +6228,12 @@ namespace HaveAVoice.Models
         /// <param name="toDeleted">Initial value of the ToDeleted property.</param>
         /// <param name="fromDeleted">Initial value of the FromDeleted property.</param>
         /// <param name="repliedTo">Initial value of the RepliedTo property.</param>
-        public static Message CreateMessage(global::System.Int32 id, global::System.String subject, global::System.String body, global::System.DateTime dateTimeStamp, global::System.Boolean toViewed, global::System.Boolean fromViewed, global::System.Boolean toDeleted, global::System.Boolean fromDeleted, global::System.Boolean repliedTo)
+        public static Message CreateMessage(global::System.Int32 id, global::System.Int32 toUserId, global::System.Int32 fromUserId, global::System.String subject, global::System.String body, global::System.DateTime dateTimeStamp, global::System.Boolean toViewed, global::System.Boolean fromViewed, global::System.Boolean toDeleted, global::System.Boolean fromDeleted, global::System.Boolean repliedTo)
         {
             Message message = new Message();
             message.Id = id;
+            message.ToUserId = toUserId;
+            message.FromUserId = fromUserId;
             message.Subject = subject;
             message.Body = body;
             message.DateTimeStamp = dateTimeStamp;
@@ -6270,6 +6274,54 @@ namespace HaveAVoice.Models
         private global::System.Int32 _Id;
         partial void OnIdChanging(global::System.Int32 value);
         partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ToUserId
+        {
+            get
+            {
+                return _ToUserId;
+            }
+            set
+            {
+                OnToUserIdChanging(value);
+                ReportPropertyChanging("ToUserId");
+                _ToUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ToUserId");
+                OnToUserIdChanged();
+            }
+        }
+        private global::System.Int32 _ToUserId;
+        partial void OnToUserIdChanging(global::System.Int32 value);
+        partial void OnToUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 FromUserId
+        {
+            get
+            {
+                return _FromUserId;
+            }
+            set
+            {
+                OnFromUserIdChanging(value);
+                ReportPropertyChanging("FromUserId");
+                _FromUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FromUserId");
+                OnFromUserIdChanged();
+            }
+        }
+        private global::System.Int32 _FromUserId;
+        partial void OnFromUserIdChanging(global::System.Int32 value);
+        partial void OnFromUserIdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -7096,12 +7148,16 @@ namespace HaveAVoice.Models
         /// Create a new Reply object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="replyUserId">Initial value of the ReplyUserId property.</param>
+        /// <param name="messageId">Initial value of the MessageId property.</param>
         /// <param name="body">Initial value of the Body property.</param>
         /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
-        public static Reply CreateReply(global::System.Int32 id, global::System.String body, global::System.DateTime dateTimeStamp)
+        public static Reply CreateReply(global::System.Int32 id, global::System.Int32 replyUserId, global::System.Int32 messageId, global::System.String body, global::System.DateTime dateTimeStamp)
         {
             Reply reply = new Reply();
             reply.Id = id;
+            reply.ReplyUserId = replyUserId;
+            reply.MessageId = messageId;
             reply.Body = body;
             reply.DateTimeStamp = dateTimeStamp;
             return reply;
@@ -7136,6 +7192,54 @@ namespace HaveAVoice.Models
         private global::System.Int32 _Id;
         partial void OnIdChanging(global::System.Int32 value);
         partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ReplyUserId
+        {
+            get
+            {
+                return _ReplyUserId;
+            }
+            set
+            {
+                OnReplyUserIdChanging(value);
+                ReportPropertyChanging("ReplyUserId");
+                _ReplyUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ReplyUserId");
+                OnReplyUserIdChanged();
+            }
+        }
+        private global::System.Int32 _ReplyUserId;
+        partial void OnReplyUserIdChanging(global::System.Int32 value);
+        partial void OnReplyUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 MessageId
+        {
+            get
+            {
+                return _MessageId;
+            }
+            set
+            {
+                OnMessageIdChanging(value);
+                ReportPropertyChanging("MessageId");
+                _MessageId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("MessageId");
+                OnMessageIdChanged();
+            }
+        }
+        private global::System.Int32 _MessageId;
+        partial void OnMessageIdChanging(global::System.Int32 value);
+        partial void OnMessageIdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -9301,50 +9405,6 @@ namespace HaveAVoice.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Message_Users_FromUserId", "Message")]
-        public EntityCollection<Message> MessagesSent
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Message>("HaveAVoice.Models.FK_Message_Users_FromUserId", "Message");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Message>("HaveAVoice.Models.FK_Message_Users_FromUserId", "Message", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Message_Users_ToUserId", "Message")]
-        public EntityCollection<Message> MessagesReceived
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Message>("HaveAVoice.Models.FK_Message_Users_ToUserId", "Message");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Message>("HaveAVoice.Models.FK_Message_Users_ToUserId", "Message", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserPictures_Users", "UserPicture")]
         public EntityCollection<UserPicture> UserPictures
         {
@@ -9357,28 +9417,6 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserPicture>("HaveAVoice.Models.FK_UserPictures_Users", "UserPicture", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Replys_User", "Reply")]
-        public EntityCollection<Reply> Replys
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Reply>("HaveAVoice.Models.FK_Replys_User", "Reply");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Reply>("HaveAVoice.Models.FK_Replys_User", "Reply", value);
                 }
             }
         }
@@ -9973,6 +10011,72 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserPictureComplaint>("HaveAVoice.Models.FK_UserPictureComplaints_FiledByUserId_Users", "UserPictureComplaint", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Message_Users_FromUserId", "Message")]
+        public EntityCollection<Message> MessagesSent
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Message>("HaveAVoice.Models.FK_Message_Users_FromUserId", "Message");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Message>("HaveAVoice.Models.FK_Message_Users_FromUserId", "Message", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Message_Users_ToUserId", "Message")]
+        public EntityCollection<Message> MessagesReceived
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Message>("HaveAVoice.Models.FK_Message_Users_ToUserId", "Message");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Message>("HaveAVoice.Models.FK_Message_Users_ToUserId", "Message", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Replys_User", "Reply")]
+        public EntityCollection<Reply> Replys
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Reply>("HaveAVoice.Models.FK_Replys_User", "Reply");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Reply>("HaveAVoice.Models.FK_Replys_User", "Reply", value);
                 }
             }
         }
