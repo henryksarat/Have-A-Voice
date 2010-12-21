@@ -61,7 +61,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public Message GetMessage(int messageId, User user) {
-            Message message = theRepository.GetMessage(messageId);
+            Message message = theRepository.GetMessage(user, messageId);
             theRepository.ChangeMessageViewedStateForMe(messageId, user, true);
             return message;
         }
@@ -78,7 +78,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public bool AllowedToViewMessageThread(User user, int messageId) {
-            Message message = theRepository.GetMessage(messageId);
+            Message message = theRepository.GetMessage(user, messageId);
             return (message.ToUserId == user.Id || message.FromUserId == user.Id);
         }
     }

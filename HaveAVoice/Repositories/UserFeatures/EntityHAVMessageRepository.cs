@@ -42,10 +42,11 @@ namespace HaveAVoice.Repositories.UserFeatures {
             GetEntities().SaveChanges();
         }
 
-        public Message GetMessage(int messageId) {
-            return (from c in GetEntities().Messages.Include("FromUser").Include("Replys.User")
-                    where c.Id == messageId
-                    select c).FirstOrDefault<Message>();
+        public Message GetMessage(User aViewingUser, int aMessageId) {
+            return (from m in GetEntities().Messages.Include("FromUser").Include("Replys.User")
+                    where m.Id == aMessageId
+                    && ((aViewingUser.Id == m.ToUserId && !m.ToDeleted)  || (aViewingUser.Id == m.FromUserId && !m.FromDeleted))
+                    select m).FirstOrDefault<Message>();
         }
 
         public Message CreateReply(int messageId, User user, string body) {
@@ -131,6 +132,12 @@ namespace HaveAVoice.Repositories.UserFeatures {
                             DateTimeStamp = (r2 == null ? m.DateTimeStamp : r2.DateTimeStamp)
                         }).ToList<InboxMessage>();    
             }
+        }
+
+        private Message GetMessage(int aMessageId) {
+            return (from m in GetEntities().Messages.Include("FromUser").Include("Replys.User")
+                    where m.Id == aMessageId
+                    select m).FirstOrDefault<Message>();
         }
     }
 }

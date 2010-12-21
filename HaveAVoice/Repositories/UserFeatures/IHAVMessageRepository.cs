@@ -8,7 +8,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         Message CreateMessage(int fromUserId, Message messageToCreate);
         IEnumerable<InboxMessage> GetMessagesForUser(User toUser);
         void DeleteMessages(List<Int32> messagesToDelete, User user);
-        Message GetMessage(int messageId);
+        Message GetMessage(User aViewingUser, int messageId);
 
         Message CreateReply(int messageId, User user, string body);
         Message ChangeMessageViewedStateForMe(int messageId, User toUser, bool viewed);
