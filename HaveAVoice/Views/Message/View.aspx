@@ -10,10 +10,9 @@
 
     <h2>ViewMessage</h2>
     
-    <% using (Html.BeginForm())
-       { %>
+    <% using (Html.BeginForm("CreateReply", "Message")) { %>
+        <%= Html.Hidden("Id", Model.Message.Id) %>
             <p>
-                 <%= Html.Encode(ViewData["ErrorMessage"]) %>
                  <%= Html.Encode(ViewData["Message"]) %>
             </p>
             <% if (Model != null) {%>
@@ -42,8 +41,9 @@
             <tr>
                 <td>
                     
-                    <%= Html.ValidationSummary() %>
+                    <%= Html.ValidationSummary("Reply was unsuccessful. Please correct the errors and try again.") %>
                     <%= Html.TextArea("Reply")%>
+                    <%= Html.ValidationMessage("Reply", "*")%>
                 </td>
             </tr>
             <tr>

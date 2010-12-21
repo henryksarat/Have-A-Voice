@@ -12,150 +12,160 @@ using HaveAVoice.Services.UserFeatures;
 
 namespace HaveAVoice.Controllers.Users
 {
-    public class MessageController : HAVBaseController
-    {
+    public class MessageController : HAVBaseController {
+        private const string NO_MESSAGES = "You have no messages";
+        private const string SEND_SUCCESS = "Message sent successfully!";
+        private const string REPLY_SUCCESS = "Reply sent successfully!";
+
+        private const string INBOX_LOAD_ERROR = "An error occurred while trying to load your inbox. Please try again.";
+        private const string USER_RETRIEVAL_ERROR = "Unable to retreieve the users information. Please try again.";
+        private const string SEND_ERROR = "An error occurred while sending the message. Please try again.";
+        private const string RETRIEVE_ERROR = "Error retrieving the message. Please try again.";
+        private const string REPLY_ERROR = "An error occurred while sending the reply. Please try again.";
+
         private IHAVMessageService theService;
         private IHAVUserService theUserService;
+        private IHAVUserPictureService theUserPicturesService;
 
         public MessageController() : 
             base(new HAVBaseService(new HAVBaseRepository())) {
             IValidationDictionary myValidationDictionary = new ModelStateWrapper(this.ModelState);
             theService = new HAVMessageService(myValidationDictionary);
             theUserService = new HAVUserService(myValidationDictionary);
+            theUserPicturesService = new HAVUserPictureService();
         }
 
-        public MessageController(IHAVBaseService aBaseService, IHAVMessageService aMessageService, IHAVUserService aUserService)
+        public MessageController(IHAVBaseService aBaseService, IHAVMessageService aMessageService, IHAVUserService aUserService, IHAVUserPictureService aUserPicturesService)
             : base(aBaseService) {
             theService = aMessageService;
             theUserService = aUserService;
+            theUserPicturesService = aUserPicturesService;
         }
 
+        [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Index() {
-            User user = GetUserInformaton();
-            if (user == null) {
+            if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-
             try {
-                List<InboxMessage> messages = theService.GetMessagesForUser(user).ToList<InboxMessage>();
+                User myUser = GetUserInformaton();
+                List<InboxMessage> messages = theService.GetMessagesForUser(myUser).ToList<InboxMessage>();
 
                 if (messages.Count == 0) {
-                    ViewData["Message"] = "You have no messages.";
+                    ViewData["Message"] = NO_MESSAGES;
                 }
 
                 return View("Index", messages);
-            } catch (Exception exception) {
-                LogError(exception, "Error getting messages for the myUser id " + user.Id + ".");
-                return SendToErrorPage("An error occurred when we tried to load your inbox. " +
-                "Don't worry, it's not gone! Please try again.");
+            } catch (Exception e) {
+                LogError(e, INBOX_LOAD_ERROR);
+                return SendToErrorPage(INBOX_LOAD_ERROR);
             }
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Index(List<Int32> selectedMessages) {
-            User user = GetUserInformaton();
-            if (user == null) {
+            if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
 
             try {
-                theService.DeleteMessages(selectedMessages, user);
+                User myUser = GetUserInformaton();
+                theService.DeleteMessages(selectedMessages, myUser);
             } catch (Exception e) {
-                LogError(e, "Error deleting the messages for the myUser id " + user.Id + ".");
-                ViewData["Message"] = "An error occurred, please try again.";
+                LogError(e, HAVConstants.ERROR);
+                ViewData["Message"] = HAVConstants.ERROR;
             }
 
-            return View("Index");
+            return RedirectToAction("Index");
         }
 
-        public ActionResult SendMessage(int id) {
-            if (GetUserInformaton() == null) {
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult Create(int id) {
+            if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
 
             try {
-                ViewData["ToUser"] = theUserService.GetUser(id);
+                User myUser = theUserService.GetUser(id);
+                string myProfilePictureUrl = theUserPicturesService.GetProfilePictureURL(myUser);
+                MessageWrapper myMessage = MessageWrapper.Build(myUser, myProfilePictureUrl);
+                return View("Create", myMessage);
             } catch (Exception e) {
-                LogError(e, "Unable to get myUser data for the myUser with the id " + id);
-                return SendToErrorPage("Unable to get the information for that myUser. Please try again.");
+                LogError(e,  USER_RETRIEVAL_ERROR);
+                return SendToErrorPage(USER_RETRIEVAL_ERROR);
             }
-
-            return View("SendMessage");
         }
 
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult SendMessage(Message messageToCreate) {
-            User user = GetUserInformaton();
-            if (user == null) {
+        public ActionResult Create(MessageWrapper aMessage) {
+            if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
             
             try {
-                if (!theService.CreateMessage(user.Id, messageToCreate)) {
-                    ViewData["ToUser"] = theUserService.GetUser(messageToCreate.ToUserId);
-                    return View("SendMessage", messageToCreate.ToUserId);
+                User myUser = GetUserInformaton();
+                if (theService.CreateMessage(myUser.Id, aMessage.ToModel())) {
+                    return SendToResultPage(SEND_SUCCESS);
                 }
             } catch (Exception e) {
-                LogError(e, "Unable to send a message from the myUser with the id " + user.Id + " to the myUser with the id with " + 32);
-                ViewData["Message"] = "Unable to send the message! Please try again in a few minutes.";
-               // return View("SendMessage", toUser);
+                LogError(e, SEND_ERROR);
+                ViewData["Message"] = SEND_ERROR;
             }
 
-            return SendToResultPage("Message sent successfully!");
+            return View("Create", aMessage);
         }
 
-        public ActionResult ViewMessage(int messageId) {
-            User user = GetUserInformaton();
-
-            if (user == null) {
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult View(int id) {
+            if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
 
+            User myUser = GetUserInformaton();
+
             try {
-                if (!theService.AllowedToViewMessageThread(user, messageId)) {
+                if (!theService.AllowedToViewMessageThread(myUser, id)) {
                     return Redirect("Index");
                 }
             } catch (Exception e) {
-                LogError(e, "Error deciding if the myUser is allowed to view the message. [UserId="+ user.Id + ";MessageId="+messageId+"]");
-                return SendToErrorPage("Error retrieving the message, please try again.");
+                LogError(e, RETRIEVE_ERROR);
+                return SendToErrorPage(RETRIEVE_ERROR);
             }
             
-            Message messageToDisplay;
+            Message myMessageToDisplay;
             try {
-                messageToDisplay = theService.GetMessage(messageId, user);
+                myMessageToDisplay = theService.GetMessage(id, myUser);
             } catch (Exception e) {
-                LogError(e, "Error retrieving the message. [MessageId=" + messageId + "]");
-                return SendToErrorPage("Error retrieving the message, please try again.");
+                LogError(e, RETRIEVE_ERROR);
+                return SendToErrorPage(RETRIEVE_ERROR);
             }
 
-            return View("ViewMessage", new ViewMessageModel(messageToDisplay));
+            return View("View", new ViewMessageModel(myMessageToDisplay));
         }
 
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult ViewMessage(ViewMessageModel viewMessageModel) {
-            User user = GetUserInformaton();
-            if (user == null) {
+        public ActionResult CreateReply(ViewMessageModel viewMessageModel) {
+            if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
 
             try {
-                if (theService.CreateReply(viewMessageModel.Message.Id, user, viewMessageModel.Reply)) {
-                    return SendToResultPage("Message Sent!");
+                User myUser = GetUserInformaton();
+                if (theService.CreateReply(viewMessageModel.Message.Id, myUser, viewMessageModel.Reply)) {
+                    return SendToResultPage(REPLY_SUCCESS);
                 }
-
             } catch (Exception e) {
-                LogError(e, "Error posting a reply. [UserId=" + user.Id + ";MessageId=" + viewMessageModel.Message.Id + "]");
-                ViewData["Message"] = "Error sending comment. Please try again.";
+                LogError(e, REPLY_ERROR);
+                ViewData["Message"] = REPLY_ERROR;
             }
 
-            return View("ViewMessage", viewMessageModel);
+            return View("View", viewMessageModel);
         }
 
         protected override ActionResult SendToResultPage(string title, string details) {
             return SendToResultPage(SiteSectionsEnum.Message, title, details);
         }
-
     }
 }

@@ -43,7 +43,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         public Message GetMessage(int messageId) {
-            return (from c in GetEntities().Messages.Include("FromUser").Include("Replys.ReplyUser")
+            return (from c in GetEntities().Messages.Include("FromUser").Include("Replys.User")
                     where c.Id == messageId
                     select c).FirstOrDefault<Message>();
         }

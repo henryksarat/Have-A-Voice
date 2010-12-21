@@ -51,7 +51,7 @@ namespace HaveAVoice.Helpers.UI {
 
             var tdTag = new TagBuilder("td");
             var checkboxTag = new TagBuilder("input");
-            checkboxTag.MergeAttribute("myType", "checkbox");
+            checkboxTag.MergeAttribute("type", "checkbox");
             checkboxTag.MergeAttribute("name", "selectedMessages");
             checkboxTag.MergeAttribute("value", fromUserId.ToString());
             tdTag.InnerHtml = checkboxTag.ToString();
@@ -94,7 +94,7 @@ namespace HaveAVoice.Helpers.UI {
             var trTag = new TagBuilder("tr");
 
             var tdTag = new TagBuilder("td");
-            tdTag.InnerHtml = String.Format("<a href=\"ViewMessage?messageId={0}\">{1}</a>", messageId, subject);
+            tdTag.InnerHtml = String.Format("<a href=\"View/{0}\">{1}</a>", messageId, subject);
             trTag.InnerHtml = tdTag.ToString();
             tableTag.InnerHtml += trTag.ToString();
 
@@ -104,7 +104,7 @@ namespace HaveAVoice.Helpers.UI {
             tableTag.InnerHtml += trTag.ToString();
 
             tdTag = new TagBuilder("td");
-            tdTag.InnerHtml = String.Format("<a href=\"ViewMessage?messageId={0}\">{1}</a>", messageId, body);
+            tdTag.InnerHtml = String.Format("<a href=\"View/{0}\">{1}</a>", messageId, body);
             trTag.InnerHtml = tdTag.ToString();
             tableTag.InnerHtml += trTag.ToString();
 
