@@ -187,6 +187,11 @@ body { font-family: helvetica, arial, sans-serif; background: #d9e9ed; }
 .not-logged a.dislike:hover { text-decoration: underline; }
 .not-logged a.dislike img { border: 0px none transparent; margin-left: 5px; }
 
+.not-logged a.more-like, .not-logged a.more-like:link, .not-logged a.more-like:visited { font-weight: bold; text-decoration: none; color: #3da4be; padding: 2px 5px; }
+.not-logged a.more-like:hover { background: #3da4be; color: #ffffff; }
+.not-logged a.more-dislike, .not-logged a.more-dislike:link, .not-logged a.more-dislike:visited { font-weight: bold; text-decoration: none; padding: 2px 5px; color: #d56667; }
+.not-logged a.more-dislike:hover { background: #d56667; color: #ffffff; }
+
 
 .events .title { padding: 5px 0px; text-align: center; text-transform: uppercase; font-weight: bold; color: #ffffff; background: #a0cfdB; }
 .events .prev, .events .next { height: 110px; background: #c0d8de; }
