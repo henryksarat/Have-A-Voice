@@ -1,11 +1,10 @@
-<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl" %>
-<%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<HaveAVoice.Models.View.LoggedInModel>" %>
 
-<% if (HAVUserInformationFactory.IsLoggedIn()) { %>
+<%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 
 <div class="col-24 user-panel">
 	<div class="col-3">
-		<img src="<% Model.ProfilePictureURL %>" alt="<% Model.User.Username %>" class="profile" />
+		<img src="<%= Model.ProfilePictureURL %>" alt="<%= Model.User.Username %>" class="profile" />
 	</div>
 	<div class="col-15">
 		<div class="m-lft col-15 m-rgt">
@@ -21,7 +20,7 @@
 		
 		<div class="m-lft col-15 m-rgt user-control">
 			<h1>
-				<% Model.User.Username %>
+				<%= Model.User.Username %>
 			</h1>
 			<h2>
 				#USER-STATUS#
@@ -51,21 +50,4 @@
 		//-->
 	</div>
 </div>
-
-<% } else { %>
-
-<div class="push-1 col-22 sign-up">
-	<div class="col-16 center padding-22t">
-		<h3>
-			Connecting you to the political world instantaneously.
-		</h3>
-	</div>
-	
-	<div class="col-6 center">
-		<input type="button" class="create" value="Create a new account" />
-	</div>
-	<div class="clear">&nbsp;</div>
-</div>
-
-<% } %>
 <div class="clear">&nbsp;</div>

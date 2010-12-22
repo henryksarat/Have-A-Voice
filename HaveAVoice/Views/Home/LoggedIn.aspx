@@ -6,19 +6,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="col-24 user-panel">
-        <div class="col-3">
-            <img src="<%=Model.ProfilePictureURL %>" alt="Current Profile" class="profile" />
-        </div>
-        <div class="col-15">
-            #CONTROL PANEL#
-        </div>
-        <div class="col-6 advertisement">
-            &nbsp;
-        </div>
-    </div>
-    <div class="clear">&nbsp;</div>
-    
+    <% Html.RenderPartial("UserPanel"); %>    
     <div class="col-3 left-nav">
         <% Html.RenderPartial("LeftNavigation"); %>
     </div>
