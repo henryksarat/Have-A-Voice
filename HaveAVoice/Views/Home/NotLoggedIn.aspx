@@ -10,7 +10,7 @@
         <%= Html.Encode(ViewData["Message"]) %>
     </p>
     <%/* Html.RenderPartial("Tabs"); */%>
-    <% Html.RenderPartial("UserPanel"); %>
+    <% Html.RenderPartial("NotLoggedInUserPanel"); %>
     <div class="col-24 m-top20 not-logged">
         <div class="col-1">&nbsp;</div>
         <div class="col-10 center p-t5 p-b5 t-tab b-wht">
