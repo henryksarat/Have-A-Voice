@@ -142,12 +142,12 @@ body { font-family: helvetica, arial, sans-serif; background: #d9e9ed; }
 .user-panel ul li.first { border-left: none; border-top-left-radius: 5px; border-bottom-left-radius: 5px; -moz-border-radius-topleft: 5px; -moz-border-radius-bottomleft: 5px; -webkit-border-top-left-radius: 5px; -webkit-border-bottom-left-radius: 5px; }
 .user-panel ul li.last { border-right: none; border-top-right-radius: 5px; border-bottom-right-radius: 5px; -moz-border-radius-topright: 5px; -moz-border-radius-bottomright: 5px; -webkit-border-top-right-radius: 5px; -webkit-border-bottom-right-radius: 5px; }
 .user-panel ul li:hover, .user-panel ul li.active { background-color: #c0d8de; }
-.user-panel ul li a { width: 32px; height: 24px; background-size: 24px; display: block; outline: none; text-indent: -9999px; padding: 0px 10px; }
-.user-panel ul li a.home { background: url("/Content/images/menu/home.png") center center no-repeat;  }
-.user-panel ul li a.message { background: url("/Content/images/menu/message.png") center center no-repeat; }
-.user-panel ul li a.photo { background: url("/Content/images/menu/photo.png") center center no-repeat; }
-.user-panel ul li a.event { background: url("/Content/images/menu/event.png") center center no-repeat; }
-.user-panel ul li a.info { background: url("/Content/images/menu/info.png") center center no-repeat; }
+.user-panel ul li a { width: 32px; height: 24px; -moz-background-size: 24px; background-size: 24px; display: block; outline: none; text-indent: -9999px; padding: 0px 10px; }
+.user-panel ul li a.home { background-image: url("images/menu/home.png"); background-position: center center; background-repeat: no-repeat;  }
+.user-panel ul li a.message { background-image: url("images/menu/message.png"); background-position: center center; background-repeat: no-repeat; }
+.user-panel ul li a.photo { background-image: url("images/menu/photo.png"); background-position: center center; background-repeat: no-repeat; }
+.user-panel ul li a.event { background-image: url("images/menu/event.png"); background-position: center center; background-repeat: no-repeat; }
+.user-panel ul li a.info { background-image: url("images/menu/info.png"); background-position: center center; background-repeat: no-repeat; }
 .user-panel img.profile { max-width: 120px; max-height: 120px; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; }
 
 .user-panel .advertisement { text-align: left; font-size: 11px; color: #4b4b4b; }
