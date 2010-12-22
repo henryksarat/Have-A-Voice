@@ -13,12 +13,12 @@
     <% Html.RenderPartial("UserPanel"); %>
     <div class="col-24 m-top20 not-logged">
         <div class="col-1">&nbsp;</div>
-        <div class="col-10 center p-t5 p-b5 t-tab">
+        <div class="col-10 center p-t5 p-b5 t-tab b-wht">
 			<img src="/Content/images/like.png" alt="Thumbs Up" align="top" />
             <span class="fnt-16 tint-6 bold">MEMBERS LIKE</span>
         </div>
         <div class="col-2">&nbsp;</div>
-		<div class="col-10 center p-t5 p-b5 t-tab">
+		<div class="col-10 center p-t5 p-b5 t-tab b-wht">
 			<span class="fnt-16 color-5 bold">MEMBERS DISLIKE</span>
 			<img src="/Content/images/dislike.png" alt="Thumbs Down" align="top" />
 		</div>

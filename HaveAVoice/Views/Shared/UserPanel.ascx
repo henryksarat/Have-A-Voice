@@ -5,10 +5,7 @@
 
 <div class="col-24 user-panel">
 	<div class="col-3">
-		#USER-IMAGE#
-		<!--
-		<img src="http://www2.pictures.zimbio.com/img/5519/Alicia/5986c.nZBops.jpg" alt="Gerard Butler" width="120" height="120" class="profile" />
-		//-->
+		<img src="<% Model.ProfilePictureURL %>" alt="<% Model.User.Username %>" class="profile" />
 	</div>
 	<div class="col-15">
 		<div class="m-lft col-15 m-rgt">
@@ -24,10 +21,7 @@
 		
 		<div class="m-lft col-15 m-rgt user-control">
 			<h1>
-				#USER-NAME#
-				<!--
-				Gerard Butler
-				//-->
+				<% Model.User.Username %>
 			</h1>
 			<h2>
 				#USER-STATUS#
