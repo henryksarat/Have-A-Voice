@@ -26,10 +26,13 @@
 		<div class="clear"></div>
 
 		<div class="col-12">
-			<div rel="match" class="p-a10 b-wht">
-                <% foreach (var item in Model.LikedIssues) { %>
-                    <%= IssueHelper.BuildIssueDisplay(item.Issue, true) %> 
-                <% } %>
+			<div class="p-a10 b-wht">
+				<div rel="match">
+	                <% foreach (var item in Model.LikedIssues) { %>
+	                    <%= IssueHelper.BuildIssueDisplay(item.Issue, true) %> 
+	                <% } %>
+	                <div class="clear">&nbsp;</div>
+                </div>
                 <div class="right">
 					<a href="#" class="more-like">More Topics Liked By Members &gt;&gt;</a>
 				</div>
@@ -38,10 +41,13 @@
         </div>
 
         <div class="col-12">
-            <div rel="match" class="p-a10 b-wht">
-                <% foreach (var item in Model.DislikedIssues) { %>
-                    <%= IssueHelper.BuildIssueDisplay(item.Issue, false) %> 
-                <% } %>
+            <div class="p-a10 b-wht">
+            	<div rel="match">
+	                <% foreach (var item in Model.DislikedIssues) { %>
+	                    <%= IssueHelper.BuildIssueDisplay(item.Issue, false) %> 
+	                <% } %>
+	                <div class="clear">&nbsp;</div>
+                </div>
                 <div class="right">
 				    <a href="#" class="more-dislike">More Topics Disliked By Members &gt;&gt;</a>
 			    </div>
