@@ -1388,7 +1388,6 @@
       <Schema Namespace="HaveAVoice.Models" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="HaveAVoiceEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ProfilePictures" EntityType="HaveAVoice.Models.ProfilePicture" />
-          <EntitySet Name="RolePermissions" EntityType="HaveAVoice.Models.RolePermission" />
           <EntitySet Name="Roles" EntityType="HaveAVoice.Models.Role" />
           <EntitySet Name="sysdiagrams" EntityType="HaveAVoice.Models.sysdiagram" />
           <EntitySet Name="UserRoles" EntityType="HaveAVoice.Models.UserRole" />
@@ -1401,10 +1400,6 @@
           <AssociationSet Name="FK_ProfilePictures_Users" Association="HaveAVoice.Models.FK_ProfilePictures_Users">
             <End Role="User" EntitySet="Users" />
             <End Role="ProfilePicture" EntitySet="ProfilePictures" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RolePermissions_Roles" Association="HaveAVoice.Models.FK_RolePermissions_Roles">
-            <End Role="Role" EntitySet="Roles" />
-            <End Role="RolePermission" EntitySet="RolePermissions" />
           </AssociationSet>
           <AssociationSet Name="FK_UserRoles_Roles" Association="HaveAVoice.Models.FK_UserRoles_Roles">
             <End Role="Role" EntitySet="Roles" />
@@ -1514,10 +1509,6 @@
             <End Role="FilteredZipCode" EntitySet="FilteredZipCodes" />
           </AssociationSet>
           <EntitySet Name="Permissions" EntityType="HaveAVoice.Models.Permission" />
-          <AssociationSet Name="FK_RolePermissions_Permissions" Association="HaveAVoice.Models.FK_RolePermissions_Permissions">
-            <End Role="Permission" EntitySet="Permissions" />
-            <End Role="RolePermission" EntitySet="RolePermissions" />
-          </AssociationSet>
           <EntitySet Name="Feedbacks" EntityType="HaveAVoice.Models.Feedback" />
           <AssociationSet Name="FK_Feedback_Users" Association="HaveAVoice.Models.FK_Feedback_Users">
             <End Role="User" EntitySet="Users" />
@@ -1645,6 +1636,15 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Fan" EntitySet="Fans" />
           </AssociationSet>
+          <EntitySet Name="RolePermissions" EntityType="HaveAVoice.Models.RolePermission" />
+          <AssociationSet Name="FK_RolePermissions_Permissions" Association="HaveAVoice.Models.FK_RolePermissions_Permissions">
+            <End Role="Permission" EntitySet="Permissions" />
+            <End Role="RolePermission" EntitySet="RolePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolePermissions_Roles" Association="HaveAVoice.Models.FK_RolePermissions_Roles">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="RolePermission" EntitySet="RolePermissions" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="ProfilePicture">
           <Key>
@@ -1655,14 +1655,6 @@
           <Property Type="Boolean" Name="DefaultPicture" Nullable="false" />
           <NavigationProperty Name="User" Relationship="HaveAVoice.Models.FK_ProfilePictures_Users" FromRole="ProfilePicture" ToRole="User" />
         </EntityType>
-        <EntityType Name="RolePermission">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Role" Relationship="HaveAVoice.Models.FK_RolePermissions_Roles" FromRole="RolePermission" ToRole="Role" />
-          <NavigationProperty Name="Permission" Relationship="HaveAVoice.Models.FK_RolePermissions_Permissions" FromRole="RolePermission" ToRole="Permission" />
-        </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="Id" />
@@ -1671,12 +1663,12 @@
           <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Description" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Type="Boolean" Name="DefaultRole" Nullable="false" />
-          <NavigationProperty Name="RolePermissions" Relationship="HaveAVoice.Models.FK_RolePermissions_Roles" FromRole="Role" ToRole="RolePermission" />
           <NavigationProperty Name="UserRoles" Relationship="HaveAVoice.Models.FK_UserRoles_Roles" FromRole="Role" ToRole="UserRole" />
           <NavigationProperty Name="Restriction" Relationship="HaveAVoice.Models.FK_Roles_Restrictions" FromRole="Role" ToRole="Restriction" />
           <NavigationProperty Name="EditedByUser" Relationship="HaveAVoice.Models.FK_Roles_Users" FromRole="Role" ToRole="User" />
           <Property Type="Boolean" Name="Deleted" Nullable="false" />
           <Property Type="Int32" Name="DeletedByUserId" />
+          <NavigationProperty Name="RolePermissions" Relationship="HaveAVoice.Models.FK_RolePermissions_Roles" FromRole="Role" ToRole="RolePermission" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -1831,10 +1823,6 @@
         <Association Name="FK_ProfilePictures_Users">
           <End Type="HaveAVoice.Models.User" Role="User" Multiplicity="1" />
           <End Type="HaveAVoice.Models.ProfilePicture" Role="ProfilePicture" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_RolePermissions_Roles">
-          <End Type="HaveAVoice.Models.Role" Role="Role" Multiplicity="1" />
-          <End Type="HaveAVoice.Models.RolePermission" Role="RolePermission" Multiplicity="*" />
         </Association>
         <Association Name="FK_UserRoles_Roles">
           <End Type="HaveAVoice.Models.Role" Role="Role" Multiplicity="1" />
@@ -2063,10 +2051,6 @@
           <Property Type="Int32" Name="DeletedByUserId" />
           <NavigationProperty Name="RolePermissions" Relationship="HaveAVoice.Models.FK_RolePermissions_Permissions" FromRole="Permission" ToRole="RolePermission" />
         </EntityType>
-        <Association Name="FK_RolePermissions_Permissions">
-          <End Type="HaveAVoice.Models.Permission" Role="Permission" Multiplicity="1" />
-          <End Type="HaveAVoice.Models.RolePermission" Role="RolePermission" Multiplicity="*" />
-        </Association>
         <EntityType Name="Feedback">
           <Key>
             <PropertyRef Name="Id" />
@@ -2604,6 +2588,40 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="RolePermission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="RoleId" Nullable="false" />
+          <Property Type="Int32" Name="PermissionId" Nullable="false" />
+          <NavigationProperty Name="Permission" Relationship="HaveAVoice.Models.FK_RolePermissions_Permissions" FromRole="RolePermission" ToRole="Permission" />
+          <NavigationProperty Name="Role" Relationship="HaveAVoice.Models.FK_RolePermissions_Roles" FromRole="RolePermission" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK_RolePermissions_Permissions">
+          <End Type="HaveAVoice.Models.Permission" Role="Permission" Multiplicity="1" />
+          <End Type="HaveAVoice.Models.RolePermission" Role="RolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RolePermission">
+              <PropertyRef Name="PermissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolePermissions_Roles">
+          <End Type="HaveAVoice.Models.Role" Role="Role" Multiplicity="1" />
+          <End Type="HaveAVoice.Models.RolePermission" Role="RolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RolePermission">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2615,13 +2633,6 @@
               <MappingFragment StoreEntitySet="ProfilePictures">
                 <ScalarProperty Name="DefaultPicture" ColumnName="DefaultPicture" />
                 <ScalarProperty Name="URL" ColumnName="URL" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RolePermissions">
-            <EntityTypeMapping TypeName="HaveAVoice.Models.RolePermission">
-              <MappingFragment StoreEntitySet="RolePermissions">
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2750,14 +2761,6 @@
             </EndProperty>
             <EndProperty Name="User">
               <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_RolePermissions_Roles" TypeName="HaveAVoice.Models.FK_RolePermissions_Roles" StoreEntitySet="RolePermissions">
-            <EndProperty Name="RolePermission">
-              <ScalarProperty Name="Id" ColumnName="Id" />
-            </EndProperty>
-            <EndProperty Name="Role">
-              <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
           <AssociationSetMapping Name="FK_UserRoles_Roles" TypeName="HaveAVoice.Models.FK_UserRoles_Roles" StoreEntitySet="UserRoles">
@@ -3078,14 +3081,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="FK_RolePermissions_Permissions" TypeName="HaveAVoice.Models.FK_RolePermissions_Permissions" StoreEntitySet="RolePermissions">
-            <EndProperty Name="RolePermission">
-              <ScalarProperty Name="Id" ColumnName="Id" />
-            </EndProperty>
-            <EndProperty Name="Permission">
-              <ScalarProperty Name="Id" ColumnName="PermissionId" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="Feedbacks">
             <EntityTypeMapping TypeName="HaveAVoice.Models.Feedback">
               <MappingFragment StoreEntitySet="Feedback">
@@ -3268,6 +3263,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="RolePermissions">
+            <EntityTypeMapping TypeName="HaveAVoice.Models.RolePermission">
+              <MappingFragment StoreEntitySet="RolePermissions">
+                <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -3290,7 +3294,6 @@
     <Diagrams>
       <Diagram Name="HaveAVoiceDBModel" ZoomLevel="66">
         <EntityTypeShape EntityType="HaveAVoice.Models.ProfilePicture" Width="1.5" PointX="7.125" PointY="8.125" Height="1.7879850260416674" />
-        <EntityTypeShape EntityType="HaveAVoice.Models.RolePermission" Width="1.5" PointX="0.5" PointY="13.75" Height="1.5956835937499818" />
         <EntityTypeShape EntityType="HaveAVoice.Models.Role" Width="1.5" PointX="0.5" PointY="16.75" Height="2.941793619791671" />
         <EntityTypeShape EntityType="HaveAVoice.Models.sysdiagram" Width="1.5" PointX="7.5" PointY="4.375" Height="1.9802864583333246" />
         <EntityTypeShape EntityType="HaveAVoice.Models.UserRole" Width="1.5" PointX="2.375" PointY="14.25" Height="1.5956835937499818" />
@@ -3307,18 +3310,14 @@
           <ConnectorPoint PointX="6.833333333333333" PointY="9.3216357421875" />
           <ConnectorPoint PointX="7.125" PointY="9.3216357421875" />
         </AssociationConnector>
-        <AssociationConnector Association="HaveAVoice.Models.FK_RolePermissions_Roles" >
-          <ConnectorPoint PointX="1.25" PointY="16.75" />
-          <ConnectorPoint PointX="1.25" PointY="15.345683593749982" />
-        </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_UserRoles_Roles" >
-          <ConnectorPoint PointX="2" PointY="18.424344847981772" />
-          <ConnectorPoint PointX="2.1293292763056697" PointY="18.291680365729704" />
-          <ConnectorPoint PointX="2.24567072369433" PointY="18.172338648810225" />
-          <ConnectorPoint PointX="2.3168292763056697" PointY="18.099345025017897" />
-          <ConnectorPoint PointX="2.43317072369433" PointY="17.980003308098418" />
-          <ConnectorPoint PointX="3.125" PointY="17.270332803710936" />
-          <ConnectorPoint PointX="3.125" PointY="15.845683593749982" />
+          <ConnectorPoint PointX="1.25" PointY="16.75" />
+          <ConnectorPoint PointX="1.25" PointY="15.047841796874991" />
+          <ConnectorPoint PointX="1.6041666666666667" PointY="15.047841796874991" />
+          <ConnectorPoint PointX="1.7708333333333333" PointY="15.047841796874991" />
+          <ConnectorPoint PointX="2.1041666666666665" PointY="15.047841796874991" />
+          <ConnectorPoint PointX="2.2708333333333335" PointY="15.047841796874991" />
+          <ConnectorPoint PointX="2.375" PointY="15.047841796874991" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_UserRoles_Users" >
           <ConnectorPoint PointX="4.25" PointY="15.047841796874991" />
@@ -3382,18 +3381,18 @@
           <ConnectorPoint PointX="5.020833333333333" PointY="24.475791747153568" />
           <ConnectorPoint PointX="4.854166666666667" PointY="24.475791747153568" />
           <ConnectorPoint PointX="2.375" PointY="24.475791747153568" />
-          <ConnectorPoint PointX="2.375" PointY="17.906948007731117" />
-          <ConnectorPoint PointX="2.2708333333333335" PointY="17.906948007731117" />
-          <ConnectorPoint PointX="2.1041666666666665" PointY="17.906948007731117" />
-          <ConnectorPoint PointX="2" PointY="17.906948007731117" />
+          <ConnectorPoint PointX="2.375" PointY="17.906948007731113" />
+          <ConnectorPoint PointX="2.2708333333333335" PointY="17.906948007731113" />
+          <ConnectorPoint PointX="2.1041666666666665" PointY="17.906948007731113" />
+          <ConnectorPoint PointX="2" PointY="17.906948007731113" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_Roles_Users" >
-          <ConnectorPoint PointX="4.25" PointY="19.120569233886719" />
-          <ConnectorPoint PointX="2.4583333333333335" PointY="19.120569233886719" />
-          <ConnectorPoint PointX="2.2916666666666665" PointY="19.120569233886719" />
-          <ConnectorPoint PointX="2.2708333333333335" PointY="19.120569233886719" />
-          <ConnectorPoint PointX="2.1041666666666665" PointY="19.120569233886719" />
-          <ConnectorPoint PointX="2" PointY="19.120569233886719" />
+          <ConnectorPoint PointX="4.25" PointY="18.824056679303272" />
+          <ConnectorPoint PointX="2.4583333333333335" PointY="18.824056679303272" />
+          <ConnectorPoint PointX="2.2916666666666665" PointY="18.824056679303272" />
+          <ConnectorPoint PointX="2.2708333333333335" PointY="18.824056679303272" />
+          <ConnectorPoint PointX="2.1041666666666665" PointY="18.824056679303272" />
+          <ConnectorPoint PointX="2" PointY="18.824056679303272" />
         </AssociationConnector>
         <EntityTypeShape EntityType="HaveAVoice.Models.WhoIsOnline" Width="1.5" PointX="4.125" PointY="6.5" Height="1.7879850260416665" />
         <AssociationConnector Association="HaveAVoice.Models.FK_WhoIsOnline_Users" >
@@ -3497,10 +3496,6 @@
           <ConnectorPoint PointX="6.75" PointY="4.095683593749996" />
         </AssociationConnector>
         <EntityTypeShape EntityType="HaveAVoice.Models.Permission" Width="1.5" PointX="0.75" PointY="2.75" Height="2.3648893229166674" />
-        <AssociationConnector Association="HaveAVoice.Models.FK_RolePermissions_Permissions" >
-          <ConnectorPoint PointX="1.375" PointY="5.1148893229166674" />
-          <ConnectorPoint PointX="1.375" PointY="13.75" />
-        </AssociationConnector>
         <EntityTypeShape EntityType="HaveAVoice.Models.Feedback" Width="1.5" PointX="3.25" PointY="31.125" Height="1.9802864583333317" />
         <AssociationConnector Association="HaveAVoice.Models.FK_Feedback_Users">
           <ConnectorPoint PointX="5.92562812634657" PointY="23.672262369791667" />
@@ -3747,6 +3742,15 @@
           <ConnectorPoint PointX="6.279783131084443" PointY="11.5" />
           <ConnectorPoint PointX="6.279783131084443" PointY="2.0468774999999937" />
           <ConnectorPoint PointX="7.75" PointY="2.0468774999999937" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="HaveAVoice.Models.RolePermission" Width="1.5" PointX="0.5" PointY="8.5" Height="1.9802864583333246" />
+        <AssociationConnector Association="HaveAVoice.Models.FK_RolePermissions_Permissions" >
+          <ConnectorPoint PointX="1.375" PointY="5.1148893229166665" />
+          <ConnectorPoint PointX="1.375" PointY="8.5" />
+        </AssociationConnector>
+        <AssociationConnector Association="HaveAVoice.Models.FK_RolePermissions_Roles" >
+          <ConnectorPoint PointX="1.6875" PointY="16.75" />
+          <ConnectorPoint PointX="1.6875" PointY="10.480286458333325" />
         </AssociationConnector>
         </Diagram>
     </Diagrams>

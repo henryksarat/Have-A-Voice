@@ -65,9 +65,7 @@ namespace HaveAVoice.Repositories.AdminFeatures {
             GetEntities().SaveChanges();
 
             foreach (Int32 myPermissionId in aPermissionId) {
-                RolePermission rolePermission = new RolePermission();
-                rolePermission.Permission = GetPermission(myPermissionId);
-                rolePermission.Role = GetRole(aRoleToCreate.Id);
+                RolePermission rolePermission = RolePermission.CreateRolePermission(0, aRoleToCreate.Id, myPermissionId);
                 GetEntities().AddToRolePermissions(rolePermission);
             }
 
@@ -185,10 +183,8 @@ namespace HaveAVoice.Repositories.AdminFeatures {
                     select c).FirstOrDefault();
         }
 
-        private void CreateRolePermission(int roleId, int aPermissionId) {
-            RolePermission myRolePermissionToAdd = new RolePermission();
-            myRolePermissionToAdd.Permission = GetPermission(aPermissionId);
-            myRolePermissionToAdd.Role = GetRole(roleId);
+        private void CreateRolePermission(int aRoleId, int aPermissionId) {
+            RolePermission myRolePermissionToAdd = RolePermission.CreateRolePermission(0, aRoleId, aPermissionId);
             GetEntities().AddToRolePermissions(myRolePermissionToAdd);
             GetEntities().SaveChanges();
         }
