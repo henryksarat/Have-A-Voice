@@ -106,7 +106,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
             return (from ir in GetEntities().IssueReplys
                     join u in GetEntities().Users on ir.User.Id equals u.Id
                     join f in GetEntities().Fans on u.Id equals f.SourceUser.Id
-                    where f.User.Id == aUser.Id
+                    where f.FanUserId == aUser.Id
                     && ir.Deleted == false
                     select ir).OrderByDescending(ir => ir.DateTimeStamp).ToList<IssueReply>();
         }

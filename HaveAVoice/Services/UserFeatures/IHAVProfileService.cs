@@ -8,7 +8,5 @@ using HaveAVoice.Models;
 namespace HaveAVoice.Services.UserFeatures {
     public interface IHAVProfileService {
         ProfileModelBuilder Profile(int aUserId, User aViewingUser);
-        IEnumerable<Fan> FindFansForUser(int aUserId);
-        IEnumerable<Fan> FindFansOfUser(int aUserId);
     }
 }

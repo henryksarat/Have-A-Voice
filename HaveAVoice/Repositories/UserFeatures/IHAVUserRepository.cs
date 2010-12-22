@@ -12,8 +12,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
         bool EmailRegistered(string email);
         bool UsernameRegistered(string username);
 
-        void AddFan(User aUser, int aSourceUserId);
-        
         void RemoveUserFromRole(User aUser, Role aRole);
         UserRole AddUserToRole(User user, Role role);
     }

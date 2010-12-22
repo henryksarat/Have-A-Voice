@@ -166,10 +166,6 @@ namespace HaveAVoice.Services.UserFeatures {
             .Build();
         }
 
-        public void AddFan(User aUser, int aSourceUserId) {
-            theUserRepo.AddFan(aUser, aSourceUserId);
-        }
-
         #region Validation"
         private bool ValidateAgreement(bool aAgreement) {
             if (aAgreement == false) {

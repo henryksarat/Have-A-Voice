@@ -129,14 +129,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
             return userInformations;
         }
 
-        public void AddFan(User aUser, int aSourceUserId) {
-            Fan myFan = new Fan();
-            myFan.User = GetUser(aUser.Id);
-            myFan.SourceUser = GetUser(aSourceUserId);
-            GetEntities().Fans.AddObject(myFan);
-            GetEntities().SaveChanges();
-        }
-
         public void UpdateUser(User userToEdit) {
             User originalUser = GetUser(userToEdit.Id);
             GetEntities().ApplyCurrentValues(originalUser.EntityKey.EntitySetName, userToEdit);

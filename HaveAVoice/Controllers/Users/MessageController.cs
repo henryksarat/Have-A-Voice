@@ -10,8 +10,7 @@ using HaveAVoice.Repositories;
 using HaveAVoice.Helpers;
 using HaveAVoice.Services.UserFeatures;
 
-namespace HaveAVoice.Controllers.Users
-{
+namespace HaveAVoice.Controllers.Users {
     public class MessageController : HAVBaseController {
         private const string NO_MESSAGES = "You have no messages";
         private const string SEND_SUCCESS = "Message sent successfully!";

@@ -24,6 +24,7 @@ namespace HaveAVoice.Models.View {
         UserPrivacySettings,
         Authentication,
         UserPictures,
-        Password
+        Password,
+        Fan
     };
 }

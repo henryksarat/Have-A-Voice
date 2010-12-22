@@ -241,34 +241,6 @@ namespace HaveAVoice.Tests.Controllers.Users {
         #endregion
         */   
 
-        [TestMethod]
-        public void TestBecomeFan_NotLoggedIn() {
-            theMockUserInformation.Setup(u => u.GetUserInformaton()).Returns(() => null);
-
-            var myResult = theController.BecomeAFan(theUser.Id) as ViewResult;
-
-            theMockedService.Verify(s => s.AddFan(It.IsAny<User>(), It.IsAny<int>()), Times.Never());
-            AssertRedirection(myResult);
-        }
-
-        [TestMethod]
-        public void TestBecomeFan() {
-            var myResult = theController.BecomeAFan(theUser.Id) as ViewResult;
-
-            theMockedService.Verify(s => s.AddFan(It.IsAny<User>(), It.IsAny<int>()), Times.AtLeastOnce());
-            AssertRedirection(myResult);
-        }
-
-        [TestMethod]
-        public void TestBecomeFan_Exception() {
-            theMockedService.Setup(s => s.AddFan(It.IsAny<User>(), It.IsAny<int>())).Throws<Exception>();
-
-            var myResult = theController.BecomeAFan(theUser.Id) as ViewResult;
-
-            theMockedBaseService.Verify(r => r.LogError(It.IsAny<Exception>(), It.IsAny<string>()), Times.AtLeastOnce());
-            AssertRedirection(myResult);
-        }
-
         protected override Controller GetController() {
             return theController;
         }

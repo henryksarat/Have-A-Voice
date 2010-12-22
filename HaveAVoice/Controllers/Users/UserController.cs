@@ -10,13 +10,8 @@ using HaveAVoice.Models;
 using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
 using HaveAVoice.Services;
-using HaveAVoice.Validation;
 using HaveAVoice.Services.UserFeatures;
-using System.Text;
-using HaveAVoice.Helpers.Enums;
-using HaveAVoice.Helpers.UserInformation;
-
-
+using HaveAVoice.Validation;
 
 namespace HaveAVoice.Controllers.Users
 {
@@ -122,21 +117,6 @@ namespace HaveAVoice.Controllers.Users
             }
 
             return View("Edit", userToEdit);
-        }
-
-        public ActionResult BecomeAFan(int id) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            User myUser = GetUserInformaton();
-            try {
-                theService.AddFan(myUser, id);
-            } catch (Exception e) {
-                LogError(e, "Unable to add the myUser as a listener.");
-                return SendToErrorPage("Unable to become a fan. Please try again.");
-            }
-
-            return RedirectToAction("Show", "Profile", id);
         }
 
         public ActionResult FanFeed() {

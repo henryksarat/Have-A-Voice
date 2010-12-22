@@ -42,8 +42,6 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserPrivacySettings_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "UserPrivacySetting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserPrivacySetting))]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueReplyDisposition_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "IssueReplyDisposition", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueReplyDisposition))]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueReplyDisposition_IssueReplys", "IssueReply", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.IssueReply), "IssueReplyDisposition", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueReplyDisposition))]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Fans_FanUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Fan", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Fan))]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Fans_SourceUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Fan", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Fan))]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_FilteredCityState_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "FilteredCityState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.FilteredCityState))]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_FilteredZipCode_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "FilteredZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.FilteredZipCode))]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_RolePermissions_Permissions", "Permission", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Permission), "RolePermission", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.RolePermission))]
@@ -73,6 +71,8 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Replys_User", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Reply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Reply), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Replys_Messages", "Message", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Message), "Reply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Reply), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Events_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Event", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Event), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Fans_FanUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Fan", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Fan), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Fans_SourceUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Fan", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Fan), true)]
 
 #endregion
 
@@ -447,22 +447,6 @@ namespace HaveAVoice.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<Fan> Fans
-        {
-            get
-            {
-                if ((_Fans == null))
-                {
-                    _Fans = base.CreateObjectSet<Fan>("Fans");
-                }
-                return _Fans;
-            }
-        }
-        private ObjectSet<Fan> _Fans;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<FilteredCityState> FilteredCityStates
         {
             get
@@ -731,6 +715,22 @@ namespace HaveAVoice.Models
             }
         }
         private ObjectSet<Event> _Events;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Fan> Fans
+        {
+            get
+            {
+                if ((_Fans == null))
+                {
+                    _Fans = base.CreateObjectSet<Fan>("Fans");
+                }
+                return _Fans;
+            }
+        }
+        private ObjectSet<Fan> _Fans;
 
         #endregion
         #region AddTo Methods
@@ -896,14 +896,6 @@ namespace HaveAVoice.Models
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the Fans EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToFans(Fan fan)
-        {
-            base.AddObject("Fans", fan);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the FilteredCityStates EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToFilteredCityStates(FilteredCityState filteredCityState)
@@ -1037,6 +1029,14 @@ namespace HaveAVoice.Models
         public void AddToEvents(Event @event)
         {
             base.AddObject("Events", @event);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Fans EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToFans(Fan fan)
+        {
+            base.AddObject("Fans", fan);
         }
 
         #endregion
@@ -3517,10 +3517,14 @@ namespace HaveAVoice.Models
         /// Create a new Fan object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
-        public static Fan CreateFan(global::System.Int32 id)
+        /// <param name="fanUserId">Initial value of the FanUserId property.</param>
+        /// <param name="sourceUserId">Initial value of the SourceUserId property.</param>
+        public static Fan CreateFan(global::System.Int32 id, global::System.Int32 fanUserId, global::System.Int32 sourceUserId)
         {
             Fan fan = new Fan();
             fan.Id = id;
+            fan.FanUserId = fanUserId;
+            fan.SourceUserId = sourceUserId;
             return fan;
         }
 
@@ -3553,6 +3557,54 @@ namespace HaveAVoice.Models
         private global::System.Int32 _Id;
         partial void OnIdChanging(global::System.Int32 value);
         partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 FanUserId
+        {
+            get
+            {
+                return _FanUserId;
+            }
+            set
+            {
+                OnFanUserIdChanging(value);
+                ReportPropertyChanging("FanUserId");
+                _FanUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FanUserId");
+                OnFanUserIdChanged();
+            }
+        }
+        private global::System.Int32 _FanUserId;
+        partial void OnFanUserIdChanging(global::System.Int32 value);
+        partial void OnFanUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 SourceUserId
+        {
+            get
+            {
+                return _SourceUserId;
+            }
+            set
+            {
+                OnSourceUserIdChanging(value);
+                ReportPropertyChanging("SourceUserId");
+                _SourceUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("SourceUserId");
+                OnSourceUserIdChanged();
+            }
+        }
+        private global::System.Int32 _SourceUserId;
+        partial void OnSourceUserIdChanging(global::System.Int32 value);
+        partial void OnSourceUserIdChanged();
 
         #endregion
     
@@ -3565,7 +3617,7 @@ namespace HaveAVoice.Models
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Fans_FanUserId_Users", "User")]
-        public User User
+        public User FanUser
         {
             get
             {
@@ -3581,7 +3633,7 @@ namespace HaveAVoice.Models
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<User> UserReference
+        public EntityReference<User> FanUserReference
         {
             get
             {
@@ -9673,50 +9725,6 @@ namespace HaveAVoice.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Fans_FanUserId_Users", "Fan")]
-        public EntityCollection<Fan> Fans
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Fan>("HaveAVoice.Models.FK_Fans_FanUserId_Users", "Fan");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Fan>("HaveAVoice.Models.FK_Fans_FanUserId_Users", "Fan", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Fans_SourceUserId_Users", "Fan")]
-        public EntityCollection<Fan> FanSource
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Fan>("HaveAVoice.Models.FK_Fans_SourceUserId_Users", "Fan");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Fan>("HaveAVoice.Models.FK_Fans_SourceUserId_Users", "Fan", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_FilteredCityState_Users", "FilteredCityState")]
         public EntityCollection<FilteredCityState> FilteredCityStates
         {
@@ -10103,6 +10111,50 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Event>("HaveAVoice.Models.FK_Events_Users", "Event", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Fans_FanUserId_Users", "Fan")]
+        public EntityCollection<Fan> FansOf
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Fan>("HaveAVoice.Models.FK_Fans_FanUserId_Users", "Fan");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Fan>("HaveAVoice.Models.FK_Fans_FanUserId_Users", "Fan", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Fans_SourceUserId_Users", "Fan")]
+        public EntityCollection<Fan> FannedBy
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Fan>("HaveAVoice.Models.FK_Fans_SourceUserId_Users", "Fan");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Fan>("HaveAVoice.Models.FK_Fans_SourceUserId_Users", "Fan", value);
                 }
             }
         }

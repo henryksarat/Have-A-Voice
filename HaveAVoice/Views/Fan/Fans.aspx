@@ -8,7 +8,7 @@
 
     <h2>Fans of me</h2> <br /><br />
     <% foreach (var item in Model) { %>
-        <%= item.User.Username %><br />
+        <%= item.FanUser.Username %><br />
     <% } %>
 
 </asp:Content>

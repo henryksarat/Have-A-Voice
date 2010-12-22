@@ -47,39 +47,6 @@ namespace HaveAVoice.Controllers.Users
             }
         }
 
-        public ActionResult Fans(int id) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            IEnumerable<Fan> myFans = new List<Fan>();
-            try {
-                myFans = theService.FindFansForUser(id);
-            } catch (Exception e) {
-                string myError = ErrorHelper.ErrorString("{0}. [userId={1}]", FANS_ERROR, id);
-                LogError(e, myError);
-                ViewData["Message"] = FANS_ERROR + PLEASE_TRY_AGAIN;
-            }
-
-            return View("Fans", myFans);
-        }
-
-        public ActionResult FansOf(int id) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            IEnumerable<Fan> myFans = new List<Fan>();
-            try {
-                myFans = theService.FindFansOfUser(id);
-            } catch (Exception e) {
-                string myError = ErrorHelper.ErrorString("{0}. [userId={1}]", FANS_OF_ERROR, id);
-                LogError(e, myError);
-                ViewData["Message"] = FANS_OF_ERROR + PLEASE_TRY_AGAIN;
-            }
-
-            return View("FansOf", myFans);
-        }
-
-
         protected override ActionResult SendToResultPage(string aTitle, string aDetails) {
             return SendToResultPage(SiteSectionsEnum.Profile, aTitle, aDetails);
         }

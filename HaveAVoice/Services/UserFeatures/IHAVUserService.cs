@@ -8,7 +8,5 @@ namespace HaveAVoice.Services.UserFeatures {
         bool CreateUser(User aUserToCreate, bool aCaptchaValid, bool anAgreement, string anIpAddress);
         bool EditUser(EditUserModel aUserToEdit);
         EditUserModel GetUserForEdit(User aUser);
-
-        void AddFan(User aUser, int aSourceUserId);
     }
 }
