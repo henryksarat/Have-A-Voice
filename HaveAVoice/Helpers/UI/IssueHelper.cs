@@ -169,8 +169,7 @@ namespace HaveAVoice.Helpers.UI {
             } 
 
             var myOuterDiv = new TagBuilder("div");
-            string myStyle = "m-btm30";
-            myOuterDiv.MergeAttribute("class", myStyle);
+            myOuterDiv.MergeAttribute("class", "m-btm30");
 
             var myDivImageWrapper = new TagBuilder("div");
             myDivImageWrapper.MergeAttribute("class", "col-2 center m-rgt10");
@@ -193,11 +192,13 @@ namespace HaveAVoice.Helpers.UI {
             mySpan.InnerHtml = "On %%POST DATE%% by " + myUsername + " - %%COUNTRY%% (%%STATE%%)";
             myContextDiv.InnerHtml += mySpan.ToString();
             
+            /*
             var myContextSpan = new TagBuilder("span");
             myContextSpan.MergeAttribute("class", "teal2");
             myContextSpan.InnerHtml = myUsername + ": ";
             myContextDiv.InnerHtml = myContextSpan.ToString(); 
             myContextDiv.InnerHtml += anIssue.Title;
+            */
 
             string myLike = new StringBuilder().AppendFormat("<a href=\"/Issue/IssueDisposition?issueId={0}&disposition={1}\" class=\"like\"><img src=\"/Content/images/like-sm.png\" alt=\"Like\" />Like</a>", anIssue.Id, Disposition.LIKE).ToString();
             myContextDiv.InnerHtml += myLike.ToString();
@@ -205,12 +206,12 @@ namespace HaveAVoice.Helpers.UI {
             string myDislike = new StringBuilder().AppendFormat("<a href=\"/Issue/IssueDisposition?issueId={0}&disposition={1}\" class=\"dislike\">Dislike<img src=\"/Content/images/dislike-sm.png\" alt=\"Dislike\" /></a>", anIssue.Id, Disposition.DISLIKE).ToString();
             myContextDiv.InnerHtml += myDislike.ToString();
 
+			myOuterDiv.InnerHtml += myContextDiv.ToString();
+
             var myClearDiv = new TagBuilder("div");
             myClearDiv.MergeAttribute("class", "clear");
             myClearDiv.InnerHtml = "&nbsp;";
-            myContextDiv.InnerHtml += myClearDiv.ToString();
-
-			myOuterDiv.InnerHtml += myContextDiv.ToString();
+			myOuterDiv.InnerHtml += myClearDiv.ToString();
 
             return myOuterDiv.ToString();
         }

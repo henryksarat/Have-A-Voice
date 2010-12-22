@@ -3,7 +3,17 @@
 
 <% if (!HAVUserInformationFactory.IsLoggedIn()) { %>
 	<script type="text/javascript" language="javascript">
-		$(function() {
+		$(function() {				
+			function equalHeight(group) {
+				var tallest = 0;
+				group.each(function() {
+					var thisHeight = $(this).height();
+					if(thisHeight > tallest) {
+						tallest = thisHeight;
+					}
+				});
+				group.height(tallest);
+			}
 			$("form label").click(function() {
 				var inpt = $(this).prev("input");
 				if (inpt.val() == '') {
@@ -11,10 +21,11 @@
 				} else {
 					$(this).fadeTo('fast', 0.0);
 				}
+				$(inpt).focus();
 			});
 			$("form input").bind("focus", function() {
 				var lbl = $(this).next("label");
-				if (this.val() == '') {
+				if ($(this).val() == '') {
 					lbl.fadeTo('fast', 0.4);
 				} else {
 					lbl.fadeTo('fast', 0.0);
@@ -34,6 +45,8 @@
 					lbl.fadeTo('fast', 0.0);
 				}
 			});
+			
+			equalHeight($("div[rel=match]"));
 		});
 	</script>
 
