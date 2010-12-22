@@ -62,9 +62,8 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         public void AddReplyToBoard(User aPostingUser, int aBoardId, string aReply) {
-            IHAVUserRepository myUserRepository = new EntityHAVUserRepository();
             BoardReply myReply = new BoardReply();
-            myReply.User = myUserRepository.GetUser(aPostingUser.Id);
+            myReply.User = GetUser(aPostingUser.Id);
             myReply.Board = FindBoardByBoardId(aBoardId);
             myReply.Message = aReply;
             myReply.DateTimeStamp = DateTime.UtcNow;
@@ -89,6 +88,11 @@ namespace HaveAVoice.Repositories.UserFeatures {
             aReply.DeletedByUserId = aDeletingUser.Id;
             GetEntities().ApplyCurrentValues(aReply.EntityKey.EntitySetName, aReply);
             GetEntities().SaveChanges();
+        }
+
+        private User GetUser(int anId) {
+            IHAVUserRetrievalRepository myUserRetrieval = new EntityHAVUserRetrievalRepository();
+            return myUserRetrieval.GetUser(anId);
         }
     }
 }

@@ -68,27 +68,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     select c).FirstOrDefault();
         }
 
-
-        public User GetUser(int id) {
-            return (from c in GetEntities().Users
-                    where c.Id == id
-                    select c).FirstOrDefault();
-        }
-
-
-        public User GetUser(string email, string password) {
-            return (from c in GetEntities().Users
-                    where c.Email == email
-                    && c.Password == password
-                    select c).FirstOrDefault();
-        }
-
-        public User GetUser(string email) {
-            return (from c in GetEntities().Users
-                    where c.Email == email
-                    select c).FirstOrDefault();
-        }
-
         public void DeleteUser(User userToDelete) {
             User originalUser = GetUser(userToDelete.Id);
             GetEntities().DeleteObject(originalUser);
@@ -151,10 +130,9 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         public void AddFan(User aUser, int aSourceUserId) {
-            IHAVUserRepository myUserRepository = new EntityHAVUserRepository();
             Fan myFan = new Fan();
-            myFan.User = myUserRepository.GetUser(aUser.Id);
-            myFan.SourceUser = myUserRepository.GetUser(aSourceUserId);
+            myFan.User = GetUser(aUser.Id);
+            myFan.SourceUser = GetUser(aSourceUserId);
             GetEntities().Fans.AddObject(myFan);
             GetEntities().SaveChanges();
         }
@@ -180,6 +158,11 @@ namespace HaveAVoice.Repositories.UserFeatures {
         private static bool ValidUserIdandNotIsNotMyself(int listenedToUserId, int listeningUserId) {
             return (listeningUserId != -1)
                                 && (listenedToUserId != listeningUserId);
+        }
+
+        private User GetUser(int anId) {
+            IHAVUserRetrievalRepository myUserRetrieval = new EntityHAVUserRetrievalRepository();
+            return myUserRetrieval.GetUser(anId);
         }
     }
 }

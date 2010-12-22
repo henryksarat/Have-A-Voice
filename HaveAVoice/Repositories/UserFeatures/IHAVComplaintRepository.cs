@@ -6,7 +6,6 @@ using HaveAVoice.Models;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public interface IHAVComplaintRepository {
-        void AddMergeComplaint(User filedBy, string complaint, int mergeRequestId);
         void AddIssueComplaint(User filedBy, string complaint, int issueId);
         void AddIssueReplyComplaint(User filedBy, string complaint, int issueReplyId);
         void AddIssueReplyCommentComplaint(User filedBy, string complaint, int issueReplyCommentId);

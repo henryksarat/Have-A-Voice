@@ -8,9 +8,7 @@ using HaveAVoice.Models;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVMessageRepository : HAVBaseRepository, IHAVMessageRepository {
-
         public Message CreateMessage(int fromUserId, Message messageToCreate) {
-            IHAVUserRepository userRepository = new EntityHAVUserRepository();
             messageToCreate.FromUserId = fromUserId;
             messageToCreate.DateTimeStamp = DateTime.UtcNow;
 
@@ -50,8 +48,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         public Message CreateReply(int messageId, User user, string body) {
-            IHAVUserRepository userRepository = new EntityHAVUserRepository();
-            User replyUser = userRepository.GetUser(user.Id);
+            User replyUser = GetUser(user.Id);
             Message message = GetMessage(messageId);
 
             Reply reply = new Reply();
@@ -138,6 +135,11 @@ namespace HaveAVoice.Repositories.UserFeatures {
             return (from m in GetEntities().Messages.Include("FromUser").Include("Replys.User")
                     where m.Id == aMessageId
                     select m).FirstOrDefault<Message>();
+        }
+
+        private User GetUser(int anId) {
+            IHAVUserRetrievalRepository myUserRetrieval = new EntityHAVUserRetrievalRepository();
+            return myUserRetrieval.GetUser(anId);
         }
     }
 }

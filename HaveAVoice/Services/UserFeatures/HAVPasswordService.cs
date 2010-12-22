@@ -13,21 +13,24 @@ namespace HaveAVoice.Services.UserFeatures {
 
         private IValidationDictionary theValidationDictionary;
         private IHAVEmail theEmailService;
+        private IHAVUserRetrievalService theUserRetrievalService;
         private IHAVPasswordRepository thePasswordRepository;
         private IHAVUserRepository theUserRepo;
 
         public HAVPasswordService(IValidationDictionary theValidationDictionary)
-            : this(theValidationDictionary, new HAVEmail(), new HAVBaseRepository(), new EntityHAVPasswordRepository(), new EntityHAVUserRepository()) { }
+            : this(theValidationDictionary, new HAVEmail(), new HAVUserRetrievalService(), new HAVBaseRepository(), new EntityHAVPasswordRepository(), new EntityHAVUserRepository()) { }
 
-        public HAVPasswordService(IValidationDictionary aValidationDictionary, IHAVEmail aEmailService, IHAVBaseRepository baseRepository, IHAVPasswordRepository aPasswordRepo, IHAVUserRepository aUserRepo) : base(baseRepository) {
+        public HAVPasswordService(IValidationDictionary aValidationDictionary, IHAVEmail aEmailService, IHAVUserRetrievalService aUserRetrievalService, 
+                                                IHAVBaseRepository baseRepository, IHAVPasswordRepository aPasswordRepo, IHAVUserRepository aUserRepo) : base(baseRepository) {
             theValidationDictionary = aValidationDictionary;
             theEmailService = aEmailService;
+            theUserRetrievalService = aUserRetrievalService;
             thePasswordRepository = aPasswordRepo;
             theUserRepo = aUserRepo;
         }
 
         public bool ForgotPasswordRequest(string anEmail) {
-            User myUser = theUserRepo.GetUser(anEmail);
+            User myUser = theUserRetrievalService.GetUser(anEmail);
 
             if (myUser == null) {
                 AddUnrecognizedEmailToValidationDictionary(anEmail);

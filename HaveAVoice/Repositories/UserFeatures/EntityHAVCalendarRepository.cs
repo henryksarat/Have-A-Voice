@@ -8,8 +8,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVCalendarRepository : HAVBaseRepository, IHAVCalendarRepository {
         public void AddEvent(int aUserId, DateTime aDate, string anInformation) {
             IHAVUserRepository myUserRepo = new EntityHAVUserRepository();
-            Event myEvent = Event.CreateEvent(0, aDate, anInformation, false);
-            myEvent.User = myUserRepo.GetUser(aUserId);
+            Event myEvent = Event.CreateEvent(0, aUserId, aDate, anInformation, false);
             GetEntities().AddToEvents(myEvent);
             GetEntities().SaveChanges();
         }

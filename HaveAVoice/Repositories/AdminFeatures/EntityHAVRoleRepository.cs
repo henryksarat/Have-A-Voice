@@ -58,10 +58,9 @@ namespace HaveAVoice.Repositories.AdminFeatures {
         public Role CreateRole(User aCreatedByUser, Role aRoleToCreate, List<int> aPermissionId, int aSelectedRestrictionId) {
 
             IHAVRestrictionRepository restrictionRepository = new EntityHAVRestrictionRepository();
-            IHAVUserRepository userRepository = new EntityHAVUserRepository();
 
             aRoleToCreate.Restriction = restrictionRepository.GetRestriction(aSelectedRestrictionId);
-            aRoleToCreate.EditedByUser = userRepository.GetUser(aCreatedByUser.Id);
+            aRoleToCreate.EditedByUser = GetUser(aCreatedByUser.Id);
             GetEntities().AddToRoles(aRoleToCreate);
             GetEntities().SaveChanges();
 
@@ -88,12 +87,11 @@ namespace HaveAVoice.Repositories.AdminFeatures {
             }
             
             IHAVRestrictionRepository myRestrictionRepo = new EntityHAVRestrictionRepository();
-            IHAVUserRepository myUserRepo = new EntityHAVUserRepository();
 
             myOriginalRole.Description = aRoleToEdit.Description;
             myOriginalRole.Name = aRoleToEdit.Name;
             myOriginalRole.Restriction = myRestrictionRepo.GetRestriction(aSelectedRestrictionId);
-            myOriginalRole.EditedByUser = myUserRepo.GetUser(anEditedByUser.Id);
+            myOriginalRole.EditedByUser = GetUser(anEditedByUser.Id);
             GetEntities().ApplyCurrentValues(myOriginalRole.EntityKey.EntitySetName, myOriginalRole);
             GetEntities().SaveChanges();
 
@@ -147,8 +145,6 @@ namespace HaveAVoice.Repositories.AdminFeatures {
 
             GetEntities().SaveChanges();
         }
-
-        # region private methods
 
         private void MakeNoDefaultRole() {
             Role originalDefaultRole = GetDefaultRole();
@@ -238,6 +234,9 @@ namespace HaveAVoice.Repositories.AdminFeatures {
             }
         }
 
-        # endregion
+        private User GetUser(int anId) {
+            IHAVUserRetrievalRepository myUserRetrieval = new EntityHAVUserRetrievalRepository();
+            return myUserRetrieval.GetUser(anId);
+        }
     }
 }

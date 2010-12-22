@@ -9,7 +9,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         public void AddProfilePicture(User aUser, string anImageURL) {
             UserPicture myUserPicture = UserPicture.CreateUserPicture(0, anImageURL, true, DateTime.UtcNow);
-            myUserPicture.User = FindUser(aUser.Id);
+            myUserPicture.User = GetUser(aUser.Id);
 
             UnSetCurrentUserPicture(aUser);
 
@@ -67,9 +67,9 @@ namespace HaveAVoice.Repositories.UserFeatures {
             GetEntities().SaveChanges();
         }
 
-        private User FindUser(int aUserId) {
-            IHAVUserRepository myUserRepo = new EntityHAVUserRepository();
-            return myUserRepo.GetUser(aUserId);
+        private User GetUser(int anId) {
+            IHAVUserRetrievalRepository myUserRetrieval = new EntityHAVUserRetrievalRepository();
+            return myUserRetrieval.GetUser(anId);
         }
     }
 }

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace HaveAVoice.Models.View {
     public class EditUserModelBinder : IModelBinder {
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext) {
-            IHAVUserService myUserService = new HAVUserService(new ModelStateWrapper(null));
+            IHAVUserRetrievalService myUserRetrievalService = new HAVUserRetrievalService();
 
             string myProfilePictureUrl = BinderHelper.GetA(bindingContext, "ProfilePictureURL");
             string myOriginalEmail = BinderHelper.GetA(bindingContext, "OriginalEmail");
@@ -28,7 +28,7 @@ namespace HaveAVoice.Models.View {
 
             int userId = Int32.Parse(BinderHelper.GetA(bindingContext, "UserId"));
 
-            User user = CloneHelper.CloneUserWithReflection(myUserService.GetUser(userId));
+            User user = CloneHelper.CloneUserWithReflection(myUserRetrievalService.GetUser(userId));
             user.Email = BinderHelper.GetA(bindingContext, "Email");
             user.FirstName = BinderHelper.GetA(bindingContext, "FirstName");
             user.LastName = BinderHelper.GetA(bindingContext, "LastName");

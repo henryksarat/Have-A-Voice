@@ -38,6 +38,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
         private Mock<IHAVBaseService> theBaseService;
         private Mock<IHAVAuthenticationService> theAuthService;
         private Mock<IHAVUserPictureService> theUserPictureService;
+        private Mock<IHAVUserRetrievalService> theUserRetrievalService;
         private User theUser;
         private CreateUserModelBuilder theModelBuilder;
         private EditUserModel theEditUserModel;
@@ -52,10 +53,11 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
             theMockedEmailService = new Mock<IHAVEmail>();
             theBaseRepository = new Mock<IHAVBaseRepository>();
             theBaseService = new Mock<IHAVBaseService>();
+            theUserRetrievalService = new Mock<IHAVUserRetrievalService>();
 
             theUserRepo.Setup(r => r.CreateUser(It.IsAny<User>())).Returns(() => theUser);
             theMockedEmailService.Setup(e => e.SendEmail(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()));
-            theService = new HAVUserService(new ModelStateWrapper(theModelState), theAuthService.Object, theUserPictureService.Object, theUserRepo.Object, theMockedEmailService.Object, theBaseRepository.Object);
+            theService = new HAVUserService(new ModelStateWrapper(theModelState), theUserRetrievalService.Object, theAuthService.Object, theUserPictureService.Object, theUserRepo.Object, theMockedEmailService.Object, theBaseRepository.Object);
 
             theMockUserInformation = new Mock<IUserInformation>();
             theMockUserInformation.Setup(f => f.GetUserInformaton()).Returns(() => new UserInformationModelBuilder(new User()).Build());

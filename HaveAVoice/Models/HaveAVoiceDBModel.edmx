@@ -4,393 +4,393 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="HaveAVoice.Models.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl" Alias="Self" Namespace="HaveAVoice.Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008">
         <EntityContainer Name="HaveAVoiceModelsStoreContainer">
-          <EntitySet Name="AuditBoard" EntityType="HaveAVoice.Models.Store.AuditBoard" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="AuditBoardReplies" EntityType="HaveAVoice.Models.Store.AuditBoardReplies" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="AuditIssueReplyComments" EntityType="HaveAVoice.Models.Store.AuditIssueReplyComments" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="AuditIssueReplys" EntityType="HaveAVoice.Models.Store.AuditIssueReplys" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="AuditIssues" EntityType="HaveAVoice.Models.Store.AuditIssues" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Board" EntityType="HaveAVoice.Models.Store.Board" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="BoardReply" EntityType="HaveAVoice.Models.Store.BoardReply" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Events" EntityType="HaveAVoice.Models.Store.Events" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Fans" EntityType="HaveAVoice.Models.Store.Fans" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Feedback" EntityType="HaveAVoice.Models.Store.Feedback" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="FilteredCityState" EntityType="HaveAVoice.Models.Store.FilteredCityState" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="FilteredZipCode" EntityType="HaveAVoice.Models.Store.FilteredZipCode" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Permissions" EntityType="HaveAVoice.Models.Store.Permissions" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="ProfilePictures" EntityType="HaveAVoice.Models.Store.ProfilePictures" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="RolePermissions" EntityType="HaveAVoice.Models.Store.RolePermissions" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Roles" EntityType="HaveAVoice.Models.Store.Roles" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="sysdiagrams" EntityType="HaveAVoice.Models.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="UserRoles" EntityType="HaveAVoice.Models.Store.UserRoles" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Users" EntityType="HaveAVoice.Models.Store.Users" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="ErrorLog" EntityType="HaveAVoice.Models.Store.ErrorLog" store:Type="Tables" Schema="hsarat_admin" />
-          <EntitySet Name="IssueComplaints" EntityType="HaveAVoice.Models.Store.IssueComplaints" store:Type="Tables" Schema="hsarat_admin" />
-          <EntitySet Name="IssueDisposition" EntityType="HaveAVoice.Models.Store.IssueDisposition" store:Type="Tables" Schema="hsarat_admin" />
-          <EntitySet Name="IssueReplyCommentComplaints" EntityType="HaveAVoice.Models.Store.IssueReplyCommentComplaints" store:Type="Tables" Schema="hsarat_admin" />
-          <EntitySet Name="IssueReplyComments" EntityType="HaveAVoice.Models.Store.IssueReplyComments" store:Type="Tables" Schema="hsarat_admin" />
-          <EntitySet Name="IssueReplyComplaints" EntityType="HaveAVoice.Models.Store.IssueReplyComplaints" store:Type="Tables" Schema="hsarat_admin" />
-          <EntitySet Name="IssueReplyDisposition" EntityType="HaveAVoice.Models.Store.IssueReplyDisposition" store:Type="Tables" Schema="hsarat_admin" />
-          <EntitySet Name="IssueReplys" EntityType="HaveAVoice.Models.Store.IssueReplys" store:Type="Tables" Schema="hsarat_admin" />
-          <EntitySet Name="Issues" EntityType="HaveAVoice.Models.Store.Issues" store:Type="Tables" Schema="hsarat_admin" />
-          <EntitySet Name="MergeComplaints" EntityType="HaveAVoice.Models.Store.MergeComplaints" store:Type="Tables" Schema="hsarat_admin" />
-          <EntitySet Name="Messages" EntityType="HaveAVoice.Models.Store.Messages" store:Type="Tables" Schema="hsarat_admin" />
-          <EntitySet Name="ProfileComplaints" EntityType="HaveAVoice.Models.Store.ProfileComplaints" store:Type="Tables" Schema="hsarat_admin" />
-          <EntitySet Name="Replys" EntityType="HaveAVoice.Models.Store.Replys" store:Type="Tables" Schema="hsarat_admin" />
-          <EntitySet Name="Restrictions" EntityType="HaveAVoice.Models.Store.Restrictions" store:Type="Tables" Schema="hsarat_admin" />
-          <EntitySet Name="Timezones" EntityType="HaveAVoice.Models.Store.Timezones" store:Type="Tables" Schema="hsarat_admin" />
-          <EntitySet Name="UserPictureComplaints" EntityType="HaveAVoice.Models.Store.UserPictureComplaints" store:Type="Tables" Schema="hsarat_admin" />
-          <EntitySet Name="UserPictures" EntityType="HaveAVoice.Models.Store.UserPictures" store:Type="Tables" Schema="hsarat_admin" />
-          <EntitySet Name="UserPrivacySettings" EntityType="HaveAVoice.Models.Store.UserPrivacySettings" store:Type="Tables" Schema="hsarat_admin" />
-          <EntitySet Name="WhoIsOnline" EntityType="HaveAVoice.Models.Store.WhoIsOnline" store:Type="Tables" Schema="hsarat_admin" />
+          <EntitySet Name="AuditBoard" EntityType="HaveAVoice.Models.Store.AuditBoard" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuditBoardReplies" EntityType="HaveAVoice.Models.Store.AuditBoardReplies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuditIssueReplyComments" EntityType="HaveAVoice.Models.Store.AuditIssueReplyComments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuditIssueReplys" EntityType="HaveAVoice.Models.Store.AuditIssueReplys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuditIssues" EntityType="HaveAVoice.Models.Store.AuditIssues" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Board" EntityType="HaveAVoice.Models.Store.Board" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BoardReply" EntityType="HaveAVoice.Models.Store.BoardReply" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Events" EntityType="HaveAVoice.Models.Store.Events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fans" EntityType="HaveAVoice.Models.Store.Fans" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Feedback" EntityType="HaveAVoice.Models.Store.Feedback" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FilteredCityState" EntityType="HaveAVoice.Models.Store.FilteredCityState" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FilteredZipCode" EntityType="HaveAVoice.Models.Store.FilteredZipCode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permissions" EntityType="HaveAVoice.Models.Store.Permissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProfilePictures" EntityType="HaveAVoice.Models.Store.ProfilePictures" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RolePermissions" EntityType="HaveAVoice.Models.Store.RolePermissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="HaveAVoice.Models.Store.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="HaveAVoice.Models.Store.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRoles" EntityType="HaveAVoice.Models.Store.UserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="HaveAVoice.Models.Store.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ErrorLog" EntityType="HaveAVoice.Models.Store.ErrorLog" Schema="hsarat_admin" store:Type="Tables" />
+          <EntitySet Name="IssueComplaints" EntityType="HaveAVoice.Models.Store.IssueComplaints" Schema="hsarat_admin" store:Type="Tables" />
+          <EntitySet Name="IssueDisposition" EntityType="HaveAVoice.Models.Store.IssueDisposition" Schema="hsarat_admin" store:Type="Tables" />
+          <EntitySet Name="IssueReplyCommentComplaints" EntityType="HaveAVoice.Models.Store.IssueReplyCommentComplaints" Schema="hsarat_admin" store:Type="Tables" />
+          <EntitySet Name="IssueReplyComments" EntityType="HaveAVoice.Models.Store.IssueReplyComments" Schema="hsarat_admin" store:Type="Tables" />
+          <EntitySet Name="IssueReplyComplaints" EntityType="HaveAVoice.Models.Store.IssueReplyComplaints" Schema="hsarat_admin" store:Type="Tables" />
+          <EntitySet Name="IssueReplyDisposition" EntityType="HaveAVoice.Models.Store.IssueReplyDisposition" Schema="hsarat_admin" store:Type="Tables" />
+          <EntitySet Name="IssueReplys" EntityType="HaveAVoice.Models.Store.IssueReplys" Schema="hsarat_admin" store:Type="Tables" />
+          <EntitySet Name="Issues" EntityType="HaveAVoice.Models.Store.Issues" Schema="hsarat_admin" store:Type="Tables" />
+          <EntitySet Name="MergeComplaints" EntityType="HaveAVoice.Models.Store.MergeComplaints" Schema="hsarat_admin" store:Type="Tables" />
+          <EntitySet Name="Messages" EntityType="HaveAVoice.Models.Store.Messages" Schema="hsarat_admin" store:Type="Tables" />
+          <EntitySet Name="ProfileComplaints" EntityType="HaveAVoice.Models.Store.ProfileComplaints" Schema="hsarat_admin" store:Type="Tables" />
+          <EntitySet Name="Replys" EntityType="HaveAVoice.Models.Store.Replys" Schema="hsarat_admin" store:Type="Tables" />
+          <EntitySet Name="Restrictions" EntityType="HaveAVoice.Models.Store.Restrictions" Schema="hsarat_admin" store:Type="Tables" />
+          <EntitySet Name="Timezones" EntityType="HaveAVoice.Models.Store.Timezones" Schema="hsarat_admin" store:Type="Tables" />
+          <EntitySet Name="UserPictureComplaints" EntityType="HaveAVoice.Models.Store.UserPictureComplaints" Schema="hsarat_admin" store:Type="Tables" />
+          <EntitySet Name="UserPictures" EntityType="HaveAVoice.Models.Store.UserPictures" Schema="hsarat_admin" store:Type="Tables" />
+          <EntitySet Name="UserPrivacySettings" EntityType="HaveAVoice.Models.Store.UserPrivacySettings" Schema="hsarat_admin" store:Type="Tables" />
+          <EntitySet Name="WhoIsOnline" EntityType="HaveAVoice.Models.Store.WhoIsOnline" Schema="hsarat_admin" store:Type="Tables" />
           <AssociationSet Name="FK_AuditBoard_Board" Association="HaveAVoice.Models.Store.FK_AuditBoard_Board">
-            <End Role="Board" EntitySet="Board" />
-            <End Role="AuditBoard" EntitySet="AuditBoard" />
+            <End EntitySet="Board" Role="Board" />
+            <End EntitySet="AuditBoard" Role="AuditBoard" />
           </AssociationSet>
           <AssociationSet Name="FK_AuditBoard_Users" Association="HaveAVoice.Models.Store.FK_AuditBoard_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="AuditBoard" EntitySet="AuditBoard" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="AuditBoard" Role="AuditBoard" />
           </AssociationSet>
           <AssociationSet Name="FK_AuditBoardReplies_BoardReply" Association="HaveAVoice.Models.Store.FK_AuditBoardReplies_BoardReply">
-            <End Role="BoardReply" EntitySet="BoardReply" />
-            <End Role="AuditBoardReplies" EntitySet="AuditBoardReplies" />
+            <End EntitySet="BoardReply" Role="BoardReply" />
+            <End EntitySet="AuditBoardReplies" Role="AuditBoardReplies" />
           </AssociationSet>
           <AssociationSet Name="FK_AuditBoardReplies_Users" Association="HaveAVoice.Models.Store.FK_AuditBoardReplies_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="AuditBoardReplies" EntitySet="AuditBoardReplies" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="AuditBoardReplies" Role="AuditBoardReplies" />
           </AssociationSet>
           <AssociationSet Name="FK_AuditIssueReplyComments_IssueReplyComments" Association="HaveAVoice.Models.Store.FK_AuditIssueReplyComments_IssueReplyComments">
-            <End Role="IssueReplyComments" EntitySet="IssueReplyComments" />
-            <End Role="AuditIssueReplyComments" EntitySet="AuditIssueReplyComments" />
+            <End EntitySet="IssueReplyComments" Role="IssueReplyComments" />
+            <End EntitySet="AuditIssueReplyComments" Role="AuditIssueReplyComments" />
           </AssociationSet>
           <AssociationSet Name="FK_AuditIssueReplyComments_Users" Association="HaveAVoice.Models.Store.FK_AuditIssueReplyComments_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="AuditIssueReplyComments" EntitySet="AuditIssueReplyComments" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="AuditIssueReplyComments" Role="AuditIssueReplyComments" />
           </AssociationSet>
           <AssociationSet Name="FK_AuditIssueReplys_IssueReplys" Association="HaveAVoice.Models.Store.FK_AuditIssueReplys_IssueReplys">
-            <End Role="IssueReplys" EntitySet="IssueReplys" />
-            <End Role="AuditIssueReplys" EntitySet="AuditIssueReplys" />
+            <End EntitySet="IssueReplys" Role="IssueReplys" />
+            <End EntitySet="AuditIssueReplys" Role="AuditIssueReplys" />
           </AssociationSet>
           <AssociationSet Name="FK_AuditIssueReplys_Users" Association="HaveAVoice.Models.Store.FK_AuditIssueReplys_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="AuditIssueReplys" EntitySet="AuditIssueReplys" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="AuditIssueReplys" Role="AuditIssueReplys" />
           </AssociationSet>
           <AssociationSet Name="FK_AuditIssues_Issues" Association="HaveAVoice.Models.Store.FK_AuditIssues_Issues">
-            <End Role="Issues" EntitySet="Issues" />
-            <End Role="AuditIssues" EntitySet="AuditIssues" />
+            <End EntitySet="Issues" Role="Issues" />
+            <End EntitySet="AuditIssues" Role="AuditIssues" />
           </AssociationSet>
           <AssociationSet Name="FK_AuditIssues_Users" Association="HaveAVoice.Models.Store.FK_AuditIssues_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="AuditIssues" EntitySet="AuditIssues" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="AuditIssues" Role="AuditIssues" />
           </AssociationSet>
           <AssociationSet Name="FK_Board_OwnerUserId_Users" Association="HaveAVoice.Models.Store.FK_Board_OwnerUserId_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Board" EntitySet="Board" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="Board" Role="Board" />
           </AssociationSet>
           <AssociationSet Name="FK_Board_PostedUserId_Users" Association="HaveAVoice.Models.Store.FK_Board_PostedUserId_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Board" EntitySet="Board" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="Board" Role="Board" />
           </AssociationSet>
           <AssociationSet Name="FK_BoardReply_Board" Association="HaveAVoice.Models.Store.FK_BoardReply_Board">
-            <End Role="Board" EntitySet="Board" />
-            <End Role="BoardReply" EntitySet="BoardReply" />
+            <End EntitySet="Board" Role="Board" />
+            <End EntitySet="BoardReply" Role="BoardReply" />
           </AssociationSet>
           <AssociationSet Name="FK_BoardReply_Users" Association="HaveAVoice.Models.Store.FK_BoardReply_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="BoardReply" EntitySet="BoardReply" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="BoardReply" Role="BoardReply" />
           </AssociationSet>
           <AssociationSet Name="FK_ErrorLog_Users" Association="HaveAVoice.Models.Store.FK_ErrorLog_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="ErrorLog" EntitySet="ErrorLog" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="ErrorLog" Role="ErrorLog" />
           </AssociationSet>
           <AssociationSet Name="FK_Events_Users" Association="HaveAVoice.Models.Store.FK_Events_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Events" EntitySet="Events" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="Events" Role="Events" />
           </AssociationSet>
           <AssociationSet Name="FK_Fans_FanUserId_Users" Association="HaveAVoice.Models.Store.FK_Fans_FanUserId_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Fans" EntitySet="Fans" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="Fans" Role="Fans" />
           </AssociationSet>
           <AssociationSet Name="FK_Fans_SourceUserId_Users" Association="HaveAVoice.Models.Store.FK_Fans_SourceUserId_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Fans" EntitySet="Fans" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="Fans" Role="Fans" />
           </AssociationSet>
           <AssociationSet Name="FK_Feedback_Users" Association="HaveAVoice.Models.Store.FK_Feedback_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Feedback" EntitySet="Feedback" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="Feedback" Role="Feedback" />
           </AssociationSet>
           <AssociationSet Name="FK_FilteredCityState_Users" Association="HaveAVoice.Models.Store.FK_FilteredCityState_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="FilteredCityState" EntitySet="FilteredCityState" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="FilteredCityState" Role="FilteredCityState" />
           </AssociationSet>
           <AssociationSet Name="FK_FilteredZipCode_Users" Association="HaveAVoice.Models.Store.FK_FilteredZipCode_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="FilteredZipCode" EntitySet="FilteredZipCode" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="FilteredZipCode" Role="FilteredZipCode" />
           </AssociationSet>
           <AssociationSet Name="FK_IssueComplaints_FiledByUserId_Users" Association="HaveAVoice.Models.Store.FK_IssueComplaints_FiledByUserId_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="IssueComplaints" EntitySet="IssueComplaints" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="IssueComplaints" Role="IssueComplaints" />
           </AssociationSet>
           <AssociationSet Name="FK_IssueComplaints_Issues" Association="HaveAVoice.Models.Store.FK_IssueComplaints_Issues">
-            <End Role="Issues" EntitySet="Issues" />
-            <End Role="IssueComplaints" EntitySet="IssueComplaints" />
+            <End EntitySet="Issues" Role="Issues" />
+            <End EntitySet="IssueComplaints" Role="IssueComplaints" />
           </AssociationSet>
           <AssociationSet Name="FK_IssueDisposition_Issues" Association="HaveAVoice.Models.Store.FK_IssueDisposition_Issues">
-            <End Role="Issues" EntitySet="Issues" />
-            <End Role="IssueDisposition" EntitySet="IssueDisposition" />
+            <End EntitySet="Issues" Role="Issues" />
+            <End EntitySet="IssueDisposition" Role="IssueDisposition" />
           </AssociationSet>
           <AssociationSet Name="FK_IssueDisposition_Users" Association="HaveAVoice.Models.Store.FK_IssueDisposition_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="IssueDisposition" EntitySet="IssueDisposition" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="IssueDisposition" Role="IssueDisposition" />
           </AssociationSet>
           <AssociationSet Name="FK_IssueReplyCommentComplaints_FiledByUserId_Users" Association="HaveAVoice.Models.Store.FK_IssueReplyCommentComplaints_FiledByUserId_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="IssueReplyCommentComplaints" EntitySet="IssueReplyCommentComplaints" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="IssueReplyCommentComplaints" Role="IssueReplyCommentComplaints" />
           </AssociationSet>
           <AssociationSet Name="FK_IssueReplyCommentComplaints_IssueReplyComments" Association="HaveAVoice.Models.Store.FK_IssueReplyCommentComplaints_IssueReplyComments">
-            <End Role="IssueReplyComments" EntitySet="IssueReplyComments" />
-            <End Role="IssueReplyCommentComplaints" EntitySet="IssueReplyCommentComplaints" />
+            <End EntitySet="IssueReplyComments" Role="IssueReplyComments" />
+            <End EntitySet="IssueReplyCommentComplaints" Role="IssueReplyCommentComplaints" />
           </AssociationSet>
           <AssociationSet Name="FK_IssueReplyComments_IssueReplys" Association="HaveAVoice.Models.Store.FK_IssueReplyComments_IssueReplys">
-            <End Role="IssueReplys" EntitySet="IssueReplys" />
-            <End Role="IssueReplyComments" EntitySet="IssueReplyComments" />
+            <End EntitySet="IssueReplys" Role="IssueReplys" />
+            <End EntitySet="IssueReplyComments" Role="IssueReplyComments" />
           </AssociationSet>
           <AssociationSet Name="FK_IssueReplyComments_Users" Association="HaveAVoice.Models.Store.FK_IssueReplyComments_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="IssueReplyComments" EntitySet="IssueReplyComments" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="IssueReplyComments" Role="IssueReplyComments" />
           </AssociationSet>
           <AssociationSet Name="FK_IssueReplyComplaints_FiledByUserId_Users" Association="HaveAVoice.Models.Store.FK_IssueReplyComplaints_FiledByUserId_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="IssueReplyComplaints" EntitySet="IssueReplyComplaints" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="IssueReplyComplaints" Role="IssueReplyComplaints" />
           </AssociationSet>
           <AssociationSet Name="FK_IssueReplyComplaints_IssueReplys" Association="HaveAVoice.Models.Store.FK_IssueReplyComplaints_IssueReplys">
-            <End Role="IssueReplys" EntitySet="IssueReplys" />
-            <End Role="IssueReplyComplaints" EntitySet="IssueReplyComplaints" />
+            <End EntitySet="IssueReplys" Role="IssueReplys" />
+            <End EntitySet="IssueReplyComplaints" Role="IssueReplyComplaints" />
           </AssociationSet>
           <AssociationSet Name="FK_IssueReplyDisposition_IssueReplys" Association="HaveAVoice.Models.Store.FK_IssueReplyDisposition_IssueReplys">
-            <End Role="IssueReplys" EntitySet="IssueReplys" />
-            <End Role="IssueReplyDisposition" EntitySet="IssueReplyDisposition" />
+            <End EntitySet="IssueReplys" Role="IssueReplys" />
+            <End EntitySet="IssueReplyDisposition" Role="IssueReplyDisposition" />
           </AssociationSet>
           <AssociationSet Name="FK_IssueReplyDisposition_Users" Association="HaveAVoice.Models.Store.FK_IssueReplyDisposition_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="IssueReplyDisposition" EntitySet="IssueReplyDisposition" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="IssueReplyDisposition" Role="IssueReplyDisposition" />
           </AssociationSet>
           <AssociationSet Name="FK_IssueReplys_Issues" Association="HaveAVoice.Models.Store.FK_IssueReplys_Issues">
-            <End Role="Issues" EntitySet="Issues" />
-            <End Role="IssueReplys" EntitySet="IssueReplys" />
+            <End EntitySet="Issues" Role="Issues" />
+            <End EntitySet="IssueReplys" Role="IssueReplys" />
           </AssociationSet>
           <AssociationSet Name="FK_IssueReplys_Users" Association="HaveAVoice.Models.Store.FK_IssueReplys_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="IssueReplys" EntitySet="IssueReplys" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="IssueReplys" Role="IssueReplys" />
           </AssociationSet>
           <AssociationSet Name="FK_Issues_Users" Association="HaveAVoice.Models.Store.FK_Issues_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Issues" EntitySet="Issues" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="Issues" Role="Issues" />
           </AssociationSet>
           <AssociationSet Name="FK_Message_Users_FromUserId" Association="HaveAVoice.Models.Store.FK_Message_Users_FromUserId">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Messages" EntitySet="Messages" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="Messages" Role="Messages" />
           </AssociationSet>
           <AssociationSet Name="FK_Message_Users_ToUserId" Association="HaveAVoice.Models.Store.FK_Message_Users_ToUserId">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Messages" EntitySet="Messages" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="Messages" Role="Messages" />
           </AssociationSet>
           <AssociationSet Name="FK_ProfileComplaints_FiledByUserId_Users" Association="HaveAVoice.Models.Store.FK_ProfileComplaints_FiledByUserId_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="ProfileComplaints" EntitySet="ProfileComplaints" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="ProfileComplaints" Role="ProfileComplaints" />
           </AssociationSet>
           <AssociationSet Name="FK_ProfileComplaints_TowardUserId_Users" Association="HaveAVoice.Models.Store.FK_ProfileComplaints_TowardUserId_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="ProfileComplaints" EntitySet="ProfileComplaints" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="ProfileComplaints" Role="ProfileComplaints" />
           </AssociationSet>
           <AssociationSet Name="FK_ProfilePictures_Users" Association="HaveAVoice.Models.Store.FK_ProfilePictures_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="ProfilePictures" EntitySet="ProfilePictures" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="ProfilePictures" Role="ProfilePictures" />
           </AssociationSet>
           <AssociationSet Name="FK_Replys_Messages" Association="HaveAVoice.Models.Store.FK_Replys_Messages">
-            <End Role="Messages" EntitySet="Messages" />
-            <End Role="Replys" EntitySet="Replys" />
+            <End EntitySet="Messages" Role="Messages" />
+            <End EntitySet="Replys" Role="Replys" />
           </AssociationSet>
           <AssociationSet Name="FK_Replys_User" Association="HaveAVoice.Models.Store.FK_Replys_User">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Replys" EntitySet="Replys" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="Replys" Role="Replys" />
           </AssociationSet>
           <AssociationSet Name="FK_Restrictions_Users_CreatedByUserId" Association="HaveAVoice.Models.Store.FK_Restrictions_Users_CreatedByUserId">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Restrictions" EntitySet="Restrictions" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="Restrictions" Role="Restrictions" />
           </AssociationSet>
           <AssociationSet Name="FK_RolePermissions_Permissions" Association="HaveAVoice.Models.Store.FK_RolePermissions_Permissions">
-            <End Role="Permissions" EntitySet="Permissions" />
-            <End Role="RolePermissions" EntitySet="RolePermissions" />
+            <End EntitySet="Permissions" Role="Permissions" />
+            <End EntitySet="RolePermissions" Role="RolePermissions" />
           </AssociationSet>
           <AssociationSet Name="FK_RolePermissions_Roles" Association="HaveAVoice.Models.Store.FK_RolePermissions_Roles">
-            <End Role="Roles" EntitySet="Roles" />
-            <End Role="RolePermissions" EntitySet="RolePermissions" />
+            <End EntitySet="Roles" Role="Roles" />
+            <End EntitySet="RolePermissions" Role="RolePermissions" />
           </AssociationSet>
           <AssociationSet Name="FK_UserPictureComplaints_FiledByUserId_Users" Association="HaveAVoice.Models.Store.FK_UserPictureComplaints_FiledByUserId_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="UserPictureComplaints" EntitySet="UserPictureComplaints" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="UserPictureComplaints" Role="UserPictureComplaints" />
           </AssociationSet>
           <AssociationSet Name="FK_UserPictureComplaints_UserPictures" Association="HaveAVoice.Models.Store.FK_UserPictureComplaints_UserPictures">
-            <End Role="UserPictures" EntitySet="UserPictures" />
-            <End Role="UserPictureComplaints" EntitySet="UserPictureComplaints" />
+            <End EntitySet="UserPictures" Role="UserPictures" />
+            <End EntitySet="UserPictureComplaints" Role="UserPictureComplaints" />
           </AssociationSet>
           <AssociationSet Name="FK_UserPictures_Users" Association="HaveAVoice.Models.Store.FK_UserPictures_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="UserPictures" EntitySet="UserPictures" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="UserPictures" Role="UserPictures" />
           </AssociationSet>
           <AssociationSet Name="FK_UserPrivacySettings_Users" Association="HaveAVoice.Models.Store.FK_UserPrivacySettings_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="UserPrivacySettings" EntitySet="UserPrivacySettings" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="UserPrivacySettings" Role="UserPrivacySettings" />
           </AssociationSet>
           <AssociationSet Name="FK_UserRoles_Roles" Association="HaveAVoice.Models.Store.FK_UserRoles_Roles">
-            <End Role="Roles" EntitySet="Roles" />
-            <End Role="UserRoles" EntitySet="UserRoles" />
+            <End EntitySet="Roles" Role="Roles" />
+            <End EntitySet="UserRoles" Role="UserRoles" />
           </AssociationSet>
           <AssociationSet Name="FK_UserRoles_Users" Association="HaveAVoice.Models.Store.FK_UserRoles_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="UserRoles" EntitySet="UserRoles" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="UserRoles" Role="UserRoles" />
           </AssociationSet>
           <AssociationSet Name="FK_WhoIsOnline_Users" Association="HaveAVoice.Models.Store.FK_WhoIsOnline_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="WhoIsOnline" EntitySet="WhoIsOnline" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="WhoIsOnline" Role="WhoIsOnline" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="AuditBoard">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="BoardId" Type="int" Nullable="false" />
-          <Property Name="Message" Type="text" Nullable="false" />
-          <Property Name="DateTimeStamp" Type="datetime" Nullable="false" />
-          <Property Name="UpdatedByUserId" Type="int" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="BoardId" Nullable="false" Type="int" />
+          <Property Name="Message" Nullable="false" Type="text" />
+          <Property Name="DateTimeStamp" Nullable="false" Type="datetime" />
+          <Property Name="UpdatedByUserId" Nullable="false" Type="int" />
         </EntityType>
         <EntityType Name="AuditBoardReplies">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="BoardReplyId" Type="int" Nullable="false" />
-          <Property Name="Message" Type="text" Nullable="false" />
-          <Property Name="DateTimeStamp" Type="datetime" Nullable="false" />
-          <Property Name="UpdatedByUserId" Type="int" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="BoardReplyId" Nullable="false" Type="int" />
+          <Property Name="Message" Nullable="false" Type="text" />
+          <Property Name="DateTimeStamp" Nullable="false" Type="datetime" />
+          <Property Name="UpdatedByUserId" Nullable="false" Type="int" />
         </EntityType>
         <EntityType Name="AuditIssueReplyComments">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="IssueReplyCommentId" Type="int" Nullable="false" />
-          <Property Name="Comment" Type="text" Nullable="false" />
-          <Property Name="DateTimeStamp" Type="datetime" Nullable="false" />
-          <Property Name="UpdatedByUserId" Type="int" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="IssueReplyCommentId" Nullable="false" Type="int" />
+          <Property Name="Comment" Nullable="false" Type="text" />
+          <Property Name="DateTimeStamp" Nullable="false" Type="datetime" />
+          <Property Name="UpdatedByUserId" Nullable="false" Type="int" />
         </EntityType>
         <EntityType Name="AuditIssueReplys">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="IssueReplyId" Type="int" Nullable="false" />
-          <Property Name="Reply" Type="text" Nullable="false" />
-          <Property Name="Disposition" Type="int" Nullable="false" />
-          <Property Name="DateTimeStamp" Type="datetime" Nullable="false" />
-          <Property Name="UpdatedByUserId" Type="int" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="IssueReplyId" Nullable="false" Type="int" />
+          <Property Name="Reply" Nullable="false" Type="text" />
+          <Property Name="Disposition" Nullable="false" Type="int" />
+          <Property Name="DateTimeStamp" Nullable="false" Type="datetime" />
+          <Property Name="UpdatedByUserId" Nullable="false" Type="int" />
         </EntityType>
         <EntityType Name="AuditIssues">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="IssueId" Type="int" Nullable="false" />
-          <Property Name="Title" Type="varchar" Nullable="false" MaxLength="100" />
-          <Property Name="Description" Type="text" Nullable="false" />
-          <Property Name="DateTimeStamp" Type="datetime" Nullable="false" />
-          <Property Name="UpdatedByUserId" Type="int" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="IssueId" Nullable="false" Type="int" />
+          <Property Name="Title" Nullable="false" MaxLength="100" Type="varchar" />
+          <Property Name="Description" Nullable="false" Type="text" />
+          <Property Name="DateTimeStamp" Nullable="false" Type="datetime" />
+          <Property Name="UpdatedByUserId" Nullable="false" Type="int" />
         </EntityType>
         <EntityType Name="Board">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="OwnerUserId" Type="int" Nullable="false" />
-          <Property Name="PostedUserId" Type="int" Nullable="false" />
-          <Property Name="Message" Type="text" Nullable="false" />
-          <Property Name="DateTimeStamp" Type="smalldatetime" Nullable="false" />
-          <Property Name="Viewed" Type="bit" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="OwnerUserId" Nullable="false" Type="int" />
+          <Property Name="PostedUserId" Nullable="false" Type="int" />
+          <Property Name="Message" Nullable="false" Type="text" />
+          <Property Name="DateTimeStamp" Nullable="false" Type="smalldatetime" />
+          <Property Name="Viewed" Nullable="false" Type="bit" />
           <Property Name="UpdatedByUserId" Type="int" />
           <Property Name="UpdatedDateTimeStamp" Type="datetime" />
-          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="Deleted" Nullable="false" Type="bit" />
           <Property Name="DeletedByUserId" Type="int" />
         </EntityType>
         <EntityType Name="BoardReply">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="BoardId" Type="int" Nullable="false" />
-          <Property Name="Message" Type="text" Nullable="false" />
-          <Property Name="DateTimeStamp" Type="smalldatetime" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="UserId" Nullable="false" Type="int" />
+          <Property Name="BoardId" Nullable="false" Type="int" />
+          <Property Name="Message" Nullable="false" Type="text" />
+          <Property Name="DateTimeStamp" Nullable="false" Type="smalldatetime" />
           <Property Name="UpdatedByUserId" Type="int" />
           <Property Name="UpdatedDateTimeStamp" Type="datetime" />
-          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="Deleted" Nullable="false" Type="bit" />
           <Property Name="DeletedByUserId" Type="int" />
         </EntityType>
         <EntityType Name="Events">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="Date" Type="smalldatetime" Nullable="false" />
-          <Property Name="Information" Type="text" Nullable="false" />
-          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="UserId" Nullable="false" Type="int" />
+          <Property Name="Date" Nullable="false" Type="smalldatetime" />
+          <Property Name="Information" Nullable="false" Type="text" />
+          <Property Name="Deleted" Nullable="false" Type="bit" />
           <Property Name="DeletedUserId" Type="int" />
         </EntityType>
         <EntityType Name="Fans">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="FanUserId" Type="int" Nullable="false" />
-          <Property Name="SourceUserId" Type="int" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="FanUserId" Nullable="false" Type="int" />
+          <Property Name="SourceUserId" Nullable="false" Type="int" />
         </EntityType>
         <EntityType Name="Feedback">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Text" Type="text" Nullable="false" />
-          <Property Name="DateTimeStamp" Type="smalldatetime" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Text" Nullable="false" Type="text" />
+          <Property Name="DateTimeStamp" Nullable="false" Type="smalldatetime" />
+          <Property Name="UserId" Nullable="false" Type="int" />
         </EntityType>
         <EntityType Name="FilteredCityState">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="City" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="State" Type="varchar" Nullable="false" MaxLength="15" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="UserId" Nullable="false" Type="int" />
+          <Property Name="City" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="State" Nullable="false" MaxLength="15" Type="varchar" />
         </EntityType>
         <EntityType Name="FilteredZipCode">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="ZipCode" Type="int" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="UserId" Nullable="false" Type="int" />
+          <Property Name="ZipCode" Nullable="false" Type="int" />
         </EntityType>
         <EntityType Name="Permissions">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="Description" Type="varchar" Nullable="false" MaxLength="500" />
-          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Name" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="Description" Nullable="false" MaxLength="500" Type="varchar" />
+          <Property Name="Deleted" Nullable="false" Type="bit" />
           <Property Name="EditByUserId" Type="int" />
           <Property Name="DeletedByUserId" Type="int" />
         </EntityType>
@@ -398,29 +398,29 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="URL" Type="varchar" Nullable="false" MaxLength="500" />
-          <Property Name="DefaultPicture" Type="bit" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="UserId" Nullable="false" Type="int" />
+          <Property Name="URL" Nullable="false" MaxLength="500" Type="varchar" />
+          <Property Name="DefaultPicture" Nullable="false" Type="bit" />
         </EntityType>
         <EntityType Name="RolePermissions">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="RoleId" Type="int" Nullable="false" />
-          <Property Name="PermissionId" Type="int" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="RoleId" Nullable="false" Type="int" />
+          <Property Name="PermissionId" Nullable="false" Type="int" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="Description" Type="varchar" Nullable="false" MaxLength="200" />
-          <Property Name="DefaultRole" Type="bit" Nullable="false" />
-          <Property Name="RestrictionId" Type="int" Nullable="false" />
-          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Name" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="Description" Nullable="false" MaxLength="200" Type="varchar" />
+          <Property Name="DefaultRole" Nullable="false" Type="bit" />
+          <Property Name="RestrictionId" Nullable="false" Type="int" />
+          <Property Name="Deleted" Nullable="false" Type="bit" />
           <Property Name="EditedByUserId" Type="int" />
           <Property Name="DeletedByUserId" Type="int" />
         </EntityType>
@@ -428,9 +428,9 @@
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Nullable="false" MaxLength="128" Type="nvarchar" />
+          <Property Name="principal_id" Nullable="false" Type="int" />
+          <Property Name="diagram_id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
@@ -438,206 +438,206 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="UserId" Nullable="false" Type="int" />
+          <Property Name="RoleId" Nullable="false" Type="int" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Username" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="Email" Type="varchar" Nullable="false" MaxLength="100" />
-          <Property Name="Password" Type="varchar" Nullable="false" MaxLength="200" />
-          <Property Name="FirstName" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="MiddleName" Type="varchar" MaxLength="100" />
-          <Property Name="LastName" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="City" Type="varchar" Nullable="false" MaxLength="100" />
-          <Property Name="State" Type="char" Nullable="false" MaxLength="2" />
-          <Property Name="DateOfBirth" Type="date" Nullable="false" />
-          <Property Name="LastLogin" Type="datetime" Nullable="false" />
-          <Property Name="RegistrationDate" Type="datetime" Nullable="false" />
-          <Property Name="RegistrationIp" Type="varchar" Nullable="false" MaxLength="20" />
-          <Property Name="Newsletter" Type="bit" Nullable="false" />
-          <Property Name="UTCOffset" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="Website" Type="varchar" MaxLength="100" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Username" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="Email" Nullable="false" MaxLength="100" Type="varchar" />
+          <Property Name="Password" Nullable="false" MaxLength="200" Type="varchar" />
+          <Property Name="FirstName" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="MiddleName" MaxLength="100" Type="varchar" />
+          <Property Name="LastName" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="City" Nullable="false" MaxLength="100" Type="varchar" />
+          <Property Name="State" Nullable="false" MaxLength="2" Type="char" />
+          <Property Name="DateOfBirth" Nullable="false" Type="date" />
+          <Property Name="LastLogin" Nullable="false" Type="datetime" />
+          <Property Name="RegistrationDate" Nullable="false" Type="datetime" />
+          <Property Name="RegistrationIp" Nullable="false" MaxLength="20" Type="varchar" />
+          <Property Name="Newsletter" Nullable="false" Type="bit" />
+          <Property Name="UTCOffset" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="Website" MaxLength="100" Type="varchar" />
           <Property Name="AboutMe" Type="text" />
-          <Property Name="CookieHash" Type="varchar" MaxLength="500" />
+          <Property Name="CookieHash" MaxLength="500" Type="varchar" />
           <Property Name="CookieCreationDate" Type="smalldatetime" />
-          <Property Name="ActivationCode" Type="varchar" MaxLength="100" />
-          <Property Name="ForgotPasswordHash" Type="varchar" MaxLength="500" />
+          <Property Name="ActivationCode" MaxLength="100" Type="varchar" />
+          <Property Name="ForgotPasswordHash" MaxLength="500" Type="varchar" />
           <Property Name="ForgotPasswordHashDateTimeStamp" Type="datetime" />
         </EntityType>
         <EntityType Name="ErrorLog">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Exception" Type="text" Nullable="false" />
-          <Property Name="InnerException" Type="text" Nullable="false" />
-          <Property Name="StackTrace" Type="text" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="DateTimeStamp" Type="smalldatetime" Nullable="false" />
-          <Property Name="Details" Type="text" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Exception" Nullable="false" Type="text" />
+          <Property Name="InnerException" Nullable="false" Type="text" />
+          <Property Name="StackTrace" Nullable="false" Type="text" />
+          <Property Name="UserId" Nullable="false" Type="int" />
+          <Property Name="DateTimeStamp" Nullable="false" Type="smalldatetime" />
+          <Property Name="Details" Nullable="false" Type="text" />
         </EntityType>
         <EntityType Name="IssueComplaints">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="FiledByUserId" Type="int" Nullable="false" />
-          <Property Name="IssueId" Type="int" Nullable="false" />
-          <Property Name="Complaint" Type="text" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="FiledByUserId" Nullable="false" Type="int" />
+          <Property Name="IssueId" Nullable="false" Type="int" />
+          <Property Name="Complaint" Nullable="false" Type="text" />
         </EntityType>
         <EntityType Name="IssueDisposition">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="IssueId" Type="int" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="Disposition" Type="int" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="IssueId" Nullable="false" Type="int" />
+          <Property Name="UserId" Nullable="false" Type="int" />
+          <Property Name="Disposition" Nullable="false" Type="int" />
         </EntityType>
         <EntityType Name="IssueReplyCommentComplaints">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="FiledByUserId" Type="int" Nullable="false" />
-          <Property Name="IssueReplyCommentId" Type="int" Nullable="false" />
-          <Property Name="Complaint" Type="text" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="FiledByUserId" Nullable="false" Type="int" />
+          <Property Name="IssueReplyCommentId" Nullable="false" Type="int" />
+          <Property Name="Complaint" Nullable="false" Type="text" />
         </EntityType>
         <EntityType Name="IssueReplyComments">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="IssueReplyId" Type="int" Nullable="false" />
-          <Property Name="Comment" Type="text" Nullable="false" />
-          <Property Name="DateTimeStamp" Type="datetime" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="IssueReplyId" Nullable="false" Type="int" />
+          <Property Name="Comment" Nullable="false" Type="text" />
+          <Property Name="DateTimeStamp" Nullable="false" Type="datetime" />
+          <Property Name="UserId" Nullable="false" Type="int" />
           <Property Name="UpdatedByUserId" Type="int" />
           <Property Name="UpdatedDateTimeStamp" Type="datetime" />
-          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="Deleted" Nullable="false" Type="bit" />
           <Property Name="DeletedByUserId" Type="int" />
         </EntityType>
         <EntityType Name="IssueReplyComplaints">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="FiledByUserId" Type="int" Nullable="false" />
-          <Property Name="IssueReplyId" Type="int" Nullable="false" />
-          <Property Name="Complaint" Type="text" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="FiledByUserId" Nullable="false" Type="int" />
+          <Property Name="IssueReplyId" Nullable="false" Type="int" />
+          <Property Name="Complaint" Nullable="false" Type="text" />
         </EntityType>
         <EntityType Name="IssueReplyDisposition">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="IssueReplyId" Type="int" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="Disposition" Type="int" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="IssueReplyId" Nullable="false" Type="int" />
+          <Property Name="UserId" Nullable="false" Type="int" />
+          <Property Name="Disposition" Nullable="false" Type="int" />
         </EntityType>
         <EntityType Name="IssueReplys">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="IssueId" Type="int" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="Reply" Type="text" Nullable="false" />
-          <Property Name="DateTimeStamp" Type="datetime" Nullable="false" />
-          <Property Name="Anonymous" Type="bit" Nullable="false" />
-          <Property Name="Disposition" Type="int" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="IssueId" Nullable="false" Type="int" />
+          <Property Name="UserId" Nullable="false" Type="int" />
+          <Property Name="Reply" Nullable="false" Type="text" />
+          <Property Name="DateTimeStamp" Nullable="false" Type="datetime" />
+          <Property Name="Anonymous" Nullable="false" Type="bit" />
+          <Property Name="Disposition" Nullable="false" Type="int" />
           <Property Name="UpdatedUserId" Type="int" />
           <Property Name="UpdatedDateTimeStamp" Type="datetime" />
-          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="Deleted" Nullable="false" Type="bit" />
           <Property Name="DeletedByUserId" Type="int" />
         </EntityType>
         <EntityType Name="Issues">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="varchar" Nullable="false" MaxLength="100" />
-          <Property Name="Description" Type="text" Nullable="false" />
-          <Property Name="DateTimeStamp" Type="datetime" Nullable="false" />
-          <Property Name="StartedByUserId" Type="int" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Title" Nullable="false" MaxLength="100" Type="varchar" />
+          <Property Name="Description" Nullable="false" Type="text" />
+          <Property Name="DateTimeStamp" Nullable="false" Type="datetime" />
+          <Property Name="StartedByUserId" Nullable="false" Type="int" />
           <Property Name="UpdatedByUserId" Type="int" />
           <Property Name="UpdatedDateTimeStamp" Type="datetime" />
-          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="Deleted" Nullable="false" Type="bit" />
           <Property Name="DeletedByUserId" Type="int" />
         </EntityType>
         <EntityType Name="MergeComplaints">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="FiledByUserId" Type="int" Nullable="false" />
-          <Property Name="MergeRequestId" Type="int" Nullable="false" />
-          <Property Name="Complaint" Type="text" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="FiledByUserId" Nullable="false" Type="int" />
+          <Property Name="MergeRequestId" Nullable="false" Type="int" />
+          <Property Name="Complaint" Nullable="false" Type="text" />
         </EntityType>
         <EntityType Name="Messages">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="ToUserId" Type="int" Nullable="false" />
-          <Property Name="FromUserId" Type="int" Nullable="false" />
-          <Property Name="Subject" Type="varchar" Nullable="false" MaxLength="250" />
-          <Property Name="Body" Type="text" Nullable="false" />
-          <Property Name="DateTimeStamp" Type="datetime" Nullable="false" />
-          <Property Name="ToViewed" Type="bit" Nullable="false" />
-          <Property Name="FromViewed" Type="bit" Nullable="false" />
-          <Property Name="ToDeleted" Type="bit" Nullable="false" />
-          <Property Name="FromDeleted" Type="bit" Nullable="false" />
-          <Property Name="RepliedTo" Type="bit" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="ToUserId" Nullable="false" Type="int" />
+          <Property Name="FromUserId" Nullable="false" Type="int" />
+          <Property Name="Subject" Nullable="false" MaxLength="250" Type="varchar" />
+          <Property Name="Body" Nullable="false" Type="text" />
+          <Property Name="DateTimeStamp" Nullable="false" Type="datetime" />
+          <Property Name="ToViewed" Nullable="false" Type="bit" />
+          <Property Name="FromViewed" Nullable="false" Type="bit" />
+          <Property Name="ToDeleted" Nullable="false" Type="bit" />
+          <Property Name="FromDeleted" Nullable="false" Type="bit" />
+          <Property Name="RepliedTo" Nullable="false" Type="bit" />
         </EntityType>
         <EntityType Name="ProfileComplaints">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="FiledByUserId" Type="int" Nullable="false" />
-          <Property Name="TowardUserId" Type="int" Nullable="false" />
-          <Property Name="Complaint" Type="text" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="FiledByUserId" Nullable="false" Type="int" />
+          <Property Name="TowardUserId" Nullable="false" Type="int" />
+          <Property Name="Complaint" Nullable="false" Type="text" />
         </EntityType>
         <EntityType Name="Replys">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="ReplyUserId" Type="int" Nullable="false" />
-          <Property Name="MessageId" Type="int" Nullable="false" />
-          <Property Name="Body" Type="text" Nullable="false" />
-          <Property Name="DateTimeStamp" Type="datetime" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="ReplyUserId" Nullable="false" Type="int" />
+          <Property Name="MessageId" Nullable="false" Type="int" />
+          <Property Name="Body" Nullable="false" Type="text" />
+          <Property Name="DateTimeStamp" Nullable="false" Type="datetime" />
         </EntityType>
         <EntityType Name="Restrictions">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="Description" Type="varchar" Nullable="false" MaxLength="200" />
-          <Property Name="IssuePostsWithinTimeLimit" Type="int" Nullable="false" />
-          <Property Name="IssuePostsTimeLimit" Type="bigint" Nullable="false" />
-          <Property Name="IssuePostsWaitTimeBeforePostSeconds" Type="bigint" Nullable="false" />
-          <Property Name="IssueReportsBeforeLockout" Type="int" Nullable="false" />
-          <Property Name="IssueReplyPostsWithinTimeLimit" Type="int" Nullable="false" />
-          <Property Name="IssueReplyPostsTimeLimit" Type="bigint" Nullable="false" />
-          <Property Name="IssueReplyPostsWaitTimeBeforePostSeconds" Type="bigint" Nullable="false" />
-          <Property Name="IssueReplyCommentPostsWithinTimeLimit" Type="int" Nullable="false" />
-          <Property Name="IssueReplyCommentPostsTimeLimit" Type="bigint" Nullable="false" />
-          <Property Name="IssueReplyCommentPostsWaitTimeBeforePostSeconds" Type="bigint" Nullable="false" />
-          <Property Name="MergeIssueRequestWithinTimeLimit" Type="int" Nullable="false" />
-          <Property Name="MergeIssueRequestTimeLimit" Type="bigint" Nullable="false" />
-          <Property Name="MergeIssueRequestWaitTimeBeforePostSeconds" Type="bigint" Nullable="false" />
-          <Property Name="CreatedByUserId" Type="int" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Name" Nullable="false" MaxLength="50" Type="varchar" />
+          <Property Name="Description" Nullable="false" MaxLength="200" Type="varchar" />
+          <Property Name="IssuePostsWithinTimeLimit" Nullable="false" Type="int" />
+          <Property Name="IssuePostsTimeLimit" Nullable="false" Type="bigint" />
+          <Property Name="IssuePostsWaitTimeBeforePostSeconds" Nullable="false" Type="bigint" />
+          <Property Name="IssueReportsBeforeLockout" Nullable="false" Type="int" />
+          <Property Name="IssueReplyPostsWithinTimeLimit" Nullable="false" Type="int" />
+          <Property Name="IssueReplyPostsTimeLimit" Nullable="false" Type="bigint" />
+          <Property Name="IssueReplyPostsWaitTimeBeforePostSeconds" Nullable="false" Type="bigint" />
+          <Property Name="IssueReplyCommentPostsWithinTimeLimit" Nullable="false" Type="int" />
+          <Property Name="IssueReplyCommentPostsTimeLimit" Nullable="false" Type="bigint" />
+          <Property Name="IssueReplyCommentPostsWaitTimeBeforePostSeconds" Nullable="false" Type="bigint" />
+          <Property Name="MergeIssueRequestWithinTimeLimit" Nullable="false" Type="int" />
+          <Property Name="MergeIssueRequestTimeLimit" Nullable="false" Type="bigint" />
+          <Property Name="MergeIssueRequestWaitTimeBeforePostSeconds" Nullable="false" Type="bigint" />
+          <Property Name="CreatedByUserId" Nullable="false" Type="int" />
           <Property Name="EditedByUserId" Type="int" />
           <Property Name="EditedDateTimeStamp" Type="smalldatetime" />
-          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="Deleted" Nullable="false" Type="bit" />
           <Property Name="DeletedByUserId" Type="int" />
           <Property Name="DeletedDateTimeStamp" Type="smalldatetime" />
         </EntityType>
@@ -645,54 +645,54 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Region" Type="varchar" Nullable="false" MaxLength="80" />
-          <Property Name="UTCOffset" Type="int" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Region" Nullable="false" MaxLength="80" Type="varchar" />
+          <Property Name="UTCOffset" Nullable="false" Type="int" />
         </EntityType>
         <EntityType Name="UserPictureComplaints">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="FiledByUserId" Type="int" Nullable="false" />
-          <Property Name="UserPictureId" Type="int" Nullable="false" />
-          <Property Name="Complaint" Type="text" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="FiledByUserId" Nullable="false" Type="int" />
+          <Property Name="UserPictureId" Nullable="false" Type="int" />
+          <Property Name="Complaint" Nullable="false" Type="text" />
         </EntityType>
         <EntityType Name="UserPictures">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="ImageName" Type="varchar" Nullable="false" MaxLength="100" />
-          <Property Name="ProfilePicture" Type="bit" Nullable="false" />
-          <Property Name="DateTimeStamp" Type="datetime" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="UserId" Nullable="false" Type="int" />
+          <Property Name="ImageName" Nullable="false" MaxLength="100" Type="varchar" />
+          <Property Name="ProfilePicture" Nullable="false" Type="bit" />
+          <Property Name="DateTimeStamp" Nullable="false" Type="datetime" />
         </EntityType>
         <EntityType Name="UserPrivacySettings">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="DisplayProfileToNonLoggedIn" Type="bit" Nullable="false" />
-          <Property Name="DisplayProfileToLoggedInUsers" Type="bit" Nullable="false" />
-          <Property Name="DisplayProfileToFriends" Type="bit" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="UserId" Nullable="false" Type="int" />
+          <Property Name="DisplayProfileToNonLoggedIn" Nullable="false" Type="bit" />
+          <Property Name="DisplayProfileToLoggedInUsers" Nullable="false" Type="bit" />
+          <Property Name="DisplayProfileToFriends" Nullable="false" Type="bit" />
         </EntityType>
         <EntityType Name="WhoIsOnline">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="DateTimeStamp" Type="smalldatetime" Nullable="false" />
-          <Property Name="IpAddress" Type="varchar" Nullable="false" MaxLength="20" />
-          <Property Name="ForceLogOut" Type="bit" Nullable="false" />
+          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="UserId" Nullable="false" Type="int" />
+          <Property Name="DateTimeStamp" Nullable="false" Type="smalldatetime" />
+          <Property Name="IpAddress" Nullable="false" MaxLength="20" Type="varchar" />
+          <Property Name="ForceLogOut" Nullable="false" Type="bit" />
         </EntityType>
         <Association Name="FK_AuditBoard_Board">
-          <End Role="Board" Type="HaveAVoice.Models.Store.Board" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.Board" Multiplicity="1" Role="Board">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AuditBoard" Type="HaveAVoice.Models.Store.AuditBoard" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.AuditBoard" Multiplicity="*" Role="AuditBoard" />
           <ReferentialConstraint>
             <Principal Role="Board">
               <PropertyRef Name="Id" />
@@ -703,8 +703,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AuditBoard_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
-          <End Role="AuditBoard" Type="HaveAVoice.Models.Store.AuditBoard" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users" />
+          <End Type="HaveAVoice.Models.Store.AuditBoard" Multiplicity="*" Role="AuditBoard" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -715,10 +715,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AuditBoardReplies_BoardReply">
-          <End Role="BoardReply" Type="HaveAVoice.Models.Store.BoardReply" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.BoardReply" Multiplicity="1" Role="BoardReply">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AuditBoardReplies" Type="HaveAVoice.Models.Store.AuditBoardReplies" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.AuditBoardReplies" Multiplicity="*" Role="AuditBoardReplies" />
           <ReferentialConstraint>
             <Principal Role="BoardReply">
               <PropertyRef Name="Id" />
@@ -729,8 +729,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AuditBoardReplies_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
-          <End Role="AuditBoardReplies" Type="HaveAVoice.Models.Store.AuditBoardReplies" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users" />
+          <End Type="HaveAVoice.Models.Store.AuditBoardReplies" Multiplicity="*" Role="AuditBoardReplies" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -741,10 +741,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AuditIssueReplyComments_IssueReplyComments">
-          <End Role="IssueReplyComments" Type="HaveAVoice.Models.Store.IssueReplyComments" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.IssueReplyComments" Multiplicity="1" Role="IssueReplyComments">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AuditIssueReplyComments" Type="HaveAVoice.Models.Store.AuditIssueReplyComments" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.AuditIssueReplyComments" Multiplicity="*" Role="AuditIssueReplyComments" />
           <ReferentialConstraint>
             <Principal Role="IssueReplyComments">
               <PropertyRef Name="Id" />
@@ -755,8 +755,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AuditIssueReplyComments_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
-          <End Role="AuditIssueReplyComments" Type="HaveAVoice.Models.Store.AuditIssueReplyComments" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users" />
+          <End Type="HaveAVoice.Models.Store.AuditIssueReplyComments" Multiplicity="*" Role="AuditIssueReplyComments" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -767,8 +767,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AuditIssueReplys_IssueReplys">
-          <End Role="IssueReplys" Type="HaveAVoice.Models.Store.IssueReplys" Multiplicity="1" />
-          <End Role="AuditIssueReplys" Type="HaveAVoice.Models.Store.AuditIssueReplys" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.IssueReplys" Multiplicity="1" Role="IssueReplys" />
+          <End Type="HaveAVoice.Models.Store.AuditIssueReplys" Multiplicity="*" Role="AuditIssueReplys" />
           <ReferentialConstraint>
             <Principal Role="IssueReplys">
               <PropertyRef Name="Id" />
@@ -779,8 +779,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AuditIssueReplys_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
-          <End Role="AuditIssueReplys" Type="HaveAVoice.Models.Store.AuditIssueReplys" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users" />
+          <End Type="HaveAVoice.Models.Store.AuditIssueReplys" Multiplicity="*" Role="AuditIssueReplys" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -791,10 +791,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AuditIssues_Issues">
-          <End Role="Issues" Type="HaveAVoice.Models.Store.Issues" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.Issues" Multiplicity="1" Role="Issues">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AuditIssues" Type="HaveAVoice.Models.Store.AuditIssues" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.AuditIssues" Multiplicity="*" Role="AuditIssues" />
           <ReferentialConstraint>
             <Principal Role="Issues">
               <PropertyRef Name="Id" />
@@ -805,10 +805,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AuditIssues_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AuditIssues" Type="HaveAVoice.Models.Store.AuditIssues" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.AuditIssues" Multiplicity="*" Role="AuditIssues" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -819,10 +819,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Board_OwnerUserId_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Board" Type="HaveAVoice.Models.Store.Board" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.Board" Multiplicity="*" Role="Board" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -833,8 +833,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Board_PostedUserId_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
-          <End Role="Board" Type="HaveAVoice.Models.Store.Board" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users" />
+          <End Type="HaveAVoice.Models.Store.Board" Multiplicity="*" Role="Board" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -845,10 +845,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_BoardReply_Board">
-          <End Role="Board" Type="HaveAVoice.Models.Store.Board" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.Board" Multiplicity="1" Role="Board">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="BoardReply" Type="HaveAVoice.Models.Store.BoardReply" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.BoardReply" Multiplicity="*" Role="BoardReply" />
           <ReferentialConstraint>
             <Principal Role="Board">
               <PropertyRef Name="Id" />
@@ -859,8 +859,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_BoardReply_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
-          <End Role="BoardReply" Type="HaveAVoice.Models.Store.BoardReply" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users" />
+          <End Type="HaveAVoice.Models.Store.BoardReply" Multiplicity="*" Role="BoardReply" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -871,10 +871,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ErrorLog_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="ErrorLog" Type="HaveAVoice.Models.Store.ErrorLog" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.ErrorLog" Multiplicity="*" Role="ErrorLog" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -885,10 +885,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Events_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Events" Type="HaveAVoice.Models.Store.Events" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.Events" Multiplicity="*" Role="Events" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -899,10 +899,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Fans_FanUserId_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Fans" Type="HaveAVoice.Models.Store.Fans" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.Fans" Multiplicity="*" Role="Fans" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -913,8 +913,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Fans_SourceUserId_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
-          <End Role="Fans" Type="HaveAVoice.Models.Store.Fans" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users" />
+          <End Type="HaveAVoice.Models.Store.Fans" Multiplicity="*" Role="Fans" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -925,10 +925,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Feedback_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Feedback" Type="HaveAVoice.Models.Store.Feedback" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.Feedback" Multiplicity="*" Role="Feedback" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -939,8 +939,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_FilteredCityState_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
-          <End Role="FilteredCityState" Type="HaveAVoice.Models.Store.FilteredCityState" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users" />
+          <End Type="HaveAVoice.Models.Store.FilteredCityState" Multiplicity="*" Role="FilteredCityState" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -951,8 +951,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_FilteredZipCode_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
-          <End Role="FilteredZipCode" Type="HaveAVoice.Models.Store.FilteredZipCode" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users" />
+          <End Type="HaveAVoice.Models.Store.FilteredZipCode" Multiplicity="*" Role="FilteredZipCode" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -963,10 +963,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_IssueComplaints_FiledByUserId_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="IssueComplaints" Type="HaveAVoice.Models.Store.IssueComplaints" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.IssueComplaints" Multiplicity="*" Role="IssueComplaints" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -977,10 +977,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_IssueComplaints_Issues">
-          <End Role="Issues" Type="HaveAVoice.Models.Store.Issues" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.Issues" Multiplicity="1" Role="Issues">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="IssueComplaints" Type="HaveAVoice.Models.Store.IssueComplaints" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.IssueComplaints" Multiplicity="*" Role="IssueComplaints" />
           <ReferentialConstraint>
             <Principal Role="Issues">
               <PropertyRef Name="Id" />
@@ -991,10 +991,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_IssueDisposition_Issues">
-          <End Role="Issues" Type="HaveAVoice.Models.Store.Issues" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.Issues" Multiplicity="1" Role="Issues">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="IssueDisposition" Type="HaveAVoice.Models.Store.IssueDisposition" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.IssueDisposition" Multiplicity="*" Role="IssueDisposition" />
           <ReferentialConstraint>
             <Principal Role="Issues">
               <PropertyRef Name="Id" />
@@ -1005,10 +1005,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_IssueDisposition_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="IssueDisposition" Type="HaveAVoice.Models.Store.IssueDisposition" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.IssueDisposition" Multiplicity="*" Role="IssueDisposition" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -1019,8 +1019,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_IssueReplyCommentComplaints_FiledByUserId_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
-          <End Role="IssueReplyCommentComplaints" Type="HaveAVoice.Models.Store.IssueReplyCommentComplaints" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users" />
+          <End Type="HaveAVoice.Models.Store.IssueReplyCommentComplaints" Multiplicity="*" Role="IssueReplyCommentComplaints" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -1031,10 +1031,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_IssueReplyCommentComplaints_IssueReplyComments">
-          <End Role="IssueReplyComments" Type="HaveAVoice.Models.Store.IssueReplyComments" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.IssueReplyComments" Multiplicity="1" Role="IssueReplyComments">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="IssueReplyCommentComplaints" Type="HaveAVoice.Models.Store.IssueReplyCommentComplaints" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.IssueReplyCommentComplaints" Multiplicity="*" Role="IssueReplyCommentComplaints" />
           <ReferentialConstraint>
             <Principal Role="IssueReplyComments">
               <PropertyRef Name="Id" />
@@ -1045,10 +1045,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_IssueReplyComments_IssueReplys">
-          <End Role="IssueReplys" Type="HaveAVoice.Models.Store.IssueReplys" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.IssueReplys" Multiplicity="1" Role="IssueReplys">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="IssueReplyComments" Type="HaveAVoice.Models.Store.IssueReplyComments" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.IssueReplyComments" Multiplicity="*" Role="IssueReplyComments" />
           <ReferentialConstraint>
             <Principal Role="IssueReplys">
               <PropertyRef Name="Id" />
@@ -1059,8 +1059,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_IssueReplyComments_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
-          <End Role="IssueReplyComments" Type="HaveAVoice.Models.Store.IssueReplyComments" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users" />
+          <End Type="HaveAVoice.Models.Store.IssueReplyComments" Multiplicity="*" Role="IssueReplyComments" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -1071,8 +1071,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_IssueReplyComplaints_FiledByUserId_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
-          <End Role="IssueReplyComplaints" Type="HaveAVoice.Models.Store.IssueReplyComplaints" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users" />
+          <End Type="HaveAVoice.Models.Store.IssueReplyComplaints" Multiplicity="*" Role="IssueReplyComplaints" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -1083,10 +1083,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_IssueReplyComplaints_IssueReplys">
-          <End Role="IssueReplys" Type="HaveAVoice.Models.Store.IssueReplys" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.IssueReplys" Multiplicity="1" Role="IssueReplys">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="IssueReplyComplaints" Type="HaveAVoice.Models.Store.IssueReplyComplaints" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.IssueReplyComplaints" Multiplicity="*" Role="IssueReplyComplaints" />
           <ReferentialConstraint>
             <Principal Role="IssueReplys">
               <PropertyRef Name="Id" />
@@ -1097,10 +1097,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_IssueReplyDisposition_IssueReplys">
-          <End Role="IssueReplys" Type="HaveAVoice.Models.Store.IssueReplys" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.IssueReplys" Multiplicity="1" Role="IssueReplys">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="IssueReplyDisposition" Type="HaveAVoice.Models.Store.IssueReplyDisposition" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.IssueReplyDisposition" Multiplicity="*" Role="IssueReplyDisposition" />
           <ReferentialConstraint>
             <Principal Role="IssueReplys">
               <PropertyRef Name="Id" />
@@ -1111,8 +1111,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_IssueReplyDisposition_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
-          <End Role="IssueReplyDisposition" Type="HaveAVoice.Models.Store.IssueReplyDisposition" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users" />
+          <End Type="HaveAVoice.Models.Store.IssueReplyDisposition" Multiplicity="*" Role="IssueReplyDisposition" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -1123,10 +1123,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_IssueReplys_Issues">
-          <End Role="Issues" Type="HaveAVoice.Models.Store.Issues" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.Issues" Multiplicity="1" Role="Issues">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="IssueReplys" Type="HaveAVoice.Models.Store.IssueReplys" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.IssueReplys" Multiplicity="*" Role="IssueReplys" />
           <ReferentialConstraint>
             <Principal Role="Issues">
               <PropertyRef Name="Id" />
@@ -1137,10 +1137,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_IssueReplys_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="IssueReplys" Type="HaveAVoice.Models.Store.IssueReplys" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.IssueReplys" Multiplicity="*" Role="IssueReplys" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -1151,8 +1151,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Issues_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
-          <End Role="Issues" Type="HaveAVoice.Models.Store.Issues" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users" />
+          <End Type="HaveAVoice.Models.Store.Issues" Multiplicity="*" Role="Issues" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -1163,8 +1163,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Message_Users_FromUserId">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
-          <End Role="Messages" Type="HaveAVoice.Models.Store.Messages" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users" />
+          <End Type="HaveAVoice.Models.Store.Messages" Multiplicity="*" Role="Messages" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -1175,10 +1175,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Message_Users_ToUserId">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Messages" Type="HaveAVoice.Models.Store.Messages" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.Messages" Multiplicity="*" Role="Messages" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -1189,8 +1189,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProfileComplaints_FiledByUserId_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
-          <End Role="ProfileComplaints" Type="HaveAVoice.Models.Store.ProfileComplaints" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users" />
+          <End Type="HaveAVoice.Models.Store.ProfileComplaints" Multiplicity="*" Role="ProfileComplaints" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -1201,8 +1201,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProfileComplaints_TowardUserId_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
-          <End Role="ProfileComplaints" Type="HaveAVoice.Models.Store.ProfileComplaints" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users" />
+          <End Type="HaveAVoice.Models.Store.ProfileComplaints" Multiplicity="*" Role="ProfileComplaints" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -1213,8 +1213,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProfilePictures_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
-          <End Role="ProfilePictures" Type="HaveAVoice.Models.Store.ProfilePictures" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users" />
+          <End Type="HaveAVoice.Models.Store.ProfilePictures" Multiplicity="*" Role="ProfilePictures" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -1225,10 +1225,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Replys_Messages">
-          <End Role="Messages" Type="HaveAVoice.Models.Store.Messages" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.Messages" Multiplicity="1" Role="Messages">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Replys" Type="HaveAVoice.Models.Store.Replys" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.Replys" Multiplicity="*" Role="Replys" />
           <ReferentialConstraint>
             <Principal Role="Messages">
               <PropertyRef Name="Id" />
@@ -1239,8 +1239,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Replys_User">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
-          <End Role="Replys" Type="HaveAVoice.Models.Store.Replys" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users" />
+          <End Type="HaveAVoice.Models.Store.Replys" Multiplicity="*" Role="Replys" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -1251,8 +1251,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Restrictions_Users_CreatedByUserId">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
-          <End Role="Restrictions" Type="HaveAVoice.Models.Store.Restrictions" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users" />
+          <End Type="HaveAVoice.Models.Store.Restrictions" Multiplicity="*" Role="Restrictions" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -1263,10 +1263,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RolePermissions_Permissions">
-          <End Role="Permissions" Type="HaveAVoice.Models.Store.Permissions" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.Permissions" Multiplicity="1" Role="Permissions">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="RolePermissions" Type="HaveAVoice.Models.Store.RolePermissions" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.RolePermissions" Multiplicity="*" Role="RolePermissions" />
           <ReferentialConstraint>
             <Principal Role="Permissions">
               <PropertyRef Name="Id" />
@@ -1277,10 +1277,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RolePermissions_Roles">
-          <End Role="Roles" Type="HaveAVoice.Models.Store.Roles" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.Roles" Multiplicity="1" Role="Roles">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="RolePermissions" Type="HaveAVoice.Models.Store.RolePermissions" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.RolePermissions" Multiplicity="*" Role="RolePermissions" />
           <ReferentialConstraint>
             <Principal Role="Roles">
               <PropertyRef Name="Id" />
@@ -1291,8 +1291,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserPictureComplaints_FiledByUserId_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
-          <End Role="UserPictureComplaints" Type="HaveAVoice.Models.Store.UserPictureComplaints" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users" />
+          <End Type="HaveAVoice.Models.Store.UserPictureComplaints" Multiplicity="*" Role="UserPictureComplaints" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -1303,8 +1303,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserPictureComplaints_UserPictures">
-          <End Role="UserPictures" Type="HaveAVoice.Models.Store.UserPictures" Multiplicity="1" />
-          <End Role="UserPictureComplaints" Type="HaveAVoice.Models.Store.UserPictureComplaints" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.UserPictures" Multiplicity="1" Role="UserPictures" />
+          <End Type="HaveAVoice.Models.Store.UserPictureComplaints" Multiplicity="*" Role="UserPictureComplaints" />
           <ReferentialConstraint>
             <Principal Role="UserPictures">
               <PropertyRef Name="Id" />
@@ -1315,8 +1315,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserPictures_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1" />
-          <End Role="UserPictures" Type="HaveAVoice.Models.Store.UserPictures" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users" />
+          <End Type="HaveAVoice.Models.Store.UserPictures" Multiplicity="*" Role="UserPictures" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -1327,10 +1327,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserPrivacySettings_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="UserPrivacySettings" Type="HaveAVoice.Models.Store.UserPrivacySettings" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.UserPrivacySettings" Multiplicity="*" Role="UserPrivacySettings" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -1341,10 +1341,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserRoles_Roles">
-          <End Role="Roles" Type="HaveAVoice.Models.Store.Roles" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.Roles" Multiplicity="1" Role="Roles">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="UserRoles" Type="HaveAVoice.Models.Store.UserRoles" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.UserRoles" Multiplicity="*" Role="UserRoles" />
           <ReferentialConstraint>
             <Principal Role="Roles">
               <PropertyRef Name="Id" />
@@ -1355,10 +1355,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserRoles_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="UserRoles" Type="HaveAVoice.Models.Store.UserRoles" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.UserRoles" Multiplicity="*" Role="UserRoles" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -1369,10 +1369,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_WhoIsOnline_Users">
-          <End Role="Users" Type="HaveAVoice.Models.Store.Users" Multiplicity="1">
+          <End Type="HaveAVoice.Models.Store.Users" Multiplicity="1" Role="Users">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="WhoIsOnline" Type="HaveAVoice.Models.Store.WhoIsOnline" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Store.WhoIsOnline" Multiplicity="*" Role="WhoIsOnline" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
@@ -1436,12 +1436,12 @@
           </AssociationSet>
           <EntitySet Name="Restrictions" EntityType="HaveAVoice.Models.Restriction" />
           <AssociationSet Name="FK_Restrictions_Users_CreatedByUserId" Association="HaveAVoice.Models.FK_Restrictions_Users_CreatedByUserId">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Restriction" EntitySet="Restrictions" />
+            <End EntitySet="Users" Role="User" />
+            <End EntitySet="Restrictions" Role="Restriction" />
           </AssociationSet>
           <AssociationSet Name="FK_Roles_Restrictions" Association="HaveAVoice.Models.FK_Roles_Restrictions">
-            <End Role="Restriction" EntitySet="Restrictions" />
-            <End Role="Role" EntitySet="Roles" />
+            <End EntitySet="Restrictions" Role="Restriction" />
+            <End EntitySet="Roles" Role="Role" />
           </AssociationSet>
           <AssociationSet Name="FK_Roles_Users" Association="HaveAVoice.Models.FK_Roles_Users">
             <End Role="User" EntitySet="Users" />
@@ -1521,11 +1521,6 @@
           <AssociationSet Name="FK_FilteredZipCode_Users" Association="HaveAVoice.Models.FK_FilteredZipCode_Users">
             <End Role="User" EntitySet="Users" />
             <End Role="FilteredZipCode" EntitySet="FilteredZipCodes" />
-          </AssociationSet>
-          <EntitySet Name="Events" EntityType="HaveAVoice.Models.Event" />
-          <AssociationSet Name="FK_Events_Users" Association="HaveAVoice.Models.FK_Events_Users">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Event" EntitySet="Events" />
           </AssociationSet>
           <EntitySet Name="Permissions" EntityType="HaveAVoice.Models.Permission" />
           <AssociationSet Name="FK_RolePermissions_Permissions" Association="HaveAVoice.Models.FK_RolePermissions_Permissions">
@@ -1645,6 +1640,11 @@
             <End Role="Message" EntitySet="Messages" />
             <End Role="Reply" EntitySet="Replys" />
           </AssociationSet>
+          <EntitySet Name="Events" EntityType="HaveAVoice.Models.Event" />
+          <AssociationSet Name="FK_Events_Users" Association="HaveAVoice.Models.FK_Events_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Event" EntitySet="Events" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="ProfilePicture">
           <Key>
@@ -1742,7 +1742,6 @@
           <NavigationProperty Name="FanSource" Relationship="HaveAVoice.Models.FK_Fans_SourceUserId_Users" FromRole="User" ToRole="Fan" />
           <NavigationProperty Name="FilteredCityStates" Relationship="HaveAVoice.Models.FK_FilteredCityState_Users" FromRole="User" ToRole="FilteredCityState" />
           <NavigationProperty Name="FilteredZipCodes" Relationship="HaveAVoice.Models.FK_FilteredZipCode_Users" FromRole="User" ToRole="FilteredZipCode" />
-          <NavigationProperty Name="Events" Relationship="HaveAVoice.Models.FK_Events_Users" FromRole="User" ToRole="Event" />
           <NavigationProperty Name="Feedbacks" Relationship="HaveAVoice.Models.FK_Feedback_Users" FromRole="User" ToRole="Feedback" />
           <NavigationProperty Name="AuditIssueReplyComments" Relationship="HaveAVoice.Models.FK_AuditIssueReplyComments_Users" FromRole="User" ToRole="AuditIssueReplyComment" />
           <NavigationProperty Name="AuditIssueReplys" Relationship="HaveAVoice.Models.FK_AuditIssueReplys_Users" FromRole="User" ToRole="AuditIssueReply" />
@@ -1758,6 +1757,7 @@
           <NavigationProperty Name="MessagesSent" Relationship="HaveAVoice.Models.FK_Message_Users_FromUserId" FromRole="User" ToRole="Message" />
           <NavigationProperty Name="MessagesReceived" Relationship="HaveAVoice.Models.FK_Message_Users_ToUserId" FromRole="User" ToRole="Message" />
           <NavigationProperty Name="Replys" Relationship="HaveAVoice.Models.FK_Replys_User" FromRole="User" ToRole="Reply" />
+          <NavigationProperty Name="Events" Relationship="HaveAVoice.Models.FK_Events_Users" FromRole="User" ToRole="Event" />
           </EntityType>
         <EntityType Name="ErrorLog">
           <Key>
@@ -1868,37 +1868,37 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
           <NavigationProperty Name="CreatedByUser" Relationship="HaveAVoice.Models.FK_Restrictions_Users_CreatedByUserId" FromRole="Restriction" ToRole="User" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Description" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="Description" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" Type="String" />
           <NavigationProperty Name="Roles" Relationship="HaveAVoice.Models.FK_Roles_Restrictions" FromRole="Restriction" ToRole="Role" />
-          <Property Type="Int32" Name="IssuePostsWithinTimeLimit" Nullable="false" />
-          <Property Type="Int64" Name="IssuePostsTimeLimit" Nullable="false" />
-          <Property Type="Int64" Name="IssuePostsWaitTimeBeforePostSeconds" Nullable="false" />
-          <Property Type="Int32" Name="IssueReplyPostsWithinTimeLimit" Nullable="false" />
-          <Property Type="Int64" Name="IssueReplyPostsTimeLimit" Nullable="false" />
-          <Property Type="Int64" Name="IssueReplyPostsWaitTimeBeforePostSeconds" Nullable="false" />
-          <Property Type="Int32" Name="IssueReplyCommentPostsWithinTimeLimit" Nullable="false" />
-          <Property Type="Int64" Name="IssueReplyCommentPostsTimeLimit" Nullable="false" />
-          <Property Type="Int64" Name="IssueReplyCommentPostsWaitTimeBeforePostSeconds" Nullable="false" />
-          <Property Type="Int32" Name="MergeIssueRequestWithinTimeLimit" Nullable="false" />
-          <Property Type="Int64" Name="MergeIssueRequestTimeLimit" Nullable="false" />
-          <Property Type="Int64" Name="MergeIssueRequestWaitTimeBeforePostSeconds" Nullable="false" />
-          <Property Type="Int32" Name="IssueReportsBeforeLockout" Nullable="false" />
-          <Property Type="DateTime" Name="EditedDateTimeStamp" />
-          <Property Type="Int32" Name="DeletedByUserId" />
-          <Property Type="DateTime" Name="DeletedDateTimeStamp" />
-          <Property Type="Int32" Name="EditedByUserId" />
-          <Property Type="Boolean" Name="Deleted" Nullable="false" />
+          <Property Name="IssuePostsWithinTimeLimit" Nullable="false" Type="Int32" />
+          <Property Name="IssuePostsTimeLimit" Nullable="false" Type="Int64" />
+          <Property Name="IssuePostsWaitTimeBeforePostSeconds" Nullable="false" Type="Int64" />
+          <Property Name="IssueReplyPostsWithinTimeLimit" Nullable="false" Type="Int32" />
+          <Property Name="IssueReplyPostsTimeLimit" Nullable="false" Type="Int64" />
+          <Property Name="IssueReplyPostsWaitTimeBeforePostSeconds" Nullable="false" Type="Int64" />
+          <Property Name="IssueReplyCommentPostsWithinTimeLimit" Nullable="false" Type="Int32" />
+          <Property Name="IssueReplyCommentPostsTimeLimit" Nullable="false" Type="Int64" />
+          <Property Name="IssueReplyCommentPostsWaitTimeBeforePostSeconds" Nullable="false" Type="Int64" />
+          <Property Name="MergeIssueRequestWithinTimeLimit" Nullable="false" Type="Int32" />
+          <Property Name="MergeIssueRequestTimeLimit" Nullable="false" Type="Int64" />
+          <Property Name="MergeIssueRequestWaitTimeBeforePostSeconds" Nullable="false" Type="Int64" />
+          <Property Name="IssueReportsBeforeLockout" Nullable="false" Type="Int32" />
+          <Property Name="EditedDateTimeStamp" Type="DateTime" />
+          <Property Name="DeletedByUserId" Type="Int32" />
+          <Property Name="DeletedDateTimeStamp" Type="DateTime" />
+          <Property Name="EditedByUserId" Type="Int32" />
+          <Property Name="Deleted" Nullable="false" Type="Boolean" />
         </EntityType>
         <Association Name="FK_Restrictions_Users_CreatedByUserId">
-          <End Type="HaveAVoice.Models.User" Role="User" Multiplicity="1" />
-          <End Type="HaveAVoice.Models.Restriction" Role="Restriction" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.User" Multiplicity="1" Role="User" />
+          <End Type="HaveAVoice.Models.Restriction" Multiplicity="*" Role="Restriction" />
         </Association>
         <Association Name="FK_Roles_Restrictions">
-          <End Type="HaveAVoice.Models.Restriction" Role="Restriction" Multiplicity="1" />
-          <End Type="HaveAVoice.Models.Role" Role="Role" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.Restriction" Multiplicity="1" Role="Restriction" />
+          <End Type="HaveAVoice.Models.Role" Multiplicity="*" Role="Role" />
         </Association>
         <Association Name="FK_Roles_Users">
           <End Type="HaveAVoice.Models.User" Role="User" Multiplicity="1" />
@@ -2066,21 +2066,6 @@
         <Association Name="FK_FilteredZipCode_Users">
           <End Type="HaveAVoice.Models.User" Role="User" Multiplicity="1" />
           <End Type="HaveAVoice.Models.FilteredZipCode" Role="FilteredZipCode" Multiplicity="*" />
-        </Association>
-        <EntityType Name="Event">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="DateTime" Name="Date" Nullable="false" />
-          <Property Type="String" Name="Information" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="User" Relationship="HaveAVoice.Models.FK_Events_Users" FromRole="Event" ToRole="User" />
-          <Property Type="Boolean" Name="Deleted" Nullable="false" />
-          <Property Type="Int32" Name="DeletedUserId" />
-        </EntityType>
-        <Association Name="FK_Events_Users">
-          <End Type="HaveAVoice.Models.User" Role="User" Multiplicity="1" />
-          <End Type="HaveAVoice.Models.Event" Role="Event" Multiplicity="*" />
         </Association>
         <EntityType Name="Permission">
           <Key>
@@ -2577,6 +2562,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <Property Type="String" Name="Information" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="Deleted" Nullable="false" />
+          <Property Type="Int32" Name="DeletedUserId" />
+          <NavigationProperty Name="User" Relationship="HaveAVoice.Models.FK_Events_Users" FromRole="Event" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Events_Users">
+          <End Type="HaveAVoice.Models.User" Role="User" Multiplicity="1" />
+          <End Type="HaveAVoice.Models.Event" Role="Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Event">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3062,25 +3071,6 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="Events">
-            <EntityTypeMapping TypeName="HaveAVoice.Models.Event">
-              <MappingFragment StoreEntitySet="Events">
-                <ScalarProperty Name="DeletedUserId" ColumnName="DeletedUserId" />
-                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-                <ScalarProperty Name="Information" ColumnName="Information" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="FK_Events_Users" TypeName="HaveAVoice.Models.FK_Events_Users" StoreEntitySet="Events">
-            <EndProperty Name="Event">
-              <ScalarProperty Name="Id" ColumnName="Id" />
-            </EndProperty>
-            <EndProperty Name="User">
-              <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="Permissions">
             <EntityTypeMapping TypeName="HaveAVoice.Models.Permission">
               <MappingFragment StoreEntitySet="Permissions">
@@ -3262,6 +3252,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="HaveAVoice.Models.Event">
+              <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="DeletedUserId" ColumnName="DeletedUserId" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Information" ColumnName="Information" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -3295,8 +3297,8 @@
         <EntityTypeShape EntityType="HaveAVoice.Models.Timezone" Width="1.5" PointX="2.5" PointY="6.25" Height="1.5956835937499818" />
         <EntityTypeShape EntityType="HaveAVoice.Models.UserPicture" Width="1.5" PointX="4.125" PointY="25.25" Height="2.1725878906249996" />
         <AssociationConnector Association="HaveAVoice.Models.FK_ProfilePictures_Users" >
-          <ConnectorPoint PointX="6.3769515625" PointY="11.5" />
-          <ConnectorPoint PointX="6.3769515625" PointY="9.2278857421875" />
+          <ConnectorPoint PointX="6.3750288525390628" PointY="11.5" />
+          <ConnectorPoint PointX="6.3750288525390628" PointY="9.2278857421875" />
           <ConnectorPoint PointX="6.666666666666667" PointY="9.2278857421875" />
           <ConnectorPoint PointX="6.833333333333333" PointY="9.2278857421875" />
           <ConnectorPoint PointX="7.125" PointY="9.2278857421875" />
@@ -3306,8 +3308,8 @@
           <ConnectorPoint PointX="1.25" PointY="15.345683593749982" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_UserRoles_Roles" >
-          <ConnectorPoint PointX="2" PointY="18.220896809895834" />
-          <ConnectorPoint PointX="3.125" PointY="18.220896809895834" />
+          <ConnectorPoint PointX="2" PointY="17.853170607421873" />
+          <ConnectorPoint PointX="3.125" PointY="17.853170607421873" />
           <ConnectorPoint PointX="3.125" PointY="15.845683593749982" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_UserRoles_Users" >
@@ -3319,39 +3321,72 @@
           <ConnectorPoint PointX="7.125" PointY="12.119944661458334" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_IssueReplys_Users">
-          <ConnectorPoint PointX="7" PointY="17.197770908453524" />
-          <ConnectorPoint PointX="10.354166666666666" PointY="17.197770908453524" />
-          <ConnectorPoint PointX="10.520833333333334" PointY="17.197770908453524" />
-          <ConnectorPoint PointX="11.041666666666666" PointY="17.197770908453524" />
-          <ConnectorPoint PointX="11.208333333333334" PointY="17.197770908453524" />
-          <ConnectorPoint PointX="11.375" PointY="17.197770908453524" />
+          <ConnectorPoint PointX="7" PointY="17.331492513020834" />
+          <ConnectorPoint PointX="10.166666666666666" PointY="17.331492513020834" />
+          <ConnectorPoint PointX="10.333333333333334" PointY="17.331492513020834" />
+          <ConnectorPoint PointX="10.354166666666666" PointY="17.331492513020834" />
+          <ConnectorPoint PointX="10.520833333333334" PointY="17.331492513020834" />
+          <ConnectorPoint PointX="11.041666666666666" PointY="17.331492513020834" />
+          <ConnectorPoint PointX="11.208333333333334" PointY="17.331492513020834" />
+          <ConnectorPoint PointX="11.375" PointY="17.331492513020834" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_Issues_Users">
           <ConnectorPoint PointX="7" PointY="21.09375" />
+          <ConnectorPoint PointX="10.166666666666666" PointY="21.09375" />
+          <ConnectorPoint PointX="10.333333333333334" PointY="21.09375" />
           <ConnectorPoint PointX="10.5" PointY="21.09375" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_UserPictures_Users" >
-          <ConnectorPoint PointX="4.7294828612781394" PointY="23.672262369791667" />
-          <ConnectorPoint PointX="4.7294828612781394" PointY="25.25" />
+          <ConnectorPoint PointX="4.98465989707066" PointY="23.672262369791667" />
+          <ConnectorPoint PointX="4.98465989707066" PointY="25.25" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_IssueReplys_Issues">
-          <ConnectorPoint PointX="11.6875" PointY="20.875" />
-          <ConnectorPoint PointX="11.6875" PointY="19.153300781250003" />
+          <ConnectorPoint PointX="11.75" PointY="20.875" />
+          <ConnectorPoint PointX="11.75" PointY="19.153300781250003" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="HaveAVoice.Models.Restriction" Width="2.875" PointX="1" PointY="8.375" Height="5.4417122395833335" />
-        <AssociationConnector Association="HaveAVoice.Models.FK_Restrictions_Users_CreatedByUserId" >
-          <ConnectorPoint PointX="4.25" PointY="12.658356119791666" />
-          <ConnectorPoint PointX="3.875" PointY="12.658356119791666" />
+        <EntityTypeShape EntityType="HaveAVoice.Models.Restriction" PointX="11.375" PointY="4.25" Width="2.875" Height="5.4417122395833335" />
+        <AssociationConnector Association="HaveAVoice.Models.FK_Restrictions_Users_CreatedByUserId">
+          <ConnectorPoint PointX="5.4687559631347655" PointY="11.5" />
+          <ConnectorPoint PointX="5.4687559631347655" PointY="8.7302864583333335" />
+          <ConnectorPoint PointX="5.875" PointY="8.7302864583333335" />
+          <ConnectorPoint PointX="5.875" PointY="7.2401432291666623" />
+          <ConnectorPoint PointX="5.916678592936198" PointY="7.2401432291666614" />
+          <ConnectorPoint PointX="6.0833452596028641" PointY="7.2401432291666623" />
+          <ConnectorPoint PointX="6.666666666666667" PointY="7.2401432291666614" />
+          <ConnectorPoint PointX="6.833333333333333" PointY="7.2401432291666623" />
+          <ConnectorPoint PointX="11.375" PointY="7.2401432291666623" />
         </AssociationConnector>
-        <AssociationConnector Association="HaveAVoice.Models.FK_Roles_Restrictions" >
-          <ConnectorPoint PointX="2.9375005" PointY="13.816712239583334" />
-          <ConnectorPoint PointX="2.9375005" PointY="14.1875" />
-          <ConnectorPoint PointX="2.3125" PointY="14.1875" />
-          <ConnectorPoint PointX="2.3125" PointY="17.454196404947915" />
-          <ConnectorPoint PointX="2" PointY="17.454196404947915" />
+        <AssociationConnector Association="HaveAVoice.Models.FK_Roles_Restrictions">
+          <ConnectorPoint PointX="12.8125" PointY="9.6917122395833335" />
+          <ConnectorPoint PointX="12.8125" PointY="15.125" />
+          <ConnectorPoint PointX="10.520833333333334" PointY="15.125" />
+          <ConnectorPoint PointX="10.354166666666666" PointY="15.125" />
+          <ConnectorPoint PointX="10.25" PointY="15.125" />
+          <ConnectorPoint PointX="10.25" PointY="23.922262369791667" />
+          <ConnectorPoint PointX="8.3958333333333339" PointY="23.922262369791667" />
+          <ConnectorPoint PointX="8.2291666666666661" PointY="23.922262369791667" />
+          <ConnectorPoint PointX="6.9295897356822236" PointY="23.922262369791667" />
+          <ConnectorPoint PointX="6.7629230690155575" PointY="23.922262369791667" />
+          <ConnectorPoint PointX="6.7133411380311143" PointY="23.922262369791667" />
+          <ConnectorPoint PointX="6.5466744713644482" PointY="23.922262369791667" />
+          <ConnectorPoint PointX="6.4477123880311149" PointY="23.922262369791667" />
+          <ConnectorPoint PointX="6.2810457213644488" PointY="23.922262369791667" />
+          <ConnectorPoint PointX="6.196074674738548" PointY="23.922262369791664" />
+          <ConnectorPoint PointX="5.651849157563972" PointY="23.922262369791667" />
+          <ConnectorPoint PointX="5.0679932304039932" PointY="23.922262369791667" />
+          <ConnectorPoint PointX="4.9013265637373271" PointY="23.922262369791667" />
+          <ConnectorPoint PointX="4.0854477179487168" PointY="23.922262369791667" />
+          <ConnectorPoint PointX="3.9187810512820502" PointY="23.922262369791667" />
+          <ConnectorPoint PointX="2.375" PointY="23.922262369791667" />
+          <ConnectorPoint PointX="2.375" PointY="17.853170607421873" />
+          <ConnectorPoint PointX="2" PointY="17.853170607421873" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_Roles_Users" >
           <ConnectorPoint PointX="4.25" PointY="19.018845214843751" />
+          <ConnectorPoint PointX="2.4583333333333335" PointY="19.018845214843751" />
+          <ConnectorPoint PointX="2.1041666666666665" PointY="18.72579092090205" />
+          <ConnectorPoint PointX="2" PointY="18.72579092090205" />
+          <ConnectorPoint PointX="2.2916666666666665" PointY="19.018845214843751" />
           <ConnectorPoint PointX="2" PointY="19.018845214843751" />
         </AssociationConnector>
         <EntityTypeShape EntityType="HaveAVoice.Models.WhoIsOnline" Width="1.5" PointX="4.125" PointY="6.5" Height="1.7879850260416665" />
@@ -3367,23 +3402,27 @@
           <ConnectorPoint PointX="7.875" PointY="18.768992513020834" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_IssueReplyComplaints_FiledByUserId_Users" >
-          <ConnectorPoint PointX="7" PointY="20.268992513020834" />
-          <ConnectorPoint PointX="10.354166666666666" PointY="20.268992513020834" />
-          <ConnectorPoint PointX="10.520833333333334" PointY="20.268992513020834" />
-          <ConnectorPoint PointX="10.729166666666666" PointY="20.268992513020834" />
-          <ConnectorPoint PointX="10.895833333333334" PointY="20.268992513020834" />
-          <ConnectorPoint PointX="11.604166666666666" PointY="20.268992513020834" />
-          <ConnectorPoint PointX="11.770833333333334" PointY="20.268992513020834" />
-          <ConnectorPoint PointX="12.666666666666666" PointY="20.268992513020834" />
-          <ConnectorPoint PointX="12.833333333333334" PointY="20.268992513020834" />
-          <ConnectorPoint PointX="13" PointY="20.268992513020834" />
+          <ConnectorPoint PointX="7" PointY="20.112742513020834" />
+          <ConnectorPoint PointX="10.166666666666666" PointY="20.112742513020834" />
+          <ConnectorPoint PointX="10.333333333333334" PointY="20.112742513020834" />
+          <ConnectorPoint PointX="10.354166666666666" PointY="20.112742513020834" />
+          <ConnectorPoint PointX="10.520833333333334" PointY="20.112742513020834" />
+          <ConnectorPoint PointX="10.729166666666666" PointY="20.112742513020834" />
+          <ConnectorPoint PointX="10.895833333333334" PointY="20.112742513020834" />
+          <ConnectorPoint PointX="11.666666666666666" PointY="20.112742513020834" />
+          <ConnectorPoint PointX="11.833333333333334" PointY="20.112742513020834" />
+          <ConnectorPoint PointX="12.666666666666666" PointY="20.112742513020834" />
+          <ConnectorPoint PointX="12.833333333333334" PointY="20.112742513020834" />
+          <ConnectorPoint PointX="13" PointY="20.112742513020834" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_IssueComplaints_Issues">
           <ConnectorPoint PointX="10.8125" PointY="20.875" />
-          <ConnectorPoint PointX="10.8125" PointY="19.518992513020834" />
-          <ConnectorPoint PointX="10.520833333333334" PointY="19.518992513020834" />
-          <ConnectorPoint PointX="10.354166666666666" PointY="19.518992513020834" />
-          <ConnectorPoint PointX="10" PointY="19.518992513020834" />
+          <ConnectorPoint PointX="10.8125" PointY="19.514150390625" />
+          <ConnectorPoint PointX="10.520833333333334" PointY="19.514150390625" />
+          <ConnectorPoint PointX="10.354166666666666" PointY="19.514150390625" />
+          <ConnectorPoint PointX="10.333333333333334" PointY="19.514150390625" />
+          <ConnectorPoint PointX="10.166666666666666" PointY="19.514150390625" />
+          <ConnectorPoint PointX="10" PointY="19.514150390625" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_IssueReplyComplaints_IssueReplys">
           <ConnectorPoint PointX="12.875" PointY="19.153300781250003" />
@@ -3391,24 +3430,26 @@
         </AssociationConnector>
         <EntityTypeShape EntityType="HaveAVoice.Models.ProfileComplaint" Width="1.5" PointX="7.75" PointY="15" Height="1.7879850260416674" />
         <AssociationConnector Association="HaveAVoice.Models.FK_ProfileComplaints_FiledByUserId_Users" >
-          <ConnectorPoint PointX="7" PointY="16.16304735936874" />
-          <ConnectorPoint PointX="7.75" PointY="16.16304735936874" />
+          <ConnectorPoint PointX="7" PointY="16.091308944310896" />
+          <ConnectorPoint PointX="7.75" PointY="16.091308944310896" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_ProfileComplaints_TowardUserId_Users" >
-          <ConnectorPoint PointX="7" PointY="15.51902367968437" />
-          <ConnectorPoint PointX="7.75" PointY="15.51902367968437" />
+          <ConnectorPoint PointX="7" PointY="15.483154472155448" />
+          <ConnectorPoint PointX="7.75" PointY="15.483154472155448" />
         </AssociationConnector>
         <EntityTypeShape EntityType="HaveAVoice.Models.IssueDisposition" Width="1.5" PointX="15" PointY="10.125" Height="1.7879850260416674" />
         <AssociationConnector Association="HaveAVoice.Models.FK_IssueDisposition_Users" >
-          <ConnectorPoint PointX="7" PointY="14.263137833220132" />
-          <ConnectorPoint PointX="10.354166666666666" PointY="14.263137833220132" />
-          <ConnectorPoint PointX="10.520833333333334" PointY="14.263137833220132" />
-          <ConnectorPoint PointX="14.197916666666666" PointY="14.263137833220132" />
-          <ConnectorPoint PointX="14.364583333333334" PointY="14.263137833220132" />
-          <ConnectorPoint PointX="15.229164166666665" PointY="14.263137833220132" />
-          <ConnectorPoint PointX="15.395830833333333" PointY="14.263137833220132" />
-          <ConnectorPoint PointX="15.59375125" PointY="14.263137833220132" />
-          <ConnectorPoint PointX="15.59375125" PointY="11.912985026041667" />
+          <ConnectorPoint PointX="7" PointY="14.22189719180799" />
+          <ConnectorPoint PointX="10.354166666666666" PointY="14.22189719180799" />
+          <ConnectorPoint PointX="10.520833333333334" PointY="14.22189719180799" />
+          <ConnectorPoint PointX="12.729166666666666" PointY="14.22189719180799" />
+          <ConnectorPoint PointX="12.895833333333334" PointY="14.22189719180799" />
+          <ConnectorPoint PointX="14.197916666666666" PointY="14.22189719180799" />
+          <ConnectorPoint PointX="14.364583333333334" PointY="14.22189719180799" />
+          <ConnectorPoint PointX="15.229164166666665" PointY="14.22189719180799" />
+          <ConnectorPoint PointX="15.395830833333333" PointY="14.22189719180799" />
+          <ConnectorPoint PointX="15.65625" PointY="14.22189719180799" />
+          <ConnectorPoint PointX="15.65625" PointY="11.912985026041667" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_IssueDisposition_Issues">
           <ConnectorPoint PointX="12" PointY="23.569194335937503" />
@@ -3419,15 +3460,17 @@
         </AssociationConnector>
         <EntityTypeShape EntityType="HaveAVoice.Models.UserPrivacySetting" Width="1.5" PointX="6.25" PointY="27" Height="1.9802864583333246" />
         <AssociationConnector Association="HaveAVoice.Models.FK_UserPrivacySettings_Users" >
-          <ConnectorPoint PointX="6.3681461875822567" PointY="23.672262369791667" />
-          <ConnectorPoint PointX="6.3681461875822567" PointY="27" />
+          <ConnectorPoint PointX="6.3643790546977819" PointY="23.672262369791667" />
+          <ConnectorPoint PointX="6.3643790546977819" PointY="27" />
         </AssociationConnector>
         <EntityTypeShape EntityType="HaveAVoice.Models.IssueReplyDisposition" Width="1.5" PointX="13.625" PointY="15.5" Height="1.7879850260416674" />
         <AssociationConnector Association="HaveAVoice.Models.FK_IssueReplyDisposition_Users" >
-          <ConnectorPoint PointX="7" PointY="14.017136078068406" />
-          <ConnectorPoint PointX="10.354166666666666" PointY="14.017136078068406" />
-          <ConnectorPoint PointX="10.520833333333334" PointY="14.017136078068406" />
-          <ConnectorPoint PointX="14.28125" PointY="14.017136078068406" />
+          <ConnectorPoint PointX="7" PointY="13.996515757362335" />
+          <ConnectorPoint PointX="10.354166666666666" PointY="13.996515757362335" />
+          <ConnectorPoint PointX="10.520833333333334" PointY="13.996515757362335" />
+          <ConnectorPoint PointX="12.729166666666666" PointY="13.996515757362335" />
+          <ConnectorPoint PointX="12.895833333333334" PointY="13.996515757362335" />
+          <ConnectorPoint PointX="14.28125" PointY="13.996515757362335" />
           <ConnectorPoint PointX="14.28125" PointY="15.5" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_IssueReplyDisposition_IssueReplys">
@@ -3436,15 +3479,15 @@
         </AssociationConnector>
         <EntityTypeShape EntityType="HaveAVoice.Models.Fan" Width="1.5" PointX="8.875" PointY="24.75" Height="1.5956835937500102" />
         <AssociationConnector Association="HaveAVoice.Models.FK_Fans_FanUserId_Users" >
-          <ConnectorPoint PointX="6.6337749375822561" PointY="23.672262369791667" />
-          <ConnectorPoint PointX="6.6337749375822561" PointY="25.09375" />
+          <ConnectorPoint PointX="6.6300078046977813" PointY="23.672262369791667" />
+          <ConnectorPoint PointX="6.6300078046977813" PointY="25.09375" />
           <ConnectorPoint PointX="8.2291666666666661" PointY="25.09375" />
           <ConnectorPoint PointX="8.3958333333333339" PointY="25.09375" />
           <ConnectorPoint PointX="8.875" PointY="25.09375" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_Fans_SourceUserId_Users" >
-          <ConnectorPoint PointX="6.848139968791128" PointY="23.672262369791667" />
-          <ConnectorPoint PointX="6.848139968791128" PointY="24.875" />
+          <ConnectorPoint PointX="6.8462564023488905" PointY="23.672262369791667" />
+          <ConnectorPoint PointX="6.8462564023488905" PointY="24.875" />
           <ConnectorPoint PointX="8.2291666666666661" PointY="24.875" />
           <ConnectorPoint PointX="8.3958333333333339" PointY="24.875" />
           <ConnectorPoint PointX="8.875" PointY="24.875" />
@@ -3452,43 +3495,37 @@
         <EntityTypeShape EntityType="HaveAVoice.Models.FilteredCityState" Width="1.5" PointX="3.875" PointY="3.125" Height="1.7879850260416674" />
         <EntityTypeShape EntityType="HaveAVoice.Models.FilteredZipCode" Width="1.5" PointX="6.5" PointY="2.5" Height="1.595683593749996" />
         <AssociationConnector Association="HaveAVoice.Models.FK_FilteredCityState_Users" >
-          <ConnectorPoint PointX="6.00097328125" PointY="11.5" />
-          <ConnectorPoint PointX="6.00097328125" PointY="4.5355843098958317" />
+          <ConnectorPoint PointX="6.0000119262695311" PointY="11.5" />
+          <ConnectorPoint PointX="6.0000119262695311" PointY="4.5355843098958317" />
           <ConnectorPoint PointX="5.375" PointY="4.5355843098958317" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_FilteredZipCode_Users" >
           <ConnectorPoint PointX="6.75" PointY="11.5" />
           <ConnectorPoint PointX="6.75" PointY="4.095683593749996" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="HaveAVoice.Models.Event" Width="1.5" PointX="1.375" PointY="28.75" Height="2.172587890624996" />
-        <AssociationConnector Association="HaveAVoice.Models.FK_Events_Users" >
-          <ConnectorPoint PointX="5.8422074721442012" PointY="23.672262369791667" />
-          <ConnectorPoint PointX="5.8422074721442012" PointY="30.014486188888547" />
-          <ConnectorPoint PointX="5.8169345694054337" PointY="30.014486188888547" />
-          <ConnectorPoint PointX="5.6502679027387677" PointY="30.014486188888547" />
-          <ConnectorPoint PointX="2.875" PointY="30.014486188888547" />
-        </AssociationConnector>
         <EntityTypeShape EntityType="HaveAVoice.Models.Permission" Width="1.5" PointX="0.75" PointY="2.75" Height="2.3648893229166674" />
         <AssociationConnector Association="HaveAVoice.Models.FK_RolePermissions_Permissions" >
-          <ConnectorPoint PointX="0.84375" PointY="5.1148893229166674" />
-          <ConnectorPoint PointX="0.84375" PointY="13.75" />
+          <ConnectorPoint PointX="1.375" PointY="5.1148893229166674" />
+          <ConnectorPoint PointX="1.375" PointY="13.75" />
         </AssociationConnector>
         <EntityTypeShape EntityType="HaveAVoice.Models.Feedback" Width="1.5" PointX="3.25" PointY="31.125" Height="1.9802864583333317" />
         <AssociationConnector Association="HaveAVoice.Models.FK_Feedback_Users">
-          <ConnectorPoint PointX="6.0040320401353835" PointY="23.672262369791667" />
-          <ConnectorPoint PointX="6.0040320401353835" PointY="32.115143229166662" />
+          <ConnectorPoint PointX="5.90787498179461" PointY="23.672262369791667" />
+          <ConnectorPoint PointX="5.90787498179461" PointY="32.115143229166662" />
           <ConnectorPoint PointX="4.75" PointY="32.115143229166662" />
         </AssociationConnector>
         <EntityTypeShape EntityType="HaveAVoice.Models.AuditIssueReplyComment" Width="1.5" PointX="17.75" PointY="12.375" Height="2.3648893229166674" />
         <AssociationConnector Association="HaveAVoice.Models.FK_AuditIssueReplyComments_Users" >
-          <ConnectorPoint PointX="7" PointY="14.5640135780684" />
-          <ConnectorPoint PointX="10.354166666666666" PointY="14.5640135780684" />
-          <ConnectorPoint PointX="10.520833333333334" PointY="14.5640135780684" />
-          <ConnectorPoint PointX="14.197916666666666" PointY="14.5640135780684" />
-          <ConnectorPoint PointX="14.364583333333334" PointY="14.5640135780684" />
-          <ConnectorPoint PointX="15.229164166666665" PointY="14.5640135780684" />
-          <ConnectorPoint PointX="15.395830833333333" PointY="14.5640135780684" />
-          <ConnectorPoint PointX="17.75" PointY="14.5640135780684" />
+          <ConnectorPoint PointX="7" PointY="14.543393257362329" />
+          <ConnectorPoint PointX="10.354166666666666" PointY="14.543393257362329" />
+          <ConnectorPoint PointX="10.520833333333334" PointY="14.543393257362329" />
+          <ConnectorPoint PointX="12.729166666666666" PointY="14.543393257362329" />
+          <ConnectorPoint PointX="12.895833333333334" PointY="14.543393257362329" />
+          <ConnectorPoint PointX="14.197916666666666" PointY="14.543393257362329" />
+          <ConnectorPoint PointX="14.364583333333334" PointY="14.543393257362329" />
+          <ConnectorPoint PointX="15.229164166666665" PointY="14.543393257362329" />
+          <ConnectorPoint PointX="15.395830833333333" PointY="14.543393257362329" />
+          <ConnectorPoint PointX="17.75" PointY="14.543393257362329" />
         </AssociationConnector>
         <EntityTypeShape EntityType="HaveAVoice.Models.AuditIssueReply" Width="1.5" PointX="16.625" PointY="16.25" Height="2.5571907552083388" />
         <AssociationConnector Association="HaveAVoice.Models.FK_AuditIssueReplys_IssueReplys">
@@ -3498,14 +3535,16 @@
           <ConnectorPoint PointX="16.625" PointY="18.078837890625003" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_AuditIssueReplys_Users" >
-          <ConnectorPoint PointX="7" PointY="14.833644038666083" />
-          <ConnectorPoint PointX="10.354166666666666" PointY="14.833644038666083" />
-          <ConnectorPoint PointX="10.520833333333334" PointY="14.833644038666083" />
-          <ConnectorPoint PointX="14.197916666666666" PointY="14.833644038666083" />
-          <ConnectorPoint PointX="14.364583333333334" PointY="14.833644038666083" />
-          <ConnectorPoint PointX="15.229164166666665" PointY="14.833644038666083" />
-          <ConnectorPoint PointX="15.395830833333333" PointY="14.833644038666083" />
-          <ConnectorPoint PointX="17.15625" PointY="14.833644038666083" />
+          <ConnectorPoint PointX="7" PointY="14.833642099885338" />
+          <ConnectorPoint PointX="10.354166666666666" PointY="14.833642099885338" />
+          <ConnectorPoint PointX="10.520833333333334" PointY="14.833642099885338" />
+          <ConnectorPoint PointX="12.729166666666666" PointY="14.833642099885338" />
+          <ConnectorPoint PointX="12.895833333333334" PointY="14.833642099885338" />
+          <ConnectorPoint PointX="14.197916666666666" PointY="14.833642099885338" />
+          <ConnectorPoint PointX="14.364583333333334" PointY="14.833642099885338" />
+          <ConnectorPoint PointX="15.229164166666665" PointY="14.833642099885338" />
+          <ConnectorPoint PointX="15.395830833333333" PointY="14.833642099885338" />
+          <ConnectorPoint PointX="17.15625" PointY="14.833642099885338" />
           <ConnectorPoint PointX="17.15625" PointY="16.25" />
         </AssociationConnector>
         <EntityTypeShape EntityType="HaveAVoice.Models.AuditIssue" Width="1.5" PointX="15.875" PointY="20.125" Height="2.5571907552083388" />
@@ -3514,19 +3553,19 @@
           <ConnectorPoint PointX="13.416666666666666" PointY="22.078837890625003" />
           <ConnectorPoint PointX="13.583333333333334" PointY="22.078837890625003" />
           <ConnectorPoint PointX="15.229164166666665" PointY="22.078837890625003" />
-          <ConnectorPoint PointX="15.229164166666665" PointY="22.078837890625003" />
-          <ConnectorPoint PointX="15.395830833333333" PointY="22.078837890625003" />
           <ConnectorPoint PointX="15.395830833333333" PointY="22.078837890625003" />
           <ConnectorPoint PointX="15.875" PointY="22.078837890625003" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_AuditIssues_Users" >
-          <ConnectorPoint PointX="7" PointY="15.84730053084936" />
-          <ConnectorPoint PointX="10.354166666666666" PointY="15.84730053084936" />
-          <ConnectorPoint PointX="10.520833333333334" PointY="15.84730053084936" />
-          <ConnectorPoint PointX="11.125" PointY="15.84730053084936" />
+          <ConnectorPoint PointX="7" PointY="16.396404947916668" />
+          <ConnectorPoint PointX="10.166666666666666" PointY="16.396404947916668" />
+          <ConnectorPoint PointX="10.333333333333334" PointY="16.396404947916668" />
+          <ConnectorPoint PointX="10.354166666666666" PointY="16.396404947916668" />
+          <ConnectorPoint PointX="10.520833333333334" PointY="16.396404947916668" />
+          <ConnectorPoint PointX="11.125" PointY="16.396404947916668" />
           <ConnectorPoint PointX="11.125" PointY="19.375" />
-          <ConnectorPoint PointX="11.604166666666666" PointY="19.375" />
-          <ConnectorPoint PointX="11.770833333333334" PointY="19.375" />
+          <ConnectorPoint PointX="11.666666666666666" PointY="19.375" />
+          <ConnectorPoint PointX="11.833333333333334" PointY="19.375" />
           <ConnectorPoint PointX="12.850416821939739" PointY="19.375" />
           <ConnectorPoint PointX="13.017083488606406" PointY="19.375" />
           <ConnectorPoint PointX="15.229164166666665" PointY="19.375" />
@@ -3540,16 +3579,18 @@
           <ConnectorPoint PointX="18.9375" PointY="14.739889322916667" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_IssueReplyComments_Users" >
-          <ConnectorPoint PointX="7" PointY="14.864896538666077" />
-          <ConnectorPoint PointX="10.354166666666666" PointY="14.864896538666077" />
-          <ConnectorPoint PointX="10.520833333333334" PointY="14.864896538666077" />
-          <ConnectorPoint PointX="14.197916666666666" PointY="14.864896538666077" />
-          <ConnectorPoint PointX="14.364583333333334" PointY="14.864896538666077" />
-          <ConnectorPoint PointX="15.229164166666665" PointY="14.864896538666077" />
-          <ConnectorPoint PointX="15.395830833333333" PointY="14.864896538666077" />
-          <ConnectorPoint PointX="18.854166666666668" PointY="14.864896538666077" />
-          <ConnectorPoint PointX="19.020833333333332" PointY="14.864896538666077" />
-          <ConnectorPoint PointX="19.574705625" PointY="14.864896538666077" />
+          <ConnectorPoint PointX="7" PointY="14.864894599885332" />
+          <ConnectorPoint PointX="10.354166666666666" PointY="14.864894599885332" />
+          <ConnectorPoint PointX="10.520833333333334" PointY="14.864894599885332" />
+          <ConnectorPoint PointX="12.729166666666666" PointY="14.864894599885332" />
+          <ConnectorPoint PointX="12.895833333333334" PointY="14.864894599885332" />
+          <ConnectorPoint PointX="14.197916666666666" PointY="14.864894599885332" />
+          <ConnectorPoint PointX="14.364583333333334" PointY="14.864894599885332" />
+          <ConnectorPoint PointX="15.229164166666665" PointY="14.864894599885332" />
+          <ConnectorPoint PointX="15.395830833333333" PointY="14.864894599885332" />
+          <ConnectorPoint PointX="18.854166666666668" PointY="14.864894599885332" />
+          <ConnectorPoint PointX="19.020833333333332" PointY="14.864894599885332" />
+          <ConnectorPoint PointX="19.574705625" PointY="14.864894599885332" />
           <ConnectorPoint PointX="19.574705625" PointY="19.75" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_IssueReplyComments_IssueReplys" >
@@ -3563,16 +3604,18 @@
         </AssociationConnector>
         <EntityTypeShape EntityType="HaveAVoice.Models.IssueReplyCommentComplaint" Width="1.5" PointX="20.875" PointY="16.25" Height="2.1725878906250102" />
         <AssociationConnector Association="HaveAVoice.Models.FK_IssueReplyCommentComplaints_FiledByUserId_Users" >
-          <ConnectorPoint PointX="7" PointY="14.896149038666071" />
-          <ConnectorPoint PointX="10.354166666666666" PointY="14.896149038666071" />
-          <ConnectorPoint PointX="10.520833333333334" PointY="14.896149038666071" />
-          <ConnectorPoint PointX="14.197916666666666" PointY="14.896149038666071" />
-          <ConnectorPoint PointX="14.364583333333334" PointY="14.896149038666071" />
-          <ConnectorPoint PointX="15.229164166666665" PointY="14.896149038666071" />
-          <ConnectorPoint PointX="15.395830833333333" PointY="14.896149038666071" />
-          <ConnectorPoint PointX="18.854166666666668" PointY="14.896149038666071" />
-          <ConnectorPoint PointX="19.020833333333332" PointY="14.896149038666071" />
-          <ConnectorPoint PointX="21.625" PointY="14.896149038666071" />
+          <ConnectorPoint PointX="7" PointY="14.896147099885326" />
+          <ConnectorPoint PointX="10.354166666666666" PointY="14.896147099885326" />
+          <ConnectorPoint PointX="10.520833333333334" PointY="14.896147099885326" />
+          <ConnectorPoint PointX="12.729166666666666" PointY="14.896147099885326" />
+          <ConnectorPoint PointX="12.895833333333334" PointY="14.896147099885326" />
+          <ConnectorPoint PointX="14.197916666666666" PointY="14.896147099885326" />
+          <ConnectorPoint PointX="14.364583333333334" PointY="14.896147099885326" />
+          <ConnectorPoint PointX="15.229164166666665" PointY="14.896147099885326" />
+          <ConnectorPoint PointX="15.395830833333333" PointY="14.896147099885326" />
+          <ConnectorPoint PointX="18.854166666666668" PointY="14.896147099885326" />
+          <ConnectorPoint PointX="19.020833333333332" PointY="14.896147099885326" />
+          <ConnectorPoint PointX="21.625" PointY="14.896147099885326" />
           <ConnectorPoint PointX="21.625" PointY="16.25" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_IssueReplyCommentComplaints_IssueReplyComments" >
@@ -3590,15 +3633,15 @@
           <ConnectorPoint PointX="10.75" PointY="30.239889322916667" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_AuditBoard_Users" >
-          <ConnectorPoint PointX="6.145425804063283" PointY="23.672262369791667" />
-          <ConnectorPoint PointX="6.145425804063283" PointY="29.490143229166662" />
+          <ConnectorPoint PointX="6.112741341405215" PointY="23.672262369791667" />
+          <ConnectorPoint PointX="6.112741341405215" PointY="29.490143229166662" />
           <ConnectorPoint PointX="7.979166666666667" PointY="29.490143229166662" />
           <ConnectorPoint PointX="8.1458333333333339" PointY="29.490143229166662" />
           <ConnectorPoint PointX="10" PointY="29.490143229166662" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_AuditBoardReplies_BoardReply" >
-          <ConnectorPoint PointX="12.75" PointY="27.371336949218744" />
-          <ConnectorPoint PointX="10.4375" PointY="27.371336949218744" />
+          <ConnectorPoint PointX="12.75" PointY="25.96508344921876" />
+          <ConnectorPoint PointX="10.4375" PointY="25.96508344921876" />
           <ConnectorPoint PointX="10.4375" PointY="13.833639322916667" />
           <ConnectorPoint PointX="10.5" PointY="13.833639322916667" />
           <ConnectorPoint PointX="10.5" PointY="13.739889322916667" />
@@ -3608,34 +3651,34 @@
           <ConnectorPoint PointX="9.75" PointY="13.271139322916667" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_Board_OwnerUserId_Users" >
-          <ConnectorPoint PointX="5.7336012360721007" PointY="23.672262369791667" />
-          <ConnectorPoint PointX="5.7336012360721007" PointY="30.53849309444427" />
-          <ConnectorPoint PointX="5.9206987068020505" PointY="30.53849309444427" />
-          <ConnectorPoint PointX="6.197506637396617" PointY="30.53849309444427" />
-          <ConnectorPoint PointX="7.125" PointY="30.53849309444427" />
+          <ConnectorPoint PointX="5.7664349908973049" PointY="23.672262369791667" />
+          <ConnectorPoint PointX="5.7664349908973049" PointY="30.53125" />
+          <ConnectorPoint PointX="5.8245416484612766" PointY="30.53125" />
+          <ConnectorPoint PointX="6.0936414949332454" PointY="30.53125" />
+          <ConnectorPoint PointX="7.125" PointY="30.53125" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_Board_PostedUserId_Users" >
-          <ConnectorPoint PointX="6.1141733040632831" PointY="23.672262369791667" />
-          <ConnectorPoint PointX="6.1141733040632831" PointY="33.439392903645825" />
+          <ConnectorPoint PointX="6.0103081615999123" PointY="23.672262369791667" />
+          <ConnectorPoint PointX="6.0103081615999123" PointY="33.439392903645825" />
           <ConnectorPoint PointX="7.125" PointY="33.439392903645825" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_BoardReply_Board" >
           <ConnectorPoint PointX="8.0625" PointY="30" />
-          <ConnectorPoint PointX="8.0625" PointY="26.805170898437503" />
-          <ConnectorPoint PointX="10.354166666666666" PointY="26.805170898437503" />
-          <ConnectorPoint PointX="10.520833333333334" PointY="26.805170898437503" />
-          <ConnectorPoint PointX="12.75" PointY="26.805170898437503" />
+          <ConnectorPoint PointX="8.0625" PointY="27.242670898437503" />
+          <ConnectorPoint PointX="12.75" PointY="27.242670898437503" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_BoardReply_Users" >
           <ConnectorPoint PointX="7" PointY="19.782548853165068" />
+          <ConnectorPoint PointX="10.166666666666666" PointY="19.782548853165068" />
+          <ConnectorPoint PointX="10.333333333333334" PointY="19.782548853165068" />
           <ConnectorPoint PointX="10.354166666666666" PointY="19.782548853165068" />
           <ConnectorPoint PointX="10.520833333333334" PointY="19.782548853165068" />
           <ConnectorPoint PointX="10.729166666666666" PointY="19.782548853165068" />
           <ConnectorPoint PointX="10.895833333333334" PointY="19.782548853165068" />
           <ConnectorPoint PointX="11.375" PointY="19.782548853165068" />
           <ConnectorPoint PointX="11.375" PointY="19.653300781250003" />
-          <ConnectorPoint PointX="11.604166666666666" PointY="19.653300781250003" />
-          <ConnectorPoint PointX="11.770833333333334" PointY="19.653300781250003" />
+          <ConnectorPoint PointX="11.666666666666666" PointY="19.653300781250003" />
+          <ConnectorPoint PointX="11.833333333333334" PointY="19.653300781250003" />
           <ConnectorPoint PointX="12.75" PointY="19.653300781250003" />
           <ConnectorPoint PointX="12.75" PointY="21.662985026041667" />
           <ConnectorPoint PointX="13.5" PointY="21.662985026041667" />
@@ -3648,23 +3691,29 @@
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_UserPictureComplaints_UserPictures" >
           <ConnectorPoint PointX="5.625" PointY="26.672841796875005" />
-          <ConnectorPoint PointX="5.6573428423845353" PointY="26.672841796875" />
-          <ConnectorPoint PointX="5.7588741388108682" PointY="26.672841796874998" />
-          <ConnectorPoint PointX="6.197506637396617" PointY="26.672841796875" />
-          <ConnectorPoint PointX="6.2224501340512024" PointY="26.672841796875005" />
-          <ConnectorPoint PointX="6.2754084192988779" PointY="26.672841796875005" />
-          <ConnectorPoint PointX="6.442075085965544" PointY="26.672841796875005" />
+          <ConnectorPoint PointX="5.651849157563972" PointY="26.672841796875" />
+          <ConnectorPoint PointX="6.196074674738548" PointY="26.672841796875005" />
+          <ConnectorPoint PointX="6.2810457213644488" PointY="26.672841796875005" />
+          <ConnectorPoint PointX="6.4477123880311149" PointY="26.672841796875005" />
           <ConnectorPoint PointX="8.3125" PointY="26.672841796875005" />
           <ConnectorPoint PointX="8.3125" PointY="23.54758789062501" />
         </AssociationConnector>
         <EntityTypeShape EntityType="HaveAVoice.Models.Message" Width="1.5" PointX="0.5" PointY="20.25" Height="3.5186979166666532" />
         <AssociationConnector Association="HaveAVoice.Models.FK_Message_Users_FromUserId" >
-          <ConnectorPoint PointX="4.25" PointY="21.293818359375" />
-          <ConnectorPoint PointX="2" PointY="21.293818359375" />
+          <ConnectorPoint PointX="4.25" PointY="21.290620981852214" />
+          <ConnectorPoint PointX="2.4583333333333335" PointY="21.290620981852214" />
+          <ConnectorPoint PointX="2.2708333333333335" PointY="21.33447083791097" />
+          <ConnectorPoint PointX="2.1041666666666665" PointY="21.33447083791097" />
+          <ConnectorPoint PointX="2.1041666666666665" PointY="21.33447083791097" />
+          <ConnectorPoint PointX="2" PointY="21.33447083791097" />
+          <ConnectorPoint PointX="2.2916666666666665" PointY="21.290620981852214" />
+          <ConnectorPoint PointX="2" PointY="21.290620981852214" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_Message_Users_ToUserId" >
-          <ConnectorPoint PointX="4.25" PointY="22.240659179687498" />
-          <ConnectorPoint PointX="2" PointY="22.240659179687498" />
+          <ConnectorPoint PointX="4.25" PointY="22.543941675821941" />
+          <ConnectorPoint PointX="2.4583333333333335" PointY="22.543941675821941" />
+          <ConnectorPoint PointX="2.2916666666666665" PointY="22.543941675821941" />
+          <ConnectorPoint PointX="2" PointY="22.543941675821941" />
         </AssociationConnector>
         <EntityTypeShape EntityType="HaveAVoice.Models.Reply" Width="1.5" PointX="2" PointY="25.875" Height="2.364889322916639" />
         <AssociationConnector Association="HaveAVoice.Models.FK_Replys_User" >
@@ -3677,6 +3726,12 @@
           <ConnectorPoint PointX="1.21875" PointY="23.960999348958335" />
           <ConnectorPoint PointX="1.21875" PointY="27.05744466145832" />
           <ConnectorPoint PointX="2" PointY="27.05744466145832" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="HaveAVoice.Models.Event" Width="1.5" PointX="1.5" PointY="29.25" Height="2.3648893229166674" />
+        <AssociationConnector Association="HaveAVoice.Models.FK_Events_Users" >
+          <ConnectorPoint PointX="5.735182490897305" PointY="23.672262369791667" />
+          <ConnectorPoint PointX="5.735182490897305" PointY="30.010696614583331" />
+          <ConnectorPoint PointX="3" PointY="30.010696614583331" />
         </AssociationConnector>
         </Diagram>
     </Diagrams>

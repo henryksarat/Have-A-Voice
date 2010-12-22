@@ -31,12 +31,12 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         private User FindUserByEmail(string anEmail) {
-            IHAVUserRepository myUserRepo = new EntityHAVUserRepository();
+            IHAVUserRetrievalRepository myUserRepo = new EntityHAVUserRetrievalRepository();
             return myUserRepo.GetUser(anEmail);
         }
 
         private User FindUserByUserId(int aUserId) {
-            IHAVUserRepository myUserRepo = new EntityHAVUserRepository();
+            IHAVUserRetrievalRepository myUserRepo = new EntityHAVUserRetrievalRepository();
             return myUserRepo.GetUser(aUserId);
         }
     }

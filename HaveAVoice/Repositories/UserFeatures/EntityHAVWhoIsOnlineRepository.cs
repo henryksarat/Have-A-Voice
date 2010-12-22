@@ -16,7 +16,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         public void AddToWhoIsOnline(User currentUser, string currentIpAddress) {
             IHAVUserRepository userRepository = new EntityHAVUserRepository();
             WhoIsOnline model = new WhoIsOnline();
-            model.User = userRepository.GetUser(currentUser.Id);
+            model.User = GetUser(currentUser.Id);
             model.DateTimeStamp = DateTime.UtcNow;
             model.IpAddress = currentIpAddress;
             GetEntities().AddToWhoIsOnline(model);
@@ -57,6 +57,11 @@ namespace HaveAVoice.Repositories.UserFeatures {
             }
 
             GetEntities().SaveChanges();
+        }
+
+        private User GetUser(int anId) {
+            IHAVUserRetrievalRepository myUserRetrieval = new EntityHAVUserRetrievalRepository();
+            return myUserRetrieval.GetUser(anId);
         }
     }
 }

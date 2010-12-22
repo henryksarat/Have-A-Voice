@@ -16,17 +16,16 @@ namespace HaveAVoice.Repositories {
 
         public void LogError(Exception exception, string details) {
             ResetConnection();
-            IHAVUserRepository userRepository = new EntityHAVUserRepository();
             User myUser = GetUserInformaton();
             try {
                 User myLoggingUser = myUser != null ?
-                                myUser : userRepository.GetUser(ERROR_USER_ID);
+                                myUser : GetUser(ERROR_USER_ID);
                 String exceptionMessage = exception.Message;
                 String innerException = exception.InnerException != null ?
                                 exception.InnerException.Message : "No inner exception";
                 String stackTrace = exception.StackTrace;
                 ErrorLog errorLog = ErrorLog.CreateErrorLog(0, exceptionMessage, innerException, stackTrace, DateTime.UtcNow, details);
-                errorLog.User = userRepository.GetUser(myLoggingUser.Id); ;
+                errorLog.User = GetUser(myLoggingUser.Id); ;
                 GetEntities().AddToErrorLogs(errorLog);
                 GetEntities().SaveChanges();
             } catch {
@@ -46,6 +45,11 @@ namespace HaveAVoice.Repositories {
             theEntities.Dispose();
             theEntities = null;
             theEntities = new HaveAVoiceEntities();
+        }
+
+        private User GetUser(int anId) {
+            IHAVUserRetrievalRepository myUserRetrieval = new EntityHAVUserRetrievalRepository();
+            return myUserRetrieval.GetUser(anId);
         }
     }
 }

@@ -33,7 +33,7 @@ namespace HaveAVoice.Helpers
                 "Report Comment");
         }
 
-        public static void FillComplaintModelBuilder(ComplaintModel.Builder aBuilder, IHAVUserService aUserService, IHAVIssueService aIssueService, IHAVUserPictureService aUserPictureService) {
+        public static void FillComplaintModelBuilder(ComplaintModel.Builder aBuilder, IHAVUserRetrievalService aUserRetrievalService, IHAVIssueService aIssueService, IHAVUserPictureService aUserPictureService) {
             switch (aBuilder.ComplaintType()) {
                 case ComplaintType.Issue:
                     Issue myIssue = aIssueService.GetIssue(aBuilder.SourceId());
@@ -50,11 +50,8 @@ namespace HaveAVoice.Helpers
                     aBuilder.TowardUser(myIssueReplyComment.User);
                     aBuilder.SourceDescription(myIssueReplyComment.Comment);
                     break;
-                case ComplaintType.MergeComplaint:
-                    //Not implimented yet
-                    break;
                 case ComplaintType.ProfileComplaint:
-                    User myTowardUser = aUserService.GetUser(aBuilder.SourceId());
+                    User myTowardUser = aUserRetrievalService.GetUser(aBuilder.SourceId());
                     aBuilder.TowardUser(myTowardUser);
                     aBuilder.SourceDescription("You are reporting this user because of their profile.");
                     break;

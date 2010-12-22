@@ -15,7 +15,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         public Issue CreateIssue(Issue anIssueToCreate, User aUserCreating) {
             IHAVUserRepository myUserRepository = new EntityHAVUserRepository();
             anIssueToCreate = Issue.CreateIssue(0, anIssueToCreate.Title, anIssueToCreate.Description, DateTime.UtcNow, false);
-            anIssueToCreate.User = myUserRepository.GetUser(aUserCreating.Id);
+            anIssueToCreate.User = GetUser(aUserCreating.Id);
 
              GetEntities().AddToIssues(anIssueToCreate);
              GetEntities().SaveChanges();
@@ -32,7 +32,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         public IssueReply CreateIssueReply(Issue anIssue, User aUserCreating, string aReply, bool anAnonymous, Disposition aDisposition) {
             IHAVUserRepository userRepository = new EntityHAVUserRepository();
             IssueReply issueReply = new IssueReply();
-            User user = userRepository.GetUser(aUserCreating.Id);
+            User user = GetUser(aUserCreating.Id);
             Issue issue = GetIssue(anIssue.Id);
 
             issueReply.Issue = issue;
@@ -97,7 +97,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
             IHAVUserRepository userRepository = new EntityHAVUserRepository();
             IssueReplyComment issueReplyComment = new IssueReplyComment();
 
-            issueReplyComment.User = userRepository.GetUser(aUserCreating.Id);
+            issueReplyComment.User = GetUser(aUserCreating.Id);
             issueReplyComment.IssueReply = GetIssueReply(anIssueReply.Id);
             issueReplyComment.Comment = aComment;
             issueReplyComment.DateTimeStamp = DateTime.UtcNow;
@@ -111,7 +111,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
             IHAVUserRepository myUserRepository = new EntityHAVUserRepository();
             IssueDisposition myIssueDisposition = IssueDisposition.CreateIssueDisposition(0, aDisposition);
             myIssueDisposition.Issue = GetIssue(anIssueId);
-            myIssueDisposition.User = myUserRepository.GetUser(aUser.Id);
+            myIssueDisposition.User = GetUser(aUser.Id);
 
             GetEntities().AddToIssueDispositions(myIssueDisposition);
             GetEntities().SaveChanges();
@@ -136,7 +136,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
             IHAVUserRepository myUserRepository = new EntityHAVUserRepository();
             IssueReplyDisposition myIssueReplyDisposition = IssueReplyDisposition.CreateIssueReplyDisposition(0, aDisposition);
             myIssueReplyDisposition.IssueReply = GetIssueReply(anIssueReplyId);
-            myIssueReplyDisposition.User = myUserRepository.GetUser(aUser.Id);
+            myIssueReplyDisposition.User = GetUser(aUser.Id);
 
             GetEntities().AddToIssueReplyDispositions(myIssueReplyDisposition);
             GetEntities().SaveChanges();
@@ -200,6 +200,11 @@ namespace HaveAVoice.Repositories.UserFeatures {
             GetEntities().AddToAuditIssueReplyComments(myAUdit);
             GetEntities().ApplyCurrentValues(anOriginal.EntityKey.EntitySetName, anOriginal);
             GetEntities().SaveChanges();
+        }
+
+        private User GetUser(int anId) {
+            IHAVUserRetrievalRepository myUserRetrieval = new EntityHAVUserRetrievalRepository();
+            return myUserRetrieval.GetUser(anId);
         }
     }
 }

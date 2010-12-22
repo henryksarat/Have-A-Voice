@@ -29,21 +29,21 @@ namespace HaveAVoice.Controllers.Users
         private const string VIEW_MESSAGE_VIEW = "View";
 
         private IHAVMessageService theService;
-        private IHAVUserService theUserService;
+        private IHAVUserRetrievalService theUserRetrievalService;
         private IHAVUserPictureService theUserPicturesService;
 
         public MessageController() : 
             base(new HAVBaseService(new HAVBaseRepository())) {
             IValidationDictionary myValidationDictionary = new ModelStateWrapper(this.ModelState);
             theService = new HAVMessageService(myValidationDictionary);
-            theUserService = new HAVUserService(myValidationDictionary);
+            theUserRetrievalService = new HAVUserRetrievalService();
             theUserPicturesService = new HAVUserPictureService();
         }
 
-        public MessageController(IHAVBaseService aBaseService, IHAVMessageService aMessageService, IHAVUserService aUserService, IHAVUserPictureService aUserPicturesService)
+        public MessageController(IHAVBaseService aBaseService, IHAVMessageService aMessageService, IHAVUserRetrievalService aUserRetrievalService, IHAVUserPictureService aUserPicturesService)
             : base(aBaseService) {
             theService = aMessageService;
-            theUserService = aUserService;
+            theUserRetrievalService = aUserRetrievalService;
             theUserPicturesService = aUserPicturesService;
         }
 
@@ -95,7 +95,7 @@ namespace HaveAVoice.Controllers.Users
             }
 
             try {
-                User myUser = theUserService.GetUser(id);
+                User myUser = theUserRetrievalService.GetUser(id);
                 string myProfilePictureUrl = theUserPicturesService.GetProfilePictureURL(myUser);
                 MessageWrapper myMessage = MessageWrapper.Build(myUser, myProfilePictureUrl);
                 return View(CREATE_VIEW, myMessage);

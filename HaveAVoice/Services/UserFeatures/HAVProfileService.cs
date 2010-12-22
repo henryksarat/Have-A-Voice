@@ -11,16 +11,17 @@ using HaveAVoice.Models;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVProfileService : HAVBaseService, IHAVProfileService {
+        private IHAVUserRetrievalService theUserRetrievalService;
         private IHAVProfileRepository theRepository;
         private IValidationDictionary theValidationDictionary;
         private IHAVBoardRepository theBoardRepository;
 
         public HAVProfileService(IValidationDictionary validationDictionary)
-            : this(validationDictionary, new EntityHAVProfileRepository(), new EntityHAVBoardRepository(), new HAVBaseRepository()) { }
+            : this(validationDictionary, new HAVUserRetrievalService(), new EntityHAVProfileRepository(), new EntityHAVBoardRepository(), new HAVBaseRepository()) { }
 
-        public HAVProfileService(IValidationDictionary aValidationDictionary, IHAVProfileRepository aRepository,
-                                IHAVBoardRepository aBoardRepository, IHAVBaseRepository aBaseRepository)
-            : base(aBaseRepository) {
+        public HAVProfileService(IValidationDictionary aValidationDictionary, IHAVUserRetrievalService aUserRetrievalService, IHAVProfileRepository aRepository,
+                                            IHAVBoardRepository aBoardRepository, IHAVBaseRepository aBaseRepository) : base(aBaseRepository) {
+            theUserRetrievalService = aUserRetrievalService;
             theRepository = aRepository;
             theValidationDictionary = aValidationDictionary;
             theBoardRepository = aBoardRepository;
@@ -28,7 +29,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public ProfileModelBuilder Profile(int aUserId, User myViewingUser) {
             IHAVUserService myUserService = new HAVUserService(theValidationDictionary);
-            User myUser = myUserService.GetUser(aUserId);
+            User myUser = theUserRetrievalService.GetUser(aUserId);
             IEnumerable<Board> myBoardMessages = theBoardRepository.FindBoardByUserId(aUserId);
             IEnumerable<IssueReply> myIssueReplys = theRepository.IssuesUserRepliedTo(myUser);
             bool myIsFan = theRepository.IsFan(myUser.Id, myViewingUser);

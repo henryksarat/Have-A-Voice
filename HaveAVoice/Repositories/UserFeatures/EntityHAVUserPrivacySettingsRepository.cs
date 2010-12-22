@@ -33,8 +33,8 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         private User FindUser(int aUserId) {
-            IHAVUserRepository myUserRepo = new EntityHAVUserRepository();
-            return myUserRepo.GetUser(aUserId);
+            IHAVUserRetrievalRepository myUserRetrievalRepo = new EntityHAVUserRetrievalRepository();
+            return myUserRetrievalRepo.GetUser(aUserId);
         }
     }
 }

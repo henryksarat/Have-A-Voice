@@ -19,7 +19,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         public void AddIssueComplaint(User filedBy, string aComplaint, int issueId) {
             IHAVIssueRepository issueRepo = new EntityHAVIssueRepository();
             IssueComplaint issueComplaint = IssueComplaint.CreateIssueComplaint(0, aComplaint);
-            issueComplaint.FiledByUser = theUserRepo.GetUser(filedBy.Id);
+            issueComplaint.FiledByUser = GetUser(filedBy.Id);
             issueComplaint.Issue = issueRepo.GetIssue(issueId);
             
             GetEntities().AddToIssueComplaints(issueComplaint);
@@ -29,7 +29,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         public void AddIssueReplyComplaint(User filedBy, string aComplaint, int issueReplyId) {
             IHAVIssueRepository issueRepo = new EntityHAVIssueRepository();
             IssueReplyComplaint issueReplyComplaint = IssueReplyComplaint.CreateIssueReplyComplaint(0, aComplaint);
-            issueReplyComplaint.FiledByUser = theUserRepo.GetUser(filedBy.Id);
+            issueReplyComplaint.FiledByUser = GetUser(filedBy.Id);
             issueReplyComplaint.IssueReply = issueRepo.GetIssueReply(issueReplyId);
 
             GetEntities().AddToIssueReplyComplaints(issueReplyComplaint);
@@ -46,8 +46,8 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         public void AddProfileComplaint(User filedBy, string aComplaint, int towardUserId) {
             ProfileComplaint profileComplaint = ProfileComplaint.CreateProfileComplaint(0, aComplaint);
-            profileComplaint.FiledByUser = theUserRepo.GetUser(filedBy.Id);
-            profileComplaint.TowardUser = theUserRepo.GetUser(towardUserId);
+            profileComplaint.FiledByUser = GetUser(filedBy.Id);
+            profileComplaint.TowardUser = GetUser(towardUserId);
 
             GetEntities().AddToProfileComplaints(profileComplaint);
             GetEntities().SaveChanges();
@@ -60,8 +60,9 @@ namespace HaveAVoice.Repositories.UserFeatures {
             GetEntities().SaveChanges();
         }
 
-        public void AddMergeComplaint(User filedBy, string aComplaint, int mergeRequestId) {
-            throw new NotImplementedException();
+        private User GetUser(int anId) {
+            IHAVUserRetrievalRepository myUserRetrieval = new EntityHAVUserRetrievalRepository();
+            return myUserRetrieval.GetUser(anId);
         }
     }
 }

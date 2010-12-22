@@ -17,17 +17,21 @@ using HaveAVoice.Services.Helpers;
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVUserService : HAVBaseService, IHAVUserService {
         private IValidationDictionary theValidationDictionary;
+        private IHAVUserRetrievalService theUserRetrievalService;
         private IHAVAuthenticationService theAuthService;
         private IHAVUserPictureService theUserPictureService;
         private IHAVUserRepository theUserRepo;
         private IHAVEmail theEmailService;
 
         public HAVUserService(IValidationDictionary theValidationDictionary)
-            : this(theValidationDictionary, new HAVAuthenticationService(), new HAVUserPictureService(), new EntityHAVUserRepository(), new HAVEmail(), new HAVBaseRepository()) { }
+            : this(theValidationDictionary, new HAVUserRetrievalService(), new HAVAuthenticationService(), new HAVUserPictureService(), 
+                    new EntityHAVUserRepository(), new HAVEmail(), new HAVBaseRepository()) { }
         
-        public HAVUserService(IValidationDictionary aValidationDictionary, IHAVAuthenticationService anAuthService, IHAVUserPictureService aUserPictureService,  IHAVUserRepository aUserRepo,
-            IHAVEmail aEmailService, IHAVBaseRepository baseRepository) : base(baseRepository) {
+        public HAVUserService(IValidationDictionary aValidationDictionary, IHAVUserRetrievalService aUserRetrievalService, 
+                                         IHAVAuthenticationService anAuthService, IHAVUserPictureService aUserPictureService,  
+                                         IHAVUserRepository aUserRepo, IHAVEmail aEmailService, IHAVBaseRepository baseRepository) : base(baseRepository) {
             theValidationDictionary = aValidationDictionary;
+            theUserRetrievalService = aUserRetrievalService;
             theAuthService = anAuthService;
             theUserPictureService = aUserPictureService;
             theUserRepo = aUserRepo;
@@ -93,16 +97,6 @@ namespace HaveAVoice.Services.UserFeatures {
             }
         }
         
-        public User GetUser(int aUserId) {
-            try {
-                return theUserRepo.GetUser(aUserId);
-            } catch (Exception exception) {
-                string details = "Unable to get userToListenTo.";
-                LogError(exception, details);
-                throw exception;
-            }
-        }
-
         public IEnumerable<UserDetailsModel> GetUserList(User aExcludedUser) {
             return theUserRepo.GetUserList(aExcludedUser);
         }
@@ -162,7 +156,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 new SelectList(TimezoneHelper.GetTimeZones(), TimezoneHelper.GetTimezone(aUser.UTCOffset));
             IEnumerable<SelectListItem> states =
                 new SelectList(HAVConstants.STATES, aUser.State);
-            User user = theUserRepo.GetUser(myUserId);
+            User user = theUserRetrievalService.GetUser(myUserId);
             string profilePictureURL = theUserPictureService.GetProfilePictureURL(user);
 
             return new EditUserModel.Builder(user)

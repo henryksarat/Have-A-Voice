@@ -4,17 +4,13 @@ using HaveAVoice.Models;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public interface IHAVUserRepository {
+        IEnumerable<UserDetailsModel> GetUserList(User user);
         User CreateUser(User userToCreate);
-        User GetUser(int id);
         void UpdateUser(User userToEdit);
-        User GetUser(string email, string password);
-        User GetUser(string email);
-
         void DeleteUser(User userToDelete);
         User DeleteUserFromRole(int userId, int roleId);
         bool EmailRegistered(string email);
         bool UsernameRegistered(string username);
-        IEnumerable<UserDetailsModel> GetUserList(User user);
 
         void AddFan(User aUser, int aSourceUserId);
         

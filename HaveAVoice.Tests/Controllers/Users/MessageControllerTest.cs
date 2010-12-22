@@ -21,23 +21,23 @@ namespace HaveAVoice.Tests.Controllers.Users {
         private static Message theMessage;
         private IHAVMessageService theService;
         private Mock<IHAVMessageService> theMockedService;
-        private Mock<IHAVUserService> theMockedUserService;
         private Mock<IHAVUserPictureService> theUserPicturesService;
         private Mock<IHAVMessageRepository> theMockRepository;
+        private Mock<IHAVUserRetrievalService> theUserRetrievalService;
         private MessageController theController;
         private static List<Int32> theSelectedMessages;
 
         [TestInitialize]
         public void Initialize() {
             theMockedService = new Mock<IHAVMessageService>();
-            theMockedUserService = new Mock<IHAVUserService>();
             theUserPicturesService = new Mock<IHAVUserPictureService>();
             theMockRepository = new Mock<IHAVMessageRepository>();
+            theUserRetrievalService = new Mock<IHAVUserRetrievalService>();
 
             theService = new HAVMessageService(new ModelStateWrapper(theModelState),
                                                                    theMockRepository.Object, theBaseRepository.Object);
 
-            theController = new MessageController(theMockedBaseService.Object, theMockedService.Object, theMockedUserService.Object, theUserPicturesService.Object);
+            theController = new MessageController(theMockedBaseService.Object, theMockedService.Object, theUserRetrievalService.Object, theUserPicturesService.Object);
             theController.ControllerContext = GetControllerContext();
 
             theSelectedMessages = new List<Int32>();

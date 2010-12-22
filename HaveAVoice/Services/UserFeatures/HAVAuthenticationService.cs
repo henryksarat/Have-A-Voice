@@ -16,14 +16,18 @@ namespace HaveAVoice.Services.UserFeatures {
         public static int REMEMBER_ME_COOKIE_HOURS = 4;
 
         private IHAVUserPrivacySettingsService thePrivacySettingsService;
+        private IHAVUserRetrievalService theUserRetrievalService;
         private IHAVAuthenticationRepository theAuthRepo;
         private IHAVUserRepository theUserRepo;
         private IHAVRoleRepository theRoleRepo;
 
         public HAVAuthenticationService()
-            : this(new HAVBaseRepository(), new HAVUserPrivacySettingsService(),  new EntityHAVAuthenticationRepository(), new EntityHAVUserRepository(), new EntityHAVRoleRepository()) { }
-        
-        public HAVAuthenticationService(IHAVBaseRepository baseRepository, IHAVUserPrivacySettingsService aPrivacyService, IHAVAuthenticationRepository anAuthRepo, IHAVUserRepository aUserRepo, IHAVRoleRepository aRoleRepo) : base(baseRepository) {
+            : this(new HAVUserRetrievalService(), new HAVBaseRepository(), new HAVUserPrivacySettingsService(), new EntityHAVAuthenticationRepository(), new EntityHAVUserRepository(), new EntityHAVRoleRepository()) { }
+
+        public HAVAuthenticationService(IHAVUserRetrievalService aUserRetrievalService, IHAVBaseRepository baseRepository, 
+                                                       IHAVUserPrivacySettingsService aPrivacyService, IHAVAuthenticationRepository anAuthRepo, IHAVUserRepository aUserRepo, IHAVRoleRepository aRoleRepo)
+            : base(baseRepository) {
+            theUserRetrievalService = aUserRetrievalService;
             thePrivacySettingsService = aPrivacyService;
             theAuthRepo = anAuthRepo;
             theUserRepo = aUserRepo;
@@ -32,7 +36,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public UserInformationModel AuthenticateUser(string anEmail, string aPassword) {
             aPassword = PasswordHelper.HashPassword(aPassword);
-            User myUser = theUserRepo.GetUser(anEmail, aPassword);
+            User myUser = theUserRetrievalService.GetUser(anEmail, aPassword);
 
             if (myUser == null) {
                 return null;

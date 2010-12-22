@@ -18,15 +18,6 @@ namespace HaveAVoice.Services.UserFeatures {
             theValidationDictionary = aValidationDictionary;
         }
 
-
-        public bool MergeComplaint(User aFiledBy, string aComplaint, int aMergeRequestId) {
-            if(!ValidComplaint(aComplaint, aMergeRequestId)) {
-                return false;
-            }
-            theRepository.AddMergeComplaint(aFiledBy, aComplaint, aMergeRequestId);
-            return true;
-        }
-
         public bool IssueComplaint(User aFiledBy, string aComplaint, int aIssueId) {
             if (!ValidComplaint(aComplaint, aIssueId)) {
                 return false;
