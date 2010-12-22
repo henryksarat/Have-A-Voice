@@ -17,10 +17,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
         IEnumerable<UserDetailsModel> GetUserList(User user);
         IEnumerable<Timezone> GetTimezones();
 
-        void UpdateUserForgotPasswordHash(string anEmail, string aHashCode);
-        User GetUserByEmailAndForgotPasswordHash(string anEmail, string aHashCode);
-        void ChangePassword(int aUserId, string aPassword);
-
         void AddFan(User aUser, int aSourceUserId);
         
         void RemoveUserFromRole(User aUser, Role aRole);

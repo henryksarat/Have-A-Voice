@@ -11,8 +11,8 @@
         <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
     </p>
 
-    <% using (Html.BeginForm("ChangePassword", "User", new { forgetPasswordHash = Model.Value })) {%>
-
+    <% using (Html.BeginForm("Process", "Password")) {%>
+    <%= Html.Hidden("ForgotPasswordHash", Model.Value) %>
     <p>
         <%= Html.Encode(ViewData["Message"])%>
     </p>
@@ -23,7 +23,7 @@
                 </p>
 
                 <p>
-                    <label for="Email">New Password:</label>
+                    <label for="Email">Email:</label>
                     <%= Html.TextBox("Email")%>
                     <%= Html.ValidationMessage("Email", "*")%>
                 </p>

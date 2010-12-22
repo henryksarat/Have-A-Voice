@@ -16,8 +16,6 @@ using HaveAVoice.Services.Helpers;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVUserService : HAVBaseService, IHAVUserService {
-        public const double FORGOT_PASSWORD_MAX_DAYS = 15;
-
         private IValidationDictionary theValidationDictionary;
         private IHAVAuthenticationService theAuthService;
         private IHAVUserPictureService theUserPictureService;
@@ -162,71 +160,6 @@ namespace HaveAVoice.Services.UserFeatures {
             aImageFile.SaveAs(filePath);
             return fileName;
         }
-
-        public bool ForgotPasswordRequest(string anEmail) {
-            if (!ValidEmail(anEmail, null)) {
-                return false;
-            }
-
-            User myUser = theUserRepo.GetUser(anEmail);
-
-            if (myUser == null) {
-                theValidationDictionary.AddError("Email", anEmail, "That is not a valid email.");
-                return false;
-            }
-
-            string myForgotPasswordHash =
-                System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(anEmail + DateTime.UtcNow.ToString(), "SHA1");
-            theUserRepo.UpdateUserForgotPasswordHash(anEmail, myForgotPasswordHash);
-
-            SendActivationCode(anEmail, myForgotPasswordHash);
-
-            return true;
-        }
-
-
-        private void SendActivationCode(string anEmail, string aPasswordHash) {
-            try {
-                theEmailService.SendEmail(anEmail, "have a voice | forgot password", "Click this link to change your password.... " + aPasswordHash);
-            } catch (Exception e) {
-                throw new EmailException("Couldn't send aEmail.", e);
-            }
-        }
-
-
-        public bool ForgotPasswordProcess(string anEmail, string aForgotPasswordHash) {
-            User myUser = theUserRepo.GetUserByEmailAndForgotPasswordHash(anEmail, aForgotPasswordHash);
-            DateTime myDateTime = (DateTime)myUser.ForgotPasswordHashDateTimeStamp;
-            
-            TimeSpan myDifference = DateTime.UtcNow - myDateTime;
-            if(myDifference.Days > FORGOT_PASSWORD_MAX_DAYS) {
-                return false;
-            }
-
-            return true;
-        }
-
-
-        public bool ChangePassword(string anEmail, string aForgotPasswordHash, string aPassword, string aRetypedPassword) {
-            User myUser = theUserRepo.GetUserByEmailAndForgotPasswordHash(anEmail, aForgotPasswordHash);
-            if (!ValidateUser(myUser, anEmail)) {
-                return false;
-            }
-            
-            if(!ValidatePassword(aPassword, aRetypedPassword)) {
-                return false;
-            }
-
-            if (!ValidForgotPasswordHash(aForgotPasswordHash)) {
-                return false;
-            }
-
-            string myPassword = PasswordHelper.HashPassword(aPassword);
-            theUserRepo.ChangePassword(myUser.Id, myPassword);
-
-            return true;
-        }
-
 
         public EditUserModel GetUserForEdit(User aUser) {
             int myUserId = aUser.Id;

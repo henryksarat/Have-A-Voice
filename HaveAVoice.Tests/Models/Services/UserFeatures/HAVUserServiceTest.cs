@@ -376,7 +376,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
 
             Assert.IsFalse(result);
         }
-        */
+        
         [TestMethod]
         public void TestForgotPasswordProcess_NotExpiredHash() {
             theUser.ForgotPasswordHashDateTimeStamp = DateTime.UtcNow.AddDays(-15);
@@ -434,6 +434,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
             var myError = theModelState["RetypedPassword"].Errors[0];
             Assert.AreEqual("Passwords must match.", myError.ErrorMessage);
         }
+         * */
 
 
     }

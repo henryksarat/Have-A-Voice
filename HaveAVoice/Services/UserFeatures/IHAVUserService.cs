@@ -11,10 +11,6 @@ namespace HaveAVoice.Services.UserFeatures {
         bool EditUser(EditUserModel aUserToEdit);
         EditUserModel GetUserForEdit(User aUser);
 
-        bool ForgotPasswordRequest(string anEmail);
-        bool ForgotPasswordProcess(string anEmail, string aForgotPasswordHash);
-        bool ChangePassword(string anEmail, string aForgotPasswordHash, string aPassword, string aRetypedPassword);
-
         void AddFan(User aUser, int aSourceUserId);
     }
 }

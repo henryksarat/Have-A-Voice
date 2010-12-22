@@ -18,7 +18,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
                 AddUserToNotConfirmedUserRole(userToCreate);
             } catch (NullRoleException exception) {
                 DeleteUser(userToCreate);
-                throw new NullRoleException("Deleted userToListenTo because there was no \"Not confirmed\" restrictionModel assigned properly.", exception);
+                throw new NullRoleException("Deleted user because there was no \"Not confirmed\" role assigned properly.", exception);
             }
 
             return userToCreate;
@@ -150,49 +150,8 @@ namespace HaveAVoice.Repositories.UserFeatures {
             return userInformations;
         }
 
-        private bool CanFan(int listenedToUserId, int aFanUserId) {
-            return (ValidUserIdandNotIsNotMyself(listenedToUserId, aFanUserId)
-                    && ((from listener in GetEntities().Fans
-                         where listener.SourceUser.Id == listenedToUserId
-                         && listener.Id == aFanUserId
-                         select listener).Count() == 0 ? true : false));
-        }
-
-        private bool CanMessage(int listenedToUserId, int listeningUserId) {
-            return (ValidUserIdandNotIsNotMyself(listenedToUserId, listeningUserId));
-        }
-
-        private static bool ValidUserIdandNotIsNotMyself(int listenedToUserId, int listeningUserId) {
-            return (listeningUserId != -1)
-                                && (listenedToUserId != listeningUserId);
-        }
-
         public IEnumerable<Timezone> GetTimezones() {
             return GetEntities().Timezones.ToList<Timezone>();
-        }
-
-        public void UpdateUserForgotPasswordHash(string anEmail, string aHashCode) {
-            User myUser = GetUser(anEmail);
-            myUser.ForgotPasswordHash = aHashCode;
-            myUser.ForgotPasswordHashDateTimeStamp = DateTime.UtcNow;
-            GetEntities().ApplyCurrentValues(myUser.EntityKey.EntitySetName, myUser);
-            GetEntities().SaveChanges();
-        }
-
-        public User GetUserByEmailAndForgotPasswordHash(string anEmail, string aHashCode) {
-            return (from c in GetEntities().Users
-                    where c.Email == anEmail
-                    && c.ForgotPasswordHash == aHashCode
-                    select c).FirstOrDefault();
-        }
-
-        public void ChangePassword(int aUserId, string aPassword) {
-            User myUser = GetUser(aUserId);
-            myUser.Password = aPassword;
-            myUser.ForgotPasswordHash = null;
-            myUser.ForgotPasswordHashDateTimeStamp = null;
-            GetEntities().ApplyCurrentValues(myUser.EntityKey.EntitySetName, myUser);
-            GetEntities().SaveChanges();
         }
 
         public void AddFan(User aUser, int aSourceUserId) {
@@ -208,6 +167,23 @@ namespace HaveAVoice.Repositories.UserFeatures {
             User originalUser = GetUser(userToEdit.Id);
             GetEntities().ApplyCurrentValues(originalUser.EntityKey.EntitySetName, userToEdit);
             GetEntities().SaveChanges();
+        }
+
+        private bool CanFan(int listenedToUserId, int aFanUserId) {
+            return (ValidUserIdandNotIsNotMyself(listenedToUserId, aFanUserId)
+                    && ((from listener in GetEntities().Fans
+                         where listener.SourceUser.Id == listenedToUserId
+                         && listener.Id == aFanUserId
+                         select listener).Count() == 0 ? true : false));
+        }
+
+        private bool CanMessage(int listenedToUserId, int listeningUserId) {
+            return (ValidUserIdandNotIsNotMyself(listenedToUserId, listeningUserId));
+        }
+
+        private static bool ValidUserIdandNotIsNotMyself(int listenedToUserId, int listeningUserId) {
+            return (listeningUserId != -1)
+                                && (listenedToUserId != listeningUserId);
         }
     }
 }

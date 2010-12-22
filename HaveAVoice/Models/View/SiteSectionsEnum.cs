@@ -23,6 +23,7 @@ namespace HaveAVoice.Models.View {
         Feedback,
         UserPrivacySettings,
         Authentication,
-        UserPictures
+        UserPictures,
+        Password
     };
 }

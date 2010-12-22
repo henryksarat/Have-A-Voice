@@ -124,46 +124,6 @@ namespace HaveAVoice.Controllers.Users
             return View("Edit", userToEdit);
         }
 
-        public ActionResult ForgotPassword() {
-            return View("ForgotPassword");
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult ForgotPassword(string email) {
-            try {
-                if (theService.ForgotPasswordRequest(email)) {
-                    return SendToResultPage("An email has been sent to the email you provided to help reset your password.");
-                }
-            } catch (EmailException e) {
-                LogError(e, "Error sending the email.");
-                ViewData["Message"] = HAVConstants.ERROR;
-            } catch (Exception e) {
-                LogError(e, new StringBuilder().AppendFormat("Unable to perform the forgot password function. [email={0}]", email).ToString());
-                ViewData["Message"] = HAVConstants.ERROR;
-            }
-
-            return View("ForgotPassword");
-        }
-
-        public ActionResult ChangePassword(string forgotPasswordHash) {
-            
-            return View("ChangePassword", new StringWrapper(forgotPasswordHash));
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult ChangePassword(string email, string forgotPasswordHash, string password, string retypedPassword) {
-            try {
-                if (theService.ChangePassword(email, forgotPasswordHash, password, retypedPassword)) {
-                    return SendToResultPage("Your password has been changed.");
-                }
-            } catch (Exception e) {
-                LogError(e, new StringBuilder().AppendFormat("Unable to change the password. [email={0}]", email).ToString());
-                ViewData["Message"] = "Unable to change the password. Please try again.";
-            }
-
-            return View("ForgotPassword", new StringWrapper(forgotPasswordHash));
-        }
-
         public ActionResult BecomeAFan(int id) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();

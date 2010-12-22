@@ -12,7 +12,7 @@
         <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
     </p>
 
-    <% using (Html.BeginForm("ForgotPassword", "User")) {%>
+    <% using (Html.BeginForm("Request", "Password")) {%>
 
     <p>
         <%= Html.Encode(ViewData["Message"]) %>
