@@ -5,9 +5,8 @@ using HaveAVoice.Models;
 namespace HaveAVoice.Services.UserFeatures {
     public interface IHAVUserService {
         User GetUser(int userId);
-        bool CreateUser(User aUserToCreate, bool aCaptchaValid, bool anAgreement, string anIpAddress);
         IEnumerable<UserDetailsModel> GetUserList(User anExcludedUser);
-        IEnumerable<Timezone> GetTimezones();
+        bool CreateUser(User aUserToCreate, bool aCaptchaValid, bool anAgreement, string anIpAddress);
         bool EditUser(EditUserModel aUserToEdit);
         EditUserModel GetUserForEdit(User aUser);
 

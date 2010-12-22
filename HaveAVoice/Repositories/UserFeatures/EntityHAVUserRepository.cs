@@ -150,10 +150,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
             return userInformations;
         }
 
-        public IEnumerable<Timezone> GetTimezones() {
-            return GetEntities().Timezones.ToList<Timezone>();
-        }
-
         public void AddFan(User aUser, int aSourceUserId) {
             IHAVUserRepository myUserRepository = new EntityHAVUserRepository();
             Fan myFan = new Fan();

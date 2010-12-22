@@ -107,11 +107,6 @@ namespace HaveAVoice.Services.UserFeatures {
             return theUserRepo.GetUserList(aExcludedUser);
         }
 
-
-        public IEnumerable<Timezone> GetTimezones() {
-            return theUserRepo.GetTimezones();
-        }
-
         public bool EditUser(EditUserModel aUser) {
             bool isValidFileImage = ValidateFileImage(aUser.ImageFile.FileName);
 

@@ -15,7 +15,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
         bool EmailRegistered(string email);
         bool UsernameRegistered(string username);
         IEnumerable<UserDetailsModel> GetUserList(User user);
-        IEnumerable<Timezone> GetTimezones();
 
         void AddFan(User aUser, int aSourceUserId);
         
