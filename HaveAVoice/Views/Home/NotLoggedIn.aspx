@@ -19,7 +19,8 @@
         </div>
         <div class="col-2">&nbsp;</div>
 		<div class="col-10 center p-t5 p-b5 t-tab">
-			<img src="/Content/images/dislike.png" alt="Thumbs Down" align="top" /> <span class="font-16 red bold">MEMBERS DISLIKE</span>
+			<span class="fnt-16 color-5 bold">MEMBERS DISLIKE</span>
+			<img src="/Content/images/dislike.png" alt="Thumbs Down" align="top" />
 		</div>
         <div class="col-1">&nbsp;</div>
 		<div class="clear"></div>
