@@ -297,6 +297,11 @@
     <Content Include="Content\images\like-sm.png" />
     <Content Include="Content\images\like.png" />
     <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\menu\event.png" />
+    <Content Include="Content\images\menu\home.png" />
+    <Content Include="Content\images\menu\info.png" />
+    <Content Include="Content\images\menu\message.png" />
+    <Content Include="Content\images\menu\photo.png" />
     <Content Include="Content\images\popular.png" />
     <Content Include="Content\images\search.png" />
     <Content Include="Content\images\settings.png" />
@@ -350,11 +355,14 @@
     <Content Include="Views\Role\Index.aspx" />
     <Content Include="Views\Role\SwitchUserRoles.aspx" />
     <Content Include="Views\Search\Index.aspx" />
+    <Content Include="Views\Shared\NotLoggedInUserPanel.ascx" />
+    <Content Include="Views\Shared\LeftNavigation.ascx" />
     <Content Include="Views\Shared\Tabs.ascx" />
     <Content Include="Views\Shared\Error.aspx" />
     <Content Include="Views\Shared\LogOnUserControl.ascx" />
     <Content Include="Views\Shared\Result.aspx" />
     <Content Include="Views\Shared\PrivacyTabs.ascx" />
+    <Content Include="Views\Shared\UserPanel.ascx" />
     <Content Include="Views\Tabs\Network.aspx" />
     <Content Include="Views\Tabs\Popular.aspx" />
     <Content Include="Views\UserPrivacySettings\Edit.aspx" />
