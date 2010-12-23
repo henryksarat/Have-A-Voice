@@ -35,7 +35,7 @@ namespace HaveAVoice.Tests.Controllers.Issues {
 
         [TestInitialize]
         public void Initialize() {
-            theIssue = Issue.CreateIssue(2, "Issue Title", "Description of Issue", new DateTime(1987, 05, 03), false);
+            theIssue = Issue.CreateIssue(2, "Issue Title", "Description of Issue", new DateTime(1987, 05, 03), 0, false);
             theIssue.User = theUserInformationBuilder.Build().Details;
             theIssueModel = new IssueModel(theIssue, null, null);
             theIssueReplyDetailsModel = new IssueReplyDetailsModel(new IssueReply(), new List<IssueReplyComment>());

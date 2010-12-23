@@ -13,9 +13,10 @@ using Moq;
 namespace HaveAVoice.Tests.Controllers.Users {
     [TestClass]
     public class ComplaintControllerTest : ControllerTestCase {
-        private static int COMPLAINT_SOURCE_ID = 3;
-        private static string COMPLAINT = "I'm complaining.";
-        private static string COMPLAINT_DESCRIPTION = "Complaint description";
+        private const int COMPLAINT_SOURCE_ID = 3;
+        private const int STARTED_BY_USER_ID = 0;
+        private const string COMPLAINT = "I'm complaining.";
+        private const string COMPLAINT_DESCRIPTION = "Complaint description";
         
         private ComplaintModel theModel;
         private Issue theIssue;
@@ -43,7 +44,7 @@ namespace HaveAVoice.Tests.Controllers.Users {
                 theUserRetrievalService.Object, theMockIssueService.Object, theMockUserPictureService.Object);
             theController.ControllerContext = GetControllerContext();
 
-            theIssue = Issue.CreateIssue(COMPLAINT_SOURCE_ID, COMPLAINT, COMPLAINT_DESCRIPTION, DateTime.UtcNow, false);
+            theIssue = Issue.CreateIssue(COMPLAINT_SOURCE_ID, COMPLAINT, COMPLAINT_DESCRIPTION, DateTime.UtcNow, STARTED_BY_USER_ID, false);
         }
 
         #region "Complaint - NonPostBack"

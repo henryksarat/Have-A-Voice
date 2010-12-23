@@ -15,7 +15,7 @@ namespace HaveAVoice.Models.Wrappers {
         public string Description { get; set; }
 
         public Issue ToModel() {
-            return Issue.CreateIssue(Id, Title, Description, DateTime.UtcNow, false);
+            return Issue.CreateIssue(Id, Title, Description, DateTime.UtcNow, 0, false);
         }
 
         public static IssueWrapper Build(Issue aBoard) {
@@ -25,6 +25,5 @@ namespace HaveAVoice.Models.Wrappers {
                 Description = aBoard.Description
             };
         }
-
     }
 }

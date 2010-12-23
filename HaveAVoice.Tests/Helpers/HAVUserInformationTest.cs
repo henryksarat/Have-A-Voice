@@ -38,7 +38,7 @@ namespace HaveAVoice.Tests.Helpers {
             thePermissions.Add(PERMISSION2);
             theRestriction = new RestrictionModel.Builder(RESTRICTION_ID).Build().Restriction;
 
-            theUserPrivacySettings = UserPrivacySetting.CreateUserPrivacySetting(0, true, true, false);
+            theUserPrivacySettings = UserPrivacySetting.CreateUserPrivacySetting(0, 0,  true, true, false);
 
             theUserInformationModelBuilder = new UserInformationModelBuilder(theUser)
                 .AddPermissions(thePermissions)

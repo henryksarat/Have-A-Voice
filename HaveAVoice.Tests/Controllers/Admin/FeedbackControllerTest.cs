@@ -29,7 +29,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
         [TestMethod]
         public void ShouldLoadFeedback() {
             List<Feedback> myFeedback = new List<Feedback>();
-            myFeedback.Add(Feedback.CreateFeedback(0, DateTime.UtcNow, 0, string.Empty));
+            myFeedback.Add(Feedback.CreateFeedback(0, string.Empty, DateTime.UtcNow, 0));
             theMockedService.Setup(s => s.GetAllFeedback()).Returns(() => myFeedback);
             PermissionTestHelper.AddPermissionToUserInformation(theUserInformationBuilder, HAVPermission.View_Feedback);
 

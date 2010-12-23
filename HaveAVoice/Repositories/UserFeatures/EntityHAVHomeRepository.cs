@@ -127,16 +127,12 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         public void AddZipCodeFilter(User aUser, int aZipCode) {
-            EntityHAVUserRepository myUserRepo = new EntityHAVUserRepository();
-            FilteredZipCode myFiltered = FilteredZipCode.CreateFilteredZipCode(0, aZipCode);
-            myFiltered.User = GetUser(aUser.Id);
+            FilteredZipCode myFiltered = FilteredZipCode.CreateFilteredZipCode(0, aUser.Id, aZipCode);
             GetEntities().AddToFilteredZipCodes(myFiltered);
         }
 
         public void AddCityStateFilter(User aUser, string aCity, string aState) {
-            EntityHAVUserRepository myUserRepo = new EntityHAVUserRepository();
-            FilteredCityState myFiltered = FilteredCityState.CreateFilteredCityState(0, aCity, aState);
-            myFiltered.User = GetUser(aUser.Id);
+            FilteredCityState myFiltered = FilteredCityState.CreateFilteredCityState(0, aUser.Id, aCity, aState);
             GetEntities().AddToFilteredCityStates(myFiltered);
         }
 
@@ -153,11 +149,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
                              where f.User.Id == aUser.Id && f.City == aCity && f.State == aState
                              select f).Count<FilteredCityState>();
             return myFilered > 0;
-        }
-
-        private User GetUser(int anId) {
-            IHAVUserRetrievalRepository myUserRetrieval = new EntityHAVUserRetrievalRepository();
-            return myUserRetrieval.GetUser(anId);
         }
     }
 }

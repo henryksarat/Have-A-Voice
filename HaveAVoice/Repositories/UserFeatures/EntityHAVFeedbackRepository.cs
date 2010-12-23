@@ -7,7 +7,7 @@ using HaveAVoice.Models;
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVFeedbackRepository : HAVBaseRepository, IHAVFeedbackRepository {
         public void AddFeedback(User aUser, string aFeedback) {
-            Feedback myFeedback = Feedback.CreateFeedback(0, DateTime.UtcNow, aUser.Id, aFeedback);
+            Feedback myFeedback = Feedback.CreateFeedback(0, aFeedback, DateTime.UtcNow, aUser.Id);
             GetEntities().AddToFeedbacks(myFeedback);
             GetEntities().SaveChanges();
         }

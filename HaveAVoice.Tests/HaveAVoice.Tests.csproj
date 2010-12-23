@@ -77,7 +77,6 @@
     <Compile Include="Models\DatamodelFactory.cs" />
     <Compile Include="Models\ExtraModels\UserModels\CreateUserModelTest.cs" />
     <Compile Include="Models\Repositories\UserFeatures\EntityHAVMessageRepositoryTest.cs" />
-    <Compile Include="Models\Repositories\UserFeatures\EntityHAVHomeRepositoryTest.cs" />
     <Compile Include="Models\Services\AdminFeatures\HAVRestrictionServiceTest.cs" />
     <Compile Include="Models\Services\AdminFeatures\HAVRoleServiceTest.cs" />
     <Compile Include="Models\Services\UserFeatures\HAVHomeServiceTest.cs" />

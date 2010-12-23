@@ -54,7 +54,7 @@ namespace HaveAVoice.Tests.Models.Services.AdminFeatures {
             myPermissions.Add(myPermission);
             theUserInformationBuilder.AddPermissions(myPermissions);
 
-            Role role = Role.CreateRole(0, ROLE_NAME, ROLE_DESCRIPTION, DEFAULT_ROLE, false);
+            Role role = Role.CreateRole(0, ROLE_NAME, ROLE_DESCRIPTION, DEFAULT_ROLE, 0, false);
             bool result = theService.CreateRole(theUserInformationBuilder.Build(), role, SELECTED_PERMISSIONS, SELECTED_RESTRICTION_ID);
 
             theMockRepository.Verify(r => r.CreateRole(It.IsAny<User>(), It.IsAny<Role>(), It.IsAny<List<int>>(), It.IsAny<int>()), Times.Exactly(1));
@@ -63,7 +63,7 @@ namespace HaveAVoice.Tests.Models.Services.AdminFeatures {
 
         [TestMethod]
         public void TestCreateRole_RequiredName() {
-            Role myRole = Role.CreateRole(0, string.Empty, ROLE_DESCRIPTION, DEFAULT_ROLE, false);
+            Role myRole = Role.CreateRole(0, string.Empty, ROLE_DESCRIPTION, DEFAULT_ROLE, 0, false);
             bool myResult = theService.CreateRole(theUserInformationBuilder.Build(), myRole, SELECTED_PERMISSIONS, SELECTED_RESTRICTION_ID);
 
             theMockRepository.Verify(r => r.CreateRole(It.IsAny<User>(), It.IsAny<Role>(), It.IsAny<List<int>>(), It.IsAny<int>()), Times.Never());
@@ -74,7 +74,7 @@ namespace HaveAVoice.Tests.Models.Services.AdminFeatures {
 
         [TestMethod]
         public void TestCreateRole_RequiredDescriptione() {
-            Role myRole = Role.CreateRole(0, ROLE_NAME, string.Empty, DEFAULT_ROLE, false);
+            Role myRole = Role.CreateRole(0, ROLE_NAME, string.Empty, DEFAULT_ROLE, 0, false);
 
             bool myResult = theService.CreateRole(theUserInformationBuilder.Build(), myRole, SELECTED_PERMISSIONS, SELECTED_RESTRICTION_ID);
 
@@ -86,7 +86,7 @@ namespace HaveAVoice.Tests.Models.Services.AdminFeatures {
 
         [TestMethod]
         public void TestCreateRole_RequiredRestriction() {
-            Role myRole = Role.CreateRole(0, ROLE_NAME, ROLE_DESCRIPTION, DEFAULT_ROLE, false);
+            Role myRole = Role.CreateRole(0, ROLE_NAME, ROLE_DESCRIPTION, DEFAULT_ROLE, 0, false);
 
             bool myResult = theService.CreateRole(theUserInformationBuilder.Build(), myRole, SELECTED_PERMISSIONS, 0);
 

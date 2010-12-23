@@ -11,6 +11,7 @@ namespace HaveAVoice.Models.View {
                     aBuilder.IssuePostsWithinTimeLimit(),
                     aBuilder.IssuePostsTimeLimit(),
                     aBuilder.IssuePostsWaitTimeBeforePostSeconds(),
+                    aBuilder.IssueReportsBeforeLockout(),
                     aBuilder.IssueReplyPostsWithinTimeLimit(),
                     aBuilder.IssueReplyPostsTimeLimit(),
                     aBuilder.IssueReplyPostsWaitTimeBeforePostSeconds(),
@@ -20,12 +21,13 @@ namespace HaveAVoice.Models.View {
                     aBuilder.MergeIssueRequestWithinTimeLimit(),
                     aBuilder.MergeIssueRequestTimeLimit(),
                     aBuilder.MergeIssueRequestWaitTimeBeforePostSeconds(),
-                    aBuilder.IssueReportsBeforeLockout(),
+                    aBuilder.CreatedByUserId(),
                     false);
         }
 
         public class Builder {
             private int theId;
+            private int theCreatedByUserId;
             private string theName = string.Empty;
             private string theDescription = string.Empty;
             private int theIssuePostsWithinTimeLimit = 0;
@@ -49,6 +51,11 @@ namespace HaveAVoice.Models.View {
             public int Id() {
                 return theId;
             }
+
+            public int CreatedByUserId() {
+                return theCreatedByUserId;
+            }
+
             public string Name() {
                 return theName;
             }
@@ -107,6 +114,11 @@ namespace HaveAVoice.Models.View {
 
             public int IssueReportsBeforeLockout() {
                 return theIssueReportsBeforeLockout;
+            }
+
+            public Builder CreatedByUserId(int anId) {
+                theCreatedByUserId = anId;
+                return this;
             }
 
             public Builder Name(string aValue) {

@@ -6,41 +6,38 @@ using HaveAVoice.Models;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVWhoIsOnlineRepository : HAVBaseRepository, IHAVWhoIsOnlineRepository {
-        public List<WhoIsOnline> GetWhoIsOnlineEntries(User currentUser, string currentIpAddress) {
-            return (from w in GetEntities().WhoIsOnline
-                    where w.User.Id == currentUser.Id
-                    && w.IpAddress == currentIpAddress
+        public List<WhoIsOnline> GetWhoIsOnlineEntries(User aCurrentUser, string aCurrentIpAddress) {
+            return (from w in GetEntities().WhoIsOnlines
+                    where w.User.Id == aCurrentUser.Id
+                    && w.IpAddress == aCurrentIpAddress
                     select w).ToList<WhoIsOnline>();
         }
 
-        public void AddToWhoIsOnline(User currentUser, string currentIpAddress) {
+        public void AddToWhoIsOnline(User aCurrentUser, string aCurrentIpAddress) {
             IHAVUserRepository userRepository = new EntityHAVUserRepository();
-            WhoIsOnline model = new WhoIsOnline();
-            model.User = GetUser(currentUser.Id);
-            model.DateTimeStamp = DateTime.UtcNow;
-            model.IpAddress = currentIpAddress;
-            GetEntities().AddToWhoIsOnline(model);
+            WhoIsOnline myWhoIsOnline = WhoIsOnline.CreateWhoIsOnline(0, aCurrentUser.Id, DateTime.UtcNow, aCurrentIpAddress, false);
+            GetEntities().AddToWhoIsOnlines(myWhoIsOnline);
             GetEntities().SaveChanges();
         }
 
-        public void UpdateTimeOfWhoIsOnline(User currentUser, string currentIpAddress) {
-            WhoIsOnline originalWhoIsOnline = GetWhoIsOnlineEntry(currentUser, currentIpAddress);
+        public void UpdateTimeOfWhoIsOnline(User aCurrentUser, string aCurrentIpAddress) {
+            WhoIsOnline originalWhoIsOnline = GetWhoIsOnlineEntry(aCurrentUser, aCurrentIpAddress);
             originalWhoIsOnline.DateTimeStamp = DateTime.UtcNow;
             GetEntities().ApplyCurrentValues(originalWhoIsOnline.EntityKey.EntitySetName, originalWhoIsOnline);
             GetEntities().SaveChanges();
         }
 
-        public WhoIsOnline GetWhoIsOnlineEntry(User currentUser, string currentIpAddress) {
-            return (from w in GetEntities().WhoIsOnline
-                    where w.User.Id == currentUser.Id
-                    && w.IpAddress == currentIpAddress
+        public WhoIsOnline GetWhoIsOnlineEntry(User aCurrentUser, string aCurrentIpAddress) {
+            return (from w in GetEntities().WhoIsOnlines
+                    where w.User.Id == aCurrentUser.Id
+                    && w.IpAddress == aCurrentIpAddress
                     select w).FirstOrDefault<WhoIsOnline>();
         }
 
-        public void MarkForceLogOutOfOtherUsers(User currentUser, string currentIpAddress) {
-            List<WhoIsOnline> otherUsers = (from w in GetEntities().WhoIsOnline
-                                            where w.User.Id == currentUser.Id
-                                            && w.IpAddress != currentIpAddress
+        public void MarkForceLogOutOfOtherUsers(User aCurrentUser, string aCurrentIpAddress) {
+            List<WhoIsOnline> otherUsers = (from w in GetEntities().WhoIsOnlines
+                                            where w.User.Id == aCurrentUser.Id
+                                            && w.IpAddress != aCurrentIpAddress
                                             select w).ToList<WhoIsOnline>();
 
             foreach (WhoIsOnline onlineEntry in otherUsers) {
@@ -50,18 +47,13 @@ namespace HaveAVoice.Repositories.UserFeatures {
             GetEntities().SaveChanges();
         }
 
-        public void RemoveFromWhoIsOnline(User currentUser, string currentIpAddress) {
-            List<WhoIsOnline> onlineEntries = GetWhoIsOnlineEntries(currentUser, currentIpAddress);
+        public void RemoveFromWhoIsOnline(User aCurrentUser, string aCurrentIpAddress) {
+            List<WhoIsOnline> onlineEntries = GetWhoIsOnlineEntries(aCurrentUser, aCurrentIpAddress);
             foreach (WhoIsOnline onlineEntry in onlineEntries) {
                 GetEntities().DeleteObject(onlineEntry);
             }
 
             GetEntities().SaveChanges();
-        }
-
-        private User GetUser(int anId) {
-            IHAVUserRetrievalRepository myUserRetrieval = new EntityHAVUserRetrievalRepository();
-            return myUserRetrieval.GetUser(anId);
         }
     }
 }

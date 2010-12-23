@@ -8,7 +8,7 @@ namespace HaveAVoice.Models {
         public int Disposition {get; set;}
         
         public IssueReply ToModel() {
-            return IssueReply.CreateIssueReply(Id, Body, DateTime.UtcNow, false, Disposition, false);
+            return IssueReply.CreateIssueReply(Id, 0, 0, Body, DateTime.UtcNow, false, Disposition, false);
         }
 
         public static IssueReplyWrapper Build(IssueReply aReply) {

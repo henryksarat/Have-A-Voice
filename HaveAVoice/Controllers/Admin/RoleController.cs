@@ -74,7 +74,7 @@ namespace HaveAVoice.Controllers.Admin {
             }
 
             try {
-                Role role = Role.CreateRole(0, string.Empty, string.Empty, false, false);
+                Role role = Role.CreateRole(0, string.Empty, string.Empty, false, 0, false);
                 RoleModel myModel = CreateRoleModel(role);
 
                 return View("Create", myModel);

@@ -23,7 +23,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
         private static int ROLE_ID = 3;
         private static int FROM_ROLE_ID = 5;
         private static int TO_ROLE_ID = 6;
-        private static Role ROLE = Role.CreateRole(0, "Admin", "Admin Role", false, false);
+        private static Role ROLE = Role.CreateRole(0, "Admin", "Admin Role", false, 0, false);
         private static Restriction RESTRICTION = new RestrictionModel.Builder(0).Build().Restriction;
         private static Permission PERMISSION = Permission.CreatePermission(0, string.Empty, string.Empty, false);
         private static SwitchUserRoles theSwitchUserRolesModel;

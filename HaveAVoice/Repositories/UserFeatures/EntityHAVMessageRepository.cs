@@ -48,18 +48,13 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         public Message CreateReply(int messageId, User user, string body) {
-            User replyUser = GetUser(user.Id);
             Message message = GetMessage(messageId);
 
-            Reply reply = new Reply();
-            reply.Message = message;
-            reply.User = replyUser;
-            reply.Body = body;
-            reply.DateTimeStamp = DateTime.UtcNow;
+            Reply myReply = Reply.CreateReply(0, user.Id, messageId, body, DateTime.UtcNow);
 
             bool updatedRepliedTo = false;
 
-            if (message.ToUserId == replyUser.Id && message.RepliedTo == false) {
+            if (message.ToUserId == user.Id && message.RepliedTo == false) {
                 message.RepliedTo = true;
                 updatedRepliedTo = true;
             }
@@ -68,7 +63,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
                 GetEntities().ApplyCurrentValues(message.EntityKey.EntitySetName, message);
             }
 
-            GetEntities().AddToReplys(reply);
+            GetEntities().AddToReplys(myReply);
             GetEntities().SaveChanges();
 
             return message;
@@ -135,11 +130,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
             return (from m in GetEntities().Messages.Include("FromUser").Include("Replys.User")
                     where m.Id == aMessageId
                     select m).FirstOrDefault<Message>();
-        }
-
-        private User GetUser(int anId) {
-            IHAVUserRetrievalRepository myUserRetrieval = new EntityHAVUserRetrievalRepository();
-            return myUserRetrieval.GetUser(anId);
         }
     }
 }

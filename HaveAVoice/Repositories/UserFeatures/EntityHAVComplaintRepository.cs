@@ -12,57 +12,44 @@ namespace HaveAVoice.Repositories.UserFeatures {
             theUserRepo = new EntityHAVUserRepository();
         }
 
-        public void AddMergeComplaint(User filedBy, User towardUser, string complaint, int mergeRequestId) {
+        public void AddMergeComplaint(User aFiledBy, User towardUser, string complaint, int mergeRequestId) {
             throw new NotImplementedException();
         }
 
-        public void AddIssueComplaint(User filedBy, string aComplaint, int issueId) {
-            IHAVIssueRepository issueRepo = new EntityHAVIssueRepository();
-            IssueComplaint issueComplaint = IssueComplaint.CreateIssueComplaint(0, aComplaint);
-            issueComplaint.FiledByUser = GetUser(filedBy.Id);
-            issueComplaint.Issue = issueRepo.GetIssue(issueId);
+        public void AddIssueComplaint(User aFiledBy, string aComplaint, int anIssueId) {
+            IssueComplaint myIssueComplaint = IssueComplaint.CreateIssueComplaint(0, aFiledBy.Id, anIssueId, aComplaint);
             
-            GetEntities().AddToIssueComplaints(issueComplaint);
+            GetEntities().AddToIssueComplaints(myIssueComplaint);
             GetEntities().SaveChanges();
         }
 
-        public void AddIssueReplyComplaint(User filedBy, string aComplaint, int issueReplyId) {
-            IHAVIssueRepository issueRepo = new EntityHAVIssueRepository();
-            IssueReplyComplaint issueReplyComplaint = IssueReplyComplaint.CreateIssueReplyComplaint(0, aComplaint);
-            issueReplyComplaint.FiledByUser = GetUser(filedBy.Id);
-            issueReplyComplaint.IssueReply = issueRepo.GetIssueReply(issueReplyId);
+        public void AddIssueReplyComplaint(User aFiledBy, string aComplaint, int anIssueReplyId) {
+            IssueReplyComplaint myIssueReplyComplaint = IssueReplyComplaint.CreateIssueReplyComplaint(0, aFiledBy.Id, anIssueReplyId, aComplaint);
 
-            GetEntities().AddToIssueReplyComplaints(issueReplyComplaint);
+            GetEntities().AddToIssueReplyComplaints(myIssueReplyComplaint);
             GetEntities().SaveChanges();
         }
 
-        public void AddIssueReplyCommentComplaint(User filedBy, string aComplaint, int issueReplyCommentId) {
-            IHAVIssueRepository issueRepo = new EntityHAVIssueRepository();
-            IssueReplyCommentComplaint issueReplyCommentComplaint = IssueReplyCommentComplaint.CreateIssueReplyCommentComplaint(0, filedBy.Id, issueReplyCommentId, aComplaint);
+        public void AddIssueReplyCommentComplaint(User aFiledBy, string aComplaint, int anIssueReplyCommentId) {
+            IHAVIssueRepository myIssueRepo = new EntityHAVIssueRepository();
+            IssueReplyCommentComplaint issueReplyCommentComplaint = IssueReplyCommentComplaint.CreateIssueReplyCommentComplaint(0, aFiledBy.Id, anIssueReplyCommentId, aComplaint);
 
             GetEntities().AddToIssueReplyCommentComplaints(issueReplyCommentComplaint);
             GetEntities().SaveChanges();
         }
 
-        public void AddProfileComplaint(User filedBy, string aComplaint, int towardUserId) {
-            ProfileComplaint profileComplaint = ProfileComplaint.CreateProfileComplaint(0, aComplaint);
-            profileComplaint.FiledByUser = GetUser(filedBy.Id);
-            profileComplaint.TowardUser = GetUser(towardUserId);
+        public void AddProfileComplaint(User aFiledBy, string aComplaint, int aTowardUserId) {
+            ProfileComplaint myProfileComplaint = ProfileComplaint.CreateProfileComplaint(0, aFiledBy.Id, aTowardUserId, aComplaint);
 
-            GetEntities().AddToProfileComplaints(profileComplaint);
+            GetEntities().AddToProfileComplaints(myProfileComplaint);
             GetEntities().SaveChanges();
         }
 
-        public void AddUserPictureComplaint(User filedBy, string aComplaint, int pictureId) {
-            UserPictureComplaint userPicutreComplaint = UserPictureComplaint.CreateUserPictureComplaint(0, filedBy.Id, pictureId, aComplaint);
+        public void AddUserPictureComplaint(User aFiledBy, string aComplaint, int aPictureId) {
+            UserPictureComplaint myUserPicutreComplaint = UserPictureComplaint.CreateUserPictureComplaint(0, aFiledBy.Id, aPictureId, aComplaint);
 
-            GetEntities().AddToUserPictureComplaints(userPicutreComplaint);
+            GetEntities().AddToUserPictureComplaints(myUserPicutreComplaint);
             GetEntities().SaveChanges();
-        }
-
-        private User GetUser(int anId) {
-            IHAVUserRetrievalRepository myUserRetrieval = new EntityHAVUserRetrievalRepository();
-            return myUserRetrieval.GetUser(anId);
         }
     }
 }

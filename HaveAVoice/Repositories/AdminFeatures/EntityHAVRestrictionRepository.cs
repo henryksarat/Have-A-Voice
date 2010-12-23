@@ -9,8 +9,7 @@ using HaveAVoice.Models;
 namespace HaveAVoice.Repositories.AdminFeatures {
     public class EntityHAVRestrictionRepository : HAVBaseRepository, IHAVRestrictionRepository {
         public void CreateRestriction(User aCreatedByUser, Restriction aRestrictionToCreate) {
-            User myUser = GetUser(aCreatedByUser.Id);
-            aRestrictionToCreate.CreatedByUser = myUser;
+            aRestrictionToCreate.CreatedByUserId = aCreatedByUser.Id;
             GetEntities().AddToRestrictions(aRestrictionToCreate);
             GetEntities().SaveChanges();
         }
@@ -42,11 +41,6 @@ namespace HaveAVoice.Repositories.AdminFeatures {
 
             GetEntities().ApplyCurrentValues(myOriginalRestriction.EntityKey.EntitySetName, aRestrictionToEdit);
             GetEntities().SaveChanges();
-        }
-
-        private User GetUser(int anId) {
-            IHAVUserRetrievalRepository myUserRetrieval = new EntityHAVUserRetrievalRepository();
-            return myUserRetrieval.GetUser(anId);
         }
     }
 }

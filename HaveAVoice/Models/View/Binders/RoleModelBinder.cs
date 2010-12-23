@@ -18,9 +18,6 @@ namespace HaveAVoice.Models.View {
             int roleId = BinderHelper.GetAInt(bindingContext, "id");
             bool defaultRole = Boolean.Parse(BinderHelper.GetA(bindingContext, "DefaultRole"));
 
-
-            Role role = Role.CreateRole(roleId, name, description, defaultRole, false);
-
             string mySelectedPermissionIds = BinderHelper.GetA(bindingContext, "SelectedPermissions").Trim();
             string[] mySplitIds = mySelectedPermissionIds.Split(',');
             List<int> mySelectedPermissions = new List<int>();
@@ -32,6 +29,8 @@ namespace HaveAVoice.Models.View {
             }
 
             int restrictionId = BinderHelper.GetAInt(bindingContext, "SelectedRestriction");
+
+            Role role = Role.CreateRole(roleId, name, description, defaultRole, restrictionId, false);
 
             RoleModel myModel = new RoleModel(role);
             myModel.SelectedPermissionsIds = mySelectedPermissions;

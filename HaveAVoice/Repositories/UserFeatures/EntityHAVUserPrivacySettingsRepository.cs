@@ -8,8 +8,7 @@ using HaveAVoice.Models;
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVUserPrivacySettingsRepository : HAVBaseRepository, IHAVUserPrivacySettingsRepository {
         public void AddDefaultUserPrivacySettings(User aUser) {
-            UserPrivacySetting myPrivacySettings = UserPrivacySetting.CreateUserPrivacySetting(0, false, false, false);
-            myPrivacySettings.User = FindUser(aUser.Id);
+            UserPrivacySetting myPrivacySettings = UserPrivacySetting.CreateUserPrivacySetting(0, aUser.Id, false, false, false);
             GetEntities().AddToUserPrivacySettings(myPrivacySettings);
             GetEntities().SaveChanges();
         }
@@ -30,11 +29,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
             return (from p in GetEntities().UserPrivacySettings
                     where p.Id == aUserPrivacySetting.Id
                     select p).FirstOrDefault<UserPrivacySetting>();
-        }
-
-        private User FindUser(int aUserId) {
-            IHAVUserRetrievalRepository myUserRetrievalRepo = new EntityHAVUserRetrievalRepository();
-            return myUserRetrievalRepo.GetUser(aUserId);
         }
     }
 }

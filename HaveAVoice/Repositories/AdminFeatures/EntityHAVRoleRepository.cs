@@ -56,11 +56,8 @@ namespace HaveAVoice.Repositories.AdminFeatures {
         }
 
         public Role CreateRole(User aCreatedByUser, Role aRoleToCreate, List<int> aPermissionId, int aSelectedRestrictionId) {
-
-            IHAVRestrictionRepository restrictionRepository = new EntityHAVRestrictionRepository();
-
-            aRoleToCreate.Restriction = restrictionRepository.GetRestriction(aSelectedRestrictionId);
-            aRoleToCreate.EditedByUser = GetUser(aCreatedByUser.Id);
+            aRoleToCreate.RestrictionId = aSelectedRestrictionId;
+            aRoleToCreate.EditedByUserId = aCreatedByUser.Id;
             GetEntities().AddToRoles(aRoleToCreate);
             GetEntities().SaveChanges();
 
@@ -84,12 +81,10 @@ namespace HaveAVoice.Repositories.AdminFeatures {
                 MakeNoDefaultRole();
             }
             
-            IHAVRestrictionRepository myRestrictionRepo = new EntityHAVRestrictionRepository();
-
             myOriginalRole.Description = aRoleToEdit.Description;
             myOriginalRole.Name = aRoleToEdit.Name;
-            myOriginalRole.Restriction = myRestrictionRepo.GetRestriction(aSelectedRestrictionId);
-            myOriginalRole.EditedByUser = GetUser(anEditedByUser.Id);
+            myOriginalRole.RestrictionId = aSelectedRestrictionId;
+            myOriginalRole.EditedByUserId = anEditedByUser.Id;
             GetEntities().ApplyCurrentValues(myOriginalRole.EntityKey.EntitySetName, myOriginalRole);
             GetEntities().SaveChanges();
 
@@ -228,11 +223,6 @@ namespace HaveAVoice.Repositories.AdminFeatures {
             foreach (Int32 mySelectedPermissionId in aSelectedPermissionIds) {
                 CreateRolePermission(aRoleToEdit.Id, mySelectedPermissionId);
             }
-        }
-
-        private User GetUser(int anId) {
-            IHAVUserRetrievalRepository myUserRetrieval = new EntityHAVUserRetrievalRepository();
-            return myUserRetrieval.GetUser(anId);
         }
     }
 }

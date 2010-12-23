@@ -259,7 +259,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
         public void ShouldLoadEditRestrictionPage() {
             PermissionTestHelper.AddPermissionToUserInformation(theUserInformationBuilder, HAVPermission.Edit_Restriction);
             List<Role> roles = new List<Role>();
-            roles.Add(Role.CreateRole(1, "Role1", "Role1 Description", false, false));
+            roles.Add(Role.CreateRole(1, "Role1", "Role1 Description", false, 0, false));
 
             theMockedService.Setup(s => s.GetRestriction(It.Is<int>(i => i == VALID_RESTRICTION_ID))).Returns(() => theRestriction);
             theMockedRoleService.Setup(s => s.GetAllRoles()).Returns(() => roles);
