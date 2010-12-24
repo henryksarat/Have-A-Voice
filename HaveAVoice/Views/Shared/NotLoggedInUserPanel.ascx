@@ -1,7 +1,5 @@
 <%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<HaveAVoice.Models.View.NotLoggedInModel>" %>
 
-<%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
-
 <div class="push-1 col-22 sign-up">
 	<div class="col-16 center padding-22t">
 		<h3>

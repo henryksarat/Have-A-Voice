@@ -70,7 +70,7 @@
                 <%= Html.ValidationMessage("Password", "*")%>
                 <label>password</label>
                 <br />
-                <%=Html.ActionLink("forgot password?", "ForgotPassword", null, new{@class="forgot"}) %>
+                <%=Html.ActionLink("forgot password?", "Request", "Password", null, new{@class="forgot"}) %>
             </div>
 
             <div class="col-5">
