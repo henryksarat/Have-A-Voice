@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.ProfileModel>" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
+<%@ Import Namespace="HaveAVoice.Helpers.Enums" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Profile
@@ -21,10 +22,12 @@
     <b><%= Model.User.Username %> <br /><br /></b><br /><br />
 
 
-    <% if (Model.IsFan) { %>
+    <% if (Model.FanStatus == FanStatus.Approved) { %>
         Already a fan!
+    <% } else if (Model.FanStatus == FanStatus.Pending) { %>
+        Your fan request is pending
     <% } else { %>
-        <%=Html.ActionLink("Become a fan.", "BecomeAFan", "User", new { id = Model.User.Id }, null)%>
+        <%=Html.ActionLink("Become a fan.", "Create", "Fan", new { id = Model.User.Id }, null)%>
     <% } %><br /><br />
     <%= Html.ValidationSummary("Unable to post. Please correct the error and try again.") %><br />
     

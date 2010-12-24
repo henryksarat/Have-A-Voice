@@ -22,6 +22,14 @@ namespace HaveAVoice.Services.UserFeatures {
             theFanRepo.AddFan(aUser, aSourceUserId);
         }
 
+        public void ApproveFan(int aFanId) {
+            theFanRepo.ApproveFan(aFanId);
+        }
+
+        public void DeclineFan(int aFanId) {
+            theFanRepo.DeleteFan(aFanId);
+        }
+
         public IEnumerable<Fan> FindFansForUser(int aUserId) {
             return theFanRepo.FindFansForUser(aUserId);
         }
@@ -30,8 +38,16 @@ namespace HaveAVoice.Services.UserFeatures {
             return theFanRepo.FindFansOfUser(aUserId);
         }
 
+        public IEnumerable<Fan> FindPendingFansForUser(int aUserId) {
+            return theFanRepo.FindPendingFansForUser(aUserId);
+        }
+
         public bool IsFan(int aUserId, User aFan) {
             return theFanRepo.IsFan(aUserId, aFan);
+        }
+
+        public bool IsPending(int aUserId, User aFan) {
+            return theFanRepo.IsPending(aUserId, aFan);
         }
     }
 }

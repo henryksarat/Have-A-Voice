@@ -88,6 +88,7 @@
     <Compile Include="Controllers\Issues\IssueReplyController.cs" />
     <Compile Include="Controllers\Users\UserPicturesController.cs" />
     <Compile Include="Controllers\Users\UserPrivacySettings.cs" />
+    <Compile Include="Helpers\Enums\FanStatus.cs" />
     <Compile Include="Helpers\HAVPermissionHelper.cs" />
     <Compile Include="Helpers\RoleHelper.cs" />
     <Compile Include="Controllers\Admin\RestrictionController.cs" />
@@ -194,7 +195,6 @@
     <Compile Include="Models\Wrappers\BoardReplyWrapper.cs" />
     <Compile Include="Models\Wrappers\BoardWrapper.cs" />
     <Compile Include="Models\View\BoardModel.cs" />
-    <Compile Include="Models\View\Builders\ProfileModelBuilder.cs" />
     <Compile Include="Models\View\Builders\UserInformationModelBuilder.cs" />
     <Compile Include="Models\View\ComplaintModel.cs" />
     <Compile Include="Models\View\Binders\ComlpaintModelBinder.cs" />
@@ -322,6 +322,7 @@
     <Content Include="Views\Calendar\Complaint\Complaint.aspx" />
     <Content Include="Views\Error\Index.aspx" />
     <Content Include="Views\Calendar\Show.aspx" />
+    <Content Include="Views\Fan\Pending.aspx" />
     <Content Include="Views\Feedback\Create.aspx" />
     <Content Include="Views\Feedback\View.aspx" />
     <Content Include="Views\File\Index.aspx" />

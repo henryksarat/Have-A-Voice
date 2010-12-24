@@ -39,7 +39,6 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_FilteredCityState_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "FilteredCityState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.FilteredCityState), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_FilteredZipCode_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "FilteredZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.FilteredZipCode), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_RolePermissions_Permissions", "Permission", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Permission), "RolePermission", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.RolePermission), true)]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_ProfilePictures_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "ProfilePicture", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.ProfilePicture), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_RolePermissions_Roles", "Role", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Role), "RolePermission", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.RolePermission), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Roles_Restrictions", "Restriction", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Restriction), "Role", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Role), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserRoles_Roles", "Role", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Role), "UserRole", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserRole), true)]
@@ -330,22 +329,6 @@ namespace HaveAVoice.Models
             }
         }
         private ObjectSet<Permission> _Permissions;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<ProfilePicture> ProfilePictures
-        {
-            get
-            {
-                if ((_ProfilePictures == null))
-                {
-                    _ProfilePictures = base.CreateObjectSet<ProfilePicture>("ProfilePictures");
-                }
-                return _ProfilePictures;
-            }
-        }
-        private ObjectSet<ProfilePicture> _ProfilePictures;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -836,14 +819,6 @@ namespace HaveAVoice.Models
         public void AddToPermissions(Permission permission)
         {
             base.AddObject("Permissions", permission);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the ProfilePictures EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToProfilePictures(ProfilePicture profilePicture)
-        {
-            base.AddObject("ProfilePictures", profilePicture);
         }
     
         /// <summary>
@@ -3544,12 +3519,14 @@ namespace HaveAVoice.Models
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="fanUserId">Initial value of the FanUserId property.</param>
         /// <param name="sourceUserId">Initial value of the SourceUserId property.</param>
-        public static Fan CreateFan(global::System.Int32 id, global::System.Int32 fanUserId, global::System.Int32 sourceUserId)
+        /// <param name="approved">Initial value of the Approved property.</param>
+        public static Fan CreateFan(global::System.Int32 id, global::System.Int32 fanUserId, global::System.Int32 sourceUserId, global::System.Boolean approved)
         {
             Fan fan = new Fan();
             fan.Id = id;
             fan.FanUserId = fanUserId;
             fan.SourceUserId = sourceUserId;
+            fan.Approved = approved;
             return fan;
         }
 
@@ -3630,6 +3607,30 @@ namespace HaveAVoice.Models
         private global::System.Int32 _SourceUserId;
         partial void OnSourceUserIdChanging(global::System.Int32 value);
         partial void OnSourceUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Approved
+        {
+            get
+            {
+                return _Approved;
+            }
+            set
+            {
+                OnApprovedChanging(value);
+                ReportPropertyChanging("Approved");
+                _Approved = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Approved");
+                OnApprovedChanged();
+            }
+        }
+        private global::System.Boolean _Approved;
+        partial void OnApprovedChanging(global::System.Boolean value);
+        partial void OnApprovedChanged();
 
         #endregion
     
@@ -7482,180 +7483,6 @@ namespace HaveAVoice.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="HaveAVoice.Models", Name="ProfilePicture")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class ProfilePicture : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new ProfilePicture object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="userId">Initial value of the UserId property.</param>
-        /// <param name="uRL">Initial value of the URL property.</param>
-        /// <param name="defaultPicture">Initial value of the DefaultPicture property.</param>
-        public static ProfilePicture CreateProfilePicture(global::System.Int32 id, global::System.Int32 userId, global::System.String uRL, global::System.Boolean defaultPicture)
-        {
-            ProfilePicture profilePicture = new ProfilePicture();
-            profilePicture.Id = id;
-            profilePicture.UserId = userId;
-            profilePicture.URL = uRL;
-            profilePicture.DefaultPicture = defaultPicture;
-            return profilePicture;
-        }
-
-        #endregion
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Int32 _Id;
-        partial void OnIdChanging(global::System.Int32 value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 UserId
-        {
-            get
-            {
-                return _UserId;
-            }
-            set
-            {
-                OnUserIdChanging(value);
-                ReportPropertyChanging("UserId");
-                _UserId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("UserId");
-                OnUserIdChanged();
-            }
-        }
-        private global::System.Int32 _UserId;
-        partial void OnUserIdChanging(global::System.Int32 value);
-        partial void OnUserIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String URL
-        {
-            get
-            {
-                return _URL;
-            }
-            set
-            {
-                OnURLChanging(value);
-                ReportPropertyChanging("URL");
-                _URL = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("URL");
-                OnURLChanged();
-            }
-        }
-        private global::System.String _URL;
-        partial void OnURLChanging(global::System.String value);
-        partial void OnURLChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Boolean DefaultPicture
-        {
-            get
-            {
-                return _DefaultPicture;
-            }
-            set
-            {
-                OnDefaultPictureChanging(value);
-                ReportPropertyChanging("DefaultPicture");
-                _DefaultPicture = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("DefaultPicture");
-                OnDefaultPictureChanged();
-            }
-        }
-        private global::System.Boolean _DefaultPicture;
-        partial void OnDefaultPictureChanging(global::System.Boolean value);
-        partial void OnDefaultPictureChanged();
-
-        #endregion
-    
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_ProfilePictures_Users", "User")]
-        public User User
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_ProfilePictures_Users", "User").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_ProfilePictures_Users", "User").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<User> UserReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_ProfilePictures_Users", "User");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_ProfilePictures_Users", "User", value);
-                }
-            }
-        }
-
-        #endregion
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="HaveAVoice.Models", Name="Reply")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -10202,28 +10029,6 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FilteredZipCode>("HaveAVoice.Models.FK_FilteredZipCode_Users", "FilteredZipCode", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_ProfilePictures_Users", "ProfilePicture")]
-        public EntityCollection<ProfilePicture> ProfilePictures
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProfilePicture>("HaveAVoice.Models.FK_ProfilePictures_Users", "ProfilePicture");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProfilePicture>("HaveAVoice.Models.FK_ProfilePictures_Users", "ProfilePicture", value);
                 }
             }
         }
