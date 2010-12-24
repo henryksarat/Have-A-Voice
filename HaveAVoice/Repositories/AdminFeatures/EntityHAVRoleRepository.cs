@@ -9,53 +9,17 @@ using HaveAVoice.Models;
 
 namespace HaveAVoice.Repositories.AdminFeatures {
     public class EntityHAVRoleRepository : HAVBaseRepository, IHAVRoleRepository {
-        public Permission CreatePermission(User aCreatedByUser, Permission aPermissionToCreate) {
-            aPermissionToCreate.EditByUserId = aCreatedByUser.Id;
-            GetEntities().AddToPermissions(aPermissionToCreate);
-            GetEntities().SaveChanges();
-            return aPermissionToCreate;
-        }
-        
-        public IEnumerable<Permission> GetAllPermissions() {
-            return GetEntities().Permissions.ToList<Permission>().Where(p => p.Deleted == false);
-        }
-
-        public Permission GetPermission(int aPermissionId) {
-            return (from p in GetEntities().Permissions
-                    where p.Id == aPermissionId && p.Deleted == false
-                    select p).FirstOrDefault();
-        }
-
-        public void DeletePermission(User aDeletedByUser, Permission aPermissionToDelete) {
-            Permission myOriginalPermission = GetPermission(aPermissionToDelete.Id);
-            myOriginalPermission.Deleted = true;
-            myOriginalPermission.DeletedByUserId = aDeletedByUser.Id;
-            
-            GetEntities().ApplyCurrentValues(myOriginalPermission.EntityKey.EntitySetName, myOriginalPermission);
-            GetEntities().SaveChanges();
-        }
-
-        public Permission EditPermission(User anEditedByUser, Permission aPermissionToEdit) {
-            var myOriginalPermission = GetPermission(aPermissionToEdit.Id);
-            aPermissionToEdit.EditByUserId = anEditedByUser.Id;
-
-            GetEntities().ApplyCurrentValues(myOriginalPermission.EntityKey.EntitySetName, aPermissionToEdit);
-            GetEntities().SaveChanges();
-
-            return aPermissionToEdit;
-        }
-
         public IEnumerable<Role> GetAllRoles() {
             return GetEntities().Roles.ToList<Role>().Where(r => r.Deleted == false);
         }
 
-        public Role GetRole(int aRoleId) {
+        public Role FindRole(int aRoleId) {
             return (from r in GetEntities().Roles.Include("RolePermissions.Permission")
                     where r.Id == aRoleId && r.Deleted == false
                     select r).FirstOrDefault();
         }
 
-        public Role CreateRole(User aCreatedByUser, Role aRoleToCreate, List<int> aPermissionId, int aSelectedRestrictionId) {
+        public Role Create(User aCreatedByUser, Role aRoleToCreate, List<int> aPermissionId, int aSelectedRestrictionId) {
             aRoleToCreate.RestrictionId = aSelectedRestrictionId;
             aRoleToCreate.EditedByUserId = aCreatedByUser.Id;
             GetEntities().AddToRoles(aRoleToCreate);
@@ -70,8 +34,8 @@ namespace HaveAVoice.Repositories.AdminFeatures {
             return aRoleToCreate;
         }
 
-        public Role EditRole(User anEditedByUser, Role aRoleToEdit, List<Int32> aSelectedPermissionIds, int aSelectedRestrictionId) {
-            Role myOriginalRole = GetRole(aRoleToEdit.Id);
+        public Role Edit(User anEditedByUser, Role aRoleToEdit, List<Int32> aSelectedPermissionIds, int aSelectedRestrictionId) {
+            Role myOriginalRole = FindRole(aRoleToEdit.Id);
             
             IEnumerable<RolePermission> myRolePermissions = GetRolePermissions(aRoleToEdit);
             
@@ -91,8 +55,8 @@ namespace HaveAVoice.Repositories.AdminFeatures {
             return aRoleToEdit;
         }
 
-        public void DeleteRole(User aDeletedByUser, Role aRoleToDelete) {
-            var myOriginalRole = GetRole(aRoleToDelete.Id);
+        public void Delete(User aDeletedByUser, Role aRoleToDelete) {
+            var myOriginalRole = FindRole(aRoleToDelete.Id);
             myOriginalRole.Deleted = true;
             myOriginalRole.DeletedByUserId = aDeletedByUser.Id;
             IEnumerable<RolePermission> myRolePermissions = GetRolePermissions(myOriginalRole);
@@ -119,7 +83,7 @@ namespace HaveAVoice.Repositories.AdminFeatures {
             return notConfirmedRole;
         }
 
-        public IEnumerable<User> UsersInRole(int aRoleId) {
+        public IEnumerable<User> FindUsersInRole(int aRoleId) {
             return (from u in GetEntities().Users
                     join ur in GetEntities().UserRoles on u.Id equals ur.User.Id
                     where ur.Role.Id == aRoleId
@@ -128,7 +92,7 @@ namespace HaveAVoice.Repositories.AdminFeatures {
 
         public void MoveUsersToRole(List<int> aUsers, int aFromRoleId, int aToRoleId) {
             IHAVUserRepository myUserRepo = new EntityHAVUserRepository();
-            Role myMoveToRole = GetRole(aToRoleId);
+            Role myMoveToRole = FindRole(aToRoleId);
             foreach (int myUserId in aUsers) {
                 UserRole myOriginalUserRole = GetUserRole(myUserId, aFromRoleId);
 
@@ -149,7 +113,7 @@ namespace HaveAVoice.Repositories.AdminFeatures {
         }
 
         private Role UpdateRoleDefaultStatus(Role aRoleToUpdate, bool anIsDefault) {
-            Role originalRole = GetRole(aRoleToUpdate.Id);
+            Role originalRole = FindRole(aRoleToUpdate.Id);
             aRoleToUpdate.DefaultRole = anIsDefault;
             GetEntities().ApplyCurrentValues(originalRole.EntityKey.EntitySetName, aRoleToUpdate);
             return aRoleToUpdate;

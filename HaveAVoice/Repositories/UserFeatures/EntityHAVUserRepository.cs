@@ -46,7 +46,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
             IHAVRoleRepository roleRepository = new EntityHAVRoleRepository();
 
             User user = GetUser(userId);
-            Role role = roleRepository.GetRole(roleId);
+            Role role = roleRepository.FindRole(roleId);
 
             if (user == null)
                 throw new NullUserException("User is null.");

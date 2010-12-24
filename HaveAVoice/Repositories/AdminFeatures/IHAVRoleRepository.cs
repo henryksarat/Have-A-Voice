@@ -4,22 +4,14 @@ using HaveAVoice.Models;
 
 namespace HaveAVoice.Repositories.AdminFeatures {
     public interface IHAVRoleRepository {
-        //Roles
-        Role GetRole(int id);
+        Role Create(User aCreatedByUser, Role aRoleToCreate, List<int> aSelectedPermissionIds, int aSelectedRestrictionId);
+        Role Edit(User aEditedByUser, Role aRoleToEdit, List<int> aSelectedPermissionIds, int aSelectedRestrictionId);
+        void Delete(User aDeletedByUser, Role aRoleToDelete);
+        Role FindRole(int id);
+        IEnumerable<User> FindUsersInRole(int aRoleId);
         IEnumerable<Role> GetAllRoles();
-        Role CreateRole(User aCreatedByUser, Role aRoleToCreate, List<int> aSelectedPermissionIds, int aSelectedRestrictionId);
-        Role EditRole(User aEditedByUser, Role aRoleToEdit, List<int> aSelectedPermissionIds, int aSelectedRestrictionId);
-        void DeleteRole(User aDeletedByUser, Role aRoleToDelete);
         Role GetDefaultRole();
         Role GetNotConfirmedUserRole();
-        IEnumerable<User> UsersInRole(int aRoleId);
         void MoveUsersToRole(List<int> aUsers, int aFromRoleId, int aToRoleId);
-
-        //Permissions
-        Permission GetPermission(int id);
-        IEnumerable<Permission> GetAllPermissions();
-        Permission CreatePermission(User aCreatedByUser, Permission aPermissionToCreate);
-        Permission EditPermission(User aEditedByUser, Permission aPermissionToEdit);
-        void DeletePermission(User aDeletedByUser, Permission aPermissionToDelete);
     }
 }

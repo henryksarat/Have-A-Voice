@@ -8,15 +8,11 @@ using HaveAVoice.Services.AdminFeatures;
 
 namespace HaveAVoice.Models.View {
     public class RoleModelBinder : IModelBinder {
-
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext) {
-            IHAVRoleService roleService = new HAVRoleService(new ModelStateWrapper(null));
-            List<Permission> permissions = roleService.GetAllPermissions().ToList();
-
-            string name = BinderHelper.GetA(bindingContext, "Name");
-            string description = BinderHelper.GetA(bindingContext, "Description");
-            int roleId = BinderHelper.GetAInt(bindingContext, "id");
-            bool defaultRole = Boolean.Parse(BinderHelper.GetA(bindingContext, "DefaultRole"));
+            string myName = BinderHelper.GetA(bindingContext, "Name");
+            string myDescription = BinderHelper.GetA(bindingContext, "Description");
+            int myRoleId = BinderHelper.GetAInt(bindingContext, "id");
+            bool myDefaultRole = Boolean.Parse(BinderHelper.GetA(bindingContext, "DefaultRole"));
 
             string mySelectedPermissionIds = BinderHelper.GetA(bindingContext, "SelectedPermissions").Trim();
             string[] mySplitIds = mySelectedPermissionIds.Split(',');
@@ -28,13 +24,13 @@ namespace HaveAVoice.Models.View {
                 }
             }
 
-            int restrictionId = BinderHelper.GetAInt(bindingContext, "SelectedRestriction");
+            int myRestrictionId = BinderHelper.GetAInt(bindingContext, "SelectedRestriction");
 
-            Role role = Role.CreateRole(roleId, name, description, defaultRole, restrictionId, false);
+            Role myRole = Role.CreateRole(myRoleId, myName, myDescription, myDefaultRole, myRestrictionId, false);
 
-            RoleModel myModel = new RoleModel(role);
+            RoleModel myModel = new RoleModel(myRole);
             myModel.SelectedPermissionsIds = mySelectedPermissions;
-            myModel.SelectedRestrictionId = restrictionId;
+            myModel.SelectedRestrictionId = myRestrictionId;
 
             return myModel;
         }

@@ -9,7 +9,7 @@ using HaveAVoice.Models;
 namespace HaveAVoice.Services.AdminFeatures {
     public class HAVRoleService : HAVBaseService, IHAVRoleService {
         private IValidationDictionary theValidationDictionary;
-        private IHAVRoleRepository theRepository;
+        private IHAVRoleRepository theRoleRepo;
 
         public HAVRoleService(IValidationDictionary aValidationDictionary)
             : this(aValidationDictionary, new EntityHAVRoleRepository(), new HAVBaseRepository()) { }
@@ -17,67 +17,18 @@ namespace HaveAVoice.Services.AdminFeatures {
         public HAVRoleService(IValidationDictionary aValidationDictionary, IHAVRoleRepository aRepository,
                                           IHAVBaseRepository baseRepository) : base(baseRepository) {
             theValidationDictionary = aValidationDictionary;
-            theRepository = aRepository;
+            theRoleRepo = aRepository;
         }
 
-        #region IHaveAVoiceService Members Permissions
-
-        public IEnumerable<Permission> GetAllPermissions() {
-            return theRepository.GetAllPermissions();
-        }
-
-        public Permission GetPermission(int id) {
-            return theRepository.GetPermission(id);
-        }
-
-        public bool CreatePermission(UserInformationModel aCreatedByUser, Permission aPermissionToCreate) {
-            if (!ValidatePermission(aPermissionToCreate)) {
-                return false;
-            }
-            
-            if (!AllowedToPerformAction(aCreatedByUser, HAVPermission.Create_Permission)) {
-                return false;
-            }
-
-            theRepository.CreatePermission(aCreatedByUser.Details, aPermissionToCreate);
-            return true;
-        }
-
-        public bool EditPermission(UserInformationModel anEditedByUser, Permission aPermissionToEdit) {
-            if (!ValidatePermission(aPermissionToEdit)) {
-                return false;
-            }
-
-            if (!AllowedToPerformAction(anEditedByUser, HAVPermission.Edit_Permission)) {
-                return false;
-            }
-
-            theRepository.EditPermission(anEditedByUser.Details, aPermissionToEdit);
-            return true;
-        }
-
-        public bool DeletePermission(UserInformationModel aDeletedByUser, Permission aPermissionToDelete) {
-            if (!AllowedToPerformAction(aDeletedByUser, HAVPermission.Delete_Permission)) {
-                return false;
-            }
-
-            theRepository.DeletePermission(aDeletedByUser.Details, aPermissionToDelete);
-            return true;
-        }
-
-        #endregion
-
-        #region IHaveAVoiceService Members Roles
-
-        public Role GetRole(int id) {
-            return theRepository.GetRole(id);;
+        public Role FindRole(int id) {
+            return theRoleRepo.FindRole(id);;
         }
 
         public IEnumerable<Role> GetAllRoles() {
-            return theRepository.GetAllRoles();
+            return theRoleRepo.GetAllRoles();
         }
 
-        public bool CreateRole(UserInformationModel aCreatedByUser, Role aRoleToCreate, List<int> aSelectedPermissionIds, int aSelectedRestrictionId) {
+        public bool Create(UserInformationModel aCreatedByUser, Role aRoleToCreate, List<int> aSelectedPermissionIds, int aSelectedRestrictionId) {
             if (!ValidateRole(aRoleToCreate) | !ValidateRestriction(aSelectedRestrictionId)) {
                 return false;
             }
@@ -85,34 +36,32 @@ namespace HaveAVoice.Services.AdminFeatures {
                 return false;
             }
 
-            theRepository.CreateRole(aCreatedByUser.Details, aRoleToCreate, aSelectedPermissionIds, aSelectedRestrictionId);
+            theRoleRepo.Create(aCreatedByUser.Details, aRoleToCreate, aSelectedPermissionIds, aSelectedRestrictionId);
             return true;
         }
 
-        public bool EditRole(UserInformationModel anEditedByUser, Role aRoleToEdit, List<int> aSelectedPermissions, int selectedRestrictionId) {
+        public bool Edit(UserInformationModel anEditedByUser, Role aRoleToEdit, List<int> aSelectedPermissions, int selectedRestrictionId) {
             if (!ValidateRole(aRoleToEdit)) {
                 return false;
             }
             if (!AllowedToPerformAction(anEditedByUser, HAVPermission.Edit_Role)) {
                 return false;
             }
-            theRepository.EditRole(anEditedByUser.Details, aRoleToEdit, aSelectedPermissions, selectedRestrictionId);
+            theRoleRepo.Edit(anEditedByUser.Details, aRoleToEdit, aSelectedPermissions, selectedRestrictionId);
             return true;
             
         }
        
-        public bool DeleteRole(UserInformationModel aDeletedByUser, Role aRoleToDelete) {
+        public bool Delete(UserInformationModel aDeletedByUser, Role aRoleToDelete) {
             if (!AllowedToPerformAction(aDeletedByUser, HAVPermission.Delete_Role)) {
                 return false;
             }
-            theRepository.DeleteRole(aDeletedByUser.Details, aRoleToDelete);
+            theRoleRepo.Delete(aDeletedByUser.Details, aRoleToDelete);
             return true;
         }
 
-        #endregion
-
         public IEnumerable<User> UsersInRole(int aRoleId) {
-            return theRepository.UsersInRole(aRoleId);
+            return theRoleRepo.FindUsersInRole(aRoleId);
         }
 
         private bool ValidateSwitchingRole(List<int> aUsers, int aFromRoleId, int aToRoleId) {
@@ -136,7 +85,7 @@ namespace HaveAVoice.Services.AdminFeatures {
             if (!ValidateSwitchingRole(aUsers, aFromRoleId, aToRoleId)) {
                 return false;
             }
-            theRepository.MoveUsersToRole(aUsers, aFromRoleId, aToRoleId);
+            theRoleRepo.MoveUsersToRole(aUsers, aFromRoleId, aToRoleId);
             return true;
         }
 

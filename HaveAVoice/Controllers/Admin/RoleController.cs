@@ -24,21 +24,24 @@ namespace HaveAVoice.Controllers.Admin {
         private static string ROLE_NOT_FOUND = "Role not found.";
         private static string PAGE_NOT_FOUND = "You do not have access.";
 
-        private IHAVRoleService theService;
+        private IHAVRoleService theRoleService;
+        private IHAVPermissionService thePermissionService;
         private IHAVRestrictionService theRestrictionService;
         private ModelStateWrapper theModelState;
 
         public RoleController() 
             : base(new HAVBaseService(new HAVBaseRepository())) {
-            theService = new HAVRoleService(new ModelStateWrapper(this.ModelState));
+            theRoleService = new HAVRoleService(new ModelStateWrapper(this.ModelState));
+            thePermissionService = new HAVPermissionService(new ModelStateWrapper(this.ModelState));
             theModelState = new ModelStateWrapper(this.ModelState);
             theRestrictionService = new HAVRestrictionService(theModelState);
         }
 
-        public RoleController(IHAVRoleService service, IHAVBaseService baseService, IHAVRestrictionService restrictionService)
-            : base(baseService) {
-            theService = service;
-            theRestrictionService = restrictionService;
+        public RoleController(IHAVBaseService aBaseService, IHAVRoleService myRoleService, IHAVPermissionService myPermissionService, IHAVRestrictionService myRestrictionService)
+            : base(aBaseService) {
+            theRoleService = myRoleService;
+            thePermissionService = myPermissionService;
+            theRestrictionService = myRestrictionService;
         }
 
         public ActionResult Index() {
@@ -52,7 +55,7 @@ namespace HaveAVoice.Controllers.Admin {
             IEnumerable<Role> roles = null;
 
             try {
-                roles = theService.GetAllRoles().ToList<Role>();
+                roles = theRoleService.GetAllRoles().ToList<Role>();
             } catch (Exception e) {
                 LogError(e, GET_ALL_ROLES_ERROR);
                 return SendToErrorPage(GET_ALL_ROLES_ERROR);
@@ -91,7 +94,7 @@ namespace HaveAVoice.Controllers.Admin {
             }
 
             try {
-                if (theService.CreateRole(GetUserInformatonModel(), model.Role, model.SelectedPermissionsIds, model.SelectedRestrictionId)) {
+                if (theRoleService.Create(GetUserInformatonModel(), model.Role, model.SelectedPermissionsIds, model.SelectedRestrictionId)) {
                     return RedirectToAction("Index");
                 }
             } catch (Exception e) {
@@ -119,7 +122,7 @@ namespace HaveAVoice.Controllers.Admin {
 
             Role role = null;
             try {
-                role = theService.GetRole(id);
+                role = theRoleService.FindRole(id);
             } catch (Exception e) {
                 LogError(e, GET_ROLE_ERROR);
                 return SendToErrorPage(ERROR_MESSAGE);
@@ -146,7 +149,7 @@ namespace HaveAVoice.Controllers.Admin {
             }
 
             try {
-                if (theService.EditRole(GetUserInformatonModel(), role.Role, role.SelectedPermissionsIds, role.SelectedRestrictionId)) {
+                if (theRoleService.Edit(GetUserInformatonModel(), role.Role, role.SelectedPermissionsIds, role.SelectedRestrictionId)) {
                     return RedirectToAction("Index");
                 }
             } catch (Exception e) {
@@ -173,7 +176,7 @@ namespace HaveAVoice.Controllers.Admin {
             }
             Role role = null;
             try {
-                role = theService.GetRole(id);
+                role = theRoleService.FindRole(id);
             } catch (Exception e) {
                 LogError(e, GET_ROLE_ERROR);
                 return SendToErrorPage(ERROR_MESSAGE);
@@ -193,7 +196,7 @@ namespace HaveAVoice.Controllers.Admin {
             }
 
             try {
-                theService.DeleteRole(GetUserInformatonModel(), roleToDelete);
+                theRoleService.Delete(GetUserInformatonModel(), roleToDelete);
                 return RedirectToAction("Index");
             } catch (Exception e) {
                 LogError(e, "Error occurred while clicking the submit button when deleting a restrictionModel.");
@@ -211,7 +214,7 @@ namespace HaveAVoice.Controllers.Admin {
             }
             List<Role> myRoles = new List<Role>();
             try {
-                myRoles = theService.GetAllRoles().ToList<Role>();
+                myRoles = theRoleService.GetAllRoles().ToList<Role>();
             } catch (Exception e) {
                 LogError(e, "Error getting the list of roles.");
                 return SendToErrorPage("Error getting the list of roles. Please check the error log.");
@@ -259,7 +262,7 @@ namespace HaveAVoice.Controllers.Admin {
             }
             List<int> mySelectedUsers = SelectedUserIds == null ? new List<int>() : SelectedUserIds.ToList<int>();
             try {
-                if (theService.MoveUsersToRole(mySelectedUsers, CurrentRoleId, MoveToRoleId)) {
+                if (theRoleService.MoveUsersToRole(mySelectedUsers, CurrentRoleId, MoveToRoleId)) {
                     return SendToResultPage("Users moved!");
                 }
             } catch (Exception e) {
@@ -281,7 +284,7 @@ namespace HaveAVoice.Controllers.Admin {
 
         private RoleModel CreateRoleModel(Role aModel) {
             RoleModel myModel = new RoleModel(aModel);
-            List<Permission> myPermissions = theService.GetAllPermissions().ToList<Permission>();
+            List<Permission> myPermissions = thePermissionService.GetAllPermissions().ToList<Permission>();
             if (myPermissions.Count == 0) {
                 ViewData["PermissionMessage"] = "There are currently no permissions created, please create a permission first.";
             }
@@ -293,7 +296,6 @@ namespace HaveAVoice.Controllers.Admin {
             myModel.AllPermissions = myPermissions;
 
             return myModel;
-
         }
 
         private RoleModel CreateRoleModel(RoleModel aModel) {
@@ -306,7 +308,7 @@ namespace HaveAVoice.Controllers.Admin {
 
         private SwitchUserRoles CreateSwitchUserRolesModel(int[] SelectedUserIds, int aCurrentRole, int aMoveToRole) {
             List<int> mySelectedUsers = SelectedUserIds == null ? new List<int>() : SelectedUserIds.ToList<int>();
-            IEnumerable<Role> myRoles = theService.GetAllRoles();
+            IEnumerable<Role> myRoles = theRoleService.GetAllRoles();
             List<Pair<User, bool>> myUsers = UserSelection(mySelectedUsers, aCurrentRole);
 
             return new SwitchUserRoles.Builder()
@@ -318,7 +320,7 @@ namespace HaveAVoice.Controllers.Admin {
         }
 
         private List<Pair<User, bool>> UserSelection(List<int> aSelectedUsers, int aRoleId) {
-            List<User> myUsers = theService.UsersInRole(aRoleId).ToList<User>();
+            List<User> myUsers = theRoleService.UsersInRole(aRoleId).ToList<User>();
             return SelectionHelper.UserSelection(aSelectedUsers, myUsers);
         }
 

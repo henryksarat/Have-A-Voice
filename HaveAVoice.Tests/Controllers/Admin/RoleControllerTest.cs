@@ -31,9 +31,10 @@ namespace HaveAVoice.Tests.Controllers.Admin {
         private List<Restriction> theRestrictions = new List<Restriction>();
         private List<Permission> thePermissions = new List<Permission>();
         private IHAVRoleService theService;
-        private Mock<IHAVRoleService> theMockedService;
+        private Mock<IHAVRoleService> theRoleService;
+        private Mock<IHAVPermissionService> thePermissionService;
         private Mock<IHAVRoleRepository> theMockRepository;
-        private Mock<IHAVRestrictionService> theMockedRestrictionService;
+        private Mock<IHAVRestrictionService> theRestrictionService;
         private RoleController theController;
         private RoleModel theRoleModel;
 
@@ -42,15 +43,16 @@ namespace HaveAVoice.Tests.Controllers.Admin {
             theRestrictions.Add(RESTRICTION);
             thePermissions.Add(PERMISSION);
 
-            theMockedService = new Mock<IHAVRoleService>();
+            theRoleService = new Mock<IHAVRoleService>();
+            thePermissionService = new Mock<IHAVPermissionService>();
             theMockRepository = new Mock<IHAVRoleRepository>();
-            theMockedRestrictionService = new Mock<IHAVRestrictionService>();
+            theRestrictionService = new Mock<IHAVRestrictionService>();
 
             theService = new HAVRoleService(new ModelStateWrapper(theModelState), 
                                                                theMockRepository.Object,
                                                                theBaseRepository.Object);
- 
-            theController = new RoleController(theMockedService.Object, theMockedBaseService.Object, theMockedRestrictionService.Object);
+
+            theController = new RoleController(theMockedBaseService.Object, theRoleService.Object, thePermissionService.Object, theRestrictionService.Object);
             theController.ControllerContext = GetControllerContext();
 
             theSwitchUserRolesModel = new SwitchUserRoles.Builder().Build();
@@ -66,7 +68,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
             PermissionTestHelper.AddPermissionToUserInformation(theUserInformationBuilder, HAVPermission.View_Roles);
             List<Role> myRoles = new List<Role>();
             myRoles.Add(ROLE);
-            theMockedService.Setup(s => s.GetAllRoles()).Returns(() => myRoles);
+            theRoleService.Setup(s => s.GetAllRoles()).Returns(() => myRoles);
 
             var myResult = theController.Index() as ViewResult;
 
@@ -79,7 +81,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
 
             var myResult = theController.Index() as ViewResult;
 
-            theMockedService.Verify(s => s.GetAllRoles(), Times.Never());
+            theRoleService.Verify(s => s.GetAllRoles(), Times.Never());
             AssertAuthenticatedRedirection(myResult);
         }
 
@@ -87,18 +89,18 @@ namespace HaveAVoice.Tests.Controllers.Admin {
         public void ShouldNotLoadRolesWithoutPermission() {
             var myResult = theController.Index() as ViewResult;
 
-            theMockedService.Verify(s => s.GetAllRoles(), Times.Never());
+            theRoleService.Verify(s => s.GetAllRoles(), Times.Never());
             AssertAuthenticatedRedirection(myResult);
         }
 
         [TestMethod]
         public void ShouldNotLoadRolesBecauseOfException() {
             PermissionTestHelper.AddPermissionToUserInformation(theUserInformationBuilder, HAVPermission.View_Roles);
-            theMockedService.Setup(s => s.GetAllRoles()).Throws<Exception>();
+            theRoleService.Setup(s => s.GetAllRoles()).Throws<Exception>();
 
             var myResult = theController.Index() as ViewResult;
 
-            theMockedService.Verify(s => s.GetAllRoles(), Times.Exactly(1));
+            theRoleService.Verify(s => s.GetAllRoles(), Times.Exactly(1));
             AssertAuthenticatedErrorLogWithRedirect(myResult);
         }
 
@@ -106,11 +108,11 @@ namespace HaveAVoice.Tests.Controllers.Admin {
         public void ShouldLoadRolesButThereAreNone() {     
             PermissionTestHelper.AddPermissionToUserInformation(theUserInformationBuilder, HAVPermission.View_Roles);
             List<Role> myRoles = new List<Role>();
-            theMockedService.Setup(s => s.GetAllRoles()).Returns(() => myRoles);
+            theRoleService.Setup(s => s.GetAllRoles()).Returns(() => myRoles);
 
             var myResult = theController.Index() as ViewResult;
 
-            theMockedService.Verify(s => s.GetAllRoles(), Times.Exactly(1));
+            theRoleService.Verify(s => s.GetAllRoles(), Times.Exactly(1));
             AssertAuthenticatedSuccessWithMessage(myResult, "Index", myRoles);
         }
 
@@ -128,8 +130,8 @@ namespace HaveAVoice.Tests.Controllers.Admin {
             thePermissions.Add(myPermission);
             theUserInformationBuilder.AddPermissions(thePermissions);
             theMockUserInformation.Setup(f => f.GetUserInformaton()).Returns(() => theUserInformationBuilder.Build());
-            theMockedRestrictionService.Setup(r => r.GetAllRestrictions()).Returns(() => theRestrictions);
-            theMockedService.Setup(r => r.GetAllPermissions()).Returns(() => thePermissions);
+            theRestrictionService.Setup(r => r.GetAllRestrictions()).Returns(() => theRestrictions);
+            thePermissionService.Setup(p => p.GetAllPermissions()).Returns(() => thePermissions);
 
             var myResult = theController.Create() as ViewResult;
 
@@ -144,7 +146,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
             thePermissions.Add(myPermission);
             theUserInformationBuilder.AddPermissions(thePermissions);
             theMockUserInformation.Setup(f => f.GetUserInformaton()).Returns(() => theUserInformationBuilder.Build());
-            theMockedRestrictionService.Setup(r => r.GetAllRestrictions()).Returns(() => theRestrictions);
+            theRestrictionService.Setup(r => r.GetAllRestrictions()).Returns(() => theRestrictions);
 
             var myResult = theController.Create() as ViewResult;
 
@@ -156,7 +158,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
         public void ShouldLoadCreateRoleButNoRestrictions() {
             PermissionTestHelper.AddPermissionToUserInformation(theUserInformationBuilder, HAVPermission.Create_Role);
 
-            theMockedService.Setup(r => r.GetAllPermissions()).Returns(() => thePermissions);
+            thePermissionService.Setup(p => p.GetAllPermissions()).Returns(() => thePermissions);
 
             var myResult = theController.Create() as ViewResult;
 
@@ -174,7 +176,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
         [TestMethod]
         public void ShouldNotLoadCreateRoleBecauseOfException() {
             PermissionTestHelper.AddPermissionToUserInformation(theUserInformationBuilder, HAVPermission.Create_Role);
-            theMockedService.Setup(s => s.GetAllPermissions()).Throws<Exception>();
+            thePermissionService.Setup(p => p.GetAllPermissions()).Throws<Exception>();
 
             var myResult = theController.Create() as ViewResult;
 
@@ -183,7 +185,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
 
         [TestMethod]
         public void ShouldCreateRole() {
-            theMockedService.Setup(s => s.CreateRole(It.IsAny<UserInformationModel>(), It.IsAny<Role>(), It.IsAny<List<int>>(), It.IsAny<int>())).Returns(() => true);
+            theRoleService.Setup(s => s.Create(It.IsAny<UserInformationModel>(), It.IsAny<Role>(), It.IsAny<List<int>>(), It.IsAny<int>())).Returns(() => true);
             var myResult = theController.Create(theRoleModel) as ViewResult;
 
             AssertAuthenticatedRedirection(myResult);
@@ -199,9 +201,9 @@ namespace HaveAVoice.Tests.Controllers.Admin {
 
         [TestMethod]
         public void UnableToCreateRoleBecauseOfException() {
-            theMockedRestrictionService.Setup(r => r.GetAllRestrictions()).Returns(() => theRestrictions);
-            theMockedService.Setup(s => s.GetAllPermissions()).Returns(() => thePermissions);
-            theMockedService.Setup(s => s.CreateRole(It.IsAny<UserInformationModel>(), It.IsAny<Role>(), It.IsAny<List<int>>(), It.IsAny<int>())).Throws<Exception>();
+            theRestrictionService.Setup(r => r.GetAllRestrictions()).Returns(() => theRestrictions);
+            thePermissionService.Setup(p => p.GetAllPermissions()).Returns(() => thePermissions);
+            theRoleService.Setup(s => s.Create(It.IsAny<UserInformationModel>(), It.IsAny<Role>(), It.IsAny<List<int>>(), It.IsAny<int>())).Throws<Exception>();
             var myResult = theController.Create(theRoleModel) as ViewResult;
 
             AssertAuthenticatedErrorLogReturnBack(myResult, "Create", theRoleModel);
@@ -209,8 +211,8 @@ namespace HaveAVoice.Tests.Controllers.Admin {
 
         [TestMethod]
         public void UnableToCreateRoleBecauseOfExceptionOnReturn() {
-            theMockedService.Setup(s => s.CreateRole(It.IsAny<UserInformationModel>(), It.IsAny<Role>(), It.IsAny<List<int>>(), It.IsAny<int>())).Returns(() => false);
-            theMockedService.Setup(s => s.GetAllPermissions()).Throws<Exception>();
+            theRoleService.Setup(s => s.Create(It.IsAny<UserInformationModel>(), It.IsAny<Role>(), It.IsAny<List<int>>(), It.IsAny<int>())).Returns(() => false);
+            thePermissionService.Setup(p => p.GetAllPermissions()).Throws<Exception>();
 
             var myResult = theController.Create(theRoleModel) as ViewResult;
 
@@ -219,9 +221,9 @@ namespace HaveAVoice.Tests.Controllers.Admin {
 
         [TestMethod]
         public void UnableToCreateRoleBecauseOfInvalidInput() {
-            theMockedService.Setup(s => s.CreateRole(It.IsAny<UserInformationModel>(), It.IsAny<Role>(), It.IsAny<List<int>>(), It.IsAny<int>())).Returns(() => false);
-            theMockedRestrictionService.Setup(r => r.GetAllRestrictions()).Returns(() => theRestrictions);
-            theMockedService.Setup(s => s.GetAllPermissions()).Returns(() => thePermissions);
+            theRoleService.Setup(s => s.Create(It.IsAny<UserInformationModel>(), It.IsAny<Role>(), It.IsAny<List<int>>(), It.IsAny<int>())).Returns(() => false);
+            theRestrictionService.Setup(r => r.GetAllRestrictions()).Returns(() => theRestrictions);
+            thePermissionService.Setup(p => p.GetAllPermissions()).Returns(() => thePermissions);
 
             var myResult = theController.Create(theRoleModel) as ViewResult;
 
@@ -235,7 +237,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
             theUserInformationBuilder.AddPermissions(thePermissions);
             theMockUserInformation.Setup(f => f.GetUserInformaton()).Returns(() => theUserInformationBuilder.Build());
             ROLE.Restriction = RESTRICTION;
-            theMockedService.Setup(s => s.GetRole(It.IsAny<int>())).Returns(() => ROLE);
+            theRoleService.Setup(s => s.FindRole(It.IsAny<int>())).Returns(() => ROLE);
             
             var myResult = theController.Edit(ROLE_ID) as ViewResult;
             
@@ -269,7 +271,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
         [TestMethod]
         public void ShouldNotLoadEditRoleBecauseOfException() {
             PermissionTestHelper.AddPermissionToUserInformation(theUserInformationBuilder, HAVPermission.Edit_Role);            
-            theMockedService.Setup(s => s.GetRole(It.IsAny<int>())).Throws<Exception>();
+            theRoleService.Setup(s => s.FindRole(It.IsAny<int>())).Throws<Exception>();
 
             var myResult = theController.Edit(ROLE_ID) as ViewResult;
 
@@ -278,8 +280,8 @@ namespace HaveAVoice.Tests.Controllers.Admin {
 
         [TestMethod]
         public void UnableToLoadEditRoleBecauseOfExceptionOnReturn() {
-            theMockedService.Setup(s => s.GetRole(It.IsAny<int>())).Returns(() => ROLE);
-            theMockedService.Setup(s => s.GetAllPermissions()).Throws<Exception>();
+            theRoleService.Setup(s => s.FindRole(It.IsAny<int>())).Returns(() => ROLE);
+            thePermissionService.Setup(p => p.GetAllPermissions()).Throws<Exception>();
 
             var myResult = theController.Create(theRoleModel) as ViewResult;
 
@@ -288,7 +290,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
 
         [TestMethod]
         public void ShouldEditRole() {
-            theMockedService.Setup(s => s.EditRole(It.IsAny<UserInformationModel>(), It.IsAny<Role>(), It.IsAny<List<int>>(), It.IsAny<int>())).Returns(() => true);
+            theRoleService.Setup(s => s.Edit(It.IsAny<UserInformationModel>(), It.IsAny<Role>(), It.IsAny<List<int>>(), It.IsAny<int>())).Returns(() => true);
             var myResult = theController.Edit(theRoleModel) as ViewResult;
 
             AssertAuthenticatedRedirection(myResult);
@@ -304,9 +306,9 @@ namespace HaveAVoice.Tests.Controllers.Admin {
 
         [TestMethod]
         public void UnableToEditRoleBecauseOfException() {
-            theMockedRestrictionService.Setup(r => r.GetAllRestrictions()).Returns(() => theRestrictions);
-            theMockedService.Setup(s => s.GetAllPermissions()).Returns(() => thePermissions);
-            theMockedService.Setup(s => s.EditRole(It.IsAny<UserInformationModel>(), It.IsAny<Role>(), It.IsAny<List<int>>(), It.IsAny<int>())).Throws<Exception>();
+            theRestrictionService.Setup(r => r.GetAllRestrictions()).Returns(() => theRestrictions);
+            thePermissionService.Setup(p => p.GetAllPermissions()).Returns(() => thePermissions);
+            theRoleService.Setup(s => s.Edit(It.IsAny<UserInformationModel>(), It.IsAny<Role>(), It.IsAny<List<int>>(), It.IsAny<int>())).Throws<Exception>();
             var myResult = theController.Edit(theRoleModel) as ViewResult;
 
             AssertAuthenticatedErrorLogReturnBack(myResult, "Edit", theRoleModel);
@@ -314,8 +316,8 @@ namespace HaveAVoice.Tests.Controllers.Admin {
 
         [TestMethod]
         public void UnableToEditRoleBecauseOfExceptionOnReturn() {
-            theMockedService.Setup(s => s.EditRole(It.IsAny<UserInformationModel>(), It.IsAny<Role>(), It.IsAny<List<int>>(), It.IsAny<int>())).Returns(() => false);
-            theMockedService.Setup(s => s.GetAllPermissions()).Throws<Exception>();
+            theRoleService.Setup(s => s.Edit(It.IsAny<UserInformationModel>(), It.IsAny<Role>(), It.IsAny<List<int>>(), It.IsAny<int>())).Returns(() => false);
+            thePermissionService.Setup(p => p.GetAllPermissions()).Throws<Exception>();
 
             var myResult = theController.Edit(theRoleModel) as ViewResult;
 
@@ -324,9 +326,9 @@ namespace HaveAVoice.Tests.Controllers.Admin {
 
         [TestMethod]
         public void UnableToEditRoleBecauseOfInvalidInput() {
-            theMockedService.Setup(s => s.EditRole(It.IsAny<UserInformationModel>(), It.IsAny<Role>(), It.IsAny<List<int>>(), It.IsAny<int>())).Returns(() => false);
-            theMockedRestrictionService.Setup(r => r.GetAllRestrictions()).Returns(() => theRestrictions);
-            theMockedService.Setup(s => s.GetAllPermissions()).Returns(() => thePermissions);
+            theRoleService.Setup(s => s.Edit(It.IsAny<UserInformationModel>(), It.IsAny<Role>(), It.IsAny<List<int>>(), It.IsAny<int>())).Returns(() => false);
+            theRestrictionService.Setup(r => r.GetAllRestrictions()).Returns(() => theRestrictions);
+            thePermissionService.Setup(p => p.GetAllPermissions()).Returns(() => thePermissions);
 
             var myResult = theController.Edit(theRoleModel) as ViewResult;
 
@@ -339,7 +341,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
             thePermissions.Add(myPermission);
             theUserInformationBuilder.AddPermissions(thePermissions);
             theMockUserInformation.Setup(f => f.GetUserInformaton()).Returns(() => theUserInformationBuilder.Build());
-            theMockedService.Setup(s => s.GetRole(It.IsAny<int>())).Returns(() => ROLE);
+            theRoleService.Setup(s => s.FindRole(It.IsAny<int>())).Returns(() => ROLE);
 
             var myResult = theController.Delete(ROLE_ID) as ViewResult;
 
@@ -363,7 +365,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
         [TestMethod]
         public void ShouldLoadDeleteRolePageButNoRoleIsFound() {
             PermissionTestHelper.AddPermissionToUserInformation(theUserInformationBuilder, HAVPermission.Delete_Role);
-            theMockedService.Setup(s => s.GetRole(It.IsAny<int>())).Returns(() => null);
+            theRoleService.Setup(s => s.FindRole(It.IsAny<int>())).Returns(() => null);
             var myResult = theController.Delete(ROLE_ID) as ViewResult;
             AssertAuthenticatedRedirection(myResult);
         }
@@ -372,7 +374,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
         [TestMethod]
         public void ShouldNotLoadDeleteRolePageBecauseOfException() {
             PermissionTestHelper.AddPermissionToUserInformation(theUserInformationBuilder, HAVPermission.Delete_Role);
-            theMockedService.Setup(s => s.GetRole(It.IsAny<int>())).Throws<Exception>();
+            theRoleService.Setup(s => s.FindRole(It.IsAny<int>())).Throws<Exception>();
             var myResult = theController.Delete(ROLE_ID) as ViewResult;
             AssertAuthenticatedErrorLogWithRedirect(myResult);
         }
@@ -394,7 +396,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
 
         [TestMethod]
         public void TestDeleteRole_Exception() {
-            theMockedService.Setup(s => s.DeleteRole(It.IsAny<UserInformationModel>(), It.IsAny<Role>())).Throws<Exception>();
+            theRoleService.Setup(s => s.Delete(It.IsAny<UserInformationModel>(), It.IsAny<Role>())).Throws<Exception>();
 
             var myResult = theController.Delete(ROLE) as ViewResult;
 
@@ -424,7 +426,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
         [TestMethod]
         public void TestSwitchUserRolesNonPostBack_Exception() {
             PermissionTestHelper.AddPermissionToUserInformation(theUserInformationBuilder, HAVPermission.Switch_Users_Role);
-            theMockedService.Setup(s => s.GetAllRoles()).Throws<Exception>();
+            theRoleService.Setup(s => s.GetAllRoles()).Throws<Exception>();
             var myResult = theController.SwitchUserRoles() as ViewResult;
             AssertAuthenticatedRedirection(myResult);
         }
@@ -446,7 +448,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
         [TestMethod]
         public void ShouldNotGetUsersToSwitchRolesBecauseOfException() {
             PermissionTestHelper.AddPermissionToUserInformation(theUserInformationBuilder, HAVPermission.Switch_Users_Role);
-            theMockedService.Setup(s => s.GetAllRoles()).Throws<Exception>();
+            theRoleService.Setup(s => s.GetAllRoles()).Throws<Exception>();
             var myResult = theController.SwitchUserRoles(FROM_ROLE_ID, TO_ROLE_ID) as ViewResult;
             AssertAuthenticatedErrorLogWithRedirect(myResult);
         }
@@ -480,7 +482,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
         [TestMethod]
         public void ShouldNotMoveUsersToRoleBecauseOfException() {
             PermissionTestHelper.AddPermissionToUserInformation(theUserInformationBuilder, HAVPermission.Switch_Users_Role);
-            theMockedService.Setup(s => s.GetAllRoles()).Throws<Exception>();
+            theRoleService.Setup(s => s.GetAllRoles()).Throws<Exception>();
             var myResult = theController.SwitchUserRoles(SELECTED_USERS, FROM_ROLE_ID, TO_ROLE_ID) as ViewResult;
             AssertAuthenticatedErrorLogWithRedirect(myResult);
         }

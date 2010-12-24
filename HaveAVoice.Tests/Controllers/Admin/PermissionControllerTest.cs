@@ -21,7 +21,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
         private static int INVALID_PERMISSION_ID = 5;
         
         private IHAVRoleService theService;
-        private Mock<IHAVRoleService> theMockedService;
+        private Mock<IHAVPermissionService> thePermissionService;
         private Mock<IHAVRoleRepository> theMockRepository;
         private static PermissionController theController;
         private static Permission thePermission;
@@ -31,14 +31,14 @@ namespace HaveAVoice.Tests.Controllers.Admin {
         public void Initialize() {
             thePermission = Permission.CreatePermission(2, "Read Message", "Allows someone to read their messages.", false);
             thePermissionModel = new PermissionModel(thePermission);
-            theMockedService = new Mock<IHAVRoleService>();
+            thePermissionService = new Mock<IHAVPermissionService>();
             theMockRepository = new Mock<IHAVRoleRepository>();
 
             theService = new HAVRoleService(new ModelStateWrapper(theModelState),
                                                                theMockRepository.Object,
                                                                theBaseRepository.Object);
 
-            theController = new PermissionController(theMockedService.Object, theMockedBaseService.Object);
+            theController = new PermissionController(theMockedBaseService.Object, thePermissionService.Object);
             theController.ControllerContext = GetControllerContext();
         }
 
@@ -47,7 +47,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
             PermissionTestHelper.AddPermissionToUserInformation(theUserInformationBuilder, HAVPermission.View_Permissions);
             List<Permission> myPermissions = new List<Permission>();
             myPermissions.Add(thePermission);
-            theMockedService.Setup(s => s.GetAllPermissions()).Returns(() => myPermissions);
+            thePermissionService.Setup(s => s.GetAllPermissions()).Returns(() => myPermissions);
 
             var result = theController.Index() as ViewResult;
 
@@ -58,18 +58,18 @@ namespace HaveAVoice.Tests.Controllers.Admin {
         public void ShouldNotLoadPermissionsWithoutPermission() {
             var result = theController.Index() as ViewResult;
 
-            theMockedService.Verify(s => s.GetAllPermissions(), Times.Never());
+            thePermissionService.Verify(s => s.GetAllPermissions(), Times.Never());
             AssertAuthenticatedRedirection(result);
         }
 
         [TestMethod]
         public void ShouldNotLoadPermissionsBecauseOfException() {
             PermissionTestHelper.AddPermissionToUserInformation(theUserInformationBuilder, HAVPermission.View_Permissions);
-            theMockedService.Setup(s => s.GetAllPermissions()).Throws<Exception>();
+            thePermissionService.Setup(s => s.GetAllPermissions()).Throws<Exception>();
 
             var result = theController.Index() as ViewResult;
 
-            theMockedService.Verify(s => s.GetAllPermissions(), Times.Exactly(1));
+            thePermissionService.Verify(s => s.GetAllPermissions(), Times.Exactly(1));
             AssertAuthenticatedErrorLogWithRedirect(result);
         }
 
@@ -77,11 +77,11 @@ namespace HaveAVoice.Tests.Controllers.Admin {
         public void ShouldLoadPermissionPageButThereAreNoPermissions() {
             PermissionTestHelper.AddPermissionToUserInformation(theUserInformationBuilder, HAVPermission.View_Permissions);
             List<Permission> permissions = new List<Permission>();
-            theMockedService.Setup(s => s.GetAllPermissions()).Returns(() => permissions);
+            thePermissionService.Setup(s => s.GetAllPermissions()).Returns(() => permissions);
 
             var result = theController.Index() as ViewResult;
 
-            theMockedService.Verify(s => s.GetAllPermissions(), Times.Exactly(1));
+            thePermissionService.Verify(s => s.GetAllPermissions(), Times.Exactly(1));
             AssertAuthenticatedSuccessWithMessage(result, "Index", permissions);
         }
 
@@ -106,7 +106,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
 
         [TestMethod]
         public void TestCreatePermission_Success() {
-            theMockedService.Setup(s => s.CreatePermission(It.IsAny<UserInformationModel>(), It.IsAny<Permission>())).Returns(() => true);
+            thePermissionService.Setup(s => s.Create(It.IsAny<UserInformationModel>(), It.IsAny<Permission>())).Returns(() => true);
 
             var result = theController.Create(thePermissionModel) as ViewResult;
 
@@ -115,7 +115,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
 
         [TestMethod]
         public void TestCreatePermission_Fail() {
-            theMockedService.Setup(s => s.CreatePermission(It.IsAny<UserInformationModel>(), It.IsAny<Permission>())).Returns(() => false);
+            thePermissionService.Setup(s => s.Create(It.IsAny<UserInformationModel>(), It.IsAny<Permission>())).Returns(() => false);
 
             var result = theController.Create(thePermissionModel) as ViewResult;
 
@@ -124,7 +124,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
 
         [TestMethod]
         public void TestCreatePermission_Exception() {
-            theMockedService.Setup(s => s.CreatePermission(It.IsAny<UserInformationModel>(), It.IsAny<Permission>())).Throws<Exception>();
+            thePermissionService.Setup(s => s.Create(It.IsAny<UserInformationModel>(), It.IsAny<Permission>())).Throws<Exception>();
 
             var result = theController.Create(thePermissionModel) as ViewResult;
 
@@ -138,7 +138,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
         [TestMethod]
         public void ShouldLoadEditPermissionPage() {
             PermissionTestHelper.AddPermissionToUserInformation(theUserInformationBuilder, HAVPermission.Edit_Permission);
-            theMockedService.Setup(s => s.GetPermission(VALID_PERMISSION_ID)).Returns(() => thePermission);
+            thePermissionService.Setup(s => s.FindPermission(VALID_PERMISSION_ID)).Returns(() => thePermission);
 
             var result = theController.Edit(VALID_PERMISSION_ID) as ViewResult;
 
@@ -147,7 +147,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
 
         [TestMethod]
         public void ShouldNotLoadEditPermissionPageWithoutPermission() {
-            theMockedService.Setup(s => s.GetPermission(VALID_PERMISSION_ID)).Returns(() => thePermission);
+            thePermissionService.Setup(s => s.FindPermission(VALID_PERMISSION_ID)).Returns(() => thePermission);
 
             var myResult = theController.Edit(VALID_PERMISSION_ID) as ViewResult;
 
@@ -157,7 +157,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
         [TestMethod]
         public void ShouldLoadEditPermissionPageButNoPermissionIsFound() {
             PermissionTestHelper.AddPermissionToUserInformation(theUserInformationBuilder, HAVPermission.Edit_Permission);
-            theMockedService.Setup(s => s.GetPermission(VALID_PERMISSION_ID)).Returns(() => thePermission);
+            thePermissionService.Setup(s => s.FindPermission(VALID_PERMISSION_ID)).Returns(() => thePermission);
 
             var result = theController.Edit(INVALID_PERMISSION_ID) as ViewResult;
 
@@ -167,8 +167,8 @@ namespace HaveAVoice.Tests.Controllers.Admin {
         [TestMethod]
         public void ShouldNotLoadEditPermissionPageBecauseOfException() {
             PermissionTestHelper.AddPermissionToUserInformation(theUserInformationBuilder, HAVPermission.Edit_Permission);
-            var controller = new PermissionController(theMockedService.Object, theMockedBaseService.Object);
-            theMockedService.Setup(s => s.GetPermission(VALID_PERMISSION_ID)).Throws<Exception>();
+            var controller = new PermissionController(theMockedBaseService.Object, thePermissionService.Object);
+            thePermissionService.Setup(s => s.FindPermission(VALID_PERMISSION_ID)).Throws<Exception>();
             controller.ControllerContext = GetControllerContext();
 
             var result = controller.Edit(VALID_PERMISSION_ID) as ViewResult;
@@ -182,7 +182,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
 
         [TestMethod]
         public void TestEditPermission_Success() {
-            theMockedService.Setup(s => s.EditPermission(It.IsAny<UserInformationModel>(), It.IsAny<Permission>())).Returns(() => true);
+            thePermissionService.Setup(s => s.Edit(It.IsAny<UserInformationModel>(), It.IsAny<Permission>())).Returns(() => true);
 
             var result = theController.Edit(thePermission) as ViewResult;
 
@@ -191,7 +191,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
 
         [TestMethod]
         public void TestEditPermission_Exception() {
-            theMockedService.Setup(s => s.EditPermission(It.IsAny<UserInformationModel>(), It.IsAny<Permission>())).Throws<Exception>();
+            thePermissionService.Setup(s => s.Edit(It.IsAny<UserInformationModel>(), It.IsAny<Permission>())).Throws<Exception>();
 
             var result = theController.Edit(thePermission) as ViewResult;
 
@@ -200,7 +200,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
 
         [TestMethod]
         public void TestEditPermission_Fail() {
-            theMockedService.Setup(s => s.EditPermission(It.IsAny<UserInformationModel>(), It.IsAny<Permission>())).Returns(() => false);
+            thePermissionService.Setup(s => s.Edit(It.IsAny<UserInformationModel>(), It.IsAny<Permission>())).Returns(() => false);
 
             var result = theController.Edit(thePermission) as ViewResult;
 
@@ -214,7 +214,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
         [TestMethod]
         public void ShouldLoadDeletePermission() {
             PermissionTestHelper.AddPermissionToUserInformation(theUserInformationBuilder, HAVPermission.Delete_Permission);
-            theMockedService.Setup(s => s.GetPermission(VALID_PERMISSION_ID)).Returns(() => thePermission);
+            thePermissionService.Setup(s => s.FindPermission(VALID_PERMISSION_ID)).Returns(() => thePermission);
 
             var result = theController.Delete(VALID_PERMISSION_ID) as ViewResult;
 
@@ -223,7 +223,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
 
         [TestMethod]
         public void ShouldNotLoadDeletePermissionWithoutPermission() {
-            theMockedService.Setup(s => s.GetPermission(VALID_PERMISSION_ID)).Returns(() => thePermission);
+            thePermissionService.Setup(s => s.FindPermission(VALID_PERMISSION_ID)).Returns(() => thePermission);
 
             var myResult = theController.Delete(VALID_PERMISSION_ID) as ViewResult;
 
@@ -233,7 +233,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
         [TestMethod]
         public void ShouldNotLoadDeletePermissionBecausePermissionNotFound() {
             PermissionTestHelper.AddPermissionToUserInformation(theUserInformationBuilder, HAVPermission.Delete_Permission);
-            theMockedService.Setup(s => s.GetPermission(VALID_PERMISSION_ID)).Returns(() => thePermission);
+            thePermissionService.Setup(s => s.FindPermission(VALID_PERMISSION_ID)).Returns(() => thePermission);
 
             var myResult = theController.Delete(INVALID_PERMISSION_ID) as ViewResult;
 
@@ -243,7 +243,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
         [TestMethod]
         public void ShouldNotLoadDeletePermissionBecauseOfException() {
             PermissionTestHelper.AddPermissionToUserInformation(theUserInformationBuilder, HAVPermission.Delete_Permission);
-            theMockedService.Setup(s => s.GetPermission(It.IsAny<int>())).Throws<Exception>();
+            thePermissionService.Setup(s => s.FindPermission(It.IsAny<int>())).Throws<Exception>();
 
             var myResult = theController.Delete(VALID_PERMISSION_ID) as ViewResult;
 
@@ -273,7 +273,7 @@ namespace HaveAVoice.Tests.Controllers.Admin {
         [TestMethod]
         public void ShouldNotDeleteRoleBecauseOfException() {
             PermissionTestHelper.AddPermissionToUserInformation(theUserInformationBuilder, HAVPermission.Delete_Role);
-            theMockedService.Setup(s => s.DeletePermission(It.IsAny<UserInformationModel>(), It.IsAny<Permission>())).Throws<Exception>();
+            thePermissionService.Setup(s => s.Delete(It.IsAny<UserInformationModel>(), It.IsAny<Permission>())).Throws<Exception>();
 
             var myResult = theController.Delete(thePermission) as ViewResult;
 

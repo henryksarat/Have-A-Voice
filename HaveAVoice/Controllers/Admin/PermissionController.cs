@@ -13,16 +13,16 @@ using HaveAVoice.Services.AdminFeatures;
 namespace HaveAVoice.Controllers.Admin {
     public class PermissionController : AdminBaseController {
         private static string PAGE_NOT_FOUND = "You do not have access.";
-        private IHAVRoleService theService;
+        private IHAVPermissionService thePermissionService;
 
          public PermissionController() 
             : base(new HAVBaseService(new HAVBaseRepository())) {
-            theService = new HAVRoleService(new ModelStateWrapper(this.ModelState));
+            thePermissionService = new HAVPermissionService(new ModelStateWrapper(this.ModelState));
         }
 
-         public PermissionController(IHAVRoleService service, IHAVBaseService baseService)
-            : base(baseService) {
-            theService = service;
+         public PermissionController(IHAVBaseService myBaseService, IHAVPermissionService myPermissionService)
+            : base(myBaseService) {
+            thePermissionService = myPermissionService;
         }
 
         public ActionResult Index() {
@@ -35,14 +35,14 @@ namespace HaveAVoice.Controllers.Admin {
 
              IEnumerable<Permission> permissions = null;
              try {
-                 permissions = theService.GetAllPermissions();
+                 permissions = thePermissionService.GetAllPermissions();
              } catch (Exception e) {
-                 LogError(e, "Unable to get all myPermissions.");
+                 LogError(e, "Unable to get all permissions.");
                  return SendToErrorPage("Unable to get all myPermissions.");
              }
 
              if (permissions.Count() == 0) {
-                 ViewData["Message"] = "There are no myPermissions to display.";
+                 ViewData["Message"] = "There are no permissions to display.";
              }
 
              return View("Index", permissions);
@@ -62,7 +62,7 @@ namespace HaveAVoice.Controllers.Admin {
                 return RedirectToLogin();
             }
             try {
-                if (theService.CreatePermission(GetUserInformatonModel(), model.Permission)) {
+                if (thePermissionService.Create(GetUserInformatonModel(), model.Permission)) {
                     return RedirectToAction("Index");
                 }
             } catch (Exception e) {
@@ -83,7 +83,7 @@ namespace HaveAVoice.Controllers.Admin {
             }
             Permission permission = null;
             try {
-                permission = theService.GetPermission(id);
+                permission = thePermissionService.FindPermission(id);
             } catch (Exception e) {
                 LogError(e, "Unable to get the restrictionModel to edit.");
                 return SendToErrorPage("Unable to get restrictionModel to edit.");
@@ -102,7 +102,7 @@ namespace HaveAVoice.Controllers.Admin {
                 return RedirectToLogin();
             }
             try {
-                if (theService.EditPermission(GetUserInformatonModel(), permission)) {
+                if (thePermissionService.Edit(GetUserInformatonModel(), permission)) {
                     return RedirectToAction("Index");
                 }
             } catch (Exception e) {
@@ -122,7 +122,7 @@ namespace HaveAVoice.Controllers.Admin {
             }
             Permission permission = null;
             try {
-                permission = theService.GetPermission(id);
+                permission = thePermissionService.FindPermission(id);
             } catch (Exception e) {
                 LogError(e, "Unable to get the restrictionModel to delete.");
                 return SendToErrorPage("Unable to get restrictionModel to delete.");
@@ -141,7 +141,7 @@ namespace HaveAVoice.Controllers.Admin {
                 return RedirectToLogin();
             }
             try {
-                theService.DeletePermission(GetUserInformatonModel(), permission);
+                thePermissionService.Delete(GetUserInformatonModel(), permission);
                 return RedirectToAction("Index");
             } catch (Exception e) {
                 LogError(e, "Error occurred while clicking the submit button when deleting a restrictionModel.");
