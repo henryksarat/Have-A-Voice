@@ -5,6 +5,7 @@ using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
+using HaveAVoice.Services.Helpers;
 
 namespace HaveAVoice.Helpers.UI {
     public class IssueHelper {
@@ -159,11 +160,9 @@ namespace HaveAVoice.Helpers.UI {
         }
 
         public static string BuildIssueDisplay(Issue anIssue, bool anIsLike) {
-            UserPrivacySetting myUserPrivacy = UserInformationHelper.GetPrivacySettings(anIssue.User);
-
             string myAvatarURL ="http://images.chron.com/photos/2008/05/19/graphic_defaultAvatar/graphic_defaultAvatar.jpg";
             string myUsername = "Anonymous";
-            if (UserInformationHelper.IsPrivacyAllowing(anIssue.User, PrivacyAction.DisplayProfile)) {
+            if (PrivacyHelper.IsAllowed(anIssue.User, PrivacyAction.DisplayProfile)) {
                 myAvatarURL ="http://wedonetwork.co.uk/wedotech/wp-content/uploads/2010/08/master-chief-badass.jpg";
                 myUsername = anIssue.User.Username;
             } 

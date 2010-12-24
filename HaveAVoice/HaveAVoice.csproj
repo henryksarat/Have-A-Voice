@@ -145,6 +145,7 @@
     <Compile Include="Repositories\UserFeatures\IHAVUserPictureRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVUserPrivacySettingsRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVUserRetrievalRepository.cs" />
+    <Compile Include="Services\Helpers\PrivacyHelper.cs" />
     <Compile Include="Services\UserFeatures\HAVFanService.cs" />
     <Compile Include="Services\UserFeatures\HAVUserRetrievalService.cs" />
     <Compile Include="Services\UserFeatures\IHAVFanService.cs" />
@@ -185,7 +186,6 @@
     <Compile Include="Helpers\SelectionHelper.cs" />
     <Compile Include="Helpers\TimezoneHelper.cs" />
     <Compile Include="Helpers\UI\UserHelper.cs" />
-    <Compile Include="Helpers\UserInformation\UserInformationHelper.cs" />
     <Compile Include="Helpers\UserInformation\UserInformation.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVCalendarRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVCalendarRepository.cs" />
