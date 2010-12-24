@@ -3,25 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using HaveAVoice.Models.View.Builders;
+using HaveAVoice.Helpers.Enums;
 
 namespace HaveAVoice.Models.View {
     public class ProfileModel {
-        public User User { get; private set; }
-        public IEnumerable<IssueReply> IssueReplys { get; private set; }
-        public string BoardMessage { get; private set; }
-        public IEnumerable<Board> BoardMessages { get; private set; }
-        public bool IsFan { get; private set; }
-        public IEnumerable<Fan> Fans { get; private set; }
-        public IEnumerable<Fan> FansOf { get; private set; }
+        public User User { get; set; }
+        public IEnumerable<IssueReply> IssueReplys { get; set; }
+        public string BoardMessage { get; set; }
+        public IEnumerable<Board> BoardMessages { get; set; }
+        public FanStatus FanStatus { get; set; }
+        public IEnumerable<Fan> Fans { get; set; }
+        public IEnumerable<Fan> FansOf { get; set; }
 
-        public ProfileModel(ProfileModelBuilder aBuilder) {
-            User = aBuilder.GetUser();
-            IssueReplys = aBuilder.GetIssueReplys();
-            BoardMessage = aBuilder.GetBoardMessage();
-            BoardMessages = aBuilder.GetBoardMessages();
-            IsFan = aBuilder.GetIsFan();
-            Fans = aBuilder.GetFans();
-            FansOf = aBuilder.GetFansOf();
+        public ProfileModel(User aUser) {
+            User = aUser;
+            IssueReplys = new List<IssueReply>();
+            BoardMessage = string.Empty;
+            BoardMessages = new List<Board>();
+            FanStatus = FanStatus.None;
+            Fans = new List<Fan>();
+            FansOf = new List<Fan>();
         }
     }
 }

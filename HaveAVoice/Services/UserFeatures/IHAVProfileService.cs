@@ -4,9 +4,10 @@ using System.Linq;
 using System.Web;
 using HaveAVoice.Models.View.Builders;
 using HaveAVoice.Models;
+using HaveAVoice.Models.View;
 
 namespace HaveAVoice.Services.UserFeatures {
     public interface IHAVProfileService {
-        ProfileModelBuilder Profile(int aUserId, User aViewingUser);
+        ProfileModel Profile(int aUserId, User aViewingUser);
     }
 }

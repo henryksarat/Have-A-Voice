@@ -8,6 +8,7 @@ using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Models.View;
 using HaveAVoice.Models.View.Builders;
 using HaveAVoice.Models;
+using HaveAVoice.Helpers.Enums;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVProfileService : HAVBaseService, IHAVProfileService {
@@ -29,23 +30,41 @@ namespace HaveAVoice.Services.UserFeatures {
             theBoardRepository = aBoardRepository;
         }
 
-        public ProfileModelBuilder Profile(int aUserId, User myViewingUser) {
+        public ProfileModel Profile(int aUserId, User myViewingUser) {
             IHAVUserService myUserService = new HAVUserService(theValidationDictionary);
             User myUser = theUserRetrievalService.GetUser(aUserId);
             IEnumerable<Board> myBoardMessages = theBoardRepository.FindBoardByUserId(aUserId);
             IEnumerable<IssueReply> myIssueReplys = theRepository.IssuesUserRepliedTo(myUser);
-            bool myIsFan = theFanService.IsFan(myUser.Id, myViewingUser);
             IEnumerable<Fan> myFans = theFanService.FindFansForUser(myUser.Id);
             IEnumerable<Fan> myFansOf = theFanService.FindFansOfUser(myUser.Id);
+            FanStatus myFanStatus = GetFanStatus(aUserId, myViewingUser);
 
-            ProfileModelBuilder myModel = new ProfileModelBuilder(myUser)
-                .SetBoardMessages(myBoardMessages)
-                .SetIsFan(myIsFan)
-                .SetIssueReplys(myIssueReplys)
-                .SetFans(myFans)
-                .SetFansOf(myFansOf);
+            ProfileModel myModel = new ProfileModel(myUser) {
+                BoardMessages = myBoardMessages,
+                IssueReplys = myIssueReplys,
+                Fans = myFans,
+                FansOf = myFansOf,
+                FanStatus = myFanStatus
+            };
 
             return myModel;
+        }
+
+        private FanStatus GetFanStatus(int aSourceUserId, User aViewingUser) {
+            FanStatus myFanStatus = FanStatus.None;
+            bool myIsPending = theFanService.IsPending(aSourceUserId, aViewingUser);
+            bool myIsFan = false;
+
+            if (!myIsPending) {
+                myIsFan = theFanService.IsFan(aSourceUserId, aViewingUser);
+                if (myIsFan) {
+                    myFanStatus = FanStatus.Approved;
+                }
+            } else {
+                myFanStatus = FanStatus.Pending;
+            }
+
+            return myFanStatus;
         }
     }
 }

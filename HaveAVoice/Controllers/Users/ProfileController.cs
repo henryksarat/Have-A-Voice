@@ -20,8 +20,6 @@ namespace HaveAVoice.Controllers.Users
         private static string USER_PAGE_ERROR = "Unable to view the user page.";
         private static string USER_PAGE_ERROR_POLITE = USER_PAGE_ERROR + PLEASE_TRY_AGAIN;
         private static string PLEASE_TRY_AGAIN = " Please try again.";
-        private static string FANS_ERROR = "Unable to get the fans list";
-        private static string FANS_OF_ERROR = "Unable to get the people who are fans of this user.";
 
         private IHAVProfileService theService;
 
@@ -39,7 +37,7 @@ namespace HaveAVoice.Controllers.Users
         public ActionResult Show(int id) {
             User myViewingUser = GetUserInformaton();
             try {
-                ProfileModel myProfile = theService.Profile(id, myViewingUser).Build();
+                ProfileModel myProfile = theService.Profile(id, myViewingUser);
                 return View("Show", myProfile);
             } catch (Exception e) {
                 LogError(e, USER_PAGE_ERROR);

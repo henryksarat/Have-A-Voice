@@ -17,7 +17,9 @@ namespace HaveAVoice.Models.View {
             string myBoardMessage = BinderHelper.GetA(bindingContext, "BoardMessage");
             User myViewingUser = HAVUserInformationFactory.GetUserInformation().Details;
 
-            return myProfileService.Profile(myUserId, myViewingUser).SetBoardMessage(myBoardMessage).Build();
+            ProfileModel myProfileModel = myProfileService.Profile(myUserId, myViewingUser);
+            myProfileModel.BoardMessage = myBoardMessage;
+            return myProfileModel;
         }
     }
 }
