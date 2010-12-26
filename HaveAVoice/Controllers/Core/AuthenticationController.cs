@@ -12,6 +12,9 @@ using HaveAVoice.Exceptions;
 
 namespace HaveAVoice.Controllers.Core {
     public class AuthenticationController : HAVBaseController {
+        private const string ACCOUNT_ACTIVATED_TITLE = "Account activated!";
+        private const string ACCOUNT_ACTIVATED_BODY = "You may now login and access have a voice!";
+
         private static string AUTHENTICAITON_ERROR = "Error authenticating. Please try again.";
         private static string INCORRECT_LOGIN = "Incorrect username and password combination.";
         private static string INVALID_ACTIVATION_CODE = "Invalid activation code.";
@@ -71,9 +74,8 @@ namespace HaveAVoice.Controllers.Core {
         public ActionResult ActivateAccount(string id) {
             string myError;
             try {
-                UserInformationModel userModel = theAuthService.ActivateNewUser(id);
-                CreateUserInformationSession(userModel);
-                return RedirectToPostLogin();
+                theAuthService.ActivateNewUser(id);
+                return SendToResultPage(ACCOUNT_ACTIVATED_TITLE, ACCOUNT_ACTIVATED_BODY);
             } catch (NullUserException) {
                 myError = INVALID_ACTIVATION_CODE;
             } catch (NullRoleException e) {
@@ -99,10 +101,6 @@ namespace HaveAVoice.Controllers.Core {
 
         private void CreateUserInformationSession(UserInformationModel aUserModel) {
             Session["UserInformation"] = aUserModel;
-        }
-
-        protected override ActionResult SendToResultPage(string aTitle, string aDetails) {
-            return SendToResultPage(SiteSectionsEnum.Authentication, aTitle, aDetails);
         }
     }
 }

@@ -174,9 +174,5 @@ namespace HaveAVoice.Controllers.Users {
         private bool isSelf(int id) {
             return GetUserInformaton().Id == id;
         }
-
-        protected override ActionResult SendToResultPage(string title, string details) {
-            return SendToResultPage(SiteSectionsEnum.Message, title, details);
-        }
     }
 }

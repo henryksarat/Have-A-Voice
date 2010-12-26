@@ -31,10 +31,5 @@ namespace HaveAVoice.Controllers.Issues
         public ActionResult Index() {
             return View();
         }
-
-
-        protected override ActionResult SendToResultPage(string title, string details) {
-            return View();
-        }
     }
 }

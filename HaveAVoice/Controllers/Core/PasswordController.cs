@@ -74,9 +74,5 @@ namespace HaveAVoice.Controllers.Core {
 
             return View(PROCESS_VIEW, new StringWrapper(forgotPasswordHash));
         }
-
-        protected override ActionResult SendToResultPage(string title, string details) {
-            return SendToResultPage(SiteSectionsEnum.User, title, details);
-        }
     }
 }

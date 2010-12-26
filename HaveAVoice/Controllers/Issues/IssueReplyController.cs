@@ -162,9 +162,5 @@ namespace HaveAVoice.Controllers.Issues {
 
             return RedirectToAction("View", "Issue", new { id = issueId });
         }
-
-        protected override ActionResult SendToResultPage(string aTitle, string aDetails) {
-            return SendToResultPage(SiteSectionsEnum.IssueReply, aTitle, aDetails);
-        }
     }
 }

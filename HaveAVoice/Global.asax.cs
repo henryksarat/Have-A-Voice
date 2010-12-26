@@ -57,11 +57,17 @@ namespace HaveAVoice {
                 "Admin/{action}",
                 new { controller = "Admin", action = "Index" }
             );
-            
+            /*
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Home", action = "NotLoggedIn", id = UrlParameter.Optional } // Parameter defaults
+            );
+*/
+            routes.MapRoute(
+                "Default", // Route name
+                "{controller}/{action}/{id}", // URL with parameters
+                new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
 
         }

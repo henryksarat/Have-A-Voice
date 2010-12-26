@@ -27,6 +27,10 @@ namespace HaveAVoice.Controllers.Home {
             theService = aService;
         }
 
+        public ActionResult Index() {
+            return View("Index");
+        }
+
         public ActionResult NotLoggedIn() {
             NotLoggedInModel myModel = new NotLoggedInModel();
 
@@ -93,10 +97,6 @@ namespace HaveAVoice.Controllers.Home {
             }
 
             return View("LoggedIn", myModel);
-        }
-
-        protected override ActionResult SendToResultPage(string title, string details) {
-            throw new NotImplementedException();
         }
     }
 }

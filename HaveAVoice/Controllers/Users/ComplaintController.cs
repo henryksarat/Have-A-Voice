@@ -102,9 +102,5 @@ namespace HaveAVoice.Controllers.Users
         private ActionResult SuccessfulComplaint() {
             return SendToResultPage("Complaint logged successfully!");
         }
-
-        protected override ActionResult SendToResultPage(string title, string details) {
-            return SendToResultPage(SiteSectionsEnum.Complaint, title, details);
-        }
     }
 }

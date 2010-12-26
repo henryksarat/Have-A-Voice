@@ -167,9 +167,5 @@ namespace HaveAVoice.Controllers.Admin {
 
             return View("Edit", restriction);
         }
-
-        protected override ActionResult SendToResultPage(string title, string details) {
-            return SendToResultPage(SiteSectionsEnum.Restriction, title, details);
-        }
     }
 }

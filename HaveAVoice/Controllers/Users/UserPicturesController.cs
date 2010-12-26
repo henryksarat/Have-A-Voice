@@ -114,10 +114,6 @@ namespace HaveAVoice.Controllers.Users
             return View(EDIT_VIEW, aUserPicturesModel);
         }
 
-        protected override ActionResult SendToResultPage(string aTitle, string aDetails) {
-            return SendToResultPage(SiteSectionsEnum.UserPictures, aTitle, aDetails);
-        }
-
         private ActionResult RedirectToProfile() {
             return RedirectToAction("LoggedIn", "Home");
         }

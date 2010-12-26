@@ -5,19 +5,20 @@ using HaveAVoice.Exceptions;
 
 namespace HaveAVoice.Helpers {
     public class HAVEmail : IHAVEmail{
-        const string MAILSERVER = "mail.haveavoice.us";
-        const string FROM_EMAIL = "henryksarat@haveavoice.us";
-        const string SMTP_USER = "henryksarat@haveavoice.us";
-        const string SMTP_PASSWORD = "aPassword";
+        private const string MAILSERVER = "mail.haveavoice.us";
+        private const string FROM_EMAIL = "welcome@haveavoice.us";
+        private const string SMTP_USER = "welcome@haveavoice.us";
+        private const string SMTP_PASSWORD = "password1";
 
        
-        public void SendEmail(string toEmail, string subject, string body) {
-            MailMessage message = new MailMessage(FROM_EMAIL, toEmail, subject, body);
-            SmtpClient smtpClient = new SmtpClient(MAILSERVER);
-            NetworkCredential SMTPUserInfo = new System.Net.NetworkCredential(SMTP_USER, SMTP_PASSWORD);
-            smtpClient.UseDefaultCredentials = false;
-            smtpClient.Credentials = SMTPUserInfo;
-            smtpClient.Send(message);
+        public void SendEmail(string aToEmail, string aSubject, string aBody) {
+            MailMessage myMailMessage = new MailMessage(FROM_EMAIL, aToEmail, aSubject, aBody);
+            myMailMessage.IsBodyHtml = true;
+            SmtpClient mySmtpClient = new SmtpClient(MAILSERVER);
+            NetworkCredential mySmtopUserInfo = new System.Net.NetworkCredential(SMTP_USER, SMTP_PASSWORD);
+            mySmtpClient.UseDefaultCredentials = false;
+            mySmtpClient.Credentials = mySmtopUserInfo;
+            mySmtpClient.Send(myMailMessage);
         }
     }
 }

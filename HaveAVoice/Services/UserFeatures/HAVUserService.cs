@@ -1,21 +1,23 @@
 ﻿using System;
-using System.Web;
-using HaveAVoice.Validation;
 using System.Collections.Generic;
-using HaveAVoice.Repositories;
 using System.Text.RegularExpressions;
-using HaveAVoice.Helpers;
-using HaveAVoice.Exceptions;
-using HaveAVoice.Models.View;
-using HaveAVoice.Repositories.UserFeatures;
+using System.Web;
 using System.Web.Mvc;
-using HaveAVoice.Repositories.AdminFeatures;
+using HaveAVoice.Exceptions;
+using HaveAVoice.Helpers;
 using HaveAVoice.Models;
+using HaveAVoice.Models.View;
+using HaveAVoice.Repositories;
+using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services.Helpers;
+using HaveAVoice.Validation;
 
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVUserService : HAVBaseService, IHAVUserService {
+        private const string ACTIVATION_SUBJECT = "have a voice | account activation";
+        private const string ACTIVATION_BODY = "Hello! <br/ ><br/ > To complete account creation please click the following link: <br/ >";
+
         private IValidationDictionary theValidationDictionary;
         private IHAVUserRetrievalService theUserRetrievalService;
         private IHAVAuthenticationService theAuthService;
@@ -91,7 +93,9 @@ namespace HaveAVoice.Services.UserFeatures {
 
         private void SendActivationCode(User aUser) {
             try {
-                theEmailService.SendEmail(aUser.Email, "Have A Voice Account Activation", "Click this link to activate your account.... " + aUser.ActivationCode);
+                string myUrl = HAVConstants.BASE_URL + "/Authentication/ActivateAccount/" + aUser.ActivationCode;
+                string myActivationLink = "<a href=\"" + myUrl + "\">" + myUrl + "</a>";
+                theEmailService.SendEmail(aUser.Email, "have a voice | account activation", ACTIVATION_BODY + myActivationLink);
             } catch (Exception e) {
                 throw new EmailException("Couldn't send aEmail.", e);
             }

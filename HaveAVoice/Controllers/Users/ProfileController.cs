@@ -44,9 +44,5 @@ namespace HaveAVoice.Controllers.Users
                 return SendToErrorPage(USER_PAGE_ERROR_POLITE);
             }
         }
-
-        protected override ActionResult SendToResultPage(string aTitle, string aDetails) {
-            return SendToResultPage(SiteSectionsEnum.Profile, aTitle, aDetails);
-        }
     }
 }

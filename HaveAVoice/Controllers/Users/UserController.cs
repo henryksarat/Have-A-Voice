@@ -16,13 +16,12 @@ using HaveAVoice.Validation;
 namespace HaveAVoice.Controllers.Users
 {
     public class UserController : HAVBaseController {
-        private static string EDIT_SUCCESS = "Your account has been edited successfully!";
-        private static string CREATE_ACCOUNT_SUCCESS = "User account created! But before you can start doing "
-                        + "anything on the site you have to activate your account. Please check your aEmail "
-                        + " on how to activate your account.";
-        private static string EMAIL_ERROR = "Couldn't send activation e-mail so the User has been activated.";
-        private static string CREATE_ACCOUNT_ERROR_MESSAGE = "An error has occurred. Please try again.";
-        private static string CREATE_ACCOUNT_ERROR = "Unable to create a user account.";
+        private const string EDIT_SUCCESS = "Your account has been edited successfully!";
+        private const string CREATE_ACCOUNT_TITLE = "User account created!";
+        private const string CREATE_ACCOUNT_SUCCESS = "An email has been sent to the email you provided. Follow the instructions to activate your account so you can login and start using the site.";
+        private const string EMAIL_ERROR = "Couldn't send activation e-mail so the User has been activated.";
+        private const string CREATE_ACCOUNT_ERROR_MESSAGE = "An error has occurred. Please try again.";
+        private const string CREATE_ACCOUNT_ERROR = "Unable to create a user account.";
 
         
         private IHAVUserService theService;
@@ -59,7 +58,7 @@ namespace HaveAVoice.Controllers.Users
             try {
                 bool myResult = theService.CreateUser(aUserToCreate.Build(), captchaValid, aUserToCreate.Agreement(), HttpContext.Request.UserHostAddress);
                 if (myResult) {
-                    return SendToResultPage(CREATE_ACCOUNT_SUCCESS);
+                    return SendToResultPage(CREATE_ACCOUNT_TITLE, CREATE_ACCOUNT_SUCCESS);
                 }
             } catch (EmailException e) {
                 LogError(e, EMAIL_ERROR);
@@ -121,10 +120,6 @@ namespace HaveAVoice.Controllers.Users
 
         public ActionResult FanFeed() {
             return null;
-        }
-
-        protected override ActionResult SendToResultPage(string title, string details) {
-            return SendToResultPage(SiteSectionsEnum.User, title, details);
         }
     }
 }

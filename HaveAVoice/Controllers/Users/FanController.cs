@@ -134,9 +134,5 @@ namespace HaveAVoice.Controllers.Users
 
             return RedirectToAction("Pending");
         }
-
-        protected override ActionResult SendToResultPage(string aTitle, string aDetails) {
-            return SendToResultPage(SiteSectionsEnum.User, aTitle, aDetails);
-        }
     }
 }

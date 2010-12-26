@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace HaveAVoice.Helpers {
     public class HAVConstants {
+        public const string BASE_URL = "www.haveavoice.us";
         public const string NOT_CONFIRMED_USER_ROLE = "Not confirmed";
         public const string USER_PICTURE_LOCATION = "/UserPictures";
         public const string NO_PROFILE_PICTURE_IMAGE = "no_profile_picture.jpg";

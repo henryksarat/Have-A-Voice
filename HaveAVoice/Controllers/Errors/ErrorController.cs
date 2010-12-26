@@ -31,9 +31,5 @@ namespace HaveAVoice.Controllers.Errors
         public ActionResult Index() {
             return View(theService.GetAllErrors().ToList<ErrorLog>());
         }
-
-        protected override ActionResult SendToResultPage(string title, string details) {
-            return SendToResultPage(SiteSectionsEnum.None, title, details);
-        }
     }
 }

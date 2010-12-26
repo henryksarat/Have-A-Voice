@@ -7,7 +7,7 @@ using HaveAVoice.Models;
 
 namespace HaveAVoice.Services.UserFeatures {
     public interface IHAVAuthenticationService {
-        UserInformationModel ActivateNewUser(string activationCode);
+        void ActivateNewUser(string activationCode);
         UserInformationModel AuthenticateUser(string anEmail, string aPassword);
         void CreateRememberMeCredentials(User aUserModel);
         User ReadRememberMeCredentials();

@@ -96,8 +96,5 @@ namespace HaveAVoice.Controllers.Issues {
 
             return View("Edit", aCommentWrapper);
         }
-        protected override ActionResult SendToResultPage(string aTitle, string aDetails) {
-            return SendToResultPage(SiteSectionsEnum.IssueReplyComment, aTitle, aDetails);
-        }
     }
 }

@@ -109,9 +109,5 @@ namespace HaveAVoice.Controllers.Users
 
             return RedirectToAction("View", "Board", new { id = boardId });
         }
-
-        protected override ActionResult SendToResultPage(string aTitle, string aDetails) {
-            return SendToResultPage(SiteSectionsEnum.BoardReply, aTitle, aDetails);
-        }
     }
 }

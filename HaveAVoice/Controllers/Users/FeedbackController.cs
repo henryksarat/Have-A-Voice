@@ -91,9 +91,5 @@ namespace HaveAVoice.Controllers.Users
 
             return View("Create");
         }
-
-        protected override ActionResult SendToResultPage(string title, string details) {
-            return SendToResultPage(SiteSectionsEnum.Feedback, title, details);
-        }
     }
 }

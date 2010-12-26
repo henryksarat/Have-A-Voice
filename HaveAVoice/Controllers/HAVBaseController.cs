@@ -16,20 +16,6 @@ namespace HaveAVoice.Controllers  {
             theErrorService = baseService;
         }
 
-        public void AddMessageToSession(SiteSectionsEnum siteSection, string title, string details) {
-            MessageModel messageModel = new MessageModel();
-            messageModel.Origin = siteSection;
-            messageModel.Title = title;
-            messageModel.Details = details;
-            Session["Message"] = messageModel;
-        }
-
-        public void AddErrorToSession(string error) {
-            ErrorModel errorModel = new ErrorModel();
-            errorModel.ErrorMessage = error;
-            Session["ErrorMessage"] = errorModel;
-        }
-
         protected override void Initialize(RequestContext rc) {
             base.Initialize(rc);
             HAVUserInformationFactory.SetInstance(UserInformation.Instance());
@@ -54,8 +40,8 @@ namespace HaveAVoice.Controllers  {
             return RedirectToAction("Error", "Shared");
         }
 
-        protected ActionResult SendToResultPage(SiteSectionsEnum siteSection, string title, string details) {
-            AddMessageToSession(siteSection, title, details);
+        protected ActionResult SendToResultPage(string title, string details) {
+            AddMessageToSession(title, details);
             return RedirectToAction("Result", "Shared");
         }
 
@@ -71,6 +57,17 @@ namespace HaveAVoice.Controllers  {
             return RedirectToAction("Login", "Authentication");
         }
 
-        protected abstract ActionResult SendToResultPage(string aTitle, string aDetails);
+        private void AddMessageToSession(string title, string details) {
+            MessageModel messageModel = new MessageModel();
+            messageModel.Title = title;
+            messageModel.Details = details;
+            Session["Message"] = messageModel;
+        }
+
+        private void AddErrorToSession(string error) {
+            ErrorModel errorModel = new ErrorModel();
+            errorModel.ErrorMessage = error;
+            Session["ErrorMessage"] = errorModel;
+        }
     }
 }

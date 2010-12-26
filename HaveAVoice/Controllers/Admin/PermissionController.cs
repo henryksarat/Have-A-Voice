@@ -148,9 +148,5 @@ namespace HaveAVoice.Controllers.Admin {
                 return SendToErrorPage("Error while deleting the restrictionModel. Please check the error log.");
             }
         }
-
-        protected override ActionResult SendToResultPage(string title, string details) {
-            return SendToResultPage(SiteSectionsEnum.Permission, title, details);
-        }
     }
 }

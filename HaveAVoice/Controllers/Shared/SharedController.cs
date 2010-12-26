@@ -26,11 +26,5 @@ namespace HaveAVoice.Controllers.Shared
             Session.Remove("Message");
             return View("Result", message);
         }
-
-
-
-        protected override ActionResult SendToResultPage(string title, string details) {
-            throw new NotImplementedException();
-        }
     }
 }

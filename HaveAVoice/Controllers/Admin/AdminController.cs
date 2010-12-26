@@ -29,9 +29,5 @@ namespace HaveAVoice.Controllers.Admin {
             }
             return View("Index");
         }
-
-        protected override ActionResult SendToResultPage(string title, string details) {
-            return SendToResultPage(SiteSectionsEnum.Admin, title, details);
-        }
     }
 }

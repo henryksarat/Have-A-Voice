@@ -91,9 +91,5 @@ namespace HaveAVoice.Controllers.Users
 
             return View("Show", myList);
         }
-
-        protected override ActionResult SendToResultPage(string title, string details) {
-            throw new NotImplementedException();
-        }
     }
 }

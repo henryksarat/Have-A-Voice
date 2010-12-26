@@ -6,7 +6,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Result</h2>
+    <h2><%= Model.Title %></h2>
     
     <%= Model.Details %>
 

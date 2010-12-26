@@ -61,9 +61,5 @@ namespace HaveAVoice.Controllers.Users
             }
             return View("Edit", aUserPrivacySetting);
         }
-
-        protected override ActionResult SendToResultPage(string aTitle, string aDetails) {
-            return SendToResultPage(SiteSectionsEnum.UserPrivacySettings, aTitle, aDetails);
-        }
     }
 }

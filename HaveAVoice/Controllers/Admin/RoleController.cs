@@ -323,11 +323,5 @@ namespace HaveAVoice.Controllers.Admin {
             List<User> myUsers = theRoleService.UsersInRole(aRoleId).ToList<User>();
             return SelectionHelper.UserSelection(aSelectedUsers, myUsers);
         }
-
-        protected override ActionResult SendToResultPage(string title, string details) {
-            return SendToResultPage(SiteSectionsEnum.Role, title, details);
-        }
-
-
     }
 }

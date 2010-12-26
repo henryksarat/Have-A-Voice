@@ -223,7 +223,6 @@
     <Compile Include="Models\View\RoleModel.cs" />
     <Compile Include="Models\View\Binders\RoleModelBinder.cs" />
     <Compile Include="Models\View\SelectionModel.cs" />
-    <Compile Include="Models\View\SiteSectionsEnum.cs" />
     <Compile Include="Models\View\CreateUserModelBuilder.cs" />
     <Compile Include="Models\View\Binders\CreateUserModelBuilderBinder.cs" />
     <Compile Include="Models\View\EditUserModel.cs" />

@@ -67,12 +67,8 @@ namespace HaveAVoice.Services.UserFeatures {
             HttpContext.Current.Response.Cookies.Add(aCookie);
         }
 
-        public UserInformationModel ActivateNewUser(string activationCode) {
-            User myUser = ActivateUser(activationCode);
-            IEnumerable<Permission> permissions = theAuthRepo.FindPermissionsForUser(myUser);
-            Restriction myRestriction = theAuthRepo.FindRestrictionsForUser(myUser);
-            UserPrivacySetting myPrivacySettings = thePrivacySettingsService.FindUserPrivacySettingsForUser(myUser);
-            return new UserInformationModel(myUser, permissions, myRestriction, myPrivacySettings);
+        public void ActivateNewUser(string activationCode) {
+            ActivateUser(activationCode);
         }
 
         public User ReadRememberMeCredentials() {
