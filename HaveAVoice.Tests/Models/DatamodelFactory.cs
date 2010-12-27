@@ -20,6 +20,9 @@ namespace HaveAVoice.Tests.Models {
         public static bool CAPTCHA_VALID = true;
         public static string IP_ADDRESS = "192.0.0.1";
         public static string FORGOT_PASSWORD_HASH = "KHBK*WY^DDBSUADGBUAAIDB";
+        public static DateTime LAST_LOGIN = new DateTime(2010, 10, 08);
+        public static DateTime REGISTRATION_DATE = new DateTime(2010, 10, 07);
+        public static string UTC_OFFSET = "-6:00";
 
         public static CreateUserModelBuilder createUserModelBuilder() {
             return new CreateUserModelBuilder()
@@ -31,6 +34,10 @@ namespace HaveAVoice.Tests.Models {
                 .DateOfBirth(BIRTHDAY)
                 .State(STATE)
                 .Agreement(AGREEMENT);
+        }
+
+        public static User createUser(int anId) {
+            return User.CreateUser(anId, USERNAME, EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, CITY, STATE, BIRTHDAY, LAST_LOGIN, REGISTRATION_DATE, IP_ADDRESS, false, UTC_OFFSET);
         }
     }
 }
