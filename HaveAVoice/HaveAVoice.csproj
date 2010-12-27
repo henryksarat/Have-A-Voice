@@ -312,6 +312,8 @@
     <Content Include="Content\reset.css" />
     <Content Include="Content\tempjquery.js" />
     <Content Include="Global.asax" />
+    <Content Include="UserPictures\93_-1513546292.jpg" />
+    <Content Include="UserPictures\93_-943723973.jpg" />
     <Content Include="UserPictures\93_946098097.jpg" />
     <Content Include="Views\Account\ChangePassword.aspx" />
     <Content Include="Views\Account\ChangePasswordSuccess.aspx" />
@@ -341,7 +343,6 @@
     <Content Include="Views\Issue\Index.aspx" />
     <Content Include="Views\Issue\View.aspx" />
     <Content Include="Views\IssueReply\View.aspx" />
-    <Content Include="Views\Listener\ListenToUser.aspx" />
     <Content Include="Views\Message\Index.aspx" />
     <Content Include="Views\Message\Create.aspx" />
     <Content Include="Views\Message\View.aspx" />
@@ -431,7 +432,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>5442</DevelopmentServerPort>
+          <DevelopmentServerPort>5239</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

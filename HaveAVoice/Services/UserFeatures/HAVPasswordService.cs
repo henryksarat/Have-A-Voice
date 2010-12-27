@@ -106,7 +106,7 @@ namespace HaveAVoice.Services.UserFeatures {
             try {
                 theEmailService.SendEmail(anEmail, FORGOT_PASSWORD_TITLE, FORGOT_PASSWORD_BODY + myForgotPasswordLink);
             } catch (Exception e) {
-                throw new EmailException("Couldn't send aEmail.", e);
+                throw new EmailException("Couldn't send email.", e);
             }
         }
 

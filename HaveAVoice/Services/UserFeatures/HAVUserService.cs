@@ -147,12 +147,12 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         private string UploadImage(HttpPostedFileBase aImageFile, User aUser) {
-            string[] splitOnPeriod = aImageFile.FileName.Split(new char[] { '.' });
-            string fileExtension = splitOnPeriod[splitOnPeriod.Length - 1];
-            string fileName = aUser.Id + "_" + DateTime.UtcNow.GetHashCode() + "." + fileExtension;
-            string filePath = HttpContext.Current.Server.MapPath(HAVConstants.USER_PICTURE_LOCATION) + "\\" + fileName;
+            string[] mySplitOnPeriod = aImageFile.FileName.Split(new char[] { '.' });
+            string myFileExtension = mySplitOnPeriod[mySplitOnPeriod.Length - 1];
+            string myFileName = aUser.Id + "_" + DateTime.UtcNow.GetHashCode() + "." + myFileExtension;
+            string filePath = HttpContext.Current.Server.MapPath(HAVConstants.USER_PICTURE_LOCATION_FROM_VIEW) + myFileName;
             aImageFile.SaveAs(filePath);
-            return fileName;
+            return myFileName;
         }
 
         public EditUserModel GetUserForEdit(User aUser) {

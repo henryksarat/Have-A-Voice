@@ -32,7 +32,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 profilePictureImageName = profilePicture.ImageName;
             }
 
-            string filePath = HAVConstants.USER_PICTURE_LOCATION + "/" + profilePictureImageName;
+            string filePath = HAVConstants.USER_PICTURE_LOCATION_FROM_VIEW + profilePictureImageName;
             return filePath;
         }
 
