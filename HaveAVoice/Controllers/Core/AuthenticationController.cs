@@ -41,11 +41,17 @@ namespace HaveAVoice.Controllers.Core {
 
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Login() {
+            if (IsLoggedIn()) {
+                return RedirectToProfile();
+            }
             return View("Login");
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Login(string email, string password, bool rememberMe) {
+            if (IsLoggedIn()) {
+                return RedirectToProfile();
+            }
             UserInformationModel userModel = null;
             try {
                 userModel = theAuthService.AuthenticateUser(email, password);
@@ -72,6 +78,9 @@ namespace HaveAVoice.Controllers.Core {
 
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult ActivateAccount(string id) {
+            if (IsLoggedIn()) {
+                return RedirectToProfile();
+            }
             string myError;
             try {
                 theAuthService.ActivateNewUser(id);
@@ -90,6 +99,9 @@ namespace HaveAVoice.Controllers.Core {
 
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult LogOut() {
+            if (!IsLoggedIn()) {
+                return RedirectToHomePage();
+            }
             theWhoIsOnlineService.RemoveFromWhoIsOnline(GetUserInformaton(), HttpContext.Request.UserHostAddress);
             Session.Clear();
             return RedirectToAction("Login");

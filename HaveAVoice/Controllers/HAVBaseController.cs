@@ -57,6 +57,14 @@ namespace HaveAVoice.Controllers  {
             return RedirectToAction("Login", "Authentication");
         }
 
+        protected ActionResult RedirectToProfile() {
+            return RedirectToAction("LoggedIn", "Home");
+        }
+
+        protected ActionResult RedirectToHomePage() {
+            return RedirectToAction("NotLoggedIn", "Home");
+        }
+
         private void AddMessageToSession(string title, string details) {
             MessageModel messageModel = new MessageModel();
             messageModel.Title = title;
