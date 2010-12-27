@@ -41,7 +41,7 @@
 			    <span class="red">1024 dislikes</span>
             </div>
 		    <div class="clear">&nbsp;</div>
-		    <div class="alpha grid_1 teal font-18"><%=Model.UserInformation.Fans.Count %></div><div class="grid_1 white font-18">Fans</div>
+		    <div class="alpha grid_1 teal font-18"><%=Model.UserInformation.FannedBy.Count %></div><div class="grid_1 white font-18">Fans</div>
 	    </div>
         <div class="alpha grid_6">
 		    <h4>About Me</h4>
