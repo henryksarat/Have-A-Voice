@@ -1,5 +1,13 @@
 <%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<HaveAVoice.Models.View.NotLoggedInModel>" %>
 
+<script type="text/javascript" language="javascript">
+	$(function() {
+		$("input.create").click(function(){
+			window.location = "/User/Create";
+		});
+	});
+</script>
+
 <div class="push-1 col-22 sign-up">
 	<div class="col-16 center padding-22t">
 		<h3>

@@ -171,6 +171,24 @@ body { font-family: helvetica, arial, sans-serif; background: #d9e9ed; }
 
 
 /****************************************************************************/
+/************************** PASSWORD STRENGTH *******************************/
+/****************************************************************************/
+#meter { color: #000; font-weight:bold; }
+#meter > div { width: 53px; padding-top: 5px; padding-bottom: 5px; text-align: center; border: 0px solid transparent; margin-top: 5px; float: left; }
+#meter > div.weak { border-color: #c00; background: #F7CBCA; }
+#meter > div.okay { border-color: #dedede; background: #FFC; }
+#meter > div.good { border-color: #349534; background: #C9FFCA; }
+
+
+/****************************************************************************/
+/***************************** CREATE ACCOUNT *******************************/
+/****************************************************************************/
+form.create label { font-weight: bold; color: #a2a2a2; font-size: 14px; }
+form.create input[type=text], form.create input[type=password] { font-size: 14px; border: #000 solid 1px; width: 100%; }
+form.create textarea { resize: none; }
+
+
+/****************************************************************************/
 /**************************** HOMEPAGE PROFILE ******************************/
 /****************************************************************************/
 .not-logged .member-bar { background: #f4f9fa; border-top: 1px solid #e3eff1; border-bottom: 1px solid #e3eff1; }
