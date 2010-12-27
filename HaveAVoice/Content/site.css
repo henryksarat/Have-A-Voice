@@ -174,7 +174,7 @@ body { font-family: helvetica, arial, sans-serif; background: #d9e9ed; }
 /************************** PASSWORD STRENGTH *******************************/
 /****************************************************************************/
 #meter { color: #000; font-weight:bold; }
-#meter > div { width: 53px; padding-top: 5px; padding-bottom: 5px; text-align: center; border: 0px solid transparent; margin-top: 5px; float: left; }
+#meter > div { width: 33%; padding-top: 5px; padding-bottom: 5px; text-align: center; border: 0px solid transparent; margin-top: 5px; float: left; }
 #meter > div.weak { border-color: #c00; background: #F7CBCA; }
 #meter > div.okay { border-color: #dedede; background: #FFC; }
 #meter > div.good { border-color: #349534; background: #C9FFCA; }
@@ -184,8 +184,12 @@ body { font-family: helvetica, arial, sans-serif; background: #d9e9ed; }
 /***************************** CREATE ACCOUNT *******************************/
 /****************************************************************************/
 form.create label { font-weight: bold; color: #a2a2a2; font-size: 14px; }
-form.create input[type=text], form.create input[type=password] { font-size: 14px; border: #000 solid 1px; width: 100%; }
+form.create input[type=text], form.create input[type=password] { font-size: 14px; border: #20a9c9 solid 1px; width: 100%; }
 form.create textarea { resize: none; }
+form.create input[type=submit].create { -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; color: #ffffff; font-weight: bold; text-transform: uppercase; padding: 5px 10px; background: #115f71; cursor: pointer; font-size: 18px; }
+form.create input[type=submit].create:hover { color: #115f71; background: #fff; }
+form.create a.cancel, form.create a.cancel:link, form.create a.cancel:visited { -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; color: #fff; font-weight: bold; text-transform: uppercase; padding: 5px 10px; background: #115f71; cursor: pointer; font-size: 18px; text-decoration: none; }
+form.create a.cancel:hover { color: #115f71; background: #fff; }
 
 
 /****************************************************************************/
