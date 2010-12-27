@@ -163,7 +163,7 @@
 					
 					<div class="col-4">&nbsp;</div>
 					<div class="col-8">
-						<%= Html.TextArea("AgreementText", UserHelper.UserAgreement()) %>
+						<%= Html.TextArea("AgreementText", UserHelper.UserAgreement(), new { cols = "40", rows = "4", resize = "none" }) %>
 					</div>
 					<div class="col-10">&nbsp;</div>
 					<div class="clear">&nbsp;</div>
@@ -174,7 +174,7 @@
 						I agree with the <a href="#">Terms of Service</a>.
 					</div>
 					<div class="col-12">
-						<%= Html.ValidationMessage("Agreement", "*", new { cols = "40", rows = "4", resize = "none" })%>
+						<%= Html.ValidationMessage("Agreement", "*")%>
 					</div>
 					<div class="clear">&nbsp;</div>
 					<div class="spacer-10">&nbsp;</div>
