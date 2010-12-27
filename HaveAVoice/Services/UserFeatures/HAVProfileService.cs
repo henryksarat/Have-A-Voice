@@ -14,19 +14,21 @@ namespace HaveAVoice.Services.UserFeatures {
     public class HAVProfileService : HAVBaseService, IHAVProfileService {
         private IHAVUserRetrievalService theUserRetrievalService;
         private IHAVFanService theFanService;
+        private IHAVUserPictureService theUserPicturesService;
         private IHAVProfileRepository theRepository;
         private IValidationDictionary theValidationDictionary;
         private IHAVBoardRepository theBoardRepository;
 
         public HAVProfileService(IValidationDictionary validationDictionary)
-            : this(validationDictionary, new HAVUserRetrievalService(), new HAVFanService(), new EntityHAVProfileRepository(), new EntityHAVBoardRepository(), new HAVBaseRepository()) { }
+            : this(validationDictionary, new HAVUserRetrievalService(), new HAVFanService(), new HAVUserPictureService(), new EntityHAVProfileRepository(), new EntityHAVBoardRepository(), new HAVBaseRepository()) { }
 
-        public HAVProfileService(IValidationDictionary aValidationDictionary, IHAVUserRetrievalService aUserRetrievalService, IHAVFanService aFanService, IHAVProfileRepository aRepository,
+        public HAVProfileService(IValidationDictionary aValidationDictionary, IHAVUserRetrievalService aUserRetrievalService, IHAVFanService aFanService, IHAVUserPictureService aUserPictureService, IHAVProfileRepository aRepository,
                                             IHAVBoardRepository aBoardRepository, IHAVBaseRepository aBaseRepository) : base(aBaseRepository) {
+            theValidationDictionary = aValidationDictionary;
             theUserRetrievalService = aUserRetrievalService;
             theFanService = aFanService;
+            theUserPicturesService = aUserPictureService;
             theRepository = aRepository;
-            theValidationDictionary = aValidationDictionary;
             theBoardRepository = aBoardRepository;
         }
 
@@ -40,6 +42,7 @@ namespace HaveAVoice.Services.UserFeatures {
             FanStatus myFanStatus = GetFanStatus(aUserId, myViewingUser);
 
             ProfileModel myModel = new ProfileModel(myUser) {
+                ProfilePictureUrl = theUserPicturesService.GetProfilePictureURL(myUser),
                 BoardMessages = myBoardMessages,
                 IssueReplys = myIssueReplys,
                 Fans = myFans,

@@ -21,7 +21,7 @@
 
     <b><%= Model.User.Username %> <br /><br /></b><br /><br />
 
-
+    <img src="<%=Model.ProfilePictureUrl %>" ><br />
     <% if (Model.FanStatus == FanStatus.Approved) { %>
         Already a fan!
     <% } else if (Model.FanStatus == FanStatus.Pending) { %>

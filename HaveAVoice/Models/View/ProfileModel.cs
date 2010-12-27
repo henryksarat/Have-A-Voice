@@ -4,10 +4,12 @@ using System.Linq;
 using System.Web;
 using HaveAVoice.Models.View.Builders;
 using HaveAVoice.Helpers.Enums;
+using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Models.View {
     public class ProfileModel {
         public User User { get; set; }
+        public string ProfilePictureUrl { get; set; }
         public IEnumerable<IssueReply> IssueReplys { get; set; }
         public string BoardMessage { get; set; }
         public IEnumerable<Board> BoardMessages { get; set; }
@@ -17,6 +19,7 @@ namespace HaveAVoice.Models.View {
 
         public ProfileModel(User aUser) {
             User = aUser;
+            ProfilePictureUrl = HAVConstants.NO_PROFILE_PICTURE;
             IssueReplys = new List<IssueReply>();
             BoardMessage = string.Empty;
             BoardMessages = new List<Board>();
