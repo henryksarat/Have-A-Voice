@@ -5,17 +5,19 @@ using System.Web;
 using HaveAVoice.Models;
 
 namespace HaveAVoice.Repositories.UserFeatures {
-    public class EntityHAVPasswordRepository : HAVBaseRepository, IHAVPasswordRepository {
+    public class EntityHAVPasswordRepository : IHAVPasswordRepository {
+        private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
+
         public void UpdateUserForgotPasswordHash(string anEmail, string aHashCode) {
             User myUser = FindUserByEmail(anEmail);
             myUser.ForgotPasswordHash = aHashCode;
             myUser.ForgotPasswordHashDateTimeStamp = DateTime.UtcNow;
-            GetEntities().ApplyCurrentValues(myUser.EntityKey.EntitySetName, myUser);
-            GetEntities().SaveChanges();
+            theEntities.ApplyCurrentValues(myUser.EntityKey.EntitySetName, myUser);
+            theEntities.SaveChanges();
         }
 
         public User GetUserByEmailAndForgotPasswordHash(string anEmail, string aHashCode) {
-            return (from c in GetEntities().Users
+            return (from c in theEntities.Users
                     where c.Email == anEmail
                     && c.ForgotPasswordHash == aHashCode
                     select c).FirstOrDefault();
@@ -26,8 +28,8 @@ namespace HaveAVoice.Repositories.UserFeatures {
             myUser.Password = aPassword;
             myUser.ForgotPasswordHash = null;
             myUser.ForgotPasswordHashDateTimeStamp = null;
-            GetEntities().ApplyCurrentValues(myUser.EntityKey.EntitySetName, myUser);
-            GetEntities().SaveChanges();
+            theEntities.ApplyCurrentValues(myUser.EntityKey.EntitySetName, myUser);
+            theEntities.SaveChanges();
         }
 
         private User FindUserByEmail(string anEmail) {

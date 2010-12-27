@@ -5,15 +5,17 @@ using System.Web;
 using HaveAVoice.Models;
 
 namespace HaveAVoice.Repositories.UserFeatures {
-    public class EntityHAVFeedbackRepository : HAVBaseRepository, IHAVFeedbackRepository {
+    public class EntityHAVFeedbackRepository : IHAVFeedbackRepository {
+        private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
+
         public void AddFeedback(User aUser, string aFeedback) {
             Feedback myFeedback = Feedback.CreateFeedback(0, aFeedback, DateTime.UtcNow, aUser.Id);
-            GetEntities().AddToFeedbacks(myFeedback);
-            GetEntities().SaveChanges();
+            theEntities.AddToFeedbacks(myFeedback);
+            theEntities.SaveChanges();
         }
 
         public IEnumerable<Feedback> GetAllFeedback() {
-            return GetEntities().Feedbacks.ToList<Feedback>();
+            return theEntities.Feedbacks.ToList<Feedback>();
         }
     }
 }

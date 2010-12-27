@@ -7,21 +7,23 @@ using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Models;
 
 namespace HaveAVoice.Repositories.AdminFeatures {
-    public class EntityHAVRestrictionRepository : HAVBaseRepository, IHAVRestrictionRepository {
+    public class EntityHAVRestrictionRepository : IHAVRestrictionRepository {
+        private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
+
         public void CreateRestriction(User aCreatedByUser, Restriction aRestrictionToCreate) {
             aRestrictionToCreate.CreatedByUserId = aCreatedByUser.Id;
-            GetEntities().AddToRestrictions(aRestrictionToCreate);
-            GetEntities().SaveChanges();
+            theEntities.AddToRestrictions(aRestrictionToCreate);
+            theEntities.SaveChanges();
         }
 
         public Restriction GetRestriction(int id) {
-            return (from r in GetEntities().Restrictions
+            return (from r in theEntities.Restrictions
                     where r.Id == id && r.Deleted == false
                     select r).FirstOrDefault();
         }
 
         public IEnumerable<Restriction> GetAllRestrictions() {
-            return GetEntities().Restrictions.ToList<Restriction>().Where(r=> r.Deleted == false);
+            return theEntities.Restrictions.ToList<Restriction>().Where(r=> r.Deleted == false);
         }
 
         public void DeleteRestriction(User aDeletedByUser, Restriction aRestrictionToDelete) {
@@ -30,8 +32,8 @@ namespace HaveAVoice.Repositories.AdminFeatures {
             myOriginalRestriction.DeletedByUserId = aDeletedByUser.Id;
             myOriginalRestriction.DeletedDateTimeStamp = DateTime.UtcNow;
 
-            GetEntities().ApplyCurrentValues(myOriginalRestriction.EntityKey.EntitySetName, myOriginalRestriction);
-            GetEntities().SaveChanges();
+            theEntities.ApplyCurrentValues(myOriginalRestriction.EntityKey.EntitySetName, myOriginalRestriction);
+            theEntities.SaveChanges();
         }
 
         public void EditRestriction(User anEditedByUser, Restriction aRestrictionToEdit) {
@@ -39,8 +41,8 @@ namespace HaveAVoice.Repositories.AdminFeatures {
             aRestrictionToEdit.EditedByUserId = anEditedByUser.Id;
             aRestrictionToEdit.EditedDateTimeStamp = DateTime.UtcNow;
 
-            GetEntities().ApplyCurrentValues(myOriginalRestriction.EntityKey.EntitySetName, aRestrictionToEdit);
-            GetEntities().SaveChanges();
+            theEntities.ApplyCurrentValues(myOriginalRestriction.EntityKey.EntitySetName, aRestrictionToEdit);
+            theEntities.SaveChanges();
         }
     }
 }
