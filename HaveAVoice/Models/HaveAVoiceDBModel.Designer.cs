@@ -32,45 +32,45 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Board_PostedUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Board", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Board), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_BoardReply_Board", "Board", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Board), "BoardReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.BoardReply), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_BoardReply_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "BoardReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.BoardReply), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_ErrorLog_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "ErrorLog", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.ErrorLog), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Events_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Event", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Event), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Fans_FanUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Fan", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Fan), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Fans_SourceUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Fan", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Fan), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Feedback_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Feedback", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Feedback), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_FilteredCityState_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "FilteredCityState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.FilteredCityState), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_FilteredZipCode_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "FilteredZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.FilteredZipCode), true)]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_RolePermissions_Permissions", "Permission", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Permission), "RolePermission", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.RolePermission), true)]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_RolePermissions_Roles", "Role", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Role), "RolePermission", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.RolePermission), true)]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Roles_Restrictions", "Restriction", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Restriction), "Role", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Role), true)]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserRoles_Roles", "Role", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Role), "UserRole", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserRole), true)]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserRoles_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "UserRole", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserRole), true)]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_ErrorLog_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "ErrorLog", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.ErrorLog), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueComplaints_FiledByUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "IssueComplaint", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueComplaint), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueComplaints_Issues", "Issue", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Issue), "IssueComplaint", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueComplaint), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueDisposition_Issues", "Issue", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Issue), "IssueDisposition", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueDisposition), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueDisposition_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "IssueDisposition", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueDisposition), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueReplyCommentComplaints_FiledByUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "IssueReplyCommentComplaint", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueReplyCommentComplaint), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueReplyCommentComplaints_IssueReplyComments", "IssueReplyComment", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.IssueReplyComment), "IssueReplyCommentComplaint", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueReplyCommentComplaint), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueReplyComments_IssueReplys", "IssueReply", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.IssueReply), "IssueReplyComment", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueReplyComment), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueReplyComments_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "IssueReplyComment", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueReplyComment), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueReplyComplaints_FiledByUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "IssueReplyComplaint", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueReplyComplaint), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueReplyComplaints_IssueReplys", "IssueReply", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.IssueReply), "IssueReplyComplaint", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueReplyComplaint), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueReplyDisposition_IssueReplys", "IssueReply", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.IssueReply), "IssueReplyDisposition", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueReplyDisposition), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueReplyDisposition_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "IssueReplyDisposition", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueReplyDisposition), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueReplys_Issues", "Issue", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Issue), "IssueReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueReply), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueReplys_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "IssueReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueReply), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Issues_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Issue", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Issue), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Message_Users_FromUserId", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Message", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Message), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Message_Users_ToUserId", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Message", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Message), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Replys_Messages", "Message", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Message), "Reply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Reply), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_RolePermissions_Permissions", "Permission", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Permission), "RolePermission", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.RolePermission), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_ProfileComplaints_FiledByUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "ProfileComplaint", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.ProfileComplaint), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_ProfileComplaints_TowardUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "ProfileComplaint", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.ProfileComplaint), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Replys_User", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Reply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Reply), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Restrictions_Users_CreatedByUserId", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Restriction", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Restriction), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Roles_Restrictions", "Restriction", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Restriction), "Role", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Role), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_RolePermissions_Roles", "Role", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Role), "RolePermission", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.RolePermission), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserRoles_Roles", "Role", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Role), "UserRole", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserRole), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserPictureComplaints_FiledByUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "UserPictureComplaint", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserPictureComplaint), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserPictureComplaints_UserPictures", "UserPicture", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.UserPicture), "UserPictureComplaint", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserPictureComplaint), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserPictures_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "UserPicture", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserPicture), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserPrivacySettings_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "UserPrivacySetting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserPrivacySetting), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserRoles_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "UserRole", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserRole), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_WhoIsOnline_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "WhoIsOnline", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.WhoIsOnline), true)]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueComplaints_Issues", "Issue", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Issue), "IssueComplaint", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueComplaint), true)]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueDisposition_Issues", "Issue", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Issue), "IssueDisposition", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueDisposition), true)]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueReplyCommentComplaints_IssueReplyComments", "IssueReplyComment", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.IssueReplyComment), "IssueReplyCommentComplaint", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueReplyCommentComplaint), true)]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueReplyComments_IssueReplys", "IssueReply", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.IssueReply), "IssueReplyComment", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueReplyComment), true)]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueReplyComplaints_IssueReplys", "IssueReply", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.IssueReply), "IssueReplyComplaint", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueReplyComplaint), true)]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueReplyDisposition_IssueReplys", "IssueReply", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.IssueReply), "IssueReplyDisposition", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueReplyDisposition), true)]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueReplys_Issues", "Issue", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Issue), "IssueReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueReply), true)]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Replys_Messages", "Message", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Message), "Reply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Reply), true)]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserPictureComplaints_UserPictures", "UserPicture", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.UserPicture), "UserPictureComplaint", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserPictureComplaint), true)]
 
 #endregion
 
@@ -237,6 +237,22 @@ namespace HaveAVoice.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<ErrorLog> ErrorLogs
+        {
+            get
+            {
+                if ((_ErrorLogs == null))
+                {
+                    _ErrorLogs = base.CreateObjectSet<ErrorLog>("ErrorLogs");
+                }
+                return _ErrorLogs;
+            }
+        }
+        private ObjectSet<ErrorLog> _ErrorLogs;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<Event> Events
         {
             get
@@ -313,118 +329,6 @@ namespace HaveAVoice.Models
             }
         }
         private ObjectSet<FilteredZipCode> _FilteredZipCodes;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Permission> Permissions
-        {
-            get
-            {
-                if ((_Permissions == null))
-                {
-                    _Permissions = base.CreateObjectSet<Permission>("Permissions");
-                }
-                return _Permissions;
-            }
-        }
-        private ObjectSet<Permission> _Permissions;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<RolePermission> RolePermissions
-        {
-            get
-            {
-                if ((_RolePermissions == null))
-                {
-                    _RolePermissions = base.CreateObjectSet<RolePermission>("RolePermissions");
-                }
-                return _RolePermissions;
-            }
-        }
-        private ObjectSet<RolePermission> _RolePermissions;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Role> Roles
-        {
-            get
-            {
-                if ((_Roles == null))
-                {
-                    _Roles = base.CreateObjectSet<Role>("Roles");
-                }
-                return _Roles;
-            }
-        }
-        private ObjectSet<Role> _Roles;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<sysdiagram> sysdiagrams
-        {
-            get
-            {
-                if ((_sysdiagrams == null))
-                {
-                    _sysdiagrams = base.CreateObjectSet<sysdiagram>("sysdiagrams");
-                }
-                return _sysdiagrams;
-            }
-        }
-        private ObjectSet<sysdiagram> _sysdiagrams;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<UserRole> UserRoles
-        {
-            get
-            {
-                if ((_UserRoles == null))
-                {
-                    _UserRoles = base.CreateObjectSet<UserRole>("UserRoles");
-                }
-                return _UserRoles;
-            }
-        }
-        private ObjectSet<UserRole> _UserRoles;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<User> Users
-        {
-            get
-            {
-                if ((_Users == null))
-                {
-                    _Users = base.CreateObjectSet<User>("Users");
-                }
-                return _Users;
-            }
-        }
-        private ObjectSet<User> _Users;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<ErrorLog> ErrorLogs
-        {
-            get
-            {
-                if ((_ErrorLogs == null))
-                {
-                    _ErrorLogs = base.CreateObjectSet<ErrorLog>("ErrorLogs");
-                }
-                return _ErrorLogs;
-            }
-        }
-        private ObjectSet<ErrorLog> _ErrorLogs;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -589,6 +493,22 @@ namespace HaveAVoice.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<Permission> Permissions
+        {
+            get
+            {
+                if ((_Permissions == null))
+                {
+                    _Permissions = base.CreateObjectSet<Permission>("Permissions");
+                }
+                return _Permissions;
+            }
+        }
+        private ObjectSet<Permission> _Permissions;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<ProfileComplaint> ProfileComplaints
         {
             get
@@ -633,6 +553,54 @@ namespace HaveAVoice.Models
             }
         }
         private ObjectSet<Restriction> _Restrictions;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<RolePermission> RolePermissions
+        {
+            get
+            {
+                if ((_RolePermissions == null))
+                {
+                    _RolePermissions = base.CreateObjectSet<RolePermission>("RolePermissions");
+                }
+                return _RolePermissions;
+            }
+        }
+        private ObjectSet<RolePermission> _RolePermissions;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Role> Roles
+        {
+            get
+            {
+                if ((_Roles == null))
+                {
+                    _Roles = base.CreateObjectSet<Role>("Roles");
+                }
+                return _Roles;
+            }
+        }
+        private ObjectSet<Role> _Roles;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<sysdiagram> sysdiagrams
+        {
+            get
+            {
+                if ((_sysdiagrams == null))
+                {
+                    _sysdiagrams = base.CreateObjectSet<sysdiagram>("sysdiagrams");
+                }
+                return _sysdiagrams;
+            }
+        }
+        private ObjectSet<sysdiagram> _sysdiagrams;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -697,6 +665,38 @@ namespace HaveAVoice.Models
             }
         }
         private ObjectSet<UserPrivacySetting> _UserPrivacySettings;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<UserRole> UserRoles
+        {
+            get
+            {
+                if ((_UserRoles == null))
+                {
+                    _UserRoles = base.CreateObjectSet<UserRole>("UserRoles");
+                }
+                return _UserRoles;
+            }
+        }
+        private ObjectSet<UserRole> _UserRoles;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<User> Users
+        {
+            get
+            {
+                if ((_Users == null))
+                {
+                    _Users = base.CreateObjectSet<User>("Users");
+                }
+                return _Users;
+            }
+        }
+        private ObjectSet<User> _Users;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -774,6 +774,14 @@ namespace HaveAVoice.Models
         }
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the ErrorLogs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToErrorLogs(ErrorLog errorLog)
+        {
+            base.AddObject("ErrorLogs", errorLog);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the Events EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToEvents(Event @event)
@@ -811,62 +819,6 @@ namespace HaveAVoice.Models
         public void AddToFilteredZipCodes(FilteredZipCode filteredZipCode)
         {
             base.AddObject("FilteredZipCodes", filteredZipCode);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Permissions EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToPermissions(Permission permission)
-        {
-            base.AddObject("Permissions", permission);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the RolePermissions EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToRolePermissions(RolePermission rolePermission)
-        {
-            base.AddObject("RolePermissions", rolePermission);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Roles EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToRoles(Role role)
-        {
-            base.AddObject("Roles", role);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the sysdiagrams EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTosysdiagrams(sysdiagram sysdiagram)
-        {
-            base.AddObject("sysdiagrams", sysdiagram);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the UserRoles EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToUserRoles(UserRole userRole)
-        {
-            base.AddObject("UserRoles", userRole);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Users EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToUsers(User user)
-        {
-            base.AddObject("Users", user);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the ErrorLogs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToErrorLogs(ErrorLog errorLog)
-        {
-            base.AddObject("ErrorLogs", errorLog);
         }
     
         /// <summary>
@@ -950,6 +902,14 @@ namespace HaveAVoice.Models
         }
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the Permissions EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPermissions(Permission permission)
+        {
+            base.AddObject("Permissions", permission);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the ProfileComplaints EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToProfileComplaints(ProfileComplaint profileComplaint)
@@ -971,6 +931,30 @@ namespace HaveAVoice.Models
         public void AddToRestrictions(Restriction restriction)
         {
             base.AddObject("Restrictions", restriction);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the RolePermissions EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToRolePermissions(RolePermission rolePermission)
+        {
+            base.AddObject("RolePermissions", rolePermission);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Roles EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToRoles(Role role)
+        {
+            base.AddObject("Roles", role);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the sysdiagrams EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTosysdiagrams(sysdiagram sysdiagram)
+        {
+            base.AddObject("sysdiagrams", sysdiagram);
         }
     
         /// <summary>
@@ -1003,6 +987,22 @@ namespace HaveAVoice.Models
         public void AddToUserPrivacySettings(UserPrivacySetting userPrivacySetting)
         {
             base.AddObject("UserPrivacySettings", userPrivacySetting);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the UserRoles EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToUserRoles(UserRole userRole)
+        {
+            base.AddObject("UserRoles", userRole);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Users EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToUsers(User user)
+        {
+            base.AddObject("Users", user);
         }
     
         /// <summary>
@@ -4496,44 +4496,6 @@ namespace HaveAVoice.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Issues_Users", "User")]
-        public User User
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_Issues_Users", "User").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_Issues_Users", "User").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<User> UserReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_Issues_Users", "User");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_Issues_Users", "User", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_IssueComplaints_Issues", "IssueComplaint")]
         public EntityCollection<IssueComplaint> IssueComplaints
         {
@@ -4590,6 +4552,44 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IssueReply>("HaveAVoice.Models.FK_IssueReplys_Issues", "IssueReply", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Issues_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_Issues_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_Issues_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_Issues_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_Issues_Users", "User", value);
                 }
             }
         }
@@ -4948,44 +4948,6 @@ namespace HaveAVoice.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_IssueDisposition_Users", "User")]
-        public User User
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueDisposition_Users", "User").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueDisposition_Users", "User").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<User> UserReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueDisposition_Users", "User");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_IssueDisposition_Users", "User", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_IssueDisposition_Issues", "Issue")]
         public Issue Issue
         {
@@ -5014,6 +4976,44 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Issue>("HaveAVoice.Models.FK_IssueDisposition_Issues", "Issue", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_IssueDisposition_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueDisposition_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueDisposition_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueDisposition_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_IssueDisposition_Users", "User", value);
                 }
             }
         }
@@ -5358,44 +5358,6 @@ namespace HaveAVoice.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_IssueReplys_Users", "User")]
-        public User User
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueReplys_Users", "User").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueReplys_Users", "User").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<User> UserReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueReplys_Users", "User");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_IssueReplys_Users", "User", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_IssueReplyComments_IssueReplys", "IssueReplyComment")]
         public EntityCollection<IssueReplyComment> IssueReplyComments
         {
@@ -5490,6 +5452,44 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Issue>("HaveAVoice.Models.FK_IssueReplys_Issues", "Issue", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_IssueReplys_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueReplys_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueReplys_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueReplys_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_IssueReplys_Users", "User", value);
                 }
             }
         }
@@ -5782,44 +5782,6 @@ namespace HaveAVoice.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_IssueReplyComments_Users", "User")]
-        public User User
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueReplyComments_Users", "User").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueReplyComments_Users", "User").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<User> UserReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueReplyComments_Users", "User");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_IssueReplyComments_Users", "User", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_IssueReplyCommentComplaints_IssueReplyComments", "IssueReplyCommentComplaint")]
         public EntityCollection<IssueReplyCommentComplaint> IssueReplyCommentComplaints
         {
@@ -5870,6 +5832,44 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<IssueReply>("HaveAVoice.Models.FK_IssueReplyComments_IssueReplys", "IssueReply", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_IssueReplyComments_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueReplyComments_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueReplyComments_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueReplyComments_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_IssueReplyComments_Users", "User", value);
                 }
             }
         }
@@ -6440,44 +6440,6 @@ namespace HaveAVoice.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_IssueReplyDisposition_Users", "User")]
-        public User User
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueReplyDisposition_Users", "User").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueReplyDisposition_Users", "User").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<User> UserReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueReplyDisposition_Users", "User");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_IssueReplyDisposition_Users", "User", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_IssueReplyDisposition_IssueReplys", "IssueReply")]
         public IssueReply IssueReply
         {
@@ -6506,6 +6468,44 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<IssueReply>("HaveAVoice.Models.FK_IssueReplyDisposition_IssueReplys", "IssueReply", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_IssueReplyDisposition_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueReplyDisposition_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueReplyDisposition_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueReplyDisposition_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_IssueReplyDisposition_Users", "User", value);
                 }
             }
         }
@@ -7408,7 +7408,7 @@ namespace HaveAVoice.Models
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_ProfileComplaints_FiledByUserId_Users", "User")]
-        public User User
+        public User FiledByUser
         {
             get
             {
@@ -7424,7 +7424,7 @@ namespace HaveAVoice.Models
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<User> UserReference
+        public EntityReference<User> FiledByUserReference
         {
             get
             {
@@ -7446,7 +7446,7 @@ namespace HaveAVoice.Models
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_ProfileComplaints_TowardUserId_Users", "User")]
-        public User User1
+        public User TowardsUser
         {
             get
             {
@@ -7462,7 +7462,7 @@ namespace HaveAVoice.Models
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<User> User1Reference
+        public EntityReference<User> TowardsUserReference
         {
             get
             {
@@ -7645,44 +7645,6 @@ namespace HaveAVoice.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Replys_User", "User")]
-        public User User
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_Replys_User", "User").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_Replys_User", "User").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<User> UserReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_Replys_User", "User");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_Replys_User", "User", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Replys_Messages", "Message")]
         public Message Message
         {
@@ -7711,6 +7673,44 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Message>("HaveAVoice.Models.FK_Replys_Messages", "Message", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Replys_User", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_Replys_User", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_Replys_User", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_Replys_User", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_Replys_User", "User", value);
                 }
             }
         }
@@ -8317,28 +8317,6 @@ namespace HaveAVoice.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Roles_Restrictions", "Role")]
-        public EntityCollection<Role> Roles
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Role>("HaveAVoice.Models.FK_Roles_Restrictions", "Role");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Role>("HaveAVoice.Models.FK_Roles_Restrictions", "Role", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Restrictions_Users_CreatedByUserId", "User")]
         public User User
         {
@@ -8367,6 +8345,28 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_Restrictions_Users_CreatedByUserId", "User", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Roles_Restrictions", "Role")]
+        public EntityCollection<Role> Roles
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Role>("HaveAVoice.Models.FK_Roles_Restrictions", "Role");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Role>("HaveAVoice.Models.FK_Roles_Restrictions", "Role", value);
                 }
             }
         }
@@ -8613,28 +8613,6 @@ namespace HaveAVoice.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_RolePermissions_Roles", "RolePermission")]
-        public EntityCollection<RolePermission> RolePermissions
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RolePermission>("HaveAVoice.Models.FK_RolePermissions_Roles", "RolePermission");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RolePermission>("HaveAVoice.Models.FK_RolePermissions_Roles", "RolePermission", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Roles_Restrictions", "Restriction")]
         public Restriction Restriction
         {
@@ -8663,6 +8641,28 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Restriction>("HaveAVoice.Models.FK_Roles_Restrictions", "Restriction", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_RolePermissions_Roles", "RolePermission")]
+        public EntityCollection<RolePermission> RolePermissions
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RolePermission>("HaveAVoice.Models.FK_RolePermissions_Roles", "RolePermission");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RolePermission>("HaveAVoice.Models.FK_RolePermissions_Roles", "RolePermission", value);
                 }
             }
         }
@@ -9864,7 +9864,7 @@ namespace HaveAVoice.Models
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Board_PostedUserId_Users", "Board")]
-        public EntityCollection<Board> Boards1
+        public EntityCollection<Board> BoardsPostedTo
         {
             get
             {
@@ -9897,6 +9897,28 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BoardReply>("HaveAVoice.Models.FK_BoardReply_Users", "BoardReply", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_ErrorLog_Users", "ErrorLog")]
+        public EntityCollection<ErrorLog> ErrorLogs
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ErrorLog>("HaveAVoice.Models.FK_ErrorLog_Users", "ErrorLog");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ErrorLog>("HaveAVoice.Models.FK_ErrorLog_Users", "ErrorLog", value);
                 }
             }
         }
@@ -10029,50 +10051,6 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FilteredZipCode>("HaveAVoice.Models.FK_FilteredZipCode_Users", "FilteredZipCode", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserRoles_Users", "UserRole")]
-        public EntityCollection<UserRole> UserRoles
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserRole>("HaveAVoice.Models.FK_UserRoles_Users", "UserRole");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserRole>("HaveAVoice.Models.FK_UserRoles_Users", "UserRole", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_ErrorLog_Users", "ErrorLog")]
-        public EntityCollection<ErrorLog> ErrorLogs
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ErrorLog>("HaveAVoice.Models.FK_ErrorLog_Users", "ErrorLog");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ErrorLog>("HaveAVoice.Models.FK_ErrorLog_Users", "ErrorLog", value);
                 }
             }
         }
@@ -10457,6 +10435,28 @@ namespace HaveAVoice.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserRoles_Users", "UserRole")]
+        public EntityCollection<UserRole> UserRoles
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserRole>("HaveAVoice.Models.FK_UserRoles_Users", "UserRole");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserRole>("HaveAVoice.Models.FK_UserRoles_Users", "UserRole", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_WhoIsOnline_Users", "WhoIsOnline")]
         public EntityCollection<WhoIsOnline> WhoIsOnlines
         {
@@ -10641,6 +10641,28 @@ namespace HaveAVoice.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserPictureComplaints_UserPictures", "UserPictureComplaint")]
+        public EntityCollection<UserPictureComplaint> UserPictureComplaints
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserPictureComplaint>("HaveAVoice.Models.FK_UserPictureComplaints_UserPictures", "UserPictureComplaint");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserPictureComplaint>("HaveAVoice.Models.FK_UserPictureComplaints_UserPictures", "UserPictureComplaint", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserPictures_Users", "User")]
         public User User
         {
@@ -10669,28 +10691,6 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_UserPictures_Users", "User", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserPictureComplaints_UserPictures", "UserPictureComplaint")]
-        public EntityCollection<UserPictureComplaint> UserPictureComplaints
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserPictureComplaint>("HaveAVoice.Models.FK_UserPictureComplaints_UserPictures", "UserPictureComplaint");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserPictureComplaint>("HaveAVoice.Models.FK_UserPictureComplaints_UserPictures", "UserPictureComplaint", value);
                 }
             }
         }
