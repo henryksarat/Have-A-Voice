@@ -8,13 +8,15 @@ using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Models;
 
 namespace HaveAVoice.Repositories.AdminFeatures {
-    public class EntityHAVRoleRepository : HAVBaseRepository, IHAVRoleRepository {
+    public class EntityHAVRoleRepository : IHAVRoleRepository {
+        private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
+
         public IEnumerable<Role> GetAllRoles() {
-            return GetEntities().Roles.ToList<Role>().Where(r => r.Deleted == false);
+            return theEntities.Roles.ToList<Role>().Where(r => r.Deleted == false);
         }
 
         public Role FindRole(int aRoleId) {
-            return (from r in GetEntities().Roles.Include("RolePermissions.Permission")
+            return (from r in theEntities.Roles.Include("RolePermissions.Permission")
                     where r.Id == aRoleId && r.Deleted == false
                     select r).FirstOrDefault();
         }
@@ -22,15 +24,15 @@ namespace HaveAVoice.Repositories.AdminFeatures {
         public Role Create(User aCreatedByUser, Role aRoleToCreate, List<int> aPermissionId, int aSelectedRestrictionId) {
             aRoleToCreate.RestrictionId = aSelectedRestrictionId;
             aRoleToCreate.EditedByUserId = aCreatedByUser.Id;
-            GetEntities().AddToRoles(aRoleToCreate);
-            GetEntities().SaveChanges();
+            theEntities.AddToRoles(aRoleToCreate);
+            theEntities.SaveChanges();
 
             foreach (Int32 myPermissionId in aPermissionId) {
                 RolePermission rolePermission = RolePermission.CreateRolePermission(0, aRoleToCreate.Id, myPermissionId);
-                GetEntities().AddToRolePermissions(rolePermission);
+                theEntities.AddToRolePermissions(rolePermission);
             }
 
-            GetEntities().SaveChanges();
+            theEntities.SaveChanges();
             return aRoleToCreate;
         }
 
@@ -49,8 +51,8 @@ namespace HaveAVoice.Repositories.AdminFeatures {
             myOriginalRole.Name = aRoleToEdit.Name;
             myOriginalRole.RestrictionId = aSelectedRestrictionId;
             myOriginalRole.EditedByUserId = anEditedByUser.Id;
-            GetEntities().ApplyCurrentValues(myOriginalRole.EntityKey.EntitySetName, myOriginalRole);
-            GetEntities().SaveChanges();
+            theEntities.ApplyCurrentValues(myOriginalRole.EntityKey.EntitySetName, myOriginalRole);
+            theEntities.SaveChanges();
 
             return aRoleToEdit;
         }
@@ -62,18 +64,18 @@ namespace HaveAVoice.Repositories.AdminFeatures {
             IEnumerable<RolePermission> myRolePermissions = GetRolePermissions(myOriginalRole);
             DeleteRolePermissions(myRolePermissions);
 
-            GetEntities().ApplyCurrentValues(myOriginalRole.EntityKey.EntitySetName, myOriginalRole);
-            GetEntities().SaveChanges();
+            theEntities.ApplyCurrentValues(myOriginalRole.EntityKey.EntitySetName, myOriginalRole);
+            theEntities.SaveChanges();
         }
 
         public Role GetDefaultRole() {
-            return (from c in GetEntities().Roles
+            return (from c in theEntities.Roles
                     where c.DefaultRole == true
                     select c).FirstOrDefault();
         }
 
         public Role GetNotConfirmedUserRole() {
-            Role notConfirmedRole = (from c in GetEntities().Roles
+            Role notConfirmedRole = (from c in theEntities.Roles
                     where c.Name == HAVConstants.NOT_CONFIRMED_USER_ROLE
                     select c).FirstOrDefault();
 
@@ -84,8 +86,8 @@ namespace HaveAVoice.Repositories.AdminFeatures {
         }
 
         public IEnumerable<User> FindUsersInRole(int aRoleId) {
-            return (from u in GetEntities().Users
-                    join ur in GetEntities().UserRoles on u.Id equals ur.User.Id
+            return (from u in theEntities.Users
+                    join ur in theEntities.UserRoles on u.Id equals ur.User.Id
                     where ur.Role.Id == aRoleId
                     select u).ToList<User>();
         }
@@ -97,10 +99,10 @@ namespace HaveAVoice.Repositories.AdminFeatures {
                 UserRole myOriginalUserRole = GetUserRole(myUserId, aFromRoleId);
 
                 myOriginalUserRole.Role = myMoveToRole;
-                GetEntities().ApplyCurrentValues(myOriginalUserRole.EntityKey.EntitySetName, myOriginalUserRole);
+                theEntities.ApplyCurrentValues(myOriginalUserRole.EntityKey.EntitySetName, myOriginalUserRole);
             }
 
-            GetEntities().SaveChanges();
+            theEntities.SaveChanges();
         }
 
         private void MakeNoDefaultRole() {
@@ -109,18 +111,18 @@ namespace HaveAVoice.Repositories.AdminFeatures {
             if (originalDefaultRole != null)
                 UpdateRoleDefaultStatus(originalDefaultRole, false);
 
-            GetEntities().SaveChanges();
+            theEntities.SaveChanges();
         }
 
         private Role UpdateRoleDefaultStatus(Role aRoleToUpdate, bool anIsDefault) {
             Role originalRole = FindRole(aRoleToUpdate.Id);
             aRoleToUpdate.DefaultRole = anIsDefault;
-            GetEntities().ApplyCurrentValues(originalRole.EntityKey.EntitySetName, aRoleToUpdate);
+            theEntities.ApplyCurrentValues(originalRole.EntityKey.EntitySetName, aRoleToUpdate);
             return aRoleToUpdate;
         }
 
         private IEnumerable<RolePermission> GetRolePermissions(Role aRoleToGetPermissionsFor) {
-            return (from c in GetEntities().RolePermissions
+            return (from c in theEntities.RolePermissions
                     where c.Role.Id == aRoleToGetPermissionsFor.Id
                     select c);
         }
@@ -133,23 +135,23 @@ namespace HaveAVoice.Repositories.AdminFeatures {
         
         private void DeleteRolePermission(RolePermission aRolePermissionToDelete) {
             RolePermission myOriginalRolePermission = GetRolePermission(aRolePermissionToDelete.Id);
-            GetEntities().DeleteObject(myOriginalRolePermission);
+            theEntities.DeleteObject(myOriginalRolePermission);
         }
 
         private RolePermission GetRolePermission(int aRolePermissionId) {
-            return (from c in GetEntities().RolePermissions
+            return (from c in theEntities.RolePermissions
                     where c.Id == aRolePermissionId
                     select c).FirstOrDefault();
         }
 
         private void CreateRolePermission(int aRoleId, int aPermissionId) {
             RolePermission myRolePermissionToAdd = RolePermission.CreateRolePermission(0, aRoleId, aPermissionId);
-            GetEntities().AddToRolePermissions(myRolePermissionToAdd);
-            GetEntities().SaveChanges();
+            theEntities.AddToRolePermissions(myRolePermissionToAdd);
+            theEntities.SaveChanges();
         }
 
         private UserRole GetUserRole(int aUserId, int aRoleId) {
-            return (from ur in GetEntities().UserRoles
+            return (from ur in theEntities.UserRoles
                     where ur.Role.Id == aRoleId && ur.User.Id == aUserId
                     select ur).FirstOrDefault<UserRole>();
         }

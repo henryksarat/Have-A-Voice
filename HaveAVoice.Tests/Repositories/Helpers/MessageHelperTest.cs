@@ -30,7 +30,6 @@ namespace HaveAVoice.Tests.Repositories.Helpers {
         private Reply theReplyOne;
         private Reply theReplyTwo;
 
-
         private MessageBuilder theMessageBuilder = new MessageBuilder(MESSAGE_ID);
 
         [TestInitialize]

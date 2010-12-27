@@ -7,40 +7,42 @@ using System.Data.Objects;
 using HaveAVoice.Models;
 
 namespace HaveAVoice.Repositories.UserFeatures {
-    public class EntityHAVIssueRepository : HAVBaseRepository, IHAVIssueRepository {
+    public class EntityHAVIssueRepository : IHAVIssueRepository {
+        private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
+
          public IEnumerable<Issue> GetLatestIssues() {
-            return GetEntities().Issues.ToList<Issue>();
+            return theEntities.Issues.ToList<Issue>();
         }
 
         public Issue CreateIssue(Issue anIssueToCreate, User aUserCreating) {
             anIssueToCreate = Issue.CreateIssue(0, anIssueToCreate.Title, anIssueToCreate.Description, DateTime.UtcNow, aUserCreating.Id, false);
-            GetEntities().AddToIssues(anIssueToCreate);
-            GetEntities().SaveChanges();
+            theEntities.AddToIssues(anIssueToCreate);
+            theEntities.SaveChanges();
 
              return anIssueToCreate;
          }
 
         public Issue GetIssue(int anIssueId) {
-            return (from i in GetEntities().Issues
+            return (from i in theEntities.Issues
                     where i.Id == anIssueId
                     select i).FirstOrDefault();
         }
 
         public IssueReply CreateIssueReply(Issue anIssue, User aUserCreating, string aReply, bool anAnonymous, Disposition aDisposition) {
             IssueReply issueReply = IssueReply.CreateIssueReply(0, anIssue.Id, aUserCreating.Id, aReply, DateTime.UtcNow, anAnonymous, (int)aDisposition, false);
-            GetEntities().AddToIssueReplys(issueReply);
-            GetEntities().SaveChanges();
+            theEntities.AddToIssueReplys(issueReply);
+            theEntities.SaveChanges();
 
             return issueReply;
         }
 
         public IEnumerable<IssueReplyModel> GetReplysToIssue(User aUser, Issue anIssue, IEnumerable<string> aSelectedRoles) {
-            IEnumerable<IssueReplyDisposition> myIssueReplyDispositions = GetEntities().IssueReplyDispositions;
+            IEnumerable<IssueReplyDisposition> myIssueReplyDispositions = theEntities.IssueReplyDispositions;
 
-            return (from ir in GetEntities().IssueReplys.Include("IssueReplyComments")
-                    join u in GetEntities().Users on ir.User.Id equals u.Id
-                    join ur in GetEntities().UserRoles on u.Id equals ur.User.Id
-                    join r in GetEntities().Roles on ur.Role.Id equals r.Id
+            return (from ir in theEntities.IssueReplys.Include("IssueReplyComments")
+                    join u in theEntities.Users on ir.User.Id equals u.Id
+                    join ur in theEntities.UserRoles on u.Id equals ur.User.Id
+                    join r in theEntities.Roles on ur.Role.Id equals r.Id
                     let i = myIssueReplyDispositions.Where(i2 => i2.IssueReply.Id == ir.Id).Where(i2 => i2.User.Id == aUser.Id).FirstOrDefault()
                     where ir.Issue.Id == anIssue.Id
                     && aSelectedRoles.Contains(r.Name)
@@ -58,21 +60,21 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         public IssueReply GetIssueReply(int anIssueReplyId) {
-            return (from ir in GetEntities().IssueReplys.Include("Issue")
+            return (from ir in theEntities.IssueReplys.Include("Issue")
                     where ir.Id == anIssueReplyId
                     && ir.Deleted == false
                     select ir).FirstOrDefault();
         }
 
         public IssueReplyComment GetIssueReplyComment(int anIssueReplyCommentId) {
-            return (from irc in GetEntities().IssueReplyComments
+            return (from irc in theEntities.IssueReplyComments
                     where irc.Id == anIssueReplyCommentId
                     && irc.Deleted == false
                     select irc).FirstOrDefault();
         }
 
         public IEnumerable<IssueReplyComment> GetIssueReplyComments(int anIssueReplyId) {
-            return (from irc in GetEntities().IssueReplyComments
+            return (from irc in theEntities.IssueReplyComments
                       where irc.IssueReply.Id == anIssueReplyId
                       && irc.Deleted == false
                       orderby irc.DateTimeStamp descending
@@ -81,20 +83,20 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         public IssueReplyComment CreateCommentToIssueReply(IssueReply anIssueReply, User aUserCreating, string aComment) {
             IssueReplyComment myIssueReplyComment = IssueReplyComment.CreateIssueReplyComment(0, anIssueReply.Id, aComment, DateTime.UtcNow, aUserCreating.Id, false);
-            GetEntities().AddToIssueReplyComments(myIssueReplyComment);
-            GetEntities().SaveChanges();
+            theEntities.AddToIssueReplyComments(myIssueReplyComment);
+            theEntities.SaveChanges();
             return myIssueReplyComment;
         }
 
         public void CreateIssueDisposition(User aUser, int anIssueId, int aDisposition) {
             IssueDisposition myIssueDisposition = IssueDisposition.CreateIssueDisposition(0, anIssueId, aUser.Id, aDisposition);
-            GetEntities().AddToIssueDispositions(myIssueDisposition);
-            GetEntities().SaveChanges();
+            theEntities.AddToIssueDispositions(myIssueDisposition);
+            theEntities.SaveChanges();
         }
 
         public IEnumerable<IssueWithDispositionModel> GetIssues(User aUser) {
-            ObjectQuery<Issue> myIssues = GetEntities().Issues;
-            ObjectQuery<IssueDisposition> myIssueDispositions = GetEntities().IssueDispositions;
+            ObjectQuery<Issue> myIssues = theEntities.Issues;
+            ObjectQuery<IssueDisposition> myIssueDispositions = theEntities.IssueDispositions;
 
             return (from i in myIssues
                     let d = myIssueDispositions.Where(d2 => d2.Issue.Id == i.Id)
@@ -109,30 +111,30 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         public void CreateIssueReplyDisposition(User aUser, int anIssueReplyId, int aDisposition) {
             IssueReplyDisposition myIssueReplyDisposition = IssueReplyDisposition.CreateIssueReplyDisposition(0, anIssueReplyId, aUser.Id, aDisposition);
-            GetEntities().AddToIssueReplyDispositions(myIssueReplyDisposition);
-            GetEntities().SaveChanges();
+            theEntities.AddToIssueReplyDispositions(myIssueReplyDisposition);
+            theEntities.SaveChanges();
         }
 
 
         public void DeleteIssue(User aDeletingUser, Issue anIssue, bool anAdminDelete) {
             anIssue.Deleted = true;
             anIssue.DeletedByUserId = aDeletingUser.Id;
-            GetEntities().ApplyCurrentValues(anIssue.EntityKey.EntitySetName, anIssue);
-            GetEntities().SaveChanges();
+            theEntities.ApplyCurrentValues(anIssue.EntityKey.EntitySetName, anIssue);
+            theEntities.SaveChanges();
         }
 
         public void DeleteIssueReply(User aDeletingUser, IssueReply anIssueReply, bool anAdminDelete) {
             anIssueReply.Deleted = true;
             anIssueReply.DeletedByUserId = aDeletingUser.Id;
-            GetEntities().ApplyCurrentValues(anIssueReply.EntityKey.EntitySetName, anIssueReply);
-            GetEntities().SaveChanges();
+            theEntities.ApplyCurrentValues(anIssueReply.EntityKey.EntitySetName, anIssueReply);
+            theEntities.SaveChanges();
         }
 
         public void DeleteIssueReplyComment(User aDeletingUser, IssueReplyComment anIssueReplyComment, bool anAdminDelete) {
             anIssueReplyComment.Deleted = true;
             anIssueReplyComment.DeletedByUserId = aDeletingUser.Id;
-            GetEntities().ApplyCurrentValues(anIssueReplyComment.EntityKey.EntitySetName, anIssueReplyComment);
-            GetEntities().SaveChanges();
+            theEntities.ApplyCurrentValues(anIssueReplyComment.EntityKey.EntitySetName, anIssueReplyComment);
+            theEntities.SaveChanges();
         }
 
         public void UpdateIssue(User aUser, Issue anOriginal, Issue aNew, bool anOverride) {
@@ -143,9 +145,9 @@ namespace HaveAVoice.Repositories.UserFeatures {
             anOriginal.Description = aNew.Description;
             anOriginal.UpdatedDateTimeStamp = DateTime.UtcNow;
             anOriginal.UpdatedByUserId = aUser.Id;
-            GetEntities().AddToAuditIssues(myAUdit);
-            GetEntities().ApplyCurrentValues(anOriginal.EntityKey.EntitySetName, anOriginal);
-            GetEntities().SaveChanges();
+            theEntities.AddToAuditIssues(myAUdit);
+            theEntities.ApplyCurrentValues(anOriginal.EntityKey.EntitySetName, anOriginal);
+            theEntities.SaveChanges();
         }
 
         public void UpdateIssueReply(User aUser, IssueReply anOriginal, IssueReply aNew, bool anOverride) {
@@ -157,9 +159,9 @@ namespace HaveAVoice.Repositories.UserFeatures {
             anOriginal.Reply = aNew.Reply;
             anOriginal.UpdatedDateTimeStamp = DateTime.UtcNow;
             anOriginal.UpdatedUserId = aUser.Id;
-            GetEntities().AddToAuditIssueReplys(myAudit);
-            GetEntities().ApplyCurrentValues(anOriginal.EntityKey.EntitySetName, anOriginal);
-            GetEntities().SaveChanges();
+            theEntities.AddToAuditIssueReplys(myAudit);
+            theEntities.ApplyCurrentValues(anOriginal.EntityKey.EntitySetName, anOriginal);
+            theEntities.SaveChanges();
         }
 
         public void UpdateIssueReplyComment(User aUser, IssueReplyComment anOriginal, IssueReplyComment aNew, bool anOverride) {
@@ -168,9 +170,9 @@ namespace HaveAVoice.Repositories.UserFeatures {
             anOriginal.Comment = aNew.Comment;
             anOriginal.UpdatedDateTimeStamp = DateTime.UtcNow;
             anOriginal.UpdatedByUserId = aUser.Id;
-            GetEntities().AddToAuditIssueReplyComments(myAUdit);
-            GetEntities().ApplyCurrentValues(anOriginal.EntityKey.EntitySetName, anOriginal);
-            GetEntities().SaveChanges();
+            theEntities.AddToAuditIssueReplyComments(myAUdit);
+            theEntities.ApplyCurrentValues(anOriginal.EntityKey.EntitySetName, anOriginal);
+            theEntities.SaveChanges();
         }
     }
 }

@@ -5,15 +5,17 @@ using System.Web;
 using HaveAVoice.Models;
 
 namespace HaveAVoice.Repositories.UserFeatures {
-    public class EntityHAVBoardRepository : HAVBaseRepository, IHAVBoardRepository {
+    public class EntityHAVBoardRepository : IHAVBoardRepository {
+        private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
+
         public Board FindBoardByBoardId(int aBoardId) {
-            return (from b in GetEntities().Boards
+            return (from b in theEntities.Boards
                     where b.Id == aBoardId
                     select b).FirstOrDefault<Board>();
         }
 
         public IEnumerable<Board> FindBoardByUserId(int aUserId) {
-            return (from b in GetEntities().Boards
+            return (from b in theEntities.Boards
                     where b.User.Id == aUserId
                     && b.Deleted == false
                     select b)
@@ -24,8 +26,8 @@ namespace HaveAVoice.Repositories.UserFeatures {
         public void AddToBoard(User aPostedByUser, int aSourceUserId, string aMessage) {
             IHAVUserRepository myUserRepository = new EntityHAVUserRepository();
             Board myBoard = Board.CreateBoard(0, aSourceUserId, aPostedByUser.Id, aMessage, DateTime.UtcNow, false, false);
-            GetEntities().AddToBoards(myBoard);
-            GetEntities().SaveChanges();
+            theEntities.AddToBoards(myBoard);
+            theEntities.SaveChanges();
         }
 
         public void EditBoardMessage(User aEditedBy, Board anOriginalBoard, Board aBoard) {
@@ -35,27 +37,27 @@ namespace HaveAVoice.Repositories.UserFeatures {
                 anOriginalBoard.Message = aBoard.Message;
                 anOriginalBoard.UpdatedDateTimeStamp = DateTime.UtcNow;
                 anOriginalBoard.UpdatedByUserId = aEditedBy.Id;
-                GetEntities().AddToAuditBoards(myAudit);
-                GetEntities().ApplyCurrentValues(anOriginalBoard.EntityKey.EntitySetName, anOriginalBoard);
-                GetEntities().SaveChanges();
+                theEntities.AddToAuditBoards(myAudit);
+                theEntities.ApplyCurrentValues(anOriginalBoard.EntityKey.EntitySetName, anOriginalBoard);
+                theEntities.SaveChanges();
         }
 
         public void DeleteBoardMessage(User aDeletingUser, Board aBoard) {
             aBoard.Deleted = true;
             aBoard.DeletedByUserId = aDeletingUser.Id;
-            GetEntities().ApplyCurrentValues(aBoard.EntityKey.EntitySetName, aBoard);
-            GetEntities().SaveChanges();
+            theEntities.ApplyCurrentValues(aBoard.EntityKey.EntitySetName, aBoard);
+            theEntities.SaveChanges();
         }
 
         public BoardReply FindBoardReplyByBoardReplyId(int aReplyId) {
-            return (from br in GetEntities().BoardReplies
+            return (from br in theEntities.BoardReplies
                     where br.Id == aReplyId
                     && br.Deleted == false
                     select br).FirstOrDefault<BoardReply>();
         }
 
         public IEnumerable<BoardReply> FindBoardRepliesByBoard(int aBoardId) {
-            return (from br in GetEntities().BoardReplies
+            return (from br in theEntities.BoardReplies
                     where br.Board.Id == aBoardId
                     && br.Deleted == false
                     select br).ToList<BoardReply>();
@@ -63,7 +65,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         public void AddReplyToBoard(User aPostingUser, int aBoardId, string aReply) {
             BoardReply myReply = BoardReply.CreateBoardReply(0, aPostingUser.Id, aBoardId, aReply, DateTime.UtcNow, false);
-            GetEntities().SaveChanges();
+            theEntities.SaveChanges();
         }
 
         public void EditBoardReply(User anEditedBy, BoardReply anOriginalReply, BoardReply aNewReply) {
@@ -73,16 +75,16 @@ namespace HaveAVoice.Repositories.UserFeatures {
             anOriginalReply.Message = aNewReply.Message;
             anOriginalReply.UpdatedDateTimeStamp = DateTime.UtcNow;
             anOriginalReply.UpdatedByUserId = anEditedBy.Id;
-            GetEntities().AddToAuditBoardReplies(myAudit);
-            GetEntities().ApplyCurrentValues(anOriginalReply.EntityKey.EntitySetName, anOriginalReply);
-            GetEntities().SaveChanges();
+            theEntities.AddToAuditBoardReplies(myAudit);
+            theEntities.ApplyCurrentValues(anOriginalReply.EntityKey.EntitySetName, anOriginalReply);
+            theEntities.SaveChanges();
         }
 
         public void DeleteBoardReply(User aDeletingUser, BoardReply aReply) {
             aReply.Deleted = true;
             aReply.DeletedByUserId = aDeletingUser.Id;
-            GetEntities().ApplyCurrentValues(aReply.EntityKey.EntitySetName, aReply);
-            GetEntities().SaveChanges();
+            theEntities.ApplyCurrentValues(aReply.EntityKey.EntitySetName, aReply);
+            theEntities.SaveChanges();
         }
     }
 }

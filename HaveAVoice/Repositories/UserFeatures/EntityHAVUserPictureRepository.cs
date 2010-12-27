@@ -6,14 +6,15 @@ using HaveAVoice.Models;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVUserPictureRepository : HAVBaseRepository, IHAVUserPictureRepository {
+        private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
         public void AddProfilePicture(User aUser, string anImageURL) {
             UserPicture myUserPicture = UserPicture.CreateUserPicture(0, aUser.Id, anImageURL, true, DateTime.UtcNow);
 
             UnSetCurrentUserPicture(aUser);
 
-            GetEntities().AddToUserPictures(myUserPicture);
-            GetEntities().SaveChanges();
+            theEntities.AddToUserPictures(myUserPicture);
+            theEntities.SaveChanges();
         }
 
         public void SetToProfilePicture(User aUser, int aUserPictureId) {
@@ -26,34 +27,34 @@ namespace HaveAVoice.Repositories.UserFeatures {
             newProfilePicture.ProfilePicture = true;
             UnSetCurrentUserPicture(aUser);
 
-            GetEntities().ApplyCurrentValues(newProfilePicture.EntityKey.EntitySetName, newProfilePicture);
+            theEntities.ApplyCurrentValues(newProfilePicture.EntityKey.EntitySetName, newProfilePicture);
 
-            GetEntities().SaveChanges();
+            theEntities.SaveChanges();
         }
 
         private void UnSetCurrentUserPicture(User aUser) {
             UserPicture currentProfilePicture = GetProfilePicture(aUser.Id);
             if (currentProfilePicture != null) {
                 currentProfilePicture.ProfilePicture = false;
-                GetEntities().ApplyCurrentValues(currentProfilePicture.EntityKey.EntitySetName, currentProfilePicture);
+                theEntities.ApplyCurrentValues(currentProfilePicture.EntityKey.EntitySetName, currentProfilePicture);
             }
         }
 
         public UserPicture GetProfilePicture(int aUserId) {
-            return (from up in GetEntities().UserPictures
+            return (from up in theEntities.UserPictures
                     where up.User.Id == aUserId
                     && up.ProfilePicture == true
                     select up).FirstOrDefault();
         }
 
         public UserPicture GetUserPicture(int aUserPictureId) {
-            return (from up in GetEntities().UserPictures
+            return (from up in theEntities.UserPictures
                     where up.Id == aUserPictureId
                     select up).FirstOrDefault();
         }
 
         public IEnumerable<UserPicture> GetUserPictures(int aUserId) {
-            return (from up in GetEntities().UserPictures
+            return (from up in theEntities.UserPictures
                     where up.User.Id == aUserId
                     && up.ProfilePicture == false
                     orderby up.DateTimeStamp descending
@@ -62,8 +63,8 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         public void DeleteUserPicture(int aUserPictureId) {
             UserPicture userPicture = GetUserPicture(aUserPictureId);
-            GetEntities().DeleteObject(userPicture);
-            GetEntities().SaveChanges();
+            theEntities.DeleteObject(userPicture);
+            theEntities.SaveChanges();
         }
     }
 }

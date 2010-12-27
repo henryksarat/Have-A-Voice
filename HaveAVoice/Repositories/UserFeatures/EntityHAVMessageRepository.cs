@@ -8,20 +8,22 @@ using HaveAVoice.Models;
 using HaveAVoice.Repositories.UserFeatures.Helpers;
 
 namespace HaveAVoice.Repositories.UserFeatures {
-    public class EntityHAVMessageRepository : HAVBaseRepository, IHAVMessageRepository {
+    public class EntityHAVMessageRepository : IHAVMessageRepository {
+        private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
+
         public Message CreateMessage(int fromUserId, Message messageToCreate) {
             messageToCreate.FromUserId = fromUserId;
             messageToCreate.DateTimeStamp = DateTime.UtcNow;
 
-            GetEntities().AddToMessages(messageToCreate);
-            GetEntities().SaveChanges();
+            theEntities.AddToMessages(messageToCreate);
+            theEntities.SaveChanges();
 
             return messageToCreate;
         }
 
         public IEnumerable<InboxMessage> GetMessagesForUser(User toUser) {
-            IEnumerable<Reply> replys = GetEntities().Replys;
-            IEnumerable<Message> messages = GetEntities().Messages;
+            IEnumerable<Reply> replys = theEntities.Replys;
+            IEnumerable<Message> messages = theEntities.Messages;
             return MessageHelper.GenerateInbox(toUser, messages.ToList(), replys.ToList());
         }
 
@@ -35,14 +37,14 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     message.FromDeleted = true;
                 }
 
-                GetEntities().ApplyCurrentValues(message.EntityKey.EntitySetName, message);
+                theEntities.ApplyCurrentValues(message.EntityKey.EntitySetName, message);
             }
 
-            GetEntities().SaveChanges();
+            theEntities.SaveChanges();
         }
 
         public Message GetMessage(User aViewingUser, int aMessageId) {
-            return (from m in GetEntities().Messages.Include("FromUser").Include("Replys.User")
+            return (from m in theEntities.Messages.Include("FromUser").Include("Replys.User")
                     where m.Id == aMessageId
                     && ((aViewingUser.Id == m.ToUserId && !m.ToDeleted)  || (aViewingUser.Id == m.FromUserId && !m.FromDeleted))
                     select m).FirstOrDefault<Message>();
@@ -61,11 +63,11 @@ namespace HaveAVoice.Repositories.UserFeatures {
             }
 
             if (updatedRepliedTo == true) {
-                GetEntities().ApplyCurrentValues(message.EntityKey.EntitySetName, message);
+                theEntities.ApplyCurrentValues(message.EntityKey.EntitySetName, message);
             }
 
-            GetEntities().AddToReplys(myReply);
-            GetEntities().SaveChanges();
+            theEntities.AddToReplys(myReply);
+            theEntities.SaveChanges();
 
             return message;
         }
@@ -80,8 +82,8 @@ namespace HaveAVoice.Repositories.UserFeatures {
                 message.FromDeleted = false;
             }
 
-            GetEntities().ApplyCurrentValues(message.EntityKey.EntitySetName, message);
-            GetEntities().SaveChanges();
+            theEntities.ApplyCurrentValues(message.EntityKey.EntitySetName, message);
+            theEntities.SaveChanges();
 
             return message;
         }
@@ -96,14 +98,14 @@ namespace HaveAVoice.Repositories.UserFeatures {
                 message.FromDeleted = false;
             }
 
-            GetEntities().ApplyCurrentValues(message.EntityKey.EntitySetName, message);
-            GetEntities().SaveChanges();
+            theEntities.ApplyCurrentValues(message.EntityKey.EntitySetName, message);
+            theEntities.SaveChanges();
 
             return message;
         }
 
         private Message GetMessage(int aMessageId) {
-            return (from m in GetEntities().Messages.Include("FromUser").Include("Replys.User")
+            return (from m in theEntities.Messages.Include("FromUser").Include("Replys.User")
                     where m.Id == aMessageId
                     select m).FirstOrDefault<Message>();
         }

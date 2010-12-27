@@ -8,11 +8,12 @@ using HaveAVoice.Repositories.AdminFeatures;
 using HaveAVoice.Models;
 
 namespace HaveAVoice.Repositories.UserFeatures {
-    public class EntityHAVUserRepository : HAVBaseRepository, IHAVUserRepository {
+    public class EntityHAVUserRepository : IHAVUserRepository {
+        private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
         public User CreateUser(User userToCreate) {
-            GetEntities().AddToUsers(userToCreate);
-            GetEntities().SaveChanges();
+            theEntities.AddToUsers(userToCreate);
+            theEntities.SaveChanges();
 
             try {
                 AddUserToNotConfirmedUserRole(userToCreate);
@@ -36,8 +37,8 @@ namespace HaveAVoice.Repositories.UserFeatures {
             userRole.Role = role;
             userRole.User = user;
 
-            GetEntities().AddToUserRoles(userRole);
-            GetEntities().SaveChanges();
+            theEntities.AddToUserRoles(userRole);
+            theEntities.SaveChanges();
 
             return userRole;
         }
@@ -55,14 +56,14 @@ namespace HaveAVoice.Repositories.UserFeatures {
                 throw new NullRoleException("Role is null.");
 
             UserRole userRole = GetUserRole(user, role);
-            GetEntities().DeleteObject(userRole);
-            GetEntities().SaveChanges();
+            theEntities.DeleteObject(userRole);
+            theEntities.SaveChanges();
 
             return user;
         }
 
         private UserRole GetUserRole(User user, Role role) {
-            return (from c in GetEntities().UserRoles
+            return (from c in theEntities.UserRoles
                     where c.User.Id == user.Id
                     && c.Role.Id == role.Id
                     select c).FirstOrDefault();
@@ -70,42 +71,42 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         public void DeleteUser(User userToDelete) {
             User originalUser = GetUser(userToDelete.Id);
-            GetEntities().DeleteObject(originalUser);
-            GetEntities().SaveChanges();
+            theEntities.DeleteObject(originalUser);
+            theEntities.SaveChanges();
         }
 
 
         public bool EmailRegistered(string email) {
-            return (from c in GetEntities().Users
+            return (from c in theEntities.Users
                     where c.Email == email
                     select c).Count() != 0 ? true : false;
         }
 
         public bool UsernameRegistered(string username) {
-            return (from c in GetEntities().Users
+            return (from c in theEntities.Users
                     where c.Username == username
                     select c).Count() != 0 ? true : false;
         }
 
         public void RemoveUserFromRole(User myUser, Role myRole) {
-            UserRole userRole = (from ur in GetEntities().UserRoles
+            UserRole userRole = (from ur in theEntities.UserRoles
                             where ur.User.Id == myUser.Id
                             && ur.Role.Id == myRole.Id
                             select ur).FirstOrDefault();
 
-            GetEntities().DeleteObject(userRole);
-            GetEntities().SaveChanges();
+            theEntities.DeleteObject(userRole);
+            theEntities.SaveChanges();
         }
 
         public IEnumerable<UserDetailsModel> GetUserList(User user) {
             EntityHAVRoleRepository roleRepository = new EntityHAVRoleRepository();
             
             Role notConfirmedRole = roleRepository.GetNotConfirmedUserRole();
-            System.Data.Objects.ObjectQuery<Fan> listeners = GetEntities().Fans;
+            System.Data.Objects.ObjectQuery<Fan> listeners = theEntities.Fans;
             int userId = (user == null ? -1 : user.Id);
 
-            List<UserDetailsModel> userInformations = (from usr in GetEntities().Users
-                                              join ur in GetEntities().UserRoles on usr.Id equals ur.User.Id
+            List<UserDetailsModel> userInformations = (from usr in theEntities.Users
+                                              join ur in theEntities.UserRoles on usr.Id equals ur.User.Id
                                               where ur.Role.Id != notConfirmedRole.Id
                                               && usr.Id != userId
                                               select new UserDetailsModel {
@@ -131,13 +132,13 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         public void UpdateUser(User userToEdit) {
             User originalUser = GetUser(userToEdit.Id);
-            GetEntities().ApplyCurrentValues(originalUser.EntityKey.EntitySetName, userToEdit);
-            GetEntities().SaveChanges();
+            theEntities.ApplyCurrentValues(originalUser.EntityKey.EntitySetName, userToEdit);
+            theEntities.SaveChanges();
         }
 
         private bool CanFan(int listenedToUserId, int aFanUserId) {
             return (ValidUserIdandNotIsNotMyself(listenedToUserId, aFanUserId)
-                    && ((from listener in GetEntities().Fans
+                    && ((from listener in theEntities.Fans
                          where listener.SourceUser.Id == listenedToUserId
                          && listener.Id == aFanUserId
                          select listener).Count() == 0 ? true : false));

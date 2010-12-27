@@ -8,21 +8,23 @@ using HaveAVoice.Models;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVHomeRepository : HAVBaseRepository, IHAVHomeRepository {
+        private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
+
         private static double ISSUE_DISPOSITION_WEIGHT = 0.2;
         private static double ISSUE_REPLY_WEIGHT = 0.8;
 
         public IEnumerable<IssueWithDispositionModel> GetMostPopularIssues(Disposition aDisposition) {
-            IEnumerable<Issue> myIssues = GetEntities().Issues;
-            IEnumerable<IssueDisposition> myIssueDispositions = GetEntities().IssueDispositions;
-            IEnumerable<IssueReply> myIssueReplys = GetEntities().IssueReplys;
+            IEnumerable<Issue> myIssues = theEntities.Issues;
+            IEnumerable<IssueDisposition> myIssueDispositions = theEntities.IssueDispositions;
+            IEnumerable<IssueReply> myIssueReplys = theEntities.IssueReplys;
 
             return Helpers.CalculatedWithWeights(myIssues.ToList(), myIssueReplys.ToList(), myIssueDispositions.ToList(), aDisposition);
         }
 
         public IEnumerable<IssueReply> GetMostPopularIssueReplys() {
-            IEnumerable<IssueReply> myReplys = GetEntities().IssueReplys;
-            IEnumerable<IssueReplyComment> myComments = GetEntities().IssueReplyComments;
-            IEnumerable<IssueReplyDisposition> myDispositions = GetEntities().IssueReplyDispositions;
+            IEnumerable<IssueReply> myReplys = theEntities.IssueReplys;
+            IEnumerable<IssueReplyComment> myComments = theEntities.IssueReplyComments;
+            IEnumerable<IssueReplyDisposition> myDispositions = theEntities.IssueReplyDispositions;
 
             return Helpers.CalculatedWithWeights(myReplys.ToList(), myComments.ToList(), myDispositions.ToList());
         }
@@ -94,7 +96,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
 
         public IEnumerable<IssueReply> NewestIssueReplys() {
-            return (from ir in GetEntities().IssueReplys
+            return (from ir in theEntities.IssueReplys
                     where ir.Deleted == false
                     && ir.Issue.Deleted == false
                     select ir)
@@ -103,9 +105,9 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         public IEnumerable<IssueReply> FanFeed(User aUser) {
-            return (from ir in GetEntities().IssueReplys
-                    join u in GetEntities().Users on ir.User.Id equals u.Id
-                    join f in GetEntities().Fans on u.Id equals f.SourceUser.Id
+            return (from ir in theEntities.IssueReplys
+                    join u in theEntities.Users on ir.User.Id equals u.Id
+                    join f in theEntities.Fans on u.Id equals f.SourceUser.Id
                     where f.FanUserId == aUser.Id
                     && ir.Deleted == false
                     select ir).OrderByDescending(ir => ir.DateTimeStamp).ToList<IssueReply>();
@@ -113,10 +115,10 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
 
         public IEnumerable<IssueReply> OfficialsFeed(IEnumerable<string> aSelectedRoles) {
-            return (from ir in GetEntities().IssueReplys
-                    join u in GetEntities().Users on ir.User.Id equals u.Id
-                    join ur in GetEntities().UserRoles on u.Id equals ur.User.Id
-                    join r in GetEntities().Roles on ur.Role.Id equals r.Id
+            return (from ir in theEntities.IssueReplys
+                    join u in theEntities.Users on ir.User.Id equals u.Id
+                    join ur in theEntities.UserRoles on u.Id equals ur.User.Id
+                    join r in theEntities.Roles on ur.Role.Id equals r.Id
                     where ir.Deleted == false
                     where aSelectedRoles.Contains(r.Name)
                     select ir).OrderByDescending(ir => ir.DateTimeStamp).ToList<IssueReply>();
@@ -128,24 +130,24 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         public void AddZipCodeFilter(User aUser, int aZipCode) {
             FilteredZipCode myFiltered = FilteredZipCode.CreateFilteredZipCode(0, aUser.Id, aZipCode);
-            GetEntities().AddToFilteredZipCodes(myFiltered);
+            theEntities.AddToFilteredZipCodes(myFiltered);
         }
 
         public void AddCityStateFilter(User aUser, string aCity, string aState) {
             FilteredCityState myFiltered = FilteredCityState.CreateFilteredCityState(0, aUser.Id, aCity, aState);
-            GetEntities().AddToFilteredCityStates(myFiltered);
+            theEntities.AddToFilteredCityStates(myFiltered);
         }
 
 
         public bool ZipCodeFilterExists(User aUser, int aZipCode) {
-            int myFilered = (from f in GetEntities().FilteredZipCodes
+            int myFilered = (from f in theEntities.FilteredZipCodes
                                        where f.User.Id == aUser.Id && f.ZipCode == aZipCode
                                        select f).Count<FilteredZipCode>();
             return myFilered > 0;
         }
 
         public bool CityStateFilterExists(User aUser, string aCity, string aState) {
-            int myFilered = (from f in GetEntities().FilteredCityStates
+            int myFilered = (from f in theEntities.FilteredCityStates
                              where f.User.Id == aUser.Id && f.City == aCity && f.State == aState
                              select f).Count<FilteredCityState>();
             return myFilered > 0;

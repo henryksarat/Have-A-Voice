@@ -5,63 +5,65 @@ using System.Web;
 using HaveAVoice.Models;
 
 namespace HaveAVoice.Repositories.UserFeatures {
-    public class EntityHAVFanRepository : HAVBaseRepository, IHAVFanRepository {
+    public class EntityHAVFanRepository : IHAVFanRepository {
+        private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
+
         public void AddFan(User aUser, int aSourceUserId) {
             Fan myFan = Fan.CreateFan(0, aUser.Id, aSourceUserId, false);
-            GetEntities().Fans.AddObject(myFan);
-            GetEntities().SaveChanges();
+            theEntities.Fans.AddObject(myFan);
+            theEntities.SaveChanges();
         }
 
         public void ApproveFan(int aFanId) {
             Fan myFan = FindFan(aFanId);
             myFan.Approved = true;
-            GetEntities().ApplyCurrentValues(myFan.EntityKey.EntitySetName, myFan);
-            GetEntities().SaveChanges();
+            theEntities.ApplyCurrentValues(myFan.EntityKey.EntitySetName, myFan);
+            theEntities.SaveChanges();
         }
 
         public void DeleteFan(int aFanId) {
             Fan myFan = FindFan(aFanId);
-            GetEntities().DeleteObject(myFan);
-            GetEntities().SaveChanges();
+            theEntities.DeleteObject(myFan);
+            theEntities.SaveChanges();
         }
 
         public IEnumerable<Fan> FindFansForUser(int aUserId) {
-            return (from f in GetEntities().Fans
+            return (from f in theEntities.Fans
                     where f.SourceUser.Id == aUserId
                     && f.Approved == true
                     select f).ToList<Fan>();
         }
 
         public IEnumerable<Fan> FindFansOfUser(int aUserId) {
-            return (from f in GetEntities().Fans
+            return (from f in theEntities.Fans
                     where f.FanUserId == aUserId
                     && f.Approved == true
                     select f).ToList<Fan>();
         }
 
         public IEnumerable<Fan> FindPendingFansForUser(int aUserId) {
-            return (from f in GetEntities().Fans
+            return (from f in theEntities.Fans
                     where f.SourceUserId == aUserId
                     && f.Approved == false
                     select f).ToList<Fan>();
         }
 
         public bool IsFan(int aUserId, User aFan) {
-            return (from f in GetEntities().Fans
+            return (from f in theEntities.Fans
                     where f.FanUserId == aFan.Id && f.SourceUser.Id == aUserId
                     && f.Approved == true
                     select f).Count() > 0 ? true : false;
         }
 
         public bool IsPending(int aUserId, User aFan) {
-            return (from f in GetEntities().Fans
+            return (from f in theEntities.Fans
                     where f.FanUserId == aFan.Id && f.SourceUser.Id == aUserId
                     && f.Approved == false
                     select f).Count() > 0 ? true : false;
         }
 
         private Fan FindFan(int aFanId) {
-            return (from f in GetEntities().Fans
+            return (from f in theEntities.Fans
                     where f.Id == aFanId
                     select f).FirstOrDefault<Fan>();
         }

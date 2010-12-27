@@ -5,9 +5,11 @@ using System.Web;
 using HaveAVoice.Models;
 
 namespace HaveAVoice.Repositories.UserFeatures {
-    public class EntityHAVProfileRepository : HAVBaseRepository, IHAVProfileRepository {
+    public class EntityHAVProfileRepository : IHAVProfileRepository {
+        private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
+
         public IEnumerable<IssueReply> IssuesUserRepliedTo(User aUser) {
-            return (from ir in GetEntities().IssueReplys
+            return (from ir in theEntities.IssueReplys
                     where ir.User.Id == aUser.Id
                     select ir)
                     .OrderByDescending(ir => ir.DateTimeStamp)

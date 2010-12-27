@@ -5,11 +5,13 @@ using System.Web;
 using HaveAVoice.Models;
 
 namespace HaveAVoice.Repositories.AdminFeatures {
-    public class EntityHAVPermissionRepository : HAVBaseRepository, IHAVPermissionRepository {
+    public class EntityHAVPermissionRepository : IHAVPermissionRepository {
+        private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
+
         public Permission Create(User aCreatedByUser, Permission aPermissionToCreate) {
             aPermissionToCreate.EditByUserId = aCreatedByUser.Id;
-            GetEntities().AddToPermissions(aPermissionToCreate);
-            GetEntities().SaveChanges();
+            theEntities.AddToPermissions(aPermissionToCreate);
+            theEntities.SaveChanges();
             return aPermissionToCreate;
         }
 
@@ -17,8 +19,8 @@ namespace HaveAVoice.Repositories.AdminFeatures {
             var myOriginalPermission = FindPermission(aPermissionToEdit.Id);
             aPermissionToEdit.EditByUserId = anEditedByUser.Id;
 
-            GetEntities().ApplyCurrentValues(myOriginalPermission.EntityKey.EntitySetName, aPermissionToEdit);
-            GetEntities().SaveChanges();
+            theEntities.ApplyCurrentValues(myOriginalPermission.EntityKey.EntitySetName, aPermissionToEdit);
+            theEntities.SaveChanges();
 
             return aPermissionToEdit;
         }
@@ -28,18 +30,18 @@ namespace HaveAVoice.Repositories.AdminFeatures {
             myOriginalPermission.Deleted = true;
             myOriginalPermission.DeletedByUserId = aDeletedByUser.Id;
 
-            GetEntities().ApplyCurrentValues(myOriginalPermission.EntityKey.EntitySetName, myOriginalPermission);
-            GetEntities().SaveChanges();
+            theEntities.ApplyCurrentValues(myOriginalPermission.EntityKey.EntitySetName, myOriginalPermission);
+            theEntities.SaveChanges();
         }
 
         public Permission FindPermission(int aPermissionId) {
-            return (from p in GetEntities().Permissions
+            return (from p in theEntities.Permissions
                     where p.Id == aPermissionId && p.Deleted == false
                     select p).FirstOrDefault();
         }
 
         public IEnumerable<Permission> GetAllPermissions() {
-            return GetEntities().Permissions.ToList<Permission>().Where(p => p.Deleted == false);
+            return theEntities.Permissions.ToList<Permission>().Where(p => p.Deleted == false);
         }
     }
 }
