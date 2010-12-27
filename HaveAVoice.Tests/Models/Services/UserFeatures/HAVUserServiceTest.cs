@@ -192,9 +192,9 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
         public void EditUser() {
             Mock<HttpPostedFileBase> myUploadedFile = new Mock<HttpPostedFileBase>();
 
-            theEditUserModel = new EditUserModel.Builder(theUser)
-                .setImageFile(myUploadedFile.Object)
-                .Build();
+            theEditUserModel = new EditUserModel(theUser) {
+                ImageFile = myUploadedFile.Object
+            };
             bool myResult = theService.EditUser(theEditUserModel);
 
             Assert.IsTrue(myResult);
@@ -204,10 +204,10 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
         public void EditUserNewPasswordRequiredRetypedPassword() {
             Mock<HttpPostedFileBase> myUploadedFile = new Mock<HttpPostedFileBase>();
 
-            theEditUserModel = new EditUserModel.Builder(theUser)
-                .setNewPassword("newpass")
-                .setImageFile(myUploadedFile.Object)
-                .Build();
+            theEditUserModel = new EditUserModel(theUser) {
+                NewPassword = "newpass",
+                ImageFile = myUploadedFile.Object
+            };
             bool myResult = theService.EditUser(theEditUserModel);
 
             Assert.IsFalse(myResult);
@@ -219,11 +219,11 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
         public void EditUserNewPasswordAndRetpedPassNoMatch() {
             Mock<HttpPostedFileBase> myUploadedFile = new Mock<HttpPostedFileBase>();
 
-            theEditUserModel = new EditUserModel.Builder(theUser)
-                .setNewPassword("newpass")
-                .setRetypedPassword("wrongpass")
-                .setImageFile(myUploadedFile.Object)
-                .Build();
+            theEditUserModel = new EditUserModel(theUser) {
+                NewPassword = "newpass",
+                RetypedPassword = "wrongpass",
+                ImageFile = myUploadedFile.Object
+            };
             bool myResult = theService.EditUser(theEditUserModel);
 
             Assert.IsFalse(myResult);
@@ -238,13 +238,13 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
 
             Mock<HttpPostedFileBase> myUploadedFile = new Mock<HttpPostedFileBase>();
 
-            theEditUserModel = new EditUserModel.Builder(theUser)
-                .setNewPassword("newpass")
-                .setRetypedPassword("wrongpass")
-                .setOriginalEmail("AnotherEmail")
-                .setOriginalUsername("AnotherUsername")
-                .setImageFile(myUploadedFile.Object)
-                .Build();
+            theEditUserModel = new EditUserModel(theUser) {
+                NewPassword = "newpass",
+                RetypedPassword = "wrongpass",
+                OriginalEmail = "AnotherEmail",
+                OriginalUsername = "AnotherUsername",
+                ImageFile = myUploadedFile.Object
+            };
             bool myResult = theService.EditUser(theEditUserModel);
 
             Assert.IsFalse(myResult);
@@ -259,9 +259,9 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
             Mock<HttpPostedFileBase> myUploadedFile = new Mock<HttpPostedFileBase>();
 
             theUser.City = string.Empty;
-            theEditUserModel = new EditUserModel.Builder(theUser)
-                .setImageFile(myUploadedFile.Object)
-                .Build();
+            theEditUserModel = new EditUserModel(theUser) {
+                ImageFile = myUploadedFile.Object
+            };
             bool myResult = theService.EditUser(theEditUserModel);
 
             Assert.IsFalse(myResult);
@@ -274,9 +274,9 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
             Mock<HttpPostedFileBase> myUploadedFile = new Mock<HttpPostedFileBase>();
 
             theUser.State = string.Empty;
-            theEditUserModel = new EditUserModel.Builder(theUser)
-                .setImageFile(myUploadedFile.Object)
-                .Build();
+            theEditUserModel = new EditUserModel(theUser) {
+                ImageFile = myUploadedFile.Object
+            };
             bool myResult = theService.EditUser(theEditUserModel);
 
             Assert.IsFalse(myResult);
