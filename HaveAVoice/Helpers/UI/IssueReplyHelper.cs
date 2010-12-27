@@ -11,7 +11,7 @@ namespace HaveAVoice.Helpers.UI {
         	var myLI = new TagBuilder("li");
         	myLI.InnerHtml = anIssueReply.Reply;
 
-            return myLI;
+            return myLI.ToString();
         }
     }
 }
