@@ -9,6 +9,9 @@ using HaveAVoice.Validation;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVPasswordService : HAVBaseService, IHAVPasswordService {
+        private const string FORGOT_PASSWORD_TITLE = "have a voice | forgot password";
+        private const string FORGOT_PASSWORD_BODY = "Hello! <br/ ><br/ > To continue with the forgot password process and change your password please click the following link: <br/ >";
+
         public const double FORGOT_PASSWORD_MAX_DAYS = 15;
 
         private IValidationDictionary theValidationDictionary;
@@ -97,8 +100,11 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         private void SendForgotPasswordCode(string anEmail, string aPasswordHash) {
+            string myUrl = HAVConstants.BASE_URL + "/Password/Process/" + aPasswordHash;
+            string myForgotPasswordLink = "<a href=\"" + myUrl + "\">" + myUrl + "</a>";
+
             try {
-                theEmailService.SendEmail(anEmail, "have a voice | forgot password", "Click this link to change your password.... " + aPasswordHash);
+                theEmailService.SendEmail(anEmail, FORGOT_PASSWORD_TITLE, FORGOT_PASSWORD_BODY + myForgotPasswordLink);
             } catch (Exception e) {
                 throw new EmailException("Couldn't send aEmail.", e);
             }

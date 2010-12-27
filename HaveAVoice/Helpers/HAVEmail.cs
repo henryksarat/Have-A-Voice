@@ -6,9 +6,9 @@ using HaveAVoice.Exceptions;
 namespace HaveAVoice.Helpers {
     public class HAVEmail : IHAVEmail{
         private const string MAILSERVER = "mail.haveavoice.us";
-        private const string FROM_EMAIL = "welcome@haveavoice.us";
-        private const string SMTP_USER = "welcome@haveavoice.us";
-        private const string SMTP_PASSWORD = "password1";
+        private const string FROM_EMAIL = "noreply@haveavoice.us";
+        private const string SMTP_USER = "noreply@haveavoice.us";
+        private const string SMTP_PASSWORD = "password198";
 
        
         public void SendEmail(string aToEmail, string aSubject, string aBody) {

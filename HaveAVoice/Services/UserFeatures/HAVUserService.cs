@@ -92,10 +92,11 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         private void SendActivationCode(User aUser) {
+            string myUrl = HAVConstants.BASE_URL + "/Authentication/ActivateAccount/" + aUser.ActivationCode;
+            string myActivationLink = "<a href=\"" + myUrl + "\">" + myUrl + "</a>";
+
             try {
-                string myUrl = HAVConstants.BASE_URL + "/Authentication/ActivateAccount/" + aUser.ActivationCode;
-                string myActivationLink = "<a href=\"" + myUrl + "\">" + myUrl + "</a>";
-                theEmailService.SendEmail(aUser.Email, "have a voice | account activation", ACTIVATION_BODY + myActivationLink);
+                theEmailService.SendEmail(aUser.Email, ACTIVATION_SUBJECT, ACTIVATION_BODY + myActivationLink);
             } catch (Exception e) {
                 throw new EmailException("Couldn't send aEmail.", e);
             }
