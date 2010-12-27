@@ -59,6 +59,7 @@
 
             <%= Html.Hidden("OriginalEmail", Model.OriginalEmail) %>
             <%= Html.Hidden("OriginalUsername", Model.OriginalUsername) %>
+            <%= Html.Hidden("OriginalPassword", Model.OriginalPassword) %>
             <%= Html.Hidden("UserId", Model.UserInformation.Id) %>
             <%= Html.Hidden("ProfilePictureURL", Model.ProfilePictureURL) %>
 

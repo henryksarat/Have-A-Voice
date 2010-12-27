@@ -11,7 +11,7 @@ namespace HaveAVoice.Helpers {
         public const string NOT_CONFIRMED_USER_ROLE = "Not confirmed";
         public const string USER_PICTURE_LOCATION_FROM_VIEW = "../../UserPictures/";
         public const string NO_PROFILE_PICTURE_IMAGE = "no_profile_picture.jpg";
-        public const string NO_PROFILE_PICTURE = USER_PICTURE_LOCATION_FROM_VIEW + NO_PROFILE_PICTURE_IMAGE;
+        public const string NO_PROFILE_PICTURE_URL = USER_PICTURE_LOCATION_FROM_VIEW + NO_PROFILE_PICTURE_IMAGE;
         public const long SECONDS_BEFORE_USER_TIMEOUT = 60 * 5;
         public static string PAGE_NOT_FOUND = "You do not have access.";
         public static string ERROR = "An error has occurred. Please try again.";

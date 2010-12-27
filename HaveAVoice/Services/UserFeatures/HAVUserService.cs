@@ -116,7 +116,7 @@ namespace HaveAVoice.Services.UserFeatures {
             string password = aUser.NewPassword;
 
             if (password.Trim() == string.Empty) {
-                //aUser.UserInformation.Password = aUser.OriginalPassword;
+                aUser.UserInformation.Password = aUser.OriginalPassword;
             } else if (!ValidatePassword(password, aUser.RetypedPassword)) {
                 return false;
             } else {
@@ -164,11 +164,11 @@ namespace HaveAVoice.Services.UserFeatures {
             User user = theUserRetrievalService.GetUser(myUserId);
             string profilePictureURL = theUserPictureService.GetProfilePictureURL(user);
 
-            return new EditUserModel.Builder(user)
-            .setTimezones(timezones)
-            .setStates(states)
-            .setProfilePictureUrl(profilePictureURL)
-            .Build();
+            return new EditUserModel(user) {
+                Timezones = timezones,
+                States = states,
+                ProfilePictureURL= profilePictureURL
+            };
         }
 
         #region Validation"
@@ -217,7 +217,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 theValidationDictionary.AddError("Username", aUser.Username.Trim(), "Username is required.");
             } else if (aOriginalUsername != null && (aOriginalUsername != aUser.Username)
                 && (theUserRepo.UsernameRegistered(aUser.Username))) {
-                theValidationDictionary.AddError("Username", aUser.Username, "Someone already registered with that aUsername. Please try another one.");
+                theValidationDictionary.AddError("Username", aUser.Username, "Someone already registered with that username. Please try another one.");
             }
         }
 
@@ -284,7 +284,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 theValidationDictionary.AddError("Email", anEmail.Trim(), "E-mail is required.");
             } else if (anOriginalEmail != null && (anOriginalEmail != anEmail)
                 && (theUserRepo.EmailRegistered(anEmail))) {
-                theValidationDictionary.AddError("Email", anEmail, "Someone already registered with that myException-mail. Please try another one.");
+                theValidationDictionary.AddError("Email", anEmail, "Someone already registered with that email. Please try another one.");
             }
 
             return theValidationDictionary.isValid;

@@ -13,7 +13,7 @@ namespace HaveAVoice.Models.View {
 
         public LoggedInModel(User aUser) {
             User = aUser;
-            ProfilePictureURL = HAVConstants.NO_PROFILE_PICTURE;
+            ProfilePictureURL = HAVConstants.NO_PROFILE_PICTURE_URL;
             FanIssueReplys = new List<IssueReply>();
             OfficialsReplys = new List<IssueReply>();
         }

@@ -19,7 +19,7 @@ namespace HaveAVoice.Models.View {
 
         public ProfileModel(User aUser) {
             User = aUser;
-            ProfilePictureUrl = HAVConstants.NO_PROFILE_PICTURE;
+            ProfilePictureUrl = HAVConstants.NO_PROFILE_PICTURE_URL;
             IssueReplys = new List<IssueReply>();
             BoardMessage = string.Empty;
             BoardMessages = new List<Board>();

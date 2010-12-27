@@ -14,6 +14,7 @@ namespace HaveAVoice.Models.View {
             string myProfilePictureUrl = BinderHelper.GetA(bindingContext, "ProfilePictureURL");
             string myOriginalEmail = BinderHelper.GetA(bindingContext, "OriginalEmail");
             string myOriginalUsername = BinderHelper.GetA(bindingContext, "OriginalUsername");
+            string myOriginalPassword = BinderHelper.GetA(bindingContext, "OriginalPassword");
             string myNewPassword = BinderHelper.GetA(bindingContext, "NewPassword");
             string myRetypedPassword = BinderHelper.GetA(bindingContext, "RetypedPassword");
             string myWebsite = BinderHelper.GetA(bindingContext, "Website");
@@ -44,16 +45,17 @@ namespace HaveAVoice.Models.View {
             IEnumerable<SelectListItem> myTimezones = new SelectList(TimezoneHelper.GetTimeZones(), TimezoneHelper.GetTimezone(user.UTCOffset));
             IEnumerable<SelectListItem> myStates = new SelectList(HAVConstants.STATES, user.State);
 
-            return new EditUserModel.Builder(user)
-            .setTimezones(myTimezones)
-            .setStates(myStates)
-            .setImageFile(myImageFile)
-            .setProfilePictureUrl(myProfilePictureUrl)
-            .setNewPassword(myNewPassword)
-            .setRetypedPassword(myRetypedPassword)
-            .setOriginalEmail(myOriginalEmail)
-            .setOriginalUsername(myOriginalUsername)
-            .Build();
+            return new EditUserModel(user) {
+                Timezones = myTimezones,
+                States = myStates,
+                ImageFile = myImageFile,
+                ProfilePictureURL = myProfilePictureUrl,
+                NewPassword = myNewPassword,
+                RetypedPassword = myRetypedPassword,
+                OriginalEmail = myOriginalEmail,
+                OriginalUsername = myOriginalUsername,
+                OriginalPassword = myOriginalPassword
+            };
         }
     }
 }

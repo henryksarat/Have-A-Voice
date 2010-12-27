@@ -14,7 +14,7 @@ namespace HaveAVoice.Models.View {
         public List<int> SelectedUserPictures { get; set; }
 
         public UserPicturesModel() {
-            this.ProfilePictureURL = HAVConstants.NO_PROFILE_PICTURE;
+            this.ProfilePictureURL = HAVConstants.NO_PROFILE_PICTURE_URL;
             this.UserPictures = new List<UserPicture>();
             this.SelectedUserPictures = new List<int>();
         }
