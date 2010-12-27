@@ -51,8 +51,8 @@
         <% } %>
 
 
-    <%= Html.ActionLink("People who I am fans of.",  "FansOf", "Profile", new {id = Model.User.Id }, null)%><br />
-    <%= Html.ActionLink("People who are fans of me.", "Fans", "Profile", new { id = Model.User.Id }, null)%><br /><br />
+    <%= Html.ActionLink("People who I am fans of.",  "FansOf", "Fan", new {id = Model.User.Id }, null)%><br />
+    <%= Html.ActionLink("People who are fans of me.", "Fans", "Fan", new { id = Model.User.Id }, null)%><br /><br />
 
     Issue Replys<br />
     <% foreach (var item in Model.IssueReplys) { %>
