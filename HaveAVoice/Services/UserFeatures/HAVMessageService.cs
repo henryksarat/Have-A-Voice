@@ -20,30 +20,6 @@ namespace HaveAVoice.Services.UserFeatures {
             theRepository = aRepository;
         }
 
-        #region "Validation"
-
-        public bool ValidateMessage(Message message) {
-
-            if (message.Subject.Trim().Length == 0) {
-                theValidationDictionary.AddError("Subject", message.Subject.Trim(), "Subject is required.");
-            }
-            if (message.Body.Trim().Length == 0) {
-                theValidationDictionary.AddError("Body", message.Body.Trim(), "Body is required.");
-            }
-
-            return theValidationDictionary.isValid;
-        }
-
-        public bool ValidateReply(string reply) {
-            if (reply.Trim().Length == 0) {
-                theValidationDictionary.AddError("Reply", reply.Trim(), "Reply is required.");
-            }
-
-            return theValidationDictionary.isValid;
-        }
-
-        #endregion
-
         public bool CreateMessage(int fromUserId, Message messageToCreate) {
             if (!ValidateMessage(messageToCreate)) {
                 return false;
@@ -80,6 +56,26 @@ namespace HaveAVoice.Services.UserFeatures {
         public bool AllowedToViewMessageThread(User user, int messageId) {
             Message message = theRepository.GetMessage(user, messageId);
             return (message.ToUserId == user.Id || message.FromUserId == user.Id);
+        }
+
+        public bool ValidateMessage(Message message) {
+
+            if (message.Subject.Trim().Length == 0) {
+                theValidationDictionary.AddError("Subject", message.Subject.Trim(), "Subject is required.");
+            }
+            if (message.Body.Trim().Length == 0) {
+                theValidationDictionary.AddError("Body", message.Body.Trim(), "Body is required.");
+            }
+
+            return theValidationDictionary.isValid;
+        }
+
+        public bool ValidateReply(string reply) {
+            if (reply.Trim().Length == 0) {
+                theValidationDictionary.AddError("Reply", reply.Trim(), "Reply is required.");
+            }
+
+            return theValidationDictionary.isValid;
         }
     }
 }

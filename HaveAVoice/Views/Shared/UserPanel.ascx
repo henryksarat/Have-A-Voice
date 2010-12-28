@@ -1,5 +1,4 @@
 <%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<HaveAVoice.Models.View.LoggedInModel>" %>
-
 <%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 
 <div class="col-24 user-panel">

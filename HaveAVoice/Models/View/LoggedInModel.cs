@@ -10,6 +10,9 @@ namespace HaveAVoice.Models.View {
         public string ProfilePictureURL { get; set; }
         public IEnumerable<IssueReply> FanIssueReplys { get; set; }
         public IEnumerable<IssueReply> OfficialsReplys { get; set; }
+        public int NewMessageCount { get; set; }
+        public int PendingFanRequestsCount { get; set; }
+        public int NotificatonCount { get; set; }
 
         public LoggedInModel(User aUser) {
             User = aUser;
