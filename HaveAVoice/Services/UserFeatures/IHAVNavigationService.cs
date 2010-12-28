@@ -7,5 +7,6 @@ using HaveAVoice.Models;
 namespace HaveAVoice.Services.UserFeatures {
     public interface IHAVNavigationService {
         int NewMessageCount(User aRequestingUser);
+        int PendingFanCount(User aRequestingUser);
     }
 }

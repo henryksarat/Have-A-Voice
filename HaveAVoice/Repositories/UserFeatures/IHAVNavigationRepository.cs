@@ -6,7 +6,8 @@ using HaveAVoice.Models;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public interface IHAVNavigationRepository {
-        int TotalUnreadMessagesReceived(User aRequestingUser);
-        int TotalUnreadMessagesSent(User aRequestingUser);
+        int GetUnreadMessagesReceivedCount(User aRequestingUser);
+        int GetUnreadMessagesSentCount(User aRequestingUser);
+        int GetPendingFriendRequestCount(User aRequestingUser);
     }
 }

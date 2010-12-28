@@ -12,5 +12,10 @@ namespace HaveAVoice.Services.Helpers {
             IHAVNavigationService myService = new HAVNavigationService();
             return myService.NewMessageCount(aRequestingUser);
         }
+
+        public static int PendingFanCount(User aRequestingUser) {
+            IHAVNavigationService myService = new HAVNavigationService();
+            return myService.PendingFanCount(aRequestingUser);
+        }
     }
 }

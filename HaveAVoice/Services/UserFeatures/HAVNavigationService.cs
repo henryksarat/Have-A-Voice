@@ -17,10 +17,14 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public int NewMessageCount(User aRequestingUser) {
-            int myTotalUnreadReceived = theNavRepo.TotalUnreadMessagesReceived(aRequestingUser);
-            int myTotalUnreadSent = theNavRepo.TotalUnreadMessagesSent(aRequestingUser);
+            int myTotalUnreadReceived = theNavRepo.GetUnreadMessagesReceivedCount(aRequestingUser);
+            int myTotalUnreadSent = theNavRepo.GetUnreadMessagesSentCount(aRequestingUser);
 
             return myTotalUnreadReceived + myTotalUnreadSent;
+        }
+
+        public int PendingFanCount(User aRequestingUser) {
+            return theNavRepo.GetPendingFriendRequestCount(aRequestingUser);
         }
     }
 }
