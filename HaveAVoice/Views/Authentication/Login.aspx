@@ -22,10 +22,10 @@
 			        <%= Html.Encode(ViewData["Message"]) %>
 			
 					<div class="col-4 m-rgt right">
-						<label for="Email">Username:</label>
+						<label for="Email">Email:</label>
 					</div>
 					<div class="col-4">
-						<%= Html.TextBox("Username") %>
+						<%= Html.TextBox("Email") %>
 					</div>
 					<div class="col-14">
 						<%= Html.ValidationMessage("Username", "*") %>

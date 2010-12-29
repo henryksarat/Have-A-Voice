@@ -57,7 +57,7 @@
         <div class="col-5 rel">
             <%= Html.TextBox("Email", null, new{@class = "login"})%>
             <%= Html.ValidationMessage("Email", "*")%>
-		    <label>username</label>
+		    <label>email</label>
             <div class="remember rel">
 		        remember me
 		        <%= Html.CheckBox("RememberMe") %>
