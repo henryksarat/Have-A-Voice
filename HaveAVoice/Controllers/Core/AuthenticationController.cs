@@ -73,7 +73,7 @@ namespace HaveAVoice.Controllers.Core {
                 return View("Login");
             }
 
-            return RedirectToPostLogin();
+            return RedirectToProfile();
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
@@ -105,10 +105,6 @@ namespace HaveAVoice.Controllers.Core {
             theWhoIsOnlineService.RemoveFromWhoIsOnline(GetUserInformaton(), HttpContext.Request.UserHostAddress);
             Session.Clear();
             return RedirectToAction("Login");
-        }
-
-        private ActionResult RedirectToPostLogin() {
-            return RedirectToAction("LoggedIn", "Home");
         }
 
         private void CreateUserInformationSession(UserInformationModel aUserModel) {

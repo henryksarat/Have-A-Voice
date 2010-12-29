@@ -18,18 +18,11 @@
     
         <br /><br />
         FanFeed:<br />
-        <% foreach (var item in Model.FanIssueReplys) { %>
+        <% foreach (var item in Model.IssueReplys) { %>
             Username: <%= item.User.Username %>
             IssueReply: <%= item.Reply %><br /><br />
         <% } %>
-
-        <br /> /><br />
-        Officials Feed:<br />
-        <% foreach (var item in Model.OfficialsReplys) { %>
-            Username: <%= item.User.Username %>
-            IssueReply: <%= item.Reply %><br /><br />
-        <% } %>
-    
+   
         <br /><br />
 
         <% using (Html.BeginForm("AddZipCodeFilter", "Home")) { %>
