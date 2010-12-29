@@ -16,6 +16,7 @@ namespace HaveAVoice.Controllers.Home {
         private const string PAGE_LOAD_ERROR = "Unable to load the page. Please try again.";
         private const string UNABLE_TO_ADD_FILTER = "Unable to add the filter, please try again.";
 
+        private const string NOT_LOGGED_IN = "NotLoggedIn";
         private const string FAN_FEED = "FanFeed";
         private const string OFFICIALS_FEED = "OfficialsFeed";
 
@@ -26,8 +27,8 @@ namespace HaveAVoice.Controllers.Home {
             theService = new HAVHomeService(new ModelStateWrapper(this.ModelState));
         }
 
-        public HomeController(IHAVHomeService aService, IHAVBaseService baseService)
-            : base(baseService) {
+        public HomeController(IHAVBaseService aBaseService, IHAVHomeService aService)
+            : base(aBaseService) {
             theService = aService;
         }
 
@@ -45,7 +46,7 @@ namespace HaveAVoice.Controllers.Home {
                 ViewData["Message"] = PAGE_LOAD_ERROR;
             }
 
-            return View("NotLoggedIn", myModel);
+            return View(NOT_LOGGED_IN, myModel);
         }
 
         public ActionResult FanFeed() {
