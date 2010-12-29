@@ -36,9 +36,23 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public LoggedInModel FanReplys(User aUser) {
             IEnumerable<IssueReply> myIssueReplys = theHomeRepository.FanFeed(aUser);
+            List<FeedModel> myFeedModel = new List<FeedModel>();
+
+            foreach(IssueReply myIssueReply in myIssueReplys) {
+                myFeedModel.Add(new FeedModel(myIssueReply.User) {
+                    ProfilePictureUrl = theUserPictureService.GetProfilePictureURL(myIssueReply.User),
+                    IssueType = IssueType.IssueType,
+                    Body = myIssueReply.Reply,
+                    TotalLikes = theHomeRepository.TotalIssueReplyLikes(myIssueReply.Id),
+                    TotalDislikes = theHomeRepository.TotalIssueReplyDislikes(myIssueReply.Id),
+                    HasDisposition = theHomeRepository.HasReplyDisposition(myIssueReply.User, myIssueReply.Id),
+                    TotalReplys = theHomeRepository.TotalIssueReplys(myIssueReply.Id)
+                });
+            }
+
             return new LoggedInModel(aUser) {
                 ProfilePictureURL = theUserPictureService.GetProfilePictureURL(aUser),
-                IssueReplys = myIssueReplys,
+                FeedModels = myFeedModel,
             };
         }
 
@@ -46,8 +60,7 @@ namespace HaveAVoice.Services.UserFeatures {
             IEnumerable<IssueReply> myIssueReplys = theHomeRepository.FanFeed(aUser);
             IEnumerable<IssueReply> myOfficialsReplys = theHomeRepository.OfficialsFeed(RoleHelper.OfficialRoles());
             return new LoggedInModel(aUser) {
-                ProfilePictureURL = theUserPictureService.GetProfilePictureURL(aUser),
-                IssueReplys = myOfficialsReplys
+                ProfilePictureURL = theUserPictureService.GetProfilePictureURL(aUser)                
             };
         }
 

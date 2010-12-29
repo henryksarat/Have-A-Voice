@@ -152,5 +152,32 @@ namespace HaveAVoice.Repositories.UserFeatures {
                              select f).Count<FilteredCityState>();
             return myFilered > 0;
         }
+
+        public int TotalIssueReplyDislikes(int anIssueReplyId) {
+            return (from ird in theEntities.IssueReplyDispositions
+                    where ird.IssueReplyId == anIssueReplyId
+                    && ird.Disposition == (int)Disposition.DISLIKE
+                    select ird).Count<IssueReplyDisposition>();
+        }
+
+        public int TotalIssueReplyLikes(int anIssueReplyId) {
+            return (from ird in theEntities.IssueReplyDispositions
+                    where ird.IssueReplyId == anIssueReplyId
+                    && ird.Disposition == (int)Disposition.LIKE
+                    select ird).Count<IssueReplyDisposition>();
+        }
+
+        public bool HasReplyDisposition(User aUser, int aReplyId) {
+            return (from ird in theEntities.IssueReplyDispositions
+                    where ird.IssueReplyId == aReplyId
+                    && ird.UserId == aUser.Id
+                    select ird).Count<IssueReplyDisposition>() > 0 ? true : false;
+        }
+
+        public int TotalIssueReplys(int aReplyId) {
+            return (from ir in theEntities.IssueReplys
+                    where ir.Id == aReplyId
+                    select ir).Count<IssueReply>();
+        }
     }
 }
