@@ -8,19 +8,22 @@ using System;
 using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Models;
 using HaveAVoice.Helpers;
+using HaveAVoice.Exceptions;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVCalendarService : HAVBaseService, IHAVCalendarService {
         private IValidationDictionary theValidationDictionary;
+        private IHAVFanService theFanService;
         private IHAVCalendarRepository theRepository;
 
         public HAVCalendarService(IValidationDictionary aValidationDictionary)
-            : this(aValidationDictionary, new EntityHAVCalendarRepository(), new HAVBaseRepository()) { }
+            : this(aValidationDictionary, new HAVFanService(), new EntityHAVCalendarRepository(), new HAVBaseRepository()) { }
 
-        public HAVCalendarService(IValidationDictionary aValidationDictionary, IHAVCalendarRepository aRepository,
+        public HAVCalendarService(IValidationDictionary aValidationDictionary, IHAVFanService aFanService, IHAVCalendarRepository aRepository,
                                IHAVBaseRepository baseRepository)
             : base(baseRepository) {
             theValidationDictionary = aValidationDictionary;
+            theFanService = aFanService;
             theRepository = aRepository;
         }
 
@@ -50,8 +53,12 @@ namespace HaveAVoice.Services.UserFeatures {
             theRepository.DeleteEvent(anUserInformation.Details, anEventId, myAdminOverride);
         }
 
-        public IEnumerable<Event> GetEventsForUser(int aUserId) {
-            return theRepository.FindEvents(aUserId);
+        public IEnumerable<Event> GetEventsForUser(User aViewingUser, int aUserId) {
+            if (aViewingUser.Id == aUserId || theFanService.IsFan(aUserId, aViewingUser)) {
+                return theRepository.FindEvents(aUserId);
+            }
+
+            throw new NotFanException();
         }
     }
 }

@@ -331,6 +331,7 @@
     <Content Include="Views\BoardReply\Edit.aspx" />
     <Content Include="Views\Board\Edit.aspx" />
     <Content Include="Views\Board\View.aspx" />
+    <Content Include="Views\Calendar\List.aspx" />
     <Content Include="Views\Complaint\Complaint.aspx" />
     <Content Include="Views\Error\Index.aspx" />
     <Content Include="Views\Calendar\Show.aspx" />

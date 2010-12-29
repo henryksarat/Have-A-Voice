@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Services;
-using HaveAVoice.Repositories;
+using HaveAVoice.Exceptions;
+using HaveAVoice.Helpers;
+using HaveAVoice.Helpers.ActionMethods;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
-using HaveAVoice.Helpers.ActionMethods;
-using System.Text;
-using HaveAVoice.Helpers;
-using HaveAVoice.Controllers.Helpers;
-using HaveAVoice.Exceptions;
+using HaveAVoice.Repositories;
+using HaveAVoice.Services;
+using HaveAVoice.Services.UserFeatures;
 
 namespace HaveAVoice.Controllers.Users
 {

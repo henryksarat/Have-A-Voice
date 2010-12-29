@@ -13,17 +13,6 @@
     <b>Events:</b><br /><br />
     <% foreach (var item in Model) { %>
         Date: <%=item.Date %> <br />
-        Information: <%=item.Information %><br />
-        <%= Html.ActionLink("Delete", "DeleteEvent", new { eventId = item.Id }) %><br /><br />
+        Information: <%=item.Information %><br /><br />
     <% } %>
-    <b>Add event:</b> <br />
-    <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %><br /><br />
-    <% using (Html.BeginForm("AddEvent", "Calendar")) { %>
-        Date: <%= Html.TextBox("Date", DateTime.UtcNow.AddMinutes(1))%>
-        <%= Html.ValidationMessage("Date", "*") %><br />
-        Information: <%= Html.TextArea("Information")%>
-        <%= Html.ValidationMessage("Information", "*")%><br />
-        <input type="submit" value="Create" /><br />
-    <% } %>
-
 </asp:Content>
