@@ -8,7 +8,7 @@
 
     <h2>Login</h2>
 
-    <% using (Html.BeginForm("Login", "User")) {%>
+    <% using (Html.BeginForm("Login", "Authentication")) {%>
     
     <p>
         <%= Html.Encode(ViewData["ErrorMessage"]) %>
