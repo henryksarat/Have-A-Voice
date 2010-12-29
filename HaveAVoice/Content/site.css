@@ -219,6 +219,44 @@ form.create a.cancel:hover { color: #115f71; background: #fff; }
 .not-logged a.more-dislike:hover { background: #d56667; color: #ffffff; }
 
 
+/****************************************************************************/
+/******************************** FAN FEED **********************************/
+/****************************************************************************/
+img.profile { border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; max-width: 80px; max-height: 80px; }
+.comment .options span { font-size: 12px; }
+.row a.name, .row a.name:link, .row a.name:visited { font-size: 12px; font-style: normal; font-weight: bold; text-decoration: none; color: #20a9c9; }
+.row a.like, .row a.like:link, .row a.like:visited { color: #2070c9; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; background: transparent; }
+.row a.dislike, .row a.dislike:link, .row a.dislike:visited { text-decoration: none; font-size: 12px; font-weight: bold; font-style: normal; text-transform: uppercase; }
+.row a.comment, .row a.comment:link, .row a.comment:visited { color: #115f71; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; }
+.row a.people, a.people:link, a.people:visited { text-decoration: none; color: #4b4b4b; }
+
+.comment .options { position: absolute; bottom: 10px; }
+
+.row { position: relative; }
+.row, .alt { font-size: 12px; }
+.row .comment { background: #c0d8de; color: #747474; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; min-height: 80px; position: relative; }
+.row .comment span.speak-lft { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #c0d8de transparent transparent transparent; position: absolute; left: -10px; top: 30px; }
+
+.alt { position: relative; }
+.alt .comment { background: #b6dde7; color: #747474; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; min-height: 80px; position: relative; }
+.alt .comment span.speak-lft { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #b6dde7 transparent transparent transparent; position: absolute; left: -10px; top: 30px; }
+
+.date-tile { color: #a2a2a2; font-weight: bold; font-size: 16px; }
+.date-tile span { color: #4b4b4b; }
+
+.reply { margin-top: 10px; }
+
+.reply .comment textarea { border: 1px solid #20a9c9; width: 100%; background: #fff; color: #000; margin-bottom: 5px; -moz-border-radius: 0px; -webkit-border-radius: 0px; border-radius: 0px; }
+input.button { color: #fff; font-weight: bold; font-size: 13px; background: #20a9c9; border: 2px solid #fff; padding: 5px; cursor: pointer; }
+
+
+/****************************************************************************/
+/**************************** ISSUES ****************************************/
+/****************************************************************************/
+.issue-create { font-size: 16px; color: #fff; text-decoration: none; font-weight: bold; }
+.issue { background: red; }
+
+
 .events .title { padding: 5px 0px; text-align: center; text-transform: uppercase; font-weight: bold; color: #ffffff; background: #a0cfdB; }
 .events .prev, .events .next { height: 110px; background: #c0d8de; }
 .events .prev span, .events .next span { color: #a2a2a2; float: right; margin-top: 5px; margin-right: 5px; font-size: 24px; }
@@ -242,32 +280,6 @@ form.create a.cancel:hover { color: #115f71; background: #fff; }
 .photos .date-tile .padding-5 { font-size: 16px; padding: 5px; position: absolute; bottom: 0; font-weight: bold; color: #a2a2a2; }
 .photos .date-tile .padding-5 span { color: #4b4b4b; }
 
-.comments img.profile { border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; max-width: 80px; max-height: 80px; }
-.comments .comment .options span { font-size: 12px; }
-.comments a.name, .comments a.name:link, .comments a.name:visited { font-size: 12px; font-style: normal; font-weight: bold; text-decoration: none; color: #20a9c9; }
-.comments a.like, .comments a.like:link, .comments a.like:visited { color: #2070c9; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; }
-.comments a.dislike, .comments a.dislike:link, .comments a.dislike:visited { text-decoration: none; font-size: 12px; font-weight: bold; font-style: normal; text-transform: uppercase; }
-.comments a.comment, .comments a.comment:link, .comments a.comment:visited { color: #115f71; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; }
-.comments a.people, .comments a.people:link, .comments a.people:visited { text-decoration: none; color: #4b4b4b; }
-
-.comments .comment .options { position: absolute; bottom: 10px; }
-
-.comments .row { position: relative; }
-.comments .row, .comments .alt { font-size: 12px; }
-.comments .row .comment { background: #c0d8de; color: #747474; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; min-height: 80px; position: relative; }
-.comments .row .comment span.speak-lft { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #c0d8de transparent transparent transparent; position: absolute; left: -10px; top: 30px; }
-
-.comments .alt { position: relative; }
-.comments .alt .comment { background: #b6dde7; color: #747474; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; min-height: 80px; position: relative; }
-.comments .alt .comment span.speak-lft { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #b6dde7 transparent transparent transparent; position: absolute; left: -10px; top: 30px; }
-
-.comments .date-tile { color: #a2a2a2; font-weight: bold; font-size: 16px; }
-.comments .date-tile span { color: #4b4b4b; }
-
-.comments .reply { margin-top: 10px; }
-
-.comments .reply .comment textarea { border: 1px solid #20a9c9; width: 100%; background: #fff; color: #000; margin-bottom: 5px; -moz-border-radius: 0px; -webkit-border-radius: 0px; border-radius: 0px; }
-.comments input.button { color: #fff; font-weight: bold; font-size: 13px; background: #20a9c9; border: 2px solid #fff; padding: 5px; cursor: pointer; }
 
 .friends img.profile { max-width: 120px; max-height: 120px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
 .friends .alt { background: #b6dde7; }

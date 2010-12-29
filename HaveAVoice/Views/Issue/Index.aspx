@@ -5,21 +5,32 @@
 <%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Index
+	Issues
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="col-24">
+        <div class="col-24 spacer-30">&nbsp;</div>
+    
+    	<%= Html.Encode(ViewData["Message"]) %>
+    	<%= Html.Encode(TempData["Message"]) %>
+    
+    	<div class="push-1 col-4 center p-t5 p-b5 t-tab b-wht">
+    		<span class="fnt-16 tint-6 bold">ISSUES</span>
+    	</div>
+    	<div class="push-1 col-4 center p-t5 p-b5 t-tab btint-6">
+    		<%= Html.ActionLink("CREATE NEW", "Create", "", new { @class = "issue-create" }) %>
+    	</div>
+    	<div class="clear">&nbsp;</div>
+    	
+    	<div class="b-wht">
+    		<div class="spacer-10">&nbsp;</div>
+			<div class="clear">&nbsp;</div>
+		</div>
+		<div class="spacer-10">&nbsp;</div>
+		<div class="clear">&nbsp;</div>
 
-    <h2>Index</h2>
-
-    <p>
-        <%= Html.Encode(ViewData["Message"]) %>
-    </p>
-    <p>
-        <%= Html.Encode(TempData["Message"]) %>
-    </p>
-    <table>
-        <tr>
+	<!-- 
             <th>
                 DateTimeStamp
             </th>
@@ -36,12 +47,54 @@
                 Deleted
             </th>
         </tr>
+	-->
 
     <% foreach (var item in Model) { %>
+    	<div class="col-3">
+    		<img src="/UserPictures/93_-943723973.jpg" alt="hsarat" class="profile" />
+    	</div>
+    	<div class="col-18 issue">
+    		<h1><%= Html.ActionLink(item.Issue.Title, "View", new { id = item.Issue.Id })%></h1>
+    		<div class="clear">&nbsp;</div>
+    		<%= Html.ActionLink(item.Issue.Description, "View", new { id = item.Issue.Id })%>
+    		<div class="clear">&nbsp;</div>
+    		<div class="col-9">&nbsp;</div>
+            <% if (item.Issue.User.Id == HAVUserInformationFactory.GetUserInformation().Details.Id) { %>
+            	<div class="col-3 center">
+            		<%= Html.ActionLink("Delete", "DeleteIssue", new { deletingUserId = HAVUserInformationFactory.GetUserInformation().Details.Id, issueId = item.Issue.Id} ) %>
+            	</div>
+            <% } else { %>
+            	<div class="col-3">&nbsp;</div>
+            <% } %>
+            <% if (!item.HasDisposition) { %>
+            	<div class="col-3 center">
+            		<%= Html.ActionLink("Like", "Disposition", new { issueId = item.Issue.Id, disposition = (int)Disposition.LIKE }, new { @class = "like" })%>
+            	</div>
+                <div class="col-3 center">
+                	<%= Html.ActionLink("Dislike", "Disposition", new { issueId = item.Issue.Id, disposition = (int)Disposition.DISLIKE }, new { @class = "dislike" })%>
+                </div>
+            <% } else { %>
+            	<div class="col-6">&nbsp;</div>
+            <% } %>
+    		</div>
+    	</div>
+		
+		<div class="col-3">
+			<div class="p-a5">
+				<div class="date-tile">
+					<span>
+						<%= DateHelper.ConvertToLocalTime(item.Issue.DateTimeStamp).ToString("MMM").ToUpper() %>
+					</span> <%= DateHelper.ConvertToLocalTime(item.Issue.DateTimeStamp).ToString("dd").ToUpper() %>
+				</div>
+			</div>
+		</div>
+    
+    	<div class="clear">&nbsp;</div>
+    	<div class="spacer-10">&nbsp;</div>
     
         <tr>
             <td>
-                <%= Html.ActionLink(DateHelper.ConvertToLocalTime(item.Issue.DateTimeStamp).ToString(), "View", new { id = item.Issue.Id })%>
+                <%= Html.ActionLink(DateHelper.ConvertToLocalTime(item.Issue.DateTimeStamp).ToString("MMM d").ToUpper(), "View", new { id = item.Issue.Id })%>
             </td>
             <td>
                 <%= Html.ActionLink(item.Issue.Title, "View", new { id = item.Issue.Id })%>
@@ -63,12 +116,6 @@
         </tr>
     
     <% } %>
-
-    </table>
-
-    <p>
-        <%= Html.ActionLink("Create New", "Create") %>
-    </p>
-
+	</div>
 </asp:Content>
 
