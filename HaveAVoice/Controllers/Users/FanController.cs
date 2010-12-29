@@ -72,22 +72,6 @@ namespace HaveAVoice.Controllers.Users
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult FansOf(int id) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            IEnumerable<Fan> myFans = new List<Fan>();
-            try {
-                myFans = theFanService.FindFansOfUser(id);
-            } catch (Exception e) {
-                LogError(e, FANS_OF_ERROR);
-                ViewData[ERROR_MESSAGE_VIEWDATA] = FANS_OF_ERROR;
-            }
-
-            return View(FANS_OF_VIEW, myFans);
-        }
-
-        [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Pending() {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();

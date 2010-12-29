@@ -34,10 +34,6 @@ namespace HaveAVoice.Services.UserFeatures {
             return theFanRepo.FindFansForUser(aUserId);
         }
 
-        public IEnumerable<Fan> FindFansOfUser(int aUserId) {
-            return theFanRepo.FindFansOfUser(aUserId);
-        }
-
         public IEnumerable<Fan> FindPendingFansForUser(int aUserId) {
             return theFanRepo.FindPendingFansForUser(aUserId);
         }
