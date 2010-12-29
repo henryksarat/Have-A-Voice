@@ -54,6 +54,8 @@ body { font-family: helvetica, arial, sans-serif; background: #d9e9ed; }
 /****************************************************************************/
 /******************************** SPACERS ***********************************/
 /****************************************************************************/
+.spacer-2 { height: 2px; }
+.spacer-4 { height: 4px; }
 .spacer-10 { height: 10px; }
 .spacer-30 { height: 30px; }
 
@@ -120,8 +122,10 @@ body { font-family: helvetica, arial, sans-serif; background: #d9e9ed; }
 .header ul.right { float: right; }
 .header ul.right li { margin-left: 5px; margin-right: 0px; }
 .header ul li { float: left; margin: 10px 5px; }
-.header ul li a, .header ul li a:link, .header ul li a:visited { text-decoration: none; color: #ffffff; padding: 10px 5px; font-weight: bold; }
+.header ul li a, .header ul li a:link, .header ul li a:visited { text-decoration: none; color: #ffffff; padding: 10px 5px; font-weight: bold; position: relative; }
 .header ul li a:hover { background: #ffffff; color: #20a9c9; }
+
+.header ul li a span.alert { position: absolute; top: -8px; right: -10px; font-weight: normal; background: red; border: 2px solid #fff; border-radius: 20px; -moz-border-radius: 20px; -webkit-border-radius: 20px; z-index: 10; min-width: 10px; min-height: 10px; color: #fff; font-size: 11px; padding: 2px; text-align: center; }
 
 .t-tab { -moz-border-radius-topleft: 5px; -moz-border-radius-topright: 5px; -webkit-border-top-left-radius: 5px; -webkit-border-top-right-radius: 5px; border-top-left-radius: 5px; border-top-right-radius: 5px; }
 

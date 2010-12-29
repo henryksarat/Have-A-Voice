@@ -62,7 +62,7 @@
     				<%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
     				<%= Html.Encode(ViewData["Message"]) %>
     			
-	    			<div class="col-4 right">
+	    			<div class="col-4 m-rgt right">
 	    				<label for="FullName">Full Name:</label>
 	    			</div>
 	    			<div class="col-4">
@@ -74,7 +74,7 @@
 	    			<div class="clear">&nbsp;</div>
 	    			<div class="spacer-10">&nbsp;</div>
 	    			
-	    			<div class="col-4 right">
+	    			<div class="col-4 m-rgt right">
 	    				<label for="Email">Email:</label>
 	    			</div>
 	    			<div class="col-4">
@@ -86,7 +86,7 @@
 	    			<div class="clear">&nbsp;</div>
 	    			<div class="spacer-10">&nbsp;</div>
 	    			
-	    			<div class="col-4 right">
+	    			<div class="col-4 m-rgt right">
 	    				<label for="Username">Username:</label>
 	    			</div>
 	    			<div class="col-4">
@@ -98,7 +98,7 @@
 	    			<div class="clear">&nbsp;</div>
 	    			<div class="spacer-10">&nbsp;</div>
 	    			
-	    			<div class="col-4 right">
+	    			<div class="col-4 m-rgt right">
 	    				<label for="Password">Password:</label>
 	    			</div>
 	    			<div class="col-4">
@@ -116,7 +116,7 @@
 					<div class="clear">&nbsp;</div>
 					<div class="spacer-10">&nbsp;</div>
 					
-					<div class="col-4 right">
+					<div class="col-4 m-rgt right">
 						<label for="DateOfBirth">Date of Birth:</label>
 					</div>
 					<div class="col-4">
@@ -128,7 +128,7 @@
 					<div class="clear">&nbsp;</div>
 					<div class="spacer-10">&nbsp;</div>
 					
-					<div class="col-4 right">
+					<div class="col-4 m-rgt right">
 						<label for="City">City:</label>
 					</div>
 					<div class="col-4">
@@ -140,7 +140,7 @@
 					<div class="clear">&nbsp;</div>
 					<div class="spacer-10">&nbsp;</div>
 					
-					<div class="col-4 right">
+					<div class="col-4 m-rgt right">
 						<label for="State">State:</label>
 					</div>
 					<div class="col-4">
@@ -152,7 +152,7 @@
 					<div class="clear">&nbsp;</div>
 					<div class="spacer-10">&nbsp;</div>
 					
-					<div class="col-4 right">
+					<div class="col-4 m-rgt right">
 						<label for="Captcha">Captcha:</label>
 					</div>
 					<div class="col-18">
@@ -167,7 +167,7 @@
 					</div>
 					<div class="col-10">&nbsp;</div>
 					<div class="clear">&nbsp;</div>
-					<div class="col-4 right">
+					<div class="col-4 m-rgt right">
 						<%= Html.CheckBox("Agreement") %>
 					</div>
 					<div class="col-6">

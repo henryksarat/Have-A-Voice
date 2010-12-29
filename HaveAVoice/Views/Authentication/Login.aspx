@@ -5,35 +5,73 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
-    <h2>Login</h2>
-
-    <% using (Html.BeginForm("Login", "User")) {%>
+    <div class="col-24">
+        <div class="col-24 spacer-30">&nbsp;</div>
     
-    <p>
-        <%= Html.Encode(ViewData["ErrorMessage"]) %>
-        <%= Html.Encode(ViewData["Message"]) %>
-    </p>
-        <fieldset>
-            <legend>Fields</legend>
-            <p>
-                <label for="Email">Email:</label>
-                <%= Html.TextBox("Email")%>
-                <%= Html.ValidationMessage("Email", "*")%>
-            </p>
-            <p>
-                <label for="Description">Password:</label>
-                <%= Html.TextBox("Password") %>
-                <%= Html.ValidationMessage("Password", "*")%>
-            </p>
-            <p>
-                <label for="RememberMe">Remember me:</label>
-                <%= Html.CheckBox("RememberMe") %>         
-            </p>
-            <p>
-                <input type="submit" value="Create" />
-            </p>
-        </fieldset>
-    <% } %>
-    
+    	<div class="push-1 col-4 center p-t5 p-b5 t-tab b-wht">
+    		<span class="fnt-16 tint-6 bold">LOGIN</span>
+    	</div>
+    	<div class="clear">&nbsp;</div>
+    	
+    	<div class="b-wht">
+    		<div class="col-1">&nbsp;</div>
+    		<div class="col-22">
+    			<div class="spacer-30">&nbsp;</div>
+
+			    <% using (Html.BeginForm("Login", "Authentication", FormMethod.Post, new { @class = "create" })) { %>
+			        <%= Html.Encode(ViewData["ErrorMessage"]) %>
+			        <%= Html.Encode(ViewData["Message"]) %>
+			
+					<div class="col-4 m-rgt right">
+						<label for="Email">Username:</label>
+					</div>
+					<div class="col-4">
+						<%= Html.TextBox("Username") %>
+					</div>
+					<div class="col-14">
+						<%= Html.ValidationMessage("Username", "*") %>
+					</div>
+			        <div class="clear">&nbsp;</div>
+			        <div class="spacer-10">&nbsp;</div>
+			        
+			        <div class="col-4 m-rgt right">
+			            <label for="Password">Password:</label>
+			       </div>
+			       <div class="col-4">
+			            <%= Html.Password("Password") %>
+			        </div>
+			        <div class="col-14">
+			            <%= Html.ValidationMessage("Password", "*") %>
+					</div>
+					<div class="clear">&nbsp;</div>
+					<div class="spacer-10">&nbsp;</div>
+					
+					<div class="col-4 m-rgt right">
+						<label for="RememberMe">Remember me:</label>
+					</div>
+					<div class="col-4">
+						<%= Html.CheckBox("RememberMe") %>
+						<div class="clear">&nbsp;</div>
+						<div class="spacer-10">&nbsp;</div>
+						<a href="#">Forgot Password</a>
+					</div>
+					<div class="col-14">
+						&nbsp;
+					</div>
+					<div class="clear">&nbsp;</div>
+					<div class="spacer-10">&nbsp;</div>
+					
+                	<div class="col-8 right">
+				        <input type="submit" class="create" value="Login" />
+				        <%= Html.ActionLink("Cancel", "Index", "", new { @class = "cancel" }) %>
+					</div>
+			    <% } %>
+			    
+			    <div class="clear">&nbsp;</div>
+			    <div class="spacer-30">&nbsp;</div>
+		   </div>
+		   <div class="col-1">&nbsp;</div>
+		   <div class="clear">&nbsp;</div>
+	   </div>
+    </div>
 </asp:Content>

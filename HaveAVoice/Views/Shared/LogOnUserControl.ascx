@@ -67,7 +67,8 @@
             <%= Html.Password("Password", null, new { @class = "login" })%>
             <%= Html.ValidationMessage("Password", "*")%>
             <label>password</label>
-            <br />
+            <div class="clear">&nbsp;</div>
+            <div class="spacer-2">&nbsp;</div>
             <%=Html.ActionLink("forgot password?", "Request", "Password", null, new{@class="forgot"}) %>
         </div>
 
