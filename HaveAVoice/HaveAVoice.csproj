@@ -341,8 +341,9 @@
     <Content Include="Views\File\Index.aspx" />
     <Content Include="Views\File\Upload.aspx" />
     <Content Include="Views\Home\About.aspx" />
+    <Content Include="Views\Home\OfficialsFeed.aspx" />
     <Content Include="Views\Home\Index.aspx" />
-    <Content Include="Views\Home\LoggedIn.aspx" />
+    <Content Include="Views\Home\FanFeed.aspx" />
     <Content Include="Views\Home\NotLoggedIn.aspx" />
     <Content Include="Views\IssueReplyComment\Edit.aspx" />
     <Content Include="Views\IssueReply\Edit.aspx" />

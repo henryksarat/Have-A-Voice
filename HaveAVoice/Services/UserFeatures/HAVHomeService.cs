@@ -34,13 +34,21 @@ namespace HaveAVoice.Services.UserFeatures {
             };
         }
 
-        public LoggedInModel LoggedIn(User aUser) {
+        public LoggedInModel FanReplys(User aUser) {
             IEnumerable<IssueReply> myIssueReplys = theHomeRepository.FanFeed(aUser);
             IEnumerable<IssueReply> myOfficialsReplys = theHomeRepository.OfficialsFeed(RoleHelper.OfficialRoles());
             return new LoggedInModel(aUser) {
                 ProfilePictureURL = theUserPictureService.GetProfilePictureURL(aUser),
-                FanIssueReplys = myIssueReplys,
-                OfficialsReplys = myOfficialsReplys
+                IssueReplys = myIssueReplys,
+            };
+        }
+
+        public LoggedInModel OfficialReplys(User aUser) {
+            IEnumerable<IssueReply> myIssueReplys = theHomeRepository.FanFeed(aUser);
+            IEnumerable<IssueReply> myOfficialsReplys = theHomeRepository.OfficialsFeed(RoleHelper.OfficialRoles());
+            return new LoggedInModel(aUser) {
+                ProfilePictureURL = theUserPictureService.GetProfilePictureURL(aUser),
+                IssueReplys = myOfficialsReplys
             };
         }
 
