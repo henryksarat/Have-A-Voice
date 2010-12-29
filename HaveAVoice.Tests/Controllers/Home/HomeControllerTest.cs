@@ -24,7 +24,7 @@ namespace HaveAVoice.Tests.Controllers.Home {
         public void Initialize() {
             theMockedService = new Mock<IHAVHomeService>();
             theMockRepository = new Mock<IHAVHomeRepository>();
-            theController = new HomeController(theMockedService.Object, theMockedBaseService.Object);
+            theController = new HomeController(theMockedBaseService.Object, theMockedService.Object);
 
             theModel = CreateEmptyModel();
         }

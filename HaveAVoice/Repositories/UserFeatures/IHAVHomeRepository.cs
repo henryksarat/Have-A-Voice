@@ -15,5 +15,10 @@ namespace HaveAVoice.Repositories.UserFeatures {
         void AddCityStateFilter(User aUser, string aCity, string aState);
         bool ZipCodeFilterExists(User aUser, int aZipCode);
         bool CityStateFilterExists(User aUser, string aCity, string aState);
+
+        int TotalIssueReplyDislikes(int anIssueReplyId);
+        int TotalIssueReplyLikes(int anIssueReplyId);
+        bool HasReplyDisposition(User aUser, int aReplyId);
+        int TotalIssueReplys(int aReplyId);
     }
 }
