@@ -58,7 +58,7 @@
     		<div class="col-22">
     			<div class="spacer-30">&nbsp;</div>
     			
-    			<% using (Html.BeginForm("","", FormMethod.Post, new { @class = "create" })) { %>
+    			<% using (Html.BeginForm("Create", "User", FormMethod.Post, new { @class = "create" })) { %>
     				<%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
     				<%= Html.Encode(ViewData["Message"]) %>
     			

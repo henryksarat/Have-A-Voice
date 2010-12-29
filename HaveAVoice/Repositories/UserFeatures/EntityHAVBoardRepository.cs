@@ -25,8 +25,13 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         public void AddToBoard(User aPostedByUser, int aSourceUserId, string aMessage) {
             IHAVUserRepository myUserRepository = new EntityHAVUserRepository();
-            Board myBoard = Board.CreateBoard(0, aSourceUserId, aPostedByUser.Id, aMessage, DateTime.UtcNow, false, false);
+            Board myBoard = Board.CreateBoard(0, aSourceUserId, aPostedByUser.Id, aMessage, DateTime.UtcNow, false);
             theEntities.AddToBoards(myBoard);
+            theEntities.SaveChanges();
+
+            AddUserToBoardViewedStateWithoutSave(aSourceUserId, myBoard.Id, false);
+            AddUserToBoardViewedStateWithoutSave(aPostedByUser.Id, myBoard.Id, true);
+
             theEntities.SaveChanges();
         }
 
@@ -65,7 +70,32 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         public void AddReplyToBoard(User aPostingUser, int aBoardId, string aReply) {
             BoardReply myReply = BoardReply.CreateBoardReply(0, aPostingUser.Id, aBoardId, aReply, DateTime.UtcNow, false);
+            theEntities.AddToBoardReplies(myReply);
+
+            UpdateCurrentBoardViewedStateAndAddIfNecessaryWithoutSave(aPostingUser, aBoardId);
+
             theEntities.SaveChanges();
+        }
+
+        private void UpdateCurrentBoardViewedStateAndAddIfNecessaryWithoutSave(User aPostingUser, int aBoardId) {
+            bool myHasViewedState = false;
+
+            List<BoardViewedState> myViewedStates = FindBoardViewedStatesByBoardId(aBoardId);
+
+            foreach (BoardViewedState myViewedState in myViewedStates) {
+                if (myViewedState.UserId == aPostingUser.Id) {
+                    myHasViewedState = true;
+                    myViewedState.Viewed = true;
+                } else {
+                    myViewedState.Viewed = false;
+                }
+
+                theEntities.ApplyCurrentValues(myViewedState.EntityKey.EntitySetName, myViewedState);
+            }
+
+            if (!myHasViewedState) {
+                AddUserToBoardViewedStateWithoutSave(aPostingUser.Id, aBoardId, true);
+            }
         }
 
         public void EditBoardReply(User anEditedBy, BoardReply anOriginalReply, BoardReply aNewReply) {
@@ -85,6 +115,24 @@ namespace HaveAVoice.Repositories.UserFeatures {
             aReply.DeletedByUserId = aDeletingUser.Id;
             theEntities.ApplyCurrentValues(aReply.EntityKey.EntitySetName, aReply);
             theEntities.SaveChanges();
+        }
+
+        private void AddUserToBoardViewedStateWithoutSave(int aUserId, int aBoardId, bool aViewedState) {
+            BoardViewedState myBoardViewedState = BoardViewedState.CreateBoardViewedState(0, aBoardId, aUserId, aViewedState);
+            theEntities.AddToBoardViewedStates(myBoardViewedState);
+        }
+
+        private BoardViewedState FindBoardViewedState(int aUserId, int aBoardId) {
+            return (from v in theEntities.BoardViewedStates
+                    where v.UserId == aUserId
+                    && v.BoardId == aBoardId
+                    select v).FirstOrDefault<BoardViewedState>();
+        }
+
+        private List<BoardViewedState> FindBoardViewedStatesByBoardId(int aBoardId) {
+            return (from v in theEntities.BoardViewedStates
+                    where v.BoardId == aBoardId
+                    select v).ToList<BoardViewedState>();
         }
     }
 }

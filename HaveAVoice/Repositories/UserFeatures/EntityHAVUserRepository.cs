@@ -33,9 +33,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         public UserRole AddUserToRole(User user, Role role) {
-            UserRole userRole = new UserRole();
-            userRole.Role = role;
-            userRole.User = user;
+            UserRole userRole = UserRole.CreateUserRole(0, user.Id, role.Id);
 
             theEntities.AddToUserRoles(userRole);
             theEntities.SaveChanges();
