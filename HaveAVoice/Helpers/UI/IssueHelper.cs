@@ -6,6 +6,7 @@ using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
 using HaveAVoice.Services.Helpers;
+using System.Collections.Generic;
 
 namespace HaveAVoice.Helpers.UI {
     public class IssueHelper {
@@ -159,60 +160,66 @@ namespace HaveAVoice.Helpers.UI {
             return tableTag.ToString(TagRenderMode.Normal);
         }
 
-        public static string BuildIssueDisplay(Issue anIssue, bool anIsLike) {
-            string myAvatarURL ="http://images.chron.com/photos/2008/05/19/graphic_defaultAvatar/graphic_defaultAvatar.jpg";
-            string myUsername = "Anonymous";
-            if (PrivacyHelper.IsAllowed(anIssue.User, PrivacyAction.DisplayProfile)) {
-                myAvatarURL ="http://wedonetwork.co.uk/wedotech/wp-content/uploads/2010/08/master-chief-badass.jpg";
-                myUsername = anIssue.User.Username;
-            } 
+        public static string BuildIssueDisplay(IEnumerable<IssueWithDispositionModel> anIssues, bool anIsLike) {
+            string myIssueDisplay = string.Empty;
 
-            var myOuterDiv = new TagBuilder("div");
-            myOuterDiv.MergeAttribute("class", "m-btm30");
+            foreach (IssueWithDispositionModel myIssue in anIssues) {
+                string myAvatarURL = "http://images.chron.com/photos/2008/05/19/graphic_defaultAvatar/graphic_defaultAvatar.jpg";
+                string myUsername = "Anonymous";
+                if (PrivacyHelper.IsAllowed(myIssue.Issue.User, PrivacyAction.DisplayProfile)) {
+                    myAvatarURL = "http://wedonetwork.co.uk/wedotech/wp-content/uploads/2010/08/master-chief-badass.jpg";
+                    myUsername = myIssue.Issue.User.Username;
+                }
 
-            var myDivImageWrapper = new TagBuilder("div");
-            myDivImageWrapper.MergeAttribute("class", "col-2 center m-rgt10");
-            myDivImageWrapper.InnerHtml = "<img src=\"" + myAvatarURL + "\" alt=\"" + myUsername + "\" class=\"profile\"  />";
-            myOuterDiv.InnerHtml = myDivImageWrapper.ToString();
+                var myOuterDiv = new TagBuilder("div");
+                myOuterDiv.MergeAttribute("class", "m-btm30");
 
-            var myContextDiv = new TagBuilder("div");
-            myContextDiv.MergeAttribute("class", "col-9");
-            
-            var myUserlink = new TagBuilder("a");
-            myUserlink.MergeAttribute("class", "profile");
-            myUserlink.MergeAttribute("href", "#");
-            myUserlink.InnerHtml = myUsername;
-            myContextDiv.InnerHtml += myUserlink.ToString();
-            
-            myContextDiv.InnerHtml += anIssue.Title;
-            
-            var mySpan = new TagBuilder("span");
-            mySpan.MergeAttribute("class", "profile");
-            mySpan.InnerHtml = "On %%POST DATE%% by " + myUsername + " - %%COUNTRY%% (%%STATE%%)";
-            myContextDiv.InnerHtml += mySpan.ToString();
-            
-            /*
-            var myContextSpan = new TagBuilder("span");
-            myContextSpan.MergeAttribute("class", "teal2");
-            myContextSpan.InnerHtml = myUsername + ": ";
-            myContextDiv.InnerHtml = myContextSpan.ToString(); 
-            myContextDiv.InnerHtml += anIssue.Title;
-            */
+                var myDivImageWrapper = new TagBuilder("div");
+                myDivImageWrapper.MergeAttribute("class", "col-2 center m-rgt10");
+                myDivImageWrapper.InnerHtml = "<img src=\"" + myAvatarURL + "\" alt=\"" + myUsername + "\" class=\"profile\"  />";
+                myOuterDiv.InnerHtml = myDivImageWrapper.ToString();
 
-            string myLike = new StringBuilder().AppendFormat("<a href=\"/Issue/IssueDisposition?issueId={0}&disposition={1}\" class=\"like\"><img src=\"/Content/images/like-sm.png\" alt=\"Like\" />Like</a>", anIssue.Id, Disposition.LIKE).ToString();
-            myContextDiv.InnerHtml += myLike.ToString();
+                var myContextDiv = new TagBuilder("div");
+                myContextDiv.MergeAttribute("class", "col-9");
 
-            string myDislike = new StringBuilder().AppendFormat("<a href=\"/Issue/IssueDisposition?issueId={0}&disposition={1}\" class=\"dislike\">Dislike<img src=\"/Content/images/dislike-sm.png\" alt=\"Dislike\" /></a>", anIssue.Id, Disposition.DISLIKE).ToString();
-            myContextDiv.InnerHtml += myDislike.ToString();
+                var myUserlink = new TagBuilder("a");
+                myUserlink.MergeAttribute("class", "profile");
+                myUserlink.MergeAttribute("href", "#");
+                myUserlink.InnerHtml = myUsername;
+                myContextDiv.InnerHtml += myUserlink.ToString();
 
-			myOuterDiv.InnerHtml += myContextDiv.ToString();
+                myContextDiv.InnerHtml += myIssue.Issue.Title;
 
-            var myClearDiv = new TagBuilder("div");
-            myClearDiv.MergeAttribute("class", "clear");
-            myClearDiv.InnerHtml = "&nbsp;";
-			myOuterDiv.InnerHtml += myClearDiv.ToString();
+                var mySpan = new TagBuilder("span");
+                mySpan.MergeAttribute("class", "profile");
+                mySpan.InnerHtml = "On %%POST DATE%% by " + myUsername + " - %%COUNTRY%% (%%STATE%%)";
+                myContextDiv.InnerHtml += mySpan.ToString();
 
-            return myOuterDiv.ToString();
+                /*
+                var myContextSpan = new TagBuilder("span");
+                myContextSpan.MergeAttribute("class", "teal2");
+                myContextSpan.InnerHtml = myUsername + ": ";
+                myContextDiv.InnerHtml = myContextSpan.ToString(); 
+                myContextDiv.InnerHtml += anIssue.Title;
+                */
+
+                string myLike = new StringBuilder().AppendFormat("<a href=\"/Issue/IssueDisposition?issueId={0}&disposition={1}\" class=\"like\"><img src=\"/Content/images/like-sm.png\" alt=\"Like\" />Like</a>", myIssue.Issue.Id, Disposition.LIKE).ToString();
+                myContextDiv.InnerHtml += myLike.ToString();
+
+                string myDislike = new StringBuilder().AppendFormat("<a href=\"/Issue/IssueDisposition?issueId={0}&disposition={1}\" class=\"dislike\">Dislike<img src=\"/Content/images/dislike-sm.png\" alt=\"Dislike\" /></a>", myIssue.Issue.Id, Disposition.DISLIKE).ToString();
+                myContextDiv.InnerHtml += myDislike.ToString();
+
+                myOuterDiv.InnerHtml += myContextDiv.ToString();
+
+                var myClearDiv = new TagBuilder("div");
+                myClearDiv.MergeAttribute("class", "clear");
+                myClearDiv.InnerHtml = "&nbsp;";
+                myOuterDiv.InnerHtml += myClearDiv.ToString();
+
+                myIssueDisplay += myOuterDiv.ToString();
+            }
+
+            return myIssueDisplay;
         }
     }
 }

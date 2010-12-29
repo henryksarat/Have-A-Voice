@@ -7,11 +7,17 @@ using System.Web.Mvc;
 
 namespace HaveAVoice.Helpers.UI {
     public class IssueReplyHelper {
-        public static string IssueReplyDisplay(IssueReply anIssueReply) {
-        	var myLI = new TagBuilder("li");
-        	myLI.InnerHtml = anIssueReply.Reply;
+        public static string IssueReplyDisplay(IEnumerable<IssueReply> anIssueReplies) {
+            string myList = string.Empty;
 
-            return myLI.ToString();
+            foreach (IssueReply myIssueReply in anIssueReplies) {
+                var myLI = new TagBuilder("li");
+                myLI.InnerHtml = myIssueReply.Reply;
+                myList += myLI.ToString();
+            }
+
+
+            return myList;
         }
     }
 }

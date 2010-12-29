@@ -28,9 +28,7 @@
 		<div class="col-12">
 			<div class="p-a10 b-wht">
 				<div rel="match">
-	                <% foreach (var item in Model.LikedIssues) { %>
-	                    <%= IssueHelper.BuildIssueDisplay(item.Issue, true) %> 
-	                <% } %>
+                    <%= IssueHelper.BuildIssueDisplay(Model.LikedIssues, false) %> 
 	                <div class="clear">&nbsp;</div>
                 </div>
                 <div class="right">
@@ -43,9 +41,7 @@
         <div class="col-12">
             <div class="p-a10 b-wht">
             	<div rel="match">
-	                <% foreach (var item in Model.DislikedIssues) { %>
-	                    <%= IssueHelper.BuildIssueDisplay(item.Issue, false) %> 
-	                <% } %>
+	                <%= IssueHelper.BuildIssueDisplay(Model.DislikedIssues, false) %> 
 	                <div class="clear">&nbsp;</div>
                 </div>
                 <div class="right">
@@ -76,9 +72,7 @@
             <div class="push-1 col-8">
                 <h5 class="popular">Popular Posts</h5>
                 <ul class="bullet fnt-12">
-                    <% foreach (var item in Model.MostPopularIssueReplys) { %>
-                        <li><%= IssueReplyHelper.IssueReplyDisplay(item) %></li>
-                    <% } %>
+                    <%= IssueReplyHelper.IssueReplyDisplay(Model.MostPopularIssueReplys) %>
                 </ul>
             </div>
         </div>
@@ -87,9 +81,7 @@
             <div class="push-1 col-8">
                 <h5 class="comment">Recent Comments</h5>
                 <ul class="bullet fnt-12">
-                    <% foreach (var item in Model.NewestIssueReplys) { %>
-                        <li><%= IssueReplyHelper.IssueReplyDisplay(item) %></li>
-                    <% } %>
+                    <%= IssueReplyHelper.IssueReplyDisplay(Model.NewestIssueReplys) %>
                 </ul>
             </div>
         </div>
