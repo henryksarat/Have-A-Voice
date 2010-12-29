@@ -5,24 +5,24 @@ using System.Web;
 using System.Runtime.Serialization;
 
 //Henryk:
-//Great custom exception tutorial:
+//Great custom myException tutorial:
 //http://blog.gurock.com/articles/creating-custom-exceptions-in-dotnet/
 namespace HaveAVoice.Exceptions {
     [Serializable]
-    public class NotFanException : Exception {
-        public NotFanException() {
+    public class EmailException : Exception {
+        public EmailException() {
         }
 
-        public NotFanException(string message)
+        public EmailException(string message)
             : base(message) {
         }
 
-        public NotFanException(string message,
+        public EmailException(string message,
            Exception innerException)
             : base(message, innerException) {
         }
 
-        protected NotFanException(SerializationInfo info,
+        protected EmailException(SerializationInfo info,
            StreamingContext context)
             : base(info, context) {
         }

@@ -12,6 +12,7 @@ using HaveAVoice.Helpers.ActionMethods;
 using System.Text;
 using HaveAVoice.Helpers;
 using HaveAVoice.Controllers.Helpers;
+using HaveAVoice.Exceptions;
 
 namespace HaveAVoice.Controllers.Users
 {
@@ -25,7 +26,7 @@ namespace HaveAVoice.Controllers.Users
         private static string SELECT_ONE_OR_MORE_ERROR = "Please select AT LEAST one or more images.";
 
         private const string EDIT_VIEW = "Edit";
-        private static string GALLERY_VIEW = "Gallery";
+        private static string SHOW_VIEW = "Show";
         
 
         private IHAVUserPictureService theUserPictureService;
@@ -40,21 +41,42 @@ namespace HaveAVoice.Controllers.Users
                 theUserPictureService = aUserPictureService;
         }
 
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult Show(int id) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+
+            User myUser = GetUserInformaton();
+
+            IEnumerable<UserPicture> myPictures = new List<UserPicture>();
+            try {
+                myPictures = theUserPictureService.GetUserPictures(myUser, myUser.Id);
+            } catch(NotFanException e) {
+                return SendToErrorPage(HAVConstants.NOT_FAN);
+            } catch (Exception e) {
+                LogError(e, GALLERY_ERROR);
+                return SendToErrorPage(GALLERY_ERROR);
+            }
+
+            return View(SHOW_VIEW, myPictures);
+        }
+
         public ActionResult List() {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            int myUserId = GetUserInformaton().Id;
+            User myUser = GetUserInformaton();
 
             IEnumerable<UserPicture> myPictures = new List<UserPicture>();
             try {
-                myPictures = theUserPictureService.GetUserPictures(myUserId);
+                myPictures = theUserPictureService.GetUserPictures(myUser, myUser.Id);
             } catch (Exception e) {
                 LogError(e, GALLERY_ERROR);
-                SendToErrorPage(GALLERY_ERROR);
+                return SendToErrorPage(GALLERY_ERROR);
             }
 
-            return View(GALLERY_VIEW, myPictures);
+            return View(SHOW_VIEW, myPictures);
         }
 
         public ActionResult Edit() {
@@ -62,7 +84,7 @@ namespace HaveAVoice.Controllers.Users
                 return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
-            IEnumerable<UserPicture> userPictures = theUserPictureService.GetUserPictures(myUser.Id);
+            IEnumerable<UserPicture> userPictures = theUserPictureService.GetUserPictures(myUser, myUser.Id);
             string profilePicture = theUserPictureService.GetProfilePictureURL(myUser);
 
             UserPicturesModel myModel = new UserPicturesModel() {

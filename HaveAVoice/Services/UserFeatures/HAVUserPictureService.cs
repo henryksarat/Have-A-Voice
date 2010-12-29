@@ -6,15 +6,18 @@ using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Models;
 using HaveAVoice.Helpers;
+using HaveAVoice.Exceptions;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVUserPictureService : HAVBaseService, IHAVUserPictureService {
+        private IHAVFanService theFanService;
         private IHAVUserPictureRepository theUserPictureRepo;
  
         public HAVUserPictureService()
-            : this(new EntityHAVUserPictureRepository(), new HAVBaseRepository()) { }
+            : this(new HAVFanService(), new EntityHAVUserPictureRepository(), new HAVBaseRepository()) { }
 
-        public HAVUserPictureService(IHAVUserPictureRepository aUserPictureRepo, IHAVBaseRepository aBaseRepository) : base(aBaseRepository) {
+        public HAVUserPictureService(IHAVFanService aFanService, IHAVUserPictureRepository aUserPictureRepo, IHAVBaseRepository aBaseRepository) : base(aBaseRepository) {
+            theFanService = aFanService;
             theUserPictureRepo = aUserPictureRepo;
         }
 
@@ -36,8 +39,12 @@ namespace HaveAVoice.Services.UserFeatures {
             return filePath;
         }
 
-        public IEnumerable<UserPicture> GetUserPictures(int aUserId) {
-            return theUserPictureRepo.GetUserPictures(aUserId);
+        public IEnumerable<UserPicture> GetUserPictures(User aViewingUser, int aUserId) {
+            if (aViewingUser.Id == aUserId || theFanService.IsFan(aUserId, aViewingUser)) {
+                return theUserPictureRepo.GetUserPictures(aUserId);
+            }
+
+            throw new NotFanException();
         }
 
         public UserPicture GetProfilePicture(int aUserId) {

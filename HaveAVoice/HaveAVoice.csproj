@@ -89,6 +89,7 @@
     <Compile Include="Controllers\Users\UserPicturesController.cs" />
     <Compile Include="Controllers\Users\UserPrivacySettings.cs" />
     <Compile Include="Helpers\Enums\FanStatus.cs" />
+    <Compile Include="Helpers\Exceptions\NotFanException.cs" />
     <Compile Include="Helpers\HAVPermissionHelper.cs" />
     <Compile Include="Helpers\RoleHelper.cs" />
     <Compile Include="Controllers\Admin\RestrictionController.cs" />
@@ -384,7 +385,7 @@
     <Content Include="Views\Fan\Fans.aspx" />
     <Content Include="Views\Fan\FansOf.aspx" />
     <Content Include="Views\Password\Request.aspx" />
-    <Content Include="Views\UserPictures\Gallery.aspx" />
+    <Content Include="Views\UserPictures\Show.aspx" />
     <Content Include="Views\Profile\Show.aspx" />
     <Content Include="Views\User\UserList.aspx" />
     <Content Include="Views\UserPictures\Edit.aspx" />

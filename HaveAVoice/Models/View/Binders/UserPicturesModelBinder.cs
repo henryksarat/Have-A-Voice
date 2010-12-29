@@ -4,17 +4,19 @@ using System.Web.Mvc;
 using HaveAVoice.Validation;
 using HaveAVoice.Helpers;
 using HaveAVoice.Services.UserFeatures;
+using HaveAVoice.Helpers.UserInformation;
 
 namespace HaveAVoice.Models.View {
     public class UserPicturesModelBinder : IModelBinder {
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext) {
             IHAVUserPictureService myUserPictureService = new HAVUserPictureService();
+            User myUserInfo = HAVUserInformationFactory.GetUserInformation().Details;
 
             int userId = Int32.Parse(BinderHelper.GetA(bindingContext, "UserId"));
             string myProfilePictureURL = BinderHelper.GetA(bindingContext, "ProfilePictureURL");
             string selectedProfilePictureIds = BinderHelper.GetA(bindingContext, "SelectedProfilePictureId").Trim();
 
-            IEnumerable<UserPicture> userPictures = myUserPictureService.GetUserPictures(userId);
+            IEnumerable<UserPicture> userPictures = myUserPictureService.GetUserPictures(myUserInfo, userId);
             UserPicture profilePicture = myUserPictureService.GetProfilePicture(userId);
 
             string[] splitIds = selectedProfilePictureIds.Split(',');
