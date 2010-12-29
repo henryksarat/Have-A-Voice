@@ -12,8 +12,7 @@ using HaveAVoice.Helpers;
 using HaveAVoice.Models;
 using HaveAVoice.Controllers.ActionFilters;
 
-namespace HaveAVoice.Controllers.Users
-{
+namespace HaveAVoice.Controllers.Users {
     public class BoardController : HAVBaseController {
         private static string POST_BOARD_SUCCESS = "Board message posted!";
         private static string EDIT_BOARD_SUCCES = "Board message edited.";

@@ -41,6 +41,10 @@ namespace HaveAVoice.Services.UserFeatures {
             IEnumerable<Fan> myFansOf = theFanService.FindFansOfUser(myUser.Id);
             FanStatus myFanStatus = GetFanStatus(aUserId, myViewingUser);
 
+            foreach (Board myBoard in myBoardMessages) {
+                theBoardRepository.MarkBoardAsViewed(myViewingUser, myBoard.Id);
+            }
+
             ProfileModel myModel = new ProfileModel(myUser) {
                 ProfilePictureUrl = theUserPicturesService.GetProfilePictureURL(myUser),
                 BoardMessages = myBoardMessages,

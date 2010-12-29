@@ -17,5 +17,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         void AddReplyToBoard(User aPostingUser, int aBoardId, string aReply);
         void EditBoardReply(User anEditedBy, BoardReply anOriginalReply, BoardReply aNewReply);
         void DeleteBoardReply(User aDeletingUser, BoardReply aReply);
+
+        void MarkBoardAsViewed(User aViewingUser, int aBoardId);
     }
 }

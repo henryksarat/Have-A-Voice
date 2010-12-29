@@ -117,6 +117,16 @@ namespace HaveAVoice.Repositories.UserFeatures {
             theEntities.SaveChanges();
         }
 
+        public void MarkBoardAsViewed(User aViewingUser, int aBoardId) {
+            BoardViewedState myBoardViewState = FindBoardViewedState(aViewingUser.Id, aBoardId);
+            if (myBoardViewState != null && !myBoardViewState.Viewed) {
+                myBoardViewState.Viewed = true;
+
+                theEntities.ApplyCurrentValues(myBoardViewState.EntityKey.EntitySetName, myBoardViewState);
+                theEntities.SaveChanges();
+            }
+        }
+
         private void AddUserToBoardViewedStateWithoutSave(int aUserId, int aBoardId, bool aViewedState) {
             BoardViewedState myBoardViewedState = BoardViewedState.CreateBoardViewedState(0, aBoardId, aUserId, aViewedState);
             theEntities.AddToBoardViewedStates(myBoardViewedState);
@@ -134,5 +144,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     where v.BoardId == aBoardId
                     select v).ToList<BoardViewedState>();
         }
+
+
     }
 }

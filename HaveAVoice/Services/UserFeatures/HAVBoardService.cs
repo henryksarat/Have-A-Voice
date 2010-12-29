@@ -33,10 +33,14 @@ namespace HaveAVoice.Services.UserFeatures {
                 return new BoardModel();
             }
 
-            return new BoardModel() {
+            BoardModel myModel = new BoardModel() {
                 Board = theRepository.FindBoardByBoardId(aBoardId),
                 BoardReplies = theRepository.FindBoardRepliesByBoard(aBoardId)
             };
+
+            theRepository.MarkBoardAsViewed(aUser.Details, aBoardId);
+
+            return myModel;
         }
 
         public bool PostToBoard(UserInformationModel aPostingUser, int aSourceUserId, string aMessage) {
