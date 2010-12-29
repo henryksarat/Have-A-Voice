@@ -13,14 +13,50 @@
     
     <div class="col-21">
         <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
-
-        <h2>Welcome, <%= Model.User.Username %></h2>
     
-        <br /><br />
         FanFeed:<br />
         <% foreach (var item in Model.IssueReplys) { %>
-            Username: <%= item.User.Username %>
-            IssueReply: <%= item.Reply %><br /><br />
+        
+			<div class="row">
+				<div class="col-2 center">
+					<img src="<% /* = item.User.ProfilePictureURL */ %>" alt="<%= item.User.Username %>" class="profile" />
+				</div>
+				<div class="col-16">
+					<div class="m-lft col-16 comment">
+						<span class="speak-lft">&nbsp;</span>
+						<div class="p-a10">
+							<a class="name" href="#"><%= item.User.Username %></a>
+							<%= item.Reply %>
+							<div class="clear">&nbsp;</div>
+							
+							<div class="spacer-10">&nbsp;</div>
+							<div class="options">
+								<div class="col-6">&nbsp;</div>
+								<div class="col-9">
+									<div class="col-3 center">
+										<a href="#" class="comment">COMMENT</a>
+									</div>
+									<div class="col-3 center">
+										<a href="#" class="like">LIKE</a>
+									</div>
+									<div class="col-3 center">
+										<a href="#" class="dislike">DISLIKE</a>
+									</div>
+								</div>
+							</div>
+							<div class="spacer-10">&nbsp;</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="p-a5">
+						<div class="date-tile">
+							<span>3:47</span> AM
+						</div>
+					</div>
+				</div>
+				<div class="clear">&nbsp;</div>
+				
         <% } %>
    
         <br /><br />
