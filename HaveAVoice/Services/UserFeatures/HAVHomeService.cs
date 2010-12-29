@@ -36,7 +36,6 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public LoggedInModel FanReplys(User aUser) {
             IEnumerable<IssueReply> myIssueReplys = theHomeRepository.FanFeed(aUser);
-            IEnumerable<IssueReply> myOfficialsReplys = theHomeRepository.OfficialsFeed(RoleHelper.OfficialRoles());
             return new LoggedInModel(aUser) {
                 ProfilePictureURL = theUserPictureService.GetProfilePictureURL(aUser),
                 IssueReplys = myIssueReplys,

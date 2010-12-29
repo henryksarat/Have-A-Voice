@@ -19,7 +19,6 @@
     			<div class="spacer-30">&nbsp;</div>
 
 			    <% using (Html.BeginForm("Login", "Authentication", FormMethod.Post, new { @class = "create" })) { %>
-			        <%= Html.Encode(ViewData["ErrorMessage"]) %>
 			        <%= Html.Encode(ViewData["Message"]) %>
 			
 					<div class="col-4 m-rgt right">

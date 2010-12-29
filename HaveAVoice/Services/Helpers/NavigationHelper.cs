@@ -8,19 +8,30 @@ using HaveAVoice.Models;
 
 namespace HaveAVoice.Services.Helpers {
     public class NavigationHelper {
-        public static int NewMessageCount(User aRequestingUser) {
+        private const string OPENING_SPAN = "<span class=\"alert\">";
+        private const string CLOSING_SPAN = "</span>";
+
+        public static string NewMessageCount(User aRequestingUser) {
             IHAVNavigationService myService = new HAVNavigationService();
-            return myService.NewMessageCount(aRequestingUser);
+            return BuildSpanReturn(myService.NewMessageCount(aRequestingUser));
         }
 
-        public static int PendingFanCount(User aRequestingUser) {
+        public static string PendingFanCount(User aRequestingUser) {
             IHAVNavigationService myService = new HAVNavigationService();
-            return myService.PendingFanCount(aRequestingUser);
+            return BuildSpanReturn(myService.PendingFanCount(aRequestingUser));
         }
 
-        public static int NotificationCount(User aRequestingUser) {
+        public static string NotificationCount(User aRequestingUser) {
             IHAVNavigationService myService = new HAVNavigationService();
-            return myService.NotificationCount(aRequestingUser);
+            return BuildSpanReturn(myService.NotificationCount(aRequestingUser));
+        }
+
+        private static string BuildSpanReturn(int aCount) {
+            if (aCount < 1) {
+                return string.Empty;
+            } else {
+                return OPENING_SPAN + aCount.ToString() + CLOSING_SPAN;
+            }
         }
     }
 }
