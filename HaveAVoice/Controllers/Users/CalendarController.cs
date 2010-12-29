@@ -25,7 +25,6 @@ namespace HaveAVoice.Controllers.Users
         private static string LIST_VIEW = "List";
         private static string SHOW_VIEW = "Show";
 
-
         private IHAVCalendarService theEventService;
 
         public CalendarController()
@@ -76,16 +75,14 @@ namespace HaveAVoice.Controllers.Users
             int myUserId = GetUserInformaton().Id;
             try {
                 if (theEventService.AddEvent(myUserId, date, information)) {
-                    ViewData.ModelState.Remove("Information");
-                    ViewData["Message"] = ADD_EVENT_SUCCESS;
+                    TempData["Message"] = ADD_EVENT_SUCCESS;
                 }
             } catch (Exception e) {
-                string myError = ErrorHelper.ErrorString("{0} [UserId={1};]", ADD_EVENT_ERROR, myUserId);
-                LogError(e, myError);
-                ViewData["Message"] = ADD_EVENT_ERROR;
+                LogError(e, ADD_EVENT_ERROR);
+                TempData["Message"] = ADD_EVENT_ERROR;
             }
 
-            return RedirectToAction("Show");
+            return RedirectToAction(LIST_VIEW);
         }
 
         public ActionResult DeleteEvent(int eventId) {
@@ -97,14 +94,11 @@ namespace HaveAVoice.Controllers.Users
                 ViewData["Message"] = DELETE_EVENT_SUCCESS;
 
             } catch (Exception e) {
-                string myError = ErrorHelper.ErrorString("{0} [EventId={1};]", DELETE_EVENT_ERROR, eventId);
-                LogError(e, myError);
-                ViewData["Message"] = ADD_EVENT_ERROR;
+                LogError(e, DELETE_EVENT_ERROR);
+                ViewData["Message"] = DELETE_EVENT_ERROR;
             }
 
             return RedirectToAction("Show");
         }
-
-
     }
 }

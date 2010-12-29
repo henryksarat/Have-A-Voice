@@ -8,7 +8,10 @@
 
     <h2>Calendar</h2><br />
     <p>
-            <%= Html.Encode(ViewData["Message"]) %>
+        <%= Html.Encode(ViewData["Message"]) %>
+    </p>
+    <p>
+        <%= Html.Encode(TempData["Message"]) %>
     </p>
     <b>Events:</b><br /><br />
     <% foreach (var item in Model) { %>
