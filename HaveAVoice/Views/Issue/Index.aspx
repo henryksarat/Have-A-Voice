@@ -19,7 +19,7 @@
     		<span class="fnt-16 tint-6 bold">ISSUES</span>
     	</div>
     	<div class="push-1 col-4 center p-t5 p-b5 t-tab btint-6">
-    		<%= Html.ActionLink("CREATE NEW", "Create", "", new { @class = "issue-create" }) %>
+    		<%= Html.ActionLink("CREATE NEW", "Create", null, new { @class = "issue-create" }) %>
     	</div>
     	<div class="clear">&nbsp;</div>
     	
