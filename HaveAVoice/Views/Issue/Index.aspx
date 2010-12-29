@@ -10,7 +10,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="col-24">
-        <div class="col-24 spacer-30">&nbsp;</div>
+        <div class="spacer-30">&nbsp;</div>
     
     	<%= Html.Encode(ViewData["Message"]) %>
     	<%= Html.Encode(TempData["Message"]) %>
@@ -54,18 +54,22 @@
     		<img src="/UserPictures/93_-943723973.jpg" alt="hsarat" class="profile" />
     	</div>
     	<div class="col-18 issue">
-    		<h1><%= Html.ActionLink(item.Issue.Title, "View", new { id = item.Issue.Id })%></h1>
-    		<div class="clear">&nbsp;</div>
-    		<%= Html.ActionLink(item.Issue.Description, "View", new { id = item.Issue.Id })%>
+    		<div class="p-a5">
+	    		<h1><%= Html.ActionLink(item.Issue.Title, "View", new { id = item.Issue.Id })%></h1>
+	    		<div class="clear">&nbsp;</div>
+	    		<%= item.Issue.Description %>
+    		</div>
     		<div class="clear">&nbsp;</div>
     		<div class="col-9">&nbsp;</div>
+    		
             <% if (item.Issue.User.Id == HAVUserInformationFactory.GetUserInformation().Details.Id) { %>
             	<div class="col-3 center">
-            		<%= Html.ActionLink("Delete", "DeleteIssue", new { deletingUserId = HAVUserInformationFactory.GetUserInformation().Details.Id, issueId = item.Issue.Id} ) %>
+            		<%= Html.ActionLink("Delete", "DeleteIssue", new { deletingUserId = HAVUserInformationFactory.GetUserInformation().Details.Id, issueId = item.Issue.Id}, new { @class = "delete" }) %>
             	</div>
             <% } else { %>
             	<div class="col-3">&nbsp;</div>
             <% } %>
+            
             <% if (!item.HasDisposition) { %>
             	<div class="col-3 center">
             		<%= Html.ActionLink("Like", "Disposition", new { issueId = item.Issue.Id, disposition = (int)Disposition.LIKE }, new { @class = "like" })%>
@@ -76,10 +80,9 @@
             <% } else { %>
             	<div class="col-6">&nbsp;</div>
             <% } %>
-    		</div>
     	</div>
 		
-		<div class="col-3">
+		<div class="col-3 right">
 			<div class="p-a5">
 				<div class="date-tile">
 					<span>
@@ -91,30 +94,6 @@
     
     	<div class="clear">&nbsp;</div>
     	<div class="spacer-10">&nbsp;</div>
-    
-        <tr>
-            <td>
-                <%= Html.ActionLink(DateHelper.ConvertToLocalTime(item.Issue.DateTimeStamp).ToString("MMM d").ToUpper(), "View", new { id = item.Issue.Id })%>
-            </td>
-            <td>
-                <%= Html.ActionLink(item.Issue.Title, "View", new { id = item.Issue.Id })%>
-            </td>
-            <td>
-                <%= Html.ActionLink(item.Issue.Description, "View", new { id = item.Issue.Id })%>
-            </td>
-            <td>
-                <% if (!item.HasDisposition) { %>
-                    <%= Html.ActionLink("Like", "Disposition", new { issueId = item.Issue.Id, disposition = (int)Disposition.LIKE })%>
-                    <%= Html.ActionLink("Dislike", "Disposition", new { issueId = item.Issue.Id, disposition = (int)Disposition.DISLIKE })%>
-                <% } %>
-            </td>
-            <td>
-                <% if (item.Issue.User.Id == HAVUserInformationFactory.GetUserInformation().Details.Id) { %>
-                    <%= Html.ActionLink("Delete", "DeleteIssue", new { deletingUserId = HAVUserInformationFactory.GetUserInformation().Details.Id, issueId = item.Issue.Id} ) %>
-                <% } %>
-            </td>
-        </tr>
-    
     <% } %>
 	</div>
 </asp:Content>

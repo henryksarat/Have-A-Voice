@@ -254,9 +254,17 @@ input.button { color: #fff; font-weight: bold; font-size: 13px; background: #20a
 /**************************** ISSUES ****************************************/
 /****************************************************************************/
 .issue-create { font-size: 16px; color: #fff; text-decoration: none; font-weight: bold; }
-.issue { background: red; }
+.issue { background: #c0d8de; min-height: 80px; }
+.issue h1 a { text-decoration: none; font-size: 24px; font-weight: bold; margin-bottom: 5px; color: #fff; }
+.issue { font-size: 12px; margin-bottom: 5px; }
+.issue a.like, .issue a.like:link, .issue a.like:visited { color: #2070c9; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; background: transparent; }
+.issue a.dislike, .issue a.dislike:link, .issue a.dislike:visited { text-decoration: none; font-size: 12px; font-weight: bold; font-style: normal; text-transform: uppercase; }
+.issue a.delete, .issue a.delete:link, .issue a.delete:visited { color: #115f71; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; }
 
 
+/****************************************************************************/
+/****************************************************************************/
+/****************************************************************************/
 .events .title { padding: 5px 0px; text-align: center; text-transform: uppercase; font-weight: bold; color: #ffffff; background: #a0cfdB; }
 .events .prev, .events .next { height: 110px; background: #c0d8de; }
 .events .prev span, .events .next span { color: #a2a2a2; float: right; margin-top: 5px; margin-right: 5px; font-size: 24px; }
