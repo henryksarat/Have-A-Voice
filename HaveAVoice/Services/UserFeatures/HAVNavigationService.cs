@@ -26,5 +26,9 @@ namespace HaveAVoice.Services.UserFeatures {
         public int PendingFanCount(User aRequestingUser) {
             return theNavRepo.GetPendingFriendRequestCount(aRequestingUser);
         }
+
+        public int NotificationCount(User aRequestingUser) {
+            return theNavRepo.GetUnviewedBoardCount(aRequestingUser);
+        }
     }
 }

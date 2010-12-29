@@ -9,7 +9,7 @@
         <li><a href="#">HOME </a></li>
 		<li><a href="#">FANS (<%= NavigationHelper.PendingFanCount(myUser) %>)</a></li>
 		<li><a href="#">MAIL (<%= NavigationHelper.NewMessageCount(myUser) %>)</a></li>
-		<li><a href="#">NOTIFICATIONS (??)</a></li>
+		<li><a href="#">NOTIFICATIONS (<%= NavigationHelper.NotificationCount(myUser) %>)</a></li>
     </ul>
 </div>
 <div class="col-6">

@@ -9,5 +9,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
         int GetUnreadMessagesReceivedCount(User aRequestingUser);
         int GetUnreadMessagesSentCount(User aRequestingUser);
         int GetPendingFriendRequestCount(User aRequestingUser);
+        int GetUnviewedBoardCount(User aRequestingUser);
     }
 }

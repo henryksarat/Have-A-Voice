@@ -29,5 +29,12 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     && f.Approved == false
                     select f).Count<Fan>();
         }
+
+        public int GetUnviewedBoardCount(User aRequestingUser) {
+            return (from v in theEntities.BoardViewedStates
+                    where v.UserId == aRequestingUser.Id
+                    && v.Viewed == false
+                    select v).Count<BoardViewedState>();
+        }
     }
 }
