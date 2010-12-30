@@ -13,9 +13,10 @@
     
     <div class="col-21">
         <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
-    
-        FanFeed:<br />
+
         <% foreach (var item in Model.FeedModels) { %>
+        
+        	<%= item.IssueType.ToString() %>
         
 			<div class="row">
 				<div class="col-2 center">
@@ -34,13 +35,43 @@
 								<div class="col-6">&nbsp;</div>
 								<div class="col-9">
 									<div class="col-3 center">
-										<a href="#" class="comment"><%= item.TotalReplys %></a>
+										<% if (item.TotalReplys == 0) { %>
+											<a href="#" class="comment">Comment</a>
+										<% } else { %>
+											<span class="comment"><%= item.TotalReplys %> 
+												Comment<% if (item.TotalReplys > 1) { %>s<% } %>
+											</span>
+										<% } %>
 									</div>
 									<div class="col-3 center">
-										<a href="#" class="like"><%= item.TotalLikes %></a>
+										<% if (item.HasDisposition) { %>
+											<span class="like">
+												<%= item.TotalLikes %>
+												<% if (item.TotalLikes == 1) { %>
+													Person Likes
+												<% } else { %>
+													People Like
+												<% } %>
+												This
+											</span>
+										<% } else { %>
+											<a href="#" class="like">Like</a>
+										<% } %>
 									</div>
 									<div class="col-3 center">
-										<a href="#" class="dislike"><%= item.TotalDislikes %></a>
+										<% if (item.HasDisposition) { %>
+											<span class="dislike">
+												<%= item.TotalDislikes %>
+												<% if (item.TotalDislikes == 1) { %>
+													Person Dislikes
+												<% } else { %>
+													People Dislike 
+												<% } %>
+												This
+											</span>
+										<% } else { %>
+											<a href="#" class="dislike">Dislike</a>
+										<% } %>
 									</div>
 								</div>
 							</div>
@@ -57,30 +88,6 @@
 				</div>
 				<div class="clear">&nbsp;</div>
 				
-        <% } %>
-   
-        <br /><br />
-
-        <% using (Html.BeginForm("AddZipCodeFilter", "Home")) { %>
-            Zip Code:
-            <%= Html.TextBox("ZipCode") %>
-            <%= Html.ValidationMessage("ZipCode", "*")%>
-            <p>
-                <input type="submit" value="Submit" />
-            </p>
-        <% } %>
-        <br /><br />
-
-        <% using (Html.BeginForm("AddCityStateFilter", "Home")) { %>
-            City:
-            <%= Html.TextBox("City", "")%>
-            <%= Html.ValidationMessage("City", "*")%><br />
-            State:
-            <%= Html.TextBox("State", "")%>
-            <%= Html.ValidationMessage("State", "*")%><br />
-            <p>
-                <input type="submit" value="Submit" />
-            </p>
         <% } %>
     </div>
 </asp:Content>

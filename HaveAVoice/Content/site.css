@@ -226,8 +226,11 @@ img.profile { border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius
 .comment .options span { font-size: 12px; }
 .row a.name, .row a.name:link, .row a.name:visited { font-size: 12px; font-style: normal; font-weight: bold; text-decoration: none; color: #20a9c9; }
 .row a.like, .row a.like:link, .row a.like:visited { color: #2070c9; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; background: transparent; }
+.row span.like { color: #2070c9; font-size: 12px; background: transparent; }
 .row a.dislike, .row a.dislike:link, .row a.dislike:visited { text-decoration: none; font-size: 12px; font-weight: bold; font-style: normal; text-transform: uppercase; }
+.row span.dislike { color: #c94020; font-size: 12px; background: transparent; }
 .row a.comment, .row a.comment:link, .row a.comment:visited { color: #115f71; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; }
+.row span.comment { color: #115f71; font-size: 12px; background: transparent; }
 .row a.people, a.people:link, a.people:visited { text-decoration: none; color: #4b4b4b; }
 
 .comment .options { position: absolute; bottom: 10px; }
