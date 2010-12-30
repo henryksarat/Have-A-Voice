@@ -38,7 +38,6 @@ namespace HaveAVoice.Services.UserFeatures {
             IEnumerable<Board> myBoardMessages = theBoardRepository.FindBoardByUserId(aUserId);
             IEnumerable<IssueReply> myIssueReplys = theRepository.IssuesUserRepliedTo(myUser);
             IEnumerable<Fan> myFans = theFanService.FindFansForUser(myUser.Id);
-            IEnumerable<Fan> myFansOf = theFanService.FindFansOfUser(myUser.Id);
             FanStatus myFanStatus = GetFanStatus(aUserId, myViewingUser);
 
             foreach (Board myBoard in myBoardMessages) {
@@ -50,7 +49,6 @@ namespace HaveAVoice.Services.UserFeatures {
                 BoardMessages = myBoardMessages,
                 IssueReplys = myIssueReplys,
                 Fans = myFans,
-                FansOf = myFansOf,
                 FanStatus = myFanStatus
             };
 

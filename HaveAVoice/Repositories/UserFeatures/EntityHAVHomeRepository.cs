@@ -7,7 +7,7 @@ using System.Data.Objects;
 using HaveAVoice.Models;
 
 namespace HaveAVoice.Repositories.UserFeatures {
-    public class EntityHAVHomeRepository : HAVBaseRepository, IHAVHomeRepository {
+    public class EntityHAVHomeRepository : IHAVHomeRepository {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
         private static double ISSUE_DISPOSITION_WEIGHT = 0.2;
@@ -104,28 +104,52 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     .ToList<IssueReply>();
         }
 
-        public IEnumerable<IssueReply> FanFeed(User aUser) {
+        public IEnumerable<IssueReply> FanIssueReplyFeed(User aUser) {
             return (from ir in theEntities.IssueReplys
                     join u in theEntities.Users on ir.User.Id equals u.Id
                     join f in theEntities.Fans on u.Id equals f.SourceUser.Id
-                    where f.FanUserId == aUser.Id
+                    where (f.FanUserId == aUser.Id || f.SourceUserId == aUser.Id)
+                    && u.Id != aUser.Id
+                    && f.Approved == true
                     && ir.Deleted == false
                     select ir).OrderByDescending(ir => ir.DateTimeStamp).ToList<IssueReply>();
         }
 
+        public IEnumerable<Issue> OfficialsIssueFeed(User aViewingUser, IEnumerable<string> aSelectedRoles) {
+            return (from i in theEntities.Issues
+                    join u in theEntities.Users on i.StartedByUserId equals u.Id
+                    join ur in theEntities.UserRoles on u.Id equals ur.User.Id
+                    join r in theEntities.Roles on ur.Role.Id equals r.Id
+                    where u.Id != aViewingUser.Id
+                     && i.Deleted == false
+                    && aSelectedRoles.Contains(r.Name)
+                    select i).OrderByDescending(i => i.DateTimeStamp).ToList<Issue>();
+        }
 
-        public IEnumerable<IssueReply> OfficialsFeed(IEnumerable<string> aSelectedRoles) {
+        public IEnumerable<IssueReply> OfficialsIssueReplyFeed(User aViewingUser, IEnumerable<string> aSelectedRoles) {
             return (from ir in theEntities.IssueReplys
                     join u in theEntities.Users on ir.User.Id equals u.Id
                     join ur in theEntities.UserRoles on u.Id equals ur.User.Id
                     join r in theEntities.Roles on ur.Role.Id equals r.Id
-                    where ir.Deleted == false
-                    where aSelectedRoles.Contains(r.Name)
+                    where u.Id != aViewingUser.Id
+                    && ir.Deleted == false
+                    && aSelectedRoles.Contains(r.Name)
                     select ir).OrderByDescending(ir => ir.DateTimeStamp).ToList<IssueReply>();
         }
 
         public IEnumerable<IssueReply> FilteredFeed(User aUser) {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<Issue> FanIssueFeed(User aUser) {
+            return (from i in theEntities.Issues
+                    join u in theEntities.Users on i.StartedByUserId equals u.Id
+                    join f in theEntities.Fans on u.Id equals f.SourceUserId
+                    where u.Id != aUser.Id
+                    && (f.FanUserId == aUser.Id || f.SourceUserId == aUser.Id) 
+                    && f.Approved == true
+                    && i.Deleted == false
+                    select i).OrderByDescending(ir => ir.DateTimeStamp).ToList<Issue>();
         }
 
         public void AddZipCodeFilter(User aUser, int aZipCode) {
@@ -151,33 +175,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
                              where f.User.Id == aUser.Id && f.City == aCity && f.State == aState
                              select f).Count<FilteredCityState>();
             return myFilered > 0;
-        }
-
-        public int TotalIssueReplyDislikes(int anIssueReplyId) {
-            return (from ird in theEntities.IssueReplyDispositions
-                    where ird.IssueReplyId == anIssueReplyId
-                    && ird.Disposition == (int)Disposition.DISLIKE
-                    select ird).Count<IssueReplyDisposition>();
-        }
-
-        public int TotalIssueReplyLikes(int anIssueReplyId) {
-            return (from ird in theEntities.IssueReplyDispositions
-                    where ird.IssueReplyId == anIssueReplyId
-                    && ird.Disposition == (int)Disposition.LIKE
-                    select ird).Count<IssueReplyDisposition>();
-        }
-
-        public bool HasReplyDisposition(User aUser, int aReplyId) {
-            return (from ird in theEntities.IssueReplyDispositions
-                    where ird.IssueReplyId == aReplyId
-                    && ird.UserId == aUser.Id
-                    select ird).Count<IssueReplyDisposition>() > 0 ? true : false;
-        }
-
-        public int TotalIssueReplys(int aReplyId) {
-            return (from ir in theEntities.IssueReplys
-                    where ir.Id == aReplyId
-                    select ir).Count<IssueReply>();
         }
     }
 }

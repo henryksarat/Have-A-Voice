@@ -10,7 +10,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
         void ApproveFan(int aFanId);
         void DeleteFan(int aFanId);
         IEnumerable<Fan> FindFansForUser(int aUserId);
-        IEnumerable<Fan> FindFansOfUser(int aUserId);
         IEnumerable<Fan> FindPendingFansForUser(int aUserId);
         bool IsFan(int aUserId, User aFan);
         bool IsPending(int aUserId, User aFan);

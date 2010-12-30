@@ -15,7 +15,6 @@ namespace HaveAVoice.Models.View {
         public IEnumerable<Board> BoardMessages { get; set; }
         public FanStatus FanStatus { get; set; }
         public IEnumerable<Fan> Fans { get; set; }
-        public IEnumerable<Fan> FansOf { get; set; }
 
         public ProfileModel(User aUser) {
             User = aUser;
@@ -25,7 +24,6 @@ namespace HaveAVoice.Models.View {
             BoardMessages = new List<Board>();
             FanStatus = FanStatus.None;
             Fans = new List<Fan>();
-            FansOf = new List<Fan>();
         }
     }
 }
