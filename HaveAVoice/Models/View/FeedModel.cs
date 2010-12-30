@@ -10,6 +10,7 @@ namespace HaveAVoice.Models.View {
         public User User { get; set; }
         public string ProfilePictureUrl { get; set; }
         public IssueType IssueType { get; set; }
+        public DateTime DateTimeStamp { get; set;  }
         public string Title { get; set; }
         public string Body { get; set; }
         public int TotalLikes { get; set; }
