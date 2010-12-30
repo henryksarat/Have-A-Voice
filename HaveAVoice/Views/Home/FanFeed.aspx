@@ -14,9 +14,10 @@
     <div class="col-21">
         <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
 
+		<% int cnt = 0; %>
         <% foreach (var item in Model.FeedModels) { %>
         
-			<div class="row">
+			<div class="<% if(cnt % 2 == 0) { %>row<% } else { %>alt<% } %>">
 				<div class="col-2 center">
 					<img src="<%= item.ProfilePictureUrl %>" alt="<%= item.User.Username %>" class="profile" />
 				</div>
@@ -25,7 +26,7 @@
 						<span class="speak-lft">&nbsp;</span>
 						<div class="p-a10">
 							<% if (item.IssueType == HaveAVoice.Helpers.Enums.IssueType.Issue) { %>
-								<a href="#"><h1><%= item.Title %></h1></a>
+								<h1><a href="#"><%= item.Title %></a></h1>
 							<% } else { %>
 								<a class="name" href="#"><%= item.User.Username %></a>
 							<% } %>
@@ -84,6 +85,7 @@
 				<div class="col-3">
 					<div class="p-a5">
 						<div class="date-tile">
+							<%= %>
 							<span>3:47</span> AM
 						</div>
 					</div>
