@@ -17,6 +17,7 @@ namespace HaveAVoice.Models.View {
         public int TotalDislikes { get; set; }
         public bool HasDisposition { get; set; }
         public int TotalReplys { get; set; }
+        public bool IsFan { get; set; }
 
         public FeedModel(User aUser) {
             User = aUser;
@@ -24,6 +25,7 @@ namespace HaveAVoice.Models.View {
             IssueType = IssueType.Issue;
             Title = string.Empty;
             Body = string.Empty;
+            IsFan = false;
         }
     }
 }

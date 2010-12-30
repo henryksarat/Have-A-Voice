@@ -14,15 +14,17 @@ namespace HaveAVoice.Services.UserFeatures {
     public class HAVCalendarService : HAVBaseService, IHAVCalendarService {
         private IValidationDictionary theValidationDictionary;
         private IHAVFanService theFanService;
+        private IHAVUserPictureService theUserPictureService;
         private IHAVCalendarRepository theRepository;
 
         public HAVCalendarService(IValidationDictionary aValidationDictionary)
-            : this(aValidationDictionary, new HAVFanService(), new EntityHAVCalendarRepository(), new HAVBaseRepository()) { }
+            : this(aValidationDictionary, new HAVFanService(), new HAVUserPictureService(), new EntityHAVCalendarRepository(), new HAVBaseRepository()) { }
 
-        public HAVCalendarService(IValidationDictionary aValidationDictionary, IHAVFanService aFanService, IHAVCalendarRepository aRepository,
-                               IHAVBaseRepository baseRepository)
+        public HAVCalendarService(IValidationDictionary aValidationDictionary, IHAVFanService aFanService, IHAVUserPictureService aUserPictureService, 
+                                  IHAVCalendarRepository aRepository, IHAVBaseRepository baseRepository)
             : base(baseRepository) {
             theValidationDictionary = aValidationDictionary;
+            theUserPictureService = aUserPictureService;
             theFanService = aFanService;
             theRepository = aRepository;
         }
@@ -53,9 +55,12 @@ namespace HaveAVoice.Services.UserFeatures {
             theRepository.DeleteEvent(anUserInformation.Details, anEventId, myAdminOverride);
         }
 
-        public IEnumerable<Event> GetEventsForUser(User aViewingUser, int aUserId) {
+        public LoggedInModel<Event> GetEventsForUser(User aViewingUser, int aUserId) {
             if (aViewingUser.Id == aUserId || theFanService.IsFan(aUserId, aViewingUser)) {
-                return theRepository.FindEvents(aUserId);
+                return new LoggedInModel<Event>(aViewingUser) {
+                    Models = theRepository.FindEvents(aUserId),
+                    ProfilePictureURL = theUserPictureService.GetProfilePictureURL(aViewingUser)
+                };
             }
 
             throw new NotFanException();

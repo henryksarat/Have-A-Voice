@@ -13,14 +13,17 @@ namespace HaveAVoice.Services.UserFeatures {
     public class HAVHomeService : HAVBaseService, IHAVHomeService {
         private IValidationDictionary theValidationDictionary;
         private IHAVUserPictureService theUserPictureService;
+        private IHAVFanService theFanService;
         private IHAVHomeRepository theHomeRepository;
 
         public HAVHomeService(IValidationDictionary aValidationDictionary)
-            : this(aValidationDictionary, new HAVUserPictureService(), new EntityHAVHomeRepository(), new HAVBaseRepository()) { }
+            : this(aValidationDictionary, new HAVFanService(), new HAVUserPictureService(), new EntityHAVHomeRepository(), new HAVBaseRepository()) { }
 
-        public HAVHomeService(IValidationDictionary aValidationDictionary, IHAVUserPictureService aUserPictureService, 
-                                            IHAVHomeRepository aRepository, IHAVBaseRepository baseRepository) : base(baseRepository) {
+        public HAVHomeService(IValidationDictionary aValidationDictionary, IHAVFanService aFanService, 
+                              IHAVUserPictureService aUserPictureService, IHAVHomeRepository aRepository, 
+                              IHAVBaseRepository baseRepository) : base(baseRepository) {
             theValidationDictionary = aValidationDictionary;
+            theFanService = aFanService;
             theUserPictureService = aUserPictureService;
             theHomeRepository = aRepository;
         }
@@ -34,40 +37,40 @@ namespace HaveAVoice.Services.UserFeatures {
             };
         }
 
-        public LoggedInModel FanReplys(User aUser) {
+        public LoggedInModel<FeedModel> FanReplys(User aUser) {
             IEnumerable<Issue> myIssues = theHomeRepository.FanIssueFeed(aUser);
             IEnumerable<IssueReply> myIssueReplys = theHomeRepository.FanIssueReplyFeed(aUser);
-            IEnumerable<FeedModel> myFeedModel = CreateFeedModel(aUser, myIssues, myIssueReplys);
+            IEnumerable<FeedModel> myFeedModel = CreateFeedModel(aUser, myIssues, myIssueReplys, false);
 
-            return new LoggedInModel(aUser) {
+            return new LoggedInModel<FeedModel>(aUser) {
                 ProfilePictureURL = theUserPictureService.GetProfilePictureURL(aUser),
-                FeedModels = myFeedModel,
+                Models = myFeedModel,
             };
         }
 
-        public LoggedInModel OfficialReplys(User aUser) {
+        public LoggedInModel<FeedModel> OfficialsFeed(User aUser) {
             IEnumerable<Issue> myIssues = theHomeRepository.OfficialsIssueFeed(aUser, RoleHelper.OfficialRoles());
             IEnumerable<IssueReply> myIssueReplys = theHomeRepository.OfficialsIssueReplyFeed(aUser, RoleHelper.OfficialRoles());
-            IEnumerable<FeedModel> myFeedModel = CreateFeedModel(aUser, myIssues, myIssueReplys);
+            IEnumerable<FeedModel> myFeedModel = CreateFeedModel(aUser, myIssues, myIssueReplys, false);
 
-            return new LoggedInModel(aUser) {
+            return new LoggedInModel<FeedModel>(aUser) {
                 ProfilePictureURL = theUserPictureService.GetProfilePictureURL(aUser),
-                FeedModels = myFeedModel,
+                Models = myFeedModel,
             };
         }
 
-        public LoggedInModel FilteredFeed(User aUser) {
-            IEnumerable<Issue> myIssues = new List<Issue>();
+        public LoggedInModel<FeedModel> FilteredFeed(User aUser) {
+            IEnumerable<Issue> myIssues = theHomeRepository.FilteredIssuesFeed(aUser);
             IEnumerable<IssueReply> myIssueReplys = theHomeRepository.FilteredIssueReplysFeed(aUser);
-            IEnumerable<FeedModel> myFeedModel = CreateFeedModel(aUser, myIssues, myIssueReplys);
+            IEnumerable<FeedModel> myFeedModel = CreateFeedModel(aUser, myIssues, myIssueReplys, false);
 
-            return new LoggedInModel(aUser) {
+            return new LoggedInModel<FeedModel>(aUser) {
                 ProfilePictureURL = theUserPictureService.GetProfilePictureURL(aUser),
-                FeedModels = myFeedModel,
+                Models = myFeedModel,
             };
         }
 
-        private IEnumerable<FeedModel> CreateFeedModel(User aUser, IEnumerable<Issue> anIssues, IEnumerable<IssueReply> anIssueReplys) {
+        private IEnumerable<FeedModel> CreateFeedModel(User aUser, IEnumerable<Issue> anIssues, IEnumerable<IssueReply> anIssueReplys, bool aUseFanService) {
             IEnumerator<Issue> myIssueEnumerator = anIssues.GetEnumerator();
             IEnumerator<IssueReply> myReplyEnumerator = anIssueReplys.GetEnumerator();
             List<FeedModel> myFeedModel = new List<FeedModel>();
@@ -100,7 +103,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 TotalLikes = (from d in myIssueDisposition where d.Disposition == (int)Disposition.LIKE select d).Count<IssueDisposition>(),
                 TotalDislikes = (from d in myIssueDisposition where d.Disposition == (int)Disposition.DISLIKE select d).Count<IssueDisposition>(),
                 HasDisposition = (from d in myIssueDisposition where d.UserId == aUser.Id select d).Count<IssueDisposition>() > 1 ? true : false,
-                TotalReplys = myIssue.IssueReplys.Count
+                TotalReplys = myIssue.IssueReplys.Count,
             };
         }
 

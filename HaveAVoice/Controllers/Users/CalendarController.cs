@@ -55,16 +55,16 @@ namespace HaveAVoice.Controllers.Users
         }
 
         public ActionResult GetEvents(User aViewingUser, int aUserId, string aViewName) {
-            IEnumerable<Event> myList = new List<Event>();
+            LoggedInModel<Event> myLoggedInModel = new LoggedInModel<Event>(aViewingUser);
             try {
 
-                myList = theEventService.GetEventsForUser(aViewingUser, aUserId);
+                myLoggedInModel = theEventService.GetEventsForUser(aViewingUser, aUserId);
             } catch (Exception e) {
                 LogError(e, LOAD_EVENTS_ERROR);
                 ViewData["Message"] = LOAD_EVENTS_ERROR;
             }
 
-            return View(aViewName, myList);
+            return View(aViewName, myLoggedInModel);
         }
 
         [AcceptVerbs(HttpVerbs.Post)]

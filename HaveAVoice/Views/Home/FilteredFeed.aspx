@@ -15,7 +15,7 @@
         <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
 
 		<% int cnt = 0; %>
-        <% foreach (var item in Model.Models) { %>
+        <% foreach (var item in Model.FeedModels) { %>
         
 			<div class="<% if(cnt % 2 == 0) { %>row<% } else { %>alt<% } %>">
 				<div class="col-2 center">

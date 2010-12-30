@@ -138,22 +138,51 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         public IEnumerable<IssueReply> FilteredIssueReplysFeed(User aUser) {
-            IEnumerable<FilteredCityState> myFilteredCityState = GetFilteredCityState(aUser);
+            IEnumerable<FilteredCityState> myFilteredCityStates = FindFilteredCityStateForUser(aUser);
+            IEnumerable<FilteredZipCode> myFilteredZipCodes = FindFilteredZipCodeForUser(aUser);
+
+            IEnumerable<string> myFilteredCitys = (from f in myFilteredCityStates select f.City);
+            IEnumerable<string> myFilteredStates = (from f in myFilteredCityStates select f.State);
+            IEnumerable<string> myFilteredZipCodesAsString = (from f in myFilteredZipCodes select f.ZipCode.ToString());
 
             return (from ir in theEntities.IssueReplys
                     join u in theEntities.Users on ir.User.Id equals u.Id
-                    join f in theEntities.Fans on u.Id equals f.SourceUser.Id
-                    where (f.FanUserId == aUser.Id || f.SourceUserId == aUser.Id)
-                    && u.Id != aUser.Id
-                    && f.Approved == true
+                    where u.Id != aUser.Id
                     && ir.Deleted == false
+                    && (myFilteredCitys.Count<string>() > 1 ? myFilteredCitys.Contains(ir.City) : true)
+                    && (myFilteredStates.Count<string>() > 1 ? myFilteredStates.Contains(ir.State) : true)
+                    && (myFilteredZipCodesAsString.Count<string>() > 1 ? myFilteredZipCodesAsString.Contains(ir.Zip.ToString()) : true)
                     select ir).OrderByDescending(ir => ir.DateTimeStamp).ToList<IssueReply>();
         }
 
-        private IEnumerable<FilteredCityState> GetFilteredCityState(User aUser) {
+        public IEnumerable<Issue> FilteredIssuesFeed(User aUser) {
+            IEnumerable<FilteredCityState> myFilteredCityStates = FindFilteredCityStateForUser(aUser);
+            IEnumerable<FilteredZipCode> myFilteredZipCodes = FindFilteredZipCodeForUser(aUser);
+
+            IEnumerable<string> myFilteredCitys = (from f in myFilteredCityStates select f.City);
+            IEnumerable<string> myFilteredStates = (from f in myFilteredCityStates select f.State);
+            IEnumerable<string> myFilteredZipCodesAsString = (from f in myFilteredZipCodes select f.ZipCode.ToString());
+
+            return (from i in theEntities.Issues
+                    join u in theEntities.Users on i.User.Id equals u.Id
+                    where u.Id != aUser.Id
+                    && i.Deleted == false
+                    && (myFilteredCitys.Count<string>() > 1 ? myFilteredCitys.Contains(i.City) : true)
+                    && (myFilteredStates.Count<string>() > 1 ? myFilteredStates.Contains(i.State) : true)
+                    && (myFilteredZipCodesAsString.Count<string>() > 1 ? myFilteredZipCodesAsString.Contains(i.Zip.ToString()) : true)
+                    select i).OrderByDescending(i => i.DateTimeStamp).ToList<Issue>();
+        }
+
+        private IEnumerable<FilteredCityState> FindFilteredCityStateForUser(User aUser) {
             return (from f in theEntities.FilteredCityStates
                     where f.UserId == aUser.Id
                     select f).ToList<FilteredCityState>();
+        }
+
+        private IEnumerable<FilteredZipCode> FindFilteredZipCodeForUser(User aUser) {
+            return (from f in theEntities.FilteredZipCodes
+                    where f.UserId == aUser.Id
+                    select f).ToList<FilteredZipCode>();
         }
 
         public IEnumerable<Issue> FanIssueFeed(User aUser) {

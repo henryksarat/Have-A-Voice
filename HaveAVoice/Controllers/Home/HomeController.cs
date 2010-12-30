@@ -19,6 +19,7 @@ namespace HaveAVoice.Controllers.Home {
         private const string NOT_LOGGED_IN = "NotLoggedIn";
         private const string FAN_FEED = "FanFeed";
         private const string OFFICIALS_FEED = "OfficialsFeed";
+        private const string FILTERED_FEED = "FilteredFeed";
 
         private IHAVHomeService theService;
 
@@ -54,7 +55,7 @@ namespace HaveAVoice.Controllers.Home {
                 return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
-            LoggedInModel myModel = new LoggedInModel(myUser);
+            LoggedInModel<FeedModel> myModel = new LoggedInModel<FeedModel>(myUser);
             try {
                 myModel = theService.FanReplys(myUser);
             } catch (Exception e) {
@@ -70,9 +71,9 @@ namespace HaveAVoice.Controllers.Home {
                 return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
-            LoggedInModel myModel = new LoggedInModel(myUser);
+            LoggedInModel<FeedModel> myModel = new LoggedInModel<FeedModel>(myUser);
             try {
-                myModel = theService.OfficialReplys(myUser);
+                myModel = theService.OfficialsFeed(myUser);
             } catch (Exception e) {
                 LogError(e, PAGE_LOAD_ERROR);
                 ViewData["Message"] = PAGE_LOAD_ERROR;
@@ -86,15 +87,15 @@ namespace HaveAVoice.Controllers.Home {
                 return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
-            LoggedInModel myModel = new LoggedInModel(myUser);
+            LoggedInModel<FeedModel> myModel = new LoggedInModel<FeedModel>(myUser);
             try {
-                myModel = theService.FanReplys(myUser);
+                myModel = theService.FilteredFeed(myUser);
             } catch (Exception e) {
                 LogError(e, PAGE_LOAD_ERROR);
                 ViewData["Message"] = PAGE_LOAD_ERROR;
             }
 
-            return View(OFFICIALS_FEED, myModel);
+            return View(FILTERED_FEED, myModel);
         }
 
         public ActionResult AddCityStateFilter(string city, string state) {
@@ -102,7 +103,7 @@ namespace HaveAVoice.Controllers.Home {
                 return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
-            LoggedInModel myModel = new LoggedInModel(myUser);
+            LoggedInModel<FeedModel> myModel = new LoggedInModel<FeedModel>(myUser);
             try {
                 myModel = theService.FanReplys(myUser);
                 if (theService.AddCityStateFilter(myUser, city, state)) {
@@ -114,7 +115,7 @@ namespace HaveAVoice.Controllers.Home {
                 return SendToErrorPage(UNABLE_TO_ADD_FILTER);
             }
 
-            return View(FAN_FEED, myModel);
+            return View(FILTERED_FEED, myModel);
         }
 
         public ActionResult AddZipCodeFilter(string zipCode) {
@@ -122,7 +123,7 @@ namespace HaveAVoice.Controllers.Home {
                 return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
-            LoggedInModel myModel = new LoggedInModel(myUser);
+            LoggedInModel<FeedModel> myModel = new LoggedInModel<FeedModel>(myUser);
             try {
                 myModel = theService.FanReplys(myUser);
                 if (theService.AddZipCodeFilter(myUser, zipCode)) {
@@ -133,7 +134,7 @@ namespace HaveAVoice.Controllers.Home {
                 return SendToErrorPage(UNABLE_TO_ADD_FILTER);
             }
 
-            return View(FAN_FEED, myModel);
+            return View(FILTERED_FEED, myModel);
         }
     }
 }
