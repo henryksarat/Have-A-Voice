@@ -16,17 +16,19 @@
 
         <% foreach (var item in Model.FeedModels) { %>
         
-        	<%= item.IssueType.ToString() %>
-        
 			<div class="row">
 				<div class="col-2 center">
-					<img src="<% /* = item.ProfilePictureUrl */ %>" alt="<%= item.User.Username %>" class="profile" />
+					<img src="<%= item.ProfilePictureUrl %>" alt="<%= item.User.Username %>" class="profile" />
 				</div>
 				<div class="col-16">
 					<div class="m-lft col-16 comment">
 						<span class="speak-lft">&nbsp;</span>
 						<div class="p-a10">
-							<a class="name" href="#"><%= item.User.Username %></a>
+							<% if (item.IssueType == HaveAVoice.Helpers.Enums.IssueType.Issue) { %>
+								<a href="#"><h1><%= item.Title %></h1></a>
+							<% } else { %>
+								<a class="name" href="#"><%= item.User.Username %></a>
+							<% } %>
 							<%= item.Body %>
 							<div class="clear">&nbsp;</div>
 							
