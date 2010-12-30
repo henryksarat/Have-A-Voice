@@ -20,6 +20,8 @@
 
 			    <% using (Html.BeginForm("Login", "Authentication", FormMethod.Post, new { @class = "create" })) { %>
 			        <%= Html.Encode(ViewData["Message"]) %>
+			        <div class="clear">&nbsp;</div>
+			        
 			
 					<div class="col-4 m-rgt right">
 						<label for="Email">Email:</label>
