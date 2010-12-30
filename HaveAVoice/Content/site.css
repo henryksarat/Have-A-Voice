@@ -268,6 +268,13 @@ img.profile { border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius
 
 
 /****************************************************************************/
+/******************************* EVENTS *************************************/
+/****************************************************************************/
+.events .row { background: #c0d8de; }
+.events .alt { background: #b6dde7; }
+.events a.delete, .events a.delete:link, .events a.delete:visited { color: #DC143C; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; }
+
+/****************************************************************************/
 /****************************************************************************/
 /****************************************************************************/
 .events .title { padding: 5px 0px; text-align: center; text-transform: uppercase; font-weight: bold; color: #ffffff; background: #a0cfdB; }

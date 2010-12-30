@@ -6,7 +6,7 @@
 <% User myUser = HAVUserInformationFactory.GetUserInformation().Details; %>
 <div class="col-12">
     <ul>
-        <li><a href="#">HOME</a></li>
+        <li><a href="/Home/FanFeed">HOME</a></li>
 		<li><a href="#">FANS<%= NavigationHelper.PendingFanCount(myUser) %></a></li>
 		<li><a href="#">MAIL<%= NavigationHelper.NewMessageCount(myUser) %></a></li>
 		<li><a href="#">NOTIFICATIONS<%= NavigationHelper.NotificationCount(myUser) %></a></li>
