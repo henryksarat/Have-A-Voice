@@ -17,6 +17,10 @@ namespace HaveAVoice.Repositories.UserFeatures {
         public void ApproveFan(int aFanId) {
             Fan myFan = FindFan(aFanId);
             myFan.Approved = true;
+
+            Fan myInverseFanEntry = Fan.CreateFan(0, myFan.SourceUserId, myFan.FanUserId, true);
+
+            theEntities.AddToFans(myInverseFanEntry);
             theEntities.ApplyCurrentValues(myFan.EntityKey.EntitySetName, myFan);
             theEntities.SaveChanges();
         }
