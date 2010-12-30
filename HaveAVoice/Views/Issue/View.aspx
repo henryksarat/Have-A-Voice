@@ -22,6 +22,8 @@
         
         <fieldset>
             <legend>Fields</legend>
+                <%= Html.Hidden("City", HAVUserInformationFactory.GetUserInformation().Details.City) %>
+                <%= Html.Hidden("State", HAVUserInformationFactory.GetUserInformation().Details.State) %>
             <p>
                 <%= Html.Encode(ViewData["Message"]) %>
             </p>

@@ -1,4 +1,5 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.Wrappers.IssueWrapper>" %>
+<%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Create
@@ -24,6 +25,8 @@
 		    <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
 
 		    <% using (Html.BeginForm()) {%>
+                <%= Html.Hidden("City", HAVUserInformationFactory.GetUserInformation().Details.City) %>
+                <%= Html.Hidden("State", HAVUserInformationFactory.GetUserInformation().Details.State) %>
 		        <fieldset>
 		            <legend>Fields</legend>
 		            <p>

@@ -81,6 +81,22 @@ namespace HaveAVoice.Controllers.Home {
             return View(OFFICIALS_FEED, myModel);
         }
 
+        public ActionResult FilteredFeed() {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            User myUser = GetUserInformaton();
+            LoggedInModel myModel = new LoggedInModel(myUser);
+            try {
+                myModel = theService.FanReplys(myUser);
+            } catch (Exception e) {
+                LogError(e, PAGE_LOAD_ERROR);
+                ViewData["Message"] = PAGE_LOAD_ERROR;
+            }
+
+            return View(OFFICIALS_FEED, myModel);
+        }
+
         public ActionResult AddCityStateFilter(string city, string state) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();

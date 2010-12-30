@@ -117,7 +117,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         public IEnumerable<Issue> OfficialsIssueFeed(User aViewingUser, IEnumerable<string> aSelectedRoles) {
             return (from i in theEntities.Issues
-                    join u in theEntities.Users on i.StartedByUserId equals u.Id
+                    join u in theEntities.Users on i.UserId equals u.Id
                     join ur in theEntities.UserRoles on u.Id equals ur.User.Id
                     join r in theEntities.Roles on ur.Role.Id equals r.Id
                     where u.Id != aViewingUser.Id
@@ -137,13 +137,28 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     select ir).OrderByDescending(ir => ir.DateTimeStamp).ToList<IssueReply>();
         }
 
-        public IEnumerable<IssueReply> FilteredFeed(User aUser) {
-            throw new NotImplementedException();
+        public IEnumerable<IssueReply> FilteredIssueReplysFeed(User aUser) {
+            IEnumerable<FilteredCityState> myFilteredCityState = GetFilteredCityState(aUser);
+
+            return (from ir in theEntities.IssueReplys
+                    join u in theEntities.Users on ir.User.Id equals u.Id
+                    join f in theEntities.Fans on u.Id equals f.SourceUser.Id
+                    where (f.FanUserId == aUser.Id || f.SourceUserId == aUser.Id)
+                    && u.Id != aUser.Id
+                    && f.Approved == true
+                    && ir.Deleted == false
+                    select ir).OrderByDescending(ir => ir.DateTimeStamp).ToList<IssueReply>();
+        }
+
+        private IEnumerable<FilteredCityState> GetFilteredCityState(User aUser) {
+            return (from f in theEntities.FilteredCityStates
+                    where f.UserId == aUser.Id
+                    select f).ToList<FilteredCityState>();
         }
 
         public IEnumerable<Issue> FanIssueFeed(User aUser) {
             return (from i in theEntities.Issues
-                    join u in theEntities.Users on i.StartedByUserId equals u.Id
+                    join u in theEntities.Users on i.UserId equals u.Id
                     join f in theEntities.Fans on u.Id equals f.SourceUserId
                     where u.Id != aUser.Id
                     && (f.FanUserId == aUser.Id || f.SourceUserId == aUser.Id) 
