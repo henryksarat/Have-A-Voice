@@ -7,7 +7,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <% Html.RenderPartial("UserPanel"); %>    
-    <div class="col-3 left-nav">
+    <div class="col-3 m-rgt left-nav">
         <% Html.RenderPartial("LeftNavigation"); %>
     </div>
     
@@ -30,6 +30,7 @@
 							<% } else { %>
 								<a class="name" href="#"><%= item.User.Username %></a>
 							<% } %>
+							<br />
 							<%= item.Body %>
 							<div class="clear">&nbsp;</div>
 							
@@ -85,8 +86,7 @@
 				<div class="col-3">
 					<div class="p-a5">
 						<div class="date-tile">
-							<%= %>
-							<span>3:47</span> AM
+							<span><%= item.DateTimeStamp.ToString("MMM").ToUpper() %></span> <%= item.DateTimeStamp.ToString("dd") %>
 						</div>
 					</div>
 				</div>

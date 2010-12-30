@@ -264,7 +264,7 @@ img.profile { border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius
 .issue { font-size: 12px; margin-bottom: 5px; }
 .issue a.like, .issue a.like:link, .issue a.like:visited { color: #2070c9; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; background: transparent; }
 .issue a.dislike, .issue a.dislike:link, .issue a.dislike:visited { text-decoration: none; font-size: 12px; font-weight: bold; font-style: normal; text-transform: uppercase; }
-.issue a.delete, .issue a.delete:link, .issue a.delete:visited { color: #115f71; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; }
+.issue a.delete, .issue a.delete:link, .issue a.delete:visited { color: #DC143C; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; }
 
 
 /****************************************************************************/
