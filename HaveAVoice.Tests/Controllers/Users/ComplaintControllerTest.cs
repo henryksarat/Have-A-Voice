@@ -44,7 +44,7 @@ namespace HaveAVoice.Tests.Controllers.Users {
                 theUserRetrievalService.Object, theMockIssueService.Object, theMockUserPictureService.Object);
             theController.ControllerContext = GetControllerContext();
 
-            theIssue = Issue.CreateIssue(COMPLAINT_SOURCE_ID, COMPLAINT, COMPLAINT_DESCRIPTION, DateTime.UtcNow, STARTED_BY_USER_ID, false);
+            theIssue = Issue.CreateIssue(COMPLAINT_SOURCE_ID, COMPLAINT, COMPLAINT_DESCRIPTION, "Chicago", "IL", DateTime.UtcNow, STARTED_BY_USER_ID, false);
         }
 
         #region "Complaint - NonPostBack"

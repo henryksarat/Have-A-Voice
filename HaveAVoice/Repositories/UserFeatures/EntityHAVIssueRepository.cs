@@ -15,7 +15,9 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         public Issue CreateIssue(Issue anIssueToCreate, User aUserCreating) {
-            anIssueToCreate = Issue.CreateIssue(0, anIssueToCreate.Title, anIssueToCreate.Description, DateTime.UtcNow, aUserCreating.Id, false);
+            anIssueToCreate = Issue.CreateIssue(0, anIssueToCreate.Title, anIssueToCreate.Description, aUserCreating.City, aUserCreating.State, DateTime.UtcNow, aUserCreating.Id, false);
+            anIssueToCreate.Zip = aUserCreating.Zip;
+
             theEntities.AddToIssues(anIssueToCreate);
             theEntities.SaveChanges();
 
@@ -29,7 +31,9 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         public IssueReply CreateIssueReply(Issue anIssue, User aUserCreating, string aReply, bool anAnonymous, Disposition aDisposition) {
-            IssueReply issueReply = IssueReply.CreateIssueReply(0, anIssue.Id, aUserCreating.Id, aReply, DateTime.UtcNow, anAnonymous, (int)aDisposition, false);
+            IssueReply issueReply = IssueReply.CreateIssueReply(0, anIssue.Id, aUserCreating.Id, aReply, aUserCreating.City, aUserCreating.State, (int)aDisposition, anAnonymous, DateTime.UtcNow, false);
+            issueReply.Zip = aUserCreating.Zip;
+
             theEntities.AddToIssueReplys(issueReply);
             theEntities.SaveChanges();
 

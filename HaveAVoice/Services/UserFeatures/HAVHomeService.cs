@@ -56,6 +56,17 @@ namespace HaveAVoice.Services.UserFeatures {
             };
         }
 
+        public LoggedInModel FilteredFeed(User aUser) {
+            IEnumerable<Issue> myIssues = new List<Issue>();
+            IEnumerable<IssueReply> myIssueReplys = theHomeRepository.FilteredIssueReplysFeed(aUser);
+            IEnumerable<FeedModel> myFeedModel = CreateFeedModel(aUser, myIssues, myIssueReplys);
+
+            return new LoggedInModel(aUser) {
+                ProfilePictureURL = theUserPictureService.GetProfilePictureURL(aUser),
+                FeedModels = myFeedModel,
+            };
+        }
+
         private IEnumerable<FeedModel> CreateFeedModel(User aUser, IEnumerable<Issue> anIssues, IEnumerable<IssueReply> anIssueReplys) {
             IEnumerator<Issue> myIssueEnumerator = anIssues.GetEnumerator();
             IEnumerator<IssueReply> myReplyEnumerator = anIssueReplys.GetEnumerator();

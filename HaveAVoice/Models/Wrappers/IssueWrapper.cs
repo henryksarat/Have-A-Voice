@@ -14,8 +14,14 @@ namespace HaveAVoice.Models.Wrappers {
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Description { get; set; }
 
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string City { get; set; }
+
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string State { get; set; }
+
         public Issue ToModel() {
-            return Issue.CreateIssue(Id, Title, Description, DateTime.UtcNow, 0, false);
+            return Issue.CreateIssue(Id, Title, Description, City, State,DateTime.UtcNow, 0, false);
         }
 
         public static IssueWrapper Build(Issue aBoard) {

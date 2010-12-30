@@ -387,7 +387,6 @@
     <Content Include="Views\User\Create.aspx" />
     <Content Include="Views\User\Edit.aspx" />
     <Content Include="Views\Fan\Fans.aspx" />
-    <Content Include="Views\Fan\FansOf.aspx" />
     <Content Include="Views\Password\Request.aspx" />
     <Content Include="Views\UserPictures\Show.aspx" />
     <Content Include="Views\Profile\Show.aspx" />

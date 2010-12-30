@@ -52,8 +52,8 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
             theService = new HAVIssueService(new ModelStateWrapper(theModelState),
                                                                theMockRepository.Object,
                                                                theBaseRepository.Object);
-            theIssue = Issue.CreateIssue(ID, ISSUE_TITLE, ISSUE_DESCRIPTION, DateTime.UtcNow, 0, false);
-            theIssueReply = IssueReply.CreateIssueReply(ID, 0, 0, REPLY, DateTime.UtcNow, false, 1, false);
+            theIssue = Issue.CreateIssue(ID, ISSUE_TITLE, ISSUE_DESCRIPTION, "Chicago", "IL", DateTime.UtcNow, 0, false);
+            theIssueReply = IssueReply.CreateIssueReply(ID, 0, 0, REPLY, "Chicago", "IL", 1, false, DateTime.UtcNow, false);
             theComment = IssueReplyComment.CreateIssueReplyComment(ID, ID, REPLY, DateTime.UtcNow, ID, false);
         }
 
@@ -63,7 +63,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
             myPermissions.Add(POST_ISSUE_PERMISSION);
             theUserInformationBuilder.AddPermissions(myPermissions);
 
-            Issue issue = Issue.CreateIssue(0, ISSUE_TITLE, ISSUE_DESCRIPTION, ISSUE_POST_DATE, 0, false);
+            Issue issue = Issue.CreateIssue(0, ISSUE_TITLE, ISSUE_DESCRIPTION, "Chicago", "IL", ISSUE_POST_DATE, 0, false);
             bool result = theService.CreateIssue(theUserInformationBuilder.Build(), issue);
             theMockRepository.Verify(r => r.CreateIssue(It.IsAny<Issue>(), It.IsAny<User>()), Times.Exactly(1));
             Assert.IsTrue(result);
@@ -73,7 +73,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
         public void UnableToCreateIssueBecauseOfNoPermission() {
             List<Permission> myPermissions = new List<Permission>();
             theUserInformationBuilder.AddPermissions(myPermissions);
-            Issue issue = Issue.CreateIssue(0, ISSUE_TITLE, ISSUE_DESCRIPTION, ISSUE_POST_DATE, 0, false);
+            Issue issue = Issue.CreateIssue(0, ISSUE_TITLE, ISSUE_DESCRIPTION, "Chicago", "IL", ISSUE_POST_DATE, 0, false);
             bool myResult = theService.CreateIssue(theUserInformationBuilder.Build(), issue);
             theMockRepository.Verify(r => r.CreateIssue(It.IsAny<Issue>(), It.IsAny<User>()), Times.Never());
             Assert.IsFalse(myResult);
@@ -81,7 +81,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
 
         [TestMethod]
         public void UnableToCreateCreateIssueBecauseNameIsRequired() {
-            Issue issue = Issue.CreateIssue(0, string.Empty, ISSUE_DESCRIPTION, ISSUE_POST_DATE, 0, false);
+            Issue issue = Issue.CreateIssue(0, string.Empty, ISSUE_DESCRIPTION, "Chicago", "IL", ISSUE_POST_DATE, 0, false);
 
             bool result = theService.CreateIssue(theUserInformationBuilder.Build(), issue);
 
@@ -93,7 +93,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
 
         [TestMethod]
         public void UnableToCreateCreateIssueBecauseDescriptionIsRequired() {
-            Issue issue = Issue.CreateIssue(0, ISSUE_TITLE, string.Empty, ISSUE_POST_DATE, 0, false);
+            Issue issue = Issue.CreateIssue(0, ISSUE_TITLE, string.Empty, "Chicago", "IL", ISSUE_POST_DATE, 0, false);
 
             bool result = theService.CreateIssue(theUserInformationBuilder.Build(), issue);
 
