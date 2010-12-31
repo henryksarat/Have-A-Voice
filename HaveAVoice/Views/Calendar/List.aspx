@@ -81,7 +81,7 @@
 				</div>
 				<div class="col-2 center">
 					<div class="p-a5">
-						<%= Html.ActionLink("Delete", "DeleteEvent", new { eventId = item.Id }, new { @class = "delete" }) %>
+						<%= Html.ActionLink("Delete", "DeleteEvent", new { id = item.Id }, new { @class = "delete" }) %>
 					</div>
 				</div>
 				<div class="clear">&nbsp;</div>
