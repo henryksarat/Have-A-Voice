@@ -7,7 +7,7 @@ using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Models.View {
     public class FeedModel {
-        public User User { get; set; }
+        public string Username { get; set; }
         public string ProfilePictureUrl { get; set; }
         public IssueType IssueType { get; set; }
         public DateTime DateTimeStamp { get; set;  }
@@ -17,15 +17,13 @@ namespace HaveAVoice.Models.View {
         public int TotalDislikes { get; set; }
         public bool HasDisposition { get; set; }
         public int TotalReplys { get; set; }
-        public bool IsFan { get; set; }
 
-        public FeedModel(User aUser) {
-            User = aUser;
+        public FeedModel() {
+            Username = string.Empty;
             ProfilePictureUrl = HAVConstants.NO_PROFILE_PICTURE_URL;
             IssueType = IssueType.Issue;
             Title = string.Empty;
             Body = string.Empty;
-            IsFan = false;
         }
     }
 }

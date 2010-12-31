@@ -11,7 +11,7 @@ namespace HaveAVoice.Services.UserFeatures {
         void DeclineFan(int aFanId);
         IEnumerable<Fan> FindFansForUser(int aUserId);
         IEnumerable<Fan> FindPendingFansForUser(int aUserId);
-        bool IsFan(int aUserId, User aFan);
+        bool IsFan(int aSourceUserId, User aFanUser);
         bool IsPending(int aUserId, User aFan);
     }
 }
