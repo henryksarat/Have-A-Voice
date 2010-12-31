@@ -80,7 +80,6 @@
 									</div>
 								</div>
 							</div>
-							<div class="spacer-10">&nbsp;</div>
 						</div>
 					</div>
 				</div>
@@ -92,7 +91,8 @@
 					</div>
 				</div>
 				<div class="clear">&nbsp;</div>
-				
+			</div>
+			<div class="spacer-10">&nbsp;</div>
         <% } %>
     </div>
 </asp:Content>
