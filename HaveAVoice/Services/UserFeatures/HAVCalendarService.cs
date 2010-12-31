@@ -57,10 +57,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public LoggedInModel<Event> GetEventsForUser(User aViewingUser, int aUserId) {
             if (aViewingUser.Id == aUserId || theFanService.IsFan(aUserId, aViewingUser)) {
-                UserModel myUserModel = new UserModel(aViewingUser) {
-                    ProfilePictureUrl = theUserPictureService.GetProfilePictureURL(aViewingUser)
-                };
-
+                UserModel myUserModel = new UserModel(aViewingUser);
                 return new LoggedInModel<Event>(myUserModel) {
                     Models = theRepository.FindEvents(aUserId)
                 };

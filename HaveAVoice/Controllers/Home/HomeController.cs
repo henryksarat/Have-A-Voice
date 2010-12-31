@@ -58,7 +58,7 @@ namespace HaveAVoice.Controllers.Home {
             
             LoggedInModel<FeedModel> myModel = new LoggedInModel<FeedModel>(new UserModel(myUser));
             try {
-                myModel = theService.FanReplys(myUser);
+                myModel = theService.FanFeed(myUser);
             } catch (Exception e) {
                 LogError(e, PAGE_LOAD_ERROR);
                 ViewData["Message"] = PAGE_LOAD_ERROR;
@@ -106,7 +106,7 @@ namespace HaveAVoice.Controllers.Home {
             User myUser = GetUserInformaton();
             LoggedInModel<FeedModel> myModel = new LoggedInModel<FeedModel>(new UserModel(myUser));
             try {
-                myModel = theService.FanReplys(myUser);
+                myModel = theService.FanFeed(myUser);
                 if (theService.AddCityStateFilter(myUser, city, state)) {
                     ViewData.ModelState.Remove("State");
                     ViewData.ModelState.Remove("City");
@@ -127,7 +127,7 @@ namespace HaveAVoice.Controllers.Home {
             User myUser = GetUserInformaton();
             LoggedInModel<FeedModel> myModel = new LoggedInModel<FeedModel>(new UserModel(myUser));
             try {
-                myModel = theService.FanReplys(myUser);
+                myModel = theService.FanFeed(myUser);
                 if (theService.AddZipCodeFilter(myUser, zipCode)) {
                     ViewData.ModelState.Remove("ZipCode");
                 }

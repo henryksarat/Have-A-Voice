@@ -9,25 +9,24 @@ using HaveAVoice.Models.View;
 using HaveAVoice.Models.View.Builders;
 using HaveAVoice.Models;
 using HaveAVoice.Helpers.Enums;
+using HaveAVoice.Services.Helpers;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVProfileService : HAVBaseService, IHAVProfileService {
         private IHAVUserRetrievalService theUserRetrievalService;
         private IHAVFanService theFanService;
-        private IHAVUserPictureService theUserPicturesService;
         private IHAVProfileRepository theRepository;
         private IValidationDictionary theValidationDictionary;
         private IHAVBoardRepository theBoardRepository;
 
         public HAVProfileService(IValidationDictionary validationDictionary)
-            : this(validationDictionary, new HAVUserRetrievalService(), new HAVFanService(), new HAVUserPictureService(), new EntityHAVProfileRepository(), new EntityHAVBoardRepository(), new HAVBaseRepository()) { }
+            : this(validationDictionary, new HAVUserRetrievalService(), new HAVFanService(), new EntityHAVProfileRepository(), new EntityHAVBoardRepository(), new HAVBaseRepository()) { }
 
-        public HAVProfileService(IValidationDictionary aValidationDictionary, IHAVUserRetrievalService aUserRetrievalService, IHAVFanService aFanService, IHAVUserPictureService aUserPictureService, IHAVProfileRepository aRepository,
+        public HAVProfileService(IValidationDictionary aValidationDictionary, IHAVUserRetrievalService aUserRetrievalService, IHAVFanService aFanService, IHAVProfileRepository aRepository,
                                             IHAVBoardRepository aBoardRepository, IHAVBaseRepository aBaseRepository) : base(aBaseRepository) {
             theValidationDictionary = aValidationDictionary;
             theUserRetrievalService = aUserRetrievalService;
             theFanService = aFanService;
-            theUserPicturesService = aUserPictureService;
             theRepository = aRepository;
             theBoardRepository = aBoardRepository;
         }
@@ -45,7 +44,7 @@ namespace HaveAVoice.Services.UserFeatures {
             }
 
             ProfileModel myModel = new ProfileModel(myUser) {
-                ProfilePictureUrl = theUserPicturesService.GetProfilePictureURL(myUser),
+                ProfilePictureUrl = ProfilePictureHelper.ProfilePicture(myUser),
                 BoardMessages = myBoardMessages,
                 IssueReplys = myIssueReplys,
                 Fans = myFans,

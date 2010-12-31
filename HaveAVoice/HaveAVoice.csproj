@@ -158,6 +158,7 @@
     <Compile Include="Services\AdminFeatures\IHAVPermissionService.cs" />
     <Compile Include="Services\Helpers\NavigationHelper.cs" />
     <Compile Include="Services\Helpers\PrivacyHelper.cs" />
+    <Compile Include="Services\Helpers\ProfilePictureHelper.cs" />
     <Compile Include="Services\UserFeatures\HAVFanService.cs" />
     <Compile Include="Services\UserFeatures\HAVNavigationService.cs" />
     <Compile Include="Services\UserFeatures\HAVUserRetrievalService.cs" />

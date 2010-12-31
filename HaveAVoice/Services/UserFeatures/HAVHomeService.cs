@@ -8,23 +8,21 @@ using HaveAVoice.Helpers;
 using System;
 using HaveAVoice.Models;
 using System.Linq;
+using HaveAVoice.Services.Helpers;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVHomeService : HAVBaseService, IHAVHomeService {
         private IValidationDictionary theValidationDictionary;
-        private IHAVUserPictureService theUserPictureService;
         private IHAVFanService theFanService;
         private IHAVHomeRepository theHomeRepository;
 
         public HAVHomeService(IValidationDictionary aValidationDictionary)
-            : this(aValidationDictionary, new HAVFanService(), new HAVUserPictureService(), new EntityHAVHomeRepository(), new HAVBaseRepository()) { }
+            : this(aValidationDictionary, new HAVFanService(), new EntityHAVHomeRepository(), new HAVBaseRepository()) { }
 
         public HAVHomeService(IValidationDictionary aValidationDictionary, IHAVFanService aFanService, 
-                              IHAVUserPictureService aUserPictureService, IHAVHomeRepository aRepository, 
-                              IHAVBaseRepository baseRepository) : base(baseRepository) {
+                              IHAVHomeRepository aRepository, IHAVBaseRepository baseRepository) : base(baseRepository) {
             theValidationDictionary = aValidationDictionary;
             theFanService = aFanService;
-            theUserPictureService = aUserPictureService;
             theHomeRepository = aRepository;
         }
 
@@ -37,14 +35,12 @@ namespace HaveAVoice.Services.UserFeatures {
             };
         }
 
-        public LoggedInModel<FeedModel> FanReplys(User aUser) {
+        public LoggedInModel<FeedModel> FanFeed(User aUser) {
             IEnumerable<Issue> myIssues = theHomeRepository.FanIssueFeed(aUser);
             IEnumerable<IssueReply> myIssueReplys = theHomeRepository.FanIssueReplyFeed(aUser);
             IEnumerable<FeedModel> myFeedModel = CreateFeedModel(aUser, myIssues, myIssueReplys, false);
 
-            UserModel myUserModel = new UserModel(aUser) {
-                ProfilePictureUrl = theUserPictureService.GetProfilePictureURL(aUser)
-            };
+            UserModel myUserModel = new UserModel(aUser);
             return new LoggedInModel<FeedModel>(myUserModel) {
                 Models = myFeedModel
             };
@@ -55,10 +51,7 @@ namespace HaveAVoice.Services.UserFeatures {
             IEnumerable<IssueReply> myIssueReplys = theHomeRepository.OfficialsIssueReplyFeed(aUser, RoleHelper.OfficialRoles());
             IEnumerable<FeedModel> myFeedModel = CreateFeedModel(aUser, myIssues, myIssueReplys, false);
 
-            UserModel myUserModel = new UserModel(aUser) {
-                ProfilePictureUrl = theUserPictureService.GetProfilePictureURL(aUser)
-            };
-
+            UserModel myUserModel = new UserModel(aUser);
             return new LoggedInModel<FeedModel>(myUserModel) {
                 Models = myFeedModel
             };
@@ -69,10 +62,7 @@ namespace HaveAVoice.Services.UserFeatures {
             IEnumerable<IssueReply> myIssueReplys = theHomeRepository.FilteredIssueReplysFeed(aUser);
             IEnumerable<FeedModel> myFeedModel = CreateFeedModel(aUser, myIssues, myIssueReplys, true);
 
-            UserModel myUserModel = new UserModel(aUser) {
-                ProfilePictureUrl = theUserPictureService.GetProfilePictureURL(aUser)
-            };
-
+            UserModel myUserModel = new UserModel(aUser);
             return new LoggedInModel<FeedModel>(myUserModel) {
                 Models = myFeedModel
             };
@@ -101,7 +91,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
         private FeedModel CreateIssueFeedModel(User aUser, Issue myIssue, bool aUseFanService) {
             string myUsername = myIssue.User.Username;
-            string myProfilePictureUrl = theUserPictureService.GetProfilePictureURL(myIssue.User);
+            string myProfilePictureUrl = ProfilePictureHelper.ProfilePicture(myIssue.User);
 
             if (aUseFanService && !theFanService.IsFan(myIssue.UserId, aUser)) {
                 myUsername = "Anonymous";
@@ -126,7 +116,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
         private FeedModel CreateIssueReplyFeedModel(User aUser, IssueReply myIssueReply, bool aUseFanService) {
             string myUsername = myIssueReply.User.Username;
-            string myProfilePictureUrl = theUserPictureService.GetProfilePictureURL(myIssueReply.User);
+            string myProfilePictureUrl = ProfilePictureHelper.ProfilePicture(myIssueReply.User);
 
             if(aUseFanService && !theFanService.IsFan(myIssueReply.UserId, aUser)) {
                 myUsername = "Anonymous";

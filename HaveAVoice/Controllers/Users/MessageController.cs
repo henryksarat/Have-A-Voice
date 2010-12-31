@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using HaveAVoice.Models;
-using HaveAVoice.Validation;
-using HaveAVoice.Models.View;
-using HaveAVoice.Services;
-using HaveAVoice.Repositories;
 using HaveAVoice.Helpers;
+using HaveAVoice.Models;
+using HaveAVoice.Models.View;
+using HaveAVoice.Repositories;
+using HaveAVoice.Services;
+using HaveAVoice.Services.Helpers;
 using HaveAVoice.Services.UserFeatures;
+using HaveAVoice.Validation;
 
 namespace HaveAVoice.Controllers.Users {
     public class MessageController : HAVBaseController {
@@ -29,21 +30,18 @@ namespace HaveAVoice.Controllers.Users {
 
         private IHAVMessageService theService;
         private IHAVUserRetrievalService theUserRetrievalService;
-        private IHAVUserPictureService theUserPicturesService;
 
         public MessageController() : 
             base(new HAVBaseService(new HAVBaseRepository())) {
             IValidationDictionary myValidationDictionary = new ModelStateWrapper(this.ModelState);
             theService = new HAVMessageService(myValidationDictionary);
             theUserRetrievalService = new HAVUserRetrievalService();
-            theUserPicturesService = new HAVUserPictureService();
         }
 
-        public MessageController(IHAVBaseService aBaseService, IHAVMessageService aMessageService, IHAVUserRetrievalService aUserRetrievalService, IHAVUserPictureService aUserPicturesService)
+        public MessageController(IHAVBaseService aBaseService, IHAVMessageService aMessageService, IHAVUserRetrievalService aUserRetrievalService)
             : base(aBaseService) {
             theService = aMessageService;
             theUserRetrievalService = aUserRetrievalService;
-            theUserPicturesService = aUserPicturesService;
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
@@ -95,7 +93,7 @@ namespace HaveAVoice.Controllers.Users {
 
             try {
                 User myUser = theUserRetrievalService.GetUser(id);
-                string myProfilePictureUrl = theUserPicturesService.GetProfilePictureURL(myUser);
+                string myProfilePictureUrl = ProfilePictureHelper.ProfilePicture(myUser);
                 MessageWrapper myMessage = MessageWrapper.Build(myUser, myProfilePictureUrl);
                 return View(CREATE_VIEW, myMessage);
             } catch (Exception e) {

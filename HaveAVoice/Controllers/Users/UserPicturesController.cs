@@ -10,6 +10,7 @@ using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
 using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
+using HaveAVoice.Services.Helpers;
 
 namespace HaveAVoice.Controllers.Users
 {
@@ -82,7 +83,7 @@ namespace HaveAVoice.Controllers.Users
             }
             User myUser = GetUserInformaton();
             IEnumerable<UserPicture> userPictures = theUserPictureService.GetUserPictures(myUser, myUser.Id);
-            string profilePicture = theUserPictureService.GetProfilePictureURL(myUser);
+            string profilePicture = ProfilePictureHelper.ProfilePicture(myUser);
 
             UserPicturesModel myModel = new UserPicturesModel() {
                 UserId = myUser.Id,
