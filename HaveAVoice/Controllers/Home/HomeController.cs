@@ -55,7 +55,8 @@ namespace HaveAVoice.Controllers.Home {
                 return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
-            LoggedInModel<FeedModel> myModel = new LoggedInModel<FeedModel>(myUser);
+            
+            LoggedInModel<FeedModel> myModel = new LoggedInModel<FeedModel>(new UserModel(myUser));
             try {
                 myModel = theService.FanReplys(myUser);
             } catch (Exception e) {
@@ -71,7 +72,7 @@ namespace HaveAVoice.Controllers.Home {
                 return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
-            LoggedInModel<FeedModel> myModel = new LoggedInModel<FeedModel>(myUser);
+            LoggedInModel<FeedModel> myModel = new LoggedInModel<FeedModel>(new UserModel(myUser));
             try {
                 myModel = theService.OfficialsFeed(myUser);
             } catch (Exception e) {
@@ -87,7 +88,7 @@ namespace HaveAVoice.Controllers.Home {
                 return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
-            LoggedInModel<FeedModel> myModel = new LoggedInModel<FeedModel>(myUser);
+            LoggedInModel<FeedModel> myModel = new LoggedInModel<FeedModel>(new UserModel(myUser));
             try {
                 myModel = theService.FilteredFeed(myUser);
             } catch (Exception e) {
@@ -103,7 +104,7 @@ namespace HaveAVoice.Controllers.Home {
                 return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
-            LoggedInModel<FeedModel> myModel = new LoggedInModel<FeedModel>(myUser);
+            LoggedInModel<FeedModel> myModel = new LoggedInModel<FeedModel>(new UserModel(myUser));
             try {
                 myModel = theService.FanReplys(myUser);
                 if (theService.AddCityStateFilter(myUser, city, state)) {
@@ -122,8 +123,9 @@ namespace HaveAVoice.Controllers.Home {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
+
             User myUser = GetUserInformaton();
-            LoggedInModel<FeedModel> myModel = new LoggedInModel<FeedModel>(myUser);
+            LoggedInModel<FeedModel> myModel = new LoggedInModel<FeedModel>(new UserModel(myUser));
             try {
                 myModel = theService.FanReplys(myUser);
                 if (theService.AddZipCodeFilter(myUser, zipCode)) {

@@ -42,9 +42,11 @@ namespace HaveAVoice.Services.UserFeatures {
             IEnumerable<IssueReply> myIssueReplys = theHomeRepository.FanIssueReplyFeed(aUser);
             IEnumerable<FeedModel> myFeedModel = CreateFeedModel(aUser, myIssues, myIssueReplys, false);
 
-            return new LoggedInModel<FeedModel>(aUser) {
-                ProfilePictureURL = theUserPictureService.GetProfilePictureURL(aUser),
-                Models = myFeedModel,
+            UserModel myUserModel = new UserModel(aUser) {
+                ProfilePictureUrl = theUserPictureService.GetProfilePictureURL(aUser)
+            };
+            return new LoggedInModel<FeedModel>(myUserModel) {
+                Models = myFeedModel
             };
         }
 
@@ -53,9 +55,12 @@ namespace HaveAVoice.Services.UserFeatures {
             IEnumerable<IssueReply> myIssueReplys = theHomeRepository.OfficialsIssueReplyFeed(aUser, RoleHelper.OfficialRoles());
             IEnumerable<FeedModel> myFeedModel = CreateFeedModel(aUser, myIssues, myIssueReplys, false);
 
-            return new LoggedInModel<FeedModel>(aUser) {
-                ProfilePictureURL = theUserPictureService.GetProfilePictureURL(aUser),
-                Models = myFeedModel,
+            UserModel myUserModel = new UserModel(aUser) {
+                ProfilePictureUrl = theUserPictureService.GetProfilePictureURL(aUser)
+            };
+
+            return new LoggedInModel<FeedModel>(myUserModel) {
+                Models = myFeedModel
             };
         }
 
@@ -64,9 +69,12 @@ namespace HaveAVoice.Services.UserFeatures {
             IEnumerable<IssueReply> myIssueReplys = theHomeRepository.FilteredIssueReplysFeed(aUser);
             IEnumerable<FeedModel> myFeedModel = CreateFeedModel(aUser, myIssues, myIssueReplys, false);
 
-            return new LoggedInModel<FeedModel>(aUser) {
-                ProfilePictureURL = theUserPictureService.GetProfilePictureURL(aUser),
-                Models = myFeedModel,
+            UserModel myUserModel = new UserModel(aUser) {
+                ProfilePictureUrl = theUserPictureService.GetProfilePictureURL(aUser)
+            };
+
+            return new LoggedInModel<FeedModel>(myUserModel) {
+                Models = myFeedModel
             };
         }
 

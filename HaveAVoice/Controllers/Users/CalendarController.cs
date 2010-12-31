@@ -55,7 +55,7 @@ namespace HaveAVoice.Controllers.Users
         }
 
         public ActionResult GetEvents(User aViewingUser, int aUserId, string aViewName) {
-            LoggedInModel<Event> myLoggedInModel = new LoggedInModel<Event>(aViewingUser);
+            LoggedInModel<Event> myLoggedInModel = new LoggedInModel<Event>(new UserModel(aViewingUser));
             try {
 
                 myLoggedInModel = theEventService.GetEventsForUser(aViewingUser, aUserId);

@@ -6,13 +6,11 @@ using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Models.View {
     public class LoggedInModel<T> {
-        public User User { get; private set; }
-        public string ProfilePictureURL { get; set; }
+        public UserModel UserModel { get; private set; }
         public IEnumerable<T> Models { get; set; }
 
-        public LoggedInModel(User aUser) {
-            User = aUser;
-            ProfilePictureURL = HAVConstants.NO_PROFILE_PICTURE_URL;
+        public LoggedInModel(UserModel aUser) {
+            UserModel = aUser;
             Models = new List<T>();
         }
     }

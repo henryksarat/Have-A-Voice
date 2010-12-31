@@ -1,9 +1,10 @@
-<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<HaveAVoice.Models.View.LoggedInModel>" %>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<HaveAVoice.Models.View.UserModel>" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
+<%@ Import Namespace="HaveAVoice.Models.View" %>
 
 <div class="col-24 user-panel">
 	<div class="col-3">
-		<img src="<%= Model.ProfilePictureURL %>" alt="<%= Model.User.Username %>" class="profile" />
+		<img src="<%= Model.ProfilePictureUrl %>" alt="<%= Model.User.Username %>" class="profile" />
 	</div>
 	<div class="col-15">
 		<div class="m-lft col-15 m-rgt">

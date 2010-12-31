@@ -6,7 +6,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <% Html.RenderPartial("UserPanel"); %>    
+    <% Html.RenderPartial("UserPanel", Model.UserModel); %>    
     <div class="col-3 m-rgt left-nav">
         <% Html.RenderPartial("LeftNavigation"); %>
     </div>
@@ -15,7 +15,7 @@
         <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
 
 		<% int cnt = 0; %>
-        <% foreach (var item in Model.FeedModels) { %>
+        <% foreach (var item in Model.Models) { %>
         
 			<div class="<% if(cnt % 2 == 0) { %>row<% } else { %>alt<% } %>">
 				<div class="col-2 center">
