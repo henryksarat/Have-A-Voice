@@ -25,20 +25,6 @@ namespace HaveAVoice.Services.UserFeatures {
             theUserPictureRepo.AddProfilePicture(aUser, anImageURL);
         }
 
-        public string GetProfilePictureURL(User aUser) {
-            UserPicture profilePicture = theUserPictureRepo.GetProfilePicture(aUser.Id);
-            string profilePictureImageName;
-
-            if (profilePicture == null) {
-                profilePictureImageName = HAVConstants.NO_PROFILE_PICTURE_IMAGE;
-            } else {
-                profilePictureImageName = profilePicture.ImageName;
-            }
-
-            string filePath = HAVConstants.USER_PICTURE_LOCATION_FROM_VIEW + profilePictureImageName;
-            return filePath;
-        }
-
         public IEnumerable<UserPicture> GetUserPictures(User aViewingUser, int aUserId) {
             if (aViewingUser.Id == aUserId || theFanService.IsFan(aUserId, aViewingUser)) {
                 return theUserPictureRepo.GetUserPictures(aUserId);
