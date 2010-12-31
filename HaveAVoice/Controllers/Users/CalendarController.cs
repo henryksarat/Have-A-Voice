@@ -11,6 +11,7 @@ using HaveAVoice.Models.View;
 using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Controllers.Helpers;
 using System.Collections.Generic;
+using HaveAVoice.Controllers.ActionFilters;
 
 namespace HaveAVoice.Controllers.Users
 {
@@ -38,6 +39,7 @@ namespace HaveAVoice.Controllers.Users
             theEventService = aService;
         }
 
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult List() {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
@@ -67,7 +69,7 @@ namespace HaveAVoice.Controllers.Users
             return View(aViewName, myLoggedInModel);
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
         public ActionResult AddEvent(DateTime date, string information) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
@@ -98,7 +100,7 @@ namespace HaveAVoice.Controllers.Users
                 ViewData["Message"] = DELETE_EVENT_ERROR;
             }
 
-            return RedirectToAction("Show");
+            return RedirectToAction("List");
         }
     }
 }

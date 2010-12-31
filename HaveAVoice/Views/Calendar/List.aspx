@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInModel<Event>>" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
+<%@ Import Namespace="HaveAVoice.Helpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Calendar
@@ -76,7 +77,7 @@
 				</div>
 				<div class="col-13">
 					<div class="p-a5">
-						<%= item.Information %>
+						<%= PresentationHelper.ReplaceCarriageReturnWithBR(item.Information) %>
 					</div>
 				</div>
 				<div class="col-2 center">

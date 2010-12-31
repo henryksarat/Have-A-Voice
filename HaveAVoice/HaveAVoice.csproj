@@ -92,6 +92,7 @@
     <Compile Include="Helpers\Enums\FanStatus.cs" />
     <Compile Include="Helpers\Exceptions\NotFanException.cs" />
     <Compile Include="Helpers\HAVPermissionHelper.cs" />
+    <Compile Include="Helpers\PresentationHelper.cs" />
     <Compile Include="Helpers\RoleHelper.cs" />
     <Compile Include="Controllers\Admin\RestrictionController.cs" />
     <Compile Include="Controllers\Admin\PermissionController.cs" />
@@ -320,12 +321,16 @@
     <Content Include="Content\images\search.png" />
     <Content Include="Content\images\settings.png" />
     <Content Include="Content\images\star.png" />
+    <Content Include="Content\jquery-1.4.2.min.js" />
+    <Content Include="Content\jquery-ui-1.7.2.custom.css" />
+    <Content Include="Content\jquery-ui-1.7.2.custom.min.js" />
     <Content Include="Content\reset.css" />
     <Content Include="Content\tempjquery.js" />
     <Content Include="Global.asax" />
     <Content Include="UserPictures\93_-1513546292.jpg" />
     <Content Include="UserPictures\93_-943723973.jpg" />
     <Content Include="UserPictures\93_946098097.jpg" />
+    <Content Include="UserPictures\no_profile_picture.jpg" />
     <Content Include="Views\Account\ChangePassword.aspx" />
     <Content Include="Views\Account\ChangePasswordSuccess.aspx" />
     <Content Include="Views\Account\LogOn.aspx" />

@@ -27,8 +27,8 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         public IEnumerable<Event> FindEvents(int aUserId) {
             List<Event> myEvents = FindEventsForUser(aUserId).ToList<Event>();
-            IEnumerable<Event> myUsersFanOfEvents = FindEventsOfFannedUsers(aUserId);
-            myEvents.AddRange(myUsersFanOfEvents);
+            //IEnumerable<Event> myUsersFanOfEvents = FindEventsOfFannedUsers(aUserId);
+            //myEvents.AddRange(myUsersFanOfEvents);
             return myEvents;
         }
 
@@ -45,7 +45,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
             return (from e in theEntities.Events
                     where e.User.Id == aUserId
                     && e.Deleted == false
-                    select e).ToList<Event>();
+                    select e).OrderBy(e2 => e2.Date).ToList<Event>();
         }
 
         private Event GetEvent(int anEventId) {

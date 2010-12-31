@@ -34,9 +34,12 @@ namespace HaveAVoice.Services.UserFeatures {
                 theValidationDictionary.AddError("Information", anEventInformation.Trim(), "You must give some information on the event.");
             }
 
-            if (aDate == null || aDate <= DateTime.UtcNow) {
+            if (aDate == null) {
                 theValidationDictionary.AddError("Date", aDate.ToString(), "Invalid date.");
+            } else if(aDate <= DateTime.UtcNow) {
+                theValidationDictionary.AddError("Date", aDate.ToString(), "The date must be later than now.");
             }
+
             return theValidationDictionary.isValid;
         }
 
