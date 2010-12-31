@@ -67,7 +67,7 @@ namespace HaveAVoice.Services.UserFeatures {
         public LoggedInModel<FeedModel> FilteredFeed(User aUser) {
             IEnumerable<Issue> myIssues = theHomeRepository.FilteredIssuesFeed(aUser);
             IEnumerable<IssueReply> myIssueReplys = theHomeRepository.FilteredIssueReplysFeed(aUser);
-            IEnumerable<FeedModel> myFeedModel = CreateFeedModel(aUser, myIssues, myIssueReplys, false);
+            IEnumerable<FeedModel> myFeedModel = CreateFeedModel(aUser, myIssues, myIssueReplys, true);
 
             UserModel myUserModel = new UserModel(aUser) {
                 ProfilePictureUrl = theUserPictureService.GetProfilePictureURL(aUser)
@@ -88,22 +88,31 @@ namespace HaveAVoice.Services.UserFeatures {
                 Issue myIssue = myIssueEnumerator.Current;
 
                 if (myIssueReply != null) {
-                    myFeedModel.Add(CreateIssueReplyFeedModel(aUser, myIssueReply));
+                    myFeedModel.Add(CreateIssueReplyFeedModel(aUser, myIssueReply, aUseFanService));
                 }
 
                 if (myIssue != null) {
-                    myFeedModel.Add(CreateIssueFeedModel(aUser, myIssue));
+                    myFeedModel.Add(CreateIssueFeedModel(aUser, myIssue, aUseFanService));
                 }
             }
 
             return myFeedModel;
         }
 
-        private FeedModel CreateIssueFeedModel(User aUser, Issue myIssue) {
+        private FeedModel CreateIssueFeedModel(User aUser, Issue myIssue, bool aUseFanService) {
+            string myUsername = myIssue.User.Username;
+            string myProfilePictureUrl = theUserPictureService.GetProfilePictureURL(myIssue.User);
+
+            if (aUseFanService && !theFanService.IsFan(myIssue.UserId, aUser)) {
+                myUsername = "Anonymous";
+                myProfilePictureUrl = HAVConstants.ANONYMOUS_PICTURE_URL;
+            }
+
             IEnumerable<IssueDisposition> myIssueDisposition = myIssue.IssueDispositions;
 
-            return new FeedModel(myIssue.User) {
-                ProfilePictureUrl = theUserPictureService.GetProfilePictureURL(myIssue.User),
+            return new FeedModel() {
+                Username = myUsername,
+                ProfilePictureUrl = myProfilePictureUrl,
                 IssueType = IssueType.Issue,
                 Title = myIssue.Title,
                 Body = myIssue.Description,
@@ -115,11 +124,20 @@ namespace HaveAVoice.Services.UserFeatures {
             };
         }
 
-        private FeedModel CreateIssueReplyFeedModel(User aUser, IssueReply myIssueReply) {
+        private FeedModel CreateIssueReplyFeedModel(User aUser, IssueReply myIssueReply, bool aUseFanService) {
+            string myUsername = myIssueReply.User.Username;
+            string myProfilePictureUrl = theUserPictureService.GetProfilePictureURL(myIssueReply.User);
+
+            if(aUseFanService && !theFanService.IsFan(myIssueReply.UserId, aUser)) {
+                myUsername = "Anonymous";
+                myProfilePictureUrl = HAVConstants.ANONYMOUS_PICTURE_URL;
+            }
+
             IEnumerable<IssueReplyDisposition> myReplyDisposition = myIssueReply.IssueReplyDispositions;
 
-            return new FeedModel(myIssueReply.User) {
-                ProfilePictureUrl = theUserPictureService.GetProfilePictureURL(myIssueReply.User),
+            return new FeedModel() {
+                Username = myUsername,
+                ProfilePictureUrl = myProfilePictureUrl,
                 IssueType = IssueType.Reply,
                 Title = myIssueReply.Issue.Title,
                 Body = myIssueReply.Reply,

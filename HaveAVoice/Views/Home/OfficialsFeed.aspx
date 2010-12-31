@@ -14,11 +14,11 @@
     <div class="col-21">
         <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
 
-        <h2>Welcome, <%= Model.User.Username %></h2>
+        <h2>Welcome, <%= Model.UserModel.User.Username %></h2>
     
         <br /><br />
         FanFeed:<br />
-        <% foreach (var item in Model.IssueReplys) { %>
+        <% foreach (var item in Model.Models) { %>
             Username: <%= item.User.Username %>
             IssueReply: <%= item.Reply %><br /><br />
         <% } %>
