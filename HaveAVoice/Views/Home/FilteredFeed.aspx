@@ -19,7 +19,7 @@
 		<div class="filter">
 			<% using (Html.BeginForm("FilteredFeed", "Home", FormMethod.Post, new { @class = "create btint-6" })) { %>
 			<div class="col-2">
-				<div class="p-a5 fnt-14 c-white">
+				<div class="p-h5 fnt-14 c-white">
 					<b>Filter By</b>
 				</div>
 			</div>

@@ -22,7 +22,7 @@
 			</div>
 			<div class="clear">&nbsp;</div>
 			<div class="col-3">
-				<div class="p-a5 fnt-14 c-white">
+				<div class="p-h5 fnt-14 c-white">
 					<b>Create Event</b>
 				</div>
 			</div>
