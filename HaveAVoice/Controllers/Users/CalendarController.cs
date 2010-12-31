@@ -85,12 +85,12 @@ namespace HaveAVoice.Controllers.Users
             return RedirectToAction(LIST_VIEW);
         }
 
-        public ActionResult DeleteEvent(int eventId) {
+        public ActionResult DeleteEvent(int id) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
             try {
-                theEventService.DeleteEvent(GetUserInformatonModel(), eventId);
+                theEventService.DeleteEvent(GetUserInformatonModel(), id);
                 ViewData["Message"] = DELETE_EVENT_SUCCESS;
 
             } catch (Exception e) {
