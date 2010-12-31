@@ -22,42 +22,47 @@
 			</div>
 			<div class="clear">&nbsp;</div>
 			<div class="col-3">
-				Create Event
+				<div class="p-a5 fnt-14 c-white">
+					<b>Create Event</b>
+				</div>
 			</div>
 			<div class="col-18">
 				<% using (Html.BeginForm("AddEvent", "Calendar", FormMethod.Post, new { @class = "create" })) { %>
-					<div class="col-8">
-						<div class="col-4 m-rgt right">
+					<div class="col-6">
+						<div class="col-2 m-rgt right c-white">
 							<label for="Date">Date:</label>
 						</div>
 						<div class="col-4">
 							<%= Html.TextBox("Date", DateTime.UtcNow.AddMinutes(1))%>
 						</div>
 						<div class="clear">&nbsp;</div>
-						<div class="col-8">
+						<div class="col-6">
 							<%= Html.ValidationMessage("Date", "*") %>
 						</div>
 					</div>
-					<div class="col-8">
-						<div class="col-4 m-rgt right">
+					<div class="col-9">
+						<div class="col-4 m-rgt right c-white">
 							<label for="Information">Information:</label>
 						</div>
 						<div class="col-4">
-							<%= Html.TextArea("Information", null, new{ cols = "40", rows = "4", resize = "none" })%>
+							<%= Html.TextArea("Information", null, new{ cols = "20", rows = "2", resize = "none" })%>
 						</div>
 						<div class="clear">&nbsp;</div>
 						<div class="col-8">
 							<%= Html.ValidationMessage("Information", "*")%>
 						</div>
 					</div>
-					<div class="col-2">
+					<div class="col-3">
 						<input type="submit" value="Create" class="create" />
 					</div>
 					<div class="clear">&nbsp;</div>
 				<% } %>
 			</div>
+			<div class="clear">&nbsp;</div>
 	    </div>
-    
+	    <div class="clear">&nbsp;</div>
+    	<div class="spacer-30">&nbsp;</div>
+    	
     	<% int cnt = 0; %>
 	    <% foreach (var item in Model.Models) { %>
 	    	<div class="<% if(cnt % 2 == 0) { %>row<% } else { %>alt<% } %>">

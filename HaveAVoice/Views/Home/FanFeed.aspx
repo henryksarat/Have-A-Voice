@@ -20,7 +20,7 @@
         
 			<div class="<% if(cnt % 2 == 0) { %>row<% } else { %>alt<% } %>">
 				<div class="col-2 center">
-					<img src="<%= item.ProfilePictureUrl %>" alt="<%= item.User.Username %>" class="profile" />
+					<img src="<%= item.ProfilePictureUrl %>" alt="<%= item.Username %>" class="profile" />
 				</div>
 				<div class="col-16">
 					<div class="m-lft col-16 comment">
@@ -29,7 +29,7 @@
 							<% if (item.IssueType == HaveAVoice.Helpers.Enums.IssueType.Issue) { %>
 								<h1><a href="#"><%= item.Title %></a></h1>
 							<% } else { %>
-								<a class="name" href="#"><%= item.User.Username %></a>
+								<a class="name" href="#"><%= item.Username %></a>
 							<% } %>
 							<br />
 							<%= item.Body %>
