@@ -14,13 +14,49 @@
     
     <div class="col-21">
         <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
+        <div class="clear">&nbsp;</div>
 
+		<div class="filter">
+			<% using (Html.BeginForm("FilteredFeed", "Home", FormMethod.Post, new { @class = "create btint-6" })) { %>
+			<div class="col-2">
+				<div class="p-h5 fnt-14 c-white">
+					<b>Filter By</b>
+				</div>
+			</div>
+			<div class="col-2 m-rgt right c-white">
+				<label for="Zip">Zip:</label>
+			</div>
+			<div class="col-3">
+				<%= Html.TextBox("Zip") %>
+			</div>
+			<div class="col-2 m-rgt right c-white">
+				<label for="City">City:</label>
+			</div>
+			<div class="col-3">
+				<%= Html.TextBox("City") %>
+			</div>
+			<div class="col-2 m-rgt right c-white">
+				<label for="State">State:</label>
+			</div>
+			<div class="col-4">
+				&nbsp;
+				<% /* = Html.DropDownList("State", Model.States()) */ %>
+			</div>
+			<div class="col-3 center">
+				<input type="submit" value="Search" class="create" />
+			</div>
+			<% } %>
+			<div class="clear">&nbsp;</div>
+		</div>
+		<div class="clear">&nbsp;</div>
+		<div class="spacer-10">&nbsp;</div>
+		
 		<% int cnt = 0; %>
         <% foreach (var item in Model.Models) { %>
         
 			<div class="<% if(cnt % 2 == 0) { %>row<% } else { %>alt<% } %>">
 				<div class="col-2 center">
-					<img src="<%= item.ProfilePictureUrl %>" alt="<%= item.User.Username %>" class="profile" />
+					<img src="<%= item.ProfilePictureUrl %>" alt="<%= item.Username %>" class="profile" />
 				</div>
 				<div class="col-16">
 					<div class="m-lft col-16 comment">
@@ -29,7 +65,7 @@
 							<% if (item.IssueType == HaveAVoice.Helpers.Enums.IssueType.Issue) { %>
 								<h1><a href="#"><%= item.Title %></a></h1>
 							<% } else { %>
-								<a class="name" href="#"><%= item.User.Username %></a>
+								<a class="name" href="#"><%= item.Username %></a>
 							<% } %>
 							<br />
 							<%= item.Body %>
@@ -80,7 +116,6 @@
 									</div>
 								</div>
 							</div>
-							<div class="spacer-10">&nbsp;</div>
 						</div>
 					</div>
 				</div>
@@ -92,7 +127,8 @@
 					</div>
 				</div>
 				<div class="clear">&nbsp;</div>
-				
+			</div>
+			<div class="spacer-10">&nbsp;</div>
         <% } %>
     </div>
 </asp:Content>

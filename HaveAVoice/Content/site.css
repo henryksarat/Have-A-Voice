@@ -28,6 +28,7 @@ body { font-family: helvetica, arial, sans-serif; background: #d9e9ed; }
 .btint-6 { background: #3da4be; }
 .b-wht { background: #ffffff; }
 
+.round-5 { border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
 
 /****************************************************************************/
 /********************************* COLORS ***********************************/
@@ -38,6 +39,7 @@ body { font-family: helvetica, arial, sans-serif; background: #d9e9ed; }
 .color-4 { color: #747474; }
 
 .color-5 { color: #d56667; }
+.c-white { color: #fff; }
 
 .like { color: #2070c9; }
 .dislike { color: #c94020; }
@@ -81,6 +83,7 @@ body { font-family: helvetica, arial, sans-serif; background: #d9e9ed; }
 .p-t5 { padding-top: 5px; }
 .p-b5 { padding-bottom: 5px; }
 .p-a5 { padding: 5px; }
+.p-h5 { padding-left: 5px; padding-right: 5px; }
 .p-a10 { padding: 10px; }
 .p-v15 { padding-top: 15px; padding-bottom: 15px; }
 
@@ -194,6 +197,7 @@ form.create input[type=submit].create { -moz-border-radius: 5px; -webkit-border-
 form.create input[type=submit].create:hover { color: #115f71; background: #fff; }
 form.create a.cancel, form.create a.cancel:link, form.create a.cancel:visited { -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; color: #fff; font-weight: bold; text-transform: uppercase; padding: 5px 10px; background: #115f71; cursor: pointer; font-size: 18px; text-decoration: none; }
 form.create a.cancel:hover { color: #115f71; background: #fff; }
+form.create .c-white label { color: #fff; }
 
 
 /****************************************************************************/
@@ -254,6 +258,10 @@ img.profile { border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius
 .reply .comment textarea { border: 1px solid #20a9c9; width: 100%; background: #fff; color: #000; margin-bottom: 5px; -moz-border-radius: 0px; -webkit-border-radius: 0px; border-radius: 0px; }
 /* input.button { color: #fff; font-weight: bold; font-size: 13px; background: #20a9c9; border: 2px solid #fff; padding: 5px; cursor: pointer; } */
 
+/****************************************************************************/
+/******************************** FILTER ************************************/
+/****************************************************************************/
+.filter { border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; background-color: #20a9c9; padding: 5px 0px; }
 
 /****************************************************************************/
 /**************************** ISSUES ****************************************/
@@ -274,7 +282,7 @@ img.profile { border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius
 .events .alt { background: #b6dde7; }
 .events a.delete, .events a.delete:link, .events a.delete:visited { color: #DC143C; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; }
 
-.events div.create {}
+.events div.create { border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; background-color: #20a9c9; padding: 5px 0px; }
 
 /****************************************************************************/
 /****************************************************************************/
