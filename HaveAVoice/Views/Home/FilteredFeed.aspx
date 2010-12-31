@@ -77,10 +77,20 @@
 								<div class="col-9">
 									<div class="col-3 center">
 										<% if (item.TotalReplys == 0) { %>
-											<a href="#" class="comment">Comment</a>
+											<a href="#" class="comment">
+												<% if (item.IssueType == HaveAVoice.Helpers.Enums.IssueType.Issue) { %>
+													Reply
+												<% } else { %>
+													Comment
+												<% } %>
+											</a>
 										<% } else { %>
 											<span class="comment"><%= item.TotalReplys %> 
-												Comment<% if (item.TotalReplys > 1) { %>s<% } %>
+												<% if (item.IssueType == HaveAVoice.Helpers.Enums.IssueType.Issue) { %>
+													Repl<% if (item.TotalReplys > 1) { %>ies<% } else { %>y<% } %>
+												<% } else { %>
+													Comment<% if (item.TotalReplys > 1) { %>s<% } %>
+												<% } %>
 											</span>
 										<% } %>
 									</div>
@@ -129,6 +139,8 @@
 				<div class="clear">&nbsp;</div>
 			</div>
 			<div class="spacer-10">&nbsp;</div>
+			
+			<% cnt++; %>
         <% } %>
     </div>
 </asp:Content>
