@@ -18,7 +18,9 @@
     <div class="header">
 		<div class="container-24">
 			<div class="col-6">
-				<img src="/Content/images/logo.png" alt="Have a voice" />
+				<a href="/">
+					<img src="/Content/images/logo.png" alt="Have a voice" />
+				</a>
 			</div>
             <% if (!HAVUserInformationFactory.IsLoggedIn()) { %>
                 <% Html.RenderPartial("LogOnUserControl"); %>

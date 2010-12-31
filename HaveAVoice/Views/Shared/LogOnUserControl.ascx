@@ -12,6 +12,24 @@
 			});
 			group.height(tallest);
 		}
+		function fadeOutLabel(obj)
+		{
+			var lbl = obj.next("label");
+			if ($(this).val() == '') {
+				lbl.fadeTo('fast', 0.4);
+			} else {
+				lbl.fadeTo('fast', 0.0);
+			}
+		}
+		function fadeInLabel(obj)
+		{
+			var lbl = obj.next("label");
+			if ($(this).val() == '') {
+				lbl.fadeTo('fast', 1.0);
+			} else {
+				lbl.fadeTo('fast', 0.0)
+			}
+		}
 		$("form label").click(function() {
 			var inpt = $(this).prev("input");
 			if (inpt.val() == '') {
@@ -22,29 +40,16 @@
 			$(inpt).focus();
 		});
 		$("form input").bind("focus", function() {
-			var lbl = $(this).next("label");
-			if ($(this).val() == '') {
-				lbl.fadeTo('fast', 0.4);
-			} else {
-				lbl.fadeTo('fast', 0.0);
-			}
+			fadeOutLabel($(this));
 		}).bind("blur", function() {
-			var lbl = $(this).next("label");
-			if ($(this).val() == '') {
-				lbl.fadeTo('fast', 1.0);
-			} else {
-				lbl.fadeTo('fast', 0.0)
-			}
+			fadeInLabel($(this));
 		}).bind("keypress", function() {
-			var lbl = $(this).next("label");
-			if ($(this).val() == '') {
-				lbl.fadeTo('fast', 0.4);
-			} else {
-				lbl.fadeTo('fast', 0.0);
-			}
+			fadeOutLabel($(this));
 		});
 			
 		equalHeight($("div[rel=match]"));
+		fadeOutLabel($("input#Email"));
+		fadeOutLabel($("input#Password"));
 	});
 </script>
 
@@ -55,7 +60,7 @@
     </div>
     <div class="col-15">
         <div class="col-5 rel">
-            <%= Html.TextBox("Email", null, new{@class = "login"})%>
+            <%= Html.TextBox("Email", null, new{ @class = "login" })%>
             <%= Html.ValidationMessage("Email", "*")%>
 		    <label>email</label>
             <div class="remember rel">

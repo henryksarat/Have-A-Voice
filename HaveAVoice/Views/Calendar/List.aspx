@@ -1,10 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInModel<Event>>" %>
+<%@ Import Namespace="HaveAVoice.Models" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Calendar
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+	<% Html.RenderPartial("UserPanel", Model.UserModel); %>
     <div class="col-3 m-rgt left-nav">
         <% Html.RenderPartial("LeftNavigation"); %>
     </div>
@@ -13,6 +15,48 @@
     	<%= Html.Encode(ViewData["Message"]) %>
         <%= Html.Encode(TempData["Message"]) %>
 		<div class="clear">&nbsp;</div>
+
+		<div class="create">
+			<div class="col-21">
+				<%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
+			</div>
+			<div class="clear">&nbsp;</div>
+			<div class="col-3">
+				Create Event
+			</div>
+			<div class="col-18">
+				<% using (Html.BeginForm("AddEvent", "Calendar", FormMethod.Post, new { @class = "create" })) { %>
+					<div class="col-8">
+						<div class="col-4 m-rgt right">
+							<label for="Date">Date:</label>
+						</div>
+						<div class="col-4">
+							<%= Html.TextBox("Date", DateTime.UtcNow.AddMinutes(1))%>
+						</div>
+						<div class="clear">&nbsp;</div>
+						<div class="col-8">
+							<%= Html.ValidationMessage("Date", "*") %>
+						</div>
+					</div>
+					<div class="col-8">
+						<div class="col-4 m-rgt right">
+							<label for="Information">Information:</label>
+						</div>
+						<div class="col-4">
+							<%= Html.TextArea("Information", null, new{ cols = "40", rows = "4", resize = "none" })%>
+						</div>
+						<div class="clear">&nbsp;</div>
+						<div class="col-8">
+							<%= Html.ValidationMessage("Information", "*")%>
+						</div>
+					</div>
+					<div class="col-2">
+						<input type="submit" value="Create" class="create" />
+					</div>
+					<div class="clear">&nbsp;</div>
+				<% } %>
+			</div>
+	    </div>
     
     	<% int cnt = 0; %>
 	    <% foreach (var item in Model.Models) { %>
@@ -40,15 +84,5 @@
 			<div class="clear">&nbsp;</div>
 			<div class="spacer-10">&nbsp;</div>
 	    <% } %>
-    
-    <b>Add event:</b> <br />
-    <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %><br /><br />
-    <% using (Html.BeginForm("AddEvent", "Calendar")) { %>
-        Date: <%= Html.TextBox("Date", DateTime.UtcNow.AddMinutes(1))%>
-        <%= Html.ValidationMessage("Date", "*") %><br />
-        Information: <%= Html.TextArea("Information")%>
-        <%= Html.ValidationMessage("Information", "*")%><br />
-        <input type="submit" value="Create" /><br />
-    <% } %>
 	</div>
 </asp:Content>

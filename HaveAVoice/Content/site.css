@@ -112,7 +112,7 @@ body { font-family: helvetica, arial, sans-serif; background: #d9e9ed; }
 
 .header .sign-in { padding: 4px 0px; font-size: 20px; font-weight: bold; text-transform: capitalize; }
 
-.header a.forgot, .header a.forgot:link, .header a.forgot:visited { font-size: 10px; font-weight: bold; text-transform: uppercase; }
+.header a.forgot, .header a.forgot:link, .header a.forgot:visited { font-size: 10px; font-weight: bold; text-transform: uppercase; color: #fff; }
 .header .remember { text-transform: uppercase; font-size: 10px; font-weight: bold; margin-top: 4px; }
 .header .remember input[type=checkbox] { position: absolute; top: 0px; left: 86px; }
 
@@ -273,6 +273,8 @@ img.profile { border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius
 .events .row { background: #c0d8de; }
 .events .alt { background: #b6dde7; }
 .events a.delete, .events a.delete:link, .events a.delete:visited { color: #DC143C; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; }
+
+.events div.create {}
 
 /****************************************************************************/
 /****************************************************************************/
