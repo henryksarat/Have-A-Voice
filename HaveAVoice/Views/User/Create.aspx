@@ -66,7 +66,19 @@
 	    				<label for="FullName">Full Name:</label>
 	    			</div>
 	    			<div class="col-4">
-	    				<%= Html.TextBox("FullName", Model.FullName()) %>
+	    				<%= Html.TextBox("First Name", Model.FullName()) %>
+	    			</div>
+	    			<div class="col-14">
+	    				<%= Html.ValidationMessage("FirstName", "*") %>
+	    			</div>
+	    			<div class="clear">&nbsp;</div>
+	    			<div class="spacer-10">&nbsp;</div>
+
+	    			<div class="col-4 m-rgt right">
+	    				<label for="FullName">Last Name:</label>
+	    			</div>
+	    			<div class="col-4">
+	    				<%= Html.TextBox("LastName", Model.FullName()) %>
 	    			</div>
 	    			<div class="col-14">
 	    				<%= Html.ValidationMessage("FullName", "*") %>

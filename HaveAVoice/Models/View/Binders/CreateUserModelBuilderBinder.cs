@@ -5,25 +5,28 @@ using HaveAVoice.Helpers;
 namespace HaveAVoice.Models.View {
     public class CreateUserModelBuilderBinder : IModelBinder {
         public object BindModel(ControllerContext aControllerContext, ModelBindingContext aBindingContext) {
-            String aEmail = BinderHelper.GetA(aBindingContext, "Email");
-            String aUsername = BinderHelper.GetA(aBindingContext, "Username");
-            String aFullName = BinderHelper.GetA(aBindingContext, "FullName");
-            String aPassword = BinderHelper.GetA(aBindingContext, "Password");
-            String aCity = BinderHelper.GetA(aBindingContext, "City");
-            String aState = BinderHelper.GetA(aBindingContext, "State");
-            DateTime aDateOfBirth = Convert.ToDateTime(BinderHelper.GetA(aBindingContext, "DateOfBirth"));
-            bool aAgreement = BinderHelper.GetA(aBindingContext, "Agreement") == "true,false" ? true : false;
+            String myEmail = BinderHelper.GetA(aBindingContext, "Email");
+            String myUsername = BinderHelper.GetA(aBindingContext, "Username");
+            String myFirstName = BinderHelper.GetA(aBindingContext, "FirstName");
+            String myLastName = BinderHelper.GetA(aBindingContext, "LastName");
+            String myPassword = BinderHelper.GetA(aBindingContext, "Password");
+            String myCity = BinderHelper.GetA(aBindingContext, "City");
+            String myState = BinderHelper.GetA(aBindingContext, "State");
+            DateTime myDateOfBirth = Convert.ToDateTime(BinderHelper.GetA(aBindingContext, "DateOfBirth"));
+            bool myAgreement = BinderHelper.GetA(aBindingContext, "Agreement") == "true,false" ? true : false;
 
-            return new CreateUserModelBuilder()
-                .Email(aEmail)
-                .Username(aUsername)
-                .Password(aPassword)
-                .City(aCity)
-                .FullName(aFullName)
-                .DateOfBirth(aDateOfBirth)
-                .States(new SelectList(HAVConstants.STATES, aState))
-                .State(aState)
-                .Agreement(aAgreement);
+            return new CreateUserModelBuilder() {
+                Email = myEmail,
+                Username = myUsername,
+                Password = myPassword,
+                City = myCity,
+                FirstName = myFirstName,
+                LastName = myLastName,
+                DateOfBirth = myDateOfBirth,
+                States = new SelectList(HAVConstants.STATES, myState),
+                State = myState,
+                Agreement = myAgreement
+            };
         }
     }
 }

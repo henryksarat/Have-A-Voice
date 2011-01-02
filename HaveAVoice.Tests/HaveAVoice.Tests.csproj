@@ -75,12 +75,10 @@
     <Compile Include="Helpers\RestrictionLogTest.cs" />
     <Compile Include="Helpers\HAVUserInformationTest.cs" />
     <Compile Include="Models\DatamodelFactory.cs" />
-    <Compile Include="Models\ExtraModels\UserModels\CreateUserModelTest.cs" />
     <Compile Include="Models\Services\AdminFeatures\HAVPermissionServiceTest.cs" />
     <Compile Include="Models\Services\AdminFeatures\HAVRestrictionServiceTest.cs" />
     <Compile Include="Models\Services\AdminFeatures\HAVRoleServiceTest.cs" />
     <Compile Include="Models\Services\UserFeatures\HAVHomeServiceTest.cs" />
-    <Compile Include="Models\Services\UserFeatures\HAVProfileServiceTest.cs" />
     <Compile Include="Models\Services\UserFeatures\HAVComplaintServiceTest.cs" />
     <Compile Include="Models\Services\UserFeatures\HAVIssueServiceTest.cs" />
     <Compile Include="Controllers\Users\MessageControllerTest.cs" />
@@ -98,7 +96,9 @@
       <Name>HaveAVoice</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Models\ExtraModels\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

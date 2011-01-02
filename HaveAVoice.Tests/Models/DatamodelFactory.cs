@@ -25,15 +25,17 @@ namespace HaveAVoice.Tests.Models {
         public static string UTC_OFFSET = "-6:00";
 
         public static CreateUserModelBuilder createUserModelBuilder() {
-            return new CreateUserModelBuilder()
-                .Email(EMAIL)
-                .Username(USERNAME)
-                .Password(PASSWORD)
-                .City(CITY)
-                .FullName(FULL_NAME)
-                .DateOfBirth(BIRTHDAY)
-                .State(STATE)
-                .Agreement(AGREEMENT);
+            return new CreateUserModelBuilder() {
+                Email = EMAIL,
+                Username = USERNAME,
+                Password = PASSWORD,
+                City = CITY,
+                FirstName = FIRST_NAME,
+                LastName = LAST_NAME,
+                DateOfBirth = BIRTHDAY,
+                State = STATE,
+                Agreement = AGREEMENT
+            };
         }
 
         public static User createUser(int anId) {

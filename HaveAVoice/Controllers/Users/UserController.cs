@@ -49,14 +49,16 @@ namespace HaveAVoice.Controllers.Users
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Create() {
             IEnumerable<SelectListItem> myStates = new SelectList(HAVConstants.STATES, "Select");
-            return View("Create", new CreateUserModelBuilder().States(myStates));
+            return View("Create", new CreateUserModelBuilder() { 
+                States = myStates 
+            });
         }
 
         [CaptchaValidator]  
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Create(CreateUserModelBuilder aUserToCreate, bool captchaValid) {
             try {
-                bool myResult = theService.CreateUser(aUserToCreate.Build(), captchaValid, aUserToCreate.Agreement(), HttpContext.Request.UserHostAddress);
+                bool myResult = theService.CreateUser(aUserToCreate.Build(), captchaValid, aUserToCreate.Agreement, HttpContext.Request.UserHostAddress);
                 if (myResult) {
                     return SendToResultPage(CREATE_ACCOUNT_TITLE, CREATE_ACCOUNT_SUCCESS);
                 }

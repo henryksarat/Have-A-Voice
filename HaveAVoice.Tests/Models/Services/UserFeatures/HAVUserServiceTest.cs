@@ -76,7 +76,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
 
         [TestMethod]
         public void CreateUserRequiredFirstName() {
-            theModelBuilder.FullName(string.Empty);
+            theModelBuilder.FirstName = string.Empty;
 
             bool myResult = theService.CreateUser(theModelBuilder.Build(), CAPTCHA_VALID, AGREEMENT, IP_ADDRESS);
 
@@ -87,7 +87,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
 
         [TestMethod]
         public void CreateUserRequiredLastName() {
-            theModelBuilder.FullName(FIRST_NAME);
+            theModelBuilder.LastName = string.Empty;
 
             bool myResult = theService.CreateUser(theModelBuilder.Build(), CAPTCHA_VALID, AGREEMENT, IP_ADDRESS);
 
@@ -98,7 +98,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
 
         [TestMethod]
         public void CreateUserRequiredEmail() {
-            theModelBuilder.Email(string.Empty);
+            theModelBuilder.Email = string.Empty;
 
             bool myResult = theService.CreateUser(theModelBuilder.Build(), CAPTCHA_VALID, AGREEMENT, IP_ADDRESS);
 
@@ -109,7 +109,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
 
         [TestMethod]
         public void CreateUserRequiredUsername() {
-            theModelBuilder.Username(string.Empty);
+            theModelBuilder.Username = string.Empty;
 
             bool myResult = theService.CreateUser(theModelBuilder.Build(), CAPTCHA_VALID, AGREEMENT, IP_ADDRESS);
 
@@ -120,7 +120,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
 
         [TestMethod]
         public void CreateUserRequiredPassword() {
-            theModelBuilder.Password(string.Empty);
+            theModelBuilder.Password = string.Empty;
 
             bool myResult = theService.CreateUser(theModelBuilder.Build(), CAPTCHA_VALID, AGREEMENT, IP_ADDRESS);
 
@@ -132,7 +132,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
         [TestMethod]
         public void CreateUserRequiredOver18() {
             DateTime myBirthday = new DateTime(1995, 02, 03);
-            theModelBuilder.DateOfBirth(myBirthday);
+            theModelBuilder.DateOfBirth = myBirthday;
 
             bool myResult = theService.CreateUser(theModelBuilder.Build(), CAPTCHA_VALID, AGREEMENT, IP_ADDRESS);
 
@@ -143,7 +143,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
 
         [TestMethod]
         public void CreateUserRequiredAgreement() {
-            theModelBuilder.Agreement(false);
+            theModelBuilder.Agreement = false;
 
             bool myResult = theService.CreateUser(theModelBuilder.Build(), CAPTCHA_VALID, false, IP_ADDRESS);
 
@@ -437,7 +437,5 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
             Assert.AreEqual("Passwords must match.", myError.ErrorMessage);
         }
          * */
-
-
     }
 }
