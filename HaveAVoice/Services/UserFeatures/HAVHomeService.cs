@@ -40,8 +40,7 @@ namespace HaveAVoice.Services.UserFeatures {
             IEnumerable<IssueReply> myIssueReplys = theHomeRepository.FanIssueReplyFeed(aUser);
             IEnumerable<FeedModel> myFeedModel = CreateFeedModel(aUser, myIssues, myIssueReplys, false);
 
-            UserModel myUserModel = new UserModel(aUser);
-            return new LoggedInModel<FeedModel>(myUserModel) {
+            return new LoggedInModel<FeedModel>(aUser) {
                 Models = myFeedModel
             };
         }
@@ -51,8 +50,7 @@ namespace HaveAVoice.Services.UserFeatures {
             IEnumerable<IssueReply> myIssueReplys = theHomeRepository.OfficialsIssueReplyFeed(aUser, RoleHelper.OfficialRoles());
             IEnumerable<FeedModel> myFeedModel = CreateFeedModel(aUser, myIssues, myIssueReplys, false);
 
-            UserModel myUserModel = new UserModel(aUser);
-            return new LoggedInModel<FeedModel>(myUserModel) {
+            return new LoggedInModel<FeedModel>(aUser) {
                 Models = myFeedModel
             };
         }

@@ -9,8 +9,8 @@ namespace HaveAVoice.Models.View {
         public UserModel UserModel { get; private set; }
         public IEnumerable<T> Models { get; set; }
 
-        public LoggedInModel(UserModel aUser) {
-            UserModel = aUser;
+        public LoggedInModel(User aUser) {
+            UserModel = new UserModel(aUser);
             Models = new List<T>();
         }
     }
