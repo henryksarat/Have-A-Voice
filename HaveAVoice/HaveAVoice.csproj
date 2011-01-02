@@ -125,6 +125,7 @@
     </Compile>
     <Compile Include="Helpers\ActionMethods\AcceptParameterAttribute.cs" />
     <Compile Include="Helpers\ActionMethods\CaptchaValidatorAttribute.cs" />
+    <Compile Include="Models\View\FilteredFeedModel.cs" />
     <Compile Include="Models\View\FeedModel.cs" />
     <Compile Include="Models\View\UserModel.cs" />
     <Compile Include="Models\Wrappers\MessageWrapper.cs" />

@@ -9,9 +9,8 @@ namespace HaveAVoice.Services.UserFeatures {
 
         LoggedInModel<FeedModel> FanFeed(User aUser);
         LoggedInModel<FeedModel> OfficialsFeed(User aUser);
-        LoggedInModel<FeedModel> FilteredFeed(User aUser);
+        FilteredFeedModel FilteredFeed(User aUser);
 
-        bool AddZipCodeFilter(User aUser, string aZipCode);
-        bool AddCityStateFilter(User aUser, string aCity, string aState);
+        bool AddFilter(User aUser, string aCity, string aState, string aZipCode);
     }
 }

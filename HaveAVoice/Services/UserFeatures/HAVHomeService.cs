@@ -57,15 +57,32 @@ namespace HaveAVoice.Services.UserFeatures {
             };
         }
 
-        public LoggedInModel<FeedModel> FilteredFeed(User aUser) {
+        public FilteredFeedModel FilteredFeed(User aUser) {
             IEnumerable<Issue> myIssues = theHomeRepository.FilteredIssuesFeed(aUser);
             IEnumerable<IssueReply> myIssueReplys = theHomeRepository.FilteredIssueReplysFeed(aUser);
             IEnumerable<FeedModel> myFeedModel = CreateFeedModel(aUser, myIssues, myIssueReplys, true);
 
-            UserModel myUserModel = new UserModel(aUser);
-            return new LoggedInModel<FeedModel>(myUserModel) {
-                Models = myFeedModel
+            return new FilteredFeedModel(aUser) {
+                FeedModels = myFeedModel
             };
+        }
+
+        public bool AddFilter(User aUser, string aCity, string aState, string aZipCode) {
+            if (!ValidateCityStateZipCode(aUser, aCity, aState, aZipCode)) {
+                return false;
+            }
+
+            if (aZipCode.Length > 0) {
+                int myZipCode = Convert.ToInt32(aZipCode);
+                theHomeRepository.AddZipCodeFilter(aUser, myZipCode);
+            }
+
+            if (!aState.ToUpper().Equals("SELECT") && aCity.Length > 0) {
+                theHomeRepository.AddCityStateFilter(aUser, aCity, aState);
+            }
+
+            return true;
+
         }
 
         private IEnumerable<FeedModel> CreateFeedModel(User aUser, IEnumerable<Issue> anIssues, IEnumerable<IssueReply> anIssueReplys, bool aUseFanService) {
@@ -139,6 +156,21 @@ namespace HaveAVoice.Services.UserFeatures {
             };
         }
 
+        private bool ValidateCityStateZipCode(User aUser, string aCity, string aState, string aZipCode) {
+            if (aZipCode.Length > 0) {
+                ValidateZipCode(aUser, aZipCode);
+            }
+            if (IsStateSelected(aState) || aCity.Length > 0) {
+                ValidateCityState(aUser, aCity, aState);
+            }
+
+            if (aCity.Length == 0 && !IsStateSelected(aState) && aZipCode.Length == 0) {
+                theValidationDictionary.AddError("Filtered", aCity, "You need to specify something to filter on.");
+            }
+
+            return theValidationDictionary.isValid;
+        }
+
         private bool ValidateZipCode(User aUser, string aZipCode) {
             int aResult;
             if (aZipCode.Length != 5 || !int.TryParse(aZipCode, out aResult)) {
@@ -152,37 +184,22 @@ namespace HaveAVoice.Services.UserFeatures {
             return theValidationDictionary.isValid;
         }
 
-        private bool ValidateCityStateCode(User aUser, string aCity, string aState) {
+        private bool ValidateCityState(User aUser, string aCity, string aState) {
             if (aCity.Length == 0) {
                 theValidationDictionary.AddError("City", aCity, "Invalid city.");
             }
-            if (aState.Length == 0) {
-                theValidationDictionary.AddError("State", aState, "Invalid state.");
+            if (!IsStateSelected(aState)) {
+                theValidationDictionary.AddError("State", aState, "Select a state.");
             }
-            if(theValidationDictionary.isValid && theHomeRepository.CityStateFilterExists(aUser, aCity, aState)) {
+            if (theValidationDictionary.isValid && theHomeRepository.CityStateFilterExists(aUser, aCity, aState)) {
                 theValidationDictionary.AddError("City", aCity, "That city/state filter already exists.");
             }
 
             return theValidationDictionary.isValid;
         }
 
-        public bool AddZipCodeFilter(User aUser, string aZipCode) {
-            if (!ValidateZipCode(aUser, aZipCode)) {
-                return false;
-            }
-            int myZipCode = Convert.ToInt32(aZipCode);
-            theHomeRepository.AddZipCodeFilter(aUser, myZipCode);
-            return true;
-        }
-
-        public bool AddCityStateFilter(User aUser, string aCity, string aState) {
-            if (!ValidateCityStateCode(aUser, aCity, aState)) {
-                return false;
-            }
-
-            theHomeRepository.AddCityStateFilter(aUser, aCity, aState);
-            return true;
-
+        private bool IsStateSelected(string aState) {
+            return !aState.ToUpper().Equals("SELECT");
         }
     }
 }

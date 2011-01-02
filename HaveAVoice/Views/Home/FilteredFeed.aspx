@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInModel<FeedModel>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.FilteredFeedModel>" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
 
@@ -13,11 +13,17 @@
     </div>
     
     <div class="col-21">
+        <p>
+            <%= Html.Encode(ViewData["Message"]) %>
+        </p>
+        <p>
+            <%= Html.Encode(TempData["Message"]) %>
+        </p>
         <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
         <div class="clear">&nbsp;</div>
 
 		<div class="filter">
-			<% using (Html.BeginForm("FilteredFeed", "Home", FormMethod.Post, new { @class = "create btint-6" })) { %>
+			<% using (Html.BeginForm("AddFilter", "Home", FormMethod.Post, new { @class = "create btint-6" })) { %>
 			<div class="col-2">
 				<div class="p-h5 fnt-14 c-white">
 					<b>Filter By</b>
@@ -28,22 +34,25 @@
 			</div>
 			<div class="col-3">
 				<%= Html.TextBox("Zip") %>
+                <%= Html.ValidationMessage("Zip", "*") %>
 			</div>
 			<div class="col-2 m-rgt right c-white">
 				<label for="City">City:</label>
 			</div>
 			<div class="col-3">
 				<%= Html.TextBox("City") %>
+                <%= Html.ValidationMessage("City", "*")%>
 			</div>
 			<div class="col-2 m-rgt right c-white">
 				<label for="State">State:</label>
 			</div>
 			<div class="col-4">
 				&nbsp;
-				<% /* = Html.DropDownList("State", Model.States()) */ %>
+				<%  = Html.DropDownList("State", Model.States)  %>
+                <%= Html.ValidationMessage("State", "*")%>
 			</div>
 			<div class="col-3 center">
-				<input type="submit" value="Search" class="create" />
+				<input type="submit" value="Save" class="create" />
 			</div>
 			<% } %>
 			<div class="clear">&nbsp;</div>
@@ -52,7 +61,7 @@
 		<div class="spacer-10">&nbsp;</div>
 		
 		<% int cnt = 0; %>
-        <% foreach (var item in Model.Models) { %>
+        <% foreach (var item in Model.FeedModels) { %>
         
 			<div class="<% if(cnt % 2 == 0) { %>row<% } else { %>alt<% } %>">
 				<div class="col-2 center">
