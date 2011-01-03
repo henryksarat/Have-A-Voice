@@ -61,7 +61,7 @@ namespace HaveAVoice.Services.UserFeatures {
         public LoggedInModel<Event> GetEventsForUser(User aViewingUser, int aUserId) {
             if (aViewingUser.Id == aUserId || theFanService.IsFan(aUserId, aViewingUser)) {
                 return new LoggedInModel<Event>(aViewingUser) {
-                    Models = theRepository.FindEvents(aUserId)
+                    Models = theRepository.FindEvents(aUserId, DateTime.UtcNow)
                 };
             }
 
