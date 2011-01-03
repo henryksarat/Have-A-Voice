@@ -41,6 +41,9 @@ namespace HaveAVoice.Controllers.Home {
         }
 
         public ActionResult NotLoggedIn() {
+            if (!IsLoggedIn()) {
+                return RedirectToProfile();
+            }
             NotLoggedInModel myModel = new NotLoggedInModel();
 
             try {
