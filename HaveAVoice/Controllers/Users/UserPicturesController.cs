@@ -25,6 +25,7 @@ namespace HaveAVoice.Controllers.Users
 
         private const string EDIT_VIEW = "Edit";
         private static string SHOW_VIEW = "Show";
+        private static string LIST_VIEW = "List";
         
 
         private IHAVUserPictureService theUserPictureService;
@@ -74,7 +75,7 @@ namespace HaveAVoice.Controllers.Users
                 return SendToErrorPage(GALLERY_ERROR);
             }
 
-            return View(SHOW_VIEW, myPictures);
+            return View(LIST_VIEW, myPictures);
         }
 
         public ActionResult Edit() {
@@ -92,7 +93,16 @@ namespace HaveAVoice.Controllers.Users
             };
 
             return View(EDIT_VIEW, myModel);
+        }
 
+
+        public ActionResult Add() {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            TempData["Message"] = "Upload not yet implemented.";
+
+            return RedirectToAction(LIST_VIEW);
         }
 
         [ActionName(EDIT_VIEW)]

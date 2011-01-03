@@ -7,6 +7,11 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <h2>Notifications</h2> <br /><br />
+
+    <p>
+        <%= Html.Encode(ViewData["Message"]) %><br /><br />
+    </p>
+    
     <% foreach (var item in Model) { %>
         <%= Html.ActionLink(item.Message, "View", "Board", new { id = item.Id }, null)%><br />
     <% } %>

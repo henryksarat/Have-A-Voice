@@ -11,7 +11,7 @@
 			<ul>
 				<li class="first active"><a class="home" href="/Home/FanFeed">HOME</a></li>
 				<li><a class="message" href="#">MESSAGE</a></li>
-				<li><a class="photo" href="#">PHOTOS</a></li>
+				<li><a class="photo" href="/UserPictures/List">PHOTOS</a></li>
 				<li><a class="event" href="/Calendar/List">EVENTS</a></li>
 				<li class="last"><a class="info" href="#">INFO</a></li>
 			</ul>
