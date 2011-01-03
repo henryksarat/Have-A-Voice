@@ -86,6 +86,7 @@
     <Compile Include="Controllers\Users\FanController.cs" />
     <Compile Include="Controllers\Users\FeedbackController.cs" />
     <Compile Include="Controllers\Issues\IssueReplyController.cs" />
+    <Compile Include="Controllers\Users\NotificationController.cs" />
     <Compile Include="Controllers\Users\UserPicturesController.cs" />
     <Compile Include="Controllers\Users\UserPrivacySettings.cs" />
     <Compile Include="Helpers\Enums\IssueType.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Repositories\UserFeatures\EntityHAVFanRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVFeedbackRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVNavigationRepository.cs" />
+    <Compile Include="Repositories\UserFeatures\EntityHAVNotificationRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVPasswordRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVUserPictureRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVUserPrivacySettingsRepository.cs" />
@@ -152,6 +154,7 @@
     <Compile Include="Repositories\UserFeatures\IHAVFeedbackRepository.cs" />
     <Compile Include="Models\ServiceConstants.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVNavigationRepository.cs" />
+    <Compile Include="Repositories\UserFeatures\IHAVNotificationRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVPasswordRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVUserPictureRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVUserPrivacySettingsRepository.cs" />
@@ -163,9 +166,11 @@
     <Compile Include="Services\Helpers\ProfilePictureHelper.cs" />
     <Compile Include="Services\UserFeatures\HAVFanService.cs" />
     <Compile Include="Services\UserFeatures\HAVNavigationService.cs" />
+    <Compile Include="Services\UserFeatures\HAVNotificationService.cs" />
     <Compile Include="Services\UserFeatures\HAVUserRetrievalService.cs" />
     <Compile Include="Services\UserFeatures\IHAVFanService.cs" />
     <Compile Include="Services\UserFeatures\IHAVNavigationService.cs" />
+    <Compile Include="Services\UserFeatures\IHAVNotificationService.cs" />
     <Compile Include="Services\UserFeatures\IHAVUserRetrievalService.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVWhoIsOnlineRepository.cs" />
     <Compile Include="Services\Helpers\PasswordHelper.cs" />
@@ -367,6 +372,7 @@
     <Content Include="Views\Message\Inbox.aspx" />
     <Content Include="Views\Message\Create.aspx" />
     <Content Include="Views\Message\View.aspx" />
+    <Content Include="Views\Notification\List.aspx" />
     <Content Include="Views\Permission\Create.aspx" />
     <Content Include="Views\Permission\Delete.aspx" />
     <Content Include="Views\Permission\Edit.aspx" />
