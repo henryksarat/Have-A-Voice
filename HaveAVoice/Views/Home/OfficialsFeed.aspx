@@ -1,12 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInModel<FeedModel>>" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
+<%@ Import Namespace="HaveAVoice.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Logged In
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <% Html.RenderPartial("UserPanel"); %>    
+    <% Html.RenderPartial("UserPanel", Model.UserModel); %>    
     <div class="col-3 left-nav">
         <% Html.RenderPartial("LeftNavigation"); %>
     </div>
@@ -19,32 +20,8 @@
         <br /><br />
         FanFeed:<br />
         <% foreach (var item in Model.Models) { %>
-            Username: <%= item.User.Username %>
-            IssueReply: <%= item.Reply %><br /><br />
-        <% } %>
-   
-        <br /><br />
-
-        <% using (Html.BeginForm("AddZipCodeFilter", "Home")) { %>
-            Zip Code:
-            <%= Html.TextBox("ZipCode") %>
-            <%= Html.ValidationMessage("ZipCode", "*")%>
-            <p>
-                <input type="submit" value="Submit" />
-            </p>
-        <% } %>
-        <br /><br />
-
-        <% using (Html.BeginForm("AddCityStateFilter", "Home")) { %>
-            City:
-            <%= Html.TextBox("City", "")%>
-            <%= Html.ValidationMessage("City", "*")%><br />
-            State:
-            <%= Html.TextBox("State", "")%>
-            <%= Html.ValidationMessage("State", "*")%><br />
-            <p>
-                <input type="submit" value="Submit" />
-            </p>
+            Username: <%= item.Username %>
+            IssueReply: <%= item.Body %><br /><br />
         <% } %>
     </div>
 </asp:Content>
