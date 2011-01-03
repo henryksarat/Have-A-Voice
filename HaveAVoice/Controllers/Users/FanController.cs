@@ -22,6 +22,7 @@ namespace HaveAVoice.Controllers.Users
 
         private const string ERROR_MESSAGE_VIEWDATA = "Message";
         private const string FANS_VIEW = "Fans";
+        private const string LIST_VIEW = "List";
         private const string FANS_OF_VIEW = "FansOf";
         private const string PENDING_FANS_VIEW = "Pending";
       
@@ -53,6 +54,22 @@ namespace HaveAVoice.Controllers.Users
             }
 
             return RedirectToAction("Show", "Profile", new { id = id });
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult List() {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            IEnumerable<Fan> myFans = new List<Fan>();
+            try {
+                myFans = theFanService.FindFansForUser(GetUserInformaton().Id);
+            } catch (Exception e) {
+                LogError(e, FANS_ERROR);
+                ViewData[ERROR_MESSAGE_VIEWDATA] = FANS_ERROR;
+            }
+
+            return View(LIST_VIEW, myFans);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

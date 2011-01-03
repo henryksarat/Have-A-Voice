@@ -6,7 +6,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Fans</h2> <br /><br />
+    <h2>Fans of me</h2> <br /><br />
     <% foreach (var item in Model) { %>
         <%= item.FanUser.Username %><br />
     <% } %>

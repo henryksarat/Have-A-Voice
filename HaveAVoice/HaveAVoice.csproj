@@ -345,6 +345,7 @@
     <Content Include="Views\Complaint\Complaint.aspx" />
     <Content Include="Views\Error\Index.aspx" />
     <Content Include="Views\Calendar\Show.aspx" />
+    <Content Include="Views\Fan\List.aspx" />
     <Content Include="Views\Fan\Pending.aspx" />
     <Content Include="Views\Feedback\Create.aspx" />
     <Content Include="Views\Feedback\View.aspx" />
@@ -363,7 +364,7 @@
     <Content Include="Views\Issue\Index.aspx" />
     <Content Include="Views\Issue\View.aspx" />
     <Content Include="Views\IssueReply\View.aspx" />
-    <Content Include="Views\Message\Index.aspx" />
+    <Content Include="Views\Message\Inbox.aspx" />
     <Content Include="Views\Message\Create.aspx" />
     <Content Include="Views\Message\View.aspx" />
     <Content Include="Views\Permission\Create.aspx" />

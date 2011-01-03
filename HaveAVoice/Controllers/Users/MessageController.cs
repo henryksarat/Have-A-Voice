@@ -24,7 +24,7 @@ namespace HaveAVoice.Controllers.Users {
         private const string REPLY_ERROR = "An error occurred while sending the reply. Please try again.";
 
         private const string ERROR_MESSAGE_VIEWDATA = "Message";
-        private const string INBOX_VIEW = "Index";
+        private const string INBOX_VIEW = "Inbox";
         private const string CREATE_VIEW = "Create";
         private const string VIEW_MESSAGE_VIEW = "View";
 
@@ -45,7 +45,7 @@ namespace HaveAVoice.Controllers.Users {
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Index() {
+        public ActionResult Inbox() {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
@@ -65,7 +65,7 @@ namespace HaveAVoice.Controllers.Users {
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Index(List<Int32> selectedMessages) {
+        public ActionResult Inbox(List<Int32> selectedMessages) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }

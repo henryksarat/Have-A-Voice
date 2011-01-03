@@ -33,7 +33,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         public IEnumerable<Fan> FindFansForUser(int aUserId) {
             return (from f in theEntities.Fans
-                    where (f.SourceUserId == aUserId || f.FanUserId == aUserId)
+                    where (f.SourceUserId == aUserId)
                     && f.Approved == true
                     select f).ToList<Fan>();
         }
@@ -47,7 +47,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         public bool IsFan(int aUserId, User aFan) {
             return (from f in theEntities.Fans
-                    where ((f.FanUserId == aFan.Id && f.SourceUserId == aUserId) || (f.SourceUserId == aFan.Id && f.FanUserId == aUserId))
+                    where (f.FanUserId == aFan.Id && f.SourceUserId == aUserId)
                     && f.Approved == true
                     select f).Count() > 0 ? true : false;
         }
