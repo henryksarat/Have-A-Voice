@@ -5,9 +5,8 @@
 	&nbsp;
 <% } else { %>
 	<ul>
-		<li class="first"><a href="#">Menu 1</a></li>
-		<li><a href="#">Menu 2</a></li>
-		<li><a href="#">Menu 3</a></li>
-		<li class="last"><a href="#">Menu 4</a></li>
+		<li class="first"><a href="/Home/FanFeed">Fan Feed</a></li>
+		<li><a href="/Home/OfficialsFeed">Officials Feed</a></li>
+		<li class="last"><a href="/Home/FilteredFeed">Filtered Feed</a></li>
 	</ul>
 <% } %>
