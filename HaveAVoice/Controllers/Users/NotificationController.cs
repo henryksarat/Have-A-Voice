@@ -8,6 +8,7 @@ using HaveAVoice.Services;
 using HaveAVoice.Repositories;
 using HaveAVoice.Validation;
 using HaveAVoice.Models;
+using HaveAVoice.Models.View;
 
 namespace HaveAVoice.Controllers.Users {
     public class NotificationController : HAVBaseController {
@@ -32,17 +33,16 @@ namespace HaveAVoice.Controllers.Users {
                 return RedirectToLogin();
             }
 
-            IEnumerable<Board> myBoardMessages = new List<Board>();
-
+            User myUser = GetUserInformatonModel().Details;
+            LoggedInModel<Board> myModel = new LoggedInModel<Board>(myUser);
             try {
-                User myUser = GetUserInformaton();
-                myBoardMessages =  theNotificationService.GetNotifications(myUser);
+                myModel.Models = theNotificationService.GetNotifications(myUser);
             } catch (Exception myException) {
                 LogError(myException, NOTIFICATION_ERROR);
                 ViewData["Message"] = NOTIFICATION_ERROR;
             }
 
-            return View(LIST_VIEW, myBoardMessages);
+            return View(LIST_VIEW, myModel);
         }
     }
 }

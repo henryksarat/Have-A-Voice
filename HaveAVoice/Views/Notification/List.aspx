@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<HaveAVoice.Models.Board>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInModel<Board>>" %>
+<%@ Import Namespace="HaveAVoice.Models" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Fans
@@ -12,8 +13,8 @@
         <%= Html.Encode(ViewData["Message"]) %><br /><br />
     </p>
     
-    <% foreach (var item in Model) { %>
-        <%= Html.ActionLink(item.Message, "View", "Board", new { id = item.Id }, null)%><br />
+    <% foreach (var item in Model.Models) { %>
+        <%= Html.ActionLink("Now activity with this board message:" + item.Message, "View", "Board", new { id = item.Id }, null)%><br />
     <% } %>
 
 </asp:Content>
