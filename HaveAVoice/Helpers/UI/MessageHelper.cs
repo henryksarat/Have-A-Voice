@@ -36,8 +36,8 @@ namespace HaveAVoice.Helpers.UI {
         	clrDiv.InnerHtml = "&nbsp;";
         	
 			var dtDiv = new TagBuilder("div");
-			dtDiv.MergeAttribute("class", "p-b10");
-			dtDiv.InnerHtml = DateHelper.ConvertToLocalTime(dateTimeStamp).ToString();
+			dtDiv.MergeAttribute("class", "p-b10 fnt-10");
+			dtDiv.InnerHtml = DateHelper.ConvertToLocalTime(dateTimeStamp).ToString("MMMM dd, yyyy");
 			
 			dtwrprDiv.InnerHtml += userLinkDiv.ToString();
 			dtwrprDiv.InnerHtml += clrDiv.ToString();
@@ -73,21 +73,31 @@ namespace HaveAVoice.Helpers.UI {
         }
 
         private static string CheckBoxPortion(int fromUserId) {
+        	var wrprDiv = new TagBuilder("div");
+        	wrprDiv.MergeAttribute("class", "p-a10");
+        	
             var checkboxTag = new TagBuilder("input");
             checkboxTag.MergeAttribute("type", "checkbox");
             checkboxTag.MergeAttribute("name", "selectedMessages");
             checkboxTag.MergeAttribute("value", fromUserId.ToString());
 
-            return checkboxTag.ToString(TagRenderMode.Normal);
+			wrprDiv.InnerHtml += checkboxTag.ToString();
+
+            return wrprDiv.ToString(TagRenderMode.Normal);
         }
 
         private static string UserInformationPortion(string fromUsername) {
+        	var wrprDiv = new TagBuilder("div");
+        	wrprDiv.MergeAttribute("class", "p-v10");
+        	
             var imageTag = new TagBuilder("img");
             /* HENRYK UPDATE URL TO BE THE ACTUAL USER IMAGE */
             imageTag.MergeAttribute("src", "http://alyintelligent.com/images/avatars/henry_avatar.jpg");
             imageTag.MergeAttribute("class", "profile sm");
 
-            return imageTag.ToString(TagRenderMode.Normal);
+			wrprDiv.InnerHtml += imageTag.ToString();
+
+            return wrprDiv.ToString(TagRenderMode.Normal);
         }
 
         private static string MessagePreview(int messageId, string subject, string body, DateTime dateTimeStamp) {
@@ -119,27 +129,47 @@ namespace HaveAVoice.Helpers.UI {
         }
 
 
-        public static string MessageItem(string fromUsername,  string subject, string body, DateTime dateTimeStamp) {
-            var tableTag = new TagBuilder("table");
-            tableTag.MergeAttribute("border", "0");
-            tableTag.MergeAttribute("cellspacing", "0");
-            tableTag.MergeAttribute("cellpadding", "0");
-            tableTag.MergeAttribute("width", "600px");
+        public static string MessageItem(string fromUsername, string subject, string body, DateTime dateTimeStamp) {
+        	var wrprDiv = new TagBuilder("div");
+        	wrprDiv.MergeAttribute("class", "mail");
+        	
+        	var imgDiv = new TagBuilder("div");
+        	imgDiv.MergeAttribute("class", "col-1");
+        	imgDiv.InnerHtml = UserInformationPortion(fromUsername);
+        	
+        	wrprDiv.InnerHtml = imgDiv.ToString();
+        	
+        	var msgDiv = new TagBuilder("div")
+        	msgDiv.MergeAttribute("class", "col-20");
+        	
+        	var nameDiv = new TagBuilder("div");
+        	nameDiv.MergeAttribute("class" "m-btm5");
+        	
+        	var nameSpan = new TagBuilder("span");
+        	nameSpan.MergeAttribute("fnt-12 bold varient-4");
+        	nameSpan.InnerHtml = fromUsername;
+        	
+        	var dateSpan = new TagBuilder("span");
+        	dateSpan.MergeAttribute("fnt-10")
+        	dateSpan.InnerHtml = DateHelper.ConvertToLocalTime(dateTimeStamp).ToString("MMMM dd, yyyy");
+        	
+        	nameDiv.InnerHtml += nameSpan.ToString();
+        	nameDiv.InnerHtml += dateSpan.ToString();
+        	
+        	var clrDiv = new TagBuilder("div");
+        	clrDiv.MergeAttribute("class", "clear");
+        	clrDiv.InnerHtml = "&nbsp;";
+        	
+        	msgDiv.InnerHtml += nameDiv.ToString();
+        	msgDiv.InnerHtml += clrDiv.ToString();
+        	
+			msgDiv.InnerHtml += body;
+			
+			wrprDiv.InnerHtml += msgDiv.ToString();
+			
+			msgDiv.InnerHtml += clrDiv.ToString();
 
-            var trTag = new TagBuilder("tr");
-            var tdTag = new TagBuilder("td");
-            tdTag.MergeAttribute("width", "1%");
-            tdTag.InnerHtml = UserInformationPortion(fromUsername);
-            trTag.InnerHtml += tdTag.ToString();
-
-            tdTag = new TagBuilder("td");
-            tdTag.MergeAttribute("style", "vertical-align:top; width:99%");
-            tdTag.InnerHtml = FullMessage(subject, body, dateTimeStamp);
-            trTag.InnerHtml += tdTag.ToString();
-
-            tableTag.InnerHtml = trTag.ToString();
-
-            return tableTag.ToString(TagRenderMode.Normal);
+            return wrprDiv.ToString(TagRenderMode.Normal);
         }
 
         private static string FullMessage(string subject, string body, DateTime dateTimeStamp) {

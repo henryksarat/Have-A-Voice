@@ -294,7 +294,7 @@ img.profile.sm { max-width: 40px; max-height: 40px; }
 /******************************** MESSAGES **********************************/
 /****************************************************************************/
 .mail { border-bottom: 1px solid #a2a2a2; }
-.mail.new { background-color: #4293a6; }
+.mail.new { background-color: #00bce0; }
 .mail a, .mail a:link, .mail a:visited { text-decoration: none; color: #3B5998; }
 .mail a:hover { text-decoration: underline; }
 .action-bar { background: #f2f2f2; border-top: 1px solid #cccccc; }
