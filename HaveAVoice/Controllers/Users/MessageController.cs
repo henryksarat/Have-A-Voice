@@ -51,13 +51,18 @@ namespace HaveAVoice.Controllers.Users {
             }
             try {
                 User myUser = GetUserInformaton();
+
                 List<InboxMessage> messages = theService.GetMessagesForUser(myUser).ToList<InboxMessage>();
+
+                LoggedInModel<InboxMessage> myModel = new LoggedInModel<InboxMessage>(myUser) {
+                    Models = messages
+                };
 
                 if (messages.Count == 0) {
                     ViewData[ERROR_MESSAGE_VIEWDATA] = NO_MESSAGES;
                 }
 
-                return View(INBOX_VIEW, messages);
+                return View(INBOX_VIEW, myModel);
             } catch (Exception e) {
                 LogError(e, INBOX_LOAD_ERROR);
                 return SendToErrorPage(INBOX_LOAD_ERROR);
