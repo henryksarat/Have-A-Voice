@@ -33,7 +33,7 @@
 						<div class="col-2 m-rgt right c-white">
 							<label for="Date">Date:</label>
 						</div>
-						<div class="col-4">
+						<div class="col-4 fnt-12">
 							<%= Html.TextBox("Date", DateTime.UtcNow.AddMinutes(1))%>
 						</div>
 						<div class="clear">&nbsp;</div>
@@ -45,7 +45,7 @@
 						<div class="col-4 m-rgt right c-white">
 							<label for="Information">Information:</label>
 						</div>
-						<div class="col-4">
+						<div class="col-4 fnt-12">
 							<%= Html.TextArea("Information", null, new{ cols = "20", rows = "2", resize = "none" })%>
 						</div>
 						<div class="clear">&nbsp;</div>

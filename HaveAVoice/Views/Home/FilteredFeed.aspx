@@ -32,14 +32,14 @@
 			<div class="col-2 m-rgt right c-white">
 				<label for="Zip">Zip:</label>
 			</div>
-			<div class="col-3">
+			<div class="col-3 fnt-12">
 				<%= Html.TextBox("Zip") %>
                 <%= Html.ValidationMessage("Zip", "*") %>
 			</div>
 			<div class="col-2 m-rgt right c-white">
 				<label for="City">City:</label>
 			</div>
-			<div class="col-3">
+			<div class="col-3 fnt-12">
 				<%= Html.TextBox("City") %>
                 <%= Html.ValidationMessage("City", "*")%>
 			</div>
