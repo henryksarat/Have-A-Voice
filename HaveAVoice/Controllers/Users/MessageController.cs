@@ -49,24 +49,20 @@ namespace HaveAVoice.Controllers.Users {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
+            User myUser = GetUserInformaton();
+            LoggedInModel<InboxMessage> myModel = new LoggedInModel<InboxMessage>(myUser);
             try {
-                User myUser = GetUserInformaton();
 
-                List<InboxMessage> messages = theService.GetMessagesForUser(myUser).ToList<InboxMessage>();
-
-                LoggedInModel<InboxMessage> myModel = new LoggedInModel<InboxMessage>(myUser) {
-                    Models = messages
-                };
-
-                if (messages.Count == 0) {
+                myModel.Models = theService.GetMessagesForUser(myUser).ToList<InboxMessage>();
+                if (myModel.Models.Count<InboxMessage>() == 0) {
                     ViewData[ERROR_MESSAGE_VIEWDATA] = NO_MESSAGES;
                 }
-
-                return View(INBOX_VIEW, myModel);
             } catch (Exception e) {
                 LogError(e, INBOX_LOAD_ERROR);
-                return SendToErrorPage(INBOX_LOAD_ERROR);
+                ViewData[ERROR_MESSAGE_VIEWDATA] = INBOX_LOAD_ERROR;
             }
+
+            return View(INBOX_VIEW, myModel);
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
