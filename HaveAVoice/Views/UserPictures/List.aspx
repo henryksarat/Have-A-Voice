@@ -1,5 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<HaveAVoice.Models.UserPicture>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInModel<UserPicture>>" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UI" %>
+<%@ Import Namespace="HaveAVoice.Models" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Gallery
 </asp:Content>
@@ -28,7 +30,7 @@
             </td>
         </tr>
         <tr>
-        <% foreach (var item in Model) { %>
+        <% foreach (var item in Model.Models) { %>
             <td><%= ImageHelper.Image("../../UserPictures/" + item.ImageName, 200, 200)%></td>
     
         <% } %>
