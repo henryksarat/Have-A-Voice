@@ -1,6 +1,7 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.ViewMessageModel>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInModelWithItemWrapped<ViewMessageModel>>" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UI" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
+<%@ Import Namespace="HaveAVoice.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	ViewMessage
@@ -14,14 +15,14 @@
     
     <div class="col-21">	
 	    <% using (Html.BeginForm("CreateReply", "Message")) { %>
-			<%= Html.Hidden("Id", Model.Message.Id) %>
+			<%= Html.Hidden("Id", Model.Model.Message.Id) %>
 			<%= Html.Encode(ViewData["Message"]) %>
 			<div class="clear">&nbsp;</div>
 
             <% if (Model != null) { %>
-	            <%= MessageHelper.MessageItem(Model.Message.FromUser.Username, Model.Message.Subject, Model.Message.Body, Model.Message.DateTimeStamp)%>
+	            <%= MessageHelper.MessageItem(Model.Model.Message.FromUser.Username, Model.Model.Message.Subject, Model.Model.Message.Body, Model.Model.Message.DateTimeStamp)%>
 	
-		         <% foreach (var reply in Model.Message.Replys) { %>
+		         <% foreach (var reply in Model.Model.Message.Replys) { %>
 	                <%= MessageHelper.MessageItem(reply.User.Username, "", reply.Body, reply.DateTimeStamp)%>
 	            <% } %>
 		                    		

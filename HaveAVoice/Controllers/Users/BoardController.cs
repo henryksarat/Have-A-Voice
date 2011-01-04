@@ -40,16 +40,17 @@ namespace HaveAVoice.Controllers.Users {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            BoardModel myBoardModel;
-
+            User myUser = GetUserInformatonModel().Details;
+            LoggedInModelWithItemWrapped<BoardModel> myModel = new LoggedInModelWithItemWrapped<BoardModel>(myUser); 
+            
             try {
-                myBoardModel = theService.GetBoard(GetUserInformatonModel(), id);
+                myModel.Model = theService.GetBoard(GetUserInformatonModel(), id);
             } catch (Exception myException) {
                 LogError(myException, VIEW_BOARD_ERROR);
                 return SendToErrorPage(VIEW_BOARD_ERROR);
             }
 
-            return View("View", myBoardModel);
+            return View("View", myModel);
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]

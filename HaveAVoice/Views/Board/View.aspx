@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.BoardModel>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInModelWithItemWrapped<BoardModel>>" %>
 <%@Import Namespace="HaveAVoice.Models" %>
 <%@Import Namespace="HaveAVoice.Models.View" %>
 <%@Import Namespace="HaveAVoice.Helpers" %>
@@ -23,10 +23,10 @@
 
     <% using (Html.BeginForm()) { %>
         <p>
-            <%= Model.Board.Message %>
+            <%= Model.Model.Board.Message %>
         </p>
 
-        <% foreach (BoardReply reply in Model.BoardReplies) { %>
+        <% foreach (BoardReply reply in Model.Model.BoardReplies) { %>
             <p>
                 <%= reply.Message %> 
                 <% UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation(); %>
@@ -35,9 +35,9 @@
                     <%= Html.ActionLink("Edit", "Edit", "BoardReply", new { id = reply.Id }, null)%>
                 <% } %>
                 <% if (reply.User.Id == myUserInfo.Details.Id
-                       || Model.Board.OwnerUserId == myUserInfo.Details.Id
+                       || Model.Model.Board.OwnerUserId == myUserInfo.Details.Id
                        || HAVPermissionHelper.AllowedToPerformAction(myUserInfo, HAVPermission.Edit_Any_Board_Reply)) { %>
-                    <%= Html.ActionLink("Delete", "Delete", "BoardReply", new {  boardId = Model.Board.Id, boardReplyId = reply.Id }, null)%>
+                    <%= Html.ActionLink("Delete", "Delete", "BoardReply", new { boardId = Model.Model.Board.Id, boardReplyId = reply.Id }, null)%>
                 <% } %>
             </p>
         <%}%>
@@ -47,7 +47,7 @@
     Post a reply
     </p>
 
-    <% using (Html.BeginForm("Create", "BoardReply", new { boardId = Model.Board.Id })) {%>
+    <% using (Html.BeginForm("Create", "BoardReply", new { boardId = Model.Model.Board.Id })) {%>
         <p>
             <%= Html.TextArea("Message", new { style = "width:300px; height: 200px" })%>
             <%= Html.ValidationMessage("Message", "*")%>
