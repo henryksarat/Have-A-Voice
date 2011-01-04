@@ -143,14 +143,14 @@ namespace HaveAVoice.Helpers.UI {
         	msgDiv.MergeAttribute("class", "col-20 m-lft p-t10");
         	
         	var nameDiv = new TagBuilder("div");
-        	nameDiv.MergeAttribute("class" "m-btm5");
+        	nameDiv.MergeAttribute("class", "m-btm5");
         	
         	var nameSpan = new TagBuilder("span");
-        	nameSpan.MergeAttribute("fnt-12 bold varient-4 m-rgt5");
-        	nameSpan.InnerHtml = fromUsername;
+        	nameSpan.MergeAttribute("class", "fnt-12 bold varient-4 m-rgt5");
+	       	nameSpan.InnerHtml = fromUsername;
         	
         	var dateSpan = new TagBuilder("span");
-        	dateSpan.MergeAttribute("fnt-10")
+            dateSpan.MergeAttribute("class", "fnt-10");
         	dateSpan.InnerHtml = DateHelper.ConvertToLocalTime(dateTimeStamp).ToString("MMMM dd, yyyy");
         	
         	nameDiv.InnerHtml += nameSpan.ToString();
