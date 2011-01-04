@@ -83,8 +83,11 @@ body { font-family: helvetica, arial, sans-serif; background: #d9e9ed; }
 .p-t5 { padding-top: 5px; }
 .p-b5 { padding-bottom: 5px; }
 .p-a5 { padding: 5px; }
+.p-t10 { padding-top: 10px; }
+.p-b10 { padding-bottom: 10px; }
 .p-h5 { padding-left: 5px; padding-right: 5px; }
 .p-a10 { padding: 10px; }
+.p-v10 { padding-top: 10px; padding-bottom: 10px; }
 .p-v15 { padding-top: 15px; padding-bottom: 15px; }
 
 
@@ -227,6 +230,7 @@ form.create .c-white label { color: #fff; }
 /******************************** FAN FEED **********************************/
 /****************************************************************************/
 img.profile { border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; max-width: 80px; max-height: 80px; }
+img.profile.sm { max-width: 40px; max-height: 40px; }
 .comment .options span { font-size: 12px; }
 .row a.name, .row a.name:link, .row a.name:visited { font-size: 12px; font-style: normal; font-weight: bold; text-decoration: none; color: #20a9c9; }
 .row a.like, .row a.like:link, .row a.like:visited { color: #2070c9; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; background: transparent; }
@@ -263,6 +267,7 @@ img.profile { border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius
 /****************************************************************************/
 .filter { border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; background-color: #20a9c9; padding: 5px 0px; }
 
+
 /****************************************************************************/
 /**************************** ISSUES ****************************************/
 /****************************************************************************/
@@ -283,6 +288,18 @@ img.profile { border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius
 .events a.delete, .events a.delete:link, .events a.delete:visited { color: #DC143C; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; }
 
 .events div.create { border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; background-color: #20a9c9; padding: 5px 0px; }
+
+
+/****************************************************************************/
+/******************************** MESSAGES **********************************/
+/****************************************************************************/
+.mail { border-bottom: 1px solid #a2a2a2; }
+.mail.new { background-color: #4293a6; }
+.mail a, .mail a:link, .mail a:visited { text-decoration: none; color: #3B5998; }
+.mail a:hover { text-decoration: underline; }
+.action-bar { background: #f2f2f2; border-top: 1px solid #cccccc; }
+.action-bar input[type=submit].btn { padding: 5px; color: #333333; font-size: 12px; background-color: #dddddd; border: 1px solid #888888; font-weight: bold; box-shadow: 0px 1px 0px #aaaaaa; -moz-box-shadow: 0px 1px 0px #aaaaaa; -webkit-box-shadow: 0px 1px 0px #aaaaaa; }
+
 
 /****************************************************************************/
 /****************************************************************************/
