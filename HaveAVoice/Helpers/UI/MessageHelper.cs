@@ -139,18 +139,18 @@ namespace HaveAVoice.Helpers.UI {
         	
         	wrprDiv.InnerHtml = imgDiv.ToString();
         	
-        	var msgDiv = new TagBuilder("div")
+        	var msgDiv = new TagBuilder("div");
         	msgDiv.MergeAttribute("class", "col-20");
         	
         	var nameDiv = new TagBuilder("div");
-        	nameDiv.MergeAttribute("class" "m-btm5");
+        	nameDiv.MergeAttribute("class", "m-btm5");
         	
         	var nameSpan = new TagBuilder("span");
-        	nameSpan.MergeAttribute("fnt-12 bold varient-4");
+        	nameSpan.MergeAttribute("class", "fnt-12 bold varient-4");
         	nameSpan.InnerHtml = fromUsername;
         	
         	var dateSpan = new TagBuilder("span");
-        	dateSpan.MergeAttribute("fnt-10")
+            dateSpan.MergeAttribute("class", "fnt-10");
         	dateSpan.InnerHtml = DateHelper.ConvertToLocalTime(dateTimeStamp).ToString("MMMM dd, yyyy");
         	
         	nameDiv.InnerHtml += nameSpan.ToString();
