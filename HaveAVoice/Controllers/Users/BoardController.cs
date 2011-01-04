@@ -40,8 +40,8 @@ namespace HaveAVoice.Controllers.Users {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            
-            HaveAVoice.Models.View.LoggedInModelWithItemWrapped<BoardModel> myModel = new LoggedInModelWithItemWrapped<BoardModel>(GetUserInformatonModel().Details); 
+            User myUser = GetUserInformatonModel().Details;
+            LoggedInModelWithItemWrapped<BoardModel> myModel = new LoggedInModelWithItemWrapped<BoardModel>(myUser); 
             
             try {
                 myModel.Model = theService.GetBoard(GetUserInformatonModel(), id);
