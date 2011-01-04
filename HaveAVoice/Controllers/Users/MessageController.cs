@@ -147,7 +147,9 @@ namespace HaveAVoice.Controllers.Users {
                 return SendToErrorPage(RETRIEVE_ERROR);
             }
 
-            return View(VIEW_MESSAGE_VIEW, new ViewMessageModel(myMessageToDisplay));
+            LoggedInModelWithItemWrapped<ViewMessageModel> myModel = new LoggedInModelWithItemWrapped<ViewMessageModel>(myUser);
+            myModel.Model = new ViewMessageModel(myMessageToDisplay);
+            return View(VIEW_MESSAGE_VIEW, myModel);
         }
 
 
