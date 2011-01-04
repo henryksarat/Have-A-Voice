@@ -69,15 +69,15 @@ namespace HaveAVoice.Controllers.Users
             }
             User myUser = GetUserInformaton();
 
-            IEnumerable<UserPicture> myPictures = new List<UserPicture>();
+            LoggedInModel<UserPicture> myModel = new LoggedInModel<UserPicture>(myUser);
             try {
-                myPictures = theUserPictureService.GetUserPictures(myUser, myUser.Id);
+                myModel.Models = theUserPictureService.GetUserPictures(myUser, myUser.Id);
             } catch (Exception e) {
                 LogError(e, GALLERY_ERROR);
                 return SendToErrorPage(GALLERY_ERROR);
             }
 
-            return View(LIST_VIEW, myPictures);
+            return View(LIST_VIEW, myModel);
         }
 
         public ActionResult Edit() {
@@ -152,10 +152,5 @@ namespace HaveAVoice.Controllers.Users
 
             return View(EDIT_VIEW, aUserPicturesModel);
         }
-
-        private ActionResult RedirectToProfile() {
-            return RedirectToAction("LoggedIn", "Home");
-        }
-
     }
 }
