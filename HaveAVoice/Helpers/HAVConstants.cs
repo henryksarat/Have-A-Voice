@@ -9,7 +9,7 @@ namespace HaveAVoice.Helpers {
     public class HAVConstants {
         public const string BASE_URL = "www.haveavoice.us";
         public const string NOT_CONFIRMED_USER_ROLE = "Not confirmed";
-        public const string USER_PICTURE_LOCATION_FROM_VIEW = "../../UserPictures/";
+        public const string USER_PICTURE_LOCATION_FROM_VIEW = "../UserPictures/";
         public const string NO_PROFILE_PICTURE_IMAGE = "no_profile_picture.jpg";
         public const string NO_PROFILE_PICTURE_URL = USER_PICTURE_LOCATION_FROM_VIEW + NO_PROFILE_PICTURE_IMAGE;
         public const string ANONYMOUS_PICTURE_URL = USER_PICTURE_LOCATION_FROM_VIEW + "anonymous_picture.jpg";

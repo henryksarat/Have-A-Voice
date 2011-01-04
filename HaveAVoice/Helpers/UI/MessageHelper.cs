@@ -32,7 +32,7 @@ namespace HaveAVoice.Helpers.UI {
         	userLinkDiv.InnerHtml = String.Format("<a href=\"View/{0}\">{1}</a>", messageId, fromUsername);
         	
         	var clrDiv = new TagBuilder("div");
-        	clrDiv.MergeAttribugte("class", "clear");
+        	clrDiv.MergeAttribute("class", "clear");
         	clrDiv.InnerHtml = "&nbsp;";
         	
 			var dtDiv = new TagBuilder("div");
@@ -46,7 +46,7 @@ namespace HaveAVoice.Helpers.UI {
 			wrprDiv.InnerHtml += dtwrprDiv.ToString();
 			
         	var prvDiv = new TagBuilder("div");
-        	prvDiv.MergeAttribute("col-13 m-lft m-rgt");
+            prvDiv.MergeAttribute("class", "col-13 m-lft m-rgt");
         	
         	var sbjDiv = new TagBuilder("div");
         	sbjDiv.MergeAttribute("class", "p-t10");
@@ -63,7 +63,7 @@ namespace HaveAVoice.Helpers.UI {
         	wrprDiv.InnerHtml += prvDiv.ToString();
         	
         	var dltDiv = new TagBuilder("div");
-        	dltDiv.MergeAttribute("col-2 m-lft m-rgt p-v10 right");
+            dltDiv.MergeAttribute("class", "col-2 m-lft m-rgt p-v10 right");
         	dltDiv.InnerHtml = "&nbsp;";
 
 			wrprDiv.InnerHtml += dltDiv.ToString();
@@ -78,7 +78,7 @@ namespace HaveAVoice.Helpers.UI {
             checkboxTag.MergeAttribute("name", "selectedMessages");
             checkboxTag.MergeAttribute("value", fromUserId.ToString());
 
-            return checkboxTab.ToString(TagRenderMode.Normal);
+            return checkboxTag.ToString(TagRenderMode.Normal);
         }
 
         private static string UserInformationPortion(string fromUsername) {

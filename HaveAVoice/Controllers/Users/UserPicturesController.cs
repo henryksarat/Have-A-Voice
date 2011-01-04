@@ -11,6 +11,7 @@ using HaveAVoice.Repositories;
 using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Services.Helpers;
+using System.Web;
 
 namespace HaveAVoice.Controllers.Users
 {
@@ -22,6 +23,7 @@ namespace HaveAVoice.Controllers.Users
         private static string GALLERY_ERROR = "Unable to load your gallery. Please try again.";
         private static string SELECT_ONE_ERROR = "Please select only ONE image.";
         private static string SELECT_ONE_OR_MORE_ERROR = "Please select AT LEAST one or more images.";
+        private static string UPLOAD_ERROR = "Error uploading image.";
 
         private const string EDIT_VIEW = "Edit";
         private static string SHOW_VIEW = "Show";
@@ -95,12 +97,19 @@ namespace HaveAVoice.Controllers.Users
             return View(EDIT_VIEW, myModel);
         }
 
-
-        public ActionResult Add() {
+        public ActionResult Add(HttpPostedFileBase imageFile ) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            TempData["Message"] = "Upload not yet implemented.";
+            try {
+                User myUser = GetUserInformatonModel().Details;
+                theUserPictureService.UploadImageWithDatabaseReference(myUser, imageFile);
+                TempData["Message"] = "Image uploaded!";
+                return RedirectToAction(LIST_VIEW);
+            } catch (Exception myException) {
+                TempData["Message"] = UPLOAD_ERROR;
+                LogError(myException, UPLOAD_ERROR);
+            }
 
             return RedirectToAction(LIST_VIEW);
         }

@@ -6,7 +6,7 @@ using HaveAVoice.Models;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public interface IHAVUserPictureRepository {
-        void AddProfilePicture(User aUser, string anImageURL);
+        UserPicture AddReferenceToImage(User aUser, string anImageName);
         void SetToProfilePicture(User aUser, int aUserPictureId);
         UserPicture GetProfilePicture(int aUserId);
         IEnumerable<UserPicture> GetUserPictures(int aUserId);

@@ -21,10 +21,6 @@ namespace HaveAVoice.Services.UserFeatures {
             theUserPictureRepo = aUserPictureRepo;
         }
 
-        public void AddProfilePicture(User aUser, string anImageURL) {
-            theUserPictureRepo.AddProfilePicture(aUser, anImageURL);
-        }
-
         public IEnumerable<UserPicture> GetUserPictures(User aViewingUser, int aUserId) {
             if (aViewingUser.Id == aUserId || theFanService.IsFan(aUserId, aViewingUser)) {
                 return theUserPictureRepo.GetUserPictures(aUserId);
@@ -49,6 +45,32 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public void SetToProfilePicture(User aUser, int aUserPictureId) {
             theUserPictureRepo.SetToProfilePicture(aUser, aUserPictureId);
+        }
+
+
+        public void UploadProfilePicture(User aUserToUploadFor, HttpPostedFileBase aImageFile) {
+            string myImageName = UploadImage(aUserToUploadFor, aImageFile);
+            UserPicture myUserPicture = theUserPictureRepo.AddReferenceToImage(aUserToUploadFor, myImageName);
+            theUserPictureRepo.SetToProfilePicture(aUserToUploadFor, myUserPicture.Id);
+        }
+
+        public bool IsValidImage(string anImageFile) {
+            return !String.IsNullOrEmpty(anImageFile)
+                && (anImageFile.EndsWith(".jpg") || anImageFile.EndsWith(".jpeg") || anImageFile.EndsWith(".gif"));
+        }
+
+        public void UploadImageWithDatabaseReference(User aUserToUploadFor, HttpPostedFileBase aImageFile) {
+            string myImageName = UploadImage(aUserToUploadFor, aImageFile);
+            UserPicture myUserPicture = theUserPictureRepo.AddReferenceToImage(aUserToUploadFor, myImageName);
+        }
+
+        private string UploadImage(User aUserToUploadFor, HttpPostedFileBase aImageFile) {
+            string[] mySplitOnPeriod = aImageFile.FileName.Split(new char[] { '.' });
+            string myFileExtension = mySplitOnPeriod[mySplitOnPeriod.Length - 1];
+            string myFileName = aUserToUploadFor.Id + "_" + DateTime.UtcNow.GetHashCode() + "." + myFileExtension;
+            string filePath = HttpContext.Current.Server.MapPath(HAVConstants.USER_PICTURE_LOCATION_FROM_VIEW) + myFileName;
+            aImageFile.SaveAs(filePath);
+            return myFileName;
         }
     }
 }

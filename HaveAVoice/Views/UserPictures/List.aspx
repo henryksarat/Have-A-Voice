@@ -16,11 +16,11 @@
     <table>
         <tr>
             <td>
-                <% using (Html.BeginForm("Add", "UserPictures")) { %>
-        		<div class="push_1 grid_6">
-				    <input type="file" id="ProfilePictureUpload" name="ProfilePictureUpload" size="23"/>
-                    <%= Html.ValidationMessage("ProfilePictureUpload", "*")%>
-			    </div>
+                <% using (Html.BeginForm("Add", "UserPictures", FormMethod.Post, new { enctype = "multipart/form-data" })) { %>
+			<div class="push_1 grid_6">
+				<input type="file" id="ProfilePictureUpload" name="ProfilePictureUpload" size="23"/>
+                <%= Html.ValidationMessage("ProfilePictureUpload", "*")%>
+			</div>
                 <p>
                     <input type="submit" value="Upload" />
                </p>

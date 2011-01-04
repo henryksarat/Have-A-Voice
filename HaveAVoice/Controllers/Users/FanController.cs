@@ -61,15 +61,16 @@ namespace HaveAVoice.Controllers.Users
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            IEnumerable<Fan> myFans = new List<Fan>();
+            User myUser = GetUserInformatonModel().Details;
+            LoggedInModel<Fan> myModel = new LoggedInModel<Fan>(myUser);
             try {
-                myFans = theFanService.FindFansForUser(GetUserInformaton().Id);
+                myModel.Models = theFanService.FindFansForUser(myUser.Id);
             } catch (Exception e) {
                 LogError(e, FANS_ERROR);
                 ViewData[ERROR_MESSAGE_VIEWDATA] = FANS_ERROR;
             }
 
-            return View(LIST_VIEW, myFans);
+            return View(LIST_VIEW, myModel);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

@@ -1,6 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<HaveAVoice.Models.Fan>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInModel<Fan>>" %>
+<%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
-<%@ Import Namespace="HaveAVoice.Models.View" %>
+
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Fans
@@ -14,7 +15,7 @@
     
     <div class="col-21">
 	    <h2>Fans of me</h2> <br /><br />
-	    <% foreach (var item in Model) { %>
+	    <% foreach (var item in Model.Models) { %>
 	        <%= item.FanUser.Username %><br />
 	    <% } %>
 	</div>

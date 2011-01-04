@@ -8,13 +8,15 @@ namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVUserPictureRepository : HAVBaseRepository, IHAVUserPictureRepository {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
-        public void AddProfilePicture(User aUser, string anImageURL) {
-            UserPicture myUserPicture = UserPicture.CreateUserPicture(0, aUser.Id, anImageURL, true, DateTime.UtcNow);
+        public UserPicture AddReferenceToImage(User aUser, string anImageName) {
+            UserPicture myUserPicture = UserPicture.CreateUserPicture(0, aUser.Id, anImageName, false, DateTime.UtcNow);
 
             UnSetCurrentUserPicture(aUser);
 
             theEntities.AddToUserPictures(myUserPicture);
             theEntities.SaveChanges();
+
+            return myUserPicture;
         }
 
         public void SetToProfilePicture(User aUser, int aUserPictureId) {

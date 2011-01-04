@@ -2,6 +2,7 @@
 using System.Web.Routing;
 using HaveAVoice.Models.View;
 using HaveAVoice.Helpers;
+using System.Web;
 
 namespace HaveAVoice {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
@@ -10,6 +11,8 @@ namespace HaveAVoice {
     public class MvcApplication : System.Web.HttpApplication {
        
         public static void RegisterRoutes(RouteCollection routes) {
+            ModelBinders.Binders.Remove(typeof(HttpPostedFileBase));
+            ModelBinders.Binders.Add(typeof(HttpPostedFileBase), new ImageBinder());
             ModelBinders.Binders.Remove(typeof(RoleModel));
             ModelBinders.Binders.Add(typeof(RoleModel), new RoleModelBinder());
             ModelBinders.Binders.Remove(typeof(ViewMessageModel));

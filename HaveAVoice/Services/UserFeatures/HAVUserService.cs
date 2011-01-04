@@ -124,8 +124,7 @@ namespace HaveAVoice.Services.UserFeatures {
             }
 
             if (ShouldUploadImage(isValidFileImage, aUser.ImageFile.FileName)) {
-                string imageName = UploadImage(aUser.ImageFile, aUser.UserInformation);
-                theUserPictureService.AddProfilePicture(aUser.UserInformation, imageName);
+                theUserPictureService.UploadProfilePicture(aUser.UserInformation, aUser.ImageFile);
             }
 
             theUserRepo.UpdateUser(aUser.UserInformation);
@@ -135,7 +134,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         private bool ValidateFileImage(string aImageFile) {
-            if(!(String.IsNullOrEmpty(aImageFile)) && !(aImageFile.EndsWith(".jpg")) && !(aImageFile.EndsWith(".jpeg")) && !(aImageFile.EndsWith(".gif"))) {
+            if(theUserPictureService.IsValidImage(aImageFile)){
                 theValidationDictionary.AddError("ProfilePictureUpload", aImageFile, "Image must be either a .jpg, .jpeg, or .gif.");
             }
 
@@ -144,15 +143,6 @@ namespace HaveAVoice.Services.UserFeatures {
 
         private bool ShouldUploadImage(bool aValidImage, string anImageFile) {
             return !String.IsNullOrEmpty(anImageFile) && aValidImage;
-        }
-
-        private string UploadImage(HttpPostedFileBase aImageFile, User aUser) {
-            string[] mySplitOnPeriod = aImageFile.FileName.Split(new char[] { '.' });
-            string myFileExtension = mySplitOnPeriod[mySplitOnPeriod.Length - 1];
-            string myFileName = aUser.Id + "_" + DateTime.UtcNow.GetHashCode() + "." + myFileExtension;
-            string filePath = HttpContext.Current.Server.MapPath(HAVConstants.USER_PICTURE_LOCATION_FROM_VIEW) + myFileName;
-            aImageFile.SaveAs(filePath);
-            return myFileName;
         }
 
         public EditUserModel GetUserForEdit(User aUser) {
