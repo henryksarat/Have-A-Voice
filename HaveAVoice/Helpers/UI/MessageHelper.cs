@@ -140,13 +140,13 @@ namespace HaveAVoice.Helpers.UI {
         	wrprDiv.InnerHtml = imgDiv.ToString();
         	
         	var msgDiv = new TagBuilder("div")
-        	msgDiv.MergeAttribute("class", "col-20");
+        	msgDiv.MergeAttribute("class", "col-20 m-lft p-t10");
         	
         	var nameDiv = new TagBuilder("div");
         	nameDiv.MergeAttribute("class" "m-btm5");
         	
         	var nameSpan = new TagBuilder("span");
-        	nameSpan.MergeAttribute("fnt-12 bold varient-4");
+        	nameSpan.MergeAttribute("fnt-12 bold varient-4 m-rgt5");
         	nameSpan.InnerHtml = fromUsername;
         	
         	var dateSpan = new TagBuilder("span");
@@ -167,7 +167,7 @@ namespace HaveAVoice.Helpers.UI {
 			
 			wrprDiv.InnerHtml += msgDiv.ToString();
 			
-			msgDiv.InnerHtml += clrDiv.ToString();
+			wrprDiv.InnerHtml += clrDiv.ToString();
 
             return wrprDiv.ToString(TagRenderMode.Normal);
         }
