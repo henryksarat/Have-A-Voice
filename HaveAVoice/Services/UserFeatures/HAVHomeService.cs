@@ -35,22 +35,22 @@ namespace HaveAVoice.Services.UserFeatures {
             };
         }
 
-        public LoggedInModel<FeedModel> FanFeed(User aUser) {
+        public LoggedInListModel<FeedModel> FanFeed(User aUser) {
             IEnumerable<Issue> myIssues = theHomeRepository.FanIssueFeed(aUser);
             IEnumerable<IssueReply> myIssueReplys = theHomeRepository.FanIssueReplyFeed(aUser);
             IEnumerable<FeedModel> myFeedModel = CreateFeedModel(aUser, myIssues, myIssueReplys, false);
 
-            return new LoggedInModel<FeedModel>(aUser) {
+            return new LoggedInListModel<FeedModel>(aUser) {
                 Models = myFeedModel
             };
         }
 
-        public LoggedInModel<FeedModel> OfficialsFeed(User aUser) {
+        public LoggedInListModel<FeedModel> OfficialsFeed(User aUser) {
             IEnumerable<Issue> myIssues = theHomeRepository.OfficialsIssueFeed(aUser, RoleHelper.OfficialRoles());
             IEnumerable<IssueReply> myIssueReplys = theHomeRepository.OfficialsIssueReplyFeed(aUser, RoleHelper.OfficialRoles());
             IEnumerable<FeedModel> myFeedModel = CreateFeedModel(aUser, myIssues, myIssueReplys, false);
 
-            return new LoggedInModel<FeedModel>(aUser) {
+            return new LoggedInListModel<FeedModel>(aUser) {
                 Models = myFeedModel
             };
         }

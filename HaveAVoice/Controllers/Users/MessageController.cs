@@ -50,7 +50,7 @@ namespace HaveAVoice.Controllers.Users {
                 return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
-            LoggedInModel<InboxMessage> myModel = new LoggedInModel<InboxMessage>(myUser);
+            LoggedInListModel<InboxMessage> myModel = new LoggedInListModel<InboxMessage>(myUser);
             try {
 
                 myModel.Models = theService.GetMessagesForUser(myUser).ToList<InboxMessage>();
@@ -147,7 +147,7 @@ namespace HaveAVoice.Controllers.Users {
                 return SendToErrorPage(RETRIEVE_ERROR);
             }
 
-            LoggedInModelWithItemWrapped<ViewMessageModel> myModel = new LoggedInModelWithItemWrapped<ViewMessageModel>(myUser);
+            LoggedInWrapperModel<ViewMessageModel> myModel = new LoggedInWrapperModel<ViewMessageModel>(myUser);
             myModel.Model = new ViewMessageModel(myMessageToDisplay);
             return View(VIEW_MESSAGE_VIEW, myModel);
         }

@@ -69,7 +69,7 @@ namespace HaveAVoice.Controllers.Users
             }
             User myUser = GetUserInformaton();
 
-            LoggedInModel<UserPicture> myModel = new LoggedInModel<UserPicture>(myUser);
+            LoggedInListModel<UserPicture> myModel = new LoggedInListModel<UserPicture>(myUser);
             try {
                 myModel.Models = theUserPictureService.GetUserPictures(myUser, myUser.Id);
             } catch (Exception e) {
