@@ -5,7 +5,7 @@ using System.Web;
 using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Models.View {
-    public class LoggedInModel {
+    public abstract class LoggedInModel {
         public UserModel UserModel { get; private set; }
 
         public LoggedInModel(User aUser) {
