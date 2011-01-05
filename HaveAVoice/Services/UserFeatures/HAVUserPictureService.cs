@@ -29,10 +29,6 @@ namespace HaveAVoice.Services.UserFeatures {
             throw new NotFanException();
         }
 
-        public UserPicture GetProfilePicture(int aUserId) {
-            return theUserPictureRepo.GetProfilePicture(aUserId);
-        }
-
         public void DeleteUserPictures(List<int> aUserPictureIds) {
             foreach (int userPictureId in aUserPictureIds) {
                 theUserPictureRepo.DeleteUserPicture(userPictureId);
@@ -62,6 +58,14 @@ namespace HaveAVoice.Services.UserFeatures {
         public void UploadImageWithDatabaseReference(User aUserToUploadFor, HttpPostedFileBase aImageFile) {
             string myImageName = UploadImage(aUserToUploadFor, aImageFile);
             UserPicture myUserPicture = theUserPictureRepo.AddReferenceToImage(aUserToUploadFor, myImageName);
+        }
+
+        public UserPicture GetProfilePicutre(User aUser) {
+            return GetProfilePicture(aUser.Id);
+        }
+
+        public UserPicture GetProfilePicture(int aUserId) {
+            return theUserPictureRepo.GetProfilePicture(aUserId);
         }
 
         private string UploadImage(User aUserToUploadFor, HttpPostedFileBase aImageFile) {

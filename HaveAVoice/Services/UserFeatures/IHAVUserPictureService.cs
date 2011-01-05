@@ -14,5 +14,6 @@ namespace HaveAVoice.Services.UserFeatures {
         bool IsValidImage(string anImageFile);
         void UploadProfilePicture(User aUserToUploadFor, HttpPostedFileBase anImage);
         void UploadImageWithDatabaseReference(User aUserToUploadFor, HttpPostedFileBase aImageFile);
+        UserPicture GetProfilePicutre(User aUser);
     }
 }

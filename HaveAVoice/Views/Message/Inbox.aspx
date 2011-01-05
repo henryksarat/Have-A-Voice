@@ -24,7 +24,7 @@
 
 			<% if (Model != null) { %>
                 <% foreach (var item in Model.Models) { %>
-                    <%= MessageHelper.MessageList(item.FromUserId, item.FromUsername, item.MessageId, item.Subject, item.LastReply, item.DateTimeStamp, item.Viewed) %>
+                    <%= MessageHelper.MessageList(item.FromUserId, item.FromUsername, item.FromUserProfilePictureUrl, item.MessageId, item.Subject, item.LastReply, item.DateTimeStamp, item.Viewed) %>
                 <% } %>
             <% } %>
         <% } %>

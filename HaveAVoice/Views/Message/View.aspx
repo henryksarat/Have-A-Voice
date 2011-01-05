@@ -2,6 +2,7 @@
 <%@ Import Namespace="HaveAVoice.Helpers.UI" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
+<%@ Import Namespace="HaveAVoice.Services.Helpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	ViewMessage
@@ -20,10 +21,10 @@
 			<div class="clear">&nbsp;</div>
 
             <% if (Model != null) { %>
-	            <%= MessageHelper.MessageItem(Model.Model.Message.FromUser.Username, Model.Model.Message.Subject, Model.Model.Message.Body, Model.Model.Message.DateTimeStamp)%>
+	            <%= MessageHelper.MessageItem(Model.Model.Message.FromUser.Username, ProfilePictureHelper.ProfilePicture(Model.Model.Message.FromUser), Model.Model.Message.Subject, Model.Model.Message.Body, Model.Model.Message.DateTimeStamp)%>
 	
 		         <% foreach (var reply in Model.Model.Message.Replys) { %>
-	                <%= MessageHelper.MessageItem(reply.User.Username, "", reply.Body, reply.DateTimeStamp)%>
+	                <%= MessageHelper.MessageItem(reply.User.Username, ProfilePictureHelper.ProfilePicture(reply.User), "", reply.Body, reply.DateTimeStamp)%>
 	            <% } %>
 		                    		
 	            <%= Html.ValidationSummary("Reply was unsuccessful. Please correct the errors and try again.") %>

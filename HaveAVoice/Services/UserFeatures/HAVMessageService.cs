@@ -5,6 +5,7 @@ using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Models;
+using HaveAVoice.Services.UserFeatures.Helpers;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVMessageService : HAVBaseService, IHAVMessageService {
@@ -29,7 +30,10 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public IEnumerable<InboxMessage> GetMessagesForUser(User toUser) {
-            return theRepository.GetMessagesForUser(toUser);
+            IEnumerable<Message> myMessages = theRepository.GetAllMessages();
+            IEnumerable<Reply> myReplys = theRepository.GetAllReplys();
+
+            return MessageHelper.GenerateInbox(toUser, myMessages, myReplys);
         }
 
         public void DeleteMessages(List<Int32> messagesToDelete, User user) {

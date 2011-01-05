@@ -151,7 +151,7 @@
     <Compile Include="Repositories\UserFeatures\EntityHAVUserPrivacySettingsRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVUserRetrievalRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVWhoIsOnlineRepository.cs" />
-    <Compile Include="Repositories\UserFeatures\Helpers\MessageHelper.cs" />
+    <Compile Include="Services\Helpers\MessageHelper.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVAuthenticationRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVBoardRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVFanRepository.cs" />

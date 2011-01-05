@@ -4,10 +4,11 @@ using System.Linq;
 using System.Web;
 using HaveAVoice.Models.View;
 using HaveAVoice.Models;
+using HaveAVoice.Services.Helpers;
 
-namespace HaveAVoice.Repositories.UserFeatures.Helpers {
+namespace HaveAVoice.Services.UserFeatures.Helpers {
     public class MessageHelper {
-        public static List<InboxMessage> GenerateInbox(User aUser, List<Message> aMessages, List<Reply> aReplys) {
+        public static List<InboxMessage> GenerateInbox(User aUser, IEnumerable<Message> aMessages, IEnumerable<Reply> aReplys) {
             //Get the last reply for a message for the user,
             //ordered by the reply DateTimeStamp or by the message DateTimeStamp
             return (from m in aMessages
@@ -26,7 +27,8 @@ namespace HaveAVoice.Repositories.UserFeatures.Helpers {
                         FromUserId = m.FromUser.Id,
                         LastReply = (latestReply == null ? m.Body : latestReply.Body),
                         Viewed = (m.ToUserId == aUser.Id ? m.ToViewed : m.FromViewed),
-                        DateTimeStamp = (latestReply == null ? m.DateTimeStamp : latestReply.DateTimeStamp)
+                        DateTimeStamp = (latestReply == null ? m.DateTimeStamp : latestReply.DateTimeStamp),
+                        FromUserProfilePictureUrl = ProfilePictureHelper.ProfilePicture(m.FromUser)
                     }).ToList<InboxMessage>();
         }
     }

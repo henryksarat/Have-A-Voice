@@ -85,7 +85,7 @@
     <Compile Include="Models\Services\UserFeatures\HAVMessageServiceTest.cs" />
     <Compile Include="Models\Services\UserFeatures\HAVUserServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Helpers\MessageHelperTest.cs" />
+    <Compile Include="Models\Services\Helpers\MessageHelperTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
@@ -98,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\ExtraModels\" />
+    <Folder Include="Repositories\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

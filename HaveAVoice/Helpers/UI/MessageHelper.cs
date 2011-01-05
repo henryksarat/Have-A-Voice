@@ -4,9 +4,9 @@ using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Helpers.UI {
     public class MessageHelper {
-        public static string MessageList(int fromUserId, string fromUsername, int messageId, string subject, string body, DateTime dateTimeStamp, bool viewed) {
+        public static string MessageList(int aFromUserId, string aFromUsername, string aFromUserProfilePictureUrl, int aMessageId, string aSubject, string aBody, DateTime aDateTimeStamp, bool aViewed) {
         	var wrprDiv = new TagBuilder("div");
-        	if (!viewed) {
+        	if (!aViewed) {
         		wrprDiv.MergeAttribute("class", "mail new");
         	} else {
         		wrprDiv.MergeAttribute("class", "mail");
@@ -14,13 +14,13 @@ namespace HaveAVoice.Helpers.UI {
         	
         	var chkDiv = new TagBuilder("div");
         	chkDiv.MergeAttribute("class", "col-1");
-        	chkDiv.InnerHtml = CheckBoxPortion(messageId);
+        	chkDiv.InnerHtml = CheckBoxPortion(aMessageId);
         	
         	wrprDiv.InnerHtml += chkDiv.ToString();
         	
         	var imgDiv = new TagBuilder("div");
         	imgDiv.MergeAttribute("class", "col-1");
-        	imgDiv.InnerHtml = UserInformationPortion(fromUsername);
+            imgDiv.InnerHtml = UserInformationPortion(aFromUsername, aFromUserProfilePictureUrl);
 
         	wrprDiv.InnerHtml += imgDiv.ToString();
         	
@@ -29,7 +29,7 @@ namespace HaveAVoice.Helpers.UI {
         	
         	var userLinkDiv = new TagBuilder("div");
         	userLinkDiv.MergeAttribute("class", "p-t10");
-        	userLinkDiv.InnerHtml = String.Format("<a href=\"View/{0}\">{1}</a>", messageId, fromUsername);
+        	userLinkDiv.InnerHtml = String.Format("<a href=\"View/{0}\">{1}</a>", aMessageId, aFromUsername);
         	
         	var clrDiv = new TagBuilder("div");
         	clrDiv.MergeAttribute("class", "clear");
@@ -37,7 +37,7 @@ namespace HaveAVoice.Helpers.UI {
         	
 			var dtDiv = new TagBuilder("div");
 			dtDiv.MergeAttribute("class", "p-b10 fnt-10");
-			dtDiv.InnerHtml = DateHelper.ConvertToLocalTime(dateTimeStamp).ToString("MMMM dd, yyyy");
+			dtDiv.InnerHtml = DateHelper.ConvertToLocalTime(aDateTimeStamp).ToString("MMMM dd, yyyy");
 			
 			dtwrprDiv.InnerHtml += userLinkDiv.ToString();
 			dtwrprDiv.InnerHtml += clrDiv.ToString();
@@ -50,11 +50,11 @@ namespace HaveAVoice.Helpers.UI {
         	
         	var sbjDiv = new TagBuilder("div");
         	sbjDiv.MergeAttribute("class", "p-t10");
-        	sbjDiv.InnerHtml = String.Format("<a href=\"View/{0}\">{1}</a>", messageId, subject);
+        	sbjDiv.InnerHtml = String.Format("<a href=\"View/{0}\">{1}</a>", aMessageId, aSubject);
         	
         	var bdyDiv = new TagBuilder("div");
         	bdyDiv.MergeAttribute("class", "p-b10");
-        	bdyDiv.InnerHtml = body;
+        	bdyDiv.InnerHtml = aBody;
         	
         	prvDiv.InnerHtml += sbjDiv.ToString();
         	prvDiv.InnerHtml += clrDiv.ToString();
@@ -86,13 +86,13 @@ namespace HaveAVoice.Helpers.UI {
             return wrprDiv.ToString(TagRenderMode.Normal);
         }
 
-        private static string UserInformationPortion(string fromUsername) {
+        private static string UserInformationPortion(string aFromUsername, string aFromUserProfilePictureUrl) {
         	var wrprDiv = new TagBuilder("div");
         	wrprDiv.MergeAttribute("class", "p-v10");
         	
             var imageTag = new TagBuilder("img");
             /* HENRYK UPDATE URL TO BE THE ACTUAL USER IMAGE */
-            imageTag.MergeAttribute("src", "http://alyintelligent.com/images/avatars/henry_avatar.jpg");
+            imageTag.MergeAttribute("src", aFromUserProfilePictureUrl);
             imageTag.MergeAttribute("class", "profile sm");
 
 			wrprDiv.InnerHtml += imageTag.ToString();
@@ -129,13 +129,13 @@ namespace HaveAVoice.Helpers.UI {
         }
 
 
-        public static string MessageItem(string fromUsername, string subject, string body, DateTime dateTimeStamp) {
+        public static string MessageItem(string aFromUsername, string aFromUserProfilePictureUrl, string aSubject, string aBody, DateTime aDateTimeStamp) {
         	var wrprDiv = new TagBuilder("div");
         	wrprDiv.MergeAttribute("class", "mail");
         	
         	var imgDiv = new TagBuilder("div");
         	imgDiv.MergeAttribute("class", "col-1");
-        	imgDiv.InnerHtml = UserInformationPortion(fromUsername);
+            imgDiv.InnerHtml = UserInformationPortion(aFromUsername, aFromUserProfilePictureUrl);
         	
         	wrprDiv.InnerHtml = imgDiv.ToString();
 
@@ -147,11 +147,11 @@ namespace HaveAVoice.Helpers.UI {
         	
         	var nameSpan = new TagBuilder("span");
         	nameSpan.MergeAttribute("class", "fnt-12 bold varient-4 m-rgt5");
-	       	nameSpan.InnerHtml = fromUsername;
+	       	nameSpan.InnerHtml = aFromUsername;
         	
         	var dateSpan = new TagBuilder("span");
             dateSpan.MergeAttribute("class", "fnt-10");
-        	dateSpan.InnerHtml = DateHelper.ConvertToLocalTime(dateTimeStamp).ToString("MMMM dd, yyyy");
+        	dateSpan.InnerHtml = DateHelper.ConvertToLocalTime(aDateTimeStamp).ToString("MMMM dd, yyyy");
         	
         	nameDiv.InnerHtml += nameSpan.ToString();
         	nameDiv.InnerHtml += dateSpan.ToString();
@@ -163,7 +163,7 @@ namespace HaveAVoice.Helpers.UI {
         	msgDiv.InnerHtml += nameDiv.ToString();
         	msgDiv.InnerHtml += clrDiv.ToString();
         	
-			msgDiv.InnerHtml += body;
+			msgDiv.InnerHtml += aBody;
 			
 			wrprDiv.InnerHtml += msgDiv.ToString();
 			

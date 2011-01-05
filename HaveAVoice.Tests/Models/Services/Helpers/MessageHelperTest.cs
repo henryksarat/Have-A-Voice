@@ -5,10 +5,10 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HaveAVoice.Models;
 using HaveAVoice.Tests.Models;
-using HaveAVoice.Repositories.UserFeatures.Helpers;
 using HaveAVoice.Models.View;
+using HaveAVoice.Services.UserFeatures.Helpers;
 
-namespace HaveAVoice.Tests.Repositories.Helpers {
+namespace HaveAVoice.Tests.Services.Helpers {
     [TestClass]
     public class MessageHelperTest {
         private const int MESSAGE_ID = 3;

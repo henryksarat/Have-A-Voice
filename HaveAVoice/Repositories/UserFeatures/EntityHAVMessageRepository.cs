@@ -5,7 +5,6 @@ using System.Web;
 using HaveAVoice.Models.View;
 using System.Data.Objects;
 using HaveAVoice.Models;
-using HaveAVoice.Repositories.UserFeatures.Helpers;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVMessageRepository : IHAVMessageRepository {
@@ -21,10 +20,13 @@ namespace HaveAVoice.Repositories.UserFeatures {
             return messageToCreate;
         }
 
-        public IEnumerable<InboxMessage> GetMessagesForUser(User toUser) {
-            IEnumerable<Reply> replys = theEntities.Replys;
-            IEnumerable<Message> messages = theEntities.Messages;
-            return MessageHelper.GenerateInbox(toUser, messages.ToList(), replys.ToList());
+        public IEnumerable<Message> GetAllMessages() {
+            return theEntities.Messages.ToList<Message>();
+
+        }
+
+        public IEnumerable<Reply> GetAllReplys() {
+            return theEntities.Replys.ToList<Reply>();
         }
 
         public void DeleteMessages(List<Int32> messagesToDelete, User user) {
