@@ -220,5 +220,17 @@ namespace HaveAVoice.Repositories.UserFeatures {
                              select f).Count<FilteredCityState>();
             return myFilered > 0;
         }
+
+        public IEnumerable<Issue> UserIssueFeed(int aTargetUserId) {
+            return (from f in theEntities.Issues
+                    where f.UserId == aTargetUserId
+                    select f).ToList<Issue>();
+        }
+
+        public IEnumerable<IssueReply> UserIssueReplyFeed(int aTargetUserId) {
+            return (from f in theEntities.IssueReplys
+                    where f.UserId == aTargetUserId
+                    select f).ToList<IssueReply>();
+        }
     }
 }

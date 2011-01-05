@@ -7,9 +7,10 @@ namespace HaveAVoice.Services.UserFeatures {
     public interface IHAVHomeService {
         NotLoggedInModel NotLoggedIn();
 
-        LoggedInListModel<FeedModel> FanFeed(User aUser);
-        LoggedInListModel<FeedModel> OfficialsFeed(User aUser);
+        IEnumerable<FeedModel> FanFeed(User aUser);
+        IEnumerable<FeedModel> OfficialsFeed(User aUser);
         FilteredFeedModel FilteredFeed(User aUser);
+        IEnumerable<FeedModel> UserFeedModel(User aViewingUser, int aTargetUser);
 
         bool AddFilter(User aUser, string aCity, string aState, string aZipCode);
     }

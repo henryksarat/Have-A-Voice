@@ -18,6 +18,9 @@ namespace HaveAVoice.Repositories.UserFeatures {
         IEnumerable<Issue> FanIssueFeed(User aUser);
         IEnumerable<IssueReply> FanIssueReplyFeed(User aUser);
 
+        IEnumerable<Issue> UserIssueFeed(int aTargetUserId);
+        IEnumerable<IssueReply> UserIssueReplyFeed(int aTargetUserId);
+
         void AddZipCodeFilter(User aUser, int aZipCode);
         void AddCityStateFilter(User aUser, string aCity, string aState);
         bool ZipCodeFilterExists(User aUser, int aZipCode);

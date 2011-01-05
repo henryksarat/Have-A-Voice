@@ -35,24 +35,16 @@ namespace HaveAVoice.Services.UserFeatures {
             };
         }
 
-        public LoggedInListModel<FeedModel> FanFeed(User aUser) {
+        public IEnumerable<FeedModel> FanFeed(User aUser) {
             IEnumerable<Issue> myIssues = theHomeRepository.FanIssueFeed(aUser);
             IEnumerable<IssueReply> myIssueReplys = theHomeRepository.FanIssueReplyFeed(aUser);
-            IEnumerable<FeedModel> myFeedModel = CreateFeedModel(aUser, myIssues, myIssueReplys, false);
-
-            return new LoggedInListModel<FeedModel>(aUser) {
-                Models = myFeedModel
-            };
+            return CreateFeedModel(aUser, myIssues, myIssueReplys, false);
         }
 
-        public LoggedInListModel<FeedModel> OfficialsFeed(User aUser) {
+        public IEnumerable<FeedModel> OfficialsFeed(User aUser) {
             IEnumerable<Issue> myIssues = theHomeRepository.OfficialsIssueFeed(aUser, RoleHelper.OfficialRoles());
             IEnumerable<IssueReply> myIssueReplys = theHomeRepository.OfficialsIssueReplyFeed(aUser, RoleHelper.OfficialRoles());
-            IEnumerable<FeedModel> myFeedModel = CreateFeedModel(aUser, myIssues, myIssueReplys, false);
-
-            return new LoggedInListModel<FeedModel>(aUser) {
-                Models = myFeedModel
-            };
+            return CreateFeedModel(aUser, myIssues, myIssueReplys, false);
         }
 
         public FilteredFeedModel FilteredFeed(User aUser) {
@@ -81,6 +73,12 @@ namespace HaveAVoice.Services.UserFeatures {
 
             return true;
 
+        }
+
+        public IEnumerable<FeedModel> UserFeedModel(User aViewingUser, int aTargetUser) {
+            IEnumerable<Issue> myIssues = theHomeRepository.UserIssueFeed(aTargetUser);
+            IEnumerable<IssueReply> myIssueReplys = theHomeRepository.UserIssueReplyFeed(aTargetUser);
+            return CreateFeedModel(aViewingUser, myIssues, myIssueReplys, false);
         }
 
         private IEnumerable<FeedModel> CreateFeedModel(User aUser, IEnumerable<Issue> anIssues, IEnumerable<IssueReply> anIssueReplys, bool aUseFanService) {

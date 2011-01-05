@@ -360,6 +360,7 @@
     <Content Include="Views\File\Index.aspx" />
     <Content Include="Views\File\Upload.aspx" />
     <Content Include="Views\Home\About.aspx" />
+    <Content Include="Views\Home\UserFeed.aspx" />
     <Content Include="Views\Home\FilteredFeed.aspx" />
     <Content Include="Views\Home\OfficialsFeed.aspx" />
     <Content Include="Views\Home\Index.aspx" />

@@ -23,6 +23,7 @@ namespace HaveAVoice.Controllers.Home {
         private const string FAN_FEED = "FanFeed";
         private const string OFFICIALS_FEED = "OfficialsFeed";
         private const string FILTERED_FEED = "FilteredFeed";
+        private const string USER_FEED = "UserFeed";
 
         private IHAVHomeService theService;
 
@@ -56,6 +57,23 @@ namespace HaveAVoice.Controllers.Home {
             return View(NOT_LOGGED_IN, myModel);
         }
 
+        public ActionResult UserFeed() {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            User myUser = GetUserInformaton();
+            LoggedInListModel<FeedModel> myModel = new LoggedInListModel<FeedModel>(myUser);
+
+            try {
+                myModel.Models = theService.UserFeedModel(myUser, myUser.Id);
+            } catch (Exception myException) {
+                LogError(myException, PAGE_LOAD_ERROR);
+                ViewData[VIEW_DATA_MESSAGE] = PAGE_LOAD_ERROR;
+            }
+
+            return View(USER_FEED, myModel);
+        }
+
         public ActionResult FanFeed() {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
@@ -64,7 +82,7 @@ namespace HaveAVoice.Controllers.Home {
             
             LoggedInListModel<FeedModel> myModel = new LoggedInListModel<FeedModel>(myUser);
             try {
-                myModel = theService.FanFeed(myUser);
+                myModel.Models = theService.FanFeed(myUser);
             } catch (Exception e) {
                 LogError(e, PAGE_LOAD_ERROR);
                 ViewData[VIEW_DATA_MESSAGE] = PAGE_LOAD_ERROR;
@@ -80,9 +98,9 @@ namespace HaveAVoice.Controllers.Home {
             User myUser = GetUserInformaton();
             LoggedInListModel<FeedModel> myModel = new LoggedInListModel<FeedModel>(myUser);
             try {
-                myModel = theService.OfficialsFeed(myUser);
-            } catch (Exception e) {
-                LogError(e, PAGE_LOAD_ERROR);
+                myModel.Models = theService.OfficialsFeed(myUser);
+            } catch (Exception myException) {
+                LogError(myException, PAGE_LOAD_ERROR);
                 ViewData[VIEW_DATA_MESSAGE] = PAGE_LOAD_ERROR;
             }
 
@@ -97,8 +115,8 @@ namespace HaveAVoice.Controllers.Home {
             FilteredFeedModel myModel = new FilteredFeedModel(myUser);
             try {
                 myModel = theService.FilteredFeed(myUser);
-            } catch (Exception e) {
-                LogError(e, PAGE_LOAD_ERROR);
+            } catch (Exception myException) {
+                LogError(myException, PAGE_LOAD_ERROR);
                 ViewData[VIEW_DATA_MESSAGE] = PAGE_LOAD_ERROR;
             }
 
@@ -117,8 +135,8 @@ namespace HaveAVoice.Controllers.Home {
                     TempData[VIEW_DATA_MESSAGE] = FILTERED_SAVED;
                     return RedirectToAction(FILTERED_FEED);
                 }
-            } catch (Exception e) {
-                LogError(e, UNABLE_TO_ADD_FILTER);
+            } catch (Exception myException) {
+                LogError(myException, UNABLE_TO_ADD_FILTER);
                 return SendToErrorPage(UNABLE_TO_ADD_FILTER);
             }
 
