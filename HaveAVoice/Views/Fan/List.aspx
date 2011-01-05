@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInListModel<Fan>>" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
+<%@ Import Namespace="HaveAVoice.Services.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 
 
@@ -26,7 +27,7 @@
 			<div class="col-4 center <%= klass %>">
 				<div class="p-a5">
 					<div class="profile">
-						<img src="/Content/images/no_profile_picture.jpg" alt="<%= item.FanUser.Username %>" class="profile" />
+						<img src ="<%= ProfilePictureHelper.ProfilePicture(item.FanUser) %>" alt="<%= item.FanUser.Username %>" class="profile" />
 					</div>
 					<div class="p-a5">
 						<a href="#" class="name"><%= item.FanUser.Username %></a>
