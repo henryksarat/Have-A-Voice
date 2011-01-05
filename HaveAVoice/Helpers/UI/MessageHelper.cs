@@ -138,8 +138,8 @@ namespace HaveAVoice.Helpers.UI {
         	imgDiv.InnerHtml = UserInformationPortion(fromUsername);
         	
         	wrprDiv.InnerHtml = imgDiv.ToString();
-        	
-        	var msgDiv = new TagBuilder("div")
+
+            var msgDiv = new TagBuilder("div");
         	msgDiv.MergeAttribute("class", "col-20 m-lft p-t10");
         	
         	var nameDiv = new TagBuilder("div");

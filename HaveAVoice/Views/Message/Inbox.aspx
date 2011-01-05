@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInModel<InboxMessage>>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInListModel<InboxMessage>>" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UI" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
 
@@ -26,10 +26,6 @@
                 <% foreach (var item in Model.Models) { %>
                     <%= MessageHelper.MessageList(item.FromUserId, item.FromUsername, item.MessageId, item.Subject, item.LastReply, item.DateTimeStamp, item.Viewed) %>
                 <% } %>
-
-                
-                <%= Html.ActionLink("Edit UserAccount", "Edit", "User")%> |
-
             <% } %>
         <% } %>
 	</div>

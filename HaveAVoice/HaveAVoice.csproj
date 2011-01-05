@@ -127,7 +127,8 @@
     <Compile Include="Helpers\ActionMethods\AcceptParameterAttribute.cs" />
     <Compile Include="Helpers\ActionMethods\CaptchaValidatorAttribute.cs" />
     <Compile Include="Models\View\Binders\ImageBinder.cs" />
-    <Compile Include="Models\View\LoggedInModelWithItemWrapped.cs" />
+    <Compile Include="Models\View\LoggedInListModel.cs" />
+    <Compile Include="Models\View\LoggedInWrapperModel.cs" />
     <Compile Include="Models\View\NotLoggedInModel.cs" />
     <Compile Include="Models\View\FilteredFeedModel.cs" />
     <Compile Include="Models\View\FeedModel.cs" />

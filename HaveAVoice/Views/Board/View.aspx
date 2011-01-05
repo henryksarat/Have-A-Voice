@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInModelWithItemWrapped<BoardModel>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInWrapperModel<BoardModel>>" %>
 <%@Import Namespace="HaveAVoice.Models" %>
 <%@Import Namespace="HaveAVoice.Models.View" %>
 <%@Import Namespace="HaveAVoice.Helpers" %>

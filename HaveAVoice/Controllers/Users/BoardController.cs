@@ -41,7 +41,7 @@ namespace HaveAVoice.Controllers.Users {
                 return RedirectToLogin();
             }
             User myUser = GetUserInformatonModel().Details;
-            LoggedInModelWithItemWrapped<BoardModel> myModel = new LoggedInModelWithItemWrapped<BoardModel>(myUser); 
+            LoggedInWrapperModel<BoardModel> myModel = new LoggedInWrapperModel<BoardModel>(myUser); 
             
             try {
                 myModel.Model = theService.GetBoard(GetUserInformatonModel(), id);
