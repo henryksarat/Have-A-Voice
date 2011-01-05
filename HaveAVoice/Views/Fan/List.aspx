@@ -14,9 +14,31 @@
     </div>
     
     <div class="col-21">
-	    <h2>Fans of me</h2> <br /><br />
+    	<% int cnt = 0; %>
+    	<% string klass = "friend"; %>
 	    <% foreach (var item in Model.Models) { %>
-	        <%= item.FanUser.Username %><br />
+	    	<% if (cnt % 2 == 0) {
+	    		klass = "friend";
+	    	} else {
+	    		klass = "friend alt";
+	    	}%>
+	    	
+			<div class="col-4 center <%= klass %>">
+				<div class="p-a5">
+					<div class="profile">
+						<img src="/Content/images/no_profile_picture.jpg" alt="<%= item.FanUser.Username %>" class="profile" />
+					</div>
+					<div class="p-a5">
+						<a href="#" class="name"><%= item.FanUser.Username %></a>
+					</div>
+				</div>
+			</div>
+			
+			<% if (cnt % 4 == 0) { %>
+				<div class="clear">&nbsp;</div>
+			<% } %>
+			
+	        <% cnt++; %>
 	    <% } %>
 	</div>
 </asp:Content>

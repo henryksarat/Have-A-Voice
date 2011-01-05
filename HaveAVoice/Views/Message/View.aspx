@@ -26,12 +26,24 @@
 		         <% foreach (var reply in Model.Model.Message.Replys) { %>
 	                <%= MessageHelper.MessageItem(reply.User.Username, ProfilePictureHelper.ProfilePicture(reply.User), "", reply.Body, reply.DateTimeStamp)%>
 	            <% } %>
-		                    		
-	            <%= Html.ValidationSummary("Reply was unsuccessful. Please correct the errors and try again.") %>
-	            <%= Html.TextArea("Reply")%>
-			    <%= Html.ValidationMessage("Reply", "*")%>
-	            <input type="submit" value="Submit" />
+				<div class="clear">&nbsp;</div>
 
+				<div class="col-2 m-rgt bold fnt-12 c-gray">
+					Reply:
+				</div>
+				<div class="col-8 fnt-12">
+					<%= Html.TextArea("Reply", null, new { cols = "40", rows = "3", resize = "no" })%>
+				</div>
+				<div class="col-11 m-lft">
+					<%= Html.ValidationSummary("Reply was unsuccessful. Please correct the errors and try again.") %>
+				    <%= Html.ValidationMessage("Reply", "*")%>
+				</div>
+				<div class="clear">&nbsp;</div>
+
+	            <div class="push-8 col-2 right">
+	            	<input type="submit" value="Submit" class="submit" />
+	            </div>
+	            <div class="clear">&nbsp;</div>
 	        <% } %>
 	    <% } %>
     </div>
