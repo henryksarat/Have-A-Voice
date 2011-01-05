@@ -40,6 +40,7 @@ body { font-family: helvetica, arial, sans-serif; background: #d9e9ed; }
 
 .color-5 { color: #d56667; }
 .c-white { color: #fff; }
+.c-gray { color: #a2a2a2; }
 
 .like { color: #2070c9; }
 .dislike { color: #c94020; }
@@ -263,6 +264,7 @@ img.profile.sm { max-width: 40px; max-height: 40px; }
 .reply .comment textarea { border: 1px solid #20a9c9; width: 100%; background: #fff; color: #000; margin-bottom: 5px; -moz-border-radius: 0px; -webkit-border-radius: 0px; border-radius: 0px; }
 /* input.button { color: #fff; font-weight: bold; font-size: 13px; background: #20a9c9; border: 2px solid #fff; padding: 5px; cursor: pointer; } */
 
+
 /****************************************************************************/
 /******************************** FILTER ************************************/
 /****************************************************************************/
@@ -300,7 +302,17 @@ img.profile.sm { max-width: 40px; max-height: 40px; }
 .mail a:hover { text-decoration: underline; }
 .action-bar { background: #f2f2f2; border-top: 1px solid #cccccc; }
 .action-bar input[type=submit].btn { padding: 5px; color: #333333; font-size: 12px; background-color: #dddddd; border: 1px solid #888888; font-weight: bold; box-shadow: 0px 1px 0px #aaaaaa; -moz-box-shadow: 0px 1px 0px #aaaaaa; -webkit-box-shadow: 0px 1px 0px #aaaaaa; }
+input[type=submit].submit { font-size: 12px; font-weight: bold; color: #fff; padding: 5px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; cursor: pointer; background: #20a9c9 }
+input[type=submit].submit:hover { color: #20a9c9; background: #fff; }
 
+
+/****************************************************************************/
+/******************************** FAN ***************************************/
+/****************************************************************************/
+.friend.alt { background: #b6dde7; }
+.friend div.profile { width: 120px; height: 120px; margin: 0px auto; }
+/*.friends .friend div.name { position: absolute; bottom: 5; width: 100%; } */
+.friend a.name, .friend a.name:link, .friend a.name:visited { color: #20a9c9; font-size: 14px; font-style: normal; font-weight: bold; text-decoration: none; }
 
 /****************************************************************************/
 /****************************************************************************/
