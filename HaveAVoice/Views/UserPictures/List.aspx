@@ -23,16 +23,36 @@
 					<input type="file" id="ProfilePictureUpload" name="ProfilePictureUpload" size="23" />
 	                <%= Html.ValidationMessage("ProfilePictureUpload", "*") %>
 				</div>
-				<div class="col-4 pull-6 center">
+				<div class="col-4 push-8 center">
 					<input type="submit" value="Upload" class="create" />
 				</div>
 				<div class="clear">&nbsp;</div>
 			<% } %>
 			<div class="clear">&nbsp;</div>
 		</div>
+		<div class="spacer-10">&nbsp;</div>
 
+		<% int cnt = 0; %>
+		<% string klass = "gallery"; %>
         <% foreach (var item in Model.Models) { %>
-			<%= /* ImageHelper.Image("/UserPictures/" + item.ImageName, 200, 200); */ %>
+        	<% if (cnt % 2 == 0) {
+        		klass = "gallery";
+			} else {
+				klass = "gallery alt";
+        	} %>
+			<div class="col-4 center <%= klass %>">
+				<div class="p-a5">
+					<div class="image">
+						<a href="/UserPictures/Show/<%= item.Id %>" target="_blank">
+							<img src="/UserPictures/<%= item.ImageName %>" alt="<%= item.ImageName %>" />
+						</a>
+					</div>
+					<div class="p-a5">
+						<a href="/UserPictures/<%= item.ImageName %>" target="_blank"><%= item.ImageName %></a>
+					</div>
+				</div>
+			</div>
+			<% cnt++; %>
         <% } %>
         <div class="clear">&nbsp;</div>
 	</div>

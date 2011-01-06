@@ -3,7 +3,6 @@
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 
-
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Fans
 </asp:Content>
