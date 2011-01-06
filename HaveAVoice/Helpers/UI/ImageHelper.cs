@@ -19,11 +19,10 @@ namespace HaveAVoice.Helpers.UI {
             return builder.ToString(TagRenderMode.Normal); //to add </a> as end tag
         }
 
-        public static string Image(string anImageUrl, int aWidth, int aHeight) {
+        public static string Image(string anImageUrl) {
             var myBuilder = new TagBuilder("img");
             myBuilder.MergeAttribute("src", anImageUrl);
-            myBuilder.MergeAttribute("width", aWidth+"px");
-            myBuilder.MergeAttribute("height", aHeight + "px");
+            myBuilder.MergeAttribute("alt", anImageUrl);
             return myBuilder.ToString();
         }
     }

@@ -1,61 +1,76 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.UserPicturesModel>" %>
-<%@ Import Namespace="HaveAVoice.Helpers" %>
+<%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UI" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	UserPictures
+	User Pictures
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
-    <h2>Your Pictures</h2>
+	<% /* Html.RenderPartial("UserPanel", Model.UserModel); */ %>
+    <div class="col-3 m-rgt left-nav">
+        <% Html.RenderPartial("LeftNavigation"); %>
+    </div>
     
-    <% using(Html.BeginForm()) {%>
-    <p>
-        <strong>Current profile picture:</strong><br />
-        <%= Html.Hidden("ProfilePictureURL", Model.ProfilePictureURL) %>
-        <%= Html.Hidden("UserId", Model.UserId) %>
-        <a href="<%= Model.ProfilePictureURL %>"><img src="<%= Model.ProfilePictureURL %>"  style="border-style: none"  alt="" width="100px" height="100px" /></a>
-    <p style="color:Red">
-        <%= Html.Encode(ViewData["Message"]) %>
-    </p>
-    </p>
-    <table>
-        <tr>
-            <th></th>
-            <th></th>
-            <th>
-                Date Uploaded
-            </th>
-        </tr>
-
-        <% foreach(var item in Model.UserPictures) { %>
-
-               <% if(item.ProfilePicture == true)
-                   continue; %>
-        
-            <tr>
-                <td>
-                    <%= CheckBoxHelper.StandardCheckbox("SelectedProfilePictureId", item.Id.ToString(), Model.SelectedUserPictures.Contains(item.Id)) %>
-                </td>
-                <td>
-                    <a href="<%= HAVConstants.USER_PICTURE_LOCATION + "/" + item.ImageName %>">
-                    <img src="<%= HAVConstants.USER_PICTURE_LOCATION + "/" + item.ImageName %>" style="border-style: none" alt="" width="100px" height="100px" />
-                    </a>
-                </td>
-                <td>
-                    <%= Html.Encode(String.Format("{0:g}", item.DateTimeStamp))%>
-                </td>
-            </tr>
-        
-        <% } %>
- 
-    </table>
-    <p>
-        <button name="button" value="SetProfilePicture">Set to Profile Picture</button>
-        <button name="button" value="Delete">Delete</button>
-    </p>
-    <% } %>
-    
+    <div class="col-21">
+    	<div class="push-1 col-4 center p-t5 p-b5 t-tab b-wht">
+    		<span class="fnt-16 tint-6 bold">IMAGES</span>
+    	</div>
+    	<div class="clear">&nbsp;</div>
+    	<div class="b-wht">
+    		<div class="clear">&nbsp;</div>
+    		<% using(Html.BeginForm("UserPictures", "Edit", FormMethod.Post, new { @class = "create" })) { %>
+    			<div class="p-a10">
+	    			<div class="col-4 c-gray fnt-14 bold">
+	    				Current Profile Picture:
+	    			</div>
+	    			<div class="col-3">
+				        <%= Html.Hidden("ProfilePictureURL", Model.ProfilePictureURL) %>
+				        <%= Html.Hidden("UserId", Model.UserId) %>
+						<img src="<%= Model.ProfilePictureURL %>" alt="" class="profile" />
+	    			</div>
+	    			<div class="clear">&nbsp;</div>
+	    			
+	    			<%= Html.Encode(ViewData["Message"]) %>
+    			</div>
+    			<div class="clear">&nbsp;</div>
+    			
+    			<% int cnt = 1; %>
+		        <% foreach(var item in Model.UserPictures) { %>
+				<% if(item.ProfilePicture == true) { continue; } %>
+					<div class="col-7">
+		    			<div class="col-1">
+		    				<div class="p-a10 center">
+			    				<%= CheckBoxHelper.StandardCheckbox("SelectedProfilePictureId", item.Id.ToString(), Model.SelectedUserPictures.Contains(item.Id)) %>
+		    				</div>
+		    			</div>
+		    			<div class="col-3 center">
+		    				<img src="/UserPictures/<%= item.ImageName %>" class="profile" />
+		    			</div>
+		    			<div class="col-3">
+							<div class="p-a5">
+								<div class="date-tile">
+									<span><%= item.DateTimeStamp.ToString("MMM").ToUpper() %></span> <%= item.DateTimeStamp.ToString("dd") %>
+								</div>
+							</div>
+		    			</div>
+	    			</div>
+	    			<% if(cnt % 3 == 0) { %>
+	    				<div class="clear">&nbsp;</div>
+	    				<div class="spacer-10">&nbsp;</div>
+	    			<% } %>
+	    			<% cnt++; %>
+    			<% } %>
+	    		<div class="clear">&nbsp;</div>
+	    		<div class="spacer-30">&nbsp;</div>
+	    		<div class="center">
+	    			<input type="submit" value="Set to Profile Picture" class="create" />
+					<input type="button" value="Delete" />
+	    		</div>
+	    		<div class="spacer-30">&nbsp;</div>
+	    		<div class="clear">&nbsp;</div>
+    		<% } %>
+    	</div>
+	</div>
 </asp:Content>
 

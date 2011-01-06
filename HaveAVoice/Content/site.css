@@ -203,7 +203,8 @@ form.create input[type=submit].create:hover { color: #115f71; background: #fff; 
 form.create a.cancel, form.create a.cancel:link, form.create a.cancel:visited { -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; color: #fff; font-weight: bold; text-transform: uppercase; padding: 5px 10px; background: #115f71; cursor: pointer; font-size: 18px; text-decoration: none; }
 form.create a.cancel:hover { color: #115f71; background: #fff; }
 form.create .c-white label { color: #fff; }
-
+form.create input[type=button] { -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; color: #ffffff; font-weight: bold; text-transform: uppercase; padding: 5px 10px; background: #115f71; cursor: pointer; font-size: 18px; }
+form.create input[type=button]:hover { color: #115f71; background: #fff; }
 
 /****************************************************************************/
 /**************************** HOMEPAGE PROFILE ******************************/
@@ -313,6 +314,17 @@ input[type=submit].submit:hover { color: #20a9c9; background: #fff; }
 .friend div.profile { width: 120px; height: 120px; margin: 0px auto; }
 /*.friends .friend div.name { position: absolute; bottom: 5; width: 100%; } */
 .friend a.name, .friend a.name:link, .friend a.name:visited { color: #20a9c9; font-size: 14px; font-style: normal; font-weight: bold; text-decoration: none; }
+
+
+/****************************************************************************/
+/****************************** USER PICTURES *******************************/
+/****************************************************************************/
+.gallery.alt { background: #b6dde7; }
+.gallery .image { width: 120px; height: 120px; margin: 0px auto; }
+.gallery .image img { max-height: 120px; max-width: 120px; }
+.gallery .image a { border: 0px none transparent; }
+.gallery a, .gallery a:link, .gallery a:visited { color: #20a9c9; font-size: 14px; font-style: normal; font-weight: bold; text-decoration: none; }
+
 
 /****************************************************************************/
 /****************************************************************************/

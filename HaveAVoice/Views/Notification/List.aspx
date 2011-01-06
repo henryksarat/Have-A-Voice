@@ -6,15 +6,18 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
-    <h2>Notifications</h2> <br /><br />
-
-    <p>
-        <%= Html.Encode(ViewData["Message"]) %><br /><br />
-    </p>
+	<% Html.RenderPartial("UserPanel", Model.UserModel); %>
+    <div class="col-3 m-rgt left-nav">
+        <% Html.RenderPartial("LeftNavigation"); %>
+    </div>
     
-    <% foreach (var item in Model.Models) { %>
-        <%= Html.ActionLink("Now activity with this board message:" + item.Message, "View", "Board", new { id = item.Id }, null)%><br />
-    <% } %>
-
+    <div class="col-21">
+        <%= Html.Encode(ViewData["Message"]) %>
+        <div class="clear">&nbsp;</div>
+    
+	    <% foreach (var item in Model.Models) { %>
+	        <%= Html.ActionLink("Now activity with this board message:" + item.Message, "View", "Board", new { id = item.Id }, null)%><br />
+	    <% } %>
+	    <div class="clear">&nbsp;</div>
+	</div>
 </asp:Content>
