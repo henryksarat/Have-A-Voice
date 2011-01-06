@@ -91,6 +91,7 @@
     <Compile Include="Controllers\Users\UserPrivacySettings.cs" />
     <Compile Include="Helpers\Enums\IssueType.cs" />
     <Compile Include="Helpers\Enums\FanStatus.cs" />
+    <Compile Include="Helpers\Exceptions\CustomException.cs" />
     <Compile Include="Helpers\Exceptions\NotFanException.cs" />
     <Compile Include="Helpers\HAVPermissionHelper.cs" />
     <Compile Include="Helpers\PresentationHelper.cs" />
@@ -167,7 +168,7 @@
     <Compile Include="Services\AdminFeatures\IHAVPermissionService.cs" />
     <Compile Include="Services\Helpers\NavigationHelper.cs" />
     <Compile Include="Services\Helpers\PrivacyHelper.cs" />
-    <Compile Include="Services\Helpers\ProfilePictureHelper.cs" />
+    <Compile Include="Services\Helpers\PhotoHelper.cs" />
     <Compile Include="Services\UserFeatures\HAVFanService.cs" />
     <Compile Include="Services\UserFeatures\HAVNavigationService.cs" />
     <Compile Include="Services\UserFeatures\HAVNotificationService.cs" />

@@ -73,6 +73,9 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         private string UploadImage(User aUserToUploadFor, HttpPostedFileBase aImageFile) {
+            if(!IsValidImage(aImageFile.FileName)) {
+                    throw new CustomException("Please specify a proper image file that ends in .gif, .jpg, or .jpeg.");
+            }
             string[] mySplitOnPeriod = aImageFile.FileName.Split(new char[] { '.' });
             string myFileExtension = mySplitOnPeriod[mySplitOnPeriod.Length - 1];
             string myFileName = aUserToUploadFor.Id + "_" + DateTime.UtcNow.GetHashCode() + "." + myFileExtension;

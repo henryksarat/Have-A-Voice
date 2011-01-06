@@ -128,6 +128,8 @@ namespace HaveAVoice.Controllers.Users {
                 theUserPictureService.UploadImageWithDatabaseReference(myUser, imageFile);
                 TempData["Message"] = "Image uploaded!";
                 return RedirectToAction(LIST_VIEW);
+            } catch(CustomException myException) {
+                TempData["Message"] = myException.Message;
             } catch (Exception myException) {
                 TempData["Message"] = UPLOAD_ERROR;
                 LogError(myException, UPLOAD_ERROR);
