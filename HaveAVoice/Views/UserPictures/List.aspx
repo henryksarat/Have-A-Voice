@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInListModel<UserPicture>>" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UI" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
+<%@ Import Namespace="HaveAVoice.Services.Helpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Gallery
@@ -43,12 +44,12 @@
 			<div class="col-4 center <%= klass %>">
 				<div class="p-a5">
 					<div class="image">
-						<a href="/UserPictures/Show/<%= item.Id %>" target="_blank">
-							<img src="/UserPictures/<%= item.ImageName %>" alt="<%= item.ImageName %>" />
+						<a href="/UserPictures/Display/<%= item.Id %>" target="_blank">
+							<img src="<%= PhotoHelper.ConstructUrl(item.ImageName) %>" alt="<%= item.ImageName %>" />
 						</a>
 					</div>
 					<div class="p-a5">
-						<a href="/UserPictures/<%= item.ImageName %>" target="_blank"><%= item.ImageName %></a>
+						<a href="<%= PhotoHelper.ConstructUrl(item.ImageName) %>" target="_blank"><%= item.ImageName %></a>
 					</div>
 				</div>
 			</div>
