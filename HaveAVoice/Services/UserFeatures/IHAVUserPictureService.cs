@@ -10,7 +10,7 @@ namespace HaveAVoice.Services.UserFeatures {
         IEnumerable<UserPicture> GetUserPictures(User aViewingUser, int aUserId);
         void SetToProfilePicture(User aUser, int aUserPictureId);
         void DeleteUserPictures(List<int> aUserPictureIds);
-        UserPicture GetUserPicture(int aUserPictureId);
+        UserPicture GetUserPicture(User aViewingUser, int aUserPictureId);
         bool IsValidImage(string anImageFile);
         void UploadProfilePicture(User aUserToUploadFor, HttpPostedFileBase anImage);
         void UploadImageWithDatabaseReference(User aUserToUploadFor, HttpPostedFileBase aImageFile);

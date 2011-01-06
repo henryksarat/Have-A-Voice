@@ -22,7 +22,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public IEnumerable<UserPicture> GetUserPictures(User aViewingUser, int aUserId) {
-            if (aViewingUser.Id == aUserId || theFanService.IsFan(aUserId, aViewingUser)) {
+            if (theFanService.IsFan(aUserId, aViewingUser)) {
                 return theUserPictureRepo.GetUserPictures(aUserId);
             }
 
@@ -35,14 +35,18 @@ namespace HaveAVoice.Services.UserFeatures {
             }
         }
 
-        public UserPicture GetUserPicture(int aUserPictureId) {
-            return theUserPictureRepo.GetUserPicture(aUserPictureId);
+        public UserPicture GetUserPicture(User aViewingUser, int aUserPictureId) {
+            UserPicture myUserPicture = theUserPictureRepo.GetUserPicture(aUserPictureId);
+            if (theFanService.IsFan(myUserPicture.UserId, aViewingUser)) {
+                return myUserPicture;
+            }
+
+            throw new NotFanException();
         }
 
         public void SetToProfilePicture(User aUser, int aUserPictureId) {
             theUserPictureRepo.SetToProfilePicture(aUser, aUserPictureId);
         }
-
 
         public void UploadProfilePicture(User aUserToUploadFor, HttpPostedFileBase aImageFile) {
             string myImageName = UploadImage(aUserToUploadFor, aImageFile);

@@ -28,7 +28,7 @@ namespace HaveAVoice.Services.UserFeatures.Helpers {
                         LastReply = (latestReply == null ? m.Body : latestReply.Body),
                         Viewed = (m.ToUserId == aUser.Id ? m.ToViewed : m.FromViewed),
                         DateTimeStamp = (latestReply == null ? m.DateTimeStamp : latestReply.DateTimeStamp),
-                        FromUserProfilePictureUrl = ProfilePictureHelper.ProfilePicture(m.FromUser)
+                        FromUserProfilePictureUrl = PhotoHelper.ProfilePicture(m.FromUser)
                     }).ToList<InboxMessage>();
         }
     }

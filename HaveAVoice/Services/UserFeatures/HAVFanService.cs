@@ -39,7 +39,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public bool IsFan(int aUserId, User aFan) {
-            return theFanRepo.IsFan(aUserId, aFan);
+            return aUserId == aFan.Id || theFanRepo.IsFan(aUserId, aFan);
         }
 
         public bool IsPending(int aUserId, User aFan) {

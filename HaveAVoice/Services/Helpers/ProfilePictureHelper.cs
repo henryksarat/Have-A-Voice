@@ -7,7 +7,7 @@ using HaveAVoice.Helpers;
 using HaveAVoice.Services.UserFeatures;
 
 namespace HaveAVoice.Services.Helpers {
-    public class ProfilePictureHelper {
+    public class PhotoHelper {
         public static string ProfilePicture(User aUser) {
             UserPicture myProfilePicture = (from u in aUser.UserPictures where u.ProfilePicture == true select u).FirstOrDefault<UserPicture>();
             string myProfileUrl = HAVConstants.NO_PROFILE_PICTURE_URL;
@@ -23,6 +23,10 @@ namespace HaveAVoice.Services.Helpers {
             }
 
             return myProfileUrl;
+        }
+
+        public static string ConstructUrl(string anImageName) {
+            return HAVConstants.USER_PICTURE_LOCATION_FROM_VIEW + anImageName;
         }
     }
 }

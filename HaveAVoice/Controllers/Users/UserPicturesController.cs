@@ -13,14 +13,14 @@ using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Services.Helpers;
 using System.Web;
 
-namespace HaveAVoice.Controllers.Users
-{
+namespace HaveAVoice.Controllers.Users {
     public class UserPicturesController : HAVBaseController {
         private static string PROFILE_PICTURE_SUCCESS = "New profile picture set!";
         private static string DELETE_SUCCESS = "Pictures deleted successfully!";
 
         private static string PROFILE_PICTURE_ERROR = "Error setting the profile picture. Please try again.";
         private static string GALLERY_ERROR = "Unable to load your gallery. Please try again.";
+        private static string DISPLAY_ERROR = "Unable to display the photo. Please try again.";
         private static string SELECT_ONE_ERROR = "Please select only ONE image.";
         private static string SELECT_ONE_OR_MORE_ERROR = "Please select AT LEAST one or more images.";
         private static string UPLOAD_ERROR = "Error uploading image.";
@@ -28,6 +28,7 @@ namespace HaveAVoice.Controllers.Users
         private const string EDIT_VIEW = "Edit";
         private static string SHOW_VIEW = "Show";
         private static string LIST_VIEW = "List";
+        private static string DISPLAY_VIEW = "Display";
         
 
         private IHAVUserPictureService theUserPictureService;
@@ -52,7 +53,7 @@ namespace HaveAVoice.Controllers.Users
 
             IEnumerable<UserPicture> myPictures = new List<UserPicture>();
             try {
-                myPictures = theUserPictureService.GetUserPictures(myUser, myUser.Id);
+                myPictures = theUserPictureService.GetUserPictures(myUser, id);
             } catch(NotFanException e) {
                 return SendToErrorPage(HAVConstants.NOT_FAN);
             } catch (Exception e) {
@@ -63,6 +64,7 @@ namespace HaveAVoice.Controllers.Users
             return View(SHOW_VIEW, myPictures);
         }
 
+        [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult List() {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
@@ -80,13 +82,32 @@ namespace HaveAVoice.Controllers.Users
             return View(LIST_VIEW, myModel);
         }
 
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult Display(int id) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            User myUser = GetUserInformaton();
+
+            LoggedInWrapperModel<string> myModel = new LoggedInWrapperModel<string>(myUser);
+            try {
+                myModel.Model = PhotoHelper.ConstructUrl(theUserPictureService.GetUserPicture(myUser, id).ImageName);
+            } catch (Exception e) {
+                LogError(e, DISPLAY_ERROR);
+                return SendToErrorPage(DISPLAY_ERROR);
+            }
+
+            return View(DISPLAY_VIEW, myModel);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Edit() {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
             IEnumerable<UserPicture> userPictures = theUserPictureService.GetUserPictures(myUser, myUser.Id);
-            string profilePicture = ProfilePictureHelper.ProfilePicture(myUser);
+            string profilePicture = PhotoHelper.ProfilePicture(myUser);
 
             UserPicturesModel myModel = new UserPicturesModel() {
                 UserId = myUser.Id,
@@ -97,6 +118,7 @@ namespace HaveAVoice.Controllers.Users
             return View(EDIT_VIEW, myModel);
         }
 
+        [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Add(HttpPostedFileBase imageFile ) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();

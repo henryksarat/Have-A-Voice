@@ -104,7 +104,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
         private FeedModel CreateIssueFeedModel(User aUser, Issue myIssue, bool aUseFanService) {
             string myUsername = myIssue.User.Username;
-            string myProfilePictureUrl = ProfilePictureHelper.ProfilePicture(myIssue.User);
+            string myProfilePictureUrl = PhotoHelper.ProfilePicture(myIssue.User);
 
             if (aUseFanService && !theFanService.IsFan(myIssue.UserId, aUser)) {
                 myUsername = "Anonymous";
@@ -129,7 +129,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
         private FeedModel CreateIssueReplyFeedModel(User aUser, IssueReply myIssueReply, bool aUseFanService) {
             string myUsername = myIssueReply.User.Username;
-            string myProfilePictureUrl = ProfilePictureHelper.ProfilePicture(myIssueReply.User);
+            string myProfilePictureUrl = PhotoHelper.ProfilePicture(myIssueReply.User);
 
             if(aUseFanService && !theFanService.IsFan(myIssueReply.UserId, aUser)) {
                 myUsername = "Anonymous";

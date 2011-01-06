@@ -12,7 +12,7 @@ namespace HaveAVoice.Models.View {
 
         public UserModel(User aUser) {
             User = aUser;
-            ProfilePictureUrl = ProfilePictureHelper.ProfilePicture(aUser);
+            ProfilePictureUrl = PhotoHelper.ProfilePicture(aUser);
         }
     }
 }

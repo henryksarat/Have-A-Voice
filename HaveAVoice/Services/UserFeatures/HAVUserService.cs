@@ -156,7 +156,7 @@ namespace HaveAVoice.Services.UserFeatures {
             return new EditUserModel(myUser) {
                 Timezones = myTimezones,
                 States = states,
-                ProfilePictureURL= ProfilePictureHelper.ProfilePicture(myUser)
+                ProfilePictureURL= PhotoHelper.ProfilePicture(myUser)
             };
         }
 

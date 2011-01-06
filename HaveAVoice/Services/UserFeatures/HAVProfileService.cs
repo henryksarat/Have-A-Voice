@@ -44,7 +44,7 @@ namespace HaveAVoice.Services.UserFeatures {
             }
 
             ProfileModel myModel = new ProfileModel(myUser) {
-                ProfilePictureUrl = ProfilePictureHelper.ProfilePicture(myUser),
+                ProfilePictureUrl = PhotoHelper.ProfilePicture(myUser),
                 BoardMessages = myBoardMessages,
                 IssueReplys = myIssueReplys,
                 Fans = myFans,

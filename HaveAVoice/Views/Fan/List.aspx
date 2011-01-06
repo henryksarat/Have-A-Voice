@@ -27,7 +27,7 @@
 			<div class="col-4 center <%= klass %>">
 				<div class="p-a5">
 					<div class="profile">
-						<img src ="<%= ProfilePictureHelper.ProfilePicture(item.FanUser) %>" alt="<%= item.FanUser.Username %>" class="profile" />
+						<img src ="<%= PhotoHelper.ProfilePicture(item.FanUser) %>" alt="<%= item.FanUser.Username %>" class="profile" />
 					</div>
 					<div class="p-a5">
 						<a href="#" class="name"><%= item.FanUser.Username %></a>

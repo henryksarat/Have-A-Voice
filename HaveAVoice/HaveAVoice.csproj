@@ -402,6 +402,7 @@
     <Content Include="Views\Shared\UserPanel.ascx" />
     <Content Include="Views\Tabs\Network.aspx" />
     <Content Include="Views\Tabs\Popular.aspx" />
+    <Content Include="Views\UserPictures\Display.aspx" />
     <Content Include="Views\UserPictures\List.aspx" />
     <Content Include="Views\UserPrivacySettings\Edit.aspx" />
     <Content Include="Views\Password\Process.aspx" />

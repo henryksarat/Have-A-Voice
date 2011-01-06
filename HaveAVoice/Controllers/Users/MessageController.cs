@@ -94,7 +94,7 @@ namespace HaveAVoice.Controllers.Users {
 
             try {
                 User myUser = theUserRetrievalService.GetUser(id);
-                string myProfilePictureUrl = ProfilePictureHelper.ProfilePicture(myUser);
+                string myProfilePictureUrl = PhotoHelper.ProfilePicture(myUser);
                 MessageWrapper myMessage = MessageWrapper.Build(myUser, myProfilePictureUrl);
                 return View(CREATE_VIEW, myMessage);
             } catch (Exception e) {
