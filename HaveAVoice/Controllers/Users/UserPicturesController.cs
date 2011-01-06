@@ -71,13 +71,15 @@ namespace HaveAVoice.Controllers.Users {
             }
             User myUser = GetUserInformaton();
 
-            LoggedInListModel<UserPicture> myModel = new LoggedInListModel<UserPicture>(myUser);
+            LoggedInListModel<UserPicture> myModel = new LoggedInListModel<UserPicture>(myUser, SiteSection.Photos);
             try {
                 myModel.Models = theUserPictureService.GetUserPictures(myUser, myUser.Id);
             } catch (Exception e) {
                 LogError(e, GALLERY_ERROR);
                 return SendToErrorPage(GALLERY_ERROR);
             }
+
+            ViewData["Section"] = "best section";
 
             return View(LIST_VIEW, myModel);
         }

@@ -8,6 +8,8 @@ namespace HaveAVoice.Models.View {
     public class LoggedInWrapperModel<T> : LoggedInModel {
         public T Model { get; set; }
 
-        public LoggedInWrapperModel(User aUser) : base(aUser) { }
+        public LoggedInWrapperModel(User aUser) : base(aUser, SiteSection.None) { }
+
+        public LoggedInWrapperModel(User aUser, SiteSection aSection) : base(aUser, aSection) { }
     }
 }

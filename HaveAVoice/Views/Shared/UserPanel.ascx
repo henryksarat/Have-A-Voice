@@ -1,4 +1,4 @@
-<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<HaveAVoice.Models.View.UserModel>" %>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<HaveAVoice.Models.View.NavigationModel>" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
 
@@ -8,16 +8,21 @@
 	</div>
 	<div class="col-15">
 		<div class="m-lft col-15 m-rgt">
+        <% string myHomeCss = Model.SiteSection == SiteSection.Home ? "first active" : "first"; %>
+        <% string myMessageCss = Model.SiteSection == SiteSection.UserFeed ? "first active" : "message"; %>
+        <% string myPhotosCss = Model.SiteSection == SiteSection.Photos ? "first active" : "photo"; %>
+        <% string myCalendarCss = Model.SiteSection == SiteSection.Calendar ? "first active" : "event"; %>
+        <% string myInfoCss = Model.SiteSection == SiteSection.Information ? "last active" : "last"; %>
 			<ul>
-				<li class="first active"><a class="home" href="/Home/FanFeed">HOME</a></li>
-				<li><a class="message" href="/Home/UserFeed">My Feed</a></li>
-				<li><a class="photo" href="/UserPictures/List">PHOTOS</a></li>
-				<li><a class="event" href="/Calendar/List">EVENTS</a></li>
-				<li class="last"><a class="info" href="#">INFO</a></li>
+				<li class="<%= myHomeCss %>"><a class="home" href="/Home/FanFeed">HOME</a></li>
+				<li><a class="<%= myMessageCss %>" href="/Home/UserFeed">My Feed</a></li>
+				<li><a class="<%= myPhotosCss %>" href="/UserPictures/List">PHOTOS</a></li>
+				<li><a class="<%= myCalendarCss %>" href="/Calendar/List">EVENTS</a></li>
+				<li class="<%= myInfoCss %>"><a class="info" href="#">INFO</a></li>
 			</ul>
 		</div>
 		<div class="clear">&nbsp;</div>
-		
+
 		<div class="m-lft col-15 m-rgt user-control">
 			<h1>
 				<%= Model.User.Username %>

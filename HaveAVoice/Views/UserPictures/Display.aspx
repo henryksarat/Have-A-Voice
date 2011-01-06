@@ -7,8 +7,11 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Gallery</h2><br /><br />
-
+    <h2></h2><br /><br />
+	<% Html.RenderPartial("UserPanel", Model.NavigationModel); %>
+    <div class="col-3 m-rgt left-nav">
+        <% Html.RenderPartial("LeftNavigation"); %>
+    </div>
     <%= Html.Encode(ViewData["Message"]) %><br /><br />
     
     <table>

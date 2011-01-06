@@ -10,9 +10,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         public UserPicture AddReferenceToImage(User aUser, string anImageName) {
             UserPicture myUserPicture = UserPicture.CreateUserPicture(0, aUser.Id, anImageName, false, DateTime.UtcNow);
-
-            UnSetCurrentUserPicture(aUser);
-
+            
             theEntities.AddToUserPictures(myUserPicture);
             theEntities.SaveChanges();
 

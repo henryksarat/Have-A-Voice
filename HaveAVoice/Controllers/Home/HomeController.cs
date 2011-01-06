@@ -62,7 +62,7 @@ namespace HaveAVoice.Controllers.Home {
                 return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
-            LoggedInListModel<FeedModel> myModel = new LoggedInListModel<FeedModel>(myUser);
+            LoggedInListModel<FeedModel> myModel = new LoggedInListModel<FeedModel>(myUser, SiteSection.Home);
 
             try {
                 myModel.Models = theService.UserFeedModel(myUser, myUser.Id);
@@ -79,8 +79,8 @@ namespace HaveAVoice.Controllers.Home {
                 return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
-            
-            LoggedInListModel<FeedModel> myModel = new LoggedInListModel<FeedModel>(myUser);
+
+            LoggedInListModel<FeedModel> myModel = new LoggedInListModel<FeedModel>(myUser, SiteSection.Home);
             try {
                 myModel.Models = theService.FanFeed(myUser);
             } catch (Exception e) {
@@ -96,7 +96,7 @@ namespace HaveAVoice.Controllers.Home {
                 return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
-            LoggedInListModel<FeedModel> myModel = new LoggedInListModel<FeedModel>(myUser);
+            LoggedInListModel<FeedModel> myModel = new LoggedInListModel<FeedModel>(myUser, SiteSection.Home);
             try {
                 myModel.Models = theService.OfficialsFeed(myUser);
             } catch (Exception myException) {

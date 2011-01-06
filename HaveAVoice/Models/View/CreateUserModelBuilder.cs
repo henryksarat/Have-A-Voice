@@ -36,5 +36,9 @@ namespace HaveAVoice.Models.View {
             string myTempUtcOffset = "shitty";
             return User.CreateUser(0, Username, Email, Password, FirstName, LastName, City, State, DateOfBirth, myTempDateFiller, myTempDateFiller, myTempIp, false, myTempUtcOffset);
         }
+
+        public String getDateOfBirthFormatted() {
+            return DateOfBirth.ToString("MM-dd-yyyy");
+        }
     }
 }

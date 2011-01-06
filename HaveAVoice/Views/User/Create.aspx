@@ -63,10 +63,10 @@
     				<%= Html.Encode(ViewData["Message"]) %>
     			
 	    			<div class="col-4 m-rgt right">
-	    				<label for="FullName">Full Name:</label>
+	    				<label for="FirstName">First Name:</label>
 	    			</div>
 	    			<div class="col-4">
-	    				<%= Html.TextBox("First Name", Model.FullName()) %>
+	    				<%= Html.TextBox("FirstName", Model.FirstName) %>
 	    			</div>
 	    			<div class="col-14">
 	    				<%= Html.ValidationMessage("FirstName", "*") %>
@@ -75,10 +75,10 @@
 	    			<div class="spacer-10">&nbsp;</div>
 
 	    			<div class="col-4 m-rgt right">
-	    				<label for="FullName">Last Name:</label>
+	    				<label for="LastName">Last Name:</label>
 	    			</div>
 	    			<div class="col-4">
-	    				<%= Html.TextBox("LastName", Model.FullName()) %>
+	    				<%= Html.TextBox("LastName", Model.LastName) %>
 	    			</div>
 	    			<div class="col-14">
 	    				<%= Html.ValidationMessage("FullName", "*") %>
@@ -90,7 +90,7 @@
 	    				<label for="Email">Email:</label>
 	    			</div>
 	    			<div class="col-4">
-	    				<%= Html.TextBox("Email", Model.Email()) %>
+	    				<%= Html.TextBox("Email", Model.Email) %>
 	    			</div>
 	    			<div class="col-14">
 	    				<%= Html.ValidationMessage("Email", "*") %>
@@ -102,7 +102,7 @@
 	    				<label for="Username">Username:</label>
 	    			</div>
 	    			<div class="col-4">
-	    				<%= Html.TextBox("Username", Model.Username())%>
+	    				<%= Html.TextBox("Username", Model.Username)%>
 	    			</div>
 	    			<div class="col-14">
 	    				<%= Html.ValidationMessage("Username", "*") %>
@@ -144,7 +144,7 @@
 						<label for="City">City:</label>
 					</div>
 					<div class="col-4">
-						<%= Html.TextBox("City", Model.City())%>
+						<%= Html.TextBox("City", Model.City)%>
 					</div>
 					<div class="col-12">
 						<%= Html.ValidationMessage("City", "*")%>
@@ -156,7 +156,7 @@
 						<label for="State">State:</label>
 					</div>
 					<div class="col-4">
-						<%= Html.DropDownList("State", Model.States())%>
+						<%= Html.DropDownList("State", Model.States)%>
 					</div>
 					<div class="col-14">
 						<%= Html.ValidationMessage("State", "*")%>
