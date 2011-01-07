@@ -11,5 +11,6 @@ namespace HaveAVoice.Repositories.AdminFeatures {
         void Delete(User aDeletedByUser, Permission aPermissionToDelete);
         Permission FindPermission(int id);
         IEnumerable<Permission> GetAllPermissions();
+        bool nameExists(String aName);
     }
 }

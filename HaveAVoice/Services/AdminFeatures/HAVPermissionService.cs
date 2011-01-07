@@ -75,6 +75,10 @@ namespace HaveAVoice.Services.AdminFeatures  {
                 theValidationDictionary.AddError("Description", aPermission.Description.Trim(), "Permission description is required.");
             }
 
+            if (thePermissionRepo.nameExists(aPermission.Name)) {
+                theValidationDictionary.AddError("Name", aPermission.Name.Trim(), "Permission with name " + aPermission.Name + " already exists");
+            }
+
             return theValidationDictionary.isValid;
         }
 

@@ -41,7 +41,13 @@ namespace HaveAVoice.Repositories.AdminFeatures {
         }
 
         public IEnumerable<Permission> GetAllPermissions() {
-            return theEntities.Permissions.ToList<Permission>().Where(p => p.Deleted == false);
+            return theEntities.Permissions.ToList<Permission>().Where(p => p.Deleted == false).OrderBy(p => p.Name);
+        }
+
+        public bool nameExists(String aName) {
+            return (from p in theEntities.Permissions
+                    where p.Name == aName
+                    select p).Count() > 0;
         }
     }
 }
