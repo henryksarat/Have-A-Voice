@@ -10,6 +10,9 @@ namespace HaveAVoice.Models.View {
         Photos,
         Calendar,
         UserFeed,
-        Information
+        Information,
+        Board,
+        Message,
+        Fan
     }
 }

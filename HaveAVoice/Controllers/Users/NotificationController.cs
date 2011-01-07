@@ -34,7 +34,7 @@ namespace HaveAVoice.Controllers.Users {
             }
 
             User myUser = GetUserInformatonModel().Details;
-            LoggedInListModel<Board> myModel = new LoggedInListModel<Board>(myUser);
+            LoggedInListModel<Board> myModel = new LoggedInListModel<Board>(myUser, SiteSection.Board);
             try {
                 myModel.Models = theNotificationService.GetNotifications(myUser);
             } catch (Exception myException) {

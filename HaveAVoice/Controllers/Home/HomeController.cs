@@ -62,7 +62,7 @@ namespace HaveAVoice.Controllers.Home {
                 return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
-            LoggedInListModel<FeedModel> myModel = new LoggedInListModel<FeedModel>(myUser, SiteSection.Home);
+            LoggedInListModel<FeedModel> myModel = new LoggedInListModel<FeedModel>(myUser, SiteSection.UserFeed);
 
             try {
                 myModel.Models = theService.UserFeedModel(myUser, myUser.Id);

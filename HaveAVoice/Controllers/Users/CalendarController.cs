@@ -59,8 +59,7 @@ namespace HaveAVoice.Controllers.Users
         public ActionResult GetEvents(User aViewingUser, int aUserId, string aViewName) {
             LoggedInListModel<Event> myLoggedInModel = new LoggedInListModel<Event>(aViewingUser, SiteSection.Calendar);
             try {
-
-                myLoggedInModel = theEventService.GetEventsForUser(aViewingUser, aUserId);
+                myLoggedInModel.Models = theEventService.GetEventsForUser(aViewingUser, aUserId);
             } catch (Exception e) {
                 LogError(e, LOAD_EVENTS_ERROR);
                 ViewData["Message"] = LOAD_EVENTS_ERROR;

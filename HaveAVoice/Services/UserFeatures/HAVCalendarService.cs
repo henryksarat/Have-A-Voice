@@ -58,11 +58,9 @@ namespace HaveAVoice.Services.UserFeatures {
             theRepository.DeleteEvent(anUserInformation.Details, anEventId, myAdminOverride);
         }
 
-        public LoggedInListModel<Event> GetEventsForUser(User aViewingUser, int aUserId) {
+        public IEnumerable<Event> GetEventsForUser(User aViewingUser, int aUserId) {
             if (aViewingUser.Id == aUserId || theFanService.IsFan(aUserId, aViewingUser)) {
-                return new LoggedInListModel<Event>(aViewingUser) {
-                    Models = theRepository.FindEvents(aUserId, DateTime.UtcNow)
-                };
+                return theRepository.FindEvents(aUserId, DateTime.UtcNow);
             }
 
             throw new NotFanException();

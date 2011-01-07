@@ -1,6 +1,7 @@
 <%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<HaveAVoice.Models.View.NavigationModel>" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
+<%@ Import Namespace="HaveAVoice.Helpers.UI" %>
 
 <div class="col-24 user-panel">
 	<div class="col-3">
@@ -8,18 +9,15 @@
 	</div>
 	<div class="col-15">
 		<div class="m-lft col-15 m-rgt">
-        <% string myHomeCss = Model.SiteSection == SiteSection.Home ? "first active" : "first"; %>
-        <% string myMessageCss = Model.SiteSection == SiteSection.UserFeed ? "first active" : "message"; %>
-        <% string myPhotosCss = Model.SiteSection == SiteSection.Photos ? "first active" : "photo"; %>
-        <% string myCalendarCss = Model.SiteSection == SiteSection.Calendar ? "first active" : "event"; %>
-        <% string myInfoCss = Model.SiteSection == SiteSection.Information ? "last active" : "last"; %>
-			<ul>
-				<li class="<%= myHomeCss %>"><a class="home" href="/Home/FanFeed">HOME</a></li>
-				<li><a class="<%= myMessageCss %>" href="/Home/UserFeed">My Feed</a></li>
-				<li><a class="<%= myPhotosCss %>" href="/UserPictures/List">PHOTOS</a></li>
-				<li><a class="<%= myCalendarCss %>" href="/Calendar/List">EVENTS</a></li>
-				<li class="<%= myInfoCss %>"><a class="info" href="#">INFO</a></li>
-			</ul>
+        
+            <%= NavigationHelper.UserNavigation(
+                                Model.SiteSection, 
+                                new SiteSection[] {SiteSection.Home, SiteSection.UserFeed, SiteSection.Photos, SiteSection.Calendar, SiteSection.Information},
+                                new string[] {"home", "message", "photo", "event", "info"},
+                                new string[] {"/Home/FanFeed", "/Home/UserFeed", "/UserPictures/List", "/Calendar/List", "/Information/List"},
+                                new string[] { "HOME", "USER FEED", "PHOTOS", "EVENTS", "INFO"}
+                    ) 
+                %>
 		</div>
 		<div class="clear">&nbsp;</div>
 

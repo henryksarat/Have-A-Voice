@@ -114,6 +114,7 @@
     <Compile Include="Helpers\Relation.cs" />
     <Compile Include="Helpers\UI\ImageHelper.cs" />
     <Compile Include="Helpers\HAVPermission.cs" />
+    <Compile Include="Helpers\UI\NavigationHelper.cs" />
     <Compile Include="Helpers\UserInformation\UserSettings.cs" />
     <Compile Include="Helpers\Enums\ForgotPasswordPhase.cs" />
     <Compile Include="Helpers\Enums\PrivacyAction.cs" />

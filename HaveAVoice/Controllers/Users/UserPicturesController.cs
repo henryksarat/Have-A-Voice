@@ -79,8 +79,6 @@ namespace HaveAVoice.Controllers.Users {
                 return SendToErrorPage(GALLERY_ERROR);
             }
 
-            ViewData["Section"] = "best section";
-
             return View(LIST_VIEW, myModel);
         }
 
@@ -91,7 +89,7 @@ namespace HaveAVoice.Controllers.Users {
             }
             User myUser = GetUserInformaton();
 
-            LoggedInWrapperModel<string> myModel = new LoggedInWrapperModel<string>(myUser);
+            LoggedInWrapperModel<string> myModel = new LoggedInWrapperModel<string>(myUser, SiteSection.Photos);
             try {
                 myModel.Model = PhotoHelper.ConstructUrl(theUserPictureService.GetUserPicture(myUser, id).ImageName);
             } catch (Exception e) {

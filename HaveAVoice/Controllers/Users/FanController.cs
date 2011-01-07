@@ -62,7 +62,7 @@ namespace HaveAVoice.Controllers.Users
                 return RedirectToLogin();
             }
             User myUser = GetUserInformatonModel().Details;
-            LoggedInListModel<Fan> myModel = new LoggedInListModel<Fan>(myUser);
+            LoggedInListModel<Fan> myModel = new LoggedInListModel<Fan>(myUser, SiteSection.Message);
             try {
                 myModel.Models = theFanService.FindFansForUser(myUser.Id);
             } catch (Exception e) {
