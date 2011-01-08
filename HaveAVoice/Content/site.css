@@ -66,9 +66,11 @@ body { font-family: helvetica, arial, sans-serif; background: #d9e9ed; }
 /****************************************************************************/
 /********************************* MARGIN ***********************************/
 /****************************************************************************/
+.m-top10 { margin-top: 10px; }
 .m-top20 { margin-top: 20px; }
 
 .m-btm5 { margin-bottom: 5px; }
+.m-btm10 { margin-bottom: 10px; }
 .m-btm20 { margin-bottom: 20px; }
 .m-btm25 { margin-bottom: 25px; }
 .m-btm30 { margin-bottom: 30px; }
@@ -88,6 +90,7 @@ body { font-family: helvetica, arial, sans-serif; background: #d9e9ed; }
 .p-t10 { padding-top: 10px; }
 .p-b10 { padding-bottom: 10px; }
 .p-h5 { padding-left: 5px; padding-right: 5px; }
+.p-a5 { padding: 5px; }
 .p-a10 { padding: 10px; }
 .p-v10 { padding-top: 10px; padding-bottom: 10px; }
 .p-v15 { padding-top: 15px; padding-bottom: 15px; }
@@ -151,11 +154,11 @@ body { font-family: helvetica, arial, sans-serif; background: #d9e9ed; }
 /****************************************************************************/
 .user-panel { margin: 10px 0px; }
 .user-panel ul li { float: left; border-left: 1px solid #ffffff; border-right: 1px solid #c0d8de; }
-.user-panel ul li.first { border-left: none; border-top-left-radius: 5px; border-bottom-left-radius: 5px; -moz-border-radius-topleft: 5px; -moz-border-radius-bottomleft: 5px; -webkit-border-top-left-radius: 5px; -webkit-border-bottom-left-radius: 5px; }
-.user-panel ul li.last { border-right: none; border-top-right-radius: 5px; border-bottom-right-radius: 5px; -moz-border-radius-topright: 5px; -moz-border-radius-bottomright: 5px; -webkit-border-top-right-radius: 5px; -webkit-border-bottom-right-radius: 5px; }
+.user-panel ul li:first-child { border-left: none; border-top-left-radius: 5px; border-bottom-left-radius: 5px; -moz-border-radius-topleft: 5px; -moz-border-radius-bottomleft: 5px; -webkit-border-top-left-radius: 5px; -webkit-border-bottom-left-radius: 5px; }
+.user-panel ul li:last-child { border-right: none; border-top-right-radius: 5px; border-bottom-right-radius: 5px; -moz-border-radius-topright: 5px; -moz-border-radius-bottomright: 5px; -webkit-border-top-right-radius: 5px; -webkit-border-bottom-right-radius: 5px; }
 .user-panel ul li:hover, .user-panel ul li.active { background-color: #c0d8de; }
 .user-panel ul li a { width: 32px; height: 24px; -moz-background-size: 24px; background-size: 24px; display: block; outline: none; text-indent: -9999px; padding: 0px 10px; }
-.user-panel ul li a.home { background-image: url("images/menu/home.png"); background-position: center center; background-repeat: no-repeat;  }
+.user-panel ul li a.home { background-image: url("images/menu/home.png"); background-position: center center; background-repeat: no-repeat; }
 .user-panel ul li a.message { background-image: url("images/menu/message.png"); background-position: center center; background-repeat: no-repeat; }
 .user-panel ul li a.photo { background-image: url("images/menu/photo.png"); background-position: center center; background-repeat: no-repeat; }
 .user-panel ul li a.event { background-image: url("images/menu/event.png"); background-position: center center; background-repeat: no-repeat; }
@@ -232,8 +235,8 @@ form.create input[type=button]:hover { color: #115f71; background: #fff; }
 /****************************************************************************/
 /******************************** FAN FEED **********************************/
 /****************************************************************************/
-img.profile { border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; max-width: 80px; max-height: 80px; }
-img.profile.sm { max-width: 40px; max-height: 40px; }
+.row img.profile, .alt img.profile { border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; max-width: 80px; max-height: 80px; }
+.row img.profile.sm, .alt img.profile.sm { max-width: 40px; max-height: 40px; }
 .comment .options span { font-size: 12px; }
 .row a.name, .row a.name:link, .row a.name:visited { font-size: 12px; font-style: normal; font-weight: bold; text-decoration: none; color: #20a9c9; }
 .row a.like, .row a.like:link, .row a.like:visited { color: #2070c9; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; background: transparent; }
@@ -260,9 +263,9 @@ img.profile.sm { max-width: 40px; max-height: 40px; }
 .date-tile { color: #a2a2a2; font-weight: bold; font-size: 16px; }
 .date-tile span { color: #4b4b4b; }
 
-.reply { margin-top: 10px; }
+.row .reply, .alt .reply { margin-top: 10px; }
 
-.reply .comment textarea { border: 1px solid #20a9c9; width: 100%; background: #fff; color: #000; margin-bottom: 5px; -moz-border-radius: 0px; -webkit-border-radius: 0px; border-radius: 0px; }
+.row .reply .comment textarea, .alt .reply .comment textarea { border: 1px solid #20a9c9; width: 100%; background: #fff; color: #000; margin-bottom: 5px; -moz-border-radius: 0px; -webkit-border-radius: 0px; border-radius: 0px; }
 /* input.button { color: #fff; font-weight: bold; font-size: 13px; background: #20a9c9; border: 2px solid #fff; padding: 5px; cursor: pointer; } */
 
 
@@ -324,6 +327,44 @@ input[type=submit].submit:hover { color: #20a9c9; background: #fff; }
 .gallery .image img { max-height: 120px; max-width: 120px; }
 .gallery .image a { border: 0px none transparent; }
 .gallery a, .gallery a:link, .gallery a:visited { color: #20a9c9; font-size: 14px; font-style: normal; font-weight: bold; text-decoration: none; }
+
+
+/****************************************************************************/
+/***************************** NOTIFICATIONS ********************************/
+/****************************************************************************/
+.notification { text-align: center; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; background: #20a9c9; }
+.notification a, .notification a:link, .notification a:visited { font-weight: bold; color: #fff; display: block; padding: 10px 5px; text-decoration: none; }
+.notification a:hover { text-decoration: underline; }
+
+
+/****************************************************************************/
+/************************* BOARD IMAGE **************************************/
+/****************************************************************************/
+.board-image .user-info { background: #c0d8de; color: #ffffff; height: 200px; font-style: italic; position: relative; }
+.board-image .user-info a.name, .photos .user-info a.name:link, .photos .user-info a.name:visited { font-size: 14px; font-style: normal; font-weight: bold; text-decoration: none; color: #20a9c9; display: block; }
+.board-image .user-info img.profile { border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; max-width: 80px; max-height: 80px; }
+.board-image .user-info h1 { font-size: 22px; font-style: italic; margin-top: 10px; color: #63a8b8; }
+.board-image .user-info .link { position: absolute; bottom: 5px; font-weight: bold; }
+.board-image .user-info .link a, .photos .user-info .link a:link, .photos .user-info .link a:visited { font-size: 12px; font-style: normal; text-decoration: none; text-transform: uppercase; }
+
+.board-image .user-info .link a.like, .photos .user-info .link a.like:link, .photos .user-info .link a.like:visited { color: #51b0c7; }
+.board-image .user-info .link a.comment, .photos .user-info .link a.comment:link, .photos .user-info .link a.comment:visited { color: #115f71; }
+
+.board-image .photo { height: 200px; text-indent: -9999px; background-size: 200px; }
+
+.board-image .date-tile { height: 200px; background: #c0d8de; position: relative; }
+.board-image .date-tile .padding-5 { font-size: 16px; padding: 5px; position: absolute; bottom: 0; font-weight: bold; color: #a2a2a2; }
+.board-image .date-tile .padding-5 span { color: #4b4b4b; }
+
+
+/****************************************************************************/
+/************************* BOARD REPLY **************************************/
+/****************************************************************************/
+.board-reply>div { background: transparent; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
+.board-reply img.profile { max-height: 80px; max-width: 80px; }
+.board-reply textarea { resize: none; width: 545px; height: 80px; font-size: 12px; color: #000; }
+.board-reply input[type=submit] { padding: 5px; color: #ffffff; font-size: 12px; background-color: #20a9c9; border: 1px solid #ffffff; font-weight: bold; box-shadow: 0px 1px 0px #aaaaaa; -moz-box-shadow: 0px 1px 0px #aaaaaa; -webkit-box-shadow: 0px 1px 0px #aaaaaa; }
+.board-reply input[type=submit]:hover { color: #20a9c9; background: #fff; border-color: #20a9c9; cursor: pointer; }
 
 
 /****************************************************************************/
@@ -400,9 +441,3 @@ ul.bullet li { list-style: disc; padding-top: 5px; padding-bottom: 5px; }
 
 /* Advertisement */
 .iab-leaderboard { width: 728px; margin: 0px auto; }
-
-
-
-
-/* TEMP */
-.like { background: #fff; }

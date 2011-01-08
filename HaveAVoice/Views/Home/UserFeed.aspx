@@ -19,11 +19,11 @@
         <% foreach (var item in Model.Models) { %>
         
 			<div class="<% if(cnt % 2 == 0) { %>row<% } else { %>alt<% } %>">
-				<div class="col-2 center">
+				<div class="col-3 center">
 					<img src="<%= item.ProfilePictureUrl %>" alt="<%= item.Username %>" class="profile" />
 				</div>
-				<div class="col-16">
-					<div class="m-lft col-16 comment">
+				<div class="col-15">
+					<div class="m-lft col-15 comment">
 						<span class="speak-lft">&nbsp;</span>
 						<div class="p-a10">
 							<% if (item.IssueType == HaveAVoice.Helpers.Enums.IssueType.Issue) { %>

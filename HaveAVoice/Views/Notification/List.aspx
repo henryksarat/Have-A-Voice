@@ -14,9 +14,12 @@
     <div class="col-21">
         <%= Html.Encode(ViewData["Message"]) %>
         <div class="clear">&nbsp;</div>
-    
+
 	    <% foreach (var item in Model.Models) { %>
-	        <%= Html.ActionLink("Now activity with this board message:" + item.Message, "View", "Board", new { id = item.Id }, null)%><br />
+	    	<div class="notification m-btm20">
+	    		<%= Html.ActionLink("Now activity with this board message:" + item.Message, "View", "Board", new { id = item.Id }, null) %>
+	    		<div class="clear">&nbsp;</div>
+	    	</div>
 	    <% } %>
 	    <div class="clear">&nbsp;</div>
 	</div>

@@ -36,8 +36,10 @@
 							<div class="clear">&nbsp;</div>
 							
 							<div class="spacer-10">&nbsp;</div>
+							
+							<div class="clear">&nbsp;</div>
 							<div class="options">
-								<div class="col-6">&nbsp;</div>
+								<div class="col-5">&nbsp;</div>
 								<div class="col-9">
 									<div class="col-3 center">
 										<% if (item.TotalReplys == 0) { %>

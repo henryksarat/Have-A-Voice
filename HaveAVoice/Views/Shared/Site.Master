@@ -29,6 +29,7 @@
             <% } %>
 			<div class="clear">&nbsp;</div>
 		</div>
+		<div class="clear">&nbsp;</div>
 	</div>
 
     <div class="clear">&nbsp;</div>
@@ -36,6 +37,7 @@
     <div class="container">
         <div class="container-24">
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+            <div class="clear">&nbsp;</div>
         </div>
     </div>
     <div class="clear">&nbsp;</div>
@@ -43,7 +45,9 @@
 	    <div class="col-24 footer">
 			Copyright &copy; Have a Voice 2008-2010. All rights reserved.<br />
 			<a href="#">Terms of Use</a> | <a href="#">Privacy Policy</a> | <a href="#">About Have a Voice</a> | <a href="#">Contact Us</a> | <a href="#">Help</a>
+			<div class="clear">&nbsp;</div>
 	    </div>
+	    <div class="clear">&nbsp;</div>
     </div>
 </body>
 </html>

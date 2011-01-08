@@ -48,8 +48,8 @@
 		});
 			
 		equalHeight($("div[rel=match]"));
-		fadeOutLabel($("input#Email"));
-		fadeOutLabel($("input#Password"));
+		fadeInLabel($("input#Email"));
+		fadeInLabel($("input#Password"));
 	});
 </script>
 
