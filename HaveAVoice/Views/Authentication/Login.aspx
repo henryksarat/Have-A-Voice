@@ -19,9 +19,16 @@
     			<div class="spacer-30">&nbsp;</div>
 
 			    <% using (Html.BeginForm("Login", "Authentication", FormMethod.Post, new { @class = "create" })) { %>
-			        <%= Html.Encode(ViewData["Message"]) %>
+			    	<div class="error">
+						<%= Html.Encode(ViewData["Message"]) %>
+			    	</div>
+			    	<div class="success">
+			    		Success Message
+			    	</div>
+			    	<div class="normal">
+			    		Normal Message
+			    	</div>
 			        <div class="clear">&nbsp;</div>
-			        
 			
 					<div class="col-4 m-rgt right">
 						<label for="Email">Email:</label>
