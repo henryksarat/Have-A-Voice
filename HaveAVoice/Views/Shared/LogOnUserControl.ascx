@@ -1,7 +1,15 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl" %>
 
 <script type="text/javascript" language="javascript">
-	$(function() {				
+	$(function() {
+		$("form input.login").each(function() {
+			if ($(this).val() == '')
+			{
+				$(this).next("label").fadeTo('fast', 1.0);
+			} else {
+				$(this).next("label").fadeTo('fast', 0.0);
+			}
+		});
 		function equalHeight(group) {
 			var tallest = 0;
 			group.each(function() {
@@ -12,24 +20,7 @@
 			});
 			group.height(tallest);
 		}
-		function fadeOutLabel(obj)
-		{
-			var lbl = obj.next("label");
-			if ($(this).val() == '') {
-				lbl.fadeTo('fast', 0.4);
-			} else {
-				lbl.fadeTo('fast', 0.0);
-			}
-		}
-		function fadeInLabel(obj)
-		{
-			var lbl = obj.next("label");
-			if ($(this).val() == '') {
-				lbl.fadeTo('fast', 1.0);
-			} else {
-				lbl.fadeTo('fast', 0.0)
-			}
-		}
+
 		$("form label").click(function() {
 			var inpt = $(this).prev("input");
 			if (inpt.val() == '') {
@@ -39,12 +30,30 @@
 			}
 			$(inpt).focus();
 		});
-		$("form input").bind("focus", function() {
-			fadeOutLabel($(this));
+		$("form input.login").bind("focus", function() {
+			var lbl = $(this).next("label");
+			if ($(this).val() == '')
+			{
+				lbl.fadeTo('fast', 0.4);
+			} else {
+				lbl.fadeTo('fast', 0.0);
+			}
 		}).bind("blur", function() {
-			fadeInLabel($(this));
+			var lbl = $(this).next("label");
+			if ($(this).val() == '')
+			{
+				lbl.fadeTo('fast', 1.0);
+			} else {
+				lbl.fadeTo('fast', 0.0);
+			}
 		}).bind("keypress", function() {
-			fadeOutLabel($(this));
+			var lbl = $(this).next("label");
+			if ($(this).val() == '')
+			{
+				lbl.fadeTo('fast', 0.4);
+			} else {
+				lbl.fadeTo('fast', 0.0);
+			}
 		});
 			
 		equalHeight($("div[rel=match]"));
