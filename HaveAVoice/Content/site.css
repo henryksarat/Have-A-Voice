@@ -336,6 +336,7 @@ input[type=submit].submit:hover { color: #20a9c9; background: #fff; }
 .gallery .image img { max-height: 120px; max-width: 120px; }
 .gallery .image a { border: 0px none transparent; }
 .gallery a, .gallery a:link, .gallery a:visited { color: #20a9c9; font-size: 14px; font-style: normal; font-weight: bold; text-decoration: none; }
+.large-photo img { max-width: 840px; }
 
 
 /****************************************************************************/

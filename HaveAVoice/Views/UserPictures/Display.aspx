@@ -6,17 +6,15 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
-    <h2></h2><br /><br />
 	<% Html.RenderPartial("UserPanel", Model.NavigationModel); %>
     <div class="col-3 m-rgt left-nav">
         <% Html.RenderPartial("LeftNavigation"); %>
     </div>
-    <%= Html.Encode(ViewData["Message"]) %><br /><br />
+    <%= Html.Encode(ViewData["Message"]) %>
+    <div class="clear">&nbsp;</div>
     
-    <table>
-        <tr>
-            <td><img src="<%= Model.Model %>" /></td>
-        </tr>
-    </table>
+    <div class="large-photo">
+		<img src="<%= Model.Model %>" />
+	</div>
+	<div class="clear">&nbsp;</div>
 </asp:Content>
