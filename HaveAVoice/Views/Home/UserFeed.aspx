@@ -19,7 +19,7 @@
         <% foreach (var item in Model.Models) { %>
         
 			<div class="<% if(cnt % 2 == 0) { %>row<% } else { %>alt<% } %>">
-				<div class="col-3 center">
+				<div class="col-2 center">
 					<img src="<%= item.ProfilePictureUrl %>" alt="<%= item.Username %>" class="profile" />
 				</div>
 				<div class="col-15">
@@ -33,9 +33,11 @@
 							<% } %>
 							<br />
 							<%= item.Body %>
+							
+							<div class="clear">&nbsp;</div>
+							<div class="spacer-10">&nbsp;</div>
 							<div class="clear">&nbsp;</div>
 							
-							<div class="spacer-10">&nbsp;</div>
 							<div class="options">
 								<div class="col-6">&nbsp;</div>
 								<div class="col-9">

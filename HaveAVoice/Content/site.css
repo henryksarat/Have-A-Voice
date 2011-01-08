@@ -247,25 +247,24 @@ form.create input[type=button]:hover { color: #115f71; background: #fff; }
 .row img.profile, .alt img.profile { border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; max-width: 80px; max-height: 80px; }
 .row img.profile.sm, .alt img.profile.sm { max-width: 40px; max-height: 40px; }
 .comment .options span { font-size: 12px; }
-.row a.name, .row a.name:link, .row a.name:visited { font-size: 12px; font-style: normal; font-weight: bold; text-decoration: none; color: #20a9c9; }
-.row a.like, .row a.like:link, .row a.like:visited { color: #2070c9; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; background: transparent; }
-.row span.like { color: #2070c9; font-size: 12px; background: transparent; }
-.row a.dislike, .row a.dislike:link, .row a.dislike:visited { text-decoration: none; font-size: 12px; font-weight: bold; font-style: normal; text-transform: uppercase; }
-.row span.dislike { color: #c94020; font-size: 12px; background: transparent; }
-.row a.comment, .row a.comment:link, .row a.comment:visited { color: #115f71; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; }
-.row span.comment { color: #115f71; font-size: 12px; background: transparent; }
-.row a.people, a.people:link, a.people:visited { text-decoration: none; color: #4b4b4b; }
+.row a.name, .row a.name:link, .row a.name:visited, .alt a.name, .alt a.name:link, .alt a.name:visited { font-size: 12px; font-style: normal; font-weight: bold; text-decoration: none; color: #20a9c9; }
+.row a.like, .row a.like:link, .row a.like:visited, .alt a.like, .alt a.like:link, .alt a.like:visited { color: #2070c9; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; background: transparent; }
+.row span.like, .alt span.like { color: #2070c9; font-size: 12px; background: transparent; }
+.row a.dislike, .row a.dislike:link, .row a.dislike:visited, .alt a.dislike, .alt a.dislike:link, .alt a.dislike:visited { text-decoration: none; font-size: 12px; font-weight: bold; font-style: normal; text-transform: uppercase; }
+.row span.dislike, .alt span.dislike { color: #c94020; font-size: 12px; background: transparent; }
+.row a.comment, .row a.comment:link, .row a.comment:visited, .alt a.comment, .alt a.comment:link, .alt a.comment:visited { color: #115f71; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; }
+.row span.comment, .alt span.comment { color: #115f71; font-size: 12px; background: transparent; }
+.row a.people, a.people:link, a.people:visited, .alt a.people, .alt a.people:link, .alt a.people:visited { text-decoration: none; color: #4b4b4b; }
 
-.row h1 a { text-decoration: none; font-size: 24px; font-weight: bold; margin-bottom: 5px; color: #20a9c9; }
+.row .comment h1 a, .alt .comment h1 a { text-decoration: none; font-size: 24px; font-weight: bold; margin-bottom: 5px; color: #20a9c9; }
 
 .comment .options { position: absolute; bottom: 10px; }
 
-.row { position: relative; }
+.row, .alt { position: relative; }
 .row, .alt { font-size: 12px; }
 .row .comment { background: #c0d8de; color: #747474; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; min-height: 80px; position: relative; }
 .row .comment span.speak-lft { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #c0d8de transparent transparent transparent; position: absolute; left: -10px; top: 30px; }
 
-.alt { position: relative; }
 .alt .comment { background: #b6dde7; color: #747474; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; min-height: 80px; position: relative; }
 .alt .comment span.speak-lft { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #b6dde7 transparent transparent transparent; position: absolute; left: -10px; top: 30px; }
 
