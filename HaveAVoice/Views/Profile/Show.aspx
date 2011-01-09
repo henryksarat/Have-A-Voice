@@ -43,7 +43,9 @@
 							    <div class="clear">&nbsp;</div>							
 							    <div class="spacer-10">&nbsp;</div>
 							    <div class="clear">&nbsp;</div>
-
+                                <% foreach (var item in myIssue.IssueReplys) { %>
+                                    <%= item.Reply %>
+                                <% } %>
 							    <div class="options">
 								    <div class="col-6">&nbsp;</div>
 								    <div class="col-9">
