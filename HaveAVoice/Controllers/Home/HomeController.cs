@@ -20,10 +20,6 @@ namespace HaveAVoice.Controllers.Home {
 
         private const string VIEW_DATA_MESSAGE = "Message";
         private const string NOT_LOGGED_IN = "NotLoggedIn";
-        private const string FAN_FEED = "FanFeed";
-        private const string OFFICIALS_FEED = "OfficialsFeed";
-        private const string FILTERED_FEED = "FilteredFeed";
-        private const string USER_FEED = "UserFeed";
 
         private IHAVHomeService theService;
 
@@ -55,92 +51,6 @@ namespace HaveAVoice.Controllers.Home {
             }
 
             return View(NOT_LOGGED_IN, myModel);
-        }
-
-        public ActionResult UserFeed() {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            User myUser = GetUserInformaton();
-            LoggedInListModel<FeedModel> myModel = new LoggedInListModel<FeedModel>(myUser, SiteSection.UserFeed);
-
-            try {
-                myModel.Models = theService.UserFeedModel(myUser, myUser.Id);
-            } catch (Exception myException) {
-                LogError(myException, PAGE_LOAD_ERROR);
-                ViewData[VIEW_DATA_MESSAGE] = PAGE_LOAD_ERROR;
-            }
-
-            return View(USER_FEED, myModel);
-        }
-
-        public ActionResult FanFeed() {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            User myUser = GetUserInformaton();
-
-            LoggedInListModel<FeedModel> myModel = new LoggedInListModel<FeedModel>(myUser, SiteSection.Home);
-            try {
-                myModel.Models = theService.FanFeed(myUser);
-            } catch (Exception e) {
-                LogError(e, PAGE_LOAD_ERROR);
-                ViewData[VIEW_DATA_MESSAGE] = PAGE_LOAD_ERROR;
-            }
-
-            return View(FAN_FEED, myModel);
-        }
-
-        public ActionResult OfficialsFeed() {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            User myUser = GetUserInformaton();
-            LoggedInListModel<FeedModel> myModel = new LoggedInListModel<FeedModel>(myUser, SiteSection.Home);
-            try {
-                myModel.Models = theService.OfficialsFeed(myUser);
-            } catch (Exception myException) {
-                LogError(myException, PAGE_LOAD_ERROR);
-                ViewData[VIEW_DATA_MESSAGE] = PAGE_LOAD_ERROR;
-            }
-
-            return View(OFFICIALS_FEED, myModel);
-        }
-
-        public ActionResult FilteredFeed() {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            User myUser = GetUserInformaton();
-            FilteredFeedModel myModel = new FilteredFeedModel(myUser);
-            try {
-                myModel = theService.FilteredFeed(myUser);
-            } catch (Exception myException) {
-                LogError(myException, PAGE_LOAD_ERROR);
-                ViewData[VIEW_DATA_MESSAGE] = PAGE_LOAD_ERROR;
-            }
-
-            return View(FILTERED_FEED, myModel);
-        }
-
-        public ActionResult AddFilter(string city, string state, string zip) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            User myUser = GetUserInformaton();
-            FilteredFeedModel myModel = new FilteredFeedModel(myUser);
-            try {
-                myModel = theService.FilteredFeed(myUser);
-                if (theService.AddFilter(myUser, city, state, zip)) {
-                    TempData[VIEW_DATA_MESSAGE] = FILTERED_SAVED;
-                    return RedirectToAction(FILTERED_FEED);
-                }
-            } catch (Exception myException) {
-                LogError(myException, UNABLE_TO_ADD_FILTER);
-                return SendToErrorPage(UNABLE_TO_ADD_FILTER);
-            }
-
-            return View(FILTERED_FEED, myModel);
         }
     }
 }

@@ -33,12 +33,31 @@ namespace HaveAVoice.Controllers.Users
             theService = aService;
         }
 
-        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
+
+        [RequiredRouteValueAttribute.RequireRouteValues(new[] { "id" })]
+        [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Show(int id) {
             User myViewingUser = GetUserInformaton();
+            
             try {
-                ProfileModel myProfile = theService.Profile(id, myViewingUser);
-                return View("Show", myProfile);
+                UserProfileModel myProfile = theService.Profile(id, myViewingUser);
+                LoggedInWrapperModel<UserProfileModel> myModel = new LoggedInWrapperModel<UserProfileModel>(myProfile.User, SiteSection.Profile);
+                myModel.Model = myProfile;
+                return View("Show", myModel);
+            } catch (Exception e) {
+                LogError(e, USER_PAGE_ERROR);
+                return SendToErrorPage(USER_PAGE_ERROR_POLITE);
+            }
+        }
+
+        [RequiredRouteValueAttribute.RequireRouteValues(new string [] { })]
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult Show() {
+            User myUser = GetUserInformaton();
+            try {
+                LoggedInWrapperModel<UserProfileModel> myModel = new LoggedInWrapperModel<UserProfileModel>(myUser, SiteSection.MyProfile);
+                myModel.Model = theService.MyProfile(myUser);
+                return View("Show", myModel);
             } catch (Exception e) {
                 LogError(e, USER_PAGE_ERROR);
                 return SendToErrorPage(USER_PAGE_ERROR_POLITE);

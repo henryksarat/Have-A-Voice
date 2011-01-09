@@ -58,7 +58,7 @@ namespace HaveAVoice.Controllers  {
         }
 
         protected ActionResult RedirectToProfile() {
-            return RedirectToAction("FanFeed", "Home");
+            return RedirectToAction("Show", "Profile");
         }
 
         protected ActionResult RedirectToHomePage() {

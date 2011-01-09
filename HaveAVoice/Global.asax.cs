@@ -33,9 +33,6 @@ namespace HaveAVoice {
             ModelBinders.Binders.Add(typeof(PermissionModel), new PermissionModelBinder());
             ModelBinders.Binders.Remove(typeof(ComplaintModel));
             ModelBinders.Binders.Add(typeof(ComplaintModel), new ComplaintModelBinder());
-            ModelBinders.Binders.Remove(typeof(ProfileModel));
-            ModelBinders.Binders.Add(typeof(ProfileModel), new ProfileModelBinder());
-
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 

@@ -74,6 +74,7 @@
     <Compile Include="Controllers\ActionFilters\ExportModelStateToTempData.cs" />
     <Compile Include="Controllers\ActionFilters\ImportModelStateFromTempData.cs" />
     <Compile Include="Controllers\ActionFilters\ModelStateTempDataTransfer.cs" />
+    <Compile Include="Controllers\ActionFilters\RequiredRouteValueAttribute.cs" />
     <Compile Include="Controllers\Admin\AdminBaseController.cs" />
     <Compile Include="Controllers\Admin\AdminController.cs" />
     <Compile Include="Controllers\Core\AuthenticationController.cs" />
@@ -89,7 +90,7 @@
     <Compile Include="Controllers\Users\NotificationController.cs" />
     <Compile Include="Controllers\Users\UserPicturesController.cs" />
     <Compile Include="Controllers\Users\UserPrivacySettings.cs" />
-    <Compile Include="Helpers\Enums\IssueType.cs" />
+    <Compile Include="Helpers\Enums\FeedItem.cs" />
     <Compile Include="Helpers\Enums\FanStatus.cs" />
     <Compile Include="Helpers\Exceptions\CustomException.cs" />
     <Compile Include="Helpers\Exceptions\NotFanException.cs" />
@@ -129,6 +130,10 @@
     <Compile Include="Helpers\ActionMethods\AcceptParameterAttribute.cs" />
     <Compile Include="Helpers\ActionMethods\CaptchaValidatorAttribute.cs" />
     <Compile Include="Models\View\Binders\ImageBinder.cs" />
+    <Compile Include="Models\View\BoardFeedModel.cs" />
+    <Compile Include="Models\View\IssueFeedModel.cs" />
+    <Compile Include="Models\View\IssueReplyFeedModel.cs" />
+    <Compile Include="Models\View\SingleFeedItem.cs" />
     <Compile Include="Models\View\LoggedInListModel.cs" />
     <Compile Include="Models\View\LoggedInWrapperModel.cs" />
     <Compile Include="Models\View\NotLoggedInModel.cs" />
@@ -136,6 +141,7 @@
     <Compile Include="Models\View\FeedModel.cs" />
     <Compile Include="Models\View\SiteSection.cs" />
     <Compile Include="Models\View\NavigationModel.cs" />
+    <Compile Include="Models\View\UserProfileModel.cs" />
     <Compile Include="Models\Wrappers\MessageWrapper.cs" />
     <Compile Include="Models\Wrappers\BasicTextModelWrapper.cs" />
     <Compile Include="Models\Wrappers\IssueReplyCommentWrapper.cs" />
@@ -220,7 +226,6 @@
     <Compile Include="Repositories\UserFeatures\IHAVCalendarRepository.cs" />
     <Compile Include="Services\UserFeatures\HAVCalendarService.cs" />
     <Compile Include="Services\UserFeatures\IHAVCalendarService.cs" />
-    <Compile Include="Models\View\Binders\ProfileModelBinder.cs" />
     <Compile Include="Models\Wrappers\BoardReplyWrapper.cs" />
     <Compile Include="Models\Wrappers\BoardWrapper.cs" />
     <Compile Include="Models\View\BoardModel.cs" />

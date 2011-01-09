@@ -26,7 +26,7 @@
 					<div class="m-lft col-16 comment">
 						<span class="speak-lft">&nbsp;</span>
 						<div class="p-a10">
-							<% if (item.IssueType == HaveAVoice.Helpers.Enums.IssueType.Issue) { %>
+							<% if (item.FeedItem == HaveAVoice.Helpers.Enums.FeedItem.Issue) { %>
 								<h1><a href="#"><%= item.Title %></a></h1>
 							<% } else { %>
 								<a class="name" href="#"><%= item.Username %></a>
@@ -44,7 +44,7 @@
 									<div class="col-3 center">
 										<% if (item.TotalReplys == 0) { %>
 											<a href="#" class="comment">
-												<% if (item.IssueType == HaveAVoice.Helpers.Enums.IssueType.Issue) { %>
+												<% if (item.FeedItem == HaveAVoice.Helpers.Enums.FeedItem.Issue) { %>
 													Reply
 												<% } else { %>
 													Comment
@@ -52,7 +52,7 @@
 											</a>
 										<% } else { %>
 											<span class="comment"><%= item.TotalReplys %> 
-												<% if (item.IssueType == HaveAVoice.Helpers.Enums.IssueType.Issue) { %>
+												<% if (item.FeedItem == HaveAVoice.Helpers.Enums.FeedItem.Issue) { %>
 													Repl<% if (item.TotalReplys > 1) { %>ies<% } else { %>y<% } %>
 												<% } else { %>
 													Comment<% if (item.TotalReplys > 1) { %>s<% } %>

@@ -8,6 +8,7 @@ using HaveAVoice.Models.View;
 
 namespace HaveAVoice.Services.UserFeatures {
     public interface IHAVProfileService {
-        ProfileModel Profile(int aUserId, User aViewingUser);
+        UserProfileModel Profile(int aUserId, User aViewingUser);
+        UserProfileModel MyProfile(User aUser);
     }
 }

@@ -31,27 +31,84 @@ namespace HaveAVoice.Services.UserFeatures {
             theBoardRepository = aBoardRepository;
         }
 
-        public ProfileModel Profile(int aUserId, User myViewingUser) {
+        public UserProfileModel Profile(int aUserId, User myViewingUser) {
             IHAVUserService myUserService = new HAVUserService(theValidationDictionary);
             User myUser = theUserRetrievalService.GetUser(aUserId);
             IEnumerable<Board> myBoardMessages = theBoardRepository.FindBoardByUserId(aUserId);
-            IEnumerable<IssueReply> myIssueReplys = theRepository.IssuesUserRepliedTo(myUser);
-            IEnumerable<Fan> myFans = theFanService.FindFansForUser(myUser.Id);
-            FanStatus myFanStatus = GetFanStatus(aUserId, myViewingUser);
+
+            UserProfileModel myProfileModel = new UserProfileModel(myUser) {
+                BoardFeed = CreateBoardFeed(myBoardMessages),
+                IssueFeed = CreateIssueFeed(theRepository.UserIssueFeed(aUserId)),
+                IssueReplyFeed = CreateIssueReplyFeed(theRepository.UserIssueReplyFeed(aUserId))
+            };
 
             foreach (Board myBoard in myBoardMessages) {
                 theBoardRepository.MarkBoardAsViewed(myViewingUser, myBoard.Id);
             }
 
-            ProfileModel myModel = new ProfileModel(myUser) {
-                ProfilePictureUrl = PhotoHelper.ProfilePicture(myUser),
-                BoardMessages = myBoardMessages,
-                IssueReplys = myIssueReplys,
-                Fans = myFans,
-                FanStatus = myFanStatus
-            };
+            return myProfileModel;
+        }
 
-            return myModel;
+        private IEnumerable<IssueFeedModel> CreateIssueFeed(IEnumerable<Issue> anIssues) {
+            List<IssueFeedModel> myFeedModels = new List<IssueFeedModel>();
+
+            foreach (Issue myIssue in anIssues) {
+                IEnumerable<IssueDisposition> myIssueDisposition = myIssue.IssueDispositions;
+
+                IssueFeedModel myFeedModel = new IssueFeedModel(myIssue.User) {
+                    DateTimeStamp = myIssue.DateTimeStamp,
+                    Title = myIssue.Title,
+                    Description = myIssue.Description,
+                    TotalLikes = (from d in myIssueDisposition where d.Disposition == (int)Disposition.LIKE select d).Count<IssueDisposition>(),
+                    TotalDislikes = (from d in myIssueDisposition where d.Disposition == (int)Disposition.DISLIKE select d).Count<IssueDisposition>(),
+                    HasDisposition = (from d in myIssueDisposition where d.UserId == myIssue.User.Id select d).Count<IssueDisposition>() > 1 ? true : false,
+                    TotalReplys = myIssue.IssueReplys.Count,
+                    IssueReplys = myIssue.IssueReplys
+                };
+
+                myFeedModels.Add(myFeedModel);
+            }
+
+            return myFeedModels;
+        }
+
+        private IEnumerable<IssueReplyFeedModel> CreateIssueReplyFeed(IEnumerable<IssueReply> anIssueReplys) {
+            List<IssueReplyFeedModel> myFeedModels = new List<IssueReplyFeedModel>();
+
+            foreach (IssueReply myIssueReply in anIssueReplys) {
+                IEnumerable<IssueReplyDisposition> myReplyDisposition = myIssueReply.IssueReplyDispositions;
+
+                IssueReplyFeedModel myFeedModel = new IssueReplyFeedModel(myIssueReply.User) {
+                    DateTimeStamp = myIssueReply.DateTimeStamp,
+                    IssueReplyComments = myIssueReply.IssueReplyComments,
+                    Issue = myIssueReply.Issue,
+                    Reply = myIssueReply.Reply,
+                    TotalLikes = (from d in myReplyDisposition where d.Disposition == (int)Disposition.LIKE select d).Count<IssueReplyDisposition>(),
+                    TotalDislikes = (from d in myReplyDisposition where d.Disposition == (int)Disposition.DISLIKE select d).Count<IssueReplyDisposition>(),
+                    HasDisposition = (from d in myReplyDisposition where d.UserId == myIssueReply.User.Id select d).Count<IssueReplyDisposition>() > 1 ? true : false,
+                    TotalComments = myIssueReply.IssueReplyComments.Count
+                };
+
+                myFeedModels.Add(myFeedModel);
+            }
+
+            return myFeedModels;
+        }
+
+        private IEnumerable<BoardFeedModel> CreateBoardFeed(IEnumerable<Board> aBoards) {
+            List<BoardFeedModel> myFeedModels = new List<BoardFeedModel>();
+
+            foreach (Board myBoard in aBoards) {
+                BoardFeedModel myFeedModel = new BoardFeedModel(myBoard.User) {
+                    DateTimeStamp = myBoard.DateTimeStamp,
+                    Message = myBoard.Message,
+                    BoardReplys = myBoard.BoardReplies
+                };
+
+                myFeedModels.Add(myFeedModel);
+            }
+
+            return myFeedModels;
         }
 
         private FanStatus GetFanStatus(int aSourceUserId, User aViewingUser) {
@@ -69,6 +126,15 @@ namespace HaveAVoice.Services.UserFeatures {
             }
 
             return myFanStatus;
+        }
+
+        public UserProfileModel MyProfile(User aUser) {
+            UserProfileModel myModel = new UserProfileModel(aUser) {
+                IssueFeed = CreateIssueFeed(theRepository.FanIssueFeed(aUser)),
+                IssueReplyFeed = CreateIssueReplyFeed(theRepository.FanIssueReplyFeed(aUser))
+            };
+
+            return myModel;
         }
     }
 }
