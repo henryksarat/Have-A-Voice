@@ -8,6 +8,7 @@ using HaveAVoice.Services.Helpers;
 
 namespace HaveAVoice.Models.View {
     public abstract class FeedModel {
+        public DateTime DateTimeStamp { get; set; }
         public string Username { get; set; }
         public string ProfilePictureUrl { get; set; }
 

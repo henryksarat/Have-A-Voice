@@ -5,7 +5,6 @@ using System.Web;
 
 namespace HaveAVoice.Models.View {
     public class IssueFeedModel : FeedModel {
-        public DateTime DateTimeStamp { get; set; }
         public IEnumerable<IssueReply> IssueReplys { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }

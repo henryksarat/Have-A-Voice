@@ -7,6 +7,7 @@ using HaveAVoice.Helpers.Enums;
 namespace HaveAVoice.Models.View {
     public class UserProfileModel {
         public User User { get; set; }
+
         public IEnumerable<BoardFeedModel> BoardFeed { set {
                 BoardFeedEnumerator = value.GetEnumerator();
                 BoardFeedEnumerator.MoveNext();
@@ -38,14 +39,23 @@ namespace HaveAVoice.Models.View {
 
         public FeedItem GetNextItem() {
             FeedItem myFeedItem = FeedItem.None;
+            List<SortableItemMetaData> myCommonSortableList = new List<SortableItemMetaData>();
+
             if (BoardFeedEnumerator.Current != null || IssueFeedEnumerator.Current != null || IssueReplyFeedEnumerator.Current != null) {
                 if (BoardFeedEnumerator.Current != null) {
-                    myFeedItem = FeedItem.Board;
-                } else if (IssueFeedEnumerator.Current != null) {
-                    myFeedItem = FeedItem.Issue;
-                } else if (IssueReplyFeedEnumerator.Current != null) {
-                    myFeedItem = FeedItem.IssueReply;
+                    myCommonSortableList.Add(CreateSortable(BoardFeedEnumerator.Current, FeedItem.Board));
+                } 
+                if (IssueFeedEnumerator.Current != null) {
+                    myCommonSortableList.Add(CreateSortable(IssueFeedEnumerator.Current, FeedItem.Issue));
+                } 
+                if (IssueReplyFeedEnumerator.Current != null) {
+                    myCommonSortableList.Add(CreateSortable(IssueReplyFeedEnumerator.Current, FeedItem.IssueReply));
                 }
+
+                myFeedItem = myCommonSortableList
+                    .OrderBy(s => s.DateTimeStamp)
+                    .FirstOrDefault<SortableItemMetaData>()
+                    .FeedItem;
             }
             
             return myFeedItem;
@@ -67,6 +77,18 @@ namespace HaveAVoice.Models.View {
             IssueReplyFeedModel myModel = IssueReplyFeedEnumerator.Current;
             IssueReplyFeedEnumerator.MoveNext();
             return myModel;
+        }
+
+        private SortableItemMetaData CreateSortable(FeedModel aFeedModel, FeedItem aFeedItem) {
+            return new SortableItemMetaData() {
+                DateTimeStamp = aFeedModel.DateTimeStamp,
+                FeedItem = aFeedItem
+            };
+        }
+
+        private class SortableItemMetaData {
+            public DateTime DateTimeStamp { get; set; }
+            public FeedItem FeedItem { get; set; }
         }
     }
 }
