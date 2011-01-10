@@ -19,7 +19,7 @@ namespace HaveAVoice.Models.View {
         }
 
         public FeedItem GetNextItem() {
-            return FeedItem.Board;
+            return FeedItem.Issue;
         }
 
         public IssueFeedModel GetNextIssue() {
@@ -28,6 +28,10 @@ namespace HaveAVoice.Models.View {
 
         public BoardFeedModel GetNextBoard() {
             return BoardFeed.FirstOrDefault();
+        }
+
+        public IssueReplyFeedModel GetNextIssueReply() {
+            return IssueReplyFeed.FirstOrDefault();
         }
     }
 }
