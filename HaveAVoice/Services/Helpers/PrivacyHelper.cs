@@ -20,8 +20,8 @@ namespace HaveAVoice.Services.Helpers {
                 } else if (myPrivacySetting.DisplayProfileToLoggedInUsers && myIsLoggedIn) {
                     myIsAllowed = true;
                 } else if (myPrivacySetting.DisplayProfileToFriends && myIsLoggedIn) {
-                    IHAVFanService myFanService = new HAVFanService();
-                    myIsAllowed = myFanService.IsFan(aTargetUser.Id, HAVUserInformationFactory.GetUserInformation().Details);
+                    IHAVFriendService myFriendService = new HAVFriendService();
+                    myIsAllowed = myFriendService.IsFriend(aTargetUser.Id, HAVUserInformationFactory.GetUserInformation().Details);
                 }
             }
 

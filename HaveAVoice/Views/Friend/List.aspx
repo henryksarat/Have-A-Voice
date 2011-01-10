@@ -1,10 +1,10 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInListModel<Fan>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInListModel<Friend>>" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Fans
+	Friends
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -26,10 +26,10 @@
 			<div class="col-4 center <%= klass %>">
 				<div class="p-a5">
 					<div class="profile">
-						<img src ="<%= PhotoHelper.ProfilePicture(item.FanUser) %>" alt="<%= item.FanUser.Username %>" class="profile" />
+						<img src ="<%= PhotoHelper.ProfilePicture(item.FriendUser) %>" alt="<%= item.FriendUser.Username %>" class="profile" />
 					</div>
 					<div class="p-a5">
-						<a href="#" class="name"><%= item.FanUser.Username %></a>
+						<a href="#" class="name"><%= item.FriendUser.Username %></a>
 					</div>
 				</div>
 			</div>

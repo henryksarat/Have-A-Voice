@@ -13,7 +13,7 @@ namespace HaveAVoice.Models.View {
         Information,
         Board,
         Message,
-        Fan,
+        Friend,
         Profile,
         MyProfile
     }

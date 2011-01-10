@@ -13,19 +13,19 @@ using HaveAVoice.Exceptions;
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVCalendarService : HAVBaseService, IHAVCalendarService {
         private IValidationDictionary theValidationDictionary;
-        private IHAVFanService theFanService;
+        private IHAVFriendService theFriendService;
         private IHAVUserPictureService theUserPictureService;
         private IHAVCalendarRepository theRepository;
 
         public HAVCalendarService(IValidationDictionary aValidationDictionary)
-            : this(aValidationDictionary, new HAVFanService(), new HAVUserPictureService(), new EntityHAVCalendarRepository(), new HAVBaseRepository()) { }
+            : this(aValidationDictionary, new HAVFriendService(), new HAVUserPictureService(), new EntityHAVCalendarRepository(), new HAVBaseRepository()) { }
 
-        public HAVCalendarService(IValidationDictionary aValidationDictionary, IHAVFanService aFanService, IHAVUserPictureService aUserPictureService, 
+        public HAVCalendarService(IValidationDictionary aValidationDictionary, IHAVFriendService aFriendService, IHAVUserPictureService aUserPictureService, 
                                   IHAVCalendarRepository aRepository, IHAVBaseRepository baseRepository)
             : base(baseRepository) {
             theValidationDictionary = aValidationDictionary;
             theUserPictureService = aUserPictureService;
-            theFanService = aFanService;
+            theFriendService = aFriendService;
             theRepository = aRepository;
         }
 
@@ -59,11 +59,11 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public IEnumerable<Event> GetEventsForUser(User aViewingUser, int aUserId) {
-            if (aViewingUser.Id == aUserId || theFanService.IsFan(aUserId, aViewingUser)) {
+            if (aViewingUser.Id == aUserId || theFriendService.IsFriend(aUserId, aViewingUser)) {
                 return theRepository.FindEvents(aUserId, DateTime.UtcNow);
             }
 
-            throw new NotFanException();
+            throw new NotFriendException();
         }
     }
 }

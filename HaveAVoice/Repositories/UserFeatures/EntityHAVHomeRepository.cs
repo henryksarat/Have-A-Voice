@@ -104,11 +104,11 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     .ToList<IssueReply>();
         }
 
-        public IEnumerable<IssueReply> FanIssueReplyFeed(User aUser) {
+        public IEnumerable<IssueReply> FriendIssueReplyFeed(User aUser) {
             return (from ir in theEntities.IssueReplys
                     join u in theEntities.Users on ir.User.Id equals u.Id
-                    join f in theEntities.Fans on u.Id equals f.SourceUser.Id
-                    where (f.FanUserId == aUser.Id || f.SourceUserId == aUser.Id)
+                    join f in theEntities.Friends on u.Id equals f.SourceUserId
+                    where (f.FriendUserId == aUser.Id || f.SourceUserId == aUser.Id)
                     && u.Id != aUser.Id
                     && f.Approved == true
                     && ir.Deleted == false
@@ -185,12 +185,12 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     select f).ToList<FilteredZipCode>();
         }
 
-        public IEnumerable<Issue> FanIssueFeed(User aUser) {
+        public IEnumerable<Issue> FriendIssueFeed(User aUser) {
             return (from i in theEntities.Issues
                     join u in theEntities.Users on i.UserId equals u.Id
-                    join f in theEntities.Fans on u.Id equals f.SourceUserId
+                    join f in theEntities.Friends on u.Id equals f.SourceUserId
                     where u.Id != aUser.Id
-                    && (f.FanUserId == aUser.Id || f.SourceUserId == aUser.Id) 
+                    && (f.FriendUserId == aUser.Id || f.SourceUserId == aUser.Id) 
                     && f.Approved == true
                     && i.Deleted == false
                     select i).OrderByDescending(ir => ir.DateTimeStamp).ToList<Issue>();

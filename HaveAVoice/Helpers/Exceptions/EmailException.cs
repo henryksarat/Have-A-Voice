@@ -9,20 +9,20 @@ using System.Runtime.Serialization;
 //http://blog.gurock.com/articles/creating-custom-exceptions-in-dotnet/
 namespace HaveAVoice.Exceptions {
     [Serializable]
-    public class NotFanException : Exception {
-        public NotFanException() {
+    public class NotFriendException : Exception {
+        public NotFriendException() {
         }
 
-        public NotFanException(string message)
+        public NotFriendException(string message)
             : base(message) {
         }
 
-        public NotFanException(string message,
+        public NotFriendException(string message,
            Exception innerException)
             : base(message, innerException) {
         }
 
-        protected NotFanException(SerializationInfo info,
+        protected NotFriendException(SerializationInfo info,
            StreamingContext context)
             : base(info, context) {
         }

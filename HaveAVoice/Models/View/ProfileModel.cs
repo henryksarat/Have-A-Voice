@@ -13,8 +13,8 @@ namespace HaveAVoice.Models.View {
         public IEnumerable<IssueReply> IssueReplys { get; set; }
         public string BoardMessage { get; set; }
         public IEnumerable<Board> BoardMessages { get; set; }
-        public FanStatus FanStatus { get; set; }
-        public IEnumerable<Fan> Fans { get; set; }
+        public FriendStatus FriendStatus { get; set; }
+        public IEnumerable<Friend> Friends { get; set; }
 
         public ProfileModel(User aUser) {
             User = aUser;
@@ -22,8 +22,8 @@ namespace HaveAVoice.Models.View {
             IssueReplys = new List<IssueReply>();
             BoardMessage = string.Empty;
             BoardMessages = new List<Board>();
-            FanStatus = FanStatus.None;
-            Fans = new List<Fan>();
+            FriendStatus = FriendStatus.None;
+            Friends = new List<Friend>();
         }
     }
 }

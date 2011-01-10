@@ -120,7 +120,7 @@ namespace HaveAVoice.Controllers.Users
             return View("Edit", userToEdit);
         }
 
-        public ActionResult FanFeed() {
+        public ActionResult FriendFeed() {
             return null;
         }
     }

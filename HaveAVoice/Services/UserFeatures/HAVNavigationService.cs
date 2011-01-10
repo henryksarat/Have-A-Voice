@@ -23,7 +23,7 @@ namespace HaveAVoice.Services.UserFeatures {
             return myTotalUnreadReceived + myTotalUnreadSent;
         }
 
-        public int PendingFanCount(User aRequestingUser) {
+        public int PendingFriendCount(User aRequestingUser) {
             return theNavRepo.GetPendingFriendRequestCount(aRequestingUser);
         }
 

@@ -16,7 +16,7 @@ namespace HaveAVoice.Helpers {
         public const long SECONDS_BEFORE_USER_TIMEOUT = 60 * 5;
         public static string PAGE_NOT_FOUND = "You do not have access.";
         public static string ERROR = "An error has occurred. Please try again.";
-        public static string NOT_FAN = "You must be a fan of the user.";
+        public static string NOT_FRIEND = "You must be a friend of the user.";
 
         public static List<string> STATES = new List<string>() { 
                 "Select",

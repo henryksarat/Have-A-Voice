@@ -16,9 +16,9 @@ namespace HaveAVoice.Services.Helpers {
             return BuildSpanReturn(myService.NewMessageCount(aRequestingUser));
         }
 
-        public static string PendingFanCount(User aRequestingUser) {
+        public static string PendingFriendCount(User aRequestingUser) {
             IHAVNavigationService myService = new HAVNavigationService();
-            return BuildSpanReturn(myService.PendingFanCount(aRequestingUser));
+            return BuildSpanReturn(myService.PendingFriendCount(aRequestingUser));
         }
 
         public static string NotificationCount(User aRequestingUser) {

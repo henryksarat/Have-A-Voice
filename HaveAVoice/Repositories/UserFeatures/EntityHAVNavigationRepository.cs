@@ -24,10 +24,10 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         public int GetPendingFriendRequestCount(User aRequestingUser) {
-            return (from f in theEntities.Fans
+            return (from f in theEntities.Friends
                     where f.SourceUserId == aRequestingUser.Id
                     && f.Approved == false
-                    select f).Count<Fan>();
+                    select f).Count<Friend>();
         }
 
         public int GetUnviewedBoardCount(User aRequestingUser) {

@@ -13,16 +13,16 @@ using HaveAVoice.Services.Helpers;
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVHomeService : HAVBaseService, IHAVHomeService {
         private IValidationDictionary theValidationDictionary;
-        private IHAVFanService theFanService;
+        private IHAVFriendService theFriendService;
         private IHAVHomeRepository theHomeRepository;
 
         public HAVHomeService(IValidationDictionary aValidationDictionary)
-            : this(aValidationDictionary, new HAVFanService(), new EntityHAVHomeRepository(), new HAVBaseRepository()) { }
+            : this(aValidationDictionary, new HAVFriendService(), new EntityHAVHomeRepository(), new HAVBaseRepository()) { }
 
-        public HAVHomeService(IValidationDictionary aValidationDictionary, IHAVFanService aFanService, 
+        public HAVHomeService(IValidationDictionary aValidationDictionary, IHAVFriendService aFriendService, 
                               IHAVHomeRepository aRepository, IHAVBaseRepository baseRepository) : base(baseRepository) {
             theValidationDictionary = aValidationDictionary;
-            theFanService = aFanService;
+            theFriendService = aFriendService;
             theHomeRepository = aRepository;
         }
 

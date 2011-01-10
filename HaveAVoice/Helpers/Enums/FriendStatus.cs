@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 
 namespace HaveAVoice.Helpers.Enums {
-    public enum FanStatus {
+    public enum FriendStatus {
         None,
         Pending,
         Approved

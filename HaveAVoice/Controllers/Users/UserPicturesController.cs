@@ -54,8 +54,8 @@ namespace HaveAVoice.Controllers.Users {
             IEnumerable<UserPicture> myPictures = new List<UserPicture>();
             try {
                 myPictures = theUserPictureService.GetUserPictures(myUser, id);
-            } catch(NotFanException e) {
-                return SendToErrorPage(HAVConstants.NOT_FAN);
+            } catch(NotFriendException e) {
+                return SendToErrorPage(HAVConstants.NOT_FRIEND);
             } catch (Exception e) {
                 LogError(e, GALLERY_ERROR);
                 return SendToErrorPage(GALLERY_ERROR);

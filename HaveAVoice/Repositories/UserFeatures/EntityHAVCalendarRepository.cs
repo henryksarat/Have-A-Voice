@@ -32,11 +32,11 @@ namespace HaveAVoice.Repositories.UserFeatures {
             return myEvents;
         }
 
-        private IEnumerable<Event> FindEventsOfFannedUsers(int aUserId) {
+        private IEnumerable<Event> FindEventsOfFriendedUsers(int aUserId) {
             return (from e in theEntities.Events
                     join u in theEntities.Users on e.User.Id equals u.Id
-                    join f in theEntities.Fans on u.Id equals f.SourceUser.Id
-                    where f.FanUserId == aUserId
+                    join f in theEntities.Friends on u.Id equals f.SourceUserId
+                    where f.FriendUserId == aUserId
                     && e.Deleted == false
                     select e).ToList<Event>();
         }

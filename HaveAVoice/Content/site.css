@@ -242,7 +242,7 @@ form.create input[type=button]:hover { color: #115f71; background: #fff; }
 
 
 /****************************************************************************/
-/******************************** FAN FEED **********************************/
+/******************************** FRIEND FEED **********************************/
 /****************************************************************************/
 .row img.profile, .alt img.profile { border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; max-width: 80px; max-height: 80px; }
 .row img.profile.sm, .alt img.profile.sm { max-width: 40px; max-height: 40px; }
@@ -319,7 +319,7 @@ input[type=submit].submit:hover { color: #20a9c9; background: #fff; }
 
 
 /****************************************************************************/
-/******************************** FAN ***************************************/
+/******************************** FRIEND ***************************************/
 /****************************************************************************/
 .friend.alt { background: #b6dde7; }
 .friend div.profile { width: 120px; height: 120px; margin: 0px auto; }

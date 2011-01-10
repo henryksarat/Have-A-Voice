@@ -10,23 +10,23 @@ using HaveAVoice.Exceptions;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVUserPictureService : HAVBaseService, IHAVUserPictureService {
-        private IHAVFanService theFanService;
+        private IHAVFriendService theFriendService;
         private IHAVUserPictureRepository theUserPictureRepo;
  
         public HAVUserPictureService()
-            : this(new HAVFanService(), new EntityHAVUserPictureRepository(), new HAVBaseRepository()) { }
+            : this(new HAVFriendService(), new EntityHAVUserPictureRepository(), new HAVBaseRepository()) { }
 
-        public HAVUserPictureService(IHAVFanService aFanService, IHAVUserPictureRepository aUserPictureRepo, IHAVBaseRepository aBaseRepository) : base(aBaseRepository) {
-            theFanService = aFanService;
+        public HAVUserPictureService(IHAVFriendService aFriendService, IHAVUserPictureRepository aUserPictureRepo, IHAVBaseRepository aBaseRepository) : base(aBaseRepository) {
+            theFriendService = aFriendService;
             theUserPictureRepo = aUserPictureRepo;
         }
 
         public IEnumerable<UserPicture> GetUserPictures(User aViewingUser, int aUserId) {
-            if (theFanService.IsFan(aUserId, aViewingUser)) {
+            if (theFriendService.IsFriend(aUserId, aViewingUser)) {
                 return theUserPictureRepo.GetUserPictures(aUserId);
             }
 
-            throw new NotFanException();
+            throw new NotFriendException();
         }
 
         public void DeleteUserPictures(List<int> aUserPictureIds) {
@@ -37,11 +37,11 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public UserPicture GetUserPicture(User aViewingUser, int aUserPictureId) {
             UserPicture myUserPicture = theUserPictureRepo.GetUserPicture(aUserPictureId);
-            if (theFanService.IsFan(myUserPicture.UserId, aViewingUser)) {
+            if (theFriendService.IsFriend(myUserPicture.UserId, aViewingUser)) {
                 return myUserPicture;
             }
 
-            throw new NotFanException();
+            throw new NotFriendException();
         }
 
         public void SetToProfilePicture(User aUser, int aUserPictureId) {

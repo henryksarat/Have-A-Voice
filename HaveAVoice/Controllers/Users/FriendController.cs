@@ -12,31 +12,31 @@ using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Controllers.Users
 {
-    public class FanController : HAVBaseController {
-        private const string APPROVED = "Fan approved!";
-        private const string DECLINED = "Fan declined!";
+    public class FriendController : HAVBaseController {
+        private const string APPROVED = "Friend approved!";
+        private const string DECLINED = "Friend declined!";
 
-        private const string FAN_ERROR = "Unable to become a fan. Please try again.";
-        private static string FANS_ERROR = "Unable to get the fans list. Please try again.";
-        private static string FANS_OF_ERROR = "Unable to get the people who are fans of this user. Please try again.";
+        private const string FRIEND_ERROR = "Unable to become a friend. Please try again.";
+        private static string FRIENDS_ERROR = "Unable to get the friends list. Please try again.";
+        private static string FRIENDS_OF_ERROR = "Unable to get the people who are friends of this user. Please try again.";
 
         private const string ERROR_MESSAGE_VIEWDATA = "Message";
-        private const string FANS_VIEW = "Fans";
+        private const string FRIENDS_VIEW = "Friends";
         private const string LIST_VIEW = "List";
-        private const string FANS_OF_VIEW = "FansOf";
-        private const string PENDING_FANS_VIEW = "Pending";
+        private const string FRIENDS_OF_VIEW = "FriendsOf";
+        private const string PENDING_FRINEDS_VIEW = "Pending";
       
 
-        private IHAVFanService theFanService;
+        private IHAVFriendService theFriendService;
 
-        public FanController() : 
+        public FriendController() : 
             base(new HAVBaseService(new HAVBaseRepository())) {
-                theFanService = new HAVFanService();
+                theFriendService = new HAVFriendService();
         }
 
-        public FanController(IHAVBaseService aBaseService, IHAVFanService aFanService)
+        public FriendController(IHAVBaseService aBaseService, IHAVFriendService aFriendService)
             : base(aBaseService) {
-                theFanService = aFanService;
+                theFriendService = aFriendService;
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
@@ -47,10 +47,10 @@ namespace HaveAVoice.Controllers.Users
             User myUser = GetUserInformaton();
 
             try {
-                theFanService.AddFan(myUser, id);
+                theFriendService.AddFriend(myUser, id);
             } catch (Exception e) {
-                LogError(e, FAN_ERROR);
-                return SendToErrorPage(FAN_ERROR);
+                LogError(e, FRIEND_ERROR);
+                return SendToErrorPage(FRIEND_ERROR);
             }
 
             return RedirectToAction("Show", "Profile", new { id = id });
@@ -62,31 +62,31 @@ namespace HaveAVoice.Controllers.Users
                 return RedirectToLogin();
             }
             User myUser = GetUserInformatonModel().Details;
-            LoggedInListModel<Fan> myModel = new LoggedInListModel<Fan>(myUser, SiteSection.Message);
+            LoggedInListModel<Friend> myModel = new LoggedInListModel<Friend>(myUser, SiteSection.Message);
             try {
-                myModel.Models = theFanService.FindFansForUser(myUser.Id);
+                myModel.Models = theFriendService.FindFriendsForUser(myUser.Id);
             } catch (Exception e) {
-                LogError(e, FANS_ERROR);
-                ViewData[ERROR_MESSAGE_VIEWDATA] = FANS_ERROR;
+                LogError(e, FRIENDS_ERROR);
+                ViewData[ERROR_MESSAGE_VIEWDATA] = FRIENDS_ERROR;
             }
 
             return View(LIST_VIEW, myModel);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Fans(int id) {
+        public ActionResult Friends(int id) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            IEnumerable<Fan> myFans = new List<Fan>();
+            IEnumerable<Friend> myFriends = new List<Friend>();
             try {
-                myFans = theFanService.FindFansForUser(id);
+                myFriends = theFriendService.FindFriendsForUser(id);
             } catch (Exception e) {
-                LogError(e, FANS_ERROR);
-                ViewData[ERROR_MESSAGE_VIEWDATA] = FANS_ERROR;
+                LogError(e, FRIENDS_ERROR);
+                ViewData[ERROR_MESSAGE_VIEWDATA] = FRIENDS_ERROR;
             }
 
-            return View(FANS_VIEW, myFans);
+            return View(FRIENDS_VIEW, myFriends);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
@@ -94,15 +94,15 @@ namespace HaveAVoice.Controllers.Users
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            IEnumerable<Fan> myPendingFans = new List<Fan>();
+            IEnumerable<Friend> myPendingFriends = new List<Friend>();
             try {
-                myPendingFans = theFanService.FindPendingFansForUser(GetUserInformaton().Id);
+                myPendingFriends = theFriendService.FindPendingFriendsForUser(GetUserInformaton().Id);
             } catch (Exception e) {
                 LogError(e, HAVConstants.ERROR);
                 ViewData[ERROR_MESSAGE_VIEWDATA] = HAVConstants.ERROR;
             }
 
-            return View(PENDING_FANS_VIEW, myPendingFans);
+            return View(PENDING_FRINEDS_VIEW, myPendingFriends);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
@@ -111,7 +111,7 @@ namespace HaveAVoice.Controllers.Users
                 return RedirectToLogin();
             }
             try {
-                theFanService.ApproveFan(id);
+                theFriendService.ApproveFriend(id);
                 TempData[ERROR_MESSAGE_VIEWDATA] = APPROVED;
             } catch (Exception e) {
                 LogError(e, HAVConstants.ERROR);
@@ -127,7 +127,7 @@ namespace HaveAVoice.Controllers.Users
                 return RedirectToLogin();
             }
             try {
-                theFanService.DeclineFan(id);
+                theFriendService.DeclineFriend(id);
                 TempData[ERROR_MESSAGE_VIEWDATA] = DECLINED;
             } catch (Exception e) {
                 LogError(e, HAVConstants.ERROR);

@@ -100,7 +100,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
             EntityHAVRoleRepository roleRepository = new EntityHAVRoleRepository();
             
             Role notConfirmedRole = roleRepository.GetNotConfirmedUserRole();
-            System.Data.Objects.ObjectQuery<Fan> listeners = theEntities.Fans;
+            System.Data.Objects.ObjectQuery<Friend> listeners = theEntities.Friends;
             int userId = (user == null ? -1 : user.Id);
 
             List<UserDetailsModel> userInformations = (from usr in theEntities.Users
@@ -116,7 +116,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
                                               }).ToList<UserDetailsModel>();
 
             foreach (UserDetailsModel userInformation in userInformations) {
-                if (CanFan(userInformation.UserId, userId)) {
+                if (CanFriend(userInformation.UserId, userId)) {
                     userInformation.CanListen = true;
                 }
 
@@ -134,11 +134,11 @@ namespace HaveAVoice.Repositories.UserFeatures {
             theEntities.SaveChanges();
         }
 
-        private bool CanFan(int listenedToUserId, int aFanUserId) {
-            return (ValidUserIdandNotIsNotMyself(listenedToUserId, aFanUserId)
-                    && ((from listener in theEntities.Fans
-                         where listener.SourceUser.Id == listenedToUserId
-                         && listener.Id == aFanUserId
+        private bool CanFriend(int listenedToUserId, int aFriendUserId) {
+            return (ValidUserIdandNotIsNotMyself(listenedToUserId, aFriendUserId)
+                    && ((from listener in theEntities.Friends
+                         where listener.SourceUserId == listenedToUserId
+                         && listener.Id == aFriendUserId
                          select listener).Count() == 0 ? true : false));
         }
 

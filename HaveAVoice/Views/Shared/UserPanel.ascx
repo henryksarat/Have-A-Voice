@@ -14,7 +14,7 @@
                                 Model.SiteSection, 
                                 new SiteSection[] {SiteSection.Home, SiteSection.UserFeed, SiteSection.Photos, SiteSection.Calendar, SiteSection.Information},
                                 new string[] {"home", "message", "photo", "event", "info"},
-                                new string[] {"/Home/FanFeed", "/Home/UserFeed", "/UserPictures/List", "/Calendar/List", "/Information/List"},
+                                new string[] {"/Home/FriendFeed", "/Home/UserFeed", "/UserPictures/List", "/Calendar/List", "/Information/List"},
                                 new string[] { "HOME", "USER FEED", "PHOTOS", "EVENTS", "INFO"}
                     ) 
                 %>

@@ -29,7 +29,7 @@
 		</div>
 
 		<div class="alpha grid_6 round-3 margin-12b padding-10v padding-10h">
-			<input type="button" class="fan" value="Become a fan" />
+			<input type="button" class="friend" value="Become a friend" />
 			<a class="padding-5v margin-15t" href="#">Send <%=Model.UserInformation.FirstName %> a private message</a>
 			<h6 class="margin-15t">Stats</h6>
 			<hr />
@@ -41,7 +41,7 @@
 			    <span class="red">1024 dislikes</span>
             </div>
 		    <div class="clear">&nbsp;</div>
-		    <div class="alpha grid_1 teal font-18"><%=Model.UserInformation.FannedBy.Count %></div><div class="grid_1 white font-18">Fans</div>
+		    <div class="alpha grid_1 teal font-18"><%=Model.UserInformation.FriendedBy.Count %></div><div class="grid_1 white font-18">Friends</div>
 	    </div>
         <div class="alpha grid_6">
 		    <h4>About Me</h4>

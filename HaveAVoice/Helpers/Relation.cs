@@ -6,6 +6,6 @@ using System.Web;
 namespace HaveAVoice.Helpers {
     public enum Relation {
         NotRelated = 1,
-        Fan = 2
+        Friend = 2
     }
 }

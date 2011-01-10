@@ -14,19 +14,19 @@ using HaveAVoice.Services.Helpers;
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVProfileService : HAVBaseService, IHAVProfileService {
         private IHAVUserRetrievalService theUserRetrievalService;
-        private IHAVFanService theFanService;
+        private IHAVFriendService theFriendService;
         private IHAVProfileRepository theRepository;
         private IValidationDictionary theValidationDictionary;
         private IHAVBoardRepository theBoardRepository;
 
         public HAVProfileService(IValidationDictionary validationDictionary)
-            : this(validationDictionary, new HAVUserRetrievalService(), new HAVFanService(), new EntityHAVProfileRepository(), new EntityHAVBoardRepository(), new HAVBaseRepository()) { }
+            : this(validationDictionary, new HAVUserRetrievalService(), new HAVFriendService(), new EntityHAVProfileRepository(), new EntityHAVBoardRepository(), new HAVBaseRepository()) { }
 
-        public HAVProfileService(IValidationDictionary aValidationDictionary, IHAVUserRetrievalService aUserRetrievalService, IHAVFanService aFanService, IHAVProfileRepository aRepository,
+        public HAVProfileService(IValidationDictionary aValidationDictionary, IHAVUserRetrievalService aUserRetrievalService, IHAVFriendService aFriendService, IHAVProfileRepository aRepository,
                                             IHAVBoardRepository aBoardRepository, IHAVBaseRepository aBaseRepository) : base(aBaseRepository) {
             theValidationDictionary = aValidationDictionary;
             theUserRetrievalService = aUserRetrievalService;
-            theFanService = aFanService;
+            theFriendService = aFriendService;
             theRepository = aRepository;
             theBoardRepository = aBoardRepository;
         }
@@ -112,27 +112,27 @@ namespace HaveAVoice.Services.UserFeatures {
             return myFeedModels;
         }
 
-        private FanStatus GetFanStatus(int aSourceUserId, User aViewingUser) {
-            FanStatus myFanStatus = FanStatus.None;
-            bool myIsPending = theFanService.IsPending(aSourceUserId, aViewingUser);
-            bool myIsFan = false;
+        private FriendStatus GetFriendStatus(int aSourceUserId, User aViewingUser) {
+            FriendStatus myFriendStatus = FriendStatus.None;
+            bool myIsPending = theFriendService.IsPending(aSourceUserId, aViewingUser);
+            bool myIsFriend = false;
 
             if (!myIsPending) {
-                myIsFan = theFanService.IsFan(aSourceUserId, aViewingUser);
-                if (myIsFan) {
-                    myFanStatus = FanStatus.Approved;
+                myIsFriend = theFriendService.IsFriend(aSourceUserId, aViewingUser);
+                if (myIsFriend) {
+                    myFriendStatus = FriendStatus.Approved;
                 }
             } else {
-                myFanStatus = FanStatus.Pending;
+                myFriendStatus = FriendStatus.Pending;
             }
 
-            return myFanStatus;
+            return myFriendStatus;
         }
 
         public UserProfileModel MyProfile(User aUser) {
             UserProfileModel myModel = new UserProfileModel(aUser) {
-                IssueFeed = CreateIssueFeed(theRepository.FanIssueFeed(aUser)),
-                IssueReplyFeed = CreateIssueReplyFeed(theRepository.FanIssueReplyFeed(aUser))
+                IssueFeed = CreateIssueFeed(theRepository.FriendIssueFeed(aUser)),
+                IssueReplyFeed = CreateIssueReplyFeed(theRepository.FriendIssueReplyFeed(aUser))
             };
 
             return myModel;
