@@ -100,6 +100,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
             foreach (Board myBoard in aBoards) {
                 BoardFeedModel myFeedModel = new BoardFeedModel(myBoard.User) {
+                    BoardId = myBoard.Id,
                     DateTimeStamp = myBoard.DateTimeStamp,
                     Message = myBoard.Message,
                     BoardReplys = myBoard.BoardReplies
