@@ -367,9 +367,7 @@
     <Content Include="Views\Feedback\View.aspx" />
     <Content Include="Views\File\Index.aspx" />
     <Content Include="Views\File\Upload.aspx" />
-    <Content Include="Views\Home\About.aspx" />
     <Content Include="Views\Home\Index.aspx" />
-    <Content Include="Views\Home\FriendFeed.aspx" />
     <Content Include="Views\Home\NotLoggedIn.aspx" />
     <Content Include="Views\IssueReplyComment\Edit.aspx" />
     <Content Include="Views\IssueReply\Edit.aspx" />
