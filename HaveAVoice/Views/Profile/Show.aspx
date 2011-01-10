@@ -26,6 +26,7 @@
         <% int cnt = 0; %>
 
         <% while(myNextFeedItem != FeedItem.None) { %>
+            <%  myNextFeedItem = Model.Model.GetNextItem(); %>
             <% if(myNextFeedItem == FeedItem.Issue) { %>
                 <% IssueFeedModel myIssue = Model.Model.GetNextIssue(); %>
                 <div class="<% if(cnt % 2 == 0) { %>row<% } else { %>alt<% } %>">
@@ -183,13 +184,18 @@
 			    </div>
 			    <div class="spacer-10">&nbsp;</div>
             <% } %>
-            <% break; cnt++; %>
+            <% cnt++; %>
         <% } %>
     <% } else if (Model.NavigationModel.SiteSection == SiteSection.Profile) { %>
         <% FeedItem myNextFeedItem = Model.Model.GetNextItem(); %>
         <% int cnt = 0; %>
         <% while(myNextFeedItem != FeedItem.None) { %>
-		    <% if (myNextFeedItem == FeedItem.Photo) { %>
+            <%  myNextFeedItem = Model.Model.GetNextItem(); %>
+            <% if (myNextFeedItem == FeedItem.Issue) { %>
+                <% IssueFeedModel myIssue = Model.Model.GetNextIssue(); %>
+            <% } else if (myNextFeedItem == FeedItem.IssueReply) { %>
+		        <% IssueReplyFeedModel myIssueReply = Model.Model.GetNextIssueReply(); %>
+            <% }  else if (myNextFeedItem == FeedItem.Photo) { %>
 	            <!-- BOARD ACTIVITY [Images] //-->
 	            <div class="board-image m-btm10">
 		            <div class="col-6 user-info">
@@ -247,8 +253,8 @@
 			            <div class="m-lft col-16 comment">
 				            <span class="speak-lft">&nbsp;</span>
 				            <div class="p-a10">
-					            <a class="name" href="#"><%= myBoard.Username %></a>
-                                    <%= myBoard.Message %>
+					            <a class="name" href="#"><%= myBoard.Username%></a>
+                                    <%= myBoard.Message%>
 					            <div class="clear">&nbsp;</div>
 
 					            <div class="spacer-10">&nbsp;</div>
@@ -291,7 +297,7 @@
 			                <div class="p-a5">
 				                <div class="col-2">
 					            <img src="<%= myBoard.ProfilePictureUrl %>" alt="<%= myBoard.Username %>" class="profile" />
-                                <%= myReply.Message %>
+                                <%= myReply.Message%>
 				            </div>
 				                <div class="m-lft col-14 m-rgt">
 					            <% using (Html.BeginForm("Create", "BoardReply", new { boardId = myBoard.BoardId })) { %>
@@ -318,7 +324,7 @@
 	                </div>
                 <% } %>
             <% } %>zx
-            <% break; cnt++; %>
+            <% cnt++; %>
         <% } %>
     <% } %>
 

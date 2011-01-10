@@ -7,9 +7,27 @@ using HaveAVoice.Helpers.Enums;
 namespace HaveAVoice.Models.View {
     public class UserProfileModel {
         public User User { get; set; }
-        public IEnumerable<BoardFeedModel> BoardFeed { get; set; }
-        public IEnumerable<IssueFeedModel> IssueFeed { get; set; }
-        public IEnumerable<IssueReplyFeedModel> IssueReplyFeed { get; set; }
+        public IEnumerable<BoardFeedModel> BoardFeed { set {
+                BoardFeedEnumerator = value.GetEnumerator();
+                BoardFeedEnumerator.MoveNext();
+            }
+        }
+        public IEnumerable<IssueFeedModel> IssueFeed {  
+            set {
+                IssueFeedEnumerator = value.GetEnumerator();
+                IssueFeedEnumerator.MoveNext();
+            }
+        }
+        public IEnumerable<IssueReplyFeedModel> IssueReplyFeed { 
+            set {
+                IssueReplyFeedEnumerator = value.GetEnumerator();
+                IssueReplyFeedEnumerator.MoveNext();
+            }
+        }
+
+        private IEnumerator<BoardFeedModel> BoardFeedEnumerator { get; set; }
+        private IEnumerator<IssueFeedModel> IssueFeedEnumerator { get; set; }
+        private IEnumerator<IssueReplyFeedModel> IssueReplyFeedEnumerator { get; set; }
 
         public UserProfileModel(User aUser) {
             User = aUser;
@@ -19,19 +37,36 @@ namespace HaveAVoice.Models.View {
         }
 
         public FeedItem GetNextItem() {
-            return FeedItem.Issue;
+            FeedItem myFeedItem = FeedItem.None;
+            if (BoardFeedEnumerator.Current != null || IssueFeedEnumerator.Current != null || IssueReplyFeedEnumerator.Current != null) {
+                if (BoardFeedEnumerator.Current != null) {
+                    myFeedItem = FeedItem.Board;
+                } else if (IssueFeedEnumerator.Current != null) {
+                    myFeedItem = FeedItem.Issue;
+                } else if (IssueReplyFeedEnumerator.Current != null) {
+                    myFeedItem = FeedItem.IssueReply;
+                }
+            }
+            
+            return myFeedItem;
         }
 
         public IssueFeedModel GetNextIssue() {
-            return IssueFeed.FirstOrDefault();
+            IssueFeedModel myModel = IssueFeedEnumerator.Current;
+            IssueFeedEnumerator.MoveNext();
+            return myModel;
         }
 
         public BoardFeedModel GetNextBoard() {
-            return BoardFeed.FirstOrDefault();
+            BoardFeedModel myModel = BoardFeedEnumerator.Current;
+            BoardFeedEnumerator.MoveNext();
+            return myModel;
         }
 
         public IssueReplyFeedModel GetNextIssueReply() {
-            return IssueReplyFeed.FirstOrDefault();
+            IssueReplyFeedModel myModel = IssueReplyFeedEnumerator.Current;
+            IssueReplyFeedEnumerator.MoveNext();
+            return myModel;
         }
     }
 }
