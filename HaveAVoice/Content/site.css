@@ -329,6 +329,7 @@ input[type=submit].submit:hover { color: #20a9c9; background: #fff; }
 /****************************************************************************/
 .friend.alt { background: #b6dde7; }
 .friend div.profile { width: 120px; height: 120px; margin: 0px auto; }
+.friend img.profile { max-height: 120px; max-width: 120px; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 /*.friends .friend div.name { position: absolute; bottom: 5; width: 100%; } */
 .friend a.name, .friend a.name:link, .friend a.name:visited { color: #20a9c9; font-size: 14px; font-style: normal; font-weight: bold; text-decoration: none; }
 

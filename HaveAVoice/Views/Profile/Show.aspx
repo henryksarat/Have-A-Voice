@@ -116,7 +116,7 @@
 					    <div class="m-lft col-16 comment">
 						    <span class="speak-lft">&nbsp;</span>
 						    <div class="p-a10">
-								<a class="name" href="#"><%= myIssueReply.Username %></a>
+						    	<%= Html.ActionLink(myIssueReply.Username, "Show", "Profile", myIssueReply.Username, new { @class = "name" }) %>
 							    <br />
 							    <%= myIssueReply.Reply %>
 
@@ -182,7 +182,41 @@
 				    </div>
 				    <div class="clear">&nbsp;</div>
 			    </div>
+			    <div class="clear">&nbsp;</div>
 			    <div class="spacer-10">&nbsp;</div>
+			    <div class="clear">&nbsp;</div>
+			    
+	    		<div class="board-reply">
+					<div class="push-2 col-19">
+						<div class="p-a5">
+							<div class="col-2">
+								<img src="/UserPictures/no_profile_picture.jpg" alt="SELF" class="profile" />
+							</div>
+							<div class="m-lft col-14 m-rgt">
+							    <% using (Html.BeginForm()) { %>
+						            <%= Html.ValidationMessage("Message", "*") %>
+						            <%= Html.TextArea("Message") %>
+						            <div class="clear">&nbsp;</div>
+						            <div class="right m-top10">
+						            	<input type="submit" value="Post" />
+						            </div>
+							    <% } %>
+							</div>
+							<!--
+							<div class="alpha col-3 omega">
+								<div class="p-v5">
+									<div class="date-tile">
+										<span>8:23</span> PM
+									</div>
+								</div>
+							</div>
+							//-->
+							<div class="clear">&nbsp;</div>
+						</div>
+						<div class="clear">&nbsp;</div>
+					</div>
+					<div class="clear">&nbsp;</div>
+				</div>
             <% } %>
             <% cnt++; %>
         <% } %>
@@ -297,7 +331,7 @@
 			                <div class="p-a5">
 				                <div class="col-2">
 					            <img src="<%= myBoard.ProfilePictureUrl %>" alt="<%= myBoard.Username %>" class="profile" />
-                                <%= myReply.Message%>
+                                <%= myReply.Message %>
 				            </div>
 				                <div class="m-lft col-14 m-rgt">
 					            <% using (Html.BeginForm("Create", "BoardReply", new { boardId = myBoard.BoardId })) { %>
@@ -323,7 +357,7 @@
 		                <div class="clear">&nbsp;</div>
 	                </div>
                 <% } %>
-            <% } %>zx
+            <% } %>
             <% cnt++; %>
         <% } %>
     <% } %>

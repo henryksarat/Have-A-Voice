@@ -67,55 +67,10 @@
 		</div>
 		<div class="clear">&nbsp;</div>
 		
-		<!-- BOARD ACTIVITY [Message] //-->
-		<div class="row">
-			<div class="col-2 center">
-				<img src="http://images.pictureshunt.com/pics/e/eva_angelina-4773.jpg" alt="Eva Angelina" class="profile" />
-			</div>
-			<div class="col-16 m-btm10">
-				<div class="m-lft col-16 comment">
-					<span class="speak-lft">&nbsp;</span>
-					<div class="p-a10">
-						<a class="name" href="#">Eva Angelina</a>
-It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-						<div class="clear">&nbsp;</div>
-
-						<div class="spacer-10">&nbsp;</div>
-							
-						<div class="clear">&nbsp;</div>
-						<div class="options">
-							<div class="col-6">&nbsp;</div>
-							<div class="col-9">
-								<div class="col-3 center">
-									<a href="#" class="comment">COMMENT</a>
-								</div>
-								<div class="col-3 center">
-									<a href="#" class="like">LIKE</a>
-								</div>
-								<div class="col-3 center">
-									<a href="#" class="dislike">DISLIKE</a>
-								</div>
-							</div>
-						</div>
-						<div class="clear">&nbsp;</div>
-						<div class="spacer-10">&nbsp;</div>
-						<div class="clear">&nbsp;</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-3">
-				<div class="p-a5">
-					<div class="date-tile">
-						<span>3:47</span> AM
-					</div>
-				</div>
-			</div>
-			<div class="clear">&nbsp;</div>
-		</div>
 
 		<!-- BOARD ACTIVITY [Reply] //-->
 		<div class="board-reply">
-			<div class="push-2 col-19">
+			<div class="col-19">
 				<div class="p-a5">
 					<div class="col-2">
 						<img src="/UserPictures/no_profile_picture.jpg" alt="SELF" class="profile" />
@@ -150,23 +105,63 @@ It is a long established fact that a reader will be distracted by the readable c
         </p>
 
         <% foreach (BoardReply reply in Model.Model.BoardReplies) { %>
-            <p>
-                <%= reply.Message %> 
-                <% UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation(); %>
-                <% if (reply.User.Id == myUserInfo.Details.Id
-                       || HAVPermissionHelper.AllowedToPerformAction(myUserInfo, HAVPermission.Edit_Any_Board_Reply)) { %>
-                    <%= Html.ActionLink("Edit", "Edit", "BoardReply", new { id = reply.Id }, null)%>
-                <% } %>
-                <% if (reply.User.Id == myUserInfo.Details.Id
-                       || Model.Model.Board.OwnerUserId == myUserInfo.Details.Id
-                       || HAVPermissionHelper.AllowedToPerformAction(myUserInfo, HAVPermission.Edit_Any_Board_Reply)) { %>
-                    <%= Html.ActionLink("Delete", "Delete", "BoardReply", new { boardId = Model.Model.Board.Id, boardReplyId = reply.Id }, null)%>
-                <% } %>
-            </p>
-        <%}%>
-    <% } %>
-
-
+		<!-- BOARD ACTIVITY [Message] //-->
+			<div class="row">
+				<div class="col-2 center">
+					<img src="http://images.pictureshunt.com/pics/e/eva_angelina-4773.jpg" alt="Eva Angelina" class="profile" />
+				</div>
+				<div class="col-16 m-btm10">
+					<div class="m-lft col-16 comment">
+						<span class="speak-lft">&nbsp;</span>
+						<div class="p-a10">
+							<a class="name" href="#">Eva Angelina</a>
+							<%= reply.Message %>
+							<div class="clear">&nbsp;</div>
+	
+							<div class="spacer-10">&nbsp;</div>
+								
+							<div class="clear">&nbsp;</div>
+							<div class="options">
+								<div class="col-6 center">
+					                <% UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation(); %>
+					                <% if (reply.User.Id == myUserInfo.Details.Id
+					                       || HAVPermissionHelper.AllowedToPerformAction(myUserInfo, HAVPermission.Edit_Any_Board_Reply)) { %>
+					                    <%= Html.ActionLink("Edit", "Edit", "BoardReply", new { id = reply.Id }, null)%>
+					                <% } %>
+					                <% if (reply.User.Id == myUserInfo.Details.Id
+					                       || Model.Model.Board.OwnerUserId == myUserInfo.Details.Id
+					                       || HAVPermissionHelper.AllowedToPerformAction(myUserInfo, HAVPermission.Edit_Any_Board_Reply)) { %>
+					                    <%= Html.ActionLink("Delete", "Delete", "BoardReply", new { boardId = Model.Model.Board.Id, boardReplyId = reply.Id }, null)%>
+					                <% } %>
+									&nbsp;
+								</div>
+								<div class="col-9">
+									<div class="col-3 center">
+										<a href="#" class="comment">COMMENT</a>
+									</div>
+									<div class="col-3 center">
+										<a href="#" class="like">LIKE</a>
+									</div>
+									<div class="col-3 center">
+										<a href="#" class="dislike">DISLIKE</a>
+									</div>
+								</div>
+							</div>
+							<div class="clear">&nbsp;</div>
+							<div class="spacer-10">&nbsp;</div>
+							<div class="clear">&nbsp;</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-3">
+					<div class="p-a5">
+						<div class="date-tile">
+							<span>3:47</span> AM
+						</div>
+					</div>
+				</div>
+				<div class="clear">&nbsp;</div>
+			</div>
+	    <% } %>
 	</div>
 </asp:Content>
-
