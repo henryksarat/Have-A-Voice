@@ -48,6 +48,8 @@ body { font-family: helvetica, arial, sans-serif; background: #d9e9ed; }
 /****************************************************************************/
 /****************************** TEXT-ALIGN **********************************/
 /****************************************************************************/
+.f-lft { float: left; }
+.f-rgt { float: right; }
 .center { text-align: center; }
 .right { text-align: right; }
 
@@ -310,12 +312,16 @@ form.create input[type=button]:hover { color: #115f71; background: #fff; }
 /****************************************************************************/
 .mail { border-bottom: 1px solid #a2a2a2; }
 .mail.new { background-color: #00bce0; }
-.mail a, .mail a:link, .mail a:visited { text-decoration: none; color: #3B5998; }
+.mail a, .mail a:link, .mail a:visited { text-decoration: none; color: #3B5998; font-weight: bold; }
 .mail a:hover { text-decoration: underline; }
+.mail img.profile.sm { max-width: 40px; max-height: 40px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
 .action-bar { background: #f2f2f2; border-top: 1px solid #cccccc; }
 .action-bar input[type=submit].btn { padding: 5px; color: #333333; font-size: 12px; background-color: #dddddd; border: 1px solid #888888; font-weight: bold; box-shadow: 0px 1px 0px #aaaaaa; -moz-box-shadow: 0px 1px 0px #aaaaaa; -webkit-box-shadow: 0px 1px 0px #aaaaaa; }
+.action-bar input[type=submit].btn:hover { cursor: pointer; background: #f6cbca; color: #d02327; border: 1px solid #cb2026; }
 input[type=submit].submit { font-size: 12px; font-weight: bold; color: #fff; padding: 5px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; cursor: pointer; background: #20a9c9 }
 input[type=submit].submit:hover { color: #20a9c9; background: #fff; }
+.action-bar a.btn { padding: 5px; color: #333333; font-size: 12px; background-color: #dddddd; border: 1px solid #888888; font-weight: bold; box-shadow: 0px 1px 0px #aaaaaa; -moz-box-shadow: 0px 1px 0px #aaaaaa; -webkit-box-shadow: 0px 1px 0px #aaaaaa; text-decoration: none; }
+.action-bar a.btn:hover { background: #fcf9ce; color: #43423c; border: 1px solid #dfdfde; }
 
 
 /****************************************************************************/
