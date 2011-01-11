@@ -56,6 +56,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 IEnumerable<IssueDisposition> myIssueDisposition = myIssue.IssueDispositions;
 
                 IssueFeedModel myFeedModel = new IssueFeedModel(myIssue.User) {
+                    Id = myIssue.Id,
                     DateTimeStamp = myIssue.DateTimeStamp,
                     Title = myIssue.Title,
                     Description = myIssue.Description,
@@ -79,6 +80,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 IEnumerable<IssueReplyDisposition> myReplyDisposition = myIssueReply.IssueReplyDispositions;
 
                 IssueReplyFeedModel myFeedModel = new IssueReplyFeedModel(myIssueReply.User) {
+                    Id = myIssueReply.Id,
                     DateTimeStamp = myIssueReply.DateTimeStamp,
                     IssueReplyComments = myIssueReply.IssueReplyComments,
                     Issue = myIssueReply.Issue,
@@ -100,7 +102,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
             foreach (Board myBoard in aBoards) {
                 BoardFeedModel myFeedModel = new BoardFeedModel(myBoard.User) {
-                    BoardId = myBoard.Id,
+                    Id = myBoard.Id,
                     DateTimeStamp = myBoard.DateTimeStamp,
                     Message = myBoard.Message,
                     BoardReplys = myBoard.BoardReplies

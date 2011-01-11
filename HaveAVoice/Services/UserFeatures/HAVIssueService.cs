@@ -57,6 +57,19 @@ namespace HaveAVoice.Services.UserFeatures {
             return true;
         }
 
+        public bool CreateIssueReply(UserInformationModel aUserCreating, int anIssueId, string aReply, int aDisposition, bool anAnonymous) {
+            if (!ValidateReply(aReply, aDisposition)) {
+                return false;
+            }
+
+            if (!AllowedToPerformAction(aUserCreating, HAVPermission.Post_Issue_Reply)) {
+                return false;
+            }
+
+            theRepository.CreateIssueReply(aUserCreating.Details, anIssueId, aReply, anAnonymous, aDisposition);
+            return true;
+        }
+
         public bool CreateCommentToIssueReply(UserInformationModel aUserCreating, IssueReplyDetailsModel aIssueReply) {
             if (!ValidateComment(aIssueReply.Comment)) {
                 return false;
@@ -67,6 +80,19 @@ namespace HaveAVoice.Services.UserFeatures {
             }
 
             theRepository.CreateCommentToIssueReply(aIssueReply.IssueReply, aUserCreating.Details, aIssueReply.Comment);
+            return true;
+        }
+
+        public bool CreateCommentToIssueReply(UserInformationModel aUserCreating, int aIssueReplyId, string aComment) {
+            if (!ValidateComment(aComment)) {
+                return false;
+            }
+
+            if (!AllowedToPerformAction(aUserCreating, HAVPermission.Post_Issue_Reply_Comment)) {
+                return false;
+            }
+
+            theRepository.CreateCommentToIssueReply(aUserCreating.Details, aIssueReplyId, aComment);
             return true;
         }
 
@@ -203,7 +229,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
         private bool ValidateReply(string aReply, int aDisposition) {
             if (aReply.Trim().Length == 0) {
-                theValidationDictionary.AddError("Body", aReply, "Reply is required.");
+                theValidationDictionary.AddError("Reply", aReply, "Reply is required.");
             }
             if (aDisposition == (int)Disposition.NONE) {
                 theValidationDictionary.AddError("Disposition", aDisposition.ToString(), "Disposition is required.");

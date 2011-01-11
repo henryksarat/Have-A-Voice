@@ -11,12 +11,15 @@ using HaveAVoice.Validation;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models;
 using System.ComponentModel.DataAnnotations;
+using HaveAVoice.Controllers.ActionFilters;
 
 namespace HaveAVoice.Controllers.Issues {
     public class IssueReplyCommentController : HAVBaseController {
+        private static string COMMENT_SUCCESS = "Comment posted!";
         private static string DELETE_SUCCESS = "Comment deleted succesfully.";
         private static string EDIT_SUCCESS = "Comment edited successfully!";
 
+        private static string COMMENT_ERROR = "Error posting comment to the issue reply.";
         private static string DELETE_ERROR = "An error occurred while deleting the comment. Please try again.";
         private static string EDIT_LOAD_ERROR = "Error while retrieving your original comment. Please try again.";
         private static string EDIT_ERROR = "Error editing the comment. Please try again.";
@@ -31,6 +34,26 @@ namespace HaveAVoice.Controllers.Issues {
         public IssueReplyCommentController(IHAVIssueService aService, IHAVBaseService baseService)
             : base(baseService) {
             theService = aService;
+        }
+
+        [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
+        public ActionResult Create(int issueReplyId, string comment) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            UserInformationModel myUserInformation = GetUserInformatonModel();
+
+            try {
+                if (theService.CreateCommentToIssueReply(myUserInformation, issueReplyId, comment)) {
+                    TempData["Message"] = COMMENT_SUCCESS;
+                    return RedirectToProfile();
+                }
+            } catch (Exception e) {
+                LogError(e, COMMENT_ERROR);
+                ViewData["Message"] = COMMENT_ERROR;
+            }
+
+            return RedirectToProfile();
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

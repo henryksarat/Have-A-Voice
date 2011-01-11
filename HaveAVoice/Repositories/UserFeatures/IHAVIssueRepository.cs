@@ -10,10 +10,12 @@ namespace HaveAVoice.Repositories.UserFeatures {
         Issue CreateIssue(Issue anIssueToCreate, User aUserCreating);
         Issue GetIssue(int anIssueId);
         IssueReply CreateIssueReply(Issue anIssue, User aUserCreating, string aReply, bool anAnonymous, Disposition aDisposition);
+        IssueReply CreateIssueReply(User aUserCreating, int anIssueId, string aReply, bool anAnonymous, int aDisposition);
         IEnumerable<IssueReplyModel> GetReplysToIssue(User aUser, Issue anIssue, IEnumerable<string> aSelectedRoles);
         IssueReply GetIssueReply(int anIssueReplyId);
         IEnumerable<IssueReplyComment> GetIssueReplyComments(int anIssueReplyId);
         IssueReplyComment CreateCommentToIssueReply(IssueReply anIssueReply, User aUserCreating, string aComment);
+        void CreateCommentToIssueReply(User aUserCreating, int anIssueReplyId, string aComment);
         IssueReplyComment GetIssueReplyComment(int anIssueReplyCommentId);
         
         void CreateIssueDisposition(User aUser, int anIssueId, int aDisposition);

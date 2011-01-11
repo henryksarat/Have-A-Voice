@@ -40,6 +40,16 @@ namespace HaveAVoice.Repositories.UserFeatures {
             return issueReply;
         }
 
+        public IssueReply CreateIssueReply(User aUserCreating, int anIssueId, string aReply, bool anAnonymous, int aDisposition) {
+            IssueReply issueReply = IssueReply.CreateIssueReply(0, anIssueId, aUserCreating.Id, aReply, aUserCreating.City, aUserCreating.State, aDisposition, anAnonymous, DateTime.UtcNow, false);
+            issueReply.Zip = aUserCreating.Zip;
+
+            theEntities.AddToIssueReplys(issueReply);
+            theEntities.SaveChanges();
+
+            return issueReply;
+        }
+
         public IEnumerable<IssueReplyModel> GetReplysToIssue(User aUser, Issue anIssue, IEnumerable<string> aSelectedRoles) {
             IEnumerable<IssueReplyDisposition> myIssueReplyDispositions = theEntities.IssueReplyDispositions;
 
@@ -90,6 +100,12 @@ namespace HaveAVoice.Repositories.UserFeatures {
             theEntities.AddToIssueReplyComments(myIssueReplyComment);
             theEntities.SaveChanges();
             return myIssueReplyComment;
+        }
+
+        public void CreateCommentToIssueReply(User aUserCreating, int anIssueReplyId, string aComment) {
+            IssueReplyComment myIssueReplyComment = IssueReplyComment.CreateIssueReplyComment(0, anIssueReplyId, aComment, DateTime.UtcNow, aUserCreating.Id, false);
+            theEntities.AddToIssueReplyComments(myIssueReplyComment);
+            theEntities.SaveChanges();
         }
 
         public void CreateIssueDisposition(User aUser, int anIssueId, int aDisposition) {

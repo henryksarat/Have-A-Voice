@@ -187,15 +187,18 @@
 			    <div class="clear">&nbsp;</div>
 			    
 	    		<div class="board-reply">
+                    <% foreach (var item in myIssueReply.IssueReplyComments) { %>
+                        <% = item.Comment %><br />
+                    <% } %>
 					<div class="push-2 col-19">
 						<div class="p-a5">
 							<div class="col-2">
-								<img src="/UserPictures/no_profile_picture.jpg" alt="SELF" class="profile" />
+								<img src="<%= Model.NavigationModel.ProfilePictureUrl %>" alt="<%= Model.NavigationModel.User.Username %>" class="profile" />
 							</div>
 							<div class="m-lft col-14 m-rgt">
-							    <% using (Html.BeginForm()) { %>
-						            <%= Html.ValidationMessage("Message", "*") %>
-						            <%= Html.TextArea("Message") %>
+							    <% using (Html.BeginForm("Create", "IssueReplyComment", new { issueReplyId = myIssueReply.Id })) { %>
+						            <%= Html.ValidationMessage("Comment", "*")%>
+						            <%= Html.TextArea("Comment")%>
 						            <div class="clear">&nbsp;</div>
 						            <div class="right m-top10">
 						            	<input type="submit" value="Post" />
@@ -334,7 +337,7 @@
                                 <%= myReply.Message %>
 				            </div>
 				                <div class="m-lft col-14 m-rgt">
-					            <% using (Html.BeginForm("Create", "BoardReply", new { boardId = myBoard.BoardId })) { %>
+					            <% using (Html.BeginForm("Create", "BoardReply", new { boardId = myBoard.Id })) { %>
 				                    <%= Html.ValidationMessage("Message", "*")%>
 				                    <%= Html.TextArea("Message")%>
 				                    <div class="clear">&nbsp;</div>

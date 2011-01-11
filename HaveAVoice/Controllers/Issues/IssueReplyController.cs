@@ -12,6 +12,7 @@ using HaveAVoice.Models;
 using HaveAVoice.Models.View;
 using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Models.Wrappers;
+using HaveAVoice.Controllers.ActionFilters;
 
 namespace HaveAVoice.Controllers.Issues {
     public class IssueReplyController : HAVBaseController {
@@ -19,7 +20,9 @@ namespace HaveAVoice.Controllers.Issues {
         private static string DELETE_SUCCESS = "Reply deleted succesfully.";
         private static string POST_COMMENT_SUCCESS = "Comment posted!";
         private static string DISPOSITION_SUCCESS = "Disposition set!";
+        private static string REPLY_SUCCESS = "Reply posted successfully!";
 
+        private const string REPLY_ERROR = "Error posting issue reply. Please try again.";
         private static string NON_EXISTENT = "That reply to the issue doesn't exist.";
         private static string VIEW_ERROR = "An error occurred while trying to view the issue reply. Please try again.";
         private static string EDIT_LOAD_ERROR = "Error while retrieving your original reply. Please try again.";
@@ -38,6 +41,25 @@ namespace HaveAVoice.Controllers.Issues {
         public IssueReplyController(IHAVIssueService aService, IHAVBaseService baseService)
             : base(baseService) {
             theService = aService;
+        }
+
+        [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
+        public ActionResult Create(int issueId, string reply, int disposition, bool anonymous) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            UserInformationModel myUserInformation = GetUserInformatonModel();
+
+            try {
+                if (theService.CreateIssueReply(myUserInformation, issueId, reply, disposition, anonymous)) {
+                    TempData["Message"] = REPLY_SUCCESS;
+                    return RedirectToProfile();
+                }
+            } catch (Exception e) {
+                LogError(e, REPLY_ERROR);
+                ViewData["Message"] = REPLY_ERROR;
+            }
+            return RedirectToProfile();
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
