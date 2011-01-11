@@ -64,7 +64,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 return false;
             }
 
-            string myNewPassword = PasswordHelper.HashPassword(aPassword);
+            string myNewPassword = HashHelper.HashPassword(aPassword);
 
             thePasswordRepository.ChangePassword(myUser.Id, myNewPassword);
 

@@ -73,6 +73,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueReplys_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "IssueReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueReply), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Friends_FriendUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Friend", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Friend), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Friends_SourceUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Friend", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Friend), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_AuthorityVerification_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "AuthorityVerification", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.AuthorityVerification), true)]
 
 #endregion
 
@@ -715,6 +716,22 @@ namespace HaveAVoice.Models
             }
         }
         private ObjectSet<Friend> _Friends;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<AuthorityVerification> AuthorityVerifications
+        {
+            get
+            {
+                if ((_AuthorityVerifications == null))
+                {
+                    _AuthorityVerifications = base.CreateObjectSet<AuthorityVerification>("AuthorityVerifications");
+                }
+                return _AuthorityVerifications;
+            }
+        }
+        private ObjectSet<AuthorityVerification> _AuthorityVerifications;
 
         #endregion
         #region AddTo Methods
@@ -1013,6 +1030,14 @@ namespace HaveAVoice.Models
         public void AddToFriends(Friend friend)
         {
             base.AddObject("Friends", friend);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the AuthorityVerifications EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToAuthorityVerifications(AuthorityVerification authorityVerification)
+        {
+            base.AddObject("AuthorityVerifications", authorityVerification);
         }
 
         #endregion
@@ -2258,6 +2283,206 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_AuditIssueReplyComments_Users", "User", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="HaveAVoice.Models", Name="AuthorityVerification")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class AuthorityVerification : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new AuthorityVerification object.
+        /// </summary>
+        /// <param name="email">Initial value of the Email property.</param>
+        /// <param name="createdByUserId">Initial value of the CreatedByUserId property.</param>
+        /// <param name="token">Initial value of the Token property.</param>
+        /// <param name="verified">Initial value of the Verified property.</param>
+        /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
+        public static AuthorityVerification CreateAuthorityVerification(global::System.String email, global::System.Int32 createdByUserId, global::System.String token, global::System.Boolean verified, global::System.DateTime dateTimeStamp)
+        {
+            AuthorityVerification authorityVerification = new AuthorityVerification();
+            authorityVerification.Email = email;
+            authorityVerification.CreatedByUserId = createdByUserId;
+            authorityVerification.Token = token;
+            authorityVerification.Verified = verified;
+            authorityVerification.DateTimeStamp = dateTimeStamp;
+            return authorityVerification;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Email
+        {
+            get
+            {
+                return _Email;
+            }
+            set
+            {
+                if (_Email != value)
+                {
+                    OnEmailChanging(value);
+                    ReportPropertyChanging("Email");
+                    _Email = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("Email");
+                    OnEmailChanged();
+                }
+            }
+        }
+        private global::System.String _Email;
+        partial void OnEmailChanging(global::System.String value);
+        partial void OnEmailChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 CreatedByUserId
+        {
+            get
+            {
+                return _CreatedByUserId;
+            }
+            set
+            {
+                OnCreatedByUserIdChanging(value);
+                ReportPropertyChanging("CreatedByUserId");
+                _CreatedByUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CreatedByUserId");
+                OnCreatedByUserIdChanged();
+            }
+        }
+        private global::System.Int32 _CreatedByUserId;
+        partial void OnCreatedByUserIdChanging(global::System.Int32 value);
+        partial void OnCreatedByUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Token
+        {
+            get
+            {
+                return _Token;
+            }
+            set
+            {
+                OnTokenChanging(value);
+                ReportPropertyChanging("Token");
+                _Token = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Token");
+                OnTokenChanged();
+            }
+        }
+        private global::System.String _Token;
+        partial void OnTokenChanging(global::System.String value);
+        partial void OnTokenChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Verified
+        {
+            get
+            {
+                return _Verified;
+            }
+            set
+            {
+                OnVerifiedChanging(value);
+                ReportPropertyChanging("Verified");
+                _Verified = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Verified");
+                OnVerifiedChanged();
+            }
+        }
+        private global::System.Boolean _Verified;
+        partial void OnVerifiedChanging(global::System.Boolean value);
+        partial void OnVerifiedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateTimeStamp
+        {
+            get
+            {
+                return _DateTimeStamp;
+            }
+            set
+            {
+                OnDateTimeStampChanging(value);
+                ReportPropertyChanging("DateTimeStamp");
+                _DateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateTimeStamp");
+                OnDateTimeStampChanged();
+            }
+        }
+        private global::System.DateTime _DateTimeStamp;
+        partial void OnDateTimeStampChanging(global::System.DateTime value);
+        partial void OnDateTimeStampChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_AuthorityVerification_Users", "User")]
+        public User CreatedByUser
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_AuthorityVerification_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_AuthorityVerification_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> CreatedByUserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_AuthorityVerification_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_AuthorityVerification_Users", "User", value);
                 }
             }
         }
@@ -10722,6 +10947,28 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Friend>("HaveAVoice.Models.FK_Friends_SourceUserId_Users", "Friend", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_AuthorityVerification_Users", "AuthorityVerification")]
+        public EntityCollection<AuthorityVerification> AuthorityVerifications
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AuthorityVerification>("HaveAVoice.Models.FK_AuthorityVerification_Users", "AuthorityVerification");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AuthorityVerification>("HaveAVoice.Models.FK_AuthorityVerification_Users", "AuthorityVerification", value);
                 }
             }
         }

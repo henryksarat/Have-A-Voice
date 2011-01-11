@@ -80,7 +80,7 @@ namespace HaveAVoice.Services.UserFeatures {
             TimeZone myTimezone = TimeZone.CurrentTimeZone;
             aUserToCreate.UTCOffset = myTimezone.GetUtcOffset(DateTime.Now).ToString();
 
-            aUserToCreate.Password = PasswordHelper.HashPassword(aUserToCreate.Password);
+            aUserToCreate.Password = HashHelper.HashPassword(aUserToCreate.Password);
             aUserToCreate.RegistrationDate = DateTime.UtcNow;
             aUserToCreate.RegistrationIp = aIpAddress;
             aUserToCreate.LastLogin = DateTime.UtcNow;
@@ -120,7 +120,7 @@ namespace HaveAVoice.Services.UserFeatures {
             } else if (!ValidatePassword(password, aUser.RetypedPassword)) {
                 return false;
             } else {
-                aUser.UserInformation.Password = PasswordHelper.HashPassword(password);
+                aUser.UserInformation.Password = HashHelper.HashPassword(password);
             }
 
             if (ShouldUploadImage(isValidFileImage, aUser.ImageFile.FileName)) {

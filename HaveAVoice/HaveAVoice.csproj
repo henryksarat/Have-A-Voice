@@ -150,6 +150,7 @@
     <Compile Include="Repositories\AdminFeatures\EntityHAVPermissionRepository.cs" />
     <Compile Include="Repositories\AdminFeatures\IHAVPermissionRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVAuthenticationRepository.cs" />
+    <Compile Include="Repositories\UserFeatures\EntityHAVAuthorityVerificationRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVBoardRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVFriendRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVFeedbackRepository.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="Repositories\UserFeatures\EntityHAVUserPrivacySettingsRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVUserRetrievalRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVWhoIsOnlineRepository.cs" />
+    <Compile Include="Repositories\UserFeatures\IHAVAuthorityVerificationRepository.cs" />
     <Compile Include="Services\Helpers\MessageHelper.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVAuthenticationRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVBoardRepository.cs" />
@@ -177,10 +179,12 @@
     <Compile Include="Services\Helpers\NavigationHelper.cs" />
     <Compile Include="Services\Helpers\PrivacyHelper.cs" />
     <Compile Include="Services\Helpers\PhotoHelper.cs" />
+    <Compile Include="Services\UserFeatures\HAVAuthorityVerificationService.cs" />
     <Compile Include="Services\UserFeatures\HAVFriendService.cs" />
     <Compile Include="Services\UserFeatures\HAVNavigationService.cs" />
     <Compile Include="Services\UserFeatures\HAVNotificationService.cs" />
     <Compile Include="Services\UserFeatures\HAVUserRetrievalService.cs" />
+    <Compile Include="Services\UserFeatures\IHAVAuthorityVerificationService.cs" />
     <Compile Include="Services\UserFeatures\IHAVFriendService.cs" />
     <Compile Include="Services\UserFeatures\IHAVNavigationService.cs" />
     <Compile Include="Services\UserFeatures\IHAVNotificationService.cs" />
