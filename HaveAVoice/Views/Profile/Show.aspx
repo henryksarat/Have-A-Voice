@@ -106,14 +106,13 @@
                 <% foreach (var item in myIssue.IssueReplys) { %>
                 	<div class="<% if (j % 2 == 0) { %>row<% } else { %>alt<% } %> reply push-2 col-19 m-btm10">
 	                	<div class="col-2 center">
-	                		<!-- Image HERE //-->
+	                		<img src="<%= PhotoHelper.ProfilePicture(item.User) %>" alt="<%= item.User.Username %>" class="profile" />
 	                		&nbsp;
-	                		[IMG]
 	                	</div>
 	                	<div class="m-lft col-14 comment">
 	                		<span class="speak-lft">&nbsp;</span>
 	                		<div class="p-a10">
-	                			<a href="#" class="name">Username</a>
+	                			<a href="#" class="name"><%= item.User.Username %></a>
 	                			<%= item.Reply %>
 	                		</div>
 	                	</div>
