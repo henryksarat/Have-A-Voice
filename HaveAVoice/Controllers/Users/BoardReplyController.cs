@@ -12,8 +12,7 @@ using HaveAVoice.Models;
 using HaveAVoice.Models.View;
 using HaveAVoice.Helpers;
 
-namespace HaveAVoice.Controllers.Users
-{
+namespace HaveAVoice.Controllers.Users {
     public class BoardReplyController : HAVBaseController {
         private static string POST_REPLY_SUCCESS = "Board reply posted!";
         private static string EDIT_REPLY_SUCCES = "Board reply edited.";
@@ -37,7 +36,7 @@ namespace HaveAVoice.Controllers.Users
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
-        public ActionResult Create(int boardId, string message) {
+        public ActionResult Create(int sourceUserId, int boardId, string message) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
@@ -50,7 +49,7 @@ namespace HaveAVoice.Controllers.Users
                 TempData["Message"] = POST_REPLY_ERROR;
             }
 
-            return RedirectToAction("View", "Board", new { id = boardId });
+            return RedirectToProfile(sourceUserId);
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]

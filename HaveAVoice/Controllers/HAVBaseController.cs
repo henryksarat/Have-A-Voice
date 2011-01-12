@@ -61,6 +61,10 @@ namespace HaveAVoice.Controllers  {
             return RedirectToAction("Show", "Profile");
         }
 
+        protected ActionResult RedirectToProfile(int anId) {
+            return RedirectToAction("Show", "Profile", new { id = anId });
+        }
+
         protected ActionResult RedirectToHomePage() {
             return RedirectToAction("NotLoggedIn", "Home");
         }

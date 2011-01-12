@@ -10,11 +10,13 @@ namespace HaveAVoice.Models.View {
     public abstract class FeedModel {
         public int Id { get; set; }
         public DateTime DateTimeStamp { get; set; }
+        public int UserId { get; set; }
         public string Username { get; set; }
         public string ProfilePictureUrl { get; set; }
 
         public FeedModel(User aUser) {
             Username = aUser.Username;
+            UserId = aUser.Id;
             ProfilePictureUrl = PhotoHelper.ProfilePicture(aUser);
         }
     }

@@ -382,18 +382,18 @@
 			                <div class="p-a5">
 				                <div class="col-2">
 					            <img src="<%= myBoard.ProfilePictureUrl %>" alt="<%= myBoard.Username %>" class="profile" />
-                                <%= myReply.Message %>
+                                <%= myReply.Message %><br />
 				            </div>
 				                <div class="m-lft col-14 m-rgt">
-					            <% using (Html.BeginForm("Create", "BoardReply", new { boardId = myBoard.Id })) { %>
-				                    <%= Html.ValidationMessage("Message", "*")%>
-				                    <%= Html.TextArea("Message")%>
-				                    <div class="clear">&nbsp;</div>
-				                    <div class="right m-top10">
-				                        <input type="submit" value="Post" />
-				                    </div>
-					            <% } %>
-				            </div>
+					                <% using (Html.BeginForm("Create", "BoardReply", new { sourceUserId = myBoard.UserId, boardId = myBoard.Id })) { %>
+				                        <%= Html.ValidationMessage("Message", "*")%>
+				                        <%= Html.TextArea("Message")%>
+				                        <div class="clear">&nbsp;</div>
+				                        <div class="right m-top10">
+				                            <input type="submit" value="Post" />
+				                        </div>
+					                <% } %>
+				                </div>
 				                <div class="alpha col-3 omega">
 					                <div class="p-v5">
 						            <div class="date-tile">
