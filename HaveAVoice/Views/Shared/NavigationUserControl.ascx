@@ -6,7 +6,7 @@
 <% User myUser = HAVUserInformationFactory.GetUserInformation().Details; %>
 <div class="col-12">
     <ul>
-        <li><a href="/Home/FriendFeed">HOME</a></li>
+        <li><a href="/Profile/Show">HOME</a></li>
 		<li><a href="/Friend/List">FRIENDS<%= NavigationHelper.PendingFriendCount(myUser) %></a></li>
 		<li><a href="/Message/Inbox">MAIL<%= NavigationHelper.NewMessageCount(myUser) %></a></li>
 		<li><a href="/Notification/List">NOTIFICATIONS<%= NavigationHelper.NotificationCount(myUser) %></a></li>

@@ -37,7 +37,7 @@
 					    <div class="m-lft col-16 comment">
 						    <span class="speak-lft">&nbsp;</span>
 						    <div class="p-a10">
-								    <h1><a href="#"><%= myIssue.Title %></a></h1>
+								    <h1><a href="/Issue/View/<%= myIssue.Id %>"><%= myIssue.Title %></a></h1>
 							    <br />
 							    <%= myIssue.Description %>
 
@@ -105,6 +105,44 @@
 				    </div>
 				    <div class="clear">&nbsp;</div>
 			    </div>
+			    <div class="clear">&nbsp;</div>
+			    <div class="spacer-10">&nbsp;</div>
+			    <div class="clear">&nbsp;</div>
+			    
+	    		<div class="board-reply">
+                    <% foreach (var item in myIssue.IssueReplys) { %>
+                        <% = item.Reply %><br />
+                    <% } %>
+					<div class="push-2 col-19">
+						<div class="p-a5">
+							<div class="col-2">
+								<img src="<%= Model.NavigationModel.ProfilePictureUrl %>" alt="<%= Model.NavigationModel.User.Username %>" class="profile" />
+							</div>
+							<div class="m-lft col-14 m-rgt">
+							    <% using (Html.BeginForm("Create", "IssueReply", new { issueId = myIssue.Id, disposition = 1, anonymous = false })) { %>
+						            <%= Html.ValidationMessage("Reply", "*")%>
+						            <%= Html.TextArea("Reply")%>
+						            <div class="clear">&nbsp;</div>
+						            <div class="right m-top10">
+						            	<input type="submit" value="Post" />
+						            </div>
+							    <% } %>
+							</div>
+							<!--
+							<div class="alpha col-3 omega">
+								<div class="p-v5">
+									<div class="date-tile">
+										<span>8:23</span> PM
+									</div>
+								</div>
+							</div>
+							//-->
+							<div class="clear">&nbsp;</div>
+						</div>
+						<div class="clear">&nbsp;</div>
+					</div>
+					<div class="clear">&nbsp;</div>
+				</div>
 			    <div class="spacer-10">&nbsp;</div>
             <% } else if (myNextFeedItem == FeedItem.IssueReply) {%>
                 <% IssueReplyFeedModel myIssueReply = Model.Model.GetNextIssueReply(); %>
