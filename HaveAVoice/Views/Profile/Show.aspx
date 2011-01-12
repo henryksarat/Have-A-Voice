@@ -17,9 +17,8 @@
         <% Html.RenderPartial("LeftNavigation"); %>
     </div>
 
-    <% if (Model.NavigationModel.SiteSection == SiteSection.MyProfile) { %>
-
     <div class="col-21">
+    <% if (Model.NavigationModel.SiteSection == SiteSection.MyProfile) { %>
         <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
 
         <% FeedItem myNextFeedItem = Model.Model.GetNextItem(); %>
@@ -29,7 +28,7 @@
             <%  myNextFeedItem = Model.Model.GetNextItem(); %>
             <% if(myNextFeedItem == FeedItem.Issue) { %>
                 <% IssueFeedModel myIssue = Model.Model.GetNextIssue(); %>
-                <div class="<% if(cnt % 2 == 0) { %>row<% } else { %>alt<% } %>">
+                <div class="<% if(cnt % 2 == 0) { %>row<% } else { %>alt<% } %> m-btm10">
 				    <div class="col-2 center">
 					    <img src="<%= myIssue.ProfilePictureUrl %>" alt="<%= myIssue.Username %>" class="profile" />
 				    </div>
@@ -37,19 +36,14 @@
 					    <div class="m-lft col-16 comment">
 						    <span class="speak-lft">&nbsp;</span>
 						    <div class="p-a10">
-								    <h1><a href="/Issue/View/<%= myIssue.Id %>"><%= myIssue.Title %></a></h1>
+							    <h1><a href="/Issue/View/<%= myIssue.Id %>"><%= myIssue.Title %></a></h1>
 							    <br />
 							    <%= myIssue.Description %>
 
-							    <div class="clear">&nbsp;</div>							
-							    <div class="spacer-10">&nbsp;</div>
 							    <div class="clear">&nbsp;</div>
-                                <% foreach (var item in myIssue.IssueReplys) { %>
-                                    <%= item.Reply %>
-                                <% } %>
-							    <div class="options">
-								    <div class="col-6">&nbsp;</div>
-								    <div class="col-9">
+
+							    <div class="col-15">
+								    <div class="push-6 col-9 p-v10">
 									    <div class="col-3 center">
 										    <% if (myIssue.TotalReplys == 0) { %>
 											    <a href="#" class="comment">
@@ -92,6 +86,7 @@
 										    <% } %>
 									    </div>
 								    </div>
+								    <div class="clear">&nbsp;</div>
 							    </div>
 						    </div>
 					    </div>
@@ -106,47 +101,66 @@
 				    <div class="clear">&nbsp;</div>
 			    </div>
 			    <div class="clear">&nbsp;</div>
-			    <div class="spacer-10">&nbsp;</div>
-			    <div class="clear">&nbsp;</div>
 			    
-	    		<div class="board-reply">
-                    <% foreach (var item in myIssue.IssueReplys) { %>
-                        <% = item.Reply %><br />
-                    <% } %>
-					<div class="push-2 col-19">
-						<div class="p-a5">
-							<div class="col-2">
-								<img src="<%= Model.NavigationModel.ProfilePictureUrl %>" alt="<%= Model.NavigationModel.User.Username %>" class="profile" />
-							</div>
-							<div class="m-lft col-14 m-rgt">
-							    <% using (Html.BeginForm("Create", "IssueReply", new { issueId = myIssue.Id, disposition = 1, anonymous = false })) { %>
-						            <%= Html.ValidationMessage("Reply", "*")%>
-						            <%= Html.TextArea("Reply")%>
-						            <div class="clear">&nbsp;</div>
-						            <div class="right m-top10">
-						            	<input type="submit" value="Post" />
-						            </div>
-							    <% } %>
-							</div>
-							<!--
-							<div class="alpha col-3 omega">
-								<div class="p-v5">
-									<div class="date-tile">
-										<span>8:23</span> PM
-									</div>
+			    <% int j = 0; %>
+                <% foreach (var item in myIssue.IssueReplys) { %>
+                	<div class="<% if (j % 2 == 0) { %>row<% } else { %>alt<% } %> reply push-2 col-19 m-btm10">
+	                	<div class="col-2 center">
+	                		<!-- Image HERE //-->
+	                		&nbsp;
+	                		[IMG]
+	                	</div>
+	                	<div class="m-lft col-14 comment">
+	                		<span class="speak-lft">&nbsp;</span>
+	                		<div class="p-a10">
+	                			<a href="#" class="name">Username</a>
+	                			<%= item.Reply %>
+	                		</div>
+	                	</div>
+	                	<div class="col-3">
+	                		<div class="p-a5">
+	                			<div class="date-tile">
+	                				<span><%= item.DateTimeStamp.ToString("MMM").ToUpper() %></span> <%= item.DateTimeStamp.ToString("dd") %>
+	                			</div>
+	                		</div>
+	                	</div>
+	                	<div class="clear">&nbsp;</div>
+					</div>
+					<div class="clear">&nbsp;</div>
+                    <% j++; %>
+                <% } %>
+
+	    		<div class="board-reply m-btm10">
+					<div class="push-2 col-19">						
+						<div class="col-2">
+							<img src="<%= Model.NavigationModel.ProfilePictureUrl %>" alt="<%= Model.NavigationModel.User.Username %>" class="profile" />
+						</div>
+						<div class="m-lft col-14">
+						    <% using (Html.BeginForm("Create", "IssueReply", new { issueId = myIssue.Id, disposition = 1, anonymous = false })) { %>
+					            <%= Html.ValidationMessage("Reply", "*")%>
+					            <%= Html.TextArea("Reply")%>
+					            <div class="clear">&nbsp;</div>
+					            <div class="right m-top10">
+					            	<input type="submit" value="Post" />
+					            </div>
+						    <% } %>
+						</div>
+						<!--
+						<div class="alpha col-3 omega">
+							<div class="p-v5">
+								<div class="date-tile">
+									<span>8:23</span> PM
 								</div>
 							</div>
-							//-->
-							<div class="clear">&nbsp;</div>
 						</div>
+						//-->
 						<div class="clear">&nbsp;</div>
 					</div>
 					<div class="clear">&nbsp;</div>
 				</div>
-			    <div class="spacer-10">&nbsp;</div>
             <% } else if (myNextFeedItem == FeedItem.IssueReply) {%>
                 <% IssueReplyFeedModel myIssueReply = Model.Model.GetNextIssueReply(); %>
-			    <div class="<% if(cnt % 2 == 0) { %>row<% } else { %>alt<% } %>">
+			    <div class="<% if(cnt % 2 == 0) { %>row<% } else { %>alt<% } %> m-btm10">
 				    <div class="col-2 center">
 					    <img src="<%= myIssueReply.ProfilePictureUrl %>" alt="<%= myIssueReply.Username %>" class="profile" />
 				    </div>
@@ -220,40 +234,36 @@
 				    </div>
 				    <div class="clear">&nbsp;</div>
 			    </div>
-			    <div class="clear">&nbsp;</div>
-			    <div class="spacer-10">&nbsp;</div>
-			    <div class="clear">&nbsp;</div>
-			    
-	    		<div class="board-reply">
-                    <% foreach (var item in myIssueReply.IssueReplyComments) { %>
-                        <% = item.Comment %><br />
-                    <% } %>
+
+				<!-- CORRECTING COMMENT PLACEMENT -->
+                <% foreach (var item in myIssueReply.IssueReplyComments) { %>
+                    <% = item.Comment %><br />
+                <% } %>
+
+	    		<div class="board-reply m-btm10">
 					<div class="push-2 col-19">
-						<div class="p-a5">
-							<div class="col-2">
-								<img src="<%= Model.NavigationModel.ProfilePictureUrl %>" alt="<%= Model.NavigationModel.User.Username %>" class="profile" />
-							</div>
-							<div class="m-lft col-14 m-rgt">
-							    <% using (Html.BeginForm("Create", "IssueReplyComment", new { issueReplyId = myIssueReply.Id })) { %>
-						            <%= Html.ValidationMessage("Comment", "*")%>
-						            <%= Html.TextArea("Comment")%>
-						            <div class="clear">&nbsp;</div>
-						            <div class="right m-top10">
-						            	<input type="submit" value="Post" />
-						            </div>
-							    <% } %>
-							</div>
-							<!--
-							<div class="alpha col-3 omega">
-								<div class="p-v5">
-									<div class="date-tile">
-										<span>8:23</span> PM
-									</div>
+						<div class="col-2">
+							<img src="<%= Model.NavigationModel.ProfilePictureUrl %>" alt="<%= Model.NavigationModel.User.Username %>" class="profile" />
+						</div>
+						<div class="m-lft col-14 m-rgt">
+						    <% using (Html.BeginForm("Create", "IssueReplyComment", new { issueReplyId = myIssueReply.Id })) { %>
+					            <%= Html.ValidationMessage("Comment", "*")%>
+					            <%= Html.TextArea("Comment")%>
+					            <div class="clear">&nbsp;</div>
+					            <div class="right m-top10">
+					            	<input type="submit" value="Post" />
+					            </div>
+						    <% } %>
+						</div>
+						<!--
+						<div class="alpha col-3 omega">
+							<div class="p-v5">
+								<div class="date-tile">
+									<span>8:23</span> PM
 								</div>
 							</div>
-							//-->
-							<div class="clear">&nbsp;</div>
 						</div>
+						//-->
 						<div class="clear">&nbsp;</div>
 					</div>
 					<div class="clear">&nbsp;</div>
@@ -402,6 +412,5 @@
             <% cnt++; %>
         <% } %>
     <% } %>
-
-
+	</div>
 </asp:Content>
