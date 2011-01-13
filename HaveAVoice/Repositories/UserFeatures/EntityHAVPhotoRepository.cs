@@ -9,6 +9,12 @@ namespace HaveAVoice.Repositories.UserFeatures {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
         private const string PROFILE_PICTURE_ALBUM = "Profile Pictures";
 
+        public IEnumerable<PhotoAlbum> GetPhotoAlbumsForUser(User aUser) {
+            return (from p in theEntities.PhotoAlbums
+                    where p.CreatedByUserId == aUser.Id
+                    select p).ToList<PhotoAlbum>();
+        }
+
         public PhotoAlbum GetProfilePictureAlbumForUser(User aUser) {
             PhotoAlbum myAlbum = GetPhotoAlbumForUserandAlbumName(aUser, PROFILE_PICTURE_ALBUM);
             if (myAlbum == null) {
@@ -65,12 +71,13 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     select up).FirstOrDefault();
         }
 
-        public IEnumerable<Photo> GetPhotos(int aUserId) {
-            return (from up in theEntities.Photos
-                    where up.User.Id == aUserId
-                    && up.ProfilePicture == false
-                    orderby up.DateTimeStamp descending
-                    select up).ToList<Photo>();
+        public IEnumerable<Photo> GetPhotos(int aUserId, int anAlbumId) {
+            return (from p in theEntities.Photos
+                    where p.User.Id == aUserId
+                    && p.ProfilePicture == false
+                    && p.PhotoAlbumId == anAlbumId
+                    orderby p.DateTimeStamp descending
+                    select p).ToList<Photo>();
         }
 
         public void DeletePhoto(int aPhotoId) {

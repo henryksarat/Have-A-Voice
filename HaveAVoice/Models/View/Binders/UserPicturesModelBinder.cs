@@ -13,10 +13,11 @@ namespace HaveAVoice.Models.View {
             User myUserInfo = HAVUserInformationFactory.GetUserInformation().Details;
 
             int myUserId = Int32.Parse(BinderHelper.GetA(bindingContext, "UserId"));
+            int myAlbumId = Int32.Parse(BinderHelper.GetA(bindingContext, "AlbumId"));
             string myProfilePictureURL = BinderHelper.GetA(bindingContext, "ProfilePictureURL");
             string selectedProfilePictureIds = BinderHelper.GetA(bindingContext, "SelectedProfilePictureId").Trim();
 
-            IEnumerable<Photo> myPhotos = myPhotoService.GetPhotos(myUserInfo, myUserId);
+            IEnumerable<Photo> myPhotos = myPhotoService.GetPhotos(myUserInfo, myAlbumId, myUserId);
             Photo myProfilePicture = myPhotoService.GetProfilePicture(myUserId);
 
             string[] splitIds = selectedProfilePictureIds.Split(',');

@@ -21,12 +21,16 @@ namespace HaveAVoice.Services.UserFeatures {
             thePhotoRepo = aPhotoRepo;
         }
 
-        public IEnumerable<Photo> GetPhotos(User aViewingUser, int aUserId) {
+        public IEnumerable<Photo> GetPhotos(User aViewingUser, int anAlbumId, int aUserId) {
             if (theFriendService.IsFriend(aUserId, aViewingUser)) {
-                return thePhotoRepo.GetPhotos(aUserId);
+                return thePhotoRepo.GetPhotos(aUserId, anAlbumId);
             }
 
             throw new NotFriendException();
+        }
+
+        public IEnumerable<PhotoAlbum> GetPhotoAlbumsForUser(User aUser) {
+            return thePhotoRepo.GetPhotoAlbumsForUser(aUser);
         }
 
         public void DeletePhotos(List<int> aPhotoIds) {
@@ -35,7 +39,7 @@ namespace HaveAVoice.Services.UserFeatures {
             }
         }
 
-        public Photo GetPhoto(User aViewingUser, int aPhotoId) {
+        public Photo GetPhoto(User aViewingUser,  int aPhotoId) {
             Photo myPhotoId = thePhotoRepo.GetPhoto(aPhotoId);
             if (theFriendService.IsFriend(myPhotoId.UploadedByUserId, aViewingUser)) {
                 return myPhotoId;

@@ -88,7 +88,7 @@
     <Compile Include="Controllers\Users\FeedbackController.cs" />
     <Compile Include="Controllers\Issues\IssueReplyController.cs" />
     <Compile Include="Controllers\Users\NotificationController.cs" />
-    <Compile Include="Controllers\Users\UserPicturesController.cs" />
+    <Compile Include="Controllers\Users\PhotosController.cs" />
     <Compile Include="Controllers\Users\UserPrivacySettings.cs" />
     <Compile Include="Helpers\Enums\FeedItem.cs" />
     <Compile Include="Helpers\Enums\FriendStatus.cs" />
@@ -385,6 +385,7 @@
     <Content Include="Views\Permission\Delete.aspx" />
     <Content Include="Views\Permission\Edit.aspx" />
     <Content Include="Views\Permission\Index.aspx" />
+    <Content Include="Views\Photos\ListAlbum.aspx" />
     <Content Include="Views\Restriction\Create.aspx" />
     <Content Include="Views\Restriction\Delete.aspx" />
     <Content Include="Views\Restriction\Edit.aspx" />

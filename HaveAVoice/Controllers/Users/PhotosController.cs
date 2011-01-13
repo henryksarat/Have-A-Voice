@@ -53,7 +53,7 @@ namespace HaveAVoice.Controllers.Users {
 
             IEnumerable<Photo> myPictures = new List<Photo>();
             try {
-                myPictures = thePhotoService.GetPhotos(myUser, id);
+                //myPictures = thePhotoService.GetPhotos(myUser, id);
             } catch(NotFriendException e) {
                 return SendToErrorPage(HAVConstants.NOT_FRIEND);
             } catch (Exception e) {
@@ -71,9 +71,27 @@ namespace HaveAVoice.Controllers.Users {
             }
             User myUser = GetUserInformaton();
 
+            LoggedInListModel<PhotoAlbum> myModel = new LoggedInListModel<PhotoAlbum>(myUser, SiteSection.Photos);
+            try {
+                myModel.Models = thePhotoService.GetPhotoAlbumsForUser(myUser);
+            } catch (Exception e) {
+                LogError(e, GALLERY_ERROR);
+                return SendToErrorPage(GALLERY_ERROR);
+            }
+
+            return View(LIST_VIEW, myModel);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult ListAlbum(int albumId) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            User myUser = GetUserInformaton();
+
             LoggedInListModel<Photo> myModel = new LoggedInListModel<Photo>(myUser, SiteSection.Photos);
             try {
-                myModel.Models = thePhotoService.GetPhotos(myUser, myUser.Id);
+                myModel.Models = thePhotoService.GetPhotos(myUser, albumId, myUser.Id);
             } catch (Exception e) {
                 LogError(e, GALLERY_ERROR);
                 return SendToErrorPage(GALLERY_ERROR);
@@ -106,13 +124,13 @@ namespace HaveAVoice.Controllers.Users {
                 return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
-            IEnumerable<Photo> myPhotos = thePhotoService.GetPhotos(myUser, myUser.Id);
+            //IEnumerable<Photo> myPhotos = thePhotoService.GetPhotos(myUser, myUser.Id);
             string profilePicture = PhotoHelper.ProfilePicture(myUser);
 
             PhotosModel myModel = new PhotosModel() {
                 UserId = myUser.Id,
                 ProfilePictureURL = profilePicture,
-                Photos = myPhotos
+                //Photos = myPhotos
             };
 
             return View(EDIT_VIEW, myModel);
