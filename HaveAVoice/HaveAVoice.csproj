@@ -348,9 +348,6 @@
     <Content Include="Content\reset.css" />
     <Content Include="Content\tempjquery.js" />
     <Content Include="Global.asax" />
-    <Content Include="Photos\93_-1513546292.jpg" />
-    <Content Include="Photos\93_-943723973.jpg" />
-    <Content Include="Photos\93_946098097.jpg" />
     <Content Include="Photos\no_profile_picture.jpg" />
     <Content Include="Views\Account\ChangePassword.aspx" />
     <Content Include="Views\Account\ChangePasswordSuccess.aspx" />
@@ -409,18 +406,18 @@
     <Content Include="Views\Shared\UserPanel.ascx" />
     <Content Include="Views\Tabs\Network.aspx" />
     <Content Include="Views\Tabs\Popular.aspx" />
-    <Content Include="Views\UserPictures\Display.aspx" />
-    <Content Include="Views\UserPictures\List.aspx" />
+    <Content Include="Views\Photos\Display.aspx" />
+    <Content Include="Views\Photos\List.aspx" />
     <Content Include="Views\UserPrivacySettings\Edit.aspx" />
     <Content Include="Views\Password\Process.aspx" />
     <Content Include="Views\User\Create.aspx" />
     <Content Include="Views\User\Edit.aspx" />
     <Content Include="Views\Friend\Friends.aspx" />
     <Content Include="Views\Password\Request.aspx" />
-    <Content Include="Views\UserPictures\Show.aspx" />
+    <Content Include="Views\Photos\Show.aspx" />
     <Content Include="Views\Profile\Show.aspx" />
     <Content Include="Views\User\UserList.aspx" />
-    <Content Include="Views\UserPictures\Edit.aspx" />
+    <Content Include="Views\Photos\Edit.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
