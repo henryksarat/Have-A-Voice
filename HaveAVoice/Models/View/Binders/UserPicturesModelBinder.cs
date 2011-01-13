@@ -7,17 +7,17 @@ using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Helpers.UserInformation;
 
 namespace HaveAVoice.Models.View {
-    public class UserPicturesModelBinder : IModelBinder {
+    public class PhotosModelBinder : IModelBinder {
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext) {
-            IHAVUserPictureService myUserPictureService = new HAVUserPictureService();
+            IHAVPhotoService myPhotoService = new HAVPhotoService();
             User myUserInfo = HAVUserInformationFactory.GetUserInformation().Details;
 
-            int userId = Int32.Parse(BinderHelper.GetA(bindingContext, "UserId"));
+            int myUserId = Int32.Parse(BinderHelper.GetA(bindingContext, "UserId"));
             string myProfilePictureURL = BinderHelper.GetA(bindingContext, "ProfilePictureURL");
             string selectedProfilePictureIds = BinderHelper.GetA(bindingContext, "SelectedProfilePictureId").Trim();
 
-            IEnumerable<UserPicture> userPictures = myUserPictureService.GetUserPictures(myUserInfo, userId);
-            UserPicture profilePicture = myUserPictureService.GetProfilePicture(userId);
+            IEnumerable<Photo> myPhotos = myPhotoService.GetPhotos(myUserInfo, myUserId);
+            Photo myProfilePicture = myPhotoService.GetProfilePicture(myUserId);
 
             string[] splitIds = selectedProfilePictureIds.Split(',');
             List<int> selectedProfilePictures = new List<int>();
@@ -28,11 +28,11 @@ namespace HaveAVoice.Models.View {
                 }
             }
 
-            return new UserPicturesModel() {
-                UserId = userId,
+            return new PhotosModel() {
+                UserId = myUserId,
                 ProfilePictureURL = myProfilePictureURL,
-                UserPictures = userPictures,
-                SelectedUserPictures = selectedProfilePictures
+                Photos = myPhotos,
+                SelectedPhotos = selectedProfilePictures
             };
         }
     }

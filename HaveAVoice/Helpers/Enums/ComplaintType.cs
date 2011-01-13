@@ -10,6 +10,6 @@ namespace HaveAVoice.Helpers.Enums {
         IssueReplyComment = 2,
         MergeComplaint = 3,
         ProfileComplaint = 4,
-        UserPictureComplaint = 5
+        PhotoComplaint = 5
     }
 }

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<HaveAVoice.Models.UserPicture>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<HaveAVoice.Models.Photo>>" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UI" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
 
@@ -16,7 +16,7 @@
 	    <%= Html.Encode(ViewData["Message"]) %>
 	    <div class="clear">&nbsp;</div>
         <% foreach (var item in Model) { %>
-            <%= ImageHelper.Image("/UserPictures/" + item.ImageName, 200, 200)%>
+            <%= ImageHelper.Image("/Photos/" + item.ImageName, 200, 200)%>
         <% } %>
         <div class="clear">&nbsp;</div>
 	</div>

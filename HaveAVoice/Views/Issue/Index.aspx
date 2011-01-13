@@ -32,7 +32,7 @@
 
 	    <% foreach (var item in Model) { %>
 	    	<div class="col-3">
-	    		<img src="/UserPictures/93_-943723973.jpg" alt="hsarat" class="profile" />
+	    		<img src="/Photos/93_-943723973.jpg" alt="hsarat" class="profile" />
 	    	</div>
 	    	<div class="col-18 issue">
 	    		<div class="p-a5">

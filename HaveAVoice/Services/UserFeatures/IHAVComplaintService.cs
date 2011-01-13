@@ -10,6 +10,6 @@ namespace HaveAVoice.Services.UserFeatures {
         bool IssueReplyComplaint(User aFiledBy, string aComplaint, int aIssueReplyId);
         bool IssueReplyCommentComplaint(User aFiledBy, string aComplaint, int aIssueReplyCommentId);
         bool ProfileComplaint(User aFiledBy, string aComplaint, int aTowardUserId);
-        bool UserPictureComplaint(User aFiledBy, string aComplaint, int aUserPictureId);
+        bool PhotoComplaint(User aFiledBy, string aComplaint, int aPhotoId);
     }
 }

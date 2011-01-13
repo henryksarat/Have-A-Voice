@@ -14,7 +14,7 @@ using HaveAVoice.Services.Helpers;
 using System.Web;
 
 namespace HaveAVoice.Controllers.Users {
-    public class UserPicturesController : HAVBaseController {
+    public class PhotosController : HAVBaseController {
         private static string PROFILE_PICTURE_SUCCESS = "New profile picture set!";
         private static string DELETE_SUCCESS = "Pictures deleted successfully!";
 
@@ -31,16 +31,16 @@ namespace HaveAVoice.Controllers.Users {
         private static string DISPLAY_VIEW = "Display";
         
 
-        private IHAVUserPictureService theUserPictureService;
+        private IHAVPhotoService thePhotoService;
 
-        public UserPicturesController() : 
+        public PhotosController() : 
             base(new HAVBaseService(new HAVBaseRepository())) {
-            theUserPictureService = new HAVUserPictureService();
+            thePhotoService = new HAVPhotoService();
         }
 
-        public UserPicturesController(IHAVUserPictureService aUserPictureService, IHAVBaseService aBaseService)
+        public PhotosController(IHAVPhotoService aPhotoService, IHAVBaseService aBaseService)
             : base(aBaseService) {
-                theUserPictureService = aUserPictureService;
+                thePhotoService = aPhotoService;
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
@@ -51,9 +51,9 @@ namespace HaveAVoice.Controllers.Users {
 
             User myUser = GetUserInformaton();
 
-            IEnumerable<UserPicture> myPictures = new List<UserPicture>();
+            IEnumerable<Photo> myPictures = new List<Photo>();
             try {
-                myPictures = theUserPictureService.GetUserPictures(myUser, id);
+                myPictures = thePhotoService.GetPhotos(myUser, id);
             } catch(NotFriendException e) {
                 return SendToErrorPage(HAVConstants.NOT_FRIEND);
             } catch (Exception e) {
@@ -71,9 +71,9 @@ namespace HaveAVoice.Controllers.Users {
             }
             User myUser = GetUserInformaton();
 
-            LoggedInListModel<UserPicture> myModel = new LoggedInListModel<UserPicture>(myUser, SiteSection.Photos);
+            LoggedInListModel<Photo> myModel = new LoggedInListModel<Photo>(myUser, SiteSection.Photos);
             try {
-                myModel.Models = theUserPictureService.GetUserPictures(myUser, myUser.Id);
+                myModel.Models = thePhotoService.GetPhotos(myUser, myUser.Id);
             } catch (Exception e) {
                 LogError(e, GALLERY_ERROR);
                 return SendToErrorPage(GALLERY_ERROR);
@@ -91,7 +91,7 @@ namespace HaveAVoice.Controllers.Users {
 
             LoggedInWrapperModel<string> myModel = new LoggedInWrapperModel<string>(myUser, SiteSection.Photos);
             try {
-                myModel.Model = PhotoHelper.ConstructUrl(theUserPictureService.GetUserPicture(myUser, id).ImageName);
+                myModel.Model = PhotoHelper.ConstructUrl(thePhotoService.GetPhoto(myUser, id).ImageName);
             } catch (Exception e) {
                 LogError(e, DISPLAY_ERROR);
                 return SendToErrorPage(DISPLAY_ERROR);
@@ -106,26 +106,26 @@ namespace HaveAVoice.Controllers.Users {
                 return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
-            IEnumerable<UserPicture> userPictures = theUserPictureService.GetUserPictures(myUser, myUser.Id);
+            IEnumerable<Photo> myPhotos = thePhotoService.GetPhotos(myUser, myUser.Id);
             string profilePicture = PhotoHelper.ProfilePicture(myUser);
 
-            UserPicturesModel myModel = new UserPicturesModel() {
+            PhotosModel myModel = new PhotosModel() {
                 UserId = myUser.Id,
                 ProfilePictureURL = profilePicture,
-                UserPictures = userPictures
+                Photos = myPhotos
             };
 
             return View(EDIT_VIEW, myModel);
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Add(HttpPostedFileBase imageFile ) {
+        public ActionResult Add(int albumId, HttpPostedFileBase imageFile) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
             try {
                 User myUser = GetUserInformatonModel().Details;
-                theUserPictureService.UploadImageWithDatabaseReference(myUser, imageFile);
+                thePhotoService.UploadImageWithDatabaseReference(myUser, albumId, imageFile);
                 TempData["Message"] = "Image uploaded!";
                 return RedirectToAction(LIST_VIEW);
             } catch(CustomException myException) {
@@ -141,12 +141,12 @@ namespace HaveAVoice.Controllers.Users {
         [ActionName(EDIT_VIEW)]
         [AcceptParameter(Name = "button", Value = "SetProfilePicture")]
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Edit_SetProfilePicture(UserPicturesModel aUserPicturesModel) {
-            if (aUserPicturesModel.SelectedUserPictures.Count != 1) {
+        public ActionResult Edit_SetProfilePicture(PhotosModel aPhotosModel) {
+            if (aPhotosModel.SelectedPhotos.Count != 1) {
                 ViewData["Message"] = SELECT_ONE_ERROR;
             } else {
                 try {
-                    theUserPictureService.SetToProfilePicture(GetUserInformaton(), aUserPicturesModel.SelectedUserPictures.First());
+                    thePhotoService.SetToProfilePicture(GetUserInformaton(), aPhotosModel.SelectedPhotos.First());
                     TempData["Message"] = PROFILE_PICTURE_SUCCESS;
                     return RedirectToProfile();
                 } catch (Exception e) {
@@ -155,18 +155,18 @@ namespace HaveAVoice.Controllers.Users {
                 }
             }
 
-            return View(EDIT_VIEW, aUserPicturesModel);
+            return View(EDIT_VIEW, aPhotosModel);
         }
 
         [ActionName(EDIT_VIEW)]
         [AcceptParameter(Name = "button", Value = "Delete")]
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Edit_Delete(UserPicturesModel aUserPicturesModel) {
-            if (aUserPicturesModel.SelectedUserPictures.Count == 0) {
+        public ActionResult Edit_Delete(PhotosModel aPhotosModel) {
+            if (aPhotosModel.SelectedPhotos.Count == 0) {
                 ViewData["Message"] = SELECT_ONE_OR_MORE_ERROR;
             } else {
                 try {
-                    theUserPictureService.DeleteUserPictures(aUserPicturesModel.SelectedUserPictures);
+                    thePhotoService.DeletePhotos(aPhotosModel.SelectedPhotos);
                     return SendToResultPage(DELETE_SUCCESS);
                 } catch (Exception e) {
                     LogError(e, HAVConstants.ERROR);
@@ -174,7 +174,7 @@ namespace HaveAVoice.Controllers.Users {
                 }
             }
 
-            return View(EDIT_VIEW, aUserPicturesModel);
+            return View(EDIT_VIEW, aPhotosModel);
         }
     }
 }

@@ -9,16 +9,16 @@ using HaveAVoice.Services.UserFeatures;
 namespace HaveAVoice.Services.Helpers {
     public class PhotoHelper {
         public static string ProfilePicture(User aUser) {
-            UserPicture myProfilePicture = (from u in aUser.UserPictures where u.ProfilePicture == true select u).FirstOrDefault<UserPicture>();
+            Photo myProfilePicture = (from u in aUser.Photos where u.ProfilePicture == true select u).FirstOrDefault<Photo>();
             string myProfileUrl = HAVConstants.NO_PROFILE_PICTURE_URL;
             if (myProfilePicture != null) {
-                myProfileUrl = HAVConstants.USER_PICTURE_LOCATION_FROM_VIEW + myProfilePicture.ImageName;
+                myProfileUrl = HAVConstants.PHOTO_LOCATION_FROM_VIEW + myProfilePicture.ImageName;
             } else {
-                IHAVUserPictureService myUserPictureService = new HAVUserPictureService();
-                UserPicture myUserPicture = myUserPictureService.GetProfilePicutre(aUser);
+                IHAVPhotoService myPhotoService = new HAVPhotoService();
+                Photo myPhoto = myPhotoService.GetProfilePicutre(aUser);
 
-                if (myUserPicture != null) {
-                    myProfileUrl =  HAVConstants.USER_PICTURE_LOCATION_FROM_VIEW + myUserPicture.ImageName;
+                if (myPhoto != null) {
+                    myProfileUrl =  HAVConstants.PHOTO_LOCATION_FROM_VIEW + myPhoto.ImageName;
                 }
             }
 
@@ -26,7 +26,7 @@ namespace HaveAVoice.Services.Helpers {
         }
 
         public static string ConstructUrl(string anImageName) {
-            return HAVConstants.USER_PICTURE_LOCATION_FROM_VIEW + anImageName;
+            return HAVConstants.PHOTO_LOCATION_FROM_VIEW + anImageName;
         }
     }
 }

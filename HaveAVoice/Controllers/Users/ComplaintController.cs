@@ -16,7 +16,7 @@ namespace HaveAVoice.Controllers.Users
         private IHAVComplaintService theService;
         private IHAVUserRetrievalService theUserRetrievalService;
         private IHAVIssueService theIssueService;
-        private IHAVUserPictureService theUserPictureService;
+        private IHAVPhotoService thePhotoService;
 
         public ComplaintController()
             : base(new HAVBaseService(new HAVBaseRepository())) {
@@ -24,16 +24,16 @@ namespace HaveAVoice.Controllers.Users
             theService = new HAVComplaintService(myModelWrapper);
             theUserRetrievalService = new HAVUserRetrievalService();
             theIssueService = new HAVIssueService(myModelWrapper);
-            theUserPictureService = new HAVUserPictureService();
+            thePhotoService = new HAVPhotoService();
         }
 
         public ComplaintController(IHAVComplaintService aService, IHAVBaseService aBaseService, 
                                                IHAVUserRetrievalService aUserRetrievalService, IHAVIssueService aIssueService, 
-                                               IHAVUserPictureService aUserPictureService) : base(aBaseService) {
+                                               IHAVPhotoService aPhotoService) : base(aBaseService) {
             theService = aService;
             theUserRetrievalService = aUserRetrievalService;
             theIssueService = aIssueService;
-            theUserPictureService = aUserPictureService;
+            thePhotoService = aPhotoService;
         }
 
         public ActionResult Complaint(string complaintType, int sourceId) {
@@ -45,7 +45,7 @@ namespace HaveAVoice.Controllers.Users
             ComplaintType myType = (ComplaintType)Enum.Parse(typeof(ComplaintType), complaintType);
             ComplaintModel.Builder myBuilder = new ComplaintModel.Builder(sourceId, myType);
             try {
-                ComplaintHelper.FillComplaintModelBuilder(myBuilder, theUserRetrievalService, theIssueService, theUserPictureService);
+                ComplaintHelper.FillComplaintModelBuilder(myBuilder, theUserRetrievalService, theIssueService, thePhotoService);
             } catch (Exception e) {
                 LogError(e, String.Format("Unable get complaint info. [complaintModel={0}]", myBuilder.Build().ToString()));
                 return SendToErrorPage("Unable to get the necessary information for the complaint. Please try again.");
@@ -84,8 +84,8 @@ namespace HaveAVoice.Controllers.Users
                              return SuccessfulComplaint();
                         }
                         break;
-                    case ComplaintType.UserPictureComplaint:
-                        if (theService.UserPictureComplaint(myUser, aComplaintModel.Complaint, aComplaintModel.SourceId)) {
+                    case ComplaintType.PhotoComplaint:
+                        if (theService.PhotoComplaint(myUser, aComplaintModel.Complaint, aComplaintModel.SourceId)) {
                              return SuccessfulComplaint();
                         }
                         break;

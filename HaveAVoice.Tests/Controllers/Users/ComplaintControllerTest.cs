@@ -23,7 +23,7 @@ namespace HaveAVoice.Tests.Controllers.Users {
         private IHAVComplaintService theService;
         private Mock<IHAVComplaintService> theMockedService;
         private Mock<IHAVIssueService> theMockIssueService;
-        private Mock<IHAVUserPictureService> theMockUserPictureService;
+        private Mock<IHAVPhotoService> theMockPhotoService;
         private Mock<IHAVComplaintRepository> theMockRepository;
         private Mock<IHAVUserRetrievalService> theUserRetrievalService;
         private ComplaintController theController;
@@ -32,7 +32,7 @@ namespace HaveAVoice.Tests.Controllers.Users {
         public void Initialize() {
             theMockedService = new Mock<IHAVComplaintService>();
             theMockIssueService = new Mock<IHAVIssueService>();
-            theMockUserPictureService = new Mock<IHAVUserPictureService>();
+            theMockPhotoService = new Mock<IHAVPhotoService>();
             theMockRepository = new Mock<IHAVComplaintRepository>();
             theUserRetrievalService = new Mock<IHAVUserRetrievalService>();
 
@@ -41,7 +41,7 @@ namespace HaveAVoice.Tests.Controllers.Users {
                                                                    theBaseRepository.Object);
 
             theController = new ComplaintController(theMockedService.Object, theMockedBaseService.Object,
-                theUserRetrievalService.Object, theMockIssueService.Object, theMockUserPictureService.Object);
+                theUserRetrievalService.Object, theMockIssueService.Object, theMockPhotoService.Object);
             theController.ControllerContext = GetControllerContext();
 
             theIssue = Issue.CreateIssue(COMPLAINT_SOURCE_ID, COMPLAINT, COMPLAINT_DESCRIPTION, "Chicago", "IL", DateTime.UtcNow, STARTED_BY_USER_ID, false);

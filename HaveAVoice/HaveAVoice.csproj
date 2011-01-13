@@ -157,7 +157,7 @@
     <Compile Include="Repositories\UserFeatures\EntityHAVNavigationRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVNotificationRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVPasswordRepository.cs" />
-    <Compile Include="Repositories\UserFeatures\EntityHAVUserPictureRepository.cs" />
+    <Compile Include="Repositories\UserFeatures\EntityHAVPhotoRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVUserPrivacySettingsRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVUserRetrievalRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVWhoIsOnlineRepository.cs" />
@@ -171,7 +171,7 @@
     <Compile Include="Repositories\UserFeatures\IHAVNavigationRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVNotificationRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVPasswordRepository.cs" />
-    <Compile Include="Repositories\UserFeatures\IHAVUserPictureRepository.cs" />
+    <Compile Include="Repositories\UserFeatures\IHAVPhotoRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVUserPrivacySettingsRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVUserRetrievalRepository.cs" />
     <Compile Include="Services\AdminFeatures\HAVPermissionService.cs" />
@@ -193,10 +193,10 @@
     <Compile Include="Services\Helpers\PasswordHelper.cs" />
     <Compile Include="Services\UserFeatures\HAVAuthenticationService.cs" />
     <Compile Include="Services\UserFeatures\HAVPasswordService.cs" />
-    <Compile Include="Services\UserFeatures\HAVUserPictureService.cs" />
+    <Compile Include="Services\UserFeatures\HAVPhotoService.cs" />
     <Compile Include="Services\UserFeatures\HAVUserPrivacySettingsService.cs" />
     <Compile Include="Services\UserFeatures\IHAVPasswordService.cs" />
-    <Compile Include="Services\UserFeatures\IHAVUserPictureService.cs" />
+    <Compile Include="Services\UserFeatures\IHAVPhotoService.cs" />
     <Compile Include="Services\UserFeatures\IHAVUserPrivacySettingsService.cs" />
     <Compile Include="Services\UserFeatures\IHAVWhoIsOnlineService.cs" />
     <Compile Include="Services\UserFeatures\HAVBoardService.cs" />
@@ -348,10 +348,10 @@
     <Content Include="Content\reset.css" />
     <Content Include="Content\tempjquery.js" />
     <Content Include="Global.asax" />
-    <Content Include="UserPictures\93_-1513546292.jpg" />
-    <Content Include="UserPictures\93_-943723973.jpg" />
-    <Content Include="UserPictures\93_946098097.jpg" />
-    <Content Include="UserPictures\no_profile_picture.jpg" />
+    <Content Include="Photos\93_-1513546292.jpg" />
+    <Content Include="Photos\93_-943723973.jpg" />
+    <Content Include="Photos\93_946098097.jpg" />
+    <Content Include="Photos\no_profile_picture.jpg" />
     <Content Include="Views\Account\ChangePassword.aspx" />
     <Content Include="Views\Account\ChangePasswordSuccess.aspx" />
     <Content Include="Views\Account\LogOn.aspx" />

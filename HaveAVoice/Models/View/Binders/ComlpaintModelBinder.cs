@@ -15,7 +15,7 @@ namespace HaveAVoice.Models.View {
             ModelStateWrapper myModelWrapper = new ModelStateWrapper(aBindingContext.ModelState);
             IHAVIssueService myIssueService = new HAVIssueService(myModelWrapper);
             IHAVUserRetrievalService myUserRetrievalService = new HAVUserRetrievalService();
-            IHAVUserPictureService myUserPictureService = new HAVUserPictureService();
+            IHAVPhotoService myPhotoService = new HAVPhotoService();
 
             int mySourceId = BinderHelper.GetAInt(aBindingContext, "sourceId");
             string myComplaint = BinderHelper.GetA(aBindingContext, "Complaint");
@@ -25,7 +25,7 @@ namespace HaveAVoice.Models.View {
 
             ComplaintModel.Builder myBuilder = new ComplaintModel.Builder(mySourceId, myType);
             
-            ComplaintHelper.FillComplaintModelBuilder(myBuilder, myUserRetrievalService, myIssueService, myUserPictureService);
+            ComplaintHelper.FillComplaintModelBuilder(myBuilder, myUserRetrievalService, myIssueService, myPhotoService);
 
             myBuilder.Complaint(myComplaint);
 

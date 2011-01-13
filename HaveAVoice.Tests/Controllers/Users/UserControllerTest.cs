@@ -117,88 +117,88 @@ namespace HaveAVoice.Tests.Controllers.Users {
         }
         /*
         [TestMethod]
-        public void TestUserPictures_NotLoggedIn() {
+        public void TestPhotos_NotLoggedIn() {
             theMockUserInformation.Setup(u => u.GetUserInformaton()).Returns(() => null);
 
-            var result = theController.UserPictures() as ViewResult;
+            var result = theController.Photos() as ViewResult;
 
-            theMockedService.Verify(s => s.GetUserPictures(It.IsAny<int>()), Times.Never());
+            theMockedService.Verify(s => s.GetPhotos(It.IsAny<int>()), Times.Never());
             theMockedService.Verify(s => s.GetProfilePicture(It.IsAny<int>()), Times.Never());
             AssertRedirection(result);
         }
 
         [TestMethod]
-        public void TestUserPictures_LoggedInUser() {
-            theMockedService.Setup(s => s.GetProfilePicture(It.IsAny<int>())).Returns(() => new UserPicture());
+        public void TestPhotos_LoggedInUser() {
+            theMockedService.Setup(s => s.GetProfilePicture(It.IsAny<int>())).Returns(() => new Photo());
 
-            var result = theController.UserPictures() as ViewResult;
+            var result = theController.Photos() as ViewResult;
 
-            theMockedService.Verify(s => s.GetUserPictures(It.IsAny<int>()), Times.Exactly(1));
+            theMockedService.Verify(s => s.GetPhotos(It.IsAny<int>()), Times.Exactly(1));
             theMockedService.Verify(s => s.GetProfilePicture(It.IsAny<int>()), Times.Exactly(1));
-            Assert.AreEqual("UserPictures", result.ViewName);;
+            Assert.AreEqual("Photos", result.ViewName);;
         }
 
         [TestMethod]
         public void TestSetProfilePicture_OneSelected() {
-            UserPicture userPicture = new UserPicture();
-            IEnumerable<UserPicture> userPictures = new List<UserPicture>();
-            List<int> selectedUserPictures = new List<int>();
-            selectedUserPictures.Add(1);
+            Photo Photo = new Photo();
+            IEnumerable<Photo> Photos = new List<Photo>();
+            List<int> selectedPhotos = new List<int>();
+            selectedPhotos.Add(1);
 
-            UserPicturesModel userPictureModel = new UserPicturesModel(userPicture, userPictures, selectedUserPictures);
+            PhotosModel PhotoModel = new PhotosModel(Photo, Photos, selectedPhotos);
 
-            var result = theController.UserPictures_SetProfilePicture(userPictureModel) as ViewResult;
+            var result = theController.Photos_SetProfilePicture(PhotoModel) as ViewResult;
 
             theMockedService.Verify(s => s.SetToProfilePicture(It.IsAny<int>(), It.IsAny<User>()), Times.Exactly(1));
         }
 
         [TestMethod]
         public void TestSetProfilePicture_NoneSelected() {
-            UserPicture userPicture = new UserPicture();
-            IEnumerable<UserPicture> userPictures = new List<UserPicture>();
-            List<int> selectedUserPictures = new List<int>();
-            UserPicturesModel userPictureModel = new UserPicturesModel(userPicture, userPictures, selectedUserPictures);
+            Photo Photo = new Photo();
+            IEnumerable<Photo> Photos = new List<Photo>();
+            List<int> selectedPhotos = new List<int>();
+            PhotosModel PhotoModel = new PhotosModel(Photo, Photos, selectedPhotos);
 
-            var result = theController.UserPictures_SetProfilePicture(userPictureModel) as ViewResult;
+            var result = theController.Photos_SetProfilePicture(PhotoModel) as ViewResult;
 
             theMockedService.Verify(s => s.SetToProfilePicture(It.IsAny<int>(), It.IsAny<User>()), Times.Never());
-            Assert.AreEqual("UserPictures", result.ViewName);
+            Assert.AreEqual("Photos", result.ViewName);
             Assert.IsNotNull(result.ViewData["Message"]);
         }
 
         [TestMethod]
         public void TestSetProfilePicture_MoreThanOneSelected() {
-            UserPicture userPicture = new UserPicture();
-            IEnumerable<UserPicture> userPictures = new List<UserPicture>();
-            List<int> selectedUserPictures = new List<int>();
-            selectedUserPictures.Add(1);
-            selectedUserPictures.Add(2);
+            Photo Photo = new Photo();
+            IEnumerable<Photo> Photos = new List<Photo>();
+            List<int> selectedPhotos = new List<int>();
+            selectedPhotos.Add(1);
+            selectedPhotos.Add(2);
 
-            UserPicturesModel userPictureModel = new UserPicturesModel(userPicture, userPictures, selectedUserPictures);
+            PhotosModel PhotoModel = new PhotosModel(Photo, Photos, selectedPhotos);
 
-            var result = theController.UserPictures_SetProfilePicture(userPictureModel) as ViewResult;
+            var result = theController.Photos_SetProfilePicture(PhotoModel) as ViewResult;
 
             theMockedService.Verify(s => s.SetToProfilePicture(It.IsAny<int>(), It.IsAny<User>()), Times.Never());
-            Assert.AreEqual("UserPictures", result.ViewName);
+            Assert.AreEqual("Photos", result.ViewName);
             Assert.IsNotNull(result.ViewData["Message"]);
         }
         
         [TestMethod]
         public void TestSetProfilePicture_ErrorThrown() {
-            UserPicture userPicture = new UserPicture();
-            IEnumerable<UserPicture> userPictures = new List<UserPicture>();
-            List<int> selectedUserPictures = new List<int>();
+            Photo Photo = new Photo();
+            IEnumerable<Photo> Photos = new List<Photo>();
+            List<int> selectedPhotos = new List<int>();
 
-            selectedUserPictures.Add(1);
+            selectedPhotos.Add(1);
 
-            UserPicturesModel userPictureModel = new UserPicturesModel(userPicture, userPictures, selectedUserPictures);
+            PhotosModel PhotoModel = new PhotosModel(Photo, Photos, selectedPhotos);
 
             theMockedService.Setup(s => s.SetToProfilePicture(It.IsAny<int>(), It.IsAny<User>())).Throws<Exception>();
 
-            var result = theController.UserPictures_SetProfilePicture(userPictureModel) as ViewResult;
+            var result = theController.Photos_SetProfilePicture(PhotoModel) as ViewResult;
 
             theMockedService.Verify(s => s.SetToProfilePicture(It.IsAny<int>(), It.IsAny<User>()), Times.Exactly(1));
-            AssertErrorLogReturnBack("UserPictures", result);
+            AssertErrorLogReturnBack("Photos", result);
         }
         
         #region "Activate Account"

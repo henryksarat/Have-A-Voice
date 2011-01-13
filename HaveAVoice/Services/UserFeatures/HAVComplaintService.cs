@@ -50,11 +50,11 @@ namespace HaveAVoice.Services.UserFeatures {
             return true;
         }
 
-        public bool UserPictureComplaint(User aFiledBy, string aComplaint, int aUserPictureId) {
-            if (!ValidComplaint(aComplaint, aUserPictureId)) {
+        public bool PhotoComplaint(User aFiledBy, string aComplaint, int aPhotoId) {
+            if (!ValidComplaint(aComplaint, aPhotoId)) {
                 return false;
             }
-            theRepository.AddUserPictureComplaint(aFiledBy, aComplaint, aUserPictureId);
+            theRepository.AddPhotoComplaint(aFiledBy, aComplaint, aPhotoId);
             return true;
         }
 

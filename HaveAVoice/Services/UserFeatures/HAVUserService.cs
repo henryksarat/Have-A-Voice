@@ -21,21 +21,21 @@ namespace HaveAVoice.Services.UserFeatures {
         private IValidationDictionary theValidationDictionary;
         private IHAVUserRetrievalService theUserRetrievalService;
         private IHAVAuthenticationService theAuthService;
-        private IHAVUserPictureService theUserPictureService;
+        private IHAVPhotoService thePhotoService;
         private IHAVUserRepository theUserRepo;
         private IHAVEmail theEmailService;
 
         public HAVUserService(IValidationDictionary theValidationDictionary)
-            : this(theValidationDictionary, new HAVUserRetrievalService(), new HAVAuthenticationService(), new HAVUserPictureService(), 
+            : this(theValidationDictionary, new HAVUserRetrievalService(), new HAVAuthenticationService(), new HAVPhotoService(), 
                     new EntityHAVUserRepository(), new HAVEmail(), new HAVBaseRepository()) { }
         
         public HAVUserService(IValidationDictionary aValidationDictionary, IHAVUserRetrievalService aUserRetrievalService, 
-                                         IHAVAuthenticationService anAuthService, IHAVUserPictureService aUserPictureService,  
+                                         IHAVAuthenticationService anAuthService, IHAVPhotoService aPhotoService,  
                                          IHAVUserRepository aUserRepo, IHAVEmail aEmailService, IHAVBaseRepository baseRepository) : base(baseRepository) {
             theValidationDictionary = aValidationDictionary;
             theUserRetrievalService = aUserRetrievalService;
             theAuthService = anAuthService;
-            theUserPictureService = aUserPictureService;
+            thePhotoService = aPhotoService;
             theUserRepo = aUserRepo;
             theEmailService = aEmailService;
         }
@@ -124,7 +124,7 @@ namespace HaveAVoice.Services.UserFeatures {
             }
 
             if (ShouldUploadImage(isValidFileImage, aUser.ImageFile.FileName)) {
-                theUserPictureService.UploadProfilePicture(aUser.UserInformation, aUser.ImageFile);
+                thePhotoService.UploadProfilePicture(aUser.UserInformation, aUser.ImageFile);
             }
 
             theUserRepo.UpdateUser(aUser.UserInformation);
@@ -134,7 +134,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         private bool ValidateFileImage(string aImageFile) {
-            if(theUserPictureService.IsValidImage(aImageFile)){
+            if(thePhotoService.IsValidImage(aImageFile)){
                 theValidationDictionary.AddError("ProfilePictureUpload", aImageFile, "Image must be either a .jpg, .jpeg, or .gif.");
             }
 

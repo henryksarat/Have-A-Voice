@@ -41,10 +41,10 @@ namespace HaveAVoice.Repositories.UserFeatures {
             theEntities.SaveChanges();
         }
 
-        public void AddUserPictureComplaint(User aFiledBy, string aComplaint, int aPictureId) {
-            UserPictureComplaint myUserPicutreComplaint = UserPictureComplaint.CreateUserPictureComplaint(0, aFiledBy.Id, aPictureId, aComplaint);
+        public void AddPhotoComplaint(User aFiledBy, string aComplaint, int aPictureId) {
+            PhotoComplaint myPhotoComplaint = PhotoComplaint.CreatePhotoComplaint(0, aFiledBy.Id, aPictureId, aComplaint);
 
-            theEntities.AddToUserPictureComplaints(myUserPicutreComplaint);
+            theEntities.AddToPhotoComplaints(myPhotoComplaint);
             theEntities.SaveChanges();
         }
     }

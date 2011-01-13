@@ -14,17 +14,17 @@ namespace HaveAVoice.Services.UserFeatures {
     public class HAVCalendarService : HAVBaseService, IHAVCalendarService {
         private IValidationDictionary theValidationDictionary;
         private IHAVFriendService theFriendService;
-        private IHAVUserPictureService theUserPictureService;
+        private IHAVPhotoService thePhotoService;
         private IHAVCalendarRepository theRepository;
 
         public HAVCalendarService(IValidationDictionary aValidationDictionary)
-            : this(aValidationDictionary, new HAVFriendService(), new HAVUserPictureService(), new EntityHAVCalendarRepository(), new HAVBaseRepository()) { }
+            : this(aValidationDictionary, new HAVFriendService(), new HAVPhotoService(), new EntityHAVCalendarRepository(), new HAVBaseRepository()) { }
 
-        public HAVCalendarService(IValidationDictionary aValidationDictionary, IHAVFriendService aFriendService, IHAVUserPictureService aUserPictureService, 
+        public HAVCalendarService(IValidationDictionary aValidationDictionary, IHAVFriendService aFriendService, IHAVPhotoService aPhotoService, 
                                   IHAVCalendarRepository aRepository, IHAVBaseRepository baseRepository)
             : base(baseRepository) {
             theValidationDictionary = aValidationDictionary;
-            theUserPictureService = aUserPictureService;
+            thePhotoService = aPhotoService;
             theFriendService = aFriendService;
             theRepository = aRepository;
         }

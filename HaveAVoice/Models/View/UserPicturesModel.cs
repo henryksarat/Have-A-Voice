@@ -7,16 +7,16 @@ using System.Web.Mvc;
 using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Models.View {
-    public class UserPicturesModel {
+    public class PhotosModel {
         public int UserId { get; set; }
         public string ProfilePictureURL { get; set; }
-        public IEnumerable<UserPicture> UserPictures { get; set; }
-        public List<int> SelectedUserPictures { get; set; }
+        public IEnumerable<Photo> Photos { get; set; }
+        public List<int> SelectedPhotos { get; set; }
 
-        public UserPicturesModel() {
+        public PhotosModel() {
             this.ProfilePictureURL = HAVConstants.NO_PROFILE_PICTURE_URL;
-            this.UserPictures = new List<UserPicture>();
-            this.SelectedUserPictures = new List<int>();
+            this.Photos = new List<Photo>();
+            this.SelectedPhotos = new List<int>();
         }
     }
 }

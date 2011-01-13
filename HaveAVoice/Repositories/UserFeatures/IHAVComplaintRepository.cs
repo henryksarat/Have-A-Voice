@@ -10,6 +10,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
         void AddIssueReplyComplaint(User filedBy, string complaint, int issueReplyId);
         void AddIssueReplyCommentComplaint(User filedBy, string complaint, int issueReplyCommentId);
         void AddProfileComplaint(User filedBy, string complaint, int towardUserId);
-        void AddUserPictureComplaint(User filedBy, string complaint, int pictureId);
+        void AddPhotoComplaint(User filedBy, string complaint, int pictureId);
     }
 }

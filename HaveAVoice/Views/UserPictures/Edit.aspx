@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.UserPicturesModel>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.PhotosModel>" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UI" %>
 
@@ -19,7 +19,7 @@
     	<div class="clear">&nbsp;</div>
     	<div class="b-wht">
     		<div class="clear">&nbsp;</div>
-    		<% using(Html.BeginForm("UserPictures", "Edit", FormMethod.Post, new { @class = "create" })) { %>
+    		<% using(Html.BeginForm("Photos", "Edit", FormMethod.Post, new { @class = "create" })) { %>
     			<div class="p-a10">
 	    			<div class="col-4 c-gray fnt-14 bold">
 	    				Current Profile Picture:
@@ -36,16 +36,16 @@
     			<div class="clear">&nbsp;</div>
     			
     			<% int cnt = 1; %>
-		        <% foreach(var item in Model.UserPictures) { %>
+		        <% foreach(var item in Model.Photos) { %>
 				<% if(item.ProfilePicture == true) { continue; } %>
 					<div class="col-7">
 		    			<div class="col-1">
 		    				<div class="p-a10 center">
-			    				<%= CheckBoxHelper.StandardCheckbox("SelectedProfilePictureId", item.Id.ToString(), Model.SelectedUserPictures.Contains(item.Id)) %>
+			    				<%= CheckBoxHelper.StandardCheckbox("SelectedProfilePictureId", item.Id.ToString(), Model.SelectedPhotos.Contains(item.Id)) %>
 		    				</div>
 		    			</div>
 		    			<div class="col-3 center">
-		    				<img src="/UserPictures/<%= item.ImageName %>" class="profile" />
+		    				<img src="/Photos/<%= item.ImageName %>" class="profile" />
 		    			</div>
 		    			<div class="col-3">
 							<div class="p-a5">

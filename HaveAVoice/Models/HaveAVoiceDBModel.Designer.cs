@@ -53,9 +53,6 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Roles_Restrictions", "Restriction", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Restriction), "Role", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Role), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_RolePermissions_Roles", "Role", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Role), "RolePermission", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.RolePermission), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserRoles_Roles", "Role", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Role), "UserRole", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserRole), true)]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserPictureComplaints_FiledByUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "UserPictureComplaint", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserPictureComplaint), true)]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserPictureComplaints_UserPictures", "UserPicture", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.UserPicture), "UserPictureComplaint", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserPictureComplaint), true)]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserPictures_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "UserPicture", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserPicture), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserPrivacySettings_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "UserPrivacySetting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserPrivacySetting), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserRoles_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "UserRole", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserRole), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_WhoIsOnline_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "WhoIsOnline", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.WhoIsOnline), true)]
@@ -74,6 +71,11 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Friends_FriendUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Friend", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Friend), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Friends_SourceUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Friend", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Friend), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_AuthorityVerification_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "AuthorityVerification", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.AuthorityVerification), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_PhotoAlbum_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "PhotoAlbum", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.PhotoAlbum), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Photos_PhotoAlbum", "PhotoAlbum", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.PhotoAlbum), "Photo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Photo), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Photos_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Photo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Photo), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_PhotoComplaints_Photos", "Photo", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Photo), "PhotoComplaint", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.PhotoComplaint), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_PhotoComplaints_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "PhotoComplaint", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.PhotoComplaint), true)]
 
 #endregion
 
@@ -416,22 +418,6 @@ namespace HaveAVoice.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<MergeComplaint> MergeComplaints
-        {
-            get
-            {
-                if ((_MergeComplaints == null))
-                {
-                    _MergeComplaints = base.CreateObjectSet<MergeComplaint>("MergeComplaints");
-                }
-                return _MergeComplaints;
-            }
-        }
-        private ObjectSet<MergeComplaint> _MergeComplaints;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<Message> Messages
         {
             get
@@ -556,38 +542,6 @@ namespace HaveAVoice.Models
             }
         }
         private ObjectSet<Timezone> _Timezones;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<UserPictureComplaint> UserPictureComplaints
-        {
-            get
-            {
-                if ((_UserPictureComplaints == null))
-                {
-                    _UserPictureComplaints = base.CreateObjectSet<UserPictureComplaint>("UserPictureComplaints");
-                }
-                return _UserPictureComplaints;
-            }
-        }
-        private ObjectSet<UserPictureComplaint> _UserPictureComplaints;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<UserPicture> UserPictures
-        {
-            get
-            {
-                if ((_UserPictures == null))
-                {
-                    _UserPictures = base.CreateObjectSet<UserPicture>("UserPictures");
-                }
-                return _UserPictures;
-            }
-        }
-        private ObjectSet<UserPicture> _UserPictures;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -732,6 +686,54 @@ namespace HaveAVoice.Models
             }
         }
         private ObjectSet<AuthorityVerification> _AuthorityVerifications;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<PhotoAlbum> PhotoAlbums
+        {
+            get
+            {
+                if ((_PhotoAlbums == null))
+                {
+                    _PhotoAlbums = base.CreateObjectSet<PhotoAlbum>("PhotoAlbums");
+                }
+                return _PhotoAlbums;
+            }
+        }
+        private ObjectSet<PhotoAlbum> _PhotoAlbums;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Photo> Photos
+        {
+            get
+            {
+                if ((_Photos == null))
+                {
+                    _Photos = base.CreateObjectSet<Photo>("Photos");
+                }
+                return _Photos;
+            }
+        }
+        private ObjectSet<Photo> _Photos;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<PhotoComplaint> PhotoComplaints
+        {
+            get
+            {
+                if ((_PhotoComplaints == null))
+                {
+                    _PhotoComplaints = base.CreateObjectSet<PhotoComplaint>("PhotoComplaints");
+                }
+                return _PhotoComplaints;
+            }
+        }
+        private ObjectSet<PhotoComplaint> _PhotoComplaints;
 
         #endregion
         #region AddTo Methods
@@ -881,14 +883,6 @@ namespace HaveAVoice.Models
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the MergeComplaints EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToMergeComplaints(MergeComplaint mergeComplaint)
-        {
-            base.AddObject("MergeComplaints", mergeComplaint);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the Messages EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToMessages(Message message)
@@ -950,22 +944,6 @@ namespace HaveAVoice.Models
         public void AddToTimezones(Timezone timezone)
         {
             base.AddObject("Timezones", timezone);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the UserPictureComplaints EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToUserPictureComplaints(UserPictureComplaint userPictureComplaint)
-        {
-            base.AddObject("UserPictureComplaints", userPictureComplaint);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the UserPictures EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToUserPictures(UserPicture userPicture)
-        {
-            base.AddObject("UserPictures", userPicture);
         }
     
         /// <summary>
@@ -1038,6 +1016,30 @@ namespace HaveAVoice.Models
         public void AddToAuthorityVerifications(AuthorityVerification authorityVerification)
         {
             base.AddObject("AuthorityVerifications", authorityVerification);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the PhotoAlbums EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPhotoAlbums(PhotoAlbum photoAlbum)
+        {
+            base.AddObject("PhotoAlbums", photoAlbum);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Photos EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPhotos(Photo photo)
+        {
+            base.AddObject("Photos", photo);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the PhotoComplaints EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPhotoComplaints(PhotoComplaint photoComplaint)
+        {
+            base.AddObject("PhotoComplaints", photoComplaint);
         }
 
         #endregion
@@ -7103,139 +7105,6 @@ namespace HaveAVoice.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="HaveAVoice.Models", Name="MergeComplaint")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class MergeComplaint : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new MergeComplaint object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="filedByUserId">Initial value of the FiledByUserId property.</param>
-        /// <param name="mergeRequestId">Initial value of the MergeRequestId property.</param>
-        /// <param name="complaint">Initial value of the Complaint property.</param>
-        public static MergeComplaint CreateMergeComplaint(global::System.Int32 id, global::System.Int32 filedByUserId, global::System.Int32 mergeRequestId, global::System.String complaint)
-        {
-            MergeComplaint mergeComplaint = new MergeComplaint();
-            mergeComplaint.Id = id;
-            mergeComplaint.FiledByUserId = filedByUserId;
-            mergeComplaint.MergeRequestId = mergeRequestId;
-            mergeComplaint.Complaint = complaint;
-            return mergeComplaint;
-        }
-
-        #endregion
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Int32 _Id;
-        partial void OnIdChanging(global::System.Int32 value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 FiledByUserId
-        {
-            get
-            {
-                return _FiledByUserId;
-            }
-            set
-            {
-                OnFiledByUserIdChanging(value);
-                ReportPropertyChanging("FiledByUserId");
-                _FiledByUserId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("FiledByUserId");
-                OnFiledByUserIdChanged();
-            }
-        }
-        private global::System.Int32 _FiledByUserId;
-        partial void OnFiledByUserIdChanging(global::System.Int32 value);
-        partial void OnFiledByUserIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 MergeRequestId
-        {
-            get
-            {
-                return _MergeRequestId;
-            }
-            set
-            {
-                OnMergeRequestIdChanging(value);
-                ReportPropertyChanging("MergeRequestId");
-                _MergeRequestId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("MergeRequestId");
-                OnMergeRequestIdChanged();
-            }
-        }
-        private global::System.Int32 _MergeRequestId;
-        partial void OnMergeRequestIdChanging(global::System.Int32 value);
-        partial void OnMergeRequestIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String Complaint
-        {
-            get
-            {
-                return _Complaint;
-            }
-            set
-            {
-                OnComplaintChanging(value);
-                ReportPropertyChanging("Complaint");
-                _Complaint = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Complaint");
-                OnComplaintChanged();
-            }
-        }
-        private global::System.String _Complaint;
-        partial void OnComplaintChanging(global::System.String value);
-        partial void OnComplaintChanged();
-
-        #endregion
-    
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="HaveAVoice.Models", Name="Message")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -7848,6 +7717,724 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RolePermission>("HaveAVoice.Models.FK_RolePermissions_Permissions", "RolePermission", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="HaveAVoice.Models", Name="Photo")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Photo : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Photo object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="uploadedByUserId">Initial value of the UploadedByUserId property.</param>
+        /// <param name="photoAlbumId">Initial value of the PhotoAlbumId property.</param>
+        /// <param name="imageName">Initial value of the ImageName property.</param>
+        /// <param name="profilePicture">Initial value of the ProfilePicture property.</param>
+        /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
+        /// <param name="flagged">Initial value of the Flagged property.</param>
+        public static Photo CreatePhoto(global::System.Int32 id, global::System.Int32 uploadedByUserId, global::System.Int32 photoAlbumId, global::System.String imageName, global::System.Boolean profilePicture, global::System.DateTime dateTimeStamp, global::System.Int32 flagged)
+        {
+            Photo photo = new Photo();
+            photo.Id = id;
+            photo.UploadedByUserId = uploadedByUserId;
+            photo.PhotoAlbumId = photoAlbumId;
+            photo.ImageName = imageName;
+            photo.ProfilePicture = profilePicture;
+            photo.DateTimeStamp = dateTimeStamp;
+            photo.Flagged = flagged;
+            return photo;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UploadedByUserId
+        {
+            get
+            {
+                return _UploadedByUserId;
+            }
+            set
+            {
+                OnUploadedByUserIdChanging(value);
+                ReportPropertyChanging("UploadedByUserId");
+                _UploadedByUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UploadedByUserId");
+                OnUploadedByUserIdChanged();
+            }
+        }
+        private global::System.Int32 _UploadedByUserId;
+        partial void OnUploadedByUserIdChanging(global::System.Int32 value);
+        partial void OnUploadedByUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 PhotoAlbumId
+        {
+            get
+            {
+                return _PhotoAlbumId;
+            }
+            set
+            {
+                OnPhotoAlbumIdChanging(value);
+                ReportPropertyChanging("PhotoAlbumId");
+                _PhotoAlbumId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PhotoAlbumId");
+                OnPhotoAlbumIdChanged();
+            }
+        }
+        private global::System.Int32 _PhotoAlbumId;
+        partial void OnPhotoAlbumIdChanging(global::System.Int32 value);
+        partial void OnPhotoAlbumIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ImageName
+        {
+            get
+            {
+                return _ImageName;
+            }
+            set
+            {
+                OnImageNameChanging(value);
+                ReportPropertyChanging("ImageName");
+                _ImageName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ImageName");
+                OnImageNameChanged();
+            }
+        }
+        private global::System.String _ImageName;
+        partial void OnImageNameChanging(global::System.String value);
+        partial void OnImageNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean ProfilePicture
+        {
+            get
+            {
+                return _ProfilePicture;
+            }
+            set
+            {
+                OnProfilePictureChanging(value);
+                ReportPropertyChanging("ProfilePicture");
+                _ProfilePicture = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ProfilePicture");
+                OnProfilePictureChanged();
+            }
+        }
+        private global::System.Boolean _ProfilePicture;
+        partial void OnProfilePictureChanging(global::System.Boolean value);
+        partial void OnProfilePictureChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateTimeStamp
+        {
+            get
+            {
+                return _DateTimeStamp;
+            }
+            set
+            {
+                OnDateTimeStampChanging(value);
+                ReportPropertyChanging("DateTimeStamp");
+                _DateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateTimeStamp");
+                OnDateTimeStampChanged();
+            }
+        }
+        private global::System.DateTime _DateTimeStamp;
+        partial void OnDateTimeStampChanging(global::System.DateTime value);
+        partial void OnDateTimeStampChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Flagged
+        {
+            get
+            {
+                return _Flagged;
+            }
+            set
+            {
+                OnFlaggedChanging(value);
+                ReportPropertyChanging("Flagged");
+                _Flagged = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Flagged");
+                OnFlaggedChanged();
+            }
+        }
+        private global::System.Int32 _Flagged;
+        partial void OnFlaggedChanging(global::System.Int32 value);
+        partial void OnFlaggedChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Photos_PhotoAlbum", "PhotoAlbum")]
+        public PhotoAlbum PhotoAlbum
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PhotoAlbum>("HaveAVoice.Models.FK_Photos_PhotoAlbum", "PhotoAlbum").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PhotoAlbum>("HaveAVoice.Models.FK_Photos_PhotoAlbum", "PhotoAlbum").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<PhotoAlbum> PhotoAlbumReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PhotoAlbum>("HaveAVoice.Models.FK_Photos_PhotoAlbum", "PhotoAlbum");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PhotoAlbum>("HaveAVoice.Models.FK_Photos_PhotoAlbum", "PhotoAlbum", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Photos_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_Photos_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_Photos_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_Photos_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_Photos_Users", "User", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_PhotoComplaints_Photos", "PhotoComplaint")]
+        public EntityCollection<PhotoComplaint> PhotoComplaints
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PhotoComplaint>("HaveAVoice.Models.FK_PhotoComplaints_Photos", "PhotoComplaint");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PhotoComplaint>("HaveAVoice.Models.FK_PhotoComplaints_Photos", "PhotoComplaint", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="HaveAVoice.Models", Name="PhotoAlbum")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class PhotoAlbum : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new PhotoAlbum object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="name">Initial value of the Name property.</param>
+        /// <param name="createdByUserId">Initial value of the CreatedByUserId property.</param>
+        public static PhotoAlbum CreatePhotoAlbum(global::System.Int32 id, global::System.String name, global::System.Int32 createdByUserId)
+        {
+            PhotoAlbum photoAlbum = new PhotoAlbum();
+            photoAlbum.Id = id;
+            photoAlbum.Name = name;
+            photoAlbum.CreatedByUserId = createdByUserId;
+            return photoAlbum;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Description
+        {
+            get
+            {
+                return _Description;
+            }
+            set
+            {
+                OnDescriptionChanging(value);
+                ReportPropertyChanging("Description");
+                _Description = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Description");
+                OnDescriptionChanged();
+            }
+        }
+        private global::System.String _Description;
+        partial void OnDescriptionChanging(global::System.String value);
+        partial void OnDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 CreatedByUserId
+        {
+            get
+            {
+                return _CreatedByUserId;
+            }
+            set
+            {
+                OnCreatedByUserIdChanging(value);
+                ReportPropertyChanging("CreatedByUserId");
+                _CreatedByUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CreatedByUserId");
+                OnCreatedByUserIdChanged();
+            }
+        }
+        private global::System.Int32 _CreatedByUserId;
+        partial void OnCreatedByUserIdChanging(global::System.Int32 value);
+        partial void OnCreatedByUserIdChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_PhotoAlbum_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_PhotoAlbum_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_PhotoAlbum_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_PhotoAlbum_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_PhotoAlbum_Users", "User", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Photos_PhotoAlbum", "Photo")]
+        public EntityCollection<Photo> Photos
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Photo>("HaveAVoice.Models.FK_Photos_PhotoAlbum", "Photo");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Photo>("HaveAVoice.Models.FK_Photos_PhotoAlbum", "Photo", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="HaveAVoice.Models", Name="PhotoComplaint")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class PhotoComplaint : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new PhotoComplaint object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="filedByUserId">Initial value of the FiledByUserId property.</param>
+        /// <param name="photoId">Initial value of the PhotoId property.</param>
+        /// <param name="complaint">Initial value of the Complaint property.</param>
+        public static PhotoComplaint CreatePhotoComplaint(global::System.Int32 id, global::System.Int32 filedByUserId, global::System.Int32 photoId, global::System.String complaint)
+        {
+            PhotoComplaint photoComplaint = new PhotoComplaint();
+            photoComplaint.Id = id;
+            photoComplaint.FiledByUserId = filedByUserId;
+            photoComplaint.PhotoId = photoId;
+            photoComplaint.Complaint = complaint;
+            return photoComplaint;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 FiledByUserId
+        {
+            get
+            {
+                return _FiledByUserId;
+            }
+            set
+            {
+                OnFiledByUserIdChanging(value);
+                ReportPropertyChanging("FiledByUserId");
+                _FiledByUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FiledByUserId");
+                OnFiledByUserIdChanged();
+            }
+        }
+        private global::System.Int32 _FiledByUserId;
+        partial void OnFiledByUserIdChanging(global::System.Int32 value);
+        partial void OnFiledByUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 PhotoId
+        {
+            get
+            {
+                return _PhotoId;
+            }
+            set
+            {
+                OnPhotoIdChanging(value);
+                ReportPropertyChanging("PhotoId");
+                _PhotoId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PhotoId");
+                OnPhotoIdChanged();
+            }
+        }
+        private global::System.Int32 _PhotoId;
+        partial void OnPhotoIdChanging(global::System.Int32 value);
+        partial void OnPhotoIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Complaint
+        {
+            get
+            {
+                return _Complaint;
+            }
+            set
+            {
+                OnComplaintChanging(value);
+                ReportPropertyChanging("Complaint");
+                _Complaint = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Complaint");
+                OnComplaintChanged();
+            }
+        }
+        private global::System.String _Complaint;
+        partial void OnComplaintChanging(global::System.String value);
+        partial void OnComplaintChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_PhotoComplaints_Photos", "Photo")]
+        public Photo Photo
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Photo>("HaveAVoice.Models.FK_PhotoComplaints_Photos", "Photo").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Photo>("HaveAVoice.Models.FK_PhotoComplaints_Photos", "Photo").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Photo> PhotoReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Photo>("HaveAVoice.Models.FK_PhotoComplaints_Photos", "Photo");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Photo>("HaveAVoice.Models.FK_PhotoComplaints_Photos", "Photo", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_PhotoComplaints_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_PhotoComplaints_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_PhotoComplaints_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_PhotoComplaints_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_PhotoComplaints_Users", "User", value);
                 }
             }
         }
@@ -10737,50 +11324,6 @@ namespace HaveAVoice.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserPictureComplaints_FiledByUserId_Users", "UserPictureComplaint")]
-        public EntityCollection<UserPictureComplaint> UserPictureComplaints
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserPictureComplaint>("HaveAVoice.Models.FK_UserPictureComplaints_FiledByUserId_Users", "UserPictureComplaint");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserPictureComplaint>("HaveAVoice.Models.FK_UserPictureComplaints_FiledByUserId_Users", "UserPictureComplaint", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserPictures_Users", "UserPicture")]
-        public EntityCollection<UserPicture> UserPictures
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserPicture>("HaveAVoice.Models.FK_UserPictures_Users", "UserPicture");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserPicture>("HaveAVoice.Models.FK_UserPictures_Users", "UserPicture", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserPrivacySettings_Users", "UserPrivacySetting")]
         public EntityCollection<UserPrivacySetting> UserPrivacySettings
         {
@@ -10972,168 +11515,6 @@ namespace HaveAVoice.Models
                 }
             }
         }
-
-        #endregion
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="HaveAVoice.Models", Name="UserPicture")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class UserPicture : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new UserPicture object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="userId">Initial value of the UserId property.</param>
-        /// <param name="imageName">Initial value of the ImageName property.</param>
-        /// <param name="profilePicture">Initial value of the ProfilePicture property.</param>
-        /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
-        public static UserPicture CreateUserPicture(global::System.Int32 id, global::System.Int32 userId, global::System.String imageName, global::System.Boolean profilePicture, global::System.DateTime dateTimeStamp)
-        {
-            UserPicture userPicture = new UserPicture();
-            userPicture.Id = id;
-            userPicture.UserId = userId;
-            userPicture.ImageName = imageName;
-            userPicture.ProfilePicture = profilePicture;
-            userPicture.DateTimeStamp = dateTimeStamp;
-            return userPicture;
-        }
-
-        #endregion
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Int32 _Id;
-        partial void OnIdChanging(global::System.Int32 value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 UserId
-        {
-            get
-            {
-                return _UserId;
-            }
-            set
-            {
-                OnUserIdChanging(value);
-                ReportPropertyChanging("UserId");
-                _UserId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("UserId");
-                OnUserIdChanged();
-            }
-        }
-        private global::System.Int32 _UserId;
-        partial void OnUserIdChanging(global::System.Int32 value);
-        partial void OnUserIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String ImageName
-        {
-            get
-            {
-                return _ImageName;
-            }
-            set
-            {
-                OnImageNameChanging(value);
-                ReportPropertyChanging("ImageName");
-                _ImageName = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("ImageName");
-                OnImageNameChanged();
-            }
-        }
-        private global::System.String _ImageName;
-        partial void OnImageNameChanging(global::System.String value);
-        partial void OnImageNameChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Boolean ProfilePicture
-        {
-            get
-            {
-                return _ProfilePicture;
-            }
-            set
-            {
-                OnProfilePictureChanging(value);
-                ReportPropertyChanging("ProfilePicture");
-                _ProfilePicture = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("ProfilePicture");
-                OnProfilePictureChanged();
-            }
-        }
-        private global::System.Boolean _ProfilePicture;
-        partial void OnProfilePictureChanging(global::System.Boolean value);
-        partial void OnProfilePictureChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.DateTime DateTimeStamp
-        {
-            get
-            {
-                return _DateTimeStamp;
-            }
-            set
-            {
-                OnDateTimeStampChanging(value);
-                ReportPropertyChanging("DateTimeStamp");
-                _DateTimeStamp = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("DateTimeStamp");
-                OnDateTimeStampChanged();
-            }
-        }
-        private global::System.DateTime _DateTimeStamp;
-        partial void OnDateTimeStampChanging(global::System.DateTime value);
-        partial void OnDateTimeStampChanged();
-
-        #endregion
-    
-        #region Navigation Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -11141,18 +11522,18 @@ namespace HaveAVoice.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserPictureComplaints_UserPictures", "UserPictureComplaint")]
-        public EntityCollection<UserPictureComplaint> UserPictureComplaints
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_PhotoAlbum_Users", "PhotoAlbum")]
+        public EntityCollection<PhotoAlbum> PhotoAlbums
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserPictureComplaint>("HaveAVoice.Models.FK_UserPictureComplaints_UserPictures", "UserPictureComplaint");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PhotoAlbum>("HaveAVoice.Models.FK_PhotoAlbum_Users", "PhotoAlbum");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserPictureComplaint>("HaveAVoice.Models.FK_UserPictureComplaints_UserPictures", "UserPictureComplaint", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PhotoAlbum>("HaveAVoice.Models.FK_PhotoAlbum_Users", "PhotoAlbum", value);
                 }
             }
         }
@@ -11163,208 +11544,18 @@ namespace HaveAVoice.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserPictures_Users", "User")]
-        public User User
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Photos_Users", "Photo")]
+        public EntityCollection<Photo> Photos
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_UserPictures_Users", "User").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_UserPictures_Users", "User").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<User> UserReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_UserPictures_Users", "User");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Photo>("HaveAVoice.Models.FK_Photos_Users", "Photo");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_UserPictures_Users", "User", value);
-                }
-            }
-        }
-
-        #endregion
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="HaveAVoice.Models", Name="UserPictureComplaint")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class UserPictureComplaint : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new UserPictureComplaint object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="filedByUserId">Initial value of the FiledByUserId property.</param>
-        /// <param name="userPictureId">Initial value of the UserPictureId property.</param>
-        /// <param name="complaint">Initial value of the Complaint property.</param>
-        public static UserPictureComplaint CreateUserPictureComplaint(global::System.Int32 id, global::System.Int32 filedByUserId, global::System.Int32 userPictureId, global::System.String complaint)
-        {
-            UserPictureComplaint userPictureComplaint = new UserPictureComplaint();
-            userPictureComplaint.Id = id;
-            userPictureComplaint.FiledByUserId = filedByUserId;
-            userPictureComplaint.UserPictureId = userPictureId;
-            userPictureComplaint.Complaint = complaint;
-            return userPictureComplaint;
-        }
-
-        #endregion
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Int32 _Id;
-        partial void OnIdChanging(global::System.Int32 value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 FiledByUserId
-        {
-            get
-            {
-                return _FiledByUserId;
-            }
-            set
-            {
-                OnFiledByUserIdChanging(value);
-                ReportPropertyChanging("FiledByUserId");
-                _FiledByUserId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("FiledByUserId");
-                OnFiledByUserIdChanged();
-            }
-        }
-        private global::System.Int32 _FiledByUserId;
-        partial void OnFiledByUserIdChanging(global::System.Int32 value);
-        partial void OnFiledByUserIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 UserPictureId
-        {
-            get
-            {
-                return _UserPictureId;
-            }
-            set
-            {
-                OnUserPictureIdChanging(value);
-                ReportPropertyChanging("UserPictureId");
-                _UserPictureId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("UserPictureId");
-                OnUserPictureIdChanged();
-            }
-        }
-        private global::System.Int32 _UserPictureId;
-        partial void OnUserPictureIdChanging(global::System.Int32 value);
-        partial void OnUserPictureIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String Complaint
-        {
-            get
-            {
-                return _Complaint;
-            }
-            set
-            {
-                OnComplaintChanging(value);
-                ReportPropertyChanging("Complaint");
-                _Complaint = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Complaint");
-                OnComplaintChanged();
-            }
-        }
-        private global::System.String _Complaint;
-        partial void OnComplaintChanging(global::System.String value);
-        partial void OnComplaintChanged();
-
-        #endregion
-    
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserPictureComplaints_FiledByUserId_Users", "User")]
-        public User User
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_UserPictureComplaints_FiledByUserId_Users", "User").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_UserPictureComplaints_FiledByUserId_Users", "User").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<User> UserReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_UserPictureComplaints_FiledByUserId_Users", "User");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_UserPictureComplaints_FiledByUserId_Users", "User", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Photo>("HaveAVoice.Models.FK_Photos_Users", "Photo", value);
                 }
             }
         }
@@ -11375,34 +11566,18 @@ namespace HaveAVoice.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserPictureComplaints_UserPictures", "UserPicture")]
-        public UserPicture UserPicture
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_PhotoComplaints_Users", "PhotoComplaint")]
+        public EntityCollection<PhotoComplaint> PhotoComplaints
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserPicture>("HaveAVoice.Models.FK_UserPictureComplaints_UserPictures", "UserPicture").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserPicture>("HaveAVoice.Models.FK_UserPictureComplaints_UserPictures", "UserPicture").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<UserPicture> UserPictureReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserPicture>("HaveAVoice.Models.FK_UserPictureComplaints_UserPictures", "UserPicture");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PhotoComplaint>("HaveAVoice.Models.FK_PhotoComplaints_Users", "PhotoComplaint");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<UserPicture>("HaveAVoice.Models.FK_UserPictureComplaints_UserPictures", "UserPicture", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PhotoComplaint>("HaveAVoice.Models.FK_PhotoComplaints_Users", "PhotoComplaint", value);
                 }
             }
         }

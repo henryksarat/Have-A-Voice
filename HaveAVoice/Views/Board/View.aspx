@@ -73,7 +73,7 @@
 			<div class="col-19">
 				<div class="p-a5">
 					<div class="col-2">
-						<img src="/UserPictures/no_profile_picture.jpg" alt="SELF" class="profile" />
+						<img src="/Photos/no_profile_picture.jpg" alt="SELF" class="profile" />
 					</div>
 					<div class="m-lft col-14 m-rgt">
 					    <% using (Html.BeginForm("Create", "BoardReply", new { boardId = Model.Model.Board.Id })) { %>
