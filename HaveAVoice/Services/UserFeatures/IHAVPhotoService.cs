@@ -6,9 +6,6 @@ using HaveAVoice.Models;
 
 namespace HaveAVoice.Services.UserFeatures {
     public interface IHAVPhotoService {
-        void CreatePhotoAlbum(User aUser, string aName, string aDescription);
-        IEnumerable<PhotoAlbum> GetPhotoAlbumsForUser(User aUser);
-
         Photo GetProfilePicture(int aUserId);
         IEnumerable<Photo> GetPhotos(User aViewingUser, int anAlbumId, int aUserId);
         void SetToProfilePicture(User aUser, int aPhotoId);

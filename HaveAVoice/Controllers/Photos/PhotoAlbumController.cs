@@ -13,6 +13,7 @@ using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Services.Helpers;
 using System.Web;
 using HaveAVoice.Controllers.ActionFilters;
+using HaveAVoice.Validation;
 
 namespace HaveAVoice.Controllers.Users.Photos {
     public class PhotoAlbumController : HAVBaseController {
@@ -24,19 +25,19 @@ namespace HaveAVoice.Controllers.Users.Photos {
         private static string LIST_VIEW = "List";
         
 
-        private IHAVPhotoService thePhotoService;
+        private IHAVPhotoAlbumService thePhotoAlbumService;
 
         public PhotoAlbumController() : 
             base(new HAVBaseService(new HAVBaseRepository())) {
-            thePhotoService = new HAVPhotoService();
+                thePhotoAlbumService = new HAVPhotoAlbumService(new ModelStateWrapper(this.ModelState));
         }
 
-        public PhotoAlbumController(IHAVPhotoService aPhotoService, IHAVBaseService aBaseService)
+        public PhotoAlbumController(IHAVPhotoAlbumService aPhotoAlbumService, IHAVBaseService aBaseService)
             : base(aBaseService) {
-                thePhotoService = aPhotoService;
+                thePhotoAlbumService = aPhotoAlbumService;
         }
 
-        [AcceptVerbs(HttpVerbs.Get)]
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult List() {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
@@ -45,7 +46,7 @@ namespace HaveAVoice.Controllers.Users.Photos {
 
             LoggedInListModel<PhotoAlbum> myModel = new LoggedInListModel<PhotoAlbum>(myUser, SiteSection.Photos);
             try {
-                myModel.Models = thePhotoService.GetPhotoAlbumsForUser(myUser);
+                myModel.Models = thePhotoAlbumService.GetPhotoAlbumsForUser(myUser);
             } catch (Exception e) {
                 LogError(e, ALBUM_LIST_ERROR);
                 return SendToErrorPage(ALBUM_LIST_ERROR);
@@ -55,15 +56,16 @@ namespace HaveAVoice.Controllers.Users.Photos {
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
-        public ActionResult Add(string name, string description) {
+        public ActionResult Create(string name, string description) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
             try {
                 User myUser = GetUserInformatonModel().Details;
-                thePhotoService.CreatePhotoAlbum(myUser, name, description);
-                TempData["Message"] = CREATED_SUCCESS;
-                return RedirectToAction(LIST_VIEW);
+                bool myResult = thePhotoAlbumService.CreatePhotoAlbum(myUser, name, description);
+                if (myResult) {
+                    TempData["Message"] = CREATED_SUCCESS;
+                }
             } catch (Exception myException) {
                 TempData["Message"] = CREATED_FAIL;
                 LogError(myException, CREATED_FAIL);

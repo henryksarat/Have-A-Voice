@@ -65,25 +65,7 @@ namespace HaveAVoice.Controllers.Users.Photos {
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult List(int id) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            User myUser = GetUserInformaton();
-
-            LoggedInListModel<PhotoAlbum> myModel = new LoggedInListModel<PhotoAlbum>(myUser, SiteSection.Photos);
-            try {
-                myModel.Models = thePhotoService.GetPhotoAlbumsForUser(myUser);
-            } catch (Exception e) {
-                LogError(e, GALLERY_ERROR);
-                return SendToErrorPage(GALLERY_ERROR);
-            }
-
-            return View(LIST_VIEW, myModel);
-        }
-
-        [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult ListAlbum(int albumId) {
+        public ActionResult List(int albumId) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
@@ -137,7 +119,7 @@ namespace HaveAVoice.Controllers.Users.Photos {
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult AddPhoto(int albumId, HttpPostedFileBase imageFile) {
+        public ActionResult Create(int albumId, HttpPostedFileBase imageFile) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }

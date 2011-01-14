@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInListModel<Photo>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInListModel<PhotoAlbum>>" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UI" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
@@ -19,7 +19,8 @@
         <div class="clear">&nbsp;</div>
         
 		<div class="filter">
-			<% using (Html.BeginForm("Add", "Photos", FormMethod.Post, new { enctype = "multipart/form-data", @class = "create btint-6" })) { %>
+			<% using (Html.BeginForm("Create", "Photos", FormMethod.Post, new { enctype = "multipart/form-data", @class = "create btint-6" })) { %>
+                
 				<div class="col-4 push-6 center">
 					<input type="file" id="ProfilePictureUpload" name="ProfilePictureUpload" size="23" />
 	                <%= Html.ValidationMessage("ProfilePictureUpload", "*") %>
