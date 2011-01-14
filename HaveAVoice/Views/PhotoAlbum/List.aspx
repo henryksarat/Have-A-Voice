@@ -14,7 +14,7 @@
     </div>
     
     <% foreach (var item in Model.Models) { %>
-        <%= Html.ActionLink() %>
+        <%= Html.ActionLink(item.Name, "List", "Photos", new { id = item.Id })%>
     <% } %>
 
 </asp:Content>

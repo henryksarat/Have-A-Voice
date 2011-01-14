@@ -21,6 +21,10 @@ namespace HaveAVoice.Services.UserFeatures {
             thePhotoRepo = aPhotoRepo;
         }
 
+        public void CreatePhotoAlbum(User aUser, string aName, string aDescription) {
+            thePhotoRepo.CreatePhotoAlbum(aUser, aName, aDescription);
+        }
+
         public IEnumerable<Photo> GetPhotos(User aViewingUser, int anAlbumId, int aUserId) {
             if (theFriendService.IsFriend(aUserId, aViewingUser)) {
                 return thePhotoRepo.GetPhotos(aUserId, anAlbumId);

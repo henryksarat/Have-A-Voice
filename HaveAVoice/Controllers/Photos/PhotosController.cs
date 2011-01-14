@@ -13,7 +13,7 @@ using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Services.Helpers;
 using System.Web;
 
-namespace HaveAVoice.Controllers.Users {
+namespace HaveAVoice.Controllers.Users.Photos {
     public class PhotosController : HAVBaseController {
         private static string PROFILE_PICTURE_SUCCESS = "New profile picture set!";
         private static string DELETE_SUCCESS = "Pictures deleted successfully!";
@@ -65,7 +65,7 @@ namespace HaveAVoice.Controllers.Users {
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult List() {
+        public ActionResult List(int id) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
@@ -137,7 +137,7 @@ namespace HaveAVoice.Controllers.Users {
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Add(int albumId, HttpPostedFileBase imageFile) {
+        public ActionResult AddPhoto(int albumId, HttpPostedFileBase imageFile) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
@@ -146,7 +146,7 @@ namespace HaveAVoice.Controllers.Users {
                 thePhotoService.UploadImageWithDatabaseReference(myUser, albumId, imageFile);
                 TempData["Message"] = "Image uploaded!";
                 return RedirectToAction(LIST_VIEW);
-            } catch(CustomException myException) {
+            } catch (CustomException myException) {
                 TempData["Message"] = myException.Message;
             } catch (Exception myException) {
                 TempData["Message"] = UPLOAD_ERROR;

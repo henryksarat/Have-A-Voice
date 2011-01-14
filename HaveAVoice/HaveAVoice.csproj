@@ -81,6 +81,7 @@
     <Compile Include="Controllers\Core\PasswordController.cs" />
     <Compile Include="Controllers\Helpers\ErrorHelper.cs" />
     <Compile Include="Controllers\Issues\IssueReplyCommentController.cs" />
+    <Compile Include="Controllers\Photos\PhotoAlbumController.cs" />
     <Compile Include="Controllers\Users\BoardController.cs" />
     <Compile Include="Controllers\Users\BoardReplyController.cs" />
     <Compile Include="Controllers\Users\CalendarController.cs" />
@@ -88,7 +89,7 @@
     <Compile Include="Controllers\Users\FeedbackController.cs" />
     <Compile Include="Controllers\Issues\IssueReplyController.cs" />
     <Compile Include="Controllers\Users\NotificationController.cs" />
-    <Compile Include="Controllers\Users\PhotosController.cs" />
+    <Compile Include="Controllers\Photos\PhotosController.cs" />
     <Compile Include="Controllers\Users\UserPrivacySettings.cs" />
     <Compile Include="Helpers\Enums\FeedItem.cs" />
     <Compile Include="Helpers\Enums\FriendStatus.cs" />
@@ -408,7 +409,7 @@
     <Content Include="Views\Tabs\Network.aspx" />
     <Content Include="Views\Tabs\Popular.aspx" />
     <Content Include="Views\Photos\Display.aspx" />
-    <Content Include="Views\Photos\List.aspx" />
+    <Content Include="Views\PhotoAlbum\List.aspx" />
     <Content Include="Views\UserPrivacySettings\Edit.aspx" />
     <Content Include="Views\Password\Process.aspx" />
     <Content Include="Views\User\Create.aspx" />
