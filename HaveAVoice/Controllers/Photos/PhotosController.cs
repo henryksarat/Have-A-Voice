@@ -19,19 +19,13 @@ namespace HaveAVoice.Controllers.Users.Photos {
         private static string DELETE_SUCCESS = "Pictures deleted successfully!";
 
         private static string PROFILE_PICTURE_ERROR = "Error setting the profile picture. Please try again.";
-        private static string GALLERY_ERROR = "Unable to load your gallery. Please try again.";
         private static string DISPLAY_ERROR = "Unable to display the photo. Please try again.";
         private static string SELECT_ONE_ERROR = "Please select only ONE image.";
         private static string SELECT_ONE_OR_MORE_ERROR = "Please select AT LEAST one or more images.";
-        private static string UPLOAD_ERROR = "Error uploading image.";
+        private static string SET_PROFILE_PICTURE_ERRROR = "Error settings profile picture.";
 
         private const string EDIT_VIEW = "Edit";
-        private static string SHOW_VIEW = "Show";
-        private static string LIST_VIEW = "List";
-        private static string DISPLAY_VIEW = "Display";
-        private static string PHOTO_ALBUM_DETAILS = "Details";
-        private static string PHOTO_ALBUM_CONTROLLER = "PhotoAlbum";
-        
+        private static string DISPLAY_VIEW = "Display";      
 
         private IHAVPhotoService thePhotoService;
 
@@ -52,9 +46,9 @@ namespace HaveAVoice.Controllers.Users.Photos {
             }
             User myUser = GetUserInformaton();
 
-            LoggedInWrapperModel<string> myModel = new LoggedInWrapperModel<string>(myUser, SiteSection.Photos);
+            LoggedInWrapperModel<Photo> myModel = new LoggedInWrapperModel<Photo>(myUser, SiteSection.Photos);
             try {
-                myModel.Model = PhotoHelper.ConstructUrl(thePhotoService.GetPhoto(myUser, id).ImageName);
+                myModel.Model = thePhotoService.GetPhoto(myUser, id);
             } catch (Exception e) {
                 LogError(e, DISPLAY_ERROR);
                 return SendToErrorPage(DISPLAY_ERROR);
@@ -79,6 +73,21 @@ namespace HaveAVoice.Controllers.Users.Photos {
             };
 
             return View(EDIT_VIEW, myModel);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult SetProfilePicture(int id) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            User myUser = GetUserInformaton();
+            try {
+                thePhotoService.SetToProfilePicture(GetUserInformaton(), id);
+                return RedirectToProfile();
+            } catch (Exception e) {
+                TempData["Message"] = SET_PROFILE_PICTURE_ERRROR;
+                return RedirectToAction(DISPLAY_VIEW, new { id = id});
+            }
         }
 
         [ActionName(EDIT_VIEW)]

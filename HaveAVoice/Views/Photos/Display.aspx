@@ -1,5 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInWrapperModel<string>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInWrapperModel<Photo>>" %>
+<%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
+<%@ Import Namespace="HaveAVoice.Services.Helpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Gallery
@@ -13,8 +15,9 @@
     <%= Html.Encode(ViewData["Message"]) %>
     <div class="clear">&nbsp;</div>
     
+    <%= Html.ActionLink("Set to profile picture", "SetProfilePicture", "Photos", new { id = Model.Model.Id }, null) %>
     <div class="large-photo">
-		<img src="<%= Model.Model %>" />
+		<img src="<%= PhotoHelper.ConstructUrl(Model.Model.ImageName) %>" />
 	</div>
 	<div class="clear">&nbsp;</div>
 </asp:Content>

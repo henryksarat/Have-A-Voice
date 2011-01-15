@@ -351,6 +351,8 @@
     <Content Include="Content\reset.css" />
     <Content Include="Content\tempjquery.js" />
     <Content Include="Global.asax" />
+    <Content Include="Photos\93_-929371034.jpg" />
+    <Content Include="Photos\93_1892066150.JPG" />
     <Content Include="Photos\no_profile_picture.jpg" />
     <Content Include="Views\Account\ChangePassword.aspx" />
     <Content Include="Views\Account\ChangePasswordSuccess.aspx" />
