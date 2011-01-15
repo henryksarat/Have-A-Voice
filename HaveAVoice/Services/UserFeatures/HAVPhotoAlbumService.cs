@@ -35,12 +35,20 @@ namespace HaveAVoice.Services.UserFeatures {
             return true;
         }
 
-        public IEnumerable<PhotoAlbum> GetPhotoAlbumsForUser(User aUser) {
-            return thePhotoRepo.GetPhotoAlbumsForUser(aUser);
+        public IEnumerable<PhotoAlbum> GetPhotoAlbumsForUser(User aRequestingUser, int aUserIdOfAlbum) {
+            if(theFriendService.IsFriend(aUserIdOfAlbum, aRequestingUser)) {
+                return thePhotoRepo.GetPhotoAlbumsForUser(aUserIdOfAlbum);
+            }
+
+            throw new NotFriendException();
         }
 
-        public PhotoAlbum GetPhotoAlbum(UserInformationModel aUserModel, int anAlbumId) {
-            return thePhotoRepo.GetPhotoAlbum(aUserModel.Details, anAlbumId);
+        public PhotoAlbum GetPhotoAlbum(UserInformationModel aUserModel, int aSourceUserId, int anAlbumId) {
+            if (theFriendService.IsFriend(aSourceUserId, aUserModel.Details)) {
+                return thePhotoRepo.GetPhotoAlbum(aSourceUserId, anAlbumId);
+            }
+
+            throw new NotFriendException();
         }
 
         private bool ValidateAlbumName(string aName) {

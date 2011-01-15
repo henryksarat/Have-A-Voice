@@ -12,6 +12,7 @@ using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Controllers.Helpers;
 using System.Collections.Generic;
 using HaveAVoice.Controllers.ActionFilters;
+using HaveAVoice.Exceptions;
 
 namespace HaveAVoice.Controllers.Users
 {
@@ -60,6 +61,8 @@ namespace HaveAVoice.Controllers.Users
             LoggedInListModel<Event> myLoggedInModel = new LoggedInListModel<Event>(aViewingUser, SiteSection.Calendar);
             try {
                 myLoggedInModel.Models = theEventService.GetEventsForUser(aViewingUser, aUserId);
+            } catch(NotFriendException e) {
+                SendToErrorPage(HAVConstants.NOT_FRIEND);
             } catch (Exception e) {
                 LogError(e, LOAD_EVENTS_ERROR);
                 ViewData["Message"] = LOAD_EVENTS_ERROR;

@@ -15,7 +15,7 @@ namespace HaveAVoice.Services.Helpers {
                 myProfileUrl = HAVConstants.PHOTO_LOCATION_FROM_VIEW + myProfilePicture.ImageName;
             } else {
                 IHAVPhotoService myPhotoService = new HAVPhotoService();
-                Photo myPhoto = myPhotoService.GetProfilePicutre(aUser);
+                Photo myPhoto = myPhotoService.GetProfilePicture(aUser.Id);
 
                 if (myPhoto != null) {
                     myProfileUrl =  HAVConstants.PHOTO_LOCATION_FROM_VIEW + myPhoto.ImageName;

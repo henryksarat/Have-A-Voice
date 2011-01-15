@@ -9,9 +9,9 @@ namespace HaveAVoice.Repositories.UserFeatures {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
         private const string PROFILE_PICTURE_ALBUM = "Profile Pictures";
 
-        public IEnumerable<PhotoAlbum> GetPhotoAlbumsForUser(User aUser) {
+        public IEnumerable<PhotoAlbum> GetPhotoAlbumsForUser(int aUserIdOfAlbum) {
             return (from p in theEntities.PhotoAlbums
-                    where p.CreatedByUserId == aUser.Id
+                    where p.CreatedByUserId == aUserIdOfAlbum
                     select p).ToList<PhotoAlbum>();
         }
 
@@ -101,9 +101,9 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     select p).FirstOrDefault<PhotoAlbum>();
         }
 
-        public PhotoAlbum GetPhotoAlbum(User aUser, int anAlbumId) {
+        public PhotoAlbum GetPhotoAlbum(int aPhotoAlbumOfUserId, int anAlbumId) {
             return (from p in theEntities.PhotoAlbums
-                    where p.CreatedByUserId == aUser.Id
+                    where p.CreatedByUserId == aPhotoAlbumOfUserId
                     && p.Id == anAlbumId
                     select p).FirstOrDefault<PhotoAlbum>();
         }

@@ -38,22 +38,24 @@ namespace HaveAVoice.Controllers.Users.Photos {
                 thePhotoAlbumService = aPhotoAlbumService;
         }
 
+        [RequiredRouteValueAttribute.RequireRouteValues(new string[] { })]
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult List() {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
+            return ListPhotoAlbums(myUser, myUser.Id);
+        }
 
-            LoggedInListModel<PhotoAlbum> myModel = new LoggedInListModel<PhotoAlbum>(myUser, SiteSection.Photos);
-            try {
-                myModel.Models = thePhotoAlbumService.GetPhotoAlbumsForUser(myUser);
-            } catch (Exception e) {
-                LogError(e, ALBUM_LIST_ERROR);
-                return SendToErrorPage(ALBUM_LIST_ERROR);
+        [RequiredRouteValueAttribute.RequireRouteValues(new[] { "id" })]
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
+        public ActionResult List(int id) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
             }
-
-            return View(LIST_VIEW, myModel);
+            User myUser = GetUserInformaton();
+            return ListPhotoAlbums(myUser, id);
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
@@ -76,21 +78,37 @@ namespace HaveAVoice.Controllers.Users.Photos {
         }
 
         [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
-        public ActionResult Details(int albumId) {
+        public ActionResult Details(int albumId, int sourceUserId) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
             UserInformationModel myUser = GetUserInformatonModel();
             LoggedInWrapperModel<PhotoAlbum> myPhotoAlbum = new LoggedInWrapperModel<PhotoAlbum>(myUser.Details, SiteSection.Photos);
             try {
-                myPhotoAlbum.Model = thePhotoAlbumService.GetPhotoAlbum(myUser, albumId);
+                myPhotoAlbum.Model = thePhotoAlbumService.GetPhotoAlbum(myUser, sourceUserId, albumId);
+            } catch (NotFriendException e) {
+                return SendToErrorPage(HAVConstants.NOT_FRIEND);
             } catch (Exception myException) {
                 TempData["Message"] = GET_ALBUM_ERROR;
                 LogError(myException, GET_ALBUM_ERROR);
                 return RedirectToAction(LIST_VIEW);
             }
 
-            return RedirectToAction(DETAILS_VIEW);
+            return View(DETAILS_VIEW, myPhotoAlbum);
+        }
+
+        private ActionResult ListPhotoAlbums(User aRequestingUser, int aUserIfOfAlbum) {
+            LoggedInListModel<PhotoAlbum> myModel = new LoggedInListModel<PhotoAlbum>(aRequestingUser, SiteSection.Photos);
+            try {
+                myModel.Models = thePhotoAlbumService.GetPhotoAlbumsForUser(aRequestingUser, aUserIfOfAlbum);
+            } catch (NotFriendException e) {
+                return SendToErrorPage(HAVConstants.NOT_FRIEND);
+            } catch (Exception e) {
+                LogError(e, ALBUM_LIST_ERROR);
+                return SendToErrorPage(ALBUM_LIST_ERROR);
+            }
+
+            return View(LIST_VIEW, myModel);
         }
     }
 }

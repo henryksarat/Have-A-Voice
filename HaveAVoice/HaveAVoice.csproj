@@ -388,7 +388,7 @@
     <Content Include="Views\Permission\Delete.aspx" />
     <Content Include="Views\Permission\Edit.aspx" />
     <Content Include="Views\Permission\Index.aspx" />
-    <Content Include="Views\Photos\List.aspx" />
+    <Content Include="Views\PhotoAlbum\Details.aspx" />
     <Content Include="Views\Restriction\Create.aspx" />
     <Content Include="Views\Restriction\Delete.aspx" />
     <Content Include="Views\Restriction\Edit.aspx" />
@@ -418,7 +418,6 @@
     <Content Include="Views\User\Edit.aspx" />
     <Content Include="Views\Friend\Friends.aspx" />
     <Content Include="Views\Password\Request.aspx" />
-    <Content Include="Views\Photos\Show.aspx" />
     <Content Include="Views\Profile\Show.aspx" />
     <Content Include="Views\User\UserList.aspx" />
     <Content Include="Views\Photos\Edit.aspx" />

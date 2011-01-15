@@ -8,7 +8,7 @@ using HaveAVoice.Models.View;
 namespace HaveAVoice.Services.UserFeatures {
     public interface IHAVPhotoAlbumService {
         bool CreatePhotoAlbum(User aUser, string aName, string aDescription);
-        IEnumerable<PhotoAlbum> GetPhotoAlbumsForUser(User aUser);
-        PhotoAlbum GetPhotoAlbum(UserInformationModel aUserModel, int anAlbumId);
+        IEnumerable<PhotoAlbum> GetPhotoAlbumsForUser(User aRequestingUser, int aUserIdOfAlbum);
+        PhotoAlbum GetPhotoAlbum(UserInformationModel aUserModel, int aSourceUserId, int anAlbumId);
     }
 }

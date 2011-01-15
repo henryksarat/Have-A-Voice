@@ -29,6 +29,8 @@ namespace HaveAVoice.Controllers.Users.Photos {
         private static string SHOW_VIEW = "Show";
         private static string LIST_VIEW = "List";
         private static string DISPLAY_VIEW = "Display";
+        private static string PHOTO_ALBUM_DETAILS = "Details";
+        private static string PHOTO_ALBUM_CONTROLLER = "PhotoAlbum";
         
 
         private IHAVPhotoService thePhotoService;
@@ -41,45 +43,6 @@ namespace HaveAVoice.Controllers.Users.Photos {
         public PhotosController(IHAVPhotoService aPhotoService, IHAVBaseService aBaseService)
             : base(aBaseService) {
                 thePhotoService = aPhotoService;
-        }
-
-        [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Show(int id) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-
-            User myUser = GetUserInformaton();
-
-            IEnumerable<Photo> myPictures = new List<Photo>();
-            try {
-                //myPictures = thePhotoService.GetPhotos(myUser, id);
-            } catch(NotFriendException e) {
-                return SendToErrorPage(HAVConstants.NOT_FRIEND);
-            } catch (Exception e) {
-                LogError(e, GALLERY_ERROR);
-                return SendToErrorPage(GALLERY_ERROR);
-            }
-
-            return View(SHOW_VIEW, myPictures);
-        }
-
-        [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult List(int albumId) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            User myUser = GetUserInformaton();
-
-            LoggedInListModel<Photo> myModel = new LoggedInListModel<Photo>(myUser, SiteSection.Photos);
-            try {
-                myModel.Models = thePhotoService.GetPhotos(myUser, albumId, myUser.Id);
-            } catch (Exception e) {
-                LogError(e, GALLERY_ERROR);
-                return SendToErrorPage(GALLERY_ERROR);
-            }
-
-            return View(LIST_VIEW, myModel);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
@@ -116,26 +79,6 @@ namespace HaveAVoice.Controllers.Users.Photos {
             };
 
             return View(EDIT_VIEW, myModel);
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Create(int albumId, HttpPostedFileBase imageFile) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            try {
-                User myUser = GetUserInformatonModel().Details;
-                thePhotoService.UploadImageWithDatabaseReference(myUser, albumId, imageFile);
-                TempData["Message"] = "Image uploaded!";
-                return RedirectToAction(LIST_VIEW);
-            } catch (CustomException myException) {
-                TempData["Message"] = myException.Message;
-            } catch (Exception myException) {
-                TempData["Message"] = UPLOAD_ERROR;
-                LogError(myException, UPLOAD_ERROR);
-            }
-
-            return RedirectToAction(LIST_VIEW);
         }
 
         [ActionName(EDIT_VIEW)]

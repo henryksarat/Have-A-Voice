@@ -20,9 +20,9 @@
         
 		<div class="filter">
 			<% using (Html.BeginForm("Create", "Photos", FormMethod.Post, new { enctype = "multipart/form-data", @class = "create btint-6" })) { %>
-                
+                <%= Html.Hidden("AlbumId", Model.Model.Id) %>
 				<div class="col-4 push-6 center">
-					<input type="file" id="ProfilePictureUpload" name="ProfilePictureUpload" size="23" />
+					<input type="file" id="ImageUpload" name="ImageUpload" size="23" />
 	                <%= Html.ValidationMessage("ProfilePictureUpload", "*") %>
 				</div>
 				<div class="col-4 push-8 center">
@@ -36,7 +36,7 @@
 
 		<% int cnt = 0; %>
 		<% string klass = "gallery"; %>
-        <% foreach (var item in Model.Models) { %>
+        <% foreach (var item in Model.Model.Photos) { %>
         	<% if (cnt % 2 == 0) {
         		klass = "gallery";
 			} else {

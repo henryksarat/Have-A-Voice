@@ -33,7 +33,7 @@
     <% } %>
 
     <% foreach (var item in Model.Models) { %>
-        <%= Html.ActionLink(item.Name, "List", "Photos", new { albumId = item.Id }, null)%><br />
+        <%= Html.ActionLink(item.Name, "Details", "PhotoAlbum", new { albumId = item.Id }, null)%><br />
     <% } %>
 
 

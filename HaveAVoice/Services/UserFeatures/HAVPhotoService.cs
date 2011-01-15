@@ -33,10 +33,6 @@ namespace HaveAVoice.Services.UserFeatures {
             throw new NotFriendException();
         }
 
-        public IEnumerable<PhotoAlbum> GetPhotoAlbumsForUser(User aUser) {
-            return thePhotoRepo.GetPhotoAlbumsForUser(aUser);
-        }
-
         public void DeletePhotos(List<int> aPhotoIds) {
             foreach (int aPhotoId in aPhotoIds) {
                 thePhotoRepo.DeletePhoto(aPhotoId);
@@ -65,10 +61,10 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public bool IsValidImage(string anImageFile) {
             return !String.IsNullOrEmpty(anImageFile)
-                && (anImageFile.EndsWith(".jpg") || anImageFile.EndsWith(".jpeg") || anImageFile.EndsWith(".gif"));
+                && (anImageFile.ToUpper().EndsWith(".JPG") || anImageFile.ToUpper().EndsWith(".JPEG") || anImageFile.ToUpper().EndsWith(".GIF"));
         }
 
-        public void UploadImageWithDatabaseReference(User aUserToUploadFor, int anAlbumId, HttpPostedFileBase aImageFile) {
+        private void UploadImageWithDatabaseReference(User aUserToUploadFor, int anAlbumId, HttpPostedFileBase aImageFile) {
             string myImageName = UploadImage(aUserToUploadFor, aImageFile);
             thePhotoRepo.AddReferenceToImage(aUserToUploadFor, anAlbumId, myImageName);
         }
