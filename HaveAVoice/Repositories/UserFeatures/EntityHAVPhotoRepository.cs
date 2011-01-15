@@ -9,6 +9,12 @@ namespace HaveAVoice.Repositories.UserFeatures {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
         private const string PROFILE_PICTURE_ALBUM = "Profile Pictures";
 
+        public PhotoAlbum GetPhotoAlbum(int anAlbumId) {
+            return (from p in theEntities.PhotoAlbums
+                    where p.Id == anAlbumId
+                    select p).FirstOrDefault<PhotoAlbum>();
+        }
+
         public IEnumerable<PhotoAlbum> GetPhotoAlbumsForUser(int aUserIdOfAlbum) {
             return (from p in theEntities.PhotoAlbums
                     where p.CreatedByUserId == aUserIdOfAlbum
@@ -32,6 +38,16 @@ namespace HaveAVoice.Repositories.UserFeatures {
             theEntities.SaveChanges();
 
             return myAlbum;
+        }
+
+        public void EditPhotoAlbum(int anAlbumId, string aName, string aDescription) {
+            PhotoAlbum myAlbum = GetPhotoAlbum(anAlbumId);
+
+            myAlbum.Name = aName;
+            myAlbum.Description = aDescription;
+
+            theEntities.ApplyCurrentValues(myAlbum.EntityKey.EntitySetName, myAlbum);
+            theEntities.SaveChanges();
         }
 
         public Photo AddReferenceToImage(User aUser, int anAlbumId, string anImageName) {
@@ -98,13 +114,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
             return (from p in theEntities.PhotoAlbums
                     where p.CreatedByUserId == aUser.Id
                     && p.Name == aPhotoAlbumnName
-                    select p).FirstOrDefault<PhotoAlbum>();
-        }
-
-        public PhotoAlbum GetPhotoAlbum(int aPhotoAlbumOfUserId, int anAlbumId) {
-            return (from p in theEntities.PhotoAlbums
-                    where p.CreatedByUserId == aPhotoAlbumOfUserId
-                    && p.Id == anAlbumId
                     select p).FirstOrDefault<PhotoAlbum>();
         }
     }

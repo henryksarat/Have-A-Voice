@@ -17,6 +17,7 @@
 
     <% using (Html.BeginForm("Create", "PhotoAlbum")) {%>
         <%= Html.Encode(ViewData["Message"]) %><br />
+        <%= Html.Encode(TempData["Message"]) %><br />
         <p>
             <label for="Name">Name:</label>
             <%= Html.TextBox("Name") %>
@@ -33,7 +34,8 @@
     <% } %>
 
     <% foreach (var item in Model.Models) { %>
-        <%= Html.ActionLink(item.Name, "Details", "PhotoAlbum", new { albumId = item.Id, sourceUserId = item.CreatedByUserId}, null)%><br />
+        <%= Html.ActionLink(item.Name, "Details", "PhotoAlbum", new { id = item.Id }, null)%> 
+        <%= Html.ActionLink("Edit", "Edit", "PhotoAlbum", new { id = item.Id }, null)%><br /> 
     <% } %>
 
 

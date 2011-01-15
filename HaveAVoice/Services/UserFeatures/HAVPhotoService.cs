@@ -7,9 +7,13 @@ using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Models;
 using HaveAVoice.Helpers;
 using HaveAVoice.Exceptions;
+using System.IO;
+using HaveAVoice.Services.Helpers;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVPhotoService : HAVBaseService, IHAVPhotoService {
+        private const string UNAUTHORIZED_UPLOAD = "You are not allowed to upload to that album.";
+
         private IHAVFriendService theFriendService;
         private IHAVPhotoRepository thePhotoRepo;
  
@@ -33,10 +37,20 @@ namespace HaveAVoice.Services.UserFeatures {
             throw new NotFriendException();
         }
 
-        public void DeletePhotos(List<int> aPhotoIds) {
-            foreach (int aPhotoId in aPhotoIds) {
+        public void DeletePhoto(User aUserDeleting, int aPhotoId) {
+            Photo myPhoto = GetPhoto(aUserDeleting, aPhotoId);
+            if (myPhoto.UploadedByUserId == aUserDeleting.Id) {
+                FileInfo myFile = new FileInfo(HttpContext.Current.Server.MapPath(PhotoHelper.ConstructUrl(myPhoto.ImageName)));
+                if (myFile.Exists) {
+                    myFile.Delete();
+                } else {
+                    throw new FileNotFoundException();
+                }
+
                 thePhotoRepo.DeletePhoto(aPhotoId);
             }
+
+            throw new CustomException(HAVConstants.NOT_ALLOWED);
         }
 
         public Photo GetPhoto(User aViewingUser,  int aPhotoId) {
@@ -64,11 +78,6 @@ namespace HaveAVoice.Services.UserFeatures {
                 && (anImageFile.ToUpper().EndsWith(".JPG") || anImageFile.ToUpper().EndsWith(".JPEG") || anImageFile.ToUpper().EndsWith(".GIF"));
         }
 
-        private void UploadImageWithDatabaseReference(User aUserToUploadFor, int anAlbumId, HttpPostedFileBase aImageFile) {
-            string myImageName = UploadImage(aUserToUploadFor, aImageFile);
-            thePhotoRepo.AddReferenceToImage(aUserToUploadFor, anAlbumId, myImageName);
-        }
-
         public Photo GetProfilePicutre(User aUser) {
             return GetProfilePicture(aUser.Id);
         }
@@ -77,6 +86,16 @@ namespace HaveAVoice.Services.UserFeatures {
             return thePhotoRepo.GetProfilePicture(aUserId);
         }
 
+        public void UploadImageWithDatabaseReference(User aUserToUploadFor, int anAlbumId, HttpPostedFileBase aImageFile) {
+             PhotoAlbum myAlbum = thePhotoRepo.GetPhotoAlbum(anAlbumId);
+             if (myAlbum.CreatedByUserId == aUserToUploadFor.Id) {
+                 string myImageName = UploadImage(aUserToUploadFor, aImageFile);
+                 thePhotoRepo.AddReferenceToImage(aUserToUploadFor, anAlbumId, myImageName);
+             }
+
+             new CustomException(UNAUTHORIZED_UPLOAD);
+         }
+
         private string UploadImage(User aUserToUploadFor, HttpPostedFileBase aImageFile) {
             if(!IsValidImage(aImageFile.FileName)) {
                     throw new CustomException("Please specify a proper image file that ends in .gif, .jpg, or .jpeg.");
@@ -84,7 +103,7 @@ namespace HaveAVoice.Services.UserFeatures {
             string[] mySplitOnPeriod = aImageFile.FileName.Split(new char[] { '.' });
             string myFileExtension = mySplitOnPeriod[mySplitOnPeriod.Length - 1];
             string myFileName = aUserToUploadFor.Id + "_" + DateTime.UtcNow.GetHashCode() + "." + myFileExtension;
-            string filePath = HttpContext.Current.Server.MapPath(HAVConstants.PHOTO_LOCATION_FROM_VIEW) + myFileName;
+            string filePath = HttpContext.Current.Server.MapPath(PhotoHelper.ConstructUrl(myFileName));
             aImageFile.SaveAs(filePath);
             return myFileName;
         }

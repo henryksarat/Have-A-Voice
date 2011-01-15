@@ -8,7 +8,9 @@ namespace HaveAVoice.Repositories.UserFeatures {
     public interface IHAVPhotoRepository {
         IEnumerable<PhotoAlbum> GetPhotoAlbumsForUser(int aUserIdOfAlbum);
         PhotoAlbum CreatePhotoAlbum(User aUser, string aName, string aDescription);
-        PhotoAlbum GetPhotoAlbum(int aPhotoAlbumOfUserId, int anAlbumId);
+        PhotoAlbum GetPhotoAlbum(int anAlbumId);
+        void EditPhotoAlbum(int anAlbumId, string aName, string aDescription);
+
         PhotoAlbum GetProfilePictureAlbumForUser(User aUser);
         Photo AddReferenceToImage(User aUser, int anAlbumId, string anImageName);
         void SetToProfilePicture(User aUser, int aPhotoId);

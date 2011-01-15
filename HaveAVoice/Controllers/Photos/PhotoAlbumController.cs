@@ -18,13 +18,16 @@ using HaveAVoice.Validation;
 namespace HaveAVoice.Controllers.Users.Photos {
     public class PhotoAlbumController : HAVBaseController {
         private static string CREATED_SUCCESS = "Photo album created!";
+        private const string EDIT_SUCCESS = "Photo album edited successfully!";
 
-        private static string GET_ALBUM_ERROR = "Error retrieving the album. Please try again.";
-        private static string ALBUM_LIST_ERROR = "Error retrieving your photo album list. Please try again.";
-        private static string CREATED_FAIL = "Error creating photo album. Please try again.";
+        private const string GET_ALBUM_ERROR = "Error retrieving the album. Please try again.";
+        private const string ALBUM_LIST_ERROR = "Error retrieving your photo album list. Please try again.";
+        private const string CREATED_FAIL = "Error creating photo album. Please try again.";
+        private const string EDIT_ERROR = "Error editing the photo album. Please try again.";
 
-        private static string LIST_VIEW = "List";
-        private static string DETAILS_VIEW = "Details";
+        private const string LIST_VIEW = "List";
+        private const string DETAILS_VIEW = "Details";
+        private const string EDIT_VIEW = "Edit";
 
         private IHAVPhotoAlbumService thePhotoAlbumService;
 
@@ -78,14 +81,14 @@ namespace HaveAVoice.Controllers.Users.Photos {
         }
 
         [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
-        public ActionResult Details(int albumId, int sourceUserId) {
+        public ActionResult Details(int id) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
             UserInformationModel myUser = GetUserInformatonModel();
             LoggedInWrapperModel<PhotoAlbum> myPhotoAlbum = new LoggedInWrapperModel<PhotoAlbum>(myUser.Details, SiteSection.Photos);
             try {
-                myPhotoAlbum.Model = thePhotoAlbumService.GetPhotoAlbum(myUser, sourceUserId, albumId);
+                myPhotoAlbum.Model = thePhotoAlbumService.GetPhotoAlbum(myUser, id);
             } catch (NotFriendException e) {
                 return SendToErrorPage(HAVConstants.NOT_FRIEND);
             } catch (Exception myException) {
@@ -95,6 +98,48 @@ namespace HaveAVoice.Controllers.Users.Photos {
             }
 
             return View(DETAILS_VIEW, myPhotoAlbum);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData, ImportModelStateFromTempData]
+        public ActionResult Edit(int id) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            UserInformationModel myUser = GetUserInformatonModel();
+            LoggedInWrapperModel<PhotoAlbum> myPhotoAlbum = new LoggedInWrapperModel<PhotoAlbum>(myUser.Details, SiteSection.Photos);
+            try {
+                myPhotoAlbum.Model = thePhotoAlbumService.GetPhotoAlbumForEdit(myUser, id);
+            } catch (CustomException e) {
+                return SendToErrorPage(e.Message);
+            } catch (Exception e) {
+                TempData["Message"] = GET_ALBUM_ERROR;
+                LogError(e, GET_ALBUM_ERROR);
+                return RedirectToAction(LIST_VIEW);
+            }
+
+            return View(EDIT_VIEW, myPhotoAlbum);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
+        public ActionResult Edit(int albumId, string name, string description) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            User myUser = GetUserInformatonModel().Details;
+            try {
+                bool myResult = thePhotoAlbumService.EditPhotoAlbum(myUser, albumId, name, description);
+                if (myResult) {
+                    TempData["Message"] = EDIT_SUCCESS; ;
+                    return RedirectToAction(LIST_VIEW);
+                }
+            } catch (CustomException e) {
+                return SendToErrorPage(e.Message);
+            } catch (Exception e) {
+                TempData["Message"] = EDIT_ERROR;
+                LogError(e, EDIT_ERROR);
+            }
+
+            return RedirectToAction(EDIT_VIEW);
         }
 
         private ActionResult ListPhotoAlbums(User aRequestingUser, int aUserIfOfAlbum) {

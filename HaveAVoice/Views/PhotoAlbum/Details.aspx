@@ -2,6 +2,8 @@
 <%@ Import Namespace="HaveAVoice.Helpers.UI" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
+<%@Import Namespace="HaveAVoice.Helpers.UserInformation" %>
+<%@ Import Namespace="HaveAVoice.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Gallery
@@ -18,22 +20,31 @@
         <%= Html.Encode(TempData["Message"]) %>
         <div class="clear">&nbsp;</div>
         
-		<div class="filter">
-			<% using (Html.BeginForm("Create", "Photos", FormMethod.Post, new { enctype = "multipart/form-data", @class = "create btint-6" })) { %>
-                <%= Html.Hidden("AlbumId", Model.Model.Id) %>
-				<div class="col-4 push-6 center">
-					<input type="file" id="ImageUpload" name="ImageUpload" size="23" />
-	                <%= Html.ValidationMessage("ProfilePictureUpload", "*") %>
-				</div>
-				<div class="col-4 push-8 center">
-					<input type="submit" value="Upload" class="create" />
-				</div>
-				<div class="clear">&nbsp;</div>
-			<% } %>
-			<div class="clear">&nbsp;</div>
-		</div>
-		<div class="spacer-10">&nbsp;</div>
-
+        <div>
+            Album title = <%= Model.Model.Name %>
+        </div>
+        <div>
+            Album Description = <%= Model.Model.Description %>
+        </div>
+        <% UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation(); %>
+        <% if (myUserInformationModel.Details.Id == Model.Model.CreatedByUserId) { %>
+		    <div class="filter">
+			    <% using (Html.BeginForm("Create", "Photos", FormMethod.Post, new { enctype = "multipart/form-data", @class = "create btint-6" })) { %>
+                    <%= Html.Hidden("AlbumId", Model.Model.Id) %>
+				        <div class="col-4 push-6 center">
+					        <input type="file" id="ImageUpload" name="ImageUpload" size="23" />
+	                        <%= Html.ValidationMessage("ProfilePictureUpload", "*")%>
+				        </div>
+                
+				    <div class="col-4 push-8 center">
+					    <input type="submit" value="Upload" class="create" />
+				    </div>
+				    <div class="clear">&nbsp;</div>
+			    <% } %>
+			    <div class="clear">&nbsp;</div>
+		    </div>
+		    <div class="spacer-10">&nbsp;</div>
+        <% }  %>
 		<% int cnt = 0; %>
 		<% string klass = "gallery"; %>
         <% foreach (var item in Model.Model.Photos) { %>
