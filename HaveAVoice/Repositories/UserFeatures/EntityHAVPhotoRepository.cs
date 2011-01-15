@@ -100,5 +100,12 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     && p.Name == aPhotoAlbumnName
                     select p).FirstOrDefault<PhotoAlbum>();
         }
+
+        public PhotoAlbum GetPhotoAlbum(User aUser, int anAlbumId) {
+            return (from p in theEntities.PhotoAlbums
+                    where p.CreatedByUserId == aUser.Id
+                    && p.Id == anAlbumId
+                    select p).FirstOrDefault<PhotoAlbum>();
+        }
     }
 }

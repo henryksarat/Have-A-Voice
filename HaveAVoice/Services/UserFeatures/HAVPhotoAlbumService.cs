@@ -8,6 +8,7 @@ using HaveAVoice.Models;
 using HaveAVoice.Helpers;
 using HaveAVoice.Exceptions;
 using HaveAVoice.Validation;
+using HaveAVoice.Models.View;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVPhotoAlbumService : HAVBaseService, IHAVPhotoAlbumService {
@@ -36,6 +37,10 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public IEnumerable<PhotoAlbum> GetPhotoAlbumsForUser(User aUser) {
             return thePhotoRepo.GetPhotoAlbumsForUser(aUser);
+        }
+
+        public PhotoAlbum GetPhotoAlbum(UserInformationModel aUserModel, int anAlbumId) {
+            return thePhotoRepo.GetPhotoAlbum(aUserModel.Details, anAlbumId);
         }
 
         private bool ValidateAlbumName(string aName) {

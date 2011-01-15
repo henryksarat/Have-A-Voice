@@ -19,11 +19,12 @@ namespace HaveAVoice.Controllers.Users.Photos {
     public class PhotoAlbumController : HAVBaseController {
         private static string CREATED_SUCCESS = "Photo album created!";
 
+        private static string GET_ALBUM_ERROR = "Error retrieving the album. Please try again.";
         private static string ALBUM_LIST_ERROR = "Error retrieving your photo album list. Please try again.";
         private static string CREATED_FAIL = "Error creating photo album. Please try again.";
 
         private static string LIST_VIEW = "List";
-        
+        private static string DETAILS_VIEW = "Details";
 
         private IHAVPhotoAlbumService thePhotoAlbumService;
 
@@ -72,6 +73,24 @@ namespace HaveAVoice.Controllers.Users.Photos {
             }
 
             return RedirectToAction(LIST_VIEW);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
+        public ActionResult Details(int albumId) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            UserInformationModel myUser = GetUserInformatonModel();
+            LoggedInWrapperModel<PhotoAlbum> myPhotoAlbum = new LoggedInWrapperModel<PhotoAlbum>(myUser.Details, SiteSection.Photos);
+            try {
+                myPhotoAlbum.Model = thePhotoAlbumService.GetPhotoAlbum(myUser, albumId);
+            } catch (Exception myException) {
+                TempData["Message"] = GET_ALBUM_ERROR;
+                LogError(myException, GET_ALBUM_ERROR);
+                return RedirectToAction(LIST_VIEW);
+            }
+
+            return RedirectToAction(DETAILS_VIEW);
         }
     }
 }
