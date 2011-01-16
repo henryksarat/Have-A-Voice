@@ -9,24 +9,23 @@ using HaveAVoice.Helpers;
 using HaveAVoice.Exceptions;
 using System.IO;
 using HaveAVoice.Services.Helpers;
+using HaveAVoice.Models.View;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVPhotoService : HAVBaseService, IHAVPhotoService {
         private const string UNAUTHORIZED_UPLOAD = "You are not allowed to upload to that album.";
 
         private IHAVFriendService theFriendService;
+        private IHAVPhotoAlbumRepository thePhotoAlbumRepo;
         private IHAVPhotoRepository thePhotoRepo;
  
         public HAVPhotoService()
-            : this(new HAVFriendService(), new EntityHAVPhotoRepository(), new HAVBaseRepository()) { }
+            : this(new HAVFriendService(), new EntityHAVPhotoAlbumRepository(), new EntityHAVPhotoRepository(), new HAVBaseRepository()) { }
 
-        public HAVPhotoService(IHAVFriendService aFriendService, IHAVPhotoRepository aPhotoRepo, IHAVBaseRepository aBaseRepository) : base(aBaseRepository) {
+        public HAVPhotoService(IHAVFriendService aFriendService, IHAVPhotoAlbumRepository aPhotoAlbumRepo, IHAVPhotoRepository aPhotoRepo, IHAVBaseRepository aBaseRepository) : base(aBaseRepository) {
+            thePhotoAlbumRepo = aPhotoAlbumRepo;
             theFriendService = aFriendService;
             thePhotoRepo = aPhotoRepo;
-        }
-
-        public void CreatePhotoAlbum(User aUser, string aName, string aDescription) {
-            thePhotoRepo.CreatePhotoAlbum(aUser, aName, aDescription);
         }
 
         public IEnumerable<Photo> GetPhotos(User aViewingUser, int anAlbumId, int aUserId) {
@@ -48,9 +47,9 @@ namespace HaveAVoice.Services.UserFeatures {
                 }
 
                 thePhotoRepo.DeletePhoto(aPhotoId);
+            } else {
+                throw new CustomException(HAVConstants.NOT_ALLOWED);
             }
-
-            throw new CustomException(HAVConstants.NOT_ALLOWED);
         }
 
         public Photo GetPhoto(User aViewingUser,  int aPhotoId) {
@@ -67,7 +66,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public void UploadProfilePicture(User aUserToUploadFor, HttpPostedFileBase aImageFile) {
-            PhotoAlbum myProfilePictureAlbum = thePhotoRepo.GetProfilePictureAlbumForUser(aUserToUploadFor);
+            PhotoAlbum myProfilePictureAlbum = thePhotoAlbumRepo.GetProfilePictureAlbumForUser(aUserToUploadFor);
             string myImageName = UploadImage(aUserToUploadFor, aImageFile);
             Photo myPhoto = thePhotoRepo.AddReferenceToImage(aUserToUploadFor, myProfilePictureAlbum.Id, myImageName);
             thePhotoRepo.SetToProfilePicture(aUserToUploadFor, myPhoto.Id);
@@ -86,11 +85,11 @@ namespace HaveAVoice.Services.UserFeatures {
             return thePhotoRepo.GetProfilePicture(aUserId);
         }
 
-        public void UploadImageWithDatabaseReference(User aUserToUploadFor, int anAlbumId, HttpPostedFileBase aImageFile) {
-             PhotoAlbum myAlbum = thePhotoRepo.GetPhotoAlbum(anAlbumId);
-             if (myAlbum.CreatedByUserId == aUserToUploadFor.Id) {
-                 string myImageName = UploadImage(aUserToUploadFor, aImageFile);
-                 thePhotoRepo.AddReferenceToImage(aUserToUploadFor, anAlbumId, myImageName);
+        public void UploadImageWithDatabaseReference(UserInformationModel aUserToUploadFor, int anAlbumId, HttpPostedFileBase aImageFile) {
+            PhotoAlbum myAlbum = thePhotoAlbumRepo.GetPhotoAlbum(anAlbumId);
+             if (myAlbum.CreatedByUserId == aUserToUploadFor.Details.Id) {
+                 string myImageName = UploadImage(aUserToUploadFor.Details, aImageFile);
+                 thePhotoRepo.AddReferenceToImage(aUserToUploadFor.Details, anAlbumId, myImageName);
              }
 
              new CustomException(UNAUTHORIZED_UPLOAD);

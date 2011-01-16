@@ -7,48 +7,6 @@ using HaveAVoice.Models;
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVPhotoRepository : HAVBaseRepository, IHAVPhotoRepository {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
-        private const string PROFILE_PICTURE_ALBUM = "Profile Pictures";
-
-        public PhotoAlbum GetPhotoAlbum(int anAlbumId) {
-            return (from p in theEntities.PhotoAlbums
-                    where p.Id == anAlbumId
-                    select p).FirstOrDefault<PhotoAlbum>();
-        }
-
-        public IEnumerable<PhotoAlbum> GetPhotoAlbumsForUser(int aUserIdOfAlbum) {
-            return (from p in theEntities.PhotoAlbums
-                    where p.CreatedByUserId == aUserIdOfAlbum
-                    select p).ToList<PhotoAlbum>();
-        }
-
-        public PhotoAlbum GetProfilePictureAlbumForUser(User aUser) {
-            PhotoAlbum myAlbum = GetPhotoAlbumForUserandAlbumName(aUser, PROFILE_PICTURE_ALBUM);
-            if (myAlbum == null) {
-                myAlbum = CreatePhotoAlbum(aUser, PROFILE_PICTURE_ALBUM, string.Empty);
-            }
-
-            return myAlbum;
-        }
-
-        public PhotoAlbum CreatePhotoAlbum(User aUser, string aName, string aDescription) {
-            PhotoAlbum myAlbum = PhotoAlbum.CreatePhotoAlbum(0, aName, aUser.Id);
-            myAlbum.Description = aDescription;
-
-            theEntities.AddToPhotoAlbums(myAlbum);
-            theEntities.SaveChanges();
-
-            return myAlbum;
-        }
-
-        public void EditPhotoAlbum(int anAlbumId, string aName, string aDescription) {
-            PhotoAlbum myAlbum = GetPhotoAlbum(anAlbumId);
-
-            myAlbum.Name = aName;
-            myAlbum.Description = aDescription;
-
-            theEntities.ApplyCurrentValues(myAlbum.EntityKey.EntitySetName, myAlbum);
-            theEntities.SaveChanges();
-        }
 
         public Photo AddReferenceToImage(User aUser, int anAlbumId, string anImageName) {
             Photo myPhoto = Photo.CreatePhoto(0, aUser.Id, anAlbumId, anImageName, false, DateTime.UtcNow, 0);
@@ -108,13 +66,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
                 currentProfilePicture.ProfilePicture = false;
                 theEntities.ApplyCurrentValues(currentProfilePicture.EntityKey.EntitySetName, currentProfilePicture);
             }
-        }
-
-        private PhotoAlbum GetPhotoAlbumForUserandAlbumName(User aUser, string aPhotoAlbumnName) {
-            return (from p in theEntities.PhotoAlbums
-                    where p.CreatedByUserId == aUser.Id
-                    && p.Name == aPhotoAlbumnName
-                    select p).FirstOrDefault<PhotoAlbum>();
         }
     }
 }

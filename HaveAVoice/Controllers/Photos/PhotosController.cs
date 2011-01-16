@@ -49,7 +49,7 @@ namespace HaveAVoice.Controllers.Users.Photos {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            User myUser = GetUserInformatonModel().Details;
+            UserInformationModel myUser = GetUserInformatonModel();
 
             try {
                 thePhotoService.UploadImageWithDatabaseReference(myUser, albumId, imageFile);
@@ -60,7 +60,7 @@ namespace HaveAVoice.Controllers.Users.Photos {
                 TempData["Message"] = UPLOAD_ERROR;
                 LogError(myException, UPLOAD_ERROR);
             }
-            return RedirectToAction(PHOTO_ALBUM_DETAILS, PHOTO_ALBUM_CONTROLLER, new { albumId = albumId, sourceUserId = myUser.Id});
+            return RedirectToAction(PHOTO_ALBUM_DETAILS, PHOTO_ALBUM_CONTROLLER, new { id = albumId });
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

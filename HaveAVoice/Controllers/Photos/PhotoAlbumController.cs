@@ -19,15 +19,18 @@ namespace HaveAVoice.Controllers.Users.Photos {
     public class PhotoAlbumController : HAVBaseController {
         private static string CREATED_SUCCESS = "Photo album created!";
         private const string EDIT_SUCCESS = "Photo album edited successfully!";
+        private const string DELETE_SUCCESS = "Photo album deleted successfully!";
 
         private const string GET_ALBUM_ERROR = "Error retrieving the album. Please try again.";
         private const string ALBUM_LIST_ERROR = "Error retrieving your photo album list. Please try again.";
         private const string CREATED_FAIL = "Error creating photo album. Please try again.";
         private const string EDIT_ERROR = "Error editing the photo album. Please try again.";
+        private const string DELETE_ERROR = "Error editing the photo album. Please try again.";
 
         private const string LIST_VIEW = "List";
         private const string DETAILS_VIEW = "Details";
         private const string EDIT_VIEW = "Edit";
+        private const string DELETE_VIEW = "Delete";
 
         private IHAVPhotoAlbumService thePhotoAlbumService;
 
@@ -81,6 +84,25 @@ namespace HaveAVoice.Controllers.Users.Photos {
         }
 
         [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
+        public ActionResult Delete(int id) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            UserInformationModel myUser = GetUserInformatonModel();
+            try {
+                thePhotoAlbumService.DeletePhotoAlbum(myUser, id);
+                TempData["Message"] = DELETE_SUCCESS; ;
+            } catch (CustomException e) {
+                return SendToErrorPage(e.Message);
+            } catch (Exception e) {
+                TempData["Message"] = DELETE_ERROR;
+                LogError(e, DELETE_ERROR);
+            }
+
+            return RedirectToAction(LIST_VIEW);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
         public ActionResult Details(int id) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
@@ -125,7 +147,7 @@ namespace HaveAVoice.Controllers.Users.Photos {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            User myUser = GetUserInformatonModel().Details;
+            UserInformationModel myUser = GetUserInformatonModel();
             try {
                 bool myResult = thePhotoAlbumService.EditPhotoAlbum(myUser, albumId, name, description);
                 if (myResult) {
@@ -142,10 +164,10 @@ namespace HaveAVoice.Controllers.Users.Photos {
             return RedirectToAction(EDIT_VIEW);
         }
 
-        private ActionResult ListPhotoAlbums(User aRequestingUser, int aUserIfOfAlbum) {
-            LoggedInListModel<PhotoAlbum> myModel = new LoggedInListModel<PhotoAlbum>(aRequestingUser, SiteSection.Photos);
+        private ActionResult ListPhotoAlbums(User aRequestingUser, int aUserIdOfAlbum) {
+            LoggedInListModel<PhotoAlbum> myModel = new LoggedInListModel<PhotoAlbum>(aRequestingUser, SiteSection.Photos, aUserIdOfAlbum);
             try {
-                myModel.Models = thePhotoAlbumService.GetPhotoAlbumsForUser(aRequestingUser, aUserIfOfAlbum);
+                myModel.Models = thePhotoAlbumService.GetPhotoAlbumsForUser(aRequestingUser, aUserIdOfAlbum);
             } catch (NotFriendException e) {
                 return SendToErrorPage(HAVConstants.NOT_FRIEND);
             } catch (Exception e) {

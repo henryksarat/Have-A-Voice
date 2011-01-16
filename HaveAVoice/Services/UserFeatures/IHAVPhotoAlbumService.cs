@@ -11,6 +11,8 @@ namespace HaveAVoice.Services.UserFeatures {
         IEnumerable<PhotoAlbum> GetPhotoAlbumsForUser(User aRequestingUser, int aUserIdOfAlbum);
         PhotoAlbum GetPhotoAlbum(UserInformationModel aUserModel, int anAlbumId);
         PhotoAlbum GetPhotoAlbumForEdit(UserInformationModel aUserModel, int anAlbumId);
-        bool EditPhotoAlbum(User aUserEditing, int anAlbumId, string aName, string aDescription);
+        bool EditPhotoAlbum(UserInformationModel aUserEditingModel, int anAlbumId, string aName, string aDescription);
+        void DeletePhotoAlbum(UserInformationModel aUserDeletingModel, int anAlbumId);
+        PhotoAlbum GetProfilePictureAlbumForUser(User aUsersPhotoAlbum);
     }
 }

@@ -14,37 +14,39 @@ namespace HaveAVoice.Services.UserFeatures {
     public class HAVPhotoAlbumService : HAVBaseService, IHAVPhotoAlbumService {
         private IValidationDictionary theValidationDictionary;
         private IHAVFriendService theFriendService;
-        private IHAVPhotoRepository thePhotoRepo;
+        private IHAVPhotoAlbumRepository thePhotoAlbumRepo;
+        private IHAVPhotoService thePhotoService;
 
         public HAVPhotoAlbumService(IValidationDictionary validationDictionary)
-            : this(validationDictionary, new HAVFriendService(), new EntityHAVPhotoRepository(), new HAVBaseRepository()) { }
+            : this(validationDictionary, new HAVPhotoService(), new HAVFriendService(), new EntityHAVPhotoAlbumRepository(), new HAVBaseRepository()) { }
 
-        public HAVPhotoAlbumService(IValidationDictionary aValidationDictionary, IHAVFriendService aFriendService, IHAVPhotoRepository aPhotoRepo, IHAVBaseRepository aBaseRepository)
+        public HAVPhotoAlbumService(IValidationDictionary aValidationDictionary, IHAVPhotoService aPhotoService, IHAVFriendService aFriendService, IHAVPhotoAlbumRepository aPhotoAlbumRepo, IHAVBaseRepository aBaseRepository)
             : base(aBaseRepository) {
             theValidationDictionary = aValidationDictionary;
+            thePhotoService = aPhotoService;
             theFriendService = aFriendService;
-            thePhotoRepo = aPhotoRepo;
+            thePhotoAlbumRepo = aPhotoAlbumRepo;
         }
 
         public bool CreatePhotoAlbum(User aUser, string aName, string aDescription) {
             if (!ValidateAlbumName(aName)) {
                 return false;
             }
-            thePhotoRepo.CreatePhotoAlbum(aUser, aName, aDescription);
+            thePhotoAlbumRepo.Create(aUser, aName, aDescription);
 
             return true;
         }
 
         public IEnumerable<PhotoAlbum> GetPhotoAlbumsForUser(User aRequestingUser, int aUserIdOfAlbum) {
             if(theFriendService.IsFriend(aUserIdOfAlbum, aRequestingUser)) {
-                return thePhotoRepo.GetPhotoAlbumsForUser(aUserIdOfAlbum);
+                return thePhotoAlbumRepo.GetPhotoAlbumsForUser(aUserIdOfAlbum);
             }
 
             throw new NotFriendException();
         }
 
         public PhotoAlbum GetPhotoAlbum(UserInformationModel aUserModel, int anAlbumId) {
-            PhotoAlbum myAlbum = thePhotoRepo.GetPhotoAlbum(anAlbumId);
+            PhotoAlbum myAlbum = thePhotoAlbumRepo.GetPhotoAlbum(anAlbumId);
             if (theFriendService.IsFriend(myAlbum.CreatedByUserId, aUserModel.Details)) {
                 return myAlbum;
             }
@@ -53,7 +55,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public PhotoAlbum GetPhotoAlbumForEdit(UserInformationModel aUserModel, int anAlbumId) {
-            PhotoAlbum myAlbum = thePhotoRepo.GetPhotoAlbum(anAlbumId);
+            PhotoAlbum myAlbum = thePhotoAlbumRepo.GetPhotoAlbum(anAlbumId);
             if (myAlbum.CreatedByUserId == aUserModel.Details.Id) {
                 return myAlbum;
             }
@@ -68,19 +70,37 @@ namespace HaveAVoice.Services.UserFeatures {
             return theValidationDictionary.isValid;
         }
 
-        public bool EditPhotoAlbum(User aUserEditing, int anAlbumId, string aName, string aDescription) {
+        public bool EditPhotoAlbum(UserInformationModel aUserEditingModel, int anAlbumId, string aName, string aDescription) {
             if (!ValidateAlbumName(aName)) {
                 return false;
             }
 
-            PhotoAlbum myAlbum = thePhotoRepo.GetPhotoAlbum(anAlbumId);
+            PhotoAlbum myAlbum = thePhotoAlbumRepo.GetPhotoAlbum(anAlbumId);
 
-            if (myAlbum.CreatedByUserId == aUserEditing.Id) {
-                thePhotoRepo.EditPhotoAlbum(anAlbumId, aName, aDescription);
+            if (myAlbum.CreatedByUserId == aUserEditingModel.Details.Id) {
+                thePhotoAlbumRepo.Edit(anAlbumId, aName, aDescription);
                 return true;
             }
 
             throw new CustomException(HAVConstants.NOT_ALLOWED);
+        }
+
+        public void DeletePhotoAlbum(UserInformationModel aUserDeletingModel, int anAlbumId) {
+            PhotoAlbum myAlbum = thePhotoAlbumRepo.GetPhotoAlbum(anAlbumId);
+
+            if (myAlbum.CreatedByUserId == aUserDeletingModel.Details.Id) {
+                foreach (Photo myPhoto in myAlbum.Photos) {
+                    thePhotoService.DeletePhoto(aUserDeletingModel.Details, myPhoto.Id);
+                }
+
+                thePhotoAlbumRepo.Delete(anAlbumId);
+            } else {
+                throw new CustomException(HAVConstants.NOT_ALLOWED);
+            }
+        }
+
+        public PhotoAlbum GetProfilePictureAlbumForUser(User aUsersPhotoAlbum) {
+            return thePhotoAlbumRepo.GetProfilePictureAlbumForUser(aUsersPhotoAlbum);
         }
     }
 }
