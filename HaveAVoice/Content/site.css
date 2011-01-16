@@ -295,6 +295,27 @@ form.create input[type=button]:hover { color: #115f71; background: #fff; }
 .issue a.like, .issue a.like:link, .issue a.like:visited { color: #2070c9; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; background: transparent; }
 .issue a.dislike, .issue a.dislike:link, .issue a.dislike:visited { text-decoration: none; font-size: 12px; font-weight: bold; font-style: normal; text-transform: uppercase; }
 .issue a.delete, .issue a.delete:link, .issue a.delete:visited { color: #DC143C; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; }
+.issue-container img.profile { max-width: 80px; max-height: 80px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+/*.issue-container .issue { min-height: 120px; }*/
+.issue a.name, .issue a.name:link, .issue a.name:visited { font-size: 13px; font-style: normal; font-weight: bold; text-decoration: none; color: #20a9c9; }
+a.filter, a.filter:link, a.filter:visited { color: #fff; text-decoration: none; background: #b6dde7; padding: 5px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; display: block; }
+a.filter:hover { background: #20a9c9; font-weight: bold; }
+a.filter.like:hover { background: #2070c9; font-weight: bold; }
+a.filter.dislike:hover { background: #c94020; font-weight: bold; }
+
+.issue-profile img.profile { max-height: 120px; max-width: 120px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
+
+.comment { position: relative; background: #20a9c9; color: #fff; font-size: 13px; min-height: 120px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+.comment h1 { font-size: 18px; font-style: italic; }
+.comment .speak-lft { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #20a9c9 transparent transparent transparent; position: absolute; left: -10px; top: 30px; }
+
+.stats { background: #b6dde7; color: #4b4b4b; min-height: 120px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+.stats h4 { color: #fff; font-size: 16px; }
+
+.agree .comment { color: #fff; position: relative; background: #4271a6; min-height: 120px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+.agree .comment .speak-lft { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #4271a6 transparent transparent transparent; position: absolute; left: -10px; top: 30px; }
+.disagree .comment { color: #fff; position: relative; background: #e03108; min-height: 120px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+.disagree .speak-rgt { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #e03108 transparent transparent transparent; position: absolute; right: -10px; top: 30px; }
 
 
 /****************************************************************************/
@@ -384,6 +405,31 @@ input[type=submit].submit:hover { color: #20a9c9; background: #fff; }
 
 
 /****************************************************************************/
+/***************************** ISSUE ****************************************/
+/****************************************************************************/
+/*
+.issue a.name, .issue a.name:link, .issue a.name:visited { font-size: 13px; font-style: normal; font-weight: bold; text-decoration: none; color: #20a9c9; }
+.issue a.filter, .issue a.filter:link, .issue a.filter:visited { color: #fff; text-decoration: none; background: #b6dde7; padding: 5px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; display: block; }
+.issue a.filter:hover { background: #20a9c9; font-weight: bold; }
+.issue a.filter.like:hover { background: #2070c9; font-weight: bold; }
+.issue a.filter.dislike:hover { background: #c94020; font-weight: bold; }
+
+.issue .stats { background: #b6dde7; color: #4b4b4b; min-height: 120px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+.issue .stats h4 { color: #fff; font-size: 16px; }
+.issue .date-tile { color: #a2a2a2; font-weight: bold; font-size: 16px; min-height: 120px; background: #c0d8de; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+.issue .date-tile span { color: #4b4b4b; }
+
+.issue .comment { position: relative; background: #20a9c9; color: #fff; font-size: 13px; min-height: 120px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+.issue .comment h1 { font-size: 18px; font-style: italic; }
+.issue .comment .speak-lft { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #20a9c9 transparent transparent transparent; position: absolute; left: -10px; top: 30px; }
+
+.issue .agree .comment { color: #fff; position: relative; background: #4271a6; min-height: 120px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+.issue .agree .comment .speak-lft { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #4271a6 transparent transparent transparent; position: absolute; left: -10px; top: 30px; }
+.issue .disagree .comment { color: #fff; position: relative; background: #e03108; min-height: 120px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+.issue .disagree .speak-rgt { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #e03108 transparent transparent transparent; position: absolute; right: -10px; top: 30px; }
+*/
+
+/****************************************************************************/
 /****************************************************************************/
 /****************************************************************************/
 .events .title { padding: 5px 0px; text-align: center; text-transform: uppercase; font-weight: bold; color: #ffffff; background: #a0cfdB; }
@@ -422,31 +468,10 @@ input[type=submit].submit:hover { color: #20a9c9; background: #fff; }
 .message .date-tile span { color: #4b4b4b; }
 .message .body { font-size: 12px; color: #3b3b3b; }
 
-.issue img.profile { max-width: 120px; max-height: 120px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
-.issue a.name, .issue a.name:link, .issue a.name:visited { font-size: 13px; font-style: normal; font-weight: bold; text-decoration: none; color: #20a9c9; }
-.issue a.filter, .issue a.filter:link, .issue a.filter:visited { color: #fff; text-decoration: none; background: #b6dde7; padding: 5px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; display: block; }
-.issue a.filter:hover { background: #20a9c9; font-weight: bold; }
-.issue a.filter.like:hover { background: #2070c9; font-weight: bold; }
-.issue a.filter.dislike:hover { background: #c94020; font-weight: bold; }
-
-.issue .stats { background: #b6dde7; color: #4b4b4b; min-height: 120px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
-.issue .stats h4 { color: #fff; font-size: 16px; }
-.issue .date-tile { color: #a2a2a2; font-weight: bold; font-size: 16px; min-height: 120px; background: #c0d8de; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
-.issue .date-tile span { color: #4b4b4b; }
-
-.issue .comment { position: relative; background: #20a9c9; color: #fff; font-size: 13px; min-height: 120px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
-.issue .comment h1 { font-size: 18px; font-style: italic; }
-.issue .comment .speak-lft { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #20a9c9 transparent transparent transparent; position: absolute; left: -10px; top: 30px; }
-
-.issue .agree .comment { color: #fff; position: relative; background: #4271a6; min-height: 120px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
-.issue .agree .comment .speak-lft { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #4271a6 transparent transparent transparent; position: absolute; left: -10px; top: 30px; }
-.issue .disagree .comment { color: #fff; position: relative; background: #e03108; min-height: 120px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
-.issue .disagree .speak-rgt { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #e03108 transparent transparent transparent; position: absolute; right: -10px; top: 30px; }
-
 .sub-main { color: #ffffff; background: #99bcc5; }
 .sub-main h5 { padding: 0px; color: #5d828b; font-size: 14px; font-weight: normal; margin: 0px 0px 10px 0px; }
 .sub-main h5.popular { padding-left: 23px; background: url("images/popular.png") 0px 2px no-repeat; }
-.sub-main h5.comment { padding-left: 23px; background: url("images/comment.png") 0px 2px no-repeat; }
+.sub-main h5.recent-comment { padding-left: 23px; background: url("images/comment.png") 0px 2px no-repeat; }
 
 ul.bullet { padding-left: 14px; list-style-position: outside; }
 ul.bullet li { list-style: disc; padding-top: 5px; padding-bottom: 5px; }

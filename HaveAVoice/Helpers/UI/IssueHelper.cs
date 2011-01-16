@@ -10,19 +10,96 @@ using System.Collections.Generic;
 
 namespace HaveAVoice.Helpers.UI {
     public class IssueHelper {
+		/* THIS FUNCTION NEEDS TO DETERMINE AGREE / DISAGREE OPPOSED TO PASSING A STYLE */
         public static string UserIssueReply(IssueReplyModel anIssueReply) {
-            string rowStyle = "text-align:left; background-color:#ade0ff; color:Black";
+            string rowStyle = "";
 
             return BuildIssueReplyTable(anIssueReply, rowStyle);
         }
 
+		/* THIS FUNCTION NEEDS TO DETERMINE AGREE / DISAGREE OPPOSED TO PASSING A STYLE */
+		/* NOTE: THE FUNCTIONS SHOUDL BE UPDATED TO ACCEPT A FILTER SET OPPOSED TO JUST USER / OFFICAL */
         public static string OfficialIssueReply(IssueReplyModel anIssueReply) {
-            string rowStyle = "text-align:left; background-color:#9999FF; color:Black";
+            string rowStyle = "";
 
             return BuildIssueReplyTable(anIssueReply, rowStyle);
         }
 
+		/* AGREE / DISAGREE CAN BE AN ENUM OR BOOLEAN TO DETERMINE THE POST STANCE SO STRUCTURE CAN CHANGE */
+		/* NOTE: I STRUCTURED IT TO DEFAULT TO AGREE / BUT MADE NOTES ON HOW IT SHOULD CHANGE
         private static string BuildIssueReplyTable(IssueReplyModel anIssueReply, string aRowStyle) {
+        	var stanceDiv = new TagBuilder("div");
+
+        	/* THIS MERGE SHOULD BE BASED UPON THE VALUE PASSED RESULTING VALUE SHOULD RESOLVE TO CLASSES "agree" OR "disagree" */
+        	stanceDiv.MergeAttribute("class", "agree");
+
+			/* IF STANCE IS DISAGREE AN ADDITIONAL CLASS OF "push-15" NEEDS TO BE APPENDED TO THE PROFILE STYLE */
+			var profileDiv = new TagBuilder("div");
+			profileDiv.MergeAttribute("class", "col-3 center"); /* HERE IS WHERE THE CLASS "push-15" NEEDS TO BE APPENDED */
+			
+			var profileImg = new TagBuilder("img");
+			if (anIssueReply.Anonymous) {
+				profileImg.MergeAttribute("alt", "Anonymous");
+				profileImg.MergeAttribute("src", "/Photos/no_profile_picture.jpg")
+			}  else {
+				profileImg.MergeAttribute("alt", anIssueReply.User.Username);
+				profileImg.MergeAttribute("src", anIssueReply.User.Image) /* NOTE: I DON'T KNOW IF THIS IS THE CORRECT CALL (IF NO PLEASE CORRECT) */
+			}
+			profileImg.MergeAttribute("class", "profile");
+			
+			profileDiv.InnerHtml += profileImg.ToString();
+			stanceDiv.InnerHtml += profileDiv.ToString();
+			
+			var stanceComment = new TagBuilder("div");
+			stanceComment.MergeAttribute("class", "m-lft col-12 m-rgt comment");
+			
+			var spanDirSpeak = new TagBuilder("span");
+			
+			/* NOTE: IF STANCE IS AGREE CLASS SHOULD BE "speak-lft" IF STANCE IS DISAGREE CLASS SHOULD BE "speak-rgt" */
+			spanDirSpeak.MergeAttribute("class", "speak-lft");
+			spanDirSpeak.InnerHtml = "&nbsp;"
+			
+			stanceComment.InnerHtml += spanDirSpeak.ToString();
+
+			var divCommentPad = new TagBuilder("div");
+			divCommentPad.MergeAttribute("p-a10");
+			
+			var hrefName = new TagBUilder("a");
+			hrefName.MergeAttribute("class", "name");
+			if (anIssueReply.Anonymous)
+			{
+				hrefName.InnerHtml = "Anonymous";
+				href.MergeAttribute("href", "#");
+			} else {
+				hrefName.InnerHtml = anIssueReply.User.Username;
+				/* THIS SHOULD LINK TO THE USER PROFILE */
+			}
+			
+			divCommentPad.InnerHtml += hrefName.ToString();
+			divCommentPad.InnerHtml += anIssueReply.Reply;
+			
+			stanceComment.InnerHtml += divCommentPad.ToString();
+
+			var divTimeStamp = new TagBuilder("div");
+			
+			/* IF STANCE IS DISAGREE ADDITIONAL CLASS OF "pull-15" NEEDS TO BE APPENDED TO THE TIMESTAMP STYLE */
+			divTimeStamp.MergeAttribute("col-3 date-tile"); /* HERE IS WHERE THE CLASS "pull-15" NEEDS TO BE APPENDED */
+			
+			var divTimePad = new TagBuilder("div");
+			divTimePad.MergeAttribute("p-a10");
+			
+			var spanTime = new TagBuilder("span");
+			spanTime.InnerHtml = anIssueReply.DateTimeStamp.ToString("MMM").ToUpper();
+			
+			divTimePad.InnerHtml += spanTime.ToString();
+			divTimePad.InnerHtml += "&nbsp;"
+			divTimePad.InnerHtml += anIssueReply.DateTimeStamp.ToString("dd");
+			
+			stanceComment.InnerHtml += divTimePad.ToSting();
+        
+        	return stanceComment.ToString(TagRenderMode.Normal);
+        
+			/*
             var tableTag = new TagBuilder("table");
             tableTag.MergeAttribute("border", "0");
             tableTag.MergeAttribute("cellspacing", "0");
@@ -76,6 +153,10 @@ namespace HaveAVoice.Helpers.UI {
             tableTag.InnerHtml += trTag.ToString();
 
             return tableTag.ToString(TagRenderMode.Normal);
+            */
+            
+            /* NOTE: PLEASE CHECK FOR ANY SYNTAX ERRORS AND NOTICE I CURRENTLY LEFT OFF THE COMMENT / LIKE / DISLIKE / REPORT / EDIT LINKS UNTIL I FIGURE HOW TO FIT THESE IN */
+            /* CLASSES WILL BE CHANGED, BUT THE STRUCTURE IS IN PLACE TO GIVE YOU AN IDEA OF THE STYLE ONCE COMPILED. */
         }
 
         public static string Comment(IssueReplyComment aComment) {

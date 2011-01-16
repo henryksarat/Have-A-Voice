@@ -10,112 +10,148 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="col-24">
+        <div class="spacer-30">&nbsp;</div>
+    
+    	<%= Html.Encode(ViewData["Message"]) %>
+    	<%= Html.Encode(TempData["Message"]) %>
+    	<div class="clear">&nbsp;</div>
+    
+    	<div class="push-1 col-4 center p-t5 p-b5 t-tab btint-6">
+    		<%=Html.ActionLink("ISSUES", "Index", null, new { @class = "issue-create" }) %>
+    	</div>
+    	<div class="push-1 col-4 center p-t5 p-b5 t-tab btint-6">
+    		<%= Html.ActionLink("CREATE NEW", "Create", null, new { @class = "issue-create" }) %>
+    	</div>
+    	<div class="push-1 col-14 center p-t5 p-b5 t-tab b-wht">
+    		<span class="fnt-16 tint-6 bold"><%= Html.Encode(Model.Issue.Title.ToUpper()) %></span>
+    	</div>
+    	<div class="clear">&nbsp;</div>
+    	
+    	<div class="b-wht m-btm10">
+    		<div class="spacer-10">&nbsp;</div>
+			<div class="clear">&nbsp;</div>
+		</div>
+		
+		<div class="push-7 col-9 m-btm10">
+			<div class="m-lft col-3 m-rgt center">
+				<a href="#" class="filter">ALL</a>
+			</div>
+			<div class="m-lft col-3 m-rgt center">
+				<a href="#" class="filter">Politicians</a>
+			</div>
+			<div class="m-lft col-3 m-rgt center">
+				<a href="#" class="filter">People</a>
+			</div>
+		</div>
+		<div class="clear">&nbsp;</div>
+		
+		<div class="push-7 col-9 m-btm10">
+			<div class="m-lft col-3 m-rgt center">
+				<a href="#" class="filter">ALL</a>
+			</div>
+			<div class="m-lft col-3 m-rgt center">
+				<a href="#" class="filter like">Agree</a>
+			</div>
+			<div class="m-lft col-3 m-rgt center">
+				<a href="#" class="filter dislike">Disagree</a>
+			</div>
+		</div>
+		<div class="clear">&nbsp;</div>
 
-    <h2>View</h2>
+	    <% using (Html.BeginForm()) { %>
+			<% UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation(); %>
+			<% HaveAVoice.Models.User myUser = myUserInformationModel.Details; %>
+	
+	        <%= Html.Hidden("City", HAVUserInformationFactory.GetUserInformation().Details.City) %>
+	        <%= Html.Hidden("State", HAVUserInformationFactory.GetUserInformation().Details.State) %>
+	            
+			<%= Html.Encode(ViewData["Message"]) %>
+	        <%= Html.Encode(TempData["Message"]) %>
+	        <%= Html.ValidationSummary("Your reply wasn't posted. Please correct the errors and try again.") %>
+	        <div class="clear">&nbsp;</div>
+	        
+	        
+	        <div class="push-2 col-3 center issue-profile">
+				<img src="http://www2.pictures.zimbio.com/img/5519/Alicia/5986c.nZBops.jpg" alt="Gerard Butler" class="profile" />
+			</div>
+			<div class="push-2 m-lft col-16 m-rgt comment">
+				<div class="p-a10">
+					<span class="speak-lft">&nbsp;</span>
+					<h1 class="m-btm10"><%= Html.Encode(Model.Issue.Title) %></h1>
+					<%= Html.Encode(Model.Issue.Description) %>
+	
+	                <% if (Model.Issue.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Edit_Any_Issue)) { %>
+	                    <%= Html.ActionLink("Edit", "Edit", new { id = Model.Issue.Id })%>
+	                <% } %>
+	                <% if (Model.Issue.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Delete_Any_Issue)) { %>
+	                    <%= Html.ActionLink("Delete", "Delete", new { id = Model.Issue.Id })%>
+	                <% } %>
+				</div>
+			</div>
+			<div class="push-2 col-3 stats">
+				<div class="p-a5">
+					<h4 class="m-btm5">Stats</h4>
+					<div class="bold">Posted:</div>
+					<div class="m-lft10 m-btm5"><%= Model.Issue.DateTimeStamp.ToString("MMM dd, yyyy").ToUpper() %></div>
+					<div class="bold">Likes:</div>
+					<div class="m-lft10 m-btm5">1</div>
+					<div class="bold">Dislikes:</div>
+					<div class="m-lft10 m-btm5">1</div>
+				</div>
+			</div>
+	        
 
-    <% using (Html.BeginForm())
-       { %>
-       <% UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation(); %>
-       <% HaveAVoice.Models.User myUser = myUserInformationModel.Details; %>
-        
-        <%= Html.ValidationSummary("Your reply wasn't posted. Please correct the errors and try again.") %>
-        
-        <fieldset>
-            <legend>Fields</legend>
-                <%= Html.Hidden("City", HAVUserInformationFactory.GetUserInformation().Details.City) %>
-                <%= Html.Hidden("State", HAVUserInformationFactory.GetUserInformation().Details.State) %>
-            <p>
-                <%= Html.Encode(ViewData["Message"]) %>
-            </p>
-            <p>
-                <%= Html.Encode(TempData["Message"]) %>
-            </p>
-            <p>
-                <%= Html.Encode(Model.Issue.Title) %>
-            </p>
-            <p>
-                <%= Html.Encode(Model.Issue.Description) %>
-            </p>
-            <p>
-                <% if (Model.Issue.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Edit_Any_Issue)) { %>
-                    <%= Html.ActionLink("Edit", "Edit", new { id = Model.Issue.Id })%>
+            <% foreach (IssueReplyModel reply in Model.UserReplys) { %>
+                <p>
+                    <%= IssueHelper.UserIssueReply(reply) %>
+                </p>
+                <% if (!reply.HasDisposition) { %>
+                        <%= Html.ActionLink("Like", "Disposition", "IssueReply", new { id = reply.Id, issueId = Model.Issue.Id, disposition = (int)Disposition.LIKE }, null)%>
+                        <%= Html.ActionLink("Dislike", "Disposition", "IssueReply", new { id = reply.Id, issueId = Model.Issue.Id, disposition = (int)Disposition.DISLIKE }, null)%>
                 <% } %>
-                <% if (Model.Issue.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Delete_Any_Issue)) { %>
-                    <%= Html.ActionLink("Delete", "Delete", new { id = Model.Issue.Id })%>
-                <% } %>
-            </p>
-            <br />
-            <p>
-                <table border="0" cellpadding="0" cellspacing="0">
-                    <tr>
-                        <td><strong>User Replys</strong></td>
-                        <td><strong>Official Replys</strong></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <% foreach (IssueReplyModel reply in Model.UserReplys) { %>
-                                <p>
-                                    <%= IssueHelper.UserIssueReply(reply) %>
-                                </p>
-                                <% if (!reply.HasDisposition) { %>
-                                        <%= Html.ActionLink("Like", "Disposition", "IssueReply", new { id = reply.Id, issueId = Model.Issue.Id, disposition = (int)Disposition.LIKE }, null)%>
-                                        <%= Html.ActionLink("Dislike", "Disposition", "IssueReply", new { id = reply.Id, issueId = Model.Issue.Id, disposition = (int)Disposition.DISLIKE }, null)%>
-                                <% } %>
-                                <p>
-                                    <% if (reply.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Edit_Any_Issue_Reply)) { %>
-                                        <%= Html.ActionLink("Edit", "Edit", "IssueReply", new { id = reply.Id }, null)%>
-                                    <% } %>
-                                   <% if (reply.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Delete_Any_Issue_Reply)) { %>
-                                        <%= Html.ActionLink("Delete", "Delete", "IssueReply", new { id = reply.Id, issueId = Model.Issue.Id }, null)%>
-                                    <% } %>
-                                </p>
-                            <%}%>
-                        </td>
-                        <td>
-                            <% foreach (IssueReplyModel reply in Model.OfficialReplys) { %>
-                                <p>
-                                    <%= IssueHelper.OfficialIssueReply(reply) %>
-                                </p>
-                                <p>
-                                    <% if (reply.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Edit_Any_Issue_Reply)) { %>
-                                        <%= Html.ActionLink("Edit", "Edit", "IssueReply", new { id = reply.Id }, null)%>
-                                    <% } %>
-                                   <% if (reply.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Delete_Any_Issue_Reply)) { %>
-                                        <%= Html.ActionLink("Delete", "Delete", "IssueReply", new { id = reply.Id, issueId = Model.Issue.Id }, null)%>
-                                    <% } %>
-                                </p>
-                            <%}%>
-                        </td>
-                    </tr>
-                </table>
-            </p>
-            <p></p>
-            <p></p>
-            <p>
-                <label for="Name"><strong>Reply</strong></label>
-                <%= Html.TextArea("Reply",
-                    HAVUserInformationFactory.IsLoggedIn() ? Model.Comment : "You must be logged in to reply", 5, 30,
-                    HAVUserInformationFactory.IsLoggedIn() ? null : new { @readonly = "readonly" })%>
-                <%= Html.ValidationMessage("Reply", "*")%>
-                <% if (!HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Official_Account)) { %>   
-                    <%= Html.CheckBox("Anonymous", Model.Anonymous) %> Post reply as Anonymous
-                <% } %>
-                <table>
-                    <tr>
-                        <td><label for="Like">Like</label> <%= Html.RadioButton("Disposition", Disposition.LIKE, Model.Disposition == Disposition.LIKE ? true : false)%></td>
-                        <td><label for="Dislike">Dislike</label> <%= Html.RadioButton("Disposition", Disposition.DISLIKE, Model.Disposition == Disposition.DISLIKE ? true : false)%></td>
-                        <td><%= Html.ValidationMessage("Disposition", "*")%></td>
-                    </tr>
-                </table>
-            </p>
-            
-            <p>
-                <input type="submit" value="Submit" />
-            </p>
+                <p>
+                    <% if (reply.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Edit_Any_Issue_Reply)) { %>
+                        <%= Html.ActionLink("Edit", "Edit", "IssueReply", new { id = reply.Id }, null)%>
+                    <% } %>
+                   <% if (reply.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Delete_Any_Issue_Reply)) { %>
+                        <%= Html.ActionLink("Delete", "Delete", "IssueReply", new { id = reply.Id, issueId = Model.Issue.Id }, null)%>
+                    <% } %>
+                </p>
+            <%}%>
 
-            <%= ComplaintHelper.IssueLink(Model.Issue.Id) %>
-        </fieldset>
-    <% } %>   
+<% /*
+<% foreach (IssueReplyModel reply in Model.OfficialReplys) { %>
+    <p>
+        <%= IssueHelper.OfficialIssueReply(reply) %>
+    </p>
+    <p>
+        <% if (reply.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Edit_Any_Issue_Reply)) { %>
+            <%= Html.ActionLink("Edit", "Edit", "IssueReply", new { id = reply.Id }, null)%>
+        <% } %>
+       <% if (reply.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Delete_Any_Issue_Reply)) { %>
+            <%= Html.ActionLink("Delete", "Delete", "IssueReply", new { id = reply.Id, issueId = Model.Issue.Id }, null)%>
+        <% } %>
+    </p>
+<%}%>
+*/ %>
 
+    <label for="Name"><strong>Reply</strong></label>
+    <%= Html.TextArea("Reply",
+        HAVUserInformationFactory.IsLoggedIn() ? Model.Comment : "You must be logged in to reply", 5, 30,
+        HAVUserInformationFactory.IsLoggedIn() ? null : new { @readonly = "readonly" })%>
+    <%= Html.ValidationMessage("Reply", "*")%>
+    <% if (!HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Official_Account)) { %>   
+        <%= Html.CheckBox("Anonymous", Model.Anonymous) %> Post reply as Anonymous
+    <% } %>
+
+	<label for="Like">Like</label> <%= Html.RadioButton("Disposition", Disposition.LIKE, Model.Disposition == Disposition.LIKE ? true : false)%>
+	<label for="Dislike">Dislike</label> <%= Html.RadioButton("Disposition", Disposition.DISLIKE, Model.Disposition == Disposition.DISLIKE ? true : false)%>
+	<%= Html.ValidationMessage("Disposition", "*")%>
+
+    <input type="submit" value="Submit" />
+	
+    <%= ComplaintHelper.IssueLink(Model.Issue.Id) %>
+	    <% } %>
+    </div>
 </asp:Content>
-

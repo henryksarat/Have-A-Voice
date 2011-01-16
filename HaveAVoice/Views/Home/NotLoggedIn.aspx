@@ -79,7 +79,7 @@
 
         <div class="col-12">
             <div class="push-1 col-8">
-                <h5 class="comment">Recent Comments</h5>
+                <h5 class="recent-comment">Recent Comments</h5>
                 <ul class="bullet fnt-12">
                     <%= IssueReplyHelper.IssueReplyDisplay(Model.NewestIssueReplys) %>
                 </ul>
