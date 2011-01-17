@@ -31,7 +31,7 @@ namespace HaveAVoice.Helpers.UI {
 
         	/* THIS MERGE SHOULD BE BASED UPON THE VALUE PASSED RESULTING VALUE SHOULD RESOLVE TO CLASSES "agree" OR "disagree" */
             //henryk: donzo
-            if(anIssueReply.IssueStance == IssueStance.Agree) {
+            if(anIssueReply.IssueStance ==(int) IssueStance.Agree) {
         	    stanceDiv.MergeAttribute("class", "agree");
             } else {
                 stanceDiv.MergeAttribute("class", "disagree");
@@ -40,7 +40,7 @@ namespace HaveAVoice.Helpers.UI {
 			/* IF STANCE IS DISAGREE AN ADDITIONAL CLASS OF "push-15" NEEDS TO BE APPENDED TO THE PROFILE STYLE */
             //henryk: donzo
 			var profileDiv = new TagBuilder("div");
-            if (anIssueReply.IssueStance == IssueStance.Disagree) {
+            if (anIssueReply.IssueStance == (int)IssueStance.Disagree) {
 			    profileDiv.MergeAttribute("class", "col-3 center"); /* HERE IS WHERE THE CLASS "push-15" NEEDS TO BE APPENDED */ //henryk: donzo
 			}
 
@@ -64,7 +64,7 @@ namespace HaveAVoice.Helpers.UI {
 			
 			/* NOTE: IF STANCE IS AGREE CLASS SHOULD BE "speak-lft" IF STANCE IS DISAGREE CLASS SHOULD BE "speak-rgt" */
             //Henryk: done
-            if (anIssueReply.IssueStance == IssueStance.Agree) {
+            if (anIssueReply.IssueStance == (int)IssueStance.Agree) {
                 spanDirSpeak.MergeAttribute("class", "speak-lft");
             } else {
                 spanDirSpeak.MergeAttribute("class", "speak-rgt");
@@ -97,7 +97,7 @@ namespace HaveAVoice.Helpers.UI {
 			var divTimeStamp = new TagBuilder("div");
 			
 			/* IF STANCE IS DISAGREE ADDITIONAL CLASS OF "pull-15" NEEDS TO BE APPENDED TO THE TIMESTAMP STYLE */
-            if (anIssueReply.IssueStance == IssueStance.Disagree) {
+            if (anIssueReply.IssueStance == (int)IssueStance.Disagree) {
 			    divTimeStamp.MergeAttribute("class", "col-3 date-tile"); /* HERE IS WHERE THE CLASS "pull-15" NEEDS TO BE APPENDED */
                 //Henryk: there was one parameter so I made the first parameter "class"...
             }

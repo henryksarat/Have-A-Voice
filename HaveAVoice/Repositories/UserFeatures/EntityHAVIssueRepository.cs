@@ -64,13 +64,13 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     select new IssueReplyModel { 
                         Id = ir.Id,
                         Issue = ir.Issue,
+                        IssueStance = (ir.Disposition == 1) ? (int)IssueStance.Agree : (int)IssueStance.Disagree,
                         User = u,
                         Reply = ir.Reply,
                         DateTimeStamp = ir.DateTimeStamp,
                         CommentCount = ir.IssueReplyComments.Where(cc => cc.Deleted == false).Count(),
                         Anonymous = ir.Anonymous,
-                        HasDisposition = (i == null) ? false : true,
-                        IssueStance = ir.Disposition == 1 ? IssueStance.Agree : IssueStance.Disagree
+                        HasDisposition = (i == null) ? false : true
                     }).ToList<IssueReplyModel>();
         }
 

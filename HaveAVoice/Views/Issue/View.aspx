@@ -134,7 +134,7 @@
         <% } %>
     </p>
 <%}%>
-*/ %>
+<% */ %>
 
     <label for="Name"><strong>Reply</strong></label>
     <%= Html.TextArea("Reply",

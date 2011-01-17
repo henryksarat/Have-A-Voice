@@ -5,7 +5,7 @@ using System.Web;
 
 namespace HaveAVoice.Helpers.Enums {
     public enum IssueStance {
-        Agree,
-        Disagree
+        Agree = 1,
+        Disagree = 2
     }
 }
