@@ -28,8 +28,8 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public NotLoggedInModel NotLoggedIn() {
                 return new NotLoggedInModel() {
-                    LikedIssues = theHomeRepository.GetMostPopularIssues(Disposition.LIKE),
-                    DislikedIssues = theHomeRepository.GetMostPopularIssues(Disposition.DISLIKE),
+                    LikedIssues = theHomeRepository.GetMostPopularIssues(Disposition.Like),
+                    DislikedIssues = theHomeRepository.GetMostPopularIssues(Disposition.Dislike),
                     NewestIssueReplys = theHomeRepository.NewestIssueReplys(),
                     MostPopularIssueReplys = theHomeRepository.GetMostPopularIssueReplys()
             };

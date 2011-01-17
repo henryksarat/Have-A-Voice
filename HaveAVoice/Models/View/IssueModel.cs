@@ -22,7 +22,7 @@ namespace HaveAVoice.Models.View {
             this.OfficialReplys = aOfficialReplys;
             this.Comment = string.Empty;
             this.Anonymous = false;
-            this.Disposition = Disposition.NONE;
+            this.Disposition = Disposition.None;
         }
     }
 }

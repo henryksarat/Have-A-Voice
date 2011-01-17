@@ -69,7 +69,8 @@ namespace HaveAVoice.Repositories.UserFeatures {
                         DateTimeStamp = ir.DateTimeStamp,
                         CommentCount = ir.IssueReplyComments.Where(cc => cc.Deleted == false).Count(),
                         Anonymous = ir.Anonymous,
-                        HasDisposition = (i == null) ? false : true
+                        HasDisposition = (i == null) ? false : true,
+                        IssueStance = ir.Disposition == 1 ? IssueStance.Agree : IssueStance.Disagree
                     }).ToList<IssueReplyModel>();
         }
 

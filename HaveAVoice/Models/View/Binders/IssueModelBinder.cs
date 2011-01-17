@@ -33,7 +33,7 @@ namespace HaveAVoice.Models.View {
             string extractedDisposition = BinderHelper.GetA(aBindingContext, "Disposition");
             Disposition dispotion;
             if(extractedDisposition.Equals("")) {
-                dispotion = Disposition.NONE;
+                dispotion = Disposition.None;
             } else {
                 dispotion = (Disposition)Enum.Parse(typeof(Disposition), extractedDisposition, true);
             }

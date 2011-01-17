@@ -60,8 +60,8 @@ namespace HaveAVoice.Services.UserFeatures {
                     DateTimeStamp = myIssue.DateTimeStamp,
                     Title = myIssue.Title,
                     Description = myIssue.Description,
-                    TotalLikes = (from d in myIssueDisposition where d.Disposition == (int)Disposition.LIKE select d).Count<IssueDisposition>(),
-                    TotalDislikes = (from d in myIssueDisposition where d.Disposition == (int)Disposition.DISLIKE select d).Count<IssueDisposition>(),
+                    TotalLikes = (from d in myIssueDisposition where d.Disposition == (int)Disposition.Like select d).Count<IssueDisposition>(),
+                    TotalDislikes = (from d in myIssueDisposition where d.Disposition == (int)Disposition.Dislike select d).Count<IssueDisposition>(),
                     HasDisposition = (from d in myIssueDisposition where d.UserId == myIssue.User.Id select d).Count<IssueDisposition>() > 1 ? true : false,
                     TotalReplys = myIssue.IssueReplys.Count,
                     IssueReplys = myIssue.IssueReplys
@@ -85,8 +85,8 @@ namespace HaveAVoice.Services.UserFeatures {
                     IssueReplyComments = myIssueReply.IssueReplyComments,
                     Issue = myIssueReply.Issue,
                     Reply = myIssueReply.Reply,
-                    TotalLikes = (from d in myReplyDisposition where d.Disposition == (int)Disposition.LIKE select d).Count<IssueReplyDisposition>(),
-                    TotalDislikes = (from d in myReplyDisposition where d.Disposition == (int)Disposition.DISLIKE select d).Count<IssueReplyDisposition>(),
+                    TotalLikes = (from d in myReplyDisposition where d.Disposition == (int)Disposition.Like select d).Count<IssueReplyDisposition>(),
+                    TotalDislikes = (from d in myReplyDisposition where d.Disposition == (int)Disposition.Dislike select d).Count<IssueReplyDisposition>(),
                     HasDisposition = (from d in myReplyDisposition where d.UserId == myIssueReply.User.Id select d).Count<IssueReplyDisposition>() > 1 ? true : false,
                     TotalComments = myIssueReply.IssueReplyComments.Count
                 };

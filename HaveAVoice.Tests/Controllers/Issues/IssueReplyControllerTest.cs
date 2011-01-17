@@ -29,7 +29,7 @@ namespace HaveAVoice.Tests.Controllers.Issues {
 
         [TestInitialize]
         public void Initialize() {
-            theIssueReply = IssueReply.CreateIssueReply(0, 0, 0, string.Empty, "Chicago", "IL", (int)Disposition.NONE, false, DateTime.UtcNow, false);
+            theIssueReply = IssueReply.CreateIssueReply(0, 0, 0, string.Empty, "Chicago", "IL", (int)Disposition.None, false, DateTime.UtcNow, false);
             theIssueReply.User = theUserInformationBuilder.Build().Details;
             theMockedService = new Mock<IHAVIssueService>();
             theController = new IssueReplyController(theMockedService.Object, theMockedBaseService.Object);

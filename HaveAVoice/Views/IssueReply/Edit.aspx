@@ -21,8 +21,8 @@
         </p>
         <table>
             <tr>
-                <td><label for="Like">Like</label> <%= Html.RadioButton("Disposition", (int)Disposition.LIKE, Model.Disposition == (int)Disposition.LIKE ? true : false)%></td>
-                <td><label for="Dislike">Dislike</label> <%= Html.RadioButton("Disposition", (int)Disposition.DISLIKE, Model.Disposition == (int)Disposition.DISLIKE ? true : false)%></td>
+                <td><label for="Like">Like</label> <%= Html.RadioButton("Disposition", (int)Disposition.Like, Model.Disposition == (int)Disposition.Like ? true : false)%></td>
+                <td><label for="Dislike">Dislike</label> <%= Html.RadioButton("Disposition", (int)Disposition.Dislike, Model.Disposition == (int)Disposition.Dislike ? true : false)%></td>
                 <td><%= Html.ValidationMessage("Disposition", "*")%></td>
             </tr>
         </table>

@@ -21,11 +21,11 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
     public class HAVIssueServiceTest {
         private static int ID = 1;
         private static string REPLY = "reply";
-        private static Disposition DISPOSITION = Disposition.LIKE;
+        private static Disposition DISPOSITION = Disposition.Like;
         private static string ISSUE_TITLE = "Ban on BP";
         private static string ISSUE_DESCRIPTION = "BP should not be able to drill offshore!";
         private static string ISSUE_REPLY = "I think that this is stupid because BP gives everyone money.";
-        private static Disposition ISSUE_DISPOSITION = Disposition.DISLIKE;
+        private static Disposition ISSUE_DISPOSITION = Disposition.Dislike;
         private static DateTime ISSUE_POST_DATE = new DateTime(2010, 05, 03);
         private static User USER = new User();
         public static Permission POST_ISSUE_PERMISSION = Permission.CreatePermission(0, HAVPermission.Post_Issue.ToString(), string.Empty, false);
@@ -148,7 +148,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
         public void UnableToCreateIssueReplyBecauseDispositionIsRequired() {
             IssueModel issueModel = new IssueModel(new Issue(), null, null);
             issueModel.Comment = ISSUE_REPLY;
-            issueModel.Disposition = Disposition.NONE;
+            issueModel.Disposition = Disposition.None;
 
             bool result = theService.CreateIssueReply(theUserInformationBuilder.Build(), issueModel);
 

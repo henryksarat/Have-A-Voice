@@ -231,7 +231,7 @@ namespace HaveAVoice.Services.UserFeatures {
             if (aReply.Trim().Length == 0) {
                 theValidationDictionary.AddError("Reply", aReply, "Reply is required.");
             }
-            if (aDisposition == (int)Disposition.NONE) {
+            if (aDisposition == (int)Disposition.None) {
                 theValidationDictionary.AddError("Disposition", aDisposition.ToString(), "Disposition is required.");
             }
 

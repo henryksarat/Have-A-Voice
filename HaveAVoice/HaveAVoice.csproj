@@ -93,9 +93,12 @@
     <Compile Include="Controllers\Users\UserPrivacySettings.cs" />
     <Compile Include="Helpers\Enums\FeedItem.cs" />
     <Compile Include="Helpers\Enums\FriendStatus.cs" />
+    <Compile Include="Helpers\Enums\IssueFilter.cs" />
+    <Compile Include="Helpers\Enums\IssueStance.cs" />
     <Compile Include="Helpers\Exceptions\CustomException.cs" />
     <Compile Include="Helpers\Exceptions\NotFriendException.cs" />
     <Compile Include="Helpers\HAVPermissionHelper.cs" />
+    <Compile Include="Helpers\LinkHelper.cs" />
     <Compile Include="Helpers\PresentationHelper.cs" />
     <Compile Include="Helpers\RoleHelper.cs" />
     <Compile Include="Controllers\Admin\RestrictionController.cs" />
@@ -353,8 +356,8 @@
     <Content Include="Content\reset.css" />
     <Content Include="Content\tempjquery.js" />
     <Content Include="Global.asax" />
-    <Content Include="Photos\93_18911343.jpg" />
-    <Content Include="Photos\93_1892066150.JPG" />
+    <Content Include="Photos\93_1061528840.JPG" />
+    <Content Include="Photos\93_988091032.jpg" />
     <Content Include="Photos\no_profile_picture.jpg" />
     <Content Include="Views\Account\ChangePassword.aspx" />
     <Content Include="Views\Account\ChangePasswordSuccess.aspx" />

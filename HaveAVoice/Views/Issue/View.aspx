@@ -107,8 +107,8 @@
                     <%= IssueHelper.UserIssueReply(reply) %>
                 </p>
                 <% if (!reply.HasDisposition) { %>
-                        <%= Html.ActionLink("Like", "Disposition", "IssueReply", new { id = reply.Id, issueId = Model.Issue.Id, disposition = (int)Disposition.LIKE }, null)%>
-                        <%= Html.ActionLink("Dislike", "Disposition", "IssueReply", new { id = reply.Id, issueId = Model.Issue.Id, disposition = (int)Disposition.DISLIKE }, null)%>
+                        <%= Html.ActionLink("Like", "Disposition", "IssueReply", new { id = reply.Id, issueId = Model.Issue.Id, disposition = (int)Disposition.Like }, null)%>
+                        <%= Html.ActionLink("Dislike", "Disposition", "IssueReply", new { id = reply.Id, issueId = Model.Issue.Id, disposition = (int)Disposition.Dislike }, null)%>
                 <% } %>
                 <p>
                     <% if (reply.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Edit_Any_Issue_Reply)) { %>
@@ -145,8 +145,8 @@
         <%= Html.CheckBox("Anonymous", Model.Anonymous) %> Post reply as Anonymous
     <% } %>
 
-	<label for="Like">Like</label> <%= Html.RadioButton("Disposition", Disposition.LIKE, Model.Disposition == Disposition.LIKE ? true : false)%>
-	<label for="Dislike">Dislike</label> <%= Html.RadioButton("Disposition", Disposition.DISLIKE, Model.Disposition == Disposition.DISLIKE ? true : false)%>
+	<label for="Like">Like</label> <%= Html.RadioButton("Disposition", Disposition.Like, Model.Disposition == Disposition.Like ? true : false)%>
+	<label for="Dislike">Dislike</label> <%= Html.RadioButton("Disposition", Disposition.Dislike, Model.Disposition == Disposition.Dislike ? true : false)%>
 	<%= Html.ValidationMessage("Disposition", "*")%>
 
     <input type="submit" value="Submit" />
