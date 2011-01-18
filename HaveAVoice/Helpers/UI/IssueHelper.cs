@@ -31,7 +31,7 @@ namespace HaveAVoice.Helpers.UI {
 
         	/* THIS MERGE SHOULD BE BASED UPON THE VALUE PASSED RESULTING VALUE SHOULD RESOLVE TO CLASSES "agree" OR "disagree" */
             //henryk: donzo
-            if(anIssueReply.IssueStance ==(int) IssueStance.Agree) {
+            if(anIssueReply.IssueStance == (int)IssueStance.Agree) {
         	    stanceDiv.MergeAttribute("class", "agree");
             } else {
                 stanceDiv.MergeAttribute("class", "disagree");
@@ -41,7 +41,9 @@ namespace HaveAVoice.Helpers.UI {
             //henryk: donzo
 			var profileDiv = new TagBuilder("div");
             if (anIssueReply.IssueStance == (int)IssueStance.Disagree) {
-			    profileDiv.MergeAttribute("class", "col-3 center"); /* HERE IS WHERE THE CLASS "push-15" NEEDS TO BE APPENDED */ //henryk: donzo
+			    profileDiv.MergeAttribute("class", "col-3 center push-15"); /* HERE IS WHERE THE CLASS "push-15" NEEDS TO BE APPENDED */ //henryk: donzo
+			} else {
+				profileDiv.MergeAttribute("class", "col-3 center");
 			}
 
 			var profileImg = new TagBuilder("img");
@@ -98,9 +100,13 @@ namespace HaveAVoice.Helpers.UI {
 			
 			/* IF STANCE IS DISAGREE ADDITIONAL CLASS OF "pull-15" NEEDS TO BE APPENDED TO THE TIMESTAMP STYLE */
             if (anIssueReply.IssueStance == (int)IssueStance.Disagree) {
-			    divTimeStamp.MergeAttribute("class", "col-3 date-tile"); /* HERE IS WHERE THE CLASS "pull-15" NEEDS TO BE APPENDED */
+			    divTimeStamp.MergeAttribute("class", "col-3 date-tile pull-15"); /* HERE IS WHERE THE CLASS "pull-15" NEEDS TO BE APPENDED */
                 //Henryk: there was one parameter so I made the first parameter "class"...
+            } else {
+            	divTimeStamp.MergeAttribute("class", "col-3 date-tile");
             }
+            
+            stanceDiv.InnerHtml += stanceComment.ToString();
 			
 			var divTimePad = new TagBuilder("div");
 			divTimePad.MergeAttribute("class", "p-a10");
@@ -113,9 +119,9 @@ namespace HaveAVoice.Helpers.UI {
 			divTimePad.InnerHtml += "&nbsp;";
 			divTimePad.InnerHtml += anIssueReply.DateTimeStamp.ToString("dd");
 			
-			stanceComment.InnerHtml += divTimePad.ToString();
+			stanceDiv.InnerHtml += divTimePad.ToString();
         
-        	return stanceComment.ToString(TagRenderMode.Normal);
+        	return stanceDiv.ToString(TagRenderMode.Normal);
         
 			/*
             var tableTag = new TagBuilder("table");
@@ -219,44 +225,122 @@ namespace HaveAVoice.Helpers.UI {
         }
 
         public static string IssueReply(IssueReplyDetailsModel anIssueReply) {
-            var tableTag = new TagBuilder("table");
-            tableTag.MergeAttribute("border", "0");
-            tableTag.MergeAttribute("cellspacing", "0");
-            tableTag.MergeAttribute("cellpadding", "0");
-            tableTag.MergeAttribute("width", "400px");
+        	var wrprDiv = new TagBuilder("div");
+        	wrprDiv.MergeAttribute("class", "m-btm10");
+        	
+        	var profileDiv = new TagBuilder("div");
+        	profileDiv.MergeAttribute("class", "col-3 center issue-profile");
+        	
+        	/* ALTER THIS FUNCTIONALITY TO DISPLAY THE PROFILE PICTURE AND USERNAME (HANDLE ANONYMOUS PROPERLY) */
+        	var profileImg = new TagBuilder("img");
+        	profileImg.MergeAttribute("alt", "Username");
+        	profileImg.MergeAttribute("src", "/Photos/no_profile_picture.jpg");
+        	profileImg.MergeAttribute("class", "profile");
 
-            var trTag = new TagBuilder("tr");
-            string rowStyle = "text-align:left; background-color:#CCCCFF; color:Black";
-            trTag.MergeAttribute("style", rowStyle);
 
-            var tdTag = new TagBuilder("td");
-            tdTag.MergeAttribute("width", "1%");
-            tdTag.InnerHtml = "<strong>Issue</strong>" + anIssueReply.IssueReply.Issue.Title;
-            trTag.InnerHtml += tdTag.ToString();
+			profileDiv.InnerHtml += profileImg.ToString();
+			wrprDiv.InnerHtml += profileDiv.ToString();
+			
+			var commentDiv = new TagBuilder("div");
+			commentDiv.MergeAttribute("m-lft col-18 m-rgt comment");
+			
+			var paddingDiv = new TagBuilder("div");
+			paddingDiv.MergeAttribute("p-a10");
+			
+			var spanSpeak = new TagBuilder("span");
+			spanSpeak.MergeAttribute("speak-lft");
+			spanSpeak.InnerHtml = "&nbsp;";
+			
+			paddingDiv.InnerHtml += spanSpeak.ToString();
+			
+			var headTitle = new TagBuilder("h1");
+			headTitle.MergeAttribute("m-btm10");
+			headTitle.InnerHtml += anIssueReply.IssueReply.Issue.Title;
+			
+			paddingDiv.InnerHtml += headTitle.ToString();
+			paddingDiv.InnerHtml += anIssueReply.IssueReply.Issue.Description;
+			
+			var clrDiv = new TagBuilder("div");
+			clrDiv.MergeAttribute("class", "clear");
+			clrDiv.InnerHtml = "&nbsp;";
+			
+			paddingDiv.InnerHtml += clrDiv.ToString();
+			commentDiv.InnerHtml += paddingDiv.ToString();
+			
+			wrprDiv.InnerHtml += commentDiv.ToString();
+			
+			var divTimeStamp = new TagBuilder("div");
+        	divTimeStamp.MergeAttribute("class", "col-3 date-tile");
+			
+			var divTimePad = new TagBuilder("div");
+			divTimePad.MergeAttribute("class", "p-a10");
 
-            tableTag.InnerHtml = trTag.ToString();
+			var spanTime = new TagBuilder("span");
+			spanTime.InnerHtml = anIssueReply.IssueReply.Issue.DateTimeStamp.ToString("MMM").ToUpper();
+			
+			divTimePad.InnerHtml += spanTime.ToString();
+			divTimePad.InnerHtml += "&nbsp;";
+			divTimePad.InnerHtml += anIssueReply.IssueReply.Issue.DateTimeStamp.ToString("dd");
+			
+			divTimeStamp.InnerHtml += divTimePad.ToString();
+			
+			wrprDiv.InnerHtml += divTimeStamp.ToString();
+			wrprDiv.InnerHtml += clrDiv.ToString();
+			
+			var replyDiv = new TagBuilder("div");
+			replyDiv.MergeAttribute("class", "m-btm10");
+			
+			var rProfileDiv = new TagBuilder("div");
+			rProfileDiv.MergeAttribute("class", "push-3 col-3 center issue-profile");
+			
+			var rProfileImg = new TagBuilder("img");
+			rProfileImg.MergeAttribute("alt", "Reply Username");
+			rProfileImg.MergeAttribute("src", "/Photos/no_profile_picture.jpg");
+			rProfileImg.MergeAttribute("class", "profile");
+			
+			rProfileDiv.InnerHtml += rProfileImg.ToString();
+			replyDiv.InnerHtml += rProfileDiv.ToString();
+			
+			var rCommentDiv = new TagBuilder("div");
+			rCommentDiv.MergeAttribute("push-3 m-lft col-15 m-rgt row");
+			
+			var rPaddingDiv = new TagBuilder("div");
+			rPaddingDiv.MergeAttribute("class", "p-a10");
+			
+			rPaddingDiv.InnerHtml += spanSpeak.ToString();
+			
+			var rUserLink = new TagBuilder("a");
+			rUserLink.MergeAttribute("class", "name");
+			rUserLink.MergeAttribute("href", "#");
+			rUserLink.InnerHtml = "Username";
+			
+			rPaddingDiv.InnerHtml += rUserLink.ToString();
+			rPaddingDiv.InnerHtml += "&nbsp;";
+			rPaddingDiv.InnerHtml += anIssueReply.IssueReply.Reply;
+			
+			rCommentDiv.InnerHtml += rPaddingDiv.ToString();
+			
+			replyDiv.InnerHtml += rCommentDiv.ToString();
+			
+			var rTimeStamp = new TagBuilder("div");
+			rTimeStamp.MergeAttribute("class", "push-3 col-3 date-tile");
+			
+			var rTimePad = new TagBuilder("div");
+			rTimePad.MergeAttribute("class", "p-a10");
+			
+			var rTime = new TagBuilder("span");
+			rTime.InnerHtml = anIssueReply.IssueReply.DateTimeStamp.ToString("MMM").ToUpper();
+			
+			rTimePad.InnerHtml += rTime.ToString();
+			rTimePad.InnerHtml += "&nbsp;";
+			rTimePad.InnerHtml += anIssueReply.IssueReply.DateTimeStamp.ToString("dd");
+			
+			rTimeStamp += rTimePad.ToString();
+			
+			replyDiv.InnerHtml += rTimeStamp.ToString();
+			replyDiv.InnerHtml += clrDiv.ToString();
 
-            trTag = new TagBuilder("tr");
-            trTag.MergeAttribute("style", rowStyle);
-            tdTag = new TagBuilder("td");
-            tdTag.MergeAttribute("width", "1%");
-            tdTag.InnerHtml = anIssueReply.IssueReply.Issue.Description;
-            trTag.InnerHtml += tdTag.ToString();
-
-            tableTag.InnerHtml += trTag.ToString();
-
-            rowStyle = "text-align:left; height:120px; background-color:#CCCCCC; color:Black";
-
-            trTag = new TagBuilder("tr");
-            trTag.MergeAttribute("style", rowStyle);
-            tdTag = new TagBuilder("td");
-            tdTag.MergeAttribute("width", "1%");
-            tdTag.InnerHtml = anIssueReply.IssueReply.Reply;
-            trTag.InnerHtml += tdTag.ToString();
-
-            tableTag.InnerHtml += trTag.ToString();
-
-            return tableTag.ToString(TagRenderMode.Normal);
+            return wrprDiv.ToString(TagRenderMode.Normal) + clrDiv.ToString(TagRenderMode.Normal) + replyDiv.ToString(TagRenderMode.Normal);
         }
 
         public static string BuildIssueDisplay(IEnumerable<IssueWithDispositionModel> anIssues, bool anIsLike) {

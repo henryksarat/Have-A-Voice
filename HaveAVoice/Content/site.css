@@ -317,6 +317,9 @@ a.filter.dislike:hover { background: #c94020; font-weight: bold; }
 .disagree .comment { color: #fff; position: relative; background: #e03108; min-height: 120px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
 .disagree .speak-rgt { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #e03108 transparent transparent transparent; position: absolute; right: -10px; top: 30px; }
 
+input[type=submit].button, input[type=button].button { font-size: 12px; font-weight: bold; color: #fff; padding: 5px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; cursor: pointer; background: #20a9c9 }
+input[type=submit].button:hover, input[type=button].button:hover { color: #20a9c9; background: #fff; }
+
 
 /****************************************************************************/
 /******************************* EVENTS *************************************/

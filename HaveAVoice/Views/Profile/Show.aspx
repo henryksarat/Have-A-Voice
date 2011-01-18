@@ -284,8 +284,8 @@
 						</div>
 						<div class="m-lft col-14 m-rgt">
 						    <% using (Html.BeginForm("Create", "IssueReplyComment", new { issueReplyId = myIssueReply.Id })) { %>
-					            <%= Html.ValidationMessage("Comment", "*")%>
-					            <%= Html.TextArea("Comment")%>
+					            <%= Html.ValidationMessage("Comment", "*") %>
+					            <%= Html.TextArea("Comment") %>
 					            <div class="clear">&nbsp;</div>
 					            <div class="right m-top10">
 					            	<input type="submit" value="Post" />
