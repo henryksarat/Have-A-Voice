@@ -25,8 +25,6 @@ namespace HaveAVoice {
             ModelBinders.Binders.Add(typeof(IssueReplyDetailsModel), new IssueReplyDetailsModelBinder());
             ModelBinders.Binders.Remove(typeof(PhotosModel));
             ModelBinders.Binders.Add(typeof(PhotosModel), new PhotosModelBinder());
-            ModelBinders.Binders.Remove(typeof(CreateUserModelBuilder));
-            ModelBinders.Binders.Add(typeof(CreateUserModelBuilder), new CreateUserModelBuilderBinder());
             ModelBinders.Binders.Remove(typeof(RestrictionModel));
             ModelBinders.Binders.Add(typeof(RestrictionModel), new RestrictionModelBinder());
             ModelBinders.Binders.Remove(typeof(PermissionModel));

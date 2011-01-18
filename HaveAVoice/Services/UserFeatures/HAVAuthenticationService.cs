@@ -68,7 +68,21 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public void ActivateNewUser(string activationCode) {
-            ActivateUser(activationCode);
+            Role myDefaultRole = theRoleRepo.GetDefaultRole();
+            if (myDefaultRole == null) {
+                throw new NullReferenceException("There is no default role.");
+            }
+
+            ActivateUser(activationCode, myDefaultRole);
+        }
+
+        public void ActivateAuthority(string activationCode) {
+            Role myAuthorityRole = theRoleRepo.GetAuthorityRole();
+            if (myAuthorityRole == null) {
+                throw new NullReferenceException("There is no authority role.");
+            }
+
+            ActivateUser(activationCode, myAuthorityRole);
         }
 
         public User ReadRememberMeCredentials() {
@@ -85,7 +99,7 @@ namespace HaveAVoice.Services.UserFeatures {
             }
         }
 
-        private User ActivateUser(string anActivationCode) {
+        private User ActivateUser(string anActivationCode, Role aRoleToMoveTo) {
             User myUser = theAuthRepo.FindUserByActivationCode(anActivationCode);
 
             if (myUser == null) {
@@ -96,14 +110,11 @@ namespace HaveAVoice.Services.UserFeatures {
             if (myNotConfirmedRole == null) {
                 throw new NullRoleException("There is no \"Not confirmed\" role");
             }
-            Role myDefaultRole = theRoleRepo.GetDefaultRole();
-            if (myDefaultRole == null) {
-                throw new NullReferenceException("There is no default role.");
-            }
+
 
             List<int> myUsers = new List<int>();
             myUsers.Add(myUser.Id);
-            theRoleRepo.MoveUsersToRole(myUsers, myNotConfirmedRole.Id, myDefaultRole.Id);
+            theRoleRepo.MoveUsersToRole(myUsers, myNotConfirmedRole.Id, aRoleToMoveTo.Id);
             thePrivacySettingsService.AddDefaultUserPrivacySettings(myUser);
             return myUser;
         }

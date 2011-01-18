@@ -68,6 +68,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         public void DeleteUser(User userToDelete) {
+            theEntities = new HaveAVoiceEntities(); 
             User originalUser = GetUser(userToDelete.Id);
             theEntities.DeleteObject(originalUser);
             theEntities.SaveChanges();
@@ -151,9 +152,11 @@ namespace HaveAVoice.Repositories.UserFeatures {
                                 && (listenedToUserId != listeningUserId);
         }
 
+        //TODO: Hack here.. need to use Authentication class... using this because if we use it to DeleteUser after adding it because of an error it errors out.
         private User GetUser(int anId) {
-            IHAVUserRetrievalRepository myUserRetrieval = new EntityHAVUserRetrievalRepository();
-            return myUserRetrieval.GetUser(anId);
+            return (from c in theEntities.Users
+                    where c.Id == anId
+                    select c).FirstOrDefault();
         }
     }
 }

@@ -54,6 +54,8 @@ namespace HaveAVoice.Helpers {
         Edit_Restriction,
         Delete_Restriction,
         View_Feedback,
-        View_Admin
+        View_Admin,
+        //Authority Verification
+        Create_Authority_Verification_Token
     }
 }

@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.CreateUserModelBuilder>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.CreateAuthorityUserModelBuilder>" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UI" %>
 <%@ Import Namespace="HaveAVoice.Helpers" %>
 
@@ -58,10 +58,22 @@
     		<div class="col-22">
     			<div class="spacer-30">&nbsp;</div>
     			
-    			<% using (Html.BeginForm("Create", "User", FormMethod.Post, new { @class = "create" })) { %>
+    			<% using (Html.BeginForm("CreateAuthority", "User", FormMethod.Post, new { @class = "create" })) { %>
     				<%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
     				<%= Html.Encode(ViewData["Message"]) %>
-    			
+
+                    <%= Html.Hidden("Email", Model.Email) %>
+                    <%= Html.Hidden("Token", Model.Token) %>
+	    			
+                    <div class="col-4 m-rgt right">
+	    				<label for="FirstName">Email:</label>
+	    			</div>
+	    			<div class="col-4">
+	    				<%= Model.Email %>
+	    			</div>
+	    			<div class="clear">&nbsp;</div>
+	    			<div class="spacer-10">&nbsp;</div>
+
 	    			<div class="col-4 m-rgt right">
 	    				<label for="FirstName">First Name:</label>
 	    			</div>
@@ -85,19 +97,7 @@
 	    			</div>
 	    			<div class="clear">&nbsp;</div>
 	    			<div class="spacer-10">&nbsp;</div>
-	    			
-	    			<div class="col-4 m-rgt right">
-	    				<label for="Email">Email:</label>
-	    			</div>
-	    			<div class="col-4">
-	    				<%= Html.TextBox("Email", Model.Email) %>
-	    			</div>
-	    			<div class="col-14">
-	    				<%= Html.ValidationMessage("Email", "*") %>
-	    			</div>
-	    			<div class="clear">&nbsp;</div>
-	    			<div class="spacer-10">&nbsp;</div>
-	    			
+	    			    			
 	    			<div class="col-4 m-rgt right">
 	    				<label for="Username">Username:</label>
 	    			</div>
@@ -144,7 +144,7 @@
 						<label for="City">City:</label>
 					</div>
 					<div class="col-4">
-						<%= Html.TextBox("City", Model.City)%>
+						<%= Html.TextBox("RepresentingCity", Model.RepresentingCity)%>
 					</div>
 					<div class="col-12">
 						<%= Html.ValidationMessage("City", "*")%>
@@ -156,23 +156,14 @@
 						<label for="State">State:</label>
 					</div>
 					<div class="col-4">
-						<%= Html.DropDownList("State", Model.States)%>
+						<%= Html.DropDownList("RepresentingState", Model.States)%>
 					</div>
 					<div class="col-14">
 						<%= Html.ValidationMessage("State", "*")%>
 					</div>
 					<div class="clear">&nbsp;</div>
 					<div class="spacer-10">&nbsp;</div>
-					
-					<div class="col-4 m-rgt right">
-						<label for="Captcha">Captcha:</label>
-					</div>
-					<div class="col-18">
-						<%= CaptchaHelper.GenerateCaptcha()  %>
-					</div>
-					<div class="clear">&nbsp;</div>
-					<div class="spacer-10">&nbsp;</div>
-					
+										
 					<div class="col-4">&nbsp;</div>
 					<div class="col-8">
 						<%= Html.TextArea("AgreementText", UserHelper.UserAgreement(), new { cols = "40", rows = "4", resize = "none" }) %>

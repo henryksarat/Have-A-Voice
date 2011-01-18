@@ -14,8 +14,7 @@ using HaveAVoice.Models.View;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Controllers.ActionFilters;
 
-namespace HaveAVoice.Controllers.Users
-{
+namespace HaveAVoice.Controllers.Users {
     public class ProfileController : HAVBaseController {
         private static string USER_PAGE_ERROR = "Unable to view the user page.";
         private static string USER_PAGE_ERROR_POLITE = USER_PAGE_ERROR + PLEASE_TRY_AGAIN;
@@ -32,7 +31,6 @@ namespace HaveAVoice.Controllers.Users
             : base(aBaseService) {
             theService = aService;
         }
-
 
         [RequiredRouteValueAttribute.RequireRouteValues(new[] { "id" })]
         [AcceptVerbs(HttpVerbs.Get)]

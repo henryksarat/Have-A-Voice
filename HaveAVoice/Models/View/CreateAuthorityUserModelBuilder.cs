@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 namespace HaveAVoice.Models.View {
-    public class CreateUserModelBuilder {
+    public class CreateAuthorityUserModelBuilder {
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string FirstName { get; set; }
 
@@ -22,7 +22,7 @@ namespace HaveAVoice.Models.View {
         public string Username { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
-        public string City { get; set; }
+        public string RepresentingCity { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Email { get; set; }
@@ -31,25 +31,28 @@ namespace HaveAVoice.Models.View {
         public bool Agreement { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
-        public string State { get; set; }
+        public string RepresentingState { get; set; }
 
-        public CreateUserModelBuilder() {
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string Token { get; set; }
+
+        public CreateAuthorityUserModelBuilder() {
             DateOfBirth = DateTime.UtcNow;
             FirstName = string.Empty;
             LastName = string.Empty;
             Password = string.Empty;
             Username = string.Empty;
-            City = string.Empty;
+            RepresentingCity = string.Empty;
             Email = string.Empty;
             States = new List<SelectListItem>();
-            State = string.Empty;
+            RepresentingState = string.Empty;
         }
 
         public User Build() {
             DateTime myTempDateFiller = DateTime.UtcNow;
             string myTempIp = "127.0.0.1";
             string myTempUtcOffset = "shitty";
-            return User.CreateUser(0, Username, Email, Password, FirstName, LastName, City, State, DateOfBirth, myTempDateFiller, myTempDateFiller, myTempIp, false, myTempUtcOffset);
+            return User.CreateUser(0, Username, Email, Password, FirstName, LastName, RepresentingCity, RepresentingState, DateOfBirth, myTempDateFiller, myTempDateFiller, myTempIp, false, myTempUtcOffset);
         }
 
         public String getDateOfBirthFormatted() {

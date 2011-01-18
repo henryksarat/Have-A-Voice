@@ -12,13 +12,14 @@ using HaveAVoice.Repositories;
 using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Validation;
+using HaveAVoice.Controllers.ActionFilters;
 
-namespace HaveAVoice.Controllers.Users
-{
+namespace HaveAVoice.Controllers.Users {
     public class UserController : HAVBaseController {
         private const string EDIT_SUCCESS = "Your account has been edited successfully!";
         private const string CREATE_ACCOUNT_TITLE = "User account created!";
         private const string CREATE_ACCOUNT_SUCCESS = "An email has been sent to the email you provided. Follow the instructions to activate your account so you can login and start using the site.";
+        private const string CREATE_AUTHORITY_ACCOUNT_SUCCESS = "The authority account has been created! You may now proceed to login.";
         private const string EMAIL_ERROR = "Couldn't send activation e-mail so the User has been activated.";
         private const string CREATE_ACCOUNT_ERROR_MESSAGE = "An error has occurred. Please try again.";
         private const string CREATE_ACCOUNT_ERROR = "Unable to create a user account.";
@@ -54,7 +55,7 @@ namespace HaveAVoice.Controllers.Users
             });
         }
 
-        [CaptchaValidator]  
+        [CaptchaValidator]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Create(CreateUserModelBuilder aUserToCreate, bool captchaValid) {
             try {
@@ -68,9 +69,37 @@ namespace HaveAVoice.Controllers.Users
             } catch (Exception e) {
                 ViewData["Message"] = CREATE_ACCOUNT_ERROR_MESSAGE;
                 LogError(e, CREATE_ACCOUNT_ERROR);
-            } 
+            }
+
+            aUserToCreate.States = new SelectList(HAVConstants.STATES, aUserToCreate.State);
 
             return View("Create", aUserToCreate);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult CreateAuthority(string email, string token) {
+            IEnumerable<SelectListItem> myStates = new SelectList(HAVConstants.STATES, "Select");
+            return View("CreateAuthority", new CreateAuthorityUserModelBuilder() {
+                Email = email,
+                Token = token,
+                States = myStates
+            });
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult CreateAuthority(CreateAuthorityUserModelBuilder aBuilder) {
+            try {
+                bool myResult = theService.CreateUserAuthority(aBuilder.Build(), aBuilder.Token, aBuilder.Agreement, HttpContext.Request.UserHostAddress);
+                if (myResult) {
+                    return SendToResultPage(CREATE_ACCOUNT_TITLE, CREATE_AUTHORITY_ACCOUNT_SUCCESS);
+                }
+            } catch (Exception e) {
+                ViewData["Message"] = CREATE_ACCOUNT_ERROR_MESSAGE;
+                LogError(e, CREATE_ACCOUNT_ERROR);
+            }
+            
+            aBuilder.States = new SelectList(HAVConstants.STATES, aBuilder.RepresentingState);
+            return View("CreateAuthority", aBuilder);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

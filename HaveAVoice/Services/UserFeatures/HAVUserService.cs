@@ -20,20 +20,22 @@ namespace HaveAVoice.Services.UserFeatures {
 
         private IValidationDictionary theValidationDictionary;
         private IHAVUserRetrievalService theUserRetrievalService;
+        private IHAVAuthorityVerificationService theAuthorityVerificationService;
         private IHAVAuthenticationService theAuthService;
         private IHAVPhotoService thePhotoService;
         private IHAVUserRepository theUserRepo;
         private IHAVEmail theEmailService;
 
         public HAVUserService(IValidationDictionary theValidationDictionary)
-            : this(theValidationDictionary, new HAVUserRetrievalService(), new HAVAuthenticationService(), new HAVPhotoService(), 
+            : this(theValidationDictionary, new HAVUserRetrievalService(), new HAVAuthorityVerificationService(theValidationDictionary), new HAVAuthenticationService(), new HAVPhotoService(), 
                     new EntityHAVUserRepository(), new HAVEmail(), new HAVBaseRepository()) { }
         
         public HAVUserService(IValidationDictionary aValidationDictionary, IHAVUserRetrievalService aUserRetrievalService, 
-                                         IHAVAuthenticationService anAuthService, IHAVPhotoService aPhotoService,  
+                                         IHAVAuthorityVerificationService anAuthorityVerificationService, IHAVAuthenticationService anAuthService, IHAVPhotoService aPhotoService,  
                                          IHAVUserRepository aUserRepo, IHAVEmail aEmailService, IHAVBaseRepository baseRepository) : base(baseRepository) {
             theValidationDictionary = aValidationDictionary;
             theUserRetrievalService = aUserRetrievalService;
+            theAuthorityVerificationService = anAuthorityVerificationService;
             theAuthService = anAuthService;
             thePhotoService = aPhotoService;
             theUserRepo = aUserRepo;
@@ -76,6 +78,32 @@ namespace HaveAVoice.Services.UserFeatures {
             return true;
         }
 
+        public bool CreateUserAuthority(User aUserToCreate, string aToken, bool anAgreement, string anIpAddress) {
+            if (!ValidateNewUser(aUserToCreate)) {
+                return false;
+            }
+
+            if (!ValidateToken(aUserToCreate.Email, aToken)) {
+                return false;
+            }
+
+            if (!ValidateAgreement(anAgreement)) {
+                return false;
+            }
+
+            aUserToCreate = CompleteAddingFieldsToUser(aUserToCreate, anIpAddress);
+            aUserToCreate = theUserRepo.CreateUser(aUserToCreate);
+
+            try {
+                theAuthService.ActivateAuthority(aUserToCreate.ActivationCode);
+            } catch (Exception e) {
+                theUserRepo.DeleteUser(aUserToCreate);
+                throw e;
+            }
+
+            return true;
+        }
+
         private User CompleteAddingFieldsToUser(User aUserToCreate, string aIpAddress) {
             TimeZone myTimezone = TimeZone.CurrentTimeZone;
             aUserToCreate.UTCOffset = myTimezone.GetUtcOffset(DateTime.Now).ToString();
@@ -89,17 +117,6 @@ namespace HaveAVoice.Services.UserFeatures {
             aUserToCreate.ActivationCode = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(aItemToHash, "SHA1");
 
             return aUserToCreate;
-        }
-
-        private void SendActivationCode(User aUser) {
-            string myUrl = HAVConstants.BASE_URL + "/Authentication/ActivateAccount/" + aUser.ActivationCode;
-            string myActivationLink = "<a href=\"" + myUrl + "\">" + myUrl + "</a>";
-
-            try {
-                theEmailService.SendEmail(aUser.Email, ACTIVATION_SUBJECT, ACTIVATION_BODY + myActivationLink);
-            } catch (Exception e) {
-                throw new EmailException("Couldn't send aEmail.", e);
-            }
         }
         
         public IEnumerable<UserDetailsModel> GetUserList(User aExcludedUser) {
@@ -133,14 +150,6 @@ namespace HaveAVoice.Services.UserFeatures {
             
         }
 
-        private bool ValidateFileImage(string aImageFile) {
-            if(thePhotoService.IsValidImage(aImageFile)){
-                theValidationDictionary.AddError("ProfilePictureUpload", aImageFile, "Image must be either a .jpg, .jpeg, or .gif.");
-            }
-
-            return theValidationDictionary.isValid;
-        }
-
         private bool ShouldUploadImage(bool aValidImage, string anImageFile) {
             return !String.IsNullOrEmpty(anImageFile) && aValidImage;
         }
@@ -160,7 +169,27 @@ namespace HaveAVoice.Services.UserFeatures {
             };
         }
 
+        private void SendActivationCode(User aUser) {
+            string myUrl = HAVConstants.BASE_URL + "/Authentication/ActivateAccount/" + aUser.ActivationCode;
+            string myActivationLink = "<a href=\"" + myUrl + "\">" + myUrl + "</a>";
+
+            try {
+                theEmailService.SendEmail(aUser.Email, ACTIVATION_SUBJECT, ACTIVATION_BODY + myActivationLink);
+            } catch (Exception e) {
+                throw new EmailException("Couldn't send aEmail.", e);
+            }
+        }
+
         #region Validation"
+
+        private bool ValidateToken(string anEmail, string aToken) {
+            if (!theAuthorityVerificationService.IsValidToken(anEmail, aToken)) {
+                theValidationDictionary.AddError("Token", aToken, "An error occurred while authenticating you as an authority. Please follow the steps sent to your email again or contact henryksarat@haveavoice.com.");
+            }
+
+            return theValidationDictionary.isValid;
+        }
+
         private bool ValidateAgreement(bool aAgreement) {
             if (aAgreement == false) {
                 theValidationDictionary.AddError("Agreement", "false", "You must agree to the terms.");
@@ -274,6 +303,14 @@ namespace HaveAVoice.Services.UserFeatures {
             } else if (anOriginalEmail != null && (anOriginalEmail != anEmail)
                 && (theUserRepo.EmailRegistered(anEmail))) {
                 theValidationDictionary.AddError("Email", anEmail, "Someone already registered with that email. Please try another one.");
+            }
+
+            return theValidationDictionary.isValid;
+        }
+
+        private bool ValidateFileImage(string aImageFile) {
+            if (thePhotoService.IsValidImage(aImageFile)) {
+                theValidationDictionary.AddError("ProfilePictureUpload", aImageFile, "Image must be either a .jpg, .jpeg, or .gif.");
             }
 
             return theValidationDictionary.isValid;

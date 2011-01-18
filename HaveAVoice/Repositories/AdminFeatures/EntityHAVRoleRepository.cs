@@ -74,6 +74,17 @@ namespace HaveAVoice.Repositories.AdminFeatures {
                     select c).FirstOrDefault();
         }
 
+        public Role GetAuthorityRole() {
+            Role myAuthorityRole = (from r in theEntities.Roles
+                                     where r.Name == HAVConstants.AUTHORITY_USER_ROLE
+                                     select r).FirstOrDefault();
+
+            if (myAuthorityRole == null)
+                throw new NullReferenceException("Unable to get the Authority user role.");
+
+            return myAuthorityRole;
+        }
+
         public Role GetNotConfirmedUserRole() {
             Role notConfirmedRole = (from c in theEntities.Roles
                     where c.Name == HAVConstants.NOT_CONFIRMED_USER_ROLE
