@@ -242,19 +242,19 @@ namespace HaveAVoice.Helpers.UI {
 			wrprDiv.InnerHtml += profileDiv.ToString();
 			
 			var commentDiv = new TagBuilder("div");
-			commentDiv.MergeAttribute("m-lft col-18 m-rgt comment");
+			commentDiv.MergeAttribute("class", "m-lft col-18 m-rgt comment");
 			
 			var paddingDiv = new TagBuilder("div");
-			paddingDiv.MergeAttribute("p-a10");
+            paddingDiv.MergeAttribute("class", "p-a10");
 			
 			var spanSpeak = new TagBuilder("span");
-			spanSpeak.MergeAttribute("speak-lft");
+            spanSpeak.MergeAttribute("class", "speak-lft");
 			spanSpeak.InnerHtml = "&nbsp;";
 			
 			paddingDiv.InnerHtml += spanSpeak.ToString();
 			
 			var headTitle = new TagBuilder("h1");
-			headTitle.MergeAttribute("m-btm10");
+            headTitle.MergeAttribute("class", "m-btm10");
 			headTitle.InnerHtml += anIssueReply.IssueReply.Issue.Title;
 			
 			paddingDiv.InnerHtml += headTitle.ToString();
@@ -302,7 +302,7 @@ namespace HaveAVoice.Helpers.UI {
 			replyDiv.InnerHtml += rProfileDiv.ToString();
 			
 			var rCommentDiv = new TagBuilder("div");
-			rCommentDiv.MergeAttribute("push-3 m-lft col-15 m-rgt row");
+            rCommentDiv.MergeAttribute("class", "push-3 m-lft col-15 m-rgt row");
 			
 			var rPaddingDiv = new TagBuilder("div");
 			rPaddingDiv.MergeAttribute("class", "p-a10");
@@ -335,7 +335,7 @@ namespace HaveAVoice.Helpers.UI {
 			rTimePad.InnerHtml += "&nbsp;";
 			rTimePad.InnerHtml += anIssueReply.IssueReply.DateTimeStamp.ToString("dd");
 			
-			rTimeStamp += rTimePad.ToString();
+			rTimeStamp.InnerHtml += rTimePad.ToString();
 			
 			replyDiv.InnerHtml += rTimeStamp.ToString();
 			replyDiv.InnerHtml += clrDiv.ToString();
