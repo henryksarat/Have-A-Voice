@@ -4,6 +4,7 @@
 <%@Import Namespace="HaveAVoice.Helpers" %>
 <%@Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 <%@Import Namespace="HaveAVoice.Helpers.Enums" %>
+<%@Import Namespace="HaveAVoice.Services.Helpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	View
@@ -73,7 +74,7 @@
 	        
 	        
 	        <div class="push-2 col-3 center issue-profile">
-				<img src="http://www2.pictures.zimbio.com/img/5519/Alicia/5986c.nZBops.jpg" alt="Gerard Butler" class="profile" />
+				<img src="<%= PhotoHelper.ProfilePicture(Model.Issue.User) %>" alt="<%= Model.Issue.User %>" class="profile" />
 			</div>
 			<div class="push-2 m-lft col-16 m-rgt comment">
 				<div class="p-a10">
@@ -112,36 +113,25 @@
 
             <% foreach (IssueReplyModel reply in Model.UserReplys) { %>
                 <%= IssueHelper.UserIssueReply(reply) %>
-                
-                <!-- IS THERE ANY WAY TO MOVE THIS INTO THE UserIssueReply() function? //-->
-                <% if (!reply.HasDisposition) { %>
-                        <%= Html.ActionLink("Like", "Disposition", "IssueReply", new { id = reply.Id, issueId = Model.Issue.Id, disposition = (int)Disposition.Like }, null)%>
-                        <%= Html.ActionLink("Dislike", "Disposition", "IssueReply", new { id = reply.Id, issueId = Model.Issue.Id, disposition = (int)Disposition.Dislike }, null)%>
-                <% } %>
-                <% if (reply.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Edit_Any_Issue_Reply)) { %>
-                    <%= Html.ActionLink("Edit", "Edit", "IssueReply", new { id = reply.Id }, null)%>
-				<% } %>
-				<% if (reply.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Delete_Any_Issue_Reply)) { %>
-					<%= Html.ActionLink("Delete", "Delete", "IssueReply", new { id = reply.Id, issueId = Model.Issue.Id }, null)%>
-                <% } %>
+
                 <div class="clear">&nbsp;</div>
             <% } %>
 
-<% /*
-<% foreach (IssueReplyModel reply in Model.OfficialReplys) { %>
-    <p>
-        <%= IssueHelper.OfficialIssueReply(reply) %>
-    </p>
-    <p>
-        <% if (reply.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Edit_Any_Issue_Reply)) { %>
-            <%= Html.ActionLink("Edit", "Edit", "IssueReply", new { id = reply.Id }, null)%>
-        <% } %>
-       <% if (reply.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Delete_Any_Issue_Reply)) { %>
-            <%= Html.ActionLink("Delete", "Delete", "IssueReply", new { id = reply.Id, issueId = Model.Issue.Id }, null)%>
-        <% } %>
-    </p>
-<%}%>
-<% */ %>
+            <% /*
+            <% foreach (IssueReplyModel reply in Model.OfficialReplys) { %>
+                <p>
+                    <%= IssueHelper.OfficialIssueReply(reply) %>
+                </p>
+                <p>
+                    <% if (reply.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Edit_Any_Issue_Reply)) { %>
+                        <%= Html.ActionLink("Edit", "Edit", "IssueReply", new { id = reply.Id }, null)%>
+                    <% } %>
+                   <% if (reply.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Delete_Any_Issue_Reply)) { %>
+                        <%= Html.ActionLink("Delete", "Delete", "IssueReply", new { id = reply.Id, issueId = Model.Issue.Id }, null)%>
+                    <% } %>
+                </p>
+            <%}%>
+            <% */ %>
 
 			<% if (!HAVUserInformationFactory.IsLoggedIn()) { %>
 				<div class="reply">
@@ -155,7 +145,8 @@
 				<div class="reply">
 					<div class="row">
 						<div class="push-2 col-2 center">
-							<img src="http://www2.pictures.zimbio.com/img/5519/Alicia/5986c.nZBops.jpg" alt="Gerard Butler" class="profile" />
+                            <% UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation(); %>
+							<img src="<%= myUserInfo.ProfilePictureUrl %>" alt="<%= myUserInfo.Details.Username %>" class="profile" />
 						</div>
 						<div class="push-2 m-lft col-14 comment">
 							<span class="speak-lft">&nbsp;</span>

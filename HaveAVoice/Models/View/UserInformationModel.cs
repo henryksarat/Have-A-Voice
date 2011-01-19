@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Collections;
 using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Helpers;
+using HaveAVoice.Services.Helpers;
 
 
 namespace HaveAVoice.Models.View {
@@ -15,12 +16,13 @@ namespace HaveAVoice.Models.View {
         public List<Permission> Permissions;
         public Hashtable PermissionToRestriction { get; private set; }
         public Hashtable PrivacySettings { get; private set; }
+        public string ProfilePictureUrl { get; private set; }
 
         public UserInformationModel(User aUser, IEnumerable<Permission> aPermissions, Restriction aRestriction, UserPrivacySetting aPrivacySettings) {
             this.Details = aUser;
             this.Permissions = aPermissions.ToList<Permission>();
             AddRestrictionsToHashTable(aRestriction);
-
+            ProfilePictureUrl = PhotoHelper.ProfilePicture(aUser);
 
             AddPrivacySettingsToHashTable(aPrivacySettings);
         }

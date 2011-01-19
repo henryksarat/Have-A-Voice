@@ -10,38 +10,26 @@ using System.Collections.Generic;
 
 namespace HaveAVoice.Helpers.UI {
     public class IssueHelper {
-		/* THIS FUNCTION NEEDS TO DETERMINE AGREE / DISAGREE OPPOSED TO PASSING A STYLE */
-        //Henryk: Add IssueStance to IssueReplyModel#IssueStance
         public static string UserIssueReply(IssueReplyModel anIssueReply) {
             return BuildIssueReplyTable(anIssueReply);
         }
 
-		/* THIS FUNCTION NEEDS TO DETERMINE AGREE / DISAGREE OPPOSED TO PASSING A STYLE */
-		/* NOTE: THE FUNCTIONS SHOUDL BE UPDATED TO ACCEPT A FILTER SET OPPOSED TO JUST USER / OFFICAL */
-        //Henryk: I created an IssueFilter enum located in Helpers.Enums.
         public static string OfficialIssueReply(IssueReplyModel anIssueReply, IssueFilter aIssueFilter) {
             return BuildIssueReplyTable(anIssueReply);
         }
 
-		/* AGREE / DISAGREE CAN BE AN ENUM OR BOOLEAN TO DETERMINE THE POST STANCE SO STRUCTURE CAN CHANGE */
-		/* NOTE: I STRUCTURED IT TO DEFAULT TO AGREE / BUT MADE NOTES ON HOW IT SHOULD CHANGE*/
-        //Henryk: Added if/else for aggree/disagree
         private static string BuildIssueReplyTable(IssueReplyModel anIssueReply) {
         	var stanceDiv = new TagBuilder("div");
 
-        	/* THIS MERGE SHOULD BE BASED UPON THE VALUE PASSED RESULTING VALUE SHOULD RESOLVE TO CLASSES "agree" OR "disagree" */
-            //henryk: donzo
             if(anIssueReply.IssueStance == (int)IssueStance.Agree) {
         	    stanceDiv.MergeAttribute("class", "agree");
             } else {
                 stanceDiv.MergeAttribute("class", "disagree");
             }
 
-			/* IF STANCE IS DISAGREE AN ADDITIONAL CLASS OF "push-15" NEEDS TO BE APPENDED TO THE PROFILE STYLE */
-            //henryk: donzo
 			var profileDiv = new TagBuilder("div");
             if (anIssueReply.IssueStance == (int)IssueStance.Disagree) {
-			    profileDiv.MergeAttribute("class", "col-3 center push-15"); /* HERE IS WHERE THE CLASS "push-15" NEEDS TO BE APPENDED */ //henryk: donzo
+			    profileDiv.MergeAttribute("class", "col-3 center push-15");
 			} else {
 				profileDiv.MergeAttribute("class", "col-3 center");
 			}
@@ -49,10 +37,10 @@ namespace HaveAVoice.Helpers.UI {
 			var profileImg = new TagBuilder("img");
 			if (anIssueReply.Anonymous) {
 				profileImg.MergeAttribute("alt", "Anonymous");
-				profileImg.MergeAttribute("src", "/Photos/no_profile_picture.jpg");
+                profileImg.MergeAttribute("src", "http://images.chron.com/photos/2008/05/19/graphic_defaultAvatar/graphic_defaultAvatar.jpg");
 			}  else {
 				profileImg.MergeAttribute("alt", anIssueReply.User.Username);
-				profileImg.MergeAttribute("src", PhotoHelper.ProfilePicture(anIssueReply.User)); /* NOTE: I DON'T KNOW IF THIS IS THE CORRECT CALL (IF NO PLEASE CORRECT)... Henryk: No problem I created a PhotoHelper#ProfilePicture, but the ProfilePicture should be in the model itself... I will change this later but it's good like this for now */
+				profileImg.MergeAttribute("src", PhotoHelper.ProfilePicture(anIssueReply.User));
 			}
 			profileImg.MergeAttribute("class", "profile");
 			
@@ -64,8 +52,6 @@ namespace HaveAVoice.Helpers.UI {
 			
 			var spanDirSpeak = new TagBuilder("span");
 			
-			/* NOTE: IF STANCE IS AGREE CLASS SHOULD BE "speak-lft" IF STANCE IS DISAGREE CLASS SHOULD BE "speak-rgt" */
-            //Henryk: done
             if (anIssueReply.IssueStance == (int)IssueStance.Agree) {
                 spanDirSpeak.MergeAttribute("class", "speak-lft");
             } else {
@@ -76,7 +62,7 @@ namespace HaveAVoice.Helpers.UI {
 			stanceComment.InnerHtml += spanDirSpeak.ToString();
 
 			var divCommentPad = new TagBuilder("div");
-			divCommentPad.MergeAttribute("class","p-a10"); //Henryk: This had only one parameter, I add "class" as the first one, is this right?
+			divCommentPad.MergeAttribute("class","p-a10");
 			
 			var hrefName = new TagBuilder("a");
 			hrefName.MergeAttribute("class", "name");
@@ -87,8 +73,6 @@ namespace HaveAVoice.Helpers.UI {
 			} else {
 				hrefName.InnerHtml = anIssueReply.User.Username;
                 hrefName.MergeAttribute("href", LinkHelper.ProfilePage(anIssueReply.User));
-				/* THIS SHOULD LINK TO THE USER PROFILE */
-                //Henryk: created LinkHelper to construct URL.
 			}
 			
 			divCommentPad.InnerHtml += hrefName.ToString();
@@ -98,10 +82,8 @@ namespace HaveAVoice.Helpers.UI {
 
 			var divTimeStamp = new TagBuilder("div");
 			
-			/* IF STANCE IS DISAGREE ADDITIONAL CLASS OF "pull-15" NEEDS TO BE APPENDED TO THE TIMESTAMP STYLE */
             if (anIssueReply.IssueStance == (int)IssueStance.Disagree) {
-			    divTimeStamp.MergeAttribute("class", "col-3 date-tile pull-15"); /* HERE IS WHERE THE CLASS "pull-15" NEEDS TO BE APPENDED */
-                //Henryk: there was one parameter so I made the first parameter "class"...
+			    divTimeStamp.MergeAttribute("class", "col-3 date-tile pull-15");
             } else {
             	divTimeStamp.MergeAttribute("class", "col-3 date-tile");
             }
@@ -110,7 +92,6 @@ namespace HaveAVoice.Helpers.UI {
 			
 			var divTimePad = new TagBuilder("div");
 			divTimePad.MergeAttribute("class", "p-a10");
-			//Henryk: there was one parameter so I made the first parameter "class"...
 
 			var spanTime = new TagBuilder("span");
 			spanTime.InnerHtml = anIssueReply.DateTimeStamp.ToString("MMM").ToUpper();
@@ -120,7 +101,36 @@ namespace HaveAVoice.Helpers.UI {
 			divTimePad.InnerHtml += anIssueReply.DateTimeStamp.ToString("dd");
 			
 			stanceDiv.InnerHtml += divTimePad.ToString();
-        
+
+            var optionsDiv = new TagBuilder("div");
+            if(!anIssueReply.HasDisposition) {
+                var myLikeDisposition = new TagBuilder("a");
+                myLikeDisposition.MergeAttribute("href", LinkHelper.LikeIssueReply(anIssueReply.Id, anIssueReply.Issue.Id));
+                myLikeDisposition.InnerHtml += "Like";
+                optionsDiv.InnerHtml +=myLikeDisposition.ToString();
+
+                var myDislikeDisposition = new TagBuilder("a");
+                myDislikeDisposition.MergeAttribute("href", LinkHelper.DislikeIssueReply(anIssueReply.Id, anIssueReply.Issue.Id));
+                myDislikeDisposition.InnerHtml += "Dislike";
+                optionsDiv.InnerHtml +=myDislikeDisposition.ToString();
+            }
+            UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation();
+            if(anIssueReply.User.Id == myUserInformationModel.Details.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Edit_Any_Issue_Reply)) {
+                var myEdit = new TagBuilder("a");
+                myEdit.MergeAttribute("href", LinkHelper.EditIssueReply(anIssueReply.Id));
+                myEdit.InnerHtml += "Edit";
+                optionsDiv.InnerHtml +=myEdit.ToString();
+            }
+
+            if(anIssueReply.User.Id == myUserInformationModel.Details.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Delete_Any_Issue_Reply)) {
+                var myDelete = new TagBuilder("a");
+                myDelete.MergeAttribute("href", LinkHelper.EditIssueReply(anIssueReply.Id));
+                myDelete.InnerHtml += "Delete";
+                optionsDiv.InnerHtml +=myDelete.ToString();
+            }
+
+            stanceDiv.InnerHtml += optionsDiv.ToString();
+
         	return stanceDiv.ToString(TagRenderMode.Normal);
         
 			/*
@@ -177,7 +187,7 @@ namespace HaveAVoice.Helpers.UI {
             tableTag.InnerHtml += trTag.ToString();
 
             return tableTag.ToString(TagRenderMode.Normal);
-            */
+            
             
             /* NOTE: PLEASE CHECK FOR ANY SYNTAX ERRORS AND NOTICE I CURRENTLY LEFT OFF THE COMMENT / LIKE / DISLIKE / REPORT / EDIT LINKS UNTIL I FIGURE HOW TO FIT THESE IN */
             /* CLASSES WILL BE CHANGED, BUT THE STRUCTURE IS IN PLACE TO GIVE YOU AN IDEA OF THE STYLE ONCE COMPILED. */
@@ -232,9 +242,16 @@ namespace HaveAVoice.Helpers.UI {
         	profileDiv.MergeAttribute("class", "col-3 center issue-profile");
         	
         	/* ALTER THIS FUNCTIONALITY TO DISPLAY THE PROFILE PICTURE AND USERNAME (HANDLE ANONYMOUS PROPERLY) */
+            string myAvatarURL = "http://images.chron.com/photos/2008/05/19/graphic_defaultAvatar/graphic_defaultAvatar.jpg";
+            string myUsername = "Anonymous";
+            if (PrivacyHelper.IsAllowed(anIssueReply.IssueReply.User, PrivacyAction.DisplayProfile)) {
+                myAvatarURL = PhotoHelper.ProfilePicture(anIssueReply.IssueReply.User);
+                myUsername = anIssueReply.IssueReply.User.Username;
+            }
+
         	var profileImg = new TagBuilder("img");
-        	profileImg.MergeAttribute("alt", "Username");
-        	profileImg.MergeAttribute("src", "/Photos/no_profile_picture.jpg");
+            profileImg.MergeAttribute("alt", myUsername);
+            profileImg.MergeAttribute("src", myAvatarURL);
         	profileImg.MergeAttribute("class", "profile");
 
 
