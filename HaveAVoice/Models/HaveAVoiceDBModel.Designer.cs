@@ -76,6 +76,8 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Photos_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Photo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Photo), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_PhotoComplaints_Photos", "Photo", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Photo), "PhotoComplaint", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.PhotoComplaint), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_PhotoComplaints_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "PhotoComplaint", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.PhotoComplaint), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Fans_FanUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Fan", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Fan), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Fans_SourceUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Fan", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Fan), true)]
 
 #endregion
 
@@ -734,6 +736,22 @@ namespace HaveAVoice.Models
             }
         }
         private ObjectSet<PhotoComplaint> _PhotoComplaints;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Fan> Fans
+        {
+            get
+            {
+                if ((_Fans == null))
+                {
+                    _Fans = base.CreateObjectSet<Fan>("Fans");
+                }
+                return _Fans;
+            }
+        }
+        private ObjectSet<Fan> _Fans;
 
         #endregion
         #region AddTo Methods
@@ -1040,6 +1058,14 @@ namespace HaveAVoice.Models
         public void AddToPhotoComplaints(PhotoComplaint photoComplaint)
         {
             base.AddObject("PhotoComplaints", photoComplaint);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Fans EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToFans(Fan fan)
+        {
+            base.AddObject("Fans", fan);
         }
 
         #endregion
@@ -3933,6 +3959,192 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_Events_Users", "User", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="HaveAVoice.Models", Name="Fan")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Fan : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Fan object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="sourceUserId">Initial value of the SourceUserId property.</param>
+        /// <param name="fanUserId">Initial value of the FanUserId property.</param>
+        public static Fan CreateFan(global::System.Int32 id, global::System.Int32 sourceUserId, global::System.Int32 fanUserId)
+        {
+            Fan fan = new Fan();
+            fan.Id = id;
+            fan.SourceUserId = sourceUserId;
+            fan.FanUserId = fanUserId;
+            return fan;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 SourceUserId
+        {
+            get
+            {
+                return _SourceUserId;
+            }
+            set
+            {
+                OnSourceUserIdChanging(value);
+                ReportPropertyChanging("SourceUserId");
+                _SourceUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("SourceUserId");
+                OnSourceUserIdChanged();
+            }
+        }
+        private global::System.Int32 _SourceUserId;
+        partial void OnSourceUserIdChanging(global::System.Int32 value);
+        partial void OnSourceUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 FanUserId
+        {
+            get
+            {
+                return _FanUserId;
+            }
+            set
+            {
+                OnFanUserIdChanging(value);
+                ReportPropertyChanging("FanUserId");
+                _FanUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FanUserId");
+                OnFanUserIdChanged();
+            }
+        }
+        private global::System.Int32 _FanUserId;
+        partial void OnFanUserIdChanging(global::System.Int32 value);
+        partial void OnFanUserIdChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Fans_FanUserId_Users", "User")]
+        public User FanUser
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_Fans_FanUserId_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_Fans_FanUserId_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> FanUserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_Fans_FanUserId_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_Fans_FanUserId_Users", "User", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Fans_SourceUserId_Users", "User")]
+        public User SourceUser
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_Fans_SourceUserId_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_Fans_SourceUserId_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> SourceUserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_Fans_SourceUserId_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_Fans_SourceUserId_Users", "User", value);
                 }
             }
         }
@@ -11578,6 +11790,50 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PhotoComplaint>("HaveAVoice.Models.FK_PhotoComplaints_Users", "PhotoComplaint", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Fans_FanUserId_Users", "Fan")]
+        public EntityCollection<Fan> Fans
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Fan>("HaveAVoice.Models.FK_Fans_FanUserId_Users", "Fan");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Fan>("HaveAVoice.Models.FK_Fans_FanUserId_Users", "Fan", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Fans_SourceUserId_Users", "Fan")]
+        public EntityCollection<Fan> Fans1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Fan>("HaveAVoice.Models.FK_Fans_SourceUserId_Users", "Fan");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Fan>("HaveAVoice.Models.FK_Fans_SourceUserId_Users", "Fan", value);
                 }
             }
         }

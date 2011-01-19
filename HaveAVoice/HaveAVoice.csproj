@@ -155,6 +155,8 @@
     <Compile Include="Models\Wrappers\IssueWrapper.cs" />
     <Compile Include="Repositories\AdminFeatures\EntityHAVPermissionRepository.cs" />
     <Compile Include="Repositories\AdminFeatures\IHAVPermissionRepository.cs" />
+    <Compile Include="Repositories\UserFeatures\EntityHAVFanRepository.cs" />
+    <Compile Include="Repositories\UserFeatures\IHAVFanRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVPhotoAlbumRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVPhotoAlbumRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVAuthenticationRepository.cs" />
@@ -188,6 +190,8 @@
     <Compile Include="Services\Helpers\PrivacyHelper.cs" />
     <Compile Include="Services\Helpers\PhotoHelper.cs" />
     <Compile Include="Services\Helpers\ValidationHelper.cs" />
+    <Compile Include="Services\UserFeatures\HAVFanService.cs" />
+    <Compile Include="Services\UserFeatures\IHAVFanService.cs" />
     <Compile Include="Services\UserFeatures\HAVPhotoAlbumService.cs" />
     <Compile Include="Services\UserFeatures\HAVAuthorityVerificationService.cs" />
     <Compile Include="Services\UserFeatures\HAVFriendService.cs" />
