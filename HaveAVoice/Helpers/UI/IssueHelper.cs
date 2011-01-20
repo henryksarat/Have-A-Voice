@@ -194,44 +194,70 @@ namespace HaveAVoice.Helpers.UI {
         }
 
         public static string Comment(IssueReplyComment aComment) {
-            var tableTag = new TagBuilder("table");
-            tableTag.MergeAttribute("border", "0");
-            tableTag.MergeAttribute("cellspacing", "0");
-            tableTag.MergeAttribute("cellpadding", "0");
-            tableTag.MergeAttribute("width", "400px");
+        	var wrprDiv = new TagBuilder("div");
+        	wrprDiv.MergeAttribute("class", "m-btm10");
+        	
+        	var profileDiv = new TagBuilder("div");
+        	profileDiv.MergeAttribute("class", "push-6 col-3 center");
+        	
+        	var profileImg = new TagBulider("img");
+        	profileImg.MergeAttribute("class", "profile");
+        	profileImg.MergeAttribute("alt", aComment.User.Username);
+        	profileImg.MergeAttribute("src", "/Photos/no_profile_picture.jpg");
+        	
+        	profileDiv.InnerHtml += profileImg.ToString();
+        	wrprDiv.InnerHtml += profileDiv.ToString();
+        	
+        	var commentDiv = new TagBuilder("div");
+        	commentDiv.MergeAttribute("class", "push-6 m-lft col-12 m-rgt row");
+        	
+			var spanDirSpeak = new TagBuilder("span");
+            spanDirSpeak.MergeAttribute("class", "speak-lft");
+			spanDirSpeak.InnerHtml = "&nbsp;";
+			
+			commentDiv.InnerHtml += spanDirSpeak.ToString();
+        	
+        	var paddingDiv = new TagBuilder("div");
+        	paddingDiv.MergeAttribute("class", "p-a10");
+        	
+        	var href = new TagBuilder("a");
+        	href.MergeAttribute("class", "name");
+        	href.MergeAttribute("href", "#");
+        	href.InnerHtml += aComment.User.Username;
+        	
+        	paddingDiv.InnerHtml += href.ToString();
+        	paddingDiv.InnerHtml += "&nbsp;";
+        	paddingDiv.InnerHtml += aComment.Comment;
+        	
+        	paddingDiv.InnerHtml += ComplaintHelper.IssueReplyCommentLink(aComment.Id);
+        	
+        	commentDiv.InnerHtml += paddingDiv.ToString();
+        	wrprDiv.InnerHtml += commentDiv.ToString();
+        	
+        	var divTime = new TagBuilder("div");
+        	divTime.MergeAttribute("class", "push-6 col-3 date-tile")
+        	
+			var divTimePad = new TagBuilder("div");
+			divTimePad.MergeAttribute("class", "p-a10");
 
-            var trTag = new TagBuilder("tr");
-            string rowStyle = "text-align:left; background-color:#6699CC; color:Black";
-            trTag.MergeAttribute("style", rowStyle);
+			var spanTime = new TagBuilder("span");
+			spanTime.InnerHtml = aComment.DateTimeStamp.ToString("MMM").ToUpper();
+			
+			divTimePad.InnerHtml += spanTime.ToString();
+			divTimePad.InnerHtml += "&nbsp;";
+			divTimePad.InnerHtml += aComment.DateTimeStamp.ToString("dd");
+			
+			divTime.InnerHtml += divTimePad.ToString();
+			
+			wrprDiv.InnerHtml += divTime.ToString();
+			
+			var clrDiv = new TagBuilder("div");
+			clrDiv.MergeAttribute("class", "clear");
+			clrDiv.InnerHtml += "&nbsp;";
+			
+			wrprDiv.InnerHtml += clrDiv.ToString();
 
-            var tdTag = new TagBuilder("td");
-            tdTag.MergeAttribute("width", "1%");
-            tdTag.InnerHtml = "<strong>" + aComment.User.Username + "</strong>";
-            tdTag.InnerHtml += " @ " + aComment.DateTimeStamp;
-            trTag.InnerHtml += tdTag.ToString();
-
-            tableTag.InnerHtml = trTag.ToString();
-
-            trTag = new TagBuilder("tr");
-            trTag.MergeAttribute("style", rowStyle);
-            tdTag = new TagBuilder("td");
-            tdTag.MergeAttribute("width", "1%");
-            tdTag.InnerHtml = aComment.Comment;
-            trTag.InnerHtml += tdTag.ToString();
-
-            tableTag.InnerHtml += trTag.ToString();
-
-            trTag = new TagBuilder("tr");
-            trTag.MergeAttribute("style", rowStyle);
-            tdTag = new TagBuilder("td");
-            tdTag.MergeAttribute("style", "text-align:right;");
-            tdTag.MergeAttribute("width", "1%");
-            tdTag.InnerHtml = ComplaintHelper.IssueReplyCommentLink(aComment.Id);
-            trTag.InnerHtml += tdTag.ToString();
-
-            tableTag.InnerHtml += trTag.ToString();
-
-            return tableTag.ToString(TagRenderMode.Normal);
+            return wrprDiv.ToString(TagRenderMode.Normal);
         }
 
         public static string IssueReply(IssueReplyDetailsModel anIssueReply) {
