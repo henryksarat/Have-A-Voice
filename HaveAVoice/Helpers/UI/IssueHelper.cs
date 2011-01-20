@@ -199,8 +199,8 @@ namespace HaveAVoice.Helpers.UI {
         	
         	var profileDiv = new TagBuilder("div");
         	profileDiv.MergeAttribute("class", "push-6 col-3 center");
-        	
-        	var profileImg = new TagBulider("img");
+
+            var profileImg = new TagBuilder("img");
         	profileImg.MergeAttribute("class", "profile");
         	profileImg.MergeAttribute("alt", aComment.User.Username);
         	profileImg.MergeAttribute("src", "/Photos/no_profile_picture.jpg");
@@ -235,7 +235,7 @@ namespace HaveAVoice.Helpers.UI {
         	wrprDiv.InnerHtml += commentDiv.ToString();
         	
         	var divTime = new TagBuilder("div");
-        	divTime.MergeAttribute("class", "push-6 col-3 date-tile")
+            divTime.MergeAttribute("class", "push-6 col-3 date-tile");
         	
 			var divTimePad = new TagBuilder("div");
 			divTimePad.MergeAttribute("class", "p-a10");
