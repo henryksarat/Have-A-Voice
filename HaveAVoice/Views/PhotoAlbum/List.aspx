@@ -16,7 +16,16 @@
     </div>
 
     <% UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation(); %>
-    <% bool myIsUser = myUserInformationModel.Details.Id == Model.SourceUserIdOfContent;  %>
+    <% bool myIsUser = myUserInformationModel.Details.Id == Model.SourceUserIdOfContent; %>
+
+    <% foreach (var item in Model.Models) { %>
+        <%= Html.ActionLink(item.Name, "Details", "PhotoAlbum", new { id = item.Id }, null)%> 
+        <% if (myIsUser) { %>
+            <%= Html.ActionLink("Edit", "Edit", "PhotoAlbum", new { id = item.Id }, null)%>
+            <%= Html.ActionLink("Delete", "Delete", "PhotoAlbum", new { id = item.Id }, null)%><br /> 
+        <% } %>
+    <% } %>
+
     <% if (myIsUser) { %>
         <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.")%>
 
@@ -38,14 +47,4 @@
             </p>
         <% } %>
     <% } %>
-    <% foreach (var item in Model.Models) { %>
-        <%= Html.ActionLink(item.Name, "Details", "PhotoAlbum", new { id = item.Id }, null)%> 
-        <% if (myIsUser) { %>
-            <%= Html.ActionLink("Edit", "Edit", "PhotoAlbum", new { id = item.Id }, null)%>
-            <%= Html.ActionLink("Delete", "Delete", "PhotoAlbum", new { id = item.Id }, null)%><br /> 
-        <% } %>
-    <% } %>
-
-
-
 </asp:Content>
