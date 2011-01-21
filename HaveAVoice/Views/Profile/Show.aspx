@@ -296,6 +296,53 @@
 					</div>
 					<div class="clear">&nbsp;</div>
 				</div>
+            <% } else if (myNextFeedItem == FeedItem.Photo) {%>
+	                <!-- BOARD ACTIVITY [Images] //-->
+	                <div class="board-image m-btm10">
+		                <div class="col-6 user-info">
+			                <div class="p-a5">
+				                <div class="col-2 center m-rgt10">
+					                <img src="http://upload.wikimedia.org/wikipedia/commons/4/41/Jesse_Jane_2010.jpg" alt="Cindy Taylor" class="profile" />
+				                </div>
+				                <a class="name" href="#">Cindy Taylor</a>
+				                added new photos
+				                <div class="clear">&nbsp;</div>
+				                <h1>Red Carpet Awards</h1>
+				                23 photos, 4 new, 3 friends tagged
+			                </div>
+			                <div class="col-6 link">
+				                <div class="col-2 center">
+					                <a href="#" class="comment">Comment</a>
+				                </div>
+				                <div class="col-2 center">
+					                <a href="#" class="like">Like</a>
+				                </div>
+				                <div class="col-2 center">
+					                <a href="#" class="dislike">Dislike</a>
+				                </div>
+			                </div>
+				
+			                <div class="clear">&nbsp;</div>
+		                </div>
+		                <div class="col-12">
+			                <div class="col-5 photo" style="background: url('http://twittchicks.com/wp-content/uploads/2009/03/jesse-jane.jpg') top center no-repeat;">
+				                PHOTO 1
+			                </div>
+			                <div class="col-3 photo" style="background: url('http://upload.wikimedia.org/wikipedia/commons/a/a4/Jesse_Jane_DSC_0112.JPG') top center no-repeat;">
+				                PHOTO 2
+			                </div>
+			                <div class="col-4 photo" style="background: url('http://images.starpulse.com/pictures/2006/10/04/previews/Jesse%20Jane-SGG-022374.jpg') top center no-repeat;">
+				                PHOTO 3
+			                </div>
+		                </div>
+		                <div class="col-3 date-tile">
+			                <div class="p-a5">
+				                <span>9:12</span> pm
+			                </div>
+		                </div>
+		                <div class="clear">&nbsp;</div>
+	                </div>
+	                <div class="clear">&nbsp;</div>
             <% } %>
             <% cnt++; %>
         <% } %>
@@ -311,18 +358,19 @@
 		        <% IssueReplyFeedModel myIssueReply = Model.Model.GetNextIssueReply(); %>
 
             <% }  else if (myNextFeedItem == FeedItem.Photo) { %>
+                <% PhotoAlbumFeedModel myPhotoAlbum = Model.Model.GetNextPhotoAlbum(); %>
 	            <!-- BOARD ACTIVITY [Images] //-->
 	            <div class="board-image m-btm10">
 		            <div class="col-6 user-info">
 			            <div class="p-a5">
 				            <div class="col-2 center m-rgt10">
-					            <img src="http://upload.wikimedia.org/wikipedia/commons/4/41/Jesse_Jane_2010.jpg" alt="Cindy Taylor" class="profile" />
+					            <img src="<%= myPhotoAlbum.ProfilePictureUrl %>" alt="<%= myPhotoAlbum.Username %>" class="profile" />
 				            </div>
-				            <a class="name" href="#">Cindy Taylor</a>
+				            <a class="name" href="#"><%= myPhotoAlbum.Username %></a>
 				            added new photos
 				            <div class="clear">&nbsp;</div>
-				            <h1>Red Carpet Awards</h1>
-				            23 photos, 4 new, 3 friends tagged
+				            <h1><%= myPhotoAlbum.Name %></h1>
+				            <%= myPhotoAlbum.Photos.Count<Photo>() %> photos
 			            </div>
 			            <div class="col-6 link">
 				            <div class="col-2 center">
@@ -339,13 +387,13 @@
 			            <div class="clear">&nbsp;</div>
 		            </div>
 		            <div class="col-12">
-			            <div class="col-5 photo" style="background: url('http://twittchicks.com/wp-content/uploads/2009/03/jesse-jane.jpg') top center no-repeat;">
+			            <div class="col-5 photo" style="background: url('<%= PhotoHelper.ConstructUrl(myPhotoAlbum.Photos.ElementAt(0).ImageName) %>') top center no-repeat;">
 				            PHOTO 1
 			            </div>
-			            <div class="col-3 photo" style="background: url('http://upload.wikimedia.org/wikipedia/commons/a/a4/Jesse_Jane_DSC_0112.JPG') top center no-repeat;">
+			            <div class="col-3 photo" style="background: url('<%= PhotoHelper.ConstructUrl(myPhotoAlbum.Photos.ElementAt(1).ImageName) %>') top center no-repeat;">
 				            PHOTO 2
 			            </div>
-			            <div class="col-4 photo" style="background: url('http://images.starpulse.com/pictures/2006/10/04/previews/Jesse%20Jane-SGG-022374.jpg') top center no-repeat;">
+			            <div class="col-4 photo" style="background: url('<%= PhotoHelper.ConstructUrl(myPhotoAlbum.Photos.ElementAt(2).ImageName) %>') top center no-repeat;">
 				            PHOTO 3
 			            </div>
 		            </div>

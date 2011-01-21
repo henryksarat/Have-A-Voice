@@ -49,15 +49,18 @@ namespace HaveAVoice.Models.View {
             FeedItem myFeedItem = FeedItem.None;
             List<SortableItemMetaData> myCommonSortableList = new List<SortableItemMetaData>();
 
-            if (BoardFeedEnumerator.Current != null || IssueFeedEnumerator.Current != null || IssueReplyFeedEnumerator.Current != null) {
+            if (BoardFeedEnumerator.Current != null || IssueFeedEnumerator.Current != null || IssueReplyFeedEnumerator.Current != null || PhotoAlbumEnumerator.Current != null) {
                 if (BoardFeedEnumerator.Current != null) {
                     myCommonSortableList.Add(CreateSortable(BoardFeedEnumerator.Current, FeedItem.Board));
                 } 
                 if (IssueFeedEnumerator.Current != null) {
                     myCommonSortableList.Add(CreateSortable(IssueFeedEnumerator.Current, FeedItem.Issue));
-                } 
+                }
                 if (IssueReplyFeedEnumerator.Current != null) {
                     myCommonSortableList.Add(CreateSortable(IssueReplyFeedEnumerator.Current, FeedItem.IssueReply));
+                }
+                if (PhotoAlbumEnumerator.Current != null) {
+                    myCommonSortableList.Add(CreateSortable(PhotoAlbumEnumerator.Current, FeedItem.Photo));
                 }
 
                 myFeedItem = myCommonSortableList
@@ -84,6 +87,12 @@ namespace HaveAVoice.Models.View {
         public IssueReplyFeedModel GetNextIssueReply() {
             IssueReplyFeedModel myModel = IssueReplyFeedEnumerator.Current;
             IssueReplyFeedEnumerator.MoveNext();
+            return myModel;
+        }
+
+        public PhotoAlbumFeedModel GetNextPhotoAlbum() {
+            PhotoAlbumFeedModel myModel = PhotoAlbumEnumerator.Current;
+            PhotoAlbumEnumerator.MoveNext();
             return myModel;
         }
 

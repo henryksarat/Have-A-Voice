@@ -42,7 +42,8 @@ namespace HaveAVoice.Services.UserFeatures {
             UserProfileModel myProfileModel = new UserProfileModel(myUser) {
                 BoardFeed = CreateBoardFeed(myBoardMessages),
                 IssueFeed = CreateIssueFeed(theRepository.UserIssueFeed(aUserId)),
-                IssueReplyFeed = CreateIssueReplyFeed(theRepository.UserIssueReplyFeed(aUserId))
+                IssueReplyFeed = CreateIssueReplyFeed(theRepository.UserIssueReplyFeed(aUserId)),
+                PhotoAlbumFeed = CreatePhotoAlbumFeed(myPhotoAlbums)
             };
 
             foreach (Board myBoard in myBoardMessages) {
@@ -125,23 +126,27 @@ namespace HaveAVoice.Services.UserFeatures {
 
             return myFeedModels;
         }
-        /*
-        private IEnumerable<PhotoAlbumFeedModel> CreatePhotoAlbumFeed(IEnumerable<PhotoAlbumFeedModel> aPhotoAlbums) {
+        
+        private IEnumerable<PhotoAlbumFeedModel> CreatePhotoAlbumFeed(IEnumerable<PhotoAlbum> aPhotoAlbums) {
             List<PhotoAlbumFeedModel> myFeedModels = new List<PhotoAlbumFeedModel>();
 
+            
             foreach (PhotoAlbum myAlbum in aPhotoAlbums) {
-                BoardFeedModel myFeedModel = new BoardFeedModel(myBoard.User) {
+                IEnumerable<Photo> myPhotos = myAlbum.Photos.OrderByDescending(p => p.DateTimeStamp);
+
+                PhotoAlbumFeedModel myFeedModel = new PhotoAlbumFeedModel(myAlbum.User) {
                     Id = myAlbum.Id,
-                    DateTimeStamp = myAlbum.Photos.OrderByDescending(p => p.DateTimeStamp),
-                    Message = myBoard.Message,
-                    BoardReplys = myBoard.BoardReplies
+                    DateTimeStamp = (from p in myPhotos select p.DateTimeStamp).FirstOrDefault<DateTime>(),
+                    Photos = myPhotos,
+                    Name = myAlbum.Name,
+                    Description = myAlbum.Description
                 };
 
                 myFeedModels.Add(myFeedModel);
             }
 
             return myFeedModels;
-        }*/
+        }
 
         private FriendStatus GetFriendStatus(int aSourceUserId, User aViewingUser) {
             FriendStatus myFriendStatus = FriendStatus.None;
