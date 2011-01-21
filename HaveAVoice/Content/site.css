@@ -359,7 +359,7 @@ input[type=submit].submit:hover { color: #20a9c9; background: #fff; }
 
 
 /****************************************************************************/
-/****************************** USER PICTURES *******************************/
+/********************************** PHOTOS **********************************/
 /****************************************************************************/
 .gallery.alt { background: #b6dde7; }
 .gallery .image { width: 120px; height: 120px; margin: 0px auto; }
@@ -367,6 +367,17 @@ input[type=submit].submit:hover { color: #20a9c9; background: #fff; }
 .gallery .image a { border: 0px none transparent; }
 .gallery a, .gallery a:link, .gallery a:visited { color: #20a9c9; font-size: 14px; font-style: normal; font-weight: bold; text-decoration: none; }
 .large-photo img { max-width: 840px; }
+
+/** ALBUMS */
+ul.photo-album li { float: left; margin: 5px; background: #20A9C9; position: relative; color: #fff; text-align: center; font-weight: bold; font-size: 12px; min-width: 110px; min-height: 110px; }
+ul.photo-album li a.album, ul.photo-album li a.album:link, ul.photo-album li a.album:visited { display: block; text-decoration: none; color: #fff; }
+ul.photo-album li a.album:hover { text-decoration: underline; }
+ul.photo-album li a img { border: 0px none transparent; max-width: 110px; max-height: 110px; }
+ul.photo-album li a.edit { position: absolute; top: 0px; right: 24px; width: 24px; height: 24px; background:url("/Content/images/edit.gif") no-repeat; z-index: 10px; text-indent: -9999px; outline: none; display: none; }
+ul.photo-album li a.delete { position: absolute; top: 0px; right: 0px; width: 24px; height: 24px; background:url("/Content/images/delete.png") no-repeat; z-index: 20px; text-indent: -9999px; outline: none; display: none; }
+ul.photo-album li a.create {}
+
+.popup { display: none; }
 
 
 /****************************************************************************/

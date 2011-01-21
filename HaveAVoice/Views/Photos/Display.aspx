@@ -13,17 +13,20 @@
     <div class="col-3 m-rgt left-nav">
         <% Html.RenderPartial("LeftNavigation"); %>
     </div>
-    <%= Html.Encode(ViewData["Message"]) %>
-    <%= Html.Encode(TempData["Message"]) %>
-    <div class="clear">&nbsp;</div>
     
-    <% UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation(); %>
-    <% if (myUserInformationModel.Details.Id == Model.Model.UploadedByUserId) { %>
-        <%= Html.ActionLink("Set to profile picture", "SetProfilePicture", "Photos", new { id = Model.Model.Id }, null)%>
-        <%= Html.ActionLink("Delete", "Delete", "Photos", new { id = Model.Model.Id }, null)%>
-        <% } %>
-    <div class="large-photo">
-		<img src="<%= PhotoHelper.ConstructUrl(Model.Model.ImageName) %>" />
+    <div class="col-21">
+	    <%= Html.Encode(ViewData["Message"]) %>
+	    <%= Html.Encode(TempData["Message"]) %>
+	    <div class="clear">&nbsp;</div>
+	    
+	    <% UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation(); %>
+	    <% if (myUserInformationModel.Details.Id == Model.Model.UploadedByUserId) { %>
+		        <%= Html.ActionLink("Set to profile picture", "SetProfilePicture", "Photos", new { id = Model.Model.Id }, null) %>
+		        <%= Html.ActionLink("Delete", "Delete", "Photos", new { id = Model.Model.Id }, null) %>
+	    <% } %>
+	    <div class="large-photo">
+			<img src="<%= PhotoHelper.ConstructUrl(Model.Model.ImageName) %>" />
+		</div>
+		<div class="clear">&nbsp;</div>
 	</div>
-	<div class="clear">&nbsp;</div>
 </asp:Content>
