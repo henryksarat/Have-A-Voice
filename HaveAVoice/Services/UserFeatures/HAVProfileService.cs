@@ -15,26 +15,29 @@ namespace HaveAVoice.Services.UserFeatures {
     public class HAVProfileService : HAVBaseService, IHAVProfileService {
         private IHAVUserRetrievalService theUserRetrievalService;
         private IHAVFriendService theFriendService;
+        private IHAVPhotoAlbumService thePhotoAlbumService;
         private IHAVProfileRepository theRepository;
         private IValidationDictionary theValidationDictionary;
         private IHAVBoardRepository theBoardRepository;
 
         public HAVProfileService(IValidationDictionary validationDictionary)
-            : this(validationDictionary, new HAVUserRetrievalService(), new HAVFriendService(), new EntityHAVProfileRepository(), new EntityHAVBoardRepository(), new HAVBaseRepository()) { }
+            : this(validationDictionary, new HAVUserRetrievalService(), new HAVFriendService(), new HAVPhotoAlbumService(validationDictionary), new EntityHAVProfileRepository(), new EntityHAVBoardRepository(), new HAVBaseRepository()) { }
 
-        public HAVProfileService(IValidationDictionary aValidationDictionary, IHAVUserRetrievalService aUserRetrievalService, IHAVFriendService aFriendService, IHAVProfileRepository aRepository,
+        public HAVProfileService(IValidationDictionary aValidationDictionary, IHAVUserRetrievalService aUserRetrievalService, IHAVFriendService aFriendService, IHAVPhotoAlbumService aPhotoAlbumService, IHAVProfileRepository aRepository,
                                             IHAVBoardRepository aBoardRepository, IHAVBaseRepository aBaseRepository) : base(aBaseRepository) {
             theValidationDictionary = aValidationDictionary;
             theUserRetrievalService = aUserRetrievalService;
             theFriendService = aFriendService;
             theRepository = aRepository;
             theBoardRepository = aBoardRepository;
+            thePhotoAlbumService = aPhotoAlbumService;
         }
 
         public UserProfileModel Profile(int aUserId, User myViewingUser) {
             IHAVUserService myUserService = new HAVUserService(theValidationDictionary);
             User myUser = theUserRetrievalService.GetUser(aUserId);
             IEnumerable<Board> myBoardMessages = theBoardRepository.FindBoardByUserId(aUserId);
+            IEnumerable<PhotoAlbum> myPhotoAlbums = thePhotoAlbumService.GetPhotoAlbumsForUser(myViewingUser, aUserId);
 
             UserProfileModel myProfileModel = new UserProfileModel(myUser) {
                 BoardFeed = CreateBoardFeed(myBoardMessages),
@@ -47,6 +50,15 @@ namespace HaveAVoice.Services.UserFeatures {
             }
 
             return myProfileModel;
+        }
+
+        public UserProfileModel MyProfile(User aUser) {
+            UserProfileModel myModel = new UserProfileModel(aUser) {
+                IssueFeed = CreateIssueFeed(theRepository.FriendIssueFeed(aUser)),
+                IssueReplyFeed = CreateIssueReplyFeed(theRepository.FriendIssueReplyFeed(aUser))
+            };
+
+            return myModel;
         }
 
         private IEnumerable<IssueFeedModel> CreateIssueFeed(IEnumerable<Issue> anIssues) {
@@ -113,6 +125,23 @@ namespace HaveAVoice.Services.UserFeatures {
 
             return myFeedModels;
         }
+        /*
+        private IEnumerable<PhotoAlbumFeedModel> CreatePhotoAlbumFeed(IEnumerable<PhotoAlbumFeedModel> aPhotoAlbums) {
+            List<PhotoAlbumFeedModel> myFeedModels = new List<PhotoAlbumFeedModel>();
+
+            foreach (PhotoAlbum myAlbum in aPhotoAlbums) {
+                BoardFeedModel myFeedModel = new BoardFeedModel(myBoard.User) {
+                    Id = myAlbum.Id,
+                    DateTimeStamp = myAlbum.Photos.OrderByDescending(p => p.DateTimeStamp),
+                    Message = myBoard.Message,
+                    BoardReplys = myBoard.BoardReplies
+                };
+
+                myFeedModels.Add(myFeedModel);
+            }
+
+            return myFeedModels;
+        }*/
 
         private FriendStatus GetFriendStatus(int aSourceUserId, User aViewingUser) {
             FriendStatus myFriendStatus = FriendStatus.None;
@@ -129,15 +158,6 @@ namespace HaveAVoice.Services.UserFeatures {
             }
 
             return myFriendStatus;
-        }
-
-        public UserProfileModel MyProfile(User aUser) {
-            UserProfileModel myModel = new UserProfileModel(aUser) {
-                IssueFeed = CreateIssueFeed(theRepository.FriendIssueFeed(aUser)),
-                IssueReplyFeed = CreateIssueReplyFeed(theRepository.FriendIssueReplyFeed(aUser))
-            };
-
-            return myModel;
         }
     }
 }

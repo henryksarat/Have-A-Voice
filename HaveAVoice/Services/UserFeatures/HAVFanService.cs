@@ -31,7 +31,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public bool IsFan(User aFanUser, int aSourceUserId) {
-            throw new NotImplementedException();
+            return theFanRepo.IsFan(aFanUser, aSourceUserId);
         }
     }
 }

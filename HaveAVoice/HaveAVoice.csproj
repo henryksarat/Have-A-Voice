@@ -86,6 +86,7 @@
     <Compile Include="Controllers\Users\BoardController.cs" />
     <Compile Include="Controllers\Users\BoardReplyController.cs" />
     <Compile Include="Controllers\Users\CalendarController.cs" />
+    <Compile Include="Controllers\Users\FanController.cs" />
     <Compile Include="Controllers\Users\FriendController.cs" />
     <Compile Include="Controllers\Users\FeedbackController.cs" />
     <Compile Include="Controllers\Issues\IssueReplyController.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Models\View\CreateUserModelBuilder.cs" />
     <Compile Include="Models\View\IssueFeedModel.cs" />
     <Compile Include="Models\View\IssueReplyFeedModel.cs" />
+    <Compile Include="Models\View\PhotoAlbumFeedModel.cs" />
     <Compile Include="Models\View\SingleFeedItem.cs" />
     <Compile Include="Models\View\LoggedInListModel.cs" />
     <Compile Include="Models\View\LoggedInWrapperModel.cs" />

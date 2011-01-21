@@ -19,22 +19,30 @@ namespace HaveAVoice.Models.View {
                 IssueFeedEnumerator.MoveNext();
             }
         }
-        public IEnumerable<IssueReplyFeedModel> IssueReplyFeed { 
+        public IEnumerable<IssueReplyFeedModel> IssueReplyFeed {
             set {
                 IssueReplyFeedEnumerator = value.GetEnumerator();
                 IssueReplyFeedEnumerator.MoveNext();
+            }
+        }        
+        public IEnumerable<PhotoAlbumFeedModel> PhotoAlbumFeed { 
+            set {
+                PhotoAlbumEnumerator = value.GetEnumerator();
+                PhotoAlbumEnumerator.MoveNext();
             }
         }
 
         private IEnumerator<BoardFeedModel> BoardFeedEnumerator { get; set; }
         private IEnumerator<IssueFeedModel> IssueFeedEnumerator { get; set; }
         private IEnumerator<IssueReplyFeedModel> IssueReplyFeedEnumerator { get; set; }
+        private IEnumerator<PhotoAlbumFeedModel> PhotoAlbumEnumerator { get; set; }
 
         public UserProfileModel(User aUser) {
             User = aUser;
             BoardFeed = new List<BoardFeedModel>();
             IssueFeed = new List<IssueFeedModel>();
             IssueReplyFeed = new List<IssueReplyFeedModel>();
+            PhotoAlbumFeed = new List<PhotoAlbumFeedModel>();
         }
 
         public FeedItem GetNextItem() {

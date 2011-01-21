@@ -15,6 +15,7 @@ namespace HaveAVoice.Models.View {
         Message,
         Friend,
         Profile,
-        MyProfile
+        MyProfile,
+        Fan
     }
 }
