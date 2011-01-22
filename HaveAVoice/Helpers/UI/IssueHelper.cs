@@ -76,6 +76,7 @@ namespace HaveAVoice.Helpers.UI {
 			}
 			
 			divCommentPad.InnerHtml += hrefName.ToString();
+			divCommentPad.InnerHtml += "&nbsp;";
 			divCommentPad.InnerHtml += anIssueReply.Reply;
 
 			var optionWrpr = new TagBuilder("div");
@@ -85,48 +86,58 @@ namespace HaveAVoice.Helpers.UI {
             optionsDiv.MergeAttribute("p-v10")
 
 			var editDiv = new TagBuilder("div");
-			editDiv.MergeAttribute("col-2");
+			editDiv.MergeAttribute("col-2 center");
 			
             UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation();
             if(anIssueReply.User.Id == myUserInformationModel.Details.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Edit_Any_Issue_Reply)) {
                 var myEdit = new TagBuilder("a");
                 myEdit.MergeAttribute("href", LinkHelper.EditIssueReply(anIssueReply.Id));
+                myEdit.MergeAttribute("class", "edit");
                 myEdit.InnerHtml += "Edit";
                 editDiv.InnerHtml +=myEdit.ToString();
             }
             optionsDiv.InnerHtml += editDiv.ToString();
             
             var deleteDiv = new TagBuilder("div");
-            deleteDiv.MergeAttribute("col-3");
+            deleteDiv.MergeAttribute("col-3 center");
             
             if(anIssueReply.User.Id == myUserInformationModel.Details.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Delete_Any_Issue_Reply)) {
                 var myDelete = new TagBuilder("a");
                 myDelete.MergeAttribute("href", LinkHelper.EditIssueReply(anIssueReply.Id));
+                myDelete.MergeAttribute("class", "delete");
                 myDelete.InnerHtml += "Delete";
                 deleteDiv.InnerHtml +=myDelete.ToString();
             }
             optionsDiv.InnerHtml += deleteDiv.ToString();
             
             var likeDiv = new TagBuilder("div");
-            likeDiv.MergeAttribute("col-3");
+            likeDiv.MergeAttribute("col-3 center");
             
             var dislikeDiv = new TagBuilder("div");
-            dislikeDiv.MergeAttribute("col-3");
+            dislikeDiv.MergeAttribute("col-3 center");
             
             if(!anIssueReply.HasDisposition) {
                 var myLikeDisposition = new TagBuilder("a");
                 myLikeDisposition.MergeAttribute("href", LinkHelper.LikeIssueReply(anIssueReply.Id, anIssueReply.Issue.Id));
+                myLikeDisposition.MergeAttribute("class", "like");
                 myLikeDisposition.InnerHtml += "Like";
                 likeDiv.InnerHtml +=myLikeDisposition.ToString();
 
                 var myDislikeDisposition = new TagBuilder("a");
                 myDislikeDisposition.MergeAttribute("href", LinkHelper.DislikeIssueReply(anIssueReply.Id, anIssueReply.Issue.Id));
+                myDislikeDisposition.MergeAttribute("class", "dislike");
                 myDislikeDisposition.InnerHtml += "Dislike";
                 dislikeDiv.InnerHtml +=myDislikeDisposition.ToString();
             }
 
 			optionsDiv.InnerHtml += likeDiv.ToString();
 			optionsDiv.InnerHtml += dislikeDiv.ToString();
+			
+			var clrDiv = new TagBuilder("div");
+			clrDiv.MergeAttribute("class", "clear");
+			clrDiv.InnerHtml += "&nbsp;";
+			
+			optionsDiv.InnerHtml += clrDiv.ToString();
 			
 			optionWrpr.InnerHtml += optionsDiv.ToString();
 			

@@ -2,7 +2,7 @@
 <%@ Import Namespace="HaveAVoice.Helpers.UI" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
-<%@Import Namespace="HaveAVoice.Helpers.UserInformation" %>
+<%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
@@ -19,32 +19,40 @@
         <%= Html.Encode(ViewData["Message"]) %>
         <%= Html.Encode(TempData["Message"]) %>
         <div class="clear">&nbsp;</div>
-        
-        <div>
-            Current album title = <%= Model.Model.Name %>
-        </div>
-        <div>
-            Current album description = <%= Model.Model.Description %>
-        </div>
-   
 
         <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
+        <div class="clear">&nbsp;</div>
 
-        <% using (Html.BeginForm("Edit", "PhotoAlbum")) {%>
+        <% using (Html.BeginForm("Edit", "PhotoAlbum", FormMethod.Post, new { @class = "create" })) { %>
             <%= Html.Hidden("AlbumId", Model.Model.Id) %>
-            <p>
-                <label for="Name">Name:</label>
-                <%= Html.TextBox("Name") %>
-                <%= Html.ValidationMessage("Name", "*") %>
-            </p>
-            <p>
+			<div class="col-6 m-rgt right">
+				<label for="Name">Name:</label>
+			</div>
+			<div class="col-6">
+				<%= Html.TextBox("Name", Model.Model.Name) %>
+			</div>
+			<div class="clear">&nbsp;</div>
+			<div class="col-12 m-btm10">
+				<%= Html.ValidationMessage("Name", "*") %>
+			</div>
+			<div class="clear">&nbsp;</div>
+
+        	<div class="col-6 m-rgt right">
                 <label for="Description">Description:</label>
-                <%= Html.TextArea("Description")%>
-                <%= Html.ValidationMessage("Description", "*")%>
-            </p>
-            <p>
-                <input type="submit" value="Edit" />
-            </p>
+            </div>
+            <div class="col-6">
+                <%= Html.TextArea("Description", Model.Model.Description, new { cols = "31", rows = "4", resize = "none"})%>
+			</div>
+			<div class="clear">&nbsp;</div>
+			<div class="col-12 m-btm10">
+				<%= Html.ValidationMessage("Description", "*")%>
+			</div>
+			<div class="clear">&nbsp;</div>
+
+			<div class="m-btm30">
+				<input type="submit" value="Edit" class="create" />
+	            <%= Html.ActionLink("Cancel", "List", "", new { @class = "cancel" }) %>
+			</div>
         <% } %>
         <div class="clear">&nbsp;</div>
 	</div>
