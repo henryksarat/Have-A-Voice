@@ -12,17 +12,17 @@ using HaveAVoice.Models.View;
 
 namespace HaveAVoice.Controllers.Users
 {
-    public class UserPrivacySettings : HAVBaseController {
+    public class UserPrivacySettingsController : HAVBaseController {
         private static string EDIT_SUCCESS = "Your account has been edited successfully!";
 
         private IHAVUserPrivacySettingsService thePrivacyService;
 
-        public UserPrivacySettings() : 
+        public UserPrivacySettingsController() : 
             base(new HAVBaseService(new HAVBaseRepository())) {
             thePrivacyService = new HAVUserPrivacySettingsService();
         }
 
-        public UserPrivacySettings(IHAVBaseService aBaseService, IHAVUserPrivacySettingsService aPrivacyService)
+        public UserPrivacySettingsController(IHAVBaseService aBaseService, IHAVUserPrivacySettingsService aPrivacyService)
             : base(aBaseService) {
             thePrivacyService = aPrivacyService;
         }

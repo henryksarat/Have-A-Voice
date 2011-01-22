@@ -9,11 +9,11 @@
 	<ul class="push_1 tabs font-12">
         <% if(Model.Equals(UserSettings.AccountSettings)) { %>
 		    <li><%= Html.ActionLink("Account Settings", "Edit", "User", null, new { @class = "active" })%></li>
-		    <li><%= Html.ActionLink("Privacy Settings", "EditPrivacy", "User", null, null)%></li>
+		    <li><%= Html.ActionLink("Privacy Settings", "Edit", "UserPrivacySettings", null, null)%></li>
         <% } %>
         <% if(Model.Equals(UserSettings.PrivacySettings)) { %>
 		    <li><%= Html.ActionLink("Account Settings", "Edit", "User", null, null)%></li>
-		    <li><%= Html.ActionLink("Privacy Settings", "EditPrivacy", "User", null, new { @class = "active" })%></li>
+		    <li><%= Html.ActionLink("Privacy Settings", "Edit", "UserPrivacySettings", null, new { @class = "active" })%></li>
         <% } %>
 	</ul> 
 </div>
