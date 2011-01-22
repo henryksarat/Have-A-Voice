@@ -11,13 +11,13 @@
 		<div class="m-lft col-15 m-rgt">
         
             <%= NavigationHelper.UserNavigation(
-                                Model.SiteSection, 
-                                new SiteSection[] {SiteSection.Home, SiteSection.UserFeed, SiteSection.Photos, SiteSection.Calendar, SiteSection.Information},
-                                new string[] {"home", "message", "photo", "event", "info"},
-                                new string[] {"/Profile/Show", "/Home/UserFeed", "/PhotoAlbum/List", "/Calendar/List", "/Information/List"},
-                                new string[] { "HOME", "USER FEED", "PHOTOS", "EVENTS", "INFO"}
-                    ) 
-                %>
+                    Model.SiteSection, 
+                    new SiteSection[] {SiteSection.Home, SiteSection.UserFeed, SiteSection.Photos, SiteSection.Calendar, SiteSection.Information},
+                    new string[] {"home", "message", "photo", "event", "info"},
+                    new string[] {"/Profile/Show", "/Home/UserFeed", "/PhotoAlbum/List", "/Calendar/List", "/Information/List"},
+                    new string[] { "HOME", "USER FEED", "PHOTOS", "EVENTS", "INFO"}
+                )
+            %>
 		</div>
 		<div class="clear">&nbsp;</div>
 
@@ -26,15 +26,13 @@
 				<%= Model.User.Username %>
 			</h1>
 			<h2>
-				#USER-STATUS#
 				<!--
-				I'm not being lazy just energy efficent
+					#USER-STATUS#
 				//-->
 			</h2>
 			<span class="time">
-				#USER-TIMESTAMP#
 				<!--
-				3:54PM from Twitter
+					#USER-TIMESTAMP#
 				//-->
 			</span>
 		</div>
