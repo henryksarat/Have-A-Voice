@@ -385,10 +385,9 @@ input[type=submit].submit:hover { color: #20a9c9; background: #fff; }
 
 /** ALBUMS */
 ul.photo-album li { float: left; margin: 5px; background: #20A9C9; position: relative; color: #fff; text-align: center; font-weight: bold; font-size: 12px; min-width: 110px; min-height: 110px; }
-ul.photo-album li img { max-height: 90px; max-width: 90px; }
 ul.photo-album li a.album, ul.photo-album li a.album:link, ul.photo-album li a.album:visited { display: block; text-decoration: none; color: #fff; }
 ul.photo-album li a.album:hover { text-decoration: underline; }
-ul.photo-album li a img { border: 0px none transparent; max-width: 110px; max-height: 110px; }
+ul.photo-album li a img { border: 0px none transparent; max-width: 90px; max-height: 90px; }
 ul.photo-album li a.edit { position: absolute; top: 0px; right: 24px; width: 24px; height: 24px; background:url("/Content/images/edit.gif") no-repeat; z-index: 10px; text-indent: -9999px; outline: none; display: none; }
 ul.photo-album li a.delete { position: absolute; top: 0px; right: 0px; width: 24px; height: 24px; background:url("/Content/images/delete.png") no-repeat; z-index: 20px; text-indent: -9999px; outline: none; display: none; }
 ul.photo-album li a.create { width: 110px; height: 110px; text-indent: -9999px; outline: none; background:url("/Content/images/create-album.png") no-repeat center center; display: block; background-size: 100px; -moz-background-size: 100px; }
@@ -416,7 +415,7 @@ ul.photo-album li a.create { width: 110px; height: 110px; text-indent: -9999px; 
 .board-image .user-info .link a, .photos .user-info .link a:link, .photos .user-info .link a:visited { font-size: 12px; font-style: normal; text-decoration: none; text-transform: uppercase; }
 
 .board-image .user-info .link a.like, .photos .user-info .link a.like:link, .photos .user-info .link a.like:visited { color: #51b0c7; }
-.board-image .user-info .link a.comment, .photos .user-info .link a.comment:link, .photos .user-info .link a.comment:visited { color: #115f71; }
+.board-image .user-info .link a.comment, .photos .user-info .link a.comment:link, .photos .user-info .link a.comment:visited { color: #115f71; background: transparent; }
 
 .board-image .photo { height: 200px; text-indent: -9999px; background-size: 200px; }
 
@@ -428,8 +427,7 @@ ul.photo-album li a.create { width: 110px; height: 110px; text-indent: -9999px; 
 /****************************************************************************/
 /************************* BOARD REPLY **************************************/
 /****************************************************************************/
-.board-reply>div { background: transparent; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
-.board-reply img.profile { max-height: 80px; max-width: 80px; }
+.board-reply img.profile { max-height: 80px; max-width: 80px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
 .board-reply textarea { resize: none; width: 550px; height: 80px; font-size: 12px; color: #000; }
 .board-reply input[type=submit] { padding: 5px; color: #ffffff; font-size: 12px; background-color: #20a9c9; border: 1px solid #ffffff; font-weight: bold; box-shadow: 0px 1px 0px #aaaaaa; -moz-box-shadow: 0px 1px 0px #aaaaaa; -webkit-box-shadow: 0px 1px 0px #aaaaaa; }
 .board-reply input[type=submit]:hover { color: #20a9c9; background: #fff; border-color: #20a9c9; cursor: pointer; }

@@ -11,31 +11,6 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-	<script type="text/javascript" language="javascript">
-		$(function() {
-			$("a.comment").click(function() {
-				var frm = $(this).closest("div.boards");
-				var chld = frm.children("div.board-comments");
-				if (chld.is(":visible"))
-				{
-					chld.fadeTo("fast", 1, function() {
-						$(this).fadeTo("normal", 0, function() {
-							$(this).slideUp("normal");
-						});
-						//$(this).animate({ "height": "0", "opacity": "0" }, 250);
-					});
-				} else {
-					chld.fadeTo("fast", 0, function() {
-						$(this).slideDown("normal", function() {
-							$(this).fadeTo("normal", 1);
-						});
-					});
-				}
-				return false;
-			});
-		});
-	</script>
-
     <% Html.RenderPartial("UserPanel", Model.NavigationModel); %>
     <div class="col-3 m-rgt left-nav">
         <% Html.RenderPartial("LeftNavigation"); %>
@@ -70,9 +45,12 @@
 								    <div class="push-6 col-9 p-v10">
 									    <div class="col-3 center">
 										    <% if (myIssue.TotalReplys == 0) { %>
+										    	&nbsp;
+										    	<!--
 											    <a href="#" class="comment">
 													    Reply
 											    </a>
+											    //-->
 										    <% } else { %>
 											    <span class="comment"><%= myIssue.TotalReplys %> 
 													    Repl<% if (myIssue.TotalReplys > 1) { %>ies<% } else { %>y<% } %>
@@ -136,7 +114,7 @@
 	                	<div class="m-lft col-14 comment">
 	                		<span class="speak-lft">&nbsp;</span>
 	                		<div class="p-a10">
-	                			<a href="#" class="name"><%= item.User.Username %></a>
+	                			<a href="/Profile/Show/<%= item.User.Id %>" class="name"><%= item.User.Username %></a>
 	                			<%= item.Reply %>
 	                		</div>
 	                	</div>
@@ -155,7 +133,7 @@
 
 	    		<div class="board-reply m-btm10">
 					<div class="push-2 col-19">						
-						<div class="col-2">
+						<div class="col-2 center">
 							<img src="<%= Model.NavigationModel.ProfilePictureUrl %>" alt="<%= Model.NavigationModel.User.Username %>" class="profile" />
 						</div>
 						<div class="m-lft col-14">
@@ -195,9 +173,12 @@
 								    <div class="col-9">
 									    <div class="col-3 center">
 										    <% if (myIssueReply.TotalComments == 0) { %>
+										    	&nbsp;
+										    	<!--
 											    <a href="#" class="comment">
 													Comment
 											    </a>
+											    //-->
 										    <% } else { %>
 											    <span class="comment"><%= myIssueReply.TotalComments %> 
 													Comment<% if (myIssueReply.TotalComments > 1) { %>s<% } %>
@@ -279,7 +260,7 @@
 
 	    		<div class="board-reply m-btm10">
 					<div class="push-2 col-19">
-						<div class="col-2">
+						<div class="col-2 center">
 							<img src="<%= Model.NavigationModel.ProfilePictureUrl %>" alt="<%= Model.NavigationModel.User.Username %>" class="profile" />
 						</div>
 						<div class="m-lft col-14 m-rgt">
@@ -374,7 +355,8 @@
 			            </div>
 			            <div class="col-6 link">
 				            <div class="col-2 center">
-					            <a href="#" class="comment">Comment</a>
+				            	&nbsp;
+								<!-- <a href="#" class="comment">Comment</a> //-->
 				            </div>
 				            <div class="col-2 center">
 					            <a href="#" class="like">Like</a>
@@ -388,18 +370,18 @@
 		            </div>
 		            <div class="col-12">
 			            <div class="col-5 photo" style="background: url('<%= PhotoHelper.ConstructUrl(myPhotoAlbum.Photos.ElementAt(0).ImageName) %>') top center no-repeat;">
-				            PHOTO 1
+				            <%= myPhotoAlbum.Photos.ElementAt(0).ImageName %>
 			            </div>
 			            <div class="col-3 photo" style="background: url('<%= PhotoHelper.ConstructUrl(myPhotoAlbum.Photos.ElementAt(1).ImageName) %>') top center no-repeat;">
-				            PHOTO 2
+				            <%= myPhotoAlbum.Photos.ElementAt(1).ImageName %>
 			            </div>
 			            <div class="col-4 photo" style="background: url('<%= PhotoHelper.ConstructUrl(myPhotoAlbum.Photos.ElementAt(2).ImageName) %>') top center no-repeat;">
-				            PHOTO 3
+				            <%= myPhotoAlbum.Photos.ElementAt(2).ImageName %>
 			            </div>
 		            </div>
 		            <div class="col-3 date-tile">
 			            <div class="p-a5">
-				            <span>9:12</span> pm
+				            <span><%= myPhotoAlbum.DateTimeStamp.ToString("MMM").ToUpper() %></span> <%= myPhotoAlbum.DateTimeStamp.ToString("dd") %>
 			            </div>
 		            </div>
 		            <div class="clear">&nbsp;</div>
@@ -429,7 +411,9 @@
 						            <div class="col-6">&nbsp;</div>
 						            <div class="col-9">
 							            <div class="col-3 center">
+							            	<!--
 								            <a href="#" class="comment">COMMENT</a>
+								            //-->
 							            </div>
 							            <div class="col-3 center">
 								            <a href="#" class="like">LIKE</a>
@@ -455,7 +439,7 @@
 		            <div class="clear">&nbsp;</div>
 	            </div>
 
-				<div class="board-comments" style="display:none;">
+				<div class="board-comments">
 			    <% int j = 0; %>
 	            <% foreach (BoardReply myReply in myBoard.BoardReplys) { %>		
                 	<div class="<% if (j % 2 == 0) { %>row<% } else { %>alt<% } %> reply push-2 col-19 m-btm10">
@@ -485,7 +469,7 @@
 
                 <div class="board-reply m-btm10">
 	                <div class="push-2 col-19">
-		                <div class="col-2">
+		                <div class="col-2 center">
 				            <img src="<%= myBoard.ProfilePictureUrl %>" alt="<%= myBoard.Username %>" class="profile" />
 			            </div>
 		                <div class="m-lft col-14">

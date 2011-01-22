@@ -81,13 +81,14 @@
 		<ul class="photo-album">
 		    <% foreach (var item in Model.Models) { %>
 		    	<li>
-		    		<!-- Image needs to be wrapped in anchor tag Html.ActionLink will not work.  An alternative is needed. -->
-		    		<img src="<%= PhotoHelper.RetrievePhotoAlbumCoverUrl(item) %>" alt="<%= item.Name %>" /><br />
-			        <%= Html.ActionLink(item.Name, "Details", "PhotoAlbum", new { id = item.Id }, new { @class = "album"}) %>
-			        <% if (myIsUser) { %>
-			            <%= Html.ActionLink("Edit", "Edit", "PhotoAlbum", new { id = item.Id }, new { @class = "edit" }) %>
-			            <%= Html.ActionLink("Delete", "Delete", "PhotoAlbum", new { id = item.Id }, new { @class = "delete" }) %>
-			        <% } %>
+		    		<a href="/PhotoAlbum/Details/<%= item.Id %>">
+			    		<img src="<%= PhotoHelper.RetrievePhotoAlbumCoverUrl(item) %>" alt="<%= item.Name %>" /><br />
+				        <%= Html.ActionLink(item.Name, "Details", "PhotoAlbum", new { id = item.Id }, new { @class = "album"}) %>
+				        <% if (myIsUser) { %>
+				            <%= Html.ActionLink("Edit", "Edit", "PhotoAlbum", new { id = item.Id }, new { @class = "edit" }) %>
+				            <%= Html.ActionLink("Delete", "Delete", "PhotoAlbum", new { id = item.Id }, new { @class = "delete" }) %>
+				        <% } %>
+			        </a>
 		        </li>
 		    <% } %>
 		    <li>
