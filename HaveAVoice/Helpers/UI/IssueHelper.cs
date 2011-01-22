@@ -79,13 +79,13 @@ namespace HaveAVoice.Helpers.UI {
 			divCommentPad.InnerHtml += anIssueReply.Reply;
 
 			var optionWrpr = new TagBuilder("div");
-			optionWrpr.MergeAttribute("col-11")
+			optionWrpr.MergeAttribute("class", "col-11");
 
             var optionsDiv = new TagBuilder("div");
-            optionsDiv.MergeAttribute("p-v10")
+            optionsDiv.MergeAttribute("class", "p-v10");
 
 			var editDiv = new TagBuilder("div");
-			editDiv.MergeAttribute("col-2");
+			editDiv.MergeAttribute("class", "col-2");
 			
             UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation();
             if(anIssueReply.User.Id == myUserInformationModel.Details.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Edit_Any_Issue_Reply)) {
@@ -97,7 +97,7 @@ namespace HaveAVoice.Helpers.UI {
             optionsDiv.InnerHtml += editDiv.ToString();
             
             var deleteDiv = new TagBuilder("div");
-            deleteDiv.MergeAttribute("col-3");
+            deleteDiv.MergeAttribute("class", "col-3");
             
             if(anIssueReply.User.Id == myUserInformationModel.Details.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Delete_Any_Issue_Reply)) {
                 var myDelete = new TagBuilder("a");
@@ -108,10 +108,10 @@ namespace HaveAVoice.Helpers.UI {
             optionsDiv.InnerHtml += deleteDiv.ToString();
             
             var likeDiv = new TagBuilder("div");
-            likeDiv.MergeAttribute("col-3");
+            likeDiv.MergeAttribute("class", "col-3");
             
             var dislikeDiv = new TagBuilder("div");
-            dislikeDiv.MergeAttribute("col-3");
+            dislikeDiv.MergeAttribute("class", "col-3");
             
             if(!anIssueReply.HasDisposition) {
                 var myLikeDisposition = new TagBuilder("a");
