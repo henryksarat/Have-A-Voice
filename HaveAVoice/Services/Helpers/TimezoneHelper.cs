@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Collections;
 
-namespace HaveAVoice.Helpers {
+namespace HaveAVoice.Services.Helpers {
     public class TimezoneHelper {
         private static Hashtable theOffsetHashTable = new Hashtable();
         private static Hashtable theTimezoneHashTable = new Hashtable();
@@ -33,6 +33,11 @@ namespace HaveAVoice.Helpers {
         public static string GetOffset(string timezone) {
             initHashTables();
             return theOffsetHashTable[timezone].ToString();
+        }
+
+        public static DateTime ConvertToLocalTimeZone(DateTime aDateTime) {
+            TimeZone myTimezone = TimeZone.CurrentTimeZone;
+            return myTimezone.ToLocalTime(aDateTime);
         }
 
         public static string GetTimezone(string offset) {

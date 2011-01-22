@@ -39,6 +39,16 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     select ir).OrderByDescending(ir => ir.DateTimeStamp).ToList<IssueReply>();
         }
 
+        public IEnumerable<PhotoAlbum> FriendPhotoAlbumFeed(User aFriendUser) {
+            return (from p in theEntities.PhotoAlbums
+                    join u in theEntities.Users on p.User.Id equals u.Id
+                    join f in theEntities.Friends on u.Id equals f.SourceUserId
+                    where (f.FriendUserId == aFriendUser.Id || f.SourceUserId == aFriendUser.Id)
+                    && u.Id != aFriendUser.Id
+                    && f.Approved == true
+                    select p).ToList<PhotoAlbum>();
+        }
+
         public IEnumerable<Issue> UserIssueFeed(int aTargetUserId) {
             return (from f in theEntities.Issues
                     where f.UserId == aTargetUserId

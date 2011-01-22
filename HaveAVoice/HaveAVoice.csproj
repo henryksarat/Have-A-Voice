@@ -240,7 +240,7 @@
     <Compile Include="Helpers\Pair.cs" />
     <Compile Include="Helpers\UserInformation\RestrictionLog.cs" />
     <Compile Include="Helpers\SelectionHelper.cs" />
-    <Compile Include="Helpers\TimezoneHelper.cs" />
+    <Compile Include="Services\Helpers\TimezoneHelper.cs" />
     <Compile Include="Helpers\UI\UserHelper.cs" />
     <Compile Include="Helpers\UserInformation\UserInformation.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVCalendarRepository.cs" />
