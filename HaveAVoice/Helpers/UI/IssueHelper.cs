@@ -168,11 +168,6 @@ namespace HaveAVoice.Helpers.UI {
 			divTimeStamp.InnerHtml += divTimePad.ToString();
 			
 			stanceDiv.InnerHtml += divTimeStamp.ToString();
-			
-			var clrDiv = new TagBuilder("div");
-			clrDiv.MergeAttribute("class", "clear");
-			clrDiv.InnerHtml += "&nbsp;";
-
 			stanceDiv.InnerHtml += clrDiv.ToString();
 
         	return stanceDiv.ToString(TagRenderMode.Normal);
