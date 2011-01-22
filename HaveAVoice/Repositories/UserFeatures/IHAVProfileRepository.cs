@@ -10,6 +10,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         IEnumerable<Issue> FriendIssueFeed(User aUser);
         IEnumerable<IssueReply> FriendIssueReplyFeed(User aUser);
+        IEnumerable<PhotoAlbum> FriendPhotoAlbumFeed(User aFriendUser);
 
         IEnumerable<Issue> UserIssueFeed(int aTargetUserId);
         IEnumerable<IssueReply> UserIssueReplyFeed(int aTargetUserId);

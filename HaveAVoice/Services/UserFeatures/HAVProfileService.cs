@@ -56,7 +56,8 @@ namespace HaveAVoice.Services.UserFeatures {
         public UserProfileModel MyProfile(User aUser) {
             UserProfileModel myModel = new UserProfileModel(aUser) {
                 IssueFeed = CreateIssueFeed(theRepository.FriendIssueFeed(aUser)),
-                IssueReplyFeed = CreateIssueReplyFeed(theRepository.FriendIssueReplyFeed(aUser))
+                IssueReplyFeed = CreateIssueReplyFeed(theRepository.FriendIssueReplyFeed(aUser)),
+                PhotoAlbumFeed = CreatePhotoAlbumFeed(theRepository.FriendPhotoAlbumFeed(aUser))
             };
 
             return myModel;
@@ -70,7 +71,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
                 IssueFeedModel myFeedModel = new IssueFeedModel(myIssue.User) {
                     Id = myIssue.Id,
-                    DateTimeStamp = myIssue.DateTimeStamp,
+                    DateTimeStamp = TimezoneHelper.ConvertToLocalTimeZone(myIssue.DateTimeStamp),
                     Title = myIssue.Title,
                     Description = myIssue.Description,
                     TotalLikes = (from d in myIssueDisposition where d.Disposition == (int)Disposition.Like select d).Count<IssueDisposition>(),
@@ -94,7 +95,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
                 IssueReplyFeedModel myFeedModel = new IssueReplyFeedModel(myIssueReply.User) {
                     Id = myIssueReply.Id,
-                    DateTimeStamp = myIssueReply.DateTimeStamp,
+                    DateTimeStamp = TimezoneHelper.ConvertToLocalTimeZone(myIssueReply.DateTimeStamp),
                     IssueReplyComments = myIssueReply.IssueReplyComments,
                     Issue = myIssueReply.Issue,
                     Reply = myIssueReply.Reply,
@@ -116,7 +117,7 @@ namespace HaveAVoice.Services.UserFeatures {
             foreach (Board myBoard in aBoards) {
                 BoardFeedModel myFeedModel = new BoardFeedModel(myBoard.User) {
                     Id = myBoard.Id,
-                    DateTimeStamp = myBoard.DateTimeStamp,
+                    DateTimeStamp = TimezoneHelper.ConvertToLocalTimeZone(myBoard.DateTimeStamp),
                     Message = myBoard.Message,
                     BoardReplys = myBoard.BoardReplies
                 };
@@ -136,7 +137,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
                 PhotoAlbumFeedModel myFeedModel = new PhotoAlbumFeedModel(myAlbum.User) {
                     Id = myAlbum.Id,
-                    DateTimeStamp = (from p in myPhotos select p.DateTimeStamp).FirstOrDefault<DateTime>(),
+                    DateTimeStamp = TimezoneHelper.ConvertToLocalTimeZone((from p in myPhotos select p.DateTimeStamp).FirstOrDefault<DateTime>()),
                     Photos = myPhotos,
                     Name = myAlbum.Name,
                     Description = myAlbum.Description

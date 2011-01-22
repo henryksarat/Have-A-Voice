@@ -5,6 +5,7 @@ using HaveAVoice.Validation;
 using HaveAVoice.Helpers;
 using HaveAVoice.Services.UserFeatures;
 using System.Collections.Generic;
+using HaveAVoice.Services.Helpers;
 
 namespace HaveAVoice.Models.View {
     public class EditUserModelBinder : IModelBinder {
