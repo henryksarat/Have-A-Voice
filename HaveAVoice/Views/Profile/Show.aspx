@@ -278,7 +278,8 @@
 					<div class="clear">&nbsp;</div>
 				</div>
             <% } else if (myNextFeedItem == FeedItem.Photo) {%>
-	                <!-- BOARD ACTIVITY [Images] //-->
+	                <% PhotoAlbumFeedModel myPhotoAlbum = Model.Model.GetNextPhotoAlbum(); %>
+                    <!-- BOARD ACTIVITY [Images] //-->
 	                <div class="board-image m-btm10">
 		                <div class="col-6 user-info">
 			                <div class="p-a5">
