@@ -21,8 +21,9 @@
 	    
 	    <% UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation(); %>
 	    <% if (myUserInformationModel.Details.Id == Model.Model.UploadedByUserId) { %>
-		        <%= Html.ActionLink("Set to profile picture", "SetProfilePicture", "Photos", new { id = Model.Model.Id }, null) %>
-		        <%= Html.ActionLink("Delete", "Delete", "Photos", new { id = Model.Model.Id }, null) %>
+		        <%= Html.ActionLink("Set to profile picture", "SetProfilePicture", "Photos", new { id = Model.Model.Id }, null) %><br />
+		        <%= Html.ActionLink("Delete", "Delete", "Photos", new { id = Model.Model.Id }, null) %><br />
+                <%= Html.ActionLink("Set to album cover", "SetAlbumCover", "Photos", new { id = Model.Model.Id }, null)%><br />
 	    <% } %>
 	    <div class="large-photo">
 			<img src="<%= PhotoHelper.ConstructUrl(Model.Model.ImageName) %>" />

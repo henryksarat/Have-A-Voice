@@ -7955,8 +7955,8 @@ namespace HaveAVoice.Models
         /// <param name="imageName">Initial value of the ImageName property.</param>
         /// <param name="profilePicture">Initial value of the ProfilePicture property.</param>
         /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
-        /// <param name="flagged">Initial value of the Flagged property.</param>
-        public static Photo CreatePhoto(global::System.Int32 id, global::System.Int32 uploadedByUserId, global::System.Int32 photoAlbumId, global::System.String imageName, global::System.Boolean profilePicture, global::System.DateTime dateTimeStamp, global::System.Int32 flagged)
+        /// <param name="albumCover">Initial value of the AlbumCover property.</param>
+        public static Photo CreatePhoto(global::System.Int32 id, global::System.Int32 uploadedByUserId, global::System.Int32 photoAlbumId, global::System.String imageName, global::System.Boolean profilePicture, global::System.DateTime dateTimeStamp, global::System.Boolean albumCover)
         {
             Photo photo = new Photo();
             photo.Id = id;
@@ -7965,7 +7965,7 @@ namespace HaveAVoice.Models
             photo.ImageName = imageName;
             photo.ProfilePicture = profilePicture;
             photo.DateTimeStamp = dateTimeStamp;
-            photo.Flagged = flagged;
+            photo.AlbumCover = albumCover;
             return photo;
         }
 
@@ -8124,24 +8124,24 @@ namespace HaveAVoice.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 Flagged
+        public global::System.Boolean AlbumCover
         {
             get
             {
-                return _Flagged;
+                return _AlbumCover;
             }
             set
             {
-                OnFlaggedChanging(value);
-                ReportPropertyChanging("Flagged");
-                _Flagged = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Flagged");
-                OnFlaggedChanged();
+                OnAlbumCoverChanging(value);
+                ReportPropertyChanging("AlbumCover");
+                _AlbumCover = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AlbumCover");
+                OnAlbumCoverChanged();
             }
         }
-        private global::System.Int32 _Flagged;
-        partial void OnFlaggedChanging(global::System.Int32 value);
-        partial void OnFlaggedChanged();
+        private global::System.Boolean _AlbumCover;
+        partial void OnAlbumCoverChanging(global::System.Boolean value);
+        partial void OnAlbumCoverChanged();
 
         #endregion
     

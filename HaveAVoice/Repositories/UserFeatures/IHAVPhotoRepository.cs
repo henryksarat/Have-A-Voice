@@ -12,5 +12,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
         IEnumerable<Photo> GetPhotos(int aUserId, int anAlbumId);
         Photo GetPhoto(int aPhotoId);
         void DeletePhoto(int aPhotoId);
+        void SetPhotoAsAlbumCover(int aPhotoId);
     }
 }

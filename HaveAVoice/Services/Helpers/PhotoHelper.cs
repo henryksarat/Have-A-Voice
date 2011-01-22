@@ -28,5 +28,17 @@ namespace HaveAVoice.Services.Helpers {
         public static string ConstructUrl(string anImageName) {
             return HAVConstants.PHOTO_LOCATION_FROM_VIEW + anImageName;
         }
+
+        public static string RetrievePhotoAlbumCoverUrl(PhotoAlbum anAlbum) {
+            string myCover = "/Content/images/album.png";
+            string myNewCover = (from p in anAlbum.Photos
+                                 where p.AlbumCover == true
+                                 select p.ImageName).FirstOrDefault<string>();
+            if (myNewCover != null) {
+                myCover = ConstructUrl(myNewCover);
+            }
+
+            return myCover;
+        }
     }
 }

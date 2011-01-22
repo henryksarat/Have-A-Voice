@@ -18,6 +18,7 @@ namespace HaveAVoice.Controllers.Users.Photos {
         private const string PROFILE_PICTURE_SUCCESS = "New profile picture set!";
         private const string DELETE_SUCCESS = "Photo deleted successfully!";
         private const string UPLOAD_SUCCESS = "Photo uploaded!";
+        private const string ALBUM_COVER_SET = "Album cover set!";
 
         private const string PROFILE_PICTURE_ERROR = "Error setting the profile picture. Please try again.";
         private const string DISPLAY_ERROR = "Unable to display the photo. Please try again.";
@@ -26,11 +27,13 @@ namespace HaveAVoice.Controllers.Users.Photos {
         private const string SET_PROFILE_PICTURE_ERRROR = "Error settings profile picture.";
         private const string DELETE_ERROR = "Error deleting photo.";
         private const string UPLOAD_ERROR = "Error uploading the picture. Please try again.";
+        private const string ALBUM_COVER_ERROR = "Error settings photo as the album cover. Please try again.";
 
         private const string PHOTO_ALBUM_DETAILS = "Details";
         private const string PHOTO_ALBUM_CONTROLLER = "PhotoAlbum";
+        private const string PHOTO_ALBUM_LIST = "List";
         private const string EDIT_VIEW = "Edit";
-        private const string DISPLAY_VIEW = "Display";      
+        private const string DISPLAY_VIEW = "Display";
 
         private IHAVPhotoService thePhotoService;
 
@@ -109,6 +112,26 @@ namespace HaveAVoice.Controllers.Users.Photos {
                 TempData["Message"] = e.Message;
             } catch (Exception e) {
                 TempData["Message"] = DELETE_ERROR;
+            }
+
+            return RedirectToAction(DISPLAY_VIEW, new { id = id });
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult SetAlbumCover(int id) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            User myUser = GetUserInformaton();
+            try {
+                thePhotoService.SetPhotoAsAlbumCover(myUser, id);
+                TempData["Message"] = ALBUM_COVER_SET;
+                return RedirectToAction(PHOTO_ALBUM_LIST, PHOTO_ALBUM_CONTROLLER);
+            } catch (CustomException e) {
+                return SendToErrorPage(e.Message);
+            } catch (Exception e) {
+                LogError(e, ALBUM_COVER_ERROR);
+                TempData["Message"] = ALBUM_COVER_ERROR;
             }
 
             return RedirectToAction(DISPLAY_VIEW, new { id = id });

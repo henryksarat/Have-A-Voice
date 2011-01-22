@@ -40,7 +40,7 @@
 		    <% foreach (var item in Model.Models) { %>
 		    	<li>
 		    		<!-- Image needs to be wrapped in anchor tag Html.ActionLink will not work.  An alternative is needed. -->
-		    		<img src="/Content/images/album.png" alt="<%= item.Name %>" /><br />
+		    		<img src="<%= PhotoHelper.RetrievePhotoAlbumCoverUrl(item) %>" alt="<%= item.Name %>" /><br />
 			        <%= Html.ActionLink(item.Name, "Details", "PhotoAlbum", new { id = item.Id }, new { @class = "album"}) %>
 			        <% if (myIsUser) { %>
 			            <%= Html.ActionLink("Edit", "Edit", "PhotoAlbum", new { id = item.Id }, new { @class = "edit" }) %>

@@ -9,7 +9,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
         public Photo AddReferenceToImage(User aUser, int anAlbumId, string anImageName) {
-            Photo myPhoto = Photo.CreatePhoto(0, aUser.Id, anAlbumId, anImageName, false, DateTime.UtcNow, 0);
+            Photo myPhoto = Photo.CreatePhoto(0, aUser.Id, anAlbumId, anImageName, false, DateTime.UtcNow, false);
 
             theEntities.AddToPhotos(myPhoto);
             theEntities.SaveChanges();
@@ -66,6 +66,29 @@ namespace HaveAVoice.Repositories.UserFeatures {
                 currentProfilePicture.ProfilePicture = false;
                 theEntities.ApplyCurrentValues(currentProfilePicture.EntityKey.EntitySetName, currentProfilePicture);
             }
+        }
+
+        public void SetPhotoAsAlbumCover(int aPhotoId) {
+            Photo myNewCover = GetPhoto(aPhotoId);
+            myNewCover.AlbumCover = true;
+
+            Photo myCurrentCover = GetPhotoAlbumCoverPhoto(myNewCover.PhotoAlbumId);
+
+            theEntities.ApplyCurrentValues(myNewCover.EntityKey.EntitySetName, myNewCover);
+
+            if (myCurrentCover != null) {
+                myCurrentCover.AlbumCover = false;
+                theEntities.ApplyCurrentValues(myCurrentCover.EntityKey.EntitySetName, myCurrentCover);
+            }
+
+            theEntities.SaveChanges();
+        }
+    
+        private Photo GetPhotoAlbumCoverPhoto(int anAlbumId) {
+            return (from p in theEntities.Photos
+                    where p.PhotoAlbumId == anAlbumId 
+                    && p.AlbumCover == true
+                    select p).FirstOrDefault<Photo>();
         }
     }
 }

@@ -15,5 +15,6 @@ namespace HaveAVoice.Services.UserFeatures {
         bool IsValidImage(string anImageFile);
         void UploadProfilePicture(User aUserToUploadFor, HttpPostedFileBase anImage);
         void UploadImageWithDatabaseReference(UserInformationModel aUserToUploadFor, int anAlbumId, HttpPostedFileBase aImageFile);
+        void SetPhotoAsAlbumCover(User myEditingUser, int aPhotoId);
     }
 }

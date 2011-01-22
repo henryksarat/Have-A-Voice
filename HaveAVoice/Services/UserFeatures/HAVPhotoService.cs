@@ -95,6 +95,16 @@ namespace HaveAVoice.Services.UserFeatures {
              new CustomException(UNAUTHORIZED_UPLOAD);
          }
 
+        public void SetPhotoAsAlbumCover(User myEditingUser, int aPhotoId) {
+            Photo myPhoto = thePhotoRepo.GetPhoto(aPhotoId);
+
+            if (myPhoto.UploadedByUserId == myEditingUser.Id) {
+                thePhotoRepo.SetPhotoAsAlbumCover(aPhotoId);
+            } else {
+                throw new CustomException(HAVConstants.NOT_ALLOWED);
+            }
+        }
+
         private string UploadImage(User aUserToUploadFor, HttpPostedFileBase aImageFile) {
             if(!IsValidImage(aImageFile.FileName)) {
                     throw new CustomException("Please specify a proper image file that ends in .gif, .jpg, or .jpeg.");
