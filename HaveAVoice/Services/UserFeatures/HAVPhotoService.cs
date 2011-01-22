@@ -10,9 +10,13 @@ using HaveAVoice.Exceptions;
 using System.IO;
 using HaveAVoice.Services.Helpers;
 using HaveAVoice.Models.View;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Drawing.Drawing2D;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVPhotoService : HAVBaseService, IHAVPhotoService {
+        private const int MAX_SIZE = 840;
         private const string UNAUTHORIZED_UPLOAD = "You are not allowed to upload to that album.";
 
         private IHAVFriendService theFriendService;
@@ -39,12 +43,7 @@ namespace HaveAVoice.Services.UserFeatures {
         public void DeletePhoto(User aUserDeleting, int aPhotoId) {
             Photo myPhoto = GetPhoto(aUserDeleting, aPhotoId);
             if (myPhoto.UploadedByUserId == aUserDeleting.Id) {
-                FileInfo myFile = new FileInfo(HttpContext.Current.Server.MapPath(PhotoHelper.ConstructUrl(myPhoto.ImageName)));
-                if (myFile.Exists) {
-                    myFile.Delete();
-                } else {
-                    throw new FileNotFoundException();
-                }
+                PhysicallyDeletePhoto(myPhoto.ImageName);
 
                 thePhotoRepo.DeletePhoto(aPhotoId);
             } else {
@@ -111,10 +110,72 @@ namespace HaveAVoice.Services.UserFeatures {
             }
             string[] mySplitOnPeriod = aImageFile.FileName.Split(new char[] { '.' });
             string myFileExtension = mySplitOnPeriod[mySplitOnPeriod.Length - 1];
-            string myFileName = aUserToUploadFor.Id + "_" + DateTime.UtcNow.GetHashCode() + "." + myFileExtension;
-            string filePath = HttpContext.Current.Server.MapPath(PhotoHelper.ConstructUrl(myFileName));
-            aImageFile.SaveAs(filePath);
-            return myFileName;
+            string myFileNamePrefix = aUserToUploadFor.Id + "_" + DateTime.UtcNow.GetHashCode();
+            string myOriginalFile = myFileNamePrefix + "-original." + myFileExtension;
+            string myNewFile = myFileNamePrefix + "." + myFileExtension;
+            string myOriginalFilePath = HttpContext.Current.Server.MapPath(PhotoHelper.ConstructUrl(myOriginalFile));
+            aImageFile.SaveAs(myOriginalFilePath);
+            
+            ResizeImage(myOriginalFile, myNewFile, MAX_SIZE);
+            return myNewFile;
+        }
+
+        private void ResizeImage(string anOriginalImageName, string aNewImageName, int aSize) {
+            string myOriginalFilePath = HttpContext.Current.Server.MapPath(PhotoHelper.ConstructUrl(anOriginalImageName));
+            string myNewFilePath = HttpContext.Current.Server.MapPath(PhotoHelper.ConstructUrl(aNewImageName));
+
+            Image myOriginal = Image.FromFile(myOriginalFilePath);
+
+            Image myActual = ScaleBySize(myOriginal, aSize);
+            myActual.Save(myNewFilePath);
+            myActual.Dispose();
+
+            myOriginal.Dispose();
+
+            PhysicallyDeletePhoto(anOriginalImageName);
+        }
+
+        private Image ScaleBySize(Image myPhoto, int aSize) {
+            float mySourceWidth = myPhoto.Width;
+            float mySourceHeight = myPhoto.Height;
+            float myDesiredHeight = 0;
+            float myDesiredWidth = 0;
+            
+            if (mySourceWidth > mySourceHeight) {
+                myDesiredWidth = aSize;
+                myDesiredHeight = (float)(mySourceHeight * aSize / mySourceWidth);
+            } else if (mySourceHeight > mySourceWidth) {
+                myDesiredHeight = MAX_SIZE;
+                myDesiredWidth = (float)(mySourceWidth * aSize / mySourceHeight);
+            } else {
+                myDesiredWidth = aSize;
+                myDesiredHeight = aSize;
+            }
+
+            Bitmap myBitmap = new Bitmap((int)myDesiredWidth, (int)myDesiredHeight,
+                                        PixelFormat.Format32bppPArgb);
+            myBitmap.SetResolution(myPhoto.HorizontalResolution, myPhoto.VerticalResolution);
+
+            Graphics myGraphicPhoto = Graphics.FromImage(myBitmap);
+            myGraphicPhoto.InterpolationMode = InterpolationMode.HighQualityBicubic;
+
+            myGraphicPhoto.DrawImage(myPhoto,
+                new Rectangle(0, 0, (int)myDesiredWidth, (int)myDesiredHeight),
+                new Rectangle(0, 0, (int)mySourceWidth, (int)mySourceHeight),
+                GraphicsUnit.Pixel);
+
+            myGraphicPhoto.Dispose();
+
+            return myBitmap;
+        }
+
+        private void PhysicallyDeletePhoto(string anImageName) {
+            FileInfo myFile = new FileInfo(HttpContext.Current.Server.MapPath(PhotoHelper.ConstructUrl(anImageName)));
+            if (myFile.Exists) {
+                myFile.Delete();
+            } else {
+                throw new FileNotFoundException();
+            }
         }
     }
 }
