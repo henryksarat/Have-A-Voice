@@ -77,6 +77,60 @@ namespace HaveAVoice.Helpers.UI {
 			
 			divCommentPad.InnerHtml += hrefName.ToString();
 			divCommentPad.InnerHtml += anIssueReply.Reply;
+
+			var optionWrpr = new TagBuilder("div");
+			optionWrpr.MergeAttribute("col-11")
+
+            var optionsDiv = new TagBuilder("div");
+            optionsDiv.MergeAttribute("p-v10")
+
+			var editDiv = new TagBuilder("div");
+			editDiv.MergeAttribute("col-2");
+			
+            UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation();
+            if(anIssueReply.User.Id == myUserInformationModel.Details.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Edit_Any_Issue_Reply)) {
+                var myEdit = new TagBuilder("a");
+                myEdit.MergeAttribute("href", LinkHelper.EditIssueReply(anIssueReply.Id));
+                myEdit.InnerHtml += "Edit";
+                editDiv.InnerHtml +=myEdit.ToString();
+            }
+            optionsDiv.InnerHtml += editDiv.ToString();
+            
+            var deleteDiv = new TagBuilder("div");
+            deleteDiv.MergeAttribute("col-3");
+            
+            if(anIssueReply.User.Id == myUserInformationModel.Details.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Delete_Any_Issue_Reply)) {
+                var myDelete = new TagBuilder("a");
+                myDelete.MergeAttribute("href", LinkHelper.EditIssueReply(anIssueReply.Id));
+                myDelete.InnerHtml += "Delete";
+                deleteDiv.InnerHtml +=myDelete.ToString();
+            }
+            optionsDiv.InnerHtml += deleteDiv.ToString();
+            
+            var likeDiv = new TagBuilder("div");
+            likeDiv.MergeAttribute("col-3");
+            
+            var dislikeDiv = new TagBuilder("div");
+            dislikeDiv.MergeAttribute("col-3");
+            
+            if(!anIssueReply.HasDisposition) {
+                var myLikeDisposition = new TagBuilder("a");
+                myLikeDisposition.MergeAttribute("href", LinkHelper.LikeIssueReply(anIssueReply.Id, anIssueReply.Issue.Id));
+                myLikeDisposition.InnerHtml += "Like";
+                likeDiv.InnerHtml +=myLikeDisposition.ToString();
+
+                var myDislikeDisposition = new TagBuilder("a");
+                myDislikeDisposition.MergeAttribute("href", LinkHelper.DislikeIssueReply(anIssueReply.Id, anIssueReply.Issue.Id));
+                myDislikeDisposition.InnerHtml += "Dislike";
+                dislikeDiv.InnerHtml +=myDislikeDisposition.ToString();
+            }
+
+			optionsDiv.InnerHtml += likeDiv.ToString();
+			optionsDiv.InnerHtml += dislikeDiv.ToString();
+			
+			optionWrpr.InnerHtml += optionsDiv.ToString();
+			
+			divCommentPad.InnerHtml += optionWrpr.ToString();
 			
 			stanceComment.InnerHtml += divCommentPad.ToString();
 
@@ -104,95 +158,7 @@ namespace HaveAVoice.Helpers.UI {
 			
 			stanceDiv.InnerHtml += divTimeStamp.ToString();
 
-            var optionsDiv = new TagBuilder("div");
-            if(!anIssueReply.HasDisposition) {
-                var myLikeDisposition = new TagBuilder("a");
-                myLikeDisposition.MergeAttribute("href", LinkHelper.LikeIssueReply(anIssueReply.Id, anIssueReply.Issue.Id));
-                myLikeDisposition.InnerHtml += "Like";
-                optionsDiv.InnerHtml +=myLikeDisposition.ToString();
-
-                var myDislikeDisposition = new TagBuilder("a");
-                myDislikeDisposition.MergeAttribute("href", LinkHelper.DislikeIssueReply(anIssueReply.Id, anIssueReply.Issue.Id));
-                myDislikeDisposition.InnerHtml += "Dislike";
-                optionsDiv.InnerHtml +=myDislikeDisposition.ToString();
-            }
-            UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation();
-            if(anIssueReply.User.Id == myUserInformationModel.Details.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Edit_Any_Issue_Reply)) {
-                var myEdit = new TagBuilder("a");
-                myEdit.MergeAttribute("href", LinkHelper.EditIssueReply(anIssueReply.Id));
-                myEdit.InnerHtml += "Edit";
-                optionsDiv.InnerHtml +=myEdit.ToString();
-            }
-
-            if(anIssueReply.User.Id == myUserInformationModel.Details.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Delete_Any_Issue_Reply)) {
-                var myDelete = new TagBuilder("a");
-                myDelete.MergeAttribute("href", LinkHelper.EditIssueReply(anIssueReply.Id));
-                myDelete.InnerHtml += "Delete";
-                optionsDiv.InnerHtml +=myDelete.ToString();
-            }
-
-            stanceDiv.InnerHtml += optionsDiv.ToString();
-
         	return stanceDiv.ToString(TagRenderMode.Normal);
-        
-			/*
-            var tableTag = new TagBuilder("table");
-            tableTag.MergeAttribute("border", "0");
-            tableTag.MergeAttribute("cellspacing", "0");
-            tableTag.MergeAttribute("cellpadding", "0");
-            tableTag.MergeAttribute("width", "400px");
-
-            var trTag = new TagBuilder("tr");
-            trTag.MergeAttribute("style", aRowStyle);
-
-            var tdTag = new TagBuilder("td");
-            tdTag.MergeAttribute("width", "50%");
-            if(anIssueReply.Anonymous) {
-                tdTag.InnerHtml = "<strong>Anonymous</strong>";
-            } else {
-                tdTag.InnerHtml = "<strong>" + anIssueReply.User.Username + "</strong>";
-            }
-            tdTag.InnerHtml += " @ " + anIssueReply.DateTimeStamp;
-            trTag.InnerHtml += tdTag.ToString();
-
-            tdTag = new TagBuilder("td");
-            tdTag.MergeAttribute("width", "50%");
-            tdTag.MergeAttribute("style", "text-align:right;");
-            tdTag.InnerHtml = "<strong>" + anIssueReply.User.City + ", " + anIssueReply.User.State + "</strong>";
-            trTag.InnerHtml += tdTag.ToString();
-
-            tableTag.InnerHtml = trTag.ToString();
-
-            trTag = new TagBuilder("tr");
-            trTag.MergeAttribute("style", aRowStyle);
-            tdTag = new TagBuilder("td");
-            tdTag.MergeAttribute("width", "1%");
-            tdTag.MergeAttribute("colspan", "2");
-            tdTag.InnerHtml = anIssueReply.Reply;
-            trTag.InnerHtml += tdTag.ToString();
-
-            tableTag.InnerHtml += trTag.ToString();
-
-            trTag = new TagBuilder("tr");
-            trTag.MergeAttribute("style", aRowStyle);
-            tdTag = new TagBuilder("td");
-            tdTag.MergeAttribute("width", "50%");
-            tdTag.InnerHtml = String.Format("<a href=\"/IssueReply/View/{0}\">{1}</a>", 
-                anIssueReply.Id, 
-                "Comments ( " + anIssueReply.CommentCount + " )");
-            trTag.InnerHtml += tdTag.ToString();
-            tdTag = new TagBuilder("td");
-            tdTag.MergeAttribute("width", "50%");
-            tdTag.InnerHtml = ComplaintHelper.IssueReplyLink(anIssueReply.Id);
-            trTag.InnerHtml += tdTag.ToString();
-
-            tableTag.InnerHtml += trTag.ToString();
-
-            return tableTag.ToString(TagRenderMode.Normal);
-            
-            
-            /* NOTE: PLEASE CHECK FOR ANY SYNTAX ERRORS AND NOTICE I CURRENTLY LEFT OFF THE COMMENT / LIKE / DISLIKE / REPORT / EDIT LINKS UNTIL I FIGURE HOW TO FIT THESE IN */
-            /* CLASSES WILL BE CHANGED, BUT THE STRUCTURE IS IN PLACE TO GIVE YOU AN IDEA OF THE STYLE ONCE COMPILED. */
         }
 
         public static string Comment(IssueReplyComment aComment) {
