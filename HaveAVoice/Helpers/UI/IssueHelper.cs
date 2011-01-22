@@ -86,11 +86,7 @@ namespace HaveAVoice.Helpers.UI {
             optionsDiv.MergeAttribute("class", "p-v10");
 
 			var editDiv = new TagBuilder("div");
-<<<<<<< HEAD
-			editDiv.MergeAttribute("col-2 center");
-=======
-			editDiv.MergeAttribute("class", "col-2");
->>>>>>> b1ba660dd1d24691c25b143dc3815293aec5052e
+			editDiv.MergeAttribute("class", "col-2 center");
 			
             UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation();
             if(anIssueReply.User.Id == myUserInformationModel.Details.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Edit_Any_Issue_Reply)) {
@@ -103,11 +99,7 @@ namespace HaveAVoice.Helpers.UI {
             optionsDiv.InnerHtml += editDiv.ToString();
             
             var deleteDiv = new TagBuilder("div");
-<<<<<<< HEAD
-            deleteDiv.MergeAttribute("col-3 center");
-=======
-            deleteDiv.MergeAttribute("class", "col-3");
->>>>>>> b1ba660dd1d24691c25b143dc3815293aec5052e
+            deleteDiv.MergeAttribute("class", "col-3 center");
             
             if(anIssueReply.User.Id == myUserInformationModel.Details.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Delete_Any_Issue_Reply)) {
                 var myDelete = new TagBuilder("a");
@@ -119,17 +111,10 @@ namespace HaveAVoice.Helpers.UI {
             optionsDiv.InnerHtml += deleteDiv.ToString();
             
             var likeDiv = new TagBuilder("div");
-<<<<<<< HEAD
-            likeDiv.MergeAttribute("col-3 center");
+            likeDiv.MergeAttribute("class", "col-3 center");
             
             var dislikeDiv = new TagBuilder("div");
-            dislikeDiv.MergeAttribute("col-3 center");
-=======
-            likeDiv.MergeAttribute("class", "col-3");
-            
-            var dislikeDiv = new TagBuilder("div");
-            dislikeDiv.MergeAttribute("class", "col-3");
->>>>>>> b1ba660dd1d24691c25b143dc3815293aec5052e
+            dislikeDiv.MergeAttribute("class", "col-3 center");
             
             if(!anIssueReply.HasDisposition) {
                 var myLikeDisposition = new TagBuilder("a");
