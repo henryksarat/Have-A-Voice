@@ -31,7 +31,7 @@ namespace HaveAVoice.Helpers.UI {
             if (anIssueReply.IssueStance == (int)IssueStance.Disagree) {
 			    profileDiv.MergeAttribute("class", "col-3 center push-15");
 			} else {
-				profileDiv.MergeAttribute("class", "col-3 center");
+				profileDiv.MergeAttribute("class", "push-3 col-3 center");
 			}
 
 			var profileImg = new TagBuilder("img");
@@ -48,7 +48,7 @@ namespace HaveAVoice.Helpers.UI {
 			stanceDiv.InnerHtml += profileDiv.ToString();
 			
 			var stanceComment = new TagBuilder("div");
-			stanceComment.MergeAttribute("class", "m-lft col-12 m-rgt comment");
+			stanceComment.MergeAttribute("class", "push-3 m-lft col-12 m-rgt comment");
 			
 			var spanDirSpeak = new TagBuilder("span");
 			
@@ -100,7 +100,9 @@ namespace HaveAVoice.Helpers.UI {
 			divTimePad.InnerHtml += "&nbsp;";
 			divTimePad.InnerHtml += anIssueReply.DateTimeStamp.ToString("dd");
 			
-			stanceDiv.InnerHtml += divTimePad.ToString();
+			divTimeStamp.InnerHtml += divTimePad.ToString();
+			
+			stanceDiv.InnerHtml += divTimeStamp.ToString();
 
             var optionsDiv = new TagBuilder("div");
             if(!anIssueReply.HasDisposition) {

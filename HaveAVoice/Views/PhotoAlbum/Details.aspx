@@ -20,12 +20,11 @@
         <%= Html.Encode(TempData["Message"]) %>
         <div class="clear">&nbsp;</div>
         
-        <div>
-            Album title = <%= Model.Model.Name %>
+        <h1 class="fnt-24 tint-6"><%= Model.Model.Name %></h1>
+		<div class="fnt-12 m-btm10">
+			<%= Model.Model.Description %>
         </div>
-        <div>
-            Album Description = <%= Model.Model.Description %>
-        </div>
+
         <% UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation(); %>
         <% if (myUserInformationModel.Details.Id == Model.Model.CreatedByUserId) { %>
 		    <div class="filter">

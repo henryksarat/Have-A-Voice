@@ -72,44 +72,45 @@
 	        <%= Html.ValidationSummary("Your reply wasn't posted. Please correct the errors and try again.") %>
 	        <div class="clear">&nbsp;</div>
 	        
-	        
-	        <div class="push-2 col-3 center issue-profile">
-				<img src="<%= PhotoHelper.ProfilePicture(Model.Issue.User) %>" alt="<%= Model.Issue.User %>" class="profile" />
-			</div>
-			<div class="push-2 m-lft col-16 m-rgt comment">
-				<div class="p-a10">
-					<span class="speak-lft">&nbsp;</span>
-					<h1 class="m-btm10"><%= Html.Encode(Model.Issue.Title) %></h1>
-					<%= Html.Encode(Model.Issue.Description) %>
-	
-					<div class="clear">&nbsp;</div>
-					<div class="push-4 col-3">
-		                <% if (Model.Issue.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Edit_Any_Issue)) { %>
-		                    <%= Html.ActionLink("Edit", "Edit", new { id = Model.Issue.Id })%>
-		                <% } %>
-	                </div>
-	                <div class="push-4 col-3">
-		                <% if (Model.Issue.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Delete_Any_Issue)) { %>
-		                    <%= Html.ActionLink("Delete", "Delete", new { id = Model.Issue.Id })%>
-		                <% } %>
-	                </div>
-	                <div class="push-4 col-3">
-	                	<%= ComplaintHelper.IssueLink(Model.Issue.Id) %>
-	                </div>
+	        <div class="m-btm10">
+		        <div class="push-2 col-3 center issue-profile">
+					<img src="<%= PhotoHelper.ProfilePicture(Model.Issue.User) %>" alt="<%= Model.Issue.User %>" class="profile" />
+				</div>
+				<div class="push-2 m-lft col-16 m-rgt comment">
+					<div class="p-a10">
+						<span class="speak-lft">&nbsp;</span>
+						<h1 class="m-btm10"><%= Html.Encode(Model.Issue.Title) %></h1>
+						<%= Html.Encode(Model.Issue.Description) %>
+		
+						<div class="clear">&nbsp;</div>
+						<div class="push-4 col-3">
+			                <% if (Model.Issue.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Edit_Any_Issue)) { %>
+			                    <%= Html.ActionLink("Edit", "Edit", new { id = Model.Issue.Id })%>
+			                <% } %>
+		                </div>
+		                <div class="push-4 col-3">
+			                <% if (Model.Issue.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Delete_Any_Issue)) { %>
+			                    <%= Html.ActionLink("Delete", "Delete", new { id = Model.Issue.Id })%>
+			                <% } %>
+		                </div>
+		                <div class="push-4 col-3">
+		                	<%= ComplaintHelper.IssueLink(Model.Issue.Id) %>
+		                </div>
+					</div>
+				</div>
+				<div class="push-2 col-3 stats">
+					<div class="p-a5">
+						<h4 class="m-btm5">Stats</h4>
+						<div class="bold">Posted:</div>
+						<div class="m-lft10 m-btm5"><%= Model.Issue.DateTimeStamp.ToString("MMM dd, yyyy").ToUpper() %></div>
+						<div class="bold">Likes:</div>
+						<div class="m-lft10 m-btm5">1</div>
+						<div class="bold">Dislikes:</div>
+						<div class="m-lft10 m-btm5">1</div>
+					</div>
 				</div>
 			</div>
-			<div class="push-2 col-3 stats">
-				<div class="p-a5">
-					<h4 class="m-btm5">Stats</h4>
-					<div class="bold">Posted:</div>
-					<div class="m-lft10 m-btm5"><%= Model.Issue.DateTimeStamp.ToString("MMM dd, yyyy").ToUpper() %></div>
-					<div class="bold">Likes:</div>
-					<div class="m-lft10 m-btm5">1</div>
-					<div class="bold">Dislikes:</div>
-					<div class="m-lft10 m-btm5">1</div>
-				</div>
-			</div>
-	        
+	        <div class="clear">&nbsp;</div>
 
             <% foreach (IssueReplyModel reply in Model.UserReplys) { %>
                 <%= IssueHelper.UserIssueReply(reply) %>
@@ -144,11 +145,11 @@
 			<% } else { %>
 				<div class="reply">
 					<div class="row">
-						<div class="push-2 col-2 center">
+						<div class="push-8 col-2 center">
                             <% UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation(); %>
 							<img src="<%= myUserInfo.ProfilePictureUrl %>" alt="<%= myUserInfo.Details.Username %>" class="profile" />
 						</div>
-						<div class="push-2 m-lft col-14 comment">
+						<div class="push-8 m-lft col-14 comment">
 							<span class="speak-lft">&nbsp;</span>
 							<div class="p-a10">
 								<%= Html.ValidationMessage("Reply", "*") %>
