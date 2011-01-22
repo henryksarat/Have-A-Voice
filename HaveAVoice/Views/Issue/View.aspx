@@ -109,6 +109,7 @@
 						<div class="m-lft10 m-btm5">1</div>
 					</div>
 				</div>
+				<div class="clear">&nbsp;</div>
 			</div>
 	        <div class="clear">&nbsp;</div>
 

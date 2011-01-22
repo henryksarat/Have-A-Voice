@@ -262,7 +262,7 @@ form.create input[type=button]:hover { color: #115f71; background: #fff; }
 .row img.profile.sm, .alt img.profile.sm { max-width: 40px; max-height: 40px; }
 .comment .options span { font-size: 12px; }
 .row a.name, .row a.name:link, .row a.name:visited, .alt a.name, .alt a.name:link, .alt a.name:visited { font-size: 12px; font-style: normal; font-weight: bold; text-decoration: none; color: #20a9c9; }
-.row a.like, .row a.like:link, .row a.like:visited, .alt a.like, .alt a.like:link, .alt a.like:visited { color: #2070c9; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; background: transparent; }
+.row a.like, .row a.like:link, .row a.like:visited, .alt a.like, .alt a.like:link, .alt a.like:visited, .agree a.like, .agree a.like:link, .agree a.like:visited, .disagree a.like, .disagree a.like:link, .disagree a.like:visited { color: #2070c9; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; background: transparent; }
 .row span.like, .alt span.like { color: #2070c9; font-size: 12px; background: transparent; }
 .row a.dislike, .row a.dislike:link, .row a.dislike:visited, .alt a.dislike, .alt a.dislike:link, .alt a.dislike:visited { text-decoration: none; font-size: 12px; font-weight: bold; font-style: normal; text-transform: uppercase; }
 .row span.dislike, .alt span.dislike { color: #c94020; font-size: 12px; background: transparent; }
@@ -306,10 +306,11 @@ form.create input[type=button]:hover { color: #115f71; background: #fff; }
 .issue { font-size: 12px; margin-bottom: 5px; }
 .issue a.like, .issue a.like:link, .issue a.like:visited { color: #2070c9; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; background: transparent; }
 .issue a.dislike, .issue a.dislike:link, .issue a.dislike:visited { text-decoration: none; font-size: 12px; font-weight: bold; font-style: normal; text-transform: uppercase; }
-.issue a.delete, .issue a.delete:link, .issue a.delete:visited { color: #DC143C; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; }
+.issue a.delete, .issue a.delete:link, .issue a.delete:visited, .agree a.delete, .agree a.delete:link, .agree a.delete:visited, .disagree a.delete, .disagree a.delete:link, .disagree a.delete:visited { color: #DC143C; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; }
+.agree a.edit, .agree a.edit:link, .agree a.edit:visited, .disagree a.edit, .disagree a.edit:link, .disagree a.edit:visited { color: #115f71; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; }
 .issue-container img.profile { max-width: 80px; max-height: 80px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
 /*.issue-container .issue { min-height: 120px; }*/
-.issue a.name, .issue a.name:link, .issue a.name:visited { font-size: 13px; font-style: normal; font-weight: bold; text-decoration: none; color: #20a9c9; }
+.issue a.name, .issue a.name:link, .issue a.name:visited, .agree a.name, .agree a.name:link, .agree a.name:visited, .disagree a.name, .disagree a.name:link, .disagree a.name:visited { font-size: 13px; font-style: normal; font-weight: bold; text-decoration: none; color: #20a9c9; }
 a.filter, a.filter:link, a.filter:visited { color: #fff; text-decoration: none; background: #b6dde7; padding: 5px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; display: block; }
 a.filter:hover { background: #20a9c9; font-weight: bold; }
 a.filter.like:hover { background: #2070c9; font-weight: bold; }
@@ -324,10 +325,10 @@ a.filter.dislike:hover { background: #c94020; font-weight: bold; }
 .stats { background: #b6dde7; color: #4b4b4b; min-height: 120px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
 .stats h4 { color: #fff; font-size: 16px; }
 
-.agree .comment { color: #fff; position: relative; background: #4271a6; min-height: 120px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
-.agree .comment .speak-lft { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #4271a6 transparent transparent transparent; position: absolute; left: -10px; top: 30px; }
-.disagree .comment { color: #fff; position: relative; background: #e03108; min-height: 120px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
-.disagree .speak-rgt { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #e03108 transparent transparent transparent; position: absolute; right: -10px; top: 30px; }
+.agree .comment { color: #fff; position: relative; background: #CAE1FF; min-height: 120px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+.agree .comment .speak-lft { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #CAE1FF transparent transparent transparent; position: absolute; left: -10px; top: 30px; }
+.disagree .comment { color: #fff; position: relative; background: #F08080; min-height: 120px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+.disagree .speak-rgt { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #F08080 transparent transparent transparent; position: absolute; right: -10px; top: 30px; }
 
 .agree img.profile, .disagree img.profile { max-height: 120px; max-width: 120px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
 
@@ -386,7 +387,7 @@ input[type=submit].submit:hover { color: #20a9c9; background: #fff; }
 /** ALBUMS */
 ul.photo-album li { float: left; margin: 5px; background: #20A9C9; position: relative; color: #fff; text-align: center; font-weight: bold; font-size: 12px; min-width: 110px; min-height: 110px; }
 ul.photo-album li a.album, ul.photo-album li a.album:link, ul.photo-album li a.album:visited { display: block; text-decoration: none; color: #fff; }
-ul.photo-album li a.album:hover { text-decoration: underline; }
+ul.photo-album li a.album:hover { }
 ul.photo-album li a img { border: 0px none transparent; max-width: 90px; max-height: 90px; }
 ul.photo-album li a.edit { position: absolute; top: 0px; right: 24px; width: 24px; height: 24px; background:url("/Content/images/edit.gif") no-repeat; z-index: 10px; text-indent: -9999px; outline: none; display: none; }
 ul.photo-album li a.delete { position: absolute; top: 0px; right: 0px; width: 24px; height: 24px; background:url("/Content/images/delete.png") no-repeat; z-index: 20px; text-indent: -9999px; outline: none; display: none; }

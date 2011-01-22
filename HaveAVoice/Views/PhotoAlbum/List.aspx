@@ -60,6 +60,23 @@
 				disablePopup();
 			});
 			/*
+			$("a.edit").click(function() {
+				var at = $(this).attr("href");
+				$.ajax({
+					url: at,
+					context: document.body,
+					success: function(data) {
+						
+						$(".popup").html(data);
+						centerPopup();
+						loadPopup();
+					}
+				});
+
+				return false;
+			});
+			*/
+			/*
 			$(document).keyPress(function(e) {
 				if (e.keyCode == 27 && popupStatus == 1) {
 					disablePopup();
@@ -81,18 +98,17 @@
 		<ul class="photo-album">
 		    <% foreach (var item in Model.Models) { %>
 		    	<li>
-		    		<a href="/PhotoAlbum/Details/<%= item.Id %>">
+		    		<a href="/PhotoAlbum/Details/<%= item.Id %>" class="album">
 			    		<img src="<%= PhotoHelper.RetrievePhotoAlbumCoverUrl(item) %>" alt="<%= item.Name %>" /><br />
-				        <%= Html.ActionLink(item.Name, "Details", "PhotoAlbum", new { id = item.Id }, new { @class = "album"}) %>
-				        <% if (myIsUser) { %>
-				            <%= Html.ActionLink("Edit", "Edit", "PhotoAlbum", new { id = item.Id }, new { @class = "edit" }) %>
-				            <%= Html.ActionLink("Delete", "Delete", "PhotoAlbum", new { id = item.Id }, new { @class = "delete" }) %>
-				        <% } %>
-			        </a>
+			    		<%= item.Name %>
+			    	</a>
+			        <% if (myIsUser) { %>
+			            <%= Html.ActionLink("Edit", "Edit", "PhotoAlbum", new { id = item.Id }, new { @class = "edit" }) %>
+			            <%= Html.ActionLink("Delete", "Delete", "PhotoAlbum", new { id = item.Id }, new { @class = "delete" }) %>
+			        <% } %>
 		        </li>
 		    <% } %>
 		    <li>
-		    	<!-- jQuery is a simple show.  Will be expanded / styled for popup -->
 		    	<a href="#" rel="new-album" class="create">Create Album</a>
 		    </li>
 	    </ul>
@@ -101,11 +117,11 @@
     <% if (myIsUser) { %>
     	<div class="background-popup"></div>
     	<div class="popup">
-	        <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.")%>
+	        <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
 	
-	        <% using (Html.BeginForm("Create", "PhotoAlbum", FormMethod.Post, new { @class = "create" })) {%>
-	            <%= Html.Encode(ViewData["Message"])%><br />
-	            <%= Html.Encode(TempData["Message"])%><br />
+	        <% using (Html.BeginForm("Create", "PhotoAlbum", FormMethod.Post, new { @class = "create" })) { %>
+	            <%= Html.Encode(ViewData["Message"])%>
+	            <%= Html.Encode(TempData["Message"])%>
 				<div class="clear">&nbsp;</div>
 				<div class="col-3 right m-rgt">
 					<label for="Name">Name:</label>
@@ -123,16 +139,16 @@
 					<label for="Description">Description:</label>
 				</div>
 				<div class="col-6">
-					<%= Html.TextArea("Description", null, new { cols = "31", rows = "4", resize = "none"})%>
+					<%= Html.TextArea("Description", null, new { cols = "31", rows = "4", resize = "none"}) %>
 				</div>
 				<div class="clear">&nbsp;</div>
 				<div class="col-10 m-btm10">
-					<%= Html.ValidationMessage("Description", "*")%>
+					<%= Html.ValidationMessage("Description", "*") %>
 					<div class="clear">&nbsp;</div>
 				</div>
 				<div class="clear">&nbsp;</div>
 				<div class="right">
-					<input type="submit" value="Post" class="create" />
+					<input type="submit" value="Create" class="create" />
 					<input type="button" value="Cancel" class="btn" id="Cancel" />
 				</div>
 	        <% } %>
