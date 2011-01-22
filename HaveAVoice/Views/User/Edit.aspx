@@ -19,7 +19,7 @@
     </script>
     
     <div class="grid_7 omega profile" rel="match">
-        <img src="<%= Model.ProfilePictureURL %>" alt="Profile picture for <%= Model.UserInformation.Username %>" height="154" width="154" class="profile" />
+        <img src="<%= Model.ProfilePictureURL %>" alt="<%= Model.UserInformation.Username %>" height="154" width="154" class="profile" />
         <br />
         <div class="grid_6 padding-10v details">
 			<span class="blue">Name:</span> <%=Model.UserInformation.FirstName + " " + Model.UserInformation.LastName %><br />

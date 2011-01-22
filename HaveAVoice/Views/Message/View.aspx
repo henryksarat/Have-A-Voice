@@ -24,7 +24,9 @@
 	            <%= MessageHelper.MessageItem(Model.Model.Message.FromUser.Username, PhotoHelper.ProfilePicture(Model.Model.Message.FromUser), Model.Model.Message.Subject, Model.Model.Message.Body, Model.Model.Message.DateTimeStamp)%>
 	
 		         <% foreach (var reply in Model.Model.Message.Replys) { %>
-	                <%= MessageHelper.MessageItem(reply.User.Username, PhotoHelper.ProfilePicture(reply.User), "", reply.Body, reply.DateTimeStamp)%>
+		         	<div class="m-btm10">
+		         		<%= MessageHelper.MessageItem(reply.User.Username, PhotoHelper.ProfilePicture(reply.User), "", reply.Body, reply.DateTimeStamp) %>
+		         	</div>
 	            <% } %>
 				<div class="clear">&nbsp;</div>
 
@@ -32,7 +34,7 @@
 					Reply:
 				</div>
 				<div class="col-8 fnt-12">
-					<%= Html.TextArea("Reply", null, new { cols = "40", rows = "3", resize = "no" })%>
+					<%= Html.TextArea("Reply", null, new { cols = "40", rows = "3", resize = "no" }) %>
 				</div>
 				<div class="col-11 m-lft">
 					<%= Html.ValidationSummary("Reply was unsuccessful. Please correct the errors and try again.") %>

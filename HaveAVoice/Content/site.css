@@ -106,6 +106,7 @@ body { font-family: helvetica, arial, sans-serif; background: #d9e9ed; }
 .fnt-14 { font-size: 14px; }
 .fnt-16 { font-size: 16px; }
 .fnt-18 { font-size: 18px; }
+.fnt-24 { font-size: 24px; }
 
 
 /****************************************************************************/
@@ -115,6 +116,7 @@ body { font-family: helvetica, arial, sans-serif; background: #d9e9ed; }
 .cell { display: table-cell; }
 .cell.center { vertical-align: middle; }
 
+.main-body { min-height: 760px; }
 
 /****************************************************************************/
 /************************** ERROR MESSAGE ***********************************/
@@ -122,6 +124,16 @@ body { font-family: helvetica, arial, sans-serif; background: #d9e9ed; }
 div.error { padding: 10px 0px; background: #f6cbca; color: #d02327; border: 1px solid #cb2026; text-align: center; width: 640px; margin: 0px auto 10px auto; font-weight: bold; font-size: 12px; }
 div.success { padding: 10px 0px; background: #eef4d4; color: #6f8438; border: 1px solid #8fad3d; text-align: center; width: 640px; margin: 0px auto 10px auto; font-weight: bold; font-size: 12px; }
 div.normal { padding: 10px 0px; background: #fcf9ce; color: #43423c; border: 1px solid #dfdfde; text-align: center; width: 640px; margin: 0px auto 10px auto; font-weight: bold; font-size: 12px; }
+
+
+/****************************************************************************/
+/*************************** HTML LINK BUTTON *******************************/
+/****************************************************************************/
+a.button, a.button:link, a.button:visited { padding: 5px; color: #fff; font-size: 12px; background-color: #3da4be; border: 1px solid #888888; font-weight: bold; box-shadow: 0px 1px 0px #aaaaaa; -moz-box-shadow: 0px 1px 0px #aaaaaa; -webkit-box-shadow: 0px 1px 0px #aaaaaa; text-decoration: none; }
+a.button:hover { background: #fff; color: #3da4be; border: 1px solid #dfdfde; }
+
+a.button.delete, a.button.delete:link, a.button.delete:visited { color: #cb2026; background: #f6cbca; border: 1px solid #cb2026; }
+a.button.delete:hover { background: #cb2026; color: #fff; border: 1px solid #fff; }
 
 
 /****************************************************************************/
@@ -317,6 +329,9 @@ a.filter.dislike:hover { background: #c94020; font-weight: bold; }
 .disagree .comment { color: #fff; position: relative; background: #e03108; min-height: 120px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
 .disagree .speak-rgt { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #e03108 transparent transparent transparent; position: absolute; right: -10px; top: 30px; }
 
+.agree img.profile, .disagree img.profile { max-height: 120px; max-width: 120px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
+
+
 input[type=submit].button, input[type=button].button { font-size: 12px; font-weight: bold; color: #fff; padding: 5px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; cursor: pointer; background: #20a9c9 }
 input[type=submit].button:hover, input[type=button].button:hover { color: #20a9c9; background: #fff; }
 
@@ -372,12 +387,13 @@ input[type=submit].submit:hover { color: #20a9c9; background: #fff; }
 ul.photo-album li { float: left; margin: 5px; background: #20A9C9; position: relative; color: #fff; text-align: center; font-weight: bold; font-size: 12px; min-width: 110px; min-height: 110px; }
 ul.photo-album li a.album, ul.photo-album li a.album:link, ul.photo-album li a.album:visited { display: block; text-decoration: none; color: #fff; }
 ul.photo-album li a.album:hover { text-decoration: underline; }
-ul.photo-album li a img { border: 0px none transparent; max-width: 110px; max-height: 110px; }
+ul.photo-album li a img { border: 0px none transparent; max-width: 90px; max-height: 90px; }
 ul.photo-album li a.edit { position: absolute; top: 0px; right: 24px; width: 24px; height: 24px; background:url("/Content/images/edit.gif") no-repeat; z-index: 10px; text-indent: -9999px; outline: none; display: none; }
 ul.photo-album li a.delete { position: absolute; top: 0px; right: 0px; width: 24px; height: 24px; background:url("/Content/images/delete.png") no-repeat; z-index: 20px; text-indent: -9999px; outline: none; display: none; }
-ul.photo-album li a.create {}
+ul.photo-album li a.create { width: 110px; height: 110px; text-indent: -9999px; outline: none; background:url("/Content/images/create-album.png") no-repeat center center; display: block; background-size: 100px; -moz-background-size: 100px; }
 
-.popup { display: none; }
+.background-popup { background: #000; }
+.popup { display: none; position: fixed; background: #fff; z-index: 10; padding: 10px; }
 
 
 /****************************************************************************/
@@ -399,7 +415,7 @@ ul.photo-album li a.create {}
 .board-image .user-info .link a, .photos .user-info .link a:link, .photos .user-info .link a:visited { font-size: 12px; font-style: normal; text-decoration: none; text-transform: uppercase; }
 
 .board-image .user-info .link a.like, .photos .user-info .link a.like:link, .photos .user-info .link a.like:visited { color: #51b0c7; }
-.board-image .user-info .link a.comment, .photos .user-info .link a.comment:link, .photos .user-info .link a.comment:visited { color: #115f71; }
+.board-image .user-info .link a.comment, .photos .user-info .link a.comment:link, .photos .user-info .link a.comment:visited { color: #115f71; background: transparent; }
 
 .board-image .photo { height: 200px; text-indent: -9999px; background-size: 200px; }
 
@@ -411,8 +427,7 @@ ul.photo-album li a.create {}
 /****************************************************************************/
 /************************* BOARD REPLY **************************************/
 /****************************************************************************/
-.board-reply>div { background: transparent; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
-.board-reply img.profile { max-height: 80px; max-width: 80px; }
+.board-reply img.profile { max-height: 80px; max-width: 80px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
 .board-reply textarea { resize: none; width: 550px; height: 80px; font-size: 12px; color: #000; }
 .board-reply input[type=submit] { padding: 5px; color: #ffffff; font-size: 12px; background-color: #20a9c9; border: 1px solid #ffffff; font-weight: bold; box-shadow: 0px 1px 0px #aaaaaa; -moz-box-shadow: 0px 1px 0px #aaaaaa; -webkit-box-shadow: 0px 1px 0px #aaaaaa; }
 .board-reply input[type=submit]:hover { color: #20a9c9; background: #fff; border-color: #20a9c9; cursor: pointer; }
