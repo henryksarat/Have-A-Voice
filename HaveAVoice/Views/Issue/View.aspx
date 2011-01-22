@@ -145,11 +145,11 @@
 			<% } else { %>
 				<div class="reply">
 					<div class="row">
-						<div class="push-8 col-2 center">
+						<div class="push-5 col-2 center">
                             <% UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation(); %>
 							<img src="<%= myUserInfo.ProfilePictureUrl %>" alt="<%= myUserInfo.Details.Username %>" class="profile" />
 						</div>
-						<div class="push-8 m-lft col-14 comment">
+						<div class="push-5 m-lft col-14 comment">
 							<span class="speak-lft">&nbsp;</span>
 							<div class="p-a10">
 								<%= Html.ValidationMessage("Reply", "*") %>

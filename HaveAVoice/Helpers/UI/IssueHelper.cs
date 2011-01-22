@@ -22,16 +22,16 @@ namespace HaveAVoice.Helpers.UI {
         	var stanceDiv = new TagBuilder("div");
 
             if(anIssueReply.IssueStance == (int)IssueStance.Agree) {
-        	    stanceDiv.MergeAttribute("class", "agree");
+        	    stanceDiv.MergeAttribute("class", "agree m-btm10");
             } else {
-                stanceDiv.MergeAttribute("class", "disagree");
+                stanceDiv.MergeAttribute("class", "disagree m-btm10");
             }
 
 			var profileDiv = new TagBuilder("div");
             if (anIssueReply.IssueStance == (int)IssueStance.Disagree) {
-			    profileDiv.MergeAttribute("class", "col-3 center push-15");
+			    profileDiv.MergeAttribute("class", "col-3 center push-21");
 			} else {
-				profileDiv.MergeAttribute("class", "push-3 col-3 center");
+				profileDiv.MergeAttribute("class", "push-6 col-3 center");
 			}
 
 			var profileImg = new TagBuilder("img");
@@ -48,7 +48,7 @@ namespace HaveAVoice.Helpers.UI {
 			stanceDiv.InnerHtml += profileDiv.ToString();
 			
 			var stanceComment = new TagBuilder("div");
-			stanceComment.MergeAttribute("class", "push-3 m-lft col-12 m-rgt comment");
+			stanceComment.MergeAttribute("class", "push-6 m-lft col-12 m-rgt comment");
 			
 			var spanDirSpeak = new TagBuilder("span");
 			
@@ -137,9 +137,9 @@ namespace HaveAVoice.Helpers.UI {
 			var divTimeStamp = new TagBuilder("div");
 			
             if (anIssueReply.IssueStance == (int)IssueStance.Disagree) {
-			    divTimeStamp.MergeAttribute("class", "col-3 date-tile pull-15");
+			    divTimeStamp.MergeAttribute("class", "col-3 date-tile pull-9");
             } else {
-            	divTimeStamp.MergeAttribute("class", "col-3 date-tile");
+            	divTimeStamp.MergeAttribute("class", "col-3 date-tile push-6");
             }
             
             stanceDiv.InnerHtml += stanceComment.ToString();
@@ -157,6 +157,12 @@ namespace HaveAVoice.Helpers.UI {
 			divTimeStamp.InnerHtml += divTimePad.ToString();
 			
 			stanceDiv.InnerHtml += divTimeStamp.ToString();
+			
+			var clrDiv = new TagBuilder("div");
+			clrDiv.MergeAttribute("class", "clear");
+			clrDiv.InnerHtml += "&nbsp;";
+
+			stanceDiv.InnerHtml += clrDiv.ToString();
 
         	return stanceDiv.ToString(TagRenderMode.Normal);
         }
