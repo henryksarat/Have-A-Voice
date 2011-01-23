@@ -16,9 +16,7 @@
     </div>
     
     <div class="col-21">
-        <%= Html.Encode(ViewData["Message"]) %>
-        <%= Html.Encode(TempData["Message"]) %>
-        <div class="clear">&nbsp;</div>
+        <% Html.RenderPartial("Message"); %>
 
         <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
         <div class="clear">&nbsp;</div>

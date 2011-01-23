@@ -95,6 +95,8 @@
 	    <% UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation(); %>
 	    <% bool myIsUser = myUserInformationModel.Details.Id == Model.SourceUserIdOfContent; %>
 	
+        <% Html.RenderPartial("Message"); %>
+
 		<ul class="photo-album">
 		    <% foreach (var item in Model.Models) { %>
 		    	<li>
@@ -120,9 +122,6 @@
 	        <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
 	
 	        <% using (Html.BeginForm("Create", "PhotoAlbum", FormMethod.Post, new { @class = "create" })) { %>
-	            <%= Html.Encode(ViewData["Message"])%>
-	            <%= Html.Encode(TempData["Message"])%>
-				<div class="clear">&nbsp;</div>
 				<div class="col-3 right m-rgt">
 					<label for="Name">Name:</label>
 				</div>

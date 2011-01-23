@@ -11,6 +11,7 @@ using HaveAVoice.Repositories;
 using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Validation;
+using HaveAVoice.Controllers.Helpers;
 
 namespace HaveAVoice.Controllers.Issues
 {
@@ -58,7 +59,7 @@ namespace HaveAVoice.Controllers.Issues
             }
 
             if (myIssues.Count() == 0) {
-                ViewData["Message"] = NO_ISSUES;
+                ViewData["Message"] = MessageHelper.NormalMessage(NO_ISSUES);
             }
 
             return View("Index", myIssues);
@@ -86,12 +87,12 @@ namespace HaveAVoice.Controllers.Issues
 
             try {
                 if (theService.CreateIssue(myUser, anIssueWrapper.ToModel())) {
-                    TempData["Message"] = POST_SUCCESS;
+                    TempData["Message"] = MessageHelper.SuccessMessage(POST_SUCCESS);
                     return RedirectToAction("Index");
                 }
             } catch (Exception e) {
                 LogError(e, CREATING_ISSUE_ERROR);
-                ViewData["Message"] = CREATING_ISSUE_ERROR;
+                ViewData["Message"] = MessageHelper.ErrorMessage(CREATING_ISSUE_ERROR);
             }
             return View("Create", anIssueWrapper);
         }
@@ -135,12 +136,12 @@ namespace HaveAVoice.Controllers.Issues
 
             try {
                 if (theService.CreateIssueReply(myUserInformation, issueModel)) {
-                    TempData["Message"] = REPLY_SUCCESS;
+                    TempData["Message"] = MessageHelper.SuccessMessage(REPLY_SUCCESS);
                     return RedirectToAction("View", new { id = issueModel.Issue.Id });
                 }
             } catch (Exception e) {
                 LogError(e, CREATING_COMMENT_ERROR);
-                ViewData["Message"] = CREATING_COMMENT_ERROR;
+                ViewData["Message"] = MessageHelper.ErrorMessage(CREATING_COMMENT_ERROR);
             }
             return View("View", issueModel);
         }
@@ -157,7 +158,7 @@ namespace HaveAVoice.Controllers.Issues
                 return SendToErrorPage(DISPOSITION_ERROR);
             }
 
-            TempData["Message"] = DISPOSITION_SUCCESS;
+            TempData["Message"] = MessageHelper.SuccessMessage(DISPOSITION_SUCCESS);
             return RedirectToAction("Index");
         }
                                             
@@ -176,7 +177,7 @@ namespace HaveAVoice.Controllers.Issues
                 return SendToErrorPage(DELETE_ISSUE_ERROR);
             }
 
-            TempData["Message"] = DELETE_SUCCESS;
+            TempData["Message"] = MessageHelper.SuccessMessage(DELETE_SUCCESS);
             return RedirectToAction("Index");
         }
 
@@ -212,12 +213,12 @@ namespace HaveAVoice.Controllers.Issues
             try {
                 bool myResult = theService.EditIssue(GetUserInformatonModel(), anIssueWrapper.ToModel());
                 if (myResult) {
-                    TempData["Message"] = EDIT_SUCCESS;
+                    TempData["Message"] = MessageHelper.SuccessMessage(EDIT_SUCCESS);
                     return RedirectToAction("View", new {id = anIssueWrapper.Id});
                 }
             } catch (Exception myException) {
                 LogError(myException, EDIT_ISSUE_ERROR);
-                ViewData["Message"] = EDIT_ISSUE_ERROR;
+                ViewData["Message"] = MessageHelper.ErrorMessage(EDIT_ISSUE_ERROR);
             }
 
             return View("Edit", anIssueWrapper);

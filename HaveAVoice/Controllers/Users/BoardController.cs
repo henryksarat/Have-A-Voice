@@ -11,6 +11,7 @@ using HaveAVoice.Repositories;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models;
 using HaveAVoice.Controllers.ActionFilters;
+using HaveAVoice.Controllers.Helpers;
 
 namespace HaveAVoice.Controllers.Users {
     public class BoardController : HAVBaseController {
@@ -62,11 +63,11 @@ namespace HaveAVoice.Controllers.Users {
             try {
                 bool myBoardResult = theService.PostToBoard(myPostingUser, sourceUserId, message);
                 if (myBoardResult) {
-                    TempData["Message"] = POST_BOARD_SUCCESS;
+                    TempData["Message"] = MessageHelper.SuccessMessage(POST_BOARD_SUCCESS);
                 }
             } catch (Exception myException) {
                 LogError(myException, POST_BOARD_ERROR);
-                TempData["Message"] = POST_BOARD_ERROR;
+                TempData["Message"] = MessageHelper.ErrorMessage(POST_BOARD_ERROR);
             }
 
             return RedirectToAction("Show", "Profile", new { id = sourceUserId });
@@ -102,11 +103,11 @@ namespace HaveAVoice.Controllers.Users {
             try {
                 bool myBoardResult =  theService.EditBoardMessage(GetUserInformatonModel(), aBoard.ToModel());
                 if (myBoardResult) {
-                    TempData["Message"] = EDIT_BOARD_SUCCES;
+                    TempData["Message"] = MessageHelper.SuccessMessage(EDIT_BOARD_SUCCES);
                 }
             } catch (Exception myException) {
                 LogError(myException, POST_BOARD_ERROR);
-                TempData["Message"] = EDIT_BOARD_ERROR;
+                TempData["Message"] = MessageHelper.ErrorMessage(EDIT_BOARD_ERROR);
             }
 
             return RedirectToAction("Edit", new { id = aBoard.Id });
@@ -123,10 +124,10 @@ namespace HaveAVoice.Controllers.Users {
             }
             try {
                 theService.DeleteBoardMessage(myUserInfo, boardId);
-                TempData["Message"] = DELETE_BOARD_SUCCESS;
+                TempData["Message"] = MessageHelper.SuccessMessage(DELETE_BOARD_SUCCESS);
             } catch (Exception myException) {
                 LogError(myException, DELETE_BOARD_ERROR);
-                TempData["Message"] = DELETE_BOARD_ERROR;
+                TempData["Message"] = MessageHelper.ErrorMessage(DELETE_BOARD_ERROR);
             }
 
             return RedirectToAction("Show", "Profile", new { id = profileUserId });

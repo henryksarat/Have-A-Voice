@@ -17,6 +17,8 @@
     </div>
 
     <div class="col-21">
+    <% Html.RenderPartial("Message"); %>
+
     <% if (Model.NavigationModel.SiteSection == SiteSection.MyProfile) { %>
         <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
 

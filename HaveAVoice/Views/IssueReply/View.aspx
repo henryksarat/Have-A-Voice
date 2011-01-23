@@ -11,11 +11,9 @@
 	<div class="col-24">
 	
     <% using (Html.BeginForm()) { %>
-        <%= Html.ValidationSummary("Your comment wasn't posted. Please correct the errors and try again.") %>
-        <div class="clear">&nbsp;</div>
+        <% Html.RenderPartial("Message"); %>
 
-        <%= Html.Encode(ViewData["Message"]) %>
-        <%= Html.Encode(TempData["Message"]) %>
+        <%= Html.ValidationSummary("Your comment wasn't posted. Please correct the errors and try again.") %>
         <div class="clear">&nbsp;</div>
 
         <%= IssueHelper.IssueReply(Model) %>

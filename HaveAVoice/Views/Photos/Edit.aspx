@@ -7,6 +7,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+<% /* just used as example code... not used on Site anymore!! */ %>
 	<% /* Html.RenderPartial("UserPanel", Model.NavigationModel); */ %>
     <div class="col-3 m-rgt left-nav">
         <% Html.RenderPartial("LeftNavigation"); %>

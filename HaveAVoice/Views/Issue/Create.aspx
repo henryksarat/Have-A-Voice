@@ -9,9 +9,7 @@
     <div class="col-24">
         <div class="spacer-30">&nbsp;</div>
     
-    	<%= Html.Encode(ViewData["Message"]) %>
-    	<%= Html.Encode(TempData["Message"]) %>
-    	<div class="clear">&nbsp;</div>
+    	<% Html.RenderPartial("Message"); %>
     
     	<div class="push-1 col-4 center p-t5 p-b5 t-tab btint-6">
     		<%=Html.ActionLink("ISSUES", "Index", null, new { @class = "issue-create" }) %>

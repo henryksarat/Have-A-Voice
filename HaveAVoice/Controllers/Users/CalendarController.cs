@@ -65,7 +65,7 @@ namespace HaveAVoice.Controllers.Users
                 SendToErrorPage(HAVConstants.NOT_FRIEND);
             } catch (Exception e) {
                 LogError(e, LOAD_EVENTS_ERROR);
-                ViewData["Message"] = LOAD_EVENTS_ERROR;
+                ViewData["Message"] = MessageHelper.ErrorMessage(LOAD_EVENTS_ERROR);
             }
 
             return View(aViewName, myLoggedInModel);
@@ -79,11 +79,11 @@ namespace HaveAVoice.Controllers.Users
             int myUserId = GetUserInformaton().Id;
             try {
                 if (theEventService.AddEvent(myUserId, date, information)) {
-                    TempData["Message"] = ADD_EVENT_SUCCESS;
+                    TempData["Message"] = MessageHelper.SuccessMessage(ADD_EVENT_SUCCESS);
                 }
             } catch (Exception e) {
                 LogError(e, ADD_EVENT_ERROR);
-                TempData["Message"] = ADD_EVENT_ERROR;
+                TempData["Message"] = MessageHelper.ErrorMessage(ADD_EVENT_ERROR);
             }
 
             return RedirectToAction(LIST_VIEW);
@@ -95,11 +95,11 @@ namespace HaveAVoice.Controllers.Users
             }
             try {
                 theEventService.DeleteEvent(GetUserInformatonModel(), id);
-                ViewData["Message"] = DELETE_EVENT_SUCCESS;
+                ViewData["Message"] = MessageHelper.SuccessMessage(DELETE_EVENT_SUCCESS);
 
             } catch (Exception e) {
                 LogError(e, DELETE_EVENT_ERROR);
-                ViewData["Message"] = DELETE_EVENT_ERROR;
+                ViewData["Message"] = MessageHelper.ErrorMessage(DELETE_EVENT_ERROR);
             }
 
             return RedirectToAction("List");

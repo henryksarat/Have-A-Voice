@@ -10,6 +10,7 @@ using HaveAVoice.Repositories;
 using HaveAVoice.Models.View;
 using HaveAVoice.Exceptions;
 using HaveAVoice.Helpers;
+using HaveAVoice.Controllers.Helpers;
 
 namespace HaveAVoice.Controllers.Core {
     public class AuthorityVerificationController : HAVBaseController {
@@ -63,7 +64,7 @@ namespace HaveAVoice.Controllers.Core {
                 return SendToErrorPage(e.Message);
             } catch (Exception e) {
                 LogError(e, TOKEN_CREATED_AND_SENT_ERROR);
-                ViewData["Message"] = TOKEN_CREATED_AND_SENT_ERROR;
+                ViewData["Message"] = MessageHelper.ErrorMessage(TOKEN_CREATED_AND_SENT_ERROR);
             }
 
             return View(CREATE_VIEW);
@@ -80,10 +81,10 @@ namespace HaveAVoice.Controllers.Core {
                 if (theAuthService.IsValidToken(email, token)) {
                     return RedirectToAction("CreateAuthority", "User", new { token = token, email = email });
                 }
-                ViewData["Message"] = INVALID_TOKEN;
+                ViewData["Message"] = MessageHelper.NormalMessage(INVALID_TOKEN);
             } catch (Exception e) {
                 LogError(e, TOKEN_VERIFICATION_ERROR);
-                ViewData["Message"] = TOKEN_VERIFICATION_ERROR;
+                ViewData["Message"] = MessageHelper.ErrorMessage(TOKEN_VERIFICATION_ERROR);
             }
 
             return View(VERIFY_VIEW, new StringWrapper(token));

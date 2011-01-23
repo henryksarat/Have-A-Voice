@@ -6,7 +6,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <%= Html.Encode(ViewData["Message"]) %>
+    <% Html.RenderPartial("Message"); %>
 
     <h2>Index</h2>
 

@@ -6,6 +6,8 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
+    <% Html.RenderPartial("Message"); %>
+
     <h2>Change Password</h2>
     <p>
         <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>

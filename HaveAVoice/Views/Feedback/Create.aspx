@@ -5,18 +5,13 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <% Html.RenderPartial("Message"); %>
 
     <h2>Feedback</h2><br /><br />
     <p>
         <%= Html.ValidationSummary("Send was unsuccessful. Please correct the errors and try again.") %>
     </p>
     <% using (Html.BeginForm()) {%>
-        <p>
-                 <%= Html.Encode(ViewData["Message"]) %>
-        </p>
-        <p>
-                 <%= Html.Encode(TempData["Message"]) %>
-        </p>
         <p>
             <%= Html.TextArea("Feedback", new { style = "width:300px; height: 200px" })%>
             <%= Html.ValidationMessage("Feedback", "*")%>

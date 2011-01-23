@@ -9,6 +9,7 @@ using HaveAVoice.Repositories;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
 using HaveAVoice.Helpers;
+using HaveAVoice.Controllers.Helpers;
 
 namespace HaveAVoice.Controllers.Users
 {
@@ -67,7 +68,7 @@ namespace HaveAVoice.Controllers.Users
                 myModel.Models = theFriendService.FindFriendsForUser(myUser.Id);
             } catch (Exception e) {
                 LogError(e, FRIENDS_ERROR);
-                ViewData[ERROR_MESSAGE_VIEWDATA] = FRIENDS_ERROR;
+                ViewData[ERROR_MESSAGE_VIEWDATA] = MessageHelper.ErrorMessage(FRIENDS_ERROR);
             }
 
             return View(LIST_VIEW, myModel);
@@ -83,7 +84,7 @@ namespace HaveAVoice.Controllers.Users
                 myFriends = theFriendService.FindFriendsForUser(id);
             } catch (Exception e) {
                 LogError(e, FRIENDS_ERROR);
-                ViewData[ERROR_MESSAGE_VIEWDATA] = FRIENDS_ERROR;
+                ViewData[ERROR_MESSAGE_VIEWDATA] = MessageHelper.ErrorMessage(FRIENDS_ERROR);
             }
 
             return View(FRIENDS_VIEW, myFriends);
@@ -99,7 +100,7 @@ namespace HaveAVoice.Controllers.Users
                 myPendingFriends = theFriendService.FindPendingFriendsForUser(GetUserInformaton().Id);
             } catch (Exception e) {
                 LogError(e, HAVConstants.ERROR);
-                ViewData[ERROR_MESSAGE_VIEWDATA] = HAVConstants.ERROR;
+                ViewData[ERROR_MESSAGE_VIEWDATA] = MessageHelper.ErrorMessage(HAVConstants.ERROR);
             }
 
             return View(PENDING_FRINEDS_VIEW, myPendingFriends);
@@ -112,10 +113,10 @@ namespace HaveAVoice.Controllers.Users
             }
             try {
                 theFriendService.ApproveFriend(id);
-                TempData[ERROR_MESSAGE_VIEWDATA] = APPROVED;
+                TempData[ERROR_MESSAGE_VIEWDATA] = MessageHelper.SuccessMessage(APPROVED);
             } catch (Exception e) {
                 LogError(e, HAVConstants.ERROR);
-                TempData[ERROR_MESSAGE_VIEWDATA] = HAVConstants.ERROR;
+                TempData[ERROR_MESSAGE_VIEWDATA] = MessageHelper.ErrorMessage(HAVConstants.ERROR);
             }
 
             return RedirectToAction("Pending");
@@ -128,10 +129,10 @@ namespace HaveAVoice.Controllers.Users
             }
             try {
                 theFriendService.DeclineFriend(id);
-                TempData[ERROR_MESSAGE_VIEWDATA] = DECLINED;
+                TempData[ERROR_MESSAGE_VIEWDATA] = MessageHelper.SuccessMessage(DECLINED);
             } catch (Exception e) {
                 LogError(e, HAVConstants.ERROR);
-                TempData[ERROR_MESSAGE_VIEWDATA] = HAVConstants.ERROR;
+                TempData[ERROR_MESSAGE_VIEWDATA] = MessageHelper.ErrorMessage(HAVConstants.ERROR);
             }
 
             return RedirectToAction("Pending");

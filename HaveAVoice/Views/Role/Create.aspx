@@ -10,13 +10,13 @@
 
     <h2>Create</h2>
 
+    <% Html.RenderPartial("Message"); %>
+    <%= ViewData["RestrictionMessage"] %><br />
+    <%= ViewData["PermissionMessage"] %><br />
+
     <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
 
     <% using (Html.BeginForm("Create", "Role")) {%>
-
-        <%= Html.Encode(ViewData["Message"]) %><br />
-        <%= Html.Encode(ViewData["RestrictionMessage"]) %><br />
-        <%= Html.Encode(ViewData["PermissionMessage"]) %><br />
         
         <fieldset>
             <legend>Fields</legend>

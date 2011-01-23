@@ -9,6 +9,7 @@ using HaveAVoice.Repositories;
 using HaveAVoice.Services;
 using HaveAVoice.Validation;
 using HaveAVoice.Services.AdminFeatures;
+using HaveAVoice.Controllers.Helpers;
 
 
 namespace HaveAVoice.Controllers.Admin {
@@ -49,7 +50,7 @@ namespace HaveAVoice.Controllers.Admin {
                 return SendToErrorPage("Unable to get all myUsers.");
             }
             if (restrictions.Count() == 0) {
-                ViewData["Message"] = "There are no myUsers to display.";
+                ViewData["Message"] = MessageHelper.NormalMessage("There are no myUsers to display.");
             }
 
             return View("Index", restrictions);
@@ -79,7 +80,7 @@ namespace HaveAVoice.Controllers.Admin {
                 }
             } catch (Exception e) {
                 LogError(e, "Unable to create the restrictionModel.");
-                ViewData["Message"] = "Error creating the myRestriction. Check the error log and try again.";
+                ViewData["Message"] = MessageHelper.ErrorMessage("Error creating the myRestriction. Check the error log and try again.");
             }
             return View("Create", aRestriction);
 
@@ -162,7 +163,7 @@ namespace HaveAVoice.Controllers.Admin {
                 }
             } catch (Exception e) {
                 LogError(e, "Error occurred while clicking the submit button while editing a myRestriction.");
-                ViewData["Message"] = "Error updating restrictionModel, please check the error log.";
+                ViewData["Message"] = MessageHelper.ErrorMessage("Error updating restrictionModel, please check the error log.");
             }
 
             return View("Edit", restriction);

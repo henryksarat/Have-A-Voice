@@ -9,6 +9,7 @@ using HaveAVoice.Services;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
 using HaveAVoice.Helpers.Enums;
+using HaveAVoice.Controllers.Helpers;
 
 namespace HaveAVoice.Controllers.Users
 {
@@ -57,7 +58,7 @@ namespace HaveAVoice.Controllers.Users
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Complaint(ComplaintModel aComplaintModel) {
             if (!IsLoggedIn()) {
-                ViewData["Message"] = "You arn't logged in. Save your complaint, login, and please try again!";
+                ViewData["Message"] = MessageHelper.NormalMessage("You arn't logged in. Save your complaint, login, and please try again!");
                 return View("Complaint");
             }
 
@@ -92,7 +93,7 @@ namespace HaveAVoice.Controllers.Users
                 }
             } catch (Exception e) {
                 LogError(e, String.Format("Unable to post complaint. [complaintModel={0}]", aComplaintModel.ToString()));
-                ViewData["Message"] = "Error logging report. Please try again.";
+                ViewData["Message"] = MessageHelper.ErrorMessage("Error logging report. Please try again.");
             }
 
 

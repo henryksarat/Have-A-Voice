@@ -6,6 +6,8 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
+    <% Html.RenderPartial("Message"); %>
+
     <h2>Error Log</h2>
 
     <table>

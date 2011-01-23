@@ -12,8 +12,10 @@
     <div class="col-3 m-rgt left-nav">
         <% Html.RenderPartial("LeftNavigation"); %>
     </div>
-    
+        
     <div class="col-21">
+        <% Html.RenderPartial("Message"); %>
+
     	<% int cnt = 0; %>
     	<% string klass = "friend"; %>
 	    <% foreach (var item in Model.Models) { %>

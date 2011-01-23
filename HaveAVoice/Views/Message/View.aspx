@@ -15,7 +15,9 @@
     </div>
     
     <div class="col-21">	
-	    <% using (Html.BeginForm("CreateReply", "Message")) { %>
+        <% Html.RenderPartial("Message"); %>
+	    
+        <% using (Html.BeginForm("CreateReply", "Message")) { %>
 			<%= Html.Hidden("Id", Model.Model.Message.Id) %>
 			<%= Html.Encode(ViewData["Message"]) %>
 			<div class="clear">&nbsp;</div>

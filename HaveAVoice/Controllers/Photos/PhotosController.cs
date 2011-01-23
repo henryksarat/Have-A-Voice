@@ -12,6 +12,7 @@ using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Services.Helpers;
 using System.Web;
+using HaveAVoice.Controllers.Helpers;
 
 namespace HaveAVoice.Controllers.Users.Photos {
     public class PhotosController : HAVBaseController {
@@ -56,11 +57,11 @@ namespace HaveAVoice.Controllers.Users.Photos {
 
             try {
                 thePhotoService.UploadImageWithDatabaseReference(myUser, albumId, imageFile);
-                TempData["Message"] = UPLOAD_SUCCESS;
+                TempData["Message"] = MessageHelper.SuccessMessage(UPLOAD_SUCCESS);
             } catch (CustomException myException) {
-                TempData["Message"] = myException.Message;
+                TempData["Message"] = MessageHelper.NormalMessage(myException.Message);
             } catch (Exception myException) {
-                TempData["Message"] = UPLOAD_ERROR;
+                TempData["Message"] = MessageHelper.ErrorMessage(UPLOAD_ERROR);
                 LogError(myException, UPLOAD_ERROR);
             }
             return RedirectToAction(PHOTO_ALBUM_DETAILS, PHOTO_ALBUM_CONTROLLER, new { id = albumId });
@@ -96,7 +97,7 @@ namespace HaveAVoice.Controllers.Users.Photos {
             } catch (CustomException myException) {
                 return SendToErrorPage(myException.Message);
             } catch (Exception e) {
-                TempData["Message"] = SET_PROFILE_PICTURE_ERRROR;
+                TempData["Message"] = MessageHelper.ErrorMessage(SET_PROFILE_PICTURE_ERRROR);
                 return RedirectToAction(DISPLAY_VIEW, new { id = id });
             }
         }
@@ -109,11 +110,11 @@ namespace HaveAVoice.Controllers.Users.Photos {
             User myUser = GetUserInformaton();
             try {
                 thePhotoService.DeletePhoto(myUser, id);
-                TempData["Message"] = DELETE_SUCCESS;
+                TempData["Message"] = MessageHelper.SuccessMessage(DELETE_SUCCESS);
             } catch(CustomException e) {
-                TempData["Message"] = e.Message;
+                TempData["Message"] = MessageHelper.NormalMessage(e.Message);
             } catch (Exception e) {
-                TempData["Message"] = DELETE_ERROR;
+                TempData["Message"] = MessageHelper.ErrorMessage(DELETE_ERROR);
             }
 
             return RedirectToAction(DISPLAY_VIEW, new { id = id });
@@ -127,13 +128,13 @@ namespace HaveAVoice.Controllers.Users.Photos {
             User myUser = GetUserInformaton();
             try {
                 thePhotoService.SetPhotoAsAlbumCover(myUser, id);
-                TempData["Message"] = ALBUM_COVER_SET;
+                TempData["Message"] = MessageHelper.SuccessMessage(ALBUM_COVER_SET);
                 return RedirectToAction(PHOTO_ALBUM_LIST, PHOTO_ALBUM_CONTROLLER);
             } catch (CustomException e) {
                 return SendToErrorPage(e.Message);
             } catch (Exception e) {
                 LogError(e, ALBUM_COVER_ERROR);
-                TempData["Message"] = ALBUM_COVER_ERROR;
+                TempData["Message"] = MessageHelper.ErrorMessage(ALBUM_COVER_ERROR);
             }
 
             return RedirectToAction(DISPLAY_VIEW, new { id = id });

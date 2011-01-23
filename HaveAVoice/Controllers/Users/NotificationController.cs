@@ -9,6 +9,7 @@ using HaveAVoice.Repositories;
 using HaveAVoice.Validation;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
+using HaveAVoice.Controllers.Helpers;
 
 namespace HaveAVoice.Controllers.Users {
     public class NotificationController : HAVBaseController {
@@ -39,7 +40,7 @@ namespace HaveAVoice.Controllers.Users {
                 myModel.Models = theNotificationService.GetNotifications(myUser);
             } catch (Exception myException) {
                 LogError(myException, NOTIFICATION_ERROR);
-                ViewData["Message"] = NOTIFICATION_ERROR;
+                ViewData["Message"] = MessageHelper.ErrorMessage(NOTIFICATION_ERROR);
             }
 
             return View(LIST_VIEW, myModel);

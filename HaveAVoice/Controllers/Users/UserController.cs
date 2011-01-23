@@ -13,6 +13,7 @@ using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Validation;
 using HaveAVoice.Controllers.ActionFilters;
+using HaveAVoice.Controllers.Helpers;
 
 namespace HaveAVoice.Controllers.Users {
     public class UserController : HAVBaseController {
@@ -67,7 +68,7 @@ namespace HaveAVoice.Controllers.Users {
                 LogError(e, EMAIL_ERROR);
                 return SendToResultPage("User account created! You can login and start posting!");
             } catch (Exception e) {
-                ViewData["Message"] = CREATE_ACCOUNT_ERROR_MESSAGE;
+                ViewData["Message"] = MessageHelper.ErrorMessage(CREATE_ACCOUNT_ERROR_MESSAGE);
                 LogError(e, CREATE_ACCOUNT_ERROR);
             }
 
@@ -94,27 +95,12 @@ namespace HaveAVoice.Controllers.Users {
                     return SendToResultPage(CREATE_ACCOUNT_TITLE, CREATE_AUTHORITY_ACCOUNT_SUCCESS);
                 }
             } catch (Exception e) {
-                ViewData["Message"] = CREATE_ACCOUNT_ERROR_MESSAGE;
+                ViewData["Message"] = MessageHelper.ErrorMessage(CREATE_ACCOUNT_ERROR_MESSAGE);
                 LogError(e, CREATE_ACCOUNT_ERROR);
             }
             
             aBuilder.States = new SelectList(HAVConstants.STATES, aBuilder.RepresentingState);
             return View("CreateAuthority", aBuilder);
-        }
-
-        [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult UserList() {
-            try {
-                List<UserDetailsModel> userList = theService.GetUserList(GetUserInformaton()).ToList<UserDetailsModel>();
-
-                if (userList.Count == 0) {
-                    ViewData["Message"] = "There are no registered users.";
-                }
-                return View("UserList", userList);
-            } catch (Exception exception) {
-                LogError(exception, "Unable to get the User List");
-                return SendToErrorPage("Unable to retrieve the userToListenTo list, please try again."); 
-            }
         }
 
         public ActionResult Edit() {
@@ -143,7 +129,7 @@ namespace HaveAVoice.Controllers.Users {
                 }
             } catch (Exception exception) {
                 LogError(exception, "Error editing the user.");
-                ViewData["Message"] = "An error has occurred please try your submission again later.";
+                ViewData["Message"] = MessageHelper.ErrorMessage("An error has occurred please try your submission again later.");
             }
 
             return View("Edit", userToEdit);

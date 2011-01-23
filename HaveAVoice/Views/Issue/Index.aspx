@@ -12,8 +12,7 @@
     <div class="col-24">
         <div class="spacer-30">&nbsp;</div>
     
-    	<%= Html.Encode(ViewData["Message"]) %>
-    	<%= Html.Encode(TempData["Message"]) %>
+    	<% Html.RenderPartial("Message"); %>
     
     	<div class="push-1 col-4 center p-t5 p-b5 t-tab b-wht">
     		<span class="fnt-16 tint-6 bold">ISSUES</span>

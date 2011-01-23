@@ -7,9 +7,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <h2>Enter an email of an authority to send to</h2>
-    <p>
-        <%= Html.Encode(ViewData["Message"]) %>
-    </p>
+    <% Html.RenderPartial("Message"); %>
 
     <%= Html.ValidationSummary("Send was unsuccessful. Please correct the errors and try again.") %>
 

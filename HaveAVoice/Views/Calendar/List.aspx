@@ -13,9 +13,7 @@
     </div>
     
     <div class="col-21 events">
-    	<%= Html.Encode(ViewData["Message"]) %>
-        <%= Html.Encode(TempData["Message"]) %>
-		<div class="clear">&nbsp;</div>
+        <% Html.RenderPartial("Message"); %>
 
 		<div class="create">
 			<div class="col-21">

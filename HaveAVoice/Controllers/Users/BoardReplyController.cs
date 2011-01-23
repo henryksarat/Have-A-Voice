@@ -11,6 +11,7 @@ using HaveAVoice.Repositories;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
 using HaveAVoice.Helpers;
+using HaveAVoice.Controllers.Helpers;
 
 namespace HaveAVoice.Controllers.Users {
     public class BoardReplyController : HAVBaseController {
@@ -42,11 +43,11 @@ namespace HaveAVoice.Controllers.Users {
             }
             try {
                 if (theService.PostReplyToBoard(GetUserInformatonModel(), boardId, message)) {
-                    TempData["Message"] = POST_REPLY_SUCCESS;
+                    TempData["Message"] = MessageHelper.SuccessMessage(POST_REPLY_SUCCESS);
                 }
             } catch (Exception myException) {
                 LogError(myException, POST_REPLY_ERROR);
-                TempData["Message"] = POST_REPLY_ERROR;
+                TempData["Message"] = MessageHelper.ErrorMessage(POST_REPLY_ERROR);
             }
 
             return RedirectToProfile(sourceUserId);
@@ -79,11 +80,11 @@ namespace HaveAVoice.Controllers.Users {
             }
             try {
                 if (theService.EditBoardReply(GetUserInformatonModel(), aBoardReplyWrapper.ToModel())) {
-                    TempData["Message"] = EDIT_REPLY_SUCCES;
+                    TempData["Message"] = MessageHelper.SuccessMessage(EDIT_REPLY_SUCCES);
                 }
             } catch (Exception myException) {
                 LogError(myException, POST_REPLY_ERROR);
-                TempData["Message"] = EDIT_REPLY_ERROR;
+                TempData["Message"] = MessageHelper.ErrorMessage(EDIT_REPLY_ERROR);
             }
 
             return RedirectToAction("Edit", new { id = aBoardReplyWrapper.Id });
@@ -100,10 +101,10 @@ namespace HaveAVoice.Controllers.Users {
             }
             try {
                 theService.DeleteBoardReply(GetUserInformatonModel(), boardReplyId);
-                TempData["Message"] = DELETE_REPLY_SUCCESS;
+                TempData["Message"] = MessageHelper.SuccessMessage(DELETE_REPLY_SUCCESS);
             } catch (Exception myException) {
                 LogError(myException, DELETE_REPLY_ERROR);
-                TempData["Message"] = DELETE_REPLY_ERROR;
+                TempData["Message"] = MessageHelper.ErrorMessage(DELETE_REPLY_ERROR);
             }
 
             return RedirectToAction("View", "Board", new { id = boardId });

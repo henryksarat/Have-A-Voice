@@ -13,9 +13,7 @@
     </div>
     
     <div class="col-21">
-	    <%= Html.Encode(ViewData["Message"]) %>
-	    <%= Html.Encode(TempData["Message"]) %>
-		<div class="clear">&nbsp;</div>
+        <% Html.RenderPartial("Message"); %>
 	
 	    <% foreach (var item in Model) { %>
 	    	<div class="col-7">

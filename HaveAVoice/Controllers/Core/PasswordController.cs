@@ -7,6 +7,7 @@ using HaveAVoice.Repositories;
 using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Validation;
+using HaveAVoice.Controllers.Helpers;
 
 namespace HaveAVoice.Controllers.Core {
     public class PasswordController : HAVBaseController {
@@ -47,10 +48,10 @@ namespace HaveAVoice.Controllers.Core {
                 }
             } catch (EmailException e) {
                 LogError(e, EMAIL_ERROR);
-                ViewData[ERROR_MESSAGE_VIEWDATA] = HAVConstants.ERROR;
+                ViewData[ERROR_MESSAGE_VIEWDATA] = MessageHelper.ErrorMessage(HAVConstants.ERROR);
             } catch (Exception e) {
                 LogError(e, FORGOT_PASSWORD_ERROR);
-                ViewData[ERROR_MESSAGE_VIEWDATA] = HAVConstants.ERROR;
+                ViewData[ERROR_MESSAGE_VIEWDATA] = MessageHelper.ErrorMessage(HAVConstants.ERROR);
             }
 
             return View(REQUEST_VIEW);
@@ -69,7 +70,7 @@ namespace HaveAVoice.Controllers.Core {
                 }
             } catch (Exception e) {
                 LogError(e, HAVConstants.ERROR);
-                ViewData[ERROR_MESSAGE_VIEWDATA] = HAVConstants.ERROR;
+                ViewData[ERROR_MESSAGE_VIEWDATA] = MessageHelper.ErrorMessage(HAVConstants.ERROR);
             }
 
             return View(PROCESS_VIEW, new StringWrapper(forgotPasswordHash));

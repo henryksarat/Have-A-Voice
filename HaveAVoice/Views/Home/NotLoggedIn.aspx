@@ -6,9 +6,8 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <p>
-        <%= Html.Encode(ViewData["Message"]) %>
-    </p>
+    <% Html.RenderPartial("Message"); %>
+
     <%/* Html.RenderPartial("Tabs"); */%>
     <% Html.RenderPartial("NotLoggedInUserPanel"); %>
     <div class="col-24 m-top20 not-logged">

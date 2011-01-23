@@ -7,12 +7,14 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <h2>Edit Privacy</h2>
+    
+    <% Html.RenderPartial("Message"); %>
 
     <% using (Html.BeginForm(new { id = Model.Id })) { %>
         <fieldset>
             <legend>Fields</legend>
             <p style="color: Red">
-                <%= Html.Encode(ViewData["Message"]) %>
+                
             </p>
             <p>
                 <table>

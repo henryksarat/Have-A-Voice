@@ -16,9 +16,7 @@
     </div>
     
     <div class="col-21">
-        <%= Html.Encode(ViewData["Message"]) %>
-        <%= Html.Encode(TempData["Message"]) %>
-        <div class="clear">&nbsp;</div>
+       <% Html.RenderPartial("Message"); %>
         
         <h1 class="fnt-24 tint-6"><%= Model.Model.Name %></h1>
 		<div class="fnt-12 m-btm10">

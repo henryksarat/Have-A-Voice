@@ -10,6 +10,7 @@ using HaveAVoice.Services;
 using HaveAVoice.Services.Helpers;
 using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Validation;
+using HaveAVoice.Controllers.Helpers;
 
 namespace HaveAVoice.Controllers.Users {
     public class MessageController : HAVBaseController {
@@ -55,11 +56,11 @@ namespace HaveAVoice.Controllers.Users {
 
                 myModel.Models = theService.GetMessagesForUser(myUser).ToList<InboxMessage>();
                 if (myModel.Models.Count<InboxMessage>() == 0) {
-                    ViewData[ERROR_MESSAGE_VIEWDATA] = NO_MESSAGES;
+                    ViewData[ERROR_MESSAGE_VIEWDATA] = MessageHelper.NormalMessage(NO_MESSAGES);
                 }
             } catch (Exception e) {
                 LogError(e, INBOX_LOAD_ERROR);
-                ViewData[ERROR_MESSAGE_VIEWDATA] = INBOX_LOAD_ERROR;
+                ViewData[ERROR_MESSAGE_VIEWDATA] = MessageHelper.ErrorMessage(INBOX_LOAD_ERROR);
             }
 
             return View(INBOX_VIEW, myModel);
@@ -76,7 +77,7 @@ namespace HaveAVoice.Controllers.Users {
                 theService.DeleteMessages(selectedMessages, myUser);
             } catch (Exception e) {
                 LogError(e, HAVConstants.ERROR);
-                TempData[ERROR_MESSAGE_VIEWDATA] = HAVConstants.ERROR;
+                TempData[ERROR_MESSAGE_VIEWDATA] = MessageHelper.ErrorMessage(HAVConstants.ERROR);
             }
 
             return RedirectToAction(INBOX_VIEW);
@@ -116,7 +117,7 @@ namespace HaveAVoice.Controllers.Users {
                 }
             } catch (Exception e) {
                 LogError(e, SEND_ERROR);
-                ViewData[ERROR_MESSAGE_VIEWDATA] = SEND_ERROR;
+                ViewData[ERROR_MESSAGE_VIEWDATA] = MessageHelper.ErrorMessage(SEND_ERROR);
             }
 
             return View(CREATE_VIEW, aMessage);
@@ -166,7 +167,7 @@ namespace HaveAVoice.Controllers.Users {
                 }
             } catch (Exception e) {
                 LogError(e, REPLY_ERROR);
-                ViewData[ERROR_MESSAGE_VIEWDATA] = REPLY_ERROR;
+                ViewData[ERROR_MESSAGE_VIEWDATA] = MessageHelper.ErrorMessage(REPLY_ERROR);
             }
 
             return View(VIEW_MESSAGE_VIEW, viewMessageModel);

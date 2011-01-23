@@ -8,16 +8,12 @@
 
     <h2>Edit Message</h2>
 
+    <% Html.RenderPartial("Message"); %>
+
     <p>
         <%= Html.ValidationSummary("Board post was unsuccessful. Please correct the errors and try again.") %>
     </p>
-    <p>
-        <%= Html.Encode(ViewData["Message"]) %>
-    </p>
-    <p>
-        <%= Html.Encode(TempData["Message"]) %>
-    </p>
-
+ 
     <p>Original Board Message:</p>
     <p><%= Model.Message %></p>
 

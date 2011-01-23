@@ -59,8 +59,9 @@
     			<div class="spacer-30">&nbsp;</div>
     			
     			<% using (Html.BeginForm("CreateAuthority", "User", FormMethod.Post, new { @class = "create" })) { %>
+                    <% Html.RenderPartial("Message"); %>
+
     				<%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
-    				<%= Html.Encode(ViewData["Message"]) %>
 
                     <%= Html.Hidden("Email", Model.Email) %>
                     <%= Html.Hidden("Token", Model.Token) %>

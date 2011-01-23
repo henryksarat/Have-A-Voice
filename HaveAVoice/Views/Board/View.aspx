@@ -15,8 +15,8 @@
     </div>
 
 	<div class="col-21">
-		<%= Html.Encode(ViewData["Message"]) %>
-		<%= Html.Encode(TempData["Message"]) %>
+        <% Html.RenderPartial("Message"); %>
+
 		<%= Html.ValidationSummary("Your reply wasn't posted. Please correct the errors and try again.") %>
 		<div class="clear">&nbsp;</div>
 		

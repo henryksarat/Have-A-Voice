@@ -81,6 +81,7 @@
     <Compile Include="Controllers\Core\AuthorityVerificationController.cs" />
     <Compile Include="Controllers\Core\PasswordController.cs" />
     <Compile Include="Controllers\Helpers\ErrorHelper.cs" />
+    <Compile Include="Controllers\Helpers\MessageHelper.cs" />
     <Compile Include="Controllers\Issues\IssueReplyCommentController.cs" />
     <Compile Include="Controllers\Photos\PhotoAlbumController.cs" />
     <Compile Include="Controllers\Users\BoardController.cs" />
@@ -401,8 +402,6 @@
     <Content Include="Views\Friend\Pending.aspx" />
     <Content Include="Views\Feedback\Create.aspx" />
     <Content Include="Views\Feedback\View.aspx" />
-    <Content Include="Views\File\Index.aspx" />
-    <Content Include="Views\File\Upload.aspx" />
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Home\NotLoggedIn.aspx" />
     <Content Include="Views\IssueReplyComment\Edit.aspx" />
@@ -432,6 +431,7 @@
     <Content Include="Views\Role\Index.aspx" />
     <Content Include="Views\Role\SwitchUserRoles.aspx" />
     <Content Include="Views\Search\Index.aspx" />
+    <Content Include="Views\Shared\Message.ascx" />
     <Content Include="Views\Shared\NavigationUserControl.ascx" />
     <Content Include="Views\Shared\NotLoggedInUserPanel.ascx" />
     <Content Include="Views\Shared\LeftNavigation.ascx" />
@@ -453,7 +453,6 @@
     <Content Include="Views\Friend\Friends.aspx" />
     <Content Include="Views\Password\Request.aspx" />
     <Content Include="Views\Profile\Show.aspx" />
-    <Content Include="Views\User\UserList.aspx" />
     <Content Include="Views\Photos\Edit.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -506,7 +505,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>4890</DevelopmentServerPort>
+          <DevelopmentServerPort>1314</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

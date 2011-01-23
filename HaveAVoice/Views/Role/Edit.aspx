@@ -11,8 +11,12 @@
 
     <h2>Edit</h2>
 
+    <% Html.RenderPartial("Message"); %>
+    <%= ViewData["RestrictionMessage"] %><br />
+    <%= ViewData["PermissionMessage"] %><br />
+
     <%= Html.ValidationSummary("Edit was unsuccessful. Please correct the errors and try again.") %>
-    <%= Html.Encode(ViewData["Message"]) %>
+    
     <% using (Html.BeginForm()) {%>
     
         <fieldset>

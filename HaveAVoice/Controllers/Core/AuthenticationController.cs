@@ -9,6 +9,7 @@ using HaveAVoice.Services;
 using HaveAVoice.Repositories;
 using HaveAVoice.Models.View;
 using HaveAVoice.Exceptions;
+using HaveAVoice.Controllers.Helpers;
 
 namespace HaveAVoice.Controllers.Core {
     public class AuthenticationController : HAVBaseController {
@@ -52,12 +53,13 @@ namespace HaveAVoice.Controllers.Core {
             if (IsLoggedIn()) {
                 return RedirectToProfile();
             }
+
             UserInformationModel userModel = null;
             try {
                 userModel = theAuthService.AuthenticateUser(email, password);
             } catch (Exception e) {
                 LogError(e, AUTHENTICAITON_ERROR);
-                ViewData["Message"] = AUTHENTICAITON_ERROR;
+                ViewData["Message"] = MessageHelper.ErrorMessage(AUTHENTICAITON_ERROR);
                 return View("Login");
             }
 
@@ -69,7 +71,7 @@ namespace HaveAVoice.Controllers.Core {
                     theAuthService.CreateRememberMeCredentials(userModel.Details);
                 }
             } else {
-                ViewData["Message"] = INCORRECT_LOGIN;
+                ViewData["Message"] = MessageHelper.NormalMessage(INCORRECT_LOGIN);
                 return View("Login");
             }
 

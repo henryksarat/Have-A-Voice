@@ -10,6 +10,7 @@ using HaveAVoice.Repositories;
 using HaveAVoice.Validation;
 using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Models;
+using HaveAVoice.Controllers.Helpers;
 
 namespace HaveAVoice.Controllers.Home {
     public class HomeController : HAVBaseController {
@@ -47,7 +48,7 @@ namespace HaveAVoice.Controllers.Home {
                 myModel = theService.NotLoggedIn();
             } catch (Exception e) {
                 LogError(e, PAGE_LOAD_ERROR);
-                ViewData[VIEW_DATA_MESSAGE] = PAGE_LOAD_ERROR;
+                ViewData[VIEW_DATA_MESSAGE] = MessageHelper.ErrorMessage(PAGE_LOAD_ERROR);
             }
 
             return View(NOT_LOGGED_IN, myModel);

@@ -11,6 +11,7 @@ using HaveAVoice.Services;
 using HaveAVoice.Services.AdminFeatures;
 using HaveAVoice.Validation;
 using HaveAVoice.Models.View;
+using HaveAVoice.Controllers.Helpers;
 
 namespace HaveAVoice.Controllers.Admin {
     public class RoleController : AdminBaseController {
@@ -61,7 +62,7 @@ namespace HaveAVoice.Controllers.Admin {
                 return SendToErrorPage(GET_ALL_ROLES_ERROR);
             }
             if (roles.Count() == 0) {
-                 ViewData["Message"] = NO_ROLES;
+                ViewData["Message"] = MessageHelper.NormalMessage(NO_ROLES);
             }
             
             return View("Index", roles);
@@ -99,7 +100,7 @@ namespace HaveAVoice.Controllers.Admin {
                 }
             } catch (Exception e) {
                 LogError(e, CREATE_ROLE_ERROR);
-                ViewData["Message"] = ERROR_MESSAGE;
+                ViewData["Message"] = MessageHelper.ErrorMessage(ERROR_MESSAGE);
             }
 
             try {
@@ -154,7 +155,7 @@ namespace HaveAVoice.Controllers.Admin {
                 }
             } catch (Exception e) {
                 LogError(e, EDIT_ROLE_ERROR);
-                ViewData["Message"] = ERROR_MESSAGE;
+                ViewData["Message"] = MessageHelper.ErrorMessage(ERROR_MESSAGE);
             }
 
             try {
@@ -286,11 +287,11 @@ namespace HaveAVoice.Controllers.Admin {
             RoleModel myModel = new RoleModel(aModel);
             List<Permission> myPermissions = thePermissionService.GetAllPermissions().ToList<Permission>();
             if (myPermissions.Count == 0) {
-                ViewData["PermissionMessage"] = "There are currently no permissions created, please create a permission first.";
+                ViewData["PermissionMessage"] = MessageHelper.NormalMessage("There are currently no permissions created, please create a permission first.");
             }
             List<Restriction> myRestrictions = theRestrictionService.GetAllRestrictions().ToList<Restriction>(); ;
             if (myRestrictions.Count == 0) {
-                ViewData["RestrictionMessage"] = "There are currently no restrictions created, please create a restriction first.";
+                ViewData["RestrictionMessage"] = MessageHelper.NormalMessage("There are currently no restrictions created, please create a restriction first.");
             }
             myModel.AllRestrictions = myRestrictions;
             myModel.AllPermissions = myPermissions;

@@ -9,6 +9,7 @@ using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Models;
 using System.Text;
 using HaveAVoice.Models.View;
+using HaveAVoice.Controllers.Helpers;
 
 namespace HaveAVoice.Controllers.Users
 {
@@ -56,7 +57,7 @@ namespace HaveAVoice.Controllers.Users
                 return SendToResultPage(EDIT_SUCCESS);
             } catch (Exception e) {
                 LogError(e, new StringBuilder().AppendFormat("Unable to update the user privacy settings. [userId={0};userPrivacySettingsId{1}]", myUser.Id, aUserPrivacySetting.Id).ToString());
-                ViewData["Message"] = "Error updating your privacy settings. Please try again.";
+                ViewData["Message"] = MessageHelper.ErrorMessage("Error updating your privacy settings. Please try again.");
 
             }
             return View("Edit", aUserPrivacySetting);

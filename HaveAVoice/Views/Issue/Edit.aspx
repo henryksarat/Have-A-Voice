@@ -7,6 +7,8 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
+    <% Html.RenderPartial("Message"); %>
+
     <h2>Edit your issue reply</h2>
 
     <% using (Html.BeginForm()) { %>

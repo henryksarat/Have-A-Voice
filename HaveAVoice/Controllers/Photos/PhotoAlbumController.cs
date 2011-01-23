@@ -14,6 +14,7 @@ using HaveAVoice.Services.Helpers;
 using System.Web;
 using HaveAVoice.Controllers.ActionFilters;
 using HaveAVoice.Validation;
+using HaveAVoice.Controllers.Helpers;
 
 namespace HaveAVoice.Controllers.Users.Photos {
     public class PhotoAlbumController : HAVBaseController {
@@ -73,10 +74,10 @@ namespace HaveAVoice.Controllers.Users.Photos {
                 User myUser = GetUserInformatonModel().Details;
                 bool myResult = thePhotoAlbumService.CreatePhotoAlbum(myUser, name, description);
                 if (myResult) {
-                    TempData["Message"] = CREATED_SUCCESS;
+                    TempData["Message"] = MessageHelper.SuccessMessage(CREATED_SUCCESS);
                 }
             } catch (Exception myException) {
-                TempData["Message"] = CREATED_FAIL;
+                TempData["Message"] = MessageHelper.ErrorMessage(CREATED_FAIL);
                 LogError(myException, CREATED_FAIL);
             }
 
@@ -91,11 +92,11 @@ namespace HaveAVoice.Controllers.Users.Photos {
             UserInformationModel myUser = GetUserInformatonModel();
             try {
                 thePhotoAlbumService.DeletePhotoAlbum(myUser, id);
-                TempData["Message"] = DELETE_SUCCESS; ;
+                TempData["Message"] = MessageHelper.SuccessMessage(DELETE_SUCCESS);
             } catch (CustomException e) {
                 return SendToErrorPage(e.Message);
             } catch (Exception e) {
-                TempData["Message"] = DELETE_ERROR;
+                TempData["Message"] = MessageHelper.ErrorMessage(DELETE_ERROR);
                 LogError(e, DELETE_ERROR);
             }
 
@@ -114,7 +115,7 @@ namespace HaveAVoice.Controllers.Users.Photos {
             } catch (NotFriendException e) {
                 return SendToErrorPage(HAVConstants.NOT_FRIEND);
             } catch (Exception myException) {
-                TempData["Message"] = GET_ALBUM_ERROR;
+                TempData["Message"] = MessageHelper.ErrorMessage(GET_ALBUM_ERROR);
                 LogError(myException, GET_ALBUM_ERROR);
                 return RedirectToAction(LIST_VIEW);
             }
@@ -134,7 +135,7 @@ namespace HaveAVoice.Controllers.Users.Photos {
             } catch (CustomException e) {
                 return SendToErrorPage(e.Message);
             } catch (Exception e) {
-                TempData["Message"] = GET_ALBUM_ERROR;
+                TempData["Message"] = MessageHelper.ErrorMessage(GET_ALBUM_ERROR);
                 LogError(e, GET_ALBUM_ERROR);
                 return RedirectToAction(LIST_VIEW);
             }
@@ -151,13 +152,13 @@ namespace HaveAVoice.Controllers.Users.Photos {
             try {
                 bool myResult = thePhotoAlbumService.EditPhotoAlbum(myUser, albumId, name, description);
                 if (myResult) {
-                    TempData["Message"] = EDIT_SUCCESS; ;
+                    TempData["Message"] = MessageHelper.SuccessMessage(EDIT_SUCCESS);
                     return RedirectToAction(LIST_VIEW);
                 }
             } catch (CustomException e) {
                 return SendToErrorPage(e.Message);
             } catch (Exception e) {
-                TempData["Message"] = EDIT_ERROR;
+                TempData["Message"] = MessageHelper.ErrorMessage(EDIT_ERROR);
                 LogError(e, EDIT_ERROR);
             }
 

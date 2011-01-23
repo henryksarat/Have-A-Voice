@@ -8,9 +8,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <h2>Calendar</h2><br />
-    <p>
-            <%= Html.Encode(ViewData["Message"]) %>
-    </p>
+    <% Html.RenderPartial("Message"); %>
+
     <b>Events:</b><br /><br />
     <% foreach (var item in Model) { %>
         Date: <%=item.Date %> <br />

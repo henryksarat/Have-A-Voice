@@ -6,6 +6,8 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
+    <% Html.RenderPartial("Message"); %>
+
     <h2>Admin Home</h2>
 
     <%= Html.ActionLink("Role Management", "Index", "Role", null, null) %>

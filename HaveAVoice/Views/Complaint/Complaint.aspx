@@ -8,11 +8,12 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
+    <% Html.RenderPartial("Message"); %>
+
     <h2>Report a problem</h2>
 
     <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
     
-    <%= Html.Encode(ViewData["Message"]) %>
     
     <% using (Html.BeginForm())
        { %>

@@ -13,6 +13,8 @@
     </div>
     
     <div class="col-21">
+        <% Html.RenderPartial("Message"); %>
+
 	    <% using (Html.BeginForm("Inbox", "Message", FormMethod.Post, new { @class = "create"})) { %>
 			<%= Html.Encode(ViewData["Message"]) %>
 			<%= Html.Encode(TempData["Message"]) %>

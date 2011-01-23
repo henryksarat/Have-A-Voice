@@ -12,6 +12,7 @@ using HaveAVoice.Helpers;
 using HaveAVoice.Models;
 using System.ComponentModel.DataAnnotations;
 using HaveAVoice.Controllers.ActionFilters;
+using HaveAVoice.Controllers.Helpers;
 
 namespace HaveAVoice.Controllers.Issues {
     public class IssueReplyCommentController : HAVBaseController {
@@ -45,12 +46,12 @@ namespace HaveAVoice.Controllers.Issues {
 
             try {
                 if (theService.CreateCommentToIssueReply(myUserInformation, issueReplyId, comment)) {
-                    TempData["Message"] = COMMENT_SUCCESS;
+                    TempData["Message"] = MessageHelper.SuccessMessage(COMMENT_SUCCESS);
                     return RedirectToProfile();
                 }
             } catch (Exception e) {
                 LogError(e, COMMENT_ERROR);
-                ViewData["Message"] = COMMENT_ERROR;
+                ViewData["Message"] = MessageHelper.ErrorMessage(COMMENT_ERROR);
             }
 
             return RedirectToProfile();
@@ -67,10 +68,10 @@ namespace HaveAVoice.Controllers.Issues {
             }
             try {
                 theService.DeleteIssueReplyComment(GetUserInformatonModel(), id);
-                TempData["Message"] = DELETE_SUCCESS;
+                TempData["Message"] = MessageHelper.SuccessMessage(DELETE_SUCCESS);
             } catch (Exception myException) {
                 LogError(myException, DELETE_ERROR);
-                TempData["Message"] = DELETE_ERROR;
+                TempData["Message"] = MessageHelper.ErrorMessage(DELETE_ERROR);
             }
 
             return RedirectToAction("View", "IssueReply", new { id = replyId });
@@ -109,12 +110,12 @@ namespace HaveAVoice.Controllers.Issues {
             try {
                 bool myResult = theService.EditIssueReplyComment(GetUserInformatonModel(), aCommentWrapper.ToModel());
                 if (myResult) {
-                    TempData["Message"] = EDIT_SUCCESS;
+                    TempData["Message"] = MessageHelper.SuccessMessage(EDIT_SUCCESS);
                     return RedirectToAction("View", "IssueReply", new { id = aCommentWrapper.IssueReplyId});
                 }
             } catch (Exception myException) {
                 LogError(myException, EDIT_ERROR);
-                ViewData["Message"] = EDIT_ERROR;
+                ViewData["Message"] = MessageHelper.ErrorMessage(EDIT_ERROR);
             }
 
             return View("Edit", aCommentWrapper);

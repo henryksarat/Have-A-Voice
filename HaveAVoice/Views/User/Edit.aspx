@@ -50,11 +50,12 @@
     </div>
 
     <div class="alpha grid_13 omega form" rel="match">
+        <% Html.RenderPartial("Message"); %>
+
         <%= Html.ValidationSummary("Edit was unsuccessful. Please correct the errors and try again.") %>
         <% Html.RenderPartial("PrivacyTabs", UserSettings.AccountSettings); %>
 				
 		<div class="grid_13">&nbsp;</div>
-            <%= Html.Encode(ViewData["Message"]) %>
             <% using(Html.BeginForm("Edit", "User", FormMethod.Post, new { enctype = "multipart/form-data" })) {%>
 
             <%= Html.Hidden("OriginalEmail", Model.OriginalEmail) %>

@@ -9,6 +9,7 @@ using HaveAVoice.Repositories;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models.View;
 using HaveAVoice.Services.AdminFeatures;
+using HaveAVoice.Controllers.Helpers;
 
 namespace HaveAVoice.Controllers.Admin {
     public class PermissionController : AdminBaseController {
@@ -67,7 +68,7 @@ namespace HaveAVoice.Controllers.Admin {
                 }
             } catch (Exception e) {
                 LogError(e, "Unable to create the restrictionModel.");
-                ViewData["Message"] = "Error creating the restrictionModel. Check the error log and try again.";
+                ViewData["Message"] = MessageHelper.ErrorMessage("Error creating the restrictionModel. Check the error log and try again.");
             }
 
             return View("Create", model);
@@ -107,7 +108,7 @@ namespace HaveAVoice.Controllers.Admin {
                 }
             } catch (Exception e) {
                 LogError(e, "Unable to edit the restrictionModel.");
-                ViewData["Message"] = "Error editing the restrictionModel. Check the error log and try again.";
+                ViewData["Message"] = MessageHelper.ErrorMessage("Error editing the restrictionModel. Check the error log and try again.");
             }
             return View("Edit", permission);
         }

@@ -8,12 +8,11 @@
 
     <h2>Create</h2>
 
+    <% Html.RenderPartial("Message"); %>
+
     <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
 
     <% using (Html.BeginForm("Create", "Restriction")) {%>
-
-        <%= Html.Encode(ViewData["Message"]) %>
-        
         <fieldset>
             <legend>Fields</legend>
             <p>

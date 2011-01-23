@@ -11,6 +11,7 @@ using HaveAVoice.Validation;
 using HaveAVoice.Models.View;
 using HaveAVoice.Helpers;
 using HaveAVoice.Controllers.ActionFilters;
+using HaveAVoice.Controllers.Helpers;
 
 namespace HaveAVoice.Controllers.Users
 {
@@ -59,7 +60,7 @@ namespace HaveAVoice.Controllers.Users
             }
 
             if (myFeedback.Count<Feedback>() == 0) {
-                ViewData["Message"] = "There is no feedback.";
+                ViewData["Message"] = MessageHelper.NormalMessage("There is no feedback.");
             }
 
             return View("View", myFeedback);
@@ -81,12 +82,12 @@ namespace HaveAVoice.Controllers.Users
             User myUser = GetUserInformatonModel().Details;
             try {
                 if (theFeedbackService.AddFeedback(myUser, feedback)) {
-                    TempData["Message"] = FEEDBACK_SUCCESS;
+                    TempData["Message"] = MessageHelper.SuccessMessage(FEEDBACK_SUCCESS);
                     return RedirectToAction("Create");
                 }
             } catch (Exception e) {
                 LogError(e, FEEDBACK_ERROR);
-                ViewData["Message"] = FEEDBACK_ERROR;
+                ViewData["Message"] = MessageHelper.ErrorMessage(FEEDBACK_ERROR);
             }
 
             return View("Create");

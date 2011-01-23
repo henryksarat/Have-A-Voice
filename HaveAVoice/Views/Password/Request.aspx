@@ -18,8 +18,9 @@
 			<div class="col-1">&nbsp;</div>
 			<div class="col-22">
 				<div class="spacer-30">&nbsp;</div>
+                <% Html.RenderPartial("Message"); %>
+
 				<%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
-				<%= Html.Encode(ViewData["Message"]) %>
 				
 				<% using (Html.BeginForm("Request", "Password", FormMethod.Post, new { @class = "create" })) {%>
 					<div class="push-3 col-8 fnt-14">
