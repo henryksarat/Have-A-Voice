@@ -3,6 +3,7 @@
 <%@ Import Namespace="HaveAVoice.Helpers.Enums" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
+<%@ Import Namespace="HaveAVoice.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
 
 
@@ -71,7 +72,7 @@
 												    This
 											    </span>
 										    <% } else { %>
-											    <a href="#" class="like">Like</a>
+											    <a href="<%= LinkHelper.LikeIssue(myIssue.Id) %>" class="like">Like</a>
 										    <% } %>
 									    </div>
 									    <div class="col-3 center">
@@ -86,7 +87,7 @@
 												    This
 											    </span>
 										    <% } else { %>
-											    <a href="#" class="dislike">Dislike</a>
+											    <a href="<%= LinkHelper.DislikeIssue(myIssue.Id) %>" class="dislike">Dislike</a>
 										    <% } %>
 									    </div>
 								    </div>

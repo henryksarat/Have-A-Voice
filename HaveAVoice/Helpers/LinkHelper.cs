@@ -34,5 +34,13 @@ namespace HaveAVoice.Helpers {
         public static string EditIssueReply(int anIssueReplyId) {
             return "/IssueReply/Edit/" + anIssueReplyId;
         }
+
+        public static string LikeIssue(int anIssueId) {
+            return "/Issue/Disposition?issueId=" + anIssueId + "&disposition=" + (int)Disposition.Like;
+        }
+
+        public static string DislikeIssue(int anIssueId) {
+            return "/Issue/Disposition?issueId=" + anIssueId + "&disposition=" + (int)Disposition.Dislike;
+        }
     }
 }
