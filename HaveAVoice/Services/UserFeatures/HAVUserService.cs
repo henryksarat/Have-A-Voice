@@ -156,14 +156,11 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public EditUserModel GetUserForEdit(User aUser) {
             int myUserId = aUser.Id;
-            IEnumerable<SelectListItem> myTimezones =
-                new SelectList(TimezoneHelper.GetTimeZones(), TimezoneHelper.GetTimezone(aUser.UTCOffset));
             IEnumerable<SelectListItem> states =
                 new SelectList(HAVConstants.STATES, aUser.State);
             User myUser = theUserRetrievalService.GetUser(myUserId);
 
             return new EditUserModel(myUser) {
-                Timezones = myTimezones,
                 States = states,
                 ProfilePictureURL= PhotoHelper.ProfilePicture(myUser)
             };

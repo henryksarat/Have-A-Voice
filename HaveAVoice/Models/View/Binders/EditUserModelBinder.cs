@@ -43,11 +43,9 @@ namespace HaveAVoice.Models.View {
             user.UTCOffset = TimezoneHelper.GetOffset(myTimezone);
             user.AboutMe = myAboutMe;
 
-            IEnumerable<SelectListItem> myTimezones = new SelectList(TimezoneHelper.GetTimeZones(), TimezoneHelper.GetTimezone(user.UTCOffset));
             IEnumerable<SelectListItem> myStates = new SelectList(HAVConstants.STATES, user.State);
 
             return new EditUserModel(user) {
-                Timezones = myTimezones,
                 States = myStates,
                 ImageFile = myImageFile,
                 ProfilePictureURL = myProfilePictureUrl,

@@ -61,14 +61,32 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public void SetToProfilePicture(User aUser, int aPhotoId) {
-            thePhotoRepo.SetToProfilePicture(aUser, aPhotoId);
+            Photo myCurrentProfile = thePhotoRepo.GetProfilePicture(aUser.Id);
+            if (myCurrentProfile != null) {
+                if (myCurrentProfile.UploadedByUserId == aUser.Id) {
+                    thePhotoRepo.DeletePhoto(myCurrentProfile.Id);
+                    PhysicallyDeletePhoto(myCurrentProfile.ImageName);
+                } else {
+                    throw new CustomException(HAVConstants.NOT_ALLOWED);
+                }
+            }
+
+            Photo myNewProfilePhoto = thePhotoRepo.GetPhoto(aPhotoId);
+
+            if (myNewProfilePhoto.UploadedByUserId == aUser.Id) {
+                string[] myNewProfileSplit = myNewProfilePhoto.ImageName.Split('.');
+                string myNewProfilePictureImageName = myNewProfileSplit[0] + "-profile." + myNewProfileSplit[1];
+                ResizeImage(myNewProfilePhoto.ImageName, myNewProfilePictureImageName, 120);
+                thePhotoRepo.AddReferenceToImage(aUser, myNewProfilePhoto.PhotoAlbumId, myNewProfilePictureImageName, true);
+            } else {
+                throw new CustomException(HAVConstants.NOT_ALLOWED);
+            }
         }
 
         public void UploadProfilePicture(User aUserToUploadFor, HttpPostedFileBase aImageFile) {
             PhotoAlbum myProfilePictureAlbum = thePhotoAlbumRepo.GetProfilePictureAlbumForUser(aUserToUploadFor);
             string myImageName = UploadImage(aUserToUploadFor, aImageFile);
-            Photo myPhoto = thePhotoRepo.AddReferenceToImage(aUserToUploadFor, myProfilePictureAlbum.Id, myImageName);
-            thePhotoRepo.SetToProfilePicture(aUserToUploadFor, myPhoto.Id);
+            Photo myPhoto = thePhotoRepo.AddReferenceToImage(aUserToUploadFor, myProfilePictureAlbum.Id, myImageName, true);
         }
 
         public bool IsValidImage(string anImageFile) {
@@ -88,7 +106,7 @@ namespace HaveAVoice.Services.UserFeatures {
             PhotoAlbum myAlbum = thePhotoAlbumRepo.GetPhotoAlbum(anAlbumId);
              if (myAlbum.CreatedByUserId == aUserToUploadFor.Details.Id) {
                  string myImageName = UploadImage(aUserToUploadFor.Details, aImageFile);
-                 thePhotoRepo.AddReferenceToImage(aUserToUploadFor.Details, anAlbumId, myImageName);
+                 thePhotoRepo.AddReferenceToImage(aUserToUploadFor.Details, anAlbumId, myImageName, false);
              }
 
              new CustomException(UNAUTHORIZED_UPLOAD);
@@ -117,6 +135,8 @@ namespace HaveAVoice.Services.UserFeatures {
             aImageFile.SaveAs(myOriginalFilePath);
             
             ResizeImage(myOriginalFile, myNewFile, MAX_SIZE);
+
+            PhysicallyDeletePhoto(myOriginalFile);
             return myNewFile;
         }
 
@@ -131,8 +151,6 @@ namespace HaveAVoice.Services.UserFeatures {
             myActual.Dispose();
 
             myOriginal.Dispose();
-
-            PhysicallyDeletePhoto(anOriginalImageName);
         }
 
         private Image ScaleBySize(Image myPhoto, int aSize) {

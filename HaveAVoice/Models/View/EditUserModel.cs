@@ -16,7 +16,6 @@ namespace HaveAVoice.Models.View {
         public string OriginalPassword { get; set; }
         public HttpPostedFileBase ImageFile { get; set; }
         public string ProfilePictureURL { get; set; }
-        public IEnumerable<SelectListItem> Timezones { get; set; }
         public IEnumerable<SelectListItem> States { get; set; }
 
         public EditUserModel(User aUser) {
@@ -28,7 +27,6 @@ namespace HaveAVoice.Models.View {
             OriginalPassword = aUser.Password;
             ImageFile = null;
             ProfilePictureURL = HAVConstants.NO_PROFILE_PICTURE_URL;
-            Timezones = new List<SelectListItem>();
             States = new List<SelectListItem>();
         }
     }

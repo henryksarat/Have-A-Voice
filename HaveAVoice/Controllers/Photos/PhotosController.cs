@@ -93,6 +93,8 @@ namespace HaveAVoice.Controllers.Users.Photos {
             try {
                 thePhotoService.SetToProfilePicture(GetUserInformaton(), id);
                 return RedirectToProfile();
+            } catch (CustomException myException) {
+                return SendToErrorPage(myException.Message);
             } catch (Exception e) {
                 TempData["Message"] = SET_PROFILE_PICTURE_ERRROR;
                 return RedirectToAction(DISPLAY_VIEW, new { id = id });

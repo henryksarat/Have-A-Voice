@@ -130,13 +130,6 @@
 			</div>
             <div class="grid_13 spacer-16">&nbsp;</div>
             <div class="grid_6">
-                <label>Timezone:</label>
-            </div>
-            <div class="push_1 grid_6">
-                <%= Html.DropDownList("Timezone", Model.Timezones)%>
-            </div>
-            <div class="grid_13 spacer-16">&nbsp;</div>
-            <div class="grid_6">
                 <label>Email:</label>
             </div>
             <div class="push_1 grid_6">
