@@ -9,7 +9,7 @@ namespace HaveAVoice.Models.View {
         Home,
         Photos,
         Calendar,
-        UserFeed,
+        IssueActivity,
         Information,
         Board,
         Message,

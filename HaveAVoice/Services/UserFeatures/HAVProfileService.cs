@@ -10,6 +10,8 @@ using HaveAVoice.Models.View.Builders;
 using HaveAVoice.Models;
 using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Services.Helpers;
+using HaveAVoice.Exceptions;
+using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVProfileService : HAVBaseService, IHAVProfileService {
@@ -62,6 +64,21 @@ namespace HaveAVoice.Services.UserFeatures {
 
             return myModel;
         }
+
+        public UserProfileModel UserIssueActivity(int aUserId, User aViewingUser) {
+            if(theFriendService.IsFriend(aUserId, aViewingUser)) {
+                User myUser = theUserRetrievalService.GetUser(aUserId);
+                UserProfileModel myModel = new UserProfileModel(myUser) {
+                    IssueFeed = CreateIssueFeed(theRepository.IssuesUserCreated(myUser)),
+                    IssueReplyFeed = CreateIssueReplyFeed(theRepository.IssuesUserRepliedTo(myUser))
+                };
+
+                return myModel;
+            }
+
+            throw new CustomException(HAVConstants.NOT_ALLOWED);
+        }
+
 
         private IEnumerable<IssueFeedModel> CreateIssueFeed(IEnumerable<Issue> anIssues) {
             List<IssueFeedModel> myFeedModels = new List<IssueFeedModel>();

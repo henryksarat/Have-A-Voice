@@ -10,5 +10,6 @@ namespace HaveAVoice.Services.UserFeatures {
     public interface IHAVProfileService {
         UserProfileModel Profile(int aUserId, User aViewingUser);
         UserProfileModel MyProfile(User aUser);
+        UserProfileModel UserIssueActivity(int aUserId, User aViewingUser);
     }
 }

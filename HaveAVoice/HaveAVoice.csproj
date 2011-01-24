@@ -421,6 +421,7 @@
     <Content Include="Views\Permission\Index.aspx" />
     <Content Include="Views\PhotoAlbum\Details.aspx" />
     <Content Include="Views\PhotoAlbum\Edit.aspx" />
+    <Content Include="Views\Profile\IssueActivity.aspx" />
     <Content Include="Views\Restriction\Create.aspx" />
     <Content Include="Views\Restriction\Delete.aspx" />
     <Content Include="Views\Restriction\Edit.aspx" />

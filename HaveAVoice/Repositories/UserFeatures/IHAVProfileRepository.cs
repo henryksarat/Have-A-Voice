@@ -6,6 +6,7 @@ using HaveAVoice.Models;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public interface IHAVProfileRepository {
+        IEnumerable<Issue> IssuesUserCreated(User aUser);
         IEnumerable<IssueReply> IssuesUserRepliedTo(User aUser);
 
         IEnumerable<Issue> FriendIssueFeed(User aUser);

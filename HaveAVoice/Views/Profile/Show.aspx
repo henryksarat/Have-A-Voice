@@ -27,7 +27,6 @@
         <% int cnt = 0; %>
 
         <% while(myNextFeedItem != FeedItem.None) { %>
-            <%  myNextFeedItem = Model.Model.GetNextItem(); %>
             <% if(myNextFeedItem == FeedItem.Issue) { %>
                 <% IssueFeedModel myIssue = Model.Model.GetNextIssue(); %>
                 <div class="<% if(cnt % 2 == 0) { %>row<% } else { %>alt<% } %> m-btm10">
@@ -330,12 +329,12 @@
 	                <div class="clear">&nbsp;</div>
             <% } %>
             <% cnt++; %>
+            <%  myNextFeedItem = Model.Model.GetNextItem(); %>
         <% } %>
     <% } else if (Model.NavigationModel.SiteSection == SiteSection.Profile) { %>
         <% FeedItem myNextFeedItem = Model.Model.GetNextItem(); %>
         <% int cnt = 0; %>
         <% while(myNextFeedItem != FeedItem.None) { %>
-            <%  myNextFeedItem = Model.Model.GetNextItem(); %>
             <% if (myNextFeedItem == FeedItem.Issue) { %>
                 <% IssueFeedModel myIssue = Model.Model.GetNextIssue(); %>
 
@@ -495,6 +494,7 @@
                 </div>
             <% } %>
             <% cnt++; %>
+            <%  myNextFeedItem = Model.Model.GetNextItem(); %>
         <% } %>
     <% } %>
 	</div>

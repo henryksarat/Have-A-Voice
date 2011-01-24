@@ -12,9 +12,9 @@
         
             <%= NavigationHelper.UserNavigation(
                     Model.SiteSection, 
-                    new SiteSection[] {SiteSection.Home, SiteSection.UserFeed, SiteSection.Photos, SiteSection.Calendar},
+                    new SiteSection[] {SiteSection.Home, SiteSection.IssueActivity, SiteSection.Photos, SiteSection.Calendar},
                     new string[] {"home", "message", "photo", "event"},
-                    new string[] {"/Profile/Show", "/Home/UserFeed", "/PhotoAlbum/List", "/Calendar/List"},
+                    new string[] {"/Profile/Show", "/Profile/IssueActivity", "/PhotoAlbum/List", "/Calendar/List"},
                     new string[] { "HOME", "USER FEED", "PHOTOS", "EVENTS"}
                 )
             %>

@@ -8,6 +8,15 @@ namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVProfileRepository : IHAVProfileRepository {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
+        public IEnumerable<Issue> IssuesUserCreated(User aUser) {
+            return (from i in theEntities.Issues
+                    where i.UserId == aUser.Id
+                    select i)
+                    .OrderByDescending(i => i.DateTimeStamp)
+                    .Take(5)
+                    .ToList<Issue>();
+        }
+
         public IEnumerable<IssueReply> IssuesUserRepliedTo(User aUser) {
             return (from ir in theEntities.IssueReplys
                     where ir.User.Id == aUser.Id
