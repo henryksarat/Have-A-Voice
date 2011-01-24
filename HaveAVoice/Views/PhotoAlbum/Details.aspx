@@ -45,6 +45,9 @@
 		<% int cnt = 0; %>
 		<% string klass = "gallery"; %>
         <% foreach (var item in Model.Model.Photos) { %>
+            <% if (item.ProfilePicture) {
+                   continue;
+               }%>
         	<% if (cnt % 2 == 0) {
         		klass = "gallery";
 			} else {
