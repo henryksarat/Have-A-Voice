@@ -49,7 +49,7 @@ namespace HaveAVoice.Models.View {
             FeedItem myFeedItem = FeedItem.None;
             List<SortableItemMetaData> myCommonSortableList = new List<SortableItemMetaData>();
 
-            if (BoardFeedEnumerator.Current != null || IssueFeedEnumerator.Current != null || IssueReplyFeedEnumerator.Current != null || PhotoAlbumEnumerator.Current != null) {
+            if (!IsEmpty()) {
                 if (BoardFeedEnumerator.Current != null) {
                     myCommonSortableList.Add(CreateSortable(BoardFeedEnumerator.Current, FeedItem.Board));
                 } 
@@ -94,6 +94,10 @@ namespace HaveAVoice.Models.View {
             PhotoAlbumFeedModel myModel = PhotoAlbumEnumerator.Current;
             PhotoAlbumEnumerator.MoveNext();
             return myModel;
+        }
+
+        public bool IsEmpty() {
+            return BoardFeedEnumerator.Current == null && IssueFeedEnumerator.Current == null && IssueReplyFeedEnumerator.Current == null && PhotoAlbumEnumerator.Current == null;
         }
 
         private SortableItemMetaData CreateSortable(FeedModel aFeedModel, FeedItem aFeedItem) {

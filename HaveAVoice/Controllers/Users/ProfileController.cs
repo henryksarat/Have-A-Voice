@@ -17,6 +17,11 @@ using HaveAVoice.Exceptions;
 
 namespace HaveAVoice.Controllers.Users {
     public class ProfileController : HAVBaseController {
+        private const string EMPTY_FEED = "You have nothing in your feed. Make some friends to start seeing activity here!";
+        private const string EMPTY_PROFILE = "The user has no activity.";
+        private const string MY_EMPTY_ISSUE_ACTIVITY = "You have not participated in any issues. Go out and start posting!";
+        private const string EMPTY_ISSUE_ACTIVITY = "The user has yet to create any issues and reply to any exisiting issues.";
+
         private static string USER_PAGE_ERROR = "Unable to view the user page.";
         private static string USER_PAGE_ERROR_POLITE = USER_PAGE_ERROR + PLEASE_TRY_AGAIN;
         private static string PLEASE_TRY_AGAIN = " Please try again.";
@@ -43,6 +48,11 @@ namespace HaveAVoice.Controllers.Users {
                 UserProfileModel myProfile = theService.Profile(id, myViewingUser);
                 LoggedInWrapperModel<UserProfileModel> myModel = new LoggedInWrapperModel<UserProfileModel>(myProfile.User, SiteSection.Profile);
                 myModel.Model = myProfile;
+
+                if (myModel.Model.IsEmpty()) {
+                    ViewData["Message"] = MessageHelper.NormalMessage(EMPTY_PROFILE);
+                }
+
                 return View("Show", myModel);
             } catch (Exception e) {
                 LogError(e, USER_PAGE_ERROR);
@@ -58,6 +68,10 @@ namespace HaveAVoice.Controllers.Users {
 
             try {
                 myModel.Model = theService.MyProfile(myUser);
+
+                if (myModel.Model.IsEmpty()) {
+                    ViewData["Message"] = MessageHelper.NormalMessage(EMPTY_FEED);
+                }
             } catch (Exception e) {
                 LogError(e, USER_PAGE_ERROR);
                 ViewData["Message"] = USER_PAGE_ERROR_POLITE;
@@ -75,6 +89,11 @@ namespace HaveAVoice.Controllers.Users {
                 UserProfileModel myProfile = theService.UserIssueActivity(id, myUser);
                 LoggedInWrapperModel<UserProfileModel> myModel = new LoggedInWrapperModel<UserProfileModel>(myProfile.User, SiteSection.IssueActivity);
                 myModel.Model = myProfile;
+
+                if (myModel.Model.IsEmpty()) {
+                    ViewData["Message"] = MessageHelper.NormalMessage(EMPTY_ISSUE_ACTIVITY);
+                }
+
                 return View("IssueActivity", myModel);
             } catch (CustomException e) {
                 return SendToErrorPage(e.Message);
@@ -92,6 +111,10 @@ namespace HaveAVoice.Controllers.Users {
 
             try {
                 myModel.Model = theService.UserIssueActivity(myUser.Id, myUser);
+
+                if (myModel.Model.IsEmpty()) {
+                    ViewData["Message"] = MessageHelper.NormalMessage(MY_EMPTY_ISSUE_ACTIVITY);
+                }
             } catch (CustomException e) {
                 return SendToErrorPage(e.Message);
             } catch (Exception e) {
