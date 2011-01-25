@@ -83,7 +83,7 @@ namespace HaveAVoice.Helpers.UI {
 			clrDiv.MergeAttribute("class", "clear");
 			clrDiv.InnerHtml += "&nbsp;";
 			
-			stanceComment.InnerHtml += clrDiv.ToString();
+			divCommentPad.InnerHtml += clrDiv.ToString();
 
 			var optionWrpr = new TagBuilder("div");
 			optionWrpr.MergeAttribute("class", "col-11 options");
