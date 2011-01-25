@@ -24,11 +24,11 @@ namespace HaveAVoice.Models.View {
             List<string> myRegisteredRoles = new List<string>();
             myRegisteredRoles.Add(Roles.OFFICIAL);
             myRegisteredRoles.Add(Roles.REGISTERED);
-            IEnumerable<IssueReplyModel> registeredUserReplys = issueService.GetReplysToIssue(myUser, issue, myRegisteredRoles);
+            IEnumerable<IssueReplyModel> registeredUserReplys = issueService.GetReplysToIssue(myUser, issue, myRegisteredRoles, PersonFilter.People);
 
             List<string> myOfficialRoles = new List<string>();
             myOfficialRoles.Add(Roles.OFFICIAL);
-            IEnumerable<IssueReplyModel> officialUserReplys = issueService.GetReplysToIssue(myUser, issue, myOfficialRoles);
+            IEnumerable<IssueReplyModel> officialUserReplys = issueService.GetReplysToIssue(myUser, issue, myOfficialRoles, PersonFilter.Politicians);
             bool anonymous = BinderHelper.GetA(aBindingContext, "Anonymous") == "true,false" ? true : false;
             string extractedDisposition = BinderHelper.GetA(aBindingContext, "Disposition");
             Disposition dispotion;
@@ -38,7 +38,10 @@ namespace HaveAVoice.Models.View {
                 dispotion = (Disposition)Enum.Parse(typeof(Disposition), extractedDisposition, true);
             }
 
-            IssueModel issueModel = new IssueModel(issue, registeredUserReplys, officialUserReplys);
+            List<IssueReplyModel> myMerged = new List<IssueReplyModel>();
+            myMerged.AddRange(registeredUserReplys);
+            myMerged.AddRange(officialUserReplys);
+            IssueModel issueModel = new IssueModel(issue, myMerged);
             issueModel.Comment = reply;
             issueModel.Anonymous = anonymous;
             issueModel.Disposition = dispotion;

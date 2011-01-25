@@ -13,6 +13,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="col-24 m-btm30">
         <div class="spacer-30">&nbsp;</div>
+        <% TempData["OriginalIssue"] = Model; %>
+        <% TempData["Filter"] = TempData["Filter"]; %>
     
     	<% Html.RenderPartial("Message"); %>
     
@@ -34,26 +36,26 @@
 		
 		<div class="push-7 col-9 m-btm10">
 			<div class="m-lft col-3 m-rgt center">
-				<a href="#" class="filter">ALL</a>
+				<%=Html.ActionLink("ALL", "FilterIssue", new { type = "PersonFilter", filterValue = (int)PersonFilter.All}, new { @class = "filter" }) %>
 			</div>
 			<div class="m-lft col-3 m-rgt center">
-				<a href="#" class="filter">Politicians</a>
+                <%=Html.ActionLink("Politicians", "FilterIssue", new { type = "PersonFilter", filterValue = (int)PersonFilter.Politicians}, new { @class = "filter" }) %>
 			</div>
 			<div class="m-lft col-3 m-rgt center">
-				<a href="#" class="filter">People</a>
+                <%=Html.ActionLink("People", "FilterIssue", new { type = "PersonFilter", filterValue = (int)PersonFilter.People}, new { @class = "filter" }) %>
 			</div>
 		</div>
 		<div class="clear">&nbsp;</div>
 		
 		<div class="push-7 col-9 m-btm10">
 			<div class="m-lft col-3 m-rgt center">
-				<a href="#" class="filter">ALL</a>
+                <%=Html.ActionLink("ALL", "FilterIssue", new { type = "Disposition", filterValue = (int)Disposition.None}, new { @class = "filter" }) %>
 			</div>
 			<div class="m-lft col-3 m-rgt center">
-				<a href="#" class="filter like">Agree</a>
+                <%=Html.ActionLink("Agree", "FilterIssue", new { type = "Disposition", filterValue = (int)Disposition.Like}, new { @class = "filter" }) %>
 			</div>
 			<div class="m-lft col-3 m-rgt center">
-				<a href="#" class="filter dislike">Disagree</a>
+                <%=Html.ActionLink("Disagree", "FilterIssue", new { type = "Disposition", filterValue = (int)Disposition.Dislike}, new { @class = "filter" }) %>
 			</div>
 		</div>
 		<div class="clear">&nbsp;</div>
@@ -117,14 +119,14 @@
 			</div>
 	        <div class="clear">&nbsp;</div>
 
-            <% foreach (IssueReplyModel reply in Model.UserReplys) { %>
+            <% foreach (IssueReplyModel reply in Model.Replys) { %>
                 <%= IssueHelper.UserIssueReply(reply) %>
 
                 <div class="clear">&nbsp;</div>
             <% } %>
 
             <% /*
-            <% foreach (IssueReplyModel reply in Model.OfficialReplys) { %>
+            <% foreach (IssueReplyModel reply in Model.Replys) { %>
                 <p>
                     <%= IssueHelper.OfficialIssueReply(reply) %>
                 </p>

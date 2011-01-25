@@ -50,7 +50,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
             return issueReply;
         }
 
-        public IEnumerable<IssueReplyModel> GetReplysToIssue(User aUser, Issue anIssue, IEnumerable<string> aSelectedRoles) {
+        public IEnumerable<IssueReplyModel> GetReplysToIssue(User aUser, Issue anIssue, IEnumerable<string> aSelectedRoles, PersonFilter aFilter) {
             IEnumerable<IssueReplyDisposition> myIssueReplyDispositions = theEntities.IssueReplyDispositions;
 
             return (from ir in theEntities.IssueReplys.Include("IssueReplyComments")
@@ -70,7 +70,10 @@ namespace HaveAVoice.Repositories.UserFeatures {
                         DateTimeStamp = ir.DateTimeStamp,
                         CommentCount = ir.IssueReplyComments.Where(cc => cc.Deleted == false).Count(),
                         Anonymous = ir.Anonymous,
-                        HasDisposition = (i == null && ir.UserId != aUser.Id) ? false : true
+                        HasDisposition = (i == null && ir.UserId != aUser.Id) ? false : true,
+                        TempDispositionHolder = ir.Disposition,
+                        TempPersonFilterHolder = (int) aFilter
+
                     }).ToList<IssueReplyModel>();
         }
 

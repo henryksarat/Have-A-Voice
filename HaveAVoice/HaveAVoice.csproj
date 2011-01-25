@@ -97,6 +97,7 @@
     <Compile Include="Helpers\Enums\FeedItem.cs" />
     <Compile Include="Helpers\Enums\FriendStatus.cs" />
     <Compile Include="Helpers\Enums\IssueFilter.cs" />
+    <Compile Include="Helpers\Enums\PersonFilter.cs" />
     <Compile Include="Helpers\Enums\IssueStance.cs" />
     <Compile Include="Helpers\Exceptions\CustomException.cs" />
     <Compile Include="Helpers\Exceptions\NotFriendException.cs" />

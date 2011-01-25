@@ -12,11 +12,12 @@ using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Validation;
 using HaveAVoice.Controllers.Helpers;
+using System.Collections;
+using HaveAVoice.Helpers.Enums;
 
 namespace HaveAVoice.Controllers.Issues
 {
-    public class IssueController : HAVBaseController
-    {
+    public class IssueController : HAVBaseController {
         private static string GET_LATEST_ISSUES_ERROR = "Unable to get the latest myIssues.";
         private static string NO_ISSUES = "There are no latest myIssues to display.";
 
@@ -114,10 +115,22 @@ namespace HaveAVoice.Controllers.Issues
                 }
 
                 User myUser = HAVUserInformationFactory.GetUserInformation().Details;
-                IEnumerable<IssueReplyModel> registeredUserReplys = theService.GetReplysToIssue(myUser, issue, RoleHelper.RegisteredRoles());
-                IEnumerable<IssueReplyModel> officialUserReplys = theService.GetReplysToIssue(myUser, issue, RoleHelper.OfficialRoles());
+                IEnumerable<IssueReplyModel> registeredUserReplys = theService.GetReplysToIssue(myUser, issue, RoleHelper.RegisteredRoles(), PersonFilter.Politicians);
+                IEnumerable<IssueReplyModel> officialUserReplys = theService.GetReplysToIssue(myUser, issue, RoleHelper.OfficialRoles(), PersonFilter.People);
 
-                IssueModel issueModel = new IssueModel(issue, registeredUserReplys, officialUserReplys);
+                List<IssueReplyModel> myMerged = new List<IssueReplyModel>();
+                myMerged.AddRange(registeredUserReplys);
+                myMerged.AddRange(officialUserReplys);
+
+                IssueModel issueModel = new IssueModel(issue, myMerged);
+                TempData["OriginalIssue"] = issueModel;
+                
+                Dictionary<string, int> myFilter = new Dictionary<string, int>();
+                myFilter.Add("PersonFilter", (int)PersonFilter.All);
+                myFilter.Add("Disposition", (int)HaveAVoice.Helpers.Enums.Disposition.None);
+
+                TempData["Filter"] = myFilter;
+
                 return View("View", issueModel);
             } catch (Exception e) {
                 string details = "An error occurred while trying to view the issue.";
@@ -125,7 +138,6 @@ namespace HaveAVoice.Controllers.Issues
                 return SendToErrorPage(details);
             }
         }
-
 
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult View(IssueModel issueModel) {
@@ -146,6 +158,23 @@ namespace HaveAVoice.Controllers.Issues
             return View("View", issueModel);
         }
 
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult FilterIssue(string type, int filterValue) {
+            IssueModel myModel = (IssueModel)TempData["OriginalIssue"];
+            myModel.Issue = Issue.CreateIssue(0, "FUCK", "ad", "ad", "ad", DateTime.UtcNow, 0, false) ;
+            myModel.Issue.User = GetUserInformaton();
+            Dictionary<string, int> myFilter = (Dictionary<string, int>)TempData["Filter"];
+            myFilter.Remove(type);
+            myFilter.Add(type, filterValue);
+
+
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            return View("View", myModel);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Disposition(int issueId, int disposition) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();

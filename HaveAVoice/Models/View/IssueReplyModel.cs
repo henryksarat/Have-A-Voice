@@ -15,5 +15,31 @@ namespace HaveAVoice.Models.View {
         public bool Anonymous { get; set; }
         public bool HasDisposition { get; set; }
         public int IssueStance { get; set; }
+        public Disposition Disposition { get; private set; }
+        public PersonFilter PersonFilter { get; private set; }
+
+        public int TempDispositionHolder {
+            set {
+                if (value == (int)Helpers.Enums.Disposition.Like) {
+                    Disposition = Helpers.Enums.Disposition.Like;
+                } else if (value == (int)Helpers.Enums.Disposition.Dislike) {
+                    Disposition = Helpers.Enums.Disposition.Dislike;
+                } else {
+                    Disposition = Helpers.Enums.Disposition.None;
+                }
+            }
+        }
+
+        public int TempPersonFilterHolder {
+            set {
+                if (value == (int)Helpers.Enums.PersonFilter.People) {
+                    PersonFilter = Helpers.Enums.PersonFilter.People;
+                } else if (value == (int)Helpers.Enums.PersonFilter.Politicians) {
+                    PersonFilter = Helpers.Enums.PersonFilter.Politicians;
+                } else {
+                    PersonFilter = Helpers.Enums.PersonFilter.All;
+                }
+            }
+        }
     }
 }

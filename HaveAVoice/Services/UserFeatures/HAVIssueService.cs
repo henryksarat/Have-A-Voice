@@ -96,8 +96,8 @@ namespace HaveAVoice.Services.UserFeatures {
             return true;
         }
 
-        public IEnumerable<IssueReplyModel> GetReplysToIssue(User aUser, Issue aIssue, IEnumerable<string> aSelectedRoles) {
-            return theRepository.GetReplysToIssue(aUser, aIssue, aSelectedRoles);
+        public IEnumerable<IssueReplyModel> GetReplysToIssue(User aUser, Issue aIssue, IEnumerable<string> aSelectedRoles, PersonFilter aFilter) {
+            return theRepository.GetReplysToIssue(aUser, aIssue, aSelectedRoles, aFilter);
         }
 
         public IssueReply GetIssueReply(int anIssueReplyId) {
