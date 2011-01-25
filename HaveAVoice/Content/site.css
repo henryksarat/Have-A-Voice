@@ -62,6 +62,7 @@ body { font-family: helvetica, arial, sans-serif; background: #d9e9ed; }
 .spacer-2 { height: 2px; }
 .spacer-4 { height: 4px; }
 .spacer-10 { height: 10px; }
+.spacer-15 { height: 15px; }
 .spacer-30 { height: 30px; }
 
 
@@ -69,6 +70,7 @@ body { font-family: helvetica, arial, sans-serif; background: #d9e9ed; }
 /********************************* MARGIN ***********************************/
 /****************************************************************************/
 .m-top10 { margin-top: 10px; }
+.m-top15 { margin-top: 15px; }
 .m-top20 { margin-top: 20px; }
 
 .m-btm5 { margin-bottom: 5px; }
@@ -94,6 +96,7 @@ body { font-family: helvetica, arial, sans-serif; background: #d9e9ed; }
 .p-h5 { padding-left: 5px; padding-right: 5px; }
 .p-a5 { padding: 5px; }
 .p-a10 { padding: 10px; }
+.p-v5 { padding-top: 5px; padding-bottom: 5px; }
 .p-v10 { padding-top: 10px; padding-bottom: 10px; }
 .p-v15 { padding-top: 15px; padding-bottom: 15px; }
 
@@ -306,11 +309,11 @@ form.create input[type=button]:hover { color: #115f71; background: #fff; }
 .issue { font-size: 12px; margin-bottom: 5px; }
 .issue a.like, .issue a.like:link, .issue a.like:visited { color: #2070c9; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; background: transparent; }
 .issue a.dislike, .issue a.dislike:link, .issue a.dislike:visited { text-decoration: none; font-size: 12px; font-weight: bold; font-style: normal; text-transform: uppercase; }
-.issue a.delete, .issue a.delete:link, .issue a.delete:visited, .agree a.delete, .agree a.delete:link, .agree a.delete:visited, .disagree a.delete, .disagree a.delete:link, .disagree a.delete:visited { color: #DC143C; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; }
-.agree a.edit, .agree a.edit:link, .agree a.edit:visited, .disagree a.edit, .disagree a.edit:link, .disagree a.edit:visited { color: #115f71; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; }
+.issue a.delete, .issue a.delete:link, .issue a.delete:visited, .agree a.delete, .agree a.delete:link, .agree a.delete:visited, .disagree a.delete, .disagree a.delete:link, .disagree a.delete:visited, .comment .options a.delete, .comment .options a.delete:link, .comment .options a.delete:visited { color: #DC143C; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; }
+.agree a.edit, .agree a.edit:link, .agree a.edit:visited, .disagree a.edit, .disagree a.edit:link, .disagree a.edit:visited, .comment .options a.edit, .comment .options a.edit:link, .comment .options a.edit:visited { color: #115f71; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; }
 .issue-container img.profile { max-width: 80px; max-height: 80px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
 /*.issue-container .issue { min-height: 120px; }*/
-.issue a.name, .issue a.name:link, .issue a.name:visited, .agree a.name, .agree a.name:link, .agree a.name:visited, .disagree a.name, .disagree a.name:link, .disagree a.name:visited { font-size: 13px; font-style: normal; font-weight: bold; text-decoration: none; color: #20a9c9; }
+.issue a.name, .issue a.name:link, .issue a.name:visited, .agree a.name, .agree a.name:link, .agree a.name:visited, .disagree a.name, .disagree a.name:link, .disagree a.name:visited, .comment .options a.report, .comment .options a.report:link, .comment .options a.report:visited { font-size: 13px; font-style: normal; font-weight: bold; text-decoration: none; color: #20a9c9; }
 a.filter, a.filter:link, a.filter:visited { color: #fff; text-decoration: none; background: #b6dde7; padding: 5px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; display: block; }
 a.filter:hover { background: #20a9c9; font-weight: bold; }
 a.filter.like:hover { background: #2070c9; font-weight: bold; }
@@ -331,6 +334,9 @@ a.filter.dislike:hover { background: #c94020; font-weight: bold; }
 .disagree .speak-rgt { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #F08080 transparent transparent transparent; position: absolute; right: -10px; top: 30px; }
 
 .agree img.profile, .disagree img.profile { max-height: 120px; max-width: 120px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
+
+.agree .options, .disagree .options { position: absolute; bottom: 10px; }
+.agree .options a.dislike, .agree .options a.dislike:link, .agree .options a.dislike:visited, .disagree .options a.dislike, .disagree .options a.dislike:link, .disagree .options a.dislike:visited { text-decoration: none; font-size: 12px; font-weight: bold; font-style: normal; text-transform: uppercase; }
 
 
 input[type=submit].button, input[type=button].button { font-size: 12px; font-weight: bold; color: #fff; padding: 5px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; cursor: pointer; background: #20a9c9 }

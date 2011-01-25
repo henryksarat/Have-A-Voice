@@ -79,8 +79,14 @@ namespace HaveAVoice.Helpers.UI {
 			divCommentPad.InnerHtml += "&nbsp;";
 			divCommentPad.InnerHtml += anIssueReply.Reply;
 
+			var clrDiv = new TagBuilder("div");
+			clrDiv.MergeAttribute("class", "clear");
+			clrDiv.InnerHtml += "&nbsp;";
+			
+			stanceComment.InnerHtml += clrDiv.ToString();
+
 			var optionWrpr = new TagBuilder("div");
-			optionWrpr.MergeAttribute("class", "col-11");
+			optionWrpr.MergeAttribute("class", "col-11 options");
 
             var optionsDiv = new TagBuilder("div");
             optionsDiv.MergeAttribute("class", "p-v10");
@@ -94,7 +100,9 @@ namespace HaveAVoice.Helpers.UI {
                 myEdit.MergeAttribute("href", LinkHelper.EditIssueReply(anIssueReply.Id));
                 myEdit.MergeAttribute("class", "edit");
                 myEdit.InnerHtml += "Edit";
-                editDiv.InnerHtml +=myEdit.ToString();
+                editDiv.InnerHtml += myEdit.ToString();
+            } else {
+            	editDiv.InnerHtml += "&nbsp;";
             }
             optionsDiv.InnerHtml += editDiv.ToString();
             
@@ -106,7 +114,9 @@ namespace HaveAVoice.Helpers.UI {
                 myDelete.MergeAttribute("href", LinkHelper.EditIssueReply(anIssueReply.Id));
                 myDelete.MergeAttribute("class", "delete");
                 myDelete.InnerHtml += "Delete";
-                deleteDiv.InnerHtml +=myDelete.ToString();
+                deleteDiv.InnerHtml += myDelete.ToString();
+            } else {
+            	deleteDiv.InnerHtml += "&nbsp;";
             }
             optionsDiv.InnerHtml += deleteDiv.ToString();
             
@@ -128,14 +138,13 @@ namespace HaveAVoice.Helpers.UI {
                 myDislikeDisposition.MergeAttribute("class", "dislike");
                 myDislikeDisposition.InnerHtml += "Dislike";
                 dislikeDiv.InnerHtml +=myDislikeDisposition.ToString();
+            } else {
+            	likeDiv.InnerHtml += "&nbsp;";
+            	dislikeDiv.InnerHtml += "&nbsp;";
             }
 
 			optionsDiv.InnerHtml += likeDiv.ToString();
 			optionsDiv.InnerHtml += dislikeDiv.ToString();
-			
-			var clrDiv = new TagBuilder("div");
-			clrDiv.MergeAttribute("class", "clear");
-			clrDiv.InnerHtml += "&nbsp;";
 			
 			optionsDiv.InnerHtml += clrDiv.ToString();
 			

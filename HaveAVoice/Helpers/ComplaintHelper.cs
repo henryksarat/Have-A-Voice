@@ -20,7 +20,7 @@ namespace HaveAVoice.Helpers
         }
 
         public static string IssueLink(int aIssue) {
-            return String.Format("<a href=\"/Complaint/Complaint?sourceId={0}&complaintType={1}\">{2}</a>",
+            return String.Format("<a href=\"/Complaint/Complaint?sourceId={0}&complaintType={1}\" class=\"report\">{2}</a>",
                 aIssue,
                 ComplaintType.Issue,
                 "Report Issue");

@@ -81,22 +81,28 @@
 						<%= Html.Encode(Model.Issue.Description) %>
 		
 						<div class="clear">&nbsp;</div>
-						<div class="push-4 col-3">
-			                <% if (Model.Issue.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Edit_Any_Issue)) { %>
-			                    <%= Html.ActionLink("Edit", "Edit", new { id = Model.Issue.Id })%>
-			                <% } %>
-		                </div>
-		                <div class="push-4 col-3">
-			                <% if (Model.Issue.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Delete_Any_Issue)) { %>
-			                    <%= Html.ActionLink("Delete", "Delete", new { id = Model.Issue.Id })%>
-			                <% } %>
-		                </div>
-		                <div class="push-4 col-3">
-		                	<%= ComplaintHelper.IssueLink(Model.Issue.Id) %>
+						<div class="col-15 p-v10 options">
+							<div class="push-6 col-3 center">
+				                <% if (Model.Issue.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Edit_Any_Issue)) { %>
+				                    <%= Html.ActionLink("Edit", "Edit", new { id = Model.Issue.Id }, new { @class = "edit" })%>
+				                <% } else { %>
+				                	&nbsp;
+				                <% } %>
+			                </div>
+			                <div class="push-6 col-3 center">
+				                <% if (Model.Issue.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Delete_Any_Issue)) { %>
+				                    <%= Html.ActionLink("Delete", "Delete", new { id = Model.Issue.Id }, new { @class = "delete" })%>
+				                <% } else { %>
+				                	&nbsp;
+				                <% } %>
+			                </div>
+			                <div class="push-6 col-3 center">
+			                	<%= ComplaintHelper.IssueLink(Model.Issue.Id) %>
+			                </div>
 		                </div>
 					</div>
 				</div>
-				<div class="push-2 col-3 stats">
+				<div class="push-2 col-3 stats fnt-12">
 					<div class="p-a5">
 						<h4 class="m-btm5">Stats</h4>
 						<div class="bold">Posted:</div>
