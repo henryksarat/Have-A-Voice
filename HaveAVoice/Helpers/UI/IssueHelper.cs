@@ -10,6 +10,11 @@ using System.Collections.Generic;
 
 namespace HaveAVoice.Helpers.UI {
     public class IssueHelper {
+        public static string Filter(string aType, int aValue) {
+            var linkTag = new TagBuilder("href");
+            linkTag.
+            
+        }
         public static string UserIssueReply(IssueReplyModel anIssueReply) {
             return BuildIssueReplyTable(anIssueReply);
         }
@@ -21,14 +26,14 @@ namespace HaveAVoice.Helpers.UI {
         private static string BuildIssueReplyTable(IssueReplyModel anIssueReply) {
         	var stanceDiv = new TagBuilder("div");
 
-            if(anIssueReply.IssueStance == (int)IssueStance.Agree) {
+            if(anIssueReply.IssueStance == (int)IssueStanceFilter.Agree) {
         	    stanceDiv.MergeAttribute("class", "agree m-btm10");
             } else {
                 stanceDiv.MergeAttribute("class", "disagree m-btm10");
             }
 
 			var profileDiv = new TagBuilder("div");
-            if (anIssueReply.IssueStance == (int)IssueStance.Disagree) {
+            if (anIssueReply.IssueStance == (int)IssueStanceFilter.Disagree) {
 			    profileDiv.MergeAttribute("class", "col-3 center push-21");
 			} else {
 				profileDiv.MergeAttribute("class", "push-6 col-3 center");
@@ -52,7 +57,7 @@ namespace HaveAVoice.Helpers.UI {
 			
 			var spanDirSpeak = new TagBuilder("span");
 			
-            if (anIssueReply.IssueStance == (int)IssueStance.Agree) {
+            if (anIssueReply.IssueStance == (int)IssueStanceFilter.Agree) {
                 spanDirSpeak.MergeAttribute("class", "speak-lft");
             } else {
                 spanDirSpeak.MergeAttribute("class", "speak-rgt");
@@ -156,7 +161,7 @@ namespace HaveAVoice.Helpers.UI {
 
 			var divTimeStamp = new TagBuilder("div");
 			
-            if (anIssueReply.IssueStance == (int)IssueStance.Disagree) {
+            if (anIssueReply.IssueStance == (int)IssueStanceFilter.Disagree) {
 			    divTimeStamp.MergeAttribute("class", "col-3 date-tile pull-9");
             } else {
             	divTimeStamp.MergeAttribute("class", "col-3 date-tile push-6");

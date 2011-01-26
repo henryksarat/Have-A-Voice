@@ -19,6 +19,7 @@ namespace HaveAVoice.Models.View {
         public PersonFilter PersonFilter { get; private set; }
 
         public int TempDispositionHolder {
+            get;
             set {
                 if (value == (int)Helpers.Enums.Disposition.Like) {
                     Disposition = Helpers.Enums.Disposition.Like;
@@ -31,6 +32,7 @@ namespace HaveAVoice.Models.View {
         }
 
         public int TempPersonFilterHolder {
+            get;
             set {
                 if (value == (int)Helpers.Enums.PersonFilter.People) {
                     PersonFilter = Helpers.Enums.PersonFilter.People;
@@ -40,6 +42,22 @@ namespace HaveAVoice.Models.View {
                     PersonFilter = Helpers.Enums.PersonFilter.All;
                 }
             }
+        }
+
+        public IssueReplyModel ShallowCopy() {
+            return new IssueReplyModel() {
+                Issue = Issue,
+                Id = Id,
+                User = User,
+                Reply = Reply,
+                DateTimeStamp = DateTimeStamp,
+                CommentCount = CommentCount,
+                Anonymous = Anonymous,
+                HasDisposition = HasDisposition,
+                IssueStance = IssueStance,
+                Disposition = Disposition,
+                PersonFilter = PersonFilter
+            };
         }
     }
 }

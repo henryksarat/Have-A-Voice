@@ -49,13 +49,13 @@
 		
 		<div class="push-7 col-9 m-btm10">
 			<div class="m-lft col-3 m-rgt center">
-                <%=Html.ActionLink("ALL", "FilterIssue", new { type = "Disposition", filterValue = (int)Disposition.None}, new { @class = "filter" }) %>
+                <%=Html.ActionLink("ALL", "FilterIssue", new { type = "IssueStanceFilter", filterValue = (int)IssueStanceFilter.All}, new { @class = "filter" }) %>
 			</div>
 			<div class="m-lft col-3 m-rgt center">
-                <%=Html.ActionLink("Agree", "FilterIssue", new { type = "Disposition", filterValue = (int)Disposition.Like}, new { @class = "filter" }) %>
+                <%=Html.ActionLink("Agree", "FilterIssue", new { type = "IssueStanceFilter", filterValue = (int)IssueStanceFilter.Agree}, new { @class = "filter" }) %>
 			</div>
 			<div class="m-lft col-3 m-rgt center">
-                <%=Html.ActionLink("Disagree", "FilterIssue", new { type = "Disposition", filterValue = (int)Disposition.Dislike}, new { @class = "filter" }) %>
+                <%=Html.ActionLink("Disagree", "FilterIssue", new { type = "IssueStanceFilter", filterValue = (int)IssueStanceFilter.Disagree}, new { @class = "filter" }) %>
 			</div>
 		</div>
 		<div class="clear">&nbsp;</div>

@@ -15,8 +15,7 @@ using HaveAVoice.Controllers.Helpers;
 using System.Collections;
 using HaveAVoice.Helpers.Enums;
 
-namespace HaveAVoice.Controllers.Issues
-{
+namespace HaveAVoice.Controllers.Issues {
     public class IssueController : HAVBaseController {
         private static string GET_LATEST_ISSUES_ERROR = "Unable to get the latest myIssues.";
         private static string NO_ISSUES = "There are no latest myIssues to display.";
@@ -127,7 +126,7 @@ namespace HaveAVoice.Controllers.Issues
                 
                 Dictionary<string, int> myFilter = new Dictionary<string, int>();
                 myFilter.Add("PersonFilter", (int)PersonFilter.All);
-                myFilter.Add("Disposition", (int)HaveAVoice.Helpers.Enums.Disposition.None);
+                myFilter.Add("IssueStanceFilter", (int)IssueStanceFilter.All);
 
                 TempData["Filter"] = myFilter;
 
@@ -160,18 +159,38 @@ namespace HaveAVoice.Controllers.Issues
 
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult FilterIssue(string type, int filterValue) {
-            IssueModel myModel = (IssueModel)TempData["OriginalIssue"];
-            myModel.Issue = Issue.CreateIssue(0, "FUCK", "ad", "ad", "ad", DateTime.UtcNow, 0, false) ;
-            myModel.Issue.User = GetUserInformaton();
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+
+            IssueModel myEditableModel = ((IssueModel)TempData["OriginalIssue"]).Copy();
+            //myEditableModel.Issue = Issue.CreateIssue(0, "FUCK", "ad", "ad", "ad", DateTime.UtcNow, 0, false) ;
+            //myEditableModel.Issue.User = GetUserInformaton();
             Dictionary<string, int> myFilter = (Dictionary<string, int>)TempData["Filter"];
             myFilter.Remove(type);
             myFilter.Add(type, filterValue);
 
+            IEnumerable<IssueReplyModel> myReplys = new List<IssueReplyModel>();
 
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
+            //LINQ based on whats in the dictionary now
+            if(myFilter["PersonFilter"] != 0 && myFilter["IssueStanceFilter"] != 0) {
+                myReplys = (from r in myEditableModel.Replys
+                            where r.TempPersonFilterHolder == myFilter["PersonFilter"]
+                            && r.TempDispositionHolder == myFilter["IssueStanceFilter"]
+                            select r).ToList<IssueReplyModel>();
+            } else if (myFilter["PersonFilter"] != 0) {
+                myReplys = (from r in myEditableModel.Replys
+                            where r.TempPersonFilterHolder == myFilter["PersonFilter"]
+                            select r).ToList<IssueReplyModel>();
+            } else if (myFilter["IssueStanceFilter"] != 0) {
+                myReplys = (from r in myEditableModel.Replys
+                            where r.TempDispositionHolder == myFilter["IssueStanceFilter"]
+                            select r).ToList<IssueReplyModel>();
             }
-            return View("View", myModel);
+
+            myEditableModel.Replys = myReplys;
+
+            return View("View", myEditableModel);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

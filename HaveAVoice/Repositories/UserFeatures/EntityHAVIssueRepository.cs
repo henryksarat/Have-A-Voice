@@ -64,7 +64,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     select new IssueReplyModel { 
                         Id = ir.Id,
                         Issue = ir.Issue,
-                        IssueStance = (ir.Disposition == 1) ? (int)IssueStance.Agree : (int)IssueStance.Disagree,
+                        IssueStance = (ir.Disposition == 1) ? (int)IssueStanceFilter.Agree : (int)IssueStanceFilter.Disagree,
                         User = u,
                         Reply = ir.Reply,
                         DateTimeStamp = ir.DateTimeStamp,
