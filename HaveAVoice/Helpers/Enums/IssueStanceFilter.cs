@@ -4,8 +4,9 @@ using System.Linq;
 using System.Web;
 
 namespace HaveAVoice.Helpers.Enums {
-    public enum IssueFilter {
-        User,
-        Official
+    public enum IssueStanceFilter {
+        All = 0,
+        Agree = 1,
+        Disagree = 2
     }
 }

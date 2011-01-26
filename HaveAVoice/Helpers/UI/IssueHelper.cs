@@ -10,16 +10,33 @@ using System.Collections.Generic;
 
 namespace HaveAVoice.Helpers.UI {
     public class IssueHelper {
-        public static string Filter(string aType, int aValue) {
-            var linkTag = new TagBuilder("href");
-            linkTag.
-            
+        public static string PersonFilterButton(PersonFilter aFilter, Dictionary<string, int> aSelectedFilters, string aNonSelectedCssClass, string aSelectedCssClass) {
+            return Filter("PersonFilter", aFilter.ToString(), (int)aFilter, aSelectedFilters, aNonSelectedCssClass, aSelectedCssClass);
         }
+
+        public static string IssueStanceFilterButton(IssueStanceFilter aFilter, Dictionary<string, int> aSelectedFilters, string aNonSelectedCssClass, string aSelectedCssClass) {
+            return Filter("IssueStanceFilter", aFilter.ToString(), (int)aFilter, aSelectedFilters, aNonSelectedCssClass, aSelectedCssClass);
+        }
+
+        private static string Filter(string aFilterType, string aFilterText, int aFilterIntegerRepresentation, Dictionary<string, int> aSelectedFilters, string aNonSelectedCssClass, string aSelectedCssClass) {
+            var linkTag = new TagBuilder("a");
+            linkTag.InnerHtml = aFilterText;
+            linkTag.MergeAttribute("href", "/Issue/FilterIssue?type=" + aFilterType + "&filterValue=" + aFilterIntegerRepresentation);
+            int mySelectedFilter = aSelectedFilters[aFilterType];
+            if (mySelectedFilter == aFilterIntegerRepresentation) {
+                linkTag.MergeAttribute("class", aSelectedCssClass);
+            } else {
+                linkTag.MergeAttribute("class", aNonSelectedCssClass);
+            }
+
+            return linkTag.ToString();
+        }
+
         public static string UserIssueReply(IssueReplyModel anIssueReply) {
             return BuildIssueReplyTable(anIssueReply);
         }
 
-        public static string OfficialIssueReply(IssueReplyModel anIssueReply, IssueFilter aIssueFilter) {
+        public static string OfficialIssueReply(IssueReplyModel anIssueReply) {
             return BuildIssueReplyTable(anIssueReply);
         }
 

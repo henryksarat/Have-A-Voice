@@ -299,7 +299,6 @@ form.create input[type=button]:hover { color: #115f71; background: #fff; }
 /****************************************************************************/
 .filter { border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; background-color: #20a9c9; padding: 5px 0px; }
 
-
 /****************************************************************************/
 /**************************** ISSUES ****************************************/
 /****************************************************************************/
@@ -318,8 +317,11 @@ a.filter, a.filter:link, a.filter:visited { color: #fff; text-decoration: none; 
 a.filter:hover { background: #20a9c9; font-weight: bold; }
 a.filter.like:hover { background: #2070c9; font-weight: bold; }
 a.filter.dislike:hover { background: #c94020; font-weight: bold; }
-
-.issue-profile img.profile { max-height: 120px; max-width: 120px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
+a.filterSelected, a.filterSelected:link, a.filterSelected:visited { color: #fff; text-decoration: none; background: #2070c9; padding: 5px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; display: block; }
+a.filterSelected:hover { background: #20a9c9; font-weight: bold; }
+a.filterSelected.like:hover { background: #2070c9; font-weight: bold; }
+a.filterSelected.dislike:hover { background: #c94020; font-weight: bold; }
+.filterSelected-profile img.profile { max-height: 120px; max-width: 120px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
 
 .comment { position: relative; background: #20a9c9; color: #fff; font-size: 13px; min-height: 120px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
 .comment h1 { font-size: 18px; font-style: italic; }

@@ -19,7 +19,9 @@ namespace HaveAVoice.Models.View {
         public PersonFilter PersonFilter { get; private set; }
 
         public int TempDispositionHolder {
-            get;
+            get {
+                return (int)Disposition;
+            }
             set {
                 if (value == (int)Helpers.Enums.Disposition.Like) {
                     Disposition = Helpers.Enums.Disposition.Like;
@@ -32,7 +34,9 @@ namespace HaveAVoice.Models.View {
         }
 
         public int TempPersonFilterHolder {
-            get;
+            get {
+                return (int)PersonFilter;
+            }
             set {
                 if (value == (int)Helpers.Enums.PersonFilter.People) {
                     PersonFilter = Helpers.Enums.PersonFilter.People;

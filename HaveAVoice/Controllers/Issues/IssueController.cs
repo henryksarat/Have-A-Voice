@@ -164,15 +164,12 @@ namespace HaveAVoice.Controllers.Issues {
             }
 
             IssueModel myEditableModel = ((IssueModel)TempData["OriginalIssue"]).Copy();
-            //myEditableModel.Issue = Issue.CreateIssue(0, "FUCK", "ad", "ad", "ad", DateTime.UtcNow, 0, false) ;
-            //myEditableModel.Issue.User = GetUserInformaton();
             Dictionary<string, int> myFilter = (Dictionary<string, int>)TempData["Filter"];
             myFilter.Remove(type);
             myFilter.Add(type, filterValue);
 
             IEnumerable<IssueReplyModel> myReplys = new List<IssueReplyModel>();
 
-            //LINQ based on whats in the dictionary now
             if(myFilter["PersonFilter"] != 0 && myFilter["IssueStanceFilter"] != 0) {
                 myReplys = (from r in myEditableModel.Replys
                             where r.TempPersonFilterHolder == myFilter["PersonFilter"]

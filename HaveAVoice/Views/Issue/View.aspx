@@ -13,8 +13,9 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="col-24 m-btm30">
         <div class="spacer-30">&nbsp;</div>
-        <% TempData["OriginalIssue"] = Model; %>
-        <% TempData["Filter"] = TempData["Filter"]; %>
+        <% TempData["OriginalIssue"] = TempData["OriginalIssue"]; %>
+        <% Dictionary<string,int> myFilter = (Dictionary<string,int>)TempData["Filter"];  %>
+        <% TempData["Filter"] = myFilter; %>
     
     	<% Html.RenderPartial("Message"); %>
     
@@ -36,26 +37,26 @@
 		
 		<div class="push-7 col-9 m-btm10">
 			<div class="m-lft col-3 m-rgt center">
-				<%=Html.ActionLink("ALL", "FilterIssue", new { type = "PersonFilter", filterValue = (int)PersonFilter.All}, new { @class = "filter" }) %>
+                <%= IssueHelper.PersonFilterButton(PersonFilter.All, myFilter, "filter", "filterSelected") %>
 			</div>
 			<div class="m-lft col-3 m-rgt center">
-                <%=Html.ActionLink("Politicians", "FilterIssue", new { type = "PersonFilter", filterValue = (int)PersonFilter.Politicians}, new { @class = "filter" }) %>
+                <%= IssueHelper.PersonFilterButton(PersonFilter.Politicians, myFilter, "filter", "filterSelected") %>
 			</div>
 			<div class="m-lft col-3 m-rgt center">
-                <%=Html.ActionLink("People", "FilterIssue", new { type = "PersonFilter", filterValue = (int)PersonFilter.People}, new { @class = "filter" }) %>
+                <%= IssueHelper.PersonFilterButton(PersonFilter.People, myFilter, "filter", "filterSelected") %>
 			</div>
 		</div>
 		<div class="clear">&nbsp;</div>
 		
 		<div class="push-7 col-9 m-btm10">
 			<div class="m-lft col-3 m-rgt center">
-                <%=Html.ActionLink("ALL", "FilterIssue", new { type = "IssueStanceFilter", filterValue = (int)IssueStanceFilter.All}, new { @class = "filter" }) %>
+                <%= IssueHelper.IssueStanceFilterButton(IssueStanceFilter.All, myFilter, "filter", "filterSelected") %>
 			</div>
 			<div class="m-lft col-3 m-rgt center">
-                <%=Html.ActionLink("Agree", "FilterIssue", new { type = "IssueStanceFilter", filterValue = (int)IssueStanceFilter.Agree}, new { @class = "filter" }) %>
+                <%= IssueHelper.IssueStanceFilterButton(IssueStanceFilter.Agree, myFilter, "filter", "filterSelected") %>
 			</div>
 			<div class="m-lft col-3 m-rgt center">
-                <%=Html.ActionLink("Disagree", "FilterIssue", new { type = "IssueStanceFilter", filterValue = (int)IssueStanceFilter.Disagree}, new { @class = "filter" }) %>
+                <%= IssueHelper.IssueStanceFilterButton(IssueStanceFilter.Disagree, myFilter, "filter", "filterSelected") %>
 			</div>
 		</div>
 		<div class="clear">&nbsp;</div>
