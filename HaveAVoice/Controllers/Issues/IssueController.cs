@@ -183,6 +183,8 @@ namespace HaveAVoice.Controllers.Issues {
                 myReplys = (from r in myEditableModel.Replys
                             where r.TempDispositionHolder == myFilter["IssueStanceFilter"]
                             select r).ToList<IssueReplyModel>();
+            } else {
+                myReplys = myEditableModel.Replys;
             }
 
             myEditableModel.Replys = myReplys;
