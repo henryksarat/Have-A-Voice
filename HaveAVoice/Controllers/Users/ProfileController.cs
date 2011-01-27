@@ -14,6 +14,7 @@ using HaveAVoice.Models.View;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Controllers.ActionFilters;
 using HaveAVoice.Exceptions;
+using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Controllers.Users {
     public class ProfileController : HAVBaseController {
@@ -63,11 +64,15 @@ namespace HaveAVoice.Controllers.Users {
         [RequiredRouteValueAttribute.RequireRouteValues(new string[] { })]
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Show() {
-            User myUser = GetUserInformaton();
-            LoggedInWrapperModel<UserProfileModel> myModel = new LoggedInWrapperModel<UserProfileModel>(myUser, SiteSection.MyProfile);
+            UserInformationModel myUser = GetUserInformatonModel();
+            LoggedInWrapperModel<UserProfileModel> myModel = new LoggedInWrapperModel<UserProfileModel>(myUser.Details, SiteSection.MyProfile);
 
             try {
-                myModel.Model = theService.MyProfile(myUser);
+                if (HAVPermissionHelper.AllowedToPerformAction(myUser, HAVPermission.Authority_Feed)) {
+                    myModel.Model = theService.AuthorityProfile(myUser.Details);
+                } else {
+                    myModel.Model = theService.MyProfile(myUser.Details);
+                }
 
                 if (myModel.Model.IsEmpty()) {
                     ViewData["Message"] = MessageHelper.NormalMessage(EMPTY_FEED);

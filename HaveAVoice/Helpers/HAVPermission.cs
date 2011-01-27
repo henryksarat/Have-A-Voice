@@ -56,6 +56,7 @@ namespace HaveAVoice.Helpers {
         View_Feedback,
         View_Admin,
         //Authority Verification
-        Create_Authority_Verification_Token
+        Create_Authority_Verification_Token,
+        Authority_Feed
     }
 }

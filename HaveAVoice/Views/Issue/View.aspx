@@ -13,9 +13,9 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="col-24 m-btm30">
         <div class="spacer-30">&nbsp;</div>
-        <% TempData["OriginalIssue"] = TempData["OriginalIssue"]; %>
-        <% Dictionary<string,int> myFilter = (Dictionary<string,int>)TempData["Filter"];  %>
-        <% TempData["Filter"] = myFilter; %>
+        <% TempData[HAVConstants.ORIGINAL_ISSUE_TEMP_DATA] = TempData[HAVConstants.ORIGINAL_ISSUE_TEMP_DATA]; %>
+        <% Dictionary<string,int> myFilter = (Dictionary<string,int>)TempData[HAVConstants.FILTER_TEMP_DATA];  %>
+        <% TempData[HAVConstants.FILTER_TEMP_DATA] = myFilter; %>
     
     	<% Html.RenderPartial("Message"); %>
     

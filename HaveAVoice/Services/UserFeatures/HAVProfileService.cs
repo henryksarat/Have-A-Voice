@@ -79,6 +79,41 @@ namespace HaveAVoice.Services.UserFeatures {
             throw new CustomException(HAVConstants.NOT_ALLOWED);
         }
 
+        public UserProfileModel AuthorityProfile(User anAuthorityUser) {
+            //This has to take into user privacy if they want an authority to see their profile
+            UserProfileModel myModel = new UserProfileModel(anAuthorityUser) {
+                IssueFeed = CreateIssueFeed(theRepository.OfficialsIssueFeed(anAuthorityUser, RoleHelper.OfficialRoles())),
+                IssueReplyFeed = CreateIssueReplyFeed(theRepository.OfficialsIssueReplyFeed(anAuthorityUser, RoleHelper.OfficialRoles()))
+            };
+
+            return myModel;
+        }
+
+        private IEnumerable<IssueFeedModel> CreateIssueFeedForAuthority(IEnumerable<Issue> anIssues) {
+            List<IssueFeedModel> myFeedModels = new List<IssueFeedModel>();
+
+            foreach (Issue myIssue in anIssues) {
+                IEnumerable<IssueDisposition> myIssueDisposition = myIssue.IssueDispositions;
+                if (PrivacyHelper.IsAllowed(myIssue.User, PrivacyAction.DisplayProfile)) {
+
+                }
+                IssueFeedModel myFeedModel = new IssueFeedModel(myIssue.User) {
+                    Id = myIssue.Id,
+                    DateTimeStamp = TimezoneHelper.ConvertToLocalTimeZone(myIssue.DateTimeStamp),
+                    Title = myIssue.Title,
+                    Description = myIssue.Description,
+                    TotalLikes = (from d in myIssueDisposition where d.Disposition == (int)Disposition.Like select d).Count<IssueDisposition>(),
+                    TotalDislikes = (from d in myIssueDisposition where d.Disposition == (int)Disposition.Dislike select d).Count<IssueDisposition>(),
+                    HasDisposition = (from d in myIssueDisposition where d.UserId == myIssue.User.Id select d).Count<IssueDisposition>() > 1 ? true : false,
+                    TotalReplys = myIssue.IssueReplys.Count,
+                    IssueReplys = myIssue.IssueReplys
+                };
+
+                myFeedModels.Add(myFeedModel);
+            }
+
+            return myFeedModels;
+        }
 
         private IEnumerable<IssueFeedModel> CreateIssueFeed(IEnumerable<Issue> anIssues) {
             List<IssueFeedModel> myFeedModels = new List<IssueFeedModel>();
@@ -182,5 +217,6 @@ namespace HaveAVoice.Services.UserFeatures {
 
             return myFriendStatus;
         }
+
     }
 }

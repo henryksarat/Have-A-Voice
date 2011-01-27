@@ -17,21 +17,24 @@ using HaveAVoice.Helpers.Enums;
 
 namespace HaveAVoice.Controllers.Issues {
     public class IssueController : HAVBaseController {
-        private static string GET_LATEST_ISSUES_ERROR = "Unable to get the latest myIssues.";
-        private static string NO_ISSUES = "There are no latest myIssues to display.";
+        private const string GET_LATEST_ISSUES_ERROR = "Unable to get the latest myIssues.";
+        private const string NO_ISSUES = "There are no latest myIssues to display.";
 
-        private static string POST_SUCCESS = "Issue posted succesfully.";
-        private static string DELETE_SUCCESS = "Issue deleted succesfully.";
-        private static string EDIT_SUCCESS = "Issue edited successfully!";
-        private static string REPLY_SUCCESS = "Reply posted successfully!";
-        private static string DISPOSITION_SUCCESS = "Disposition added successfully!";
+        private const string POST_SUCCESS = "Issue posted succesfully.";
+        private const string DELETE_SUCCESS = "Issue deleted succesfully.";
+        private const string EDIT_SUCCESS = "Issue edited successfully!";
+        private const string REPLY_SUCCESS = "Reply posted successfully!";
+        private const string DISPOSITION_SUCCESS = "Disposition added successfully!";
 
-        private static string CREATING_ISSUE_ERROR = "Error creating issue. Please try again.";
-        private static string CREATING_COMMENT_ERROR = "Error posting comment for the issue reply. Please try again.";
-        private static string DISPOSITION_ERROR = "An error occurred while adding your disposition to the issue.";
-        private static string DELETE_ISSUE_ERROR = "An error orror occurred while deleting the issue. Please try again.";
-        private static string EDIT_ISSUE_LOAD_ERROR = "Error while retrieving your original issue. Please try again.";
-        private static string EDIT_ISSUE_ERROR = "Error editing the issue. Please try again.";
+        private const string CREATING_ISSUE_ERROR = "Error creating issue. Please try again.";
+        private const string CREATING_COMMENT_ERROR = "Error posting comment for the issue reply. Please try again.";
+        private const string DISPOSITION_ERROR = "An error occurred while adding your disposition to the issue.";
+        private const string DELETE_ISSUE_ERROR = "An error orror occurred while deleting the issue. Please try again.";
+        private const string EDIT_ISSUE_LOAD_ERROR = "Error while retrieving your original issue. Please try again.";
+        private const string EDIT_ISSUE_ERROR = "Error editing the issue. Please try again.";
+
+        private const string PERSON_FILTER = "PersonFilter";
+        private const string ISSUE_STANCE_FILTER = "IssueStanceFilter";
 
         private IHAVIssueService theService;
 
@@ -121,16 +124,11 @@ namespace HaveAVoice.Controllers.Issues {
                 myMerged.AddRange(registeredUserReplys);
                 myMerged.AddRange(officialUserReplys);
 
-                IssueModel issueModel = new IssueModel(issue, myMerged);
-                TempData["OriginalIssue"] = issueModel;
-                
-                Dictionary<string, int> myFilter = new Dictionary<string, int>();
-                myFilter.Add("PersonFilter", (int)PersonFilter.All);
-                myFilter.Add("IssueStanceFilter", (int)IssueStanceFilter.All);
+                IssueModel myIssueModel = new IssueModel(issue, myMerged);
 
-                TempData["Filter"] = myFilter;
+                SaveIssueInformationToTempDataForFiltering(myIssueModel);
 
-                return View("View", issueModel);
+                return View("View", myIssueModel);
             } catch (Exception e) {
                 string details = "An error occurred while trying to view the issue.";
                 LogError(e, details);
@@ -163,31 +161,10 @@ namespace HaveAVoice.Controllers.Issues {
                 return RedirectToLogin();
             }
 
-            IssueModel myEditableModel = ((IssueModel)TempData["OriginalIssue"]).Copy();
-            Dictionary<string, int> myFilter = (Dictionary<string, int>)TempData["Filter"];
-            myFilter.Remove(type);
-            myFilter.Add(type, filterValue);
+            IssueModel myEditableModel = GetOriginalIssue();
+            Dictionary<string, int> myFilter = GetUpdatedFilter(type, filterValue);
 
-            IEnumerable<IssueReplyModel> myReplys = new List<IssueReplyModel>();
-
-            if(myFilter["PersonFilter"] != 0 && myFilter["IssueStanceFilter"] != 0) {
-                myReplys = (from r in myEditableModel.Replys
-                            where r.TempPersonFilterHolder == myFilter["PersonFilter"]
-                            && r.TempDispositionHolder == myFilter["IssueStanceFilter"]
-                            select r).ToList<IssueReplyModel>();
-            } else if (myFilter["PersonFilter"] != 0) {
-                myReplys = (from r in myEditableModel.Replys
-                            where r.TempPersonFilterHolder == myFilter["PersonFilter"]
-                            select r).ToList<IssueReplyModel>();
-            } else if (myFilter["IssueStanceFilter"] != 0) {
-                myReplys = (from r in myEditableModel.Replys
-                            where r.TempDispositionHolder == myFilter["IssueStanceFilter"]
-                            select r).ToList<IssueReplyModel>();
-            } else {
-                myReplys = myEditableModel.Replys;
-            }
-
-            myEditableModel.Replys = myReplys;
+            myEditableModel.Replys = FilterReplys(myEditableModel, myFilter);
 
             return View("View", myEditableModel);
         }
@@ -269,6 +246,50 @@ namespace HaveAVoice.Controllers.Issues {
             }
 
             return View("Edit", anIssueWrapper);
+        }
+
+        private void SaveIssueInformationToTempDataForFiltering(IssueModel aModel) {
+            TempData[HAVConstants.ORIGINAL_ISSUE_TEMP_DATA] = aModel;
+
+            Dictionary<string, int> myFilter = new Dictionary<string, int>();
+            myFilter.Add(PERSON_FILTER, (int)PersonFilter.All);
+            myFilter.Add(ISSUE_STANCE_FILTER, (int)IssueStanceFilter.All);
+
+            TempData[HAVConstants.FILTER_TEMP_DATA] = myFilter;
+        }
+
+        private IssueModel GetOriginalIssue() {
+            return ((IssueModel)TempData[HAVConstants.ORIGINAL_ISSUE_TEMP_DATA]).Copy();
+        }
+
+        private Dictionary<string, int> GetUpdatedFilter(string type, int filterValue) {
+            Dictionary<string, int> myFilter = (Dictionary<string, int>)TempData[HAVConstants.FILTER_TEMP_DATA];
+            myFilter.Remove(type);
+            myFilter.Add(type, filterValue);
+            return myFilter;
+        }
+
+        private IEnumerable<IssueReplyModel> FilterReplys(IssueModel myEditableModel, Dictionary<string, int> myFilter) {
+            IEnumerable<IssueReplyModel> myReplys = new List<IssueReplyModel>();
+
+            if (myFilter[PERSON_FILTER] != 0 && myFilter[ISSUE_STANCE_FILTER] != 0) {
+                myReplys = (from r in myEditableModel.Replys
+                            where r.TempPersonFilterHolder == myFilter[PERSON_FILTER]
+                            && r.TempDispositionHolder == myFilter[ISSUE_STANCE_FILTER]
+                            select r).ToList<IssueReplyModel>();
+            } else if (myFilter[PERSON_FILTER] != 0) {
+                myReplys = (from r in myEditableModel.Replys
+                            where r.TempPersonFilterHolder == myFilter[PERSON_FILTER]
+                            select r).ToList<IssueReplyModel>();
+            } else if (myFilter[ISSUE_STANCE_FILTER] != 0) {
+                myReplys = (from r in myEditableModel.Replys
+                            where r.TempDispositionHolder == myFilter[ISSUE_STANCE_FILTER]
+                            select r).ToList<IssueReplyModel>();
+            } else {
+                myReplys = myEditableModel.Replys;
+            }
+
+            return myReplys;
         }
     }
 }

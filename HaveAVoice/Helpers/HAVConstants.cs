@@ -22,6 +22,9 @@ namespace HaveAVoice.Helpers {
         public static string ERROR = "An error has occurred. Please try again.";
         public static string NOT_FRIEND = "You must be a friend of the user.";
 
+        public const string FILTER_TEMP_DATA = "Filter";
+        public const string ORIGINAL_ISSUE_TEMP_DATA = "OriginalIssue";
+
         public static List<string> STATES = new List<string>() { 
                 "Select",
                 "AL",

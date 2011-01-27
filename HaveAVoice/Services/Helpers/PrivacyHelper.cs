@@ -14,6 +14,7 @@ namespace HaveAVoice.Services.Helpers {
             bool myIsAllowed = false;
             bool myIsLoggedIn = HAVUserInformationFactory.IsLoggedIn();
 
+            //Display profile to authority needds to be added
             if (aPrivacyAction == PrivacyAction.DisplayProfile) {
                 if (myPrivacySetting.DisplayProfileToNonLoggedIn) {
                     myIsAllowed = true;
