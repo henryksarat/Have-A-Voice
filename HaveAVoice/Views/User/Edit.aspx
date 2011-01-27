@@ -19,7 +19,7 @@
     </script>
     
     <div class="container-24">
-	    <div class="col-3 profile" rel="match">
+	    <div class="col-6 profile" rel="match">
 	        <img src="<%= Model.ProfilePictureURL %>" alt="<%= Model.UserInformation.Username %>" class="profile" />
 	        <br />
 	        <div class="col-6 p-v10 details">
@@ -29,20 +29,23 @@
 	            <span class="blue">Email:</span> <%=Model.UserInformation.Email %><br />
 			</div>
 	
-			<div class="col-6 round-3 m-btm10 p-a10">
-				<input type="button" class="friend" value="Become a friend" />
-				<a class="p-v5 m-t15" href="#">Send <%=Model.UserInformation.FirstName %> a private message</a>
-				<h6 class="m-t15">Stats</h6>
-				<hr />
-				<div class="col-1 teal fnt-18">32</div><div class="col-1 white font-18">Ideas</div>
-				<div class="clear">&nbsp;</div>
-				<div class="col-6 fnt-12 p-v10">
-				    <span class="green">102 likes</span>
-				    <span class="teal m-lft10 m-rgt10">|</span>
-				    <span class="red">1024 dislikes</span>
-	            </div>
-			    <div class="clear">&nbsp;</div>
-			    <div class="col-1 teal fnt-18"><%=Model.UserInformation.FriendedBy.Count %></div><div class="col-1 white fnt-18">Friends</div>
+			<div class="col-6 round-3 m-btm10">
+				<div class="p-a10">
+					<input type="button" class="fan" value="Become a friend" />
+					<a class="p-v5 m-top15" href="#">Send <%=Model.UserInformation.FirstName %> a private message</a>
+					<h6 class="m-top15">Stats</h6>
+					<hr />
+					<div class="col-1 teal fnt-18">32</div><div class="col-1 c-white fnt-18">Ideas</div>
+					<div class="clear">&nbsp;</div>
+					<div class="col-6 fnt-12 p-v10">
+					    <span class="green">102 likes</span>
+					    <span class="teal m-lft10 m-rgt10">|</span>
+					    <span class="red">1024 dislikes</span>
+		            </div>
+				    <div class="clear">&nbsp;</div>
+				    <div class="col-1 teal fnt-18"><%=Model.UserInformation.FriendedBy.Count %></div><div class="col-1 c-white fnt-18">Friends</div>
+				    <div class="clear">&nbsp;</div>
+				</div>
 		    </div>
 	        <div class="col-6">
 			    <h4>About Me</h4>
@@ -50,7 +53,7 @@
 	        </div>
 	    </div>
 	
-	    <div class="col-13 form" rel="match">
+	    <div class="m-lft col-13 form" rel="match">
 	        <% Html.RenderPartial("Message"); %>
 	
 	        <%= Html.ValidationSummary("Edit was unsuccessful. Please correct the errors and try again.") %>

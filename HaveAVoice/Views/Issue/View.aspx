@@ -53,10 +53,10 @@
                 <%= IssueHelper.IssueStanceFilterButton(IssueStanceFilter.All, myFilter, "filter", "filterSelected") %>
 			</div>
 			<div class="m-lft col-3 m-rgt center">
-                <%= IssueHelper.IssueStanceFilterButton(IssueStanceFilter.Agree, myFilter, "filter", "filterSelected") %>
+                <%= IssueHelper.IssueStanceFilterButton(IssueStanceFilter.Agree, myFilter, "filter like", "filterSelected like") %>
 			</div>
 			<div class="m-lft col-3 m-rgt center">
-                <%= IssueHelper.IssueStanceFilterButton(IssueStanceFilter.Disagree, myFilter, "filter", "filterSelected") %>
+                <%= IssueHelper.IssueStanceFilterButton(IssueStanceFilter.Disagree, myFilter, "filter dislike", "filterSelected dislike") %>
 			</div>
 		</div>
 		<div class="clear">&nbsp;</div>
