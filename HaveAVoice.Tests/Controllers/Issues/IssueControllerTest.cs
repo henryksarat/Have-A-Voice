@@ -32,7 +32,7 @@ namespace HaveAVoice.Tests.Controllers.Issues {
         private IssueModel theIssueModel;
         private IssueReplyDetailsModel theIssueReplyDetailsModel;
 
-
+        /*
         [TestInitialize]
         public void Initialize() {
             theIssue = Issue.CreateIssue(2, "Issue Title", "Description of Issue", "Chicago", "IL", new DateTime(1987, 05, 03), 0, false);
@@ -200,7 +200,6 @@ namespace HaveAVoice.Tests.Controllers.Issues {
 
             AssertAuthenticatedErrorLogReturnBack(myResult, "Create");
         }
-        */
         [TestMethod]
         public void ShouldLoadViewIssuePage() {
             PermissionTestHelper.AddPermissionToUserInformation(theUserInformationBuilder, HAVPermission.View_Issue);
@@ -260,7 +259,7 @@ namespace HaveAVoice.Tests.Controllers.Issues {
             theMockedService.Verify(s => s.GetReplysToIssue(It.IsAny<User>(), It.IsAny<Issue>(), It.IsAny<List<string>>()), Times.Never());
             AssertAuthenticatedRedirection(myResult);
         }
-
+         * 
         [TestMethod]
         public void ShouldNotPostIssueReplyNotLoggedIn() {
             theMockUserInformation.Setup(f => f.GetUserInformaton()).Returns(() => null);

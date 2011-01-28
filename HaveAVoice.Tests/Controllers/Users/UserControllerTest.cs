@@ -91,6 +91,7 @@ namespace HaveAVoice.Tests.Controllers.Users {
             theMockedService.Setup(s => s.AuthenticateUser(It.IsAny<string>(), It.IsAny<string>())).Returns(() => theUserInformationModel);
             theMockedService.Verify(s => s.CreateRememberMeCredentials(It.IsAny<User>()), Times.Exactly(1));
         }*/
+        /*
 
         [TestMethod]
         public void TestUserListController_NoUsers() {
@@ -115,7 +116,6 @@ namespace HaveAVoice.Tests.Controllers.Users {
             Assert.AreEqual(null, result.ViewData["Message"]);
             Assert.AreEqual("UserList", result.ViewName);
         }
-        /*
         [TestMethod]
         public void TestPhotos_NotLoggedIn() {
             theMockUserInformation.Setup(u => u.GetUserInformaton()).Returns(() => null);
