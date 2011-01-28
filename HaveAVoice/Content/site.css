@@ -42,6 +42,11 @@ body { font-family: helvetica, arial, sans-serif; background: #d9e9ed; }
 .c-white { color: #fff; }
 .c-gray { color: #a2a2a2; }
 
+.red { color: #d56667; }
+.blue { color: #04637a; }
+.teal { color: #34a8c3; }
+.green { color: #82ca7a; }
+
 .like { color: #2070c9; }
 .dislike { color: #c94020; }
 
@@ -299,6 +304,7 @@ form.create input[type=button]:hover { color: #115f71; background: #fff; }
 /****************************************************************************/
 .filter { border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; background-color: #20a9c9; padding: 5px 0px; }
 
+
 /****************************************************************************/
 /**************************** ISSUES ****************************************/
 /****************************************************************************/
@@ -318,9 +324,9 @@ a.filter:hover { background: #20a9c9; font-weight: bold; }
 a.filter.like:hover { background: #2070c9; font-weight: bold; }
 a.filter.dislike:hover { background: #c94020; font-weight: bold; }
 a.filterSelected, a.filterSelected:link, a.filterSelected:visited { color: #fff; text-decoration: none; background: #2070c9; padding: 5px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; display: block; }
-a.filterSelected:hover { background: #20a9c9; font-weight: bold; }
-a.filterSelected.like:hover { background: #2070c9; font-weight: bold; }
-a.filterSelected.dislike:hover { background: #c94020; font-weight: bold; }
+a.filterSelected { background: #20a9c9; font-weight: bold; }
+a.filterSelected.like { background: #2070c9; font-weight: bold; }
+a.filterSelected.dislike { background: #c94020; font-weight: bold; }
 .filterSelected-profile img.profile { max-height: 120px; max-width: 120px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
 
 .comment { position: relative; background: #20a9c9; color: #fff; font-size: 13px; min-height: 120px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
@@ -466,6 +472,19 @@ ul.photo-album li a.create { width: 110px; height: 110px; text-indent: -9999px; 
 .issue .disagree .comment { color: #fff; position: relative; background: #e03108; min-height: 120px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
 .issue .disagree .speak-rgt { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #e03108 transparent transparent transparent; position: absolute; right: -10px; top: 30px; }
 */
+
+
+/****************************************************************************/
+/************************* BECOME A FAN *************************************/
+/****************************************************************************/
+h4 { color: #82999f; font-size: 16px; font-weight: normal; margin-bottom: 4px; }
+h6 { color: #63a8b8; font-size: 16px; text-shadow: #4c8b9a -1px -1px 1px, #fff 1px 1px 1px; }
+
+.round-3 { border-radius: 3px -moz-border-radius: 3px; -webkit-border-radius: 3px; background: #c1dee5; }
+.round-3 a { width: 100%; color: #fff; display: block; background: #a6cdd7; text-align: center; text-decoration: none; border-radius: 3px; -moz-border-radius: 3px -webkit-border-radius: 3px; }
+
+input[type=button].fan { width: 100%; color: #63a8b8; cursor: pointer; font-size: 18px; font-weight: bold; border: 1px solid transparent; border-style: solid; border-size: 1px 1px 1px 1px; border-color: #fff transparent #abd3dd #fff; text-shadow: #4c8b9a -1px -1px 1px, #fff 1px 1px 1px; padding: 8px 16px 8px 50px; border-radius: 4px -moz-border-radius: 4px; -webkit-border-radius: 4px; background: url("images/star.png") no-repeat 20px 6px #d5eaef; background: url("images/star.png") no-repeat 20px 6px, -webkit-gradient(linear, left top, left bottom, color-stop(0, rgb(255,255,255)), color-stop(1, rgb(227,241,244))); background: url("images/star.png") no-repeat 20px 6px, -moz-linear-gradient(center top, rgb(255,255,255) 0%, rgb(227,241,244) 100%) url("images/star.png") no-repeat 20px 6px; }
+
 
 /****************************************************************************/
 /****************************************************************************/
