@@ -18,16 +18,12 @@ namespace HaveAVoice.Services.UserFeatures {
             thePrivacySettingsRepo = aPrivacySettingsRepo;
         }
 
-        public void AddDefaultUserPrivacySettings(User aUser) {
-            thePrivacySettingsRepo.AddDefaultUserPrivacySettings(aUser);
+        public IEnumerable<PrivacySetting> FindPrivacySettingsForUser(User aUser) {
+            throw new NotImplementedException();
         }
 
-        public void UpdatePrivacySettings(User aUser, UserPrivacySetting aUserPrivacySetting) {
-            thePrivacySettingsRepo.UpdatePrivacySettings(aUser, aUserPrivacySetting);
-        }
-
-        public UserPrivacySetting FindUserPrivacySettingsForUser(User aUser) {
-            return thePrivacySettingsRepo.FindUserPrivacySettingsForUser(aUser);
+        public void AddDefaultPrivacySettingsForUser(User aUser) {
+            
         }
     }
 }

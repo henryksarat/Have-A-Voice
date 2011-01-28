@@ -10,11 +10,11 @@ using HaveAVoice.Helpers.Enums;
 namespace HaveAVoice.Services.Helpers {
     public class PrivacyHelper {
         public static bool IsAllowed(User aTargetUser, PrivacyAction aPrivacyAction) {
-            UserPrivacySetting myPrivacySetting = GetPrivacySettings(aTargetUser);
             bool myIsAllowed = false;
             bool myIsLoggedIn = HAVUserInformationFactory.IsLoggedIn();
 
             //Display profile to authority needds to be added
+            /* REDO PRIVACY HELPER
             if (aPrivacyAction == PrivacyAction.DisplayProfile) {
                 if (myPrivacySetting.DisplayProfileToNonLoggedIn) {
                     myIsAllowed = true;
@@ -25,18 +25,8 @@ namespace HaveAVoice.Services.Helpers {
                     myIsAllowed = myFriendService.IsFriend(aTargetUser.Id, HAVUserInformationFactory.GetUserInformation().Details);
                 }
             }
-
+            */
             return myIsAllowed;
-        }
-
-        private static UserPrivacySetting GetPrivacySettings(User aUser) {
-            UserPrivacySetting myUserPrivacy = new UserPrivacySetting();
-
-            foreach (UserPrivacySetting myUserPrivacySetting in aUser.UserPrivacySettings) {
-                myUserPrivacy = myUserPrivacySetting;
-            }
-
-            return myUserPrivacy;
         }
     }
 }

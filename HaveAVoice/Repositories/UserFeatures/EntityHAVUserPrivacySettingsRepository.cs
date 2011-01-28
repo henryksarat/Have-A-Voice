@@ -9,28 +9,11 @@ namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVUserPrivacySettingsRepository : IHAVUserPrivacySettingsRepository {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
-        public void AddDefaultUserPrivacySettings(User aUser) {
-            UserPrivacySetting myPrivacySettings = UserPrivacySetting.CreateUserPrivacySetting(0, aUser.Id, false, false, false);
-            theEntities.AddToUserPrivacySettings(myPrivacySettings);
-            theEntities.SaveChanges();
-        }
-
-        public UserPrivacySetting FindUserPrivacySettingsForUser(User aUser) {
-            return (from p in theEntities.UserPrivacySettings
-                    where p.User.Id == aUser.Id
-                    select p).FirstOrDefault<UserPrivacySetting>();
-        }
-
-        public void UpdatePrivacySettings(User aUser, UserPrivacySetting aUserPrivacySetting) {
-            UserPrivacySetting mySettings = FindUserPrivacySettings(aUserPrivacySetting);
-            theEntities.ApplyCurrentValues(mySettings.EntityKey.EntitySetName, aUserPrivacySetting);
-            theEntities.SaveChanges();
-        }
-
-        private UserPrivacySetting FindUserPrivacySettings(UserPrivacySetting aUserPrivacySetting) {
-            return (from p in theEntities.UserPrivacySettings
-                    where p.Id == aUserPrivacySetting.Id
-                    select p).FirstOrDefault<UserPrivacySetting>();
+        public IEnumerable<PrivacySetting> FindPrivacySettingsForUser(User aUser) {
+            return (from p in theEntities.PrivacySettings
+                    join up in theEntities.UserPrivacySettings on p.Id equals up.PrivacySettingId
+                    where up.UserId == aUser.Id
+                    select p).ToList<PrivacySetting>();
         }
     }
 }

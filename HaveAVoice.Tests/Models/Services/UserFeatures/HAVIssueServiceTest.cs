@@ -103,6 +103,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
             Assert.AreEqual("Description is required.", error.ErrorMessage);
         }
 
+        /*
         [TestMethod]
         public void ShouldCreateValidIssueReply() {
             List<Permission> myPermissions = new List<Permission>();
@@ -157,7 +158,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
             Assert.IsFalse(result);
             var error = theModelState["Disposition"].Errors[0];
             Assert.AreEqual("Disposition is required.", error.ErrorMessage);
-        }
+        }*/
         
         [TestMethod]
         public void ShouldEditIssue() {

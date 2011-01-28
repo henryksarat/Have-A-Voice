@@ -49,7 +49,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 throw new Exception("The user has no restriction.");
             }
 
-            UserPrivacySetting myPrivacySettings = thePrivacySettingsService.FindUserPrivacySettingsForUser(myUser);
+            IEnumerable<PrivacySetting> myPrivacySettings = thePrivacySettingsService.FindUserPrivacySettingsForUser(myUser);
 
             if (myPrivacySettings == null) {
                 throw new Exception("The user has no privacy settings.");

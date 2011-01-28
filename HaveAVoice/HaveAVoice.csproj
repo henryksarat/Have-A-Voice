@@ -101,6 +101,7 @@
     <Compile Include="Helpers\Exceptions\CustomException.cs" />
     <Compile Include="Helpers\Exceptions\NotFriendException.cs" />
     <Compile Include="Helpers\HAVPermissionHelper.cs" />
+    <Compile Include="Helpers\HAVPrivacySetting.cs" />
     <Compile Include="Helpers\LinkHelper.cs" />
     <Compile Include="Helpers\PresentationHelper.cs" />
     <Compile Include="Helpers\RoleHelper.cs" />
@@ -126,7 +127,6 @@
     <Compile Include="Helpers\UserInformation\UserSettings.cs" />
     <Compile Include="Helpers\Enums\ForgotPasswordPhase.cs" />
     <Compile Include="Helpers\Enums\PrivacyAction.cs" />
-    <Compile Include="Helpers\Enums\PrivacySetting.cs" />
     <Compile Include="Helpers\Enums\Roles.cs" />
     <Compile Include="Helpers\Exceptions\EmailException.cs" />
     <Compile Include="Helpers\Exceptions\NullRoleException.cs" />

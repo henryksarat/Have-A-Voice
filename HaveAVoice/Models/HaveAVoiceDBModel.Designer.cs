@@ -53,7 +53,6 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Roles_Restrictions", "Restriction", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Restriction), "Role", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Role), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_RolePermissions_Roles", "Role", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Role), "RolePermission", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.RolePermission), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserRoles_Roles", "Role", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Role), "UserRole", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserRole), true)]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserPrivacySettings_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "UserPrivacySetting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserPrivacySetting), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserRoles_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "UserRole", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserRole), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_WhoIsOnline_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "WhoIsOnline", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.WhoIsOnline), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_BoardViewedState_Board", "Board", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Board), "BoardViewedState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.BoardViewedState), true)]
@@ -78,6 +77,11 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_PhotoComplaints_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "PhotoComplaint", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.PhotoComplaint), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Fans_FanUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Fan", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Fan), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Fans_SourceUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Fan", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Fan), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserPrivacyGroups_PrivacyGroup1", "PrivacyGroup", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.PrivacyGroup), "UserPrivacyGroup", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserPrivacyGroup), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_PrivacySettings_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "PrivacySetting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.PrivacySetting), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserPrivacyGroups_PrivacySettings", "PrivacySetting", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.PrivacySetting), "UserPrivacyGroup", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserPrivacyGroup), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserPrivacySettings_UserPrivacyGroups", "UserPrivacyGroup", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.UserPrivacyGroup), "UserPrivacySetting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserPrivacySetting), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserPrivacySettings_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "UserPrivacySetting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserPrivacySetting), true)]
 
 #endregion
 
@@ -548,22 +552,6 @@ namespace HaveAVoice.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<UserPrivacySetting> UserPrivacySettings
-        {
-            get
-            {
-                if ((_UserPrivacySettings == null))
-                {
-                    _UserPrivacySettings = base.CreateObjectSet<UserPrivacySetting>("UserPrivacySettings");
-                }
-                return _UserPrivacySettings;
-            }
-        }
-        private ObjectSet<UserPrivacySetting> _UserPrivacySettings;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<UserRole> UserRoles
         {
             get
@@ -752,6 +740,70 @@ namespace HaveAVoice.Models
             }
         }
         private ObjectSet<Fan> _Fans;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<PrivacyGroup> PrivacyGroups
+        {
+            get
+            {
+                if ((_PrivacyGroups == null))
+                {
+                    _PrivacyGroups = base.CreateObjectSet<PrivacyGroup>("PrivacyGroups");
+                }
+                return _PrivacyGroups;
+            }
+        }
+        private ObjectSet<PrivacyGroup> _PrivacyGroups;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<PrivacySetting> PrivacySettings
+        {
+            get
+            {
+                if ((_PrivacySettings == null))
+                {
+                    _PrivacySettings = base.CreateObjectSet<PrivacySetting>("PrivacySettings");
+                }
+                return _PrivacySettings;
+            }
+        }
+        private ObjectSet<PrivacySetting> _PrivacySettings;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<UserPrivacyGroup> UserPrivacyGroups
+        {
+            get
+            {
+                if ((_UserPrivacyGroups == null))
+                {
+                    _UserPrivacyGroups = base.CreateObjectSet<UserPrivacyGroup>("UserPrivacyGroups");
+                }
+                return _UserPrivacyGroups;
+            }
+        }
+        private ObjectSet<UserPrivacyGroup> _UserPrivacyGroups;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<UserPrivacySetting> UserPrivacySettings
+        {
+            get
+            {
+                if ((_UserPrivacySettings == null))
+                {
+                    _UserPrivacySettings = base.CreateObjectSet<UserPrivacySetting>("UserPrivacySettings");
+                }
+                return _UserPrivacySettings;
+            }
+        }
+        private ObjectSet<UserPrivacySetting> _UserPrivacySettings;
 
         #endregion
         #region AddTo Methods
@@ -965,14 +1017,6 @@ namespace HaveAVoice.Models
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the UserPrivacySettings EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToUserPrivacySettings(UserPrivacySetting userPrivacySetting)
-        {
-            base.AddObject("UserPrivacySettings", userPrivacySetting);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the UserRoles EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToUserRoles(UserRole userRole)
@@ -1066,6 +1110,38 @@ namespace HaveAVoice.Models
         public void AddToFans(Fan fan)
         {
             base.AddObject("Fans", fan);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the PrivacyGroups EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPrivacyGroups(PrivacyGroup privacyGroup)
+        {
+            base.AddObject("PrivacyGroups", privacyGroup);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the PrivacySettings EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPrivacySettings(PrivacySetting privacySetting)
+        {
+            base.AddObject("PrivacySettings", privacySetting);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the UserPrivacyGroups EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToUserPrivacyGroups(UserPrivacyGroup userPrivacyGroup)
+        {
+            base.AddObject("UserPrivacyGroups", userPrivacyGroup);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the UserPrivacySettings EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToUserPrivacySettings(UserPrivacySetting userPrivacySetting)
+        {
+            base.AddObject("UserPrivacySettings", userPrivacySetting);
         }
 
         #endregion
@@ -8657,6 +8733,358 @@ namespace HaveAVoice.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="HaveAVoice.Models", Name="PrivacyGroup")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class PrivacyGroup : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new PrivacyGroup object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="name">Initial value of the Name property.</param>
+        /// <param name="description">Initial value of the Description property.</param>
+        public static PrivacyGroup CreatePrivacyGroup(global::System.Int32 id, global::System.String name, global::System.String description)
+        {
+            PrivacyGroup privacyGroup = new PrivacyGroup();
+            privacyGroup.Id = id;
+            privacyGroup.Name = name;
+            privacyGroup.Description = description;
+            return privacyGroup;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Description
+        {
+            get
+            {
+                return _Description;
+            }
+            set
+            {
+                OnDescriptionChanging(value);
+                ReportPropertyChanging("Description");
+                _Description = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Description");
+                OnDescriptionChanged();
+            }
+        }
+        private global::System.String _Description;
+        partial void OnDescriptionChanging(global::System.String value);
+        partial void OnDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> DefaultGroup
+        {
+            get
+            {
+                return _DefaultGroup;
+            }
+            set
+            {
+                OnDefaultGroupChanging(value);
+                ReportPropertyChanging("DefaultGroup");
+                _DefaultGroup = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DefaultGroup");
+                OnDefaultGroupChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _DefaultGroup;
+        partial void OnDefaultGroupChanging(Nullable<global::System.Boolean> value);
+        partial void OnDefaultGroupChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserPrivacyGroups_PrivacyGroup1", "UserPrivacyGroup")]
+        public EntityCollection<UserPrivacyGroup> UserPrivacyGroups
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserPrivacyGroup>("HaveAVoice.Models.FK_UserPrivacyGroups_PrivacyGroup1", "UserPrivacyGroup");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserPrivacyGroup>("HaveAVoice.Models.FK_UserPrivacyGroups_PrivacyGroup1", "UserPrivacyGroup", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="HaveAVoice.Models", Name="PrivacySetting")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class PrivacySetting : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new PrivacySetting object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="createdByUserId">Initial value of the CreatedByUserId property.</param>
+        /// <param name="name">Initial value of the Name property.</param>
+        /// <param name="description">Initial value of the Description property.</param>
+        public static PrivacySetting CreatePrivacySetting(global::System.Int32 id, global::System.Int32 createdByUserId, global::System.String name, global::System.String description)
+        {
+            PrivacySetting privacySetting = new PrivacySetting();
+            privacySetting.Id = id;
+            privacySetting.CreatedByUserId = createdByUserId;
+            privacySetting.Name = name;
+            privacySetting.Description = description;
+            return privacySetting;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 CreatedByUserId
+        {
+            get
+            {
+                return _CreatedByUserId;
+            }
+            set
+            {
+                OnCreatedByUserIdChanging(value);
+                ReportPropertyChanging("CreatedByUserId");
+                _CreatedByUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CreatedByUserId");
+                OnCreatedByUserIdChanged();
+            }
+        }
+        private global::System.Int32 _CreatedByUserId;
+        partial void OnCreatedByUserIdChanging(global::System.Int32 value);
+        partial void OnCreatedByUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Description
+        {
+            get
+            {
+                return _Description;
+            }
+            set
+            {
+                OnDescriptionChanging(value);
+                ReportPropertyChanging("Description");
+                _Description = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Description");
+                OnDescriptionChanged();
+            }
+        }
+        private global::System.String _Description;
+        partial void OnDescriptionChanging(global::System.String value);
+        partial void OnDescriptionChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_PrivacySettings_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_PrivacySettings_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_PrivacySettings_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_PrivacySettings_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_PrivacySettings_Users", "User", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserPrivacyGroups_PrivacySettings", "UserPrivacyGroup")]
+        public EntityCollection<UserPrivacyGroup> UserPrivacyGroups
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserPrivacyGroup>("HaveAVoice.Models.FK_UserPrivacyGroups_PrivacySettings", "UserPrivacyGroup");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserPrivacyGroup>("HaveAVoice.Models.FK_UserPrivacyGroups_PrivacySettings", "UserPrivacyGroup", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="HaveAVoice.Models", Name="ProfileComplaint")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -11536,28 +11964,6 @@ namespace HaveAVoice.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserPrivacySettings_Users", "UserPrivacySetting")]
-        public EntityCollection<UserPrivacySetting> UserPrivacySettings
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserPrivacySetting>("HaveAVoice.Models.FK_UserPrivacySettings_Users", "UserPrivacySetting");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserPrivacySetting>("HaveAVoice.Models.FK_UserPrivacySettings_Users", "UserPrivacySetting", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserRoles_Users", "UserRole")]
         public EntityCollection<UserRole> UserRoles
         {
@@ -11837,6 +12243,258 @@ namespace HaveAVoice.Models
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_PrivacySettings_Users", "PrivacySetting")]
+        public EntityCollection<PrivacySetting> PrivacySettings
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PrivacySetting>("HaveAVoice.Models.FK_PrivacySettings_Users", "PrivacySetting");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PrivacySetting>("HaveAVoice.Models.FK_PrivacySettings_Users", "PrivacySetting", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserPrivacySettings_Users", "UserPrivacySetting")]
+        public EntityCollection<UserPrivacySetting> UserPrivacySettings
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserPrivacySetting>("HaveAVoice.Models.FK_UserPrivacySettings_Users", "UserPrivacySetting");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserPrivacySetting>("HaveAVoice.Models.FK_UserPrivacySettings_Users", "UserPrivacySetting", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="HaveAVoice.Models", Name="UserPrivacyGroup")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class UserPrivacyGroup : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new UserPrivacyGroup object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="privacySettingId">Initial value of the PrivacySettingId property.</param>
+        /// <param name="privacyGroupId">Initial value of the PrivacyGroupId property.</param>
+        public static UserPrivacyGroup CreateUserPrivacyGroup(global::System.Int32 id, global::System.Int32 privacySettingId, global::System.Int32 privacyGroupId)
+        {
+            UserPrivacyGroup userPrivacyGroup = new UserPrivacyGroup();
+            userPrivacyGroup.Id = id;
+            userPrivacyGroup.PrivacySettingId = privacySettingId;
+            userPrivacyGroup.PrivacyGroupId = privacyGroupId;
+            return userPrivacyGroup;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 PrivacySettingId
+        {
+            get
+            {
+                return _PrivacySettingId;
+            }
+            set
+            {
+                OnPrivacySettingIdChanging(value);
+                ReportPropertyChanging("PrivacySettingId");
+                _PrivacySettingId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PrivacySettingId");
+                OnPrivacySettingIdChanged();
+            }
+        }
+        private global::System.Int32 _PrivacySettingId;
+        partial void OnPrivacySettingIdChanging(global::System.Int32 value);
+        partial void OnPrivacySettingIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 PrivacyGroupId
+        {
+            get
+            {
+                return _PrivacyGroupId;
+            }
+            set
+            {
+                OnPrivacyGroupIdChanging(value);
+                ReportPropertyChanging("PrivacyGroupId");
+                _PrivacyGroupId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PrivacyGroupId");
+                OnPrivacyGroupIdChanged();
+            }
+        }
+        private global::System.Int32 _PrivacyGroupId;
+        partial void OnPrivacyGroupIdChanging(global::System.Int32 value);
+        partial void OnPrivacyGroupIdChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserPrivacyGroups_PrivacyGroup1", "PrivacyGroup")]
+        public PrivacyGroup PrivacyGroup
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PrivacyGroup>("HaveAVoice.Models.FK_UserPrivacyGroups_PrivacyGroup1", "PrivacyGroup").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PrivacyGroup>("HaveAVoice.Models.FK_UserPrivacyGroups_PrivacyGroup1", "PrivacyGroup").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<PrivacyGroup> PrivacyGroupReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PrivacyGroup>("HaveAVoice.Models.FK_UserPrivacyGroups_PrivacyGroup1", "PrivacyGroup");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PrivacyGroup>("HaveAVoice.Models.FK_UserPrivacyGroups_PrivacyGroup1", "PrivacyGroup", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserPrivacyGroups_PrivacySettings", "PrivacySetting")]
+        public PrivacySetting PrivacySetting
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PrivacySetting>("HaveAVoice.Models.FK_UserPrivacyGroups_PrivacySettings", "PrivacySetting").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PrivacySetting>("HaveAVoice.Models.FK_UserPrivacyGroups_PrivacySettings", "PrivacySetting").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<PrivacySetting> PrivacySettingReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PrivacySetting>("HaveAVoice.Models.FK_UserPrivacyGroups_PrivacySettings", "PrivacySetting");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PrivacySetting>("HaveAVoice.Models.FK_UserPrivacyGroups_PrivacySettings", "PrivacySetting", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserPrivacySettings_UserPrivacyGroups", "UserPrivacySetting")]
+        public EntityCollection<UserPrivacySetting> UserPrivacySettings
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserPrivacySetting>("HaveAVoice.Models.FK_UserPrivacySettings_UserPrivacyGroups", "UserPrivacySetting");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserPrivacySetting>("HaveAVoice.Models.FK_UserPrivacySettings_UserPrivacyGroups", "UserPrivacySetting", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -11856,17 +12514,13 @@ namespace HaveAVoice.Models
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="userId">Initial value of the UserId property.</param>
-        /// <param name="displayProfileToNonLoggedIn">Initial value of the DisplayProfileToNonLoggedIn property.</param>
-        /// <param name="displayProfileToLoggedInUsers">Initial value of the DisplayProfileToLoggedInUsers property.</param>
-        /// <param name="displayProfileToFriends">Initial value of the DisplayProfileToFriends property.</param>
-        public static UserPrivacySetting CreateUserPrivacySetting(global::System.Int32 id, global::System.Int32 userId, global::System.Boolean displayProfileToNonLoggedIn, global::System.Boolean displayProfileToLoggedInUsers, global::System.Boolean displayProfileToFriends)
+        /// <param name="userPrivacyGroupId">Initial value of the UserPrivacyGroupId property.</param>
+        public static UserPrivacySetting CreateUserPrivacySetting(global::System.Int32 id, global::System.Int32 userId, global::System.Int32 userPrivacyGroupId)
         {
             UserPrivacySetting userPrivacySetting = new UserPrivacySetting();
             userPrivacySetting.Id = id;
             userPrivacySetting.UserId = userId;
-            userPrivacySetting.DisplayProfileToNonLoggedIn = displayProfileToNonLoggedIn;
-            userPrivacySetting.DisplayProfileToLoggedInUsers = displayProfileToLoggedInUsers;
-            userPrivacySetting.DisplayProfileToFriends = displayProfileToFriends;
+            userPrivacySetting.UserPrivacyGroupId = userPrivacyGroupId;
             return userPrivacySetting;
         }
 
@@ -11929,76 +12583,66 @@ namespace HaveAVoice.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Boolean DisplayProfileToNonLoggedIn
+        public global::System.Int32 UserPrivacyGroupId
         {
             get
             {
-                return _DisplayProfileToNonLoggedIn;
+                return _UserPrivacyGroupId;
             }
             set
             {
-                OnDisplayProfileToNonLoggedInChanging(value);
-                ReportPropertyChanging("DisplayProfileToNonLoggedIn");
-                _DisplayProfileToNonLoggedIn = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("DisplayProfileToNonLoggedIn");
-                OnDisplayProfileToNonLoggedInChanged();
+                OnUserPrivacyGroupIdChanging(value);
+                ReportPropertyChanging("UserPrivacyGroupId");
+                _UserPrivacyGroupId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserPrivacyGroupId");
+                OnUserPrivacyGroupIdChanged();
             }
         }
-        private global::System.Boolean _DisplayProfileToNonLoggedIn;
-        partial void OnDisplayProfileToNonLoggedInChanging(global::System.Boolean value);
-        partial void OnDisplayProfileToNonLoggedInChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Boolean DisplayProfileToLoggedInUsers
-        {
-            get
-            {
-                return _DisplayProfileToLoggedInUsers;
-            }
-            set
-            {
-                OnDisplayProfileToLoggedInUsersChanging(value);
-                ReportPropertyChanging("DisplayProfileToLoggedInUsers");
-                _DisplayProfileToLoggedInUsers = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("DisplayProfileToLoggedInUsers");
-                OnDisplayProfileToLoggedInUsersChanged();
-            }
-        }
-        private global::System.Boolean _DisplayProfileToLoggedInUsers;
-        partial void OnDisplayProfileToLoggedInUsersChanging(global::System.Boolean value);
-        partial void OnDisplayProfileToLoggedInUsersChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Boolean DisplayProfileToFriends
-        {
-            get
-            {
-                return _DisplayProfileToFriends;
-            }
-            set
-            {
-                OnDisplayProfileToFriendsChanging(value);
-                ReportPropertyChanging("DisplayProfileToFriends");
-                _DisplayProfileToFriends = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("DisplayProfileToFriends");
-                OnDisplayProfileToFriendsChanged();
-            }
-        }
-        private global::System.Boolean _DisplayProfileToFriends;
-        partial void OnDisplayProfileToFriendsChanging(global::System.Boolean value);
-        partial void OnDisplayProfileToFriendsChanged();
+        private global::System.Int32 _UserPrivacyGroupId;
+        partial void OnUserPrivacyGroupIdChanging(global::System.Int32 value);
+        partial void OnUserPrivacyGroupIdChanged();
 
         #endregion
     
         #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserPrivacySettings_UserPrivacyGroups", "UserPrivacyGroup")]
+        public UserPrivacyGroup UserPrivacyGroup
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserPrivacyGroup>("HaveAVoice.Models.FK_UserPrivacySettings_UserPrivacyGroups", "UserPrivacyGroup").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserPrivacyGroup>("HaveAVoice.Models.FK_UserPrivacySettings_UserPrivacyGroups", "UserPrivacyGroup").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<UserPrivacyGroup> UserPrivacyGroupReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserPrivacyGroup>("HaveAVoice.Models.FK_UserPrivacySettings_UserPrivacyGroups", "UserPrivacyGroup");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<UserPrivacyGroup>("HaveAVoice.Models.FK_UserPrivacySettings_UserPrivacyGroups", "UserPrivacyGroup", value);
+                }
+            }
+        }
     
         /// <summary>
         /// No Metadata Documentation available.

@@ -14,20 +14,17 @@ namespace HaveAVoice.Models.View {
     public class UserInformationModel {
         public User Details { get; set; }
         public List<Permission> Permissions;
+        public List<PrivacySetting> PrivacySettings;
         public Hashtable PermissionToRestriction { get; private set; }
-        public Hashtable PrivacySettings { get; private set; }
         public string ProfilePictureUrl { get; private set; }
 
-        public UserInformationModel(User aUser, IEnumerable<Permission> aPermissions, Restriction aRestriction, UserPrivacySetting aPrivacySettings) {
+        public UserInformationModel(User aUser, IEnumerable<Permission> aPermissions, Restriction aRestriction, IEnumerable<PrivacySetting> aPrivacySettings) {
             this.Details = aUser;
             this.Permissions = aPermissions.ToList<Permission>();
+            PrivacySettings = aPrivacySettings.ToList<PrivacySetting>();
             AddRestrictionsToHashTable(aRestriction);
             ProfilePictureUrl = PhotoHelper.ProfilePicture(aUser);
-
-            AddPrivacySettingsToHashTable(aPrivacySettings);
         }
-
-
 
         private void AddRestrictionsToHashTable(Restriction aRestriction) {
             PermissionToRestriction = new Hashtable();
@@ -45,13 +42,6 @@ namespace HaveAVoice.Models.View {
             restrictions.Add(CreateRestrictionList(RestrictionList.OccurencesWithinTimeLimit, aRestriction.IssueReplyPostsWithinTimeLimit));
 
             PermissionToRestriction.Add(HaveAVoice.Helpers.HAVPermission.Post_Issue_Reply, restrictions);
-        }
-
-        private void AddPrivacySettingsToHashTable(UserPrivacySetting aPrivacySettings) {
-            PrivacySettings = new Hashtable();
-            PrivacySettings.Add(PrivacySetting.DisplayProfileToNonLoggedIn, aPrivacySettings.DisplayProfileToNonLoggedIn);
-            PrivacySettings.Add(PrivacySetting.DisplayProfileToFriends, aPrivacySettings.DisplayProfileToFriends);
-            PrivacySettings.Add(PrivacySetting.DisplayProfileToLoggedInUsers, aPrivacySettings.DisplayProfileToLoggedInUsers);
         }
         
         private Pair<RestrictionList, long> CreateRestrictionList(RestrictionList restriction, long restrictionValue) {
