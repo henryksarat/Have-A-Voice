@@ -10,11 +10,14 @@ using HaveAVoice.Models;
 using System.Text;
 using HaveAVoice.Models.View;
 using HaveAVoice.Controllers.Helpers;
+using HaveAVoice.Models.DataStructures;
 
 namespace HaveAVoice.Controllers.Users
 {
     public class UserPrivacySettingsController : HAVBaseController {
         private static string EDIT_SUCCESS = "Your account has been edited successfully!";
+        private const string RETRIEVE_FAIL = "Error retreiving your privacy settings. Please try again.";
+        private const string UPDATE_FAIL = "Error updating privacy settings. Please try again.";
 
         private IHAVUserPrivacySettingsService thePrivacyService;
 
@@ -34,33 +37,38 @@ namespace HaveAVoice.Controllers.Users
                 return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
-            UserPrivacySetting myPrivacy;
+            List<Pair<PrivacySetting>> myPrivacySettingSelections = new List<Pair<PrivacySetting>>();
             try {
-                myPrivacy = thePrivacyService.FindUserPrivacySettingsForUser(myUser);
+                IEnumerable<PrivacySetting> myPrivacySettings = thePrivacyService.FindPrivacySettingsForUser(myUser);
+                foreach (PrivacySetting mySetting in myPrivacySettings) {
+                    myPrivacySettingSelections.Add(new Pair<PrivacySetting>() { 
+                        Item = mySetting 
+                    });
+                }
             } catch (Exception e) {
-                LogError(e, new StringBuilder().AppendFormat("Error retrieving the user privacy settings. [userId={0}]", myUser.Id).ToString());
-                return SendToErrorPage("Error retrieving your privacy settings. Please try again.");
+                LogError(e, RETRIEVE_FAIL);
+                return SendToErrorPage(RETRIEVE_FAIL);
             }
 
-            return View("Edit", myPrivacy);
+            return View("Edit", myPrivacySettingSelections);
         }
 
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Edit(UserPrivacySetting aUserPrivacySetting) {
+        public ActionResult Edit(IEnumerable<Pair<PrivacySetting>> aSettings) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
             try {
-                thePrivacyService.UpdatePrivacySettings(myUser, aUserPrivacySetting);
+                thePrivacyService.UpdatePrivacySettings(myUser, aSettings);
                 return SendToResultPage(EDIT_SUCCESS);
             } catch (Exception e) {
-                LogError(e, new StringBuilder().AppendFormat("Unable to update the user privacy settings. [userId={0};userPrivacySettingsId{1}]", myUser.Id, aUserPrivacySetting.Id).ToString());
-                ViewData["Message"] = MessageHelper.ErrorMessage("Error updating your privacy settings. Please try again.");
+                LogError(e, UPDATE_FAIL);
+                ViewData["Message"] = MessageHelper.ErrorMessage(UPDATE_FAIL);
 
             }
-            return View("Edit", aUserPrivacySetting);
+            return View("Edit", aSettings);
         }
     }
 }

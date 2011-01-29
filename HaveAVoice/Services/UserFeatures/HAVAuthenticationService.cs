@@ -49,7 +49,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 throw new Exception("The user has no restriction.");
             }
 
-            IEnumerable<PrivacySetting> myPrivacySettings = thePrivacySettingsService.FindUserPrivacySettingsForUser(myUser);
+            IEnumerable<PrivacySetting> myPrivacySettings = thePrivacySettingsService.FindPrivacySettingsForUser(myUser);
 
             if (myPrivacySettings == null) {
                 throw new Exception("The user has no privacy settings.");
@@ -115,7 +115,7 @@ namespace HaveAVoice.Services.UserFeatures {
             List<int> myUsers = new List<int>();
             myUsers.Add(myUser.Id);
             theRoleRepo.MoveUsersToRole(myUsers, myNotConfirmedRole.Id, aRoleToMoveTo.Id);
-            thePrivacySettingsService.AddDefaultUserPrivacySettings(myUser);
+            thePrivacySettingsService.AddDefaultPrivacySettingsForUser(myUser);
             return myUser;
         }
 

@@ -10,13 +10,13 @@ namespace HaveAVoice.Models.View.Builders {
         private User theUser { get; set; }
         private List<Permission> thePermissions { get; set; }
         private Restriction theRestriction { get; set; }
-        private UserPrivacySetting thePrivacySettings { get; set; }
+        private List<PrivacySetting> thePrivacySettings { get; set; }
 
         public UserInformationModelBuilder(User aUser) {
             theUser = aUser;
             thePermissions = new List<Permission>();
             theRestriction = new Restriction();
-            thePrivacySettings = new UserPrivacySetting();
+            thePrivacySettings = new List<PrivacySetting>();
         }
 
         public UserInformationModelBuilder AddPermissions(IEnumerable<Permission> aPermissions) {
@@ -34,8 +34,8 @@ namespace HaveAVoice.Models.View.Builders {
             return this;
         }
 
-        public UserInformationModelBuilder SetPrivacySettings(UserPrivacySetting aSettings) {
-            thePrivacySettings = aSettings;
+        public UserInformationModelBuilder AddPrivacySettings(List<PrivacySetting> aSettings) {
+            thePrivacySettings.AddRange(aSettings);
             return this;
         }
 

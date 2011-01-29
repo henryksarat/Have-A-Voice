@@ -53,10 +53,5 @@ namespace HaveAVoice.Helpers.UserInformation {
             UserInformationModel myUserInformationModel = (UserInformationModel)theHttpContext.Session["UserInformation"];
             return HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, aPermission);
         }
-
-        public bool HasPrivacySettingEnabled(PrivacySetting aPrivacySetting) {
-            UserInformationModel myUserInformationModel = (UserInformationModel)theHttpContext.Session["UserInformation"];
-            return myUserInformationModel != null && (bool)myUserInformationModel.PrivacySettings[aPrivacySetting];
-        }
     }
 }

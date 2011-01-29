@@ -24,12 +24,9 @@ namespace HaveAVoice.Tests.Helpers.Action {
                 .Build()
                 .Restriction;
 
-            theUserPrivacySettings = UserPrivacySetting.CreateUserPrivacySetting(0, 0, true, true, false);
-
             User myUser = new User();
             theUserInformationModelBuilder = new UserInformationModelBuilder(myUser)
-                .SetRestriction(theRestriction)
-                .SetPrivacySettings(theUserPrivacySettings);
+                .SetRestriction(theRestriction);
         }
 
         [TestMethod]

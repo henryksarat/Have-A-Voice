@@ -38,12 +38,10 @@ namespace HaveAVoice.Tests.Helpers {
             thePermissions.Add(PERMISSION2);
             theRestriction = new RestrictionModel.Builder(RESTRICTION_ID).Build().Restriction;
 
-            theUserPrivacySettings = UserPrivacySetting.CreateUserPrivacySetting(0, 0,  true, true, false);
 
             theUserInformationModelBuilder = new UserInformationModelBuilder(theUser)
                 .AddPermissions(thePermissions)
-                .SetRestriction(theRestriction)
-                .SetPrivacySettings(theUserPrivacySettings);
+                .SetRestriction(theRestriction);
 
             HAVUserInformationFactory.SetInstance(theUserInformation);
         }
@@ -80,19 +78,6 @@ namespace HaveAVoice.Tests.Helpers {
             UserInformationModel user = HAVUserInformationFactory.GetUserInformation();
 
             Assert.IsNull(user);
-        }
-
-        [TestMethod]
-        public void TestPrivacySettings_DisplayProfileToNonLoggedIn() {
-            theContextBase.Setup(c => c.Request.UserHostAddress).Returns(() => "127.0.0.1");
-            theContextBase.Setup(c => c.Session["UserInformation"]).Returns(() => theUserInformationModelBuilder.Build());
-            theMockedService.Setup(s => s.IsOnline(It.IsAny<User>(), It.IsAny<string>())).Returns(() => true);
-
-            UserInformationModel user = HAVUserInformationFactory.GetUserInformation();
-            Assert.IsNotNull(user);
-            Assert.IsTrue(HAVUserInformationFactory.HasPrivacySettingEnabled(PrivacySetting.DisplayProfileToNonLoggedIn));
-            Assert.IsTrue(HAVUserInformationFactory.HasPrivacySettingEnabled(PrivacySetting.DisplayProfileToLoggedInUsers));
-            Assert.IsFalse(HAVUserInformationFactory.HasPrivacySettingEnabled(PrivacySetting.DisplayProfileToFriends));
         }
     }
 }

@@ -136,6 +136,7 @@
     </Compile>
     <Compile Include="Helpers\ActionMethods\AcceptParameterAttribute.cs" />
     <Compile Include="Helpers\ActionMethods\CaptchaValidatorAttribute.cs" />
+    <Compile Include="Models\DataStructures\Pair.cs" />
     <Compile Include="Models\View\Binders\ImageBinder.cs" />
     <Compile Include="Models\View\BoardFeedModel.cs" />
     <Compile Include="Models\View\CreateUserModelBuilder.cs" />

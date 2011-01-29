@@ -40,10 +40,6 @@ namespace HaveAVoice.Helpers.UserInformation {
             theFactory = userInformation;
         }
 
-        public static bool HasPrivacySettingEnabled(PrivacySetting aPrivacySetting) {
-            return theFactory.HasPrivacySettingEnabled(aPrivacySetting);
-        }
-
         private static void SetDefaultInstance() {
             if (theFactory == null) {
                 theFactory = UserInformation.Instance();

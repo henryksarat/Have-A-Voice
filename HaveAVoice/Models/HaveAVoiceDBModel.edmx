@@ -35,7 +35,6 @@
           <EntitySet Name="PhotoAlbum" EntityType="HaveAVoice.Models.Store.PhotoAlbum" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="PhotoComplaints" EntityType="HaveAVoice.Models.Store.PhotoComplaints" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Photos" EntityType="HaveAVoice.Models.Store.Photos" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="PrivacyGroup" EntityType="HaveAVoice.Models.Store.PrivacyGroup" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="PrivacySettings" EntityType="HaveAVoice.Models.Store.PrivacySettings" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ProfileComplaints" EntityType="HaveAVoice.Models.Store.ProfileComplaints" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Replys" EntityType="HaveAVoice.Models.Store.Replys" store:Type="Tables" Schema="dbo" />
@@ -43,7 +42,6 @@
           <EntitySet Name="RolePermissions" EntityType="HaveAVoice.Models.Store.RolePermissions" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Roles" EntityType="HaveAVoice.Models.Store.Roles" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Timezones" EntityType="HaveAVoice.Models.Store.Timezones" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="UserPrivacyGroups" EntityType="HaveAVoice.Models.Store.UserPrivacyGroups" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserPrivacySettings" EntityType="HaveAVoice.Models.Store.UserPrivacySettings" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserRoles" EntityType="HaveAVoice.Models.Store.UserRoles" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="HaveAVoice.Models.Store.Users" store:Type="Tables" Schema="dbo" />
@@ -276,16 +274,8 @@
             <End Role="Restrictions" EntitySet="Restrictions" />
             <End Role="Roles" EntitySet="Roles" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserPrivacyGroups_PrivacyGroup1" Association="HaveAVoice.Models.Store.FK_UserPrivacyGroups_PrivacyGroup1">
-            <End Role="PrivacyGroup" EntitySet="PrivacyGroup" />
-            <End Role="UserPrivacyGroups" EntitySet="UserPrivacyGroups" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserPrivacyGroups_PrivacySettings" Association="HaveAVoice.Models.Store.FK_UserPrivacyGroups_PrivacySettings">
+          <AssociationSet Name="FK_UserPrivacySettings_PrivacySettings" Association="HaveAVoice.Models.Store.FK_UserPrivacySettings_PrivacySettings">
             <End Role="PrivacySettings" EntitySet="PrivacySettings" />
-            <End Role="UserPrivacyGroups" EntitySet="UserPrivacyGroups" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserPrivacySettings_UserPrivacyGroups" Association="HaveAVoice.Models.Store.FK_UserPrivacySettings_UserPrivacyGroups">
-            <End Role="UserPrivacyGroups" EntitySet="UserPrivacyGroups" />
             <End Role="UserPrivacySettings" EntitySet="UserPrivacySettings" />
           </AssociationSet>
           <AssociationSet Name="FK_UserPrivacySettings_Users" Association="HaveAVoice.Models.Store.FK_UserPrivacySettings_Users">
@@ -622,15 +612,6 @@
           <Property Name="DateTimeStamp" Type="datetime" Nullable="false" />
           <Property Name="AlbumCover" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="PrivacyGroup">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="Description" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="DefaultGroup" Type="bit" />
-        </EntityType>
         <EntityType Name="PrivacySettings">
           <Key>
             <PropertyRef Name="Id" />
@@ -715,21 +696,13 @@
           <Property Name="Region" Type="varchar" Nullable="false" MaxLength="80" />
           <Property Name="UTCOffset" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="UserPrivacyGroups">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="PrivacySettingId" Type="int" Nullable="false" />
-          <Property Name="PrivacyGroupId" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="UserPrivacySettings">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="UserPrivacyGroupId" Type="int" Nullable="false" />
+          <Property Name="PrivacySettingId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="UserRoles">
           <Key>
@@ -1519,45 +1492,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserPrivacyGroups_PrivacyGroup1">
-          <End Role="PrivacyGroup" Type="HaveAVoice.Models.Store.PrivacyGroup" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="UserPrivacyGroups" Type="HaveAVoice.Models.Store.UserPrivacyGroups" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PrivacyGroup">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserPrivacyGroups">
-              <PropertyRef Name="PrivacyGroupId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserPrivacyGroups_PrivacySettings">
+        <Association Name="FK_UserPrivacySettings_PrivacySettings">
           <End Role="PrivacySettings" Type="HaveAVoice.Models.Store.PrivacySettings" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="UserPrivacyGroups" Type="HaveAVoice.Models.Store.UserPrivacyGroups" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PrivacySettings">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserPrivacyGroups">
-              <PropertyRef Name="PrivacySettingId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserPrivacySettings_UserPrivacyGroups">
-          <End Role="UserPrivacyGroups" Type="HaveAVoice.Models.Store.UserPrivacyGroups" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="UserPrivacySettings" Type="HaveAVoice.Models.Store.UserPrivacySettings" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="UserPrivacyGroups">
+            <Principal Role="PrivacySettings">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserPrivacySettings">
-              <PropertyRef Name="UserPrivacyGroupId" />
+              <PropertyRef Name="PrivacySettingId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1896,24 +1841,14 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Fan" EntitySet="Fans" />
           </AssociationSet>
-          <EntitySet Name="PrivacyGroups" EntityType="HaveAVoice.Models.PrivacyGroup" />
           <EntitySet Name="PrivacySettings" EntityType="HaveAVoice.Models.PrivacySetting" />
-          <EntitySet Name="UserPrivacyGroups" EntityType="HaveAVoice.Models.UserPrivacyGroup" />
           <EntitySet Name="UserPrivacySettings" EntityType="HaveAVoice.Models.UserPrivacySetting" />
-          <AssociationSet Name="FK_UserPrivacyGroups_PrivacyGroup1" Association="HaveAVoice.Models.FK_UserPrivacyGroups_PrivacyGroup1">
-            <End Role="PrivacyGroup" EntitySet="PrivacyGroups" />
-            <End Role="UserPrivacyGroup" EntitySet="UserPrivacyGroups" />
-          </AssociationSet>
           <AssociationSet Name="FK_PrivacySettings_Users" Association="HaveAVoice.Models.FK_PrivacySettings_Users">
             <End Role="User" EntitySet="Users" />
             <End Role="PrivacySetting" EntitySet="PrivacySettings" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserPrivacyGroups_PrivacySettings" Association="HaveAVoice.Models.FK_UserPrivacyGroups_PrivacySettings">
+          <AssociationSet Name="FK_UserPrivacySettings_PrivacySettings" Association="HaveAVoice.Models.FK_UserPrivacySettings_PrivacySettings">
             <End Role="PrivacySetting" EntitySet="PrivacySettings" />
-            <End Role="UserPrivacyGroup" EntitySet="UserPrivacyGroups" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserPrivacySettings_UserPrivacyGroups" Association="HaveAVoice.Models.FK_UserPrivacySettings_UserPrivacyGroups">
-            <End Role="UserPrivacyGroup" EntitySet="UserPrivacyGroups" />
             <End Role="UserPrivacySetting" EntitySet="UserPrivacySettings" />
           </AssociationSet>
           <AssociationSet Name="FK_UserPrivacySettings_Users" Association="HaveAVoice.Models.FK_UserPrivacySettings_Users">
@@ -3187,16 +3122,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="PrivacyGroup">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Description" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Boolean" Name="DefaultGroup" />
-          <NavigationProperty Name="UserPrivacyGroups" Relationship="HaveAVoice.Models.FK_UserPrivacyGroups_PrivacyGroup1" FromRole="PrivacyGroup" ToRole="UserPrivacyGroup" />
-        </EntityType>
         <EntityType Name="PrivacySetting">
           <Key>
             <PropertyRef Name="Id" />
@@ -3205,19 +3130,8 @@
           <Property Type="Int32" Name="CreatedByUserId" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Description" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="User" Relationship="HaveAVoice.Models.FK_PrivacySettings_Users" FromRole="PrivacySetting" ToRole="User" />
-          <NavigationProperty Name="UserPrivacyGroups" Relationship="HaveAVoice.Models.FK_UserPrivacyGroups_PrivacySettings" FromRole="PrivacySetting" ToRole="UserPrivacyGroup" />
-        </EntityType>
-        <EntityType Name="UserPrivacyGroup">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="PrivacySettingId" Nullable="false" />
-          <Property Type="Int32" Name="PrivacyGroupId" Nullable="false" />
-          <NavigationProperty Name="PrivacyGroup" Relationship="HaveAVoice.Models.FK_UserPrivacyGroups_PrivacyGroup1" FromRole="UserPrivacyGroup" ToRole="PrivacyGroup" />
-          <NavigationProperty Name="PrivacySetting" Relationship="HaveAVoice.Models.FK_UserPrivacyGroups_PrivacySettings" FromRole="UserPrivacyGroup" ToRole="PrivacySetting" />
-          <NavigationProperty Name="UserPrivacySettings" Relationship="HaveAVoice.Models.FK_UserPrivacySettings_UserPrivacyGroups" FromRole="UserPrivacyGroup" ToRole="UserPrivacySetting" />
+          <NavigationProperty Name="CreatedByUser" Relationship="HaveAVoice.Models.FK_PrivacySettings_Users" FromRole="PrivacySetting" ToRole="User" />
+          <NavigationProperty Name="UserPrivacySettings" Relationship="HaveAVoice.Models.FK_UserPrivacySettings_PrivacySettings" FromRole="PrivacySetting" ToRole="UserPrivacySetting" />
         </EntityType>
         <EntityType Name="UserPrivacySetting">
           <Key>
@@ -3225,22 +3139,10 @@
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int32" Name="UserId" Nullable="false" />
-          <Property Type="Int32" Name="UserPrivacyGroupId" Nullable="false" />
-          <NavigationProperty Name="UserPrivacyGroup" Relationship="HaveAVoice.Models.FK_UserPrivacySettings_UserPrivacyGroups" FromRole="UserPrivacySetting" ToRole="UserPrivacyGroup" />
+          <Property Type="Int32" Name="PrivacySettingId" Nullable="false" />
+          <NavigationProperty Name="PrivacySetting" Relationship="HaveAVoice.Models.FK_UserPrivacySettings_PrivacySettings" FromRole="UserPrivacySetting" ToRole="PrivacySetting" />
           <NavigationProperty Name="User" Relationship="HaveAVoice.Models.FK_UserPrivacySettings_Users" FromRole="UserPrivacySetting" ToRole="User" />
         </EntityType>
-        <Association Name="FK_UserPrivacyGroups_PrivacyGroup1">
-          <End Type="HaveAVoice.Models.PrivacyGroup" Role="PrivacyGroup" Multiplicity="1" />
-          <End Type="HaveAVoice.Models.UserPrivacyGroup" Role="UserPrivacyGroup" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PrivacyGroup">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserPrivacyGroup">
-              <PropertyRef Name="PrivacyGroupId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_PrivacySettings_Users">
           <End Type="HaveAVoice.Models.User" Role="User" Multiplicity="1" />
           <End Type="HaveAVoice.Models.PrivacySetting" Role="PrivacySetting" Multiplicity="*" />
@@ -3253,27 +3155,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserPrivacyGroups_PrivacySettings">
+        <Association Name="FK_UserPrivacySettings_PrivacySettings">
           <End Type="HaveAVoice.Models.PrivacySetting" Role="PrivacySetting" Multiplicity="1" />
-          <End Type="HaveAVoice.Models.UserPrivacyGroup" Role="UserPrivacyGroup" Multiplicity="*" />
+          <End Type="HaveAVoice.Models.UserPrivacySetting" Role="UserPrivacySetting" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PrivacySetting">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="UserPrivacyGroup">
-              <PropertyRef Name="PrivacySettingId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserPrivacySettings_UserPrivacyGroups">
-          <End Type="HaveAVoice.Models.UserPrivacyGroup" Role="UserPrivacyGroup" Multiplicity="1" />
-          <End Type="HaveAVoice.Models.UserPrivacySetting" Role="UserPrivacySetting" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserPrivacyGroup">
-              <PropertyRef Name="Id" />
-            </Principal>
             <Dependent Role="UserPrivacySetting">
-              <PropertyRef Name="UserPrivacyGroupId" />
+              <PropertyRef Name="PrivacySettingId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3771,16 +3661,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PrivacyGroups">
-            <EntityTypeMapping TypeName="HaveAVoice.Models.PrivacyGroup">
-              <MappingFragment StoreEntitySet="PrivacyGroup">
-                <ScalarProperty Name="DefaultGroup" ColumnName="DefaultGroup" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="PrivacySettings">
             <EntityTypeMapping TypeName="HaveAVoice.Models.PrivacySetting">
               <MappingFragment StoreEntitySet="PrivacySettings">
@@ -3791,19 +3671,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserPrivacyGroups">
-            <EntityTypeMapping TypeName="HaveAVoice.Models.UserPrivacyGroup">
-              <MappingFragment StoreEntitySet="UserPrivacyGroups">
-                <ScalarProperty Name="PrivacyGroupId" ColumnName="PrivacyGroupId" />
-                <ScalarProperty Name="PrivacySettingId" ColumnName="PrivacySettingId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="UserPrivacySettings">
             <EntityTypeMapping TypeName="HaveAVoice.Models.UserPrivacySetting">
               <MappingFragment StoreEntitySet="UserPrivacySettings">
-                <ScalarProperty Name="UserPrivacyGroupId" ColumnName="UserPrivacyGroupId" />
+                <ScalarProperty Name="PrivacySettingId" ColumnName="PrivacySettingId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -3865,10 +3736,12 @@
           <ConnectorPoint PointX="7.65625" PointY="57.625" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_AuditBoard_Users" >
-          <ConnectorPoint PointX="4.5" PointY="58.997345377604177" />
-          <ConnectorPoint PointX="4.729166666666667" PointY="58.997345377604177" />
-          <ConnectorPoint PointX="5.020833333333333" PointY="58.997345377604177" />
-          <ConnectorPoint PointX="7.5" PointY="58.997345377604177" />
+          <ConnectorPoint PointX="4.5" PointY="59.40625" />
+          <ConnectorPoint PointX="4.854166666666667" PointY="59.40625" />
+          <ConnectorPoint PointX="5.020833333333333" PointY="59.40625" />
+          <ConnectorPoint PointX="7.166666666666667" PointY="59.40625" />
+          <ConnectorPoint PointX="7.333333333333333" PointY="59.40625" />
+          <ConnectorPoint PointX="7.5" PointY="59.40625" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_AuditBoardReplies_BoardReply" >
           <ConnectorPoint PointX="10.78125" PointY="57.45139648437501" />
@@ -3878,18 +3751,18 @@
           <ConnectorPoint PointX="9.75" PointY="61.542893066406251" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_AuditBoardReplies_Users" >
-          <ConnectorPoint PointX="4.5" PointY="62.668146972656245" />
-          <ConnectorPoint PointX="4.729166666666667" PointY="62.668146972656245" />
-          <ConnectorPoint PointX="5.114583333333333" PointY="62.668146972656245" />
-          <ConnectorPoint PointX="7.729166666666667" PointY="62.668146972656245" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="62.668146972656245" />
-          <ConnectorPoint PointX="8.25" PointY="62.668146972656245" />
+          <ConnectorPoint PointX="4.5" PointY="62.636896972656245" />
+          <ConnectorPoint PointX="4.729166666666667" PointY="62.636896972656245" />
+          <ConnectorPoint PointX="5.114583333333333" PointY="62.636896972656245" />
+          <ConnectorPoint PointX="5.166666666666667" PointY="62.636896972656245" />
+          <ConnectorPoint PointX="5.333333333333333" PointY="62.636896972656245" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="62.636896972656245" />
+          <ConnectorPoint PointX="8.0833333333333339" PointY="62.636896972656245" />
+          <ConnectorPoint PointX="8.25" PointY="62.636896972656245" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_AuditIssueReplyComments_IssueReplyComments" >
           <ConnectorPoint PointX="11.25" PointY="62.125" />
-          <ConnectorPoint PointX="11.12142556509888" PointY="61.996425565098882" />
-          <ConnectorPoint PointX="11.003574434901122" PointY="61.878574434901118" />
-          <ConnectorPoint PointX="10.99642556509888" PointY="61.871425565098882" />
+          <ConnectorPoint PointX="11.05892556509888" PointY="61.933925565098882" />
           <ConnectorPoint PointX="10.878574434901122" PointY="61.753574434901118" />
           <ConnectorPoint PointX="10.875" PointY="61.75" />
           <ConnectorPoint PointX="10.125" PointY="61.75" />
@@ -3898,8 +3771,8 @@
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_AuditIssueReplyComments_Users" >
           <ConnectorPoint PointX="4.5" PointY="56.014043782552086" />
-          <ConnectorPoint PointX="4.947916666666667" PointY="56.014043782552086" />
-          <ConnectorPoint PointX="5.114583333333333" PointY="56.014043782552086" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="56.014043782552086" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="56.014043782552086" />
           <ConnectorPoint PointX="7.572916666666667" PointY="56.014043782552086" />
           <ConnectorPoint PointX="7.739583333333333" PointY="56.014043782552086" />
           <ConnectorPoint PointX="7.854166666666667" PointY="56.014043782552086" />
@@ -3907,27 +3780,33 @@
           <ConnectorPoint PointX="8.25" PointY="56.014043782552086" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_AuditIssueReplys_Users" >
-          <ConnectorPoint PointX="4.5" PointY="58.482458577324138" />
-          <ConnectorPoint PointX="4.8125" PointY="58.482458577324138" />
-          <ConnectorPoint PointX="4.8125" PointY="62.114889322916667" />
-          <ConnectorPoint PointX="4.854166666666667" PointY="62.114889322916667" />
-          <ConnectorPoint PointX="5.020833333333333" PointY="62.114889322916667" />
-          <ConnectorPoint PointX="7.541666666666667" PointY="62.114889322916667" />
-          <ConnectorPoint PointX="7.708333333333333" PointY="62.114889322916667" />
-          <ConnectorPoint PointX="7.875" PointY="62.114889322916667" />
-          <ConnectorPoint PointX="7.875" PointY="60.5625" />
+          <ConnectorPoint PointX="4.5" PointY="63.075797840714046" />
+          <ConnectorPoint PointX="4.729166666666667" PointY="63.075797840714046" />
+          <ConnectorPoint PointX="5.114583333333333" PointY="63.075797840714046" />
+          <ConnectorPoint PointX="5.25" PointY="63.075797840714046" />
+          <ConnectorPoint PointX="5.25" PointY="62.239889322916667" />
+          <ConnectorPoint PointX="7.625" PointY="62.239889322916667" />
+          <ConnectorPoint PointX="7.625" PointY="60.5625" />
+          <ConnectorPoint PointX="7.666666666666667" PointY="60.5625" />
+          <ConnectorPoint PointX="7.833333333333333" PointY="60.5625" />
+          <ConnectorPoint PointX="7.916666666666667" PointY="60.5625" />
+          <ConnectorPoint PointX="8.0833333333333339" PointY="60.5625" />
           <ConnectorPoint PointX="10.041666666666666" PointY="60.5625" />
           <ConnectorPoint PointX="10.239583333333334" PointY="60.5625" />
-          <ConnectorPoint PointX="10.697916666666666" PointY="60.5625" />
-          <ConnectorPoint PointX="11.020833333333334" PointY="60.5625" />
-          <ConnectorPoint PointX="11.1875" PointY="60.5625" />
-          <ConnectorPoint PointX="11.1875" PointY="61.307190755208339" />
+          <ConnectorPoint PointX="10.541666666666666" PointY="60.5625" />
+          <ConnectorPoint PointX="10.864583333333334" PointY="60.5625" />
+          <ConnectorPoint PointX="10.875" PointY="60.5625" />
+          <ConnectorPoint PointX="10.875" PointY="61.307190755208339" />
+          <ConnectorPoint PointX="11.041666666666666" PointY="61.307190755208339" />
+          <ConnectorPoint PointX="11.208333333333334" PointY="61.307190755208339" />
           <ConnectorPoint PointX="12" PointY="61.307190755208339" />
           <ConnectorPoint PointX="12" PointY="61.182190755208339" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_AuditIssues_Users" >
-          <ConnectorPoint PointX="4.38319727495657" PointY="54" />
-          <ConnectorPoint PointX="4.38319727495657" PointY="53.75" />
+          <ConnectorPoint PointX="4.3934576438334574" PointY="54" />
+          <ConnectorPoint PointX="4.3934576438334574" PointY="53.75" />
+          <ConnectorPoint PointX="4.72897335897436" PointY="53.75" />
+          <ConnectorPoint PointX="4.8956400256410264" PointY="53.75" />
           <ConnectorPoint PointX="5" PointY="53.75" />
           <ConnectorPoint PointX="5" PointY="55.585999348958339" />
           <ConnectorPoint PointX="7.572916666666667" PointY="55.585999348958339" />
@@ -3945,20 +3824,16 @@
           <ConnectorPoint PointX="13.5" PointY="54.903594877604178" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_Board_OwnerUserId_Users" >
-          <ConnectorPoint PointX="4.5" PointY="55.031147439387325" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="55.031147439387325" />
-          <ConnectorPoint PointX="4.895833333333333" PointY="55.031147439387325" />
-          <ConnectorPoint PointX="4.916666666666667" PointY="55.031147439387325" />
-          <ConnectorPoint PointX="5.114583333333333" PointY="55.031147439387325" />
-          <ConnectorPoint PointX="5.25" PointY="55.031147439387325" />
+          <ConnectorPoint PointX="4.5" PointY="55.030496732463078" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="55.030496732463078" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="55.030496732463078" />
+          <ConnectorPoint PointX="5.25" PointY="55.030496732463078" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_Board_PostedUserId_Users" >
-          <ConnectorPoint PointX="4.5" PointY="54.453073719693663" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="54.453073719693663" />
-          <ConnectorPoint PointX="4.895833333333333" PointY="54.453073719693663" />
-          <ConnectorPoint PointX="4.916666666666667" PointY="54.453073719693663" />
-          <ConnectorPoint PointX="5.114583333333333" PointY="54.453073719693663" />
-          <ConnectorPoint PointX="5.25" PointY="54.453073719693663" />
+          <ConnectorPoint PointX="4.5" PointY="54.452748366231539" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="54.452748366231539" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="54.452748366231539" />
+          <ConnectorPoint PointX="5.25" PointY="54.452748366231539" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_BoardReply_Board" >
           <ConnectorPoint PointX="6.75" PointY="53.030261318108977" />
@@ -3970,12 +3845,18 @@
           <ConnectorPoint PointX="11.25" PointY="54.125" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_BoardReply_Users" >
-          <ConnectorPoint PointX="4.254628870865206" PointY="54" />
-          <ConnectorPoint PointX="4.254628870865206" PointY="53.734375" />
+          <ConnectorPoint PointX="3.2994711635713436" PointY="54" />
+          <ConnectorPoint PointX="3.2994711635713436" PointY="53.734375" />
+          <ConnectorPoint PointX="3.3624986811141304" PointY="53.734375" />
+          <ConnectorPoint PointX="3.5291653477807974" PointY="53.734375" />
+          <ConnectorPoint PointX="3.6407331109524361" PointY="53.734375" />
+          <ConnectorPoint PointX="3.8073997776191031" PointY="53.734375" />
+          <ConnectorPoint PointX="3.8836043694533031" PointY="53.734375" />
+          <ConnectorPoint PointX="4.3330686386894453" PointY="53.734375" />
           <ConnectorPoint PointX="4.75" PointY="53.734375" />
           <ConnectorPoint PointX="4.75" PointY="55.788198242187505" />
-          <ConnectorPoint PointX="4.947916666666667" PointY="55.788198242187505" />
-          <ConnectorPoint PointX="5.114583333333333" PointY="55.788198242187505" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="55.788198242187505" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="55.788198242187505" />
           <ConnectorPoint PointX="7.572916666666667" PointY="55.788198242187505" />
           <ConnectorPoint PointX="7.739583333333333" PointY="55.788198242187505" />
           <ConnectorPoint PointX="7.9375" PointY="55.788198242187505" />
@@ -3987,46 +3868,46 @@
           <ConnectorPoint PointX="10.5" PointY="55.294322328225164" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_ErrorLog_Users" >
-          <ConnectorPoint PointX="4.5" PointY="57.292727533880132" />
-          <ConnectorPoint PointX="4.947916666666667" PointY="57.292727533880132" />
-          <ConnectorPoint PointX="5.114583333333333" PointY="57.292727533880132" />
-          <ConnectorPoint PointX="5.25" PointY="57.292727533880132" />
+          <ConnectorPoint PointX="4.5" PointY="56.803129915492136" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="56.803129915492136" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="56.803129915492136" />
+          <ConnectorPoint PointX="5.25" PointY="56.803129915492136" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_Events_Users" >
-          <ConnectorPoint PointX="4.5" PointY="60.650876394721166" />
-          <ConnectorPoint PointX="4.729166666666667" PointY="60.650876394721166" />
-          <ConnectorPoint PointX="5.020833333333333" PointY="60.650876394721166" />
-          <ConnectorPoint PointX="5.25" PointY="60.650876394721166" />
+          <ConnectorPoint PointX="4.5" PointY="60.657808168318056" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="60.657808168318056" />
+          <ConnectorPoint PointX="5.020833333333333" PointY="60.657808168318056" />
+          <ConnectorPoint PointX="5.25" PointY="60.657808168318056" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_Feedback_Users" >
-          <ConnectorPoint PointX="4.5" PointY="66.164918883345763" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="66.164918883345763" />
-          <ConnectorPoint PointX="5.114583333333333" PointY="66.164918883345763" />
-          <ConnectorPoint PointX="5.25" PointY="66.164918883345763" />
+          <ConnectorPoint PointX="4.5" PointY="66.196168883345763" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="66.196168883345763" />
+          <ConnectorPoint PointX="5.114583333333333" PointY="66.196168883345763" />
+          <ConnectorPoint PointX="5.25" PointY="66.196168883345763" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_FilteredCityState_Users" >
-          <ConnectorPoint PointX="3.53133837318169" PointY="67.13376953125" />
-          <ConnectorPoint PointX="3.53133837318169" PointY="69.240143229166677" />
-          <ConnectorPoint PointX="3.7635352372931838" PointY="69.240143229166677" />
-          <ConnectorPoint PointX="4.027037213372556" PointY="69.240143229166677" />
-          <ConnectorPoint PointX="4.13119445963462" PointY="69.240143229166677" />
-          <ConnectorPoint PointX="4.297861126301286" PointY="69.240143229166677" />
+          <ConnectorPoint PointX="3.6512581906909096" PointY="67.13376953125" />
+          <ConnectorPoint PointX="3.6512581906909096" PointY="69.240143229166677" />
+          <ConnectorPoint PointX="3.8244612221783059" PointY="69.240143229166677" />
+          <ConnectorPoint PointX="3.9911278888449728" PointY="69.240143229166677" />
+          <ConnectorPoint PointX="4.1126506729377965" PointY="69.240143229166677" />
+          <ConnectorPoint PointX="4.2793173396044626" PointY="69.240143229166677" />
           <ConnectorPoint PointX="5.25" PointY="69.240143229166677" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_FilteredZipCode_Users" >
-          <ConnectorPoint PointX="4.214527792967953" PointY="67.13376953125" />
-          <ConnectorPoint PointX="4.214527792967953" PointY="71.893992513020834" />
+          <ConnectorPoint PointX="4.1959840062711296" PointY="67.13376953125" />
+          <ConnectorPoint PointX="4.1959840062711296" PointY="71.893992513020834" />
           <ConnectorPoint PointX="5.25" PointY="71.893992513020834" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_IssueComplaints_FiledByUserId_Users" >
-          <ConnectorPoint PointX="3.240023145709225" PointY="54" />
-          <ConnectorPoint PointX="3.240023145709225" PointY="53.71875" />
-          <ConnectorPoint PointX="3.316713478503313" PointY="53.71875" />
-          <ConnectorPoint PointX="4.2322715188678428" PointY="53.71875" />
+          <ConnectorPoint PointX="3.5921928653235842" PointY="54" />
+          <ConnectorPoint PointX="3.5921928653235842" PointY="53.71875" />
+          <ConnectorPoint PointX="3.6407331109524361" PointY="53.71875" />
+          <ConnectorPoint PointX="3.8073997776191031" PointY="53.71875" />
+          <ConnectorPoint PointX="3.8836043694533031" PointY="53.71875" />
+          <ConnectorPoint PointX="4.3330686386894453" PointY="53.71875" />
           <ConnectorPoint PointX="4.8125" PointY="53.71875" />
           <ConnectorPoint PointX="4.8125" PointY="55.711293945312491" />
-          <ConnectorPoint PointX="4.947916666666667" PointY="55.711293945312491" />
-          <ConnectorPoint PointX="5.114583333333333" PointY="55.711293945312491" />
           <ConnectorPoint PointX="7.572916666666667" PointY="55.711293945312491" />
           <ConnectorPoint PointX="7.739583333333333" PointY="55.711293945312491" />
           <ConnectorPoint PointX="8" PointY="55.711293945312491" />
@@ -4043,15 +3924,17 @@
           <ConnectorPoint PointX="13.25" PointY="56.182190755208353" />
           <ConnectorPoint PointX="14.166666666666666" PointY="56.182190755208353" />
           <ConnectorPoint PointX="14.333333333333334" PointY="56.182190755208353" />
-          <ConnectorPoint PointX="16.125" PointY="56.182190755208353" />
-          <ConnectorPoint PointX="16.125" PointY="55.711293945312491" />
+          <ConnectorPoint PointX="16" PointY="56.182190755208353" />
+          <ConnectorPoint PointX="16" PointY="55.711293945312491" />
+          <ConnectorPoint PointX="16.104166666666668" PointY="55.711293945312491" />
+          <ConnectorPoint PointX="16.270833333333332" PointY="55.711293945312491" />
           <ConnectorPoint PointX="16.5" PointY="55.711293945312491" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_IssueDisposition_Users" >
-          <ConnectorPoint PointX="3.8438688738665765" PointY="54" />
-          <ConnectorPoint PointX="3.8438688738665765" PointY="51.5" />
-          <ConnectorPoint PointX="3.9020330377356864" PointY="51.5" />
-          <ConnectorPoint PointX="4.2322715188678428" PointY="51.5" />
+          <ConnectorPoint PointX="4.1060129668787653" PointY="54" />
+          <ConnectorPoint PointX="4.1060129668787653" PointY="51.5" />
+          <ConnectorPoint PointX="4.854166666666667" PointY="51.5" />
+          <ConnectorPoint PointX="5.020833333333333" PointY="51.5" />
           <ConnectorPoint PointX="8" PointY="51.5" />
           <ConnectorPoint PointX="8" PointY="53.297587890624982" />
           <ConnectorPoint PointX="10.072916666666666" PointY="53.297587890624982" />
@@ -4059,8 +3942,8 @@
           <ConnectorPoint PointX="11.166666666666666" PointY="53.297587890624982" />
           <ConnectorPoint PointX="11.333333333333334" PointY="53.297587890624982" />
           <ConnectorPoint PointX="13.25" PointY="53.297587890624982" />
-          <ConnectorPoint PointX="13.25" PointY="52.4687505" />
-          <ConnectorPoint PointX="16.5" PointY="52.4687505" />
+          <ConnectorPoint PointX="13.25" PointY="52.615143229166662" />
+          <ConnectorPoint PointX="16.5" PointY="52.615143229166662" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_IssueReplyCommentComplaints_FiledByUserId_Users" >
           <ConnectorPoint PointX="4.5" PointY="65.3675439453125" />
@@ -4077,12 +3960,12 @@
           <ConnectorPoint PointX="9.75" PointY="65.051315826171873" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_IssueReplyComments_Users" >
-          <ConnectorPoint PointX="4.0405391894519287" PointY="67.13376953125" />
-          <ConnectorPoint PointX="4.0405391894519287" PointY="67.38376953125" />
-          <ConnectorPoint PointX="4.13119445963462" PointY="67.38376953125" />
-          <ConnectorPoint PointX="4.297861126301286" PointY="67.38376953125" />
-          <ConnectorPoint PointX="4.3051825631506437" PointY="67.38376953125" />
-          <ConnectorPoint PointX="4.47184922981731" PointY="67.38376953125" />
+          <ConnectorPoint PointX="4.012723509406694" PointY="67.13376953125" />
+          <ConnectorPoint PointX="4.012723509406694" PointY="67.38376953125" />
+          <ConnectorPoint PointX="4.1126506729377965" PointY="67.38376953125" />
+          <ConnectorPoint PointX="4.2793173396044626" PointY="67.38376953125" />
+          <ConnectorPoint PointX="4.2959106698022316" PointY="67.38376953125" />
+          <ConnectorPoint PointX="4.4625773364688976" PointY="67.38376953125" />
           <ConnectorPoint PointX="4.75" PointY="67.38376953125" />
           <ConnectorPoint PointX="4.75" PointY="65.17258789062501" />
           <ConnectorPoint PointX="4.791666666666667" PointY="65.17258789062501" />
@@ -4098,80 +3981,88 @@
           <ConnectorPoint PointX="11.25" PointY="64.504293119791669" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_IssueReplyComplaints_FiledByUserId_Users" >
-          <ConnectorPoint PointX="3.4000468118366465" PointY="54" />
-          <ConnectorPoint PointX="3.4000468118366465" PointY="51.1875" />
-          <ConnectorPoint PointX="3.4678757609170563" PointY="51.1875" />
-          <ConnectorPoint PointX="3.7857047099974666" PointY="51.1875" />
-          <ConnectorPoint PointX="3.9020330377356864" PointY="51.1875" />
-          <ConnectorPoint PointX="4.2322715188678428" PointY="51.1875" />
+          <ConnectorPoint PointX="3.4458320144474639" PointY="54" />
+          <ConnectorPoint PointX="3.4458320144474639" PointY="51.1875" />
+          <ConnectorPoint PointX="3.6407331109524361" PointY="51.1875" />
+          <ConnectorPoint PointX="3.8073997776191031" PointY="51.1875" />
+          <ConnectorPoint PointX="3.8836043694533031" PointY="51.1875" />
+          <ConnectorPoint PointX="4.05027103611997" PointY="51.1875" />
+          <ConnectorPoint PointX="4.0539321335454321" PointY="51.1875" />
+          <ConnectorPoint PointX="4.2205988002120982" PointY="51.1875" />
+          <ConnectorPoint PointX="4.854166666666667" PointY="51.1875" />
+          <ConnectorPoint PointX="5.020833333333333" PointY="51.1875" />
           <ConnectorPoint PointX="8.25" PointY="51.1875" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_IssueReplyDisposition_Users" >
-          <ConnectorPoint PointX="3.2818324388185474" PointY="67.13376953125" />
-          <ConnectorPoint PointX="3.2818324388185474" PointY="67.958893229166677" />
-          <ConnectorPoint PointX="3.4480050398483564" PointY="67.958893229166677" />
-          <ConnectorPoint PointX="3.6146717065150233" PointY="67.958893229166677" />
-          <ConnectorPoint PointX="3.7635352372931838" PointY="67.958893229166677" />
-          <ConnectorPoint PointX="4.027037213372556" PointY="67.958893229166677" />
-          <ConnectorPoint PointX="4.13119445963462" PointY="67.958893229166677" />
-          <ConnectorPoint PointX="4.297861126301286" PointY="67.958893229166677" />
+          <ConnectorPoint PointX="3.252656097299031" PointY="67.13376953125" />
+          <ConnectorPoint PointX="3.252656097299031" PointY="67.958893229166677" />
+          <ConnectorPoint PointX="3.2928201051987993" PointY="67.958893229166677" />
+          <ConnectorPoint PointX="3.4594867718654663" PointY="67.958893229166677" />
+          <ConnectorPoint PointX="3.5679248573575761" PointY="67.958893229166677" />
+          <ConnectorPoint PointX="3.7345915240242431" PointY="67.958893229166677" />
+          <ConnectorPoint PointX="3.8244612221783059" PointY="67.958893229166677" />
+          <ConnectorPoint PointX="3.9911278888449728" PointY="67.958893229166677" />
+          <ConnectorPoint PointX="4.1126506729377965" PointY="67.958893229166677" />
+          <ConnectorPoint PointX="4.2793173396044626" PointY="67.958893229166677" />
           <ConnectorPoint PointX="8.25" PointY="67.958893229166677" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_Message_Users_FromUserId" >
-          <ConnectorPoint PointX="4.5" PointY="61.351635358818967" />
-          <ConnectorPoint PointX="4.729166666666667" PointY="61.351635358818967" />
-          <ConnectorPoint PointX="5.020833333333333" PointY="61.351635358818967" />
-          <ConnectorPoint PointX="5.125" PointY="61.351635358818967" />
-          <ConnectorPoint PointX="5.125" PointY="62.052389322916667" />
-          <ConnectorPoint PointX="7.541666666666667" PointY="62.052389322916667" />
-          <ConnectorPoint PointX="7.708333333333333" PointY="62.052389322916667" />
-          <ConnectorPoint PointX="7.75" PointY="62.052389322916667" />
-          <ConnectorPoint PointX="7.75" PointY="60.4375" />
+          <ConnectorPoint PointX="4.5" PointY="61.386351245617412" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="61.386351245617412" />
+          <ConnectorPoint PointX="5.020833333333333" PointY="61.386351245617412" />
+          <ConnectorPoint PointX="5.125" PointY="61.386351245617412" />
+          <ConnectorPoint PointX="5.125" PointY="62.114889322916667" />
+          <ConnectorPoint PointX="7.541666666666667" PointY="62.114889322916667" />
+          <ConnectorPoint PointX="7.708333333333333" PointY="62.114889322916667" />
+          <ConnectorPoint PointX="8" PointY="62.114889322916667" />
+          <ConnectorPoint PointX="8" PointY="60.4375" />
           <ConnectorPoint PointX="10.041666666666666" PointY="60.4375" />
           <ConnectorPoint PointX="10.239583333333334" PointY="60.4375" />
-          <ConnectorPoint PointX="10.697916666666666" PointY="60.4375" />
+          <ConnectorPoint PointX="10.541666666666666" PointY="60.4375" />
           <ConnectorPoint PointX="11.020833333333334" PointY="60.4375" />
-          <ConnectorPoint PointX="11.125" PointY="60.4375" />
-          <ConnectorPoint PointX="11.125" PointY="61.682190755208339" />
-          <ConnectorPoint PointX="14.166666666666666" PointY="61.682190755208339" />
-          <ConnectorPoint PointX="14.333333333333334" PointY="61.682190755208339" />
-          <ConnectorPoint PointX="15.625" PointY="61.682190755208339" />
+          <ConnectorPoint PointX="11.0625" PointY="60.4375" />
+          <ConnectorPoint PointX="11.0625" PointY="61.369690755208339" />
+          <ConnectorPoint PointX="14.166666666666666" PointY="61.369690755208339" />
+          <ConnectorPoint PointX="14.333333333333334" PointY="61.369690755208339" />
+          <ConnectorPoint PointX="15.166666666666666" PointY="61.369690755208339" />
+          <ConnectorPoint PointX="15.333333333333334" PointY="61.369690755208339" />
+          <ConnectorPoint PointX="15.625" PointY="61.369690755208339" />
           <ConnectorPoint PointX="15.625" PointY="60.835999348958325" />
           <ConnectorPoint PointX="17.416666666666668" PointY="60.835999348958325" />
           <ConnectorPoint PointX="17.583333333333332" PointY="60.835999348958325" />
           <ConnectorPoint PointX="17.666666666666668" PointY="60.835999348958325" />
           <ConnectorPoint PointX="17.833333333333332" PointY="60.835999348958325" />
-          <ConnectorPoint PointX="20.395834408378605" PointY="60.835999348958325" />
-          <ConnectorPoint PointX="20.395834408378605" PointY="60.585999348958325" />
+          <ConnectorPoint PointX="20.395834662630918" PointY="60.835999348958325" />
+          <ConnectorPoint PointX="20.395834662630918" PointY="60.585999348958325" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_Message_Users_ToUserId" >
-          <ConnectorPoint PointX="4.5" PointY="57.887593055602139" />
-          <ConnectorPoint PointX="4.9375" PointY="57.887593055602139" />
-          <ConnectorPoint PointX="4.9375" PointY="62.239889322916667" />
-          <ConnectorPoint PointX="7.625" PointY="62.239889322916667" />
-          <ConnectorPoint PointX="7.625" PointY="60.625" />
-          <ConnectorPoint PointX="7.666666666666667" PointY="60.625" />
-          <ConnectorPoint PointX="7.833333333333333" PointY="60.625" />
-          <ConnectorPoint PointX="7.916666666666667" PointY="60.625" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="60.625" />
+          <ConnectorPoint PointX="4.5" PointY="58.018643273154751" />
+          <ConnectorPoint PointX="4.9375" PointY="58.018643273154751" />
+          <ConnectorPoint PointX="4.9375" PointY="61.989889322916667" />
+          <ConnectorPoint PointX="5.041666666666667" PointY="61.989889322916667" />
+          <ConnectorPoint PointX="5.208333333333333" PointY="61.989889322916667" />
+          <ConnectorPoint PointX="7.541666666666667" PointY="61.989889322916667" />
+          <ConnectorPoint PointX="7.833333333333333" PointY="61.989889322916667" />
+          <ConnectorPoint PointX="7.916666666666667" PointY="61.989889322916667" />
+          <ConnectorPoint PointX="8.0833333333333339" PointY="61.989889322916667" />
+          <ConnectorPoint PointX="8.125" PointY="61.989889322916667" />
+          <ConnectorPoint PointX="8.125" PointY="60.625" />
           <ConnectorPoint PointX="10.041666666666666" PointY="60.625" />
           <ConnectorPoint PointX="10.239583333333334" PointY="60.625" />
           <ConnectorPoint PointX="10.541666666666666" PointY="60.625" />
-          <ConnectorPoint PointX="10.864583333333334" PointY="60.625" />
-          <ConnectorPoint PointX="11" PointY="60.625" />
-          <ConnectorPoint PointX="11" PointY="61.369690755208339" />
-          <ConnectorPoint PointX="11.041666666666666" PointY="61.369690755208339" />
-          <ConnectorPoint PointX="11.208333333333334" PointY="61.369690755208339" />
-          <ConnectorPoint PointX="14.166666666666666" PointY="61.369690755208339" />
-          <ConnectorPoint PointX="14.333333333333334" PointY="61.369690755208339" />
-          <ConnectorPoint PointX="15.25" PointY="61.369690755208339" />
+          <ConnectorPoint PointX="11.020833333333334" PointY="60.625" />
+          <ConnectorPoint PointX="11.125" PointY="60.625" />
+          <ConnectorPoint PointX="11.125" PointY="61.682190755208339" />
+          <ConnectorPoint PointX="14.166666666666666" PointY="61.682190755208339" />
+          <ConnectorPoint PointX="14.333333333333334" PointY="61.682190755208339" />
+          <ConnectorPoint PointX="15.25" PointY="61.682190755208339" />
           <ConnectorPoint PointX="15.25" PointY="60.835999348958325" />
           <ConnectorPoint PointX="17.416666666666668" PointY="60.835999348958325" />
           <ConnectorPoint PointX="17.583333333333332" PointY="60.835999348958325" />
           <ConnectorPoint PointX="17.666666666666668" PointY="60.835999348958325" />
           <ConnectorPoint PointX="17.833333333333332" PointY="60.835999348958325" />
-          <ConnectorPoint PointX="19.8541652041893" PointY="60.835999348958325" />
-          <ConnectorPoint PointX="19.8541652041893" PointY="60.585999348958325" />
+          <ConnectorPoint PointX="19.854165331315457" PointY="60.835999348958325" />
+          <ConnectorPoint PointX="19.854165331315457" PointY="60.585999348958325" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_Replys_Messages" >
           <ConnectorPoint PointX="19.375" PointY="59.606287998697915" />
@@ -4183,14 +4074,14 @@
           <ConnectorPoint PointX="24.625" PointY="66.125" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_ProfileComplaints_FiledByUserId_Users" >
-          <ConnectorPoint PointX="4.3885158964839768" PointY="67.13376953125" />
-          <ConnectorPoint PointX="4.3885158964839768" PointY="67.50876953125" />
+          <ConnectorPoint PointX="4.3792440031355646" PointY="67.13376953125" />
+          <ConnectorPoint PointX="4.3792440031355646" PointY="67.50876953125" />
           <ConnectorPoint PointX="4.8125" PointY="67.50876953125" />
           <ConnectorPoint PointX="4.8125" PointY="62.523793945312491" />
           <ConnectorPoint PointX="4.947916666666667" PointY="62.523793945312491" />
           <ConnectorPoint PointX="5.114583333333333" PointY="62.523793945312491" />
-          <ConnectorPoint PointX="7.729166666666667" PointY="62.523793945312491" />
-          <ConnectorPoint PointX="7.895833333333333" PointY="62.523793945312491" />
+          <ConnectorPoint PointX="5.166666666666667" PointY="62.523793945312491" />
+          <ConnectorPoint PointX="5.333333333333333" PointY="62.523793945312491" />
           <ConnectorPoint PointX="7.9375" PointY="62.523793945312491" />
           <ConnectorPoint PointX="7.9375" PointY="63.364889322916667" />
           <ConnectorPoint PointX="10.072916666666666" PointY="63.364889322916667" />
@@ -4200,11 +4091,11 @@
           <ConnectorPoint PointX="10.75" PointY="63.364889322916667" />
           <ConnectorPoint PointX="10.75" PointY="61.859375" />
           <ConnectorPoint PointX="10.854166666666666" PointY="61.859375" />
-          <ConnectorPoint PointX="11.145833333333334" PointY="61.859375" />
+          <ConnectorPoint PointX="11.083333333333334" PointY="61.859375" />
           <ConnectorPoint PointX="14.166666666666666" PointY="61.859375" />
           <ConnectorPoint PointX="14.333333333333334" PointY="61.859375" />
-          <ConnectorPoint PointX="15.25" PointY="61.859375" />
-          <ConnectorPoint PointX="15.25" PointY="63.230286458333325" />
+          <ConnectorPoint PointX="15.625" PointY="61.859375" />
+          <ConnectorPoint PointX="15.625" PointY="63.230286458333325" />
           <ConnectorPoint PointX="16.416666666666668" PointY="63.230286458333325" />
           <ConnectorPoint PointX="16.583333333333332" PointY="63.230286458333325" />
           <ConnectorPoint PointX="17.416666666666668" PointY="63.230286458333325" />
@@ -4212,26 +4103,28 @@
           <ConnectorPoint PointX="17.666666666666668" PointY="63.230286458333325" />
           <ConnectorPoint PointX="17.833333333333332" PointY="63.230286458333325" />
           <ConnectorPoint PointX="19" PointY="63.230286458333325" />
-          <ConnectorPoint PointX="19" PointY="62.844226593744409" />
-          <ConnectorPoint PointX="19.375" PointY="62.844226593744409" />
+          <ConnectorPoint PointX="19" PointY="62.844226593749895" />
+          <ConnectorPoint PointX="19.375" PointY="62.844226593749895" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_ProfileComplaints_TowardUserId_Users" >
-          <ConnectorPoint PointX="3.70217655531713" PointY="67.13376953125" />
-          <ConnectorPoint PointX="3.70217655531713" PointY="67.25876953125" />
-          <ConnectorPoint PointX="3.7635352372931838" PointY="67.25876953125" />
-          <ConnectorPoint PointX="4.1238725227852617" PointY="67.25876953125" />
-          <ConnectorPoint PointX="4.13119445963462" PointY="67.25876953125" />
-          <ConnectorPoint PointX="4.297861126301286" PointY="67.25876953125" />
-          <ConnectorPoint PointX="4.3051825631506437" PointY="67.25876953125" />
-          <ConnectorPoint PointX="4.47184922981731" PointY="67.25876953125" />
+          <ConnectorPoint PointX="3.8028656016165843" PointY="67.13376953125" />
+          <ConnectorPoint PointX="3.8028656016165843" PointY="67.25876953125" />
+          <ConnectorPoint PointX="3.8244612221783059" PointY="67.25876953125" />
+          <ConnectorPoint PointX="4.096056842740027" PointY="67.25876953125" />
+          <ConnectorPoint PointX="4.1126506729377965" PointY="67.25876953125" />
+          <ConnectorPoint PointX="4.2793173396044626" PointY="67.25876953125" />
+          <ConnectorPoint PointX="4.2959106698022316" PointY="67.25876953125" />
+          <ConnectorPoint PointX="4.4625773364688976" PointY="67.25876953125" />
           <ConnectorPoint PointX="4.666666666666667" PointY="67.25876953125" />
           <ConnectorPoint PointX="4.833333333333333" PointY="67.25876953125" />
           <ConnectorPoint PointX="4.875" PointY="67.25876953125" />
           <ConnectorPoint PointX="4.875" PointY="62.461293945312491" />
           <ConnectorPoint PointX="4.947916666666667" PointY="62.461293945312491" />
           <ConnectorPoint PointX="5.114583333333333" PointY="62.461293945312491" />
-          <ConnectorPoint PointX="7.729166666666667" PointY="62.461293945312491" />
-          <ConnectorPoint PointX="7.895833333333333" PointY="62.461293945312491" />
+          <ConnectorPoint PointX="5.166666666666667" PointY="62.461293945312491" />
+          <ConnectorPoint PointX="5.333333333333333" PointY="62.461293945312491" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="62.461293945312491" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="62.461293945312491" />
           <ConnectorPoint PointX="8" PointY="62.461293945312491" />
           <ConnectorPoint PointX="8" PointY="63.489889322916667" />
           <ConnectorPoint PointX="10.072916666666666" PointY="63.489889322916667" />
@@ -4239,7 +4132,7 @@
           <ConnectorPoint PointX="10.625" PointY="63.489889322916667" />
           <ConnectorPoint PointX="10.625" PointY="61.875" />
           <ConnectorPoint PointX="10.854166666666666" PointY="61.875" />
-          <ConnectorPoint PointX="11.145833333333334" PointY="61.875" />
+          <ConnectorPoint PointX="11.083333333333334" PointY="61.875" />
           <ConnectorPoint PointX="14.166666666666666" PointY="61.875" />
           <ConnectorPoint PointX="14.333333333333334" PointY="61.875" />
           <ConnectorPoint PointX="15.5" PointY="61.875" />
@@ -4251,24 +4144,24 @@
           <ConnectorPoint PointX="17.666666666666668" PointY="63.245911458333325" />
           <ConnectorPoint PointX="17.833333333333332" PointY="63.245911458333325" />
           <ConnectorPoint PointX="18.875" PointY="63.245911458333325" />
-          <ConnectorPoint PointX="18.875" PointY="62.07836129687221" />
-          <ConnectorPoint PointX="19.375" PointY="62.07836129687221" />
+          <ConnectorPoint PointX="18.875" PointY="62.078361296874952" />
+          <ConnectorPoint PointX="19.375" PointY="62.078361296874952" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_Replys_User" >
-          <ConnectorPoint PointX="3.1430165019964575" PointY="54" />
-          <ConnectorPoint PointX="3.1430165019964575" PointY="53.703125" />
-          <ConnectorPoint PointX="3.316713478503313" PointY="53.703125" />
-          <ConnectorPoint PointX="4.2322715188678428" PointY="53.703125" />
-          <ConnectorPoint PointX="5.03125" PointY="53.703125" />
-          <ConnectorPoint PointX="5.03125" PointY="59.057190755208353" />
-          <ConnectorPoint PointX="7.25" PointY="59.057190755208353" />
-          <ConnectorPoint PointX="7.25" PointY="60.239889322916667" />
-          <ConnectorPoint PointX="10.041666666666666" PointY="60.239889322916667" />
-          <ConnectorPoint PointX="10.239583333333334" PointY="60.239889322916667" />
-          <ConnectorPoint PointX="10.697916666666666" PointY="60.239889322916667" />
-          <ConnectorPoint PointX="10.864583333333334" PointY="60.239889322916667" />
-          <ConnectorPoint PointX="11" PointY="60.239889322916667" />
-          <ConnectorPoint PointX="11" PointY="58.375" />
+          <ConnectorPoint PointX="3.855940023247955" PointY="54" />
+          <ConnectorPoint PointX="3.855940023247955" PointY="53.703125" />
+          <ConnectorPoint PointX="3.8836043694533031" PointY="53.703125" />
+          <ConnectorPoint PointX="4.3330686386894453" PointY="53.703125" />
+          <ConnectorPoint PointX="4.875" PointY="53.703125" />
+          <ConnectorPoint PointX="4.875" PointY="59.182190755208353" />
+          <ConnectorPoint PointX="7.25" PointY="59.182190755208353" />
+          <ConnectorPoint PointX="7.25" PointY="60.114889322916667" />
+          <ConnectorPoint PointX="10.041666666666666" PointY="60.114889322916667" />
+          <ConnectorPoint PointX="10.239583333333334" PointY="60.114889322916667" />
+          <ConnectorPoint PointX="10.697916666666666" PointY="60.114889322916667" />
+          <ConnectorPoint PointX="10.864583333333334" PointY="60.114889322916667" />
+          <ConnectorPoint PointX="10.875" PointY="60.114889322916667" />
+          <ConnectorPoint PointX="10.875" PointY="58.375" />
           <ConnectorPoint PointX="14.166666666666666" PointY="58.375" />
           <ConnectorPoint PointX="14.333333333333334" PointY="58.375" />
           <ConnectorPoint PointX="15.875" PointY="58.375" />
@@ -4278,16 +4171,16 @@
           <ConnectorPoint PointX="16.5" PointY="58.932444661458334" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_Restrictions_Users_CreatedByUserId" >
-          <ConnectorPoint PointX="3.1096642194092738" PointY="67.13376953125" />
-          <ConnectorPoint PointX="3.1096642194092738" PointY="67.730286458333353" />
-          <ConnectorPoint PointX="3.1984991054852139" PointY="67.730286458333353" />
-          <ConnectorPoint PointX="3.3651657721518808" PointY="67.730286458333353" />
-          <ConnectorPoint PointX="3.4480050398483564" PointY="67.730286458333353" />
-          <ConnectorPoint PointX="3.6146717065150233" PointY="67.730286458333353" />
-          <ConnectorPoint PointX="3.7635352372931838" PointY="67.730286458333353" />
-          <ConnectorPoint PointX="4.027037213372556" PointY="67.730286458333353" />
-          <ConnectorPoint PointX="4.13119445963462" PointY="67.730286458333353" />
-          <ConnectorPoint PointX="4.297861126301286" PointY="67.730286458333353" />
+          <ConnectorPoint PointX="3.0950760486495157" PointY="67.13376953125" />
+          <ConnectorPoint PointX="3.0950760486495157" PointY="67.730286458333353" />
+          <ConnectorPoint PointX="3.1693227639656976" PointY="67.730286458333353" />
+          <ConnectorPoint PointX="3.4594867718654663" PointY="67.730286458333353" />
+          <ConnectorPoint PointX="3.5679248573575761" PointY="67.730286458333353" />
+          <ConnectorPoint PointX="3.7345915240242431" PointY="67.730286458333353" />
+          <ConnectorPoint PointX="3.8244612221783059" PointY="67.730286458333353" />
+          <ConnectorPoint PointX="3.9911278888449728" PointY="67.730286458333353" />
+          <ConnectorPoint PointX="4.1126506729377965" PointY="67.730286458333353" />
+          <ConnectorPoint PointX="4.2793173396044626" PointY="67.730286458333353" />
           <ConnectorPoint PointX="8" PointY="67.730286458333353" />
           <ConnectorPoint PointX="8" PointY="66.375" />
           <ConnectorPoint PointX="10.197819512820509" PointY="66.375" />
@@ -4326,47 +4219,47 @@
           <ConnectorPoint PointX="16.5" PointY="62.980286458333325" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_UserRoles_Users" >
-          <ConnectorPoint PointX="3.4065854060001186" PointY="67.13376953125" />
-          <ConnectorPoint PointX="3.4065854060001186" PointY="67.44626953125" />
-          <ConnectorPoint PointX="3.4480050398483564" PointY="67.44626953125" />
-          <ConnectorPoint PointX="3.6146717065150233" PointY="67.44626953125" />
-          <ConnectorPoint PointX="3.7635352372931838" PointY="67.44626953125" />
-          <ConnectorPoint PointX="4.027037213372556" PointY="67.44626953125" />
-          <ConnectorPoint PointX="4.13119445963462" PointY="67.44626953125" />
-          <ConnectorPoint PointX="4.297861126301286" PointY="67.44626953125" />
+          <ConnectorPoint PointX="3.499650779765235" PointY="67.13376953125" />
+          <ConnectorPoint PointX="3.499650779765235" PointY="67.44626953125" />
+          <ConnectorPoint PointX="3.5679248573575761" PointY="67.44626953125" />
+          <ConnectorPoint PointX="3.7345915240242431" PointY="67.44626953125" />
+          <ConnectorPoint PointX="3.8244612221783059" PointY="67.44626953125" />
+          <ConnectorPoint PointX="3.9911278888449728" PointY="67.44626953125" />
+          <ConnectorPoint PointX="4.1126506729377965" PointY="67.44626953125" />
+          <ConnectorPoint PointX="4.2793173396044626" PointY="67.44626953125" />
           <ConnectorPoint PointX="5.03125" PointY="67.44626953125" />
-          <ConnectorPoint PointX="5.03125" PointY="62.177389322916667" />
-          <ConnectorPoint PointX="7.8125" PointY="62.177389322916667" />
-          <ConnectorPoint PointX="7.8125" PointY="63.239889322916667" />
-          <ConnectorPoint PointX="7.854166666666667" PointY="63.239889322916667" />
+          <ConnectorPoint PointX="5.03125" PointY="62.052389322916667" />
+          <ConnectorPoint PointX="7.541666666666667" PointY="62.052389322916667" />
+          <ConnectorPoint PointX="7.833333333333333" PointY="62.052389322916667" />
+          <ConnectorPoint PointX="7.875" PointY="62.052389322916667" />
+          <ConnectorPoint PointX="7.875" PointY="63.239889322916667" />
+          <ConnectorPoint PointX="7.916666666666667" PointY="63.239889322916667" />
           <ConnectorPoint PointX="8.0833333333333339" PointY="63.239889322916667" />
           <ConnectorPoint PointX="10.072916666666666" PointY="63.239889322916667" />
           <ConnectorPoint PointX="10.239583333333334" PointY="63.239889322916667" />
           <ConnectorPoint PointX="10.541666666666666" PointY="63.239889322916667" />
           <ConnectorPoint PointX="10.833333333333334" PointY="63.239889322916667" />
-          <ConnectorPoint PointX="10.854166666666666" PointY="63.239889322916667" />
-          <ConnectorPoint PointX="11.020833333333334" PointY="63.239889322916667" />
-          <ConnectorPoint PointX="11.0625" PointY="63.239889322916667" />
-          <ConnectorPoint PointX="11.0625" PointY="61.557190755208339" />
+          <ConnectorPoint PointX="11" PointY="63.239889322916667" />
+          <ConnectorPoint PointX="11" PointY="61.557190755208339" />
+          <ConnectorPoint PointX="11.041666666666666" PointY="61.557190755208339" />
+          <ConnectorPoint PointX="11.208333333333334" PointY="61.557190755208339" />
           <ConnectorPoint PointX="14.166666666666666" PointY="61.557190755208339" />
           <ConnectorPoint PointX="14.333333333333334" PointY="61.557190755208339" />
-          <ConnectorPoint PointX="15.541666666666666" PointY="61.557190755208339" />
-          <ConnectorPoint PointX="15.708333333333334" PointY="61.557190755208339" />
+          <ConnectorPoint PointX="15.166666666666666" PointY="61.557190755208339" />
+          <ConnectorPoint PointX="15.333333333333334" PointY="61.557190755208339" />
           <ConnectorPoint PointX="15.75" PointY="61.557190755208339" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_WhoIsOnline_Users" >
-          <ConnectorPoint PointX="4.5" PointY="59.824110886162671" />
-          <ConnectorPoint PointX="4.875" PointY="59.824110886162671" />
-          <ConnectorPoint PointX="4.875" PointY="61.989889322916667" />
-          <ConnectorPoint PointX="7.541666666666667" PointY="61.989889322916667" />
-          <ConnectorPoint PointX="7.708333333333333" PointY="61.989889322916667" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="61.989889322916667" />
-          <ConnectorPoint PointX="7.958333333333333" PointY="61.989889322916667" />
-          <ConnectorPoint PointX="8" PointY="61.989889322916667" />
-          <ConnectorPoint PointX="8" PointY="60.5" />
-          <ConnectorPoint PointX="10.041666666666666" PointY="60.5" />
-          <ConnectorPoint PointX="10.239583333333334" PointY="60.5" />
-          <ConnectorPoint PointX="10.625" PointY="60.5" />
+          <ConnectorPoint PointX="4.5" PointY="60.032029084159028" />
+          <ConnectorPoint PointX="4.875" PointY="60.032029084159028" />
+          <ConnectorPoint PointX="4.875" PointY="62.177389322916667" />
+          <ConnectorPoint PointX="4.947916666666667" PointY="62.177389322916667" />
+          <ConnectorPoint PointX="5.114583333333333" PointY="62.177389322916667" />
+          <ConnectorPoint PointX="7.75" PointY="62.177389322916667" />
+          <ConnectorPoint PointX="7.75" PointY="60.25" />
+          <ConnectorPoint PointX="10.041666666666666" PointY="60.25" />
+          <ConnectorPoint PointX="10.239583333333334" PointY="60.25" />
+          <ConnectorPoint PointX="10.625" PointY="60.25" />
           <ConnectorPoint PointX="10.625" PointY="61.432190755208339" />
           <ConnectorPoint PointX="10.697916666666666" PointY="61.432190755208339" />
           <ConnectorPoint PointX="11.020833333333334" PointY="61.432190755208339" />
@@ -4374,6 +4267,8 @@
           <ConnectorPoint PointX="11.208333333333334" PointY="61.432190755208339" />
           <ConnectorPoint PointX="14.166666666666666" PointY="61.432190755208339" />
           <ConnectorPoint PointX="14.333333333333334" PointY="61.432190755208339" />
+          <ConnectorPoint PointX="15.166666666666666" PointY="61.432190755208339" />
+          <ConnectorPoint PointX="15.333333333333334" PointY="61.432190755208339" />
           <ConnectorPoint PointX="15.5" PointY="61.432190755208339" />
           <ConnectorPoint PointX="15.5" PointY="60.835999348958325" />
           <ConnectorPoint PointX="17.416666666666668" PointY="60.835999348958325" />
@@ -4398,10 +4293,16 @@
           <ConnectorPoint PointX="11.25" PointY="52.92258789062501" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_BoardViewedState_Users" >
-          <ConnectorPoint PointX="3.98536637106902" PointY="54" />
-          <ConnectorPoint PointX="3.98536637106902" PointY="50.78125" />
-          <ConnectorPoint PointX="4.0030998522011769" PointY="50.78125" />
-          <ConnectorPoint PointX="4.2322715188678428" PointY="50.78125" />
+          <ConnectorPoint PointX="3.1731578569353891" PointY="54" />
+          <ConnectorPoint PointX="3.1731578569353891" PointY="50.78125" />
+          <ConnectorPoint PointX="3.6407331109524361" PointY="50.78125" />
+          <ConnectorPoint PointX="3.8073997776191031" PointY="50.78125" />
+          <ConnectorPoint PointX="3.8836043694533031" PointY="50.78125" />
+          <ConnectorPoint PointX="4.05027103611997" PointY="50.78125" />
+          <ConnectorPoint PointX="4.0539321335454321" PointY="50.78125" />
+          <ConnectorPoint PointX="4.2205988002120982" PointY="50.78125" />
+          <ConnectorPoint PointX="4.854166666666667" PointY="50.78125" />
+          <ConnectorPoint PointX="5.020833333333333" PointY="50.78125" />
           <ConnectorPoint PointX="10.5" PointY="50.78125" />
         </AssociationConnector>
         <EntityTypeShape EntityType="HaveAVoice.Models.Issue" Width="1.5" PointX="5.25" PointY="73.875" Height="4.287903645833353" />
@@ -4433,15 +4334,15 @@
           <ConnectorPoint PointX="17.25" PointY="53.797587890624982" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_Issues_Users" >
-          <ConnectorPoint PointX="3.8468685706265173" PointY="67.13376953125" />
-          <ConnectorPoint PointX="3.8468685706265173" PointY="76.018951822916677" />
+          <ConnectorPoint PointX="3.3761534385321328" PointY="67.13376953125" />
+          <ConnectorPoint PointX="3.3761534385321328" PointY="76.018951822916677" />
           <ConnectorPoint PointX="5.25" PointY="76.018951822916677" />
         </AssociationConnector>
         <EntityTypeShape EntityType="HaveAVoice.Models.IssueReply" Width="1.5" PointX="10.5" PointY="66.625" Height="4.8648079427083246" />
         <AssociationConnector Association="HaveAVoice.Models.FK_AuditIssueReplys_IssueReplys" >
           <ConnectorPoint PointX="10.9375" PointY="66.625" />
-          <ConnectorPoint PointX="10.9375" PointY="59.369945161458332" />
-          <ConnectorPoint PointX="11.25" PointY="59.369945161458332" />
+          <ConnectorPoint PointX="10.9375" PointY="59.432445161458332" />
+          <ConnectorPoint PointX="11.25" PointY="59.432445161458332" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_IssueReplyComments_IssueReplys" >
           <ConnectorPoint PointX="11.625" PointY="66.625" />
@@ -4463,24 +4364,24 @@
           <ConnectorPoint PointX="11.25" PointY="71.489807942708325" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_IssueReplys_Users" >
-          <ConnectorPoint PointX="3.943703880039223" PointY="67.13376953125" />
-          <ConnectorPoint PointX="3.943703880039223" PointY="70.615143229166677" />
-          <ConnectorPoint PointX="4.13119445963462" PointY="70.615143229166677" />
-          <ConnectorPoint PointX="4.297861126301286" PointY="70.615143229166677" />
+          <ConnectorPoint PointX="3.9077945555116393" PointY="67.13376953125" />
+          <ConnectorPoint PointX="3.9077945555116393" PointY="70.615143229166677" />
+          <ConnectorPoint PointX="4.1126506729377965" PointY="70.615143229166677" />
+          <ConnectorPoint PointX="4.2793173396044626" PointY="70.615143229166677" />
           <ConnectorPoint PointX="10.5" PointY="70.615143229166677" />
         </AssociationConnector>
         <EntityTypeShape EntityType="HaveAVoice.Models.Friend" Width="1.5" PointX="5.75" PointY="62.75" Height="2.1725878906250102" />
         <AssociationConnector Association="HaveAVoice.Models.FK_Friends_FriendUserId_Users" >
-          <ConnectorPoint PointX="4.5" PointY="64.19162605726973" />
-          <ConnectorPoint PointX="4.729166666666667" PointY="64.19162605726973" />
-          <ConnectorPoint PointX="5.114583333333333" PointY="64.19162605726973" />
-          <ConnectorPoint PointX="5.75" PointY="64.19162605726973" />
+          <ConnectorPoint PointX="4.5" PointY="64.249890799698377" />
+          <ConnectorPoint PointX="4.729166666666667" PointY="64.249890799698377" />
+          <ConnectorPoint PointX="5.114583333333333" PointY="64.249890799698377" />
+          <ConnectorPoint PointX="5.75" PointY="64.249890799698377" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_Friends_SourceUserId_Users" >
-          <ConnectorPoint PointX="4.5" PointY="63.408313028634865" />
-          <ConnectorPoint PointX="4.729166666666667" PointY="63.408313028634865" />
-          <ConnectorPoint PointX="5.114583333333333" PointY="63.408313028634865" />
-          <ConnectorPoint PointX="5.75" PointY="63.408313028634865" />
+          <ConnectorPoint PointX="4.5" PointY="63.662844320206212" />
+          <ConnectorPoint PointX="4.729166666666667" PointY="63.662844320206212" />
+          <ConnectorPoint PointX="5.114583333333333" PointY="63.662844320206212" />
+          <ConnectorPoint PointX="5.75" PointY="63.662844320206212" />
         </AssociationConnector>
         <EntityTypeShape EntityType="HaveAVoice.Models.AuthorityVerification" Width="1.5" PointX="0.5" PointY="54.25" Height="1.9802864583333246" />
         <AssociationConnector Association="HaveAVoice.Models.FK_AuthorityVerification_Users" >
@@ -4501,78 +4402,82 @@
           <ConnectorPoint PointX="2.75" PointY="44.783396809895834" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_Photos_Users" >
-          <ConnectorPoint PointX="3.7023713766641331" PointY="54" />
-          <ConnectorPoint PointX="3.7023713766641331" PointY="45.566793619791667" />
+          <ConnectorPoint PointX="4.2497353053561113" PointY="54" />
+          <ConnectorPoint PointX="4.2497353053561113" PointY="53.5" />
+          <ConnectorPoint PointX="4.2205988002120982" PointY="53.5" />
+          <ConnectorPoint PointX="3.8836043694533031" PointY="53.5" />
+          <ConnectorPoint PointX="3.8073997776191031" PointY="53.5" />
+          <ConnectorPoint PointX="3.6407331109524361" PointY="53.5" />
+          <ConnectorPoint PointX="3.5291653477807974" PointY="53.5" />
+          <ConnectorPoint PointX="3.3624986811141304" PointY="53.5" />
+          <ConnectorPoint PointX="3.2564911902687226" PointY="53.5" />
+          <ConnectorPoint PointX="2.9719935951343612" PointY="53.5" />
+          <ConnectorPoint PointX="2.8984227751497174" PointY="53.5" />
+          <ConnectorPoint PointX="2.8984227751497174" PointY="45.566793619791667" />
         </AssociationConnector>
         <EntityTypeShape EntityType="HaveAVoice.Models.PhotoComplaint" Width="1.5" PointX="7.25" PointY="47.5" Height="2.1725878906250102" />
         <AssociationConnector Association="HaveAVoice.Models.FK_PhotoComplaints_Photos" >
-          <ConnectorPoint PointX="3.9446024748566422" PointY="45.566793619791667" />
-          <ConnectorPoint PointX="3.9446024748566422" PointY="47.65625" />
-          <ConnectorPoint PointX="4.0030998522011769" PointY="47.65625" />
-          <ConnectorPoint PointX="4.2322715188678428" PointY="47.65625" />
+          <ConnectorPoint PointX="3.8903674386945077" PointY="45.566793619791667" />
+          <ConnectorPoint PointX="3.8903674386945077" PointY="47.65625" />
+          <ConnectorPoint PointX="4.0539321335454321" PointY="47.65625" />
+          <ConnectorPoint PointX="4.2205988002120982" PointY="47.65625" />
           <ConnectorPoint PointX="7.25" PointY="47.65625" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_PhotoComplaints_Users" >
-          <ConnectorPoint PointX="3.5512090942503898" PointY="54" />
-          <ConnectorPoint PointX="3.5512090942503898" PointY="49.602885742187496" />
-          <ConnectorPoint PointX="3.6190380433307996" PointY="49.602885742187496" />
-          <ConnectorPoint PointX="3.7857047099974666" PointY="49.602885742187496" />
-          <ConnectorPoint PointX="4.0030998522011769" PointY="49.602885742187496" />
-          <ConnectorPoint PointX="4.2322715188678428" PointY="49.602885742187496" />
+          <ConnectorPoint PointX="3.9669377027866366" PointY="54" />
+          <ConnectorPoint PointX="3.9669377027866366" PointY="49.602885742187496" />
+          <ConnectorPoint PointX="4.0539321335454321" PointY="49.602885742187496" />
+          <ConnectorPoint PointX="4.2205988002120982" PointY="49.602885742187496" />
           <ConnectorPoint PointX="7.25" PointY="49.602885742187496" />
         </AssociationConnector>
         <EntityTypeShape EntityType="HaveAVoice.Models.Fan" Width="1.5" PointX="7.75" PointY="44.375" Height="1.9802864583333388" />
         <AssociationConnector Association="HaveAVoice.Models.FK_Fans_FanUserId_Users" >
-          <ConnectorPoint PointX="4.11768568553451" PointY="54" />
-          <ConnectorPoint PointX="4.11768568553451" PointY="45.816793619791667" />
+          <ConnectorPoint PointX="3.7240664442857696" PointY="54" />
+          <ConnectorPoint PointX="3.7240664442857696" PointY="45.816793619791667" />
+          <ConnectorPoint PointX="3.8070341053611743" PointY="45.816793619791667" />
+          <ConnectorPoint PointX="3.9737007720278412" PointY="45.816793619791667" />
           <ConnectorPoint PointX="4.5" PointY="45.816793619791667" />
-          <ConnectorPoint PointX="4.5" PointY="45.365143229166669" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="45.365143229166669" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="45.365143229166669" />
-          <ConnectorPoint PointX="7.75" PointY="45.365143229166669" />
+          <ConnectorPoint PointX="4.5" PointY="45.432797099324539" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="45.432797099324539" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="45.432797099324539" />
+          <ConnectorPoint PointX="7.416666666666667" PointY="45.432797099324539" />
+          <ConnectorPoint PointX="7.583333333333333" PointY="45.432797099324539" />
+          <ConnectorPoint PointX="7.75" PointY="45.432797099324539" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_Fans_SourceUserId_Users" >
-          <ConnectorPoint PointX="3.0402562509982287" PointY="54" />
-          <ConnectorPoint PointX="3.0402562509982287" PointY="45.832418619791667" />
-          <ConnectorPoint PointX="3.6190380433307996" PointY="45.832418619791667" />
-          <ConnectorPoint PointX="3.7857047099974666" PointY="45.832418619791667" />
-          <ConnectorPoint PointX="3.8612691415233087" PointY="45.832418619791667" />
-          <ConnectorPoint PointX="4.0279358081899757" PointY="45.832418619791667" />
+          <ConnectorPoint PointX="3.0553269284676947" PointY="54" />
+          <ConnectorPoint PointX="3.0553269284676947" PointY="45.832418619791667" />
+          <ConnectorPoint PointX="3.8070341053611743" PointY="45.832418619791667" />
+          <ConnectorPoint PointX="3.9737007720278412" PointY="45.832418619791667" />
           <ConnectorPoint PointX="4.75" PointY="45.832418619791667" />
-          <ConnectorPoint PointX="4.75" PointY="44.838819614583343" />
-          <ConnectorPoint PointX="7.75" PointY="44.838819614583343" />
+          <ConnectorPoint PointX="4.75" PointY="44" />
+          <ConnectorPoint PointX="7.25" PointY="44" />
+          <ConnectorPoint PointX="7.25" PointY="44.970670578857423" />
+          <ConnectorPoint PointX="7.416666666666667" PointY="44.970670578857423" />
+          <ConnectorPoint PointX="7.583333333333333" PointY="44.970670578857423" />
+          <ConnectorPoint PointX="7.75" PointY="44.970670578857423" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="HaveAVoice.Models.PrivacyGroup" Width="1.5" PointX="15.875" PointY="43.25" Height="1.980286458333353" />
-        <EntityTypeShape EntityType="HaveAVoice.Models.PrivacySetting" Width="1.5" PointX="15.875" PointY="46.125" Height="2.1725878906249818" />
-        <EntityTypeShape EntityType="HaveAVoice.Models.UserPrivacyGroup" Width="1.5" PointX="18.125" PointY="43.125" Height="2.1725878906249818" />
-        <EntityTypeShape EntityType="HaveAVoice.Models.UserPrivacySetting" Width="1.5" PointX="19.375" PointY="47.375" Height="1.9802864583333246" />
-        <AssociationConnector Association="HaveAVoice.Models.FK_UserPrivacyGroups_PrivacyGroup1" >
-          <ConnectorPoint PointX="17.375" PointY="44.240143229166677" />
-          <ConnectorPoint PointX="18.125" PointY="44.240143229166677" />
-        </AssociationConnector>
+        <EntityTypeShape EntityType="HaveAVoice.Models.PrivacySetting" Width="1.5" PointX="9.875" PointY="44.25" Height="2.1725878906250102" />
+        <EntityTypeShape EntityType="HaveAVoice.Models.UserPrivacySetting" Width="1.5" PointX="10.375" PointY="47.625" Height="1.9802864583333246" />
         <AssociationConnector Association="HaveAVoice.Models.FK_PrivacySettings_Users" >
-          <ConnectorPoint PointX="4.14893818553451" PointY="54" />
-          <ConnectorPoint PointX="4.14893818553451" PointY="46.927643229166669" />
-          <ConnectorPoint PointX="15.875" PointY="46.927643229166669" />
+          <ConnectorPoint PointX="4.1372654668787652" PointY="54" />
+          <ConnectorPoint PointX="4.1372654668787652" PointY="45.816793619791667" />
+          <ConnectorPoint PointX="7.5" PointY="45.816793619791667" />
+          <ConnectorPoint PointX="7.5" PointY="44.125" />
+          <ConnectorPoint PointX="9.5" PointY="44.125" />
+          <ConnectorPoint PointX="9.5" PointY="45.336293945312505" />
+          <ConnectorPoint PointX="9.875" PointY="45.336293945312505" />
         </AssociationConnector>
-        <AssociationConnector Association="HaveAVoice.Models.FK_UserPrivacyGroups_PrivacySettings" >
-          <ConnectorPoint PointX="17.375" PointY="46.71875" />
-          <ConnectorPoint PointX="18.71875" PointY="46.71875" />
-          <ConnectorPoint PointX="18.71875" PointY="45.297587890624982" />
-        </AssociationConnector>
-        <AssociationConnector Association="HaveAVoice.Models.FK_UserPrivacySettings_UserPrivacyGroups" >
-          <ConnectorPoint PointX="19.078127000000002" PointY="45.297587890624982" />
-          <ConnectorPoint PointX="19.078127000000002" PointY="48.365143229166662" />
-          <ConnectorPoint PointX="19.375" PointY="48.365143229166662" />
+        <AssociationConnector Association="HaveAVoice.Models.FK_UserPrivacySettings_PrivacySettings" >
+          <ConnectorPoint PointX="10.875" PointY="46.42258789062501" />
+          <ConnectorPoint PointX="10.875" PointY="47.625" />
         </AssociationConnector>
         <AssociationConnector Association="HaveAVoice.Models.FK_UserPrivacySettings_Users" >
-          <ConnectorPoint PointX="4.08643318553451" PointY="54" />
-          <ConnectorPoint PointX="4.08643318553451" PointY="47.25" />
-          <ConnectorPoint PointX="15.625" PointY="47.25" />
-          <ConnectorPoint PointX="15.625" PointY="48.797587890624982" />
-          <ConnectorPoint PointX="19" PointY="48.797587890624982" />
-          <ConnectorPoint PointX="19" PointY="48.891466843749988" />
-          <ConnectorPoint PointX="19.375" PointY="48.891466843749988" />
+          <ConnectorPoint PointX="4.5" PointY="54.062306692307693" />
+          <ConnectorPoint PointX="4.9375" PointY="53.624806692307693" />
+          <ConnectorPoint PointX="4.9375" PointY="49.980286458333325" />
+          <ConnectorPoint PointX="10" PointY="49.980286458333325" />
+          <ConnectorPoint PointX="10.375" PointY="49.605286458333325" />
         </AssociationConnector>
         </Diagram>
     </Diagrams>
