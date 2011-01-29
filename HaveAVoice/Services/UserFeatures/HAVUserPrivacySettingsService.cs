@@ -6,7 +6,7 @@ using HaveAVoice.Models;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Repositories;
 using HaveAVoice.Helpers;
-using HaveAVoice.Models.DataStructures;
+using HaveAVoice.Models.View;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVUserPrivacySettingsService : HAVBaseService, IHAVUserPrivacySettingsService {
@@ -30,12 +30,34 @@ namespace HaveAVoice.Services.UserFeatures {
             thePrivacySettingsRepo.AddPrivacySettingsForUser(aUser, DEFAULT_PRIVACY_SETTINGS);
         }
 
-        public void UpdatePrivacySettings(User aUser, IEnumerable<Models.DataStructures.Pair<PrivacySetting>> aPrivacySettings) {
-            throw new NotImplementedException();
+        public void UpdatePrivacySettings(User aUser, EditPrivacySettingsModel aPrivacySettings) {
+            IEnumerable<string> myPrivacySettings = (from p in FindPrivacySettingsForUser(aUser)
+                                                     select p.Name).ToList<string>();
+            List<PrivacySetting> mySelectSettings = new List<PrivacySetting>();
+            List<PrivacySetting> myNotSelectSettings = new List<PrivacySetting>();
+
+            foreach (Pair<PrivacySetting, bool> myPair in aPrivacySettings.PrivacySettings.Values) {
+                if (myPair.Second) {
+                    mySelectSettings.Add(myPair.First);
+                } else {
+                    myNotSelectSettings.Add(myPair.First);
+                }
+            }
+
+            IEnumerable<PrivacySetting> myToRemove = (from p in myNotSelectSettings
+                                                      where myPrivacySettings.Contains(p.Name)
+                                                      select p).ToList<PrivacySetting>();
+
+
+            IEnumerable<PrivacySetting> myToAdd = (from p in mySelectSettings
+                                                      where !myPrivacySettings.Contains(p.Name)
+                                                      select p).ToList<PrivacySetting>();
+
+            thePrivacySettingsRepo.UpdatePrivacySettingsForUser(aUser, myToRemove, myToAdd);
         }
 
-        public Dictionary<string, bool> GetPrivacySettingsForEdit(User aUser) {
-            Dictionary<string, bool> myPrivacySelection = new Dictionary<string, bool>();
+        public EditPrivacySettingsModel GetPrivacySettingsForEdit(User aUser) {
+            Dictionary<string, Pair<PrivacySetting, bool>> myPrivacySelection = new Dictionary<string, Pair<PrivacySetting, bool>>();
 
             IEnumerable<PrivacySetting> myPrivacySettings = FindPrivacySettingsForUser(aUser);
             IEnumerable<PrivacySetting> myAllPrivacySettings = thePrivacySettingsRepo.GetAllPrivacySettings();
@@ -46,14 +68,24 @@ namespace HaveAVoice.Services.UserFeatures {
 
 
             foreach (PrivacySetting mySetting in myPrivacySettings) {
-                myPrivacySelection.Add(mySetting.Name, true);
+                myPrivacySelection.Add(mySetting.Name, 
+                    new Pair<PrivacySetting, bool>() { 
+                        First = mySetting, 
+                        Second = true 
+                    });
             }
 
             foreach (PrivacySetting mySetting in myExcludedPrivacySettings) {
-                myPrivacySelection.Add(mySetting.Name, false);
+                myPrivacySelection.Add(mySetting.Name,
+                    new Pair<PrivacySetting, bool>() {
+                        First = mySetting,
+                        Second = false
+                    });
             }
 
-            return myPrivacySelection;
+            return new EditPrivacySettingsModel() { 
+                PrivacySettings = myPrivacySelection 
+            };
         }
     }
 }

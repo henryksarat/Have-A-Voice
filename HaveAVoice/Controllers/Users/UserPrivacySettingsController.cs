@@ -10,14 +10,16 @@ using HaveAVoice.Models;
 using System.Text;
 using HaveAVoice.Models.View;
 using HaveAVoice.Controllers.Helpers;
-using HaveAVoice.Models.DataStructures;
+using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Controllers.Users
 {
     public class UserPrivacySettingsController : HAVBaseController {
         private static string EDIT_SUCCESS = "Your account has been edited successfully!";
         private const string RETRIEVE_FAIL = "Error retreiving your privacy settings. Please try again.";
-        private const string UPDATE_FAIL = "Error updating privacy settings. Please try again.";
+        private const string EDIT_FAIL = "Error updating privacy settings. Please try again.";
+
+        private const string EDIT_VIEW = "Edit";
 
         private IHAVUserPrivacySettingsService thePrivacyService;
 
@@ -37,7 +39,7 @@ namespace HaveAVoice.Controllers.Users
                 return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
-            Dictionary<string, bool> myPrivacySettingSelections = new Dictionary<string, bool>();
+            EditPrivacySettingsModel myPrivacySettingSelections = new EditPrivacySettingsModel();
             try {
                 myPrivacySettingSelections = thePrivacyService.GetPrivacySettingsForEdit(myUser);
             } catch (Exception e) {
@@ -50,17 +52,18 @@ namespace HaveAVoice.Controllers.Users
 
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Edit(IEnumerable<Pair<PrivacySetting>> aSettings) {
+        public ActionResult Edit(EditPrivacySettingsModel aSettings) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
             try {
                 thePrivacyService.UpdatePrivacySettings(myUser, aSettings);
-                return SendToResultPage(EDIT_SUCCESS);
+                TempData["Message"] = MessageHelper.SuccessMessage(EDIT_SUCCESS);
+                return RedirectToAction(EDIT_VIEW);
             } catch (Exception e) {
-                LogError(e, UPDATE_FAIL);
-                ViewData["Message"] = MessageHelper.ErrorMessage(UPDATE_FAIL);
+                LogError(e, EDIT_FAIL);
+                ViewData["Message"] = MessageHelper.ErrorMessage(EDIT_FAIL);
 
             }
             return View("Edit", aSettings);

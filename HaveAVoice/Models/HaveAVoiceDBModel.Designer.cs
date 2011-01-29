@@ -8693,16 +8693,14 @@ namespace HaveAVoice.Models
         /// <summary>
         /// Create a new PrivacySetting object.
         /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="createdByUserId">Initial value of the CreatedByUserId property.</param>
         /// <param name="name">Initial value of the Name property.</param>
+        /// <param name="createdByUserId">Initial value of the CreatedByUserId property.</param>
         /// <param name="description">Initial value of the Description property.</param>
-        public static PrivacySetting CreatePrivacySetting(global::System.Int32 id, global::System.Int32 createdByUserId, global::System.String name, global::System.String description)
+        public static PrivacySetting CreatePrivacySetting(global::System.String name, global::System.Int32 createdByUserId, global::System.String description)
         {
             PrivacySetting privacySetting = new PrivacySetting();
-            privacySetting.Id = id;
-            privacySetting.CreatedByUserId = createdByUserId;
             privacySetting.Name = name;
+            privacySetting.CreatedByUserId = createdByUserId;
             privacySetting.Description = description;
             return privacySetting;
         }
@@ -8715,27 +8713,27 @@ namespace HaveAVoice.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 Id
+        public global::System.String Name
         {
             get
             {
-                return _Id;
+                return _Name;
             }
             set
             {
-                if (_Id != value)
+                if (_Name != value)
                 {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
+                    OnNameChanging(value);
+                    ReportPropertyChanging("Name");
+                    _Name = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("Name");
+                    OnNameChanged();
                 }
             }
         }
-        private global::System.Int32 _Id;
-        partial void OnIdChanging(global::System.Int32 value);
-        partial void OnIdChanged();
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -8760,30 +8758,6 @@ namespace HaveAVoice.Models
         private global::System.Int32 _CreatedByUserId;
         partial void OnCreatedByUserIdChanging(global::System.Int32 value);
         partial void OnCreatedByUserIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String Name
-        {
-            get
-            {
-                return _Name;
-            }
-            set
-            {
-                OnNameChanging(value);
-                ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Name");
-                OnNameChanged();
-            }
-        }
-        private global::System.String _Name;
-        partial void OnNameChanging(global::System.String value);
-        partial void OnNameChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -12100,13 +12074,13 @@ namespace HaveAVoice.Models
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="userId">Initial value of the UserId property.</param>
-        /// <param name="privacySettingId">Initial value of the PrivacySettingId property.</param>
-        public static UserPrivacySetting CreateUserPrivacySetting(global::System.Int32 id, global::System.Int32 userId, global::System.Int32 privacySettingId)
+        /// <param name="privacySettingName">Initial value of the PrivacySettingName property.</param>
+        public static UserPrivacySetting CreateUserPrivacySetting(global::System.Int32 id, global::System.Int32 userId, global::System.String privacySettingName)
         {
             UserPrivacySetting userPrivacySetting = new UserPrivacySetting();
             userPrivacySetting.Id = id;
             userPrivacySetting.UserId = userId;
-            userPrivacySetting.PrivacySettingId = privacySettingId;
+            userPrivacySetting.PrivacySettingName = privacySettingName;
             return userPrivacySetting;
         }
 
@@ -12169,24 +12143,24 @@ namespace HaveAVoice.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 PrivacySettingId
+        public global::System.String PrivacySettingName
         {
             get
             {
-                return _PrivacySettingId;
+                return _PrivacySettingName;
             }
             set
             {
-                OnPrivacySettingIdChanging(value);
-                ReportPropertyChanging("PrivacySettingId");
-                _PrivacySettingId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("PrivacySettingId");
-                OnPrivacySettingIdChanged();
+                OnPrivacySettingNameChanging(value);
+                ReportPropertyChanging("PrivacySettingName");
+                _PrivacySettingName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("PrivacySettingName");
+                OnPrivacySettingNameChanged();
             }
         }
-        private global::System.Int32 _PrivacySettingId;
-        partial void OnPrivacySettingIdChanging(global::System.Int32 value);
-        partial void OnPrivacySettingIdChanged();
+        private global::System.String _PrivacySettingName;
+        partial void OnPrivacySettingNameChanging(global::System.String value);
+        partial void OnPrivacySettingNameChanged();
 
         #endregion
     

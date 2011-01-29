@@ -3,6 +3,8 @@ using System.Web.Routing;
 using HaveAVoice.Models.View;
 using HaveAVoice.Helpers;
 using System.Web;
+using System.Collections.Generic;
+using HaveAVoice.Models;
 
 namespace HaveAVoice {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
@@ -31,6 +33,8 @@ namespace HaveAVoice {
             ModelBinders.Binders.Add(typeof(PermissionModel), new PermissionModelBinder());
             ModelBinders.Binders.Remove(typeof(ComplaintModel));
             ModelBinders.Binders.Add(typeof(ComplaintModel), new ComplaintModelBinder());
+            ModelBinders.Binders.Remove(typeof(EditPrivacySettingsModel));
+            ModelBinders.Binders.Add(typeof(EditPrivacySettingsModel), new EditPrivacySettingsModelBinder());
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 

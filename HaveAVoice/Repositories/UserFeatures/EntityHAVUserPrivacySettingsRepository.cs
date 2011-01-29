@@ -13,7 +13,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         public void AddPrivacySettingsForUser(User aTargetUser, HAVPrivacySetting[] aSettings) {
             foreach (HAVPrivacySetting mySetting in aSettings) {
                 PrivacySetting myPrivacySetting = FindPrivacySettingByName(mySetting.ToString());
-                UserPrivacySetting myUserPrivacySetting = UserPrivacySetting.CreateUserPrivacySetting(0, aTargetUser.Id, myPrivacySetting.Id);
+                UserPrivacySetting myUserPrivacySetting = UserPrivacySetting.CreateUserPrivacySetting(0, aTargetUser.Id, myPrivacySetting.Name);
 
                 theEntities.AddToUserPrivacySettings(myUserPrivacySetting);
             }
@@ -23,7 +23,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         public IEnumerable<PrivacySetting> FindPrivacySettingsForUser(User aUser) {
             return (from p in theEntities.PrivacySettings
-                    join up in theEntities.UserPrivacySettings on p.Id equals up.PrivacySettingId
+                    join up in theEntities.UserPrivacySettings on p.Name equals up.PrivacySettingName
                     where up.UserId == aUser.Id
                     select p).ToList<PrivacySetting>();
         }
@@ -37,6 +37,27 @@ namespace HaveAVoice.Repositories.UserFeatures {
         public IEnumerable<PrivacySetting> GetAllPrivacySettings() {
             return (from p in theEntities.PrivacySettings
                     select p).ToList<PrivacySetting>();
+        }
+
+        public void UpdatePrivacySettingsForUser(User aUser, IEnumerable<PrivacySetting> aSettingsToRemove, IEnumerable<PrivacySetting> aSettingsToAdd) {
+            foreach (PrivacySetting mySetting in aSettingsToRemove) {
+                UserPrivacySetting mySettingToDelete = FindUserPrivacySetting(aUser, mySetting);
+                theEntities.DeleteObject(mySettingToDelete);
+            }
+
+            foreach (PrivacySetting mySetting in aSettingsToAdd) {
+                UserPrivacySetting mySettingToCreate = UserPrivacySetting.CreateUserPrivacySetting(0, aUser.Id, mySetting.Name);
+                theEntities.AddToUserPrivacySettings(mySettingToCreate);
+            }
+
+            theEntities.SaveChanges();
+        }
+
+        public UserPrivacySetting FindUserPrivacySetting(User aUser, PrivacySetting aSetting) {
+            return (from u in theEntities.UserPrivacySettings
+                    where u.UserId == aUser.Id
+                    && u.PrivacySettingName == aSetting.Name
+                    select u).FirstOrDefault<UserPrivacySetting>();
         }
     }
 }

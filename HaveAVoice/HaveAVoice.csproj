@@ -136,10 +136,11 @@
     </Compile>
     <Compile Include="Helpers\ActionMethods\AcceptParameterAttribute.cs" />
     <Compile Include="Helpers\ActionMethods\CaptchaValidatorAttribute.cs" />
-    <Compile Include="Models\DataStructures\Pair.cs" />
+    <Compile Include="Models\View\Binders\EditPrivacySettingsModelBinder.cs" />
     <Compile Include="Models\View\Binders\ImageBinder.cs" />
     <Compile Include="Models\View\BoardFeedModel.cs" />
     <Compile Include="Models\View\CreateUserModelBuilder.cs" />
+    <Compile Include="Models\View\EditPrivacySettingsModel.cs" />
     <Compile Include="Models\View\IssueFeedModel.cs" />
     <Compile Include="Models\View\IssueReplyFeedModel.cs" />
     <Compile Include="Models\View\PhotoAlbumFeedModel.cs" />

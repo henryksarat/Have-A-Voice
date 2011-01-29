@@ -47,5 +47,11 @@ namespace HaveAVoice.Models.View {
                 return 0;
             }
         }
+
+        public static bool GetABoolean(ModelBindingContext bindingContext, string key) {
+            string value = GetA(bindingContext, key);
+            if (String.IsNullOrEmpty(value)) return false;
+            return Boolean.Parse(value);
+        }
     }
 }

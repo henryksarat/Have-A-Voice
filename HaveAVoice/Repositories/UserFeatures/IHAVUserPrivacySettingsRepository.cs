@@ -9,6 +9,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
     public interface IHAVUserPrivacySettingsRepository {
         void AddPrivacySettingsForUser(User aTargetUser, HAVPrivacySetting[] aSettings);
         IEnumerable<PrivacySetting> FindPrivacySettingsForUser(User aUser);
-        IEnumerable<PrivacySetting> GetAllPrivacySettings(); 
+        IEnumerable<PrivacySetting> GetAllPrivacySettings();
+        void UpdatePrivacySettingsForUser(User aUser, IEnumerable<PrivacySetting> aSettingsToRemove, IEnumerable<PrivacySetting> aSettingsToAdd);
     }
 }

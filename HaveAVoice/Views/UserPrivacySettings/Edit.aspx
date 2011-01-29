@@ -1,5 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<Dictionary<string, bool>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<EditPrivacySettingsModel>" %>
 <%@ Import Namespace="HaveAVoice.Helpers" %>
+<%@ Import Namespace="HaveAVoice.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	EditPrivacy
@@ -16,11 +17,13 @@
             <legend>Fields</legend>
             <p>
                 <table>
-                    <tr>
-                        <td><label for="">Display Profile To Politicians:</label></td>
-                        <td><label for="Newsletter">Yes</label> <%= Html.RadioButton(HAVPrivacySetting.Display_Profile_Politician.ToString(), true, Model[HAVPrivacySetting.Display_Profile_Politician.ToString()])%></td>
-                        <td><label for="Newsletter">No</label> <%= Html.RadioButton(HAVPrivacySetting.Display_Profile_Politician.ToString(), false, !Model[HAVPrivacySetting.Display_Profile_Politician.ToString()])%> </td>
-                    </tr>     
+                    <% foreach (HAVPrivacySetting mySetting in Enum.GetValues(typeof(HAVPrivacySetting))) { %>
+                        <tr>
+                            <td><label for=""><%= mySetting.ToString()%></label></td>
+                            <td><label for="Newsletter">Yes</label> <%= Html.RadioButton(mySetting.ToString(), true, Model.PrivacySettings[mySetting.ToString()].Second)%></td>
+                            <td><label for="Newsletter">No</label> <%= Html.RadioButton(mySetting.ToString(), false, !Model.PrivacySettings[mySetting.ToString()].Second)%> </td>
+                        </tr>
+                    <% } %>     
                 </table>
             </p>
             <p>

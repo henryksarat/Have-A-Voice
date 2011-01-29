@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using HaveAVoice.Models;
-using HaveAVoice.Models.DataStructures;
+using HaveAVoice.Helpers;
+using HaveAVoice.Models.View;
 
 namespace HaveAVoice.Services.UserFeatures {
     public interface IHAVUserPrivacySettingsService {
-        Dictionary<string, bool> GetPrivacySettingsForEdit(User aUser);
+        EditPrivacySettingsModel GetPrivacySettingsForEdit(User aUser);
         IEnumerable<PrivacySetting> FindPrivacySettingsForUser(User aUser);
         void AddDefaultPrivacySettingsForUser(User aUser);
-        void UpdatePrivacySettings(User aUser, IEnumerable<Pair<PrivacySetting>> aPrivacySettings);
+        void UpdatePrivacySettings(User aUser, EditPrivacySettingsModel aPrivacySettings);
     }
 }
