@@ -6,6 +6,7 @@ using HaveAVoice.Models;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Repositories;
 using HaveAVoice.Helpers;
+using HaveAVoice.Models.DataStructures;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVUserPrivacySettingsService : HAVBaseService, IHAVUserPrivacySettingsService {
@@ -31,6 +32,28 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public void UpdatePrivacySettings(User aUser, IEnumerable<Models.DataStructures.Pair<PrivacySetting>> aPrivacySettings) {
             throw new NotImplementedException();
+        }
+
+        public Dictionary<string, bool> GetPrivacySettingsForEdit(User aUser) {
+            Dictionary<string, bool> myPrivacySelection = new Dictionary<string, bool>();
+
+            IEnumerable<PrivacySetting> myPrivacySettings = FindPrivacySettingsForUser(aUser);
+            IEnumerable<PrivacySetting> myAllPrivacySettings = thePrivacySettingsRepo.GetAllPrivacySettings();
+
+            IEnumerable<PrivacySetting> myExcludedPrivacySettings = (from p in myAllPrivacySettings
+                                                                     where !myPrivacySettings.Contains(p)
+                                                                     select p).ToList<PrivacySetting>();
+
+
+            foreach (PrivacySetting mySetting in myPrivacySettings) {
+                myPrivacySelection.Add(mySetting.Name, true);
+            }
+
+            foreach (PrivacySetting mySetting in myExcludedPrivacySettings) {
+                myPrivacySelection.Add(mySetting.Name, false);
+            }
+
+            return myPrivacySelection;
         }
     }
 }

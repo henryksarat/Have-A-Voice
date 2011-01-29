@@ -37,14 +37,9 @@ namespace HaveAVoice.Controllers.Users
                 return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
-            List<Pair<PrivacySetting>> myPrivacySettingSelections = new List<Pair<PrivacySetting>>();
+            Dictionary<string, bool> myPrivacySettingSelections = new Dictionary<string, bool>();
             try {
-                IEnumerable<PrivacySetting> myPrivacySettings = thePrivacyService.FindPrivacySettingsForUser(myUser);
-                foreach (PrivacySetting mySetting in myPrivacySettings) {
-                    myPrivacySettingSelections.Add(new Pair<PrivacySetting>() { 
-                        Item = mySetting 
-                    });
-                }
+                myPrivacySettingSelections = thePrivacyService.GetPrivacySettingsForEdit(myUser);
             } catch (Exception e) {
                 LogError(e, RETRIEVE_FAIL);
                 return SendToErrorPage(RETRIEVE_FAIL);

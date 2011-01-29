@@ -7,7 +7,8 @@ using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public interface IHAVUserPrivacySettingsRepository {
-        IEnumerable<PrivacySetting> FindPrivacySettingsForUser(User aUser);
         void AddPrivacySettingsForUser(User aTargetUser, HAVPrivacySetting[] aSettings);
+        IEnumerable<PrivacySetting> FindPrivacySettingsForUser(User aUser);
+        IEnumerable<PrivacySetting> GetAllPrivacySettings(); 
     }
 }
