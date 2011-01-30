@@ -16,7 +16,7 @@ namespace HaveAVoice.Helpers {
         public const string NO_PROFILE_PICTURE_URL = PHOTO_LOCATION_FROM_VIEW + NO_PROFILE_PICTURE_IMAGE;
         public const string ANONYMOUS_PICTURE_URL = PHOTO_LOCATION_FROM_VIEW + "anonymous_picture.jpg";
 
-        public const long SECONDS_BEFORE_USER_TIMEOUT = 60 * 5;
+        public const long SECONDS_BEFORE_USER_TIMEOUT = 60 * 30;
         public static string PAGE_NOT_FOUND = "You do not have access.";
         public const string NOT_ALLOWED = "You are not allowed to do that";
         public static string ERROR = "An error has occurred. Please try again.";
