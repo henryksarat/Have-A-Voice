@@ -23,7 +23,7 @@
 
 		<div class="m-lft col-15 m-rgt user-control">
 			<h1>
-				<%= Model.User.Username %>
+				<%= Model.User.FirstName + " " + Model.User.LastName %>
 			</h1>
 			<h2>
 				<!--
