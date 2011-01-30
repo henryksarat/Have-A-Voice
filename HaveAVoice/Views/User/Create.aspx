@@ -42,6 +42,12 @@
 				
 				return false;
 			});
+	        $('#DateOfBirth').datepicker({
+                yearRange: "-10:+10",
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: "mm/dd/yy"
+            });
 		});
 	</script>
     
@@ -193,7 +199,7 @@
 					<div class="spacer-10">&nbsp;</div>
                 
                 	<div class="col-8 right">
-                		<input type="submit" class="create" value="CreateUser" />
+                		<input type="submit" class="create" value="Create" />
 						<%= Html.ActionLink("Cancel", "Index", "", new { @class = "cancel" }) %>
                 	</div>
                 	<div class="clear">&nbsp;</div>

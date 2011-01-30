@@ -57,8 +57,6 @@
 		});
 			
 		equalHeight($("div[rel=match]"));
-		fadeInLabel($("input#Email"));
-		fadeInLabel($("input#Password"));
 	});
 </script>
 

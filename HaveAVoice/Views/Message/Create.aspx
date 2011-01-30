@@ -6,35 +6,65 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
-    <% Html.RenderPartial("Message"); %>
-
-    <h2><%= Html.Encode("Send a message to: " + Model.ToUserName) %></h2>
-    <img src="<%=Model.ToUserProfilePictureUrl %>" width="100px" height="100px" />
-    <%= Html.ValidationSummary("Send was unsuccessful. Please correct the errors and try again.") %>
-
-    <% using (Html.BeginForm()) { %>
-        <%= Html.Hidden("ToUserId", Model.ToUserId)%>
-        <%= Html.Hidden("ToUserName", Model.ToUserName)%>
-        <%= Html.Hidden("ToUserProfilePictureUrl", Model.ToUserProfilePictureUrl)%>
-        <p>
-             <%= Html.Encode(ViewData["Message"]) %>
-        </p>
-            <p>
-                <%= Html.TextBox("Subject", "", new { style = "width:300px;" })%>
-                <%= Html.ValidationMessage("Subject", "*") %>
-            </p>
-                <%= Html.TextArea("Body", new { style = "width:300px; height: 200px" })%>
-                <%= Html.ValidationMessage("Body", "*") %>
-            </p>
-            <p>
-                <input type="submit" value="Send" />
-            </p>
-    <% } %>
-
-    <div>
-        <%=Html.ActionLink("Back to List", "Index") %>
+    <% Html.RenderPartial("UserPanel", Model.NavigationModel); %>    
+    <div class="col-3 m-rgt left-nav">
+        <% Html.RenderPartial("LeftNavigation"); %>
     </div>
 
+    <div class="col-21">	
+        <% Html.RenderPartial("Message"); %>
+	    
+	    <%= Html.ValidationSummary("Send was unsuccessful. Please correct the errors and try again.") %>
+	    <div class="clear">&nbsp;</div>
+	    
+	    <div class="col-3">
+	    	<img src="<%=Model.ToUserProfilePictureUrl %>" alt="<%= Model.ToUserName %>" class="profile" />
+	    </div>
+	    <div class="col-18">
+	    	<div class="col-18">
+	    		<h4><%= Html.Encode("Message: " + Model.ToUserName) %></h4>
+				<div class="clear">&nbsp;</div>
+	    	</div>
+	    	<div class="clear">&nbsp;</div>
+	    	
+	        <% using (Html.BeginForm()) { %>
+		        <%= Html.Hidden("ToUserId", Model.ToUserId) %>
+		        <%= Html.Hidden("ToUserName", Model.ToUserName) %>
+		        <%= Html.Hidden("ToUserProfilePictureUrl", Model.ToUserProfilePictureUrl) %>
+		        
+		        <%= Html.Encode(ViewData["Message"]) %>
+		        <div class="clear">&nbsp;</div>
+		        
+		        <div class="col-18 m-btm10">
+			    	<div class="m-lft col-6 m-rgt right">
+			    		<label>Subject:</label>
+			    	</div>
+			    	<div class="col-6">
+			    		<%= Html.TextBox("Subject", "", new { style = "width:300px;" })%>
+			    	</div>
+			    	<div class="col-6">
+			    		<%= Html.ValidationMessage("Subject", "*") %>
+			    	</div>
+			    	<div class="clear">&nbsp;</div>
+		        </div>
+				<div class="col-18 m-btm10">
+					<div class="m-lft col-6 m-rgt right">
+						<label>Message:</label>
+					</div>
+					<div class="col-6">
+						<%= Html.TextArea("Body", new { style = "width:300px; height: 200px" })%>
+					</div>
+					<div class="col-6">
+						<%= Html.ValidationMessage("Body", "*") %>
+					</div>
+					<div class="clear">&nbsp;</div>
+				</div>
+				
+				<input type="submit" class="button" value="Send" />
+				<%= Html.ActionLink("Cancel", "Index", new { @class = "cancel" })) %>
+	    	<% } %>
+		    <div class="clear">&nbsp;</div>
+	    </div>
+	    <div class="clear">&nbsp;</div>
+	</div>
 </asp:Content>
-

@@ -10,10 +10,11 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <script type="text/javascript">
         $(function() {
-        $('#DateOfBirth').datepicker({
+	        $('#DateOfBirth').datepicker({
                 yearRange: "-10:+10",
                 changeMonth: true,
-                changeYear: true
+                changeYear: true,
+                dateFormat: "mm/dd/yy"
             });
         });    
     </script>
