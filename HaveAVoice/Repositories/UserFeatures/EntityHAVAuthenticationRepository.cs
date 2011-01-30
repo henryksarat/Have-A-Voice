@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using HaveAVoice.Models;
 using HaveAVoice.Services.UserFeatures;
+using HaveAVoice.Services.Helpers;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVAuthenticationRepository : IHAVAuthenticationRepository {
@@ -35,11 +36,10 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         public User FindUserByCookieHash(int aUserId, string aCookieHash) {
-            DateTime dateTimeCookieExpires = DateTime.Now.AddHours(HAVAuthenticationService.REMEMBER_ME_COOKIE_HOURS);
+            DateTime dateTimeCookieExpires = DateTime.Now.AddHours(CookieHelper.REMEMBER_ME_COOKIE_HOURS);
             return (from c in theEntities.Users
                     where c.Id == aUserId
                     && c.CookieHash == aCookieHash
-                    && c.CookieCreationDate >= dateTimeCookieExpires
                     select c).FirstOrDefault();
         }
 

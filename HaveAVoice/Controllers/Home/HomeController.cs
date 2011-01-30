@@ -11,6 +11,7 @@ using HaveAVoice.Validation;
 using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Models;
 using HaveAVoice.Controllers.Helpers;
+using HaveAVoice.Services.Helpers;
 
 namespace HaveAVoice.Controllers.Home {
     public class HomeController : HAVBaseController {
@@ -22,15 +23,18 @@ namespace HaveAVoice.Controllers.Home {
         private const string VIEW_DATA_MESSAGE = "Message";
         private const string NOT_LOGGED_IN = "NotLoggedIn";
 
+        private IHAVAuthenticationService theAuthService;
         private IHAVHomeService theService;
 
         public HomeController() : 
             base(new HAVBaseService(new HAVBaseRepository())) {
             theService = new HAVHomeService(new ModelStateWrapper(this.ModelState));
+            theAuthService = new HAVAuthenticationService();
         }
 
-        public HomeController(IHAVBaseService aBaseService, IHAVHomeService aService)
+        public HomeController(IHAVBaseService aBaseService, IHAVAuthenticationService anAuthService, IHAVHomeService aService)
             : base(aBaseService) {
+            theAuthService = anAuthService;
             theService = aService;
         }
 
@@ -39,10 +43,13 @@ namespace HaveAVoice.Controllers.Home {
         }
 
         public ActionResult NotLoggedIn() {
+            //TempData["Message"] = "cookie hash=" + CookieHelper.GetCookieHashFromCookie();
+
             if (IsLoggedIn()) {
                 return RedirectToProfile();
             }
             NotLoggedInModel myModel = new NotLoggedInModel();
+
 
             try {
                 myModel = theService.NotLoggedIn();

@@ -12,9 +12,6 @@ using HaveAVoice.Repositories.AdminFeatures;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVAuthenticationService : HAVBaseService, IHAVAuthenticationService {
-        public static string REMEMBER_ME_COOKIE = "HaveAVoiceRememberMeCookie";
-        public static int REMEMBER_ME_COOKIE_HOURS = 4;
-
         private IHAVUserPrivacySettingsService thePrivacySettingsService;
         private IHAVUserRetrievalService theUserRetrievalService;
         private IHAVAuthenticationRepository theAuthRepo;
@@ -60,11 +57,13 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public void CreateRememberMeCredentials(User aUser) {
             string myCookieHash = CreateCookieHash(aUser);
-            HttpCookie aCookie = new HttpCookie(REMEMBER_ME_COOKIE);
-            aCookie["UserId"] = aUser.Id.ToString();
-            aCookie["CookieHash"] = myCookieHash;
-            aCookie.Expires = DateTime.Today.AddHours(REMEMBER_ME_COOKIE_HOURS);
-            HttpContext.Current.Response.Cookies.Add(aCookie);
+
+            CookieHelper.CreateCookie(aUser.Id, myCookieHash);
+            //HttpContext.Current.Response.Cookies[CookieHelper.COOKIE_USER_ID].Value = aUser.Id.ToString();
+            //HttpContext.Current.Response.Cookies[CookieHelper.COOKIE_HASH].Value = myCookieHash;
+            //ReadRememberMeCredentials();
+            
+            //ReadRememberMeCredentials();
         }
 
         public void ActivateNewUser(string activationCode) {
@@ -86,17 +85,17 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public User ReadRememberMeCredentials() {
-            HttpCookie myCookie = HttpContext.Current.Request.Cookies.Get(REMEMBER_ME_COOKIE);
-            if (myCookie != null) {
-                int userId = Int32.Parse(myCookie["UserId"]);
-                string cookieHash = myCookie["CookieHash"];
-                User myUser = theAuthRepo.FindUserByCookieHash(userId, cookieHash);
-                myCookie.Expires = DateTime.Now.AddDays(REMEMBER_ME_COOKIE_HOURS);
+
+            int myUserId = CookieHelper.GetUserIdFromCookie();
+            string myCookieHash = CookieHelper.GetCookieHashFromCookie();
+            User myUser = theAuthRepo.FindUserByCookieHash(myUserId, myCookieHash);
+
+            if (myUser != null) {
                 theAuthRepo.UpdateCookieHashCreationDate(myUser);
                 return myUser;
-            } else {
-                return null;
             }
+
+            return null;
         }
 
         private User ActivateUser(string anActivationCode, Role aRoleToMoveTo) {

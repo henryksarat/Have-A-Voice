@@ -19,7 +19,7 @@ namespace HaveAVoice.Tests.Controllers.Home {
         private Mock<IHAVHomeRepository> theMockRepository;
         private HomeController theController;
         private NotLoggedInModel theModel;
-
+        /*
         [TestInitialize]
         public void Initialize() {
             theMockedService = new Mock<IHAVHomeService>();
@@ -72,7 +72,7 @@ namespace HaveAVoice.Tests.Controllers.Home {
             };
             return myModel;
         }
-
+        */
         protected override System.Web.Mvc.Controller GetController() {
             return theController;
         }

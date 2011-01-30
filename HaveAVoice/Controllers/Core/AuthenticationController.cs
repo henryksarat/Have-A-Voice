@@ -10,6 +10,7 @@ using HaveAVoice.Repositories;
 using HaveAVoice.Models.View;
 using HaveAVoice.Exceptions;
 using HaveAVoice.Controllers.Helpers;
+using HaveAVoice.Services.Helpers;
 
 namespace HaveAVoice.Controllers.Core {
     public class AuthenticationController : HAVBaseController {
@@ -106,6 +107,7 @@ namespace HaveAVoice.Controllers.Core {
             }
             theWhoIsOnlineService.RemoveFromWhoIsOnline(GetUserInformaton(), HttpContext.Request.UserHostAddress);
             Session.Clear();
+            CookieHelper.ClearCookies();
             return RedirectToAction("Login");
         }
 
