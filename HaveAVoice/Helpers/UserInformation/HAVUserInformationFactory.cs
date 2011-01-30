@@ -45,6 +45,5 @@ namespace HaveAVoice.Helpers.UserInformation {
                 theFactory = UserInformation.Instance();
             }
         }
-
     }
 }

@@ -59,11 +59,6 @@ namespace HaveAVoice.Services.UserFeatures {
             string myCookieHash = CreateCookieHash(aUser);
 
             CookieHelper.CreateCookie(aUser.Id, myCookieHash);
-            //HttpContext.Current.Response.Cookies[CookieHelper.COOKIE_USER_ID].Value = aUser.Id.ToString();
-            //HttpContext.Current.Response.Cookies[CookieHelper.COOKIE_HASH].Value = myCookieHash;
-            //ReadRememberMeCredentials();
-            
-            //ReadRememberMeCredentials();
         }
 
         public void ActivateNewUser(string activationCode) {

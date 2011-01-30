@@ -107,7 +107,6 @@ namespace HaveAVoice.Controllers.Core {
             }
             theWhoIsOnlineService.RemoveFromWhoIsOnline(GetUserInformaton(), HttpContext.Request.UserHostAddress);
             Session.Clear();
-            CookieHelper.ClearCookies();
             return RedirectToAction("Login");
         }
 
