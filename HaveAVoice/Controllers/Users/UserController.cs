@@ -50,6 +50,9 @@ namespace HaveAVoice.Controllers.Users {
 
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Create() {
+            if (IsLoggedIn()) {
+                return RedirectToProfile();
+            }
             IEnumerable<SelectListItem> myStates = new SelectList(HAVConstants.STATES, "Select");
             return View("Create", new CreateUserModelBuilder() { 
                 States = myStates 
@@ -59,6 +62,9 @@ namespace HaveAVoice.Controllers.Users {
         [CaptchaValidator]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Create(CreateUserModelBuilder aUserToCreate, bool captchaValid) {
+            if (IsLoggedIn()) {
+                return RedirectToProfile();
+            }
             try {
                 bool myResult = theService.CreateUser(aUserToCreate.Build(), captchaValid, aUserToCreate.Agreement, HttpContext.Request.UserHostAddress);
                 if (myResult) {
