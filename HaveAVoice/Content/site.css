@@ -487,6 +487,24 @@ input[type=button].fan { width: 100%; color: #63a8b8; cursor: pointer; font-size
 
 
 /****************************************************************************/
+/******************************* USER EDIT **********************************/
+/****************************************************************************/
+.profile .details { color: #64a2b1; }
+.profile { color: #406872; font-size: 12px; line-height: 1.25; border-right: 1px solid #c0d8de; }
+.form { border-left: 1px solid #e6f3f6; color: #88b4bf; font-size: 12px; }
+.form input[type=text], .form input[type=password] { border: 1px solid #c1dee5; font-size: 14px; width: 200px; }
+.form textarea { border: 1px solid #c1dee5; font-size: 14px; width: 250px; resize: none; }
+.form label { display: block; font-size: 16px; color: #66a4b3; }
+.form img { margin : 7px; }
+.form .no-margin img { margin: 0px; }
+
+ul.tabs { display: block; }
+ul.tabs li { float: left; }
+ul.tabs li a, ul.tabs li a:link, ul.tabs li a:visited { color: #fff; display: block; background: #cfe3e8; padding: 8px; text-decoration: none; }
+ul.tabs li a:hover, ul.tabs li a.active { background: #c1dee5; }
+
+
+/****************************************************************************/
 /****************************************************************************/
 /****************************************************************************/
 .events .title { padding: 5px 0px; text-align: center; text-transform: uppercase; font-weight: bold; color: #ffffff; background: #a0cfdB; }
