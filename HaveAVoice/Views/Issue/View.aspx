@@ -17,7 +17,7 @@
         <% Dictionary<string,int> myFilter = (Dictionary<string,int>)TempData[HAVConstants.FILTER_TEMP_DATA];  %>
         <% TempData[HAVConstants.FILTER_TEMP_DATA] = myFilter; %>
     
-    	<% Html.RenderPartial("Message"); %>
+
     
     	<div class="push-1 col-4 center p-t5 p-b5 t-tab btint-6">
     		<%=Html.ActionLink("ISSUES", "Index", null, new { @class = "issue-create" }) %>
@@ -67,9 +67,9 @@
 	
 	        <%= Html.Hidden("City", HAVUserInformationFactory.GetUserInformation().Details.City) %>
 	        <%= Html.Hidden("State", HAVUserInformationFactory.GetUserInformation().Details.State) %>
-	            
-			<%= Html.Encode(ViewData["Message"]) %>
-	        <%= Html.Encode(TempData["Message"]) %>
+
+	        <% Html.RenderPartial("Message"); %>
+
 	        <%= Html.ValidationSummary("Your reply wasn't posted. Please correct the errors and try again.") %>
 	        <div class="clear">&nbsp;</div>
 	        
