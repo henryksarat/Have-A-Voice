@@ -280,6 +280,7 @@
 					<div class="clear">&nbsp;</div>
 				</div>
             <% } else if (myNextFeedItem == FeedItem.Photo) {%>
+                <% PhotoAlbumFeedModel myPhotoAlbum = Model.Model.GetNextPhotoAlbum(); %>
             <% } %>
             <% cnt++; %>
             <%  myNextFeedItem = Model.Model.GetNextItem(); %>
