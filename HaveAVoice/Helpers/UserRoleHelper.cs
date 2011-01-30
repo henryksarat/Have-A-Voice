@@ -5,7 +5,7 @@ using System.Web;
 using HaveAVoice.Helpers.Enums;
 
 namespace HaveAVoice.Helpers {
-    public static class RoleHelper {
+    public static class UserRoleHelper {
         public static IEnumerable<string> OfficialRoles() {
             List<string> myOfficialRoles = new List<string>();
             myOfficialRoles.Add(Roles.OFFICIAL);

@@ -117,8 +117,8 @@ namespace HaveAVoice.Controllers.Issues {
                 }
 
                 User myUser = HAVUserInformationFactory.GetUserInformation().Details;
-                IEnumerable<IssueReplyModel> registeredUserReplys = theService.GetReplysToIssue(myUser, issue, RoleHelper.RegisteredRoles(), PersonFilter.Politicians);
-                IEnumerable<IssueReplyModel> officialUserReplys = theService.GetReplysToIssue(myUser, issue, RoleHelper.OfficialRoles(), PersonFilter.People);
+                IEnumerable<IssueReplyModel> registeredUserReplys = theService.GetReplysToIssue(myUser, issue, UserRoleHelper.RegisteredRoles(), PersonFilter.Politicians);
+                IEnumerable<IssueReplyModel> officialUserReplys = theService.GetReplysToIssue(myUser, issue, UserRoleHelper.OfficialRoles(), PersonFilter.People);
 
                 List<IssueReplyModel> myMerged = new List<IssueReplyModel>();
                 myMerged.AddRange(registeredUserReplys);

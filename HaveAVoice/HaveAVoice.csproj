@@ -104,7 +104,7 @@
     <Compile Include="Helpers\HAVPrivacySetting.cs" />
     <Compile Include="Helpers\LinkHelper.cs" />
     <Compile Include="Helpers\PresentationHelper.cs" />
-    <Compile Include="Helpers\RoleHelper.cs" />
+    <Compile Include="Helpers\UserRoleHelper.cs" />
     <Compile Include="Controllers\Admin\RestrictionController.cs" />
     <Compile Include="Controllers\Admin\PermissionController.cs" />
     <Compile Include="Controllers\Admin\RoleController.cs" />
@@ -177,6 +177,7 @@
     <Compile Include="Repositories\UserFeatures\EntityHAVUserRetrievalRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVWhoIsOnlineRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVAuthorityVerificationRepository.cs" />
+    <Compile Include="Services\Helpers\FriendHelper.cs" />
     <Compile Include="Services\Helpers\MessageHelper.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVAuthenticationRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVBoardRepository.cs" />
@@ -194,6 +195,7 @@
     <Compile Include="Services\Helpers\NavigationHelper.cs" />
     <Compile Include="Services\Helpers\PrivacyHelper.cs" />
     <Compile Include="Services\Helpers\PhotoHelper.cs" />
+    <Compile Include="Services\Helpers\RoleHelper.cs" />
     <Compile Include="Services\Helpers\ValidationHelper.cs" />
     <Compile Include="Services\UserFeatures\HAVFanService.cs" />
     <Compile Include="Services\UserFeatures\IHAVFanService.cs" />

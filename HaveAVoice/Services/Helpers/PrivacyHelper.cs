@@ -6,27 +6,37 @@ using HaveAVoice.Models;
 using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Helpers.Enums;
+using HaveAVoice.Helpers;
+using HaveAVoice.Models.View;
 
 namespace HaveAVoice.Services.Helpers {
     public class PrivacyHelper {
         public static bool IsAllowed(User aTargetUser, PrivacyAction aPrivacyAction) {
             bool myIsAllowed = false;
-            bool myIsLoggedIn = HAVUserInformationFactory.IsLoggedIn();
+            UserInformationModel myUser = HAVUserInformationFactory.GetUserInformation();
 
-            //Display profile to authority needds to be added
-            /* REDO PRIVACY HELPER
+            IEnumerable<string> myTargetUsersSettings = 
+                (from p in aTargetUser.UserPrivacySettings.ToList<UserPrivacySetting>()
+                  select p.PrivacySettingName);
+            IEnumerable<Friend> myTargetUserFriends = aTargetUser.Friends.ToList<Friend>();
+
             if (aPrivacyAction == PrivacyAction.DisplayProfile) {
-                if (myPrivacySetting.DisplayProfileToNonLoggedIn) {
+                if (myUser == null && HasPrivacySetting(myTargetUsersSettings, HAVPrivacySetting.Display_Profile_To_Not_Logged_In)) {
                     myIsAllowed = true;
-                } else if (myPrivacySetting.DisplayProfileToLoggedInUsers && myIsLoggedIn) {
+                } else if (myUser != null && HasPrivacySetting(myTargetUsersSettings, HAVPrivacySetting.Display_Profile_To_Not_Friend)) {
                     myIsAllowed = true;
-                } else if (myPrivacySetting.DisplayProfileToFriends && myIsLoggedIn) {
-                    IHAVFriendService myFriendService = new HAVFriendService();
-                    myIsAllowed = myFriendService.IsFriend(aTargetUser.Id, HAVUserInformationFactory.GetUserInformation().Details);
+                } else if (myUser != null && RoleHelper.IsPolitician(myUser) && HasPrivacySetting(myTargetUsersSettings, HAVPrivacySetting.Display_Profile_Politician)) {
+                    myIsAllowed = true;
+                } else if (myUser != null && RoleHelper.IsPolitician(myUser) && HasPrivacySetting(myTargetUsersSettings, HAVPrivacySetting.Display_Profile_Politician)) {
+                    myIsAllowed = true;
                 }
             }
-            */
+            
             return myIsAllowed;
+        }
+
+        private static bool HasPrivacySetting(IEnumerable<string> aPrivacySettings, HAVPrivacySetting aPrivacy) {
+            return aPrivacySettings.Contains(aPrivacy.ToString());
         }
     }
 }

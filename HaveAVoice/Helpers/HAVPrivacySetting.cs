@@ -8,6 +8,7 @@ namespace HaveAVoice.Helpers {
         //Displaying profile
         Display_Profile_To_Friend,
         Display_Profile_To_Not_Friend,
-        Display_Profile_Politician
+        Display_Profile_Politician,
+        Display_Profile_To_Not_Logged_In
     }
 }

@@ -56,6 +56,8 @@ namespace HaveAVoice.Helpers {
         View_Feedback,
         View_Admin,
         //Authority Verification
+        Verified_Politician,
+        Verified_Political_Candidate,
         Create_Authority_Verification_Token,
         Authority_Feed
     }
