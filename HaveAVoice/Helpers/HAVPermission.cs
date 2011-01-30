@@ -5,7 +5,7 @@ using System.Web;
 
 namespace HaveAVoice.Helpers {
     public enum HAVPermission {
-        Test,
+        Confirmed_User,
         //Board
         View_Board,
         Post_To_Board,

@@ -9,6 +9,7 @@ using HaveAVoice.Models;
 using HaveAVoice.Services.Helpers;
 using HaveAVoice.Exceptions;
 using HaveAVoice.Repositories.AdminFeatures;
+using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVAuthenticationService : HAVBaseService, IHAVAuthenticationService {
@@ -40,6 +41,14 @@ namespace HaveAVoice.Services.UserFeatures {
             }
 
             IEnumerable<Permission> myPermissions = theAuthRepo.FindPermissionsForUser(myUser);
+            bool myIsConfirmed = (from p in myPermissions
+                                  where p.Name == HAVPermission.Confirmed_User.ToString()
+                                  select p).Count<Permission>() > 0 ? true : false;
+
+            if (!myIsConfirmed) {
+                return null;
+            }
+
             Restriction myRestriction = theAuthRepo.FindRestrictionsForUser(myUser);
 
             if (myRestriction == null) {

@@ -45,7 +45,7 @@ namespace HaveAVoice.Tests.Helpers {
 
             HAVUserInformationFactory.SetInstance(theUserInformation);
         }
-
+        /*
         [TestMethod]
         public void ShouldBeAbleToPerformAction() {
             theContextBase.Setup(c => c.Session["UserInformation"]).Returns(() => theUserInformationModelBuilder.Build());
@@ -79,5 +79,6 @@ namespace HaveAVoice.Tests.Helpers {
 
             Assert.IsNull(user);
         }
+*/
     }
 }
