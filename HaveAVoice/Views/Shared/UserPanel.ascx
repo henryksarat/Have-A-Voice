@@ -2,6 +2,9 @@
 <%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UI" %>
+<%@ Import Namespace="HaveAVoice.Models" %>
+<%@ Import Namespace="HaveAVoice.Services.Helpers" %>
+<%@ Import Namespace="HaveAVoice.Helpers.Enums" %>
 
 <div class="col-24 user-panel">
 	<div class="col-3 center">
@@ -38,19 +41,25 @@
 		</div>
 	</div>
 
-    <% if (HAVUserInformationFactory.GetUserInformation().Details.Id != Model.User.Id) { %>
+    <% User myUser = HAVUserInformationFactory.GetUserInformation().Details;  %>
+    <% if (myUser.Id != Model.User.Id) { %>
 	    <div class="col-6 round-3">
 		    <div class="p-a10">
-			    <input type="button" class="fan" value="Become a friend" />
+                <% if(FriendHelper.IsFriend(Model.User, myUser)) { %>
+			        <input type="button" class="fan" value="Become a friend" />
+                <% } else { %>
+                    Already friend
+                <% } %>
 			    <a class="p-v5 m-top15" href="/Message/Create/<%= Model.User.Id %>">Send <%=Model.User.FirstName%> a private message</a>
 			    <h6 class="m-top15">Stats</h6>
 			    <hr />
-			    <div class="col-1 teal fnt-18">32</div><div class="col-1 c-white fnt-18">Ideas</div>
+			    <div class="col-1 teal fnt-18"><%= Model.User.Issues.Count %></div><div class="col-1 c-white fnt-18">Issues raised</div>
+                <%= Model.User.IssueReplys.Count %> ideas added to existing issues
 			    <div class="clear">&nbsp;</div>
 			    <div class="col-6 fnt-12 p-v10">
-			        <span class="green">102 likes</span>
+			        <span class="green"><%= IssueDispositionHelper.NumberOfDisposition(Model.User, Disposition.Like) %> likes</span>
 			        <span class="teal m-lft10 m-rgt10">|</span>
-			        <span class="red">1024 dislikes</span>
+			        <span class="red"><%= IssueDispositionHelper.NumberOfDisposition(Model.User, Disposition.Dislike) %> dislikes</span>
                 </div>
 		        <div class="clear">&nbsp;</div>
 		        <div class="col-1 teal fnt-18"><%=Model.User.FriendedBy.Count%></div><div class="col-1 c-white fnt-18">Friends</div>

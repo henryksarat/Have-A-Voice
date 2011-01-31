@@ -7,7 +7,7 @@ using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Models;
 
 namespace HaveAVoice.Services.Helpers {
-    public class NavigationHelper {
+    public class NavigationCountHelper {
         private const string OPENING_SPAN = "<span class=\"alert\">";
         private const string CLOSING_SPAN = "</span>";
 

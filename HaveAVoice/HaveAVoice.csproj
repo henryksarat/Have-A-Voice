@@ -179,6 +179,7 @@
     <Compile Include="Repositories\UserFeatures\IHAVAuthorityVerificationRepository.cs" />
     <Compile Include="Services\Helpers\CookieHelper.cs" />
     <Compile Include="Services\Helpers\FriendHelper.cs" />
+    <Compile Include="Services\Helpers\IssueHelper.cs" />
     <Compile Include="Services\Helpers\MessageHelper.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVAuthenticationRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVBoardRepository.cs" />
@@ -193,7 +194,7 @@
     <Compile Include="Repositories\UserFeatures\IHAVUserRetrievalRepository.cs" />
     <Compile Include="Services\AdminFeatures\HAVPermissionService.cs" />
     <Compile Include="Services\AdminFeatures\IHAVPermissionService.cs" />
-    <Compile Include="Services\Helpers\NavigationHelper.cs" />
+    <Compile Include="Services\Helpers\NavigationCountHelper.cs" />
     <Compile Include="Services\Helpers\PrivacyHelper.cs" />
     <Compile Include="Services\Helpers\PhotoHelper.cs" />
     <Compile Include="Services\Helpers\RoleHelper.cs" />

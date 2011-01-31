@@ -7,9 +7,9 @@
 <div class="col-12">
     <ul>
         <li><a href="/Profile/Show">HOME</a></li>
-		<li><a href="/Friend/List">FRIENDS<%= NavigationHelper.PendingFriendCount(myUser) %></a></li>
-		<li><a href="/Message/Inbox">MAIL<%= NavigationHelper.NewMessageCount(myUser) %></a></li>
-		<li><a href="/Notification/List">NOTIFICATIONS<%= NavigationHelper.NotificationCount(myUser) %></a></li>
+		<li><a href="/Friend/List">FRIENDS<%= NavigationCountHelper.PendingFriendCount(myUser)%></a></li>
+		<li><a href="/Message/Inbox">MAIL<%= NavigationCountHelper.NewMessageCount(myUser)%></a></li>
+		<li><a href="/Notification/List">NOTIFICATIONS<%= NavigationCountHelper.NotificationCount(myUser)%></a></li>
     </ul>
 </div>
 <div class="col-6">
