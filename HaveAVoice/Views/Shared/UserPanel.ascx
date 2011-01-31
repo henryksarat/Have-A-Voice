@@ -42,7 +42,7 @@
 	    <div class="col-6 round-3">
 		    <div class="p-a10">
 			    <input type="button" class="fan" value="Become a friend" />
-			    <a class="p-v5 m-top15" href="#">Send <%=Model.User.FirstName%> a private message</a>
+			    <a class="p-v5 m-top15" href="/Message/Create/<%= Model.User.Id %>">Send <%=Model.User.FirstName%> a private message</a>
 			    <h6 class="m-top15">Stats</h6>
 			    <hr />
 			    <div class="col-1 teal fnt-18">32</div><div class="col-1 c-white fnt-18">Ideas</div>

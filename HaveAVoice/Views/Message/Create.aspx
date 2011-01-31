@@ -1,5 +1,6 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.MessageWrapper>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInWrapperModel<MessageWrapper>>" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
+<%@ Import Namespace="HaveAVoice.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Send a Message
@@ -18,19 +19,19 @@
 	    <div class="clear">&nbsp;</div>
 	    
 	    <div class="col-3">
-	    	<img src="<%=Model.ToUserProfilePictureUrl %>" alt="<%= Model.ToUserName %>" class="profile" />
+	    	<img src="<%=Model.Model.ToUserProfilePictureUrl %>" alt="<%= Model.Model.ToUserName %>" class="profile" />
 	    </div>
 	    <div class="col-18">
 	    	<div class="col-18">
-	    		<h4><%= Html.Encode("Message: " + Model.ToUserName) %></h4>
+	    		<h4><%= Html.Encode("Message: " + Model.Model.ToUserName)%></h4>
 				<div class="clear">&nbsp;</div>
 	    	</div>
 	    	<div class="clear">&nbsp;</div>
 	    	
 	        <% using (Html.BeginForm()) { %>
-		        <%= Html.Hidden("ToUserId", Model.ToUserId) %>
-		        <%= Html.Hidden("ToUserName", Model.ToUserName) %>
-		        <%= Html.Hidden("ToUserProfilePictureUrl", Model.ToUserProfilePictureUrl) %>
+		        <%= Html.Hidden("ToUserId", Model.Model.ToUserId)%>
+		        <%= Html.Hidden("ToUserName", Model.Model.ToUserName)%>
+		        <%= Html.Hidden("ToUserProfilePictureUrl", Model.Model.ToUserProfilePictureUrl)%>
 		        
 		        <%= Html.Encode(ViewData["Message"]) %>
 		        <div class="clear">&nbsp;</div>
@@ -61,7 +62,7 @@
 				</div>
 				
 				<input type="submit" class="button" value="Send" />
-				<%= Html.ActionLink("Cancel", "Index", new { @class = "cancel" })) %>
+				<%= Html.ActionLink("Cancel", "Index", null, new { @class = "cancel" }) %>
 	    	<% } %>
 		    <div class="clear">&nbsp;</div>
 	    </div>

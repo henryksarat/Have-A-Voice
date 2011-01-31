@@ -93,11 +93,14 @@ namespace HaveAVoice.Controllers.Users {
                 return RedirectToAction(INBOX_VIEW);
             }
 
+            User myUser = theUserRetrievalService.GetUser(id);
+
+            LoggedInWrapperModel<MessageWrapper> myModel = new LoggedInWrapperModel<MessageWrapper>(myUser, SiteSection.Message);
+
             try {
-                User myUser = theUserRetrievalService.GetUser(id);
                 string myProfilePictureUrl = PhotoHelper.ProfilePicture(myUser);
-                MessageWrapper myMessage = MessageWrapper.Build(myUser, myProfilePictureUrl);
-                return View(CREATE_VIEW, myMessage);
+                myModel.Model = MessageWrapper.Build(myUser, myProfilePictureUrl);
+                return View(CREATE_VIEW, myModel);
             } catch (Exception e) {
                 LogError(e,  USER_RETRIEVAL_ERROR);
                 return SendToErrorPage(USER_RETRIEVAL_ERROR);

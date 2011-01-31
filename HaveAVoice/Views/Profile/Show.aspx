@@ -162,7 +162,7 @@
 					    <div class="m-lft col-16 comment">
 						    <span class="speak-lft">&nbsp;</span>
 						    <div class="p-a10">
-						    	<%= Html.ActionLink(myIssueReply.Username, "Show", "Profile", myIssueReply.Username, new { @class = "name" }) %>
+						    	<%= Html.ActionLink(myIssueReply.Username, "Show", "Profile", new { id = myIssueReply.UserId }, new { @class = "name" })%>
 							    <br />
 							    <%= myIssueReply.Reply %>
 
