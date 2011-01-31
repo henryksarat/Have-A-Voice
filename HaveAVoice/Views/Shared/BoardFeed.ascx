@@ -8,13 +8,13 @@
 <div class="boards">
 <div class="<% if(myCount % 2 == 0) { %>row<% } else { %>alt<% } %> m-btm10">
 	<div class="col-2 center">
-		<img src="<%= Model.ProfilePictureUrl %>" alt="<%= Model.Username %>" class="profile" />
+		<img src="<%= Model.ProfilePictureUrl %>" alt="<%= Model.DisplayName %>" class="profile" />
 	</div>
 	<div class="col-16 m-btm10">
 		<div class="m-lft col-16 comment">
 			<span class="speak-lft">&nbsp;</span>
 			<div class="p-a10">
-				<a class="name" href="#"><%= Model.Username%></a>
+				<a class="name" href="#"><%= Model.DisplayName%></a>
                     <%= Model.Message%>
 				<div class="clear">&nbsp;</div>
 

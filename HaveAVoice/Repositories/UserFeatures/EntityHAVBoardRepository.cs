@@ -16,7 +16,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         public IEnumerable<Board> FindBoardByUserId(int aUserId) {
             return (from b in theEntities.Boards
-                    where b.User.Id == aUserId
+                    where b.OwnerUserId == aUserId
                     && b.Deleted == false
                     select b)
                     .OrderByDescending(b => b.DateTimeStamp)

@@ -8,7 +8,6 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
     <% Html.RenderPartial("UserPanel", Model.NavigationModel); %>
     <div class="col-3 m-rgt left-nav">
         <% Html.RenderPartial("LeftNavigation"); %>
@@ -16,7 +15,6 @@
 
     <div class="col-21">
     <% Html.RenderPartial("Message"); %>
-
 
     <% FeedItem myNextFeedItem = Model.Model.GetNextItem(); %>
     <% int cnt = 0; %>
@@ -33,10 +31,4 @@
             <% cnt++; %>
             <%  myNextFeedItem = Model.Model.GetNextItem(); %>
     <% } %>
-
-
-
-
-
-
 </asp:Content>

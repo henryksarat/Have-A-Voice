@@ -7,13 +7,13 @@
 <% int myCount = (int)ViewData["Count"]; %>
 <div class="<% if(myCount % 2 == 0) { %>row<% } else { %>alt<% } %> m-btm10">
 	<div class="col-2 center">
-		<img src="<%= Model.ProfilePictureUrl %>" alt="<%= Model.Username %>" class="profile" />
+		<img src="<%= Model.ProfilePictureUrl %>" alt="<%= Model.DisplayName %>" class="profile" />
 	</div>
 	<div class="col-16">
 		<div class="m-lft col-16 comment">
 			<span class="speak-lft">&nbsp;</span>
 			<div class="p-a10">
-				<%= Html.ActionLink(Model.Username, "Show", "Profile", new { id = Model.UserId }, new { @class = "name" })%>
+				<%= Html.ActionLink(Model.DisplayName, "Show", "Profile", new { id = Model.UserId }, new { @class = "name" })%>
 				<br />
 				<%= Model.Reply%>
 
@@ -88,13 +88,13 @@
 <% foreach (var item in Model.IssueReplyComments) { %>
     <div class="<% if (j % 2 == 0) { %>row<% } else { %>alt<% } %> reply push-2 col-19 m-btm10">
 	    <div class="col-2 center">
-	        <img src="<%= PhotoHelper.ProfilePicture(item.User) %>" alt="<%= item.User.Username %>" class="profile" />
+	        <img src="<%= PhotoHelper.ProfilePicture(item.User) %>" alt="<%= DisplayNameHelper.Display(item.User) %>" class="profile" />
 	        &nbsp;
 	    </div>
 	    <div class="m-lft col-14 comment">
 	        <span class="speak-lft">&nbsp;</span>
 	        <div class="p-a10">
-	            <a href="#" class="name"><%= item.User.Username %></a>
+	            <a href="#" class="name"><%= DisplayNameHelper.Display(item.User)%></a>
 	            <%= item.Comment %>
 	        </div>
 	    </div>

@@ -94,6 +94,7 @@
     <Compile Include="Controllers\Users\NotificationController.cs" />
     <Compile Include="Controllers\Photos\PhotosController.cs" />
     <Compile Include="Controllers\Users\UserPrivacySettingsController.cs" />
+    <Compile Include="Helpers\DisplayNameHelper.cs" />
     <Compile Include="Helpers\Enums\FeedItem.cs" />
     <Compile Include="Helpers\Enums\FriendStatus.cs" />
     <Compile Include="Helpers\Enums\PersonFilter.cs" />
