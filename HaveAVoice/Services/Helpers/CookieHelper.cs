@@ -12,8 +12,11 @@ namespace HaveAVoice.Services.Helpers {
         public const int REMEMBER_ME_COOKIE_HOURS = 4;
 
         public static void ClearCookies() {
-            HttpContext.Current.Request.Cookies.Remove(REMEMBER_ME_COOKIE);
-            HttpContext.Current.Response.Cookies.Remove(REMEMBER_ME_COOKIE);
+            HttpCookie myCookie = HttpContext.Current.Request.Cookies[REMEMBER_ME_COOKIE];
+            if (myCookie != null) {
+                myCookie.Expires = DateTime.Now.AddDays(-1);
+                HttpContext.Current.Response.Cookies.Add(myCookie);
+            }
         }
 
         public static void CreateCookie(int aUserId, string aCookieHash) {
@@ -34,12 +37,6 @@ namespace HaveAVoice.Services.Helpers {
             }
 
             return myUserId;
-            /*
-            int myUserId = 0;
-            if (HttpContext.Current.Request.Cookies[COOKIE_USER_ID].Value != null) {
-                myUserId = Int32.Parse(HttpContext.Current.Request.Cookies[CookieHelper.COOKIE_USER_ID].Value);
-            }
-            return myUserId;*/
         }
 
         public static string GetCookieHashFromCookie() {
@@ -50,12 +47,6 @@ namespace HaveAVoice.Services.Helpers {
             }
 
             return myCookieHash;
-            
-            /*string myCookieHash = string.Empty;
-            if (HttpContext.Current.Request.Cookies[CookieHelper.COOKIE_HASH].Value != null) {
-                myCookieHash = HttpContext.Current.Request.Cookies[COOKIE_HASH].Value;
-            }
-            return myCookieHash;*/
         }
     }
 }

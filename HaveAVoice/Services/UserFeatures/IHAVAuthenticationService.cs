@@ -10,6 +10,7 @@ namespace HaveAVoice.Services.UserFeatures {
         void ActivateNewUser(string activationCode);
         void ActivateAuthority(string activationCode);
         UserInformationModel AuthenticateUser(string anEmail, string aPassword);
+        UserInformationModel AuthenticateUserWithHashedPassword(string anEmail, string aPassword);
         void CreateRememberMeCredentials(User aUserModel);
         User ReadRememberMeCredentials();
     }

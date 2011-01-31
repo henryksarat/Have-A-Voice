@@ -23,19 +23,25 @@ namespace HaveAVoice.Controllers.Home {
         private const string VIEW_DATA_MESSAGE = "Message";
         private const string NOT_LOGGED_IN = "NotLoggedIn";
 
+        private static string INCORRECT_LOGIN = "Incorrect username and password combination.";
+        private static string AUTHENTICAITON_ERROR = "Error authenticating. Please try again.";
+
         private IHAVAuthenticationService theAuthService;
+        private IHAVWhoIsOnlineService theWhoIsOnlineService;
         private IHAVHomeService theService;
 
         public HomeController() : 
             base(new HAVBaseService(new HAVBaseRepository())) {
             theService = new HAVHomeService(new ModelStateWrapper(this.ModelState));
             theAuthService = new HAVAuthenticationService();
+            theWhoIsOnlineService = new HAVWhoIsOnlineService();
         }
 
-        public HomeController(IHAVBaseService aBaseService, IHAVAuthenticationService anAuthService, IHAVHomeService aService)
+        public HomeController(IHAVBaseService aBaseService, IHAVAuthenticationService anAuthService, IHAVHomeService aService, IHAVWhoIsOnlineService aWhoIsOnlineService)
             : base(aBaseService) {
             theAuthService = anAuthService;
             theService = aService;
+            theWhoIsOnlineService = aWhoIsOnlineService;
         }
 
         public ActionResult Index() {
@@ -43,13 +49,36 @@ namespace HaveAVoice.Controllers.Home {
         }
 
         public ActionResult NotLoggedIn() {
-            //TempData["Message"] = "cookie hash=" + CookieHelper.GetCookieHashFromCookie();
-
             if (IsLoggedIn()) {
                 return RedirectToProfile();
             }
-            NotLoggedInModel myModel = new NotLoggedInModel();
 
+            User myUser = theAuthService.ReadRememberMeCredentials();
+            if (myUser != null) {
+                UserInformationModel userModel = null;
+                try {
+                    userModel = theAuthService.AuthenticateUserWithHashedPassword(myUser.Email, myUser.Password);
+                } catch (Exception e) {
+                    LogError(e, AUTHENTICAITON_ERROR);
+                    TempData["Message"] = MessageHelper.ErrorMessage(AUTHENTICAITON_ERROR);
+                    return View("Authentication", "Login");
+                }
+
+                if (userModel != null) {
+                    theWhoIsOnlineService.AddToWhoIsOnline(userModel.Details, HttpContext.Request.UserHostAddress);
+
+                    CreateUserInformationSession(userModel);
+                    theAuthService.CreateRememberMeCredentials(userModel.Details);
+                } else {
+                    TempData["Message"] = MessageHelper.NormalMessage(INCORRECT_LOGIN);
+                    return View("Authentication", "Login");
+                }
+
+                return RedirectToProfile();
+                
+            }
+
+            NotLoggedInModel myModel = new NotLoggedInModel();
 
             try {
                 myModel = theService.NotLoggedIn();
@@ -59,6 +88,10 @@ namespace HaveAVoice.Controllers.Home {
             }
 
             return View(NOT_LOGGED_IN, myModel);
+        }
+
+        private void CreateUserInformationSession(UserInformationModel aUserModel) {
+            Session["UserInformation"] = aUserModel;
         }
     }
 }

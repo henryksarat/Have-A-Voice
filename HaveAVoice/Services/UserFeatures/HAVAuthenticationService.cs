@@ -34,6 +34,10 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public UserInformationModel AuthenticateUser(string anEmail, string aPassword) {
             aPassword = HashHelper.HashPassword(aPassword);
+            return AuthenticateUserWithHashedPassword(anEmail, aPassword);
+        }
+
+        public UserInformationModel AuthenticateUserWithHashedPassword(string anEmail, string aPassword) {
             User myUser = theUserRetrievalService.GetUser(anEmail, aPassword);
 
             if (myUser == null) {
