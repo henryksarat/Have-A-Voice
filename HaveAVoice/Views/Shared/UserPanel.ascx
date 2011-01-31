@@ -37,6 +37,7 @@
 			</span>
 		</div>
 	</div>
+
     <% if (HAVUserInformationFactory.GetUserInformation().Details.Id != Model.User.Id) { %>
 	    <div class="col-6 round-3">
 		    <div class="p-a10">
