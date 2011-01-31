@@ -112,9 +112,10 @@ namespace HaveAVoice.Controllers.Users {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
+
+            User myUser = GetUserInformaton();
             
             try {
-                User myUser = GetUserInformaton();
                 if (theService.CreateMessage(myUser.Id, aMessage.ToModel())) {
                     return SendToResultPage(SEND_SUCCESS);
                 }
@@ -123,7 +124,9 @@ namespace HaveAVoice.Controllers.Users {
                 ViewData[ERROR_MESSAGE_VIEWDATA] = MessageHelper.ErrorMessage(SEND_ERROR);
             }
 
-            return View(CREATE_VIEW, aMessage);
+            LoggedInWrapperModel<MessageWrapper> myModel = new LoggedInWrapperModel<MessageWrapper>(myUser, SiteSection.Message);
+            myModel.Model = aMessage;
+            return View(CREATE_VIEW, myModel);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
