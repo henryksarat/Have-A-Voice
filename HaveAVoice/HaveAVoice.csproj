@@ -438,6 +438,9 @@
     <Content Include="Views\Role\Index.aspx" />
     <Content Include="Views\Role\SwitchUserRoles.aspx" />
     <Content Include="Views\Search\Index.aspx" />
+    <Content Include="Views\Shared\BoardFeed.ascx" />
+    <Content Include="Views\Shared\IssueReplyFeed.ascx" />
+    <Content Include="Views\Shared\IssueFeed.ascx" />
     <Content Include="Views\Shared\Message.ascx" />
     <Content Include="Views\Shared\NavigationUserControl.ascx" />
     <Content Include="Views\Shared\NotLoggedInUserPanel.ascx" />
