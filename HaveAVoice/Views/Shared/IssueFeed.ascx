@@ -5,13 +5,12 @@
 <%@ Import Namespace="HaveAVoice.Models.View" %>
 
 <% int myCount = (int)ViewData["Count"]; %>
-<div class="<% if(myCount % 2 == 0) { %>row<% } else { %>alt<% } %> m-btm10">
+<div class="m-btm5">
 	<div class="col-2 center">
 		<img src="<%= Model.ProfilePictureUrl %>" alt="<%= Model.DisplayName %>" class="profile" />
 	</div>
 	<div class="col-16">
 		<div class="m-lft col-16 comment">
-			<span class="speak-lft">&nbsp;</span>
 			<div class="p-a10">
 				<h1><a href="/Issue/View/<%= Model.Id %>"><%= Model.Title%></a></h1>
 				<br />
@@ -81,13 +80,12 @@
 	<div class="clear">&nbsp;</div>
 </div>
 <div class="clear">&nbsp;</div>
-			    
+
 <% int j = 0; %>
 <% foreach (var item in Model.IssueReplys) { %>
-    <div class="<% if (j % 2 == 0) { %>row<% } else { %>alt<% } %> reply push-2 col-19 m-btm10">
-	    <div class="col-2 center">
-	        <img src="<%= PhotoHelper.ProfilePicture(item.User) %>" alt="<%= DisplayNameHelper.Display(item.User) %>" class="profile" />
-	        &nbsp;
+    <div class="<% if (j % 2 == 0) { %>row<% } else { %>alt<% } %> reply push-3 col-18 m-btm10">
+	    <div class="col-1 center">
+	        <img src="<%= PhotoHelper.ProfilePicture(item.User) %>" alt="<%= DisplayNameHelper.Display(item.User) %>" class="profile sm" />
 	    </div>
 	    <div class="m-lft col-14 comment">
 	        <span class="speak-lft">&nbsp;</span>
@@ -109,23 +107,22 @@
     <% j++; %>
 <% } %>
 
-<div class="board-reply m-btm10">
-	<div class="push-2 col-19">						
-		<div class="col-2 center">
+<div class="board-reply m-btm5">
+	<div class="push-3 col-19">						
+		<div class="col-1 center">
             <% UserInformationModel myUserModel = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation();  %>
             <% string myFullName = myUserModel.Details.FirstName + " " + myUserModel.Details.LastName; %>
             <% string myProfilePictureUrl = myUserModel.ProfilePictureUrl; %>
-			<img src="<%= myProfilePictureUrl %>" alt="<%= myFullName %>" class="profile" />
+			<img src="<%= myProfilePictureUrl %>" alt="<%= myFullName %>" class="profile sm" />
 		</div>
-		<div class="m-lft col-14">
+		<div class="m-lft col-12 m-rgt">
 			<% using (Html.BeginForm("Create", "IssueReply", new { issueId = Model.Id, disposition = 1, anonymous = false })) { %>
-				<%= Html.ValidationMessage("Reply", "*")%>
-				<%= Html.TextArea("Reply")%>
-				<div class="clear">&nbsp;</div>
-				<div class="right m-top10">
-					<input type="submit" value="Post" />
-				</div>
+				<%= Html.ValidationMessage("Reply", "*") %>
+				<%= Html.TextArea("Reply") %>
 			<% } %>
+		</div>
+		<div class="col-2 center">
+			<input type="submit" value="Post" />
 		</div>
 		<div class="clear">&nbsp;</div>
 	</div>

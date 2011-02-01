@@ -75,7 +75,7 @@
 	        
 	        <div class="m-btm10">
 		        <div class="push-2 col-3 center issue-profile">
-					<img src="<%= PhotoHelper.ProfilePicture(Model.Issue.User) %>" alt="<%= Model.Issue.User %>" class="profile" />
+					<img src="<%= PhotoHelper.ProfilePicture(Model.Issue.User) %>" alt="<%= Model.Issue.User %>" class="profile lg" />
 				</div>
 				<div class="push-2 m-lft col-16 m-rgt comment">
 					<div class="p-a10">
@@ -110,10 +110,8 @@
 						<h4 class="m-btm5">Stats</h4>
 						<div class="bold">Posted:</div>
 						<div class="m-lft10 m-btm5"><%= Model.Issue.DateTimeStamp.ToString("MMM dd, yyyy").ToUpper() %></div>
-						<div class="bold">Likes:</div>
-						<div class="m-lft10 m-btm5">1</div>
-						<div class="bold">Dislikes:</div>
-						<div class="m-lft10 m-btm5">1</div>
+						<div class="m-btm5"><span class="bold">Likes:</span> 1</div>
+						<div><span class="bold">Dislikes:</span> 1</div>
 					</div>
 				</div>
 				<div class="clear">&nbsp;</div>

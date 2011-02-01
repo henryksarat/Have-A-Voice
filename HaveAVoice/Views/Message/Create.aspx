@@ -28,7 +28,7 @@
 	    	</div>
 	    	<div class="clear">&nbsp;</div>
 	    	
-	        <% using (Html.BeginForm()) { %>
+	        <% using (Html.BeginForm("Create", "Message", FormMethod.Post, new { @class = "create" })) { %>
 		        <%= Html.Hidden("ToUserId", Model.Model.ToUserId)%>
 		        <%= Html.Hidden("ToUserName", Model.Model.ToUserName)%>
 		        <%= Html.Hidden("ToUserProfilePictureUrl", Model.Model.ToUserProfilePictureUrl)%>
@@ -37,31 +37,31 @@
 		        <div class="clear">&nbsp;</div>
 		        
 		        <div class="col-18 m-btm10">
-			    	<div class="m-lft col-6 m-rgt right">
+			    	<div class="m-lft col-2 m-rgt right">
 			    		<label>Subject:</label>
 			    	</div>
 			    	<div class="col-6">
-			    		<%= Html.TextBox("Subject", "", new { style = "width:300px;" })%>
+			    		<%= Html.TextBox("Subject", "")%>
 			    	</div>
-			    	<div class="col-6">
+			    	<div class="m-lft col-8">
 			    		<%= Html.ValidationMessage("Subject", "*") %>
 			    	</div>
 			    	<div class="clear">&nbsp;</div>
 		        </div>
 				<div class="col-18 m-btm10">
-					<div class="m-lft col-6 m-rgt right">
+					<div class="m-lft col-2 m-rgt right">
 						<label>Message:</label>
 					</div>
 					<div class="col-6">
-						<%= Html.TextArea("Body", new { style = "width:300px; height: 200px" })%>
+						<%= Html.TextArea("Body", null, new { cols = "31", rows = "4", resize = "none" })%>
 					</div>
-					<div class="col-6">
+					<div class="m-lft col-8">
 						<%= Html.ValidationMessage("Body", "*") %>
 					</div>
 					<div class="clear">&nbsp;</div>
 				</div>
 				
-				<input type="submit" class="button" value="Send" />
+				<input type="submit" class="create" value="Send" />
 				<%= Html.ActionLink("Cancel", "Index", null, new { @class = "cancel" }) %>
 	    	<% } %>
 		    <div class="clear">&nbsp;</div>
