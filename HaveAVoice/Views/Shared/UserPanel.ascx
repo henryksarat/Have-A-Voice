@@ -33,7 +33,7 @@
             <% if(FriendHelper.IsFriend(Model.User, myUser)) { %>
 		        <input type="button" class="fan m-btm10" value="Become a friend" />
             <% } %>
-            <% if (myUser.Id != Model.User.Id) { %>
+            <% if ((myUser.Id != Model.User.Id) && (FriendHelper.IsFriend(Model.User, myUser))) { %>
 			    <a class="p-v5 m-top15 msg" href="/Message/Create/<%= Model.User.Id %>">Send <%= Model.User.FirstName %> a private message</a>
 			<% } %>
 		</div>

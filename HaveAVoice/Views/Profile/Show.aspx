@@ -30,12 +30,10 @@
             <% if(myNextFeedItem == FeedItem.Issue) { %>
                 <% IssueFeedModel myIssue = Model.Model.GetNextIssue(); %>
                 <% ViewData["Count"] = cnt; %>
-                issue
                 <% Html.RenderPartial("IssueFeed", myIssue); %>
             <% } else if (myNextFeedItem == FeedItem.IssueReply) {%>
                 <% IssueReplyFeedModel myIssueReply = Model.Model.GetNextIssueReply(); %>
                 <% ViewData["Count"] = cnt; %>
-                issue reply
                 <% Html.RenderPartial("IssueReplyFeed", myIssueReply); %>
             <% } else if (myNextFeedItem == FeedItem.Photo) {%>
                 <% PhotoAlbumFeedModel myPhotoAlbum = Model.Model.GetNextPhotoAlbum(); %>
