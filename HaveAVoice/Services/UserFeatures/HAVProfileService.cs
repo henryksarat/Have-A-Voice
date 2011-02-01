@@ -38,21 +38,13 @@ namespace HaveAVoice.Services.UserFeatures {
         public UserProfileModel Profile(int aUserId, User myViewingUser) {
             IHAVUserService myUserService = new HAVUserService(theValidationDictionary);
             User myUser = theUserRetrievalService.GetUser(aUserId);
-            IEnumerable<Board> myBoardMessages = theBoardRepository.FindBoardByUserId(aUserId);
-            IEnumerable<PhotoAlbum> myPhotoAlbums = thePhotoAlbumService.GetPhotoAlbumsForUser(myViewingUser, aUserId);
+            return Profile(myUser, myViewingUser);
+        }
 
-            UserProfileModel myProfileModel = new UserProfileModel(myUser) {
-                BoardFeed = CreateBoardFeed(myBoardMessages),
-                IssueFeed = CreateIssueFeed(theRepository.UserIssueFeed(aUserId)),
-                IssueReplyFeed = CreateIssueReplyFeed(theRepository.UserIssueReplyFeed(aUserId)),
-                PhotoAlbumFeed = CreatePhotoAlbumFeed(myPhotoAlbums)
-            };
-
-            foreach (Board myBoard in myBoardMessages) {
-                theBoardRepository.MarkBoardAsViewed(myViewingUser, myBoard.Id);
-            }
-
-            return myProfileModel;
+        public UserProfileModel Profile(string aShortUrl, User myViewingUser) {
+            IHAVUserService myUserService = new HAVUserService(theValidationDictionary);
+            User myUser = theUserRetrievalService.GetUserByShortUrl(aShortUrl);
+            return Profile(myUser, myViewingUser);
         }
 
         public UserProfileModel MyProfile(User aUser) {
@@ -87,6 +79,24 @@ namespace HaveAVoice.Services.UserFeatures {
             };
 
             return myModel;
+        }
+
+        private UserProfileModel Profile(User aUser, User myViewingUser) {
+            IEnumerable<Board> myBoardMessages = theBoardRepository.FindBoardByUserId(aUser.Id);
+            IEnumerable<PhotoAlbum> myPhotoAlbums = thePhotoAlbumService.GetPhotoAlbumsForUser(myViewingUser, aUser.Id);
+
+            UserProfileModel myProfileModel = new UserProfileModel(aUser) {
+                BoardFeed = CreateBoardFeed(myBoardMessages),
+                IssueFeed = CreateIssueFeed(theRepository.UserIssueFeed(aUser.Id)),
+                IssueReplyFeed = CreateIssueReplyFeed(theRepository.UserIssueReplyFeed(aUser.Id)),
+                PhotoAlbumFeed = CreatePhotoAlbumFeed(myPhotoAlbums)
+            };
+
+            foreach (Board myBoard in myBoardMessages) {
+                theBoardRepository.MarkBoardAsViewed(myViewingUser, myBoard.Id);
+            }
+
+            return myProfileModel;
         }
 
         private IEnumerable<IssueFeedModel> CreateIssueFeedForAuthority(IEnumerable<Issue> anIssues) {

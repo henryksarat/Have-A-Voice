@@ -67,6 +67,13 @@ namespace HaveAVoice {
             );
 */
             routes.MapRoute(
+                "ShortNameProfile", 
+                "{shortName}", 
+                new { controller = "Profile", action = "Show" },
+                new { shortName = @"[a-zA-Z0-9\.]*" } // Parameter defaults
+            );
+
+            routes.MapRoute(
                 "CannotCreateMessage", // Route name
                 "Message/Create", // URL with parameters
                 new { controller = "Shared", action = "PageNotFound" } // Parameter defaults

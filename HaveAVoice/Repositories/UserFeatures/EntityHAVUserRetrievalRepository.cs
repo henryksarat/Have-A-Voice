@@ -14,6 +14,11 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     select c).FirstOrDefault();
         }
 
+        public User GetUserByShortUrl(string aShortUrl) {
+            //Use short url, need to udpate datamodel first
+            return null;
+        }
+
         public User GetUser(string email, string password) {
             return (from c in theEntities.Users
                     where c.Email == email
