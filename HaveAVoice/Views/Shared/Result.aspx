@@ -6,8 +6,9 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2><%= Model.Title %></h2>
-    
-    <%= Model.Details %>
+    <div class="error-msg">
+    	<h2><%= Model.Title %></h2>
+	    <%= Model.Details %>
+    </div>
 
 </asp:Content>

@@ -53,7 +53,7 @@
 						<%= Html.CheckBox("RememberMe") %>
 						<div class="clear">&nbsp;</div>
 						<div class="spacer-10">&nbsp;</div>
-						<%=Html.ActionLink("Forgot Password", "Request", "Password", null, new{ @class="fnt-12" }) %>
+						<%=Html.ActionLink("Forgot Password", "Request", "Password", null, new{ @class="forgot" }) %>
 					</div>
 					<div class="col-14">
 						&nbsp;

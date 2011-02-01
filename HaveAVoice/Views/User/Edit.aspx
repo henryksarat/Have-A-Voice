@@ -20,7 +20,7 @@
     </script>
     
     <div class="container-24">
-	    <div class="col-6 profile">
+	    <div class="col-6 profile m-top30">
 	        <img src="<%= Model.ProfilePictureURL %>" alt="<%= Model.UserInformation.Username %>" class="profile" />
 	        <br />
 	        <div class="col-6 p-v10 details">
@@ -104,7 +104,7 @@
 	            <div class="col-6">
 	                <label>State:</label>
 	            </div>
-	            <div class="push_1 col-6">
+	            <div class="push-1 col-6">
 	                <%= Html.DropDownList("State", Model.States) %>
 	                <%= Html.ValidationMessage("State", "*") %>
 	            </div>
@@ -133,9 +133,9 @@
 	                <%= Html.ValidationMessage("AboutMe", "*") %>
 				</div>
 	            <div class="col-18 spacer-15">&nbsp;</div>
-				<div class="push-9 col-4">
+				<div class="push-7 col-4">
+					<input type="submit" class="button" value="Save" />
 	                <input type="button" class="button" value="Cancel" />
-				    <input type="submit" class="button" value="Save" />
 	            </div>
             <% } %>
 		</div>

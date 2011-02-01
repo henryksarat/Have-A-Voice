@@ -77,9 +77,11 @@ body { font-family: helvetica, arial, sans-serif; background: #d9e9ed; }
 .m-top10 { margin-top: 10px; }
 .m-top15 { margin-top: 15px; }
 .m-top20 { margin-top: 20px; }
+.m-top30 { margin-top: 30px; }
 
 .m-btm5 { margin-bottom: 5px; }
 .m-btm10 { margin-bottom: 10px; }
+.m-btm15 { margin-bottom: 15px; }
 .m-btm20 { margin-bottom: 20px; }
 .m-btm25 { margin-bottom: 25px; }
 .m-btm30 { margin-bottom: 30px; }
@@ -139,7 +141,7 @@ img.profile.lg { max-height: 120px; max-width: 120px; }
 div.error { padding: 10px 0px; background: #f6cbca; color: #d02327; border: 1px solid #cb2026; text-align: center; width: 640px; margin: 0px auto 10px auto; font-weight: bold; font-size: 12px; }
 div.success { padding: 10px 0px; background: #eef4d4; color: #6f8438; border: 1px solid #8fad3d; text-align: center; width: 640px; margin: 0px auto 10px auto; font-weight: bold; font-size: 12px; }
 div.normal { padding: 10px 0px; background: #fcf9ce; color: #43423c; border: 1px solid #dfdfde; text-align: center; width: 640px; margin: 0px auto 10px auto; font-weight: bold; font-size: 12px; }
-
+div.error-msg { padding: 20px; background: #fff; color: #20a9c9; width: 540px; margin: 50px auto; }
 
 /****************************************************************************/
 /*************************** HTML LINK BUTTON *******************************/
@@ -150,6 +152,8 @@ a.button:hover { background: #fff; color: #3da4be; border: 1px solid #dfdfde; }
 a.button.delete, a.button.delete:link, a.button.delete:visited { color: #cb2026; background: #f6cbca; border: 1px solid #cb2026; }
 a.button.delete:hover { background: #cb2026; color: #fff; border: 1px solid #fff; }
 
+a.forgot, a.forgot:link, a.forgot:visited { font-size: 12px; font-weight: bold; text-transform: uppercase; color: #20a9c9; text-decoration: none; }
+a.forget:hover { text-decoration: underline; }
 
 /****************************************************************************/
 /********************************* HEADER ***********************************/
@@ -500,7 +504,7 @@ input[type=button].fan { width: 100%; color: #63a8b8; cursor: pointer; font-size
 /****************************************************************************/
 .profile .details { color: #64a2b1; }
 /* .profile { color: #406872; font-size: 12px; line-height: 1.25; border-right: 1px solid #c0d8de; } */
-.form { border-left: 1px solid #e6f3f6; color: #88b4bf; font-size: 12px; }
+.form { /* border-left: 1px solid #e6f3f6; */ color: #88b4bf; font-size: 12px; }
 .form input[type=text], .form input[type=password] { border: 1px solid #c1dee5; font-size: 14px; width: 200px; }
 .form textarea { border: 1px solid #c1dee5; font-size: 14px; width: 250px; resize: none; }
 .form label { display: block; font-size: 16px; color: #66a4b3; }
@@ -559,8 +563,9 @@ ul.tabs li a:hover, ul.tabs li a.active { background: #c1dee5; }
 ul.bullet { padding-left: 14px; list-style-position: outside; }
 ul.bullet li { list-style: disc; padding-top: 5px; padding-bottom: 5px; }
 
-.footer { color: #849fa5; font-size: 12px; margin-bottom: 20px; }
-.footer a, .footer a:link, .footer a:visited { color: #849fa5; font-size: 12px; text-decoration: none; }
+.footer-wrpr { background: #20a9c9; margin-top: 30px; }
+.footer { color: #fff; /* color: #849fa5; */ font-size: 12px; margin-bottom: 20px; }
+.footer a, .footer a:link, .footer a:visited { color: #fff; font-size: 12px; text-decoration: none; }
 .footer a:hover { text-decoration: underline; }
 
 /* Advertisement */

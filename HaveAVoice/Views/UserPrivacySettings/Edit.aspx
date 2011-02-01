@@ -9,7 +9,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container-24">
-	    <div class="col-6 profile">
+	    <div class="col-6 profile m-top30">
 	        <img src="<%= Model.NavigationModel.ProfilePictureUrl %>" alt="<%= Model.NavigationModel.User.Username %>" class="profile" />
 	        <br />
 	        <div class="col-6 p-v10 details">
@@ -34,17 +34,23 @@
 
 		    <% using (Html.BeginForm()) { %>
 		    	<% foreach (HAVPrivacySetting mySetting in Enum.GetValues(typeof(HAVPrivacySetting))) { %>
-		            <div class="col-6">
-		                <label><%= mySetting.ToString() %>:</label>
+		    		<div class="col-13 m-btm15">		    		
+			            <div class="col-6">
+			                <label><%= mySetting.ToString() %>:</label>
+			            </div>
+			            <div class="push-1 col-6">
+			                Yes <%= Html.RadioButton(mySetting.ToString(), true, Model.PrivacySettings[mySetting.ToString()].Second) %>
+			                No <%= Html.RadioButton(mySetting.ToString(), false, !Model.PrivacySettings[mySetting.ToString()].Second) %>
+			            </div>
+			            <div class="clear">&nbsp;</div>
 		            </div>
-		            <div class="push-1 col-6">
-		                Yes <%= Html.RadioButton(mySetting.ToString(), true, Model.PrivacySettings[mySetting.ToString()].Second) %>
-		                No <%= Html.RadioButton(mySetting.ToString(), false, !Model.PrivacySettings[mySetting.ToString()].Second) %>
-		            </div>
-		            <div class="col-18 spacer-15">&nbsp;</div>
+		            <div class="clear">&nbsp;</div>
 		    	<% } %>
-                <input type="button" class="button" value="Cancel" />
-			    <input type="submit" class="button" value="Save" />
+		    	<div class="push-7 col-4">
+					<input type="submit" class="button" value="Save" />
+					<input type="button" class="button" value="Cancel" />
+					<div class="clear">&nbsp;</div>
+		    	</div>
 			<% } %>
 			<div class="clear">&nbsp;</div>
 		</div>
