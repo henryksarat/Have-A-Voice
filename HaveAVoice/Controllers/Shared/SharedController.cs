@@ -15,6 +15,12 @@ namespace HaveAVoice.Controllers.Shared
         public SharedController()
             : base(new HAVBaseService(new HAVBaseRepository())) { }
 
+        public ActionResult PageNotFound() {
+            ErrorModel error = new ErrorModel();
+            error.ErrorMessage = "That page was not found.";
+            return View("Error", error);
+        }
+
         public ActionResult Error() {
             ErrorModel error = (ErrorModel)Session["ErrorMessage"];
             Session.Remove("ErrorMessage");
