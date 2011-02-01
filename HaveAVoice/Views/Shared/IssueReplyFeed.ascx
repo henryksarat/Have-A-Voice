@@ -38,14 +38,13 @@
 								<span class="like">
 									<%= Model.TotalLikes%>
 									<% if (Model.TotalLikes == 1) { %>
-										Person Likes
+										Person Agrees
 									<% } else { %>
-										People Like
+										People Agree
 									<% } %>
-									This
 								</span>
 							<% } else { %>
-								<a href="#" class="like">Like</a>
+								<a href="<%= LinkHelper.AgreeIssueReply(Model.Id, Model.Issue.Id) %>" class="like">Agree</a>
 							<% } %>
 						</div>
 						<div class="col-3 center">
@@ -53,14 +52,13 @@
 								<span class="dislike">
 									<%= Model.TotalDislikes%>
 									<% if (Model.TotalDislikes == 1) { %>
-										Person Dislikes
+										Person Disagrees
 									<% } else { %>
-										People Dislike 
+										People Disagree 
 									<% } %>
-									This
 								</span>
 							<% } else { %>
-								<a href="#" class="dislike">Dislike</a>
+								<a href="<%= LinkHelper.DisagreeIssueReply(Model.Id, Model.Issue.Id) %>" class="dislike">Disagree</a>
 							<% } %>
 						</div>
 						<div class="clear">&nbsp;</div>

@@ -23,23 +23,23 @@ namespace HaveAVoice.Helpers {
             return "/Complaint/Complaint?sourceId=" + anIssue.Id + "&complaintType=Issue";
         }
 
-        public static string LikeIssueReply(int anIssueReplyId, int anIssueId) {
-            return "/IssueReply/Disposition" + anIssueReplyId +"?issueId=" + anIssueId + "&disposition=" + (int)Disposition.Like;
+        public static string AgreeIssueReply(int anIssueReplyId, int anIssueId) {
+            return "/IssueReply/Disposition/" + anIssueReplyId +"?issueId=" + anIssueId + "&disposition=" + (int)Disposition.Like;
         }
 
-        public static string DislikeIssueReply(int anIssueReplyId, int anIssueId) {
-            return "/IssueReply/Disposition" + anIssueReplyId +"?issueId=" + anIssueId + "&disposition=" + (int)Disposition.Dislike;
+        public static string DisagreeIssueReply(int anIssueReplyId, int anIssueId) {
+            return "/IssueReply/Disposition/" + anIssueReplyId +"?issueId=" + anIssueId + "&disposition=" + (int)Disposition.Dislike;
         }
 
         public static string EditIssueReply(int anIssueReplyId) {
             return "/IssueReply/Edit/" + anIssueReplyId;
         }
 
-        public static string LikeIssue(int anIssueId) {
+        public static string AgreeIssue(int anIssueId) {
             return "/Issue/Disposition?issueId=" + anIssueId + "&disposition=" + (int)Disposition.Like;
         }
 
-        public static string DislikeIssue(int anIssueId) {
+        public static string DisagreeIssue(int anIssueId) {
             return "/Issue/Disposition?issueId=" + anIssueId + "&disposition=" + (int)Disposition.Dislike;
         }
     }
