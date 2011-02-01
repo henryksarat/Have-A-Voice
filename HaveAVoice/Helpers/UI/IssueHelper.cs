@@ -51,9 +51,9 @@ namespace HaveAVoice.Helpers.UI {
 
 			var profileDiv = new TagBuilder("div");
             if (anIssueReply.IssueStance == (int)IssueStanceFilter.Disagree) {
-			    profileDiv.MergeAttribute("class", "col-3 center push-21");
+			    profileDiv.MergeAttribute("class", "col-2 center push-21");
 			} else {
-				profileDiv.MergeAttribute("class", "push-6 col-3 center");
+				profileDiv.MergeAttribute("class", "push-6 col-2 center");
 			}
 
 			var profileImg = new TagBuilder("img");
@@ -70,7 +70,11 @@ namespace HaveAVoice.Helpers.UI {
 			stanceDiv.InnerHtml += profileDiv.ToString();
 			
 			var stanceComment = new TagBuilder("div");
-			stanceComment.MergeAttribute("class", "push-6 m-lft col-12 m-rgt comment");
+			if (anIssueReply.IssueStance == (int)IssueStanceFilter.Disagree) {
+				stanceComment.MergeAttribute("class", "push-7 m-lft col-12 m-rgt comment");
+			} else {
+				stanceComment.MergeAttribute("class", "push-6 m-lft col-12 m-rgt comment");
+			}
 			
 			var spanDirSpeak = new TagBuilder("span");
 			
@@ -179,7 +183,7 @@ namespace HaveAVoice.Helpers.UI {
 			var divTimeStamp = new TagBuilder("div");
 			
             if (anIssueReply.IssueStance == (int)IssueStanceFilter.Disagree) {
-			    divTimeStamp.MergeAttribute("class", "col-3 date-tile pull-9");
+			    divTimeStamp.MergeAttribute("class", "col-3 date-tile pull-9 right");
             } else {
             	divTimeStamp.MergeAttribute("class", "col-3 date-tile push-6");
             }

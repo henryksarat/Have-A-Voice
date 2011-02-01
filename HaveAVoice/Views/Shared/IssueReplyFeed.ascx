@@ -5,7 +5,7 @@
 <%@ Import Namespace="HaveAVoice.Models.View" %>
 
 <% int myCount = (int)ViewData["Count"]; %>
-<div class="<% if(myCount % 2 == 0) { %>row<% } else { %>alt<% } %> m-btm10">
+<div class="<% if(myCount % 2 == 0) { %>row<% } else { %>alt<% } %> m-btm5">
 	<div class="col-2 center">
 		<img src="<%= Model.ProfilePictureUrl %>" alt="<%= Model.DisplayName %>" class="profile" />
 	</div>
@@ -17,13 +17,8 @@
 				<br />
 				<%= Model.Reply%>
 
-				<div class="clear">&nbsp;</div>							
-				<div class="spacer-10">&nbsp;</div>
-				<div class="clear">&nbsp;</div>
-
-				<div class="options">
-					<div class="col-6">&nbsp;</div>
-					<div class="col-9">
+				<div class="options p-v10">
+					<div class="push-6 col-9">
 						<div class="col-3 center">
 							<% if (Model.TotalComments == 0) { %>
 								&nbsp;
@@ -68,7 +63,9 @@
 								<a href="#" class="dislike">Dislike</a>
 							<% } %>
 						</div>
+						<div class="clear">&nbsp;</div>
 					</div>
+					<div class="clear">&nbsp;</div>
 				</div>
 			</div>
 		</div>
@@ -83,13 +80,11 @@
 	<div class="clear">&nbsp;</div>
 </div>
 
-<!-- CORRECTING COMMENT PLACEMENT -->
 <% int j = 0; %>
 <% foreach (var item in Model.IssueReplyComments) { %>
-    <div class="<% if (j % 2 == 0) { %>row<% } else { %>alt<% } %> reply push-2 col-19 m-btm10">
-	    <div class="col-2 center">
-	        <img src="<%= PhotoHelper.ProfilePicture(item.User) %>" alt="<%= DisplayNameHelper.Display(item.User) %>" class="profile" />
-	        &nbsp;
+    <div class="<% if (j % 2 == 0) { %>row<% } else { %>alt<% } %> reply push-3 col-19 m-btm5">
+	    <div class="col-1 center">
+	        <img src="<%= PhotoHelper.ProfilePicture(item.User) %>" alt="<%= DisplayNameHelper.Display(item.User) %>" class="profile sm" />
 	    </div>
 	    <div class="m-lft col-14 comment">
 	        <span class="speak-lft">&nbsp;</span>
@@ -111,23 +106,22 @@
     <% j++; %>
 <% } %>
 
-<div class="board-reply m-btm10">
-	<div class="push-2 col-19">
-		<div class="col-2 center">
+<div class="board-reply m-btm5">
+	<div class="push-3 col-19">
+		<div class="col-1 center">
             <% UserInformationModel myUserModel = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation();  %>
             <% string myFullName = myUserModel.Details.FirstName + " " + myUserModel.Details.LastName; %>
             <% string myProfilePictureUrl = myUserModel.ProfilePictureUrl; %>
-			<img src="<%= myProfilePictureUrl %>" alt="<%= myFullName %>" class="profile" />
+			<img src="<%= myProfilePictureUrl %>" alt="<%= myFullName %>" class="profile sm" />
 		</div>
-		<div class="m-lft col-14 m-rgt">
+		<div class="m-lft col-12 m-rgt">
 			<% using (Html.BeginForm("Create", "IssueReplyComment", new { issueReplyId = Model.Id })) { %>
 				<%= Html.ValidationMessage("Comment", "*") %>
 				<%= Html.TextArea("Comment") %>
-				<div class="clear">&nbsp;</div>
-				<div class="right m-top10">
-					<input type="submit" value="Post" />
-				</div>
 			<% } %>
+		</div>
+		<div class="col-2 center">
+			<input type="submit" value="Post" />
 		</div>
 		<div class="clear">&nbsp;</div>
 	</div>
