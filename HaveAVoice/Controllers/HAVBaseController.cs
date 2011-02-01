@@ -7,6 +7,7 @@ using System.Web.Routing;
 using HaveAVoice.Helpers;
 using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Services.UserFeatures;
+using HaveAVoice.Controllers.Helpers;
 
 namespace HaveAVoice.Controllers  {
     public abstract class HAVBaseController : Controller {
@@ -90,6 +91,7 @@ namespace HaveAVoice.Controllers  {
         }
 
         protected ActionResult RedirectToLogin() {
+            TempData["Message"] = MessageHelper.NormalMessage("You must be logged in to do that.");
             return RedirectToAction("Login", "Authentication");
         }
 

@@ -20,7 +20,7 @@
 
 			    <% using (Html.BeginForm("Login", "Authentication", FormMethod.Post, new { @class = "create" })) { %>
 			    	
-					<%= ViewData["Message"] %>
+					<% Html.RenderPartial("Message"); %>
 			
 					<div class="col-4 m-rgt right">
 						<label for="Email">Email:</label>
