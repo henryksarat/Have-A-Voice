@@ -34,17 +34,16 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public UserInformationModel AuthenticateUser(string anEmail, string aPassword) {
             aPassword = HashHelper.HashPassword(aPassword);
-            return AuthenticateUserWithHashedPassword(anEmail, aPassword);
+            User myUser = theUserRetrievalService.GetUser(anEmail, aPassword);
+            return CreateUserInformationModel(myUser);
         }
 
-        public UserInformationModel AuthenticateUserWithHashedPassword(string anEmail, string aPassword) {
-            User myUser = theUserRetrievalService.GetUser(anEmail, aPassword);
-
-            if (myUser == null) {
+        public UserInformationModel CreateUserInformationModel(User aUser) {
+            if (aUser == null) {
                 return null;
             }
 
-            IEnumerable<Permission> myPermissions = theAuthRepo.FindPermissionsForUser(myUser);
+            IEnumerable<Permission> myPermissions = theAuthRepo.FindPermissionsForUser(aUser);
             bool myIsConfirmed = (from p in myPermissions
                                   where p.Name == HAVPermission.Confirmed_User.ToString()
                                   select p).Count<Permission>() > 0 ? true : false;
@@ -53,19 +52,19 @@ namespace HaveAVoice.Services.UserFeatures {
                 return null;
             }
 
-            Restriction myRestriction = theAuthRepo.FindRestrictionsForUser(myUser);
+            Restriction myRestriction = theAuthRepo.FindRestrictionsForUser(aUser);
 
             if (myRestriction == null) {
                 throw new Exception("The user has no restriction.");
             }
 
-            IEnumerable<PrivacySetting> myPrivacySettings = thePrivacySettingsService.FindPrivacySettingsForUser(myUser);
+            IEnumerable<PrivacySetting> myPrivacySettings = thePrivacySettingsService.FindPrivacySettingsForUser(aUser);
 
             if (myPrivacySettings == null) {
                 throw new Exception("The user has no privacy settings.");
             }
 
-            return new UserInformationModel(myUser, myPermissions, myRestriction, myPrivacySettings);
+            return new UserInformationModel(aUser, myPermissions, myRestriction, myPrivacySettings);
         }
 
         public void CreateRememberMeCredentials(User aUser) {

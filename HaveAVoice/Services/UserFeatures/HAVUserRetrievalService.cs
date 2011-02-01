@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Repositories;
+using HaveAVoice.Models;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVUserRetrievalService : HAVBaseService, IHAVUserRetrievalService {
@@ -17,15 +18,19 @@ namespace HaveAVoice.Services.UserFeatures {
                 theUserRetrievalRepo = aUserRetrievalRepo;
         }
 
-        public Models.User GetUser(int aUserId) {
+        public User GetUser(int aUserId) {
             return theUserRetrievalRepo.GetUser(aUserId);
         }
 
-        public Models.User GetUser(string anEmail, string aPassword) {
+        public User GetUserByShortUrl(string aShortUrl) {
+            return theUserRetrievalRepo.GetUserByShortUrl(aShortUrl);
+        }
+
+        public User GetUser(string anEmail, string aPassword) {
             return theUserRetrievalRepo.GetUser(anEmail, aPassword);
         }
 
-        public Models.User GetUser(string anEmail) {
+        public User GetUser(string anEmail) {
             return theUserRetrievalRepo.GetUser(anEmail);
         }
     }

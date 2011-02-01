@@ -29,7 +29,7 @@
 					<div class="clear">&nbsp;</div>
 					<div class="spacer-10">&nbsp;</div>
 					
-					<div class="col-4 right">
+					<div class="col-4 m-rgt right">
 						<label for="Email">Email:</label>
 					</div>
 					<div class="col-4">

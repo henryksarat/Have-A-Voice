@@ -40,9 +40,36 @@ namespace HaveAVoice.Controllers.Users {
             theService = aService;
         }
 
+        [RequiredRouteValueAttribute.RequireRouteValues(new[] { "shortName" })]
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult Show(string shortName) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            User myViewingUser = GetUserInformaton();
+
+            try {
+                UserProfileModel myProfile = theService.Profile(3, myViewingUser);
+                LoggedInWrapperModel<UserProfileModel> myModel = new LoggedInWrapperModel<UserProfileModel>(myProfile.User, SiteSection.Profile);
+                myModel.Model = myProfile;
+
+                if (myModel.Model.IsEmpty()) {
+                    ViewData["Message"] = MessageHelper.NormalMessage(EMPTY_PROFILE);
+                }
+
+                return View("Show", myModel);
+            } catch (Exception e) {
+                LogError(e, USER_PAGE_ERROR);
+                return SendToErrorPage(USER_PAGE_ERROR_POLITE);
+            }
+        }
+
         [RequiredRouteValueAttribute.RequireRouteValues(new[] { "id" })]
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Show(int id) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
             User myViewingUser = GetUserInformaton();
             
             try {
@@ -64,6 +91,9 @@ namespace HaveAVoice.Controllers.Users {
         [RequiredRouteValueAttribute.RequireRouteValues(new string[] { })]
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Show() {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
             UserInformationModel myUser = GetUserInformatonModel();
             LoggedInWrapperModel<UserProfileModel> myModel = new LoggedInWrapperModel<UserProfileModel>(myUser.Details, SiteSection.MyProfile);
 
@@ -88,6 +118,9 @@ namespace HaveAVoice.Controllers.Users {
         [RequiredRouteValueAttribute.RequireRouteValues(new[] { "id" })]
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult IssueActivity(int id) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
             User myUser = GetUserInformaton();
             
             try {
@@ -111,6 +144,9 @@ namespace HaveAVoice.Controllers.Users {
         [RequiredRouteValueAttribute.RequireRouteValues(new string[] { })]
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult IssueActivity() {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
             User myUser = GetUserInformaton();
             LoggedInWrapperModel<UserProfileModel> myModel = new LoggedInWrapperModel<UserProfileModel>(myUser, SiteSection.IssueActivity);
 

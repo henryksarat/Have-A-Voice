@@ -6,14 +6,27 @@ using HaveAVoice.Services;
 using System.Web.Routing;
 using HaveAVoice.Helpers;
 using HaveAVoice.Helpers.UserInformation;
+using HaveAVoice.Services.UserFeatures;
+using HaveAVoice.Controllers.Helpers;
 
 namespace HaveAVoice.Controllers  {
     public abstract class HAVBaseController : Controller {
-        private IHAVBaseService theErrorService;
+        private const string AUTHENTICATION_DURING_COOKIE_ERROR = "An error occurred while trying to authentication when grabbing the login info from a cookie.";
+        private const string AFTER_AUTHENTICATION_ERROR = "An error occurred after authentication after a cookie.";
+
         public IUserInformation theUserInformation;
-       
-        public HAVBaseController(IHAVBaseService baseService) {
+
+        private IHAVBaseService theErrorService;
+        private IHAVAuthenticationService theAuthService;
+        private IHAVWhoIsOnlineService theWhoIsOnlineService;
+
+        public HAVBaseController(IHAVBaseService baseService) : 
+            this(baseService, new HAVAuthenticationService(), new HAVWhoIsOnlineService()) { }
+
+        public HAVBaseController(IHAVBaseService baseService, IHAVAuthenticationService anAuthService, IHAVWhoIsOnlineService aWhoIsOnlineService) {
             theErrorService = baseService;
+            theAuthService = anAuthService;
+            theWhoIsOnlineService = aWhoIsOnlineService;
         }
 
         protected override void Initialize(RequestContext rc) {
@@ -32,6 +45,30 @@ namespace HaveAVoice.Controllers  {
         }
 
         protected bool IsLoggedIn() {
+            if (!HAVUserInformationFactory.IsLoggedIn()) {
+
+                User myUser = theAuthService.ReadRememberMeCredentials();
+                if (myUser != null) {
+                    UserInformationModel userModel = null;
+                    try {
+                        userModel = theAuthService.CreateUserInformationModel(myUser);
+                    } catch (Exception e) {
+                        LogError(e, AUTHENTICATION_DURING_COOKIE_ERROR);
+                    }
+
+                    if (userModel != null) {
+                        try {
+                            theWhoIsOnlineService.AddToWhoIsOnline(userModel.Details, HttpContext.Request.UserHostAddress);
+
+                            CreateUserInformationSession(userModel);
+                            theAuthService.CreateRememberMeCredentials(userModel.Details);
+                        } catch (Exception e) {
+                            LogError(e, AFTER_AUTHENTICATION_ERROR);
+                        }
+                    }
+                }
+            }
+
             return HAVUserInformationFactory.IsLoggedIn();
         }
 
@@ -54,6 +91,7 @@ namespace HaveAVoice.Controllers  {
         }
 
         protected ActionResult RedirectToLogin() {
+            TempData["Message"] = MessageHelper.NormalMessage("You must be logged in to do that.");
             return RedirectToAction("Login", "Authentication");
         }
 
@@ -80,6 +118,10 @@ namespace HaveAVoice.Controllers  {
             ErrorModel errorModel = new ErrorModel();
             errorModel.ErrorMessage = error;
             Session["ErrorMessage"] = errorModel;
+        }
+
+        private void CreateUserInformationSession(UserInformationModel aUserModel) {
+            Session["UserInformation"] = aUserModel;
         }
     }
 }
