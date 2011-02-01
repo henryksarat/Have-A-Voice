@@ -169,13 +169,13 @@ namespace HaveAVoice.Controllers.Issues {
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Disposition(int id, int issueId, int disposition) {
+        public ActionResult Disposition(int id, int issueId, Disposition disposition, SiteSection section) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
             User aUser = GetUserInformaton();
             try {
-                bool myResult = theService.AddIssueReplyDisposition(aUser, id, disposition);
+                bool myResult = theService.AddIssueReplyDisposition(aUser, id, (int)disposition);
                 if (!myResult) {
                     return SendToErrorPage("You can only provide a disposition towards a person's reply to an issue once.");
                 }

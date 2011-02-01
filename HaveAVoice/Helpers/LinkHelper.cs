@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using HaveAVoice.Models;
 using HaveAVoice.Helpers.Enums;
+using HaveAVoice.Models.View;
 
 namespace HaveAVoice.Helpers {
     public static class LinkHelper {
@@ -24,11 +25,11 @@ namespace HaveAVoice.Helpers {
         }
 
         public static string AgreeIssueReply(int anIssueReplyId, int anIssueId) {
-            return "/IssueReply/Disposition/" + anIssueReplyId +"?issueId=" + anIssueId + "&disposition=" + (int)Disposition.Like;
+            return "/IssueReply/Disposition/" + anIssueReplyId +"?issueId=" + anIssueId + "&disposition=" + Disposition.Like + "&section=" + SiteSection.IssueActivity;
         }
 
         public static string DisagreeIssueReply(int anIssueReplyId, int anIssueId) {
-            return "/IssueReply/Disposition/" + anIssueReplyId +"?issueId=" + anIssueId + "&disposition=" + (int)Disposition.Dislike;
+            return "/IssueReply/Disposition/" + anIssueReplyId +"?issueId=" + anIssueId + "&disposition=" + Disposition.Dislike;
         }
 
         public static string EditIssueReply(int anIssueReplyId) {
@@ -36,11 +37,11 @@ namespace HaveAVoice.Helpers {
         }
 
         public static string AgreeIssue(int anIssueId) {
-            return "/Issue/Disposition?issueId=" + anIssueId + "&disposition=" + (int)Disposition.Like;
+            return "/Issue/Disposition?issueId=" + anIssueId + "&disposition=" + Disposition.Like;
         }
 
         public static string DisagreeIssue(int anIssueId) {
-            return "/Issue/Disposition?issueId=" + anIssueId + "&disposition=" + (int)Disposition.Dislike;
+            return "/Issue/Disposition?issueId=" + anIssueId + "&disposition=" + Disposition.Dislike;
         }
     }
 }
