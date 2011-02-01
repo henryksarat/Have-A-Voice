@@ -39,11 +39,10 @@
 								<span class="like">
 									<%= Model.TotalLikes%>
 									<% if (Model.TotalLikes == 1) { %>
-										Person Likes
+										Person Agrees
 									<% } else { %>
-										People Like
+										People Agree
 									<% } %>
-									This
 								</span>
 							<% } else { %>
 								<a href="<%= LinkHelper.LikeIssue(Model.Id) %>" class="like">Like</a>
@@ -54,11 +53,10 @@
 								<span class="dislike">
 									<%= Model.TotalDislikes%>
 									<% if (Model.TotalDislikes == 1) { %>
-										Person Dislikes
+										Person Disagrees
 									<% } else { %>
-										People Dislike 
+										People Disagree 
 									<% } %>
-									This
 								</span>
 							<% } else { %>
 								<a href="<%= LinkHelper.DislikeIssue(Model.Id) %>" class="dislike">Dislike</a>
