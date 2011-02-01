@@ -80,6 +80,12 @@ namespace HaveAVoice {
             );
 
             routes.MapRoute(
+                "Issue", // Route name
+                "Issue/{action}/{id}", // URL with parameters
+                new { controller = "Issue", action = "Inidex", id = UrlParameter.Optional } // Parameter defaults
+            );
+
+            routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional  } // Parameter defaults
