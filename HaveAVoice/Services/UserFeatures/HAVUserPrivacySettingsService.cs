@@ -83,7 +83,7 @@ namespace HaveAVoice.Services.UserFeatures {
                     });
             }
 
-            return new EditPrivacySettingsModel() { 
+            return new EditPrivacySettingsModel(aUser) { 
                 PrivacySettings = myPrivacySelection 
             };
         }

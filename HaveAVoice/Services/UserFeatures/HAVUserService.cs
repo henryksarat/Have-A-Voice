@@ -124,9 +124,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public bool EditUser(EditUserModel aUser) {
-            bool isValidFileImage = ValidateFileImage(aUser.ImageFile.FileName);
-
-            if (!isValidFileImage || !ValidateEditedUser(aUser.UserInformation, aUser.OriginalUsername, aUser.OriginalEmail)) {
+            if (!ValidateEditedUser(aUser.UserInformation, aUser.OriginalUsername, aUser.OriginalEmail)) {
                 return false;
             }
 
@@ -140,14 +138,9 @@ namespace HaveAVoice.Services.UserFeatures {
                 aUser.UserInformation.Password = HashHelper.HashPassword(password);
             }
 
-            if (ShouldUploadImage(isValidFileImage, aUser.ImageFile.FileName)) {
-                thePhotoService.UploadProfilePicture(aUser.UserInformation, aUser.ImageFile);
-            }
-
             theUserRepo.UpdateUser(aUser.UserInformation);
 
             return true;
-            
         }
 
         private bool ShouldUploadImage(bool aValidImage, string anImageFile) {

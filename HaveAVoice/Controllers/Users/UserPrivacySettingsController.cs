@@ -39,7 +39,7 @@ namespace HaveAVoice.Controllers.Users
                 return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
-            EditPrivacySettingsModel myPrivacySettingSelections = new EditPrivacySettingsModel();
+            EditPrivacySettingsModel myPrivacySettingSelections = new EditPrivacySettingsModel(myUser);
             try {
                 myPrivacySettingSelections = thePrivacyService.GetPrivacySettingsForEdit(myUser);
             } catch (Exception e) {

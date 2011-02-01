@@ -125,17 +125,6 @@
 	                <%= Html.ValidationMessage("Email", "*") %>
 	            </div>
 	            <div class="col-18 spacer-15">&nbsp;</div>
-	            <div class="col-6">
-					<label>Avatar:</label>
-					If you wish to set or change your avatar<br />
-					you can upload one here. Avatar images<br />
-					will be resized to 120px square.
-				</div>
-				<div class="push-1 col-6">
-					<input type="file" id="ProfilePictureUpload" name="ProfilePictureUpload" size="23" />
-	                <%= Html.ValidationMessage("ProfilePictureUpload", "*") %>
-				</div>
-	            <div class="col-18 spacer-15">&nbsp;</div>
 				<div class="col-6">
 					<label>About Me:</label>
 				</div>
@@ -143,14 +132,6 @@
 	                <%= Html.TextArea("AboutMe", Model.UserInformation.AboutMe, new { style = "width:300px; height: 200px" }) %>
 	                <%= Html.ValidationMessage("AboutMe", "*") %>
 				</div>
-	            <div class="col-18 spacer-15">&nbsp;</div>
-	            <div class="col-6">
-	                <label>Newsletter:</label>
-	            </div>
-	            <div class="push-1 col-6">
-	                Yes <%= Html.RadioButton("Newsletter", true, Model.UserInformation.Newsletter) %>
-	                No <%= Html.RadioButton("Newsletter", false, !Model.UserInformation.Newsletter) %>
-	            </div>
 	            <div class="col-18 spacer-15">&nbsp;</div>
 				<div class="push-9 col-4">
 	                <input type="button" class="button" value="Cancel" />

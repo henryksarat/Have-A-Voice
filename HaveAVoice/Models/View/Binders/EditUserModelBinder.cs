@@ -47,7 +47,6 @@ namespace HaveAVoice.Models.View {
 
             return new EditUserModel(user) {
                 States = myStates,
-                ImageFile = myImageFile,
                 ProfilePictureURL = myProfilePictureUrl,
                 NewPassword = myNewPassword,
                 RetypedPassword = myRetypedPassword,

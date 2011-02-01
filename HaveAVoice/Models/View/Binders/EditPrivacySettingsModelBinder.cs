@@ -13,7 +13,8 @@ namespace HaveAVoice.Models.View {
     public class EditPrivacySettingsModelBinder : IModelBinder {
 
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext) {
-            EditPrivacySettingsModel myModel = new EditPrivacySettingsModel();
+            User myUser = HAVUserInformationFactory.GetUserInformation().Details;
+            EditPrivacySettingsModel myModel = new EditPrivacySettingsModel(myUser);
             foreach(HAVPrivacySetting mySetting in Enum.GetValues(typeof(HAVPrivacySetting))) {
                 bool mySelected = BinderHelper.GetABoolean(bindingContext, mySetting.ToString());
                 PrivacySetting myPrivacySetting = PrivacySetting.CreatePrivacySetting(mySetting.ToString(), 0, string.Empty);
