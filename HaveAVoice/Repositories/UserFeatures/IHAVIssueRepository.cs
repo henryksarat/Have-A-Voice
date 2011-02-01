@@ -17,8 +17,10 @@ namespace HaveAVoice.Repositories.UserFeatures {
         IssueReplyComment CreateCommentToIssueReply(IssueReply anIssueReply, User aUserCreating, string aComment);
         void CreateCommentToIssueReply(User aUserCreating, int anIssueReplyId, string aComment);
         IssueReplyComment GetIssueReplyComment(int anIssueReplyCommentId);
-        
+
+        bool HasIssueDisposition(User aUser, int anIssueId);
         void CreateIssueDisposition(User aUser, int anIssueId, int aDisposition);
+        bool HasIssueReplyDisposition(User aUser, int anIssueReplyId);
         void CreateIssueReplyDisposition(User aUser, int anIssueReplyId, int aDisposition);
         
         void UpdateIssue(User aUser, Issue anOriginal, Issue anNew, bool anOverride);

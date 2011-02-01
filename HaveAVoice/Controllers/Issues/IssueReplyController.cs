@@ -175,7 +175,10 @@ namespace HaveAVoice.Controllers.Issues {
             }
             User aUser = GetUserInformaton();
             try {
-                theService.AddIssueReplyDisposition(aUser, id, disposition);
+                bool myResult = theService.AddIssueReplyDisposition(aUser, id, disposition);
+                if (!myResult) {
+                    return SendToErrorPage("You can only provide a disposition towards a person's reply to an issue once.");
+                }
                 TempData["Message"] = MessageHelper.SuccessMessage(DISPOSITION_SUCCESS);
             } catch (Exception e) {
                 LogError(e, DISPOSITION_ERROR);

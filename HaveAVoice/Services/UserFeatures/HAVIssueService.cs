@@ -112,16 +112,26 @@ namespace HaveAVoice.Services.UserFeatures {
             return theRepository.GetIssueReplyComment(aIssueReplyCommentId);
         }
 
-        public void AddIssueDisposition(User aUser, int anIssueId, int aDisposition) {
-            theRepository.CreateIssueDisposition(aUser, anIssueId, aDisposition);
+        public bool AddIssueDisposition(User aUser, int anIssueId, int aDisposition) {
+            if(theRepository.HasIssueDisposition(aUser, anIssueId)) {
+                return false;
+            } else {
+                theRepository.CreateIssueDisposition(aUser, anIssueId, aDisposition);
+                return true;
+            }
         }
 
         public IEnumerable<IssueWithDispositionModel> GetIssues(User aUser) {
             return theRepository.GetIssues(aUser);
         }
 
-        public void AddIssueReplyDisposition(User aUser, int anIssueReplyId, int aDisposition) {
-            theRepository.CreateIssueReplyDisposition(aUser, anIssueReplyId, aDisposition);
+        public bool AddIssueReplyDisposition(User aUser, int anIssueReplyId, int aDisposition) {
+            if (theRepository.HasIssueReplyDisposition(aUser, anIssueReplyId)) {
+                return false;
+            } else {
+                theRepository.CreateIssueReplyDisposition(aUser, anIssueReplyId, aDisposition);
+                return true;
+            }
         }
 
         public bool EditIssue(UserInformationModel aUserEditing, Issue anIssue) {

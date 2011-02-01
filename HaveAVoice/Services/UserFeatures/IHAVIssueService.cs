@@ -19,8 +19,8 @@ namespace HaveAVoice.Services.UserFeatures {
         IssueReply GetIssueReply(int anIssueReplyId);
         IEnumerable<IssueReplyComment> GetIssueReplyComments(int anIssueReplyId);
         IssueReplyComment GetIssueReplyComment(int anIssueReplyCommentId);
-        void AddIssueDisposition(User aUser, int anIssueId, int aDisposition);
-        void AddIssueReplyDisposition(User aUser, int anIssueReplyId, int aDisposition);
+        bool AddIssueDisposition(User aUser, int anIssueId, int aDisposition);
+        bool AddIssueReplyDisposition(User aUser, int anIssueReplyId, int aDisposition);
 
         bool EditIssue(UserInformationModel aUserCreating, Issue anIssue);
         bool EditIssueReply(UserInformationModel aUserCreating, IssueReply anIssueReply);

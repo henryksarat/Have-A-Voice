@@ -198,5 +198,17 @@ namespace HaveAVoice.Repositories.UserFeatures {
             theEntities.ApplyCurrentValues(anOriginal.EntityKey.EntitySetName, anOriginal);
             theEntities.SaveChanges();
         }
+
+        public bool HasIssueDisposition(User aUser, int anIssueId) {
+            return (from i in theEntities.IssueDispositions
+                    where i.UserId == aUser.Id && i.IssueId == anIssueId
+                    select i).Count<IssueDisposition>() > 0 ? true : false;
+        }
+
+        public bool HasIssueReplyDisposition(User aUser, int anIssueReplyId) {
+            return (from ir in theEntities.IssueReplyDispositions
+                    where ir.UserId == aUser.Id && ir.IssueReplyId == anIssueReplyId
+                    select ir).Count<IssueReplyDisposition>() > 0 ? true : false;
+        }
     }
 }

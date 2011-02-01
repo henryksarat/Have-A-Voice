@@ -50,7 +50,7 @@ namespace HaveAVoice.Services.UserFeatures {
         public UserProfileModel MyProfile(User aUser) {
             UserProfileModel myModel = new UserProfileModel(aUser) {
                 IssueFeed = CreateIssueFeed(theRepository.FriendIssueFeed(aUser), aUser),
-                IssueReplyFeed = CreateIssueReplyFeed(theRepository.FriendIssueReplyFeed(aUser)),
+                IssueReplyFeed = CreateIssueReplyFeed(theRepository.FriendIssueReplyFeed(aUser), aUser),
                 PhotoAlbumFeed = CreatePhotoAlbumFeed(theRepository.FriendPhotoAlbumFeed(aUser))
             };
 
@@ -62,7 +62,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 User myUser = theUserRetrievalService.GetUser(aUserId);
                 UserProfileModel myModel = new UserProfileModel(myUser) {
                     IssueFeed = CreateIssueFeed(theRepository.IssuesUserCreated(myUser), aViewingUser),
-                    IssueReplyFeed = CreateIssueReplyFeed(theRepository.IssuesUserRepliedTo(myUser))
+                    IssueReplyFeed = CreateIssueReplyFeed(theRepository.IssuesUserRepliedTo(myUser), aViewingUser)
                 };
 
                 return myModel;
@@ -75,25 +75,25 @@ namespace HaveAVoice.Services.UserFeatures {
             //This has to take into user privacy if they want an authority to see their profile
             UserProfileModel myModel = new UserProfileModel(anAuthorityUser) {
                 IssueFeed = CreateIssueFeed(theRepository.OfficialsIssueFeed(anAuthorityUser, UserRoleHelper.OfficialRoles()), anAuthorityUser),
-                IssueReplyFeed = CreateIssueReplyFeed(theRepository.OfficialsIssueReplyFeed(anAuthorityUser, UserRoleHelper.OfficialRoles()))
+                IssueReplyFeed = CreateIssueReplyFeed(theRepository.OfficialsIssueReplyFeed(anAuthorityUser, UserRoleHelper.OfficialRoles()), anAuthorityUser)
             };
 
             return myModel;
         }
 
-        private UserProfileModel Profile(User aUser, User myViewingUser) {
+        private UserProfileModel Profile(User aUser, User aViewingUser) {
             IEnumerable<Board> myBoardMessages = theBoardRepository.FindBoardByUserId(aUser.Id);
-            IEnumerable<PhotoAlbum> myPhotoAlbums = thePhotoAlbumService.GetPhotoAlbumsForUser(myViewingUser, aUser.Id);
+            IEnumerable<PhotoAlbum> myPhotoAlbums = thePhotoAlbumService.GetPhotoAlbumsForUser(aViewingUser, aUser.Id);
 
             UserProfileModel myProfileModel = new UserProfileModel(aUser) {
                 BoardFeed = CreateBoardFeed(myBoardMessages),
-                IssueFeed = CreateIssueFeed(theRepository.UserIssueFeed(aUser.Id), myViewingUser),
-                IssueReplyFeed = CreateIssueReplyFeed(theRepository.UserIssueReplyFeed(aUser.Id)),
+                IssueFeed = CreateIssueFeed(theRepository.UserIssueFeed(aUser.Id), aViewingUser),
+                IssueReplyFeed = CreateIssueReplyFeed(theRepository.UserIssueReplyFeed(aUser.Id), aViewingUser),
                 PhotoAlbumFeed = CreatePhotoAlbumFeed(myPhotoAlbums)
             };
 
             foreach (Board myBoard in myBoardMessages) {
-                theBoardRepository.MarkBoardAsViewed(myViewingUser, myBoard.Id);
+                theBoardRepository.MarkBoardAsViewed(aViewingUser, myBoard.Id);
             }
 
             return myProfileModel;
@@ -149,7 +149,7 @@ namespace HaveAVoice.Services.UserFeatures {
             return myFeedModels;
         }
 
-        private IEnumerable<IssueReplyFeedModel> CreateIssueReplyFeed(IEnumerable<IssueReply> anIssueReplys) {
+        private IEnumerable<IssueReplyFeedModel> CreateIssueReplyFeed(IEnumerable<IssueReply> anIssueReplys, User aViewingUser) {
             List<IssueReplyFeedModel> myFeedModels = new List<IssueReplyFeedModel>();
 
             foreach (IssueReply myIssueReply in anIssueReplys) {
@@ -163,7 +163,7 @@ namespace HaveAVoice.Services.UserFeatures {
                     Reply = myIssueReply.Reply,
                     TotalLikes = (from d in myReplyDisposition where d.Disposition == (int)Disposition.Like select d).Count<IssueReplyDisposition>(),
                     TotalDislikes = (from d in myReplyDisposition where d.Disposition == (int)Disposition.Dislike select d).Count<IssueReplyDisposition>(),
-                    HasDisposition = (from d in myReplyDisposition where d.UserId == myIssueReply.User.Id select d).Count<IssueReplyDisposition>() > 1 ? true : false,
+                    HasDisposition = (from d in myReplyDisposition where d.UserId == aViewingUser.Id select d).Count<IssueReplyDisposition>() > 0 ? true : false,
                     TotalComments = myIssueReply.IssueReplyComments.Count
                 };
 

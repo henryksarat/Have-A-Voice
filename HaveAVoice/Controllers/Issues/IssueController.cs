@@ -176,13 +176,16 @@ namespace HaveAVoice.Controllers.Issues {
             }
             User aUser = GetUserInformaton();
             try {
-                theService.AddIssueDisposition(aUser, issueId, disposition);
+                bool myResult = theService.AddIssueDisposition(aUser, issueId, disposition);
+                if (!myResult) {
+                    return SendToErrorPage("You can only provide a disposition towards an issue once.");
+                }
+                TempData["Message"] = MessageHelper.SuccessMessage(DISPOSITION_SUCCESS);
             } catch (Exception e) {
                 LogError(e, DISPOSITION_ERROR);
                 return SendToErrorPage(DISPOSITION_ERROR);
             }
 
-            TempData["Message"] = MessageHelper.SuccessMessage(DISPOSITION_SUCCESS);
             return RedirectToAction("Index");
         }
                                             
