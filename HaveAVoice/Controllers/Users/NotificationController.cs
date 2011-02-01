@@ -14,6 +14,7 @@ using HaveAVoice.Controllers.Helpers;
 namespace HaveAVoice.Controllers.Users {
     public class NotificationController : HAVBaseController {
         private const string NOTIFICATION_ERROR = "Error retrieving notifications.";
+        private const string NO_NOTIFICAITONS = "There are no notifications.";
 
         private const string LIST_VIEW = "List";
 
@@ -38,6 +39,10 @@ namespace HaveAVoice.Controllers.Users {
             LoggedInListModel<Board> myModel = new LoggedInListModel<Board>(myUser, SiteSection.Board);
             try {
                 myModel.Models = theNotificationService.GetNotifications(myUser);
+
+                if (myModel.Models.Count<Board>() == 0) {
+                    ViewData["Message"] = MessageHelper.NormalMessage(NO_NOTIFICAITONS);
+                }
             } catch (Exception myException) {
                 LogError(myException, NOTIFICATION_ERROR);
                 ViewData["Message"] = MessageHelper.ErrorMessage(NOTIFICATION_ERROR);
