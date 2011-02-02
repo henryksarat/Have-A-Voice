@@ -10,10 +10,17 @@ namespace HaveAVoice.Helpers.UI {
         public static string IssueReplyDisplay(IEnumerable<IssueReply> anIssueReplies) {
             string myList = string.Empty;
 
+            int myCount = 0;
+
             foreach (IssueReply myIssueReply in anIssueReplies) {
+                if (myCount >= 4) {
+                    break;
+                }
                 var myLI = new TagBuilder("li");
                 myLI.InnerHtml = myIssueReply.Reply;
                 myList += myLI.ToString();
+
+                myCount++;
             }
 
 

@@ -8,10 +8,5 @@ namespace HaveAVoice.Repositories.UserFeatures {
         IEnumerable<IssueWithDispositionModel> GetMostPopularIssues(Disposition aDisposition);
         IEnumerable<IssueReply> NewestIssueReplys();
         IEnumerable<IssueReply> GetMostPopularIssueReplys();
-
-        void AddZipCodeFilter(User aUser, int aZipCode);
-        void AddCityStateFilter(User aUser, string aCity, string aState);
-        bool ZipCodeFilterExists(User aUser, int aZipCode);
-        bool CityStateFilterExists(User aUser, string aCity, string aState);
     }
 }

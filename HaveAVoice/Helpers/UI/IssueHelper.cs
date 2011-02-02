@@ -433,22 +433,8 @@ namespace HaveAVoice.Helpers.UI {
 
                 var mySpan = new TagBuilder("span");
                 mySpan.MergeAttribute("class", "profile");
-                mySpan.InnerHtml = "On %%POST DATE%% by " + myUsername + " - %%COUNTRY%% (%%STATE%%)";
+                mySpan.InnerHtml = String.Format("On {0} by {1} - {2}, {3}", myIssue.Issue.DateTimeStamp, myUsername, myIssue.Issue.City, myIssue.Issue.State);
                 myContextDiv.InnerHtml += mySpan.ToString();
-
-                /*
-                var myContextSpan = new TagBuilder("span");
-                myContextSpan.MergeAttribute("class", "teal2");
-                myContextSpan.InnerHtml = myUsername + ": ";
-                myContextDiv.InnerHtml = myContextSpan.ToString(); 
-                myContextDiv.InnerHtml += anIssue.Title;
-                */
-
-                string myLike = new StringBuilder().AppendFormat("<a href=\"/Issue/IssueDisposition?issueId={0}&disposition={1}\" class=\"like\"><img src=\"/Content/images/like-sm.png\" alt=\"Like\" />Like</a>", myIssue.Issue.Id, Disposition.Like).ToString();
-                myContextDiv.InnerHtml += myLike.ToString();
-
-                string myDislike = new StringBuilder().AppendFormat("<a href=\"/Issue/IssueDisposition?issueId={0}&disposition={1}\" class=\"dislike\">Dislike<img src=\"/Content/images/dislike-sm.png\" alt=\"Dislike\" /></a>", myIssue.Issue.Id, Disposition.Dislike).ToString();
-                myContextDiv.InnerHtml += myDislike.ToString();
 
                 myOuterDiv.InnerHtml += myContextDiv.ToString();
 

@@ -14,19 +14,41 @@ namespace HaveAVoice.Repositories.UserFeatures {
         private static double ISSUE_REPLY_WEIGHT = 0.8;
 
         public IEnumerable<IssueWithDispositionModel> GetMostPopularIssues(Disposition aDisposition) {
-            IEnumerable<Issue> myIssues = theEntities.Issues;
-            IEnumerable<IssueDisposition> myIssueDispositions = theEntities.IssueDispositions;
-            IEnumerable<IssueReply> myIssueReplys = theEntities.IssueReplys;
+            IEnumerable<Issue> myIssues = GetOrderedIssues();
+            IEnumerable<int> myIssueIds = (from i in myIssues
+                                           select i.Id).ToList<int>();
+            IEnumerable<IssueDisposition> myIssueDispositions = (from d in theEntities.IssueDispositions
+                                                                 where myIssueIds.Contains(d.Id)
+                                                                 select d).ToList<IssueDisposition>();
+            IEnumerable<IssueReply> myIssueReplys = GetOrderedIssueReplys();
 
             return Helpers.CalculatedWithWeights(myIssues.ToList(), myIssueReplys.ToList(), myIssueDispositions.ToList(), aDisposition);
         }
 
         public IEnumerable<IssueReply> GetMostPopularIssueReplys() {
-            IEnumerable<IssueReply> myReplys = theEntities.IssueReplys;
-            IEnumerable<IssueReplyComment> myComments = theEntities.IssueReplyComments;
-            IEnumerable<IssueReplyDisposition> myDispositions = theEntities.IssueReplyDispositions;
+            IEnumerable<IssueReply> myReplys = GetOrderedIssueReplys();
+            IEnumerable<int> myReplyIds = (from ir in myReplys
+                                           select ir.Id).ToList<int>();
+            IEnumerable<IssueReplyComment> myComments = (from c in theEntities.IssueReplyComments
+                                                         where myReplyIds.Contains(c.IssueReplyId)
+                                                         select c).ToList<IssueReplyComment>();
+            IEnumerable<IssueReplyDisposition> myDispositions = (from d in theEntities.IssueReplyDispositions
+                                                                 where myReplyIds.Contains(d.IssueReplyId)
+                                                                 select d).ToList<IssueReplyDisposition>();
 
             return Helpers.CalculatedWithWeights(myReplys.ToList(), myComments.ToList(), myDispositions.ToList());
+        }
+
+        private IEnumerable<Issue> GetOrderedIssues() {
+            return (from i in theEntities.Issues
+                    where i.Deleted == false
+                    select i).OrderByDescending(i2 => i2.DateTimeStamp).ToList<Issue>();
+        }
+
+        private IEnumerable<IssueReply> GetOrderedIssueReplys() {
+            return (from ir in theEntities.IssueReplys
+                    where ir.Deleted == false
+                    select ir).ToList<IssueReply>();
         }
 
         public static class Helpers {
@@ -102,31 +124,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     select ir)
                     .OrderByDescending(i2 => i2.DateTimeStamp)
                     .ToList<IssueReply>();
-        }
-
-        public void AddZipCodeFilter(User aUser, int aZipCode) {
-            FilteredZipCode myFiltered = FilteredZipCode.CreateFilteredZipCode(0, aUser.Id, aZipCode);
-            theEntities.AddToFilteredZipCodes(myFiltered);
-        }
-
-        public void AddCityStateFilter(User aUser, string aCity, string aState) {
-            FilteredCityState myFiltered = FilteredCityState.CreateFilteredCityState(0, aUser.Id, aCity, aState);
-            theEntities.AddToFilteredCityStates(myFiltered);
-        }
-
-
-        public bool ZipCodeFilterExists(User aUser, int aZipCode) {
-            int myFilered = (from f in theEntities.FilteredZipCodes
-                                       where f.User.Id == aUser.Id && f.ZipCode == aZipCode
-                                       select f).Count<FilteredZipCode>();
-            return myFilered > 0;
-        }
-
-        public bool CityStateFilterExists(User aUser, string aCity, string aState) {
-            int myFilered = (from f in theEntities.FilteredCityStates
-                             where f.User.Id == aUser.Id && f.City == aCity && f.State == aState
-                             select f).Count<FilteredCityState>();
-            return myFilered > 0;
         }
     }
 }

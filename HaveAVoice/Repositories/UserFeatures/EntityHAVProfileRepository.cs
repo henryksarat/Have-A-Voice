@@ -11,6 +11,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         public IEnumerable<Issue> IssuesUserCreated(User aUser) {
             return (from i in theEntities.Issues
                     where i.UserId == aUser.Id
+                    && i.Deleted == false
                     select i)
                     .OrderByDescending(i => i.DateTimeStamp)
                     .Take(5)
@@ -20,6 +21,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         public IEnumerable<IssueReply> IssuesUserRepliedTo(User aUser) {
             return (from ir in theEntities.IssueReplys
                     where ir.User.Id == aUser.Id
+                    && ir.Deleted == false
                     select ir)
                     .OrderByDescending(ir => ir.DateTimeStamp)
                     .Take(5)
@@ -61,12 +63,14 @@ namespace HaveAVoice.Repositories.UserFeatures {
         public IEnumerable<Issue> UserIssueFeed(int aTargetUserId) {
             return (from f in theEntities.Issues
                     where f.UserId == aTargetUserId
+                    && f.Deleted == false
                     select f).OrderByDescending(f2 => f2.DateTimeStamp).ToList<Issue>();
         }
 
         public IEnumerable<IssueReply> UserIssueReplyFeed(int aTargetUserId) {
             return (from f in theEntities.IssueReplys
                     where f.UserId == aTargetUserId
+                    && f.Deleted == false
                     select f).OrderByDescending(f2 => f2.DateTimeStamp).ToList<IssueReply>();
         }
 
