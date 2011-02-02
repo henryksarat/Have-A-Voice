@@ -24,24 +24,24 @@ namespace HaveAVoice.Helpers {
             return "/Complaint/Complaint?sourceId=" + anIssue.Id + "&complaintType=Issue";
         }
 
-        public static string AgreeIssueReply(int anIssueReplyId, int anIssueId) {
-            return "/IssueReply/Disposition/" + anIssueReplyId +"?issueId=" + anIssueId + "&disposition=" + Disposition.Like + "&section=" + SiteSection.IssueActivity;
+        public static string AgreeIssueReply(int anIssueReplyId, int anIssueId, SiteSection aSection, int aSourceId) {
+            return "/IssueReply/Disposition/" + anIssueReplyId + "?issueId=" + anIssueId + "&disposition=" + Disposition.Like + "&section=" + aSection + "&sourceId" + aSourceId;
         }
 
-        public static string DisagreeIssueReply(int anIssueReplyId, int anIssueId) {
-            return "/IssueReply/Disposition/" + anIssueReplyId +"?issueId=" + anIssueId + "&disposition=" + Disposition.Dislike;
+        public static string DisagreeIssueReply(int anIssueReplyId, int anIssueId, SiteSection aSection, int aSourceId) {
+            return "/IssueReply/Disposition/" + anIssueReplyId + "?issueId=" + anIssueId + "&disposition=" + Disposition.Dislike + "&section=" + aSection + "&sourceId" + aSourceId;
         }
 
         public static string EditIssueReply(int anIssueReplyId) {
             return "/IssueReply/Edit/" + anIssueReplyId;
         }
 
-        public static string AgreeIssue(int anIssueId) {
-            return "/Issue/Disposition?issueId=" + anIssueId + "&disposition=" + Disposition.Like;
+        public static string AgreeIssue(int anIssueId, SiteSection aSection, int aSourceId) {
+            return "/Issue/Disposition?issueId=" + anIssueId + "&disposition=" + Disposition.Like + "&section=" + aSection + "&sourceId" + aSourceId;
         }
 
-        public static string DisagreeIssue(int anIssueId) {
-            return "/Issue/Disposition?issueId=" + anIssueId + "&disposition=" + Disposition.Dislike;
+        public static string DisagreeIssue(int anIssueId, SiteSection aSection, int aSourceId) {
+            return "/Issue/Disposition?issueId=" + anIssueId + "&disposition=" + Disposition.Dislike + "&section=" + aSection + "&sourceId" + aSourceId;
         }
     }
 }

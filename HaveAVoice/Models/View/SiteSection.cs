@@ -10,6 +10,7 @@ namespace HaveAVoice.Models.View {
         Photos,
         Calendar,
         IssueActivity,
+        MyIssueActivity,
         Information,
         Board,
         Message,

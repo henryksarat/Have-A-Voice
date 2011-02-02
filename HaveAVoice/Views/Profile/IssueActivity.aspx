@@ -2,6 +2,7 @@
 <%@ Import Namespace="HaveAVoice.Helpers.Enums" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
+<%@ Import Namespace="HaveAVoice.Models" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	IssueActivity
@@ -19,6 +20,8 @@
     <% FeedItem myNextFeedItem = Model.Model.GetNextItem(); %>
     <% int cnt = 0; %>
     <% while (myNextFeedItem != FeedItem.None) { %>
+            <% ViewData["SiteSection"] = Model.NavigationModel.SiteSection; %>
+            <% ViewData["SourceId"] = Model.NavigationModel.User.Id; %>
             <% if(myNextFeedItem == FeedItem.Issue) { %>
                 <% IssueFeedModel myIssue = Model.Model.GetNextIssue(); %>
                 <% ViewData["Count"] = cnt; %>

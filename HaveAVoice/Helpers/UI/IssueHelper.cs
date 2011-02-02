@@ -154,13 +154,13 @@ namespace HaveAVoice.Helpers.UI {
             
             if(!anIssueReply.HasDisposition) {
                 var myLikeDisposition = new TagBuilder("a");
-                myLikeDisposition.MergeAttribute("href", LinkHelper.AgreeIssueReply(anIssueReply.Id, anIssueReply.Issue.Id));
+                //myLikeDisposition.MergeAttribute("href", LinkHelper.AgreeIssueReply(anIssueReply.Id, anIssueReply.Issue.Id));
                 myLikeDisposition.MergeAttribute("class", "like");
                 myLikeDisposition.InnerHtml += "Like";
                 likeDiv.InnerHtml +=myLikeDisposition.ToString();
 
                 var myDislikeDisposition = new TagBuilder("a");
-                myDislikeDisposition.MergeAttribute("href", LinkHelper.DisagreeIssueReply(anIssueReply.Id, anIssueReply.Issue.Id));
+                //myDislikeDisposition.MergeAttribute("href", LinkHelper.DisagreeIssueReply(anIssueReply.Id, anIssueReply.Issue.Id));
                 myDislikeDisposition.MergeAttribute("class", "dislike");
                 myDislikeDisposition.InnerHtml += "Dislike";
                 dislikeDiv.InnerHtml +=myDislikeDisposition.ToString();

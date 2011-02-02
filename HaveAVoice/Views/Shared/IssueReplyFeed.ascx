@@ -5,6 +5,8 @@
 <%@ Import Namespace="HaveAVoice.Models.View" %>
 
 <% int myCount = (int)ViewData["Count"]; %>
+<% SiteSection mySection = (SiteSection)ViewData["SiteSection"]; %>
+<% int mySourceId = (int)ViewData["SourceId"]; %>
 <div class="<% if(myCount % 2 == 0) { %>row<% } else { %>alt<% } %> m-btm5">
 	<div class="col-2 center">
 		<img src="<%= Model.ProfilePictureUrl %>" alt="<%= Model.DisplayName %>" class="profile" />
@@ -44,7 +46,7 @@
 									<% } %>
 								</span>
 							<% } else { %>
-								<a href="<%= LinkHelper.AgreeIssueReply(Model.Id, Model.Issue.Id) %>" class="like">Agree</a>
+								<a href="<%= LinkHelper.AgreeIssueReply(Model.Id, Model.Issue.Id, mySection, mySourceId) %>" class="like">Agree</a>
 							<% } %>
 						</div>
 						<div class="col-3 center">
@@ -58,7 +60,7 @@
 									<% } %>
 								</span>
 							<% } else { %>
-								<a href="<%= LinkHelper.DisagreeIssueReply(Model.Id, Model.Issue.Id) %>" class="dislike">Disagree</a>
+								<a href="<%= LinkHelper.DisagreeIssueReply(Model.Id, Model.Issue.Id, mySection, mySourceId) %>" class="dislike">Disagree</a>
 							<% } %>
 						</div>
 						<div class="clear">&nbsp;</div>

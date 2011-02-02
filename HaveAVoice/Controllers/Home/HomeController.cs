@@ -49,9 +49,7 @@ namespace HaveAVoice.Controllers.Home {
             if (IsLoggedIn()) {
                 return RedirectToProfile();
             }
-
             NotLoggedInModel myModel = new NotLoggedInModel();
-
             try {
                 myModel = theService.NotLoggedIn();
             } catch (Exception e) {

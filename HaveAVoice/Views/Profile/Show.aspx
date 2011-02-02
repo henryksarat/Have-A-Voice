@@ -27,6 +27,8 @@
         <% int cnt = 0; %>
 
         <% while(myNextFeedItem != FeedItem.None) { %>
+            <% ViewData["SiteSection"] = Model.NavigationModel.SiteSection; %>
+            <% ViewData["SourceId"] = Model.NavigationModel.User.Id; %>
             <% if(myNextFeedItem == FeedItem.Issue) { %>
                 <% IssueFeedModel myIssue = Model.Model.GetNextIssue(); %>
                 <% ViewData["Count"] = cnt; %>
@@ -45,6 +47,8 @@
         <% FeedItem myNextFeedItem = Model.Model.GetNextItem(); %>
         <% int cnt = 0; %>
         <% while(myNextFeedItem != FeedItem.None) { %>
+            <% ViewData["SiteSection"] = Model.NavigationModel.SiteSection; %>
+            <% ViewData["SourceId"] = Model.NavigationModel.User.Id; %>
             <% if (myNextFeedItem == FeedItem.Issue) { %>
                 <% IssueFeedModel myIssue = Model.Model.GetNextIssue(); %>
                 <% ViewData["Count"] = cnt; %>

@@ -170,7 +170,7 @@ namespace HaveAVoice.Controllers.Issues {
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Disposition(int issueId, Disposition disposition, SiteSection aSection) {
+        public ActionResult Disposition(int issueId, Disposition disposition, SiteSection aSection, int sourceId) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
@@ -186,7 +186,17 @@ namespace HaveAVoice.Controllers.Issues {
                 return SendToErrorPage(DISPOSITION_ERROR);
             }
 
-            return RedirectToAction("Index");
+            if (aSection == SiteSection.Profile) {
+                return RedirectToAction("Show", "Profile", new { id = sourceId });
+            } else if (aSection == SiteSection.MyProfile) {
+                return RedirectToAction("Show", "Profile");
+            } else if (aSection == SiteSection.IssueActivity) {
+                return RedirectToAction("IssueActivity", "Profile");
+            } else if (aSection == SiteSection.MyIssueActivity) {
+                return RedirectToAction("IssueActivity", "Profile", new { id = sourceId });
+            } else {
+                return RedirectToAction("View", "Issue", new { id = issueId });
+            }
         }
                                             
         public ActionResult Delete(int id) {
