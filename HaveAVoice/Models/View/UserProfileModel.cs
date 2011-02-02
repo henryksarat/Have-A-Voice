@@ -9,7 +9,7 @@ namespace HaveAVoice.Models.View {
         public User User { get; set; }
 
         public IEnumerable<BoardFeedModel> BoardFeed { set {
-                BoardFeedEnumerator = value.GetEnumerator();
+            BoardFeedEnumerator = value.GetEnumerator();
                 BoardFeedEnumerator.MoveNext();
             }
         }
@@ -64,7 +64,7 @@ namespace HaveAVoice.Models.View {
                 }
 
                 myFeedItem = myCommonSortableList
-                    .OrderBy(s => s.DateTimeStamp)
+                    .OrderByDescending(s => s.DateTimeStamp)
                     .FirstOrDefault<SortableItemMetaData>()
                     .FeedItem;
             }

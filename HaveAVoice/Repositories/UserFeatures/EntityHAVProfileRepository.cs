@@ -61,13 +61,13 @@ namespace HaveAVoice.Repositories.UserFeatures {
         public IEnumerable<Issue> UserIssueFeed(int aTargetUserId) {
             return (from f in theEntities.Issues
                     where f.UserId == aTargetUserId
-                    select f).ToList<Issue>();
+                    select f).OrderByDescending(f2 => f2.DateTimeStamp).ToList<Issue>();
         }
 
         public IEnumerable<IssueReply> UserIssueReplyFeed(int aTargetUserId) {
             return (from f in theEntities.IssueReplys
                     where f.UserId == aTargetUserId
-                    select f).ToList<IssueReply>();
+                    select f).OrderByDescending(f2 => f2.DateTimeStamp).ToList<IssueReply>();
         }
 
         public IEnumerable<Issue> FilteredIssuesFeed(User aUser) {

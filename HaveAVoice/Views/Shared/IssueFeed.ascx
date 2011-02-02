@@ -47,7 +47,7 @@
 									<% } %>
 								</span>
 							<% } else { %>
-								<a href="<%= LinkHelper.AgreeIssue(Model.Id, mySection, mySourceId) %>" class="like">Like</a>
+								<a href="<%= LinkHelper.AgreeIssue(Model.Id, mySection, mySourceId) %>" class="like">Agree</a>
 							<% } %>
 						</div>
 						<div class="col-3 center">
@@ -61,7 +61,7 @@
 									<% } %>
 								</span>
 							<% } else { %>
-								<a href="<%= LinkHelper.DisagreeIssue(Model.Id, mySection, mySourceId) %>" class="dislike">Dislike</a>
+								<a href="<%= LinkHelper.DisagreeIssue(Model.Id, mySection, mySourceId) %>" class="dislike">Disagree</a>
 							<% } %>
 						</div>
 					</div>
