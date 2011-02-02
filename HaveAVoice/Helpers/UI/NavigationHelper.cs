@@ -5,10 +5,18 @@ using System.Web;
 using HaveAVoice.Models.View;
 using System.Web.Mvc;
 using System.Collections;
+using HaveAVoice.Models;
+using HaveAVoice.Helpers.UserInformation;
 
 namespace HaveAVoice.Helpers.UI {
     public class NavigationHelper {
-        public static string UserNavigation(SiteSection aSiteSection, SiteSection[] aSections, string[] aCssClasses, string[] aUrls, string[] aDisplayNames) {
+        public static string UserNavigation(SiteSection aSiteSection, SiteSection[] aSections, string[] aCssClasses, string[] aUrls, string[] aDisplayNames, User aTargetUser) {
+            bool myIsMyself = false;
+
+            if (HAVUserInformationFactory.GetUserInformation().Details.Id == aTargetUser.Id) {
+                myIsMyself = true;
+            }
+
             var myUlTag = new TagBuilder("ul");
 
             for (int myIndex = 0; myIndex < aSections.Count(); myIndex++) {
@@ -24,7 +32,13 @@ namespace HaveAVoice.Helpers.UI {
                     }
                 }
 
-                myLiTag.InnerHtml += String.Format("<a class=\"{0}\" href=\"{1}\">{2}</a>", aCssClasses[myIndex], aUrls[myIndex], aDisplayNames[myIndex]);
+                string myUrl = aUrls[myIndex];
+
+                if (!myIsMyself) {
+                    myUrl += "/" + aTargetUser.Id;
+                }
+
+                myLiTag.InnerHtml += String.Format("<a class=\"{0}\" href=\"{1}\">{2}</a>", aCssClasses[myIndex], myUrl, aDisplayNames[myIndex]);
 
                 myUlTag.InnerHtml += myLiTag.ToString();
             }

@@ -25,11 +25,11 @@ namespace HaveAVoice.Helpers {
         }
 
         public static string AgreeIssueReply(int anIssueReplyId, int anIssueId, SiteSection aSection, int aSourceId) {
-            return "/IssueReply/Disposition/" + anIssueReplyId + "?issueId=" + anIssueId + "&disposition=" + Disposition.Like + "&section=" + aSection + "&sourceId" + aSourceId;
+            return "/IssueReply/Disposition/" + anIssueReplyId + "?issueId=" + anIssueId + "&disposition=" + Disposition.Like + "&section=" + aSection + "&sourceId=" + aSourceId;
         }
 
         public static string DisagreeIssueReply(int anIssueReplyId, int anIssueId, SiteSection aSection, int aSourceId) {
-            return "/IssueReply/Disposition/" + anIssueReplyId + "?issueId=" + anIssueId + "&disposition=" + Disposition.Dislike + "&section=" + aSection + "&sourceId" + aSourceId;
+            return "/IssueReply/Disposition/" + anIssueReplyId + "?issueId=" + anIssueId + "&disposition=" + Disposition.Dislike + "&section=" + aSection + "&sourceId=" + aSourceId;
         }
 
         public static string EditIssueReply(int anIssueReplyId) {
@@ -37,11 +37,11 @@ namespace HaveAVoice.Helpers {
         }
 
         public static string AgreeIssue(int anIssueId, SiteSection aSection, int aSourceId) {
-            return "/Issue/Disposition?issueId=" + anIssueId + "&disposition=" + Disposition.Like + "&section=" + aSection + "&sourceId" + aSourceId;
+            return "/Issue/Disposition?issueId=" + anIssueId + "&disposition=" + Disposition.Like + "&section=" + aSection + "&sourceId=" + aSourceId;
         }
 
         public static string DisagreeIssue(int anIssueId, SiteSection aSection, int aSourceId) {
-            return "/Issue/Disposition?issueId=" + anIssueId + "&disposition=" + Disposition.Dislike + "&section=" + aSection + "&sourceId" + aSourceId;
+            return "/Issue/Disposition?issueId=" + anIssueId + "&disposition=" + Disposition.Dislike + "&section=" + aSection + "&sourceId=" + aSourceId;
         }
     }
 }

@@ -19,7 +19,8 @@
                     new SiteSection[] {SiteSection.Home, SiteSection.IssueActivity, SiteSection.Photos, SiteSection.Calendar},
                     new string[] {"home", "message", "photo", "event"},
                     new string[] {"/Profile/Show", "/Profile/IssueActivity", "/PhotoAlbum/List", "/Calendar/List"},
-                    new string[] { "HOME", "USER FEED", "PHOTOS", "EVENTS"}
+                    new string[] { "HOME", "USER FEED", "PHOTOS", "EVENTS"},
+                    Model.User
                 )
             %>
 		</div>
