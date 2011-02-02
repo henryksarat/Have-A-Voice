@@ -404,7 +404,6 @@
     <Content Include="Views\Calendar\List.aspx" />
     <Content Include="Views\Complaint\Complaint.aspx" />
     <Content Include="Views\Error\Index.aspx" />
-    <Content Include="Views\Calendar\Show.aspx" />
     <Content Include="Views\Friend\List.aspx" />
     <Content Include="Views\Friend\Pending.aspx" />
     <Content Include="Views\Feedback\Create.aspx" />

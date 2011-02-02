@@ -22,6 +22,7 @@ namespace HaveAVoice.Controllers.Users.Photos {
         private const string EDIT_SUCCESS = "Photo album edited successfully!";
         private const string DELETE_SUCCESS = "Photo album deleted successfully!";
 
+        private const string USER_RETRIEVAL_ERROR = "Error retrieving the user.";
         private const string GET_ALBUM_ERROR = "Error retrieving the album. Please try again.";
         private const string ALBUM_LIST_ERROR = "Error retrieving your photo album list. Please try again.";
         private const string CREATED_FAIL = "Error creating photo album. Please try again.";
@@ -34,15 +35,18 @@ namespace HaveAVoice.Controllers.Users.Photos {
         private const string DELETE_VIEW = "Delete";
 
         private IHAVPhotoAlbumService thePhotoAlbumService;
+        private IHAVUserRetrievalService theUserRetrievalService;
 
         public PhotoAlbumController() : 
             base(new HAVBaseService(new HAVBaseRepository())) {
                 thePhotoAlbumService = new HAVPhotoAlbumService(new ModelStateWrapper(this.ModelState));
+                theUserRetrievalService = new HAVUserRetrievalService();
         }
 
-        public PhotoAlbumController(IHAVPhotoAlbumService aPhotoAlbumService, IHAVBaseService aBaseService)
+        public PhotoAlbumController(IHAVPhotoAlbumService aPhotoAlbumService, IHAVUserRetrievalService aUserRetrievalService, IHAVBaseService aBaseService)
             : base(aBaseService) {
                 thePhotoAlbumService = aPhotoAlbumService;
+                theUserRetrievalService = aUserRetrievalService;
         }
 
         [RequiredRouteValueAttribute.RequireRouteValues(new string[] { })]
@@ -166,14 +170,23 @@ namespace HaveAVoice.Controllers.Users.Photos {
         }
 
         private ActionResult ListPhotoAlbums(User aRequestingUser, int aUserIdOfAlbum) {
-            LoggedInListModel<PhotoAlbum> myModel = new LoggedInListModel<PhotoAlbum>(aRequestingUser, SiteSection.Photos, aUserIdOfAlbum);
+            User myUserOfAlbum;
+            try {
+                myUserOfAlbum = theUserRetrievalService.GetUser(aUserIdOfAlbum);
+            } catch (Exception e) {
+                LogError(e, USER_RETRIEVAL_ERROR);
+                return SendToErrorPage(ALBUM_LIST_ERROR);
+            }
+
+            LoggedInListModel<PhotoAlbum> myModel = new LoggedInListModel<PhotoAlbum>(myUserOfAlbum, SiteSection.Photos, aUserIdOfAlbum);
+
             try {
                 myModel.Models = thePhotoAlbumService.GetPhotoAlbumsForUser(aRequestingUser, aUserIdOfAlbum);
             } catch (NotFriendException e) {
                 return SendToErrorPage(HAVConstants.NOT_FRIEND);
             } catch (Exception e) {
                 LogError(e, ALBUM_LIST_ERROR);
-                return SendToErrorPage(ALBUM_LIST_ERROR);
+                ViewData["Message"] = MessageHelper.ErrorMessage(ALBUM_LIST_ERROR);
             }
 
             return View(LIST_VIEW, myModel);

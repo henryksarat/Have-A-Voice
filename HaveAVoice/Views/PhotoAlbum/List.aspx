@@ -110,9 +110,11 @@
 			        <% } %>
 		        </li>
 		    <% } %>
+            <% if (myIsUser) { %>
 		    <li>
 		    	<a href="#" rel="new-album" class="create">Create Album</a>
 		    </li>
+            <% } %>
 	    </ul>
 		<div class="clear">&bnsp;</div>
     </div>

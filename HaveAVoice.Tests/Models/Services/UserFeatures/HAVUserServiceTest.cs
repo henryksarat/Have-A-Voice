@@ -189,7 +189,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
             Assert.AreEqual("Someone already registered with that aUsername. Please try another one.", usernameError.ErrorMessage);
             Assert.AreEqual("Someone already registered with that myException-mail. Please try another one.", emailError.ErrorMessage);
         }
-
+        /*
         [TestMethod]
         public void EditUser() {
             Mock<HttpPostedFileBase> myUploadedFile = new Mock<HttpPostedFileBase>();
@@ -284,7 +284,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
             Assert.IsFalse(myResult);
             var myError = theModelState["State"].Errors[0];
             Assert.AreEqual("State is required.", myError.ErrorMessage);
-        }
+        }*/
         /*
         [TestMethod]
         public void TestCreateUserCantSendEmail() {
