@@ -461,7 +461,6 @@
     <Content Include="Views\User\CreateAuthority.aspx" />
     <Content Include="Views\User\Create.aspx" />
     <Content Include="Views\User\Edit.aspx" />
-    <Content Include="Views\Friend\Friends.aspx" />
     <Content Include="Views\Password\Request.aspx" />
     <Content Include="Views\Profile\Show.aspx" />
     <Content Include="Views\Photos\Edit.aspx" />

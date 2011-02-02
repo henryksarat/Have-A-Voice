@@ -114,15 +114,16 @@
             <% string myProfilePictureUrl = myUserModel.ProfilePictureUrl; %>
 			<img src="<%= myProfilePictureUrl %>" alt="<%= myFullName %>" class="profile sm" />
 		</div>
-		<div class="m-lft col-12 m-rgt">
-			<% using (Html.BeginForm("Create", "IssueReplyComment", new { issueReplyId = Model.Id })) { %>
-				<%= Html.ValidationMessage("Comment", "*") %>
-				<%= Html.TextArea("Comment") %>
-			<% } %>
+		<% using (Html.BeginForm("Create", "IssueReplyComment", new { issueReplyId = Model.Id })) { %>
+		    <div class="m-lft col-12 m-rgt">
+				    <%= Html.ValidationMessage("Comment", "*") %>
+				    <%= Html.TextArea("Comment") %>
+			
+		    </div>
+		    <div class="col-2 center">
+			    <input type="submit" value="Post" />
 		</div>
-		<div class="col-2 center">
-			<input type="submit" value="Post" />
-		</div>
+        <% } %>
 		<div class="clear">&nbsp;</div>
 	</div>
 	<div class="clear">&nbsp;</div>

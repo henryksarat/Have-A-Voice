@@ -31,7 +31,7 @@
 						<img src ="<%= PhotoHelper.ProfilePicture(item.FriendUser) %>" alt="<%= item.FriendUser.Username %>" class="profile" />
 					</div>
 					<div class="p-a5">
-						<a href="#" class="name"><%= item.FriendUser.Username %></a>
+						<a href="/Profile/Show/<%= item.FriendUserId %>" class="name"><%= item.FriendUser.Username %></a>
 					</div>
 				</div>
 			</div>

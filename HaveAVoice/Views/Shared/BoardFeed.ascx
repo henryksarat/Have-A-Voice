@@ -14,24 +14,6 @@
 			<div class="p-h10">
 				<a class="name" href="#"><%= Model.DisplayName%></a>
                 <%= Model.Message%>
-
-				<div class="p-t10">
-					<div class="push-6 col-9">
-						<div class="col-3 center">
-							<!--
-							<a href="#" class="comment">COMMENT</a>
-							//-->
-							&nbsp;
-						</div>
-						<div class="col-3 center">
-							<a href="#" class="like">LIKE</a>
-						</div>
-						<div class="col-3 center">
-							<a href="#" class="dislike">DISLIKE</a>
-						</div>
-					</div>
-					<div class="clear">&nbsp;</div>
-				</div>
 				<div class="clear">&nbsp;</div>
 			</div>
 		</div>
@@ -79,8 +61,9 @@
 	            <% string myProfilePictureUrl = myUserModel.ProfilePictureUrl; %>
 				<img src="<%= myProfilePictureUrl %>" alt="<%= myFullName %>" class="profile sm" />
 			</div>
+			<% using (Html.BeginForm("Create", "BoardReply", new { sourceUserId = Model.UserId, boardId = Model.Id })) { %>
+
 			<div class="m-lft col-14">
-				<% using (Html.BeginForm("Create", "BoardReply", new { sourceUserId = Model.UserId, boardId = Model.Id })) { %>
 				<div class="alpha col-12">
 			        <%= Html.ValidationMessage("Message", "*")%>
 			        <%= Html.TextArea("Message")%>
