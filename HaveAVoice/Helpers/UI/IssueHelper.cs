@@ -59,7 +59,7 @@ namespace HaveAVoice.Helpers.UI {
 			var profileImg = new TagBuilder("img");
 			if (anIssueReply.Anonymous) {
 				profileImg.MergeAttribute("alt", "Anonymous");
-                profileImg.MergeAttribute("src", "http://images.chron.com/photos/2008/05/19/graphic_defaultAvatar/graphic_defaultAvatar.jpg");
+                profileImg.MergeAttribute("src", PhotoHelper.ConstructUrl(HAVConstants.NO_PROFILE_PICTURE_IMAGE));
 			}  else {
 				profileImg.MergeAttribute("alt", anIssueReply.User.Username);
 				profileImg.MergeAttribute("src", PhotoHelper.ProfilePicture(anIssueReply.User));
@@ -282,8 +282,7 @@ namespace HaveAVoice.Helpers.UI {
         	var profileDiv = new TagBuilder("div");
         	profileDiv.MergeAttribute("class", "col-3 center issue-profile");
         	
-        	/* ALTER THIS FUNCTIONALITY TO DISPLAY THE PROFILE PICTURE AND USERNAME (HANDLE ANONYMOUS PROPERLY) */
-            string myAvatarURL = "http://images.chron.com/photos/2008/05/19/graphic_defaultAvatar/graphic_defaultAvatar.jpg";
+            string myAvatarURL = PhotoHelper.ConstructUrl(HAVConstants.NO_PROFILE_PICTURE_IMAGE);
             string myUsername = "Anonymous";
             if (PrivacyHelper.IsAllowed(anIssueReply.IssueReply.User, PrivacyAction.DisplayProfile)) {
                 myAvatarURL = PhotoHelper.ProfilePicture(anIssueReply.IssueReply.User);
@@ -405,7 +404,7 @@ namespace HaveAVoice.Helpers.UI {
             string myIssueDisplay = string.Empty;
 
             foreach (IssueWithDispositionModel myIssue in anIssues) {
-                string myAvatarURL = "http://www.softonic.cn/shared/images/user_no_avatar.gif";
+                string myAvatarURL = PhotoHelper.ConstructUrl(HAVConstants.NO_PROFILE_PICTURE_IMAGE);
                 string myUsername = myIssue.Issue.User.Username + " (alias)";
                 if (PrivacyHelper.IsAllowed(myIssue.Issue.User, PrivacyAction.DisplayProfile)) {
                     myAvatarURL = PhotoHelper.ProfilePicture(myIssue.Issue.User);
