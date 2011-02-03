@@ -30,7 +30,7 @@
 		<div class="m-lft col-18 form">
 		    <% Html.RenderPartial("Message"); %>
 
-			<% Html.RenderPartial("PrivacyTabs", UserSettings.AccountSettings); %>
+			<% Html.RenderPartial("PrivacyTabs", UserSettings.PrivacySettings); %>
 
 			<div class="clear">&nbsp;</div>
 

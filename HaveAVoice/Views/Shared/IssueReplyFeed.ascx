@@ -3,6 +3,7 @@
 <%@ Import Namespace="HaveAVoice.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
+<%@ Import Namespace="HaveAVoice.Helpers.Enums" %>
 
 <% int myCount = (int)ViewData["Count"]; %>
 <% SiteSection mySection = (SiteSection)ViewData["SiteSection"]; %>
@@ -19,10 +20,11 @@
 				<%= Html.ActionLink(Model.DisplayName, "Show", "Profile", new { id = Model.UserId }, new { @class = "name" })%> says:
 				<%= Model.Reply%>
 
+                
 				<div class="options p-v10">
 					<div class="push-3 col-10">
 						<div class="col-1 center">
-							<a href="#" class="issue-report" title="Report">
+							<a href="<%= ComplaintHelper.IssueReplyLink(Model.Id) %>" class="issue-report" title="Report">
 								Report
 							</a>
 							<div class="clear">&nbsp;</div>

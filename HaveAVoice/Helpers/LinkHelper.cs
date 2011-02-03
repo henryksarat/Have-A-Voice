@@ -43,5 +43,9 @@ namespace HaveAVoice.Helpers {
         public static string DisagreeIssue(int anIssueId, SiteSection aSection, int aSourceId) {
             return "/Issue/Disposition?issueId=" + anIssueId + "&disposition=" + Disposition.Dislike + "&section=" + aSection + "&sourceId=" + aSourceId;
         }
+
+        public static string Report(int aSourceId, ComplaintType aComplaintType) {
+            return String.Format("/Complaint/Complaint?sourceId={0}&complaintType={1}", aSourceId, aComplaintType.ToString());
+        }
     }
 }

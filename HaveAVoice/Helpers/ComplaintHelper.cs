@@ -10,13 +10,9 @@ using HaveAVoice.Services.UserFeatures;
 
 namespace HaveAVoice.Helpers
 {
-    public static class ComplaintHelper
-    {
-        public static string IssueReplyLink(int aIssueReply) {
-            return String.Format("<a href=\"/Complaint/Complaint?sourceId={0}&complaintType={1}\">{2}</a>",
-                aIssueReply,
-                ComplaintType.IssueReply,
-                "Report");
+    public static class ComplaintHelper {
+        public static string IssueReplyLink(int aReplyId) {
+            return String.Format("/Complaint/Complaint?sourceId={0}&complaintType={1}", aReplyId, ComplaintType.IssueReply);
         }
 
         public static string IssueLink(int aIssue) {
