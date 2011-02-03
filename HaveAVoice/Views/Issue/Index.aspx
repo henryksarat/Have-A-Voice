@@ -50,10 +50,10 @@
 		            
 		            <% if (!item.HasDisposition) { %>
 		            	<div class="push-7 col-3 center">
-		            		<%= Html.ActionLink("Like", "Disposition", new { issueId = item.Issue.Id, disposition = (int)Disposition.Like }, new { @class = "like" })%>
+		            		<%= Html.ActionLink("Agree", "Disposition", new { issueId = item.Issue.Id, disposition = (int)Disposition.Like }, new { @class = "like" })%>
 		            	</div>
 		                <div class="push-7 col-3 center">
-		                	<%= Html.ActionLink("Dislike", "Disposition", new { issueId = item.Issue.Id, disposition = (int)Disposition.Dislike }, new { @class = "dislike" })%>
+		                	<%= Html.ActionLink("Disagree", "Disposition", new { issueId = item.Issue.Id, disposition = (int)Disposition.Dislike }, new { @class = "dislike" })%>
 		                </div>
 		            <% } else { %>
 		            	<div class="push-7 col-6">&nbsp;</div>

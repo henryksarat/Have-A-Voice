@@ -8,19 +8,25 @@
 <% SiteSection mySection = (SiteSection)ViewData["SiteSection"]; %>
 <% int mySourceId = (int)ViewData["SourceId"]; %>
 <div class="<% if(myCount % 2 == 0) { %>row<% } else { %>alt<% } %> m-btm5">
-	<div class="col-2 center">
+	<div class="push-2 col-2 center">
 		<img src="<%= Model.ProfilePictureUrl %>" alt="<%= Model.DisplayName %>" class="profile" />
 	</div>
-	<div class="col-16">
-		<div class="m-lft col-16 comment">
+	<div class="push-2 col-14">
+		<div class="m-lft col-14 comment">
 			<span class="speak-lft">&nbsp;</span>
 			<div class="p-a10">
-				<%= Html.ActionLink(Model.DisplayName, "Show", "Profile", new { id = Model.UserId }, new { @class = "name" })%>
-				<br />
+				<span class="fnt-14 teal">Regarding <% /* = Model.Issue.IssueTitle */ %></span><br />
+				<%= Html.ActionLink(Model.DisplayName, "Show", "Profile", new { id = Model.UserId }, new { @class = "name" })%> says:
 				<%= Model.Reply%>
 
 				<div class="options p-v10">
-					<div class="push-6 col-9">
+					<div class="push-3 col-10">
+						<div class="col-1 center">
+							<a href="#" class="issue-report" title="Report">
+								Report
+							</a>
+							<div class="clear">&nbsp;</div>
+						</div>
 						<div class="col-3 center">
 							<% if (Model.TotalComments == 0) { %>
 								&nbsp;
@@ -70,7 +76,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-3">
+	<div class="push-2 col-3">
 		<div class="p-a5">
 			<div class="date-tile">
 				<span><%= Model.DateTimeStamp.ToString("MMM").ToUpper()%></span> <%= Model.DateTimeStamp.ToString("dd")%>
