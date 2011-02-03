@@ -405,11 +405,11 @@ namespace HaveAVoice.Helpers.UI {
             string myIssueDisplay = string.Empty;
 
             foreach (IssueWithDispositionModel myIssue in anIssues) {
-                string myAvatarURL = "http://images.chron.com/photos/2008/05/19/graphic_defaultAvatar/graphic_defaultAvatar.jpg";
-                string myUsername = "Anonymous";
+                string myAvatarURL = "http://www.softonic.cn/shared/images/user_no_avatar.gif";
+                string myUsername = myIssue.Issue.User.Username + " (alias)";
                 if (PrivacyHelper.IsAllowed(myIssue.Issue.User, PrivacyAction.DisplayProfile)) {
-                    myAvatarURL = "http://wedonetwork.co.uk/wedotech/wp-content/uploads/2010/08/master-chief-badass.jpg";
-                    myUsername = myIssue.Issue.User.Username;
+                    myAvatarURL = PhotoHelper.ProfilePicture(myIssue.Issue.User);
+                    myUsername = DisplayNameHelper.Display(myIssue.Issue.User);
                 }
 
                 var myOuterDiv = new TagBuilder("div");

@@ -1,7 +1,9 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<EditPrivacySettingsModel>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<DisplayPrivacySettingsModel>" %>
 <%@ Import Namespace="HaveAVoice.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
+<%@ Import Namespace="HaveAVoice.Models" %>
+
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Edit Privacy
@@ -33,18 +35,22 @@
 			<div class="clear">&nbsp;</div>
 
 		    <% using (Html.BeginForm()) { %>
-		    	<% foreach (HAVPrivacySetting mySetting in Enum.GetValues(typeof(HAVPrivacySetting))) { %>
+		    	<% foreach (string myGroup in Model.PrivacySettings.Keys) { %>
+                    <%= myGroup %>
+                    <% foreach(Pair<PrivacySetting, bool> myPair in Model.PrivacySettings[myGroup]) { %>
 		    		<div class="col-13 m-btm15">		    		
 			            <div class="col-6">
-			                <label><%= mySetting.ToString() %>:</label>
+			                <label><%= myPair.First.DisplayName%></label>
+                            <%= myPair.First.Description %>
 			            </div>
 			            <div class="push-1 col-6">
-			                Yes <%= Html.RadioButton(mySetting.ToString(), true, Model.PrivacySettings[mySetting.ToString()].Second) %>
-			                No <%= Html.RadioButton(mySetting.ToString(), false, !Model.PrivacySettings[mySetting.ToString()].Second) %>
+			                Yes <%= Html.RadioButton(myPair.First.Name, true, myPair.Second)%>
+			                No <%= Html.RadioButton(myPair.First.Name, false, !myPair.Second)%>
 			            </div>
 			            <div class="clear">&nbsp;</div>
 		            </div>
 		            <div class="clear">&nbsp;</div>
+                    <% } %>
 		    	<% } %>
 		    	<div class="push-7 col-4">
 					<input type="submit" class="button" value="Save" />

@@ -8695,13 +8695,17 @@ namespace HaveAVoice.Models
         /// </summary>
         /// <param name="name">Initial value of the Name property.</param>
         /// <param name="createdByUserId">Initial value of the CreatedByUserId property.</param>
+        /// <param name="displayName">Initial value of the DisplayName property.</param>
         /// <param name="description">Initial value of the Description property.</param>
-        public static PrivacySetting CreatePrivacySetting(global::System.String name, global::System.Int32 createdByUserId, global::System.String description)
+        /// <param name="privacyGroup">Initial value of the PrivacyGroup property.</param>
+        public static PrivacySetting CreatePrivacySetting(global::System.String name, global::System.Int32 createdByUserId, global::System.String displayName, global::System.String description, global::System.String privacyGroup)
         {
             PrivacySetting privacySetting = new PrivacySetting();
             privacySetting.Name = name;
             privacySetting.CreatedByUserId = createdByUserId;
+            privacySetting.DisplayName = displayName;
             privacySetting.Description = description;
+            privacySetting.PrivacyGroup = privacyGroup;
             return privacySetting;
         }
 
@@ -8764,6 +8768,30 @@ namespace HaveAVoice.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        public global::System.String DisplayName
+        {
+            get
+            {
+                return _DisplayName;
+            }
+            set
+            {
+                OnDisplayNameChanging(value);
+                ReportPropertyChanging("DisplayName");
+                _DisplayName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("DisplayName");
+                OnDisplayNameChanged();
+            }
+        }
+        private global::System.String _DisplayName;
+        partial void OnDisplayNameChanging(global::System.String value);
+        partial void OnDisplayNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
         public global::System.String Description
         {
             get
@@ -8782,6 +8810,54 @@ namespace HaveAVoice.Models
         private global::System.String _Description;
         partial void OnDescriptionChanging(global::System.String value);
         partial void OnDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String PrivacyGroup
+        {
+            get
+            {
+                return _PrivacyGroup;
+            }
+            set
+            {
+                OnPrivacyGroupChanging(value);
+                ReportPropertyChanging("PrivacyGroup");
+                _PrivacyGroup = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("PrivacyGroup");
+                OnPrivacyGroupChanged();
+            }
+        }
+        private global::System.String _PrivacyGroup;
+        partial void OnPrivacyGroupChanging(global::System.String value);
+        partial void OnPrivacyGroupChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ListOrder
+        {
+            get
+            {
+                return _ListOrder;
+            }
+            set
+            {
+                OnListOrderChanging(value);
+                ReportPropertyChanging("ListOrder");
+                _ListOrder = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ListOrder");
+                OnListOrderChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ListOrder;
+        partial void OnListOrderChanging(Nullable<global::System.Int32> value);
+        partial void OnListOrderChanged();
 
         #endregion
     
@@ -11171,6 +11247,30 @@ namespace HaveAVoice.Models
         private Nullable<global::System.Int32> _Zip;
         partial void OnZipChanging(Nullable<global::System.Int32> value);
         partial void OnZipChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ShortUrl
+        {
+            get
+            {
+                return _ShortUrl;
+            }
+            set
+            {
+                OnShortUrlChanging(value);
+                ReportPropertyChanging("ShortUrl");
+                _ShortUrl = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ShortUrl");
+                OnShortUrlChanged();
+            }
+        }
+        private global::System.String _ShortUrl;
+        partial void OnShortUrlChanging(global::System.String value);
+        partial void OnShortUrlChanged();
 
         #endregion
     

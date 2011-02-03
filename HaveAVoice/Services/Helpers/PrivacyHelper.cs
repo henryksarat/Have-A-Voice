@@ -25,9 +25,9 @@ namespace HaveAVoice.Services.Helpers {
                     myIsAllowed = true;
                 } else if (myUser != null && HasPrivacySetting(myTargetUsersSettings, HAVPrivacySetting.Display_Profile_To_Not_Friend)) {
                     myIsAllowed = true;
-                } else if (myUser != null && RoleHelper.IsPolitician(myUser) && HasPrivacySetting(myTargetUsersSettings, HAVPrivacySetting.Display_Profile_Politician)) {
+                } else if (myUser != null && RoleHelper.IsPolitician(myUser) && HasPrivacySetting(myTargetUsersSettings, HAVPrivacySetting.Display_Profile_To_Politician)) {
                     myIsAllowed = true;
-                } else if (myUser != null && RoleHelper.IsPolitician(myUser) && HasPrivacySetting(myTargetUsersSettings, HAVPrivacySetting.Display_Profile_Politician)) {
+                } else if (myUser != null && RoleHelper.IsPolitician(myUser) && HasPrivacySetting(myTargetUsersSettings, HAVPrivacySetting.Display_Profile_To_Politician)) {
                     myIsAllowed = true;
                 }
             }

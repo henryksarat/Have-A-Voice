@@ -17,7 +17,7 @@ namespace HaveAVoice.Controllers.Users
     public class UserPrivacySettingsController : HAVBaseController {
         private static string EDIT_SUCCESS = "Your account has been edited successfully!";
         private const string RETRIEVE_FAIL = "Error retreiving your privacy settings. Please try again.";
-        private const string EDIT_FAIL = "Error updating privacy settings. Please try again.";
+        private const string EDIT_FAIL = "Error updating privacy settings. Please make your selection again and click submit.";
 
         private const string EDIT_VIEW = "Edit";
 
@@ -39,7 +39,7 @@ namespace HaveAVoice.Controllers.Users
                 return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
-            EditPrivacySettingsModel myPrivacySettingSelections = new EditPrivacySettingsModel(myUser);
+            DisplayPrivacySettingsModel myPrivacySettingSelections = new DisplayPrivacySettingsModel(myUser);
             try {
                 myPrivacySettingSelections = thePrivacyService.GetPrivacySettingsForEdit(myUser);
             } catch (Exception e) {
@@ -52,7 +52,7 @@ namespace HaveAVoice.Controllers.Users
 
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Edit(EditPrivacySettingsModel aSettings) {
+        public ActionResult Edit(UpdatePrivacySettingsModel aSettings) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
@@ -63,10 +63,9 @@ namespace HaveAVoice.Controllers.Users
                 return RedirectToAction(EDIT_VIEW);
             } catch (Exception e) {
                 LogError(e, EDIT_FAIL);
-                ViewData["Message"] = MessageHelper.ErrorMessage(EDIT_FAIL);
-
+                TempData["Message"] = MessageHelper.ErrorMessage(EDIT_FAIL);
+                return RedirectToAction(EDIT_VIEW);
             }
-            return View("Edit", aSettings);
         }
     }
 }

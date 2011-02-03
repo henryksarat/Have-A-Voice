@@ -8,9 +8,9 @@ using HaveAVoice.Models.View;
 
 namespace HaveAVoice.Services.UserFeatures {
     public interface IHAVUserPrivacySettingsService {
-        EditPrivacySettingsModel GetPrivacySettingsForEdit(User aUser);
+        DisplayPrivacySettingsModel GetPrivacySettingsForEdit(User aUser);
         IEnumerable<PrivacySetting> FindPrivacySettingsForUser(User aUser);
         void AddDefaultPrivacySettingsForUser(User aUser);
-        void UpdatePrivacySettings(User aUser, EditPrivacySettingsModel aPrivacySettings);
+        void UpdatePrivacySettings(User aUser, UpdatePrivacySettingsModel aPrivacySettings);
     }
 }

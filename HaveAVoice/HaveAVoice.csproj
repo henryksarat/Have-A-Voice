@@ -102,6 +102,7 @@
     <Compile Include="Helpers\Exceptions\CustomException.cs" />
     <Compile Include="Helpers\Exceptions\NotFriendException.cs" />
     <Compile Include="Helpers\HAVPermissionHelper.cs" />
+    <Compile Include="Helpers\HAVPrivacyHelper.cs" />
     <Compile Include="Helpers\HAVPrivacySetting.cs" />
     <Compile Include="Helpers\LinkHelper.cs" />
     <Compile Include="Helpers\PresentationHelper.cs" />
@@ -137,11 +138,12 @@
     </Compile>
     <Compile Include="Helpers\ActionMethods\AcceptParameterAttribute.cs" />
     <Compile Include="Helpers\ActionMethods\CaptchaValidatorAttribute.cs" />
-    <Compile Include="Models\View\Binders\EditPrivacySettingsModelBinder.cs" />
+    <Compile Include="Models\View\Binders\UpdatePrivacySettingsModelBinder.cs" />
     <Compile Include="Models\View\Binders\ImageBinder.cs" />
     <Compile Include="Models\View\BoardFeedModel.cs" />
+    <Compile Include="Models\View\UpdatePrivacySettingsModel.cs" />
     <Compile Include="Models\View\CreateUserModelBuilder.cs" />
-    <Compile Include="Models\View\EditPrivacySettingsModel.cs" />
+    <Compile Include="Models\View\DisplayPrivacySettingsModel.cs" />
     <Compile Include="Models\View\IssueFeedModel.cs" />
     <Compile Include="Models\View\IssueReplyFeedModel.cs" />
     <Compile Include="Models\View\PhotoAlbumFeedModel.cs" />
