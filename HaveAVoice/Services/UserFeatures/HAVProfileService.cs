@@ -179,6 +179,7 @@ namespace HaveAVoice.Services.UserFeatures {
             foreach (Board myBoard in aBoards) {
                 BoardFeedModel myFeedModel = new BoardFeedModel(myBoard.PostedByUser) {
                     Id = myBoard.Id,
+                    OwnerUserId = myBoard.OwnerUserId,
                     DateTimeStamp = TimezoneHelper.ConvertToLocalTimeZone(myBoard.DateTimeStamp),
                     Message = myBoard.Message,
                     BoardReplys = myBoard.BoardReplies

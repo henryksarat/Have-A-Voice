@@ -79,7 +79,18 @@ namespace HaveAVoice.Controllers.Users {
             }
 
             aUserToCreate.States = new SelectList(HAVConstants.STATES, aUserToCreate.State);
+            /*
+            var myUl = new TagBuilder("ul");
+            foreach(string myValidationKey in this.ModelState.Keys) {
+                ModelErrorCollection myModelStateCollection = this.ModelState[myValidationKey].Errors;
+                foreach (ModelError myError in myModelStateCollection) {
+                    var myLi = new TagBuilder("li");
+                    myLi.InnerHtml = myError.ErrorMessage;
+                    myUl.InnerHtml += myLi.ToString();
+                }
+            }
 
+            ViewData["Validation"] = MessageHelper.NormalMessage(myUl.ToString());*/
             return View("Create", aUserToCreate);
         }
 

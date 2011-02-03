@@ -37,12 +37,12 @@ namespace HaveAVoice.Controllers.Users {
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
-        public ActionResult Create(int sourceUserId, int boardId, string message) {
+        public ActionResult Create(int ownerUserId, int boardId, string boardReply) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
             try {
-                if (theService.PostReplyToBoard(GetUserInformatonModel(), boardId, message)) {
+                if (theService.PostReplyToBoard(GetUserInformatonModel(), boardId, boardReply)) {
                     TempData["Message"] = MessageHelper.SuccessMessage(POST_REPLY_SUCCESS);
                 }
             } catch (Exception myException) {
@@ -50,7 +50,7 @@ namespace HaveAVoice.Controllers.Users {
                 TempData["Message"] = MessageHelper.ErrorMessage(POST_REPLY_ERROR);
             }
 
-            return RedirectToProfile(sourceUserId);
+            return RedirectToProfile(ownerUserId);
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]

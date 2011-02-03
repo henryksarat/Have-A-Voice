@@ -156,14 +156,14 @@ namespace HaveAVoice.Services.UserFeatures {
 
         private bool ValidateBoardMessage(string aBoardMessage) {
             if (String.IsNullOrEmpty(aBoardMessage)) {
-                theValidationDictionary.AddError("Message", aBoardMessage, "A message must be entered to be posted to the board.");
+                theValidationDictionary.AddError("BoardMessage", aBoardMessage, "A message must be entered to be posted to the board.");
             }
             return theValidationDictionary.isValid;
         }
 
         private bool ValidateBoardReply(string aBoardReply) {
             if (String.IsNullOrEmpty(aBoardReply)) {
-                theValidationDictionary.AddError("Message", aBoardReply, "You must enter text to reply to the board message.");
+                theValidationDictionary.AddError("BoardReply", aBoardReply, "You must enter text to reply to the board message.");
             }
             return theValidationDictionary.isValid;
         }

@@ -55,19 +55,23 @@ namespace HaveAVoice.Controllers.Users {
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
-        public ActionResult Create(int sourceUserId, string message) {
+        public ActionResult Create(int sourceUserId, string boardMessage) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
             UserInformationModel myPostingUser = GetUserInformatonModel();
             try {
-                bool myBoardResult = theService.PostToBoard(myPostingUser, sourceUserId, message);
+                bool myBoardResult = theService.PostToBoard(myPostingUser, sourceUserId, boardMessage);
                 if (myBoardResult) {
                     TempData["Message"] = MessageHelper.SuccessMessage(POST_BOARD_SUCCESS);
+                } else {
+                    TempData["Message"] = MessageHelper.ErrorMessage(POST_BOARD_ERROR);
+                    TempData["BoardMessage"] = boardMessage;
                 }
             } catch (Exception myException) {
                 LogError(myException, POST_BOARD_ERROR);
                 TempData["Message"] = MessageHelper.ErrorMessage(POST_BOARD_ERROR);
+                TempData["BoardMessage"] = boardMessage;
             }
 
             return RedirectToAction("Show", "Profile", new { id = sourceUserId });

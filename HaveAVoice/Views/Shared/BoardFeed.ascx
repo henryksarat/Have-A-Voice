@@ -61,11 +61,11 @@
             <% string myProfilePictureUrl = myUserModel.ProfilePictureUrl; %>
 			<img src="<%= myProfilePictureUrl %>" alt="<%= myFullName %>" class="profile sm" />
 		</div>
-		<% using (Html.BeginForm("Create", "BoardReply", new { sourceUserId = Model.UserId, boardId = Model.Id })) { %>
+		<% using (Html.BeginForm("Create", "BoardReply", new { ownerUserId = Model.OwnerUserId, boardId = Model.Id })) { %>
 			<div class="m-lft col-14">
 				<div class="alpha col-12">
-			        <%= Html.ValidationMessage("Message", "*")%>
-			        <%= Html.TextArea("Message")%>
+			        <%= Html.ValidationMessage("BoardReply", "*")%>
+			        <%= Html.TextArea("BoardReply")%>
 				</div>
 				<div class="col-2 center">
 		            <input type="submit" value="Post" />
