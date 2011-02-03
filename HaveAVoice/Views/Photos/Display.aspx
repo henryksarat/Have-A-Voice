@@ -23,6 +23,12 @@
             <%= Html.ActionLink("Set as album cover", "SetAlbumCover", "Photos", new { id = Model.Model.Id }, new { @class = "button" })%>
             <%= Html.ActionLink("Delete", "Delete", "Photos", new { id = Model.Model.Id }, new { @class = "button delete" }) %>
 	    <% } %>
+	    <div class="f-rgt">
+	    	<a href="#" class="button delete">Report</a>
+	    	<div class="clear">&nbsp;</div>
+	    </div>
+	    <div class="clear">&nbsp;</div>
+	    
 	    <div class="large-photo m-top10">
 			<img src="<%= PhotoHelper.ConstructUrl(Model.Model.ImageName) %>" />
 		</div>

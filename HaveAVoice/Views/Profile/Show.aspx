@@ -12,6 +12,21 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+	<script type="text/javascript" language="javascript">
+		<!--
+			jQuery(function() {
+				$("a[rel=post]").click(function() {
+					if ($("div.post").is(":visible")) {
+						$("div.post").slideUp("fast");
+					} else {
+						$("div.post").slideDown("fast");
+					}
+					return false;
+				});
+			});
+		//-->
+	</script>
+    
     <% Html.RenderPartial("UserPanel", Model.NavigationModel); %>
     <div class="col-3 m-rgt left-nav">
         <% Html.RenderPartial("LeftNavigation"); %>
@@ -19,6 +34,55 @@
 
     <div class="col-21">
     <% Html.RenderPartial("Message"); %>
+
+    <div class="fnt-10 m-btm5">
+    	<div class="m-lft col-3 m-rgt center">
+    		<a href="#" rel="post" class="filter">Post on Board</a>
+    		<div class="clear">&nbsp;</div>
+    	</div>
+		<div class="m-lft col-2 m-rgt f-rgt center">
+			<a href="#" class="filter dislike">Report</a>
+			<div class="clear">&nbsp;</div>
+		</div>
+		<div class="m-lft col-2 m-rgt f-rgt center">
+            <a href="#" class="filter">Politians</a>
+            <div class="clear">&nbsp;</div>
+		</div>
+		<div class="m-lft col-2 m-rgt f-rgt center">
+            <a href="#" class="filter">People</a>
+            <div class="clear">&nbsp;</div>
+		</div>
+    </div>
+    <div class="clear">&nbsp;</div>
+
+	<div class="post m-btm5 m-top5">
+		<% using (Html.BeginForm()) { %>
+		<div class="row">
+			<div class="push-2 col-2 center">
+	            <% /* UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation(); */ %>
+				<img src="<% /* = myUserInfo.ProfilePictureUrl */ %>" alt="<% /* = myUserInfo.Details.Username */ %>" class="profile" />
+			</div>
+			<div class="push-2 m-lft col-14 comment">
+				<span class="speak-lft">&nbsp;</span>
+				<div class="p-a10">
+					<textarea class="comment"></textarea>
+					<% /* = Html.ValidationMessage("Body", "*") */ %>
+					<% /* = Html.TextArea("Body", Model.Body, 5, 63, new { resize = "none", @class = "comment" }) */ %>
+					<div class="clear">&nbsp;</div>
+					<hr />
+					<div class="col-13 right">
+						<input type="submit" value="Submit" class="button" />
+						<input type="button" value="Clear" class="button" />
+					</div>
+					<div class="clear">&nbsp;</div>
+				</div>
+			</div>
+			<div class="clear">&nbsp;</div>
+		</div>
+		<div class="clear">&nbsp;</div>
+		<% } %>
+	</div>
+	<div class="clear">&nbsp;</div>
 
     <% if (Model.NavigationModel.SiteSection == SiteSection.MyProfile) { %>
         <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
