@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
+using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Tests.Models {
     public static class DatamodelFactory {
@@ -24,8 +25,8 @@ namespace HaveAVoice.Tests.Models {
         public static DateTime REGISTRATION_DATE = new DateTime(2010, 10, 07);
         public static string UTC_OFFSET = "-6:00";
 
-        public static CreateUserModelBuilder createUserModelBuilder() {
-            return new CreateUserModelBuilder() {
+        public static CreateRegularUserModelBuilder createUserModelBuilder() {
+            return new CreateRegularUserModelBuilder() {
                 Email = EMAIL,
                 Username = USERNAME,
                 Password = PASSWORD,
@@ -39,7 +40,8 @@ namespace HaveAVoice.Tests.Models {
         }
 
         public static User createUser(int anId) {
-            return User.CreateUser(anId, USERNAME, EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, CITY, STATE, BIRTHDAY, LAST_LOGIN, REGISTRATION_DATE, IP_ADDRESS, false, UTC_OFFSET);
+            return User.CreateUser(anId, USERNAME, EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, CITY, STATE, BIRTHDAY, LAST_LOGIN, REGISTRATION_DATE, IP_ADDRESS, false, UTC_OFFSET, HAVConstants.MALE);
         }
+
     }
 }

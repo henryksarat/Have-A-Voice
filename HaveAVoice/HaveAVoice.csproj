@@ -141,8 +141,9 @@
     <Compile Include="Models\View\Binders\UpdatePrivacySettingsModelBinder.cs" />
     <Compile Include="Models\View\Binders\ImageBinder.cs" />
     <Compile Include="Models\View\BoardFeedModel.cs" />
+    <Compile Include="Models\View\CreateUserModel.cs" />
     <Compile Include="Models\View\UpdatePrivacySettingsModel.cs" />
-    <Compile Include="Models\View\CreateUserModelBuilder.cs" />
+    <Compile Include="Models\View\CreateRegularUserModelBuilder.cs" />
     <Compile Include="Models\View\DisplayPrivacySettingsModel.cs" />
     <Compile Include="Models\View\IssueFeedModel.cs" />
     <Compile Include="Models\View\IssueReplyFeedModel.cs" />

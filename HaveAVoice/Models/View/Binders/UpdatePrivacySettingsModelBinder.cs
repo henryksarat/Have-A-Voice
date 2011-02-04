@@ -19,7 +19,7 @@ namespace HaveAVoice.Models.View {
             List<Pair<PrivacySetting, bool>> myAllPairs = new List<Pair<PrivacySetting, bool>>();
             foreach(HAVPrivacySetting mySetting in Enum.GetValues(typeof(HAVPrivacySetting))) {
                 bool mySelected = BinderHelper.GetABoolean(bindingContext, mySetting.ToString());
-                PrivacySetting myPrivacySetting = PrivacySetting.CreatePrivacySetting(mySetting.ToString(), 0, string.Empty, string.Empty, string.Empty);
+                PrivacySetting myPrivacySetting = PrivacySetting.CreatePrivacySetting(mySetting.ToString(), 0, string.Empty, string.Empty, string.Empty, 0);
                 Pair<PrivacySetting, bool> myPair = new Pair<PrivacySetting,bool>() {
                     First = myPrivacySetting,
                     Second = mySelected

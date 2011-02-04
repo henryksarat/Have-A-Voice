@@ -54,14 +54,14 @@ namespace HaveAVoice.Controllers.Users {
                 return RedirectToProfile();
             }
             IEnumerable<SelectListItem> myStates = new SelectList(HAVConstants.STATES, "Select");
-            return View("Create", new CreateUserModelBuilder() { 
+            return View("Create", new CreateRegularUserModelBuilder() { 
                 States = myStates 
             });
         }
 
         [CaptchaValidator]
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Create(CreateUserModelBuilder aUserToCreate, bool captchaValid) {
+        public ActionResult Create(CreateRegularUserModelBuilder aUserToCreate, bool captchaValid) {
             if (IsLoggedIn()) {
                 return RedirectToProfile();
             }

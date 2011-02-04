@@ -110,7 +110,19 @@
 	    			</div>
 	    			<div class="clear">&nbsp;</div>
 	    			<div class="spacer-10">&nbsp;</div>
-	    			
+
+	    			<div class="col-4 m-rgt right">
+	    				<label for="Username">Gender:</label>
+	    			</div>
+	    			<div class="col-4">
+	    				<%= Html.DropDownList("Gender", Model.Genders)%>
+	    			</div>
+	    			<div class="col-14">
+	    				<%= Html.ValidationMessage("Gender", "*")%>
+	    			</div>
+	    			<div class="clear">&nbsp;</div>
+	    			<div class="spacer-10">&nbsp;</div>
+
 	    			<div class="col-4 m-rgt right">
 	    				<label for="Password">Password:</label>
 	    			</div>

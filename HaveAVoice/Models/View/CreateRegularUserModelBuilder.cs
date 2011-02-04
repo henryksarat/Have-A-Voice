@@ -5,36 +5,40 @@ using System.Web;
 using HaveAVoice.Models;
 using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
+using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Models.View {
-    public class CreateAuthorityUserModelBuilder : CreateUserModel {
-        [DisplayFormat(ConvertEmptyStringToNull = false)]
-        public string RepresentingCity { get; set; }
+
+    public class CreateRegularUserModelBuilder : CreateUserModel {
+        public IEnumerable<SelectListItem> States { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
-        public string RepresentingState { get; set; }
+        public string City { get; set; }
 
-        [DisplayFormat(ConvertEmptyStringToNull = false)]
-        public string Token { get; set; }
 
-        public CreateAuthorityUserModelBuilder() {
+        public CreateRegularUserModelBuilder() {
             DateOfBirth = DateTime.UtcNow;
             FirstName = string.Empty;
             LastName = string.Empty;
             Password = string.Empty;
             Username = string.Empty;
-            RepresentingCity = string.Empty;
+            City = string.Empty;
             Email = string.Empty;
             States = new List<SelectListItem>();
-            RepresentingState = string.Empty;
+            State = string.Empty;
         }
 
         public User Build() {
             DateTime myTempDateFiller = DateTime.UtcNow;
             string myTempIp = "127.0.0.1";
             string myTempUtcOffset = "shitty";
-            return User.CreateUser(0, Username, Email, Password, FirstName, LastName, RepresentingCity, RepresentingState, DateOfBirth, myTempDateFiller, myTempDateFiller, myTempIp, false, myTempUtcOffset, );
+            bool myGender = HAVConstants.MALE;
+
+            if (Gender.ToUpper().Equals("FEMALE")) {
+                myGender = HAVConstants.FEMALE;
+            }
+            return User.CreateUser(0, Username, Email, Password, FirstName, LastName, City, State, DateOfBirth, myTempDateFiller, myTempDateFiller, myTempIp, false, myTempUtcOffset, myGender);
         }
 
         public String getDateOfBirthFormatted() {

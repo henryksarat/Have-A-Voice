@@ -9,19 +9,21 @@ namespace HaveAVoice.Models.View {
             String myUsername = BinderHelper.GetA(aBindingContext, "Username");
             String myFirstName = BinderHelper.GetA(aBindingContext, "FirstName");
             String myLastName = BinderHelper.GetA(aBindingContext, "LastName");
+            String myGender = BinderHelper.GetA(aBindingContext, "Gender");
             String myPassword = BinderHelper.GetA(aBindingContext, "Password");
             String myCity = BinderHelper.GetA(aBindingContext, "City");
             String myState = BinderHelper.GetA(aBindingContext, "State");
             DateTime myDateOfBirth = Convert.ToDateTime(BinderHelper.GetA(aBindingContext, "DateOfBirth"));
             bool myAgreement = BinderHelper.GetA(aBindingContext, "Agreement") == "true,false" ? true : false;
 
-            return new CreateUserModelBuilder() {
+            return new CreateRegularUserModelBuilder() {
                 Email = myEmail,
                 Username = myUsername,
                 Password = myPassword,
                 City = myCity,
                 FirstName = myFirstName,
                 LastName = myLastName,
+                Gender = myGender,
                 DateOfBirth = myDateOfBirth,
                 States = new SelectList(HAVConstants.STATES, myState),
                 State = myState,

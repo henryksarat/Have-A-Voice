@@ -8698,7 +8698,8 @@ namespace HaveAVoice.Models
         /// <param name="displayName">Initial value of the DisplayName property.</param>
         /// <param name="description">Initial value of the Description property.</param>
         /// <param name="privacyGroup">Initial value of the PrivacyGroup property.</param>
-        public static PrivacySetting CreatePrivacySetting(global::System.String name, global::System.Int32 createdByUserId, global::System.String displayName, global::System.String description, global::System.String privacyGroup)
+        /// <param name="listOrder">Initial value of the ListOrder property.</param>
+        public static PrivacySetting CreatePrivacySetting(global::System.String name, global::System.Int32 createdByUserId, global::System.String displayName, global::System.String description, global::System.String privacyGroup, global::System.Int32 listOrder)
         {
             PrivacySetting privacySetting = new PrivacySetting();
             privacySetting.Name = name;
@@ -8706,6 +8707,7 @@ namespace HaveAVoice.Models
             privacySetting.DisplayName = displayName;
             privacySetting.Description = description;
             privacySetting.PrivacyGroup = privacyGroup;
+            privacySetting.ListOrder = listOrder;
             return privacySetting;
         }
 
@@ -8838,9 +8840,9 @@ namespace HaveAVoice.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> ListOrder
+        public global::System.Int32 ListOrder
         {
             get
             {
@@ -8855,8 +8857,8 @@ namespace HaveAVoice.Models
                 OnListOrderChanged();
             }
         }
-        private Nullable<global::System.Int32> _ListOrder;
-        partial void OnListOrderChanging(Nullable<global::System.Int32> value);
+        private global::System.Int32 _ListOrder;
+        partial void OnListOrderChanging(global::System.Int32 value);
         partial void OnListOrderChanged();
 
         #endregion
@@ -10670,7 +10672,8 @@ namespace HaveAVoice.Models
         /// <param name="registrationIp">Initial value of the RegistrationIp property.</param>
         /// <param name="newsletter">Initial value of the Newsletter property.</param>
         /// <param name="uTCOffset">Initial value of the UTCOffset property.</param>
-        public static User CreateUser(global::System.Int32 id, global::System.String username, global::System.String email, global::System.String password, global::System.String firstName, global::System.String lastName, global::System.String city, global::System.String state, global::System.DateTime dateOfBirth, global::System.DateTime lastLogin, global::System.DateTime registrationDate, global::System.String registrationIp, global::System.Boolean newsletter, global::System.String uTCOffset)
+        /// <param name="gender">Initial value of the Gender property.</param>
+        public static User CreateUser(global::System.Int32 id, global::System.String username, global::System.String email, global::System.String password, global::System.String firstName, global::System.String lastName, global::System.String city, global::System.String state, global::System.DateTime dateOfBirth, global::System.DateTime lastLogin, global::System.DateTime registrationDate, global::System.String registrationIp, global::System.Boolean newsletter, global::System.String uTCOffset, global::System.Boolean gender)
         {
             User user = new User();
             user.Id = id;
@@ -10687,6 +10690,7 @@ namespace HaveAVoice.Models
             user.RegistrationIp = registrationIp;
             user.Newsletter = newsletter;
             user.UTCOffset = uTCOffset;
+            user.Gender = gender;
             return user;
         }
 
@@ -11271,6 +11275,30 @@ namespace HaveAVoice.Models
         private global::System.String _ShortUrl;
         partial void OnShortUrlChanging(global::System.String value);
         partial void OnShortUrlChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Gender
+        {
+            get
+            {
+                return _Gender;
+            }
+            set
+            {
+                OnGenderChanging(value);
+                ReportPropertyChanging("Gender");
+                _Gender = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Gender");
+                OnGenderChanged();
+            }
+        }
+        private global::System.Boolean _Gender;
+        partial void OnGenderChanging(global::System.Boolean value);
+        partial void OnGenderChanged();
 
         #endregion
     

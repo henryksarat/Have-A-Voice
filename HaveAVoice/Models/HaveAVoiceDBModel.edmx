@@ -621,7 +621,7 @@
           <Property Name="DisplayName" Type="varchar" Nullable="false" MaxLength="255" />
           <Property Name="Description" Type="text" Nullable="false" />
           <Property Name="PrivacyGroup" Type="varchar" Nullable="false" MaxLength="255" />
-          <Property Name="ListOrder" Type="int" />
+          <Property Name="ListOrder" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ProfileComplaints">
           <Key>
@@ -725,6 +725,7 @@
           <Property Name="FirstName" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="MiddleName" Type="varchar" MaxLength="100" />
           <Property Name="LastName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Gender" Type="bit" Nullable="false" />
           <Property Name="City" Type="varchar" Nullable="false" MaxLength="100" />
           <Property Name="State" Type="char" Nullable="false" MaxLength="2" />
           <Property Name="Zip" Type="int" />
@@ -2279,6 +2280,7 @@
           <Property Type="String" Name="ShortUrl" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PrivacySettings" Relationship="HaveAVoice.Models.FK_PrivacySettings_Users" FromRole="User" ToRole="PrivacySetting" />
           <NavigationProperty Name="UserPrivacySettings" Relationship="HaveAVoice.Models.FK_UserPrivacySettings_Users" FromRole="User" ToRole="UserPrivacySetting" />
+          <Property Type="Boolean" Name="Gender" Nullable="false" />
           </EntityType>
         <EntityType Name="WhoIsOnline">
           <Key>
@@ -3137,7 +3139,7 @@
           <Property Type="String" Name="PrivacyGroup" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CreatedByUser" Relationship="HaveAVoice.Models.FK_PrivacySettings_Users" FromRole="PrivacySetting" ToRole="User" />
           <NavigationProperty Name="UserPrivacySettings" Relationship="HaveAVoice.Models.FK_UserPrivacySettings_PrivacySettings" FromRole="PrivacySetting" ToRole="UserPrivacySetting" />
-          <Property Type="Int32" Name="ListOrder" />
+          <Property Type="Int32" Name="ListOrder" Nullable="false" />
         </EntityType>
         <EntityType Name="UserPrivacySetting">
           <Key>
@@ -3519,6 +3521,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="HaveAVoice.Models.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="ShortUrl" ColumnName="ShortUrl" />
                 <ScalarProperty Name="Zip" ColumnName="Zip" />
                 <ScalarProperty Name="ForgotPasswordHashDateTimeStamp" ColumnName="ForgotPasswordHashDateTimeStamp" />
