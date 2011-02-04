@@ -25,8 +25,8 @@ namespace HaveAVoice.Tests.Models {
         public static DateTime REGISTRATION_DATE = new DateTime(2010, 10, 07);
         public static string UTC_OFFSET = "-6:00";
 
-        public static CreateRegularUserModelBuilder createUserModelBuilder() {
-            return new CreateRegularUserModelBuilder() {
+        public static CreateUserModelBuilder createUserModelBuilder() {
+            return new CreateUserModelBuilder() {
                 Email = EMAIL,
                 Username = USERNAME,
                 Password = PASSWORD,
@@ -40,7 +40,7 @@ namespace HaveAVoice.Tests.Models {
         }
 
         public static User createUser(int anId) {
-            return User.CreateUser(anId, USERNAME, EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, CITY, STATE, BIRTHDAY, LAST_LOGIN, REGISTRATION_DATE, IP_ADDRESS, false, UTC_OFFSET, HAVConstants.MALE);
+            return User.CreateUser(anId, USERNAME, EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, CITY, STATE, BIRTHDAY, LAST_LOGIN, REGISTRATION_DATE, IP_ADDRESS, false, UTC_OFFSET, (int)HaveAVoice.Helpers.Enums.HAVGender.Select);
         }
 
     }

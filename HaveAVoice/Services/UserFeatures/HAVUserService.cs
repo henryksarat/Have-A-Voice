@@ -11,6 +11,7 @@ using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services.Helpers;
 using HaveAVoice.Validation;
+using HaveAVoice.Helpers.Enums;
 
 
 namespace HaveAVoice.Services.UserFeatures {
@@ -238,6 +239,9 @@ namespace HaveAVoice.Services.UserFeatures {
             }
             if (aUser.City.Trim().Length == 0) {
                 theValidationDictionary.AddError("City", aUser.City.Trim(), "City is required.");
+            }
+            if (aUser.Gender == (short)HAVGender.Select) {
+                theValidationDictionary.AddError("Gender", "Select", "Gender is required.");
             }
             if (aUser.State.Trim().Length != 2) {
                 theValidationDictionary.AddError("State", aUser.State.Trim(), "State is required.");

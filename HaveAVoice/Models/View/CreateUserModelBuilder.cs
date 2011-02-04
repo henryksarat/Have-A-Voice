@@ -10,14 +10,15 @@ using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Models.View {
 
-    public class CreateRegularUserModelBuilder : CreateUserModel {
-        public IEnumerable<SelectListItem> States { get; set; }
+    public class CreateUserModelBuilder : CreateUserModel {
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string State { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string City { get; set; }
 
 
-        public CreateRegularUserModelBuilder() {
+        public CreateUserModelBuilder() {
             DateOfBirth = DateTime.UtcNow;
             FirstName = string.Empty;
             LastName = string.Empty;
@@ -29,19 +30,17 @@ namespace HaveAVoice.Models.View {
             State = string.Empty;
         }
 
-        public User Build() {
+        public override User Build() {
             DateTime myTempDateFiller = DateTime.UtcNow;
             string myTempIp = "127.0.0.1";
             string myTempUtcOffset = "shitty";
-            bool myGender = HAVConstants.MALE;
 
-            if (Gender.ToUpper().Equals("FEMALE")) {
-                myGender = HAVConstants.FEMALE;
-            }
-            return User.CreateUser(0, Username, Email, Password, FirstName, LastName, City, State, DateOfBirth, myTempDateFiller, myTempDateFiller, myTempIp, false, myTempUtcOffset, myGender);
+            return User.CreateUser(0, Username, Email, Password, FirstName, LastName, City, 
+                State, DateOfBirth, myTempDateFiller, myTempDateFiller, 
+                myTempIp, false, myTempUtcOffset, (short)SelectedGender);
         }
 
-        public String getDateOfBirthFormatted() {
+        public override String getDateOfBirthFormatted() {
             return DateOfBirth.ToString("MM-dd-yyyy");
         }
     }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.IO;
 using System.Web.Mvc;
+using HaveAVoice.Helpers.Enums;
 
 namespace HaveAVoice.Helpers {
     public class HAVConstants {
@@ -24,6 +25,15 @@ namespace HaveAVoice.Helpers {
 
         public const string FILTER_TEMP_DATA = "Filter";
         public const string ORIGINAL_ISSUE_TEMP_DATA = "OriginalIssue";
+
+        public const bool MALE = true;
+        public const bool FEMALE = false;
+
+        public static List<string> GENDERS = new List<string>() { 
+            HAVGender.Select.ToString(),
+            HAVGender.Male.ToString(),
+            HAVGender.Female.ToString()
+        };
 
         public static List<string> STATES = new List<string>() { 
                 "Select",

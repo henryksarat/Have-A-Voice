@@ -30,14 +30,17 @@ namespace HaveAVoice.Models.View {
             RepresentingState = string.Empty;
         }
 
-        public User Build() {
+        public override User Build() {
             DateTime myTempDateFiller = DateTime.UtcNow;
             string myTempIp = "127.0.0.1";
             string myTempUtcOffset = "shitty";
-            return User.CreateUser(0, Username, Email, Password, FirstName, LastName, RepresentingCity, RepresentingState, DateOfBirth, myTempDateFiller, myTempDateFiller, myTempIp, false, myTempUtcOffset, );
+
+            return User.CreateUser(0, Username, Email, Password, FirstName, LastName, 
+                RepresentingCity, RepresentingState, DateOfBirth, myTempDateFiller, myTempDateFiller, 
+                myTempIp, false, myTempUtcOffset, (short)SelectedGender);
         }
 
-        public String getDateOfBirthFormatted() {
+        public override String getDateOfBirthFormatted() {
             return DateOfBirth.ToString("MM-dd-yyyy");
         }
     }

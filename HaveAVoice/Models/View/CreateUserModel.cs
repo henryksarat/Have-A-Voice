@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using HaveAVoice.Helpers.Enums;
 
 namespace HaveAVoice.Models.View {
     public abstract class CreateUserModel {
@@ -27,14 +28,25 @@ namespace HaveAVoice.Models.View {
 
         public IEnumerable<SelectListItem> Genders { get; set; }
 
-        [DisplayFormat(ConvertEmptyStringToNull = false)]
-        public string State { get; set; }
+        public IEnumerable<SelectListItem> States { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
-        public string Gender { get; set; }
+        public string Gender {
+            set {
+                Gender = value;
+                HAVGender mySelectedGender = HAVGender.Select;
+                foreach (HAVGender myGender in Enum.GetValues(typeof(HAVGender))) {
+                    if (value.ToUpper().Equals(Enum.GetName(typeof(HAVGender), myGender).ToUpper())) {
+                        mySelectedGender = myGender;
+                    }
+                }
+            }
+        }
+
+        public HAVGender SelectedGender { get; private set; }
 
         public abstract User Build();
 
-        public String getDateOfBirthFormatted();
+        public abstract String getDateOfBirthFormatted();
     }
 }

@@ -21,14 +21,14 @@ namespace HaveAVoice.Tests.Controllers.Users {
         private Mock<IHAVEmail> theMockedEmailService;
         private UserController theController;
         private User theUser = new User();
-        private CreateRegularUserModelBuilder theCreateUseModelBuilder;
+        private CreateUserModelBuilder theCreateUseModelBuilder;
         
         [TestInitialize]
         public void Initialize() {
             theMockedService = new Mock<IHAVUserService>();
             theMockRepository = new Mock<IHAVUserRepository>();
             theMockedEmailService = new Mock<IHAVEmail>();
-            theCreateUseModelBuilder = new CreateRegularUserModelBuilder();
+            theCreateUseModelBuilder = new CreateUserModelBuilder();
 
 
             theUser.Email = "henryksarat@aol.com";

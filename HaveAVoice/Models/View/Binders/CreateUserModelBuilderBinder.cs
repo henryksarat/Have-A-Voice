@@ -16,7 +16,7 @@ namespace HaveAVoice.Models.View {
             DateTime myDateOfBirth = Convert.ToDateTime(BinderHelper.GetA(aBindingContext, "DateOfBirth"));
             bool myAgreement = BinderHelper.GetA(aBindingContext, "Agreement") == "true,false" ? true : false;
 
-            return new CreateRegularUserModelBuilder() {
+            return new CreateUserModelBuilder() {
                 Email = myEmail,
                 Username = myUsername,
                 Password = myPassword,
@@ -26,6 +26,7 @@ namespace HaveAVoice.Models.View {
                 Gender = myGender,
                 DateOfBirth = myDateOfBirth,
                 States = new SelectList(HAVConstants.STATES, myState),
+                Genders = new SelectList(HAVConstants.GENDERS, myGender),
                 State = myState,
                 Agreement = myAgreement
             };

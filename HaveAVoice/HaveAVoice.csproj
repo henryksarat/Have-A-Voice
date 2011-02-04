@@ -97,6 +97,7 @@
     <Compile Include="Helpers\DisplayNameHelper.cs" />
     <Compile Include="Helpers\Enums\FeedItem.cs" />
     <Compile Include="Helpers\Enums\FriendStatus.cs" />
+    <Compile Include="Helpers\Enums\Gender.cs" />
     <Compile Include="Helpers\Enums\PersonFilter.cs" />
     <Compile Include="Helpers\Enums\IssueStanceFilter.cs" />
     <Compile Include="Helpers\Exceptions\CustomException.cs" />
@@ -143,7 +144,7 @@
     <Compile Include="Models\View\BoardFeedModel.cs" />
     <Compile Include="Models\View\CreateUserModel.cs" />
     <Compile Include="Models\View\UpdatePrivacySettingsModel.cs" />
-    <Compile Include="Models\View\CreateRegularUserModelBuilder.cs" />
+    <Compile Include="Models\View\CreateUserModelBuilder.cs" />
     <Compile Include="Models\View\DisplayPrivacySettingsModel.cs" />
     <Compile Include="Models\View\IssueFeedModel.cs" />
     <Compile Include="Models\View\IssueReplyFeedModel.cs" />

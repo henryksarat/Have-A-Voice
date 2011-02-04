@@ -41,7 +41,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
         private Mock<IHAVAuthorityVerificationService> theAuthorityVerification;
         private Mock<IHAVUserRetrievalService> theUserRetrievalService;
         private User theUser;
-        private CreateRegularUserModelBuilder theModelBuilder;
+        private CreateUserModelBuilder theModelBuilder;
         private EditUserModel theEditUserModel;
 
         [TestInitialize]

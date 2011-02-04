@@ -53,15 +53,15 @@ namespace HaveAVoice.Controllers.Users {
             if (IsLoggedIn()) {
                 return RedirectToProfile();
             }
-            IEnumerable<SelectListItem> myStates = new SelectList(HAVConstants.STATES, "Select");
-            return View("Create", new CreateRegularUserModelBuilder() { 
-                States = myStates 
+            return View("Create", new CreateUserModelBuilder() { 
+                States = new SelectList(HAVConstants.STATES, "Select"),
+                Genders = new SelectList(HAVConstants.GENDERS, "Select")
             });
         }
 
         [CaptchaValidator]
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Create(CreateRegularUserModelBuilder aUserToCreate, bool captchaValid) {
+        public ActionResult Create(CreateUserModelBuilder aUserToCreate, bool captchaValid) {
             if (IsLoggedIn()) {
                 return RedirectToProfile();
             }
@@ -78,6 +78,7 @@ namespace HaveAVoice.Controllers.Users {
                 LogError(e, CREATE_ACCOUNT_ERROR);
             }
 
+            aUserToCreate.Genders = new SelectList(HAVConstants.GENDERS, aUserToCreate.SelectedGender.ToString());
             aUserToCreate.States = new SelectList(HAVConstants.STATES, aUserToCreate.State);
             /*
             var myUl = new TagBuilder("ul");
@@ -96,11 +97,11 @@ namespace HaveAVoice.Controllers.Users {
 
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult CreateAuthority(string email, string token) {
-            IEnumerable<SelectListItem> myStates = new SelectList(HAVConstants.STATES, "Select");
             return View("CreateAuthority", new CreateAuthorityUserModelBuilder() {
                 Email = email,
                 Token = token,
-                States = myStates
+                States = new SelectList(HAVConstants.STATES, "Select"),
+                Genders = new SelectList(HAVConstants.GENDERS, "Select")
             });
         }
 
@@ -115,7 +116,8 @@ namespace HaveAVoice.Controllers.Users {
                 ViewData["Message"] = MessageHelper.ErrorMessage(CREATE_ACCOUNT_ERROR_MESSAGE);
                 LogError(e, CREATE_ACCOUNT_ERROR);
             }
-            
+
+            aBuilder.Genders = new SelectList(HAVConstants.GENDERS, aBuilder.SelectedGender.ToString());
             aBuilder.States = new SelectList(HAVConstants.STATES, aBuilder.RepresentingState);
             return View("CreateAuthority", aBuilder);
         }
