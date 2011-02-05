@@ -10,20 +10,20 @@ using System.Collections.Generic;
 
 namespace HaveAVoice.Helpers.UI {
     public class IssueHelper {
-        public static string PersonFilterButton(PersonFilter aFilter, Dictionary<string, int> aSelectedFilters, string aNonSelectedCssClass, string aSelectedCssClass) {
-            return Filter("PersonFilter", aFilter.ToString(), (int)aFilter, aSelectedFilters, aNonSelectedCssClass, aSelectedCssClass);
+        public static string PersonFilterButton(PersonFilter aFilter, Dictionary<string, string> aSelectedFilters, string aNonSelectedCssClass, string aSelectedCssClass) {
+            return Filter("PersonFilter", "FilterIssueByPersonFilter", aFilter.ToString(), aSelectedFilters, aNonSelectedCssClass, aSelectedCssClass);
         }
 
-        public static string IssueStanceFilterButton(IssueStanceFilter aFilter, Dictionary<string, int> aSelectedFilters, string aNonSelectedCssClass, string aSelectedCssClass) {
-            return Filter("IssueStanceFilter", aFilter.ToString(), (int)aFilter, aSelectedFilters, aNonSelectedCssClass, aSelectedCssClass);
+        public static string IssueStanceFilterButton(IssueStanceFilter aFilter, Dictionary<string, string> aSelectedFilters, string aNonSelectedCssClass, string aSelectedCssClass) {
+            return Filter("IssueStanceFilter", "FilterIssueByIssueStanceFilter", aFilter.ToString(), aSelectedFilters, aNonSelectedCssClass, aSelectedCssClass);
         }
 
-        private static string Filter(string aFilterType, string aFilterText, int aFilterIntegerRepresentation, Dictionary<string, int> aSelectedFilters, string aNonSelectedCssClass, string aSelectedCssClass) {
+        private static string Filter(string aFilterType, string anActionMethodName, string aFilterText, Dictionary<string, string> aSelectedFilters, string aNonSelectedCssClass, string aSelectedCssClass) {
             var linkTag = new TagBuilder("a");
             linkTag.InnerHtml = aFilterText;
-            linkTag.MergeAttribute("href", "/Issue/FilterIssue?type=" + aFilterType + "&filterValue=" + aFilterIntegerRepresentation);
-            int mySelectedFilter = aSelectedFilters[aFilterType];
-            if (mySelectedFilter == aFilterIntegerRepresentation) {
+            linkTag.MergeAttribute("href", "/Issue/" + anActionMethodName + "?filterValue=" + aFilterText);
+            string mySelectedFilter = aSelectedFilters[aFilterType];
+            if (mySelectedFilter == aFilterText) {
                 linkTag.MergeAttribute("class", aSelectedCssClass);
             } else {
                 linkTag.MergeAttribute("class", aNonSelectedCssClass);

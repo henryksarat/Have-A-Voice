@@ -16,6 +16,7 @@ namespace HaveAVoice.Models.View {
         public bool HasDisposition { get; set; }
         public int IssueStance { get; set; }
         public Disposition Disposition { get; private set; }
+        public IssueStanceFilter IssueStanceFilter { get; private set; }
         public PersonFilter PersonFilter { get; private set; }
 
         public int TempDispositionHolder {
@@ -23,12 +24,15 @@ namespace HaveAVoice.Models.View {
                 return (int)Disposition;
             }
             set {
-                if (value == (int)Helpers.Enums.Disposition.Like) {
-                    Disposition = Helpers.Enums.Disposition.Like;
-                } else if (value == (int)Helpers.Enums.Disposition.Dislike) {
-                    Disposition = Helpers.Enums.Disposition.Dislike;
+                if (value == (int)Disposition.Like) {
+                    Disposition = Disposition.Like;
+                    IssueStanceFilter = IssueStanceFilter.Agree;
+                } else if (value == (int)Disposition.Dislike) {
+                    Disposition = Disposition.Dislike;
+                    IssueStanceFilter = IssueStanceFilter.Disagree;
                 } else {
-                    Disposition = Helpers.Enums.Disposition.None;
+                    Disposition = Disposition.None;
+                    IssueStanceFilter = IssueStanceFilter.All;
                 }
             }
         }
@@ -38,30 +42,14 @@ namespace HaveAVoice.Models.View {
                 return (int)PersonFilter;
             }
             set {
-                if (value == (int)Helpers.Enums.PersonFilter.People) {
-                    PersonFilter = Helpers.Enums.PersonFilter.People;
-                } else if (value == (int)Helpers.Enums.PersonFilter.Politicians) {
-                    PersonFilter = Helpers.Enums.PersonFilter.Politicians;
+                if (value == (int)PersonFilter.People) {
+                    PersonFilter = PersonFilter.People;
+                } else if (value == (int)PersonFilter.Politicians) {
+                    PersonFilter = PersonFilter.Politicians;
                 } else {
-                    PersonFilter = Helpers.Enums.PersonFilter.All;
+                    PersonFilter = PersonFilter.All;
                 }
             }
-        }
-
-        public IssueReplyModel ShallowCopy() {
-            return new IssueReplyModel() {
-                Issue = Issue,
-                Id = Id,
-                User = User,
-                Reply = Reply,
-                DateTimeStamp = DateTimeStamp,
-                CommentCount = CommentCount,
-                Anonymous = Anonymous,
-                HasDisposition = HasDisposition,
-                IssueStance = IssueStance,
-                Disposition = Disposition,
-                PersonFilter = PersonFilter
-            };
         }
     }
 }

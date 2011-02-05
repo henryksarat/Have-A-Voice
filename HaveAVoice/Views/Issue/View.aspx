@@ -14,7 +14,7 @@
     <div class="col-24 m-btm30">
         <div class="spacer-30">&nbsp;</div>
         <% TempData[HAVConstants.ORIGINAL_ISSUE_TEMP_DATA] = TempData[HAVConstants.ORIGINAL_ISSUE_TEMP_DATA]; %>
-        <% Dictionary<string,int> myFilter = (Dictionary<string,int>)TempData[HAVConstants.FILTER_TEMP_DATA];  %>
+        <% Dictionary<string,string> myFilter = (Dictionary<string,string>)TempData[HAVConstants.FILTER_TEMP_DATA];  %>
         <% TempData[HAVConstants.FILTER_TEMP_DATA] = myFilter; %>
     
 
