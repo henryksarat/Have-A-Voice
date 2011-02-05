@@ -5,6 +5,7 @@
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
+<%@ Import Namespace="HaveAVoice.Helpers.UI" %>
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
@@ -33,7 +34,6 @@
     </div>
 
     <div class="col-21">
-    <% Html.RenderPartial("Message"); %>
 
     <div class="fnt-10 m-btm5">
         <% if (Model.NavigationModel.SiteSection == SiteSection.Profile) { %>
@@ -47,17 +47,22 @@
 			    <div class="clear">&nbsp;</div>
 		    </div>
         <% } else { %>
+        <% TempData[HAVConstants.ORIGINAL_MYPROFILE_FEED_TEMP_DATA] = TempData[HAVConstants.ORIGINAL_MYPROFILE_FEED_TEMP_DATA]; %>
+        <% PersonFilter myFilter = (PersonFilter)TempData[HAVConstants.FILTER_TEMP_DATA];  %>
 		    <div class="m-lft col-2 m-rgt f-rgt center">
-                <a href="#" class="filter">Politians</a>
+                <%= IssueHelper.PersonFilterButton(PersonFilter.Politicians, myFilter, "filter", "filterSelected") %>
                 <div class="clear">&nbsp;</div>
 		    </div>
 		    <div class="m-lft col-2 m-rgt f-rgt center">
-                <a href="#" class="filter">People</a>
+                <%= IssueHelper.PersonFilterButton(PersonFilter.People, myFilter, "filter", "filterSelected") %>
                 <div class="clear">&nbsp;</div>
 		    </div>
         <% } %>
     </div>
+
     <div class="clear">&nbsp;</div>
+    <% Html.RenderPartial("Message"); %>
+    
     <% if (Model.NavigationModel.SiteSection == SiteSection.MyProfile) { %>
         <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
 

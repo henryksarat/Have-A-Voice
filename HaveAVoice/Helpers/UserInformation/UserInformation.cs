@@ -21,6 +21,10 @@ namespace HaveAVoice.Helpers.UserInformation {
         }
 
         public UserInformationModel GetUserInformaton() {
+            //This becomes null sometimes for some reason... investigate furthur
+            if (theHttpContext.Session == null) {
+                return null;
+            }
             UserInformationModel myUserInformationModel = (UserInformationModel)theHttpContext.Session["UserInformation"];
             string myIpAddress = theHttpContext.Request.UserHostAddress;
             if (myUserInformationModel != null) {

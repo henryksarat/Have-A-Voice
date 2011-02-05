@@ -15,12 +15,14 @@ namespace HaveAVoice.Models.View {
         }
         public IEnumerable<IssueFeedModel> IssueFeed {  
             set {
+                OriginalIssueFeed = value;
                 IssueFeedEnumerator = value.GetEnumerator();
                 IssueFeedEnumerator.MoveNext();
             }
         }
         public IEnumerable<IssueReplyFeedModel> IssueReplyFeed {
             set {
+                OriginalIssueReplyFeed = value;
                 IssueReplyFeedEnumerator = value.GetEnumerator();
                 IssueReplyFeedEnumerator.MoveNext();
             }
@@ -36,6 +38,9 @@ namespace HaveAVoice.Models.View {
         private IEnumerator<IssueFeedModel> IssueFeedEnumerator { get; set; }
         private IEnumerator<IssueReplyFeedModel> IssueReplyFeedEnumerator { get; set; }
         private IEnumerator<PhotoAlbumFeedModel> PhotoAlbumEnumerator { get; set; }
+
+        public IEnumerable<IssueFeedModel> OriginalIssueFeed { get; private set; }
+        public IEnumerable<IssueReplyFeedModel> OriginalIssueReplyFeed { get; private set; }
 
         public UserProfileModel(User aUser) {
             User = aUser;

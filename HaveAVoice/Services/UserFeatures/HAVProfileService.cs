@@ -48,14 +48,17 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public UserProfileModel MyProfile(User aUser) {
-            IEnumerable<IssueFeedModel> myIssueFeed = CreateIssueFeed(theRepository.FriendIssueFeed(aUser), PersonFilter.People);
-            IEnumerable<IssueReplyFeedModel> myIssueReplyFeed = CreateIssueFeed(theRepository.FriendIssueReplyFeed(aUser), PersonFilter.People);
-            IEnumerable<IssueFeedModel> myAuthorityIssueFeed = CreateIssueFeed(theRepository.IssueFeedByRole(UserRoleHelper.OfficialRoles(), PersonFilter.People);
-            IEnumerable<IssueReplyFeedModel> myAuthorityIssueReplyFeed = CreateIssueReplyFeed(theRepository.IssueReplyFeedByRole(UserRoleHelper.OfficialRoles()), PersonFilter.People;
+            List<IssueFeedModel> myIssueFeed = CreateIssueFeed(theRepository.FriendIssueFeed(aUser), aUser, PersonFilter.People).ToList<IssueFeedModel>();
+            List<IssueReplyFeedModel> myIssueReplyFeed = CreateIssueReplyFeed(theRepository.FriendIssueReplyFeed(aUser), aUser, PersonFilter.People).ToList<IssueReplyFeedModel>();;
+            IEnumerable<IssueFeedModel> myAuthorityIssueFeed = CreateIssueFeed(theRepository.IssueFeedByRole(UserRoleHelper.OfficialRoles()), aUser, PersonFilter.People);
+            IEnumerable<IssueReplyFeedModel> myAuthorityIssueReplyFeed = CreateIssueReplyFeed(theRepository.IssueReplyFeedByRole(UserRoleHelper.OfficialRoles()), aUser, PersonFilter.People);
+
+            myIssueFeed.AddRange(myAuthorityIssueFeed);
+            myIssueReplyFeed.AddRange(myAuthorityIssueReplyFeed);
 
             UserProfileModel myModel = new UserProfileModel(aUser) {
-                IssueFeed = CreateIssueFeed(myIssueFeed, aUser),
-                IssueReplyFeed = CreateIssueReplyFeed(myIssueReplyFeed, aUser),
+                IssueFeed = myIssueFeed,
+                IssueReplyFeed = myIssueReplyFeed,
                 PhotoAlbumFeed = CreatePhotoAlbumFeed(theRepository.FriendPhotoAlbumFeed(aUser))
             };
 
@@ -66,8 +69,8 @@ namespace HaveAVoice.Services.UserFeatures {
             if(theFriendService.IsFriend(aUserId, aViewingUser)) {
                 User myUser = theUserRetrievalService.GetUser(aUserId);
                 UserProfileModel myModel = new UserProfileModel(myUser) {
-                    IssueFeed = CreateIssueFeed(theRepository.IssuesUserCreated(myUser), aViewingUser),
-                    IssueReplyFeed = CreateIssueReplyFeed(theRepository.IssuesUserRepliedTo(myUser), aViewingUser)
+                    IssueFeed = CreateIssueFeed(theRepository.IssuesUserCreated(myUser), aViewingUser, PersonFilter.People),
+                    IssueReplyFeed = CreateIssueReplyFeed(theRepository.IssuesUserRepliedTo(myUser), aViewingUser, PersonFilter.People)
                 };
 
                 return myModel;

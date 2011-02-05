@@ -32,6 +32,19 @@ namespace HaveAVoice.Helpers.UI {
             return linkTag.ToString();
         }
 
+        public static string PersonFilterButton(PersonFilter aFilter, PersonFilter aSelectedFilter, string aNonSelectedCssClass, string aSelectedCssClass) {
+            var linkTag = new TagBuilder("a");
+            linkTag.InnerHtml = aFilter.ToString();
+            linkTag.MergeAttribute("href", "/Profile/FilterFeed?filterValue=" + aFilter);
+            if (aSelectedFilter == aFilter) {
+                linkTag.MergeAttribute("class", aSelectedCssClass);
+            } else {
+                linkTag.MergeAttribute("class", aNonSelectedCssClass);
+            }
+
+            return linkTag.ToString();
+        }
+
         public static string UserIssueReply(IssueReplyModel anIssueReply) {
             return BuildIssueReplyTable(anIssueReply);
         }

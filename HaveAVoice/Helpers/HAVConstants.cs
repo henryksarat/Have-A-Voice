@@ -25,6 +25,7 @@ namespace HaveAVoice.Helpers {
 
         public const string FILTER_TEMP_DATA = "Filter";
         public const string ORIGINAL_ISSUE_TEMP_DATA = "OriginalIssue";
+        public const string ORIGINAL_MYPROFILE_FEED_TEMP_DATA = "OriginalFeed";
 
         public const bool MALE = true;
         public const bool FEMALE = false;
