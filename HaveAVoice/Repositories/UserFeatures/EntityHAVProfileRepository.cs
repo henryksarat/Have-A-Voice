@@ -60,6 +60,26 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     select p).ToList<PhotoAlbum>();
         }
 
+        public IEnumerable<Issue> IssueFeedByRole(IEnumerable<string> aRoles) {
+            return (from i in theEntities.Issues
+                    join u in theEntities.Users on i.User.Id equals u.Id
+                    join ur in theEntities.UserRoles on u.Id equals ur.User.Id
+                    join r in theEntities.Roles on ur.Role.Id equals r.Id
+                    where aRoles.Contains(r.Name)
+                    && i.Deleted == false
+                    select i).ToList<Issue>();
+        }
+
+        public IEnumerable<IssueReply> IssueReplyFeedByRole(IEnumerable<string> aRoles) {
+            return (from ir in theEntities.IssueReplys
+                    join u in theEntities.Users on ir.User.Id equals u.Id
+                    join ur in theEntities.UserRoles on u.Id equals ur.User.Id
+                    join r in theEntities.Roles on ur.Role.Id equals r.Id
+                    where aRoles.Contains(r.Name)
+                    && ir.Deleted == false
+                    select ir).ToList<IssueReply>();
+        }
+
         public IEnumerable<Issue> UserIssueFeed(int aTargetUserId) {
             return (from f in theEntities.Issues
                     where f.UserId == aTargetUserId

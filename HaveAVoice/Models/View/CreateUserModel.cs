@@ -31,19 +31,20 @@ namespace HaveAVoice.Models.View {
         public IEnumerable<SelectListItem> States { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
-        public string Gender {
-            set {
-                Gender = value;
+        public string Gender { get; set; }
+
+        public HAVGender SelectedGender {
+            get {
                 HAVGender mySelectedGender = HAVGender.Select;
                 foreach (HAVGender myGender in Enum.GetValues(typeof(HAVGender))) {
-                    if (value.ToUpper().Equals(Enum.GetName(typeof(HAVGender), myGender).ToUpper())) {
+                    if (Gender.ToUpper().Equals(Enum.GetName(typeof(HAVGender), myGender).ToUpper())) {
                         mySelectedGender = myGender;
                     }
                 }
+
+                return mySelectedGender;
             }
         }
-
-        public HAVGender SelectedGender { get; private set; }
 
         public abstract User Build();
 

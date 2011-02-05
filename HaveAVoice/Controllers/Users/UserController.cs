@@ -78,25 +78,16 @@ namespace HaveAVoice.Controllers.Users {
                 LogError(e, CREATE_ACCOUNT_ERROR);
             }
 
-            aUserToCreate.Genders = new SelectList(HAVConstants.GENDERS, aUserToCreate.SelectedGender.ToString());
-            aUserToCreate.States = new SelectList(HAVConstants.STATES, aUserToCreate.State);
-            /*
-            var myUl = new TagBuilder("ul");
-            foreach(string myValidationKey in this.ModelState.Keys) {
-                ModelErrorCollection myModelStateCollection = this.ModelState[myValidationKey].Errors;
-                foreach (ModelError myError in myModelStateCollection) {
-                    var myLi = new TagBuilder("li");
-                    myLi.InnerHtml = myError.ErrorMessage;
-                    myUl.InnerHtml += myLi.ToString();
-                }
-            }
+            AddStatesAndGenders(aUserToCreate, aUserToCreate.State);
 
-            ViewData["Validation"] = MessageHelper.NormalMessage(myUl.ToString());*/
             return View("Create", aUserToCreate);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult CreateAuthority(string email, string token) {
+            if (IsLoggedIn()) {
+                return RedirectToProfile();
+            }
             return View("CreateAuthority", new CreateAuthorityUserModelBuilder() {
                 Email = email,
                 Token = token,
@@ -107,6 +98,9 @@ namespace HaveAVoice.Controllers.Users {
 
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult CreateAuthority(CreateAuthorityUserModelBuilder aBuilder) {
+            if (IsLoggedIn()) {
+                return RedirectToProfile();
+            }
             try {
                 bool myResult = theService.CreateUserAuthority(aBuilder.Build(), aBuilder.Token, aBuilder.Agreement, HttpContext.Request.UserHostAddress);
                 if (myResult) {
@@ -117,9 +111,13 @@ namespace HaveAVoice.Controllers.Users {
                 LogError(e, CREATE_ACCOUNT_ERROR);
             }
 
-            aBuilder.Genders = new SelectList(HAVConstants.GENDERS, aBuilder.SelectedGender.ToString());
-            aBuilder.States = new SelectList(HAVConstants.STATES, aBuilder.RepresentingState);
+            AddStatesAndGenders(aBuilder, aBuilder.RepresentingState);
             return View("CreateAuthority", aBuilder);
+        }
+
+        private void AddStatesAndGenders(CreateUserModel aUserModel, string aState) {
+            aUserModel.Genders = new SelectList(HAVConstants.GENDERS, aUserModel.SelectedGender.ToString());
+            aUserModel.States = new SelectList(HAVConstants.STATES, aState);
         }
 
         public ActionResult Edit() {
