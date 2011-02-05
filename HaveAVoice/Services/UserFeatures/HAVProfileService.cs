@@ -44,6 +44,9 @@ namespace HaveAVoice.Services.UserFeatures {
         public UserProfileModel Profile(string aShortUrl, User myViewingUser) {
             IHAVUserService myUserService = new HAVUserService(theValidationDictionary);
             User myUser = theUserRetrievalService.GetUserByShortUrl(aShortUrl);
+            if(myUser == null) {
+                return null;
+            }
             return Profile(myUser, myViewingUser);
         }
 

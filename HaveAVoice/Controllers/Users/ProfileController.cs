@@ -24,12 +24,11 @@ namespace HaveAVoice.Controllers.Users {
         private const string EMPTY_PROFILE = "The user has no activity.";
         private const string MY_EMPTY_ISSUE_ACTIVITY = "You have not participated in any issues. Go out and start posting!";
         private const string EMPTY_ISSUE_ACTIVITY = "The user has yet to create any issues and reply to any exisiting issues.";
-        private const string USER_PAGE_ERROR = "Unable to view the user page.";
-        private const string USER_PAGE_ERROR_POLITE = USER_PAGE_ERROR + PLEASE_TRY_AGAIN;
-        private const string PLEASE_TRY_AGAIN = " Please try again.";
+        private const string USER_PAGE_ERROR = "Unable to view the user page. Please try again.";
         private const string USER_ACTIVITY_ERROR = "Unable to get the user's issue activity. Please try again.";
         private const string PERSON_FILTER = "PersonFilter";
         private const string ISSUE_STANCE_FILTER = "IssueStanceFilter";
+        private const string INVALID_SHORT_URL = "No user is assigned with that web address. Verify the spelling and try again.";
 
         private const string PROFILE_VIEW = "Show";
 
@@ -54,7 +53,11 @@ namespace HaveAVoice.Controllers.Users {
             User myViewingUser = GetUserInformaton();
 
             try {
-                UserProfileModel myProfile = theService.Profile(3, myViewingUser);
+                UserProfileModel myProfile = theService.Profile(shortName, myViewingUser);
+                if (myProfile == null) {
+                    return SendToErrorPage(INVALID_SHORT_URL);
+                }
+
                 LoggedInWrapperModel<UserProfileModel> myModel = new LoggedInWrapperModel<UserProfileModel>(myProfile.User, SiteSection.Profile);
                 myModel.Model = myProfile;
 
@@ -65,7 +68,7 @@ namespace HaveAVoice.Controllers.Users {
                 return View(PROFILE_VIEW, myModel);
             } catch (Exception e) {
                 LogError(e, USER_PAGE_ERROR);
-                return SendToErrorPage(USER_PAGE_ERROR_POLITE);
+                return SendToErrorPage(USER_PAGE_ERROR);
             }
         }
 
@@ -89,7 +92,7 @@ namespace HaveAVoice.Controllers.Users {
                 return View(PROFILE_VIEW, myModel);
             } catch (Exception e) {
                 LogError(e, USER_PAGE_ERROR);
-                return SendToErrorPage(USER_PAGE_ERROR_POLITE);
+                return SendToErrorPage(USER_PAGE_ERROR);
             }
         }
 
@@ -115,7 +118,7 @@ namespace HaveAVoice.Controllers.Users {
                 }
             } catch (Exception e) {
                 LogError(e, USER_PAGE_ERROR);
-                ViewData["Message"] = USER_PAGE_ERROR_POLITE;
+                ViewData["Message"] = USER_PAGE_ERROR;
             }
 
                 return View("Show", myModel);
