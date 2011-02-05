@@ -17,6 +17,7 @@ namespace HaveAVoice.Models.View {
         public List<PrivacySetting> PrivacySettings;
         public Hashtable PermissionToRestriction { get; private set; }
         public string ProfilePictureUrl { get; private set; }
+        public string FullName { get; private set; }
 
         public UserInformationModel(User aUser, IEnumerable<Permission> aPermissions, Restriction aRestriction, IEnumerable<PrivacySetting> aPrivacySettings) {
             this.Details = aUser;
@@ -24,6 +25,7 @@ namespace HaveAVoice.Models.View {
             PrivacySettings = aPrivacySettings.ToList<PrivacySetting>();
             AddRestrictionsToHashTable(aRestriction);
             ProfilePictureUrl = PhotoHelper.ProfilePicture(aUser);
+            FullName = NameHelper.FullName(aUser);
         }
 
         private void AddRestrictionsToHashTable(Restriction aRestriction) {

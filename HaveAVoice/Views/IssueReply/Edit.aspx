@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.IssueReplyWrapper>" %>
 <%@ Import Namespace="HaveAVoice.Helpers.Enums" %>
+<%@ Import Namespace="HaveAVoice.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	EditIssueReply
@@ -16,8 +17,8 @@
 		<div class="reply m-top30">
 			<div class="row">
 				<div class="col-2 center">
-		            <% /* UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation(); */ %>
-					<img src="<% /* = myUserInfo.ProfilePictureUrl */ %>" alt="<% /* = myUserInfo.Details.Username */ %>" class="profile" />
+		            <% UserInformationModel myUserInfo = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation(); %>
+					<img src="<%= myUserInfo.ProfilePictureUrl %>" alt="<%= myUserInfo.FullName  %>" class="profile" />
 				</div>
 				<div class="m-lft col-14 comment">
 					<span class="speak-lft">&nbsp;</span>

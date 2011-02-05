@@ -4,7 +4,7 @@ using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Helpers.UI {
     public class MessageHelper {
-        public static string MessageList(int aFromUserId, string aFromUsername, string aFromUserProfilePictureUrl, int aMessageId, string aSubject, string aBody, DateTime aDateTimeStamp, bool aViewed) {
+        public static string MessageList(int aFromUserId, string aFromUser, string aFromUserProfilePictureUrl, int aMessageId, string aSubject, string aBody, DateTime aDateTimeStamp, bool aViewed) {
         	var wrprDiv = new TagBuilder("div");
         	if (!aViewed) {
         		wrprDiv.MergeAttribute("class", "mail new");
@@ -20,7 +20,7 @@ namespace HaveAVoice.Helpers.UI {
         	
         	var imgDiv = new TagBuilder("div");
         	imgDiv.MergeAttribute("class", "col-1");
-            imgDiv.InnerHtml = UserInformationPortion(aFromUsername, aFromUserProfilePictureUrl);
+            imgDiv.InnerHtml = UserInformationPortion(aFromUser, aFromUserProfilePictureUrl);
 
         	wrprDiv.InnerHtml += imgDiv.ToString();
         	
@@ -29,7 +29,7 @@ namespace HaveAVoice.Helpers.UI {
         	
         	var userLinkDiv = new TagBuilder("div");
         	userLinkDiv.MergeAttribute("class", "p-t10");
-        	userLinkDiv.InnerHtml = String.Format("<a href=\"View/{0}\">{1}</a>", aMessageId, aFromUsername);
+        	userLinkDiv.InnerHtml = String.Format("<a href=\"View/{0}\">{1}</a>", aMessageId, aFromUser);
         	
         	var clrDiv = new TagBuilder("div");
         	clrDiv.MergeAttribute("class", "clear");
@@ -86,7 +86,7 @@ namespace HaveAVoice.Helpers.UI {
             return wrprDiv.ToString(TagRenderMode.Normal);
         }
 
-        private static string UserInformationPortion(string aFromUsername, string aFromUserProfilePictureUrl) {
+        private static string UserInformationPortion(string aFromUser, string aFromUserProfilePictureUrl) {
         	var wrprDiv = new TagBuilder("div");
         	wrprDiv.MergeAttribute("class", "p-v10");
         	
@@ -129,13 +129,13 @@ namespace HaveAVoice.Helpers.UI {
         }
 
 
-        public static string MessageItem(string aFromUsername, string aFromUserProfilePictureUrl, string aSubject, string aBody, DateTime aDateTimeStamp) {
+        public static string MessageItem(string aFromUser, string aFromUserProfilePictureUrl, string aSubject, string aBody, DateTime aDateTimeStamp) {
         	var wrprDiv = new TagBuilder("div");
         	wrprDiv.MergeAttribute("class", "mail");
         	
         	var imgDiv = new TagBuilder("div");
         	imgDiv.MergeAttribute("class", "col-1");
-            imgDiv.InnerHtml = UserInformationPortion(aFromUsername, aFromUserProfilePictureUrl);
+            imgDiv.InnerHtml = UserInformationPortion(aFromUser, aFromUserProfilePictureUrl);
         	
         	wrprDiv.InnerHtml = imgDiv.ToString();
 
@@ -147,7 +147,7 @@ namespace HaveAVoice.Helpers.UI {
         	
         	var nameSpan = new TagBuilder("span");
         	nameSpan.MergeAttribute("class", "fnt-12 bold varient-4 m-rgt5");
-	       	nameSpan.InnerHtml = aFromUsername;
+	       	nameSpan.InnerHtml = aFromUser;
         	
         	var dateSpan = new TagBuilder("span");
             dateSpan.MergeAttribute("class", "fnt-10");

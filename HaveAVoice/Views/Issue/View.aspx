@@ -153,7 +153,7 @@
 					<div class="row">
 						<div class="push-5 col-2 center">
                             <% UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation(); %>
-							<img src="<%= myUserInfo.ProfilePictureUrl %>" alt="<%= myUserInfo.Details.Username %>" class="profile" />
+							<img src="<%= myUserInfo.ProfilePictureUrl %>" alt="<%= myUserInfo.FullName %>" class="profile" />
 						</div>
 						<div class="push-5 m-lft col-14 comment">
 							<span class="speak-lft">&nbsp;</span>

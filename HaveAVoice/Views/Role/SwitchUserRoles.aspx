@@ -41,7 +41,7 @@
             <b>Users</b> <%= Html.ValidationMessage("UsersToMove", "*") %><br /><br />
             <% foreach (var userSelection in (Model.Users as List<Pair<User, bool>>)) { %>
                 <%= CheckBoxHelper.StandardCheckbox("SelectedUserIds", userSelection.First.Id.ToString(), userSelection.Second)%>
-                <%= userSelection.First.Username%>
+                <%= NameHelper.FullName(userSelection.First) %>
                 <br />
             <%}%>   
         <% } %>

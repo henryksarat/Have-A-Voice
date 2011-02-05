@@ -12,7 +12,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container-24">
 	    <div class="col-6 profile m-top30">
-	        <img src="<%= Model.NavigationModel.ProfilePictureUrl %>" alt="<%= Model.NavigationModel.User.Username %>" class="profile" />
+	        <img src="<%= Model.NavigationModel.ProfilePictureUrl %>" alt="<%= Model.NavigationModel.FullName %>" class="profile" />
 	        <br />
 	        <div class="col-6 p-v10 details">
 				<span class="blue">Name:</span> <%= Model.NavigationModel.User.FirstName + " " + Model.NavigationModel.User.LastName%><br />

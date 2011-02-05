@@ -27,7 +27,7 @@
 		<div class="push-1 col-22">
 		    <% using (Html.BeginForm("Complaint", "Complaint", FormMethod.Post, new { @class = "create" })) { %>
 		    	<div class="normal">
-		    		You are about to report a problem with <i><%= Html.Encode(Model.TowardUser.Username) %></i> against a <i><%= Html.Encode(Model.ComplaintType) %></i> they posted.
+		    		You are about to report a problem with <i><%= Html.Encode(NameHelper.FullName(Model.TowardUser)) %></i> against a <i><%= Html.Encode(Model.ComplaintType) %></i> they posted.
 					<br /><br />
 		    		<i>Summary of what they posted:</i>
 		            <%= Html.Encode(Model.SourceDescription) %>

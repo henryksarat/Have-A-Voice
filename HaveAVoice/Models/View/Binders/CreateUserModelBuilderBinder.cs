@@ -6,7 +6,6 @@ namespace HaveAVoice.Models.View {
     public class CreateUserModelBuilderBinder : IModelBinder {
         public object BindModel(ControllerContext aControllerContext, ModelBindingContext aBindingContext) {
             String myEmail = BinderHelper.GetA(aBindingContext, "Email");
-            String myUsername = BinderHelper.GetA(aBindingContext, "Username");
             String myFirstName = BinderHelper.GetA(aBindingContext, "FirstName");
             String myLastName = BinderHelper.GetA(aBindingContext, "LastName");
             String myGender = BinderHelper.GetA(aBindingContext, "Gender");
@@ -18,7 +17,6 @@ namespace HaveAVoice.Models.View {
 
             return new CreateUserModelBuilder() {
                 Email = myEmail,
-                Username = myUsername,
                 Password = myPassword,
                 City = myCity,
                 FirstName = myFirstName,

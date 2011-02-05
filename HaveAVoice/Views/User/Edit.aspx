@@ -21,7 +21,7 @@
     
     <div class="container-24">
 	    <div class="col-6 profile m-top30">
-	        <img src="<%= Model.ProfilePictureURL %>" alt="<%= Model.UserInformation.Username %>" class="profile" />
+	        <img src="<%= Model.ProfilePictureURL %>" alt="<%= NameHelper.FullName(Model.UserInformation) %>" class="profile" />
 	        <br />
 	        <div class="col-6 p-v10 details">
 				<span class="blue">Name:</span> <%= Model.UserInformation.FirstName + " " + Model.UserInformation.LastName %><br />
@@ -46,7 +46,6 @@
 
 			<% using(Html.BeginForm("Edit", "User", FormMethod.Post, new { enctype = "multipart/form-data" })) { %>
 	            <%= Html.Hidden("OriginalEmail", Model.OriginalEmail) %>
-	            <%= Html.Hidden("OriginalUsername", Model.OriginalUsername) %>
 	            <%= Html.Hidden("OriginalPassword", Model.OriginalPassword) %>
 	            <%= Html.Hidden("UserId", Model.UserInformation.Id) %>
 	            <%= Html.Hidden("ProfilePictureURL", Model.ProfilePictureURL) %>

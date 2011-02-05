@@ -291,7 +291,6 @@
     <Compile Include="Models\View\Binders\EditUserModelBinder.cs" />
     <Compile Include="Models\View\StringWrapper.cs" />
     <Compile Include="Models\View\SwitchUserRoles.cs" />
-    <Compile Include="Models\View\UserDetailsModel.cs" />
     <Compile Include="Models\View\UserInformationModel.cs" />
     <Compile Include="Models\View\UserPicturesModel.cs" />
     <Compile Include="Models\View\Binders\UserPicturesModelBinder.cs" />
@@ -396,8 +395,6 @@
     <Content Include="Photos\no_profile_picture.jpg" />
     <Content Include="Views\Account\ChangePassword.aspx" />
     <Content Include="Views\Account\ChangePasswordSuccess.aspx" />
-    <Content Include="Views\Account\LogOn.aspx" />
-    <Content Include="Views\Account\Register.aspx" />
     <Content Include="Views\Admin\Index.aspx" />
     <Content Include="Views\Authentication\Login.aspx" />
     <Content Include="Views\AuthorityVerification\Create.aspx" />

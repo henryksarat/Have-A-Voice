@@ -10659,7 +10659,6 @@ namespace HaveAVoice.Models
         /// Create a new User object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="username">Initial value of the Username property.</param>
         /// <param name="email">Initial value of the Email property.</param>
         /// <param name="password">Initial value of the Password property.</param>
         /// <param name="firstName">Initial value of the FirstName property.</param>
@@ -10673,11 +10672,10 @@ namespace HaveAVoice.Models
         /// <param name="newsletter">Initial value of the Newsletter property.</param>
         /// <param name="uTCOffset">Initial value of the UTCOffset property.</param>
         /// <param name="gender">Initial value of the Gender property.</param>
-        public static User CreateUser(global::System.Int32 id, global::System.String username, global::System.String email, global::System.String password, global::System.String firstName, global::System.String lastName, global::System.String city, global::System.String state, global::System.DateTime dateOfBirth, global::System.DateTime lastLogin, global::System.DateTime registrationDate, global::System.String registrationIp, global::System.Boolean newsletter, global::System.String uTCOffset, global::System.Int16 gender)
+        public static User CreateUser(global::System.Int32 id, global::System.String email, global::System.String password, global::System.String firstName, global::System.String lastName, global::System.String city, global::System.String state, global::System.DateTime dateOfBirth, global::System.DateTime lastLogin, global::System.DateTime registrationDate, global::System.String registrationIp, global::System.Boolean newsletter, global::System.String uTCOffset, global::System.Int16 gender)
         {
             User user = new User();
             user.Id = id;
-            user.Username = username;
             user.Email = email;
             user.Password = password;
             user.FirstName = firstName;
@@ -10723,30 +10721,6 @@ namespace HaveAVoice.Models
         private global::System.Int32 _Id;
         partial void OnIdChanging(global::System.Int32 value);
         partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String Username
-        {
-            get
-            {
-                return _Username;
-            }
-            set
-            {
-                OnUsernameChanging(value);
-                ReportPropertyChanging("Username");
-                _Username = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Username");
-                OnUsernameChanged();
-            }
-        }
-        private global::System.String _Username;
-        partial void OnUsernameChanging(global::System.String value);
-        partial void OnUsernameChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

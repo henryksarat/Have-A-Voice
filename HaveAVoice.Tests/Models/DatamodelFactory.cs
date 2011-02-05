@@ -16,7 +16,6 @@ namespace HaveAVoice.Tests.Models {
         public static DateTime BIRTHDAY = new DateTime(1987, 05, 03);
         public static string STATE = "IL";
         public static string CITY = "Chicago";
-        public static string USERNAME = "DaBomb";
         public static bool AGREEMENT = true;
         public static bool CAPTCHA_VALID = true;
         public static string IP_ADDRESS = "192.0.0.1";
@@ -28,7 +27,6 @@ namespace HaveAVoice.Tests.Models {
         public static CreateUserModelBuilder createUserModelBuilder() {
             return new CreateUserModelBuilder() {
                 Email = EMAIL,
-                Username = USERNAME,
                 Password = PASSWORD,
                 City = CITY,
                 FirstName = FIRST_NAME,
@@ -40,7 +38,7 @@ namespace HaveAVoice.Tests.Models {
         }
 
         public static User createUser(int anId) {
-            return User.CreateUser(anId, USERNAME, EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, CITY, STATE, BIRTHDAY, LAST_LOGIN, REGISTRATION_DATE, IP_ADDRESS, false, UTC_OFFSET, (int)HaveAVoice.Helpers.Enums.HAVGender.Select);
+            return User.CreateUser(anId, EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, CITY, STATE, BIRTHDAY, LAST_LOGIN, REGISTRATION_DATE, IP_ADDRESS, false, UTC_OFFSET, (int)HaveAVoice.Helpers.Enums.HAVGender.Select);
         }
 
     }

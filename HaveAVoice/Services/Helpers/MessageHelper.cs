@@ -5,6 +5,7 @@ using System.Web;
 using HaveAVoice.Models.View;
 using HaveAVoice.Models;
 using HaveAVoice.Services.Helpers;
+using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Services.UserFeatures.Helpers {
     public class MessageHelper {
@@ -23,7 +24,7 @@ namespace HaveAVoice.Services.UserFeatures.Helpers {
                     select new InboxMessage {
                         MessageId = m.Id,
                         Subject = m.Subject,
-                        FromUsername = m.FromUser.Username,
+                        FromUser = NameHelper.FullName(m.FromUser),
                         FromUserId = m.FromUser.Id,
                         LastReply = (latestReply == null ? m.Body : latestReply.Body),
                         Viewed = (m.ToUserId == aUser.Id ? m.ToViewed : m.FromViewed),

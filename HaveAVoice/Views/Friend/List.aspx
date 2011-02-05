@@ -2,6 +2,7 @@
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
+<%@ Import Namespace="HaveAVoice.Helpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Friends
@@ -28,10 +29,10 @@
 			<div class="col-4 center <%= klass %>">
 				<div class="p-a5">
 					<div class="profile">
-						<img src ="<%= PhotoHelper.ProfilePicture(item.FriendUser) %>" alt="<%= item.FriendUser.Username %>" class="profile" />
+						<img src ="<%= PhotoHelper.ProfilePicture(item.FriendUser) %>" alt="<%= NameHelper.FullName(item.FriendUser) %>" class="profile" />
 					</div>
 					<div class="p-a5">
-						<a href="/Profile/Show/<%= item.FriendUserId %>" class="name"><%= item.FriendUser.Username %></a>
+						<a href="/Profile/Show/<%= item.FriendUserId %>" class="name"><%= NameHelper.FullName(item.FriendUser) %></a>
 					</div>
 				</div>
 			</div>

@@ -30,7 +30,7 @@
 	    <% foreach (var item in Model) { %>
 	    	<div class="issue-container m-btm10">
 		    	<div class="push-1 col-2">
-		    		<img src="/Photos/no_profile_picture.jpg" alt="Username" class="profile" />
+		    		<img src="<%= HaveAVoice.Services.Helpers.PhotoHelper.ProfilePicture(item.Issue.User) %>g" alt="<%= NameHelper.FullName(item.Issue.User) %>" class="profile" />
 		    	</div>
 		    	<div class="push-1 col-17 issue">
 		    		<div class="p-a5">

@@ -114,18 +114,14 @@ namespace HaveAVoice.Services.UserFeatures {
             aUserToCreate.RegistrationIp = aIpAddress;
             aUserToCreate.LastLogin = DateTime.UtcNow;
 
-            string aItemToHash = aUserToCreate.Username + aUserToCreate.Email + DateTime.Today;
+            string aItemToHash = NameHelper.FullName(aUserToCreate) + aUserToCreate.Email + DateTime.Today;
             aUserToCreate.ActivationCode = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(aItemToHash, "SHA1");
 
             return aUserToCreate;
         }
-        
-        public IEnumerable<UserDetailsModel> GetUserList(User aExcludedUser) {
-            return theUserRepo.GetUserList(aExcludedUser);
-        }
 
         public bool EditUser(EditUserModel aUser) {
-            if (!ValidateEditedUser(aUser.UserInformation, aUser.OriginalUsername, aUser.OriginalEmail)) {
+            if (!ValidateEditedUser(aUser.UserInformation, aUser.OriginalEmail)) {
                 return false;
             }
 
@@ -201,11 +197,6 @@ namespace HaveAVoice.Services.UserFeatures {
             if (aUser.Password.Trim().Length == 0) {
                 theValidationDictionary.AddError("Password", aUser.Password.Trim(), "Password is required.");
             }
-            if (aUser.Username.Trim().Length == 0) {
-                theValidationDictionary.AddError("Username", aUser.Username.Trim(), "Username is required.");
-            } else if (theUserRepo.UsernameRegistered(aUser.Username)) {
-                theValidationDictionary.AddError("Username", aUser.Username.Trim(), "Someone already registered with that username. Please try another one.");
-            }
             if (aUser.Email.Trim().Length == 0) {
                 theValidationDictionary.AddError("Email", aUser.Email.Trim(), "E-mail is required.");
             } else if (theUserRepo.EmailRegistered(aUser.Email.Trim())) {
@@ -215,19 +206,9 @@ namespace HaveAVoice.Services.UserFeatures {
             return ValidateUser(aUser);
         }
 
-        private bool ValidateEditedUser(User aUser, string aOriginalUsername, string aOriginalEmail) {
-            ValidateUsername(aUser, aOriginalUsername);
+        private bool ValidateEditedUser(User aUser, string aOriginalEmail) {
             ValidEmail(aUser.Email, aOriginalEmail);
             return ValidateUser(aUser);
-        }
-
-        private void ValidateUsername(User aUser, string aOriginalUsername) {
-            if (aUser.Username.Trim().Length == 0) {
-                theValidationDictionary.AddError("Username", aUser.Username.Trim(), "Username is required.");
-            } else if (aOriginalUsername != null && (aOriginalUsername != aUser.Username)
-                && (theUserRepo.UsernameRegistered(aUser.Username))) {
-                theValidationDictionary.AddError("Username", aUser.Username, "Someone already registered with that username. Please try another one.");
-            }
         }
 
         private bool ValidateUser(User aUser) {

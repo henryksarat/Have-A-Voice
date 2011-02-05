@@ -32,11 +32,11 @@
 <% foreach (BoardReply myReply in Model.BoardReplys) { %>		
     <div class="board-<% if (j % 2 == 0) { %>row<% } else { %>alt<% } %> p-v10 push-3 col-18 m-btm5">
 	    <div class="col-1 center">
-	        <img src="<%= PhotoHelper.ProfilePicture(myReply.User) %>" alt="<%= myReply.User.Username %>" class="profile sm" />
+	        <img src="<%= PhotoHelper.ProfilePicture(myReply.User) %>" alt="<%= NameHelper.FullName(myReply.User) %>" class="profile sm" />
 	    </div>
 	    <div class="m-lft col-14">
 	        <div class="p-h10">
-	            <a href="#" class="name"><%= myReply.User.Username %></a>
+	            <a href="#" class="name"><%= NameHelper.FullName(myReply.User)%></a>
 	            <%= myReply.Message %>
 	        </div>
 	    </div>

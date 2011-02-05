@@ -29,7 +29,7 @@
 						<%= Html.TextBox("Email") %>
 					</div>
 					<div class="col-14">
-						<%= Html.ValidationMessage("Username", "*") %>
+						<%= Html.ValidationMessage("Email", "*") %>
 					</div>
 			        <div class="clear">&nbsp;</div>
 			        <div class="spacer-10">&nbsp;</div>

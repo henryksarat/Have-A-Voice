@@ -9,7 +9,7 @@
 <div class="col-24 user-panel">
     <% User myUser = HAVUserInformationFactory.GetUserInformation().Details; %>
 	<div class="col-3 center">
-		<img src="<%= Model.ProfilePictureUrl %>" alt="<%= Model.User.Username %>" class="profile" />
+		<img src="<%= Model.ProfilePictureUrl %>" alt="<%= Model.FullName %>" class="profile" />
 	</div>
 	<div class="col-15">
 		<div class="m-lft col-15 m-rgt">

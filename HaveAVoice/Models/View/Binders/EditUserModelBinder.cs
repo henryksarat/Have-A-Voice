@@ -14,7 +14,6 @@ namespace HaveAVoice.Models.View {
 
             string myProfilePictureUrl = BinderHelper.GetA(bindingContext, "ProfilePictureURL");
             string myOriginalEmail = BinderHelper.GetA(bindingContext, "OriginalEmail");
-            string myOriginalUsername = BinderHelper.GetA(bindingContext, "OriginalUsername");
             string myOriginalPassword = BinderHelper.GetA(bindingContext, "OriginalPassword");
             string myNewPassword = BinderHelper.GetA(bindingContext, "NewPassword");
             string myRetypedPassword = BinderHelper.GetA(bindingContext, "RetypedPassword");
@@ -51,7 +50,6 @@ namespace HaveAVoice.Models.View {
                 NewPassword = myNewPassword,
                 RetypedPassword = myRetypedPassword,
                 OriginalEmail = myOriginalEmail,
-                OriginalUsername = myOriginalUsername,
                 OriginalPassword = myOriginalPassword
             };
         }

@@ -100,19 +100,7 @@
 	    			<div class="spacer-10">&nbsp;</div>
 	    			    			
 	    			<div class="col-4 m-rgt right">
-	    				<label for="Username">Username:</label>
-	    			</div>
-	    			<div class="col-4">
-	    				<%= Html.TextBox("Username", Model.Username)%>
-	    			</div>
-	    			<div class="col-14">
-	    				<%= Html.ValidationMessage("Username", "*") %>
-	    			</div>
-	    			<div class="clear">&nbsp;</div>
-	    			<div class="spacer-10">&nbsp;</div>
-
-	    			<div class="col-4 m-rgt right">
-	    				<label for="Username">Gender:</label>
+	    				<label for="Gender">Gender:</label>
 	    			</div>
 	    			<div class="col-4">
 	    				<%= Html.DropDownList("Gender", Model.Genders)%>

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Models {
     public class MessageWrapper {
         public int ToUserId { get; set; }
 
-        public string ToUserName { get; set; }
+        public string ToFullName { get; set; }
 
         public string ToUserProfilePictureUrl { get; set; }
 
@@ -25,7 +26,7 @@ namespace HaveAVoice.Models {
         public static MessageWrapper Build(User aUser, string aProfilePictureUrl) {
             return new MessageWrapper() {
                 ToUserId = aUser.Id,
-                ToUserName = aUser.Username,
+                ToFullName = NameHelper.FullName(aUser),
                 ToUserProfilePictureUrl = aProfilePictureUrl
             };
         }

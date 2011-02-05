@@ -16,7 +16,7 @@
                 DateTimeStamp
             </th>
             <th>
-                Username
+                User
             </th>
             <th>
                 Text
@@ -30,7 +30,7 @@
                 <%: String.Format("{0:g}", item.DateTimeStamp) %>
             </td>
             <td>
-                <%: item.User.Username %>
+                <%: HaveAVoice.Helpers.NameHelper.FullName(item.User) %>
             </td>
             <td>
                 <%: item.Text %>

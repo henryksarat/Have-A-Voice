@@ -3,6 +3,7 @@
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
+<%@ Import Namespace="HaveAVoice.Helpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	ViewMessage
@@ -23,11 +24,11 @@
 			<div class="clear">&nbsp;</div>
 
             <% if (Model != null) { %>
-	            <%= MessageHelper.MessageItem(Model.Model.Message.FromUser.Username, PhotoHelper.ProfilePicture(Model.Model.Message.FromUser), Model.Model.Message.Subject, Model.Model.Message.Body, Model.Model.Message.DateTimeStamp)%>
+	            <%= MessageHelper.MessageItem(NameHelper.FullName(Model.Model.Message.FromUser), PhotoHelper.ProfilePicture(Model.Model.Message.FromUser), Model.Model.Message.Subject, Model.Model.Message.Body, Model.Model.Message.DateTimeStamp)%>
 	
 		         <% foreach (var reply in Model.Model.Message.Replys) { %>
 		         	<div class="m-btm10">
-		         		<%= MessageHelper.MessageItem(reply.User.Username, PhotoHelper.ProfilePicture(reply.User), "", reply.Body, reply.DateTimeStamp) %>
+		         		<%= MessageHelper.MessageItem(NameHelper.FullName(reply.User), PhotoHelper.ProfilePicture(reply.User), "", reply.Body, reply.DateTimeStamp) %>
 		         	</div>
 	            <% } %>
 				<div class="clear">&nbsp;</div>
