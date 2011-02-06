@@ -24,6 +24,12 @@
 					}
 					return false;
 				});
+				$("a[rel=reply]").click(function() {
+					$(this).fadeOut("fast", function() {
+						$(this).next("div").slideDown("fast");
+					});
+					return false;
+				});
 			});
 		//-->
 	</script>
@@ -49,7 +55,7 @@
         <% } else { %>
         <% TempData[HAVConstants.ORIGINAL_MYPROFILE_FEED_TEMP_DATA] = TempData[HAVConstants.ORIGINAL_MYPROFILE_FEED_TEMP_DATA]; %>
         <% PersonFilter myFilter = (PersonFilter)TempData[HAVConstants.FILTER_TEMP_DATA];  %>
-            <div class="m-lft col-2 m-rgt f-rgt center">
+            <div class="m-lft col-3 m-rgt f-rgt center">
                 <%= IssueHelper.PersonFilterButton(PersonFilter.PoliticalCandidates, myFilter, "Political Candidates", "filter", "filterSelected") %>
                 <div class="clear">&nbsp;</div>
 		    </div>

@@ -36,7 +36,7 @@
 			<div class="clear">&nbsp;</div>
 		</div>
 		
-		<div class="push-7 col-9 m-btm10">
+		<div class="push-5 col-16 m-btm10 fnt-12">
 			<div class="m-lft col-3 m-rgt center">
                 <%= IssueHelper.PersonFilterButton(PersonFilter.All, myFilter, "All", "filter", "filterSelected") %>
                 <div class="clear">&nbsp;</div>
@@ -45,7 +45,7 @@
                 <%= IssueHelper.PersonFilterButton(PersonFilter.Politicians, myFilter, "Politicians", "filter", "filterSelected") %>
                 <div class="clear">&nbsp;</div>
 			</div>
-			<div class="m-lft col-3 m-rgt center">
+			<div class="m-lft col-4 m-rgt center">
                 <%= IssueHelper.PersonFilterButton(PersonFilter.PoliticalCandidates, myFilter, "Political Candidates", "filter", "filterSelected") %>
                 <div class="clear">&nbsp;</div>
 			</div>
@@ -56,7 +56,7 @@
 		</div>
 		<div class="clear">&nbsp;</div>
 		
-		<div class="push-7 col-9 m-btm10">
+		<div class="push-7 col-9 m-btm10 fnt-12">
 			<div class="m-lft col-3 m-rgt center">
                 <%= IssueHelper.IssueStanceFilterButton(IssueStanceFilter.All, myFilter, "filter", "filterSelected") %>
                 <div class="clear">&nbsp;</div>

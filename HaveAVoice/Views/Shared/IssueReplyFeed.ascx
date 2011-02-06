@@ -115,7 +115,8 @@
 <% } %>
 
 <div class="board-reply m-btm5">
-	<div class="push-3 col-19">
+	<a href="#" rel="reply" class="push-17 alpha col-1 omega center button">Reply</a>
+	<div class="push-3 col-19" style="display:none;">
 		<div class="col-1 center">
             <% UserInformationModel myUserModel = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation();  %>
             <% string myFullName = myUserModel.Details.FirstName + " " + myUserModel.Details.LastName; %>
