@@ -10,17 +10,17 @@ using System.Collections.Generic;
 
 namespace HaveAVoice.Helpers.UI {
     public class IssueHelper {
-        public static string PersonFilterButton(PersonFilter aFilter, Dictionary<string, string> aSelectedFilters, string aNonSelectedCssClass, string aSelectedCssClass) {
-            return Filter("PersonFilter", "FilterIssueByPersonFilter", aFilter.ToString(), aSelectedFilters, aNonSelectedCssClass, aSelectedCssClass);
+        public static string PersonFilterButton(PersonFilter aFilter, Dictionary<string, string> aSelectedFilters, string aDisplayName, string aNonSelectedCssClass, string aSelectedCssClass) {
+            return Filter("PersonFilter", "FilterIssueByPersonFilter", aFilter.ToString(), aSelectedFilters, aDisplayName, aNonSelectedCssClass, aSelectedCssClass);
         }
 
         public static string IssueStanceFilterButton(IssueStanceFilter aFilter, Dictionary<string, string> aSelectedFilters, string aNonSelectedCssClass, string aSelectedCssClass) {
-            return Filter("IssueStanceFilter", "FilterIssueByIssueStanceFilter", aFilter.ToString(), aSelectedFilters, aNonSelectedCssClass, aSelectedCssClass);
+            return Filter("IssueStanceFilter", "FilterIssueByIssueStanceFilter", aFilter.ToString(), aSelectedFilters, aFilter.ToString(), aNonSelectedCssClass, aSelectedCssClass);
         }
 
-        private static string Filter(string aFilterType, string anActionMethodName, string aFilterText, Dictionary<string, string> aSelectedFilters, string aNonSelectedCssClass, string aSelectedCssClass) {
+        private static string Filter(string aFilterType, string anActionMethodName, string aFilterText, Dictionary<string, string> aSelectedFilters, string aDisplayName, string aNonSelectedCssClass, string aSelectedCssClass) {
             var linkTag = new TagBuilder("a");
-            linkTag.InnerHtml = aFilterText;
+            linkTag.InnerHtml = aDisplayName;
             linkTag.MergeAttribute("href", "/Issue/" + anActionMethodName + "?filterValue=" + aFilterText);
             string mySelectedFilter = aSelectedFilters[aFilterType];
             if (mySelectedFilter == aFilterText) {
@@ -32,9 +32,9 @@ namespace HaveAVoice.Helpers.UI {
             return linkTag.ToString();
         }
 
-        public static string PersonFilterButton(PersonFilter aFilter, PersonFilter aSelectedFilter, string aNonSelectedCssClass, string aSelectedCssClass) {
+        public static string PersonFilterButton(PersonFilter aFilter, PersonFilter aSelectedFilter, string aDisplayName, string aNonSelectedCssClass, string aSelectedCssClass) {
             var linkTag = new TagBuilder("a");
-            linkTag.InnerHtml = aFilter.ToString();
+            linkTag.InnerHtml = aDisplayName;
             linkTag.MergeAttribute("href", "/Profile/FilterFeed?filterValue=" + aFilter);
             if (aSelectedFilter == aFilter) {
                 linkTag.MergeAttribute("class", aSelectedCssClass);

@@ -49,12 +49,16 @@
         <% } else { %>
         <% TempData[HAVConstants.ORIGINAL_MYPROFILE_FEED_TEMP_DATA] = TempData[HAVConstants.ORIGINAL_MYPROFILE_FEED_TEMP_DATA]; %>
         <% PersonFilter myFilter = (PersonFilter)TempData[HAVConstants.FILTER_TEMP_DATA];  %>
-		    <div class="m-lft col-2 m-rgt f-rgt center">
-                <%= IssueHelper.PersonFilterButton(PersonFilter.Politicians, myFilter, "filter", "filterSelected") %>
+            <div class="m-lft col-2 m-rgt f-rgt center">
+                <%= IssueHelper.PersonFilterButton(PersonFilter.PoliticalCandidates, myFilter, "Political Candidates", "filter", "filterSelected") %>
                 <div class="clear">&nbsp;</div>
 		    </div>
 		    <div class="m-lft col-2 m-rgt f-rgt center">
-                <%= IssueHelper.PersonFilterButton(PersonFilter.People, myFilter, "filter", "filterSelected") %>
+                <%= IssueHelper.PersonFilterButton(PersonFilter.Politicians, myFilter, "Politicians", "filter", "filterSelected") %>
+                <div class="clear">&nbsp;</div>
+		    </div>
+		    <div class="m-lft col-2 m-rgt f-rgt center">
+                <%= IssueHelper.PersonFilterButton(PersonFilter.People, myFilter, "People", "filter", "filterSelected") %>
                 <div class="clear">&nbsp;</div>
 		    </div>
         <% } %>

@@ -20,7 +20,7 @@ using HaveAVoice.Helpers.Enums;
 namespace HaveAVoice.Controllers.Users {
     public class ProfileController : HAVBaseController {
         private const string EMPTY_FRIEND_FEED = "You have nothing in your feed. Make some friends to start seeing activity here!";
-        private const string EMPTY_POLITICIAN_FEED = "No politicians have posted anything interesting yet.!";
+        private const string EMPTY_POLITICIAN_FEED = "No politicians have posted anything interesting yet!";
         private const string EMPTY_PROFILE = "The user has no activity.";
         private const string MY_EMPTY_ISSUE_ACTIVITY = "You have not participated in any issues. Go out and start posting!";
         private const string EMPTY_ISSUE_ACTIVITY = "The user has yet to create any issues and reply to any exisiting issues.";

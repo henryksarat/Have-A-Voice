@@ -37,13 +37,16 @@
 		
 		<div class="push-7 col-9 m-btm10">
 			<div class="m-lft col-3 m-rgt center">
-                <%= IssueHelper.PersonFilterButton(PersonFilter.All, myFilter, "filter", "filterSelected") %>
+                <%= IssueHelper.PersonFilterButton(PersonFilter.All, myFilter, "All", "filter", "filterSelected") %>
 			</div>
 			<div class="m-lft col-3 m-rgt center">
-                <%= IssueHelper.PersonFilterButton(PersonFilter.Politicians, myFilter, "filter", "filterSelected") %>
+                <%= IssueHelper.PersonFilterButton(PersonFilter.Politicians, myFilter, "Politicians", "filter", "filterSelected") %>
 			</div>
 			<div class="m-lft col-3 m-rgt center">
-                <%= IssueHelper.PersonFilterButton(PersonFilter.People, myFilter, "filter", "filterSelected") %>
+                <%= IssueHelper.PersonFilterButton(PersonFilter.PoliticalCandidates, myFilter, "Political Candidates", "filter", "filterSelected") %>
+			</div>
+			<div class="m-lft col-3 m-rgt center">
+                <%= IssueHelper.PersonFilterButton(PersonFilter.People, myFilter, "People", "filter", "filterSelected") %>
 			</div>
 		</div>
 		<div class="clear">&nbsp;</div>

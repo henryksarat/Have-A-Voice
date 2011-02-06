@@ -2,6 +2,7 @@
 <%@ Import Namespace="HaveAVoice.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Helpers.Enums" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
+<%@ Import Namespace="HaveAVoice.Services.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
@@ -30,7 +31,7 @@
 	    <% foreach (var item in Model) { %>
 	    	<div class="issue-container m-btm10">
 		    	<div class="push-1 col-2">
-		    		<img src="<%= HaveAVoice.Services.Helpers.PhotoHelper.ProfilePicture(item.Issue.User) %>g" alt="<%= NameHelper.FullName(item.Issue.User) %>" class="profile" />
+		    		<img src="<%= PhotoHelper.ProfilePicture(item.Issue.User) %>" alt="<%= NameHelper.FullName(item.Issue.User) %>" class="profile" />
 		    	</div>
 		    	<div class="push-1 col-17 issue">
 		    		<div class="p-a5">

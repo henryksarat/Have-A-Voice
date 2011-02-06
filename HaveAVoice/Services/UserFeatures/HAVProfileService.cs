@@ -52,13 +52,18 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public UserProfileModel MyProfile(User aUser) {
             List<IssueFeedModel> myIssueFeed = CreateIssueFeed(theRepository.FriendIssueFeed(aUser), aUser, PersonFilter.People).ToList<IssueFeedModel>();
-            List<IssueReplyFeedModel> myIssueReplyFeed = CreateIssueReplyFeed(theRepository.FriendIssueReplyFeed(aUser), aUser, PersonFilter.People).ToList<IssueReplyFeedModel>();;
-            IEnumerable<IssueFeedModel> myAuthorityIssueFeed = CreateIssueFeed(theRepository.IssueFeedByRole(UserRoleHelper.OfficialRoles()), aUser, PersonFilter.People);
-            IEnumerable<IssueReplyFeedModel> myAuthorityIssueReplyFeed = CreateIssueReplyFeed(theRepository.IssueReplyFeedByRole(UserRoleHelper.OfficialRoles()), aUser, PersonFilter.People);
+            List<IssueReplyFeedModel> myIssueReplyFeed = CreateIssueReplyFeed(theRepository.FriendIssueReplyFeed(aUser), aUser, PersonFilter.People).ToList<IssueReplyFeedModel>();
+            IEnumerable<IssueFeedModel> myPoliticiansIssueFeed = CreateIssueFeed(theRepository.IssueFeedByRole(UserRoleHelper.PoliticianRoles()), aUser, PersonFilter.Politicians);
+            IEnumerable<IssueReplyFeedModel> myPoliticiansIssueReplyFeed = CreateIssueReplyFeed(theRepository.IssueReplyFeedByRole(UserRoleHelper.PoliticianRoles()), aUser, PersonFilter.Politicians);
+            IEnumerable<IssueFeedModel> myPoliticalCandidateIssueFeed = CreateIssueFeed(theRepository.IssueFeedByRole(UserRoleHelper.PoliticalCandidateRoles()), aUser, PersonFilter.PoliticalCandidates);
+            IEnumerable<IssueReplyFeedModel> myPoliticalCandidateIssueReplyFeed = CreateIssueReplyFeed(theRepository.IssueReplyFeedByRole(UserRoleHelper.PoliticalCandidateRoles()), aUser, PersonFilter.PoliticalCandidates);
 
-            myIssueFeed.AddRange(myAuthorityIssueFeed);
-            myIssueReplyFeed.AddRange(myAuthorityIssueReplyFeed);
+            myIssueFeed.AddRange(myPoliticiansIssueFeed);
+            myIssueFeed.AddRange(myPoliticalCandidateIssueFeed);
 
+            myIssueReplyFeed.AddRange(myPoliticiansIssueReplyFeed);
+            myIssueReplyFeed.AddRange(myPoliticalCandidateIssueReplyFeed);
+            
             UserProfileModel myModel = new UserProfileModel(aUser) {
                 IssueFeed = myIssueFeed,
                 IssueReplyFeed = myIssueReplyFeed,
@@ -85,8 +90,8 @@ namespace HaveAVoice.Services.UserFeatures {
         public UserProfileModel AuthorityProfile(User anAuthorityUser) {
             //This has to take into user privacy if they want an authority to see their profile
             UserProfileModel myModel = new UserProfileModel(anAuthorityUser) {
-                IssueFeed = CreateIssueFeed(theRepository.OfficialsIssueFeed(anAuthorityUser, UserRoleHelper.OfficialRoles()), anAuthorityUser, PersonFilter.People),
-                IssueReplyFeed = CreateIssueReplyFeed(theRepository.OfficialsIssueReplyFeed(anAuthorityUser, UserRoleHelper.OfficialRoles()), anAuthorityUser, PersonFilter.People)
+                IssueFeed = CreateIssueFeed(theRepository.OfficialsIssueFeed(anAuthorityUser, UserRoleHelper.PoliticianRoles()), anAuthorityUser, PersonFilter.Politicians),
+                IssueReplyFeed = CreateIssueReplyFeed(theRepository.OfficialsIssueReplyFeed(anAuthorityUser, UserRoleHelper.PoliticianRoles()), anAuthorityUser, PersonFilter.Politicians)
             };
 
             return myModel;
