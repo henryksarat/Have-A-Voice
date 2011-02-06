@@ -41,8 +41,8 @@
 		    		<div class="p-a5">
 			    		<h1><%= Html.ActionLink(item.Issue.Title, "View", new { id = item.Issue.Id })%></h1>
 						<br />
-			    		<%= item.Issue.Description 
-			    		<div class="clear">&nbsp;</div>%>
+			    		<%= item.Issue.Description %>
+			    		<div class="clear">&nbsp;</div>
 		    		</div>
 		    		<div class="clear">&nbsp;</div>
 		    		
