@@ -1,49 +1,96 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.StringWrapper>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	ChangePassword
+	Change Password
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="col-24">
+        <div class="col-24 spacer-30">&nbsp;</div>
+    
+    	<div class="push-1 col-6 center p-t5 p-b5 t-tab b-wht">
+    		<span class="fnt-16 tint-6 bold">CHANGE PASSWORD</span>
+    	</div>
+    	<div class="clear">&nbsp;</div>
+    	
+    	<div class="b-wht">
+    		<div class="col-1">&nbsp;</div>
+    		<div class="col-22">
+    			<div class="spacer-30">&nbsp;</div>
 
-    <% Html.RenderPartial("Message"); %>
+    			<% using (Html.BeginForm("Process", "Password", FormMethod.Post, new { @class = "create" })) { %>
+    				<%= Html.Hidden("ForgotPasswordHash", Model.Value) %>
+    				<% Html.RenderPartial("Message"); %>
+    				<%= Html.ValidationSummary("Password change was unsuccessful. Please correct the errors and try again.")%>
+    				<div class="clear">&nbsp;</div>
+    				
+    				<div class="push-3 col-16 fnt-14 teal m-btm10">
+    					Use the form below to change your password.<br />
+    					New passwords are required to be a minimum of <%=Html.Encode(ViewData["PasswordLength"])%> characters in length.
+    				</div>
+    				<div class="clear">&nbsp;</div>
+    				
+					<div class="col-4 m-rgt right">
+						<label for="currentPassword">Email:</label>
+						<div class="clear">&nbsp;</div>
+					</div>
+					<div class="col-4">
+						<%= Html.Textbox("Email") %>
+						<div class="clear">&nbsp;</div>
+					</div>
+					<div class="col-14 m-lft">
+	                    <span class="req">
+		                    <%= Html.ValidationMessage("Email", "*") %>
+	                    </span>
+	                    <div class="clear">&nbps;</div>
+					</div>
 
-    <h2>Change Password</h2>
-    <p>
-        <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
-    </p>
+					<div class="clear">&nbsp;</div>
+					<div class="spacer-10">&nbsp;</div>
+					<div class="clear">&nbsp;</div>
 
-    <% using (Html.BeginForm("Process", "Password")) {%>
-    <%= Html.Hidden("ForgotPasswordHash", Model.Value) %>
-    <p>
-        <%= Html.Encode(ViewData["Message"])%>
-    </p>
-        <fieldset>
-            <legend>Fields</legend>
-                <p>
-                    Please enter your email address.
-                </p>
+					<div class="col-4 m-rgt right">
+	                    <label for="newPassword">New Password:</label>
+                    </div>
+                    <div class="col-4">
+	                    <%= Html.Password("Password") %>
+	                    <div class="clear">&nbsp;</div>
+                    </div>
+                    <div class="col-14 m-lft">
+	                    <span class="req">
+		                    <%= Html.ValidationMessage("Password") %>
+	                    </span>
+                    </div>
 
-                <p>
-                    <label for="Email">Email:</label>
-                    <%= Html.TextBox("Email")%>
-                    <%= Html.ValidationMessage("Email", "*")%>
-                </p>
-                <p>
-                    <label for="Password">New Password:</label>
-                    <%= Html.TextBox("Password")%>
-                    <%= Html.ValidationMessage("Password", "*")%>
-                </p>
-                <p>
-                    <label for="RetypedPassword">Retype Password:</label>
-                    <%= Html.TextBox("RetypedPassword")%>
-                    <%= Html.ValidationMessage("RetypedPassword", "*")%>
-                </p>
-            
-            <p>
-                <button name="button" value="submit">Submit</button>
-            </p>
-        </fieldset>
-    <% } %>
+					<div class="clear">&nbsp;</div>
+					<div class="spacer-10">&nbsp;</div>
+					<div class="clear">&nbsp;</div>
 
+					<div class="col-4 m-rgt right">
+						<label for="confirmPassword">Retype Password:</label>
+						<div class="clear">&nbsp;</div>
+					</div>
+					<div class="col-4">
+						<%= Html.Password("RetypedPassword") %>
+						<div class="clear">&nbsp;</div>
+					</div>
+					<div class="col-14 m-lft">
+						<span class="req">
+		                    <%= Html.ValidationMessage("RetypedPassword", "*") %>
+	                    </span>
+	                    <div class="clear">&nbsp;</div>
+					</div>
+					
+					<div class="clear">&nbsp;</div>
+					
+					<div class="col-8 right m-btm30 m-top10">
+	                    <input type="submit" value="Submit" />
+	                    <div class="clear">&nbsp;</div>
+                    </div>
+			    <% } %>
+			    <div class="clear">&nbsp;</div>
+		    </div>
+		</div>
+		<div class="clear">&nbsp;</div>
+	</div>
 </asp:Content>

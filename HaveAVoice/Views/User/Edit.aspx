@@ -25,7 +25,7 @@
 	        <br />
 	        <div class="col-6 p-v10 details">
 				<span class="blue">Name:</span> <%= Model.UserInformation.FirstName + " " + Model.UserInformation.LastName %><br />
-				<span class="blue">Gender:</span> GENDER<br />
+				<span class="blue">Gender:</span> <%= Model.UserInformation.Gender %><br />
 				<span class="blue">Site:</span> <%= Model.UserInformation.Website %><br />
 	            <span class="blue">Email:</span> <%= Model.UserInformation.Email %><br />
 			</div>
@@ -57,7 +57,9 @@
 				</div>
 				<div class="push-1 col-6">
 					<%= Html.Password("NewPassword") %>
-	                <%= Html.ValidationMessage("NewPassword", "*") %>
+					<span class="req">
+		                <%= Html.ValidationMessage("NewPassword", "*") %>
+	                </span>
 				</div>
 				<div class="col-18 spacer-15">&nbsp;</div>
 				<div class="col-6">
@@ -65,7 +67,9 @@
 	            </div>
 				<div class="push-1 col-6">
 					<%= Html.Password("RetypedPassword") %>
-	                <%= Html.ValidationMessage("RetypedPassword", "*") %>
+					<span class="req">
+		                <%= Html.ValidationMessage("RetypedPassword", "*") %>
+	                </span>
 				</div>
 				<div class="col-18 spacer-15">&nbsp;</div>
 				<div class="col-6">
@@ -73,7 +77,9 @@
 				</div>
 	            <div class="push-1 col-6">
 					<%= Html.TextBox("FirstName", Model.UserInformation.FirstName) %>
-	                <%= Html.ValidationMessage("FirstName", "*") %>
+					<span class="req">
+		                <%= Html.ValidationMessage("FirstName", "*") %>
+	                </span>
 				</div>
 	            <div class="col-18 spacer-15">&nbsp;</div>
 	            <div class="col-6">
@@ -81,7 +87,9 @@
 	            </div>
 	            <div class="push-1 col-6">
 	                <%= Html.TextBox("LastName", Model.UserInformation.LastName) %>
-	                <%= Html.ValidationMessage("LastName", "*") %>
+	                <span class="req">
+		                <%= Html.ValidationMessage("LastName", "*") %>
+	                </span>
 	            </div>
 				<div class="col-18 spacer-15">&nbsp;</div>
 	            <div class="col-6">
@@ -89,7 +97,9 @@
 	            </div>
 	            <div class="push-1 col-6">
 	                <%= Html.TextBox("DateOfBirth", String.Format("{0:g}", Model.UserInformation.DateOfBirth)) %>
-	                <%= Html.ValidationMessage("DateOfBirth", "*") %>
+	                <span class="req">
+		                <%= Html.ValidationMessage("DateOfBirth", "*") %>
+	                </span>
 	            </div>
 	            <div class="col-18 spacer-15">&nbsp;</div>
 				<div class="col-6">
@@ -97,7 +107,9 @@
 				</div>
 				<div class="push-1 col-6">
 	                <%= Html.TextBox("City", Model.UserInformation.City) %>
-	                <%= Html.ValidationMessage("City", "*") %>
+	                <span class="req">
+		                <%= Html.ValidationMessage("City", "*") %>
+	                </span>
 				</div>
 	            <div class="col-18 spacer-15">&nbsp;</div>
 	            <div class="col-6">
@@ -105,7 +117,9 @@
 	            </div>
 	            <div class="push-1 col-6">
 	                <%= Html.DropDownList("State", Model.States) %>
-	                <%= Html.ValidationMessage("State", "*") %>
+	                <span class="req">
+		                <%= Html.ValidationMessage("State", "*") %>
+	                </span>
 	            </div>
 	            <div class="col-18 spacer-15">&nbsp;</div>
 				<div class="col-6">
@@ -113,7 +127,9 @@
 				</div>
 				<div class="push-1 col-6">
 	                <%= Html.TextBox("Website", Model.UserInformation.Website) %>
-	                <%= Html.ValidationMessage("Website", "*") %>
+	                <span class="req">
+		                <%= Html.ValidationMessage("Website", "*") %>
+					</span>
 				</div>
 	            <div class="col-18 spacer-15">&nbsp;</div>
 	            <div class="col-6">
@@ -121,7 +137,9 @@
 	            </div>
 	            <div class="push-1 col-6">
 	                <%= Html.TextBox("Email", Model.UserInformation.Email) %>
-	                <%= Html.ValidationMessage("Email", "*") %>
+	                <span class="req">
+	                	<%= Html.ValidationMessage("Email", "*") %>
+	                </span>
 	            </div>
 	            <div class="col-18 spacer-15">&nbsp;</div>
 				<div class="col-6">
@@ -129,7 +147,9 @@
 				</div>
 				<div class="push-1 col-6">
 	                <%= Html.TextArea("AboutMe", Model.UserInformation.AboutMe, new { style = "width:300px; height: 200px" }) %>
-	                <%= Html.ValidationMessage("AboutMe", "*") %>
+	                <span class="req">
+		                <%= Html.ValidationMessage("AboutMe", "*") %>
+	                </span>
 				</div>
 	            <div class="col-18 spacer-15">&nbsp;</div>
 				<div class="push-7 col-4">

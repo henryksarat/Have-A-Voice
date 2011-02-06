@@ -13,15 +13,16 @@
     <% Html.RenderPartial("UserPanel", Model.NavigationModel); %>    
     <div class="col-3 m-rgt left-nav">
         <% Html.RenderPartial("LeftNavigation"); %>
+        <div class="clear">&nbsp;</div>
     </div>
     
     <div class="col-21">	
         <% Html.RenderPartial("Message"); %>
-	    
+        <%= Html.ValidationSummary("Reply was unsuccessful. Please correct the errors and try again.") %>
+		<div class="clear">&nbsp;</div>
+
         <% using (Html.BeginForm("CreateReply", "Message")) { %>
 			<%= Html.Hidden("Id", Model.Model.Message.Id) %>
-			<%= Html.Encode(ViewData["Message"]) %>
-			<div class="clear">&nbsp;</div>
 
             <% if (Model != null) { %>
 	            <%= MessageHelper.MessageItem(NameHelper.FullName(Model.Model.Message.FromUser), PhotoHelper.ProfilePicture(Model.Model.Message.FromUser), Model.Model.Message.Subject, Model.Model.Message.Body, Model.Model.Message.DateTimeStamp)%>
@@ -35,18 +36,23 @@
 
 				<div class="col-2 m-rgt bold fnt-12 c-gray">
 					Reply:
+					<div class="clear">&nbsp;</div>
 				</div>
 				<div class="col-8 fnt-12">
 					<%= Html.TextArea("Reply", null, new { cols = "40", rows = "3", resize = "no" }) %>
+					<div class="clear">&nbsp;</div>
 				</div>
 				<div class="col-11 m-lft">
-					<%= Html.ValidationSummary("Reply was unsuccessful. Please correct the errors and try again.") %>
-				    <%= Html.ValidationMessage("Reply", "*")%>
+					<span class="req">
+						<%= Html.ValidationMessage("Reply", "*") %>
+					</span>
+					<div class="clear">&nbsp;</div>
 				</div>
 				<div class="clear">&nbsp;</div>
 
 	            <div class="push-8 col-2 right">
 	            	<input type="submit" value="Submit" class="submit" />
+	            	<div class="clear">&nbsp;</div>
 	            </div>
 	            <div class="clear">&nbsp;</div>
 	        <% } %>

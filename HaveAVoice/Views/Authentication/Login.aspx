@@ -28,8 +28,10 @@
 					<div class="col-4">
 						<%= Html.TextBox("Email") %>
 					</div>
-					<div class="col-14">
-						<%= Html.ValidationMessage("Email", "*") %>
+					<div class="col-14 m-lft">
+						<span class="req">
+							<%= Html.ValidationMessage("Email", "*") %>
+						</span>
 					</div>
 			        <div class="clear">&nbsp;</div>
 			        <div class="spacer-10">&nbsp;</div>
@@ -40,11 +42,15 @@
 			       <div class="col-4">
 			            <%= Html.Password("Password") %>
 			        </div>
-			        <div class="col-14">
-			            <%= Html.ValidationMessage("Password", "*") %>
+			        <div class="col-14 m-lft">
+			        	<span class="req">
+				            <%= Html.ValidationMessage("Password", "*") %>
+			            </span>
 					</div>
+					
 					<div class="clear">&nbsp;</div>
 					<div class="spacer-10">&nbsp;</div>
+					<div class="clear">&nbsp;</div>
 					
 					<div class="col-4 m-rgt right">
 						<label for="RememberMe">Remember me:</label>
@@ -53,13 +59,16 @@
 						<%= Html.CheckBox("RememberMe") %>
 						<div class="clear">&nbsp;</div>
 						<div class="spacer-10">&nbsp;</div>
+						<div class="clear">&nbsp;</div>
 						<%=Html.ActionLink("Forgot Password", "Request", "Password", null, new{ @class="forgot" }) %>
 					</div>
 					<div class="col-14">
 						&nbsp;
 					</div>
+
 					<div class="clear">&nbsp;</div>
 					<div class="spacer-10">&nbsp;</div>
+					<div class="clear">&nbsp;</div>
 					
                 	<div class="col-8 right">
 				        <input type="submit" class="create" value="Login" />

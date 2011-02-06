@@ -13,6 +13,7 @@
 	<% Html.RenderPartial("UserPanel", Model.NavigationModel); %>
     <div class="col-3 m-rgt left-nav">
         <% Html.RenderPartial("LeftNavigation"); %>
+        <div class="clear">&nbsp;</div>
     </div>
     
     <div class="col-21">
@@ -30,13 +31,16 @@
                     <%= Html.Hidden("AlbumId", Model.Model.Id) %>
 				        <div class="col-4 push-6 center">
 					        <input type="file" id="ImageUpload" name="ImageUpload" size="23" />
-	                        <%= Html.ValidationMessage("ProfilePictureUpload", "*")%>
+					        <span class="req">
+		                        <%= Html.ValidationMessage("ProfilePictureUpload", "*")%>
+	                        </span>
+	                        <div class="clear">&nbsp;</div>
 				        </div>
                 
 				    <div class="col-4 push-8 center">
 					    <input type="submit" value="Upload" class="create" />
+					    <div class="clear">&nbsp;</div>
 				    </div>
-				    <div class="clear">&nbsp;</div>
 			    <% } %>
 			    <div class="clear">&nbsp;</div>
 		    </div>

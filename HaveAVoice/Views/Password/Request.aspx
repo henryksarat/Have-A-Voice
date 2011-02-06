@@ -18,10 +18,10 @@
 			<div class="push-1 col-22">
 				<div class="spacer-30">&nbsp;</div>
                 <% Html.RenderPartial("Message"); %>
-
 				<%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
+				<div class="clear">&nbsp;</div>
 				
-				<% using (Html.BeginForm("Request", "Password", FormMethod.Post, new { @class = "create" })) {%>
+				<% using (Html.BeginForm("Request", "Password", FormMethod.Post, new { @class = "create" })) { %>
 					<div class="push-3 col-16 fnt-14 teal m-btm10">
 						Enter your have a voice&trade; email address.<br />
 						We will send you an email with instructions on how to change your password.
@@ -34,11 +34,13 @@
 						<div class="clear">&nbsp;</div>
 					</div>
 					<div class="col-4">
-						<%= Html.TextBox("Email")%>
+						<%= Html.TextBox("Email") %>
 						<div class="clear">&nbsp;</div>
 					</div>
-					<div class="col-14">
-						<%= Html.ValidationMessage("Email", "*")%>
+					<div class="col-14 m-lft">
+						<span class="req">
+							<%= Html.ValidationMessage("Email", "*") %>
+						</span>
 						<div class="clear">&nbsp;</div>
 					</div>
 					<div class="clear">&nbsp;</div>
@@ -52,4 +54,6 @@
 			</div>
 			<div class="clear">&nbsp;</div>
 		</div>
+		<div class="clear">&nbsp;</div>
+	</div>
 </asp:Content>

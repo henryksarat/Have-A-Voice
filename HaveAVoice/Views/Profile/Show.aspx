@@ -62,6 +62,7 @@
                 <div class="clear">&nbsp;</div>
 		    </div>
         <% } %>
+        <div class="clear">&nbsp;</div>
     </div>
 
     <div class="clear">&nbsp;</div>

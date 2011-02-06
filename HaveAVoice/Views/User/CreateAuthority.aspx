@@ -42,6 +42,12 @@
 				
 				return false;
 			});
+	        $('#DateOfBirth').datepicker({
+                yearRange: "-10:+10",
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: "mm-dd-yy"
+            });
 		});
 	</script>
     
@@ -60,59 +66,77 @@
     			
     			<% using (Html.BeginForm("CreateAuthority", "User", FormMethod.Post, new { @class = "create" })) { %>
                     <% Html.RenderPartial("Message"); %>
-
     				<%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
+    				<div class="clear">&nbsp;</div>
 
                     <%= Html.Hidden("Email", Model.Email) %>
                     <%= Html.Hidden("Token", Model.Token) %>
 	    			
                     <div class="col-4 m-rgt right">
 	    				<label for="FirstName">Email:</label>
+	    				<div class="clear">&nbsp;</div>
 	    			</div>
 	    			<div class="col-4">
 	    				<%= Model.Email %>
+	    				<div class="clear">&nbsp;</div>
 	    			</div>
 	    			<div class="clear">&nbsp;</div>
 	    			<div class="spacer-10">&nbsp;</div>
 
 	    			<div class="col-4 m-rgt right">
 	    				<label for="FirstName">First Name:</label>
+	    				<div class="clear">&nbsp;</div>
 	    			</div>
 	    			<div class="col-4">
 	    				<%= Html.TextBox("FirstName", Model.FirstName) %>
+	    				<div class="clear">&nbsp;</div>
 	    			</div>
-	    			<div class="col-14">
-	    				<%= Html.ValidationMessage("FirstName", "*") %>
+	    			<div class="col-14 m-lft">
+	    				<span class="req">
+		    				<%= Html.ValidationMessage("FirstName", "*") %>
+	    				</span>
+	    				<div class="clear">&nbsp;</div>
 	    			</div>
 	    			<div class="clear">&nbsp;</div>
 	    			<div class="spacer-10">&nbsp;</div>
 
 	    			<div class="col-4 m-rgt right">
 	    				<label for="LastName">Last Name:</label>
+	    				<div class="clear">&nbsp;</div>
 	    			</div>
 	    			<div class="col-4">
 	    				<%= Html.TextBox("LastName", Model.LastName) %>
+	    				<div class="clear">&nbsp;</div>
 	    			</div>
-	    			<div class="col-14">
-	    				<%= Html.ValidationMessage("LastName", "*")%>
+	    			<div class="col-14 m-lft">
+	    				<span class="req">
+		    				<%= Html.ValidationMessage("LastName", "*") %>
+	    				</span>
+	    				<div class="clear">&nbsp;</div>
 	    			</div>
 	    			<div class="clear">&nbsp;</div>
 	    			<div class="spacer-10">&nbsp;</div>
 	    			    			
 	    			<div class="col-4 m-rgt right">
 	    				<label for="Gender">Gender:</label>
+	    				<div class="clear">&nbsp;</div>
 	    			</div>
 	    			<div class="col-4">
-	    				<%= Html.DropDownList("Gender", Model.Genders)%>
+	    				<%= Html.DropDownList("Gender", Model.Genders) %>
+	    				<div class="clear">&nbsp;</div>
 	    			</div>
-	    			<div class="col-14">
-	    				<%= Html.ValidationMessage("Gender", "*")%>
+	    			<div class="col-14 m-lft">
+	    				<span class="req">
+	    					<%= Html.ValidationMessage("Gender", "*") %>
+	    				</span>
+	    				<div class="clear">&nbsp;</div>
 	    			</div>
 	    			<div class="clear">&nbsp;</div>
 	    			<div class="spacer-10">&nbsp;</div>
 
 	    			<div class="col-4 m-rgt right">
 	    				<label for="Password">Password:</label>
+	    				<div class="clear">&nbsp;</div>
 	    			</div>
 	    			<div class="col-4">
 	    				<%= Html.Password("Password") %>
@@ -123,44 +147,62 @@
 		                    <div class="good">GOOD</div>
 		                </div>
 	    			</div>
-	    			<div class="col-14">
-	    				<%= Html.ValidationMessage("Password", "*") %>
+	    			<div class="col-14 m-lft">
+	    				<span class="req">
+		    				<%= Html.ValidationMessage("Password", "*") %>
+	    				</span>
+	    				<div class="clear">&nbsp;</div>
 	    			</div>
 					<div class="clear">&nbsp;</div>
 					<div class="spacer-10">&nbsp;</div>
 					
 					<div class="col-4 m-rgt right">
 						<label for="DateOfBirth">Date of Birth:</label>
+	    				<div class="clear">&nbsp;</div>
 					</div>
 					<div class="col-4">
 						<%= Html.TextBox("DateOfBirth", Model.getDateOfBirthFormatted())%>
+	    				<div class="clear">&nbsp;</div>
 					</div>
-					<div class="col-14">
-						<%= Html.ValidationMessage("DateOfBirth", "*") %>
+					<div class="col-14 m-lft">
+						<div class="req">
+							<%= Html.ValidationMessage("DateOfBirth", "*") %>
+						</div>
+	    				<div class="clear">&nbsp;</div>
 					</div>
 					<div class="clear">&nbsp;</div>
 					<div class="spacer-10">&nbsp;</div>
 					
 					<div class="col-4 m-rgt right">
 						<label for="City">City:</label>
+	    				<div class="clear">&nbsp;</div>
 					</div>
 					<div class="col-4">
 						<%= Html.TextBox("RepresentingCity", Model.RepresentingCity)%>
+	    				<div class="clear">&nbsp;</div>
 					</div>
-					<div class="col-12">
-						<%= Html.ValidationMessage("City", "*")%>
+					<div class="col-12 m-lft">
+						<span class="req">
+							<%= Html.ValidationMessage("City", "*") %>
+						</span>
+	    				<div class="clear">&nbsp;</div>
 					</div>
 					<div class="clear">&nbsp;</div>
 					<div class="spacer-10">&nbsp;</div>
 					
 					<div class="col-4 m-rgt right">
 						<label for="State">State:</label>
+	    				<div class="clear">&nbsp;</div>
 					</div>
 					<div class="col-4">
-						<%= Html.DropDownList("RepresentingState", Model.States)%>
+						<%= Html.DropDownList("RepresentingState", Model.States) %>
+	    				<div class="clear">&nbsp;</div>
 					</div>
-					<div class="col-14">
-						<%= Html.ValidationMessage("State", "*")%>
+					<div class="col-14 m-lft">
+						<span class="req">
+							<%= Html.ValidationMessage("State", "*") %>
+						</span>
+	    				<div class="clear">&nbsp;</div>
 					</div>
 					<div class="clear">&nbsp;</div>
 					<div class="spacer-10">&nbsp;</div>
@@ -168,17 +210,23 @@
 					<div class="col-4">&nbsp;</div>
 					<div class="col-8">
 						<%= Html.TextArea("AgreementText", UserHelper.UserAgreement(), new { cols = "40", rows = "4", resize = "none" }) %>
+	    				<div class="clear">&nbsp;</div>
 					</div>
 					<div class="col-10">&nbsp;</div>
 					<div class="clear">&nbsp;</div>
 					<div class="col-4 m-rgt right">
 						<%= Html.CheckBox("Agreement") %>
+	    				<div class="clear">&nbsp;</div>
 					</div>
 					<div class="col-6">
 						I agree with the <a href="#">Terms of Service</a>.
+	    				<div class="clear">&nbsp;</div>
 					</div>
-					<div class="col-12">
-						<%= Html.ValidationMessage("Agreement", "*")%>
+					<div class="col-12 m-lft">
+						<span class="req">
+							<%= Html.ValidationMessage("Agreement", "*") %>
+						</span>
+	    				<div class="clear">&nbsp;</div>
 					</div>
 					<div class="clear">&nbsp;</div>
 					<div class="spacer-10">&nbsp;</div>
@@ -186,6 +234,7 @@
                 	<div class="col-8 right">
                 		<input type="submit" class="create" value="CreateUser" />
 						<%= Html.ActionLink("Cancel", "Index", "", new { @class = "cancel" }) %>
+	    				<div class="clear">&nbsp;</div>
                 	</div>
                 	<div class="clear">&nbsp;</div>
 	                

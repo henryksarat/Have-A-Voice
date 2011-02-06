@@ -61,35 +61,30 @@
 </script>
 
 <div class="col-18">
-<% using (Html.BeginForm("Login", "Authentication")) {%>
-    <div class="col-2 sign-in">
-        Sign In
-    </div>
-    <div class="col-15">
-        <div class="col-5 rel">
-            <%= Html.TextBox("Email", null, new{ @class = "login" })%>
-            <%= Html.ValidationMessage("Email", "*")%>
-		    <label>email</label>
-            <div class="remember rel">
-		        remember me
-		        <%= Html.CheckBox("RememberMe") %>
-            </div>
-        </div>
-        <div class="col-5 rel">
-            <%= Html.Password("Password", null, new { @class = "login" })%>
-            <%= Html.ValidationMessage("Password", "*")%>
-            <label>password</label>
-            <div class="clear">&nbsp;</div>
-            <div class="spacer-2">&nbsp;</div>
-            <%=Html.ActionLink("forgot password?", "Request", "Password", null, new{@class="forgot"}) %>
-        </div>
-
-        <div class="col-5">
-            <input type="submit" value="Login" class="button" />
-        </div>
-    </div>
-<% } %>
-
-<!-- Logon: -->
-<!--[ <%/*= Html.ActionLink("Log In", "Login", "Authentication")*/%> ] -->
+	<% using (Html.BeginForm("Login", "Authentication")) { %>
+	    <div class="col-2 sign-in">
+	        Sign In
+	    </div>
+	    <div class="col-15">
+	        <div class="col-5 rel">
+	            <%= Html.TextBox("Email", null, new{ @class = "login" }) %>
+			    <label>email</label>
+	            <div class="remember rel">
+			        remember me
+			        <%= Html.CheckBox("RememberMe") %>
+	            </div>
+	        </div>
+	        <div class="col-5 rel">
+	            <%= Html.Password("Password", null, new { @class = "login" }) %>
+	            <label>password</label>
+	            <div class="clear">&nbsp;</div>
+	            <div class="spacer-2">&nbsp;</div>
+	            <%=Html.ActionLink("forgot password?", "Request", "Password", null, new{ @class="forgot" }) %>
+	        </div>
+	
+	        <div class="col-5">
+	            <input type="submit" value="Login" class="button" />
+	        </div>
+	    </div>
+	<% } %>
 </div>

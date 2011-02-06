@@ -9,6 +9,17 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+	<script type="text/javascript" language="javascript">
+		$(function() {
+	        $('#Date').datepicker({
+                yearRange: "-10:+10",
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: "mm-dd-yy"
+            });
+		});
+	</script>
+
 	<% Html.RenderPartial("UserPanel", Model.NavigationModel); %>
     <div class="col-3 m-rgt left-nav">
         <% Html.RenderPartial("LeftNavigation"); %>
@@ -36,29 +47,34 @@
 					    <div class="col-6">
 						    <div class="col-2 m-rgt right c-white">
 							    <label for="Date">Date:</label>
+							    <div class="clear">&nbsp;</div>
 						    </div>
 						    <div class="col-4 fnt-12">
 							    <%= Html.TextBox("Date", DateTime.UtcNow.AddMinutes(1))%>
+						    	<span class="req">
+						    		<%= Html.ValidationMessage("Date", "*") %>
+						    	</span>
+							    <div class="clear">&nbsp;</div>
 						    </div>
 						    <div class="clear">&nbsp;</div>
-						    <div class="col-6">
-							    <%= Html.ValidationMessage("Date", "*")%>
-						    </div>
 					    </div>
 					    <div class="col-9">
 						    <div class="col-4 m-rgt right c-white">
 							    <label for="Information">Information:</label>
+							    <div class="clear">&nbsp;</div>
 						    </div>
 						    <div class="col-4 fnt-12">
 							    <%= Html.TextArea("Information", null, new { cols = "20", rows = "2", resize = "none" })%>
+						    	<span class="req">
+						    		<%= Html.ValidationMessage("Information", "*") %>
+						    	</span>
+						    	<div class="clear">&nbsp;</div>
 						    </div>
 						    <div class="clear">&nbsp;</div>
-						    <div class="col-8">
-							    <%= Html.ValidationMessage("Information", "*")%>
-						    </div>
 					    </div>
 					    <div class="col-3">
 						    <input type="submit" value="Create" class="create" />
+						    <div class="clear">&nbsp;</div>
 					    </div>
 					    <div class="clear">&nbsp;</div>
 				    <% } %>

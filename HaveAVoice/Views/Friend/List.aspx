@@ -12,6 +12,7 @@
 	<% Html.RenderPartial("UserPanel", Model.NavigationModel); %>
     <div class="col-3 m-rgt left-nav">
         <% Html.RenderPartial("LeftNavigation"); %>
+        <div class="clear">&nbsp;</div>
     </div>
         
     <div class="col-21">
@@ -35,6 +36,7 @@
 						<a href="/Profile/Show/<%= item.FriendUserId %>" class="name"><%= NameHelper.FullName(item.FriendUser) %></a>
 					</div>
 				</div>
+				<div class="clear">&nbsp;</div>
 			</div>
 			
 			<% if (cnt % 4 == 0) { %>

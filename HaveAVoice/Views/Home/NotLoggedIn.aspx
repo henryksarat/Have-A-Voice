@@ -7,20 +7,21 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <% Html.RenderPartial("Message"); %>
-
-    <%/* Html.RenderPartial("Tabs"); */%>
     <% Html.RenderPartial("NotLoggedInUserPanel"); %>
+    <div class="clear">&nbsp;</div>
     
     <div class="col-24 m-top20 not-logged">
         <div class="col-1">&nbsp;</div>
         <div class="col-10 center p-t5 p-b5 t-tab b-wht">
 			<img src="/Content/images/like.png" alt="Thumbs Up" align="top" />
             <span class="fnt-16 tint-6 bold">MEMBERS AGREE</span>
+            <div class="clear">&nbsp;</div>
         </div>
         <div class="col-2">&nbsp;</div>
 		<div class="col-10 center p-t5 p-b5 t-tab b-wht">
 			<span class="fnt-16 color-5 bold">MEMBERS DISAGREE</span>
 			<img src="/Content/images/dislike.png" alt="Thumbs Down" align="top" />
+			<div class="clear">&nbsp;</div>
 		</div>
         <div class="col-1">&nbsp;</div>
 		<div class="clear"></div>
@@ -63,7 +64,6 @@
 		</div>
 		<div class="clear">&nbsp;</div>
         <!--END AD SPACE-->
-
     </div>
     <div class="clear">&nbsp;</div>
 
@@ -74,7 +74,9 @@
                 <ul class="bullet fnt-12">
                     <%= IssueReplyHelper.IssueReplyDisplay(Model.MostPopularIssueReplys) %>
                 </ul>
+                <div class="clear">&nbsp;</div>
             </div>
+            <div class="clear">&nbsp;</div>
         </div>
 
         <div class="col-12">
@@ -83,7 +85,10 @@
                 <ul class="bullet fnt-12">
                     <%= IssueReplyHelper.IssueReplyDisplay(Model.NewestIssueReplys) %>
                 </ul>
+                <div class="clear">&nbsp;</div>
             </div>
+            <div class="clear">&nbsp;</div>
         </div>
+        <div class="clear">&nbsp;</div>
     </div>
 </asp:Content>
