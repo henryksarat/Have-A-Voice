@@ -36,9 +36,10 @@
 
 		    <% using (Html.BeginForm()) { %>
 		    	<% foreach (string myGroup in Model.PrivacySettings.Keys) { %>
-                    <%= myGroup %>
+                    <h4><%= myGroup %></h4>
+                    <div class="clear">&nbsp;</div>
                     <% foreach(Pair<PrivacySetting, bool> myPair in Model.PrivacySettings[myGroup]) { %>
-		    		<div class="col-13 m-btm15">		    		
+		    		<div class="push-1 col-13 m-btm15">		    		
 			            <div class="col-6">
 			                <label><%= myPair.First.DisplayName%></label>
                             <%= myPair.First.Description %>
