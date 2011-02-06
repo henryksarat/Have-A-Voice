@@ -370,6 +370,7 @@
     <Content Include="Content\images\menu\message.png" />
     <Content Include="Content\images\menu\photo.png" />
     <Content Include="Content\images\popular.png" />
+    <Content Include="Content\images\report.png" />
     <Content Include="Content\images\search.png" />
     <Content Include="Content\images\settings.png" />
     <Content Include="Content\images\star.png" />

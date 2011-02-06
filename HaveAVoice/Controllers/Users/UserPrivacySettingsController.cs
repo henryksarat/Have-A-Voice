@@ -60,12 +60,11 @@ namespace HaveAVoice.Controllers.Users
             try {
                 thePrivacyService.UpdatePrivacySettings(myUser, aSettings);
                 TempData["Message"] = MessageHelper.SuccessMessage(EDIT_SUCCESS);
-                return RedirectToAction(EDIT_VIEW);
             } catch (Exception e) {
                 LogError(e, EDIT_FAIL);
                 TempData["Message"] = MessageHelper.ErrorMessage(EDIT_FAIL);
-                return RedirectToAction(EDIT_VIEW);
             }
+            return RedirectToAction(EDIT_VIEW);
         }
     }
 }

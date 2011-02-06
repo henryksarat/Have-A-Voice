@@ -10,6 +10,7 @@ namespace HaveAVoice.Services.UserFeatures {
     public interface IHAVUserPrivacySettingsService {
         DisplayPrivacySettingsModel GetPrivacySettingsForEdit(User aUser);
         IEnumerable<PrivacySetting> FindPrivacySettingsForUser(User aUser);
+        void AddAuthorityPrivacySettingsForUser(User aUser);
         void AddDefaultPrivacySettingsForUser(User aUser);
         void UpdatePrivacySettings(User aUser, UpdatePrivacySettingsModel aPrivacySettings);
     }

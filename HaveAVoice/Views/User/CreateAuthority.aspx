@@ -208,7 +208,21 @@
 					<div class="clear">&nbsp;</div>
 					<div class="spacer-10">&nbsp;</div>
 										
-					<div class="col-4">&nbsp;</div>
+	    			<div class="col-4 m-rgt right">
+	    				<label for="FirstName">Have a voice Url:</label>
+	    			</div>
+	    			<div class="col-4">
+	    				<%= Html.TextBox("ShortUrl", Model.ShortUrl) %>
+	    			</div>
+                    www.haveavoice.com/
+	    			<div class="m-lft col-14">
+	    				<span class="req">
+		    				<%= Html.ValidationMessage("ShortUrl", "*") %>
+	    				</span>
+	    			</div>
+	    			<div class="clear">&nbsp;</div>
+	    			<div class="spacer-10">&nbsp;</div>
+
 					<div class="col-8">
 						<%= Html.TextArea("AgreementText", UserHelper.UserAgreement(), new { cols = "40", rows = "4", resize = "none" }) %>
 	    				<div class="clear">&nbsp;</div>

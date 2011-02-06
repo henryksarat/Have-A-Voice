@@ -21,5 +21,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         IEnumerable<Issue> FilteredIssuesFeed(User aUser);
         IEnumerable<IssueReply> FilteredIssueReplysFeed(User aUser);
+
+        Issue RandomLocalIssue(User aForUser);
     }
 }

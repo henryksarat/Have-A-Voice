@@ -46,6 +46,8 @@ namespace HaveAVoice.Models.View {
                     PersonFilter = PersonFilter.People;
                 } else if (value == (int)PersonFilter.Politicians) {
                     PersonFilter = PersonFilter.Politicians;
+                } else if (value == (int)PersonFilter.PoliticalCandidates) {
+                    PersonFilter = PersonFilter.PoliticalCandidates;
                 } else {
                     PersonFilter = PersonFilter.All;
                 }

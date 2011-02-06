@@ -25,6 +25,10 @@ namespace HaveAVoice.Services.UserFeatures {
             return thePrivacySettingsRepo.FindPrivacySettingsForUser(aUser);
         }
 
+        public void AddAuthorityPrivacySettingsForUser(User aUser) {
+            thePrivacySettingsRepo.AddPrivacySettingsForUser(aUser, HAVPrivacyHelper.GetAuthorityPrivacySettings());
+        }
+
         public void AddDefaultPrivacySettingsForUser(User aUser) {
             thePrivacySettingsRepo.AddPrivacySettingsForUser(aUser, HAVPrivacyHelper.GetDefaultPrivacySettings());
         }

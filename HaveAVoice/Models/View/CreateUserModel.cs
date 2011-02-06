@@ -30,6 +30,10 @@ namespace HaveAVoice.Models.View {
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Gender { get; set; }
 
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string ShortUrl { get; set; }
+
+
         public HAVGender SelectedGender {
             get {
                 HAVGender mySelectedGender = HAVGender.Select;

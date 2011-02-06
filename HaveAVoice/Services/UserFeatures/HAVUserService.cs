@@ -202,6 +202,11 @@ namespace HaveAVoice.Services.UserFeatures {
             } else if (theUserRepo.EmailRegistered(aUser.Email.Trim())) {
                 theValidationDictionary.AddError("Email", aUser.Email.Trim(), "Someone already registered with that email. Please try another one.");
             }
+            if (aUser.ShortUrl.Length == 0) {
+                theValidationDictionary.AddError("ShortUrl", aUser.ShortUrl, "You must give yourself www.haveavoice.com url.");
+            } else if (theUserRepo.ShortUrlTaken(aUser.ShortUrl)) {
+                theValidationDictionary.AddError("ShortUrl", aUser.ShortUrl, "That www.haveavoice.com url is already taken by someone else.");
+            }
 
             return ValidateUser(aUser);
         }
@@ -236,7 +241,6 @@ namespace HaveAVoice.Services.UserFeatures {
             if (aUser.DateOfBirth > DateTime.Today.AddYears(-18)) {
                 theValidationDictionary.AddError("DateOfBirth", aUser.DateOfBirth.ToString(), "You must be at least 18 years old.");
             }
-
 
             return theValidationDictionary.isValid;
         }

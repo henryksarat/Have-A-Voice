@@ -60,11 +60,16 @@ namespace HaveAVoice.Services.UserFeatures {
 
             myIssueFeed.AddRange(myPoliticiansIssueFeed);
             myIssueFeed.AddRange(myPoliticalCandidateIssueFeed);
+            myIssueFeed = myIssueFeed.OrderByDescending(i => i.DateTimeStamp).ToList<IssueFeedModel>();
 
             myIssueReplyFeed.AddRange(myPoliticiansIssueReplyFeed);
             myIssueReplyFeed.AddRange(myPoliticalCandidateIssueReplyFeed);
-            
+            myIssueReplyFeed = myIssueReplyFeed.OrderByDescending(ir => ir.DateTimeStamp).ToList<IssueReplyFeedModel>();
+
+            Issue myRandomLocalIssue = theRepository.RandomLocalIssue(aUser);
+
             UserProfileModel myModel = new UserProfileModel(aUser) {
+                LocalIssue = myRandomLocalIssue,
                 IssueFeed = myIssueFeed,
                 IssueReplyFeed = myIssueReplyFeed,
                 PhotoAlbumFeed = CreatePhotoAlbumFeed(theRepository.FriendPhotoAlbumFeed(aUser))
@@ -99,13 +104,12 @@ namespace HaveAVoice.Services.UserFeatures {
 
         private UserProfileModel Profile(User aUser, User aViewingUser) {
             IEnumerable<Board> myBoardMessages = theBoardRepository.FindBoardByUserId(aUser.Id);
-            IEnumerable<PhotoAlbum> myPhotoAlbums = thePhotoAlbumService.GetPhotoAlbumsForUser(aViewingUser, aUser.Id);
+            //IEnumerable<PhotoAlbum> myPhotoAlbums = thePhotoAlbumService.GetPhotoAlbumsForUser(aViewingUser, aUser.Id);
 
             UserProfileModel myProfileModel = new UserProfileModel(aUser) {
                 BoardFeed = CreateBoardFeed(myBoardMessages),
                 IssueFeed = CreateIssueFeed(theRepository.UserIssueFeed(aUser.Id), aViewingUser, PersonFilter.People),
                 IssueReplyFeed = CreateIssueReplyFeed(theRepository.UserIssueReplyFeed(aUser.Id), aViewingUser, PersonFilter.People),
-                PhotoAlbumFeed = CreatePhotoAlbumFeed(myPhotoAlbums)
             };
 
             foreach (Board myBoard in myBoardMessages) {

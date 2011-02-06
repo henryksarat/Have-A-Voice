@@ -143,7 +143,8 @@ namespace HaveAVoice.Controllers.Users {
         public ActionResult Edit(EditUserModel userToEdit) {
             try {
                 if (theService.EditUser(userToEdit)) {
-                    return SendToResultPage(EDIT_SUCCESS);
+                    TempData["Message"] = MessageHelper.SuccessMessage(EDIT_SUCCESS);
+                    return RedirectToAction("Edit");
                 }
             } catch (Exception exception) {
                 LogError(exception, "Error editing the user.");

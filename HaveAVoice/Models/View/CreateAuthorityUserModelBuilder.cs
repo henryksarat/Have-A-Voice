@@ -41,7 +41,7 @@ namespace HaveAVoice.Models.View {
 
             return User.CreateUser(0, Email, Password, FirstName, LastName, 
                 RepresentingCity, RepresentingState, DateOfBirth, myTempDateFiller, myTempDateFiller, 
-                myTempIp, false, myTempUtcOffset, (short)SelectedGender);
+                myTempIp, myTempUtcOffset, (short)SelectedGender);
         }
 
         public override String getDateOfBirthFormatted() {

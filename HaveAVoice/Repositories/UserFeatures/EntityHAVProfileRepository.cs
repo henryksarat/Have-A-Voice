@@ -67,7 +67,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     join r in theEntities.Roles on ur.Role.Id equals r.Id
                     where aRoles.Contains(r.Name)
                     && i.Deleted == false
-                    select i).ToList<Issue>();
+                    select i).OrderByDescending(i2 => i2.DateTimeStamp).ToList<Issue>();
         }
 
         public IEnumerable<IssueReply> IssueReplyFeedByRole(IEnumerable<string> aRoles) {
@@ -77,14 +77,14 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     join r in theEntities.Roles on ur.Role.Id equals r.Id
                     where aRoles.Contains(r.Name)
                     && ir.Deleted == false
-                    select ir).ToList<IssueReply>();
+                    select ir).OrderByDescending(i2 => i2.DateTimeStamp).ToList<IssueReply>();
         }
 
         public IEnumerable<Issue> UserIssueFeed(int aTargetUserId) {
             return (from f in theEntities.Issues
                     where f.UserId == aTargetUserId
                     && f.Deleted == false
-                    select f).OrderByDescending(f2 => f2.DateTimeStamp).ToList<Issue>();
+                    select f).OrderByDescending(i2 => i2.DateTimeStamp).ToList<Issue>();
         }
 
         public IEnumerable<IssueReply> UserIssueReplyFeed(int aTargetUserId) {
@@ -114,16 +114,16 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     select ir).OrderByDescending(ir => ir.DateTimeStamp).ToList<IssueReply>();
         }
 
-        private IEnumerable<FilteredCityState> FindFilteredCityStateForUser(User aUser) {
-            return (from f in theEntities.FilteredCityStates
-                    where f.UserId == aUser.Id
-                    select f).ToList<FilteredCityState>();
-        }
+        public Issue RandomLocalIssue(User aForUser) {
+            IEnumerable<Issue> myLocalIssues = (from i in theEntities.Issues
+                                                where i.City == aForUser.City
+                                                && i.State == aForUser.State
+                                                select i);
 
-        private IEnumerable<FilteredZipCode> FindFilteredZipCodeForUser(User aUser) {
-            return (from f in theEntities.FilteredZipCodes
-                    where f.UserId == aUser.Id
-                    select f).ToList<FilteredZipCode>();
+            int myCount = myLocalIssues.Count<Issue>();
+            int myRandomIndex = new Random().Next(myCount);
+
+            return myLocalIssues.Skip(myRandomIndex).FirstOrDefault<Issue>();
         }
     }
 }

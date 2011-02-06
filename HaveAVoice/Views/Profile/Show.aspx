@@ -73,6 +73,9 @@
 			    <div class="clear">&nbsp;</div>
 		    </div>
         <% } else { %>
+        <%= Model.Model.LocalIssue.Title %>
+        <%= Model.Model.LocalIssue.Description %>
+        <%= NameHelper.FullName(Model.Model.LocalIssue.User) %>
         <% TempData[HAVConstants.ORIGINAL_MYPROFILE_FEED_TEMP_DATA] = TempData[HAVConstants.ORIGINAL_MYPROFILE_FEED_TEMP_DATA]; %>
         <% PersonFilter myFilter = (PersonFilter)TempData[HAVConstants.FILTER_TEMP_DATA];  %>
             <div class="m-lft col-3 m-rgt f-rgt center">

@@ -7,6 +7,7 @@ using HaveAVoice.Helpers.Enums;
 namespace HaveAVoice.Models.View {
     public class UserProfileModel {
         public User User { get; set; }
+        public Issue LocalIssue { get; set; }
 
         public IEnumerable<BoardFeedModel> BoardFeed { set {
             BoardFeedEnumerator = value.GetEnumerator();

@@ -18,7 +18,6 @@ namespace HaveAVoice.Models.View {
             string myNewPassword = BinderHelper.GetA(bindingContext, "NewPassword");
             string myRetypedPassword = BinderHelper.GetA(bindingContext, "RetypedPassword");
             string myWebsite = BinderHelper.GetA(bindingContext, "Website");
-            string myTimezone = BinderHelper.GetA(bindingContext, "Timezone");
             string myCity = BinderHelper.GetA(bindingContext, "City");
             string myState = BinderHelper.GetA(bindingContext, "State");
             string myAboutMe = BinderHelper.GetA(bindingContext, "AboutMe");
@@ -37,9 +36,7 @@ namespace HaveAVoice.Models.View {
             user.City = myCity;
             user.State = myState;
             user.Website = myWebsite;
-            user.Newsletter = Boolean.Parse(BinderHelper.GetA(bindingContext, "Newsletter"));
             user.DateOfBirth = Convert.ToDateTime(BinderHelper.GetA(bindingContext, "DateOfBirth"));
-            user.UTCOffset = TimezoneHelper.GetOffset(myTimezone);
             user.AboutMe = myAboutMe;
 
             IEnumerable<SelectListItem> myStates = new SelectList(HAVConstants.STATES, user.State);

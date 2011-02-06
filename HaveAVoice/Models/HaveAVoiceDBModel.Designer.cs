@@ -10756,10 +10756,9 @@ namespace HaveAVoice.Models
         /// <param name="lastLogin">Initial value of the LastLogin property.</param>
         /// <param name="registrationDate">Initial value of the RegistrationDate property.</param>
         /// <param name="registrationIp">Initial value of the RegistrationIp property.</param>
-        /// <param name="newsletter">Initial value of the Newsletter property.</param>
         /// <param name="uTCOffset">Initial value of the UTCOffset property.</param>
         /// <param name="gender">Initial value of the Gender property.</param>
-        public static User CreateUser(global::System.Int32 id, global::System.String email, global::System.String password, global::System.String firstName, global::System.String lastName, global::System.String city, global::System.String state, global::System.DateTime dateOfBirth, global::System.DateTime lastLogin, global::System.DateTime registrationDate, global::System.String registrationIp, global::System.Boolean newsletter, global::System.String uTCOffset, global::System.Int16 gender)
+        public static User CreateUser(global::System.Int32 id, global::System.String email, global::System.String password, global::System.String firstName, global::System.String lastName, global::System.String city, global::System.String state, global::System.DateTime dateOfBirth, global::System.DateTime lastLogin, global::System.DateTime registrationDate, global::System.String registrationIp, global::System.String uTCOffset, global::System.Int16 gender)
         {
             User user = new User();
             user.Id = id;
@@ -10773,7 +10772,6 @@ namespace HaveAVoice.Models
             user.LastLogin = lastLogin;
             user.RegistrationDate = registrationDate;
             user.RegistrationIp = registrationIp;
-            user.Newsletter = newsletter;
             user.UTCOffset = uTCOffset;
             user.Gender = gender;
             return user;
@@ -11072,30 +11070,6 @@ namespace HaveAVoice.Models
         private global::System.String _RegistrationIp;
         partial void OnRegistrationIpChanging(global::System.String value);
         partial void OnRegistrationIpChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Boolean Newsletter
-        {
-            get
-            {
-                return _Newsletter;
-            }
-            set
-            {
-                OnNewsletterChanging(value);
-                ReportPropertyChanging("Newsletter");
-                _Newsletter = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Newsletter");
-                OnNewsletterChanged();
-            }
-        }
-        private global::System.Boolean _Newsletter;
-        partial void OnNewsletterChanging(global::System.Boolean value);
-        partial void OnNewsletterChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

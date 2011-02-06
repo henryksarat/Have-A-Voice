@@ -9,6 +9,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         void DeleteUser(User userToDelete);
         User DeleteUserFromRole(int userId, int roleId);
         bool EmailRegistered(string email);
+        bool ShortUrlTaken(string aShortUrl);
 
         void RemoveUserFromRole(User aUser, Role aRole);
         UserRole AddUserToRole(User user, Role role);

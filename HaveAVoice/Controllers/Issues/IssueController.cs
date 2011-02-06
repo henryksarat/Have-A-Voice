@@ -119,12 +119,14 @@ namespace HaveAVoice.Controllers.Issues {
                 User myUser = HAVUserInformationFactory.GetUserInformation().Details;
                 IEnumerable<IssueReplyModel> myPeopleReplys = theService.GetReplysToIssue(myUser, issue, UserRoleHelper.RegisteredRoles(), PersonFilter.People);
                 IEnumerable<IssueReplyModel> myPoliticianReplys = theService.GetReplysToIssue(myUser, issue, UserRoleHelper.PoliticianRoles(), PersonFilter.Politicians);
-                IEnumerable<IssueReplyModel> myPoliticalCandidateReplys = theService.GetReplysToIssue(myUser, issue, UserRoleHelper.PoliticianRoles(), PersonFilter.PoliticalCandidates);
+                IEnumerable<IssueReplyModel> myPoliticalCandidateReplys = theService.GetReplysToIssue(myUser, issue, UserRoleHelper.PoliticalCandidateRoles(), PersonFilter.PoliticalCandidates);
 
                 List<IssueReplyModel> myMerged = new List<IssueReplyModel>();
                 myMerged.AddRange(myPeopleReplys);
                 myMerged.AddRange(myPoliticianReplys);
                 myMerged.AddRange(myPoliticalCandidateReplys);
+
+                myMerged = myMerged.OrderByDescending(i => i.DateTimeStamp).ToList<IssueReplyModel>();
 
                 IssueModel myIssueModel = new IssueModel(issue, myMerged);
 

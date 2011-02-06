@@ -10,6 +10,7 @@ using HaveAVoice.Services.Helpers;
 using HaveAVoice.Exceptions;
 using HaveAVoice.Repositories.AdminFeatures;
 using HaveAVoice.Helpers;
+using HaveAVoice.Helpers.Enums;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVAuthenticationService : HAVBaseService, IHAVAuthenticationService {
@@ -121,7 +122,13 @@ namespace HaveAVoice.Services.UserFeatures {
             List<int> myUsers = new List<int>();
             myUsers.Add(myUser.Id);
             theRoleRepo.MoveUsersToRole(myUsers, myNotConfirmedRole.Id, aRoleToMoveTo.Id);
-            thePrivacySettingsService.AddDefaultPrivacySettingsForUser(myUser);
+
+            if (aRoleToMoveTo.Name.Equals(Roles.POLITICIAN) || aRoleToMoveTo.Name.Equals(Roles.POLITICAL_CANDIDATE)) {
+                thePrivacySettingsService.AddAuthorityPrivacySettingsForUser(myUser);
+            } else {
+                thePrivacySettingsService.AddDefaultPrivacySettingsForUser(myUser);
+            }
+
             return myUser;
         }
 

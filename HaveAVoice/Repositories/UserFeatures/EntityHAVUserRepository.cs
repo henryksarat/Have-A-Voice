@@ -81,6 +81,12 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     select c).Count() != 0 ? true : false;
         }
 
+        public bool ShortUrlTaken(string aShortUrl) {
+            return (from u in theEntities.Users
+                    where u.ShortUrl == aShortUrl
+                    select u).Count() != 0 ? true : false;
+        }
+
         public void RemoveUserFromRole(User myUser, Role myRole) {
             UserRole userRole = (from ur in theEntities.UserRoles
                             where ur.User.Id == myUser.Id
