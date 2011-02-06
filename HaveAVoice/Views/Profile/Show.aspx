@@ -16,6 +16,14 @@
 	<script type="text/javascript" language="javascript">
 		<!--
 			jQuery(function() {
+				$("div.reply-wrpr").each(function() {
+					$("div.reply", $(this)).not(":last").css({ "display": "none" });
+					$("div.reply:last", $(this)).parent().append("<a href=\"#\" class=\"m-btm5 push-3 alpha col-15 omega filter center\" rel=\"view-all\">View All<div class=\"clear\">&nbsp;</div></a><div class=\"clear\">&nbsp;</div>");
+				});
+				$("div.board-wrpr").each(function() {
+					$("div[class*=board-]", $(this)).not(":last").css({ "display": "none" });
+					$("div[class*=board-]:last", $(this)).parent().append("<a href=\"#\" class=\"m-btm5 push-3 alpha col-15 omega filter center\" rel=\"board-all\">View All<div class=\"clear\">&nbsp;</div></a><div class=\"clear\">&nbsp;</div>");
+				});
 				$("a[rel=post]").click(function() {
 					if ($("div.post").is(":visible")) {
 						$("div.post").slideUp("fast");
@@ -27,6 +35,18 @@
 				$("a[rel=reply]").click(function() {
 					$(this).fadeOut("fast", function() {
 						$(this).next("div").slideDown("fast");
+					});
+					return false;
+				});
+				$("a[rel=view-all]").live("click", function() {
+					$(this).fadeOut("fast", function() {
+						$(this).parent("div.reply-wrpr").children("div.reply").slideDown("fast");
+					});
+					return false;
+				});
+				$("a[rel=board-all]").live("click", function() {
+					$(this).fadeOut("fast", function() {
+						$(this).parent("div.board-wrpr").children("div.board-row, div.board-alt").slideDown("fast");
 					});
 					return false;
 				});
