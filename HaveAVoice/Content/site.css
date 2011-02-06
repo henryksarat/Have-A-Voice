@@ -318,6 +318,7 @@ form.create input[type=button]:hover { color: #115f71; background: #fff; }
 /******************************** FILTER ************************************/
 /****************************************************************************/
 .filter { border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; background-color: #20a9c9; padding: 5px 0px; }
+.local { background: #b6dde7; color: #747474; font-size: 12px; }
 
 
 /****************************************************************************/

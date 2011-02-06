@@ -17,12 +17,18 @@
 		<!--
 			jQuery(function() {
 				$("div.reply-wrpr").each(function() {
-					$("div.reply", $(this)).not(":last").css({ "display": "none" });
-					$("div.reply:last", $(this)).parent().append("<a href=\"#\" class=\"m-btm5 push-3 alpha col-15 omega filter center\" rel=\"view-all\">View All<div class=\"clear\">&nbsp;</div></a><div class=\"clear\">&nbsp;</div>");
+					var total = $("div.reply", $(this)).not(":last").length;
+					if (total > 1) {
+						$("div.reply", $(this)).not(":last").css({ "display": "none" });
+						$("div.reply:last", $(this)).parent().append("<a href=\"#\" class=\"m-btm5 push-3 alpha col-15 omega filter center\" rel=\"view-all\">View All<div class=\"clear\">&nbsp;</div></a><div class=\"clear\">&nbsp;</div>");
+					}
 				});
 				$("div.board-wrpr").each(function() {
-					$("div[class*=board-]", $(this)).not(":last").css({ "display": "none" });
-					$("div[class*=board-]:last", $(this)).parent().append("<a href=\"#\" class=\"m-btm5 push-3 alpha col-15 omega filter center\" rel=\"board-all\">View All<div class=\"clear\">&nbsp;</div></a><div class=\"clear\">&nbsp;</div>");
+					var total = $("div[class*=board-]", $(this)).not(":last").length;
+					if (total > 1) {
+						$("div[class*=board-]", $(this)).not(":last").css({ "display": "none" });
+						$("div[class*=board-]:last", $(this)).parent().append("<a href=\"#\" class=\"m-btm5 push-3 alpha col-15 omega filter center\" rel=\"board-all\">View All<div class=\"clear\">&nbsp;</div></a><div class=\"clear\">&nbsp;</div>");
+					}
 				});
 				$("a[rel=post]").click(function() {
 					if ($("div.post").is(":visible")) {
@@ -73,9 +79,6 @@
 			    <div class="clear">&nbsp;</div>
 		    </div>
         <% } else { %>
-        <%= Model.Model.LocalIssue.Title %>
-        <%= Model.Model.LocalIssue.Description %>
-        <%= NameHelper.FullName(Model.Model.LocalIssue.User) %>
         <% TempData[HAVConstants.ORIGINAL_MYPROFILE_FEED_TEMP_DATA] = TempData[HAVConstants.ORIGINAL_MYPROFILE_FEED_TEMP_DATA]; %>
         <% PersonFilter myFilter = (PersonFilter)TempData[HAVConstants.FILTER_TEMP_DATA];  %>
             <div class="m-lft col-3 m-rgt f-rgt center">
@@ -93,6 +96,18 @@
         <% } %>
         <div class="clear">&nbsp;</div>
     </div>
+
+	<% if(Model.NavigationModel.SiteSection != SiteSection.Profile) { %>
+		<div class="m-btm5 push-4 m-lft col-14 m-rgt local">
+			<div class="p-a5">
+				<h4>In Your Area</h4>
+				<div class="clear">&nbsp;</div>
+				Resident <%= NameHelper.FullName(Model.Model.LocalIssue.User) %> says, &quot;<%= Model.Model.LocalIssue.Description %>&quot;<br />
+				In response to the issue of <b><%= Model.Model.LocalIssue.Title %></b>.
+	        </div>
+	        <div class="clear">&nbsp;</div>
+		</div>
+	<% } %>
 
     <div class="clear">&nbsp;</div>
     <% Html.RenderPartial("Message"); %>
