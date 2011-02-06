@@ -20,14 +20,14 @@
 					var total = $("div.reply", $(this)).not(":last").length;
 					if (total > 1) {
 						$("div.reply", $(this)).not(":last").css({ "display": "none" });
-						$("div.reply:last", $(this)).parent().append("<a href=\"#\" class=\"m-btm5 push-3 alpha col-15 omega filter center\" rel=\"view-all\">View All<div class=\"clear\">&nbsp;</div></a><div class=\"clear\">&nbsp;</div>");
+						$("div.reply:last", $(this)).parent().append("<a href=\"#\" class=\"m-btm5 push-3 alpha col-15 omega filter center\" rel=\"view-all\">View All (" + total + ")<div class=\"clear\">&nbsp;</div></a><div class=\"clear\">&nbsp;</div>");
 					}
 				});
 				$("div.board-wrpr").each(function() {
 					var total = $("div[class*=board-]", $(this)).not(":last").length;
 					if (total > 1) {
 						$("div[class*=board-]", $(this)).not(":last").css({ "display": "none" });
-						$("div[class*=board-]:last", $(this)).parent().append("<a href=\"#\" class=\"m-btm5 push-3 alpha col-15 omega filter center\" rel=\"board-all\">View All<div class=\"clear\">&nbsp;</div></a><div class=\"clear\">&nbsp;</div>");
+						$("div[class*=board-]:last", $(this)).parent().append("<a href=\"#\" class=\"m-btm5 push-3 alpha col-15 omega filter center\" rel=\"board-all\">View All (" + total + ")<div class=\"clear\">&nbsp;</div></a><div class=\"clear\">&nbsp;</div>");
 					}
 				});
 				$("a[rel=post]").click(function() {

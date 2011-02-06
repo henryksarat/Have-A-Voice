@@ -16,11 +16,10 @@
 		<div class="m-lft col-14 comment">
 			<span class="speak-lft">&nbsp;</span>
 			<div class="p-a10">
-				<span class="fnt-14 teal">Regarding <%= Model.Issue.Title %></span><br />
+				<span class="fnt-14 teal">Regarding <a href="#"><%= Model.Issue.Title %></a></span><br />
 				<%= Html.ActionLink(Model.DisplayName, "Show", "Profile", new { id = Model.UserId }, new { @class = "name" })%> says:
 				<%= Model.Reply%>
 
-                
 				<div class="options p-v10">
 					<div class="push-3 col-10">
 						<div class="col-1 center">
