@@ -19,9 +19,6 @@ namespace HaveAVoice.Models.View {
         public string Password { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
-        public string Username { get; set; }
-
-        [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Email { get; set; }
 
         public bool Agreement { get; set; }

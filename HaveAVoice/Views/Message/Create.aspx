@@ -10,16 +10,17 @@
     <% Html.RenderPartial("UserPanel", Model.NavigationModel); %>    
     <div class="col-3 m-rgt left-nav">
         <% Html.RenderPartial("LeftNavigation"); %>
+        <div class="clear">&nbsp;</div>
     </div>
 
     <div class="col-21">	
         <% Html.RenderPartial("Message"); %>
-	    
 	    <%= Html.ValidationSummary("Send was unsuccessful. Please correct the errors and try again.") %>
 	    <div class="clear">&nbsp;</div>
 	    
 	    <div class="col-3">
 	    	<img src="<%=Model.Model.ToUserProfilePictureUrl %>" alt="<%= Model.Model.ToUserName %>" class="profile" />
+	    	<div class="clear">&nbsp;</div>
 	    </div>
 	    <div class="col-18">
 	    	<div class="col-18">
@@ -39,24 +40,33 @@
 		        <div class="col-18 m-btm10">
 			    	<div class="m-lft col-2 m-rgt right">
 			    		<label>Subject:</label>
+			    		<div class="clear">&nbsp;</div>
 			    	</div>
 			    	<div class="col-6">
-			    		<%= Html.TextBox("Subject", "")%>
+			    		<%= Html.TextBox("Subject", "") %>
+			    		<div class="clear">&nbsp;</div>
 			    	</div>
 			    	<div class="m-lft col-8">
-			    		<%= Html.ValidationMessage("Subject", "*") %>
+			    		<span class="req">
+				    		<%= Html.ValidationMessage("Subject", "*") %>
+			    		</span>
 			    	</div>
 			    	<div class="clear">&nbsp;</div>
 		        </div>
 				<div class="col-18 m-btm10">
 					<div class="m-lft col-2 m-rgt right">
 						<label>Message:</label>
+						<div class="clear">&nbsp;</div>
 					</div>
 					<div class="col-6">
 						<%= Html.TextArea("Body", null, new { cols = "31", rows = "4", resize = "none" })%>
+						<div class="clear">&nbsp;</div>
 					</div>
 					<div class="m-lft col-8">
-						<%= Html.ValidationMessage("Body", "*") %>
+						<span class="req">
+							<%= Html.ValidationMessage("Body", "*") %>
+						</span>
+						<div class="clear">&nbsp;</div>
 					</div>
 					<div class="clear">&nbsp;</div>
 				</div>

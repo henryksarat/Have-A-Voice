@@ -105,7 +105,7 @@
         </p>
 
         <% foreach (BoardReply reply in Model.Model.BoardReplies) { %>
-		<!-- BOARD ACTIVITY [Message] //-->
+			<!-- BOARD ACTIVITY [Message] //-->
 			<div class="row">
 				<div class="col-2 center">
 					<img src="http://images.pictureshunt.com/pics/e/eva_angelina-4773.jpg" alt="Eva Angelina" class="profile" />

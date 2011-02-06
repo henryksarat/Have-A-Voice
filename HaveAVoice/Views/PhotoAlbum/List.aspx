@@ -59,36 +59,13 @@
 				$("#Description").val("");
 				disablePopup();
 			});
-			/*
-			$("a.edit").click(function() {
-				var at = $(this).attr("href");
-				$.ajax({
-					url: at,
-					context: document.body,
-					success: function(data) {
-						
-						$(".popup").html(data);
-						centerPopup();
-						loadPopup();
-					}
-				});
-
-				return false;
-			});
-			*/
-			/*
-			$(document).keyPress(function(e) {
-				if (e.keyCode == 27 && popupStatus == 1) {
-					disablePopup();
-				}
-			});
-			*/
 		});
 	</script>
 
 	<% Html.RenderPartial("UserPanel", Model.NavigationModel); %>
     <div class="col-3 m-rgt left-nav">
         <% Html.RenderPartial("LeftNavigation"); %>
+        <div class="clear">&nbsp;</div>
     </div>
 
 	<div class="col-21">
@@ -126,28 +103,36 @@
 	        <% using (Html.BeginForm("Create", "PhotoAlbum", FormMethod.Post, new { @class = "create" })) { %>
 				<div class="col-3 right m-rgt">
 					<label for="Name">Name:</label>
-				</div>
-				<div class="col-6">
-					<%= Html.TextBox("Name")%>
-				</div>
-				<div class="clear">&nbsp;</div>
-				<div class="col-10 m-btm10">
-					<%= Html.ValidationMessage("Name", "*")%>
 					<div class="clear">&nbsp;</div>
 				</div>
+				<div class="col-6">
+					<%= Html.TextBox("Name") %>
+					<span class="req">
+						<%= Html.ValidationMessage("Name", "*") %>
+					</span>
+					<div class="clear">&nbsp;</div>
+				</div>
+
 				<div class="clear">&nbsp;</div>
+				<div class="spacer-10">&nbsp;</div>
+				<div class="clear">&nbsp;</div>
+
 				<div class="col-3 right m-rgt">
 					<label for="Description">Description:</label>
+					<div class="clear">&nbsp;</div>
 				</div>
 				<div class="col-6">
 					<%= Html.TextArea("Description", null, new { cols = "31", rows = "4", resize = "none"}) %>
-				</div>
-				<div class="clear">&nbsp;</div>
-				<div class="col-10 m-btm10">
-					<%= Html.ValidationMessage("Description", "*") %>
+					<span class="req">
+						<%= Html.ValidationMessage("Description", "*") %>
+					</span>
 					<div class="clear">&nbsp;</div>
 				</div>
+
 				<div class="clear">&nbsp;</div>
+				<div class="spacer-10">&nbsp;</div>
+				<div class="clear">&nbsp;</div>
+
 				<div class="right">
 					<input type="submit" value="Create" class="create" />
 					<input type="button" value="Cancel" class="btn" id="Cancel" />

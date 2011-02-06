@@ -10,7 +10,7 @@ namespace HaveAVoice.Models.View {
         public string LastReply { get; set; }
         public DateTime DateTimeStamp { get; set; }
         public string Subject { get; set; }
-        public string FromUsername { get; set; }
+        public string FromUser { get; set; }
         public int FromUserId { get; set; }
         public bool Viewed { get; set; }
         public string FromUserProfilePictureUrl { get; set; }
@@ -18,7 +18,7 @@ namespace HaveAVoice.Models.View {
         public InboxMessage() {
             LastReply = string.Empty;
             Subject = string.Empty;
-            FromUsername = string.Empty;
+            FromUser = string.Empty;
             Viewed = true;
             FromUserProfilePictureUrl = HAVConstants.NO_PROFILE_PICTURE_URL;
         }

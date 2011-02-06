@@ -12,7 +12,6 @@ namespace HaveAVoice.Models.View {
         public string NewPassword { get; set; }
         public string RetypedPassword { get; set; }
         public string OriginalEmail { get; set; }
-        public string OriginalUsername { get; set; }
         public string OriginalPassword { get; set; }
         public string ProfilePictureURL { get; set; }
         public IEnumerable<SelectListItem> States { get; set; }
@@ -22,7 +21,6 @@ namespace HaveAVoice.Models.View {
             NewPassword = string.Empty;
             RetypedPassword = string.Empty;
             OriginalEmail = aUser.Email;
-            OriginalUsername = aUser.Username;
             OriginalPassword = aUser.Password;
             ProfilePictureURL = HAVConstants.NO_PROFILE_PICTURE_URL;
             States = new List<SelectListItem>();

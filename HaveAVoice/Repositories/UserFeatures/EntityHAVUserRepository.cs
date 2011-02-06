@@ -81,12 +81,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     select c).Count() != 0 ? true : false;
         }
 
-        public bool UsernameRegistered(string username) {
-            return (from c in theEntities.Users
-                    where c.Username == username
-                    select c).Count() != 0 ? true : false;
-        }
-
         public void RemoveUserFromRole(User myUser, Role myRole) {
             UserRole userRole = (from ur in theEntities.UserRoles
                             where ur.User.Id == myUser.Id
@@ -95,38 +89,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
             theEntities.DeleteObject(userRole);
             theEntities.SaveChanges();
-        }
-
-        public IEnumerable<UserDetailsModel> GetUserList(User user) {
-            EntityHAVRoleRepository roleRepository = new EntityHAVRoleRepository();
-            
-            Role notConfirmedRole = roleRepository.GetNotConfirmedUserRole();
-            System.Data.Objects.ObjectQuery<Friend> listeners = theEntities.Friends;
-            int userId = (user == null ? -1 : user.Id);
-
-            List<UserDetailsModel> userInformations = (from usr in theEntities.Users
-                                              join ur in theEntities.UserRoles on usr.Id equals ur.User.Id
-                                              where ur.Role.Id != notConfirmedRole.Id
-                                              && usr.Id != userId
-                                              select new UserDetailsModel {
-                                                  UserId = usr.Id,
-                                                  Username = usr.Username,
-                                                  Email = usr.Email,
-                                                  CanListen = false,
-                                                  CanMessage = false
-                                              }).ToList<UserDetailsModel>();
-
-            foreach (UserDetailsModel userInformation in userInformations) {
-                if (CanFriend(userInformation.UserId, userId)) {
-                    userInformation.CanListen = true;
-                }
-
-                if (CanMessage(userInformation.UserId, userId)) {
-                    userInformation.CanMessage = true;
-                }
-            }
-
-            return userInformations;
         }
 
         public void UpdateUser(User userToEdit) {

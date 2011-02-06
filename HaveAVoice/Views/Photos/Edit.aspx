@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.PhotosModel>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInWrapperModel<PhotosModel>>" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UI" %>
 
@@ -7,15 +7,16 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-<% /* just used as example code... not used on Site anymore!! */ %>
-	<% /* Html.RenderPartial("UserPanel", Model.NavigationModel); */ %>
+	<% Html.RenderPartial("UserPanel", Model.NavigationModel); %>
     <div class="col-3 m-rgt left-nav">
         <% Html.RenderPartial("LeftNavigation"); %>
+        <div class="clear">&nbsp;</div>
     </div>
     
     <div class="col-21">
     	<div class="push-1 col-4 center p-t5 p-b5 t-tab b-wht">
     		<span class="fnt-16 tint-6 bold">IMAGES</span>
+    		<div class="clear">&nbsp;</div>
     	</div>
     	<div class="clear">&nbsp;</div>
     	<div class="b-wht">
@@ -24,15 +25,15 @@
     			<div class="p-a10">
 	    			<div class="col-4 c-gray fnt-14 bold">
 	    				Current Profile Picture:
+	    				<div class="clear">&nbsp;</div>
 	    			</div>
 	    			<div class="col-3">
 				        <%= Html.Hidden("ProfilePictureURL", Model.ProfilePictureURL) %>
 				        <%= Html.Hidden("UserId", Model.UserId) %>
 						<img src="<%= Model.ProfilePictureURL %>" alt="" class="profile" />
+						<div class="clear">&nbsp;</div>
 	    			</div>
 	    			<div class="clear">&nbsp;</div>
-	    			
-	    			<%= Html.Encode(ViewData["Message"]) %>
     			</div>
     			<div class="clear">&nbsp;</div>
     			
@@ -44,9 +45,11 @@
 		    				<div class="p-a10 center">
 			    				<%= CheckBoxHelper.StandardCheckbox("SelectedProfilePictureId", item.Id.ToString(), Model.SelectedPhotos.Contains(item.Id)) %>
 		    				</div>
+		    				<div class="clear">&nbsp;</div>
 		    			</div>
 		    			<div class="col-3 center">
 		    				<img src="/Photos/<%= item.ImageName %>" class="profile" />
+		    				<div class="clear">&nbsp;</div>
 		    			</div>
 		    			<div class="col-3">
 							<div class="p-a5">
@@ -54,6 +57,7 @@
 									<span><%= item.DateTimeStamp.ToString("MMM").ToUpper() %></span> <%= item.DateTimeStamp.ToString("dd") %>
 								</div>
 							</div>
+							<div class="clear">&nbsp;</div>
 		    			</div>
 	    			</div>
 	    			<% if(cnt % 3 == 0) { %>

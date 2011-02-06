@@ -8,5 +8,7 @@ namespace HaveAVoice.Helpers.Enums {
         public static string OFFICIAL = "Officials";
         public static string REGISTERED = "Registered";
         public static string ADMIN = "Admin";
+        public static string POLITICIAN = "Politician";
+        public static string POLITICAL_CANDIDATE = "PoliticalCandidate";
     }
 }

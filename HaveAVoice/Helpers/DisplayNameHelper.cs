@@ -5,8 +5,8 @@ using System.Web;
 using HaveAVoice.Models;
 
 namespace HaveAVoice.Helpers {
-    public class DisplayNameHelper {
-        public static string Display(User aUser) {
+    public class NameHelper {
+        public static string FullName(User aUser) {
             return aUser.FirstName + " " + aUser.LastName;
         }
     }

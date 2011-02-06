@@ -117,12 +117,14 @@ namespace HaveAVoice.Controllers.Issues {
                 }
 
                 User myUser = HAVUserInformationFactory.GetUserInformation().Details;
-                IEnumerable<IssueReplyModel> registeredUserReplys = theService.GetReplysToIssue(myUser, issue, UserRoleHelper.RegisteredRoles(), PersonFilter.Politicians);
-                IEnumerable<IssueReplyModel> officialUserReplys = theService.GetReplysToIssue(myUser, issue, UserRoleHelper.OfficialRoles(), PersonFilter.People);
+                IEnumerable<IssueReplyModel> myPeopleReplys = theService.GetReplysToIssue(myUser, issue, UserRoleHelper.RegisteredRoles(), PersonFilter.People);
+                IEnumerable<IssueReplyModel> myPoliticianReplys = theService.GetReplysToIssue(myUser, issue, UserRoleHelper.PoliticianRoles(), PersonFilter.Politicians);
+                IEnumerable<IssueReplyModel> myPoliticalCandidateReplys = theService.GetReplysToIssue(myUser, issue, UserRoleHelper.PoliticianRoles(), PersonFilter.PoliticalCandidates);
 
                 List<IssueReplyModel> myMerged = new List<IssueReplyModel>();
-                myMerged.AddRange(registeredUserReplys);
-                myMerged.AddRange(officialUserReplys);
+                myMerged.AddRange(myPeopleReplys);
+                myMerged.AddRange(myPoliticianReplys);
+                myMerged.AddRange(myPoliticalCandidateReplys);
 
                 IssueModel myIssueModel = new IssueModel(issue, myMerged);
 
@@ -153,20 +155,6 @@ namespace HaveAVoice.Controllers.Issues {
                 ViewData["Message"] = MessageHelper.ErrorMessage(CREATING_COMMENT_ERROR);
             }
             return View("View", issueModel);
-        }
-
-        [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult FilterIssue(string type, int filterValue) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-
-            IssueModel myEditableModel = GetOriginalIssue();
-            Dictionary<string, int> myFilter = GetUpdatedFilter(type, filterValue);
-
-            myEditableModel.Replys = FilterReplys(myEditableModel, myFilter);
-
-            return View("View", myEditableModel);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
@@ -261,42 +249,76 @@ namespace HaveAVoice.Controllers.Issues {
             return View("Edit", anIssueWrapper);
         }
 
-        private void SaveIssueInformationToTempDataForFiltering(IssueModel aModel) {
-            TempData[HAVConstants.ORIGINAL_ISSUE_TEMP_DATA] = aModel;
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult FilterIssueByPersonFilter(PersonFilter filterValue) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
 
-            Dictionary<string, int> myFilter = new Dictionary<string, int>();
-            myFilter.Add(PERSON_FILTER, (int)PersonFilter.All);
-            myFilter.Add(ISSUE_STANCE_FILTER, (int)IssueStanceFilter.All);
+            return FilterIssue(PERSON_FILTER, filterValue.ToString());
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult FilterIssueByIssueStanceFilter(IssueStanceFilter filterValue) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+
+            return FilterIssue(ISSUE_STANCE_FILTER, filterValue.ToString());
+        }
+
+        private ActionResult FilterIssue(string aFilterType, string aFilterValue) {
+            IssueModel myOriginalModel = GetOriginalIssue();
+            Dictionary<string, string> myFilter = GetUpdatedFilter(aFilterType, aFilterValue);
+
+            IEnumerable<IssueReplyModel> myFilteredReplys = FilterReplys(myOriginalModel, myFilter);
+            IssueModel mynewModel = new IssueModel(myOriginalModel.Issue, myFilteredReplys);
+
+            SaveOriginalIssue(myOriginalModel);
+
+            return View("View", mynewModel);
+        }
+
+        private void SaveIssueInformationToTempDataForFiltering(IssueModel aModel) {
+            SaveOriginalIssue(aModel);
+
+            Dictionary<string, string> myFilter = new Dictionary<string, string>();
+            myFilter.Add(PERSON_FILTER, PersonFilter.All.ToString());
+            myFilter.Add(ISSUE_STANCE_FILTER, IssueStanceFilter.All.ToString());
 
             TempData[HAVConstants.FILTER_TEMP_DATA] = myFilter;
         }
 
-        private IssueModel GetOriginalIssue() {
-            return ((IssueModel)TempData[HAVConstants.ORIGINAL_ISSUE_TEMP_DATA]).Copy();
+        private void SaveOriginalIssue(IssueModel aModel) {
+            TempData[HAVConstants.ORIGINAL_ISSUE_TEMP_DATA] = aModel;
         }
 
-        private Dictionary<string, int> GetUpdatedFilter(string type, int filterValue) {
-            Dictionary<string, int> myFilter = (Dictionary<string, int>)TempData[HAVConstants.FILTER_TEMP_DATA];
-            myFilter.Remove(type);
-            myFilter.Add(type, filterValue);
+        private IssueModel GetOriginalIssue() {
+            return ((IssueModel)TempData[HAVConstants.ORIGINAL_ISSUE_TEMP_DATA]);
+        }
+
+        private Dictionary<string, string> GetUpdatedFilter(string aType, string aFilterValue) {
+            Dictionary<string, string> myFilter = (Dictionary<string, string>)TempData[HAVConstants.FILTER_TEMP_DATA];
+            myFilter.Remove(aType);
+            myFilter.Add(aType, aFilterValue);
             return myFilter;
         }
 
-        private IEnumerable<IssueReplyModel> FilterReplys(IssueModel myEditableModel, Dictionary<string, int> myFilter) {
+        private IEnumerable<IssueReplyModel> FilterReplys(IssueModel myEditableModel, Dictionary<string, string> myFilter) {
             IEnumerable<IssueReplyModel> myReplys = new List<IssueReplyModel>();
 
-            if (myFilter[PERSON_FILTER] != 0 && myFilter[ISSUE_STANCE_FILTER] != 0) {
+            if (myFilter[PERSON_FILTER] != PersonFilter.All.ToString() && myFilter[ISSUE_STANCE_FILTER] != IssueStanceFilter.All.ToString()) {
                 myReplys = (from r in myEditableModel.Replys
-                            where r.TempPersonFilterHolder == myFilter[PERSON_FILTER]
-                            && r.TempDispositionHolder == myFilter[ISSUE_STANCE_FILTER]
+                            where r.PersonFilter.ToString() == myFilter[PERSON_FILTER]
+                            && r.IssueStanceFilter.ToString() == myFilter[ISSUE_STANCE_FILTER]
                             select r).ToList<IssueReplyModel>();
-            } else if (myFilter[PERSON_FILTER] != 0) {
+            } else if (myFilter[PERSON_FILTER] != PersonFilter.All.ToString()) {
                 myReplys = (from r in myEditableModel.Replys
-                            where r.TempPersonFilterHolder == myFilter[PERSON_FILTER]
+                            where r.PersonFilter.ToString() == myFilter[PERSON_FILTER]
                             select r).ToList<IssueReplyModel>();
-            } else if (myFilter[ISSUE_STANCE_FILTER] != 0) {
+            } else if (myFilter[ISSUE_STANCE_FILTER] != IssueStanceFilter.All.ToString()) {
                 myReplys = (from r in myEditableModel.Replys
-                            where r.TempDispositionHolder == myFilter[ISSUE_STANCE_FILTER]
+                            where r.IssueStanceFilter.ToString() == myFilter[ISSUE_STANCE_FILTER]
                             select r).ToList<IssueReplyModel>();
             } else {
                 myReplys = myEditableModel.Replys;

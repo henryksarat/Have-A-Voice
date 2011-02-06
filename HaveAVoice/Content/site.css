@@ -55,6 +55,7 @@ body { font-family: helvetica, arial, sans-serif; background: #20a9c9; }
 /****************************************************************************/
 .f-lft { float: left; }
 .f-rgt { float: right; }
+.left { text-align: left; }
 .center { text-align: center; }
 .right { text-align: right; }
 
@@ -144,6 +145,7 @@ div.error { padding: 10px 0px; background: #f6cbca; color: #d02327; border: 1px 
 div.success { padding: 10px 0px; background: #eef4d4; color: #6f8438; border: 1px solid #8fad3d; text-align: center; width: 640px; margin: 0px auto 10px auto; font-weight: bold; font-size: 12px; }
 div.normal { padding: 10px 0px; background: #fcf9ce; color: #43423c; border: 1px solid #dfdfde; text-align: center; width: 640px; margin: 0px auto 10px auto; font-weight: bold; font-size: 12px; }
 div.error-msg { padding: 20px; background: #fff; color: #20a9c9; width: 540px; margin: 50px auto; }
+span.req { color: red; font-style: italic; }
 
 div.stretch textarea { width: 795px; }
 

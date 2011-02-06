@@ -7,6 +7,7 @@ namespace HaveAVoice.Helpers.Enums {
     public enum PersonFilter {
         All = 0,
         People = 1,
-        Politicians = 2
+        Politicians = 2,
+        PoliticalCandidates = 3
     }
 }

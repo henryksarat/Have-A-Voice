@@ -5,6 +5,7 @@
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
+<%@ Import Namespace="HaveAVoice.Helpers.UI" %>
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
@@ -33,7 +34,6 @@
     </div>
 
     <div class="col-21">
-    <% Html.RenderPartial("Message"); %>
 
     <div class="fnt-10 m-btm5">
         <% if (Model.NavigationModel.SiteSection == SiteSection.Profile) { %>
@@ -47,17 +47,27 @@
 			    <div class="clear">&nbsp;</div>
 		    </div>
         <% } else { %>
-		    <div class="m-lft col-2 m-rgt f-rgt center">
-                <a href="#" class="filter">Politians</a>
+        <% TempData[HAVConstants.ORIGINAL_MYPROFILE_FEED_TEMP_DATA] = TempData[HAVConstants.ORIGINAL_MYPROFILE_FEED_TEMP_DATA]; %>
+        <% PersonFilter myFilter = (PersonFilter)TempData[HAVConstants.FILTER_TEMP_DATA];  %>
+            <div class="m-lft col-2 m-rgt f-rgt center">
+                <%= IssueHelper.PersonFilterButton(PersonFilter.PoliticalCandidates, myFilter, "Political Candidates", "filter", "filterSelected") %>
                 <div class="clear">&nbsp;</div>
 		    </div>
 		    <div class="m-lft col-2 m-rgt f-rgt center">
-                <a href="#" class="filter">People</a>
+                <%= IssueHelper.PersonFilterButton(PersonFilter.Politicians, myFilter, "Politicians", "filter", "filterSelected") %>
+                <div class="clear">&nbsp;</div>
+		    </div>
+		    <div class="m-lft col-2 m-rgt f-rgt center">
+                <%= IssueHelper.PersonFilterButton(PersonFilter.People, myFilter, "People", "filter", "filterSelected") %>
                 <div class="clear">&nbsp;</div>
 		    </div>
         <% } %>
+        <div class="clear">&nbsp;</div>
     </div>
+
     <div class="clear">&nbsp;</div>
+    <% Html.RenderPartial("Message"); %>
+    
     <% if (Model.NavigationModel.SiteSection == SiteSection.MyProfile) { %>
         <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
 
@@ -88,7 +98,7 @@
 		    <div class="row">
 			    <div class="push-2 col-2 center">
 	                <% UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation(); %>
-				    <img src="<%= myUserInfo.ProfilePictureUrl  %>" alt="<%= myUserInfo.Details.Username %>" class="profile" />
+				    <img src="<%= myUserInfo.ProfilePictureUrl  %>" alt="<%= myUserInfo.FullName %>" class="profile" />
 			    </div>
 			    <div class="push-2 m-lft col-14 comment">
 				    <span class="speak-lft">&nbsp;</span>

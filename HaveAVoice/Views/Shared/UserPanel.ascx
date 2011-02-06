@@ -9,7 +9,7 @@
 <div class="col-24 user-panel">
     <% User myUser = HAVUserInformationFactory.GetUserInformation().Details; %>
 	<div class="col-3 center">
-		<img src="<%= Model.ProfilePictureUrl %>" alt="<%= Model.User.Username %>" class="profile" />
+		<img src="<%= Model.ProfilePictureUrl %>" alt="<%= Model.FullName %>" class="profile" />
 	</div>
 	<div class="col-15">
 		<div class="m-lft col-15 m-rgt">
@@ -34,7 +34,7 @@
             <% if(FriendHelper.IsFriend(Model.User, myUser)) { %>
 		        <input type="button" class="fan m-btm10" value="Become a friend" />
             <% } %>
-            <% if ((myUser.Id != Model.User.Id) && (FriendHelper.IsFriend(Model.User, myUser))) { %>
+            <% if ((myUser.Id != Model.User.Id) && !(FriendHelper.IsFriend(Model.User, myUser))) { %>
 			    <a class="p-v5 m-top15 msg" href="/Message/Create/<%= Model.User.Id %>">Send <%= Model.User.FirstName %> a private message</a>
 			<% } %>
 		</div>

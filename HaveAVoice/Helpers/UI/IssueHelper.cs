@@ -10,20 +10,33 @@ using System.Collections.Generic;
 
 namespace HaveAVoice.Helpers.UI {
     public class IssueHelper {
-        public static string PersonFilterButton(PersonFilter aFilter, Dictionary<string, int> aSelectedFilters, string aNonSelectedCssClass, string aSelectedCssClass) {
-            return Filter("PersonFilter", aFilter.ToString(), (int)aFilter, aSelectedFilters, aNonSelectedCssClass, aSelectedCssClass);
+        public static string PersonFilterButton(PersonFilter aFilter, Dictionary<string, string> aSelectedFilters, string aDisplayName, string aNonSelectedCssClass, string aSelectedCssClass) {
+            return Filter("PersonFilter", "FilterIssueByPersonFilter", aFilter.ToString(), aSelectedFilters, aDisplayName, aNonSelectedCssClass, aSelectedCssClass);
         }
 
-        public static string IssueStanceFilterButton(IssueStanceFilter aFilter, Dictionary<string, int> aSelectedFilters, string aNonSelectedCssClass, string aSelectedCssClass) {
-            return Filter("IssueStanceFilter", aFilter.ToString(), (int)aFilter, aSelectedFilters, aNonSelectedCssClass, aSelectedCssClass);
+        public static string IssueStanceFilterButton(IssueStanceFilter aFilter, Dictionary<string, string> aSelectedFilters, string aNonSelectedCssClass, string aSelectedCssClass) {
+            return Filter("IssueStanceFilter", "FilterIssueByIssueStanceFilter", aFilter.ToString(), aSelectedFilters, aFilter.ToString(), aNonSelectedCssClass, aSelectedCssClass);
         }
 
-        private static string Filter(string aFilterType, string aFilterText, int aFilterIntegerRepresentation, Dictionary<string, int> aSelectedFilters, string aNonSelectedCssClass, string aSelectedCssClass) {
+        private static string Filter(string aFilterType, string anActionMethodName, string aFilterText, Dictionary<string, string> aSelectedFilters, string aDisplayName, string aNonSelectedCssClass, string aSelectedCssClass) {
             var linkTag = new TagBuilder("a");
-            linkTag.InnerHtml = aFilterText;
-            linkTag.MergeAttribute("href", "/Issue/FilterIssue?type=" + aFilterType + "&filterValue=" + aFilterIntegerRepresentation);
-            int mySelectedFilter = aSelectedFilters[aFilterType];
-            if (mySelectedFilter == aFilterIntegerRepresentation) {
+            linkTag.InnerHtml = aDisplayName;
+            linkTag.MergeAttribute("href", "/Issue/" + anActionMethodName + "?filterValue=" + aFilterText);
+            string mySelectedFilter = aSelectedFilters[aFilterType];
+            if (mySelectedFilter == aFilterText) {
+                linkTag.MergeAttribute("class", aSelectedCssClass);
+            } else {
+                linkTag.MergeAttribute("class", aNonSelectedCssClass);
+            }
+
+            return linkTag.ToString();
+        }
+
+        public static string PersonFilterButton(PersonFilter aFilter, PersonFilter aSelectedFilter, string aDisplayName, string aNonSelectedCssClass, string aSelectedCssClass) {
+            var linkTag = new TagBuilder("a");
+            linkTag.InnerHtml = aDisplayName;
+            linkTag.MergeAttribute("href", "/Profile/FilterFeed?filterValue=" + aFilter);
+            if (aSelectedFilter == aFilter) {
                 linkTag.MergeAttribute("class", aSelectedCssClass);
             } else {
                 linkTag.MergeAttribute("class", aNonSelectedCssClass);
@@ -61,7 +74,7 @@ namespace HaveAVoice.Helpers.UI {
 				profileImg.MergeAttribute("alt", "Anonymous");
                 profileImg.MergeAttribute("src", PhotoHelper.ConstructUrl(HAVConstants.NO_PROFILE_PICTURE_IMAGE));
 			}  else {
-				profileImg.MergeAttribute("alt", anIssueReply.User.Username);
+				profileImg.MergeAttribute("alt", NameHelper.FullName(anIssueReply.User));
 				profileImg.MergeAttribute("src", PhotoHelper.ProfilePicture(anIssueReply.User));
 			}
 			profileImg.MergeAttribute("class", "profile");
@@ -97,7 +110,7 @@ namespace HaveAVoice.Helpers.UI {
 				hrefName.InnerHtml = "Anonymous";
 				hrefName.MergeAttribute("href", "#");
 			} else {
-				hrefName.InnerHtml = anIssueReply.User.Username;
+                hrefName.InnerHtml = NameHelper.FullName(anIssueReply.User);
                 hrefName.MergeAttribute("href", LinkHelper.ProfilePage(anIssueReply.User));
 			}
 			
@@ -217,7 +230,7 @@ namespace HaveAVoice.Helpers.UI {
 
             var profileImg = new TagBuilder("img");
         	profileImg.MergeAttribute("class", "profile");
-        	profileImg.MergeAttribute("alt", aComment.User.Username);
+        	profileImg.MergeAttribute("alt", NameHelper.FullName(aComment.User));
         	profileImg.MergeAttribute("src", "/Photos/no_profile_picture.jpg");
         	
         	profileDiv.InnerHtml += profileImg.ToString();
@@ -238,7 +251,7 @@ namespace HaveAVoice.Helpers.UI {
         	var href = new TagBuilder("a");
         	href.MergeAttribute("class", "name");
         	href.MergeAttribute("href", "#");
-        	href.InnerHtml += aComment.User.Username;
+            href.InnerHtml += NameHelper.FullName(aComment.User);
         	
         	paddingDiv.InnerHtml += href.ToString();
         	paddingDiv.InnerHtml += "&nbsp;";
@@ -283,14 +296,14 @@ namespace HaveAVoice.Helpers.UI {
         	profileDiv.MergeAttribute("class", "col-3 center issue-profile");
         	
             string myAvatarURL = PhotoHelper.ConstructUrl(HAVConstants.NO_PROFILE_PICTURE_IMAGE);
-            string myUsername = "Anonymous";
+            string myName = "Anonymous";
             if (PrivacyHelper.IsAllowed(anIssueReply.IssueReply.User, PrivacyAction.DisplayProfile)) {
                 myAvatarURL = PhotoHelper.ProfilePicture(anIssueReply.IssueReply.User);
-                myUsername = anIssueReply.IssueReply.User.Username;
+                myName = NameHelper.FullName(anIssueReply.IssueReply.User);
             }
 
         	var profileImg = new TagBuilder("img");
-            profileImg.MergeAttribute("alt", myUsername);
+            profileImg.MergeAttribute("alt", myName);
             profileImg.MergeAttribute("src", myAvatarURL);
         	profileImg.MergeAttribute("class", "profile");
 
@@ -369,7 +382,7 @@ namespace HaveAVoice.Helpers.UI {
 			var rUserLink = new TagBuilder("a");
 			rUserLink.MergeAttribute("class", "name");
 			rUserLink.MergeAttribute("href", "#");
-			rUserLink.InnerHtml = "Username";
+			rUserLink.InnerHtml = "Full name";
 			
 			rPaddingDiv.InnerHtml += rUserLink.ToString();
 			rPaddingDiv.InnerHtml += "&nbsp;";
@@ -405,10 +418,9 @@ namespace HaveAVoice.Helpers.UI {
 
             foreach (IssueWithDispositionModel myIssue in anIssues) {
                 string myAvatarURL = PhotoHelper.ConstructUrl(HAVConstants.NO_PROFILE_PICTURE_IMAGE);
-                string myUsername = myIssue.Issue.User.Username + " (alias)";
+                string myName = NameHelper.FullName(myIssue.Issue.User);
                 if (PrivacyHelper.IsAllowed(myIssue.Issue.User, PrivacyAction.DisplayProfile)) {
                     myAvatarURL = PhotoHelper.ProfilePicture(myIssue.Issue.User);
-                    myUsername = DisplayNameHelper.Display(myIssue.Issue.User);
                 }
 
                 var myOuterDiv = new TagBuilder("div");
@@ -416,7 +428,7 @@ namespace HaveAVoice.Helpers.UI {
 
                 var myDivImageWrapper = new TagBuilder("div");
                 myDivImageWrapper.MergeAttribute("class", "col-2 center m-rgt10");
-                myDivImageWrapper.InnerHtml = "<img src=\"" + myAvatarURL + "\" alt=\"" + myUsername + "\" class=\"profile\"  />";
+                myDivImageWrapper.InnerHtml = "<img src=\"" + myAvatarURL + "\" alt=\"" + myName + "\" class=\"profile\"  />";
                 myOuterDiv.InnerHtml = myDivImageWrapper.ToString();
 
                 var myContextDiv = new TagBuilder("div");
@@ -425,14 +437,14 @@ namespace HaveAVoice.Helpers.UI {
                 var myUserlink = new TagBuilder("a");
                 myUserlink.MergeAttribute("class", "profile");
                 myUserlink.MergeAttribute("href", "#");
-                myUserlink.InnerHtml = myUsername;
+                myUserlink.InnerHtml = myName;
                 myContextDiv.InnerHtml += myUserlink.ToString();
 
                 myContextDiv.InnerHtml += myIssue.Issue.Title;
 
                 var mySpan = new TagBuilder("span");
                 mySpan.MergeAttribute("class", "profile");
-                mySpan.InnerHtml = String.Format("On {0} by {1} - {2}, {3}", myIssue.Issue.DateTimeStamp, myUsername, myIssue.Issue.City, myIssue.Issue.State);
+                mySpan.InnerHtml = String.Format("On {0} by {1} - {2}, {3}", myIssue.Issue.DateTimeStamp, myName, myIssue.Issue.City, myIssue.Issue.State);
                 myContextDiv.InnerHtml += mySpan.ToString();
 
                 myOuterDiv.InnerHtml += myContextDiv.ToString();

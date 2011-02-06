@@ -46,7 +46,7 @@
                 yearRange: "-10:+10",
                 changeMonth: true,
                 changeYear: true,
-                dateFormat: "mm/dd/yy"
+                dateFormat: "mm-dd-yy"
             });
 		});
 	</script>
@@ -74,8 +74,10 @@
 	    			<div class="col-4">
 	    				<%= Html.TextBox("FirstName", Model.FirstName) %>
 	    			</div>
-	    			<div class="col-14">
-	    				<%= Html.ValidationMessage("FirstName", "*") %>
+	    			<div class="m-lft col-14">
+	    				<span class="req">
+		    				<%= Html.ValidationMessage("FirstName", "*") %>
+	    				</span>
 	    			</div>
 	    			<div class="clear">&nbsp;</div>
 	    			<div class="spacer-10">&nbsp;</div>
@@ -86,8 +88,10 @@
 	    			<div class="col-4">
 	    				<%= Html.TextBox("LastName", Model.LastName) %>
 	    			</div>
-	    			<div class="col-14">
-	    				<%= Html.ValidationMessage("LastName", "*")%>
+	    			<div class="col-14 m-lft">
+	    				<span class="req">
+		    				<%= Html.ValidationMessage("LastName", "*") %>
+	    				</span>
 	    			</div>
 	    			<div class="clear">&nbsp;</div>
 	    			<div class="spacer-10">&nbsp;</div>
@@ -98,32 +102,24 @@
 	    			<div class="col-4">
 	    				<%= Html.TextBox("Email", Model.Email) %>
 	    			</div>
-	    			<div class="col-14">
-	    				<%= Html.ValidationMessage("Email", "*") %>
+	    			<div class="col-14 m-lft">
+	    				<span class="req">
+		    				<%= Html.ValidationMessage("Email", "*") %>
+	    				</span>
 	    			</div>
 	    			<div class="clear">&nbsp;</div>
 	    			<div class="spacer-10">&nbsp;</div>
 	    			
 	    			<div class="col-4 m-rgt right">
-	    				<label for="Username">Alias:</label>
+	    				<label for="Gender">Gender:</label>
 	    			</div>
 	    			<div class="col-4">
-	    				<%= Html.TextBox("Alias", Model.Username)%>
+	    				<%= Html.DropDownList("Gender", Model.Genders) %>
 	    			</div>
-	    			<div class="col-14">
-	    				<%= Html.ValidationMessage("Alias", "*")%>
-	    			</div>
-	    			<div class="clear">&nbsp;</div>
-	    			<div class="spacer-10">&nbsp;</div>
-
-	    			<div class="col-4 m-rgt right">
-	    				<label for="Username">Gender:</label>
-	    			</div>
-	    			<div class="col-4">
-	    				<%= Html.DropDownList("Gender", Model.Genders)%>
-	    			</div>
-	    			<div class="col-14">
-	    				<%= Html.ValidationMessage("Gender", "*")%>
+	    			<div class="col-14 m-lft">
+	    				<span class="req">
+		    				<%= Html.ValidationMessage("Gender", "*") %>
+	    				</span>
 	    			</div>
 	    			<div class="clear">&nbsp;</div>
 	    			<div class="spacer-10">&nbsp;</div>
@@ -140,8 +136,10 @@
 		                    <div class="good">GOOD</div>
 		                </div>
 	    			</div>
-	    			<div class="col-14">
-	    				<%= Html.ValidationMessage("Password", "*") %>
+	    			<div class="col-14 m-lft">
+	    				<span class="req">
+		    				<%= Html.ValidationMessage("Password", "*") %>
+	    				</span>
 	    			</div>
 					<div class="clear">&nbsp;</div>
 					<div class="spacer-10">&nbsp;</div>
@@ -152,8 +150,10 @@
 					<div class="col-4">
 						<%= Html.TextBox("DateOfBirth", Model.getDateOfBirthFormatted())%>
 					</div>
-					<div class="col-14">
-						<%= Html.ValidationMessage("DateOfBirth", "*") %>
+					<div class="col-14 m-lft">
+						<span class="req">
+							<%= Html.ValidationMessage("DateOfBirth", "*") %>
+						</span>
 					</div>
 					<div class="clear">&nbsp;</div>
 					<div class="spacer-10">&nbsp;</div>
@@ -164,8 +164,10 @@
 					<div class="col-4">
 						<%= Html.TextBox("City", Model.City)%>
 					</div>
-					<div class="col-12">
-						<%= Html.ValidationMessage("City", "*")%>
+					<div class="col-12 m-lft">
+						<span class="req">
+							<%= Html.ValidationMessage("City", "*") %>
+						</span>
 					</div>
 					<div class="clear">&nbsp;</div>
 					<div class="spacer-10">&nbsp;</div>
@@ -174,10 +176,12 @@
 						<label for="State">State:</label>
 					</div>
 					<div class="col-4">
-						<%= Html.DropDownList("State", Model.States)%>
+						<%= Html.DropDownList("State", Model.States) %>
 					</div>
-					<div class="col-14">
-						<%= Html.ValidationMessage("State", "*")%>
+					<div class="col-14 m-lft">
+						<span class="req">
+							<%= Html.ValidationMessage("State", "*") %>
+						</span>
 					</div>
 					<div class="clear">&nbsp;</div>
 					<div class="spacer-10">&nbsp;</div>
@@ -186,7 +190,7 @@
 						<label for="Captcha">Captcha:</label>
 					</div>
 					<div class="col-18">
-						<%= CaptchaHelper.GenerateCaptcha()  %>
+						<%= CaptchaHelper.GenerateCaptcha() %>
 					</div>
 					<div class="clear">&nbsp;</div>
 					<div class="spacer-10">&nbsp;</div>
@@ -195,6 +199,7 @@
 					<div class="col-8">
 						<%= Html.TextArea("AgreementText", UserHelper.UserAgreement(), new { cols = "40", rows = "4", resize = "none" }) %>
 					</div>
+					
 					<div class="col-10">&nbsp;</div>
 					<div class="clear">&nbsp;</div>
 					<div class="col-4 m-rgt right">
@@ -203,8 +208,10 @@
 					<div class="col-6">
 						I agree with the <a href="#">Terms of Service</a>.
 					</div>
-					<div class="col-12">
-						<%= Html.ValidationMessage("Agreement", "*")%>
+					<div class="col-12 m-lft">
+						<span class="req">
+							<%= Html.ValidationMessage("Agreement", "*") %>
+						</span>
 					</div>
 					<div class="clear">&nbsp;</div>
 					<div class="spacer-10">&nbsp;</div>
@@ -214,7 +221,6 @@
 						<%= Html.ActionLink("Cancel", "Index", "", new { @class = "cancel" }) %>
                 	</div>
                 	<div class="clear">&nbsp;</div>
-	                
     			<% } %>
     			
     			<div class="spacer-30">&nbsp;</div>

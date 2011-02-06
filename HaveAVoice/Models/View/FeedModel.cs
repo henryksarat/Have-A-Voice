@@ -15,7 +15,7 @@ namespace HaveAVoice.Models.View {
         public string ProfilePictureUrl { get; set; }
 
         public FeedModel(User aUser) {
-            DisplayName = DisplayNameHelper.Display(aUser);
+            DisplayName = NameHelper.FullName(aUser);
             UserId = aUser.Id;
             ProfilePictureUrl = PhotoHelper.ProfilePicture(aUser);
         }

@@ -23,7 +23,6 @@ namespace HaveAVoice.Models.View {
             FirstName = string.Empty;
             LastName = string.Empty;
             Password = string.Empty;
-            Username = string.Empty;
             City = string.Empty;
             Email = string.Empty;
             States = new List<SelectListItem>();
@@ -35,7 +34,7 @@ namespace HaveAVoice.Models.View {
             string myTempIp = "127.0.0.1";
             string myTempUtcOffset = "shitty";
 
-            return User.CreateUser(0, Username, Email, Password, FirstName, LastName, City, 
+            return User.CreateUser(0, Email, Password, FirstName, LastName, City, 
                 State, DateOfBirth, myTempDateFiller, myTempDateFiller, 
                 myTempIp, false, myTempUtcOffset, (short)SelectedGender);
         }

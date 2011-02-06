@@ -10,16 +10,14 @@
     <% Html.RenderPartial("UserPanel", Model.NavigationModel); %>    
     <div class="col-3 m-rgt left-nav">
         <% Html.RenderPartial("LeftNavigation"); %>
+        <div class="clear">&nbsp;</div>
     </div>
     
     <div class="col-21">
         <% Html.RenderPartial("Message"); %>
+        <div class="clear">&nbsp;</div>
 
 	    <% using (Html.BeginForm("Inbox", "Message", FormMethod.Post, new { @class = "create"})) { %>
-			<%= Html.Encode(ViewData["Message"]) %>
-			<%= Html.Encode(TempData["Message"]) %>
-			<div class="clear">&nbsp;</div>
-
 			<div class="action-bar p-a10 m-btm20">
 				<%= Html.ActionLink("New Message", "Create", "Message", null, new { @class = "btn f-lft" }) %>
 				<input type="submit" value="Delete" class="btn f-rgt" />
@@ -28,7 +26,7 @@
 
 			<% if (Model != null) { %>
                 <% foreach (var item in Model.Models) { %>
-                    <%= MessageHelper.MessageList(item.FromUserId, item.FromUsername, item.FromUserProfilePictureUrl, item.MessageId, item.Subject, item.LastReply, item.DateTimeStamp, item.Viewed) %>
+                    <%= MessageHelper.MessageList(item.FromUserId, item.FromUser, item.FromUserProfilePictureUrl, item.MessageId, item.Subject, item.LastReply, item.DateTimeStamp, item.Viewed) %>
                 <% } %>
             <% } %>
         <% } %>

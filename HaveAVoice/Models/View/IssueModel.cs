@@ -21,21 +21,5 @@ namespace HaveAVoice.Models.View {
             this.Anonymous = false;
             this.Disposition = Disposition.None;
         }
-
-        public IssueModel Copy() {
-            Issue myIssueCopy = Issue.CreateIssue(Issue.Id, Issue.Title, Issue.Description, Issue.City, Issue.State, Issue.DateTimeStamp, Issue.UserId, Issue.Deleted);
-            myIssueCopy.User = Issue.User;
-            List<IssueReplyModel> myReplyCopys = new List<IssueReplyModel>();
-
-            foreach(IssueReplyModel myReply in Replys) {
-                myReplyCopys.Add(myReply.ShallowCopy());
-            }
-
-            return new IssueModel(myIssueCopy, myReplyCopys) {
-                Comment = Comment,
-                Anonymous = Anonymous,
-                Disposition = Disposition
-            };
-        }
     }
 }

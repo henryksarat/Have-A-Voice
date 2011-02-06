@@ -10,12 +10,15 @@
         <div class="spacer-30">&nbsp;</div>
     
     	<% Html.RenderPartial("Message"); %>
+    	<div class="clear">&nbsp;</div>
     
     	<div class="push-1 col-4 center p-t5 p-b5 t-tab btint-6">
     		<%=Html.ActionLink("ISSUES", "Index", null, new { @class = "issue-create" }) %>
+    		<div class="clear">&nbsp;</div>
     	</div>
     	<div class="push-1 col-4 center p-t5 p-b5 t-tab b-wht">
     		<span class="fnt-16 tint-6 bold">CREATE</span>
+    		<div class="clear">&nbsp;</div>
     	</div>
     	<div class="clear">&nbsp;</div>
     	
@@ -26,30 +29,40 @@
 
 			    <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
 				<div class="clear">&nbsp;</div>
+				
 			    <% using (Html.BeginForm("Create", "Issue", FormMethod.Post, new { @class = "create" })) { %>
 	                <%= Html.Hidden("City", HAVUserInformationFactory.GetUserInformation().Details.City) %>
 	                <%= Html.Hidden("State", HAVUserInformationFactory.GetUserInformation().Details.State) %>
 
 	                <div class="col-4 m-rgt right">
 	                	<label for="Title">Title:</label>
+	                	<div class="clear">&nbsp;</div>
 	                </div>
 	                <div class="col-6">
 	                	<%= Html.TextBox("Title") %>
+	                	<div class="clear">&nbsp;</div>
 	                </div>
-	                <div class="col-12">
-	                	<%= Html.ValidationMessage("Title", "*") %>
+	                <div class="col-12 m-lft">
+	                	<span class="req">
+		                	<%= Html.ValidationMessage("Title", "*") %>
+		                </span>
 	                </div>
 	                <div class="clear">&nbsp;</div>
 	                <div class="spacer-10">&nbsp;</div>
 	                
 	                <div class="col-4 m-rgt right">
 	                	<label for="Description">Description:</label>
+	                	<div class="clear">&nbsp;</div>
 	                </div>
 	                <div class="col-6">
 	                	<%= Html.TextArea("Description", null, new { cols = "40", rows = "4", resize = "none" }) %>
+	                	<div class="clear">&nbsp;</div>
 	                </div>
-	                <div class="col-12">
-	                	<%= Html.ValidationMessage("Description", "*") %>
+	                <div class="col-12 m-lft">
+	                	<span class="req">
+		                	<%= Html.ValidationMessage("Description", "*") %>
+		                </span>
+		                <div class="clear">&nbsp;</div>
 	                </div>
 	                <div class="clear">&nbsp;</div>
 	                <div class="spacer-10">&nbsp;</div>
@@ -57,6 +70,7 @@
 					<div class="col-10 right">
 						<input type="submit" value="Create" class="create" />
 						<%= Html.ActionLink("Cancel", "Index", "", new { @class = "cancel" }) %>
+						<div class="clear">&nbsp;</div>
 					</div>
 			    <% } %>
 			    <div class="clear">&nbsp;</div>

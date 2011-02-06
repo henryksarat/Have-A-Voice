@@ -12,7 +12,6 @@
 	
     <% using (Html.BeginForm()) { %>
         <% Html.RenderPartial("Message"); %>
-
         <%= Html.ValidationSummary("Your comment wasn't posted. Please correct the errors and try again.") %>
         <div class="clear">&nbsp;</div>
 
@@ -32,6 +31,7 @@
 				<div class="row">
 					<div class="push-6 col-15 comment">
 						You must be logged in to reply.
+						<div class="clear">&nbsp;</div>
 					</div>
 				</div>
 			</div>
@@ -51,6 +51,7 @@
 							<div class="col-11">
 								<input type="submit" value="Submit" class="button" />
 								<input type="button" value="Clear" class="button" />
+								<div class="clear">&nbsp;</div>
 							</div>
 							<div class="clear">&nbsp;</div>
 						</div>

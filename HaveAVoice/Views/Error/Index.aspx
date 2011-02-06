@@ -51,7 +51,7 @@
                 <%= Html.Encode(item.Details) %>
             </td>
             <td>
-                <%= Html.Encode(item.User.Username) %>
+                <%= Html.Encode(HaveAVoice.Helpers.NameHelper.FullName(item.User)) %>
             </td>
         </tr>
     

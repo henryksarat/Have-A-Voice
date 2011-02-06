@@ -6,9 +6,15 @@ using HaveAVoice.Helpers.Enums;
 
 namespace HaveAVoice.Helpers {
     public static class UserRoleHelper {
-        public static IEnumerable<string> OfficialRoles() {
+        public static IEnumerable<string> PoliticianRoles() {
             List<string> myOfficialRoles = new List<string>();
-            myOfficialRoles.Add(Roles.OFFICIAL);
+            myOfficialRoles.Add(Roles.POLITICIAN);
+            return myOfficialRoles;
+        }
+
+        public static IEnumerable<string> PoliticalCandidateRoles() {
+            List<string> myOfficialRoles = new List<string>();
+            myOfficialRoles.Add(Roles.POLITICAL_CANDIDATE);
             return myOfficialRoles;
         }
 

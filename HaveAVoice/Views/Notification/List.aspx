@@ -2,17 +2,19 @@
 <%@ Import Namespace="HaveAVoice.Models" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Friends
+	Notifications
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 	<% Html.RenderPartial("UserPanel", Model.NavigationModel); %>
     <div class="col-3 m-rgt left-nav">
         <% Html.RenderPartial("LeftNavigation"); %>
+        <div class="clear">&nbsp;</div>
     </div>
     
     <div class="col-21">
         <% Html.RenderPartial("Message"); %>
+        <div class="clear">&nbsp;</div>
 
 	    <% foreach (var item in Model.Models) { %>
 	    	<div class="notification m-btm20">
