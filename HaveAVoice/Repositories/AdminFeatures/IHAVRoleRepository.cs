@@ -11,7 +11,7 @@ namespace HaveAVoice.Repositories.AdminFeatures {
         IEnumerable<User> FindUsersInRole(int aRoleId);
         IEnumerable<Role> GetAllRoles();
         Role GetDefaultRole();
-        Role GetAuthorityRole();
+        Role GetRoleByName(string aName);
         Role GetNotConfirmedUserRole();
         void MoveUsersToRole(List<int> aUsers, int aFromRoleId, int aToRoleId);
     }

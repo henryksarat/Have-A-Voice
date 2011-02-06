@@ -24,7 +24,7 @@
 					<div class="clear">&nbsp;</div>
 					
 					<div class="push-3 col-16 fnt-14 teal m-btm10">
-						Enter an email of an authority to send to
+						Enter an email and authority type of an authority to send to
 						<div class="clear">&nbsp;</div>
 					</div>
 					<div class="clear">&nbsp;</div>
@@ -43,6 +43,17 @@
 						</span>
 						<div class="clear">&nbsp;</div>
 					</div>
+	                <div class="col-4 m-rgt right">
+	    	            <label for="Gender">Authority Type:</label>
+	                </div>
+	                <div class="col-4">
+	    	            <%= Html.DropDownList("AuthorityType", new SelectList(HaveAVoice.Helpers.HAVConstants.AUTHORITY_ROLES, "Select"))%>
+	                </div>
+	                <div class="col-14">
+	    	            <%= Html.ValidationMessage("AuthorityType", "*")%>
+	                </div>
+	                <div class="clear">&nbsp;</div>
+	                <div class="spacer-10">&nbsp;</div>
 					
 					<div class="clear">&nbsp;</div>
 					

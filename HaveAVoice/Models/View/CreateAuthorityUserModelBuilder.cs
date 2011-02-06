@@ -18,6 +18,9 @@ namespace HaveAVoice.Models.View {
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Token { get; set; }
 
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string AuthorityType { get; set; }
+
         public CreateAuthorityUserModelBuilder() {
             DateOfBirth = DateTime.UtcNow;
             FirstName = string.Empty;
@@ -27,6 +30,8 @@ namespace HaveAVoice.Models.View {
             Email = string.Empty;
             States = new List<SelectListItem>();
             RepresentingState = string.Empty;
+            AuthorityType = string.Empty;
+            Token = string.Empty;
         }
 
         public override User Build() {

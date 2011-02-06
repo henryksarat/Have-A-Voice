@@ -84,13 +84,14 @@ namespace HaveAVoice.Controllers.Users {
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult CreateAuthority(string email, string token) {
+        public ActionResult CreateAuthority(string email, string token, string authorityType) {
             if (IsLoggedIn()) {
                 return RedirectToProfile();
             }
             return View("CreateAuthority", new CreateAuthorityUserModelBuilder() {
                 Email = email,
                 Token = token,
+                AuthorityType = authorityType,
                 States = new SelectList(HAVConstants.STATES, "Select"),
                 Genders = new SelectList(HAVConstants.GENDERS, "Select")
             });
@@ -102,7 +103,7 @@ namespace HaveAVoice.Controllers.Users {
                 return RedirectToProfile();
             }
             try {
-                bool myResult = theService.CreateUserAuthority(aBuilder.Build(), aBuilder.Token, aBuilder.Agreement, HttpContext.Request.UserHostAddress);
+                bool myResult = theService.CreateUserAuthority(aBuilder.Build(), aBuilder.Token, aBuilder.AuthorityType, aBuilder.Agreement, HttpContext.Request.UserHostAddress);
                 if (myResult) {
                     return SendToResultPage(CREATE_ACCOUNT_TITLE, CREATE_AUTHORITY_ACCOUNT_SUCCESS);
                 }

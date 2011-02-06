@@ -30,6 +30,12 @@ namespace HaveAVoice.Helpers {
         public const bool MALE = true;
         public const bool FEMALE = false;
 
+        public static List<string> AUTHORITY_ROLES = new List<string>() {
+            "Select",
+            Roles.POLITICIAN,
+            Roles.POLITICAL_CANDIDATE
+        };
+
         public static List<string> GENDERS = new List<string>() { 
             HAVGender.Select.ToString(),
             HAVGender.Male.ToString(),

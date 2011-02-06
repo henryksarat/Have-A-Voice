@@ -95,60 +95,22 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         public IEnumerable<Issue> FilteredIssuesFeed(User aUser) {
-            IEnumerable<FilteredCityState> myFilteredCityStates = FindFilteredCityStateForUser(aUser);
-            IEnumerable<FilteredZipCode> myFilteredZipCodes = FindFilteredZipCodeForUser(aUser);
-
-            IEnumerable<string> myCitys = (from f in myFilteredCityStates select f.City).ToList<string>();
-            IEnumerable<string> myStates = (from f in myFilteredCityStates select f.State).ToList<string>();
-            IEnumerable<int> myZipCodes = (from f in myFilteredZipCodes select f.ZipCode).ToList<int>();
-
             return (from i in theEntities.Issues
                     join u in theEntities.Users on i.User.Id equals u.Id
                     where u.Id != aUser.Id
                     && i.Deleted == false
-                    && (myCitys.Count<string>() > 1 ? myCitys.Contains(i.City) : true)
-                    && (myStates.Count<string>() > 1 ? myStates.Contains(i.State) : true)
-                    && (myZipCodes.Count<int>() > 1 ? myZipCodes.Contains(i.Zip.Value) : true)
+                    && i.City == u.City
+                    && i.State == u.State
                     select i).OrderByDescending(i => i.DateTimeStamp).ToList<Issue>();
         }
 
         public IEnumerable<IssueReply> FilteredIssueReplysFeed(User aUser) {
-            IEnumerable<FilteredCityState> myFilteredCityStates = FindFilteredCityStateForUser(aUser);
-            IEnumerable<FilteredZipCode> myFilteredZipCodes = FindFilteredZipCodeForUser(aUser);
-
-            IEnumerable<string> myCitys = (from f in myFilteredCityStates select f.City).ToList<string>();
-            IEnumerable<string> myStates = (from f in myFilteredCityStates select f.State).ToList<string>();
-            IEnumerable<int> myZipCodes = (from f in myFilteredZipCodes select f.ZipCode).ToList<int>();
-
             return (from ir in theEntities.IssueReplys
                     join u in theEntities.Users on ir.User.Id equals u.Id
                     where u.Id != aUser.Id
                     && ir.Deleted == false
-                    && (myCitys.Count<string>() > 1 ? myCitys.Contains(ir.City) : true)
-                    && (myStates.Count<string>() > 1 ? myStates.Contains(ir.State) : true)
-                    && (myZipCodes.Count<int>() > 1 ? myZipCodes.Contains(ir.Zip.Value) : true)
-                    select ir).OrderByDescending(ir => ir.DateTimeStamp).ToList<IssueReply>();
-        }
-
-        public IEnumerable<Issue> OfficialsIssueFeed(User aViewingUser, IEnumerable<string> aSelectedRoles) {
-            return (from i in theEntities.Issues
-                    join u in theEntities.Users on i.UserId equals u.Id
-                    join ur in theEntities.UserRoles on u.Id equals ur.User.Id
-                    join r in theEntities.Roles on ur.Role.Id equals r.Id
-                    where u.Id != aViewingUser.Id
-                     && i.Deleted == false
-                    && aSelectedRoles.Contains(r.Name)
-                    select i).OrderByDescending(i => i.DateTimeStamp).ToList<Issue>();
-        }
-
-        public IEnumerable<IssueReply> OfficialsIssueReplyFeed(User aViewingUser, IEnumerable<string> aSelectedRoles) {
-            return (from ir in theEntities.IssueReplys
-                    join u in theEntities.Users on ir.User.Id equals u.Id
-                    join ur in theEntities.UserRoles on u.Id equals ur.User.Id
-                    join r in theEntities.Roles on ur.Role.Id equals r.Id
-                    where u.Id != aViewingUser.Id
-                    && ir.Deleted == false
-                    && aSelectedRoles.Contains(r.Name)
+                    && ir.City == u.City
+                    && ir.State == u.State
                     select ir).OrderByDescending(ir => ir.DateTimeStamp).ToList<IssueReply>();
         }
 

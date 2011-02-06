@@ -79,12 +79,12 @@ namespace HaveAVoice.Services.UserFeatures {
             return true;
         }
 
-        public bool CreateUserAuthority(User aUserToCreate, string aToken, bool anAgreement, string anIpAddress) {
+        public bool CreateUserAuthority(User aUserToCreate, string aToken, string anAuthorityType, bool anAgreement, string anIpAddress) {
             if (!ValidateNewUser(aUserToCreate)) {
                 return false;
             }
 
-            if (!ValidateToken(aUserToCreate.Email, aToken)) {
+            if (!ValidateToken(aUserToCreate.Email, aToken, anAuthorityType)) {
                 return false;
             }
 
@@ -96,7 +96,7 @@ namespace HaveAVoice.Services.UserFeatures {
             aUserToCreate = theUserRepo.CreateUser(aUserToCreate);
 
             try {
-                theAuthService.ActivateAuthority(aUserToCreate.ActivationCode);
+                theAuthService.ActivateAuthority(aUserToCreate.ActivationCode, anAuthorityType);
             } catch (Exception e) {
                 theUserRepo.DeleteUser(aUserToCreate);
                 throw e;
@@ -169,8 +169,8 @@ namespace HaveAVoice.Services.UserFeatures {
 
         #region Validation"
 
-        private bool ValidateToken(string anEmail, string aToken) {
-            if (!theAuthorityVerificationService.IsValidToken(anEmail, aToken)) {
+        private bool ValidateToken(string anEmail, string aToken, string anAuthorityType) {
+            if (!theAuthorityVerificationService.IsValidToken(anEmail, aToken, anAuthorityType)) {
                 theValidationDictionary.AddError("Token", aToken, "An error occurred while authenticating you as an authority. Please follow the steps sent to your email again or contact henryksarat@haveavoice.com.");
             }
 

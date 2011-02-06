@@ -82,13 +82,13 @@ namespace HaveAVoice.Services.UserFeatures {
             ActivateUser(activationCode, myDefaultRole);
         }
 
-        public void ActivateAuthority(string activationCode) {
-            Role myAuthorityRole = theRoleRepo.GetAuthorityRole();
+        public void ActivateAuthority(string anActivationCode, string anAuthorityType) {
+            Role myAuthorityRole = theRoleRepo.GetRoleByName(anAuthorityType);
             if (myAuthorityRole == null) {
                 throw new NullReferenceException("There is no authority role.");
             }
 
-            ActivateUser(activationCode, myAuthorityRole);
+            ActivateUser(anActivationCode, myAuthorityRole);
         }
 
         public User ReadRememberMeCredentials() {

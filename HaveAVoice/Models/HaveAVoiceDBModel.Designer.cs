@@ -69,7 +69,6 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueReplys_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "IssueReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueReply), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Friends_FriendUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Friend", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Friend), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Friends_SourceUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Friend", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Friend), true)]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_AuthorityVerification_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "AuthorityVerification", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.AuthorityVerification), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_PhotoAlbum_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "PhotoAlbum", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.PhotoAlbum), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Photos_PhotoAlbum", "PhotoAlbum", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.PhotoAlbum), "Photo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Photo), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Photos_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Photo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Photo), true)]
@@ -80,6 +79,8 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_PrivacySettings_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "PrivacySetting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.PrivacySetting), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserPrivacySettings_PrivacySettings", "PrivacySetting", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.PrivacySetting), "UserPrivacySetting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserPrivacySetting), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserPrivacySettings_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "UserPrivacySetting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserPrivacySetting), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_AuthorityVerification_Roles", "Role", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Role), "AuthorityVerification", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.AuthorityVerification), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_AuthorityVerification_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "AuthorityVerification", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.AuthorityVerification), true)]
 
 #endregion
 
@@ -662,22 +663,6 @@ namespace HaveAVoice.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<AuthorityVerification> AuthorityVerifications
-        {
-            get
-            {
-                if ((_AuthorityVerifications == null))
-                {
-                    _AuthorityVerifications = base.CreateObjectSet<AuthorityVerification>("AuthorityVerifications");
-                }
-                return _AuthorityVerifications;
-            }
-        }
-        private ObjectSet<AuthorityVerification> _AuthorityVerifications;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<PhotoAlbum> PhotoAlbums
         {
             get
@@ -770,6 +755,22 @@ namespace HaveAVoice.Models
             }
         }
         private ObjectSet<UserPrivacySetting> _UserPrivacySettings;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<AuthorityVerification> AuthorityVerifications
+        {
+            get
+            {
+                if ((_AuthorityVerifications == null))
+                {
+                    _AuthorityVerifications = base.CreateObjectSet<AuthorityVerification>("AuthorityVerifications");
+                }
+                return _AuthorityVerifications;
+            }
+        }
+        private ObjectSet<AuthorityVerification> _AuthorityVerifications;
 
         #endregion
         #region AddTo Methods
@@ -1039,14 +1040,6 @@ namespace HaveAVoice.Models
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the AuthorityVerifications EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToAuthorityVerifications(AuthorityVerification authorityVerification)
-        {
-            base.AddObject("AuthorityVerifications", authorityVerification);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the PhotoAlbums EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToPhotoAlbums(PhotoAlbum photoAlbum)
@@ -1092,6 +1085,14 @@ namespace HaveAVoice.Models
         public void AddToUserPrivacySettings(UserPrivacySetting userPrivacySetting)
         {
             base.AddObject("UserPrivacySettings", userPrivacySetting);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the AuthorityVerifications EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToAuthorityVerifications(AuthorityVerification authorityVerification)
+        {
+            base.AddObject("AuthorityVerifications", authorityVerification);
         }
 
         #endregion
@@ -2359,14 +2360,16 @@ namespace HaveAVoice.Models
         /// </summary>
         /// <param name="email">Initial value of the Email property.</param>
         /// <param name="createdByUserId">Initial value of the CreatedByUserId property.</param>
+        /// <param name="roleId">Initial value of the RoleId property.</param>
         /// <param name="token">Initial value of the Token property.</param>
         /// <param name="verified">Initial value of the Verified property.</param>
         /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
-        public static AuthorityVerification CreateAuthorityVerification(global::System.String email, global::System.Int32 createdByUserId, global::System.String token, global::System.Boolean verified, global::System.DateTime dateTimeStamp)
+        public static AuthorityVerification CreateAuthorityVerification(global::System.String email, global::System.Int32 createdByUserId, global::System.Int32 roleId, global::System.String token, global::System.Boolean verified, global::System.DateTime dateTimeStamp)
         {
             AuthorityVerification authorityVerification = new AuthorityVerification();
             authorityVerification.Email = email;
             authorityVerification.CreatedByUserId = createdByUserId;
+            authorityVerification.RoleId = roleId;
             authorityVerification.Token = token;
             authorityVerification.Verified = verified;
             authorityVerification.DateTimeStamp = dateTimeStamp;
@@ -2426,6 +2429,30 @@ namespace HaveAVoice.Models
         private global::System.Int32 _CreatedByUserId;
         partial void OnCreatedByUserIdChanging(global::System.Int32 value);
         partial void OnCreatedByUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 RoleId
+        {
+            get
+            {
+                return _RoleId;
+            }
+            set
+            {
+                OnRoleIdChanging(value);
+                ReportPropertyChanging("RoleId");
+                _RoleId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("RoleId");
+                OnRoleIdChanged();
+            }
+        }
+        private global::System.Int32 _RoleId;
+        partial void OnRoleIdChanging(global::System.Int32 value);
+        partial void OnRoleIdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2509,8 +2536,46 @@ namespace HaveAVoice.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_AuthorityVerification_Roles", "Role")]
+        public Role Role
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Role>("HaveAVoice.Models.FK_AuthorityVerification_Roles", "Role").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Role>("HaveAVoice.Models.FK_AuthorityVerification_Roles", "Role").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Role> RoleReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Role>("HaveAVoice.Models.FK_AuthorityVerification_Roles", "Role");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Role>("HaveAVoice.Models.FK_AuthorityVerification_Roles", "Role", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_AuthorityVerification_Users", "User")]
-        public User CreatedByUser
+        public User User
         {
             get
             {
@@ -2526,7 +2591,7 @@ namespace HaveAVoice.Models
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<User> CreatedByUserReference
+        public EntityReference<User> UserReference
         {
             get
             {
@@ -10348,6 +10413,28 @@ namespace HaveAVoice.Models
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_AuthorityVerification_Roles", "AuthorityVerification")]
+        public EntityCollection<AuthorityVerification> AuthorityVerifications
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AuthorityVerification>("HaveAVoice.Models.FK_AuthorityVerification_Roles", "AuthorityVerification");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AuthorityVerification>("HaveAVoice.Models.FK_AuthorityVerification_Roles", "AuthorityVerification", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -11988,28 +12075,6 @@ namespace HaveAVoice.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_AuthorityVerification_Users", "AuthorityVerification")]
-        public EntityCollection<AuthorityVerification> AuthorityVerifications
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AuthorityVerification>("HaveAVoice.Models.FK_AuthorityVerification_Users", "AuthorityVerification");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AuthorityVerification>("HaveAVoice.Models.FK_AuthorityVerification_Users", "AuthorityVerification", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_PhotoAlbum_Users", "PhotoAlbum")]
         public EntityCollection<PhotoAlbum> PhotoAlbums
         {
@@ -12154,6 +12219,28 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserPrivacySetting>("HaveAVoice.Models.FK_UserPrivacySettings_Users", "UserPrivacySetting", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_AuthorityVerification_Users", "AuthorityVerification")]
+        public EntityCollection<AuthorityVerification> AuthorityVerifications
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AuthorityVerification>("HaveAVoice.Models.FK_AuthorityVerification_Users", "AuthorityVerification");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AuthorityVerification>("HaveAVoice.Models.FK_AuthorityVerification_Users", "AuthorityVerification", value);
                 }
             }
         }

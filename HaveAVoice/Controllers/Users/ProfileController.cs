@@ -110,8 +110,9 @@ namespace HaveAVoice.Controllers.Users {
                     myModel.Model = theService.AuthorityProfile(myUser.Details);
                 } else {
                     myModel.Model = theService.MyProfile(myUser.Details);
-                    SaveFeedInformationToTempDataForFiltering(myModel.Model, PersonFilter.All);
                 }
+
+                SaveFeedInformationToTempDataForFiltering(myModel.Model, PersonFilter.All);
 
                 if (myModel.Model.IsEmpty()) {
                     ViewData["Message"] = MessageHelper.NormalMessage(EMPTY_FRIEND_FEED);

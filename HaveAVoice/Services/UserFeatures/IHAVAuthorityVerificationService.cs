@@ -7,8 +7,8 @@ using HaveAVoice.Models.View;
 
 namespace HaveAVoice.Services.UserFeatures {
     public interface IHAVAuthorityVerificationService {
-        bool RequestTokenForAuthority(UserInformationModel aRequestingUser, string anEmail);
-        bool IsValidToken(string anEmail, string aToken);
-        void VerifyAuthority(string anEmail, string aToken);
+        bool RequestTokenForAuthority(UserInformationModel aRequestingUser, string anEmail, string anAuthorityType);
+        bool IsValidToken(string anEmail, string aToken, string anAuthorityType);
+        void VerifyAuthority(string anEmail, string aToken, string anAuthorityType);
     }
 }

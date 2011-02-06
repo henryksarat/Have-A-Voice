@@ -21,8 +21,5 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         IEnumerable<Issue> FilteredIssuesFeed(User aUser);
         IEnumerable<IssueReply> FilteredIssueReplysFeed(User aUser);
-
-        IEnumerable<Issue> OfficialsIssueFeed(User aViewingUser, IEnumerable<string> aSelectRoles);
-        IEnumerable<IssueReply> OfficialsIssueReplyFeed(User aViewingUser, IEnumerable<string> aSelectRoles);
     }
 }

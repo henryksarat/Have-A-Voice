@@ -71,6 +71,7 @@
 
                     <%= Html.Hidden("Email", Model.Email) %>
                     <%= Html.Hidden("Token", Model.Token) %>
+                    <%= Html.Hidden("AuthorityType", Model.AuthorityType) %>
 	    			
                     <div class="col-4 m-rgt right">
 	    				<label for="FirstName">Email:</label>
@@ -174,7 +175,7 @@
 					<div class="spacer-10">&nbsp;</div>
 					
 					<div class="col-4 m-rgt right">
-						<label for="City">City:</label>
+						<label for="City">Representing City:</label>
 	    				<div class="clear">&nbsp;</div>
 					</div>
 					<div class="col-4">
@@ -191,7 +192,7 @@
 					<div class="spacer-10">&nbsp;</div>
 					
 					<div class="col-4 m-rgt right">
-						<label for="State">State:</label>
+						<label for="State">Representing State:</label>
 	    				<div class="clear">&nbsp;</div>
 					</div>
 					<div class="col-4">

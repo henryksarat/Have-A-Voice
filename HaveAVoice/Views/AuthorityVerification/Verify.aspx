@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.StringWrapper>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Helpers.Pair<string,string>>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Verify
@@ -21,7 +21,8 @@
 				<div class="clear">&nbsp;</div>
 				
 				<% using (Html.BeginForm("Verify", "AuthorityVerification", FormMethod.Post, new { @class = "create" })) { %>
-					<%= Html.Hidden("Token", Model.Value) %>
+					<%= Html.Hidden("Token", Model.First) %>
+                    <%= Html.Hidden("AuthorityType", Model.First) %>
 					<div class="push-3 col-16 fnt-14 teal m-btm10">
 						Enter the email that this token was sent to.
 						<div class="clear">&nbsp;</div>
