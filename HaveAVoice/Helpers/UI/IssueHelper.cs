@@ -64,7 +64,7 @@ namespace HaveAVoice.Helpers.UI {
 
 			var profileDiv = new TagBuilder("div");
             if (anIssueReply.IssueStance == (int)IssueStanceFilter.Disagree) {
-			    profileDiv.MergeAttribute("class", "col-2 center push-21");
+			    profileDiv.MergeAttribute("class", "col-2 center push-20");
 			} else {
 				profileDiv.MergeAttribute("class", "push-6 col-2 center");
 			}
@@ -84,7 +84,7 @@ namespace HaveAVoice.Helpers.UI {
 			
 			var stanceComment = new TagBuilder("div");
 			if (anIssueReply.IssueStance == (int)IssueStanceFilter.Disagree) {
-				stanceComment.MergeAttribute("class", "push-7 m-lft col-12 m-rgt comment");
+				stanceComment.MergeAttribute("class", "push-6 m-lft col-12 m-rgt comment");
 			} else {
 				stanceComment.MergeAttribute("class", "push-6 m-lft col-12 m-rgt comment");
 			}
