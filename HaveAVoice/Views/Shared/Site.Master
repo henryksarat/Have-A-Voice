@@ -8,9 +8,9 @@
     <link href="/Content/reset.css" rel="Stylesheet" type="text/css" />
     <link href="/Content/framework.css" rel="Stylesheet" type="text/css" />
     <link href="/Content/site.css" rel="stylesheet" type="text/css" />
-	<link type="text/css" href="/Content/jquery-ui-1.8.9.custom.css" rel="stylesheet" />
+    <link type="text/css" href="/Content/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
         	
-	<script type="text/javascript" src="/Content/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="/Content/jquery-1.4.4.min.js"></script>
 	<script type="text/javascript" src="/Content/jquery-ui-1.7.2.custom.min.js"></script>
 </head>
 
