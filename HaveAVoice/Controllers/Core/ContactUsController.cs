@@ -8,6 +8,7 @@ using HaveAVoice.Validation;
 using HaveAVoice.Services;
 using HaveAVoice.Repositories;
 using HaveAVoice.Controllers.ActionFilters;
+using HaveAVoice.Controllers.Helpers;
 
 namespace HaveAVoice.Controllers.Core {
     public class ContactUsController : HAVBaseController {
@@ -38,10 +39,10 @@ namespace HaveAVoice.Controllers.Core {
                 bool myResult = theContactUsService.AddContactUsInquiry(email, inquiryType, inquiry);
 
                 if (myResult) {
-                    TempData["Message"] = "Inquiry processed. Thank you for the submission!";
+                    TempData["Message"] = MessageHelper.SuccessMessage("Inquiry processed. Thank you for the submission!");
                 }
             } catch (Exception e) {
-                TempData["Message"] = SUBMISSION_ERROR;
+                TempData["Message"] = MessageHelper.ErrorMessage(SUBMISSION_ERROR);
                 LogError(e, SUBMISSION_ERROR);
             }
 

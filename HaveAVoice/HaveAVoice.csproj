@@ -398,6 +398,8 @@
     <Content Include="Content\reset.css" />
     <Content Include="Content\tempjquery.js" />
     <Content Include="Global.asax" />
+    <Content Include="Photos\108_887602195-profile.jpg" />
+    <Content Include="Photos\108_887602195.jpg" />
     <Content Include="Photos\93_-335077089.JPG" />
     <Content Include="Photos\93_1107242979-profile.JPG" />
     <Content Include="Photos\93_1107242979.JPG" />

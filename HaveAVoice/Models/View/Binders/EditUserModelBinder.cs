@@ -15,11 +15,15 @@ namespace HaveAVoice.Models.View {
             string myProfilePictureUrl = BinderHelper.GetA(bindingContext, "ProfilePictureURL");
             string myOriginalEmail = BinderHelper.GetA(bindingContext, "OriginalEmail");
             string myOriginalPassword = BinderHelper.GetA(bindingContext, "OriginalPassword");
+            string myOriginalGender = BinderHelper.GetA(bindingContext, "OriginalGender");
+            string myOriginalWebsite = BinderHelper.GetA(bindingContext, "OriginalWebSite");
+            string myOriginalFullName = BinderHelper.GetA(bindingContext, "OriginalFullName");
             string myNewPassword = BinderHelper.GetA(bindingContext, "NewPassword");
             string myRetypedPassword = BinderHelper.GetA(bindingContext, "RetypedPassword");
             string myWebsite = BinderHelper.GetA(bindingContext, "Website");
             string myCity = BinderHelper.GetA(bindingContext, "City");
             string myState = BinderHelper.GetA(bindingContext, "State");
+            string myGender = BinderHelper.GetA(bindingContext, "Gender");
             string myAboutMe = BinderHelper.GetA(bindingContext, "AboutMe");
             HttpPostedFileBase myImageFile = null;
             foreach(string inputTagName in controllerContext.RequestContext.HttpContext.Request.Files) {
@@ -38,16 +42,22 @@ namespace HaveAVoice.Models.View {
             user.Website = myWebsite;
             user.DateOfBirth = Convert.ToDateTime(BinderHelper.GetA(bindingContext, "DateOfBirth"));
             user.AboutMe = myAboutMe;
+            user.Gender = myGender;
 
             IEnumerable<SelectListItem> myStates = new SelectList(HAVConstants.STATES, user.State);
+            IEnumerable<SelectListItem> myGenders = new SelectList(HAVConstants.GENDERS, user.Gender);
 
             return new EditUserModel(user) {
                 States = myStates,
+                Genders = myGenders,
                 ProfilePictureURL = myProfilePictureUrl,
                 NewPassword = myNewPassword,
                 RetypedPassword = myRetypedPassword,
                 OriginalEmail = myOriginalEmail,
-                OriginalPassword = myOriginalPassword
+                OriginalPassword = myOriginalPassword,
+                OriginalFullName = myOriginalFullName,
+                OriginalWebsite = myOriginalWebsite,
+                OriginalGender = myOriginalGender
             };
         }
     }

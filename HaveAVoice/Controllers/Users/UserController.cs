@@ -66,7 +66,8 @@ namespace HaveAVoice.Controllers.Users {
                 return RedirectToProfile();
             }
             try {
-                bool myResult = theService.CreateUser(aUserToCreate.Build(), captchaValid, aUserToCreate.Agreement, HttpContext.Request.UserHostAddress);
+                User myUserToCreate = aUserToCreate.Build();
+                bool myResult = theService.CreateUser(myUserToCreate, captchaValid, aUserToCreate.Agreement, HttpContext.Request.UserHostAddress);
                 if (myResult) {
                     return SendToResultPage(CREATE_ACCOUNT_TITLE, CREATE_ACCOUNT_SUCCESS);
                 }
@@ -117,7 +118,7 @@ namespace HaveAVoice.Controllers.Users {
         }
 
         private void AddStatesAndGenders(CreateUserModel aUserModel, string aState) {
-            aUserModel.Genders = new SelectList(HAVConstants.GENDERS, aUserModel.SelectedGender.ToString());
+            aUserModel.Genders = new SelectList(HAVConstants.GENDERS, aUserModel.Gender);
             aUserModel.States = new SelectList(HAVConstants.STATES, aState);
         }
 

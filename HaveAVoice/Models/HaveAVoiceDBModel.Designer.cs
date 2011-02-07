@@ -10808,9 +10808,9 @@ namespace HaveAVoice.Models
         /// <param name="lastLogin">Initial value of the LastLogin property.</param>
         /// <param name="registrationDate">Initial value of the RegistrationDate property.</param>
         /// <param name="registrationIp">Initial value of the RegistrationIp property.</param>
-        /// <param name="uTCOffset">Initial value of the UTCOffset property.</param>
+        /// <param name="shortUrl">Initial value of the ShortUrl property.</param>
         /// <param name="gender">Initial value of the Gender property.</param>
-        public static User CreateUser(global::System.Int32 id, global::System.String email, global::System.String password, global::System.String firstName, global::System.String lastName, global::System.String city, global::System.String state, global::System.DateTime dateOfBirth, global::System.DateTime lastLogin, global::System.DateTime registrationDate, global::System.String registrationIp, global::System.String uTCOffset, global::System.Int16 gender)
+        public static User CreateUser(global::System.Int32 id, global::System.String email, global::System.String password, global::System.String firstName, global::System.String lastName, global::System.String city, global::System.String state, global::System.DateTime dateOfBirth, global::System.DateTime lastLogin, global::System.DateTime registrationDate, global::System.String registrationIp, global::System.String shortUrl, global::System.String gender)
         {
             User user = new User();
             user.Id = id;
@@ -10824,7 +10824,7 @@ namespace HaveAVoice.Models
             user.LastLogin = lastLogin;
             user.RegistrationDate = registrationDate;
             user.RegistrationIp = registrationIp;
-            user.UTCOffset = uTCOffset;
+            user.ShortUrl = shortUrl;
             user.Gender = gender;
             return user;
         }
@@ -11126,30 +11126,6 @@ namespace HaveAVoice.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String UTCOffset
-        {
-            get
-            {
-                return _UTCOffset;
-            }
-            set
-            {
-                OnUTCOffsetChanging(value);
-                ReportPropertyChanging("UTCOffset");
-                _UTCOffset = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("UTCOffset");
-                OnUTCOffsetChanged();
-            }
-        }
-        private global::System.String _UTCOffset;
-        partial void OnUTCOffsetChanging(global::System.String value);
-        partial void OnUTCOffsetChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String Website
@@ -11342,7 +11318,7 @@ namespace HaveAVoice.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String ShortUrl
         {
@@ -11354,7 +11330,7 @@ namespace HaveAVoice.Models
             {
                 OnShortUrlChanging(value);
                 ReportPropertyChanging("ShortUrl");
-                _ShortUrl = StructuralObject.SetValidValue(value, true);
+                _ShortUrl = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("ShortUrl");
                 OnShortUrlChanged();
             }
@@ -11368,7 +11344,7 @@ namespace HaveAVoice.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int16 Gender
+        public global::System.String Gender
         {
             get
             {
@@ -11378,13 +11354,13 @@ namespace HaveAVoice.Models
             {
                 OnGenderChanging(value);
                 ReportPropertyChanging("Gender");
-                _Gender = StructuralObject.SetValidValue(value);
+                _Gender = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("Gender");
                 OnGenderChanged();
             }
         }
-        private global::System.Int16 _Gender;
-        partial void OnGenderChanging(global::System.Int16 value);
+        private global::System.String _Gender;
+        partial void OnGenderChanging(global::System.String value);
         partial void OnGenderChanged();
 
         #endregion
