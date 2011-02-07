@@ -30,6 +30,16 @@ namespace HaveAVoice.Helpers {
         public const bool MALE = true;
         public const bool FEMALE = false;
 
+
+        public static List<string> INQUIRY_TYPES = new List<string>() {
+            "Select",
+            "Feedback",
+            "Bug Report",
+            "Investor",
+            "Politician Account Creation",
+            "Political Candidate Account Creation"
+        };
+
         public static List<string> AUTHORITY_ROLES = new List<string>() {
             "Select",
             Roles.POLITICIAN,

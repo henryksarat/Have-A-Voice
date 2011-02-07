@@ -79,6 +79,7 @@
     <Compile Include="Controllers\Admin\AdminController.cs" />
     <Compile Include="Controllers\Core\AuthenticationController.cs" />
     <Compile Include="Controllers\Core\AuthorityVerificationController.cs" />
+    <Compile Include="Controllers\Core\ContactUsController.cs" />
     <Compile Include="Controllers\Core\PasswordController.cs" />
     <Compile Include="Controllers\Helpers\ErrorHelper.cs" />
     <Compile Include="Controllers\Helpers\MessageHelper.cs" />
@@ -165,6 +166,8 @@
     <Compile Include="Models\Wrappers\IssueWrapper.cs" />
     <Compile Include="Repositories\AdminFeatures\EntityHAVPermissionRepository.cs" />
     <Compile Include="Repositories\AdminFeatures\IHAVPermissionRepository.cs" />
+    <Compile Include="Repositories\SiteFeatures\EntityHAVContactUsRepository.cs" />
+    <Compile Include="Repositories\SiteFeatures\IHAVContactUsRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVFanRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVFanRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVPhotoAlbumRepository.cs" />
@@ -204,6 +207,8 @@
     <Compile Include="Services\Helpers\PhotoHelper.cs" />
     <Compile Include="Services\Helpers\RoleHelper.cs" />
     <Compile Include="Services\Helpers\ValidationHelper.cs" />
+    <Compile Include="Services\SiteFeatures\HAVContactUsService.cs" />
+    <Compile Include="Services\SiteFeatures\IHAVContactUsService.cs" />
     <Compile Include="Services\UserFeatures\HAVFanService.cs" />
     <Compile Include="Services\UserFeatures\IHAVFanService.cs" />
     <Compile Include="Services\UserFeatures\HAVPhotoAlbumService.cs" />
@@ -393,6 +398,13 @@
     <Content Include="Content\reset.css" />
     <Content Include="Content\tempjquery.js" />
     <Content Include="Global.asax" />
+    <Content Include="Photos\93_-335077089.JPG" />
+    <Content Include="Photos\93_1107242979-profile.JPG" />
+    <Content Include="Photos\93_1107242979.JPG" />
+    <Content Include="Photos\93_1434800530.jpg" />
+    <Content Include="Photos\94_-1130008149.JPG" />
+    <Content Include="Photos\94_-1209933621.JPG" />
+    <Content Include="Photos\94_-1316960325.JPG" />
     <Content Include="Photos\no_profile_picture.jpg" />
     <Content Include="Views\Account\ChangePassword.aspx" />
     <Content Include="Views\Account\ChangePasswordSuccess.aspx" />
@@ -405,6 +417,7 @@
     <Content Include="Views\Board\View.aspx" />
     <Content Include="Views\Calendar\List.aspx" />
     <Content Include="Views\Complaint\Complaint.aspx" />
+    <Content Include="Views\ContactUs\Create.aspx" />
     <Content Include="Views\Error\Index.aspx" />
     <Content Include="Views\Friend\List.aspx" />
     <Content Include="Views\Friend\Pending.aspx" />
@@ -492,6 +505,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\App_LocalResources\" />
+    <Folder Include="obj\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Site.Master" />

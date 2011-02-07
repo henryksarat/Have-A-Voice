@@ -535,22 +535,6 @@ namespace HaveAVoice.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<Timezone> Timezones
-        {
-            get
-            {
-                if ((_Timezones == null))
-                {
-                    _Timezones = base.CreateObjectSet<Timezone>("Timezones");
-                }
-                return _Timezones;
-            }
-        }
-        private ObjectSet<Timezone> _Timezones;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<UserRole> UserRoles
         {
             get
@@ -771,6 +755,22 @@ namespace HaveAVoice.Models
             }
         }
         private ObjectSet<AuthorityVerification> _AuthorityVerifications;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ContactU> ContactUs
+        {
+            get
+            {
+                if ((_ContactUs == null))
+                {
+                    _ContactUs = base.CreateObjectSet<ContactU>("ContactUs");
+                }
+                return _ContactUs;
+            }
+        }
+        private ObjectSet<ContactU> _ContactUs;
 
         #endregion
         #region AddTo Methods
@@ -976,14 +976,6 @@ namespace HaveAVoice.Models
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the Timezones EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToTimezones(Timezone timezone)
-        {
-            base.AddObject("Timezones", timezone);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the UserRoles EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToUserRoles(UserRole userRole)
@@ -1093,6 +1085,14 @@ namespace HaveAVoice.Models
         public void AddToAuthorityVerifications(AuthorityVerification authorityVerification)
         {
             base.AddObject("AuthorityVerifications", authorityVerification);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ContactUs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToContactUs(ContactU contactU)
+        {
+            base.AddObject("ContactUs", contactU);
         }
 
         #endregion
@@ -3579,6 +3579,165 @@ namespace HaveAVoice.Models
         }
 
         #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="HaveAVoice.Models", Name="ContactU")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ContactU : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new ContactU object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="inquiryType">Initial value of the InquiryType property.</param>
+        /// <param name="inquiry">Initial value of the Inquiry property.</param>
+        /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
+        /// <param name="email">Initial value of the Email property.</param>
+        public static ContactU CreateContactU(global::System.Int32 id, global::System.String inquiryType, global::System.String inquiry, global::System.DateTime dateTimeStamp, global::System.String email)
+        {
+            ContactU contactU = new ContactU();
+            contactU.Id = id;
+            contactU.InquiryType = inquiryType;
+            contactU.Inquiry = inquiry;
+            contactU.DateTimeStamp = dateTimeStamp;
+            contactU.Email = email;
+            return contactU;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String InquiryType
+        {
+            get
+            {
+                return _InquiryType;
+            }
+            set
+            {
+                OnInquiryTypeChanging(value);
+                ReportPropertyChanging("InquiryType");
+                _InquiryType = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("InquiryType");
+                OnInquiryTypeChanged();
+            }
+        }
+        private global::System.String _InquiryType;
+        partial void OnInquiryTypeChanging(global::System.String value);
+        partial void OnInquiryTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Inquiry
+        {
+            get
+            {
+                return _Inquiry;
+            }
+            set
+            {
+                OnInquiryChanging(value);
+                ReportPropertyChanging("Inquiry");
+                _Inquiry = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Inquiry");
+                OnInquiryChanged();
+            }
+        }
+        private global::System.String _Inquiry;
+        partial void OnInquiryChanging(global::System.String value);
+        partial void OnInquiryChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateTimeStamp
+        {
+            get
+            {
+                return _DateTimeStamp;
+            }
+            set
+            {
+                OnDateTimeStampChanging(value);
+                ReportPropertyChanging("DateTimeStamp");
+                _DateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateTimeStamp");
+                OnDateTimeStampChanged();
+            }
+        }
+        private global::System.DateTime _DateTimeStamp;
+        partial void OnDateTimeStampChanging(global::System.DateTime value);
+        partial void OnDateTimeStampChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Email
+        {
+            get
+            {
+                return _Email;
+            }
+            set
+            {
+                OnEmailChanging(value);
+                ReportPropertyChanging("Email");
+                _Email = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Email");
+                OnEmailChanged();
+            }
+        }
+        private global::System.String _Email;
+        partial void OnEmailChanging(global::System.String value);
+        partial void OnEmailChanged();
+
+        #endregion
+    
     }
     
     /// <summary>
@@ -10623,113 +10782,6 @@ namespace HaveAVoice.Models
         }
 
         #endregion
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="HaveAVoice.Models", Name="Timezone")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class Timezone : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new Timezone object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="region">Initial value of the Region property.</param>
-        /// <param name="uTCOffset">Initial value of the UTCOffset property.</param>
-        public static Timezone CreateTimezone(global::System.Int32 id, global::System.String region, global::System.Int32 uTCOffset)
-        {
-            Timezone timezone = new Timezone();
-            timezone.Id = id;
-            timezone.Region = region;
-            timezone.UTCOffset = uTCOffset;
-            return timezone;
-        }
-
-        #endregion
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Int32 _Id;
-        partial void OnIdChanging(global::System.Int32 value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String Region
-        {
-            get
-            {
-                return _Region;
-            }
-            set
-            {
-                OnRegionChanging(value);
-                ReportPropertyChanging("Region");
-                _Region = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Region");
-                OnRegionChanged();
-            }
-        }
-        private global::System.String _Region;
-        partial void OnRegionChanging(global::System.String value);
-        partial void OnRegionChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 UTCOffset
-        {
-            get
-            {
-                return _UTCOffset;
-            }
-            set
-            {
-                OnUTCOffsetChanging(value);
-                ReportPropertyChanging("UTCOffset");
-                _UTCOffset = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("UTCOffset");
-                OnUTCOffsetChanged();
-            }
-        }
-        private global::System.Int32 _UTCOffset;
-        partial void OnUTCOffsetChanging(global::System.Int32 value);
-        partial void OnUTCOffsetChanged();
-
-        #endregion
-    
     }
     
     /// <summary>
