@@ -31,7 +31,7 @@ namespace HaveAVoice.Tests.Controllers {
             User myUser = new User();
             theMockUserInformation.Setup(f => f.GetUserInformaton()).Returns(() => theUserInformationBuilder.Build());
 
-            HAVUserInformationFactory.SetInstance(theMockUserInformation.Object);
+            //HAVUserInformationFactory.SetInstance(theMockUserInformation.Object);
         }
 
         protected ControllerContext GetControllerContext() {

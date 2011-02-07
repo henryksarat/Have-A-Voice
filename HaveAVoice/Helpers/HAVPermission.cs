@@ -5,7 +5,6 @@ using System.Web;
 
 namespace HaveAVoice.Helpers {
     public enum HAVPermission {
-        Confirmed_User,
         //Board
         View_Board,
         Post_To_Board,
@@ -61,6 +60,10 @@ namespace HaveAVoice.Helpers {
         Create_Authority_Verification_Token,
         Authority_Feed,
         //IssueReply
-        Post_Anonymous_Issue_Reply
+        Post_Anonymous_Issue_Reply,
+        //Usertypes
+        Confirmed_User,
+        Confirmed_Politician,
+        Confirmed_Political_Candidate
     }
 }

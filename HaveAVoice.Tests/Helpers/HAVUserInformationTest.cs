@@ -43,7 +43,7 @@ namespace HaveAVoice.Tests.Helpers {
                 .AddPermissions(thePermissions)
                 .SetRestriction(theRestriction);
 
-            HAVUserInformationFactory.SetInstance(theUserInformation);
+            //HAVUserInformationFactory.SetInstance(theUserInformation);
         }
         /*
         [TestMethod]

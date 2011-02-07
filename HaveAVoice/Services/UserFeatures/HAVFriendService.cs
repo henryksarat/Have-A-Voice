@@ -45,5 +45,9 @@ namespace HaveAVoice.Services.UserFeatures {
         public bool IsPending(int aUserId, User aFriend) {
             return theFriendRepo.IsPending(aUserId, aFriend);
         }
+
+       public bool IsPendingForResponse(User aUser, int aFriendId) {
+           return theFriendRepo.IsPendingForResponse(aUser, aFriendId);
+        }
     }
 }

@@ -16,6 +16,12 @@ namespace HaveAVoice.Helpers {
             theRestrictionTable = new Hashtable();
         }
 
+        public static bool HasPermission(UserInformationModel aUserToCheck, HAVPermission aPermission) {
+            return (from p in aUserToCheck.Permissions 
+                    where p.Name == aPermission.ToString()
+                    select p).Count<Permission>() > 0 ? true : false;
+        }
+
         public static bool AllowedToPerformAction(UserInformationModel aUserInformation, params HAVPermission[] aPermissions) {
             bool myResult = false;
 

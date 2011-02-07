@@ -69,13 +69,14 @@
 
     <div class="fnt-10 m-btm5">
         <% if (Model.NavigationModel.SiteSection == SiteSection.Profile) { %>
-    	    <div class="m-lft col-3 m-rgt center">
-    		    <a href="#" rel="post" class="filter">Post on Board</a>
-    		    <div class="clear">&nbsp;</div>
-    	    </div>
-
-		    <div class="m-lft col-2 m-rgt f-rgt center">
-			    <a href="<%= LinkHelper.Report(Model.NavigationModel.User.Id, ComplaintType.ProfileComplaint) %>" class="filter dislike">Report</a>
+            <% if (PrivacyHelper.IsAllowed(Model.NavigationModel.User, PrivacyAction.DisplayProfile)) { %>
+    	        <div class="m-lft col-3 m-rgt center">
+    		        <a href="#" rel="post" class="filter">Post on Board</a>
+    		        <div class="clear">&nbsp;</div>
+    	        </div>
+            <% } %>
+		    <div class="m-lft col-3 m-rgt f-rgt center">
+			    <a href="<%= LinkHelper.Report(Model.NavigationModel.User.Id, ComplaintType.ProfileComplaint) %>" class="filter dislike">Report Profile</a>
 			    <div class="clear">&nbsp;</div>
 		    </div>
         <% } else { %>
@@ -97,13 +98,13 @@
         <div class="clear">&nbsp;</div>
     </div>
 
-	<% if(Model.NavigationModel.SiteSection != SiteSection.Profile) { %>
+	<% if(Model.NavigationModel.SiteSection == SiteSection.MyProfile) { %>
 		<div class="m-btm5 push-4 m-lft col-14 m-rgt local">
 			<div class="p-a5">
-				<h4>In Your Area</h4>
+				<h4>Issues In Your <%= Model.Model.LocalIssueLocation %></h4>
 				<div class="clear">&nbsp;</div>
-				Resident <%= NameHelper.FullName(Model.Model.LocalIssue.User) %> says, &quot;<%= Model.Model.LocalIssue.Description %>&quot;<br />
-				In response to the issue of <b><%= Model.Model.LocalIssue.Title %></b>.
+				Resident <a href="/Profile/Show/<%= Model.Model.LocalIssue.User.ShortUrl %>"><%= NameHelper.FullName(Model.Model.LocalIssue.User) %></a> says, &quot;<%= Model.Model.LocalIssue.Description %>&quot;<br />
+				In <%= Model.Model.LocalIssue.User.Gender.ToUpper().Equals(HAVGender.Male.ToString().ToUpper()) ? "his" : "her"  %> issue: <b><a href="/Issue/View/<%= Model.Model.LocalIssue.Id %>"><%= Model.Model.LocalIssue.Title %></a></b>.
 	        </div>
 	        <div class="clear">&nbsp;</div>
 		</div>
@@ -136,57 +137,59 @@
             <%  myNextFeedItem = Model.Model.GetNextItem(); %>
         <% } %>
     <% } else if (Model.NavigationModel.SiteSection == SiteSection.Profile) { %>
-        <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
-	    <div class="post m-btm5 m-top5">
-		    <% using (Html.BeginForm("Create", "Board", new { sourceUserId = Model.NavigationModel.User.Id })) { %>
-		    <div class="row">
-			    <div class="push-2 col-2 center">
-	                <% UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation(); %>
-				    <img src="<%= myUserInfo.ProfilePictureUrl  %>" alt="<%= myUserInfo.FullName %>" class="profile" />
-			    </div>
-			    <div class="push-2 m-lft col-14 comment">
-				    <span class="speak-lft">&nbsp;</span>
-				    <div class="p-a10">
-					    <%= Html.ValidationMessage("BoardMessage", "*")%>
-					    <%= Html.TextArea("BoardMessage", (string)TempData["BoardMessage"], 5, 63, new { resize = "none", @class = "comment" })%>
-					    <div class="clear">&nbsp;</div>
-					    <hr />
-					    <div class="col-13 right">
-						    <input type="submit" value="Submit" class="button" />
-						    <input type="button" value="Clear" class="button" />
-					    </div>
-					    <div class="clear">&nbsp;</div>
-				    </div>
-			    </div>
-			    <div class="clear">&nbsp;</div>
-		    </div>
-		    <div class="clear">&nbsp;</div>
-		    <% } %>
-	    </div>
-	    <div class="clear">&nbsp;</div>
+        <% if (PrivacyHelper.IsAllowed(Model.NavigationModel.User, PrivacyAction.DisplayProfile)) { %>
+            <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.")%>
+	        <div class="post m-btm5 m-top5">
+		        <% using (Html.BeginForm("Create", "Board", new { sourceUserId = Model.NavigationModel.User.Id })) { %>
+		        <div class="row">
+			        <div class="push-2 col-2 center">
+	                    <% UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation(); %>
+				        <img src="<%= myUserInfo.ProfilePictureUrl  %>" alt="<%= myUserInfo.FullName %>" class="profile" />
+			        </div>
+			        <div class="push-2 m-lft col-14 comment">
+				        <span class="speak-lft">&nbsp;</span>
+				        <div class="p-a10">
+					        <%= Html.ValidationMessage("BoardMessage", "*")%>
+					        <%= Html.TextArea("BoardMessage", (string)TempData["BoardMessage"], 5, 63, new { resize = "none", @class = "comment" })%>
+					        <div class="clear">&nbsp;</div>
+					        <hr />
+					        <div class="col-13 right">
+						        <input type="submit" value="Submit" class="button" />
+						        <input type="button" value="Clear" class="button" />
+					        </div>
+					        <div class="clear">&nbsp;</div>
+				        </div>
+			        </div>
+			        <div class="clear">&nbsp;</div>
+		        </div>
+		        <div class="clear">&nbsp;</div>
+		        <% } %>
+	        </div>
+	        <div class="clear">&nbsp;</div>
         
-        <% FeedItem myNextFeedItem = Model.Model.GetNextItem(); %>
-        <% int cnt = 0; %>
-        <% while(myNextFeedItem != FeedItem.None) { %>
-            <% ViewData["SiteSection"] = Model.NavigationModel.SiteSection; %>
-            <% ViewData["SourceId"] = Model.NavigationModel.User.Id; %>
-            <% if (myNextFeedItem == FeedItem.Issue) { %>
-                <% IssueFeedModel myIssue = Model.Model.GetNextIssue(); %>
-                <% ViewData["Count"] = cnt; %>
-                <% Html.RenderPartial("IssueFeed", myIssue); %>
-            <% } else if (myNextFeedItem == FeedItem.IssueReply) { %>
-                <% IssueReplyFeedModel myIssueReply = Model.Model.GetNextIssueReply(); %>
-                <% ViewData["Count"] = cnt; %>
-                <% Html.RenderPartial("IssueReplyFeed", myIssueReply); %>
-            <% }  else if (myNextFeedItem == FeedItem.Photo) { %>
-                <% PhotoAlbumFeedModel myPhotoAlbum = Model.Model.GetNextPhotoAlbum(); %>
-            <% } else if (myNextFeedItem == FeedItem.Board) { %>
-                <% BoardFeedModel myBoard = Model.Model.GetNextBoard(); %>
-                <% ViewData["Count"] = cnt; %>
-                <% Html.RenderPartial("BoardFeed", myBoard); %>
+            <% FeedItem myNextFeedItem = Model.Model.GetNextItem(); %>
+            <% int cnt = 0; %>
+            <% while (myNextFeedItem != FeedItem.None) { %>
+                <% ViewData["SiteSection"] = Model.NavigationModel.SiteSection; %>
+                <% ViewData["SourceId"] = Model.NavigationModel.User.Id; %>
+                <% if (myNextFeedItem == FeedItem.Issue) { %>
+                    <% IssueFeedModel myIssue = Model.Model.GetNextIssue(); %>
+                    <% ViewData["Count"] = cnt; %>
+                    <% Html.RenderPartial("IssueFeed", myIssue); %>
+                <% } else if (myNextFeedItem == FeedItem.IssueReply) { %>
+                    <% IssueReplyFeedModel myIssueReply = Model.Model.GetNextIssueReply(); %>
+                    <% ViewData["Count"] = cnt; %>
+                    <% Html.RenderPartial("IssueReplyFeed", myIssueReply); %>
+                <% } else if (myNextFeedItem == FeedItem.Photo) { %>
+                    <% PhotoAlbumFeedModel myPhotoAlbum = Model.Model.GetNextPhotoAlbum(); %>
+                <% } else if (myNextFeedItem == FeedItem.Board) { %>
+                    <% BoardFeedModel myBoard = Model.Model.GetNextBoard(); %>
+                    <% ViewData["Count"] = cnt; %>
+                    <% Html.RenderPartial("BoardFeed", myBoard); %>
+                <% } %>
+                <% cnt++; %>
+                <%  myNextFeedItem = Model.Model.GetNextItem(); %>
             <% } %>
-            <% cnt++; %>
-            <%  myNextFeedItem = Model.Model.GetNextItem(); %>
         <% } %>
     <% } %>
 	</div>

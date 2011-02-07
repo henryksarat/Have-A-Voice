@@ -17,8 +17,7 @@ namespace HaveAVoice.Helpers {
                 HAVPrivacySetting.Display_Profile_To_Friend,
                 HAVPrivacySetting.Display_Profile_To_Politician,
                 HAVPrivacySetting.Display_Profile_To_Not_Friend,
-                HAVPrivacySetting.Display_Profile_To_Not_Logged_In,
-                HAVPrivacySetting.Display_Profile_To_Politician_Candidate
+                HAVPrivacySetting.Display_Profile_To_Political_Candidate
             };
         }
 

@@ -13,15 +13,18 @@
 	</div>
 	<div class="col-15">
 		<div class="m-lft col-15 m-rgt">
+            <% if (PrivacyHelper.IsAllowed(Model.User, PrivacyAction.DisplayProfile)) { %>
             <%= NavigationHelper.UserNavigation(
-                    Model.SiteSection, 
-                    new SiteSection[] {SiteSection.Home, SiteSection.IssueActivity, SiteSection.Photos, SiteSection.Calendar},
-                    new string[] {"home", "message", "photo", "event"},
-                    new string[] {"/Profile/Show", "/Profile/IssueActivity", "/PhotoAlbum/List", "/Calendar/List"},
-                    new string[] { "HOME", "USER FEED", "PHOTOS", "EVENTS"},
+                    Model.SiteSection,
+                    new SiteSection[] { SiteSection.Home, SiteSection.IssueActivity, SiteSection.Photos, SiteSection.Calendar },
+                    new string[] { "home", "message", "photo", "event" },
+                    new string[] { "/Profile/Show", "/Profile/IssueActivity", "/PhotoAlbum/List", "/Calendar/List" },
+                    new string[] { "HOME", "USER FEED", "PHOTOS", "EVENTS" },
                     Model.User
                 )
             %>
+            <% } %>
+
             <% if (Model.SiteSection == SiteSection.Profile && (myUser.Id != Model.User.Id)) { %>
                 <% if (!FanHelper.IsFan(Model.User.Id, myUser)) { %>
                     <div class="f-rgt">

@@ -422,7 +422,7 @@ namespace HaveAVoice.Helpers.UI {
                 if (PrivacyHelper.IsAllowed(myIssue.Issue.User, PrivacyAction.DisplayProfile)) {
                     myAvatarURL = PhotoHelper.ProfilePicture(myIssue.Issue.User);
                 }
-
+                
                 var myOuterDiv = new TagBuilder("div");
                 myOuterDiv.MergeAttribute("class", "m-btm30");
 

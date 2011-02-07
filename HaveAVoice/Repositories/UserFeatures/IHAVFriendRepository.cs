@@ -13,5 +13,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
         IEnumerable<Friend> FindPendingFriendsForUser(int aUserId);
         bool IsFriend(int aUserId, User aFriend);
         bool IsPending(int aUserId, User aFriend);
+        bool IsPendingForResponse(User aUser, int aFriendId);
     }
 }

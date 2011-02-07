@@ -16,6 +16,7 @@ namespace HaveAVoice.Controllers.Core {
     public class AuthenticationController : HAVBaseController {
         private const string ACCOUNT_ACTIVATED_TITLE = "Account activated!";
         private const string ACCOUNT_ACTIVATED_BODY = "You may now login and access have a voice!";
+        private const string LOGGED_OUT = "You have logged out successfully.";
 
         private static string AUTHENTICAITON_ERROR = "Error authenticating. Please try again.";
         private static string INCORRECT_LOGIN = "Incorrect username and password combination.";
@@ -108,6 +109,7 @@ namespace HaveAVoice.Controllers.Core {
             theWhoIsOnlineService.RemoveFromWhoIsOnline(GetUserInformaton(), HttpContext.Request.UserHostAddress);
             Session.Clear();
             CookieHelper.ClearCookies();
+            TempData["Message"] = MessageHelper.SuccessMessage(LOGGED_OUT);
             return RedirectToAction("Login");
         }
 

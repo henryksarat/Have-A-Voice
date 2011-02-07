@@ -59,6 +59,13 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     select f).Count() > 0 ? true : false;
         }
 
+        public bool IsPendingForResponse(User aUser, int aFriendId) {
+            return (from f in theEntities.Friends
+                    where f.FriendUserId == aFriendId && f.SourceUserId == aUser.Id
+                    && f.Approved == false
+                    select f).Count() > 0 ? true : false;
+        }
+
         private Friend FindFriend(int aFriendId) {
             return (from f in theEntities.Friends
                     where f.Id == aFriendId

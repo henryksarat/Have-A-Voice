@@ -137,6 +137,7 @@ namespace HaveAVoice.Controllers.Users {
 
             LoggedInWrapperModel<UserProfileModel> myModel = new LoggedInWrapperModel<UserProfileModel>(myUser, SiteSection.MyProfile);
             myModel.Model = new UserProfileModel(myOriginalUserProfileModel.User) {
+                LocalIssue = myOriginalUserProfileModel.LocalIssue,
                 IssueFeed = (from i in myOriginalUserProfileModel.OriginalIssueFeed
                              where i.PersonFilter.Equals(filterValue)
                              select i).ToList<IssueFeedModel>(),

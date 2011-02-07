@@ -8,6 +8,20 @@ namespace HaveAVoice.Models.View {
     public class UserProfileModel {
         public User User { get; set; }
         public Issue LocalIssue { get; set; }
+        public string LocalIssueLocation { 
+            get {
+                string myLocation = "Country";
+
+                if(User.City.ToUpper().Equals(LocalIssue.City.ToUpper()) && User.State.ToUpper().Equals(LocalIssue.State.ToUpper())) {
+                    myLocation = "City";
+                } else if (User.State.ToUpper().Equals(LocalIssue.State.ToUpper())) {
+                    myLocation = "State";
+                }
+
+                return myLocation;
+            } 
+        }
+
 
         public IEnumerable<BoardFeedModel> BoardFeed { set {
             BoardFeedEnumerator = value.GetEnumerator();
