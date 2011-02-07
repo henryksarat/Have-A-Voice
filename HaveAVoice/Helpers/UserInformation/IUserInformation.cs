@@ -9,6 +9,5 @@ using HaveAVoice.Models.View;
 namespace HaveAVoice.Helpers.UserInformation {
     public interface IUserInformation {
         UserInformationModel GetUserInformaton();
-        bool AllowedToPerformAction(HAVPermission aPermission);
     }
 }

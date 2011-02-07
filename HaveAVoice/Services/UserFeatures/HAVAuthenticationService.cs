@@ -33,9 +33,17 @@ namespace HaveAVoice.Services.UserFeatures {
             theRoleRepo = aRoleRepo;
         }
 
+        public UserInformationModel RefreshUserInformationModel(UserInformationModel aUserInformationModel) {
+            return AuthenticateUserWithHashedPassword(aUserInformationModel.Details.Email, aUserInformationModel.Details.Password);
+        }
+
         public UserInformationModel AuthenticateUser(string anEmail, string aPassword) {
             aPassword = HashHelper.HashPassword(aPassword);
-            User myUser = theUserRetrievalService.GetUser(anEmail, aPassword);
+            return AuthenticateUserWithHashedPassword(anEmail, aPassword);
+        }
+
+        private UserInformationModel AuthenticateUserWithHashedPassword(string anEmail, string aHashedPassword) {
+            User myUser = theUserRetrievalService.GetUser(anEmail, aHashedPassword);
             return CreateUserInformationModel(myUser);
         }
 

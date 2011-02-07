@@ -2284,8 +2284,8 @@
           <NavigationProperty Name="PhotoAlbums" Relationship="HaveAVoice.Models.FK_PhotoAlbum_Users" FromRole="User" ToRole="PhotoAlbum" />
           <NavigationProperty Name="Photos" Relationship="HaveAVoice.Models.FK_Photos_Users" FromRole="User" ToRole="Photo" />
           <NavigationProperty Name="PhotoComplaints" Relationship="HaveAVoice.Models.FK_PhotoComplaints_Users" FromRole="User" ToRole="PhotoComplaint" />
-          <NavigationProperty Name="Fans" Relationship="HaveAVoice.Models.FK_Fans_FanUserId_Users" FromRole="User" ToRole="Fan" />
-          <NavigationProperty Name="Fans1" Relationship="HaveAVoice.Models.FK_Fans_SourceUserId_Users" FromRole="User" ToRole="Fan" />
+          <NavigationProperty Name="FanOfPeople" Relationship="HaveAVoice.Models.FK_Fans_FanUserId_Users" FromRole="User" ToRole="Fan" />
+          <NavigationProperty Name="FansOfMe" Relationship="HaveAVoice.Models.FK_Fans_SourceUserId_Users" FromRole="User" ToRole="Fan" />
           <Property Type="String" Name="ShortUrl" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="PrivacySettings" Relationship="HaveAVoice.Models.FK_PrivacySettings_Users" FromRole="User" ToRole="PrivacySetting" />
           <NavigationProperty Name="UserPrivacySettings" Relationship="HaveAVoice.Models.FK_UserPrivacySettings_Users" FromRole="User" ToRole="UserPrivacySetting" />

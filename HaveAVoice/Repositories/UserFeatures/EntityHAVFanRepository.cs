@@ -15,6 +15,14 @@ namespace HaveAVoice.Repositories.UserFeatures {
             theEntities.SaveChanges();
         }
 
+        public void Remove(User aUser, int aSourceUserId) {
+            Fan myFan = GetFan(aUser, aSourceUserId);
+
+            theEntities.DeleteObject(myFan);
+
+            theEntities.SaveChanges();
+        }
+
         public IEnumerable<Fan> GetAllFansForUser(User aUser) {
             return (from f in theEntities.Fans
                     where f.SourceUserId == aUser.Id
@@ -33,6 +41,13 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     where f.FanUserId == aFanUser.Id
                     && f.SourceUserId == aSourceUserId
                     select f).Count<Fan>() > 0 ? true : false;
+        }
+
+        private Fan GetFan(User aUser, int aSourceUserId) {
+            return (from f in theEntities.Fans
+                    where f.FanUserId == aUser.Id
+                    && f.SourceUserId == aSourceUserId
+                    select f).FirstOrDefault<Fan>();
         }
     }
 }

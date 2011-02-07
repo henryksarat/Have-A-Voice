@@ -22,6 +22,10 @@ namespace HaveAVoice.Services.UserFeatures {
             theFanRepo.Add(aUser, aSourceUserId);
         }
 
+        public void Remove(User aUser, int aSourceUserId) {
+            theFanRepo.Remove(aUser, aSourceUserId);
+        }
+
         public IEnumerable<Fan> GetAllFansForUser(User aUser) {
             return theFanRepo.GetAllFansForUser(aUser);
         }

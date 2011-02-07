@@ -44,6 +44,16 @@ namespace HaveAVoice.Controllers  {
             return HAVUserInformationFactory.GetUserInformation();
         }
 
+        protected void RefreshUserInformation() {
+            UserInformationModel myUserInformationModel = GetUserInformatonModel();
+            try {
+                myUserInformationModel = theAuthService.RefreshUserInformationModel(GetUserInformatonModel());
+            } catch (Exception myException) {
+                LogError(myException, String.Format("Big problem! Was unable to refresg the user information model for userid={0}", myUserInformationModel.Details.Id));
+            }
+            Session["UserInformation"] = myUserInformationModel;
+        }
+
         protected bool IsLoggedIn() {
             if (!HAVUserInformationFactory.IsLoggedIn()) {
 

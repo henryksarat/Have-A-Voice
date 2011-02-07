@@ -186,6 +186,7 @@
     <Compile Include="Repositories\UserFeatures\EntityHAVWhoIsOnlineRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVAuthorityVerificationRepository.cs" />
     <Compile Include="Services\Helpers\CookieHelper.cs" />
+    <Compile Include="Services\Helpers\FanHelper.cs" />
     <Compile Include="Services\Helpers\FriendHelper.cs" />
     <Compile Include="Services\Helpers\IssueHelper.cs" />
     <Compile Include="Services\Helpers\MessageHelper.cs" />

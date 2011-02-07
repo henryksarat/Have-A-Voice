@@ -12144,7 +12144,7 @@ namespace HaveAVoice.Models
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Fans_FanUserId_Users", "Fan")]
-        public EntityCollection<Fan> Fans
+        public EntityCollection<Fan> FanOfPeople
         {
             get
             {
@@ -12166,7 +12166,7 @@ namespace HaveAVoice.Models
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Fans_SourceUserId_Users", "Fan")]
-        public EntityCollection<Fan> Fans1
+        public EntityCollection<Fan> FansOfMe
         {
             get
             {

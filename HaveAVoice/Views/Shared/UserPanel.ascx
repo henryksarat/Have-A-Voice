@@ -23,14 +23,25 @@
                 )
             %>
             <% if (Model.SiteSection == SiteSection.Profile) { %>
-                <div class="f-rgt">
-            	    <div class="col-2 center">
-	            	    <a href="/Fan/Add/<%= Model.User.Id %>" class="filter like">
-			                Fan
-		                </a>
-		                <div class="clear">&nbsp;</div>
-	                </div>
-			    </div>
+                <% if (!FanHelper.IsFan(Model.User.Id, myUser)) { %>
+                    <div class="f-rgt">
+            	        <div class="col-2 center">
+	            	        <a href="/Fan/Add/<%= Model.User.Id %>" class="filter like">
+			                    Fan
+		                    </a>
+		                    <div class="clear">&nbsp;</div>
+	                    </div>
+			        </div>
+                <% } else {%>
+                    <div class="f-rgt">
+            	        <div class="col-2 center">
+	            	        <a href="/Fan/Remove/<%= Model.User.Id %>" class="filter like">
+			                    De-Fan
+		                    </a>
+		                    <div class="clear">&nbsp;</div>
+	                    </div>
+			        </div>
+                <% } %>
             <% } %>
             <div class="clear">&nbsp;</div>
 		</div>
@@ -88,7 +99,7 @@
 	            <div class="clear">&nbsp;</div>
 	            <div class="spacer-5">&nbsp;</div>
 	            <div class="col-1 teal fnt-14">
-	        	    ###
+	        	    <%= Model.User.FansOfMe.Count %>
 	        	    <div class="clear">&nbsp;</div>
         	    </div>
         	    <div class="col-1 c-white fnt-14">

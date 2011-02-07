@@ -23,11 +23,6 @@ namespace HaveAVoice.Helpers.UserInformation {
             return GetUserInformation() != null;
         }
 
-        public static bool AllowedToPerformAction(HAVPermission aPermission) {
-            SetDefaultInstance();
-            return theFactory.AllowedToPerformAction(aPermission);
-        }
-
         public static void Dispose() {
             Dispose(UserInformation.Instance());
         }
