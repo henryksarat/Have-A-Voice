@@ -121,6 +121,20 @@ namespace HaveAVoice.Repositories.UserFeatures {
                                                 select i);
 
             int myCount = myLocalIssues.Count<Issue>();
+            if (myCount == 0) {
+                myLocalIssues = (from i in theEntities.Issues
+                                            where i.State == aForUser.State
+                                            select i);
+                myCount = myLocalIssues.Count<Issue>();
+
+                if (myCount == 0) {
+                    myLocalIssues = (from i in theEntities.Issues
+                                                select i);
+
+                    myCount = myLocalIssues.Count<Issue>();
+                }
+            }
+
             int myRandomIndex = new Random().Next(myCount);
 
             return myLocalIssues.Skip(myRandomIndex).FirstOrDefault<Issue>();

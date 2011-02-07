@@ -33,20 +33,6 @@ namespace HaveAVoice.Models.View {
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string ShortUrl { get; set; }
 
-
-        public HAVGender SelectedGender {
-            get {
-                HAVGender mySelectedGender = HAVGender.Select;
-                foreach (HAVGender myGender in Enum.GetValues(typeof(HAVGender))) {
-                    if (Gender.ToUpper().Equals(Enum.GetName(typeof(HAVGender), myGender).ToUpper())) {
-                        mySelectedGender = myGender;
-                    }
-                }
-
-                return mySelectedGender;
-            }
-        }
-
         public abstract User Build();
 
         public abstract String getDateOfBirthFormatted();

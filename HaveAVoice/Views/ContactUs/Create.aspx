@@ -6,9 +6,17 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <% using (Html.BeginForm("Create", "AuthorityVerification", FormMethod.Post, new { @class = "create" })) { %>
-	    <% Html.RenderPartial("Message"); %>
+    <% using (Html.BeginForm("Create", "ContactUs", FormMethod.Post, new { @class = "create" })) { %>
+		<% Html.RenderPartial("Message"); %>
         <% Html.RenderPartial("Validation"); %>
+		
+		<div class="clear">&nbsp;</div>
+					
+		<div class="push-3 col-16 fnt-14 teal m-btm10">
+			Please fill out the following form to get in contact with the have a voice staff. We will try to respond back within 24 hours.
+			<div class="clear">&nbsp;</div>
+		</div>
+		<div class="clear">&nbsp;</div>
 
 	    <div class="col-4 m-rgt right">
 	        <label for="FirstName">Email:</label>

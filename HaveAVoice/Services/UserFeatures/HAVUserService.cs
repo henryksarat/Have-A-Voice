@@ -106,9 +106,6 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         private User CompleteAddingFieldsToUser(User aUserToCreate, string aIpAddress) {
-            TimeZone myTimezone = TimeZone.CurrentTimeZone;
-            aUserToCreate.UTCOffset = myTimezone.GetUtcOffset(DateTime.Now).ToString();
-
             aUserToCreate.Password = HashHelper.HashPassword(aUserToCreate.Password);
             aUserToCreate.RegistrationDate = DateTime.UtcNow;
             aUserToCreate.RegistrationIp = aIpAddress;
@@ -146,12 +143,20 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public EditUserModel GetUserForEdit(User aUser) {
             int myUserId = aUser.Id;
-            IEnumerable<SelectListItem> states =
+            IEnumerable<SelectListItem> myStates =
                 new SelectList(HAVConstants.STATES, aUser.State);
+            IEnumerable<SelectListItem> myGenders =
+                new SelectList(HAVConstants.GENDERS, aUser.Gender.Equals("M") ? "Male" : "Female");
             User myUser = theUserRetrievalService.GetUser(myUserId);
 
             return new EditUserModel(myUser) {
-                States = states,
+                OriginalEmail = myUser.Email,
+                OriginalFullName = NameHelper.FullName(myUser),
+                OriginalGender = myUser.Gender,
+                OriginalPassword = myUser.Password,
+                OriginalWebsite = myUser.Website,
+                States = myStates,
+                Genders = myGenders,
                 ProfilePictureURL= PhotoHelper.ProfilePicture(myUser)
             };
         }
@@ -203,7 +208,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 theValidationDictionary.AddError("Email", aUser.Email.Trim(), "Someone already registered with that email. Please try another one.");
             }
             if (aUser.ShortUrl.Length == 0) {
-                theValidationDictionary.AddError("ShortUrl", aUser.ShortUrl, "You must give yourself www.haveavoice.com url.");
+                theValidationDictionary.AddError("ShortUrl", aUser.ShortUrl, "You must give yourself a www.haveavoice.com url.");
             } else if (theUserRepo.ShortUrlTaken(aUser.ShortUrl)) {
                 theValidationDictionary.AddError("ShortUrl", aUser.ShortUrl, "That www.haveavoice.com url is already taken by someone else.");
             }
@@ -226,13 +231,13 @@ namespace HaveAVoice.Services.UserFeatures {
             if (aUser.City.Trim().Length == 0) {
                 theValidationDictionary.AddError("City", aUser.City.Trim(), "City is required.");
             }
-            if (aUser.Gender == (short)HAVGender.Select) {
-                theValidationDictionary.AddError("Gender", "Select", "Gender is required.");
+            if (aUser.Gender.Equals(HAVGender.Select.ToString())) {
+                theValidationDictionary.AddError("Gender", HAVGender.Select.ToString(), "Gender is required.");
             }
             if (aUser.State.Trim().Length != 2) {
                 theValidationDictionary.AddError("State", aUser.State.Trim(), "State is required.");
             }
-            if (aUser.Email.Length > 0 && !Regex.IsMatch(aUser.Email, @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$")) {
+            if (!ValidationHelper.IsValidEmail(aUser.Email)) {
                 theValidationDictionary.AddError("Email", aUser.Email, "Invalid email address.");
             }
             if (aUser.DateOfBirth.Year == 1) {

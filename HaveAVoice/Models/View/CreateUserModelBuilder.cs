@@ -32,11 +32,10 @@ namespace HaveAVoice.Models.View {
         public override User Build() {
             DateTime myTempDateFiller = DateTime.UtcNow;
             string myTempIp = "127.0.0.1";
-            string myTempUtcOffset = "shitty";
 
             return User.CreateUser(0, Email, Password, FirstName, LastName, City, 
                 State, DateOfBirth, myTempDateFiller, myTempDateFiller, 
-                myTempIp, myTempUtcOffset, (short)SelectedGender);
+                myTempIp, ShortUrl, Gender);
         }
 
         public override String getDateOfBirthFormatted() {

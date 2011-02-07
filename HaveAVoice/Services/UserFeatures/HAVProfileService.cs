@@ -95,6 +95,7 @@ namespace HaveAVoice.Services.UserFeatures {
         public UserProfileModel AuthorityProfile(User anAuthorityUser) {
             //This has to take into user privacy if they want an authority to see their profile
             UserProfileModel myModel = new UserProfileModel(anAuthorityUser) {
+                LocalIssue = theRepository.RandomLocalIssue(anAuthorityUser),
                 IssueFeed = CreateIssueFeed(theRepository.FilteredIssuesFeed(anAuthorityUser), anAuthorityUser, PersonFilter.Politicians),
                 IssueReplyFeed = CreateIssueReplyFeed(theRepository.FriendIssueReplyFeed(anAuthorityUser), anAuthorityUser, PersonFilter.Politicians)
             };

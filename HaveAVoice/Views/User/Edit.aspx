@@ -24,10 +24,10 @@
 	        <img src="<%= Model.ProfilePictureURL %>" alt="<%= NameHelper.FullName(Model.UserInformation) %>" class="profile" />
 	        <br />
 	        <div class="col-6 p-v10 details">
-				<span class="blue">Name:</span> <%= Model.UserInformation.FirstName + " " + Model.UserInformation.LastName %><br />
-				<span class="blue">Gender:</span> <%= Model.UserInformation.Gender %><br />
-				<span class="blue">Site:</span> <%= Model.UserInformation.Website %><br />
-	            <span class="blue">Email:</span> <%= Model.UserInformation.Email %><br />
+				<span class="blue">Name:</span> <%= Model.OriginalFullName %><br />
+				<span class="blue">Gender:</span> <%= Model.OriginalGender %><br />
+				<span class="blue">Site:</span> <%= Model.OriginalWebsite %><br />
+	            <span class="blue">Email:</span> <%= Model.OriginalEmail %><br />
 			</div>
 
 	        <div class="col-6">
@@ -38,6 +38,7 @@
 	
 		<div class="m-lft col-18 form">
 	        <% Html.RenderPartial("Message"); %>
+            <% Html.RenderPartial("Validation"); %>
 	
 	        <%= Html.ValidationSummary("Edit was unsuccessful. Please correct the errors and try again.") %>
 			<% Html.RenderPartial("PrivacyTabs", UserSettings.AccountSettings); %>
@@ -46,6 +47,9 @@
 
 			<% using(Html.BeginForm("Edit", "User", FormMethod.Post, new { enctype = "multipart/form-data" })) { %>
 	            <%= Html.Hidden("OriginalEmail", Model.OriginalEmail) %>
+                <%= Html.Hidden("OriginalFullName", Model.OriginalFullName) %>
+                <%= Html.Hidden("OriginalGender", Model.OriginalGender) %>
+                <%= Html.Hidden("OriginalWebSite", Model.OriginalWebsite) %>
 	            <%= Html.Hidden("OriginalPassword", Model.OriginalPassword) %>
 	            <%= Html.Hidden("UserId", Model.UserInformation.Id) %>
 	            <%= Html.Hidden("ProfilePictureURL", Model.ProfilePictureURL) %>
@@ -139,6 +143,16 @@
 	                <%= Html.TextBox("Email", Model.UserInformation.Email) %>
 	                <span class="req">
 	                	<%= Html.ValidationMessage("Email", "*") %>
+	                </span>
+	            </div>
+	            <div class="col-18 spacer-15">&nbsp;</div>
+	            <div class="col-6">
+	                <label>Gender:</label>
+	            </div>
+	            <div class="push-1 col-6">
+	                <%= Html.DropDownList("Gender", Model.Genders) %>
+	                <span class="req">
+		                <%= Html.ValidationMessage("Gender", "*") %>
 	                </span>
 	            </div>
 	            <div class="col-18 spacer-15">&nbsp;</div>
