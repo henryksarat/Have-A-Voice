@@ -2,7 +2,9 @@
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
+<%@ Import Namespace="HaveAVoice.Helpers" %>
 <%@Import Namespace="HaveAVoice.Helpers.UserInformation" %>
+<%@Import Namespace="HaveAVoice.Helpers.Enums" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Gallery
@@ -26,11 +28,10 @@
             <%= Html.ActionLink("Delete", "Delete", "Photos", new { id = Model.Model.Id }, new { @class = "button delete" }) %>
 	    <% } %>
 	    <div class="f-rgt">
-	    	<a href="#" class="button delete">Report</a>
+	    	<a href="<%= LinkHelper.Report(Model.Model.Id, ComplaintType.PhotoComplaint) %>" class="button delete">Report</a>
 	    	<div class="clear">&nbsp;</div>
 	    </div>
 	    <div class="clear">&nbsp;</div>
-	    
 	    <div class="large-photo m-top10">
 			<img src="<%= PhotoHelper.ConstructUrl(Model.Model.ImageName) %>" />
 		</div>

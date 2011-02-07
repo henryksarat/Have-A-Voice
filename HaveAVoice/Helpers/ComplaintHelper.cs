@@ -8,22 +8,21 @@ using HaveAVoice.Models.View;
 using HaveAVoice.Models;
 using HaveAVoice.Services.UserFeatures;
 
-namespace HaveAVoice.Helpers
-{
+namespace HaveAVoice.Helpers {
     public static class ComplaintHelper {
         public static string IssueReplyLink(int aReplyId) {
-            return String.Format("/Complaint/Complaint?sourceId={0}&complaintType={1}", aReplyId, ComplaintType.IssueReply);
+            return String.Format("/Complaint/Create?sourceId={0}&complaintType={1}", aReplyId, ComplaintType.IssueReply);
         }
 
         public static string IssueLink(int aIssue) {
-            return String.Format("<a href=\"/Complaint/Complaint?sourceId={0}&complaintType={1}\" class=\"report\">{2}</a>",
+            return String.Format("<a href=\"/Complaint/Create?sourceId={0}&complaintType={1}\" class=\"report\">{2}</a>",
                 aIssue,
                 ComplaintType.Issue,
                 "Report Issue");
         }
 
         public static string IssueReplyCommentLink(int aComment) {
-            return String.Format("<a href=\"/Complaint/Complaint?sourceId={0}&complaintType={1}\">{2}</a>",
+            return String.Format("<a href=\"/Complaint/Create?sourceId={0}&complaintType={1}\">{2}</a>",
                 aComment,
                 ComplaintType.IssueReplyComment,
                 "Report Comment");

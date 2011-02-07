@@ -88,12 +88,20 @@
 	<% foreach (var item in Model.IssueReplys) { %>
 	    <div class="<% if (j % 2 == 0) { %>row<% } else { %>alt<% } %> reply push-3 col-18 m-btm10">
 		    <div class="col-1 center">
-		        <img src="<%= PhotoHelper.ProfilePicture(item.User) %>" alt="<%= NameHelper.FullName(item.User) %>" class="profile sm" />
+                <% if(item.Anonymous) { %>
+                    <img src="<%= HAVConstants.ANONYMOUS_PICTURE_URL %>" alt="Anonymous" class="profile sm" />
+                <% } else { %>
+		            <img src="<%= PhotoHelper.ProfilePicture(item.User) %>" alt="<%= NameHelper.FullName(item.User) %>" class="profile sm" />
+                    <% } %>
 		    </div>
 		    <div class="m-lft col-14 comment">
 		        <span class="speak-lft">&nbsp;</span>
 		        <div class="p-a10">
-		            <a href="/Profile/Show/<%= item.User.Id %>" class="name"><%= NameHelper.FullName(item.User)%></a>
+                    <% if (item.Anonymous) { %>
+                        <a href="" class="name">Anonymous</a>
+                    <% } else { %>
+		                <a href="/Profile/Show/<%= item.User.Id %>" class="name"><%= NameHelper.FullName(item.User)%></a>
+                    <% } %>
 		            <%= item.Reply %>
 		        </div>
 		    </div>

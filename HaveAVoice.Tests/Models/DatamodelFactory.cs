@@ -38,8 +38,7 @@ namespace HaveAVoice.Tests.Models {
         }
 
         public static User createUser(int anId) {
-            return User.CreateUser(anId, EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, CITY, STATE, BIRTHDAY, LAST_LOGIN, REGISTRATION_DATE, IP_ADDRESS, UTC_OFFSET, (int)HaveAVoice.Helpers.Enums.HAVGender.Select);
+            return User.CreateUser(anId, EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, CITY, STATE, BIRTHDAY, LAST_LOGIN, REGISTRATION_DATE, IP_ADDRESS, UTC_OFFSET, "M");
         }
-
     }
 }

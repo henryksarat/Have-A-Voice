@@ -47,66 +47,6 @@ namespace HaveAVoice.Tests.Controllers.Users {
             theIssue = Issue.CreateIssue(COMPLAINT_SOURCE_ID, COMPLAINT, COMPLAINT_DESCRIPTION, "Chicago", "IL", DateTime.UtcNow, STARTED_BY_USER_ID, false);
         }
 
-        #region "Complaint - NonPostBack"
-
-        [TestMethod]
-        public void TestIssueComplaintNonPostBack_Success() {
-            theMockIssueService.Setup(i => i.GetIssue(COMPLAINT_SOURCE_ID)).Returns(() => theIssue);
-
-            theModel = new ComplaintModel.Builder(COMPLAINT_SOURCE_ID, ComplaintType.Issue).Build();
-
-            var myResult = theController.Complaint(ComplaintType.Issue.ToString(), COMPLAINT_SOURCE_ID) as ViewResult;
-
-            AssertAuthenticatedCleanSuccessWithReturn(myResult, "Complaint", theModel);
-        }
-
-        #endregion
-
-
-        #region "Complaint - After Post Back"
-
-        [TestMethod]
-        public void TestIssueComplaint_Success() {
-            theMockedService.Setup(s => s.IssueComplaint(It.IsAny<User>(), It.IsAny<string>(), It.IsAny<int>())).Returns(() => true);
-            theModel = new ComplaintModel.Builder(COMPLAINT_SOURCE_ID, ComplaintType.Issue).Build();
-
-            var myResult = theController.Complaint(theModel) as ViewResult;
-
-            AssertAuthenticatedRedirection(myResult);
-        }
-
-      [TestMethod]
-      public void TestIssueReplyComplaint_Success() {
-          theMockedService.Setup(s => s.IssueReplyComplaint(It.IsAny<User>(), It.IsAny<string>(), It.IsAny<int>())).Returns(() => true);
-          theModel = new ComplaintModel.Builder(COMPLAINT_SOURCE_ID, ComplaintType.IssueReply).Build();
-
-          var myResult = theController.Complaint(theModel) as ViewResult;
-
-          AssertAuthenticatedRedirection(myResult);
-      }
-      
-      [TestMethod]
-      public void TestIssueReplyCommentComplaint_Success() {
-          theMockedService.Setup(s => s.IssueReplyCommentComplaint(It.IsAny<User>(), It.IsAny<string>(), It.IsAny<int>())).Returns(() => true);
-          theModel = new ComplaintModel.Builder(COMPLAINT_SOURCE_ID, ComplaintType.IssueReplyComment).Build();
-
-          var myResult = theController.Complaint(theModel) as ViewResult;
-
-          AssertAuthenticatedRedirection(myResult);
-      }
-               
-        [TestMethod]
-        public void TestIssueReplyProfileComplaint_Success() {
-            theMockedService.Setup(s => s.ProfileComplaint(It.IsAny<User>(), It.IsAny<string>(), It.IsAny<int>())).Returns(() => true);
-            theModel = new ComplaintModel.Builder(COMPLAINT_SOURCE_ID, ComplaintType.ProfileComplaint).Build();
-
-            var myResult = theController.Complaint(theModel) as ViewResult;
-
-            AssertAuthenticatedRedirection(myResult);
-        }
-
-        #endregion
-
         protected override Controller GetController() {
             return theController;
         }

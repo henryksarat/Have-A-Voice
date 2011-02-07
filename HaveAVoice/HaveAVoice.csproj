@@ -269,7 +269,6 @@
     <Compile Include="Models\View\BoardModel.cs" />
     <Compile Include="Models\View\Builders\UserInformationModelBuilder.cs" />
     <Compile Include="Models\View\ComplaintModel.cs" />
-    <Compile Include="Models\View\Binders\ComlpaintModelBinder.cs" />
     <Compile Include="Models\View\EditIssueReplyModel.cs" />
     <Compile Include="Models\View\ErrorModel.cs" />
     <Compile Include="Models\View\IssueModel.cs" />
@@ -418,7 +417,7 @@
     <Content Include="Views\Board\Edit.aspx" />
     <Content Include="Views\Board\View.aspx" />
     <Content Include="Views\Calendar\List.aspx" />
-    <Content Include="Views\Complaint\Complaint.aspx" />
+    <Content Include="Views\Complaint\Create.aspx" />
     <Content Include="Views\ContactUs\Create.aspx" />
     <Content Include="Views\Error\Index.aspx" />
     <Content Include="Views\Friend\List.aspx" />

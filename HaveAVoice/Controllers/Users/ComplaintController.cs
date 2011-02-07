@@ -10,9 +10,9 @@ using HaveAVoice.Models;
 using HaveAVoice.Models.View;
 using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Controllers.Helpers;
+using HaveAVoice.Controllers.ActionFilters;
 
-namespace HaveAVoice.Controllers.Users
-{
+namespace HaveAVoice.Controllers.Users {
     public class ComplaintController : HAVBaseController {
         private IHAVComplaintService theService;
         private IHAVUserRetrievalService theUserRetrievalService;
@@ -37,7 +37,8 @@ namespace HaveAVoice.Controllers.Users
             thePhotoService = aPhotoService;
         }
 
-        public ActionResult Complaint(string complaintType, int sourceId) {
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
+        public ActionResult Create(string complaintType, int sourceId) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
@@ -52,52 +53,51 @@ namespace HaveAVoice.Controllers.Users
                 return SendToErrorPage("Unable to get the necessary information for the complaint. Please try again.");
             }
 
-            return View("Complaint", myBuilder.Build());
+            return View("Create", myBuilder.Build());
         }
-        
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Complaint(ComplaintModel aComplaintModel) {
+
+        [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
+        public ActionResult Create(ComplaintType complaintType, string complaint, int sourceId) {
             if (!IsLoggedIn()) {
-                ViewData["Message"] = MessageHelper.NormalMessage("You arn't logged in. Save your complaint, login, and please try again!");
-                return View("Complaint");
+                return RedirectToLogin();
             }
 
             try {
                 User myUser = GetUserInformaton();
-                switch (aComplaintModel.ComplaintType) {
+                switch (complaintType) {
                     case ComplaintType.Issue:
-                        if (theService.IssueComplaint(myUser, aComplaintModel.Complaint, aComplaintModel.SourceId)) {
+                        if (theService.IssueComplaint(myUser, complaint, sourceId)) {
                              return SuccessfulComplaint();
                         }
                         break;
                     case ComplaintType.IssueReply:
-                        if (theService.IssueReplyComplaint(myUser, aComplaintModel.Complaint, aComplaintModel.SourceId)) {
+                        if (theService.IssueReplyComplaint(myUser, complaint, sourceId)) {
                              return SuccessfulComplaint();
                         }
                         break;
                     case ComplaintType.IssueReplyComment:
-                        if (theService.IssueReplyCommentComplaint(myUser, aComplaintModel.Complaint, aComplaintModel.SourceId)) {
+                        if (theService.IssueReplyCommentComplaint(myUser, complaint, sourceId)) {
                              return SuccessfulComplaint();
                         }
                         break;
                     case ComplaintType.ProfileComplaint:
-                        if (theService.ProfileComplaint(myUser, aComplaintModel.Complaint, aComplaintModel.SourceId)) {
+                        if (theService.ProfileComplaint(myUser, complaint, sourceId)) {
                              return SuccessfulComplaint();
                         }
                         break;
                     case ComplaintType.PhotoComplaint:
-                        if (theService.PhotoComplaint(myUser, aComplaintModel.Complaint, aComplaintModel.SourceId)) {
+                        if (theService.PhotoComplaint(myUser, complaint, sourceId)) {
                              return SuccessfulComplaint();
                         }
                         break;
                 }
             } catch (Exception e) {
-                LogError(e, String.Format("Unable to post complaint. [complaintModel={0}]", aComplaintModel.ToString()));
-                ViewData["Message"] = MessageHelper.ErrorMessage("Error logging report. Please try again.");
+                LogError(e, "Error logging report. Please try again.");
+                TempData["Message"] = MessageHelper.ErrorMessage("Error logging report. Please try again.");
+                TempData["ComplaintBody"] = complaint;
             }
 
-
-            return View("Complaint", aComplaintModel);
+            return RedirectToAction("Create", new { complaintType = complaintType, sourceId = sourceId });
         }
 
         private ActionResult SuccessfulComplaint() {

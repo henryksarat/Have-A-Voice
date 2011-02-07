@@ -1,6 +1,6 @@
 <%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl" %>
 
-<% if (ViewData.ModelState.Count > 0) { %>
+<% if (!ViewData.ModelState.IsValid) { %>
 	<div class="error">
 	    <ul class="left m-lft10">
 	        <% foreach (KeyValuePair<string, ModelState> keyValuePair in ViewData.ModelState) {

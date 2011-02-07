@@ -182,7 +182,7 @@
 								</span>
 								<div class="clear">&nbsp;</div>
 								
-							    <% if (!HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Official_Account)) { %>   
+							    <% if (HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Post_Anonymous_Issue_Reply)) { %>   
 							        <%= Html.CheckBox("Anonymous", Model.Anonymous) %> Post reply as Anonymous
 							    <% } %>
 								<div class="clear">&nbsp;</div>
