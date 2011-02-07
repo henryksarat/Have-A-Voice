@@ -75,7 +75,7 @@
     	    </div>
 
 		    <div class="m-lft col-2 m-rgt f-rgt center">
-			    <a href="#" class="filter dislike">Report</a>
+			    <a href="<%= LinkHelper.Report(Model.NavigationModel.User.Id, ComplaintType.ProfileComplaint) %>" class="filter dislike">Report</a>
 			    <div class="clear">&nbsp;</div>
 		    </div>
         <% } else { %>

@@ -12,6 +12,23 @@ namespace HaveAVoice.Models.View {
         public string SourceDescription { get; private set; }
         public string Complaint { get; private set; }
         public ComplaintType ComplaintType { get; private set; }
+        public string ComplaintTypeDisplay {
+            get {
+                if (ComplaintType == Helpers.Enums.ComplaintType.Issue) {
+                    return Helpers.Enums.ComplaintType.Issue.ToString();
+                } else if (ComplaintType == Helpers.Enums.ComplaintType.IssueReply) {
+                    return "Issue Reply";
+                } else if (ComplaintType == Helpers.Enums.ComplaintType.IssueReplyComment) {
+                    return "Isse Reply Comment";
+                } else if (ComplaintType == Helpers.Enums.ComplaintType.PhotoComplaint) {
+                    return "Photo";
+                } else if (ComplaintType == Helpers.Enums.ComplaintType.ProfileComplaint) {
+                    return "Profile";
+                } else {
+                    return "Unknown";
+                }
+            }
+        }
 
 
         private ComplaintModel(Builder aBuilder) {

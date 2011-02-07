@@ -7,11 +7,17 @@ using HaveAVoice.Models;
 namespace HaveAVoice.Services.Helpers {
     public class FriendHelper {
         public static bool IsFriend(User aSourceUser, User aTargetUser) {
-            IEnumerable<int> myFriendIds = 
-                (from f in aSourceUser.Friends.ToList<Friend>()
-                 select f.Id).ToList<int>(); ;
+            bool myIsFriend = true;
 
-            return myFriendIds.Contains(aTargetUser.Id);
+            if (aSourceUser.Id != aTargetUser.Id) {
+                IEnumerable<int> myFriendIds =
+                    (from f in aSourceUser.Friends.ToList<Friend>()
+                     select f.Id).ToList<int>(); ;
+
+                myIsFriend = myFriendIds.Contains(aTargetUser.Id);
+            }
+
+            return myIsFriend;
         }
     }
 }

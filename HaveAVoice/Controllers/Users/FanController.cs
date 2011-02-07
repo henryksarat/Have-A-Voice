@@ -10,6 +10,7 @@ using HaveAVoice.Models;
 using HaveAVoice.Models.View;
 using HaveAVoice.Helpers;
 using HaveAVoice.Controllers.ActionFilters;
+using HaveAVoice.Controllers.Helpers;
 
 namespace HaveAVoice.Controllers.Users {
     public class FanController : HAVBaseController {
@@ -47,13 +48,13 @@ namespace HaveAVoice.Controllers.Users {
                 if (!theFanService.IsFan(myUser, id)) {
                     theFanService.Add(myUser, id);
                     RefreshUserInformation();
-                    TempData["Message"] = FAN_SUCCESS;
+                    TempData["Message"] = MessageHelper.SuccessMessage(FAN_SUCCESS);
                 } else {
-                    TempData["Message"] = ALREADY_FAN;
+                    TempData["Message"] = MessageHelper.NormalMessage(ALREADY_FAN);
                 }
             } catch (Exception e) {
                 LogError(e, FAN_ERROR);
-                TempData["Message"] = FAN_ERROR;
+                TempData["Message"] = MessageHelper.ErrorMessage(FAN_ERROR);
             }
 
             return RedirectToProfile(id);
@@ -69,13 +70,13 @@ namespace HaveAVoice.Controllers.Users {
             try {
                 if (theFanService.IsFan(myUser, id)) {
                     theFanService.Remove(myUser, id);
-                    TempData["Message"] = FAN_REMOVE_SUCCESS;
+                    TempData["Message"] = MessageHelper.SuccessMessage(FAN_REMOVE_SUCCESS);
                 } else {
-                    TempData["Message"] = NOT_FAN;
+                    TempData["Message"] = MessageHelper.NormalMessage(NOT_FAN);
                 }
             } catch (Exception e) {
                 LogError(e, FAN_ERROR);
-                TempData["Message"] = FAN_REMOVE_ERROR;
+                TempData["Message"] = MessageHelper.ErrorMessage(FAN_REMOVE_ERROR);
             }
 
             return RedirectToProfile(id);

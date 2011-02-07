@@ -29,9 +29,10 @@
                 <%= Html.Hidden("ComplaintType", Model.ComplaintType) %>
                 <%= Html.Hidden("SourceId", Model.SourceId) %>
 		    	<div class="normal">
-		    		You are about to report a problem with <i><%= Html.Encode(NameHelper.FullName(Model.TowardUser)) %></i> against a <i><%= Html.Encode(Model.ComplaintType) %></i> they posted.
-					<br /><br />
-		    		<i>Summary of what they posted:</i>
+		    		You are about to report a complaint. Here is a summary of the complaint: <br /><br /> 
+                    Complaint against user: <i><%= Html.Encode(NameHelper.FullName(Model.TowardUser)) %></i> <br /> 
+                    Complaint type: <i><%= Html.Encode(Model.ComplaintTypeDisplay)%></i><br /> 
+                    Material: 
                     <% if (Model.ComplaintType == HaveAVoice.Helpers.Enums.ComplaintType.PhotoComplaint) { %>
                         <img src="<%= HaveAVoice.Services.Helpers.PhotoHelper.ConstructUrl(Model.SourceDescription) %>" />
                     <% } else { %>

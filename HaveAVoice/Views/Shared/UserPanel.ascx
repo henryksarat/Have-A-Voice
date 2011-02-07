@@ -22,7 +22,7 @@
                     Model.User
                 )
             %>
-            <% if (Model.SiteSection == SiteSection.Profile) { %>
+            <% if (Model.SiteSection == SiteSection.Profile && (myUser.Id != Model.User.Id)) { %>
                 <% if (!FanHelper.IsFan(Model.User.Id, myUser)) { %>
                     <div class="f-rgt">
             	        <div class="col-2 center">
