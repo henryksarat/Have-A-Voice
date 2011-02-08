@@ -138,15 +138,19 @@ namespace HaveAVoice.Controllers.Users {
             UserProfileModel myOriginalUserProfileModel = GetOriginalUserProfileModel();
 
             LoggedInWrapperModel<UserProfileModel> myModel = new LoggedInWrapperModel<UserProfileModel>(myUser, SiteSection.MyProfile);
-            myModel.Model = new UserProfileModel(myOriginalUserProfileModel.User) {
-                LocalIssue = myOriginalUserProfileModel.LocalIssue,
-                IssueFeed = (from i in myOriginalUserProfileModel.OriginalIssueFeed
-                             where i.PersonFilter.Equals(filterValue)
-                             select i).ToList<IssueFeedModel>(),
-                IssueReplyFeed = (from ir in myOriginalUserProfileModel.OriginalIssueReplyFeed
-                                  where ir.PersonFilter.Equals(filterValue)
-                                  select ir)
-            };
+            if (filterValue != PersonFilter.All) {
+                myModel.Model = new UserProfileModel(myOriginalUserProfileModel.User) {
+                    LocalIssue = myOriginalUserProfileModel.LocalIssue,
+                    IssueFeed = (from i in myOriginalUserProfileModel.OriginalIssueFeed
+                                 where i.PersonFilter.Equals(filterValue)
+                                 select i).ToList<IssueFeedModel>(),
+                    IssueReplyFeed = (from ir in myOriginalUserProfileModel.OriginalIssueReplyFeed
+                                      where ir.PersonFilter.Equals(filterValue)
+                                      select ir)
+                };
+            } else {
+                myModel.Model = myOriginalUserProfileModel;
+            }
 
             SaveFeedInformationToTempDataForFiltering(GetOriginalUserProfileModel(), filterValue);
 

@@ -6,57 +6,62 @@ using System.Web;
 namespace HaveAVoice.Helpers {
     public enum HAVPermission {
         //Board
-        View_Board,
-        Post_To_Board,
+        Delete_Board_Message,
+        Delete_Any_Board_Message,
         Edit_Any_Board_Message,
         Edit_Board_Message,
-        Delete_Any_Board_Message,
-        Delete_Board_Message,
-        Post_Reply_To_Board,
-        Edit_Any_Board_Reply,
-        Edit_Board_Reply,
+        Post_To_Board,
+        View_Board,
+        //Board Reply
         Delete_Any_Board_Reply,
         Delete_Board_Reply,
+        Edit_Any_Board_Reply,
+        Edit_Board_Reply,
+        Post_Reply_To_Board,
+        //Issue
+        Delete_Any_Issue,
+        Delete_Issue,
+        Edit_Any_Issue,
+        Edit_Issue,
+        Post_Issue, 
+        View_Issue,
+        //Issue Reply
+        Delete_Any_Issue_Reply,
+        Delete_Issue_Reply,
+        Edit_Any_Issue_Reply,
+        Edit_Issue_Reply,
+        Post_Issue_Reply,
+        View_Issue_Reply,
+        //Issue Reply Comments
+        Delete_Any_Issue_Reply_Comment,
+        Delete_Issue_Reply_Comment,
+        Edit_Any_Issue_Reply_Comment,
+        Edit_Issue_Reply_Comment,
+        Post_Issue_Reply_Comment,
         //Events
         Delete_Any_Event,
-        Delete_Any_Issue,
-        Delete_Any_Issue_Reply,
-        Delete_Any_Issue_Reply_Comment,
-        Official_Account,
-        View_Issue,
-        View_Issue_Reply,
-        Post_Issue, 
-        Post_Issue_Reply,
-        Edit_Issue,
-        Edit_Any_Issue,
-        Edit_Issue_Reply,
-        Edit_Any_Issue_Reply,
-        Edit_Issue_Reply_Comment,
-        Edit_Any_Issue_Reply_Comment,
-        Post_Issue_Reply_Comment,
-        Delete_Issue,
-        Delete_Issue_Reply,
-        Delete_Issue_Reply_Comment,
+        //Messagining
         Send_Private_Message,
+        //Admin
         Admin_Login,
-        View_Roles,
-        Create_Role,
-        Edit_Role,
-        Delete_Role,
-        Switch_Users_Role,
-        View_Permissions,
-        Create_Permission,
-        Edit_Permission,
-        Delete_Permission,
-        View_Restrictions,
-        Create_Restriction,
-        Edit_Restriction,
-        Delete_Restriction,
-        View_Feedback,
         View_Admin,
+        //Roles
+        Create_Role,
+        Delete_Role,
+        Edit_Role,
+        View_Roles,
+        Switch_Users_Role,
+        //Permissions
+        Create_Permission,
+        Delete_Permission,
+        Edit_Permission,
+        View_Permissions,
+        //Restrictions
+        Create_Restriction,
+        Delete_Restriction,
+        Edit_Restriction,
+        View_Restrictions,
         //Authority Verification
-        Verified_Politician,
-        Verified_Political_Candidate,
         Create_Authority_Verification_Token,
         Authority_Feed,
         //IssueReply
@@ -64,6 +69,10 @@ namespace HaveAVoice.Helpers {
         //Usertypes
         Confirmed_User,
         Confirmed_Politician,
-        Confirmed_Political_Candidate
+        Confirmed_Political_Candidate,
+        //Site
+        View_Feedback,
+        View_ErrorLog
+
     }
 }

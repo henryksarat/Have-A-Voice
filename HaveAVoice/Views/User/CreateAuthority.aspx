@@ -209,13 +209,17 @@
 					<div class="spacer-10">&nbsp;</div>
 										
 	    			<div class="col-4 m-rgt right">
-	    				<label for="FirstName">Have a voice Url:</label>
+	    				<label for="FirstName">have a voice<sup>&trade;</sup> URL:</label>
 	    			</div>
-	    			<div class="col-4">
-	    				<%= Html.TextBox("ShortUrl", Model.ShortUrl) %>
+	    			<div class="col-8">
+	    				<div class="col-4 fnt-14 alpha omega">
+	    					www.haveavoice.com/
+	    				</div>
+	    				<div class="col-4">
+	    					<%= Html.TextBox("ShortUrl", Model.ShortUrl) %>
+	    				</div>
 	    			</div>
-                    www.haveavoice.com/
-	    			<div class="m-lft col-14">
+	    			<div class="m-lft col-10">
 	    				<span class="req">
 		    				<%= Html.ValidationMessage("ShortUrl", "*") %>
 	    				</span>
@@ -223,10 +227,6 @@
 	    			<div class="clear">&nbsp;</div>
 	    			<div class="spacer-10">&nbsp;</div>
 
-					<div class="col-8">
-						<%= Html.TextArea("AgreementText", UserHelper.UserAgreement(), new { cols = "40", rows = "4", resize = "none" }) %>
-	    				<div class="clear">&nbsp;</div>
-					</div>
 					<div class="col-10">&nbsp;</div>
 					<div class="clear">&nbsp;</div>
 					<div class="col-4 m-rgt right">
@@ -234,7 +234,7 @@
 	    				<div class="clear">&nbsp;</div>
 					</div>
 					<div class="col-6">
-						I agree with the <a href="#">Terms of Service</a>.
+						I agree with the <a href="/Site/Terms">Terms of Use</a>.
 	    				<div class="clear">&nbsp;</div>
 					</div>
 					<div class="col-12 m-lft">
