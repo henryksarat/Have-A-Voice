@@ -13,7 +13,7 @@
 	</div>
 	<div class="col-15">
 		<div class="m-lft col-15 m-rgt">
-            <% if (PrivacyHelper.IsAllowed(Model.User, PrivacyAction.DisplayProfile)) { %>
+            <% if (Model.SiteSection == SiteSection.MyProfile || PrivacyHelper.IsAllowed(Model.User, PrivacyAction.DisplayProfile)) { %>
             <%= NavigationHelper.UserNavigation(
                     Model.SiteSection,
                     new SiteSection[] { SiteSection.Home, SiteSection.IssueActivity, SiteSection.Photos, SiteSection.Calendar },
