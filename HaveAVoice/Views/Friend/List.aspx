@@ -9,6 +9,16 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+	<script type="text/javascript" language="javascript">
+		$(function() {
+			$("div.friend").mouseenter(function() {
+				$("a.delete", $(this)).show();
+			}).mouseleave(function() {
+				$("a.delete", $(this)).hide();
+			});
+		});
+	</script>
+	
 	<% Html.RenderPartial("UserPanel", Model.NavigationModel); %>
     <div class="col-3 m-rgt left-nav">
         <% Html.RenderPartial("LeftNavigation"); %>
@@ -30,6 +40,7 @@
 			<div class="col-4 center <%= klass %>">
 				<div class="p-a5">
 					<div class="profile">
+						<a href="#" class="delete" title="Remove Friend">Remove Friend</a>
 						<img src ="<%= PhotoHelper.ProfilePicture(item.FriendUser) %>" alt="<%= NameHelper.FullName(item.FriendUser) %>" class="profile" />
 					</div>
 					<div class="p-a5">

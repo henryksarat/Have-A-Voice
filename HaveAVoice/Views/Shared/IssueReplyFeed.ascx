@@ -16,7 +16,7 @@
 		<div class="m-lft col-14 comment">
 			<span class="speak-lft">&nbsp;</span>
 			<div class="p-a10">
-				<span class="fnt-14 teal">Regarding <a href="/Issue/View/<%= Model.Issue.Id %>"><%= Model.Issue.Title %></a></span><br />
+				<span class="fnt-14 teal">Regarding <a href="/Issue/View/<%= Model.Issue.Id %>" class="issue"><%= Model.Issue.Title %></a></span><br />
 				<%= Html.ActionLink(Model.DisplayName, "Show", "Profile", new { id = Model.UserId }, new { @class = "name" })%> says:
 				<%= Model.Reply%>
 
