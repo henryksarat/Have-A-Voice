@@ -213,19 +213,14 @@
 					</div>
 					<div class="clear">&nbsp;</div>
 					<div class="spacer-10">&nbsp;</div>
-					
-					<div class="col-4">&nbsp;</div>
-					<div class="col-8">
-						<%= Html.TextArea("AgreementText", UserHelper.UserAgreement(), new { cols = "40", rows = "4", resize = "none" }) %>
-					</div>
-					
+										
 					<div class="col-10">&nbsp;</div>
 					<div class="clear">&nbsp;</div>
 					<div class="col-4 m-rgt right">
 						<%= Html.CheckBox("Agreement") %>
 					</div>
 					<div class="col-6">
-						I agree with the <a href="#">Terms of Service</a>.
+						I agree with the <a href="/Site/Terms">Terms of Use</a>.
 					</div>
 					<div class="col-12 m-lft">
 						<span class="req">

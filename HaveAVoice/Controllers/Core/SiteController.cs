@@ -14,5 +14,9 @@ namespace HaveAVoice.Controllers.Core
         public ActionResult AboutUs() {
             return View("AboutUs");
         }
+
+        public ActionResult Terms() {
+            return View("Terms");
+        }
     }
 }

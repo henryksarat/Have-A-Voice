@@ -70,7 +70,7 @@
     <div class="col-24 m-btm20 sub-main p-v15">
         <div class="col-12">
             <div class="push-1 col-8">
-                <h5 class="popular">Popular Posts</h5>
+                <h5 class="popular">Popular Replies to Issues</h5>
                 <ul class="bullet fnt-12">
                     <%= IssueReplyHelper.IssueReplyDisplay(Model.MostPopularIssueReplys) %>
                 </ul>
@@ -81,7 +81,7 @@
 
         <div class="col-12">
             <div class="push-1 col-8">
-                <h5 class="recent-comment">Recent Comments</h5>
+                <h5 class="recent-comment">Recent Replies to Issues</h5>
                 <ul class="bullet fnt-12">
                     <%= IssueReplyHelper.IssueReplyDisplay(Model.NewestIssueReplys) %>
                 </ul>
