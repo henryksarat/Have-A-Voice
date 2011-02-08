@@ -12,7 +12,7 @@ namespace HaveAVoice.Services.Helpers {
             if (aSourceUser.Id != aTargetUser.Id) {
                 IEnumerable<int> myFriendIds =
                     (from f in aSourceUser.Friends.ToList<Friend>()
-                     select f.Id).ToList<int>(); ;
+                     select f.SourceUserId).ToList<int>(); ;
 
                 myIsFriend = myFriendIds.Contains(aTargetUser.Id);
             }

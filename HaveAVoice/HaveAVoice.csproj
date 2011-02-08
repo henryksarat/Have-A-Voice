@@ -363,6 +363,7 @@
     <Content Include="Content\framework.css" />
     <Content Include="Content\images\album.png" />
     <Content Include="Content\images\comment.png" />
+    <Content Include="Content\images\create-album.png" />
     <Content Include="Content\images\delete.png" />
     <Content Include="Content\images\dislike-sm.png" />
     <Content Include="Content\images\dislike.png" />
@@ -371,10 +372,15 @@
     <Content Include="Content\images\like.png" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\menu\event.png" />
+    <Content Include="Content\images\menu\event_grey.png" />
     <Content Include="Content\images\menu\home.png" />
+    <Content Include="Content\images\menu\home_grey.png" />
     <Content Include="Content\images\menu\info.png" />
+    <Content Include="Content\images\menu\info_grey.png" />
     <Content Include="Content\images\menu\message.png" />
+    <Content Include="Content\images\menu\message_grey.png" />
     <Content Include="Content\images\menu\photo.png" />
+    <Content Include="Content\images\menu\photo_grey.png" />
     <Content Include="Content\images\popular.png" />
     <Content Include="Content\images\report.png" />
     <Content Include="Content\images\search.png" />

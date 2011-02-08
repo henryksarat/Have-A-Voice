@@ -23,6 +23,16 @@
                     Model.User
                 )
             %>
+            <% } else { %>
+            <%= NavigationHelper.UserNavigation(
+                    Model.SiteSection,
+                    new SiteSection[] { SiteSection.Home, SiteSection.IssueActivity, SiteSection.Photos, SiteSection.Calendar },
+                    new string[] { "home-grey", "message-grey", "photo-grey", "event-grey" },
+                    new string[] { "/Profile/Show", "/Profile/IssueActivity", "/PhotoAlbum/List", "/Calendar/List" },
+                    new string[] { "HOME", "USER FEED", "PHOTOS", "EVENTS" },
+                    Model.User
+                )
+            %>
             <% } %>
 
             <% if (Model.SiteSection == SiteSection.Profile && (myUser.Id != Model.User.Id)) { %>
@@ -63,7 +73,7 @@
 		            </div>
 		            <div class="clear">&nbsp:</div>
                 <% } %>
-                <% if ((myUser.Id != Model.User.Id) && (FriendHelper.IsFriend(Model.User, myUser))) { %>
+                <% if (myUser.Id != Model.User.Id) { %>
 			        <a class="p-v5 m-top10 msg" href="/Message/Create/<%= Model.User.Id %>">Send <%= Model.User.FirstName%> a private message</a>
 			    <% } %>
             <% } %>

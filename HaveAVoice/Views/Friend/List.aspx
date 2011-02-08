@@ -40,7 +40,7 @@
 			<div class="col-4 center <%= klass %>">
 				<div class="p-a5">
 					<div class="profile">
-						<a href="#" class="delete" title="Remove Friend">Remove Friend</a>
+						<a href="/Friend/Delete/<%= item.FriendUserId %>" class="delete" title="Remove Friend">Remove Friend</a>
 						<img src ="<%= PhotoHelper.ProfilePicture(item.FriendUser) %>" alt="<%= NameHelper.FullName(item.FriendUser) %>" class="profile" />
 					</div>
 					<div class="p-a5">

@@ -9,6 +9,7 @@ namespace HaveAVoice.Services.UserFeatures {
         void AddFriend(User aUser, int aSourceUserId);
         void ApproveFriend(int aFriendId);
         void DeclineFriend(int aFriendId);
+        void RemoveFriend(User aUser, int aSourceId);
         IEnumerable<Friend> FindFriendsForUser(int aUserId);
         IEnumerable<Friend> FindPendingFriendsForUser(int aUserId);
         bool IsFriend(int aSourceUserId, User aFriendUser);

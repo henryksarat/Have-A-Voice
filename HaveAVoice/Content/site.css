@@ -219,6 +219,12 @@ a.forget:hover { text-decoration: underline; }
 .user-panel ul li a.photo { background-image: url("images/menu/photo.png"); background-position: center center; background-repeat: no-repeat; }
 .user-panel ul li a.event { background-image: url("images/menu/event.png"); background-position: center center; background-repeat: no-repeat; }
 .user-panel ul li a.info { background-image: url("images/menu/info.png"); background-position: center center; background-repeat: no-repeat; }
+.user-panel ul li a.home-grey { background-image: url("images/menu/home_grey.png"); background-position: center center; background-repeat: no-repeat; }
+.user-panel ul li a.message-grey { background-image: url("images/menu/message_grey.png"); background-position: center center; background-repeat: no-repeat; }
+.user-panel ul li a.photo-grey { background-image: url("images/menu/photo_grey.png"); background-position: center center; background-repeat: no-repeat; }
+.user-panel ul li a.event-grey { background-image: url("images/menu/event_grey.png"); background-position: center center; background-repeat: no-repeat; }
+.user-panel ul li a.info { background-image: url("images/menu/info.png"); background-position: center center; background-repeat: no-repeat; }
+
 .user-panel img.profile { max-width: 120px; max-height: 120px; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; }
 
 .user-panel .advertisement { text-align: left; font-size: 11px; color: #4b4b4b; }

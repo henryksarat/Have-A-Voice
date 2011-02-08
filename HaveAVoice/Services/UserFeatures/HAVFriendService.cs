@@ -49,5 +49,9 @@ namespace HaveAVoice.Services.UserFeatures {
        public bool IsPendingForResponse(User aUser, int aFriendId) {
            return theFriendRepo.IsPendingForResponse(aUser, aFriendId);
         }
+
+       public void RemoveFriend(User aUser, int aSourceId) {
+           theFriendRepo.DeleteFriend(aUser, aSourceId);
+       }
     }
 }

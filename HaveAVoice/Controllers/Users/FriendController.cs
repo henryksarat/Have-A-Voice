@@ -22,14 +22,16 @@ namespace HaveAVoice.Controllers.Users
         private const string REQUEST_SENT = "Friend request sent!";
         private const string NO_FRIENDS = "You currently have no friends in your friend list.";
         private const string NO_FRIEND_REQUESTS = "You have no pending friend requests.";
+        private const string DELETE_NON_FRIEND = "Unable to delete someone that isn't your friend./";
+        private const string DELETE_SUCCESS = "User has been deleted from your friend list successfully.";
 
         private const string FRIEND_REQUEST_ERROR = "Error sending friend request. Please try again.";
         private const string FRIEND_ERROR = "Unable to become a friend. Please try again.";
         private const string FRIENDS_ERROR = "Unable to get the friends list. Please try again.";
         private const string FRIENDS_OF_ERROR = "Unable to get the people who are friends of this user. Please try again.";
+        private const string FRIEND_DELETE_ERROR = "An error has occurred trying to remove the user from your list. Please try again.";
 
         private const string ERROR_MESSAGE_VIEWDATA = "Message";
-        private const string FRIENDS_VIEW = "Friends";
         private const string LIST_VIEW = "List";
         private const string FRIENDS_OF_VIEW = "FriendsOf";
         private const string PENDING_FRINEDS_VIEW = "Pending";
@@ -55,7 +57,7 @@ namespace HaveAVoice.Controllers.Users
             User myUser = GetUserInformaton();
 
             try {
-                if(theFriendService.IsPending(id, myUser)) {
+                if (theFriendService.IsPending(id, myUser)) {
                     TempData["Message"] = MessageHelper.NormalMessage(PENDING_REQUEST);
                 } else if (theFriendService.IsPendingForResponse(myUser, id)) {
                     TempData["Message"] = MessageHelper.NormalMessage(PENDING_RESPONSE);
@@ -71,6 +73,28 @@ namespace HaveAVoice.Controllers.Users
             }
 
             return RedirectToAction("Show", "Profile", new { id = id });
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult Delete(int id) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            User myUser = GetUserInformaton();
+
+            try {
+                if (!theFriendService.IsFriend(id, myUser)) {
+                    TempData["Message"] = MessageHelper.NormalMessage(DELETE_NON_FRIEND);
+                } else {
+                    theFriendService.RemoveFriend(myUser, id);
+                    TempData["Message"] = MessageHelper.SuccessMessage(DELETE_SUCCESS);
+                }
+            } catch (Exception e) {
+                LogError(e, FRIEND_ERROR);
+                TempData["Message"] = MessageHelper.ErrorMessage(FRIEND_DELETE_ERROR);
+            }
+
+            return RedirectToAction("List");
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
@@ -91,26 +115,6 @@ namespace HaveAVoice.Controllers.Users
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Friends(int id) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            User myUser = GetUserInformatonModel().Details;
-            LoggedInListModel<Friend> myModel = new LoggedInListModel<Friend>(myUser, SiteSection.Friend);
-            try {
-                myModel.Models = theFriendService.FindFriendsForUser(id);
-                if (myModel.Models.Count<Friend>() == 0) {
-                    TempData["Message"] = MessageHelper.NormalMessage(NO_FRIENDS);
-                }
-            } catch (Exception e) {
-                LogError(e, FRIENDS_ERROR);
-                ViewData[ERROR_MESSAGE_VIEWDATA] = MessageHelper.ErrorMessage(FRIENDS_ERROR);
-            }
-
-            return View(FRIENDS_VIEW, myModel);
-        }
-
-        [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Pending() {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
@@ -122,6 +126,7 @@ namespace HaveAVoice.Controllers.Users
                 if (myModel.Models.Count<Friend>() == 0) {
                     TempData["Message"] = MessageHelper.NormalMessage(NO_FRIEND_REQUESTS);
                 }
+                RefreshUserInformation();
             } catch (Exception e) {
                 LogError(e, HAVConstants.ERROR);
                 ViewData[ERROR_MESSAGE_VIEWDATA] = MessageHelper.ErrorMessage(HAVConstants.ERROR);
@@ -138,6 +143,7 @@ namespace HaveAVoice.Controllers.Users
             try {
                 theFriendService.ApproveFriend(id);
                 TempData[ERROR_MESSAGE_VIEWDATA] = MessageHelper.SuccessMessage(APPROVED);
+                RefreshUserInformation();
             } catch (Exception e) {
                 LogError(e, HAVConstants.ERROR);
                 TempData[ERROR_MESSAGE_VIEWDATA] = MessageHelper.ErrorMessage(HAVConstants.ERROR);
@@ -154,6 +160,7 @@ namespace HaveAVoice.Controllers.Users
             try {
                 theFriendService.DeclineFriend(id);
                 TempData[ERROR_MESSAGE_VIEWDATA] = MessageHelper.SuccessMessage(DECLINED);
+                RefreshUserInformation();
             } catch (Exception e) {
                 LogError(e, HAVConstants.ERROR);
                 TempData[ERROR_MESSAGE_VIEWDATA] = MessageHelper.ErrorMessage(HAVConstants.ERROR);

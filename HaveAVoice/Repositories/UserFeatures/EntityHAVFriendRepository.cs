@@ -66,6 +66,23 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     select f).Count() > 0 ? true : false;
         }
 
+        public void DeleteFriend(User aUser, int aSourceUserId) {
+            IEnumerable<Friend> myFriends = GetFriendRecords(aUser, aSourceUserId);
+
+            foreach (Friend myFriend in myFriends) {
+                theEntities.DeleteObject(myFriend);
+            }
+
+            theEntities.SaveChanges();
+        }
+
+        private IEnumerable<Friend> GetFriendRecords(User aUser, int aSourceUserId) {
+            return (from f in theEntities.Friends
+                    where (f.FriendUserId == aUser.Id && f.SourceUserId == aSourceUserId)
+                    || (f.FriendUserId == aSourceUserId && f.SourceUserId == aUser.Id)
+                    select f).ToList<Friend>();
+        }
+
         private Friend FindFriend(int aFriendId) {
             return (from f in theEntities.Friends
                     where f.Id == aFriendId
