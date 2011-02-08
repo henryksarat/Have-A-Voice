@@ -45,6 +45,7 @@ namespace HaveAVoice.Controllers.Home {
             return View("Index");
         }
 
+        [OutputCache(Duration = 60, VaryByParam = "none")]
         public ActionResult NotLoggedIn() {
             if (IsLoggedIn()) {
                 return RedirectToProfile();

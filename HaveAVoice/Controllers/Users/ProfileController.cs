@@ -16,6 +16,7 @@ using HaveAVoice.Controllers.ActionFilters;
 using HaveAVoice.Exceptions;
 using HaveAVoice.Helpers;
 using HaveAVoice.Helpers.Enums;
+using System.Web.UI;
 
 namespace HaveAVoice.Controllers.Users {
     public class ProfileController : HAVBaseController {
@@ -96,6 +97,7 @@ namespace HaveAVoice.Controllers.Users {
             }
         }
 
+        [OutputCache(Duration=5, VaryByParam="none", Location=OutputCacheLocation.Client, NoStore=true)]
         [RequiredRouteValueAttribute.RequireRouteValues(new string[] { })]
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Show() {
