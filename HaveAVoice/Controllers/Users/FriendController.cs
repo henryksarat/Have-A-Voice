@@ -20,6 +20,8 @@ namespace HaveAVoice.Controllers.Users
         private const string PENDING_REQUEST = "There already is a pending friend request.";
         private const string PENDING_RESPONSE = "This user already sent you a friend request. Please response to it via the navigation on top.";
         private const string REQUEST_SENT = "Friend request sent!";
+        private const string NO_FRIENDS = "You currently have no friends in your friend list.";
+        private const string NO_FRIEND_REQUESTS = "You have no pending friend requests.";
 
         private const string FRIEND_REQUEST_ERROR = "Error sending friend request. Please try again.";
         private const string FRIEND_ERROR = "Unable to become a friend. Please try again.";
@@ -93,15 +95,19 @@ namespace HaveAVoice.Controllers.Users
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            IEnumerable<Friend> myFriends = new List<Friend>();
+            User myUser = GetUserInformatonModel().Details;
+            LoggedInListModel<Friend> myModel = new LoggedInListModel<Friend>(myUser, SiteSection.Friend);
             try {
-                myFriends = theFriendService.FindFriendsForUser(id);
+                myModel.Models = theFriendService.FindFriendsForUser(id);
+                if (myModel.Models.Count<Friend>() == 0) {
+                    TempData["Message"] = MessageHelper.NormalMessage(NO_FRIENDS);
+                }
             } catch (Exception e) {
                 LogError(e, FRIENDS_ERROR);
                 ViewData[ERROR_MESSAGE_VIEWDATA] = MessageHelper.ErrorMessage(FRIENDS_ERROR);
             }
 
-            return View(FRIENDS_VIEW, myFriends);
+            return View(FRIENDS_VIEW, myModel);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
@@ -109,15 +115,19 @@ namespace HaveAVoice.Controllers.Users
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            IEnumerable<Friend> myPendingFriends = new List<Friend>();
+            User myUser = GetUserInformatonModel().Details;
+            LoggedInListModel<Friend> myModel = new LoggedInListModel<Friend>(myUser, SiteSection.Friend);
             try {
-                myPendingFriends = theFriendService.FindPendingFriendsForUser(GetUserInformaton().Id);
+                myModel.Models = theFriendService.FindPendingFriendsForUser(GetUserInformaton().Id);
+                if (myModel.Models.Count<Friend>() == 0) {
+                    TempData["Message"] = MessageHelper.NormalMessage(NO_FRIEND_REQUESTS);
+                }
             } catch (Exception e) {
                 LogError(e, HAVConstants.ERROR);
                 ViewData[ERROR_MESSAGE_VIEWDATA] = MessageHelper.ErrorMessage(HAVConstants.ERROR);
             }
 
-            return View(PENDING_FRINEDS_VIEW, myPendingFriends);
+            return View(PENDING_FRINEDS_VIEW, myModel);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
