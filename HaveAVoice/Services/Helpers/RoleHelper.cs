@@ -12,7 +12,7 @@ namespace HaveAVoice.Services.Helpers {
             IEnumerable<string> myPermissions = (from p in aUser.Permissions
                                                  select p.Name).ToList<string>();
 
-            return myPermissions.Contains(HAVPermission.Verified_Political_Candidate.ToString());
+            return myPermissions.Contains(HAVPermission.Confirmed_Politician.ToString());
         }
     }
 }

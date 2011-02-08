@@ -17,7 +17,7 @@ using HaveAVoice.Helpers.Enums;
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVUserService : HAVBaseService, IHAVUserService {
         private const string ACTIVATION_SUBJECT = "have a voice | account activation";
-        private const string ACTIVATION_BODY = "Hello! <br/ ><br/ > To complete account creation please click the following link: <br/ >";
+        private const string ACTIVATION_BODY = "Hello! <br/ ><br/ > To finalize completion of your have a voice account, please click the following link: <br/ >";
 
         private IValidationDictionary theValidationDictionary;
         private IHAVUserRetrievalService theUserRetrievalService;
@@ -146,7 +146,7 @@ namespace HaveAVoice.Services.UserFeatures {
             IEnumerable<SelectListItem> myStates =
                 new SelectList(HAVConstants.STATES, aUser.State);
             IEnumerable<SelectListItem> myGenders =
-                new SelectList(HAVConstants.GENDERS, aUser.Gender.Equals("M") ? "Male" : "Female");
+                new SelectList(HAVConstants.GENDERS, aUser.Gender);
             User myUser = theUserRetrievalService.GetUser(myUserId);
 
             return new EditUserModel(myUser) {

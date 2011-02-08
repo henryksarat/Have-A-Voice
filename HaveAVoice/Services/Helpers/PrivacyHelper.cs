@@ -15,6 +15,10 @@ namespace HaveAVoice.Services.Helpers {
             bool myIsAllowed = false;
             UserInformationModel myUser = HAVUserInformationFactory.GetUserInformation();
 
+            if (myUser != null && (myUser.Details.Id == aPrivacyUser.Id)) {
+                return true;
+            }
+
             IEnumerable<string> myTargetUsersSettings = 
                 (from p in aPrivacyUser.UserPrivacySettings.ToList<UserPrivacySetting>()
                   select p.PrivacySettingName).ToList<string>();
