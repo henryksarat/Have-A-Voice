@@ -81,6 +81,7 @@
     <Compile Include="Controllers\Core\AuthorityVerificationController.cs" />
     <Compile Include="Controllers\Core\ContactUsController.cs" />
     <Compile Include="Controllers\Core\PasswordController.cs" />
+    <Compile Include="Controllers\Core\SiteController.cs" />
     <Compile Include="Controllers\Helpers\ErrorHelper.cs" />
     <Compile Include="Controllers\Helpers\MessageHelper.cs" />
     <Compile Include="Controllers\Issues\IssueReplyCommentController.cs" />
@@ -469,6 +470,8 @@
     <Content Include="Views\Shared\Result.aspx" />
     <Content Include="Views\Shared\PrivacyTabs.ascx" />
     <Content Include="Views\Shared\UserPanel.ascx" />
+    <Content Include="Views\Site\AboutUs.aspx" />
+    <Content Include="Views\Site\Privacy.aspx" />
     <Content Include="Views\Tabs\Network.aspx" />
     <Content Include="Views\Tabs\Popular.aspx" />
     <Content Include="Views\Photos\Display.aspx" />

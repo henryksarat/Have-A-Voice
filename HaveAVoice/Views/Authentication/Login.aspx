@@ -60,7 +60,7 @@
 						<div class="clear">&nbsp;</div>
 						<div class="spacer-10">&nbsp;</div>
 						<div class="clear">&nbsp;</div>
-						<%=Html.ActionLink("Forgot Password", "Request", "Password", null, new{ @class="forgot" }) %>
+						<%=Html.ActionLink("Forgot Password", "Request", "Password", null, new{ @class="forgot" }) %>   <%=Html.ActionLink("Create Account", "Create", "User", null, new{ @class="forgot" }) %>
 					</div>
 					<div class="col-14">
 						&nbsp;
@@ -72,7 +72,7 @@
 					
                 	<div class="col-8 right">
 				        <input type="submit" class="create" value="Login" />
-				        <%= Html.ActionLink("Cancel", "Index", "", new { @class = "cancel" }) %>
+				        <%= Html.ActionLink("Cancel", "NotLoggedIn", "Home", null, new { @class = "cancel" }) %>
 					</div>
 			    <% } %>
 			    

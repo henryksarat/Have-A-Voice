@@ -33,7 +33,7 @@
 	                <div class="clear">&nbsp;</div>
                 </div>
                 <div class="right">
-					<a href="#" class="more-like">More Topics Liked By Members &gt;&gt;</a>
+					<a href="/Authentication/Login" class="more-like">More Topics Liked By Members &gt;&gt;</a>
 				</div>
 				<div class="clear">&nbsp;</div>
             </div>
@@ -46,7 +46,7 @@
 	                <div class="clear">&nbsp;</div>
                 </div>
                 <div class="right">
-				    <a href="#" class="more-dislike">More Topics Disliked By Members &gt;&gt;</a>
+				    <a href="/Authentication/Login" class="more-dislike">More Topics Disliked By Members &gt;&gt;</a>
 			    </div>
                 <div class="clear">&nbsp;</div>
             </div>

@@ -35,7 +35,8 @@ namespace HaveAVoice.Helpers {
             "Select",
             "Feedback",
             "Bug Report",
-            "Investor",
+            "Privacy",
+            "Investment",
             "Politician Account Creation",
             "Political Candidate Account Creation"
         };
