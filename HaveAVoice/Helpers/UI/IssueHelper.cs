@@ -436,7 +436,7 @@ namespace HaveAVoice.Helpers.UI {
 
                 var myUserlink = new TagBuilder("a");
                 myUserlink.MergeAttribute("class", "profile");
-                myUserlink.MergeAttribute("href", "#");
+                myUserlink.MergeAttribute("href", LinkHelper.Profile(myIssue.Issue.User));
                 myUserlink.InnerHtml = myName;
                 myContextDiv.InnerHtml += myUserlink.ToString();
 

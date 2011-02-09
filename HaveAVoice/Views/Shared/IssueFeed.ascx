@@ -99,13 +99,13 @@
 		        <span class="speak-lft">&nbsp;</span>
 		        <div class="p-a10">
                     <% if (item.Anonymous) { %>
-                        <a href="" class="name">Anonymous</a>
+                        <a href="/Profile/Show" class="name">Anonymous</a>
                     <% } else { %>
 		                <a href="/Profile/Show/<%= item.User.Id %>" class="name"><%= NameHelper.FullName(item.User)%></a>
                     <% } %>
 		            <%= item.Reply %>
 		            <br />
-		            <span class="loc"><%= item.Issue.City %>, <%= item.Issue.State %></span> <span class="resident">&nbsp;</span>
+		            <span class="loc"><%= item.Issue.City %>, <%= item.Issue.State %></span> <span class="resident" title="resident">&nbsp;</span>
 		        </div>
 		    </div>
 		    <div class="col-3">

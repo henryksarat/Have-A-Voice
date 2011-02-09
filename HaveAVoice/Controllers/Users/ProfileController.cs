@@ -113,6 +113,7 @@ namespace HaveAVoice.Controllers.Users {
                 } else {
                     myModel.Model = theService.MyProfile(myUser.Details);
                 }
+                myModel.NavigationModel.LocalIssue = myModel.Model.LocalIssue;
 
                 SaveFeedInformationToTempDataForFiltering(myModel.Model, PersonFilter.All);
 
