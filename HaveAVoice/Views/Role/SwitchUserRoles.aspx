@@ -12,8 +12,8 @@
     <h2>SwitchUserRoles</h2>
 
         <% Html.RenderPartial("Message"); %>
+        <% Html.RenderPartial("Validation"); %>
 
-        <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
         <% using (Html.BeginForm()) { %>
         
            <table>

@@ -415,8 +415,6 @@
     <Content Include="Photos\94_-1209933621.JPG" />
     <Content Include="Photos\94_-1316960325.JPG" />
     <Content Include="Photos\no_profile_picture.jpg" />
-    <Content Include="Views\Account\ChangePassword.aspx" />
-    <Content Include="Views\Account\ChangePasswordSuccess.aspx" />
     <Content Include="Views\Admin\Index.aspx" />
     <Content Include="Views\Authentication\Login.aspx" />
     <Content Include="Views\AuthorityVerification\Create.aspx" />

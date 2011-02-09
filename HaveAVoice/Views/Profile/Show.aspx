@@ -116,10 +116,9 @@
 
     <div class="clear">&nbsp;</div>
     <% Html.RenderPartial("Message"); %>
+    <% Html.RenderPartial("Validation"); %>
     
     <% if (Model.NavigationModel.SiteSection == SiteSection.MyProfile) { %>
-        <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
-
         <% FeedItem myNextFeedItem = Model.Model.GetNextItem(); %>
         <% int cnt = 0; %>
 
@@ -142,7 +141,6 @@
         <% } %>
     <% } else if (Model.NavigationModel.SiteSection == SiteSection.Profile) { %>
         <% if (PrivacyHelper.IsAllowed(Model.NavigationModel.User, PrivacyAction.DisplayProfile)) { %>
-            <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.")%>
 	        <div class="post m-btm5 m-top5">
 		        <% using (Html.BeginForm("Create", "Board", new { sourceUserId = Model.NavigationModel.User.Id })) { %>
 		        <div class="row">

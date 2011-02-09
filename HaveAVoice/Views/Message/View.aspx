@@ -15,10 +15,11 @@
         <% Html.RenderPartial("LeftNavigation"); %>
         <div class="clear">&nbsp;</div>
     </div>
+    <a href="View.aspx">View.aspx</a>
     
     <div class="col-21">	
         <% Html.RenderPartial("Message"); %>
-        <%= Html.ValidationSummary("Reply was unsuccessful. Please correct the errors and try again.") %>
+        <% Html.RenderPartial("Validation"); %>
 		<div class="clear">&nbsp;</div>
 
         <% using (Html.BeginForm("CreateReply", "Message")) { %>

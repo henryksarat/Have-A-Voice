@@ -66,7 +66,7 @@
     			
     			<% using (Html.BeginForm("CreateAuthority", "User", FormMethod.Post, new { @class = "create" })) { %>
                     <% Html.RenderPartial("Message"); %>
-    				<%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
+    				<% Html.RenderPartial("Validation"); %>
     				<div class="clear">&nbsp;</div>
 
                     <%= Html.Hidden("Email", Model.Email) %>

@@ -18,7 +18,7 @@
 			<div class="push-1 col-22">
 				<div class="spacer-30">&nbsp;</div>
                 <% Html.RenderPartial("Message"); %>
-				<%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
+				<% Html.RenderPartial("Validation"); %>
 				<div class="clear">&nbsp;</div>
 				
 				<% using (Html.BeginForm("Request", "Password", FormMethod.Post, new { @class = "create" })) { %>

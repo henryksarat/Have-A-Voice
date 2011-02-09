@@ -6,14 +6,14 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <% Html.RenderPartial("Message"); %>
-	<%= Html.ValidationSummary("Edit was unsuccessful. Please correct the errors and try again.") %>
+	<% Html.RenderPartial("Validation"); %>
 	<div class="clear">&nbsp;</div>
 	
 	<% using (Html.BeginForm()) { %>
 		<div class="reply m-top30">
 			<div class="row">
 				<div class="col-2 center">
-		            <% UserInformationModel myUserInfo = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation(); %>
+		            <% HaveAVoice.Models.View.UserInformationModel myUserInfo = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation(); %>
 					<img src="<%= myUserInfo.ProfilePictureUrl %>" alt="<%= myUserInfo.FullName  %>" class="profile" />
 					<div class="clear">&nbsp;</div>
 				</div>

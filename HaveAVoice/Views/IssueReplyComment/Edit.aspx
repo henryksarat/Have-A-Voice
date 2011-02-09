@@ -6,7 +6,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <% Html.RenderPartial("Message"); %>
-	<%= Html.ValidationSummary("Your comment wasn't posted. Please correct your errors and try again.") %>
+	<% Html.RenderPartial("Validation"); %>
 	<div class="clear">&nbsp;</div>
 
 	<% using (Html.BeginForm()) { %>
@@ -14,7 +14,7 @@
 			<div class="row">
 				<div class="col-2 center">
 					<%= Html.Hidden("IssueReplyId", Model.IssueReplyId) %>
-		            <% UserInformationModel myUserInfo = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation(); %>
+		            <% HaveAVoice.Models.View.UserInformationModel myUserInfo = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation(); %>
 					<img src="<%= myUserInfo.ProfilePictureUrl %>" alt="<%= myUserInfo.FullName  %>" class="profile" />
 					<div class="clear">&nbsp;</div>
 				</div>

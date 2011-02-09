@@ -13,8 +13,7 @@
     <% Html.RenderPartial("Message"); %>
     <%= ViewData["RestrictionMessage"] %><br />
     <%= ViewData["PermissionMessage"] %><br />
-
-    <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
+    <% Html.RenderPartial("Validation"); %>
 
     <% using (Html.BeginForm("Create", "Role")) {%>
         

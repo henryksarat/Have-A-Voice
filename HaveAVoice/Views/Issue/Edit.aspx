@@ -10,6 +10,8 @@
         <div class="spacer-30">&nbsp;</div>
     
     	<% Html.RenderPartial("Message"); %>
+        <% Html.RenderPartial("Validation"); %>
+
     	<div class="clear">&nbsp;</div>
     
     	<div class="push-1 col-4 center p-t5 p-b5 t-tab btint-6">

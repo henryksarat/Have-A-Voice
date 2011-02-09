@@ -12,7 +12,7 @@
 	
     <% using (Html.BeginForm()) { %>
         <% Html.RenderPartial("Message"); %>
-        <%= Html.ValidationSummary("Your comment wasn't posted. Please correct the errors and try again.") %>
+        <% Html.RenderPartial("Validation"); %>
         <div class="clear">&nbsp;</div>
 
         <%= IssueHelper.IssueReply(Model) %>

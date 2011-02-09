@@ -7,8 +7,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <% Html.RenderPartial("Message"); %>
-
-    <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
+    <% Html.RenderPartial("Validation"); %>
 
     <% using (Html.BeginForm()) {%>
 

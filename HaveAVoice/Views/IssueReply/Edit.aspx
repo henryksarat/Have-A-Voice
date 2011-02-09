@@ -8,9 +8,8 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <% Html.RenderPartial("Message"); %>
-
-	<%= Html.ValidationSummary("<div class='error'>Your reply wasn't posted. Please correct your errors and try again.</div>") %>
-	<%= Html.Encode(ViewData["Message"]) %>
+	<% Html.RenderPartial("Validation"); %>
+	
 	<div class="clear">&nbsp;</div>
 	
 	<% using (Html.BeginForm()) { %>

@@ -27,6 +27,7 @@
     
     <div class="col-21 events">
         <% Html.RenderPartial("Message"); %>
+        <% Html.RenderPartial("Validation"); %>
 
         <% UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation(); %>
         <% bool myIsUser = myUserInformationModel.Details.Id == Model.SourceUserIdOfContent; %>

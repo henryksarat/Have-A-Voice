@@ -9,8 +9,7 @@
     <h2>Create</h2>
 
     <% Html.RenderPartial("Message"); %>
-
-    <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
+    <% Html.RenderPartial("Validation"); %>
 
     <% using (Html.BeginForm("Create", "Restriction")) {%>
         <fieldset>

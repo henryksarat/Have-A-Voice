@@ -80,7 +80,7 @@
 	        <%= Html.Hidden("State", HAVUserInformationFactory.GetUserInformation().Details.State) %>
 
 	        <% Html.RenderPartial("Message"); %>
-	        <%= Html.ValidationSummary("Your reply wasn't posted. Please correct the errors and try again.") %>
+	        <% Html.RenderPartial("Validation"); %>
 	        <div class="clear">&nbsp;</div>
 	        
 	        <div class="m-btm10">

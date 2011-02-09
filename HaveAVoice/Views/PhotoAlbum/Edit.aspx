@@ -18,7 +18,7 @@
     
     <div class="col-21">
         <% Html.RenderPartial("Message"); %>
-        <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
+        <% Html.RenderPartial("Validation"); %>
         <div class="clear">&nbsp;</div>
 
         <% using (Html.BeginForm("Edit", "PhotoAlbum", FormMethod.Post, new { @class = "create" })) { %>

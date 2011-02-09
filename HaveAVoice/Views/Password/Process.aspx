@@ -21,7 +21,7 @@
     			<% using (Html.BeginForm("Process", "Password", FormMethod.Post, new { @class = "create" })) { %>
     				<%= Html.Hidden("ForgotPasswordHash", Model.Value) %>
     				<% Html.RenderPartial("Message"); %>
-    				<%= Html.ValidationSummary("Password change was unsuccessful. Please correct the errors and try again.")%>
+    				<% Html.RenderPartial("Validation"); %>
     				<div class="clear">&nbsp;</div>
     				
     				<div class="push-3 col-16 fnt-14 teal m-btm10">

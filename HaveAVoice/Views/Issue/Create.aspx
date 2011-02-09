@@ -8,8 +8,6 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="col-24">
         <div class="spacer-30">&nbsp;</div>
-    
-    	<% Html.RenderPartial("Message"); %>
     	<div class="clear">&nbsp;</div>
     
     	<div class="push-1 col-4 center p-t5 p-b5 t-tab btint-6">
@@ -26,8 +24,8 @@
     		<div class="spacer-30">&nbsp;</div>
     		
     		<div class="push-1 col-22">
-
-			    <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
+                <% Html.RenderPartial("Message"); %>
+			    <% Html.RenderPartial("Validation"); %>
 				<div class="clear">&nbsp;</div>
 				
 			    <% using (Html.BeginForm("Create", "Issue", FormMethod.Post, new { @class = "create" })) { %>

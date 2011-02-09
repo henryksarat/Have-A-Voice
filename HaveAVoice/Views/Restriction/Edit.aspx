@@ -10,8 +10,7 @@
     <h2>Edit</h2>
 
     <% Html.RenderPartial("Message"); %>
-
-    <%= Html.ValidationSummary("Edit was unsuccessful. Please correct the errors and try again.") %>
+    <% Html.RenderPartial("Validation"); %>
     
     <% using (Html.BeginForm()) {%>
     

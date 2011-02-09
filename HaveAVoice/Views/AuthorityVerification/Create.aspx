@@ -20,7 +20,7 @@
 
 				<% using (Html.BeginForm("Create", "AuthorityVerification", FormMethod.Post, new { @class = "create" })) { %>
 					<% Html.RenderPartial("Message"); %>
-					<%= Html.ValidationSummary("Send was unsuccessful. Please correct the errors and try again.") %>
+					<% Html.RenderPartial("Validation"); %>
 					<div class="clear">&nbsp;</div>
 					
 					<div class="push-3 col-16 fnt-14 teal m-btm10">
