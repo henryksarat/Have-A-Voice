@@ -102,18 +102,6 @@
         <div class="clear">&nbsp;</div>
     </div>
 
-	<% if(Model.NavigationModel.SiteSection == SiteSection.MyProfile) { %>
-		<div class="m-btm5 push-4 m-lft col-14 m-rgt local">
-			<div class="p-a5">
-				<h4>Issues In Your <%= Model.Model.LocalIssueLocation %></h4>
-				<div class="clear">&nbsp;</div>
-				Resident <a href="/Profile/Show/<%= Model.Model.LocalIssue.User.ShortUrl %>" class="name"><%= NameHelper.FullName(Model.Model.LocalIssue.User) %></a> says, &quot;<%= Model.Model.LocalIssue.Description %>&quot;<br />
-				In <%= Model.Model.LocalIssue.User.Gender.ToUpper().Equals(HAVGender.Male.ToString().ToUpper()) ? "his" : "her"  %> issue: <b><a href="/Issue/View/<%= Model.Model.LocalIssue.Id %>" class="issue"><%= Model.Model.LocalIssue.Title %></a></b>.
-	        </div>
-	        <div class="clear">&nbsp;</div>
-		</div>
-	<% } %>
-
     <div class="clear">&nbsp;</div>
     <% Html.RenderPartial("Message"); %>
     <% Html.RenderPartial("Validation"); %>

@@ -17,7 +17,8 @@
 				<h1><a href="/Issue/View/<%= Model.Id %>"><%= Model.Title%></a></h1>
 				<br />
 				<%= Model.Description %>
-
+				<br />
+				<span class="loc"><%= Model.City %>, <%= Model.State %></span>
 				<div class="clear">&nbsp;</div>
 
 				<div class="col-15">
@@ -103,6 +104,8 @@
 		                <a href="/Profile/Show/<%= item.User.Id %>" class="name"><%= NameHelper.FullName(item.User)%></a>
                     <% } %>
 		            <%= item.Reply %>
+		            <br />
+		            <span class="loc"><%= item.Issue.City %>, <%= item.Issue.State %></span> <span class="resident">&nbsp;</span>
 		        </div>
 		    </div>
 		    <div class="col-3">

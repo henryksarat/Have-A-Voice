@@ -138,6 +138,7 @@ img.profile { border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius
 img.profile.sm { max-height: 40px; max-width: 40px; }
 img.profile.lg { max-height: 120px; max-width: 120px; }
 
+
 /****************************************************************************/
 /************************** ERROR MESSAGE ***********************************/
 /****************************************************************************/
@@ -148,6 +149,7 @@ div.error-msg { padding: 20px; background: #fff; color: #20a9c9; width: 540px; m
 span.req { color: red; font-style: italic; }
 
 div.stretch textarea { width: 795px; }
+
 
 /****************************************************************************/
 /*************************** HTML LINK BUTTON *******************************/
@@ -335,6 +337,10 @@ form.create input[type=button]:hover { color: #115f71; background: #fff; }
 .local { background: #b6dde7; color: #747474; font-size: 12px; }
 a.name { font-style: normal; font-weight: bold; text-decoration: none; color: #20a9c9; }
 a.issue { text-decoration: none; font-weight: bold; color: #fff; }
+span.loc { font-style: italic; font-size: 10px; text-transform: uppercase; }
+.resident { width: 16px; height: 16px; background:url("/Content/images/resident.png") center center no-repeat; display: inline-block; }
+.candidate { .resident { width: 16px; height: 16px; background:url("/Content/images/candidate.png") center center no-repeat; display: inline-block; }
+.politician { width: 16px; height: 16px; background:url("/Content/images/politician.png") center center no-repeat; display: inline-block; }
 
 
 /****************************************************************************/
@@ -525,7 +531,7 @@ h6 { color: #63a8b8; font-size: 16px; text-shadow: #4c8b9a -1px -1px 1px, #fff 1
 .round-3 { border-radius: 3px -moz-border-radius: 3px; -webkit-border-radius: 3px; background: #c1dee5; }
 a.msg { width: 300px; color: #fff; display: block; background: #a6cdd7; text-align: center; text-decoration: none; border-radius: 3px; -moz-border-radius: 3px -webkit-border-radius: 3px; }
 
-input[type=button].fan { width: 100%; color: #63a8b8; cursor: pointer; font-size: 18px; font-weight: bold; border: 1px solid transparent; border-style: solid; border-size: 1px 1px 1px 1px; border-color: #fff transparent #abd3dd #fff; text-shadow: #4c8b9a -1px -1px 1px, #fff 1px 1px 1px; padding: 8px 16px 8px 50px; border-radius: 4px -moz-border-radius: 4px; -webkit-border-radius: 4px; background: url("images/star.png") no-repeat 20px 6px #d5eaef; background: url("images/star.png") no-repeat 20px 6px, -webkit-gradient(linear, left top, left bottom, color-stop(0, rgb(255,255,255)), color-stop(1, rgb(227,241,244))); background: url("images/star.png") no-repeat 20px 6px, -moz-linear-gradient(center top, rgb(255,255,255) 0%, rgb(227,241,244) 100%) url("images/star.png") no-repeat 20px 6px; }
+input[type=submit].fan { width: 100%; color: #63a8b8; cursor: pointer; font-size: 18px; font-weight: bold; border: 1px solid transparent; border-style: solid; border-size: 1px 1px 1px 1px; border-color: #fff transparent #abd3dd #fff; text-shadow: #4c8b9a -1px -1px 1px, #fff 1px 1px 1px; padding: 8px 16px 8px 50px; border-radius: 4px -moz-border-radius: 4px; -webkit-border-radius: 4px; background: url("images/star.png") no-repeat 20px 6px #d5eaef; background: url("images/star.png") no-repeat 20px 6px, -webkit-gradient(linear, left top, left bottom, color-stop(0, rgb(255,255,255)), color-stop(1, rgb(227,241,244))); background: url("images/star.png") no-repeat 20px 6px, -moz-linear-gradient(center top, rgb(255,255,255) 0%, rgb(227,241,244) 100%) url("images/star.png") no-repeat 20px 6px; }
 
 
 /****************************************************************************/

@@ -19,7 +19,9 @@
 				<span class="fnt-14 teal">Regarding <a href="/Issue/View/<%= Model.Issue.Id %>" class="issue"><%= Model.Issue.Title %></a></span><br />
 				<%= Html.ActionLink(Model.DisplayName, "Show", "Profile", new { id = Model.UserId }, new { @class = "name" })%> says:
 				<%= Model.Reply%>
-
+				<br />
+				<span class="loc"><%= Model.Issue.City %>, <%= Model.Issue.State %></span>
+				<div class="clear">&nbsp;</div>
 				<div class="options p-v10">
 					<div class="push-3 col-10">
 						<div class="col-1 center">
@@ -100,6 +102,9 @@
 		        <div class="p-a10">
 		            <a href="#" class="name"><%= NameHelper.FullName(item.User)%></a>
 		            <%= item.Comment %>
+		            <br />
+		            <span class="loc"><%= item.IssueReply.Issue.City %>, <%= item.IssueReply.Issue.State %></span>
+		            <div class="clear">&nbsp;</div>
 		        </div>
 		        <div class="clear">&nbsp;</div>
 		    </div>

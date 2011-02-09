@@ -28,7 +28,7 @@
                     Model.SiteSection,
                     new SiteSection[] { SiteSection.Home, SiteSection.IssueActivity, SiteSection.Photos, SiteSection.Calendar },
                     new string[] { "home-grey", "message-grey", "photo-grey", "event-grey" },
-                    new string[] { "/Profile/Show", "/Profile/IssueActivity", "/PhotoAlbum/List", "/Calendar/List" },
+                    new string[] { "#", "#", "#", "#" },
                     new string[] { "HOME", "USER FEED", "PHOTOS", "EVENTS" },
                     Model.User
                 )
@@ -68,7 +68,9 @@
             <% if (Model.SiteSection == SiteSection.Profile) { %>
                 <% if (!FriendHelper.IsFriend(Model.User, myUser)) { %>
             	    <div class="col-6 m-top10">
-			            <input type="button" class="fan" value="Become a Friend" />
+            	    	<% using (Html.BeginForm("Add", "Friend", new { UserId = Model.User.Id })) { %>
+				            <input type="submit" class="fan" value="Become a Friend" />
+			            <% } %>
 			            <div class="clear">&nbsp;</div>
 		            </div>
 		            <div class="clear">&nbsp:</div>
@@ -77,6 +79,18 @@
 			        <a class="p-v5 m-top10 msg" href="/Message/Create/<%= Model.User.Id %>">Send <%= Model.User.FirstName%> a private message</a>
 			    <% } %>
             <% } %>
+            <div class="clear">&nbsp;</div>
+        	<% if(Model.NavigationModel.SiteSection == SiteSection.MyProfile) { %>
+				<div class="m-btm5 push-4 m-lft col-14 m-rgt local">
+					<div class="p-a5">
+						<h4>Issues In Your <%= Model.Model.LocalIssueLocation %></h4>
+						<div class="clear">&nbsp;</div>
+						Resident <a href="/Profile/Show/<%= Model.Model.LocalIssue.User.ShortUrl %>" class="name"><%= NameHelper.FullName(Model.Model.LocalIssue.User) %></a> says, &quot;<%= Model.Model.LocalIssue.Description %>&quot;<br />
+						In <%= Model.Model.LocalIssue.User.Gender.ToUpper().Equals(HAVGender.Male.ToString().ToUpper()) ? "his" : "her"  %> issue: <b><a href="/Issue/View/<%= Model.Model.LocalIssue.Id %>" class="issue"><%= Model.Model.LocalIssue.Title %></a></b>.
+			        </div>
+			        <div class="clear">&nbsp;</div>
+				</div>
+			<% } %>
 		</div>
 	</div>
 
