@@ -134,7 +134,7 @@ namespace HaveAVoice.Helpers.UI {
 			editDiv.MergeAttribute("class", "col-2 center");
 			
             UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation();
-            if(anIssueReply.User.Id == myUserInformationModel.Details.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Edit_Any_Issue_Reply)) {
+            if (anIssueReply.User.Id == myUserInformationModel.Details.Id && HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Edit_Issue_Reply)) {
                 var myEdit = new TagBuilder("a");
                 myEdit.MergeAttribute("href", LinkHelper.EditIssueReply(anIssueReply.Id));
                 myEdit.MergeAttribute("class", "edit");
@@ -148,7 +148,7 @@ namespace HaveAVoice.Helpers.UI {
             var deleteDiv = new TagBuilder("div");
             deleteDiv.MergeAttribute("class", "col-3 center");
             
-            if(anIssueReply.User.Id == myUserInformationModel.Details.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Delete_Any_Issue_Reply)) {
+            if(anIssueReply.User.Id == myUserInformationModel.Details.Id && HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Delete_Issue_Reply)) {
                 var myDelete = new TagBuilder("a");
                 myDelete.MergeAttribute("href", LinkHelper.EditIssueReply(anIssueReply.Id));
                 myDelete.MergeAttribute("class", "delete");
@@ -418,9 +418,12 @@ namespace HaveAVoice.Helpers.UI {
 
             foreach (IssueWithDispositionModel myIssue in anIssues) {
                 string myAvatarURL = PhotoHelper.ConstructUrl(HAVConstants.NO_PROFILE_PICTURE_IMAGE);
-                string myName = NameHelper.FullName(myIssue.Issue.User);
+                string myName = "Anonymous";
+                string myProfile = "/Authentication/Login";
                 if (PrivacyHelper.IsAllowed(myIssue.Issue.User, PrivacyAction.DisplayProfile)) {
                     myAvatarURL = PhotoHelper.ProfilePicture(myIssue.Issue.User);
+                    myName = NameHelper.FullName(myIssue.Issue.User);
+                    myProfile = LinkHelper.Profile(myIssue.Issue.User);
                 }
                 
                 var myOuterDiv = new TagBuilder("div");
@@ -436,7 +439,7 @@ namespace HaveAVoice.Helpers.UI {
 
                 var myUserlink = new TagBuilder("a");
                 myUserlink.MergeAttribute("class", "profile");
-                myUserlink.MergeAttribute("href", LinkHelper.Profile(myIssue.Issue.User));
+                myUserlink.MergeAttribute("href", myProfile);
                 myUserlink.InnerHtml = myName;
                 myContextDiv.InnerHtml += myUserlink.ToString();
 

@@ -15,7 +15,7 @@
 			</ul>
 		</li>
 		<li><a href="/Message/Inbox">MAIL<%= NavigationCountHelper.NewMessageCount(myUser)%></a></li>
-		<li><a href="/Notification/List">NOTIFICATIONS<%= NavigationCountHelper.NotificationCount(myUser)%></a></li>
+		<li><a href="/Issue/Index">Issues</a></li>
     </ul>
 </div>
 <div class="col-6">

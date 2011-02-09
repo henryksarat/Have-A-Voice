@@ -96,7 +96,8 @@
 						<div class="clear">&nbsp;</div>
 						<div class="col-15 p-v10 options">
 							<div class="push-6 col-3 center">
-				                <% if (Model.Issue.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Edit_Any_Issue)) { %>
+                                  
+				                <% if (false) { %>
 				                    <%= Html.ActionLink("Edit", "Edit", new { id = Model.Issue.Id }, new { @class = "edit" })%>
 				                <% } else { %>
 				                	&nbsp;
@@ -104,7 +105,7 @@
 				                <div class="clear">&nbsp;</div>
 			                </div>
 			                <div class="push-6 col-3 center">
-				                <% if (Model.Issue.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Delete_Any_Issue)) { %>
+				                <% if (false) { %>
 				                    <%= Html.ActionLink("Delete", "Delete", new { id = Model.Issue.Id }, new { @class = "delete" })%>
 				                <% } else { %>
 				                	&nbsp;
@@ -139,22 +140,6 @@
 
                 <div class="clear">&nbsp;</div>
             <% } %>
-
-            <% /*
-            <% foreach (IssueReplyModel reply in Model.Replys) { %>
-                <p>
-                    <%= IssueHelper.OfficialIssueReply(reply) %>
-                </p>
-                <p>
-                    <% if (reply.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Edit_Any_Issue_Reply)) { %>
-                        <%= Html.ActionLink("Edit", "Edit", "IssueReply", new { id = reply.Id }, null)%>
-                    <% } %>
-                   <% if (reply.User.Id == myUser.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Delete_Any_Issue_Reply)) { %>
-                        <%= Html.ActionLink("Delete", "Delete", "IssueReply", new { id = reply.Id, issueId = Model.Issue.Id }, null)%>
-                    <% } %>
-                </p>
-            <%}%>
-            <% */ %>
 
 			<% if (!HAVUserInformationFactory.IsLoggedIn()) { %>
 				<div class="reply">
