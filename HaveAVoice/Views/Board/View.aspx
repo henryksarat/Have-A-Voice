@@ -11,7 +11,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 	<% Html.RenderPartial("UserPanel", Model.NavigationModel); %>
     <div class="col-3 m-rgt left-nav">
-        <% Html.RenderPartial("LeftNavigation"); %>
+        <% Html.RenderPartial("LeftNavigation", Model.NavigationModel); %>
     </div>
 
 	<div class="col-21">
