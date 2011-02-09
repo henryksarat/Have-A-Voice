@@ -30,6 +30,7 @@ body { font-family: helvetica, arial, sans-serif; background: #20a9c9; }
 
 .round-5 { border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
 
+
 /****************************************************************************/
 /********************************* COLORS ***********************************/
 /****************************************************************************/
@@ -49,6 +50,7 @@ body { font-family: helvetica, arial, sans-serif; background: #20a9c9; }
 
 .like { color: #2070c9; }
 .dislike { color: #c94020; }
+
 
 /****************************************************************************/
 /****************************** TEXT-ALIGN **********************************/
@@ -93,6 +95,8 @@ body { font-family: helvetica, arial, sans-serif; background: #20a9c9; }
 
 .m-rgt5 { margin-right: 5px; }
 .m-rgt10 { margin-right: 10px; }
+
+.m-a10 { margin: 10px; }
 
 
 /****************************************************************************/
@@ -147,6 +151,7 @@ div.error { padding: 10px 0px; background: #f6cbca; color: #d02327; border: 1px 
 div.success { padding: 10px 0px; background: #eef4d4; color: #6f8438; border: 1px solid #8fad3d; text-align: center; width: 640px; margin: 0px auto 10px auto; font-weight: bold; font-size: 12px; }
 div.normal { padding: 10px 0px; background: #fcf9ce; color: #43423c; border: 1px solid #dfdfde; text-align: center; width: 640px; margin: 0px auto 10px auto; font-weight: bold; font-size: 12px; }
 div.error-msg { padding: 20px; background: #fff; color: #20a9c9; width: 540px; margin: 50px auto; }
+div.msg { border: 2px solid #20a9c9; background: #d9e9ed; }
 span.req { color: red; font-style: italic; }
 
 div.stretch textarea { width: 795px; }
@@ -155,7 +160,7 @@ div.stretch textarea { width: 795px; }
 /****************************************************************************/
 /*************************** HTML LINK BUTTON *******************************/
 /****************************************************************************/
-a.button, a.button:link, a.button:visited { padding: 5px; color: #fff; font-size: 12px; background-color: #3da4be; border: 1px solid #888888; font-weight: bold; box-shadow: 0px 1px 0px #aaaaaa; -moz-box-shadow: 0px 1px 0px #aaaaaa; -webkit-box-shadow: 0px 1px 0px #aaaaaa; text-decoration: none; }
+a.button, a.button:link, a.button:visited { padding: 5px; color: #fff; font-size: 12px; background-color: #3da4be; border: 1px solid #888888; font-weight: bold; box-shadow: 0px 1px 0px #aaaaaa; -moz-box-shadow: 0px 1px 0px #aaaaaa; -webkit-box-shadow: 0px 1px 0px #aaaaaa; text-decoration: none; display: inline-block; }
 a.button:hover { background: #fff; color: #3da4be; border: 1px solid #dfdfde; }
 
 a.button.delete, a.button.delete:link, a.button.delete:visited { color: #cb2026; background: #f6cbca; border: 1px solid #cb2026; }
