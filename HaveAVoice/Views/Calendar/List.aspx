@@ -12,7 +12,6 @@
 	<script type="text/javascript" language="javascript">
 		$(function() {
 	        $('#Date').datepicker({
-                yearRange: "-10:+10",
                 changeMonth: true,
                 changeYear: true,
                 dateFormat: "mm-dd-yy"

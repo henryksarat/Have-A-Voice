@@ -43,7 +43,6 @@
 				return false;
 			});
 	        $('#DateOfBirth').datepicker({
-                yearRange: "-10:+10",
                 changeMonth: true,
                 changeYear: true,
                 dateFormat: "mm-dd-yy"
