@@ -35,7 +35,11 @@ namespace HaveAVoice.Helpers.UI {
                 string myUrl = aUrls[myIndex];
 
                 if (!myIsMyself) {
-                    myUrl += "/" + aTargetUser.Id;
+                    if (aSections[myIndex] == SiteSection.Home) {
+                        myUrl = LinkHelper.Profile(aTargetUser);
+                    } else {
+                        myUrl += "/" + aTargetUser.Id;
+                    }
                 }
 
                 myLiTag.InnerHtml += String.Format("<a class=\"{0}\" href=\"{1}\">{2}</a>", aCssClasses[myIndex], myUrl, aDisplayNames[myIndex]);

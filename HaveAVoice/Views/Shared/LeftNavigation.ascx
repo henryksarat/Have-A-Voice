@@ -6,7 +6,9 @@
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Helpers.Enums" %>
 
-<% if (HAVUserInformationFactory.GetUserInformation().Details.Id != Model.User.Id) { %>
+<% bool myIsMyProfile = Model.SiteSection == SiteSection.MyProfile; %>
+<% bool myIsAllowedToView = PrivacyHelper.IsAllowed(Model.User, PrivacyAction.DisplayProfile); %>
+<% if (!myIsMyProfile && myIsAllowedToView) { %>
 	<div class="col-3 profile">
 		<div class="col-3 p-v10 details">
 			<span class="blue">Name:</span> <br /><%= Model.FullName %><br />

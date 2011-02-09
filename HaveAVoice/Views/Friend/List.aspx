@@ -44,7 +44,7 @@
 						<img src ="<%= PhotoHelper.ProfilePicture(item.FriendUser) %>" alt="<%= NameHelper.FullName(item.FriendUser) %>" class="profile" />
 					</div>
 					<div class="p-a5">
-						<a href="/Profile/Show/<%= item.FriendUserId %>" class="name"><%= NameHelper.FullName(item.FriendUser) %></a>
+						<a href="<%= LinkHelper.Profile(item.FriendUser) %>" class="name"><%= NameHelper.FullName(item.FriendUser) %></a>
 					</div>
 				</div>
 				<div class="clear">&nbsp;</div>

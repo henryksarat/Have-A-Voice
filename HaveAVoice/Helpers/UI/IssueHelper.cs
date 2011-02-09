@@ -111,7 +111,7 @@ namespace HaveAVoice.Helpers.UI {
 				hrefName.MergeAttribute("href", "#");
 			} else {
                 hrefName.InnerHtml = NameHelper.FullName(anIssueReply.User);
-                hrefName.MergeAttribute("href", LinkHelper.ProfilePage(anIssueReply.User));
+                hrefName.MergeAttribute("href", LinkHelper.Profile(anIssueReply.User));
 			}
 			
 			divCommentPad.InnerHtml += hrefName.ToString();

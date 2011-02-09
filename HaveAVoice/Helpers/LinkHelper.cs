@@ -8,8 +8,8 @@ using HaveAVoice.Models.View;
 
 namespace HaveAVoice.Helpers {
     public static class LinkHelper {
-        public static string ProfilePage(User aUser) {
-            return "/Profile/Show/" + aUser.Id;
+        public static string Profile(User aUser) {
+            return "/" + aUser.ShortUrl;
         }
 
         public static string EditIssue(Issue anIssue) {

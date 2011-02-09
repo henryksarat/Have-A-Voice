@@ -12,7 +12,7 @@
 	<div class="col-16 m-btm10">
 		<div class="m-lft col-16">
 			<div class="p-h10">
-				<a class="name" href="#"><%= Model.DisplayName%></a>
+				<a class="name" href="/Profile/Show/<%= Model.UserId %>"><%= Model.DisplayName%></a>
                 <%= Model.Message%>
 				<div class="clear">&nbsp;</div>
 			</div>
@@ -37,7 +37,7 @@
 		    </div>
 		    <div class="m-lft col-14">
 		        <div class="p-h10">
-		            <a href="#" class="name"><%= NameHelper.FullName(myReply.User)%></a>
+		            <a href="<%= LinkHelper.Profile(myReply.User) %>" class="name"><%= NameHelper.FullName(myReply.User)%></a>
 		            <%= myReply.Message %>
 		        </div>
 		    </div>

@@ -17,7 +17,7 @@
 			<span class="speak-lft">&nbsp;</span>
 			<div class="p-a10">
 				<span class="fnt-14 teal">Regarding <a href="/Issue/View/<%= Model.Issue.Id %>" class="issue"><%= Model.Issue.Title %></a></span><br />
-				<%= Html.ActionLink(Model.DisplayName, "Show", "Profile", new { id = Model.UserId }, new { @class = "name" })%> says:
+				<a href="/Profile/Show/<%= Model.UserId %>" class="name"><%= Model.DisplayName %></a> says:
 				<%= Model.Reply%>
 				<br />
 				<span class="loc"><%= Model.Issue.City %>, <%= Model.Issue.State %></span>
