@@ -16,6 +16,20 @@ namespace HaveAVoice.Models.View {
         public int TotalDislikes { get; set; }
         public bool HasDisposition { get; set; }
         public int TotalComments { get; set; }
+        public string IconType {
+            get {
+                string myCssIconClass = "resident";
+
+                if (PersonFilter == PersonFilter.Politicians) {
+                    myCssIconClass = "politician";
+                }
+                if (PersonFilter == PersonFilter.PoliticalCandidates) {
+                    myCssIconClass = "candidate";
+                }
+
+                return myCssIconClass;
+            }
+        }
 
         public IssueReplyFeedModel(User aUser) : base(aUser) {
             IssueReplyComments = new List<IssueReplyComment>();

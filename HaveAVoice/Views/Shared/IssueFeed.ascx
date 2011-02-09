@@ -18,7 +18,7 @@
 				<br />
 				<%= Model.Description %>
 				<br />
-				<span class="loc"><%= Model.City %>, <%= Model.State %></span>
+				<span class="loc"><%= Model.City %>, <%= Model.State %></span> <span class="<%= Model.IconType %>" title="<%= Model.IconType %>">&nbsp;</span>
 				<div class="clear">&nbsp;</div>
 
 				<div class="col-15">
@@ -105,7 +105,7 @@
                     <% } %>
 		            <%= item.Reply %>
 		            <br />
-		            <span class="loc"><%= item.Issue.City %>, <%= item.Issue.State %></span> <span class="resident" title="resident">&nbsp;</span>
+		            <span class="loc"><%= item.Issue.City %>, <%= item.Issue.State %></span>
 		        </div>
 		    </div>
 		    <div class="col-3">

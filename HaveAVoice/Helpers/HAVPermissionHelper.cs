@@ -17,7 +17,7 @@ namespace HaveAVoice.Helpers {
         }
 
         public static bool HasPermission(UserInformationModel aUserToCheck, HAVPermission aPermission) {
-            return (from p in aUserToCheck.Permissions 
+            return (from p in aUserToCheck.Permissions
                     where p.Name == aPermission.ToString()
                     select p).Count<Permission>() > 0 ? true : false;
         }

@@ -20,7 +20,7 @@
 				<a href="/Profile/Show/<%= Model.UserId %>" class="name"><%= Model.DisplayName %></a> says:
 				<%= Model.Reply%>
 				<br />
-				<span class="loc"><%= Model.Issue.City %>, <%= Model.Issue.State %></span>
+				<span class="loc"><%= Model.Issue.City %>, <%= Model.Issue.State %></span> <span class="<%= Model.IconType %>" title="<%= Model.IconType %>">&nbsp;</span>
 				<div class="clear">&nbsp;</div>
 				<div class="options p-v10">
 					<div class="push-3 col-10">
