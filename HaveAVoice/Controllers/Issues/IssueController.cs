@@ -18,7 +18,7 @@ using HaveAVoice.Helpers.Enums;
 namespace HaveAVoice.Controllers.Issues {
     public class IssueController : HAVBaseController {
         private const string GET_LATEST_ISSUES_ERROR = "Unable to get the latest myIssues.";
-        private const string NO_ISSUES = "There are no latest myIssues to display.";
+        private const string NO_ISSUES = "There are no issues to display.";
 
         private const string POST_SUCCESS = "Issue posted succesfully.";
         private const string DELETE_SUCCESS = "Issue deleted succesfully.";

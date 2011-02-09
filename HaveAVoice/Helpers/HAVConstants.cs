@@ -8,7 +8,7 @@ using HaveAVoice.Helpers.Enums;
 
 namespace HaveAVoice.Helpers {
     public class HAVConstants {
-        public const string BASE_URL = "www.haveavoice.us";
+        public const string BASE_URL = "http://www.haveavoice.com";
         public const string NOT_CONFIRMED_USER_ROLE = "Not confirmed";
         public const string AUTHORITY_USER_ROLE = "Authority";
 

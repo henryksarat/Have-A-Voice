@@ -5,10 +5,10 @@ using HaveAVoice.Exceptions;
 
 namespace HaveAVoice.Helpers {
     public class HAVEmail : IHAVEmail{
-        private const string MAILSERVER = "mail.haveavoice.us";
-        private const string FROM_EMAIL = "noreply@haveavoice.us";
-        private const string SMTP_USER = "noreply@haveavoice.us";
-        private const string SMTP_PASSWORD = "password198";
+        private const string MAILSERVER = "mail.haveavoice.com";
+        private const string FROM_EMAIL = "account.activation@haveavoice.com";
+        private const string SMTP_USER = "account.activation@haveavoice.com";
+        private const string SMTP_PASSWORD = "mPass01";
 
        
         public void SendEmail(string aToEmail, string aSubject, string aBody) {

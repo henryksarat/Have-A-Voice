@@ -82,12 +82,14 @@
             <div class="clear">&nbsp;</div>
         	<% if(Model.SiteSection == SiteSection.MyProfile) { %>
 				<div class="m-btm5 m-top20 m-lft col-14 m-rgt local">
-					<div class="p-a5">
-						<h4>Issues In Your <%= Model.LocalIssueLocation %></h4>
-						<div class="clear">&nbsp;</div>
-						Resident <a href="/Profile/Show/<%= Model.LocalIssue.User.ShortUrl %>" class="name"><%= HaveAVoice.Helpers.NameHelper.FullName(Model.LocalIssue.User) %></a> says, &quot;<%= Model.LocalIssue.Description %>&quot;<br />
-                        In <%= Model.LocalIssue.User.Gender.ToUpper().Equals(HAVGender.Male.ToString().ToUpper()) ? "his" : "her"  %> issue: <b><a href="/Issue/View/<%= Model.LocalIssue.Id %>" class="issue"><%= Model.LocalIssue.Title %></a></b>.
-			        </div>
+                    <% if (Model.LocalIssue != null) { %>
+					    <div class="p-a5">
+						    <h4>Issues In Your <%= Model.LocalIssueLocation%></h4>
+						    <div class="clear">&nbsp;</div>
+						    Resident <a href="/Profile/Show/<%= Model.LocalIssue.User.ShortUrl %>" class="name"><%= HaveAVoice.Helpers.NameHelper.FullName(Model.LocalIssue.User)%></a> says, &quot;<%= Model.LocalIssue.Description%>&quot;<br />
+                            In <%= Model.LocalIssue.User.Gender.ToUpper().Equals(HAVGender.Male.ToString().ToUpper()) ? "his" : "her"%> issue: <b><a href="/Issue/View/<%= Model.LocalIssue.Id %>" class="issue"><%= Model.LocalIssue.Title%></a></b>.
+			            </div>
+                    <% } %>
 			        <div class="clear">&nbsp;</div>
 				</div>
 			<% } %>

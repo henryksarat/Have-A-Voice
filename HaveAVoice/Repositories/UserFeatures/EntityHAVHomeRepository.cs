@@ -18,7 +18,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
             IEnumerable<int> myIssueIds = (from i in myIssues
                                            select i.Id).ToList<int>();
             IEnumerable<IssueDisposition> myIssueDispositions = (from d in theEntities.IssueDispositions
-                                                                 where myIssueIds.Contains(d.Id)
+                                                                 where myIssueIds.Contains(d.IssueId)
                                                                  select d).ToList<IssueDisposition>();
             IEnumerable<IssueReply> myIssueReplys = GetOrderedIssueReplys();
 

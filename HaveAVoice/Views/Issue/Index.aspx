@@ -4,6 +4,7 @@
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
+<%@ Import Namespace="HaveAVoice.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Issues
@@ -58,11 +59,11 @@
 		            
 		            <% if (!item.HasDisposition) { %>
 		            	<div class="push-7 col-3 center">
-		            		<%= Html.ActionLink("Agree", "Disposition", new { issueId = item.Issue.Id, disposition = (int)Disposition.Like }, new { @class = "like" }) %>
+		            		<a href="<%= LinkHelper.AgreeIssue(item.Issue.Id, SiteSection.Issue, item.Issue.Id) %>" class="like">Agree</a>
 		            		<div class="clear">&nbsp;</div>
 		            	</div>
 		                <div class="push-7 col-3 center">
-		                	<%= Html.ActionLink("Disagree", "Disposition", new { issueId = item.Issue.Id, disposition = (int)Disposition.Dislike }, new { @class = "dislike" }) %>
+		                	<a href="<%= LinkHelper.AgreeIssue(item.Issue.Id, SiteSection.Issue, item.Issue.Id) %>" class="dislike">Disagree</a>
 		                	<div class="clear">&nbsp;</div>
 		                </div>
 		            <% } else { %>

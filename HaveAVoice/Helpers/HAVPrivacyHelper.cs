@@ -8,7 +8,8 @@ namespace HaveAVoice.Helpers {
         public static HAVPrivacySetting[] GetDefaultPrivacySettings() {
             return new HAVPrivacySetting[] {
                 HAVPrivacySetting.Display_Profile_To_Friend,
-                HAVPrivacySetting.Display_Profile_To_Politician
+                HAVPrivacySetting.Display_Profile_To_Politician,
+                HAVPrivacySetting.Display_Profile_To_Political_Candidate
             };
         }
 
@@ -17,7 +18,8 @@ namespace HaveAVoice.Helpers {
                 HAVPrivacySetting.Display_Profile_To_Friend,
                 HAVPrivacySetting.Display_Profile_To_Politician,
                 HAVPrivacySetting.Display_Profile_To_Not_Friend,
-                HAVPrivacySetting.Display_Profile_To_Political_Candidate
+                HAVPrivacySetting.Display_Profile_To_Political_Candidate,
+                HAVPrivacySetting.Display_Profile_To_Not_Logged_In
             };
         }
 
