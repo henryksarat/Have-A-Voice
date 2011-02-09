@@ -46,7 +46,8 @@
 		    		</div>
 		    		<div class="clear">&nbsp;</div>
 		    		
-		            <% if (item.Issue.User.Id == HAVUserInformationFactory.GetUserInformation().Details.Id) { %>
+                    <% HaveAVoice.Models.View.UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation();  %>
+		            <% if (item.Issue.User.Id == myUserInfo.Details.Id && HAVPermissionHelper.HasPermission(myUserInfo, HAVPermission.Delete_Issue)) { %>
 		            	<div class="push-7 col-3 center">
 		            		<%= Html.ActionLink("Delete", "DeleteIssue", new { deletingUserId = HAVUserInformationFactory.GetUserInformation().Details.Id, issueId = item.Issue.Id}, new { @class = "delete" }) %>
 		            		<div class="clear">&nbsp;</div>
