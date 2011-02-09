@@ -67,6 +67,11 @@
 
     <div class="col-21">
 
+	<div class="center fnt-14 color-4 bold">
+		This person's privacy settings prohibit you from viewing their profile.
+		<div class="clear">&nbsp;</div>
+	</div>
+
     <div class="fnt-10 m-btm5">
         <% if (Model.NavigationModel.SiteSection == SiteSection.Profile) { %>
             <% if (PrivacyHelper.IsAllowed(Model.NavigationModel.User, PrivacyAction.DisplayProfile)) { %>
