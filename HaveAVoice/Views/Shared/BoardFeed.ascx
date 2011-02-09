@@ -70,8 +70,9 @@
 			        <%= Html.ValidationMessage("BoardReply", "*")%>
 			        <%= Html.TextArea("BoardReply")%>
 				</div>
-				<div class="col-2 center">
+				<div class="col-2 right">
 		            <input type="submit" value="Post" />
+		            <div class="clear">&nbsp;</div>
 		        </div>
 				<div class="clear">&nbsp;</div>
 			</div>

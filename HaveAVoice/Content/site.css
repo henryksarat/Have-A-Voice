@@ -76,6 +76,7 @@ body { font-family: helvetica, arial, sans-serif; background: #20a9c9; }
 /********************************* MARGIN ***********************************/
 /****************************************************************************/
 .m-top5 { margin-top: 5px; }
+.m-top8 { margin-top: 8px; }
 .m-top10 { margin-top: 10px; }
 .m-top15 { margin-top: 15px; }
 .m-top20 { margin-top: 20px; }
@@ -167,7 +168,7 @@ a.forget:hover { text-decoration: underline; }
 /****************************************************************************/
 /********************************* HEADER ***********************************/
 /****************************************************************************/
-.header { background: #20a9c9; border-bottom: 1px solid #fff; padding: 10px 0px; color: #ffffff; }
+.header { background: #20a9c9; border-bottom: 1px solid #fff; padding: 5px 0px; color: #ffffff; }
 .header input[type=text], .header input[type=password] { width: 190px; height: 22px; border-left: 1px solid #abd0d9; border-top: 1px solid #abd0d9; border-right: 1px solid #fff; border-bottom: 1px solid #fff; }
 .header label { font-weight: bold; font-size: 14px; color: #a4a4a4; position: absolute; left: 4px; top: 6px; text-transform: uppercase; cursor: text; }
 
@@ -187,8 +188,8 @@ a.forget:hover { text-decoration: underline; }
 .header ul > li a, .header > ul > li > a:link, .header > ul > li > a:visited { text-decoration: none; color: #ffffff; /* padding: 10px 5px; */ font-weight: bold; position: relative; display: block; margin: -10px -15px; padding: 10px 15px; }
 .header ul > li > a:hover { background: #ffffff; color: #20a9c9; }
 
-.header ul > li span.alert { position: absolute; top: -16px; right: -20px; font-weight: normal; background: red; border: 2px solid #fff; border-radius: 20px; -moz-border-radius: 20px; -webkit-border-radius: 20px; z-index: 10; min-width: 10px; min-height: 10px; color: #fff; font-size: 11px; padding: 2px; text-align: center; }
-.header ul > li a span.alert { top: -8px; right: -8px; }
+.header ul > li span.alert { position: absolute; top: -8px; right: -4px; font-weight: normal; background: red; border: 2px solid #fff; border-radius: 20px; -moz-border-radius: 20px; -webkit-border-radius: 20px; z-index: 10; min-width: 10px; min-height: 10px; color: #fff; font-size: 11px; padding: 2px; text-align: center; }
+.header ul > li a span.alert { top: -8px; right: -4px; }
 
 .header ul > li > ul { display: none; }
 .header ul > li:hover > ul { display: block; z-index: 1000; position: absolute; border: 4px solid #fff; background: #fff; left: 0px; top: 32px; }
@@ -297,7 +298,7 @@ form.create input[type=button]:hover { color: #115f71; background: #fff; }
 
 
 /****************************************************************************/
-/******************************** FRIEND FEED **********************************/
+/******************************** FRIEND FEED *******************************/
 /****************************************************************************/
 .comment .options span { font-size: 12px; }
 .row a.name, .row a.name:link, .row a.name:visited, .alt a.name, .alt a.name:link, .alt a.name:visited { font-size: 12px; font-style: normal; font-weight: bold; text-decoration: none; color: #20a9c9; }
@@ -339,7 +340,7 @@ a.name { font-style: normal; font-weight: bold; text-decoration: none; color: #2
 a.issue { text-decoration: none; font-weight: bold; color: #fff; }
 span.loc { font-style: italic; font-size: 10px; text-transform: uppercase; }
 .resident { width: 16px; height: 16px; background:url("/Content/images/resident.png") center center no-repeat; display: inline-block; }
-.candidate { .resident { width: 16px; height: 16px; background:url("/Content/images/candidate.png") center center no-repeat; display: inline-block; }
+.candidate { width: 16px; height: 16px; background:url("/Content/images/candidate.png") center center no-repeat; display: inline-block; }
 .politician { width: 16px; height: 16px; background:url("/Content/images/politician.png") center center no-repeat; display: inline-block; }
 
 

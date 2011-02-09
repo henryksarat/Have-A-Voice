@@ -17,7 +17,7 @@
 <body>
     <div class="header">
 		<div class="container-24">
-			<div class="col-6">
+			<div class="col-6 m-top8">
 				<a href="/">
 					<img src="/Content/images/logo.png" alt="Have a voice" />
 				</a>
