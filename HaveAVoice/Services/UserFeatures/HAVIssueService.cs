@@ -254,7 +254,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
         private bool ValidateComment(string aComment) {
             if (aComment.Trim().Length == 0) {
-                theValidationDictionary.AddError("Body", aComment, "Comment is required.");
+                theValidationDictionary.AddError("Comment", aComment, "Comment is required.");
             }
 
             return theValidationDictionary.isValid;

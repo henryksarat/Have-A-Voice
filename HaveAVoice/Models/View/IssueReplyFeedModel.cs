@@ -8,6 +8,8 @@ namespace HaveAVoice.Models.View {
     public class IssueReplyFeedModel : FeedModel {
         public IEnumerable<IssueReplyComment> IssueReplyComments { get; set; }
         public PersonFilter PersonFilter { get; set; }
+        public string State;
+        public string City;
         public Issue Issue { get; set; }
         public string Reply { get; set; }
         public int TotalLikes { get; set; }
