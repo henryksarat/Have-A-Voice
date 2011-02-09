@@ -15,35 +15,35 @@
         <% Html.RenderPartial("LeftNavigation", Model.NavigationModel); %>
         <div class="clear">&nbsp;</div>
     </div>
-    
+
     <div class="col-21">
         <% Html.RenderPartial("Message"); %>
-	
+        <div class="clear">&nbsp;</div>
+        
+        <div class="action-bar bold p-a10 m-btm20 color-4">
+        	Pending Friend Requests
+        </div>
+        <div class="clear">&nbsp;</div>
 	    <% foreach (var item in Model.Models) { %>
-	    	<div class="col-7">
-	    		<div class="col-2">
-	    			<img src="/Content/images/no_profile_picture.jpg" class="profile" />
+	    	<div class="col-21 m-btm10">
+	    		<div class="col-2 center">
+	    			<img src="/Photos/no_profile_picture.jpg" class="profile sm" />
 	    			<div class="clear">&nbsp;</div>
 	    		</div>
-	    		<div class="col-5">
-	    			<div class="col-5 m-lft fnt-12 bold color-5">
-	    				<%= HaveAVoice.Helpers.NameHelper.FullName(item.FriendUser) %>
-	    				<div class="clear">&nbsp;</div>
-	    			</div>
-	    			<div class="clear">&nbsp;</div>
-	    			<div class="col-2 m-lft">
-	    				<%= Html.ActionLink("Approve", "Approve", new { id = item.Id }, new { @class = "approve" })%>
-	    				<div class="clear">&nbsp;</div>
-	    			</div>
-	    			<div class="col-1">&nbsp;</div>
-	    			<div class="col-2">
-	    				<%= Html.ActionLink("Decline", "Decline", new { id = item.Id }, new { @class = "decline" })%>
-	    				<div class="clear">&nbsp;</div>
-	    			</div>
-	    			<div class="clear">&nbsp;</div>
-	    		</div>
-	    		<div class="clear">&nbsp;</div>
-	    	</div>
+    			<div class="col-15 m-lft m-rgt fnt-12 bold color-1">
+    				<%= HaveAVoice.Helpers.NameHelper.FullName(item.FriendUser) %>
+    				<div class="clear">&nbsp;</div>
+    			</div>
+    			<div class="col-2 center">
+    				<%= Html.ActionLink("Approve", "Approve", new { id = item.Id }, new { @class = "button" })%>
+    				<div class="clear">&nbsp;</div>
+    			</div>
+    			<div class="col-2 center">
+    				<%= Html.ActionLink("Decline", "Decline", new { id = item.Id }, new { @class = "button" })%>
+    				<div class="clear">&nbsp;</div>
+    			</div>
+    			<div class="clear">&nbsp;</div>
+    		</div>
 	    <% } %>
 	    <div class="clear">&nbsp;</div>
 	</div>
