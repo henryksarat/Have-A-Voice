@@ -68,7 +68,7 @@
             <% if (Model.SiteSection == SiteSection.Profile) { %>
                 <% if (!FriendHelper.IsFriend(Model.User, myUser)) { %>
             	    <div class="col-6 m-top10">
-            	    	<% using (Html.BeginForm("Add", "Friend", new { UserId = Model.User.Id })) { %>
+            	    	<% using (Html.BeginForm("Add", "Friend", new { id = Model.User.Id })) { %>
 				            <input type="submit" class="fan" value="Become a Friend" />
 			            <% } %>
 			            <div class="clear">&nbsp;</div>
@@ -80,13 +80,13 @@
 			    <% } %>
             <% } %>
             <div class="clear">&nbsp;</div>
-        	<% if(Model.NavigationModel.SiteSection == SiteSection.MyProfile) { %>
-				<div class="m-btm5 push-4 m-lft col-14 m-rgt local">
+        	<% if(Model.SiteSection == SiteSection.MyProfile) { %>
+				<div class="m-btm5 m-top20 m-lft col-14 m-rgt local">
 					<div class="p-a5">
-						<h4>Issues In Your <%= Model.Model.LocalIssueLocation %></h4>
+						<h4>Issues In Your <%= Model.LocalIssueLocation %></h4>
 						<div class="clear">&nbsp;</div>
-						Resident <a href="/Profile/Show/<%= Model.Model.LocalIssue.User.ShortUrl %>" class="name"><%= NameHelper.FullName(Model.Model.LocalIssue.User) %></a> says, &quot;<%= Model.Model.LocalIssue.Description %>&quot;<br />
-						In <%= Model.Model.LocalIssue.User.Gender.ToUpper().Equals(HAVGender.Male.ToString().ToUpper()) ? "his" : "her"  %> issue: <b><a href="/Issue/View/<%= Model.Model.LocalIssue.Id %>" class="issue"><%= Model.Model.LocalIssue.Title %></a></b>.
+						Resident <a href="/Profile/Show/<%= Model.LocalIssue.User.ShortUrl %>" class="name"><%= HaveAVoice.Helpers.NameHelper.FullName(Model.LocalIssue.User) %></a> says, &quot;<%= Model.LocalIssue.Description %>&quot;<br />
+                        In <%= Model.LocalIssue.User.Gender.ToUpper().Equals(HAVGender.Male.ToString().ToUpper()) ? "his" : "her"  %> issue: <b><a href="/Issue/View/<%= Model.LocalIssue.Id %>" class="issue"><%= Model.LocalIssue.Title %></a></b>.
 			        </div>
 			        <div class="clear">&nbsp;</div>
 				</div>
@@ -94,7 +94,6 @@
 		</div>
 	</div>
 
-    <% if (Model.SiteSection == SiteSection.Profile) { %>
         <div class="col-6 round-3">
 	        <div class="p-a10">
 		        <h6 class="m-btm5"><% if (myUser.Id == Model.User.Id) { %>My <% } %>Stats</h6>
@@ -137,6 +136,5 @@
 	        </div>
 	        <div class="clear">&nbsp;</div>
     </div>
-    <% } %>
 </div>
 <div class="clear">&nbsp;</div>

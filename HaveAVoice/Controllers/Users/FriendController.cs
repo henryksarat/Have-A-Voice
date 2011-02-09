@@ -24,6 +24,7 @@ namespace HaveAVoice.Controllers.Users
         private const string NO_FRIEND_REQUESTS = "You have no pending friend requests.";
         private const string DELETE_NON_FRIEND = "Unable to delete someone that isn't your friend./";
         private const string DELETE_SUCCESS = "User has been deleted from your friend list successfully.";
+        private const string FRIEND_YOURSELF = "You can't friend yourself.";
 
         private const string FRIEND_REQUEST_ERROR = "Error sending friend request. Please try again.";
         private const string FRIEND_ERROR = "Unable to become a friend. Please try again.";
@@ -49,7 +50,7 @@ namespace HaveAVoice.Controllers.Users
                 theFriendService = aFriendService;
         }
 
-        [AcceptVerbs(HttpVerbs.Get)]
+        [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Add(int id) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
@@ -63,6 +64,8 @@ namespace HaveAVoice.Controllers.Users
                     TempData["Message"] = MessageHelper.NormalMessage(PENDING_RESPONSE);
                 } else if (theFriendService.IsFriend(id, myUser)) {
                     TempData["Message"] = MessageHelper.NormalMessage(ALREADY_FRIEND);
+                } else if (myUser.Id == id) {
+                    TempData["Message"] = MessageHelper.NormalMessage(FRIEND_YOURSELF);
                 } else {
                     theFriendService.AddFriend(myUser, id);
                     TempData["Message"] = MessageHelper.SuccessMessage(REQUEST_SENT);
