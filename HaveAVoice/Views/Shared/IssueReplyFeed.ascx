@@ -100,7 +100,7 @@
 		    <div class="m-lft col-14 comment">
 		        <span class="speak-lft">&nbsp;</span>
 		        <div class="p-a10">
-		            <a href="#" class="name"><%= NameHelper.FullName(item.User)%></a>
+		            <a href="<%= LinkHelper.Profile(item.User) %>" class="name"><%= NameHelper.FullName(item.User)%></a>
 		            <%= item.Comment %>
 		            <br />
 		            <span class="loc"><%= item.IssueReply.Issue.City %>, <%= item.IssueReply.Issue.State %></span>
