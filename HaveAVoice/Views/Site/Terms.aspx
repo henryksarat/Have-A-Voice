@@ -39,6 +39,7 @@
 				<h4 class="fnt-14">Changes</h4>
 				We reserve the right to change these terms of use.
 				Please check back to the terms of use page periodically to check for any changes.
+                <br /><br /><br /><br />
 				<div class="clear">&nbsp;</div>
 			</div>
 			<div class="clear">&nbsp;</div>

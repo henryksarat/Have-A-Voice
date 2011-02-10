@@ -32,7 +32,7 @@
 				Every response is logged so politicians have to be accountable for what they say.
 				This means that politicians are bound to what they say and have to work for you.
 				With that said, no one should vote for a political candidate that does not have a have a voice account and does not use it daily.
-				You put these men and women in office and you have the right to have a voice.
+				You put these men and women in office and you have the right to have a voice. <br /><br /><br /><br />
 				<div class="clear">&nbsp;</div>
 			</div>
 			<div class="clear">&nbsp;</div>

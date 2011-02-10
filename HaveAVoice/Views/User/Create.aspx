@@ -45,7 +45,8 @@
 	        $('#DateOfBirth').datepicker({
                 changeMonth: true,
                 changeYear: true,
-                dateFormat: "mm-dd-yy"
+                dateFormat: "mm-dd-yy",
+                yearRange: '1900:2011'
             });
 		});
 	</script>
