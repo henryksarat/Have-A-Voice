@@ -118,7 +118,7 @@
 		            <span class="red"><%= IssueDispositionHelper.NumberOfDisposition(Model.User, Disposition.Dislike)%> disagrees</span>
                 </div>
                 <div class="col-1 teal fnt-14">
-                    <%  int myIssueReplyCount = Model.User.AuditIssueReplys.Count; %>
+                    <%  int myIssueReplyCount = Model.User.IssueReplys.Count; %>
             	    <%= myIssueReplyCount %>
             	    <div class="clear">&nbsp;</div>
                 </div>

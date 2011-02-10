@@ -19,6 +19,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
             return (from m in theEntities.Messages
                     where m.FromUserId == aRequestingUser.Id
                     && m.FromViewed == false
+                    && m.FromDeleted == false
                     && m.RepliedTo == true
                     select m).Count<Message>();
         }

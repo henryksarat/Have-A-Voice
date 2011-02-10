@@ -15,7 +15,6 @@
         <% Html.RenderPartial("LeftNavigation", Model.NavigationModel); %>
         <div class="clear">&nbsp;</div>
     </div>
-    <a href="View.aspx">View.aspx</a>
     
     <div class="col-21">	
         <% Html.RenderPartial("Message"); %>

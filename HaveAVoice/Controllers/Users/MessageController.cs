@@ -17,6 +17,7 @@ namespace HaveAVoice.Controllers.Users {
         private const string NO_MESSAGES = "You have no messages";
         private const string SEND_SUCCESS = "Message sent successfully!";
         private const string REPLY_SUCCESS = "Reply sent successfully!";
+        private const string NO_MESSAGES_TO_DELETE = "No messages selected to be deleted.";
 
         private const string INBOX_LOAD_ERROR = "An error occurred while trying to load your inbox. Please try again.";
         private const string USER_RETRIEVAL_ERROR = "Unable to retreieve the users information. Please try again.";
@@ -74,7 +75,11 @@ namespace HaveAVoice.Controllers.Users {
 
             try {
                 User myUser = GetUserInformaton();
-                theService.DeleteMessages(selectedMessages, myUser);
+                if (selectedMessages == null || selectedMessages.Count == 0) {
+                    TempData["Message"] = MessageHelper.NormalMessage(NO_MESSAGES_TO_DELETE);
+                } else {
+                    theService.DeleteMessages(selectedMessages, myUser);
+                }
             } catch (Exception e) {
                 LogError(e, HAVConstants.ERROR);
                 TempData[ERROR_MESSAGE_VIEWDATA] = MessageHelper.ErrorMessage(HAVConstants.ERROR);
@@ -117,7 +122,8 @@ namespace HaveAVoice.Controllers.Users {
             
             try {
                 if (theService.CreateMessage(myUser.Id, aMessage.ToModel())) {
-                    return SendToResultPage(SEND_SUCCESS);
+                    TempData["Message"] = MessageHelper.SuccessMessage(SEND_SUCCESS);
+                    return RedirectToProfile(aMessage.ToUserId);
                 }
             } catch (Exception e) {
                 LogError(e, SEND_ERROR);
@@ -169,7 +175,8 @@ namespace HaveAVoice.Controllers.Users {
             try {
                 User myUser = GetUserInformaton();
                 if (theService.CreateReply(viewMessageModel.Message.Id, myUser, viewMessageModel.Reply)) {
-                    return SendToResultPage(REPLY_SUCCESS);
+                    TempData["Message"] = MessageHelper.SuccessMessage(REPLY_SUCCESS);
+                    return RedirectToAction("View", new { id = viewMessageModel.Message.Id });
                 }
             } catch (Exception e) {
                 LogError(e, REPLY_ERROR);

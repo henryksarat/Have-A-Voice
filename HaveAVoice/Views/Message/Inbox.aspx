@@ -19,7 +19,7 @@
 
 	    <% using (Html.BeginForm("Inbox", "Message", FormMethod.Post, new { @class = "create"})) { %>
 			<div class="action-bar p-a10 m-btm20">
-				<%= Html.ActionLink("New Message", "Create", "Message", null, new { @class = "btn f-lft" }) %>
+				<% /* Html.ActionLink("New Message", "Create", "Message", null, new { @class = "btn f-lft" }) */ %>
 				<input type="submit" value="Delete" class="btn f-rgt" />
 				<div class="clear">&nbsp;</div>
 			</div>

@@ -15,7 +15,7 @@ using HaveAVoice.Controllers.Helpers;
 namespace HaveAVoice.Controllers.Core {
     public class AuthorityVerificationController : HAVBaseController {
         private const string TOKEN_CREATED_AND_SENT_SUCCESS = "A token has been created and sent to the authority.";
-        private const string INVALID_TOKEN = "The token is either invalid or wasn't assigned to that email. Please contact have a voice by phone (773-656-1215) to get a new token.";
+        private const string INVALID_TOKEN = "The token is either invalid or wasn't assigned to that email. If this is erroneous please contact us by clicking the \"Contact Us\" link on the bottom of this page and filling out the form.";
 
         private const string TOKEN_CREATED_AND_SENT_ERROR = "An error has occurred while created and sending the token. Please try again.";
         private const string TOKEN_VERIFICATION_ERROR = "An error has occurred while verifying the token for the email. Please try again.";

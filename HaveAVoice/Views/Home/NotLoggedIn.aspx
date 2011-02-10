@@ -52,7 +52,7 @@
             </div>
         </div>
 
-        <!--AD SPACE-->
+        <!--AD SPACE
         <div class="col-24 spacer-30">&nbsp;</div>
 
 		<div class="col-24 m-btm25 fnt-10">
@@ -63,7 +63,7 @@
 			<div class="clear">&nbsp;</div>
 		</div>
 		<div class="clear">&nbsp;</div>
-        <!--END AD SPACE-->
+        END AD SPACE-->
     </div>
     <div class="clear">&nbsp;</div>
 
