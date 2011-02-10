@@ -19,19 +19,20 @@
 	    <div class="clear">&nbsp;</div>
 	    
 	    <div class="col-3">
-	    	<img src="<%=Model.Model.ToUserProfilePictureUrl %>" alt="<%= Model.Model.ToUserName %>" class="profile" />
+        <%= Model.Model.ToFullName %>
+	    	<img src="<%=Model.Model.ToUserProfilePictureUrl %>" alt="<%= Model.Model.ToFullName %>" class="profile" />
 	    	<div class="clear">&nbsp;</div>
 	    </div>
 	    <div class="col-18">
 	    	<div class="col-18">
-	    		<h4><%= Html.Encode("Message: " + Model.Model.ToUserName)%></h4>
+	    		<h4><%= Html.Encode("Message: " + Model.Model.ToFullName)%></h4>
 				<div class="clear">&nbsp;</div>
 	    	</div>
 	    	<div class="clear">&nbsp;</div>
 	    	
 	        <% using (Html.BeginForm("Create", "Message", FormMethod.Post, new { @class = "create" })) { %>
 		        <%= Html.Hidden("ToUserId", Model.Model.ToUserId)%>
-		        <%= Html.Hidden("ToUserName", Model.Model.ToUserName)%>
+		        <%= Html.Hidden("ToFullName", Model.Model. ToFullName)%>
 		        <%= Html.Hidden("ToUserProfilePictureUrl", Model.Model.ToUserProfilePictureUrl)%>
 		        
 		        <%= Html.Encode(ViewData["Message"]) %>

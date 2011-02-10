@@ -12,7 +12,7 @@ using HaveAVoice.Models.View;
 namespace HaveAVoice.Services.Helpers {
     public class PrivacyHelper {
         public static bool IsAllowed(User aPrivacyUser, PrivacyAction aPrivacyAction) {
-            bool myIsAllowed = false;
+            bool myIsAllowed = true;
             UserInformationModel myUser = HAVUserInformationFactory.GetUserInformation();
 
             if (myUser != null && (myUser.Details.Id == aPrivacyUser.Id)) {

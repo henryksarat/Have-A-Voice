@@ -21,6 +21,7 @@ namespace HaveAVoice.Controllers.Users.Photos {
         private static string CREATED_SUCCESS = "Photo album created!";
         private const string EDIT_SUCCESS = "Photo album edited successfully!";
         private const string DELETE_SUCCESS = "Photo album deleted successfully!";
+        private const string NO_ALBUMS = "There are currently no albums created.";
 
         private const string USER_RETRIEVAL_ERROR = "Error retrieving the user.";
         private const string GET_ALBUM_ERROR = "Error retrieving the album. Please try again.";
@@ -182,6 +183,9 @@ namespace HaveAVoice.Controllers.Users.Photos {
 
             try {
                 myModel.Models = thePhotoAlbumService.GetPhotoAlbumsForUser(aRequestingUser, aUserIdOfAlbum);
+                if (myModel.Models.Count<PhotoAlbum>() == 0) {
+                    TempData["Message"] = NO_ALBUMS;
+                }
             } catch (NotFriendException e) {
                 return SendToErrorPage(HAVConstants.NOT_FRIEND);
             } catch (Exception e) {
