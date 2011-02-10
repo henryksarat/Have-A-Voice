@@ -60,7 +60,7 @@
 						<div class="clear">&nbsp;</div>
 					</div>
 					<div class="col-6">
-						<%= Html.TextArea("Body", null, new { cols = "31", rows = "4", resize = "none" })%>
+						<%= Html.TextArea("Body", null, new { cols = "31", rows = "4", resize = "none", @class="fnt-12" })%>
 						<div class="clear">&nbsp;</div>
 					</div>
 					<div class="m-lft col-8">
