@@ -30,7 +30,10 @@ namespace HaveAVoice.Helpers.UI {
                     } else {
                         myLiTag.MergeAttribute("class", "active");
                     }
+
                 }
+
+                myLiTag.MergeAttribute("name", aDisplayNames[myIndex]); 
 
                 string myUrl = aUrls[myIndex];
 

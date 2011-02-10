@@ -159,10 +159,10 @@ namespace HaveAVoice.Services.UserFeatures {
             float myDesiredHeight = 0;
             float myDesiredWidth = 0;
             
-            if (mySourceWidth > mySourceHeight) {
+            if (mySourceWidth > mySourceHeight && mySourceWidth > aSize) {
                 myDesiredWidth = aSize;
                 myDesiredHeight = (float)(mySourceHeight * aSize / mySourceWidth);
-            } else if (mySourceHeight > mySourceWidth) {
+            } else if (mySourceHeight > mySourceWidth && mySourceHeight > aSize) {
                 myDesiredHeight = aSize;
                 myDesiredWidth = (float)(mySourceWidth * aSize / mySourceHeight);
             } else {

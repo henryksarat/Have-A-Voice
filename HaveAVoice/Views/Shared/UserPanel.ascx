@@ -19,7 +19,7 @@
                     new SiteSection[] { SiteSection.Home, SiteSection.IssueActivity, SiteSection.Photos, SiteSection.Calendar },
                     new string[] { "home", "message", "photo", "event" },
                     new string[] { "/Profile/Show", "/Profile/IssueActivity", "/PhotoAlbum/List", "/Calendar/List" },
-                    new string[] { "HOME", "USER FEED", "PHOTOS", "EVENTS" },
+                    new string[] { "home", "issues participating in", "photos", "events" },
                     Model.User
                 )
             %>
@@ -29,7 +29,7 @@
                     new SiteSection[] { SiteSection.Home, SiteSection.IssueActivity, SiteSection.Photos, SiteSection.Calendar },
                     new string[] { "home-grey", "message-grey", "photo-grey", "event-grey" },
                     new string[] { "#", "#", "#", "#" },
-                    new string[] { "HOME", "USER FEED", "PHOTOS", "EVENTS" },
+                    new string[] { "user privacy settings disallow that", "user privacy settings disallow that", "user privacy settings disallow that", "user privacy settings disallow that" },
                     Model.User
                 )
             %>
