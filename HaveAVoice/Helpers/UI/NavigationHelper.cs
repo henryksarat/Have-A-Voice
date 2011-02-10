@@ -49,7 +49,7 @@ namespace HaveAVoice.Helpers.UI {
                     myUrl = LinkHelper.Profile(aTargetUser);
                 }
 
-                myLiTag.InnerHtml += String.Format("<a class=\"{0}\" href=\"{1}\">{2}</a>", aCssClasses[myIndex], myUrl, aDisplayNames[myIndex]);
+                myLiTag.InnerHtml += String.Format("<a class=\"{0}\" href=\"{1}\" title=\"{2}\">{2}</a>", aCssClasses[myIndex], myUrl, aDisplayNames[myIndex]);
 
                 myUlTag.InnerHtml += myLiTag.ToString();
             }

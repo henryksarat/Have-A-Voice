@@ -126,8 +126,8 @@
 						<h4 class="m-btm5">Stats</h4>
 						<div class="bold">Posted:</div>
 						<div class="m-lft10 m-btm5"><%= Model.Issue.DateTimeStamp.ToString("MMM dd, yyyy").ToUpper() %></div>
-						<div class="m-btm5"><span class="bold">Likes:</span> 1</div>
-						<div><span class="bold">Dislikes:</span> 1</div>
+						<div class="m-btm5"><span class="bold">Agrees:</span> 1</div>
+						<div><span class="bold">Disagrees:</span> 1</div>
 					</div>
 					<div class="clear">&nbsp;</div>
 				</div>
@@ -173,9 +173,9 @@
 								<div class="clear">&nbsp;</div>
 								<hr />
 								<div class="col-13">
-									<label for="Like">Like</label>
+									<label for="Like">Agree</label>
 									<%= Html.RadioButton("Disposition", Disposition.Like, Model.Disposition == Disposition.Like ? true : false) %>
-									<label for="Dislike">Dislike</label>
+									<label for="Dislike">Disagee</label>
 									<%= Html.RadioButton("Disposition", Disposition.Dislike, Model.Disposition == Disposition.Dislike ? true : false) %>
 									<span class="req">
 										<%= Html.ValidationMessage("Disposition", "*")%>

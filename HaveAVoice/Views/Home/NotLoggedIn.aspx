@@ -2,7 +2,7 @@
 <%@ Import Namespace="HaveAVoice.Helpers.UI" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Login
+	Connecting you to the political world instantaneously
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">

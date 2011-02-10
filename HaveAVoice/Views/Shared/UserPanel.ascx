@@ -14,12 +14,23 @@
 	<div class="col-15">
 		<div class="m-lft col-15 m-rgt">
             <% if (Model.SiteSection == SiteSection.MyProfile || PrivacyHelper.IsAllowed(Model.User, PrivacyAction.DisplayProfile)) { %>
+            <% string myHomeText = Model.FullName + " profile page.";  %>
+            <% string myActivity = "issues that the user has participated in"; %>
+            <% string myPhotos = "user's photos" %>
+            <% string myEvents = "user's events" %>
+
+            <% if(Model.SiteSection == SiteSection.MyProfile) { %>
+                <% myHomeText = "my homepage";  %>
+                <% myActivity = "issues I am participating in"; %>
+                <% myPhotos = "my photos" %>
+                <% myEvents = "my events" %>
+            <% } %>
             <%= NavigationHelper.UserNavigation(
                     Model.SiteSection,
                     new SiteSection[] { SiteSection.Home, SiteSection.IssueActivity, SiteSection.Photos, SiteSection.Calendar },
                     new string[] { "home", "message", "photo", "event" },
                     new string[] { "/Profile/Show", "/Profile/IssueActivity", "/PhotoAlbum/List", "/Calendar/List" },
-                    new string[] { "home", "issues participating in", "photos", "events" },
+                    new string[] { myHomeText, myActivity, myPhotos, myEvents },
                     Model.User
                 )
             %>
