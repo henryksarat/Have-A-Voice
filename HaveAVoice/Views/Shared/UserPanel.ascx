@@ -14,7 +14,7 @@
 	<div class="col-15">
 		<div class="m-lft col-15 m-rgt">
             <% if (Model.SiteSection == SiteSection.MyProfile || PrivacyHelper.IsAllowed(Model.User, PrivacyAction.DisplayProfile)) { %>
-            <% string myHomeText = Model.FullName + " profile page.";  %>
+            <% string myHomeText = Model.FullName + " profile page";  %>
             <% string myActivity = "issues that the user has participated in"; %>
             <% string myPhotos = "user's photos"; %>
             <% string myEvents = "user's events"; %>
