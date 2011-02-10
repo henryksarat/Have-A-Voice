@@ -126,7 +126,9 @@ namespace HaveAVoice.Controllers.Users {
                 ViewData["Message"] = USER_PAGE_ERROR;
             }
 
-                return View("Show", myModel);
+            RefreshUserInformation();
+
+            return View("Show", myModel);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
