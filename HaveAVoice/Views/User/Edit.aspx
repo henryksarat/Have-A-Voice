@@ -11,6 +11,7 @@
     <script type="text/javascript">
         $(function() {
 	        $('#DateOfBirth').datepicker({
+	        	yearRange: '1900:2011',
                 changeMonth: true,
                 changeYear: true,
                 dateFormat: "mm-dd-yy"
