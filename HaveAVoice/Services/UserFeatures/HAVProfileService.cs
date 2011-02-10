@@ -72,7 +72,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 LocalIssue = myRandomLocalIssue,
                 IssueFeed = myIssueFeed,
                 IssueReplyFeed = myIssueReplyFeed,
-                PhotoAlbumFeed = CreatePhotoAlbumFeed(theRepository.FriendPhotoAlbumFeed(aUser))
+                //PhotoAlbumFeed = CreatePhotoAlbumFeed(theRepository.FriendPhotoAlbumFeed(aUser))
             };
 
             return myModel;
@@ -93,11 +93,28 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public UserProfileModel AuthorityProfile(User anAuthorityUser) {
-            //This has to take into user privacy if they want an authority to see their profile
+            List<IssueFeedModel> myIssueFeed = CreateIssueFeed(theRepository.FilteredIssuesFeed(anAuthorityUser), anAuthorityUser, PersonFilter.People).ToList<IssueFeedModel>();
+            List<IssueReplyFeedModel> myIssueReplyFeed = CreateIssueReplyFeed(theRepository.FilteredIssueReplysFeed(anAuthorityUser), anAuthorityUser, PersonFilter.People).ToList<IssueReplyFeedModel>();
+            IEnumerable<IssueFeedModel> myPoliticiansIssueFeed = CreateIssueFeed(theRepository.IssueFeedByRole(UserRoleHelper.PoliticianRoles()), anAuthorityUser, PersonFilter.Politicians);
+            IEnumerable<IssueReplyFeedModel> myPoliticiansIssueReplyFeed = CreateIssueReplyFeed(theRepository.IssueReplyFeedByRole(UserRoleHelper.PoliticianRoles()), anAuthorityUser, PersonFilter.Politicians);
+            IEnumerable<IssueFeedModel> myPoliticalCandidateIssueFeed = CreateIssueFeed(theRepository.IssueFeedByRole(UserRoleHelper.PoliticalCandidateRoles()), anAuthorityUser, PersonFilter.PoliticalCandidates);
+            IEnumerable<IssueReplyFeedModel> myPoliticalCandidateIssueReplyFeed = CreateIssueReplyFeed(theRepository.IssueReplyFeedByRole(UserRoleHelper.PoliticalCandidateRoles()), anAuthorityUser, PersonFilter.PoliticalCandidates);
+
+            myIssueFeed.AddRange(myPoliticiansIssueFeed);
+            myIssueFeed.AddRange(myPoliticalCandidateIssueFeed);
+            myIssueFeed = myIssueFeed.OrderByDescending(i => i.DateTimeStamp).ToList<IssueFeedModel>();
+
+            myIssueReplyFeed.AddRange(myPoliticiansIssueReplyFeed);
+            myIssueReplyFeed.AddRange(myPoliticalCandidateIssueReplyFeed);
+            myIssueReplyFeed = myIssueReplyFeed.OrderByDescending(ir => ir.DateTimeStamp).ToList<IssueReplyFeedModel>();
+
+            Issue myRandomLocalIssue = theRepository.RandomLocalIssue(anAuthorityUser);
+
             UserProfileModel myModel = new UserProfileModel(anAuthorityUser) {
-                LocalIssue = theRepository.RandomLocalIssue(anAuthorityUser),
-                IssueFeed = CreateIssueFeed(theRepository.FilteredIssuesFeed(anAuthorityUser), anAuthorityUser, PersonFilter.Politicians),
-                IssueReplyFeed = CreateIssueReplyFeed(theRepository.FriendIssueReplyFeed(anAuthorityUser), anAuthorityUser, PersonFilter.Politicians)
+                LocalIssue = myRandomLocalIssue,
+                IssueFeed = myIssueFeed,
+                IssueReplyFeed = myIssueReplyFeed,
+                //PhotoAlbumFeed = CreatePhotoAlbumFeed(theRepository.FriendPhotoAlbumFeed(anAuthorityUser))
             };
 
             return myModel;

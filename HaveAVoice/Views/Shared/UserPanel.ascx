@@ -64,9 +64,10 @@
 			<h1>
 				<%= Model.User.FirstName + " " + Model.User.LastName %>
 			</h1>
-			
+			<% bool myIsAuthority = RoleHelper.IsPolitician(Model.User) || RoleHelper.IsPoliticalCandidate(Model.User); %>
+
             <% if (Model.SiteSection == SiteSection.Profile) { %>
-                <% if (!FriendHelper.IsFriend(Model.User, myUser)) { %>
+                <% if (!FriendHelper.IsFriend(Model.User, myUser) && !myIsAuthority) { %>
             	    <div class="col-6 m-top10">
             	    	<% using (Html.BeginForm("Add", "Friend", new { id = Model.User.Id })) { %>
 				            <input type="submit" class="fan" value="Become a Friend" />
@@ -99,39 +100,65 @@
         <div class="col-6 round-3">
 	        <div class="p-a10">
 		        <h6 class="m-btm5"><% if (myUser.Id == Model.User.Id) { %>My <% } %>Stats</h6>
-		        <div class="col-1 teal fnt-14"><%= Model.User.Issues.Count%></div><div class="col-4 c-white fnt-14">Issues Raised</div>
+		        <div class="col-1 teal fnt-14">
+                    <% int myIssueCount = Model.User.Issues.Count; %>
+                    <%= myIssueCount %>
+                </div>
+                <div class="col-4 c-white fnt-14">
+                    <% if (myIssueCount == 1) { %>
+                        Issue Raised
+                    <% } else { %>
+                        Issues Raised
+                    <% } %>
+                </div>
 		        <div class="clear">&nbsp;</div>
 		        <div class="col-6 fnt-12 p-v5">
-		            <span class="green"><%= IssueDispositionHelper.NumberOfDisposition(Model.User, Disposition.Like)%> likes</span>
+		            <span class="green"><%= IssueDispositionHelper.NumberOfDisposition(Model.User, Disposition.Like)%> agrees</span>
 		            <span class="teal m-lft10 m-rgt10">|</span>
-		            <span class="red"><%= IssueDispositionHelper.NumberOfDisposition(Model.User, Disposition.Dislike)%> dislikes</span>
+		            <span class="red"><%= IssueDispositionHelper.NumberOfDisposition(Model.User, Disposition.Dislike)%> disagrees</span>
                 </div>
                 <div class="col-1 teal fnt-14">
-            	    <%= Model.User.IssueReplys.Count%>
+                    <%  int myIssueReplyCount = Model.User.AuditIssueReplys.Count; %>
+            	    <%= myIssueReplyCount %>
             	    <div class="clear">&nbsp;</div>
                 </div>
                 <div class="col-4 c-white fnt-14">
-            	    Ideas Added
+                    <% if (myIssueReplyCount == 1) { %>
+                        Idea Added
+                    <% } else { %>
+                        Ideas Added
+                    <% } %>
             	    <div class="clear">&nbsp;</div>
                 </div>
                 <div class="clear">&nbsp;</div>
 	            <div class="spacer-5">&nbsp;</div>
+
 	            <div class="col-1 teal fnt-14">
-		            <%=Model.User.FriendedBy.Count%>
+                    <% int myFriends = Model.User.FriendedBy.Count; %>
+		            <%= myFriends %>
 		            <div class="clear">&nbsp;</div>
 	            </div>
 	            <div class="col-1 c-white fnt-14">
-		            Friends
+                    <% if (myFriends == 1) { %>
+                        Friend
+                    <% } else { %>
+		                Friends
+                    <% } %>
 		            <div class="clear">&nbsp;</div>
 	            </div>
 	            <div class="clear">&nbsp;</div>
 	            <div class="spacer-5">&nbsp;</div>
 	            <div class="col-1 teal fnt-14">
-	        	    <%= Model.User.FansOfMe.Count %>
+                    <% int myFans = Model.User.FansOfMe.Count; %>
+	        	    <%= myFans %>
 	        	    <div class="clear">&nbsp;</div>
         	    </div>
         	    <div class="col-1 c-white fnt-14">
-	        	    Fans
+                    <% if(myFans == 1) { %>
+	        	        Fan
+                    <% } else { %>
+                        Fans
+                    <% } %>
 	        	    <div class="clear">&nbsp;</div>
         	    </div>
         	    <div class="clear">&bnsp;</div>

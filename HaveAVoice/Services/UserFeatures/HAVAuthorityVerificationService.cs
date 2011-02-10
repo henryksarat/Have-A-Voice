@@ -15,6 +15,7 @@ namespace HaveAVoice.Services.UserFeatures {
     public class HAVAuthorityVerificationService : HAVBaseService, IHAVAuthorityVerificationService {
         private const string TOKEN_SUBJECT = "have a voice | authority authentication";
         private const string TOKEN_BODY = "Hello! <br/ ><br/ > You are classified as an authority and therefore must sign up in a special way. Please follow this link: <br/ >";
+        private const string INVALID_EMAIL = "That is not a valid email.";
 
         private IValidationDictionary theValidationDictionary;
         private IHAVAuthorityVerificationRepository theAuthenticationRepo;
@@ -71,7 +72,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
         private bool IsValidEmail(string anEmail) {
             if (!ValidationHelper.IsValidEmail(anEmail)) {
-                theValidationDictionary.AddError("Email", anEmail, "Email is required.");
+                theValidationDictionary.AddError("Email", anEmail, INVALID_EMAIL);
             }
 
             return theValidationDictionary.isValid;

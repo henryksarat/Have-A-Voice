@@ -18,6 +18,7 @@ namespace HaveAVoice.Services.UserFeatures {
     public class HAVUserService : HAVBaseService, IHAVUserService {
         private const string ACTIVATION_SUBJECT = "have a voice | account activation";
         private const string ACTIVATION_BODY = "Hello! <br/ ><br/ > To finalize completion of your have a voice account, please click the following link: <br/ >";
+        private const string INVALID_EMAIL = "That is not a valid email.";
 
         private IValidationDictionary theValidationDictionary;
         private IHAVUserRetrievalService theUserRetrievalService;
@@ -202,7 +203,7 @@ namespace HaveAVoice.Services.UserFeatures {
             if (aUser.Password.Trim().Length == 0) {
                 theValidationDictionary.AddError("Password", aUser.Password.Trim(), "Password is required.");
             }
-            if (aUser.Email.Trim().Length == 0) {
+            if (!ValidationHelper.IsValidEmail(aUser.Email)) {
                 theValidationDictionary.AddError("Email", aUser.Email.Trim(), "E-mail is required.");
             } else if (theUserRepo.EmailRegistered(aUser.Email.Trim())) {
                 theValidationDictionary.AddError("Email", aUser.Email.Trim(), "Someone already registered with that email. Please try another one.");
@@ -238,7 +239,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 theValidationDictionary.AddError("State", aUser.State.Trim(), "State is required.");
             }
             if (!ValidationHelper.IsValidEmail(aUser.Email)) {
-                theValidationDictionary.AddError("Email", aUser.Email, "Invalid email address.");
+                theValidationDictionary.AddError("Email", aUser.Email, INVALID_EMAIL);
             }
             if (aUser.DateOfBirth.Year == 1) {
                 theValidationDictionary.AddError("DateOfBirth", aUser.DateOfBirth.ToString(), "Date of Birth required.");
@@ -282,8 +283,8 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         private bool ValidEmail(string anEmail, string anOriginalEmail) {
-            if (anEmail.Trim().Length == 0) {
-                theValidationDictionary.AddError("Email", anEmail.Trim(), "E-mail is required.");
+            if (!ValidationHelper.IsValidEmail(anEmail)) {
+                theValidationDictionary.AddError("Email", anEmail.Trim(), INVALID_EMAIL);
             } else if (anOriginalEmail != null && (anOriginalEmail != anEmail)
                 && (theUserRepo.EmailRegistered(anEmail))) {
                 theValidationDictionary.AddError("Email", anEmail, "Someone already registered with that email. Please try another one.");

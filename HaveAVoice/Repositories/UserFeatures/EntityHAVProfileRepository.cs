@@ -99,7 +99,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     join u in theEntities.Users on i.User.Id equals u.Id
                     where u.Id != aUser.Id
                     && i.Deleted == false
-                    && i.City == u.City
                     && i.State == u.State
                     select i).OrderByDescending(i => i.DateTimeStamp).ToList<Issue>();
         }
@@ -109,7 +108,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     join u in theEntities.Users on ir.User.Id equals u.Id
                     where u.Id != aUser.Id
                     && ir.Deleted == false
-                    && ir.City == u.City
                     && ir.State == u.State
                     select ir).OrderByDescending(ir => ir.DateTimeStamp).ToList<IssueReply>();
         }
