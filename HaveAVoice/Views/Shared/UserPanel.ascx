@@ -16,14 +16,14 @@
             <% if (Model.SiteSection == SiteSection.MyProfile || PrivacyHelper.IsAllowed(Model.User, PrivacyAction.DisplayProfile)) { %>
             <% string myHomeText = Model.FullName + " profile page.";  %>
             <% string myActivity = "issues that the user has participated in"; %>
-            <% string myPhotos = "user's photos" %>
-            <% string myEvents = "user's events" %>
+            <% string myPhotos = "user's photos"; %>
+            <% string myEvents = "user's events"; %>
 
             <% if(Model.SiteSection == SiteSection.MyProfile) { %>
                 <% myHomeText = "my homepage";  %>
                 <% myActivity = "issues I am participating in"; %>
-                <% myPhotos = "my photos" %>
-                <% myEvents = "my events" %>
+                <% myPhotos = "my photos"; %>
+                <% myEvents = "my events"; %>
             <% } %>
             <%= NavigationHelper.UserNavigation(
                     Model.SiteSection,
