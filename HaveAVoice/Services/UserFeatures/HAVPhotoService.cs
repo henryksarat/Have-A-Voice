@@ -156,8 +156,8 @@ namespace HaveAVoice.Services.UserFeatures {
         private Image ScaleBySize(Image myPhoto, int aSize) {
             float mySourceWidth = myPhoto.Width;
             float mySourceHeight = myPhoto.Height;
-            float myDesiredHeight = 0;
-            float myDesiredWidth = 0;
+            float myDesiredHeight = mySourceHeight;
+            float myDesiredWidth = mySourceWidth;
             
             if (mySourceWidth > mySourceHeight && mySourceWidth > aSize) {
                 myDesiredWidth = aSize;
@@ -165,7 +165,7 @@ namespace HaveAVoice.Services.UserFeatures {
             } else if (mySourceHeight > mySourceWidth && mySourceHeight > aSize) {
                 myDesiredHeight = aSize;
                 myDesiredWidth = (float)(mySourceWidth * aSize / mySourceHeight);
-            } else {
+            } else if(mySourceWidth > aSize && mySourceHeight > aSize) {
                 myDesiredWidth = aSize;
                 myDesiredHeight = aSize;
             }
