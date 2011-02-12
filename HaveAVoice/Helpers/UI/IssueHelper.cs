@@ -426,6 +426,10 @@ namespace HaveAVoice.Helpers.UI {
                     myProfile = LinkHelper.Profile(myIssue.Issue.User);
                 }
                 
+                var myClearDiv = new TagBuilder("div");
+                myClearDiv.MergeAttribute("class", "clear");
+                myClearDiv.InnerHtml = "&nbsp;";
+                
                 var myOuterDiv = new TagBuilder("div");
                 myOuterDiv.MergeAttribute("class", "m-btm30");
 
@@ -433,6 +437,7 @@ namespace HaveAVoice.Helpers.UI {
                 myDivImageWrapper.MergeAttribute("class", "col-2 center m-rgt10");
                 myDivImageWrapper.InnerHtml = "<img src=\"" + myAvatarURL + "\" alt=\"" + myName + "\" class=\"profile\"  />";
                 myOuterDiv.InnerHtml = myDivImageWrapper.ToString();
+                myOuterDiv.InnerHtml = myClearDiv.ToString();
 
                 var myContextDiv = new TagBuilder("div");
                 myContextDiv.MergeAttribute("class", "col-9");
@@ -449,12 +454,10 @@ namespace HaveAVoice.Helpers.UI {
                 mySpan.MergeAttribute("class", "profile");
                 mySpan.InnerHtml = String.Format("On {0} by {1} - {2}, {3}", myIssue.Issue.DateTimeStamp, myName, myIssue.Issue.City, myIssue.Issue.State);
                 myContextDiv.InnerHtml += mySpan.ToString();
+                myContextDiv.InnerHtml += myClearDiv.ToString();
 
                 myOuterDiv.InnerHtml += myContextDiv.ToString();
 
-                var myClearDiv = new TagBuilder("div");
-                myClearDiv.MergeAttribute("class", "clear");
-                myClearDiv.InnerHtml = "&nbsp;";
                 myOuterDiv.InnerHtml += myClearDiv.ToString();
 
                 myIssueDisplay += myOuterDiv.ToString();

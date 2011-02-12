@@ -2,14 +2,6 @@
 
 <script type="text/javascript" language="javascript">
 	$(function() {
-		$("form input.login").each(function() {
-			if ($(this).val() == '')
-			{
-				$(this).next("label").fadeTo('fast', 1.0);
-			} else {
-				$(this).next("label").fadeTo('fast', 0.0);
-			}
-		});
 		function equalHeight(group) {
 			var tallest = 0;
 			group.each(function() {
@@ -20,6 +12,15 @@
 			});
 			group.height(tallest);
 		}
+		
+		$("form input.login").each(function() {
+			if ($(this).val() == '')
+			{
+				$(this).next("label").fadeTo('fast', 1.0);
+			} else {
+				$(this).next("label").fadeTo('fast', 0.0);
+			}
+		});
 
 		$("form label").click(function() {
 			var inpt = $(this).prev("input");
@@ -30,6 +31,7 @@
 			}
 			$(inpt).focus();
 		});
+
 		$("form input.login").bind("focus", function() {
 			var lbl = $(this).next("label");
 			if ($(this).val() == '')
@@ -55,8 +57,11 @@
 				lbl.fadeTo('fast', 0.0);
 			}
 		});
-			
-		equalHeight($("div[rel=match]"));
+		
+		$("img.profile").load(function() {
+			equalHeight($("div[rel=match]"));
+		});
+		
 	});
 </script>
 
