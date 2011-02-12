@@ -437,7 +437,7 @@ namespace HaveAVoice.Helpers.UI {
                 myDivImageWrapper.MergeAttribute("class", "col-2 center m-rgt10");
                 myDivImageWrapper.InnerHtml = "<img src=\"" + myAvatarURL + "\" alt=\"" + myName + "\" class=\"profile\"  />";
                 myOuterDiv.InnerHtml = myDivImageWrapper.ToString();
-                myOuterDiv.InnerHtml = myClearDiv.ToString();
+                myOuterDiv.InnerHtml += myClearDiv.ToString();
 
                 var myContextDiv = new TagBuilder("div");
                 myContextDiv.MergeAttribute("class", "col-9");

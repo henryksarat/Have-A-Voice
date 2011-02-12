@@ -12,20 +12,23 @@ using HaveAVoice.Models.View;
 namespace HaveAVoice.Services.Helpers {
     public class PrivacyHelper {
         public static bool IsAllowed(User aPrivacyUser, PrivacyAction aPrivacyAction) {
-            bool myIsAllowed = true;
             UserInformationModel myUser = HAVUserInformationFactory.GetUserInformation();
+            return IsAllowed(aPrivacyUser, aPrivacyAction, myUser);
+        }
 
-            if (myUser != null && (myUser.Details.Id == aPrivacyUser.Id)) {
+        public static bool IsAllowed(User aPrivacyUser, PrivacyAction aPrivacyAction, UserInformationModel aViewingUser) {
+            bool myIsAllowed = true;
+            if (aViewingUser != null && (aViewingUser.Details.Id == aPrivacyUser.Id)) {
                 return true;
             }
 
-            IEnumerable<string> myTargetUsersSettings = 
+            IEnumerable<string> myTargetUsersSettings =
                 (from p in aPrivacyUser.UserPrivacySettings.ToList<UserPrivacySetting>()
-                  select p.PrivacySettingName).ToList<string>();
+                 select p.PrivacySettingName).ToList<string>();
             IEnumerable<Friend> myTargetUserFriends = aPrivacyUser.Friends.ToList<Friend>();
 
             if (aPrivacyAction == PrivacyAction.DisplayProfile) {
-                if (myUser == null) {
+                if (aViewingUser == null) {
                     if (HasPrivacySetting(myTargetUsersSettings, HAVPrivacySetting.Display_Profile_To_Not_Logged_In)) {
                         myIsAllowed = true;
                     } else {
@@ -33,29 +36,29 @@ namespace HaveAVoice.Services.Helpers {
                     }
                 }
 
-                if (myUser != null && !FriendHelper.IsFriend(aPrivacyUser, myUser.Details)) {
-                    if(HasPrivacySetting(myTargetUsersSettings, HAVPrivacySetting.Display_Profile_To_Not_Friend)) {
+                if (aViewingUser != null && !FriendHelper.IsFriend(aPrivacyUser, aViewingUser.Details)) {
+                    if (HasPrivacySetting(myTargetUsersSettings, HAVPrivacySetting.Display_Profile_To_Not_Friend)) {
                         myIsAllowed = true;
                     } else {
                         myIsAllowed = false;
                     }
-                } 
-                if (myUser != null && HAVPermissionHelper.HasPermission(myUser, HAVPermission.Confirmed_Politician)) {
-                    if(HasPrivacySetting(myTargetUsersSettings, HAVPrivacySetting.Display_Profile_To_Politician)) {
+                }
+                if (aViewingUser != null && HAVPermissionHelper.HasPermission(aViewingUser, HAVPermission.Confirmed_Politician)) {
+                    if (HasPrivacySetting(myTargetUsersSettings, HAVPrivacySetting.Display_Profile_To_Politician)) {
                         myIsAllowed = true;
                     } else {
                         myIsAllowed = false;
                     }
-                } 
-                if (myUser != null && HAVPermissionHelper.HasPermission(myUser, HAVPermission.Confirmed_Political_Candidate)) {
-                    if(HasPrivacySetting(myTargetUsersSettings, HAVPrivacySetting.Display_Profile_To_Political_Candidate)) {
+                }
+                if (aViewingUser != null && HAVPermissionHelper.HasPermission(aViewingUser, HAVPermission.Confirmed_Political_Candidate)) {
+                    if (HasPrivacySetting(myTargetUsersSettings, HAVPrivacySetting.Display_Profile_To_Political_Candidate)) {
                         myIsAllowed = true;
                     } else {
                         myIsAllowed = false;
                     }
                 }
             }
-            
+
             return myIsAllowed;
         }
 

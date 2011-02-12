@@ -92,13 +92,14 @@ namespace HaveAVoice.Services.UserFeatures {
             throw new CustomException(HAVConstants.NOT_ALLOWED);
         }
 
-        public UserProfileModel AuthorityProfile(User anAuthorityUser) {
-            List<IssueFeedModel> myIssueFeed = CreateIssueFeed(theRepository.FilteredIssuesFeed(anAuthorityUser), anAuthorityUser, PersonFilter.People).ToList<IssueFeedModel>();
-            List<IssueReplyFeedModel> myIssueReplyFeed = CreateIssueReplyFeed(theRepository.FilteredIssueReplysFeed(anAuthorityUser), anAuthorityUser, PersonFilter.People).ToList<IssueReplyFeedModel>();
-            IEnumerable<IssueFeedModel> myPoliticiansIssueFeed = CreateIssueFeed(theRepository.IssueFeedByRole(UserRoleHelper.PoliticianRoles()), anAuthorityUser, PersonFilter.Politicians);
-            IEnumerable<IssueReplyFeedModel> myPoliticiansIssueReplyFeed = CreateIssueReplyFeed(theRepository.IssueReplyFeedByRole(UserRoleHelper.PoliticianRoles()), anAuthorityUser, PersonFilter.Politicians);
-            IEnumerable<IssueFeedModel> myPoliticalCandidateIssueFeed = CreateIssueFeed(theRepository.IssueFeedByRole(UserRoleHelper.PoliticalCandidateRoles()), anAuthorityUser, PersonFilter.PoliticalCandidates);
-            IEnumerable<IssueReplyFeedModel> myPoliticalCandidateIssueReplyFeed = CreateIssueReplyFeed(theRepository.IssueReplyFeedByRole(UserRoleHelper.PoliticalCandidateRoles()), anAuthorityUser, PersonFilter.PoliticalCandidates);
+        public UserProfileModel AuthorityProfile(UserInformationModel anAuthorityUserInformation) {
+            User myAuthorityUser = anAuthorityUserInformation.Details;
+            List<IssueFeedModel> myIssueFeed = CreateIssueFeedForAuthority(theRepository.FilteredIssuesFeed(myAuthorityUser), anAuthorityUserInformation, PersonFilter.People).ToList<IssueFeedModel>();
+            List<IssueReplyFeedModel> myIssueReplyFeed = CreateIssueReplyFeed(theRepository.FilteredIssueReplysFeed(myAuthorityUser), myAuthorityUser, PersonFilter.People).ToList<IssueReplyFeedModel>();
+            IEnumerable<IssueFeedModel> myPoliticiansIssueFeed = CreateIssueFeed(theRepository.IssueFeedByRole(UserRoleHelper.PoliticianRoles()), myAuthorityUser, PersonFilter.Politicians);
+            IEnumerable<IssueReplyFeedModel> myPoliticiansIssueReplyFeed = CreateIssueReplyFeed(theRepository.IssueReplyFeedByRole(UserRoleHelper.PoliticianRoles()), myAuthorityUser, PersonFilter.Politicians);
+            IEnumerable<IssueFeedModel> myPoliticalCandidateIssueFeed = CreateIssueFeed(theRepository.IssueFeedByRole(UserRoleHelper.PoliticalCandidateRoles()), myAuthorityUser, PersonFilter.PoliticalCandidates);
+            IEnumerable<IssueReplyFeedModel> myPoliticalCandidateIssueReplyFeed = CreateIssueReplyFeed(theRepository.IssueReplyFeedByRole(UserRoleHelper.PoliticalCandidateRoles()), myAuthorityUser, PersonFilter.PoliticalCandidates);
 
             myIssueFeed.AddRange(myPoliticiansIssueFeed);
             myIssueFeed.AddRange(myPoliticalCandidateIssueFeed);
@@ -108,13 +109,12 @@ namespace HaveAVoice.Services.UserFeatures {
             myIssueReplyFeed.AddRange(myPoliticalCandidateIssueReplyFeed);
             myIssueReplyFeed = myIssueReplyFeed.OrderByDescending(ir => ir.DateTimeStamp).ToList<IssueReplyFeedModel>();
 
-            Issue myRandomLocalIssue = theRepository.RandomLocalIssue(anAuthorityUser);
+            Issue myRandomLocalIssue = theRepository.RandomLocalIssue(myAuthorityUser);
 
-            UserProfileModel myModel = new UserProfileModel(anAuthorityUser) {
+            UserProfileModel myModel = new UserProfileModel(myAuthorityUser) {
                 LocalIssue = myRandomLocalIssue,
                 IssueFeed = myIssueFeed,
                 IssueReplyFeed = myIssueReplyFeed,
-                //PhotoAlbumFeed = CreatePhotoAlbumFeed(theRepository.FriendPhotoAlbumFeed(anAuthorityUser))
             };
 
             return myModel;
@@ -191,6 +191,74 @@ namespace HaveAVoice.Services.UserFeatures {
 
             return myFeedModels;
         }
+
+        private IEnumerable<IssueFeedModel> CreateIssueFeedForAuthority(IEnumerable<Issue> anIssues, UserInformationModel aViewingUser, PersonFilter aPersonFilter) {
+            List<IssueFeedModel> myFeedModels = new List<IssueFeedModel>();
+            foreach (Issue myIssue in anIssues) {
+                IEnumerable<IssueDisposition> myIssueDisposition = myIssue.IssueDispositions;
+
+                bool myIsAllowed = PrivacyHelper.IsAllowed(myIssue.User, PrivacyAction.DisplayProfile, aViewingUser);
+                User myUser = myIssue.User;
+
+                if (!myIsAllowed) {
+                    myUser = ProfileHelper.GetAnonymousProfile();
+                }
+
+                IssueFeedModel myFeedModel = new IssueFeedModel(myUser) {
+                    Id = myIssue.Id,
+                    DateTimeStamp = TimezoneHelper.ConvertToLocalTimeZone(myIssue.DateTimeStamp),
+                    Title = myIssue.Title,
+                    City = myIssue.City,
+                    State = myIssue.State,
+                    Description = myIssue.Description,
+                    PersonFilter = aPersonFilter,
+                    TotalLikes = (from d in myIssueDisposition where d.Disposition == (int)Disposition.Like select d).Count<IssueDisposition>(),
+                    TotalDislikes = (from d in myIssueDisposition where d.Disposition == (int)Disposition.Dislike select d).Count<IssueDisposition>(),
+                    HasDisposition = (from d in myIssueDisposition where d.UserId == aViewingUser.Details.Id select d).Count<IssueDisposition>() > 0 ? true : false,
+                    TotalReplys = myIssue.IssueReplys.Count,
+                    IssueReplys = myIssue.IssueReplys
+                };
+
+                myFeedModels.Add(myFeedModel);
+            }
+
+            return myFeedModels;
+        }
+
+        private IEnumerable<IssueReplyFeedModel> CreateIssueReplyFeedForAuthority(IEnumerable<IssueReply> anIssueReplys, UserInformationModel aViewingUser, PersonFilter aPersonFilter) {
+            List<IssueReplyFeedModel> myFeedModels = new List<IssueReplyFeedModel>();
+
+            foreach (IssueReply myIssueReply in anIssueReplys) {
+                IEnumerable<IssueReplyDisposition> myReplyDisposition = myIssueReply.IssueReplyDispositions;
+
+                bool myIsAllowed = PrivacyHelper.IsAllowed(myIssueReply.User, PrivacyAction.DisplayProfile, aViewingUser);
+                User myUser = myIssueReply.User;
+
+                if (!myIsAllowed) {
+                    myUser = ProfileHelper.GetAnonymousProfile();
+                }
+
+                IssueReplyFeedModel myFeedModel = new IssueReplyFeedModel(myUser) {
+                    Id = myIssueReply.Id,
+                    DateTimeStamp = TimezoneHelper.ConvertToLocalTimeZone(myIssueReply.DateTimeStamp),
+                    State = myIssueReply.State,
+                    City = myIssueReply.City,
+                    IssueReplyComments = myIssueReply.IssueReplyComments,
+                    Issue = myIssueReply.Issue,
+                    Reply = myIssueReply.Reply,
+                    PersonFilter = aPersonFilter,
+                    TotalLikes = (from d in myReplyDisposition where d.Disposition == (int)Disposition.Like select d).Count<IssueReplyDisposition>(),
+                    TotalDislikes = (from d in myReplyDisposition where d.Disposition == (int)Disposition.Dislike select d).Count<IssueReplyDisposition>(),
+                    HasDisposition = (from d in myReplyDisposition where d.UserId == aViewingUser.Details.Id select d).Count<IssueReplyDisposition>() > 0 ? true : false,
+                    TotalComments = myIssueReply.IssueReplyComments.Count
+                };
+
+                myFeedModels.Add(myFeedModel);
+            }
+
+            return myFeedModels;
+        }
+
 
         private IEnumerable<IssueReplyFeedModel> CreateIssueReplyFeed(IEnumerable<IssueReply> anIssueReplys, User aViewingUser, PersonFilter aPersonFilter) {
             List<IssueReplyFeedModel> myFeedModels = new List<IssueReplyFeedModel>();

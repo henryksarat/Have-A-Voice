@@ -110,7 +110,7 @@ namespace HaveAVoice.Controllers.Users {
 
             try {
                 if (HAVPermissionHelper.AllowedToPerformAction(myUser, HAVPermission.Authority_Feed)) {
-                    myModel.Model = theService.AuthorityProfile(myUser.Details);
+                    myModel.Model = theService.AuthorityProfile(myUser);
                 } else {
                     myModel.Model = theService.MyProfile(myUser.Details);
                 }

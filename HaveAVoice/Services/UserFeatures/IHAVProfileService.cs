@@ -12,6 +12,6 @@ namespace HaveAVoice.Services.UserFeatures {
         UserProfileModel Profile(string aShortUrl, User aViewingUser);
         UserProfileModel MyProfile(User aUser);
         UserProfileModel UserIssueActivity(int aUserId, User aViewingUser);
-        UserProfileModel AuthorityProfile(User anAuthorityUser);
+        UserProfileModel AuthorityProfile(UserInformationModel anAuthorityUser);
     }
 }

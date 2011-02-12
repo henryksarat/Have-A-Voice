@@ -108,6 +108,7 @@
     <Compile Include="Helpers\HAVPrivacySetting.cs" />
     <Compile Include="Helpers\LinkHelper.cs" />
     <Compile Include="Helpers\PresentationHelper.cs" />
+    <Compile Include="Helpers\ProfileHelper.cs" />
     <Compile Include="Helpers\UserRoleHelper.cs" />
     <Compile Include="Controllers\Admin\RestrictionController.cs" />
     <Compile Include="Controllers\Admin\PermissionController.cs" />
