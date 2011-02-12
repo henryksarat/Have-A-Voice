@@ -95,7 +95,7 @@ namespace HaveAVoice.Services.UserFeatures {
         public UserProfileModel AuthorityProfile(UserInformationModel anAuthorityUserInformation) {
             User myAuthorityUser = anAuthorityUserInformation.Details;
             List<IssueFeedModel> myIssueFeed = CreateIssueFeedForAuthority(theRepository.FilteredIssuesFeed(myAuthorityUser), anAuthorityUserInformation, PersonFilter.People).ToList<IssueFeedModel>();
-            List<IssueReplyFeedModel> myIssueReplyFeed = CreateIssueReplyFeed(theRepository.FilteredIssueReplysFeed(myAuthorityUser), myAuthorityUser, PersonFilter.People).ToList<IssueReplyFeedModel>();
+            List<IssueReplyFeedModel> myIssueReplyFeed = CreateIssueReplyFeedForAuthority(theRepository.FilteredIssueReplysFeed(myAuthorityUser), anAuthorityUserInformation, PersonFilter.People).ToList<IssueReplyFeedModel>();
             IEnumerable<IssueFeedModel> myPoliticiansIssueFeed = CreateIssueFeed(theRepository.IssueFeedByRole(UserRoleHelper.PoliticianRoles()), myAuthorityUser, PersonFilter.Politicians);
             IEnumerable<IssueReplyFeedModel> myPoliticiansIssueReplyFeed = CreateIssueReplyFeed(theRepository.IssueReplyFeedByRole(UserRoleHelper.PoliticianRoles()), myAuthorityUser, PersonFilter.Politicians);
             IEnumerable<IssueFeedModel> myPoliticalCandidateIssueFeed = CreateIssueFeed(theRepository.IssueFeedByRole(UserRoleHelper.PoliticalCandidateRoles()), myAuthorityUser, PersonFilter.PoliticalCandidates);

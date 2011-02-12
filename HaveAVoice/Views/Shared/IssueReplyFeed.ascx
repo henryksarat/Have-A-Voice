@@ -94,16 +94,28 @@
 	<% foreach (var item in Model.IssueReplyComments) { %>
 	    <div class="<% if (j % 2 == 0) { %>row<% } else { %>alt<% } %> reply push-3 col-19 m-btm5">
 		    <div class="col-1 center">
-		        <img src="<%= PhotoHelper.ProfilePicture(item.User) %>" alt="<%= NameHelper.FullName(item.User) %>" class="profile sm" />
-		        <div class="clear">&nbsp;</div>
+                <% UserInformationModel myUserInformation = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation(); %>
+                <% bool myIsAllowedToView = PrivacyHelper.IsAllowed(item.User, HaveAVoice.Helpers.Enums.PrivacyAction.DisplayProfile, myUserInformation); %>
+                <% if (myIsAllowedToView) { %>
+		            <img src="<%= PhotoHelper.ProfilePicture(item.User) %>" alt="<%= NameHelper.FullName(item.User) %>" class="profile sm" />
+		        <% } else { %>
+                    <img src="<%= HAVConstants.ANONYMOUS_PICTURE_URL %>" alt="Anonymous" class="profile sm" />
+                <% } %>
+                <div class="clear">&nbsp;</div>
 		    </div>
 		    <div class="m-lft col-14 comment">
 		        <span class="speak-lft">&nbsp;</span>
 		        <div class="p-a10">
-		            <a href="<%= LinkHelper.Profile(item.User) %>" class="name"><%= NameHelper.FullName(item.User)%></a>
-		            <%= item.Comment %>
-		            <br />
-		            <span class="loc"><%= item.IssueReply.Issue.City %>, <%= item.IssueReply.Issue.State %></span>
+                    <% if (myIsAllowedToView) { %>
+		                <a href="<%= LinkHelper.Profile(item.User) %>" class="name"><%= NameHelper.FullName(item.User)%></a>
+		                <%= item.Comment%>
+		                <br />
+		                <span class="loc"><%= item.IssueReply.Issue.City%>, <%= item.IssueReply.Issue.State%></span>
+                    <% } else { %>
+		                <a href"/Profile/Show" class="name">Anonymous</a>
+		                <%= item.Comment%>
+		                <br />
+                    <% } %>
 		            <div class="clear">&nbsp;</div>
 		        </div>
 		        <div class="clear">&nbsp;</div>

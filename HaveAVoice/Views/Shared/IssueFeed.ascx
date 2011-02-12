@@ -89,7 +89,10 @@
 	<% foreach (var item in Model.IssueReplys) { %>
 	    <div class="<% if (j % 2 == 0) { %>row<% } else { %>alt<% } %> reply push-3 col-18 m-btm10">
 		    <div class="col-1 center">
-                <% if(item.Anonymous) { %>
+                <% UserInformationModel myUserInformation = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation(); %>
+                <% bool myIsAllowedToView = true; %>
+                <% if (item.Anonymous || !PrivacyHelper.IsAllowed(item.User, HaveAVoice.Helpers.Enums.PrivacyAction.DisplayProfile, myUserInformation)) { %>
+                    <% myIsAllowedToView = false; %>
                     <img src="<%= HAVConstants.ANONYMOUS_PICTURE_URL %>" alt="Anonymous" class="profile sm" />
                 <% } else { %>
 		            <img src="<%= PhotoHelper.ProfilePicture(item.User) %>" alt="<%= NameHelper.FullName(item.User) %>" class="profile sm" />
@@ -98,7 +101,7 @@
 		    <div class="m-lft col-14 comment">
 		        <span class="speak-lft">&nbsp;</span>
 		        <div class="p-a10">
-                    <% if (item.Anonymous) { %>
+                    <% if (item.Anonymous || !myIsAllowedToView) { %>
                         <a href="/Profile/Show" class="name">Anonymous</a>
                     <% } else { %>
 		                <a href="/Profile/Show/<%= item.User.Id %>" class="name"><%= NameHelper.FullName(item.User)%></a>
