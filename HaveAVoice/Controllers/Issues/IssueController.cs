@@ -115,7 +115,7 @@ namespace HaveAVoice.Controllers.Issues {
                 return RedirectToProfile();
             }
             if (myIssue != null) {
-                return RedirectToAction("Details", new { title = myIssue.Title });
+                return RedirectToAction("Details", new { title = myIssue.Title.Replace(' ', '-') });
             } else {
                 TempData["Message"] = MessageHelper.ErrorMessage(REDIRECT_ERROR);
                 return RedirectToProfile();
@@ -126,6 +126,7 @@ namespace HaveAVoice.Controllers.Issues {
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Details(string title) {
             try {
+                title = title.Replace('-', ' ');
                 IssueModel myIssueModel = theService.CreateIssueModel(title);
 
                 if (myIssueModel == null) {

@@ -7,7 +7,7 @@
 <%@Import Namespace="HaveAVoice.Services.Helpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	View
+	Issue - <%= Model.Issue.Title %>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">

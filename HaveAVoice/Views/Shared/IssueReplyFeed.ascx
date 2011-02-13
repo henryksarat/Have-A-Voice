@@ -16,7 +16,7 @@
 		<div class="m-lft col-14 comment">
 			<span class="speak-lft">&nbsp;</span>
 			<div class="p-a10">
-				<span class="fnt-14 teal">Regarding <a href="/Issue/Details/<%= Model.Issue.Title %>" class="issue"><%= Model.Issue.Title %></a></span><br />
+				<span class="fnt-14 teal">Regarding <a href="<%= LinkHelper.IssueUrl(Model.Issue.Title) %>" class="issue"><%= Model.Issue.Title %></a></span><br />
 				<a href="/Profile/Show/<%= Model.UserId %>" class="name"><%= Model.DisplayName %></a> says:
 				<%= Model.Reply%>
 				<br />

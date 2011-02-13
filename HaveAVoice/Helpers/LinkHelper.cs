@@ -12,6 +12,10 @@ namespace HaveAVoice.Helpers {
             return "/" + aUser.ShortUrl;
         }
 
+        public static string IssueUrl(string aTitle) {
+            return "/Issue/Details/" + aTitle.Replace(' ', '-');
+        }
+
         public static string EditIssue(Issue anIssue) {
             return "/Issue/Edit/" + anIssue;
         }
