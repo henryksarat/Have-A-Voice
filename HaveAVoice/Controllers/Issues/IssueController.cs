@@ -14,6 +14,7 @@ using HaveAVoice.Validation;
 using HaveAVoice.Controllers.Helpers;
 using System.Collections;
 using HaveAVoice.Helpers.Enums;
+using HaveAVoice.Controllers.ActionFilters;
 
 namespace HaveAVoice.Controllers.Issues {
     public class IssueController : HAVBaseController {
@@ -25,6 +26,7 @@ namespace HaveAVoice.Controllers.Issues {
         private const string EDIT_SUCCESS = "Issue edited successfully!";
         private const string REPLY_SUCCESS = "Reply posted successfully!";
         private const string DISPOSITION_SUCCESS = "Disposition added successfully!";
+        private const string ISSUE_DOESNT_EXIST = "Issue doesn't exist";
 
         private const string CREATING_ISSUE_ERROR = "Error creating issue. Please try again.";
         private const string CREATING_COMMENT_ERROR = "Error posting comment for the issue reply. Please try again.";
@@ -32,6 +34,7 @@ namespace HaveAVoice.Controllers.Issues {
         private const string DELETE_ISSUE_ERROR = "An error orror occurred while deleting the issue. Please try again.";
         private const string EDIT_ISSUE_LOAD_ERROR = "Error while retrieving your original issue. Please try again.";
         private const string EDIT_ISSUE_ERROR = "Error editing the issue. Please try again.";
+        private const string REDIRECT_ERROR = "Error redirecting you to the issue.";
 
         private const string PERSON_FILTER = "PersonFilter";
         private const string ISSUE_STANCE_FILTER = "IssueStanceFilter";
@@ -100,39 +103,38 @@ namespace HaveAVoice.Controllers.Issues {
             return View("Create", anIssueWrapper);
         }
 
+        [RequiredRouteValueAttribute.RequireRouteValues(new[] { "id" })]
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult View(int id) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            if(!HAVPermissionHelper.AllowedToPerformAction(GetUserInformatonModel(), HAVPermission.View_Issue)) {
-                return SendToErrorPage(HAVConstants.PAGE_NOT_FOUND);
-            }
-
+        public ActionResult Details(int id) {
+            Issue myIssue;
             try {
-                Issue issue = theService.GetIssue(id);
+                myIssue = theService.GetIssue(id);
+            } catch (Exception e) {
+                TempData["Message"] = MessageHelper.ErrorMessage(REDIRECT_ERROR);
+                LogError(e, REDIRECT_ERROR);
+                return RedirectToProfile();
+            }
+            if (myIssue != null) {
+                return RedirectToAction("Details", new { title = myIssue.Title });
+            } else {
+                TempData["Message"] = MessageHelper.ErrorMessage(REDIRECT_ERROR);
+                return RedirectToProfile();
+            }
+        }
+        
+        [RequiredRouteValueAttribute.RequireRouteValues(new[] { "title" })]
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult Details(string title) {
+            try {
+                IssueModel myIssueModel = theService.CreateIssueModel(title);
 
-                if (issue == null) {
-                    return SendToErrorPage("Issue doesn't exist!");
+                if (myIssueModel == null) {
+                    return SendToErrorPage(ISSUE_DOESNT_EXIST);
                 }
-
-                User myUser = HAVUserInformationFactory.GetUserInformation().Details;
-                IEnumerable<IssueReplyModel> myPeopleReplys = theService.GetReplysToIssue(myUser, issue, UserRoleHelper.RegisteredRoles(), PersonFilter.People);
-                IEnumerable<IssueReplyModel> myPoliticianReplys = theService.GetReplysToIssue(myUser, issue, UserRoleHelper.PoliticianRoles(), PersonFilter.Politicians);
-                IEnumerable<IssueReplyModel> myPoliticalCandidateReplys = theService.GetReplysToIssue(myUser, issue, UserRoleHelper.PoliticalCandidateRoles(), PersonFilter.PoliticalCandidates);
-
-                List<IssueReplyModel> myMerged = new List<IssueReplyModel>();
-                myMerged.AddRange(myPeopleReplys);
-                myMerged.AddRange(myPoliticianReplys);
-                myMerged.AddRange(myPoliticalCandidateReplys);
-
-                myMerged = myMerged.OrderByDescending(i => i.DateTimeStamp).ToList<IssueReplyModel>();
-
-                IssueModel myIssueModel = new IssueModel(issue, myMerged);
 
                 SaveIssueInformationToTempDataForFiltering(myIssueModel);
 
-                return View("View", myIssueModel);
+                return View("Details", myIssueModel);
             } catch (Exception e) {
                 string details = "An error occurred while trying to view the issue.";
                 LogError(e, details);
@@ -141,7 +143,7 @@ namespace HaveAVoice.Controllers.Issues {
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult View(IssueModel issueModel) {
+        public ActionResult Details(IssueModel issueModel) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
@@ -150,13 +152,13 @@ namespace HaveAVoice.Controllers.Issues {
             try {
                 if (theService.CreateIssueReply(myUserInformation, issueModel)) {
                     TempData["Message"] = MessageHelper.SuccessMessage(REPLY_SUCCESS);
-                    return RedirectToAction("View", new { id = issueModel.Issue.Id });
+                    return RedirectToAction("Details", new { id = issueModel.Issue.Id });
                 }
             } catch (Exception e) {
                 LogError(e, CREATING_COMMENT_ERROR);
                 ViewData["Message"] = MessageHelper.ErrorMessage(CREATING_COMMENT_ERROR);
             }
-            return View("View", issueModel);
+            return View("Details", issueModel);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
@@ -185,7 +187,7 @@ namespace HaveAVoice.Controllers.Issues {
             } else if (section == SiteSection.MyIssueActivity) {
                 return RedirectToAction("IssueActivity", "Profile");
             } else {
-                return RedirectToAction("View", "Issue", new { id = issueId });
+                return RedirectToAction("Details", "Issue", new { id = issueId });
             }
         }
                                             
@@ -253,19 +255,11 @@ namespace HaveAVoice.Controllers.Issues {
 
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult FilterIssueByPersonFilter(PersonFilter filterValue) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-
             return FilterIssue(PERSON_FILTER, filterValue.ToString());
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult FilterIssueByIssueStanceFilter(IssueStanceFilter filterValue) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-
             return FilterIssue(ISSUE_STANCE_FILTER, filterValue.ToString());
         }
 
@@ -278,7 +272,7 @@ namespace HaveAVoice.Controllers.Issues {
 
             SaveOriginalIssue(myOriginalModel);
 
-            return View("View", mynewModel);
+            return View("Details", mynewModel);
         }
 
         private void SaveIssueInformationToTempDataForFiltering(IssueModel aModel) {

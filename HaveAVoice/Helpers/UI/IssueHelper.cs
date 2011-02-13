@@ -49,11 +49,9 @@ namespace HaveAVoice.Helpers.UI {
             return BuildIssueReplyTable(anIssueReply);
         }
 
-        public static string OfficialIssueReply(IssueReplyModel anIssueReply) {
-            return BuildIssueReplyTable(anIssueReply);
-        }
-
         private static string BuildIssueReplyTable(IssueReplyModel anIssueReply) {
+            bool myIsAllowed = PrivacyHelper.IsAllowed(anIssueReply.User, PrivacyAction.DisplayProfile);
+
         	var stanceDiv = new TagBuilder("div");
 
             if(anIssueReply.IssueStance == (int)IssueStanceFilter.Agree) {
@@ -70,7 +68,7 @@ namespace HaveAVoice.Helpers.UI {
 			}
 
 			var profileImg = new TagBuilder("img");
-			if (anIssueReply.Anonymous) {
+			if (anIssueReply.Anonymous || !myIsAllowed) {
 				profileImg.MergeAttribute("alt", "Anonymous");
                 profileImg.MergeAttribute("src", PhotoHelper.ConstructUrl(HAVConstants.NO_PROFILE_PICTURE_IMAGE));
 			}  else {
@@ -105,8 +103,7 @@ namespace HaveAVoice.Helpers.UI {
 			
 			var hrefName = new TagBuilder("a");
 			hrefName.MergeAttribute("class", "name");
-			if (anIssueReply.Anonymous)
-			{
+            if (anIssueReply.Anonymous || !myIsAllowed) {
 				hrefName.InnerHtml = "Anonymous";
 				hrefName.MergeAttribute("href", "#");
 			} else {
@@ -133,30 +130,30 @@ namespace HaveAVoice.Helpers.UI {
 			var editDiv = new TagBuilder("div");
 			editDiv.MergeAttribute("class", "col-2 center");
 			
-            UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation();
+            /*UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation();
             if (anIssueReply.User.Id == myUserInformationModel.Details.Id && HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Edit_Issue_Reply)) {
                 var myEdit = new TagBuilder("a");
                 myEdit.MergeAttribute("href", LinkHelper.EditIssueReply(anIssueReply.Id));
                 myEdit.MergeAttribute("class", "edit");
                 myEdit.InnerHtml += "Edit";
                 editDiv.InnerHtml += myEdit.ToString();
-            } else {
+            } else {*/
             	editDiv.InnerHtml += "&nbsp;";
-            }
+            //}
             optionsDiv.InnerHtml += editDiv.ToString();
             
             var deleteDiv = new TagBuilder("div");
             deleteDiv.MergeAttribute("class", "col-3 center");
             
-            if(anIssueReply.User.Id == myUserInformationModel.Details.Id && HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Delete_Issue_Reply)) {
+            /*if(anIssueReply.User.Id == myUserInformationModel.Details.Id && HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Delete_Issue_Reply)) {
                 var myDelete = new TagBuilder("a");
                 myDelete.MergeAttribute("href", LinkHelper.EditIssueReply(anIssueReply.Id));
                 myDelete.MergeAttribute("class", "delete");
                 myDelete.InnerHtml += "Delete";
                 deleteDiv.InnerHtml += myDelete.ToString();
-            } else {
+            } else {*/
             	deleteDiv.InnerHtml += "&nbsp;";
-            }
+            //}
             optionsDiv.InnerHtml += deleteDiv.ToString();
             
             var likeDiv = new TagBuilder("div");
@@ -165,7 +162,7 @@ namespace HaveAVoice.Helpers.UI {
             var dislikeDiv = new TagBuilder("div");
             dislikeDiv.MergeAttribute("class", "col-3 center");
             
-            if(!anIssueReply.HasDisposition) {
+            if(!anIssueReply.HasDisposition && HAVUserInformationFactory.IsLoggedIn()) {
                 var myLikeDisposition = new TagBuilder("a");
                 //myLikeDisposition.MergeAttribute("href", LinkHelper.AgreeIssueReply(anIssueReply.Id, anIssueReply.Issue.Id));
                 myLikeDisposition.MergeAttribute("class", "like");

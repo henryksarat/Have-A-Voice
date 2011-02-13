@@ -14,7 +14,7 @@
 	<div class="col-16">
 		<div class="m-lft col-16 comment">
 			<div class="p-a10">
-				<h1><a href="/Issue/View/<%= Model.Id %>"><%= Model.Title%></a></h1>
+				<h1><a href="/Issue/Details/<%= Model.Title %>"><%= Model.Title%></a></h1>
 				<br />
 				<%= Model.Description %>
 				<br />

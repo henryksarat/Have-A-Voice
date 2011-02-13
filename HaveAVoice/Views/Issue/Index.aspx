@@ -40,7 +40,7 @@
 		    	</div>
 		    	<div class="push-1 col-17 issue">
 		    		<div class="p-a5">
-			    		<h1><%= Html.ActionLink(item.Issue.Title, "View", new { id = item.Issue.Id })%></h1>
+			    		<h1><a href="/Issue/Details/<%= item.Issue.Title %>"><%= item.Issue.Title %></a></h1>
 						<br />
 			    		<%= item.Issue.Description %>
 			    		<div class="clear">&nbsp;</div>

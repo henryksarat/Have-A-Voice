@@ -33,7 +33,7 @@ namespace HaveAVoice.Services.SiteFeatures {
 
         private bool ValidContactUs(string anEmail, string anInquiryType, string anInquiry) {
             if (!ValidationHelper.IsValidEmail(anEmail)) {
-                theValidationDictionary.AddError("Email", anEmail, "Email is required.");
+                theValidationDictionary.AddError("Email", anEmail, "Email is not valid.");
             }
             if (anInquiryType.ToUpper().Equals("SELECT")) {
                 theValidationDictionary.AddError("InquiryType", anInquiryType, "Inquiry type is required.");

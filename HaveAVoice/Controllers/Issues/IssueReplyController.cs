@@ -81,7 +81,7 @@ namespace HaveAVoice.Controllers.Issues {
                 TempData["Message"] = MessageHelper.ErrorMessage(DELETE_ERROR);
             }
 
-            return RedirectToAction("View", "Issue", new { id = issueId });
+            return RedirectToAction("Details", "Issue", new { id = issueId });
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
@@ -195,7 +195,7 @@ namespace HaveAVoice.Controllers.Issues {
             } else if (section == SiteSection.MyIssueActivity) {
                 return RedirectToAction("IssueActivity", "Profile");
             } else {
-                return RedirectToAction("View", "Issue", new { id = issueId });
+                return RedirectToAction("Details", "Issue", new { id = issueId });
             }
         }
     }

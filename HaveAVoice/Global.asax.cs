@@ -66,6 +66,13 @@ namespace HaveAVoice {
             );
 
             routes.MapRoute(
+                "IssueWithTitle",
+                "Issue/Details/{title}",
+                new { controller = "Issue", action = "Details" },
+                new { title = @"[a-zA-Z\. ]*" }
+            );
+
+            routes.MapRoute(
                 "CannotCreateMessage", // Route name
                 "Message/Create", // URL with parameters
                 new { controller = "Shared", action = "PageNotFound" } // Parameter defaults
@@ -74,9 +81,9 @@ namespace HaveAVoice {
             routes.MapRoute(
                 "Issue", // Route name
                 "Issue/{action}/{id}", // URL with parameters
-                new { controller = "Issue", action = "Inidex", id = UrlParameter.Optional } // Parameter defaults
+                new { controller = "Issue", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
-
+            
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters

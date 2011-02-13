@@ -99,7 +99,7 @@
 						    <h4>Issues In Your <%= Model.LocalIssueLocation%></h4>
 						    <div class="clear">&nbsp;</div>
 						    Resident <a href="<%= HaveAVoice.Helpers.LinkHelper.Profile(Model.LocalIssue.User) %>" class="name"><%= HaveAVoice.Helpers.NameHelper.FullName(Model.LocalIssue.User)%></a> says, &quot;<%= Model.LocalIssue.Description%>&quot;<br />
-                            In <%= Model.LocalIssue.User.Gender.ToUpper().Equals(HAVGender.Male.ToString().ToUpper()) ? "his" : "her"%> issue: <b><a href="/Issue/View/<%= Model.LocalIssue.Id %>" class="issue"><%= Model.LocalIssue.Title%></a></b>.
+                            In <%= Model.LocalIssue.User.Gender.ToUpper().Equals(HAVGender.Male.ToString().ToUpper()) ? "his" : "her"%> issue: <b><a href="/Issue/Details/<%= Model.LocalIssue.Title %>" class="issue"><%= Model.LocalIssue.Title%></a></b>.
 			            </div>
                     <% } %>
 			        <div class="clear">&nbsp;</div>

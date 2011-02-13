@@ -6,6 +6,8 @@ using HaveAVoice.Models.View;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models;
+using System.Collections;
+using System.Linq;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVIssueService : HAVBaseService, IHAVIssueService {
@@ -225,7 +227,10 @@ namespace HaveAVoice.Services.UserFeatures {
         private bool ValidateIssue(Issue aIssueToValidate) {
             if (aIssueToValidate.Title.Trim().Length == 0) {
                 theValidationDictionary.AddError("Title", aIssueToValidate.Title, "Title is required.");
+            } else if(theRepository.HasIssueTitleBeenUsed(aIssueToValidate.Title)) {
+                theValidationDictionary.AddError("Title", aIssueToValidate.Title, "An issue with that same exact title exists. Please reply to that issue.");
             }
+
             if (aIssueToValidate.Description.Trim().Length == 0) {
                 theValidationDictionary.AddError("Description", aIssueToValidate.Description, "Description is required.");
             }
@@ -267,6 +272,36 @@ namespace HaveAVoice.Services.UserFeatures {
             }
 
             return theValidationDictionary.isValid;
+        }
+
+
+        public IssueModel CreateIssueModel(UserInformationModel myUserInfo, int anIssueId) {
+            Issue myIssue = GetIssue(anIssueId);
+            return FillIssueModel(myUserInfo.Details, myIssue);
+        }
+
+        public IssueModel CreateIssueModel(string aTitle) {
+            Issue myIssue = theRepository.GetIssueByTitle(aTitle);
+            return FillIssueModel(null, myIssue);
+        }
+
+        private IssueModel FillIssueModel(User myViewingUser, Issue anIssue) {
+            if (anIssue == null) {
+                return null;
+            }
+
+            IEnumerable<IssueReplyModel> myPeopleReplys = theRepository.GetReplysToIssue(anIssue, UserRoleHelper.RegisteredRoles(), PersonFilter.People);
+            IEnumerable<IssueReplyModel> myPoliticianReplys = theRepository.GetReplysToIssue(anIssue, UserRoleHelper.PoliticianRoles(), PersonFilter.Politicians);
+            IEnumerable<IssueReplyModel> myPoliticalCandidateReplys = theRepository.GetReplysToIssue(anIssue, UserRoleHelper.PoliticalCandidateRoles(), PersonFilter.PoliticalCandidates);
+
+            List<IssueReplyModel> myMerged = new List<IssueReplyModel>();
+            myMerged.AddRange(myPeopleReplys);
+            myMerged.AddRange(myPoliticianReplys);
+            myMerged.AddRange(myPoliticalCandidateReplys);
+
+            myMerged = myMerged.OrderByDescending(i => i.DateTimeStamp).ToList<IssueReplyModel>();
+
+            return new IssueModel(anIssue, myMerged);
         }
     }
 }

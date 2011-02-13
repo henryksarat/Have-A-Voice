@@ -8,6 +8,9 @@ namespace HaveAVoice.Services.UserFeatures {
         IEnumerable<Issue> GetLatestIssues();
         IEnumerable<IssueWithDispositionModel> GetIssues(User aUser);
 
+        IssueModel CreateIssueModel(UserInformationModel myUserInfo, int anIssueId);
+        IssueModel CreateIssueModel(string aTitle);
+
         bool CreateIssue(UserInformationModel aUserCreating, Issue anIssueToCreate);
         bool CreateIssueReply(UserInformationModel aUserCreating, IssueModel anIssueModel);
         bool CreateIssueReply(UserInformationModel aUserCreating, int anIssueId, string aReply, int aDisposition, bool anAnonymous);

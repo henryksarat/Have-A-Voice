@@ -30,6 +30,16 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     select i).FirstOrDefault();
         }
 
+        public Issue GetIssueByTitle(string aTitle) {
+            return (from i in theEntities.Issues
+                    where i.Title == aTitle
+                    select i).FirstOrDefault();
+        }
+
+        public bool HasIssueTitleBeenUsed(string aTitle) {
+            return GetIssueByTitle(aTitle) != null ? true : false;
+        }
+
         public IssueReply CreateIssueReply(Issue anIssue, User aUserCreating, string aReply, bool anAnonymous, Disposition aDisposition) {
             IssueReply issueReply = IssueReply.CreateIssueReply(0, anIssue.Id, aUserCreating.Id, aReply, aUserCreating.City, aUserCreating.State, (int)aDisposition, anAnonymous, DateTime.UtcNow, false);
             issueReply.Zip = aUserCreating.Zip;
@@ -73,6 +83,32 @@ namespace HaveAVoice.Repositories.UserFeatures {
                         HasDisposition = (i == null && ir.UserId != aUser.Id) ? false : true,
                         TempDispositionHolder = ir.Disposition,
                         TempPersonFilterHolder = (int) aFilter
+
+                    }).ToList<IssueReplyModel>();
+        }
+
+        public IEnumerable<IssueReplyModel> GetReplysToIssue(Issue anIssue, IEnumerable<string> aSelectedRoles, PersonFilter aFilter) {
+            IEnumerable<IssueReplyDisposition> myIssueReplyDispositions = theEntities.IssueReplyDispositions;
+
+            return (from ir in theEntities.IssueReplys.Include("IssueReplyComments")
+                    join u in theEntities.Users on ir.User.Id equals u.Id
+                    join ur in theEntities.UserRoles on u.Id equals ur.User.Id
+                    join r in theEntities.Roles on ur.Role.Id equals r.Id
+                    where ir.Issue.Id == anIssue.Id
+                    && aSelectedRoles.Contains(r.Name)
+                    && ir.Deleted == false
+                    select new IssueReplyModel {
+                        Id = ir.Id,
+                        Issue = ir.Issue,
+                        IssueStance = (ir.Disposition == 1) ? (int)IssueStanceFilter.Agree : (int)IssueStanceFilter.Disagree,
+                        User = u,
+                        Reply = ir.Reply,
+                        DateTimeStamp = ir.DateTimeStamp,
+                        CommentCount = ir.IssueReplyComments.Where(cc => cc.Deleted == false).Count(),
+                        Anonymous = ir.Anonymous,
+                        HasDisposition = false,
+                        TempDispositionHolder = ir.Disposition,
+                        TempPersonFilterHolder = (int)aFilter
 
                     }).ToList<IssueReplyModel>();
         }

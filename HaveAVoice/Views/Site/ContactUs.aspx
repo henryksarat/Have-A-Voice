@@ -18,7 +18,7 @@
     		<div class="push-1 col-18">
     			<div class="spacer-30">&nbsp;</div>
     			<div class="clear">&nbsp;</div>
-			    <% using (Html.BeginForm("Create", "ContactUs", FormMethod.Post, new { @class = "create" })) { %>
+			    <% using (Html.BeginForm("ContactUs", "Site", FormMethod.Post, new { @class = "create" })) { %>
 					<% Html.RenderPartial("Message"); %>
 			        <% Html.RenderPartial("Validation"); %>
 					
