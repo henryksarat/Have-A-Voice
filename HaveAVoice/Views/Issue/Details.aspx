@@ -80,7 +80,7 @@
 
         <div class="push-22 col-1">
 			<div class="p-a5">
-                <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="<%= LinkHelper.IssueUrl(Model.Issue.Title) %>" layout="button_count" show_faces="false" width="90" font="arial"></fb:like>
+                <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="<%= HAVConstants.BASE_URL + LinkHelper.IssueUrl(Model.Issue.Title) %>" layout="button_count" show_faces="false" width="90" font="arial"></fb:like>
            </div>
         </div>
 
@@ -89,9 +89,12 @@
 			<% UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation(); %>
             <% bool myIsAllowed = PrivacyHelper.IsAllowed(Model.Issue.User, PrivacyAction.DisplayProfile); %>
 	        <% if (myUserInformationModel != null) { %>
-	            <%= Html.Hidden("City", myUserInformationModel.Details.City)%>
+                <%= Html.Hidden("City", myUserInformationModel.Details.City)%>
 	            <%= Html.Hidden("State", myUserInformationModel.Details.State)%>
             <% } %>
+            <%= Html.Hidden("IssueId", Model.Issue.Id)%>
+            <%= Html.Hidden("TotalAgrees", Model.TotalAgrees)%>
+            <%= Html.Hidden("TotalDisagrees", Model.TotalDisagrees)%>
 
 	        <% Html.RenderPartial("Message"); %>
 	        <% Html.RenderPartial("Validation"); %>
@@ -157,8 +160,8 @@
 						<h4 class="m-btm5">Stats</h4>
 						<div class="bold">Posted:</div>
 						<div class="m-lft10 m-btm5"><%= Model.Issue.DateTimeStamp.ToString("MMM dd, yyyy").ToUpper() %></div>
-						<div class="m-btm5"><span class="bold">Agrees:</span> 1</div>
-						<div><span class="bold">Disagrees:</span> 1</div>
+						<div class="m-btm5"><span class="bold">Agrees:</span> <%= Model.TotalAgrees %></div>
+						<div><span class="bold">Disagrees:</span> <%= Model.TotalDisagrees %></div>
 					</div>
 					<div class="clear">&nbsp;</div>
 				</div>

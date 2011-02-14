@@ -280,6 +280,11 @@ namespace HaveAVoice.Services.UserFeatures {
             return FillIssueModel(myUserInfo.Details, myIssue);
         }
 
+        public IssueModel CreateIssueModel(User aViewingUser, string aTitle) {
+            Issue myIssue = theRepository.GetIssueByTitle(aTitle);
+            return FillIssueModel(aViewingUser, myIssue);
+        }
+
         public IssueModel CreateIssueModel(string aTitle) {
             Issue myIssue = theRepository.GetIssueByTitle(aTitle);
             return FillIssueModel(null, myIssue);
@@ -290,9 +295,19 @@ namespace HaveAVoice.Services.UserFeatures {
                 return null;
             }
 
-            IEnumerable<IssueReplyModel> myPeopleReplys = theRepository.GetReplysToIssue(anIssue, UserRoleHelper.RegisteredRoles(), PersonFilter.People);
-            IEnumerable<IssueReplyModel> myPoliticianReplys = theRepository.GetReplysToIssue(anIssue, UserRoleHelper.PoliticianRoles(), PersonFilter.Politicians);
-            IEnumerable<IssueReplyModel> myPoliticalCandidateReplys = theRepository.GetReplysToIssue(anIssue, UserRoleHelper.PoliticalCandidateRoles(), PersonFilter.PoliticalCandidates);
+            IEnumerable<IssueReplyModel> myPeopleReplys = new List<IssueReplyModel>();
+            IEnumerable<IssueReplyModel> myPoliticianReplys = new List<IssueReplyModel>();
+            IEnumerable<IssueReplyModel> myPoliticalCandidateReplys = new List<IssueReplyModel>();
+
+            if (myViewingUser == null) {
+                myPeopleReplys = theRepository.GetReplysToIssue(anIssue, UserRoleHelper.RegisteredRoles(), PersonFilter.People);
+                myPoliticianReplys = theRepository.GetReplysToIssue(anIssue, UserRoleHelper.PoliticianRoles(), PersonFilter.Politicians);
+                myPoliticalCandidateReplys = theRepository.GetReplysToIssue(anIssue, UserRoleHelper.PoliticalCandidateRoles(), PersonFilter.PoliticalCandidates);
+            } else {
+                myPeopleReplys = theRepository.GetReplysToIssue(myViewingUser, anIssue, UserRoleHelper.RegisteredRoles(), PersonFilter.People);
+                myPoliticianReplys = theRepository.GetReplysToIssue(myViewingUser, anIssue, UserRoleHelper.PoliticianRoles(), PersonFilter.Politicians);
+                myPoliticalCandidateReplys = theRepository.GetReplysToIssue(myViewingUser, anIssue, UserRoleHelper.PoliticalCandidateRoles(), PersonFilter.PoliticalCandidates);
+            }
 
             List<IssueReplyModel> myMerged = new List<IssueReplyModel>();
             myMerged.AddRange(myPeopleReplys);

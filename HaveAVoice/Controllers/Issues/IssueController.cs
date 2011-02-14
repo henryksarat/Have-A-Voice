@@ -127,7 +127,13 @@ namespace HaveAVoice.Controllers.Issues {
         public ActionResult Details(string title) {
             try {
                 title = title.Replace('-', ' ');
-                IssueModel myIssueModel = theService.CreateIssueModel(title);
+                IssueModel myIssueModel;
+
+                if (IsLoggedIn()) {
+                    myIssueModel = theService.CreateIssueModel(GetUserInformatonModel().Details,title);
+                } else {
+                    myIssueModel = theService.CreateIssueModel(title);
+                }
 
                 if (myIssueModel == null) {
                     return SendToErrorPage(ISSUE_DOESNT_EXIST);

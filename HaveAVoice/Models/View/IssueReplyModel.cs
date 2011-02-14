@@ -18,6 +18,8 @@ namespace HaveAVoice.Models.View {
         public Disposition Disposition { get; private set; }
         public IssueStanceFilter IssueStanceFilter { get; private set; }
         public PersonFilter PersonFilter { get; private set; }
+        public int TotalAgrees { get; set; }
+        public int TotalDisagrees { get; set; }
 
         public int TempDispositionHolder {
             get {

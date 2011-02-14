@@ -7,6 +7,7 @@ using HaveAVoice.Models;
 using HaveAVoice.Models.View;
 using HaveAVoice.Services.Helpers;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HaveAVoice.Helpers.UI {
     public class IssueHelper {
@@ -164,19 +165,28 @@ namespace HaveAVoice.Helpers.UI {
             
             if(!anIssueReply.HasDisposition && HAVUserInformationFactory.IsLoggedIn()) {
                 var myLikeDisposition = new TagBuilder("a");
-                //myLikeDisposition.MergeAttribute("href", LinkHelper.AgreeIssueReply(anIssueReply.Id, anIssueReply.Issue.Id));
+                myLikeDisposition.MergeAttribute("href", LinkHelper.AgreeIssueReply(anIssueReply.Id, anIssueReply.Issue.Id, SiteSection.Issue, anIssueReply.Issue.Id));
                 myLikeDisposition.MergeAttribute("class", "like");
-                myLikeDisposition.InnerHtml += "Like";
+                myLikeDisposition.InnerHtml += "Agree (" + anIssueReply.TotalAgrees + ")";
                 likeDiv.InnerHtml +=myLikeDisposition.ToString();
 
                 var myDislikeDisposition = new TagBuilder("a");
-                //myDislikeDisposition.MergeAttribute("href", LinkHelper.DisagreeIssueReply(anIssueReply.Id, anIssueReply.Issue.Id));
+                myDislikeDisposition.MergeAttribute("href", LinkHelper.DisagreeIssueReply(anIssueReply.Id, anIssueReply.Issue.Id, SiteSection.Issue, anIssueReply.Issue.Id));
                 myDislikeDisposition.MergeAttribute("class", "dislike");
-                myDislikeDisposition.InnerHtml += "Dislike";
+                myDislikeDisposition.InnerHtml += "Disagree (" + anIssueReply.TotalDisagrees + ")";
                 dislikeDiv.InnerHtml +=myDislikeDisposition.ToString();
             } else {
-            	likeDiv.InnerHtml += "&nbsp;";
-            	dislikeDiv.InnerHtml += "&nbsp;";
+                var myLikeSpan = new TagBuilder("span");
+                myLikeSpan.MergeAttribute("class", "like");
+                string mySingleOrPlural = anIssueReply.TotalAgrees == 1 ? " Person Agrees" : " People Agree";
+                myLikeSpan.InnerHtml = anIssueReply.TotalAgrees.ToString() + mySingleOrPlural;
+                likeDiv.InnerHtml += myLikeSpan.ToString();
+
+                var myDislikeSpan = new TagBuilder("span");
+                myDislikeSpan.MergeAttribute("class", "dislike");
+                mySingleOrPlural = anIssueReply.TotalDisagrees == 1 ? " Person Disagrees" : " People Disagree";
+                myDislikeSpan.InnerHtml = anIssueReply.TotalDisagrees.ToString() + mySingleOrPlural;
+                dislikeDiv.InnerHtml += myDislikeSpan.ToString();
             }
 
 			optionsDiv.InnerHtml += likeDiv.ToString();

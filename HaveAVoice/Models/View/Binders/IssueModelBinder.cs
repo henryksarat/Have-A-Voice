@@ -16,7 +16,10 @@ namespace HaveAVoice.Models.View {
             IHAVIssueService issueService = new HAVIssueService(new ModelStateWrapper(null));
             User myUser = HAVUserInformationFactory.GetUserInformation().Details;
 
-            int issueId = Int32.Parse(BinderHelper.GetA(aBindingContext, "id"));
+            int issueId = Int32.Parse(BinderHelper.GetA(aBindingContext, "IssueId"));
+            int myTotalAgrees = Int32.Parse(BinderHelper.GetA(aBindingContext, "TotalAgrees"));
+            int myTotalDisagrees = Int32.Parse(BinderHelper.GetA(aBindingContext, "TotalDisagrees"));
+
             string reply = BinderHelper.GetA(aBindingContext, "Reply");
 
             Issue issue = issueService.GetIssue(issueId);
@@ -45,6 +48,8 @@ namespace HaveAVoice.Models.View {
             issueModel.Comment = reply;
             issueModel.Anonymous = anonymous;
             issueModel.Disposition = dispotion;
+            issueModel.TotalAgrees = myTotalAgrees;
+            issueModel.TotalDisagrees = myTotalDisagrees;
 
             return issueModel;
         }

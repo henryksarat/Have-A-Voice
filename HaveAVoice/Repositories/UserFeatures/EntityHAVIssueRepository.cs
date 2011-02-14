@@ -82,7 +82,9 @@ namespace HaveAVoice.Repositories.UserFeatures {
                         Anonymous = ir.Anonymous,
                         HasDisposition = (i == null && ir.UserId != aUser.Id) ? false : true,
                         TempDispositionHolder = ir.Disposition,
-                        TempPersonFilterHolder = (int) aFilter
+                        TempPersonFilterHolder = (int)aFilter,
+                        TotalAgrees = (from d in ir.IssueReplyDispositions where ir.Disposition == (int)IssueStanceFilter.Agree select d).Count<IssueReplyDisposition>(),
+                        TotalDisagrees = (from d in ir.IssueReplyDispositions where ir.Disposition == (int)IssueStanceFilter.Disagree select d).Count<IssueReplyDisposition>()
 
                     }).ToList<IssueReplyModel>();
         }
@@ -108,8 +110,9 @@ namespace HaveAVoice.Repositories.UserFeatures {
                         Anonymous = ir.Anonymous,
                         HasDisposition = false,
                         TempDispositionHolder = ir.Disposition,
-                        TempPersonFilterHolder = (int)aFilter
-
+                        TempPersonFilterHolder = (int)aFilter,
+                        TotalAgrees = (from d in ir.IssueReplyDispositions where ir.Disposition == (int)IssueStanceFilter.Agree select d).Count<IssueReplyDisposition>(),
+                        TotalDisagrees = (from d in ir.IssueReplyDispositions where ir.Disposition == (int)IssueStanceFilter.Disagree select d).Count<IssueReplyDisposition>()
                     }).ToList<IssueReplyModel>();
         }
 
