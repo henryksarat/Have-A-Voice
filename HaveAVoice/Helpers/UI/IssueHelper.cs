@@ -447,16 +447,16 @@ namespace HaveAVoice.Helpers.UI {
 
 				var issueLink = new TagBuilder("a");
 				issueLink.MergeAttribute("class", "iss-fnt");
-				issueLink.MergeAttribute("href", "#")
+				issueLink.MergeAttribute("href", LinkHelper.IssueUrl(myIssue.Issue.Title));
 				issueLink.InnerHtml = myIssue.Issue.Title;
                 myContextDiv.InnerHtml += issueLink.ToString();
                 myContextDiv.InnerHtml += "<br />";
-                myContextDiv.InnerHtml +-= myIssue.Issue.Description;
+                myContextDiv.InnerHtml += myIssue.Issue.Description + "  ";
                 
                 var readMore = new TagBuilder("a");
                 readMore.MergeAttribute("class", "read-more");
-                readMore.MergeAttribute("href", "#");
-                readMore.InnerHtml += "Read More &raquo;"
+                readMore.MergeAttribute("href", LinkHelper.IssueUrl(myIssue.Issue.Title));
+                readMore.InnerHtml += "Read More and particiapte &raquo;";
                 myContextDiv.InnerHtml += readMore.ToString();
 
                 var mySpan = new TagBuilder("span");

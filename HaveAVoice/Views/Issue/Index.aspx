@@ -40,7 +40,7 @@
 		    	</div>
 		    	<div class="push-1 col-17 issue">
 		    		<div class="p-a5">
-			    		<h1><a href="<%= LinkHelper.IssueUrl(Model.Issue.Title) %>"><%= item.Issue.Title %></a></h1>
+			    		<h1><a href="<%= LinkHelper.IssueUrl(item.Issue.Title) %>"><%= item.Issue.Title %></a></h1>
 						<br />
 			    		<%= item.Issue.Description %>
 			    		<div class="clear">&nbsp;</div>

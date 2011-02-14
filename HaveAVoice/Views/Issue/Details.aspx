@@ -72,6 +72,14 @@
 		</div>
 		<div class="clear">&nbsp;</div>
 
+        <div class="push-21 col-2">
+			<div class="p-a5">
+               <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="haveavoice_">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+           </div>
+           <div class="clear">&nbsp;</div>
+        </div>
+
+
 	    <% using (Html.BeginForm()) { %>
             
 			<% UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation(); %>
@@ -99,7 +107,15 @@
 						<h1 class="m-btm10"><%= Html.Encode(Model.Issue.Title) %></h1>
 						<%= Html.Encode(Model.Issue.Description) %>
 						<br />
-						<a class="name-2" href="#">User Name</a>
+
+                        <% string myName = NameHelper.FullName(Model.Issue.User); %>
+                        <% string myIssueProfile = LinkHelper.Profile(Model.Issue.User); %>
+                        <% if(!myIsAllowed) { %>
+                            <% myName = HAVConstants.ANONYMOUS; %>
+                            <% myIssueProfile = "#"; %>
+                        <% } %>
+						<a class="name-2" href="<%= myIssueProfile %>"><%= myName %></a>
+
 						<span class="loc c-white"><%= Model.Issue.User.City %>, <%= Model.Issue.User.State %></span>
 		
 						<div class="clear">&nbsp;</div>
