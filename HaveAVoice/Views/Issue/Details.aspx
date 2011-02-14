@@ -98,6 +98,9 @@
 						<span class="speak-lft">&nbsp;</span>
 						<h1 class="m-btm10"><%= Html.Encode(Model.Issue.Title) %></h1>
 						<%= Html.Encode(Model.Issue.Description) %>
+						<br />
+						<a class="name-2" href="#">User Name</a>
+						<span class="loc c-white"><%= Model.Issue.User.City %>, <%= Model.Issue.User.State %></span>
 		
 						<div class="clear">&nbsp;</div>
 						<div class="col-15 p-v10 options">
@@ -153,7 +156,9 @@
 				<div class="reply">
 					<div class="row">
 						<div class="m-lft col-20 comment push-4">
-							You must be logged in to reply.
+							<div class="msg-2">
+								You must be logged in to reply.
+							</div>
 							<div class="clear">&nbsp;</div>
 						</div>
 					</div>

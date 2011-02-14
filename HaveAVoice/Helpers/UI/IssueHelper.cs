@@ -433,8 +433,8 @@ namespace HaveAVoice.Helpers.UI {
                 var myDivImageWrapper = new TagBuilder("div");
                 myDivImageWrapper.MergeAttribute("class", "col-2 center m-rgt10");
                 myDivImageWrapper.InnerHtml = "<img src=\"" + myAvatarURL + "\" alt=\"" + myName + "\" class=\"profile\"  />";
+                myDivImageWrapper.InnerHtml += myClearDiv.ToString();
                 myOuterDiv.InnerHtml = myDivImageWrapper.ToString();
-                myOuterDiv.InnerHtml += myClearDiv.ToString();
 
                 var myContextDiv = new TagBuilder("div");
                 myContextDiv.MergeAttribute("class", "col-9");
@@ -445,7 +445,19 @@ namespace HaveAVoice.Helpers.UI {
                 myUserlink.InnerHtml = myName;
                 myContextDiv.InnerHtml += myUserlink.ToString();
 
-                myContextDiv.InnerHtml += myIssue.Issue.Title;
+				var issueLink = new TagBuilder("a");
+				issueLink.MergeAttribute("class", "iss-fnt");
+				issueLink.MergeAttribute("href", "#")
+				issueLink.InnerHtml = myIssue.Issue.Title;
+                myContextDiv.InnerHtml += issueLink.ToString();
+                myContextDiv.InnerHtml += "<br />";
+                myContextDiv.InnerHtml +-= myIssue.Issue.Description;
+                
+                var readMore = new TagBuilder("a");
+                readMore.MergeAttribute("class", "read-more");
+                readMore.MergeAttribute("href", "#");
+                readMore.InnerHtml += "Read More &raquo;"
+                myContextDiv.InnerHtml += readMore.ToString();
 
                 var mySpan = new TagBuilder("span");
                 mySpan.MergeAttribute("class", "profile");
