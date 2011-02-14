@@ -40,9 +40,11 @@ namespace HaveAVoice.Repositories {
         }
 
         public void ResetConnection() {
-            theEntities.Dispose();
-            theEntities = null;
-            theEntities = new HaveAVoiceEntities();
+            if (theEntities != null) {
+                theEntities.Dispose();
+                theEntities = null;
+                theEntities = new HaveAVoiceEntities();
+            }
         }
     }
 }

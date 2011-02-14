@@ -58,7 +58,7 @@ namespace HaveAVoice.Controllers.Issues {
 
             IEnumerable<IssueWithDispositionModel> myIssues;
             try {
-                myIssues = theService.GetIssues(GetUserInformaton());
+                myIssues = theService.GetIssues(GetUserInformaton()).OrderByDescending(i => i.Issue.DateTimeStamp);
             } catch (Exception e) {
                 LogError(e, GET_LATEST_ISSUES_ERROR);
                 return SendToErrorPage(GET_LATEST_ISSUES_ERROR);
@@ -92,9 +92,10 @@ namespace HaveAVoice.Controllers.Issues {
             UserInformationModel myUser = GetUserInformatonModel();
 
             try {
+
                 if (theService.CreateIssue(myUser, anIssueWrapper.ToModel())) {
                     TempData["Message"] = MessageHelper.SuccessMessage(POST_SUCCESS);
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Details", new { title = anIssueWrapper.Title.Replace(' ', '-') });
                 }
             } catch (Exception e) {
                 LogError(e, CREATING_ISSUE_ERROR);
@@ -103,9 +104,8 @@ namespace HaveAVoice.Controllers.Issues {
             return View("Create", anIssueWrapper);
         }
 
-        [RequiredRouteValueAttribute.RequireRouteValues(new[] { "id" })]
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Details(int id) {
+        public ActionResult RedirectToDetails(int id) {
             Issue myIssue;
             try {
                 myIssue = theService.GetIssue(id);
@@ -122,7 +122,6 @@ namespace HaveAVoice.Controllers.Issues {
             }
         }
         
-        [RequiredRouteValueAttribute.RequireRouteValues(new[] { "title" })]
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Details(string title) {
             try {
@@ -159,7 +158,7 @@ namespace HaveAVoice.Controllers.Issues {
             try {
                 if (theService.CreateIssueReply(myUserInformation, issueModel)) {
                     TempData["Message"] = MessageHelper.SuccessMessage(REPLY_SUCCESS);
-                    return RedirectToAction("Details", new { id = issueModel.Issue.Id });
+                    return RedirectToAction("RedirectToDetails", new { id = issueModel.Issue.Id });
                 }
             } catch (Exception e) {
                 LogError(e, CREATING_COMMENT_ERROR);
@@ -194,7 +193,7 @@ namespace HaveAVoice.Controllers.Issues {
             } else if (section == SiteSection.MyIssueActivity) {
                 return RedirectToAction("IssueActivity", "Profile");
             } else {
-                return RedirectToAction("Details", "Issue", new { id = issueId });
+                return RedirectToAction("RedirectToDetails", "Issue", new { id = issueId });
             }
         }
                                             
