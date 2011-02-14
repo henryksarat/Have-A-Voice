@@ -72,13 +72,17 @@
 		</div>
 		<div class="clear">&nbsp;</div>
 
-        <div class="push-21 col-2">
+        <div class="push-21 col-1">
 			<div class="p-a5">
-               <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="haveavoice_">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+                <a href="http://twitter.com/share" class="twitter-share-button" data-count="none" data-via="haveavoice_">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
            </div>
-           <div class="clear">&nbsp;</div>
         </div>
 
+        <div class="push-22 col-1">
+			<div class="p-a5">
+                <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="<%= LinkHelper.IssueUrl(Model.Issue.Title) %>" layout="button_count" show_faces="false" width="90" font="arial"></fb:like>
+           </div>
+        </div>
 
 	    <% using (Html.BeginForm()) { %>
             
