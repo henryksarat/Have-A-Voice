@@ -385,10 +385,12 @@ a.filterSelected.dislike { background: #c94020; font-weight: bold; }
 .stats { background: #b6dde7; color: #4b4b4b; /* min-height: 120px; */ border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
 .stats h4 { color: #fff; font-size: 16px; }
 
-.agree .comment { color: #fff; position: relative; background: #426da6; /* min-height: 120px; */ border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
-.agree .comment .speak-lft { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #426da6 transparent transparent transparent; position: absolute; left: -10px; top: 10px; }
+.agree .comment { color: #fff; position: relative; background: #7BACE4; /* min-height: 120px; */ border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+.agree .comment .speak-lft { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #7BACE4 transparent transparent transparent; position: absolute; left: -10px; top: 10px; }
 .disagree .comment { color: #fff; position: relative; background: #F08080; /* min-height: 120px; */ border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
 .disagree .speak-rgt { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #F08080 transparent transparent transparent; position: absolute; right: -10px; top: 10px; }
+
+.agree .comment a.name, .agree .comment a.name:link, .agree .comment a.name:visited, .disagree .comment a.name, .disagree .comment a.name:link, .disagree .comment a.name:visited { color: #fff; }
 
 /* .agree img.profile, .disagree img.profile { max-height: 120px; max-width: 120px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; } */
 
