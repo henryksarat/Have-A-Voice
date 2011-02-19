@@ -28,15 +28,7 @@ namespace HaveAVoice.Services.Helpers {
             IEnumerable<Friend> myTargetUserFriends = aPrivacyUser.Friends.ToList<Friend>();
 
             if (aPrivacyAction == PrivacyAction.DisplayProfile) {
-                if (aViewingUser == null) {
-                    if (HasPrivacySetting(myTargetUsersSettings, HAVPrivacySetting.Display_Profile_To_Not_Logged_In)) {
-                        myIsAllowed = true;
-                    } else {
-                        myIsAllowed = false;
-                    }
-                }
-
-                if (aViewingUser != null && !FriendHelper.IsFriend(aPrivacyUser, aViewingUser.Details)) {
+                if (aViewingUser == null || (aViewingUser != null && !FriendHelper.IsFriend(aPrivacyUser, aViewingUser.Details))) {
                     if (HasPrivacySetting(myTargetUsersSettings, HAVPrivacySetting.Display_Profile_To_Not_Friend)) {
                         myIsAllowed = true;
                     } else {

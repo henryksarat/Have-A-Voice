@@ -18,7 +18,7 @@
         <% TempData[HAVConstants.FILTER_TEMP_DATA] = myFilter; %>
 
     	<div class="push-1 col-4 center p-t5 p-b5 t-tab btint-6">
-    		<%=Html.ActionLink("ISSUES", "Index", null, new { @class = "issue-create" }) %>
+            <a class="issue-create" href="/Issue/Index">ISSUES</a>
     		<div class="clear">&nbsp;</div>
     	</div>
     	<div class="push-1 col-4 center p-t5 p-b5 t-tab btint-6">
