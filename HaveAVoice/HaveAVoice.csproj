@@ -407,6 +407,7 @@
     <Content Include="Content\jquery-ui-1.7.2.custom.min.js" />
     <Content Include="Content\reset.css" />
     <Content Include="Content\tempjquery.js" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Photos\no_profile_picture.jpg" />
     <Content Include="Views\Admin\Index.aspx" />
