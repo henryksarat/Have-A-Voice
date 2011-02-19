@@ -75,8 +75,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
                                                    }).OrderByDescending(b2 => b2.WeightedAverage).ToList<WeightModelIssue>();
 
                 return (from b in myWeightModel
-                        select new IssueWithDispositionModel {
-                            Issue = b.Issue,
+                        select new IssueWithDispositionModel(b.Issue) {
                             HasDisposition = true
                         }).ToList<IssueWithDispositionModel>();
 

@@ -166,9 +166,15 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     .Where(d2 => d2.User.Id == aUser.Id)
                     .FirstOrDefault()
                     where i.Deleted == false
-                    select new IssueWithDispositionModel {
+                    select new IssueWithDispositionModel() {
                         Issue = i,
-                        HasDisposition = (d == null ? false : true)
+                        HasDisposition = (d == null ? false : true),
+                        TotalAgrees = (from d2 in i.IssueDispositions
+                                       where d2.Disposition == (int)Disposition.Like
+                                       select d2).Count<IssueDisposition>(),
+                        TotalDisagrees = (from d2 in i.IssueDispositions
+                                       where d2.Disposition == (int)Disposition.Dislike
+                                       select d2).Count<IssueDisposition>(), 
                     }).ToList<IssueWithDispositionModel>();
         }
 

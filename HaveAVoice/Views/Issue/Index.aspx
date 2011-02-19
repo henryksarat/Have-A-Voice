@@ -34,8 +34,14 @@
 
 	    <% foreach (var item in Model) { %>
 	    	<div class="issue-container m-btm10">
+                <% UserInformationModel myUserModel = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation();  %>
+                <% bool myIsAllowedToView = PrivacyHelper.IsAllowed(item.Issue.User, HaveAVoice.Helpers.Enums.PrivacyAction.DisplayProfile, myUserModel); %>
 		    	<div class="push-1 col-2">
-		    		<img src="<%= PhotoHelper.ProfilePicture(item.Issue.User) %>" alt="<%= NameHelper.FullName(item.Issue.User) %>" class="profile" />
+                    <% if (myIsAllowedToView) { %>
+		    		    <img src="<%= PhotoHelper.ProfilePicture(item.Issue.User) %>" alt="<%= NameHelper.FullName(item.Issue.User) %>" class="profile" />
+                    <% } else { %>
+                        <img src="<%= HAVConstants.ANONYMOUS_PICTURE_URL %>" alt="Anonymous" class="profile" />
+                    <% } %>
 		    		<div class="clear">&nbsp;</div>
 		    	</div>
 		    	<div class="push-1 col-17 issue">
@@ -59,16 +65,38 @@
 		            
 		            <% if (!item.HasDisposition) { %>
 		            	<div class="push-7 col-3 center">
-		            		<a href="<%= LinkHelper.AgreeIssue(item.Issue.Id, SiteSection.Issue, item.Issue.Id) %>" class="like">Agree</a>
+		            		<a href="<%= LinkHelper.AgreeIssue(item.Issue.Id, SiteSection.Issue, item.Issue.Id) %>" class="like">Agree (<%= item.TotalAgrees %>)</a>
 		            		<div class="clear">&nbsp;</div>
 		            	</div>
 		                <div class="push-7 col-3 center">
-		                	<a href="<%= LinkHelper.AgreeIssue(item.Issue.Id, SiteSection.Issue, item.Issue.Id) %>" class="dislike">Disagree</a>
+		                	<a href="<%= LinkHelper.AgreeIssue(item.Issue.Id, SiteSection.Issue, item.Issue.Id) %>" class="dislike">Disagree (<%= item.TotalDisagrees %>)</a>
 		                	<div class="clear">&nbsp;</div>
 		                </div>
 		            <% } else { %>
-		            	<div class="push-7 col-6">&nbsp;</div>
+		            	<div class="push-7 col-3 center">
+							<span class="like">
+								<%= item.TotalAgrees %>
+								<% if (item.TotalAgrees == 1) { %>
+									Person Agrees
+								<% } else { %>
+									People Agree
+								<% } %>
+							</span>
+                            <div class="clear">&nbsp;</div>
+                        </div>
+                        <div class="push-7 col-3 center">
+							<span class="dislike">
+								<%= item.TotalDisagrees%>
+								<% if (item.TotalDisagrees == 1) { %>
+									Person Disagrees
+								<% } else { %>
+									People Disagree 
+								<% } %>
+							</span>
+                            <div class="clear">&nbsp;</div>
+                        </div>
 		            <% } %>
+                    <div class="clear">&nbsp;</div>
 		    	</div>
 				
 				<div class="push-1 col-3">
