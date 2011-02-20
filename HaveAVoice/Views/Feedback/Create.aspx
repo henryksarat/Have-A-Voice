@@ -1,5 +1,4 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<dynamic>" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Provide Us Feedback
 </asp:Content>
@@ -19,7 +18,7 @@
 				<div class="m-lft col-14 comment">
 					<span class="speak-lft">&nbsp;</span>
 					<div class="p-a10">
-						<%= Html.TextArea("Feedback", Model.Message, 5, 63, new { resize = "none" }) %>
+						<%= Html.TextArea("Feedback", (string)Model.Message, 5, 63, new { resize = "none" }) %>
 						<span class="req">
 							<%= Html.ValidationMessage("Feedback", "*") %>
 						</span>
@@ -39,3 +38,4 @@
 		</div>
     <% } %>
 </asp:Content>
+

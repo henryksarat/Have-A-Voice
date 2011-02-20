@@ -35,7 +35,7 @@
 						<div class="clear">&nbsp;</div>
 					</div>
 					<div class="col-4">
-						<%= Html.Textbox("Email") %>
+						<%= Html.TextBox("Email") %>
 						<div class="clear">&nbsp;</div>
 					</div>
 					<div class="col-14 m-lft">

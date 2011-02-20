@@ -485,7 +485,6 @@
     <Content Include="Views\User\Edit.aspx" />
     <Content Include="Views\Password\Request.aspx" />
     <Content Include="Views\Profile\Show.aspx" />
-    <Content Include="Views\Photos\Edit.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

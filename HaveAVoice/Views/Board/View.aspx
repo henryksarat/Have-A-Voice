@@ -101,7 +101,7 @@
 		
     <% using (Html.BeginForm()) { %>
         <p>
-            <%= Model.Model.Board.Message %>
+            <%= Model.Model.Board.Message%>
         </p>
 
         <% foreach (BoardReply reply in Model.Model.BoardReplies) { %>
@@ -115,7 +115,7 @@
 						<span class="speak-lft">&nbsp;</span>
 						<div class="p-a10">
 							<a class="name" href="#">Eva Angelina</a>
-							<%= reply.Message %>
+							<%= reply.Message%>
 							<div class="clear">&nbsp;</div>
 	
 							<div class="spacer-10">&nbsp;</div>
@@ -125,12 +125,14 @@
 								<div class="col-6 center">
 					                <% UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation(); %>
 					                <% if (reply.User.Id == myUserInfo.Details.Id
-					                       || HAVPermissionHelper.AllowedToPerformAction(myUserInfo, HAVPermission.Edit_Any_Board_Reply)) { %>
+                                           || HAVPermissionHelper.AllowedToPerformAction(myUserInfo, HAVPermission.Edit_Any_Board_Reply))
+                        { %>
 					                    <%= Html.ActionLink("Edit", "Edit", "BoardReply", new { id = reply.Id }, null)%>
 					                <% } %>
 					                <% if (reply.User.Id == myUserInfo.Details.Id
-					                       || Model.Model.Board.OwnerUserId == myUserInfo.Details.Id
-					                       || HAVPermissionHelper.AllowedToPerformAction(myUserInfo, HAVPermission.Edit_Any_Board_Reply)) { %>
+                                           || Model.Model.Board.OwnerUserId == myUserInfo.Details.Id
+                                           || HAVPermissionHelper.AllowedToPerformAction(myUserInfo, HAVPermission.Edit_Any_Board_Reply))
+                        { %>
 					                    <%= Html.ActionLink("Delete", "Delete", "BoardReply", new { boardId = Model.Model.Board.Id, boardReplyId = reply.Id }, null)%>
 					                <% } %>
 									&nbsp;
@@ -163,5 +165,7 @@
 				<div class="clear">&nbsp;</div>
 			</div>
 	    <% } %>
+
+    <% } %>
 	</div>
 </asp:Content>

@@ -21,7 +21,7 @@
 				<div class="m-lft col-14 comment">
 					<span class="speak-lft">&nbsp;</span>
 					<div class="p-a10">
-						<%= Html.TextArea("Body", Model.Message, 5, 63, new { resize = "none" }) %>
+						<%= Html.TextArea("Body", Model.Body, 5, 63, new { resize = "none" }) %>
 						<span class="req">
 							<%= Html.ValidationMessage("Body", "*") %>
 						</span>
