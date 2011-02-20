@@ -94,6 +94,7 @@
     <Compile Include="Controllers\Issues\IssueReplyController.cs" />
     <Compile Include="Controllers\Users\NotificationController.cs" />
     <Compile Include="Controllers\Photos\PhotosController.cs" />
+    <Compile Include="Controllers\Users\SearchController.cs" />
     <Compile Include="Controllers\Users\UserPrivacySettingsController.cs" />
     <Compile Include="Helpers\NameHelper.cs" />
     <Compile Include="Helpers\Enums\FeedItem.cs" />
@@ -389,6 +390,7 @@
     <Content Include="Content\images\search.png" />
     <Content Include="Content\images\settings.png" />
     <Content Include="Content\images\star.png" />
+    <Content Include="Content\images\twitter.png" />
     <Content Include="Content\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\images\ui-bg_glass_55_fbf9ee_1x400.png" />

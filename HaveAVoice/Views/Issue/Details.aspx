@@ -90,7 +90,6 @@
 	    <% using (Html.BeginForm()) { %>
             
 			<% UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation(); %>
-            <% bool myIsAllowed = PrivacyHelper.IsAllowed(Model.Issue.User, PrivacyAction.DisplayProfile); %>
 	        <% if (myUserInformationModel != null) { %>
                 <%= Html.Hidden("City", myUserInformationModel.Details.City)%>
 	            <%= Html.Hidden("State", myUserInformationModel.Details.State)%>
@@ -105,11 +104,7 @@
 	        
 	        <div class="m-btm10">
 		        <div class="push-2 col-3 center issue-profile">
-                    <% if (myIsAllowed) { %>
-					    <img src="<%= PhotoHelper.ProfilePicture(Model.Issue.User) %>" alt="<%= NameHelper.FullName(Model.Issue.User) %>" class="profile lg" />
-                    <% } else { %>
-                        <img src="<%= HAVConstants.ANONYMOUS_PICTURE_URL %>" alt="<%= HAVConstants.ANONYMOUS %>" class="profile lg" />
-                    <% } %>
+					<img src="<%= PhotoHelper.ProfilePicture(Model.Issue.User) %>" alt="<%= NameHelper.FullName(Model.Issue.User) %>" class="profile lg" />
 				</div>
 				<div class="push-2 m-lft col-16 m-rgt comment">
 					<div class="p-a10">
@@ -120,10 +115,6 @@
 
                         <% string myName = NameHelper.FullName(Model.Issue.User); %>
                         <% string myIssueProfile = LinkHelper.Profile(Model.Issue.User); %>
-                        <% if(!myIsAllowed) { %>
-                            <% myName = HAVConstants.ANONYMOUS; %>
-                            <% myIssueProfile = "#"; %>
-                        <% } %>
 						<a class="name-2" href="<%= myIssueProfile %>"><%= myName %></a>
 
 						<span class="loc c-white"><%= Model.Issue.User.City %>, <%= Model.Issue.User.State %></span>

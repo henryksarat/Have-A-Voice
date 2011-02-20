@@ -33,17 +33,9 @@
 		</div>
 
 	    <% foreach (var item in Model) { %>
-	    	<% HaveAVoice.Models.View.UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation(); %>
-	    	<% UserInformationModel myUserModel = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation(); %>
-
 	    	<div class="issue-container m-btm10">
-                <% bool myIsAllowedToView = PrivacyHelper.IsAllowed(item.Issue.User, HaveAVoice.Helpers.Enums.PrivacyAction.DisplayProfile, myUserModel); %>
 		    	<div class="push-1 col-2">
-                    <% if (myIsAllowedToView) { %>
-		    		    <img src="<%= PhotoHelper.ProfilePicture(item.Issue.User) %>" alt="<%= NameHelper.FullName(item.Issue.User) %>" class="profile" />
-                    <% } else { %>
-                        <img src="<%= HAVConstants.ANONYMOUS_PICTURE_URL %>" alt="Anonymous" class="profile" />
-                    <% } %>
+		    		<img src="<%= PhotoHelper.ProfilePicture(item.Issue.User) %>" alt="<%= NameHelper.FullName(item.Issue.User) %>" class="profile" />
 		    		<div class="clear">&nbsp;</div>
 		    	</div>
 		    	<div class="push-1 col-17 m-lft issue m-rgt">
@@ -52,12 +44,17 @@
 						<br />
 			    		<%= item.Issue.Description %>
 			    		<br />
+                        <% string myName = NameHelper.FullName(item.Issue.User); %>
+                        <% string myIssueProfile = LinkHelper.Profile(item.Issue.User); %>
+                        <br />
+						Raised by <a class="name-2" href="<%= myIssueProfile %>"><%= myName %></a>
+                        From
 			    		<span class="loc"><%= item.Issue.User.City %>, <%= item.Issue.User.State %></span>
 			    		<div class="clear">&nbsp;</div>
 		    		</div>
 		    		
                     <div class="p-a5">
-			            <% if (item.Issue.User.Id == myUserInfo.Details.Id && HAVPermissionHelper.HasPermission(myUserInfo, HAVPermission.Delete_Issue)) { %>
+			            <% if (false) { %>
 			            	<div class="push-4 col-3 center">
 			            		<%= Html.ActionLink("Delete", "DeleteIssue", new { deletingUserId = HAVUserInformationFactory.GetUserInformation().Details.Id, issueId = item.Issue.Id}, new { @class = "delete" }) %>
 			            		<div class="clear">&nbsp;</div>
@@ -68,7 +65,11 @@
 			            
 			            <div class="push-4 col-3 center">
 			            	<span class="color-1">
-			            		%%TOTAL%% Replies
+			            		<% if(item.Issue.IssueReplys.Count == 1) { %> 
+                                    <%= item.Issue.IssueReplys.Count %> Reply
+                                <%} else { %>
+                                    <%= item.Issue.IssueReplys.Count %> Replies
+                                <% } %>
 			            	</span>
 			            </div>
 			            
