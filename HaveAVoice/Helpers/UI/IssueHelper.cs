@@ -427,11 +427,11 @@ namespace HaveAVoice.Helpers.UI {
                 string myAvatarURL = PhotoHelper.ConstructUrl(HAVConstants.NO_PROFILE_PICTURE_IMAGE);
                 string myName = "Anonymous";
                 string myProfile = "/Authentication/Login";
-                if (PrivacyHelper.IsAllowed(myIssue.Issue.User, PrivacyAction.DisplayProfile)) {
+                //if (PrivacyHelper.IsAllowed(myIssue.Issue.User, PrivacyAction.DisplayProfile)) {
                     myAvatarURL = PhotoHelper.ProfilePicture(myIssue.Issue.User);
                     myName = NameHelper.FullName(myIssue.Issue.User);
                     myProfile = LinkHelper.Profile(myIssue.Issue.User);
-                }
+                //}
                 
                 var myClearDiv = new TagBuilder("div");
                 myClearDiv.MergeAttribute("class", "clear");
