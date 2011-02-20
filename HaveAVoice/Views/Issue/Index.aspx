@@ -33,8 +33,10 @@
 		</div>
 
 	    <% foreach (var item in Model) { %>
+	    	<% HaveAVoice.Models.View.UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation(); %>
+	    	<% UserInformationModel myUserModel = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation(); %>
+
 	    	<div class="issue-container m-btm10">
-                <% UserInformationModel myUserModel = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation();  %>
                 <% bool myIsAllowedToView = PrivacyHelper.IsAllowed(item.Issue.User, HaveAVoice.Helpers.Enums.PrivacyAction.DisplayProfile, myUserModel); %>
 		    	<div class="push-1 col-2">
                     <% if (myIsAllowedToView) { %>
@@ -44,59 +46,67 @@
                     <% } %>
 		    		<div class="clear">&nbsp;</div>
 		    	</div>
-		    	<div class="push-1 col-17 issue">
+		    	<div class="push-1 col-17 m-lft issue m-rgt">
 		    		<div class="p-a5">
 			    		<h1><a href="<%= LinkHelper.IssueUrl(item.Issue.Title) %>"><%= item.Issue.Title %></a></h1>
 						<br />
 			    		<%= item.Issue.Description %>
+			    		<br />
+			    		<span class="loc"><%= item.Issue.User.City %>, <%= item.Issue.User.State %></span>
 			    		<div class="clear">&nbsp;</div>
 		    		</div>
-		    		<div class="clear">&nbsp;</div>
 		    		
-                    <% HaveAVoice.Models.View.UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation();  %>
-		            <% if (item.Issue.User.Id == myUserInfo.Details.Id && HAVPermissionHelper.HasPermission(myUserInfo, HAVPermission.Delete_Issue)) { %>
-		            	<div class="push-7 col-3 center">
-		            		<%= Html.ActionLink("Delete", "DeleteIssue", new { deletingUserId = HAVUserInformationFactory.GetUserInformation().Details.Id, issueId = item.Issue.Id}, new { @class = "delete" }) %>
-		            		<div class="clear">&nbsp;</div>
-		            	</div>
-		            <% } else { %>
-		            	<div class="push-7 col-3">&nbsp;</div>
-		            <% } %>
-		            
-		            <% if (!item.HasDisposition) { %>
-		            	<div class="push-7 col-3 center">
-		            		<a href="<%= LinkHelper.AgreeIssue(item.Issue.Id, SiteSection.Issue, item.Issue.Id) %>" class="like">Agree (<%= item.TotalAgrees %>)</a>
-		            		<div class="clear">&nbsp;</div>
-		            	</div>
-		                <div class="push-7 col-3 center">
-		                	<a href="<%= LinkHelper.AgreeIssue(item.Issue.Id, SiteSection.Issue, item.Issue.Id) %>" class="dislike">Disagree (<%= item.TotalDisagrees %>)</a>
-		                	<div class="clear">&nbsp;</div>
-		                </div>
-		            <% } else { %>
-		            	<div class="push-7 col-3 center">
-							<span class="like">
-								<%= item.TotalAgrees %>
-								<% if (item.TotalAgrees == 1) { %>
-									Person Agrees
-								<% } else { %>
-									People Agree
-								<% } %>
-							</span>
-                            <div class="clear">&nbsp;</div>
-                        </div>
-                        <div class="push-7 col-3 center">
-							<span class="dislike">
-								<%= item.TotalDisagrees%>
-								<% if (item.TotalDisagrees == 1) { %>
-									Person Disagrees
-								<% } else { %>
-									People Disagree 
-								<% } %>
-							</span>
-                            <div class="clear">&nbsp;</div>
-                        </div>
-		            <% } %>
-                    <div class="clear">&nbsp;</div>
+                    <div class="p-a5">
+			            <% if (item.Issue.User.Id == myUserInfo.Details.Id && HAVPermissionHelper.HasPermission(myUserInfo, HAVPermission.Delete_Issue)) { %>
+			            	<div class="push-4 col-3 center">
+			            		<%= Html.ActionLink("Delete", "DeleteIssue", new { deletingUserId = HAVUserInformationFactory.GetUserInformation().Details.Id, issueId = item.Issue.Id}, new { @class = "delete" }) %>
+			            		<div class="clear">&nbsp;</div>
+			            	</div>
+			            <% } else { %>
+			            	<div class="push-4 col-3">&nbsp;</div>
+			            <% } %>
+			            
+			            <div class="push-4 col-3 center">
+			            	<span class="color-1">
+			            		%%TOTAL%% Replies
+			            	</span>
+			            </div>
+			            
+			            <% if (!item.HasDisposition) { %>
+			            	<div class="push-4 col-3 center">
+			            		<a href="<%= LinkHelper.AgreeIssue(item.Issue.Id, SiteSection.Issue, item.Issue.Id) %>" class="like">Agree (<%= item.TotalAgrees %>)</a>
+			            		<div class="clear">&nbsp;</div>
+			            	</div>
+			                <div class="push-4 col-3 center">
+			                	<a href="<%= LinkHelper.AgreeIssue(item.Issue.Id, SiteSection.Issue, item.Issue.Id) %>" class="dislike">Disagree (<%= item.TotalDisagrees %>)</a>
+			                	<div class="clear">&nbsp;</div>
+			                </div>
+			            <% } else { %>
+			            	<div class="push-4 col-3 center">
+								<span class="like">
+									<%= item.TotalAgrees %>
+									<% if (item.TotalAgrees == 1) { %>
+										Person Agrees
+									<% } else { %>
+										People Agree
+									<% } %>
+								</span>
+	                            <div class="clear">&nbsp;</div>
+	                        </div>
+	                        <div class="push-4 col-3 center">
+								<span class="dislike">
+									<%= item.TotalDisagrees%>
+									<% if (item.TotalDisagrees == 1) { %>
+										Person Disagrees
+									<% } else { %>
+										People Disagree 
+									<% } %>
+								</span>
+	                            <div class="clear">&nbsp;</div>
+	                        </div>
+			            <% } %>
+	                    <div class="clear">&nbsp;</div>
+			        </div>
 		    	</div>
 				
 				<div class="push-1 col-3">
