@@ -53,7 +53,10 @@
 				<div class="clear">&nbsp;</div>
 		    </div>
 		    <div class="col-12 footer m-top10 right">
-		    	<a href="http://twitter.com/haveavoice_" target="_blank">
+		    	<a href="http://www.facebook.com/pages/Have-a-Voice/131191370283424" target="_blank">
+		    		<img src="/Content/images/facebook.png" alt="Follow Have a Voice on Facebook!">
+		    	</a>		    	
+                <a href="http://twitter.com/haveavoice_" target="_blank">
 		    		<img src="/Content/images/twitter.png" alt="Follow Have a Voice and it's development on Twitter!">
 		    	</a>
 		    </div>
