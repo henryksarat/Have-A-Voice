@@ -13,7 +13,8 @@ namespace HaveAVoice.Helpers.UI {
         public static string UserNavigation(SiteSection aSiteSection, SiteSection[] aSections, string[] aCssClasses, string[] aUrls, string[] aDisplayNames, User aTargetUser) {
             bool myIsMyself = false;
 
-            if (HAVUserInformationFactory.GetUserInformation().Details.Id == aTargetUser.Id) {
+            UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation();
+            if (myUserInfo != null && myUserInfo.Details.Id == aTargetUser.Id) {
                 myIsMyself = true;
             }
 

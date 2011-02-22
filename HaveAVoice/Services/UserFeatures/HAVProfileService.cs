@@ -181,7 +181,7 @@ namespace HaveAVoice.Services.UserFeatures {
                     PersonFilter = aPersonFilter,
                     TotalLikes = (from d in myIssueDisposition where d.Disposition == (int)Disposition.Like select d).Count<IssueDisposition>(),
                     TotalDislikes = (from d in myIssueDisposition where d.Disposition == (int)Disposition.Dislike select d).Count<IssueDisposition>(),
-                    HasDisposition = (from d in myIssueDisposition where d.UserId == aViewingUser.Id select d).Count<IssueDisposition>() > 0 ? true : false,
+                    HasDisposition = ((aViewingUser == null ) || (from d in myIssueDisposition where d.UserId == aViewingUser.Id select d).Count<IssueDisposition>() > 0) ? true : false,
                     TotalReplys = myIssue.IssueReplys.Count,
                     IssueReplys = myIssue.IssueReplys
                 };
@@ -277,7 +277,7 @@ namespace HaveAVoice.Services.UserFeatures {
                     PersonFilter = aPersonFilter,
                     TotalLikes = (from d in myReplyDisposition where d.Disposition == (int)Disposition.Like select d).Count<IssueReplyDisposition>(),
                     TotalDislikes = (from d in myReplyDisposition where d.Disposition == (int)Disposition.Dislike select d).Count<IssueReplyDisposition>(),
-                    HasDisposition = (from d in myReplyDisposition where d.UserId == aViewingUser.Id select d).Count<IssueReplyDisposition>() > 0 ? true : false,
+                    HasDisposition = ((aViewingUser == null) || (from d in myReplyDisposition where d.UserId == aViewingUser.Id select d).Count<IssueReplyDisposition>() > 0) ? true : false,
                     TotalComments = myIssueReply.IssueReplyComments.Count
                 };
 

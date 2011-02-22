@@ -59,6 +59,7 @@
 			});
 		//-->
 	</script>
+    <% UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation(); %>
     
     <% Html.RenderPartial("UserPanel", Model.NavigationModel); %>
     <div class="col-3 m-rgt left-nav">
@@ -74,7 +75,7 @@
     <% } %>
 
     <div class="fnt-10 m-btm5">
-        <% if (Model.NavigationModel.SiteSection == SiteSection.Profile) { %>
+        <% if (myUserInfo != null && Model.NavigationModel.SiteSection == SiteSection.Profile) { %>
             <% if (PrivacyHelper.IsAllowed(Model.NavigationModel.User, PrivacyAction.DisplayProfile)) { %>
     	        <div class="m-lft col-3 m-rgt center">
     		        <a href="#" rel="post" class="filter">Post on Board</a>
@@ -85,7 +86,7 @@
 			    <a href="<%= LinkHelper.Report(Model.NavigationModel.User.Id, ComplaintType.ProfileComplaint) %>" class="filter dislike">Report Profile</a>
 			    <div class="clear">&nbsp;</div>
 		    </div>
-        <% } else { %>
+        <% } else if(myUserInfo != null) { %>
         <% TempData[HAVConstants.ORIGINAL_MYPROFILE_FEED_TEMP_DATA] = TempData[HAVConstants.ORIGINAL_MYPROFILE_FEED_TEMP_DATA]; %>
         <% PersonFilter myFilter = (PersonFilter)TempData[HAVConstants.FILTER_TEMP_DATA];  %>
             <div class="m-lft col-3 m-rgt f-rgt center">
@@ -111,7 +112,6 @@
     <div class="clear">&nbsp;</div>
     <% Html.RenderPartial("Message"); %>
     <% Html.RenderPartial("Validation"); %>
-    
     <% if (Model.NavigationModel.SiteSection == SiteSection.MyProfile) { %>
         <% FeedItem myNextFeedItem = Model.Model.GetNextItem(); %>
         <% int cnt = 0; %>
@@ -135,34 +135,34 @@
         <% } %>
     <% } else if (Model.NavigationModel.SiteSection == SiteSection.Profile) { %>
         <% if (PrivacyHelper.IsAllowed(Model.NavigationModel.User, PrivacyAction.DisplayProfile)) { %>
-	        <div class="post m-btm5 m-top5">
-		        <% using (Html.BeginForm("Create", "Board", new { sourceUserId = Model.NavigationModel.User.Id })) { %>
-		        <div class="row">
-			        <div class="push-2 col-2 center">
-	                    <% UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation(); %>
-				        <img src="<%= myUserInfo.ProfilePictureUrl  %>" alt="<%= myUserInfo.FullName %>" class="profile" />
-			        </div>
-			        <div class="push-2 m-lft col-14 comment">
-				        <span class="speak-lft">&nbsp;</span>
-				        <div class="p-a10">
-					        <%= Html.ValidationMessage("BoardMessage", "*")%>
-					        <%= Html.TextArea("BoardMessage", (string)TempData["BoardMessage"], 5, 63, new { resize = "none", @class = "comment" })%>
-					        <div class="clear">&nbsp;</div>
-					        <hr />
-					        <div class="col-13 right">
-						        <input type="submit" value="Submit" class="button" />
-						        <input type="button" value="Clear" class="button" />
-					        </div>
-					        <div class="clear">&nbsp;</div>
-				        </div>
-			        </div>
-			        <div class="clear">&nbsp;</div>
-		        </div>
-		        <div class="clear">&nbsp;</div>
-		        <% } %>
-	        </div>
-	        <div class="clear">&nbsp;</div>
-        
+            <% if (myUserInfo != null) { %>
+	            <div class="post m-btm5 m-top5">
+		            <% using (Html.BeginForm("Create", "Board", new { sourceUserId = Model.NavigationModel.User.Id })) { %>
+		            <div class="row">
+			            <div class="push-2 col-2 center">
+				            <img src="<%= myUserInfo.ProfilePictureUrl  %>" alt="<%= myUserInfo.FullName %>" class="profile" />
+			            </div>
+			            <div class="push-2 m-lft col-14 comment">
+				            <span class="speak-lft">&nbsp;</span>
+				            <div class="p-a10">
+					            <%= Html.ValidationMessage("BoardMessage", "*")%>
+					            <%= Html.TextArea("BoardMessage", (string)TempData["BoardMessage"], 5, 63, new { resize = "none", @class = "comment" })%>
+					            <div class="clear">&nbsp;</div>
+					            <hr />
+					            <div class="col-13 right">
+						            <input type="submit" value="Submit" class="button" />
+						            <input type="button" value="Clear" class="button" />
+					            </div>
+					            <div class="clear">&nbsp;</div>
+				            </div>
+			            </div>
+			            <div class="clear">&nbsp;</div>
+		            </div>
+		            <div class="clear">&nbsp;</div>
+		            <% } %>
+	            </div>
+	            <div class="clear">&nbsp;</div>
+            <% } %>
             <% FeedItem myNextFeedItem = Model.Model.GetNextItem(); %>
             <% int cnt = 0; %>
             <% while (myNextFeedItem != FeedItem.None) { %>

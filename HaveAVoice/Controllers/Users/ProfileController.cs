@@ -49,9 +49,6 @@ namespace HaveAVoice.Controllers.Users {
         [RequiredRouteValueAttribute.RequireRouteValues(new[] { "shortName" })]
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Show(string shortName) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
             User myViewingUser = GetUserInformaton();
 
             try {

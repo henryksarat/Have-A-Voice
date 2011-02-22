@@ -134,31 +134,32 @@
 	    <% j++; %>
 	<% } %>
 </div>
-
-<div class="board-reply m-btm5">
-	<a href="#" rel="reply" class="push-17 alpha col-1 omega center button">Reply</a>
-	<div class="push-3 col-19" style="display:none;">
-		<div class="col-1 center">
-            <% UserInformationModel myUserModel = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation();  %>
-            <% string myFullName = myUserModel.Details.FirstName + " " + myUserModel.Details.LastName; %>
-            <% string myProfilePictureUrl = myUserModel.ProfilePictureUrl; %>
-			<img src="<%= myProfilePictureUrl %>" alt="<%= myFullName %>" class="profile sm" />
-			<div class="clear">&nbsp;</div>
-		</div>
-		<% using (Html.BeginForm("Create", "IssueReplyComment", new { issueReplyId = Model.Id })) { %>
-		    <div class="m-lft col-12 m-rgt">
-			    <%= Html.TextArea("Comment") %>
-				<span class="req">
-					<%= Html.ValidationMessage("Comment", "*") %>
-				</span>
-				<div class="clear">&nbsp;</div>
-		    </div>
-		    <div class="col-2 right">
-			    <input type="submit" value="Post" />
+<% UserInformationModel myUserModel = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation();  %>
+<% if(myUserModel != null) { %>
+    <div class="board-reply m-btm5">
+	    <a href="#" rel="reply" class="push-17 alpha col-1 omega center button">Reply</a>
+	    <div class="push-3 col-19" style="display:none;">
+		    <div class="col-1 center">
+                <% string myFullName = myUserModel.Details.FirstName + " " + myUserModel.Details.LastName; %>
+                <% string myProfilePictureUrl = myUserModel.ProfilePictureUrl; %>
+			    <img src="<%= myProfilePictureUrl %>" alt="<%= myFullName %>" class="profile sm" />
 			    <div class="clear">&nbsp;</div>
-			</div>
-        <% } %>
-		<div class="clear">&nbsp;</div>
-	</div>
-	<div class="clear">&nbsp;</div>
-</div>
+		    </div>
+		    <% using (Html.BeginForm("Create", "IssueReplyComment", new { issueReplyId = Model.Id })) { %>
+		        <div class="m-lft col-12 m-rgt">
+			        <%= Html.TextArea("Comment") %>
+				    <span class="req">
+					    <%= Html.ValidationMessage("Comment", "*") %>
+				    </span>
+				    <div class="clear">&nbsp;</div>
+		        </div>
+		        <div class="col-2 right">
+			        <input type="submit" value="Post" />
+			        <div class="clear">&nbsp;</div>
+			    </div>
+            <% } %>
+		    <div class="clear">&nbsp;</div>
+	    </div>
+	    <div class="clear">&nbsp;</div>
+    </div>
+<% } %>
