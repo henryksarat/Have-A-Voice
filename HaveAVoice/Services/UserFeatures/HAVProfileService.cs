@@ -130,8 +130,10 @@ namespace HaveAVoice.Services.UserFeatures {
                 IssueReplyFeed = CreateIssueReplyFeed(theRepository.UserIssueReplyFeed(aUser.Id), aViewingUser, PersonFilter.People),
             };
 
-            foreach (Board myBoard in myBoardMessages) {
-                theBoardRepository.MarkBoardAsViewed(aViewingUser, myBoard.Id);
+            if (aViewingUser != null) {
+                foreach (Board myBoard in myBoardMessages) {
+                    theBoardRepository.MarkBoardAsViewed(aViewingUser, myBoard.Id);
+                }
             }
 
             return myProfileModel;
