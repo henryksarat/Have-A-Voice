@@ -16,6 +16,11 @@
     
     	<% Html.RenderPartial("Message"); %>
     	<div class="clear">&nbsp;</div>
+    	
+    	<div class="col-24 m-btm10 right">
+    		<a href="/Issue/Create" class="button">Raise New Issue</a>
+    		<div class="clear">&nbsp;</div>
+    	</div>
     
     	<div class="push-1 col-4 center p-t5 p-b5 t-tab b-wht">
     		<span class="fnt-16 tint-6 bold">ISSUES</span>
