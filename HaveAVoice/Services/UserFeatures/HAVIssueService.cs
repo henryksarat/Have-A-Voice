@@ -59,8 +59,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 return false;
             }
 
-            theRepository.CreateIssueReply(aIssueModel.Issue, aUserCreating.Details, aIssueModel.Comment, 
-                aIssueModel.Anonymous, aIssueModel.Disposition);
+            theRepository.CreateIssueReply(aUserCreating.Details, aIssueModel.Issue.Id, aIssueModel.Comment, aIssueModel.Anonymous, (int)aIssueModel.Disposition);
             theRepository.MarkIssueAsUnreadForAuthor(aIssueModel.Issue.Id);
 
             return true;
@@ -90,7 +89,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 return false;
             }
 
-            theRepository.CreateCommentToIssueReply(aIssueReply.IssueReply, aUserCreating.Details, aIssueReply.Comment);
+            theRepository.CreateCommentToIssueReply(aUserCreating.Details, aIssueReply.IssueReply.Id, aIssueReply.Comment);
             return true;
         }
 

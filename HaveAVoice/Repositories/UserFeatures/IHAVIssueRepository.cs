@@ -12,17 +12,17 @@ namespace HaveAVoice.Repositories.UserFeatures {
         Issue GetIssueByTitle(string aTitle);
         bool HasIssueTitleBeenUsed(string aTitle);
 
-        IssueReply CreateIssueReply(Issue anIssue, User aUserCreating, string aReply, bool anAnonymous, Disposition aDisposition);
         IssueReply CreateIssueReply(User aUserCreating, int anIssueId, string aReply, bool anAnonymous, int aDisposition);
 
         void MarkIssueAsUnreadForAuthor(int anIssueId);
         void MarkIssueAsReadForAuthor(Issue anIssue);
 
+        void MarkIssueReplyAsViewed(int aUserId, int anIssueReplyId);
+
         IEnumerable<IssueReplyModel> GetReplysToIssue(Issue anIssue, IEnumerable<string> aSelectedRoles, PersonFilter aFilter);
         IEnumerable<IssueReplyModel> GetReplysToIssue(User aUser, Issue anIssue, IEnumerable<string> aSelectedRoles, PersonFilter aFilter);
         IssueReply GetIssueReply(int anIssueReplyId);
         IEnumerable<IssueReplyComment> GetIssueReplyComments(int anIssueReplyId);
-        IssueReplyComment CreateCommentToIssueReply(IssueReply anIssueReply, User aUserCreating, string aComment);
         void CreateCommentToIssueReply(User aUserCreating, int anIssueReplyId, string aComment);
         IssueReplyComment GetIssueReplyComment(int anIssueReplyCommentId);
 

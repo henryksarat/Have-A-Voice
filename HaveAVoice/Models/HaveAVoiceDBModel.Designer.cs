@@ -83,6 +83,8 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueViewedStates_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "IssueViewedState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueViewedState), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_BoardViewedState_Board", "Board", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Board), "BoardViewedState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.BoardViewedState), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_BoardViewedState_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "BoardViewedState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.BoardViewedState), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueReplyViewedStates_IssueReplys", "IssueReply", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.IssueReply), "IssueReplyViewedState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueReplyViewedState), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueReplyViewedStates_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "IssueReplyViewedState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueReplyViewedState), true)]
 
 #endregion
 
@@ -789,6 +791,22 @@ namespace HaveAVoice.Models
             }
         }
         private ObjectSet<BoardViewedState> _BoardViewedStates;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<IssueReplyViewedState> IssueReplyViewedStates
+        {
+            get
+            {
+                if ((_IssueReplyViewedStates == null))
+                {
+                    _IssueReplyViewedStates = base.CreateObjectSet<IssueReplyViewedState>("IssueReplyViewedStates");
+                }
+                return _IssueReplyViewedStates;
+            }
+        }
+        private ObjectSet<IssueReplyViewedState> _IssueReplyViewedStates;
 
         #endregion
         #region AddTo Methods
@@ -1119,6 +1137,14 @@ namespace HaveAVoice.Models
         public void AddToBoardViewedStates(BoardViewedState boardViewedState)
         {
             base.AddObject("BoardViewedStates", boardViewedState);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the IssueReplyViewedStates EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToIssueReplyViewedStates(IssueReplyViewedState issueReplyViewedState)
+        {
+            base.AddObject("IssueReplyViewedStates", issueReplyViewedState);
         }
 
         #endregion
@@ -6618,6 +6644,28 @@ namespace HaveAVoice.Models
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_IssueReplyViewedStates_IssueReplys", "IssueReplyViewedState")]
+        public EntityCollection<IssueReplyViewedState> IssueReplyViewedStates
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<IssueReplyViewedState>("HaveAVoice.Models.FK_IssueReplyViewedStates_IssueReplys", "IssueReplyViewedState");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IssueReplyViewedState>("HaveAVoice.Models.FK_IssueReplyViewedStates_IssueReplys", "IssueReplyViewedState", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -7631,6 +7679,244 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<IssueReply>("HaveAVoice.Models.FK_IssueReplyDisposition_IssueReplys", "IssueReply", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="HaveAVoice.Models", Name="IssueReplyViewedState")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class IssueReplyViewedState : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new IssueReplyViewedState object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="issueReplyId">Initial value of the IssueReplyId property.</param>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="viewed">Initial value of the Viewed property.</param>
+        /// <param name="lastUpdated">Initial value of the LastUpdated property.</param>
+        public static IssueReplyViewedState CreateIssueReplyViewedState(global::System.Int32 id, global::System.Int32 issueReplyId, global::System.Int32 userId, global::System.Boolean viewed, global::System.DateTime lastUpdated)
+        {
+            IssueReplyViewedState issueReplyViewedState = new IssueReplyViewedState();
+            issueReplyViewedState.Id = id;
+            issueReplyViewedState.IssueReplyId = issueReplyId;
+            issueReplyViewedState.UserId = userId;
+            issueReplyViewedState.Viewed = viewed;
+            issueReplyViewedState.LastUpdated = lastUpdated;
+            return issueReplyViewedState;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 IssueReplyId
+        {
+            get
+            {
+                return _IssueReplyId;
+            }
+            set
+            {
+                OnIssueReplyIdChanging(value);
+                ReportPropertyChanging("IssueReplyId");
+                _IssueReplyId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IssueReplyId");
+                OnIssueReplyIdChanged();
+            }
+        }
+        private global::System.Int32 _IssueReplyId;
+        partial void OnIssueReplyIdChanging(global::System.Int32 value);
+        partial void OnIssueReplyIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
+            }
+        }
+        private global::System.Int32 _UserId;
+        partial void OnUserIdChanging(global::System.Int32 value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Viewed
+        {
+            get
+            {
+                return _Viewed;
+            }
+            set
+            {
+                OnViewedChanging(value);
+                ReportPropertyChanging("Viewed");
+                _Viewed = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Viewed");
+                OnViewedChanged();
+            }
+        }
+        private global::System.Boolean _Viewed;
+        partial void OnViewedChanging(global::System.Boolean value);
+        partial void OnViewedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime LastUpdated
+        {
+            get
+            {
+                return _LastUpdated;
+            }
+            set
+            {
+                OnLastUpdatedChanging(value);
+                ReportPropertyChanging("LastUpdated");
+                _LastUpdated = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LastUpdated");
+                OnLastUpdatedChanged();
+            }
+        }
+        private global::System.DateTime _LastUpdated;
+        partial void OnLastUpdatedChanging(global::System.DateTime value);
+        partial void OnLastUpdatedChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_IssueReplyViewedStates_IssueReplys", "IssueReply")]
+        public IssueReply IssueReply
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<IssueReply>("HaveAVoice.Models.FK_IssueReplyViewedStates_IssueReplys", "IssueReply").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<IssueReply>("HaveAVoice.Models.FK_IssueReplyViewedStates_IssueReplys", "IssueReply").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<IssueReply> IssueReplyReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<IssueReply>("HaveAVoice.Models.FK_IssueReplyViewedStates_IssueReplys", "IssueReply");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<IssueReply>("HaveAVoice.Models.FK_IssueReplyViewedStates_IssueReplys", "IssueReply", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_IssueReplyViewedStates_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueReplyViewedStates_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueReplyViewedStates_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueReplyViewedStates_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_IssueReplyViewedStates_Users", "User", value);
                 }
             }
         }
@@ -12577,6 +12863,28 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BoardViewedState>("HaveAVoice.Models.FK_BoardViewedState_Users", "BoardViewedState", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_IssueReplyViewedStates_Users", "IssueReplyViewedState")]
+        public EntityCollection<IssueReplyViewedState> IssueReplyViewedStates
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<IssueReplyViewedState>("HaveAVoice.Models.FK_IssueReplyViewedStates_Users", "IssueReplyViewedState");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IssueReplyViewedState>("HaveAVoice.Models.FK_IssueReplyViewedStates_Users", "IssueReplyViewedState", value);
                 }
             }
         }

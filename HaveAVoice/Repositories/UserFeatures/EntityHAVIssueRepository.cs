@@ -36,28 +36,27 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     select i).FirstOrDefault();
         }
 
+        public void MarkIssueAsReadForAuthor(Issue anIssue) {
+            IssueViewedState myIssueViewedState = GetIssueViewedState(anIssue.Id, anIssue.UserId);
+            myIssueViewedState.Viewed = true;
+
+            theEntities.SaveChanges();
+        }
+
         public bool HasIssueTitleBeenUsed(string aTitle) {
             return GetIssueByTitle(aTitle) != null ? true : false;
         }
 
-        public IssueReply CreateIssueReply(Issue anIssue, User aUserCreating, string aReply, bool anAnonymous, Disposition aDisposition) {
-            IssueReply issueReply = IssueReply.CreateIssueReply(0, anIssue.Id, aUserCreating.Id, aReply, aUserCreating.City, aUserCreating.State, (int)aDisposition, anAnonymous, DateTime.UtcNow, false);
-            issueReply.Zip = aUserCreating.Zip;
-
-            theEntities.AddToIssueReplys(issueReply);
-            theEntities.SaveChanges();
-
-            return issueReply;
-        }
-
         public IssueReply CreateIssueReply(User aUserCreating, int anIssueId, string aReply, bool anAnonymous, int aDisposition) {
-            IssueReply issueReply = IssueReply.CreateIssueReply(0, anIssueId, aUserCreating.Id, aReply, aUserCreating.City, aUserCreating.State, aDisposition, anAnonymous, DateTime.UtcNow, false);
-            issueReply.Zip = aUserCreating.Zip;
+            IssueReply myIssueReply = IssueReply.CreateIssueReply(0, anIssueId, aUserCreating.Id, aReply, aUserCreating.City, aUserCreating.State, aDisposition, anAnonymous, DateTime.UtcNow, false);
+            myIssueReply.Zip = aUserCreating.Zip;
 
-            theEntities.AddToIssueReplys(issueReply);
+            theEntities.AddToIssueReplys(myIssueReply);
             theEntities.SaveChanges();
 
-            return issueReply;
+            CreateIssueReplyViewedState(aUserCreating.Id, myIssueReply.Id, true);
+
+            return myIssueReply;
         }
 
         public IEnumerable<IssueReplyModel> GetReplysToIssue(User aUser, Issue anIssue, IEnumerable<string> aSelectedRoles, PersonFilter aFilter) {
@@ -138,16 +137,22 @@ namespace HaveAVoice.Repositories.UserFeatures {
                       select irc).ToList<IssueReplyComment>();
         }
 
-        public IssueReplyComment CreateCommentToIssueReply(IssueReply anIssueReply, User aUserCreating, string aComment) {
-            IssueReplyComment myIssueReplyComment = IssueReplyComment.CreateIssueReplyComment(0, anIssueReply.Id, aComment, DateTime.UtcNow, aUserCreating.Id, false);
-            theEntities.AddToIssueReplyComments(myIssueReplyComment);
-            theEntities.SaveChanges();
-            return myIssueReplyComment;
-        }
-
         public void CreateCommentToIssueReply(User aUserCreating, int anIssueReplyId, string aComment) {
             IssueReplyComment myIssueReplyComment = IssueReplyComment.CreateIssueReplyComment(0, anIssueReplyId, aComment, DateTime.UtcNow, aUserCreating.Id, false);
             theEntities.AddToIssueReplyComments(myIssueReplyComment);
+
+            IssueReply myIssueReply = GetIssueReply(anIssueReplyId);
+
+            UpdateCurrentIssueReplyViewedStateAndAddIfNecessaryWithoutSave(aUserCreating.Id, anIssueReplyId, myIssueReply.UserId);
+
+            theEntities.SaveChanges();
+        }
+
+        public void MarkIssueReplyAsViewed(int aUserId, int anIssueReplyId) {
+            IssueReplyViewedState myViewedState = GetIssueReplyViewedState(aUserId, anIssueReplyId);
+            myViewedState.Viewed = true;
+            myViewedState.LastUpdated = DateTime.UtcNow;
+            theEntities.ApplyCurrentValues(myViewedState.EntityKey.EntitySetName, myViewedState);
             theEntities.SaveChanges();
         }
 
@@ -273,19 +278,65 @@ namespace HaveAVoice.Repositories.UserFeatures {
             theEntities.SaveChanges();
         }
 
-        private IssueViewedState GetIssueViewedState(int anIssueId, int anUserId) {
-            return (from i in theEntities.IssueViewedStates
-                    where i.IssueId == anIssueId
-                    && i.UserId == anUserId
-                    select i).FirstOrDefault<IssueViewedState>();
+        private void UpdateCurrentIssueReplyViewedStateAndAddIfNecessaryWithoutSave(int aUserId, int anIssueReplyId, int anIssueReplyAuthorId) {
+            bool myHasViewedState = false;
+            bool myAuthorHasViewedState = false;
+
+            IEnumerable<IssueReplyViewedState> myViewedStates = GetIssueReplyViewedStates(anIssueReplyId);
+
+            foreach (IssueReplyViewedState myViewedState in myViewedStates) {
+                if (myViewedState.UserId == aUserId) {
+                    myHasViewedState = true;
+                    myViewedState.Viewed = true;
+                } else {
+                    myViewedState.Viewed = false;
+                }
+
+                if (myViewedState.UserId == anIssueReplyAuthorId) {
+                    myAuthorHasViewedState = true;
+                }
+
+                myViewedState.LastUpdated = DateTime.UtcNow;
+                theEntities.ApplyCurrentValues(myViewedState.EntityKey.EntitySetName, myViewedState);
+            }
+
+            if (!myHasViewedState) {
+                CreateIssueReplyViewedStateWithoutSave(aUserId, anIssueReplyId, true);
+            }
+
+            if (!myAuthorHasViewedState) {
+                CreateIssueReplyViewedStateWithoutSave(anIssueReplyAuthorId, anIssueReplyId, false);
+            }
         }
 
-
-        public void MarkIssueAsReadForAuthor(Issue anIssue) {
-            IssueViewedState myIssueViewedState = GetIssueViewedState(anIssue.Id, anIssue.UserId);
-            myIssueViewedState.Viewed = true;
-
+        private void CreateIssueReplyViewedState(int aUserId, int anIssueReplyId, bool aViewed) {
+            CreateIssueReplyViewedStateWithoutSave(aUserId, anIssueReplyId, aViewed);
             theEntities.SaveChanges();
+        }
+
+        private void CreateIssueReplyViewedStateWithoutSave(int aUserId, int anIssueReplyId, bool aViewed) {
+            IssueReplyViewedState myViewedState = IssueReplyViewedState.CreateIssueReplyViewedState(0, anIssueReplyId, aUserId, aViewed, DateTime.UtcNow);
+            theEntities.AddToIssueReplyViewedStates(myViewedState);
+        }
+
+        private IssueViewedState GetIssueViewedState(int anIssueId, int anUserId) {
+            return (from v in theEntities.IssueViewedStates
+                    where v.IssueId == anIssueId
+                    && v.UserId == anUserId
+                    select v).FirstOrDefault<IssueViewedState>();
+        }
+
+        private IssueReplyViewedState GetIssueReplyViewedState(int aUserId, int anIssueReplyId) {
+            return (from v in theEntities.IssueReplyViewedStates
+                    where v.UserId == aUserId
+                    && v.IssueReplyId == anIssueReplyId
+                    select v).FirstOrDefault<IssueReplyViewedState>();
+        }
+
+        private IEnumerable<IssueReplyViewedState> GetIssueReplyViewedStates(int anIssueReplyId) {
+            return (from v in theEntities.IssueReplyViewedStates
+                    where v.IssueReplyId == anIssueReplyId
+                    select v).ToList<IssueReplyViewedState>();
         }
     }
 }

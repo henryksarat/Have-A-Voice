@@ -86,7 +86,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
                 } else {
                     myViewedState.Viewed = false;
                 }
-
+                myViewedState.DateTimeStamp = DateTime.UtcNow;
                 theEntities.ApplyCurrentValues(myViewedState.EntityKey.EntitySetName, myViewedState);
             }
 
