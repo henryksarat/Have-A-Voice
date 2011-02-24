@@ -22,11 +22,11 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public IEnumerable<NotificationModel> GetNotifications(User aUser) {
-            IEnumerable<Board> myBoards = theNotificationRepo.UnreadBoardMessages(aUser);
-            IEnumerable<BoardViewedState> myParticipatingBoards = theNotificationRepo.UnreadParticipatingBoardMessages(aUser);
-            IEnumerable<IssueViewedState> myIssue = theNotificationRepo.UnreadIssues(aUser);
+            IEnumerable<Board> myUnreadBoards = theNotificationRepo.UnreadBoardMessages(aUser);
+            IEnumerable<BoardViewedState> myUnreadParticipatingBoards = theNotificationRepo.UnreadParticipatingBoardMessages(aUser);
+            IEnumerable<IssueViewedState> myUnreadIssues = theNotificationRepo.UnreadIssues(aUser);
 
-            return CreateModel(myBoards, myParticipatingBoards, myIssue);
+            return CreateModel(myUnreadBoards, myUnreadParticipatingBoards, myUnreadIssues);
         }
 
         private IEnumerable<NotificationModel> CreateModel(IEnumerable<Board> aBoards, IEnumerable<BoardViewedState> aParticipatingBoards, IEnumerable<IssueViewedState> anIssueStates) {
@@ -35,7 +35,9 @@ namespace HaveAVoice.Services.UserFeatures {
                 myNotifications.Add(new NotificationModel() {
                     NotificationType = NotificationType.Board,
                     Label = myBoard.Message,
-                    Id = myBoard.Id.ToString()
+                    Id = myBoard.Id.ToString(),
+                    TriggeredUser = myBoard.PostedByUser,
+                    DateTimeStamp = myBoard.DateTimeStamp
                 });
             }
 
@@ -43,7 +45,8 @@ namespace HaveAVoice.Services.UserFeatures {
                 myNotifications.Add(new NotificationModel() {
                     NotificationType = NotificationType.ParticipatingBoard,
                     Label = myBoard.Board.Message,
-                    Id = myBoard.Board.Id.ToString()
+                    Id = myBoard.Board.Id.ToString(),
+                    DateTimeStamp = myBoard.DateTimeStamp
                 });
             }
 

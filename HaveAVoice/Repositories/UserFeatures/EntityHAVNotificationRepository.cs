@@ -18,8 +18,10 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         public IEnumerable<BoardViewedState> UnreadParticipatingBoardMessages(User aUser) {
             return (from v in theEntities.BoardViewedStates
+                    join b in theEntities.Boards on v.BoardId equals b.Id
                     where v.Viewed == false
                     && v.UserId == aUser.Id
+                    && b.OwnerUserId != aUser.Id
                     select v).ToList<BoardViewedState>();
         }
 

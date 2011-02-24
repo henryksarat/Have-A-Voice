@@ -2,6 +2,7 @@
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
 <%@ Import Namespace="HaveAVoice.Helpers.Enums" %>
+<%@ Import Namespace="HaveAVoice.Helpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Notifications
@@ -25,7 +26,7 @@
                 <% } else if (item.NotificationType == NotificationType.ParticipatingBoard) { %>
                     New comments to a board message you are participating in: <%= Html.ActionLink(item.Label, "Details", "Board", new { id = item.Id }, null)%> (<%= item.DateTimeStamp %>)
                 <% } else if (item.NotificationType == NotificationType.Board) { %>
-                    ad
+                    <a href="<%= LinkHelper.Profile(item.TriggeredUser) %>"><%= NameHelper.FullName(item.TriggeredUser) %></a> posted a new <%= Html.ActionLink("message", "Details", "Board", new { id = item.Id }, null)%> on <a href="<%= LinkHelper.Profile(Model.NavigationModel.User) %>">your board</a>. (<%= item.DateTimeStamp %>)
                 <% } %>
 	    		<div class="clear">&nbsp;</div>
 	    	</div>
