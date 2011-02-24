@@ -279,8 +279,6 @@
     <Compile Include="Models\View\ErrorModel.cs" />
     <Compile Include="Models\View\IssueModel.cs" />
     <Compile Include="Models\View\Binders\IssueModelBinder.cs" />
-    <Compile Include="Models\View\IssueReplyDetailsModel.cs" />
-    <Compile Include="Models\View\Binders\IssueReplyDetailsModelBinder.cs" />
     <Compile Include="Models\View\IssueReplyModel.cs" />
     <Compile Include="Models\View\IssueWithDispositionModel.cs" />
     <Compile Include="Models\View\LoggedInModel.cs" />
@@ -421,6 +419,7 @@
     <Content Include="Views\Board\Details.aspx" />
     <Content Include="Views\Calendar\List.aspx" />
     <Content Include="Views\Complaint\Create.aspx" />
+    <Content Include="Views\IssueReply\Details.aspx" />
     <Content Include="Views\Site\ContactUs.aspx" />
     <Content Include="Views\Error\Index.aspx" />
     <Content Include="Views\Friend\List.aspx" />
@@ -435,7 +434,6 @@
     <Content Include="Views\Issue\Edit.aspx" />
     <Content Include="Views\Issue\Index.aspx" />
     <Content Include="Views\Issue\Details.aspx" />
-    <Content Include="Views\IssueReply\Details.aspx" />
     <Content Include="Views\Message\Inbox.aspx" />
     <Content Include="Views\Message\Create.aspx" />
     <Content Include="Views\Message\View.aspx" />

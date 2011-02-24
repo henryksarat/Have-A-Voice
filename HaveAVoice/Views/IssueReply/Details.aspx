@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.IssueReplyDetailsModel>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.IssueReply>" %>
+
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UI" %>
@@ -13,20 +14,14 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 	<div class="col-24">
 	
-    <% using (Html.BeginForm()) { %>
+    <% using (Html.BeginForm(new { issueReplyId = Model.Id })) { %>
         <% Html.RenderPartial("Message"); %>
         <% Html.RenderPartial("Validation"); %>
         <div class="clear">&nbsp;</div>
 
         <%= IssueHelper.IssueReply(Model) %>
-        <% foreach (IssueReplyComment comment in Model.Comments) { %>
+        <% foreach (IssueReplyComment comment in Model.IssueReplyComments) { %>
             <%= IssueHelper.Comment(comment) %>
-            <% if (comment.User.Id == HAVUserInformationFactory.GetUserInformation().Details.Id || HAVPermissionHelper.AllowedToPerformAction(HAVUserInformationFactory.GetUserInformation(), HAVPermission.Edit_Any_Issue_Reply_Comment)) { %>
-	            <%= Html.ActionLink("Edit", "Edit", "IssueReplyComment", new { id = comment.Id }, null)%>
-            <% } %>
-            <% if (comment.User.Id == HAVUserInformationFactory.GetUserInformation().Details.Id || HAVPermissionHelper.AllowedToPerformAction(HAVUserInformationFactory.GetUserInformation(), HAVPermission.Delete_Any_Issue_Reply_Comment)) { %>
-                <%= Html.ActionLink("Delete", "Delete", "IssueReplyComment", new { id = comment.Id, replyId = Model.IssueReply.Id }, null)%>
-            <% } %>
         <% } %>
 
 		<% if (!HAVUserInformationFactory.IsLoggedIn()) { %>
@@ -49,7 +44,7 @@
 						<span class="speak-lft">&nbsp;</span>
 						<div class="p-a10">
 							<%= Html.ValidationMessage("Comment", "*") %>
-							<%= Html.TextArea("Comment", Model.Comment, 5, 63, new { resize = "none", @class = "comment" }) %>
+							<%= Html.TextArea("Comment", string.Empty, 5, 63, new { resize = "none", @class = "comment" }) %>
 							<div class="clear">&nbsp;</div>
 							<hr />
 							<div class="col-11">

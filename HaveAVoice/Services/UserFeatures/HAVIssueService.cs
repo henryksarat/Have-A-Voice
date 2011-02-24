@@ -80,19 +80,6 @@ namespace HaveAVoice.Services.UserFeatures {
             return true;
         }
 
-        public bool CreateCommentToIssueReply(UserInformationModel aUserCreating, IssueReplyDetailsModel aIssueReply) {
-            if (!ValidateComment(aIssueReply.Comment)) {
-                return false;
-            }
-
-            if (!AllowedToPerformAction(aUserCreating, HAVPermission.Post_Issue_Reply_Comment)) {
-                return false;
-            }
-
-            theRepository.CreateCommentToIssueReply(aUserCreating.Details, aIssueReply.IssueReply.Id, aIssueReply.Comment);
-            return true;
-        }
-
         public bool CreateCommentToIssueReply(UserInformationModel aUserCreating, int aIssueReplyId, string aComment) {
             if (!ValidateComment(aComment)) {
                 return false;

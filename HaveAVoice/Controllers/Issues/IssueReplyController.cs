@@ -127,7 +127,7 @@ namespace HaveAVoice.Controllers.Issues {
             return View("Edit", aReplyWrapper);
         }
 
-        [AcceptVerbs(HttpVerbs.Get)]
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult Details(int id) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
@@ -142,32 +142,30 @@ namespace HaveAVoice.Controllers.Issues {
                 if (myIssueReply == null) {
                     return SendToResultPage(NON_EXISTENT);
                 }
-
-                IEnumerable<IssueReplyComment> myComments = theService.GetIssueReplyComments(id);
-                IssueReplyDetailsModel myIssueModelDetails = new IssueReplyDetailsModel(myIssueReply, myComments);
-                return View("Details", myIssueModelDetails);
+                return View("Details", myIssueReply);
             } catch (Exception myException) {
                 LogError(myException, VIEW_ERROR);
                 return SendToErrorPage(VIEW_ERROR);
             }
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Details(IssueReplyDetailsModel issueReplyDetails) {
+        [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
+        public ActionResult Details(int issueReplyId, string comment) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
             UserInformationModel myUserInformation = GetUserInformatonModel();
             try {
-                if (theService.CreateCommentToIssueReply(myUserInformation, issueReplyDetails)) {
+                if (theService.CreateCommentToIssueReply(myUserInformation, issueReplyId, comment)) {
                     TempData["Message"] = MessageHelper.SuccessMessage(POST_COMMENT_SUCCESS);
-                    return RedirectToAction("View", issueReplyDetails);
+                    return RedirectToAction("Details", new { id = issueReplyId });
                 }
             } catch (Exception e) {
                 LogError(e, POST_COMMENT_ERROR);
                 ViewData["Message"] = MessageHelper.ErrorMessage(POST_COMMENT_ERROR);
             }
-            return View("Details", issueReplyDetails);
+
+            return RedirectToAction("Details", new { id = issueReplyId });
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

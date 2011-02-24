@@ -295,7 +295,7 @@ namespace HaveAVoice.Helpers.UI {
             return wrprDiv.ToString(TagRenderMode.Normal);
         }
 
-        public static string IssueReply(IssueReplyDetailsModel anIssueReply) {
+        public static string IssueReply(IssueReply anIssueReply) {
         	var wrprDiv = new TagBuilder("div");
         	wrprDiv.MergeAttribute("class", "m-btm10");
         	
@@ -304,9 +304,9 @@ namespace HaveAVoice.Helpers.UI {
         	
             string myAvatarURL = PhotoHelper.ConstructUrl(HAVConstants.NO_PROFILE_PICTURE_IMAGE);
             string myName = "Anonymous";
-            if (PrivacyHelper.IsAllowed(anIssueReply.IssueReply.User, PrivacyAction.DisplayProfile)) {
-                myAvatarURL = PhotoHelper.ProfilePicture(anIssueReply.IssueReply.User);
-                myName = NameHelper.FullName(anIssueReply.IssueReply.User);
+            if (PrivacyHelper.IsAllowed(anIssueReply.User, PrivacyAction.DisplayProfile)) {
+                myAvatarURL = PhotoHelper.ProfilePicture(anIssueReply.User);
+                myName = NameHelper.FullName(anIssueReply.User);
             }
 
         	var profileImg = new TagBuilder("img");
@@ -331,10 +331,10 @@ namespace HaveAVoice.Helpers.UI {
 			
 			var headTitle = new TagBuilder("h1");
             headTitle.MergeAttribute("class", "m-btm10");
-			headTitle.InnerHtml += anIssueReply.IssueReply.Issue.Title;
+			headTitle.InnerHtml += anIssueReply.Issue.Title;
 			
 			paddingDiv.InnerHtml += headTitle.ToString();
-			paddingDiv.InnerHtml += anIssueReply.IssueReply.Issue.Description;
+			paddingDiv.InnerHtml += anIssueReply.Issue.Description;
 			
 			var clrDiv = new TagBuilder("div");
 			clrDiv.MergeAttribute("class", "clear");
@@ -352,11 +352,11 @@ namespace HaveAVoice.Helpers.UI {
 			divTimePad.MergeAttribute("class", "p-a10");
 
 			var spanTime = new TagBuilder("span");
-			spanTime.InnerHtml = anIssueReply.IssueReply.Issue.DateTimeStamp.ToString("MMM").ToUpper();
+			spanTime.InnerHtml = anIssueReply.Issue.DateTimeStamp.ToString("MMM").ToUpper();
 			
 			divTimePad.InnerHtml += spanTime.ToString();
 			divTimePad.InnerHtml += "&nbsp;";
-			divTimePad.InnerHtml += anIssueReply.IssueReply.Issue.DateTimeStamp.ToString("dd");
+			divTimePad.InnerHtml += anIssueReply.Issue.DateTimeStamp.ToString("dd");
 			
 			divTimeStamp.InnerHtml += divTimePad.ToString();
 			
@@ -392,7 +392,7 @@ namespace HaveAVoice.Helpers.UI {
 			
 			rPaddingDiv.InnerHtml += rUserLink.ToString();
 			rPaddingDiv.InnerHtml += "&nbsp;";
-			rPaddingDiv.InnerHtml += anIssueReply.IssueReply.Reply;
+			rPaddingDiv.InnerHtml += anIssueReply.Reply;
 			
 			rCommentDiv.InnerHtml += rPaddingDiv.ToString();
 			
@@ -405,11 +405,11 @@ namespace HaveAVoice.Helpers.UI {
 			rTimePad.MergeAttribute("class", "p-a10");
 			
 			var rTime = new TagBuilder("span");
-			rTime.InnerHtml = anIssueReply.IssueReply.DateTimeStamp.ToString("MMM").ToUpper();
+			rTime.InnerHtml = anIssueReply.DateTimeStamp.ToString("MMM").ToUpper();
 			
 			rTimePad.InnerHtml += rTime.ToString();
 			rTimePad.InnerHtml += "&nbsp;";
-			rTimePad.InnerHtml += anIssueReply.IssueReply.DateTimeStamp.ToString("dd");
+			rTimePad.InnerHtml += anIssueReply.DateTimeStamp.ToString("dd");
 			
 			rTimeStamp.InnerHtml += rTimePad.ToString();
 			
