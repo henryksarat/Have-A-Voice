@@ -28,8 +28,12 @@ namespace HaveAVoice.Services.UserFeatures {
             return theRepository.GetLatestIssues();
         }
 
-        public Issue GetIssue(int aIssueId) {
-            return theRepository.GetIssue(aIssueId);
+        public Issue GetIssue(int aIssueId, UserInformationModel aViewingUser) {
+            Issue myIssue = theRepository.GetIssue(aIssueId);
+            if (aViewingUser != null && aViewingUser.Details.Id == myIssue.UserId) {
+                theRepository.MarkIssueAsReadForAuthor(myIssue);
+            }
+            return myIssue;
         }
 
         public bool CreateIssue(UserInformationModel aUserCreating, Issue aIssueToCreate) {
@@ -41,7 +45,8 @@ namespace HaveAVoice.Services.UserFeatures {
                 return false;
             }
 
-            theRepository.CreateIssue(aIssueToCreate, aUserCreating.Details);
+            Issue myIssue = theRepository.CreateIssue(aIssueToCreate, aUserCreating.Details);
+            theRepository.MarkIssueAsUnreadForAuthor(myIssue.Id);
             return true;
         }
 
@@ -56,6 +61,8 @@ namespace HaveAVoice.Services.UserFeatures {
 
             theRepository.CreateIssueReply(aIssueModel.Issue, aUserCreating.Details, aIssueModel.Comment, 
                 aIssueModel.Anonymous, aIssueModel.Disposition);
+            theRepository.MarkIssueAsUnreadForAuthor(aIssueModel.Issue.Id);
+
             return true;
         }
 
@@ -69,6 +76,8 @@ namespace HaveAVoice.Services.UserFeatures {
             }
 
             theRepository.CreateIssueReply(aUserCreating.Details, anIssueId, aReply, anAnonymous, aDisposition);
+            theRepository.MarkIssueAsUnreadForAuthor(anIssueId);
+
             return true;
         }
 
@@ -146,7 +155,7 @@ namespace HaveAVoice.Services.UserFeatures {
             }
 
             bool myOverride = HAVPermissionHelper.AllowedToPerformAction(aUserEditing, HAVPermission.Edit_Any_Issue);
-            Issue myOriginalIssue = GetIssue(anIssue.Id);
+            Issue myOriginalIssue = GetIssue(anIssue.Id, aUserEditing);
             if (myOriginalIssue.User.Id == aUserEditing.Details.Id || myOverride) {
                 theRepository.UpdateIssue(aUserEditing.Details, myOriginalIssue, anIssue, myOverride);
                 return true;
@@ -195,7 +204,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public bool DeleteIssue(UserInformationModel aDeletingUser, int anIssueId) {
             bool myAdminOverride = HAVPermissionHelper.AllowedToPerformAction(aDeletingUser, HAVPermission.Delete_Any_Issue);
-            Issue myIssue = GetIssue(anIssueId);
+            Issue myIssue = GetIssue(anIssueId, aDeletingUser);
             if (myIssue.User.Id == aDeletingUser.Details.Id || myAdminOverride) {
                 theRepository.DeleteIssue(aDeletingUser.Details, myIssue, myAdminOverride);
                 return true;
@@ -276,12 +285,15 @@ namespace HaveAVoice.Services.UserFeatures {
 
 
         public IssueModel CreateIssueModel(UserInformationModel myUserInfo, int anIssueId) {
-            Issue myIssue = GetIssue(anIssueId);
+            Issue myIssue = GetIssue(anIssueId, myUserInfo);
             return FillIssueModel(myUserInfo.Details, myIssue);
         }
 
         public IssueModel CreateIssueModel(User aViewingUser, string aTitle) {
             Issue myIssue = theRepository.GetIssueByTitle(aTitle);
+            if (aViewingUser != null && aViewingUser.Id == myIssue.UserId) {
+                theRepository.MarkIssueAsReadForAuthor(myIssue);
+            }
             return FillIssueModel(aViewingUser, myIssue);
         }
 

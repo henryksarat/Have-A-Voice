@@ -18,7 +18,7 @@ namespace HaveAVoice.Services.UserFeatures {
         bool CreateCommentToIssueReply(UserInformationModel aUserCreating, IssueReplyDetailsModel anIssueReply);
         bool CreateCommentToIssueReply(UserInformationModel aUserCreating, int anIssueReplyId, string aComment);
 
-        Issue GetIssue(int anIssueId);
+        Issue GetIssue(int anIssueId, UserInformationModel aViewingUser);
         IEnumerable<IssueReplyModel> GetReplysToIssue(User aUser, Issue anIssue, IEnumerable<string> aRoleName, PersonFilter aFilter);
         IssueReply GetIssueReply(int anIssueReplyId);
         IEnumerable<IssueReplyComment> GetIssueReplyComments(int anIssueReplyId);

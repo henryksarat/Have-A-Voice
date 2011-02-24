@@ -29,10 +29,10 @@ namespace HaveAVoice.Helpers {
         }
 
         public static void FillComplaintModelBuilder(ComplaintModel.Builder aBuilder, IHAVUserRetrievalService aUserRetrievalService, IHAVIssueService aIssueService, IHAVPhotoService aPhotoService) {
-            User myUser = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation().Details;
+            UserInformationModel myUser = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation();
             switch (aBuilder.ComplaintType()) {
                 case ComplaintType.Issue:
-                    Issue myIssue = aIssueService.GetIssue(aBuilder.SourceId());
+                    Issue myIssue = aIssueService.GetIssue(aBuilder.SourceId(), myUser);
                     aBuilder.TowardUser(myIssue.User);
                     aBuilder.SourceDescription(myIssue.Title);
                     break;
@@ -52,7 +52,7 @@ namespace HaveAVoice.Helpers {
                     aBuilder.SourceDescription("You are reporting this user because of their profile.");
                     break;
                 case ComplaintType.PhotoComplaint:
-                    Photo myPhoto = aPhotoService.GetPhoto(myUser, aBuilder.SourceId());
+                    Photo myPhoto = aPhotoService.GetPhoto(myUser.Details, aBuilder.SourceId());
                     aBuilder.TowardUser(myPhoto.User);
                     aBuilder.SourceDescription(myPhoto.ImageName);
                     break;

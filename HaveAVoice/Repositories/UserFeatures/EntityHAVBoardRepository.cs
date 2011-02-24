@@ -23,16 +23,13 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     .ToList<Board>();
         }
 
-        public void AddToBoard(User aPostedByUser, int aSourceUserId, string aMessage) {
+        public Board AddToBoard(User aPostedByUser, int aSourceUserId, string aMessage) {
             IHAVUserRepository myUserRepository = new EntityHAVUserRepository();
             Board myBoard = Board.CreateBoard(0, aSourceUserId, aPostedByUser.Id, aMessage, DateTime.UtcNow, false);
             theEntities.AddToBoards(myBoard);
             theEntities.SaveChanges();
 
-            AddUserToBoardViewedStateWithoutSave(aSourceUserId, myBoard.Id, false);
-            AddUserToBoardViewedStateWithoutSave(aPostedByUser.Id, myBoard.Id, true);
-
-            theEntities.SaveChanges();
+            return myBoard;
         }
 
         public void EditBoardMessage(User aEditedBy, Board anOriginalBoard, Board aBoard) {
@@ -127,8 +124,14 @@ namespace HaveAVoice.Repositories.UserFeatures {
             }
         }
 
+        public void AddUserToBoardViewedState(int aUserId, Board aBoard, bool aViewedState) {
+            BoardViewedState myBoardViewedState = BoardViewedState.CreateBoardViewedState(0, aBoard.Id, aUserId, aViewedState, DateTime.UtcNow);
+            theEntities.AddToBoardViewedStates(myBoardViewedState);
+            theEntities.SaveChanges();
+        }
+
         private void AddUserToBoardViewedStateWithoutSave(int aUserId, int aBoardId, bool aViewedState) {
-            BoardViewedState myBoardViewedState = BoardViewedState.CreateBoardViewedState(0, aBoardId, aUserId, aViewedState);
+            BoardViewedState myBoardViewedState = BoardViewedState.CreateBoardViewedState(0, aBoardId, aUserId, aViewedState, DateTime.UtcNow);
             theEntities.AddToBoardViewedStates(myBoardViewedState);
         }
 
@@ -144,7 +147,5 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     where v.BoardId == aBoardId
                     select v).ToList<BoardViewedState>();
         }
-
-
     }
 }

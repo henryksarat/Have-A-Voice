@@ -14,6 +14,10 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         IssueReply CreateIssueReply(Issue anIssue, User aUserCreating, string aReply, bool anAnonymous, Disposition aDisposition);
         IssueReply CreateIssueReply(User aUserCreating, int anIssueId, string aReply, bool anAnonymous, int aDisposition);
+
+        void MarkIssueAsUnreadForAuthor(int anIssueId);
+        void MarkIssueAsReadForAuthor(Issue anIssue);
+
         IEnumerable<IssueReplyModel> GetReplysToIssue(Issue anIssue, IEnumerable<string> aSelectedRoles, PersonFilter aFilter);
         IEnumerable<IssueReplyModel> GetReplysToIssue(User aUser, Issue anIssue, IEnumerable<string> aSelectedRoles, PersonFilter aFilter);
         IssueReply GetIssueReply(int anIssueReplyId);

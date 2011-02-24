@@ -255,5 +255,37 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     where ir.UserId == aUser.Id && ir.IssueReplyId == anIssueReplyId
                     select ir).Count<IssueReplyDisposition>() > 0 ? true : false;
         }
+
+
+        public void MarkIssueAsUnreadForAuthor(int anIssueId) {
+            Issue myIssue = GetIssue(anIssueId);
+            IssueViewedState myIssueViewedState = GetIssueViewedState(myIssue.Id, myIssue.UserId);
+
+            if (myIssueViewedState == null) {
+                myIssueViewedState = IssueViewedState.CreateIssueViewedState(0, myIssue.Id, myIssue.UserId, false, DateTime.UtcNow);
+                theEntities.AddToIssueViewedStates(myIssueViewedState);
+            } else {
+                myIssueViewedState.Viewed = false;
+                myIssueViewedState.LastUpdated = DateTime.UtcNow;
+                theEntities.ApplyCurrentValues(myIssueViewedState.EntityKey.EntitySetName, myIssueViewedState);
+            }
+
+            theEntities.SaveChanges();
+        }
+
+        private IssueViewedState GetIssueViewedState(int anIssueId, int anUserId) {
+            return (from i in theEntities.IssueViewedStates
+                    where i.IssueId == anIssueId
+                    && i.UserId == anUserId
+                    select i).FirstOrDefault<IssueViewedState>();
+        }
+
+
+        public void MarkIssueAsReadForAuthor(Issue anIssue) {
+            IssueViewedState myIssueViewedState = GetIssueViewedState(anIssue.Id, anIssue.UserId);
+            myIssueViewedState.Viewed = true;
+
+            theEntities.SaveChanges();
+        }
     }
 }

@@ -37,12 +37,12 @@ namespace HaveAVoice.Controllers.Users {
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
-        public ActionResult View(int id) {
+        public ActionResult Details(int id) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
             User myUser = GetUserInformatonModel().Details;
-            LoggedInWrapperModel<BoardModel> myModel = new LoggedInWrapperModel<BoardModel>(myUser, SiteSection.Board); 
+            LoggedInWrapperModel<Board> myModel = new LoggedInWrapperModel<Board>(myUser, SiteSection.Board); 
             
             try {
                 myModel.Model = theService.GetBoard(GetUserInformatonModel(), id);
@@ -51,7 +51,7 @@ namespace HaveAVoice.Controllers.Users {
                 return SendToErrorPage(VIEW_BOARD_ERROR);
             }
 
-            return View("View", myModel);
+            return View("Details", myModel);
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
@@ -84,7 +84,7 @@ namespace HaveAVoice.Controllers.Users {
             }
             BoardWrapper myBoardWrapper;
             try {
-                Board myBoard = theService.FindBoard(id);
+                Board myBoard = theService.GetBoard(GetUserInformatonModel(), id);
 
                 if (GetUserInformatonModel().Details.Id != myBoard.PostedUserId) {
                     return SendToErrorPage(HAVConstants.PAGE_NOT_FOUND);

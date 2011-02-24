@@ -96,8 +96,10 @@
     <Compile Include="Controllers\Photos\PhotosController.cs" />
     <Compile Include="Controllers\Users\SearchController.cs" />
     <Compile Include="Controllers\Users\UserPrivacySettingsController.cs" />
-    <Compile Include="Helpers\NameHelper.cs" />
     <Compile Include="Helpers\Enums\FeedItem.cs" />
+    <Compile Include="Helpers\IssueTitleHelper.cs" />
+    <Compile Include="Helpers\NameHelper.cs" />
+    <Compile Include="Helpers\Enums\NotificationType.cs" />
     <Compile Include="Helpers\Enums\FriendStatus.cs" />
     <Compile Include="Helpers\Enums\Gender.cs" />
     <Compile Include="Helpers\Enums\PersonFilter.cs" />
@@ -146,6 +148,7 @@
     <Compile Include="Models\View\Binders\ImageBinder.cs" />
     <Compile Include="Models\View\BoardFeedModel.cs" />
     <Compile Include="Models\View\CreateUserModel.cs" />
+    <Compile Include="Models\View\NotificationModel.cs" />
     <Compile Include="Models\View\UpdatePrivacySettingsModel.cs" />
     <Compile Include="Models\View\CreateUserModelBuilder.cs" />
     <Compile Include="Models\View\DisplayPrivacySettingsModel.cs" />
@@ -357,10 +360,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\hsarat_haveavoice.mdf" />
-    <Content Include="App_Data\hsarat_haveavoice_log.ldf">
-      <DependentUpon>hsarat_haveavoice.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\framework.css" />
     <Content Include="Content\images\album.png" />
     <Content Include="Content\images\candidate.png" />
@@ -419,7 +418,7 @@
     <Content Include="Views\AuthorityVerification\Verify.aspx" />
     <Content Include="Views\BoardReply\Edit.aspx" />
     <Content Include="Views\Board\Edit.aspx" />
-    <Content Include="Views\Board\View.aspx" />
+    <Content Include="Views\Board\Details.aspx" />
     <Content Include="Views\Calendar\List.aspx" />
     <Content Include="Views\Complaint\Create.aspx" />
     <Content Include="Views\Site\ContactUs.aspx" />
@@ -511,6 +510,7 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Content\App_LocalResources\" />
     <Folder Include="obj\" />
   </ItemGroup>
@@ -538,7 +538,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>28426</DevelopmentServerPort>
+          <DevelopmentServerPort>5733</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

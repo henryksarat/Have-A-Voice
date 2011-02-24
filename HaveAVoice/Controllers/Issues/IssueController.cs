@@ -108,14 +108,14 @@ namespace HaveAVoice.Controllers.Issues {
         public ActionResult RedirectToDetails(int id) {
             Issue myIssue;
             try {
-                myIssue = theService.GetIssue(id);
+                myIssue = theService.GetIssue(id, GetUserInformatonModel());
             } catch (Exception e) {
                 TempData["Message"] = MessageHelper.ErrorMessage(REDIRECT_ERROR);
                 LogError(e, REDIRECT_ERROR);
                 return RedirectToProfile();
             }
             if (myIssue != null) {
-                return RedirectToAction("Details", new { title = myIssue.Title.Replace(' ', '-') });
+                return RedirectToAction("Details", new { title = IssueTitleHelper.ConvertForUrl(myIssue.Title) });
             } else {
                 TempData["Message"] = MessageHelper.ErrorMessage(REDIRECT_ERROR);
                 return RedirectToProfile();
@@ -125,7 +125,7 @@ namespace HaveAVoice.Controllers.Issues {
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Details(string title) {
             try {
-                title = title.Replace('-', ' ');
+                title = IssueTitleHelper.ConvertFromUrl(title);
                 IssueModel myIssueModel;
 
                 if (IsLoggedIn()) {
@@ -227,7 +227,7 @@ namespace HaveAVoice.Controllers.Issues {
             }
 
             try {
-                Issue myIssue = theService.GetIssue(id);
+                Issue myIssue = theService.GetIssue(id, myUserInformation);
                 if (myUserInformation.Details.Id == myIssue.User.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Edit_Any_Issue)) {
                     return View("Edit", IssueWrapper.Build(myIssue));
                 } else {

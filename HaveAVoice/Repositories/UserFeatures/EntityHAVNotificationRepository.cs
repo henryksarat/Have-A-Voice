@@ -15,5 +15,19 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     && b.OwnerUserId == aUser.Id
                     select b).ToList<Board>();
         }
+
+        public IEnumerable<BoardViewedState> UnreadParticipatingBoardMessages(User aUser) {
+            return (from v in theEntities.BoardViewedStates
+                    where v.Viewed == false
+                    && v.UserId == aUser.Id
+                    select v).ToList<BoardViewedState>();
+        }
+
+        public IEnumerable<IssueViewedState> UnreadIssues(User aUser) {
+            return (from v in theEntities.IssueViewedStates
+                    where v.UserId == aUser.Id
+                    && v.Viewed == false
+                    select v).ToList<IssueViewedState>();
+        }
     }
 }

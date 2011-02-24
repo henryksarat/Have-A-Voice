@@ -55,8 +55,6 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserRoles_Roles", "Role", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Role), "UserRole", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserRole), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserRoles_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "UserRole", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserRole), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_WhoIsOnline_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "WhoIsOnline", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.WhoIsOnline), true)]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_BoardViewedState_Board", "Board", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Board), "BoardViewedState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.BoardViewedState), true)]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_BoardViewedState_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "BoardViewedState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.BoardViewedState), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_AuditIssues_Issues", "Issue", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Issue), "AuditIssue", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.AuditIssue), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueComplaints_Issues", "Issue", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Issue), "IssueComplaint", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueComplaint), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueDisposition_Issues", "Issue", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Issue), "IssueDisposition", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueDisposition), true)]
@@ -81,6 +79,10 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserPrivacySettings_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "UserPrivacySetting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserPrivacySetting), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_AuthorityVerification_Roles", "Role", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Role), "AuthorityVerification", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.AuthorityVerification), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_AuthorityVerification_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "AuthorityVerification", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.AuthorityVerification), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueViewedStates_Issues", "Issue", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Issue), "IssueViewedState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueViewedState), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueViewedStates_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "IssueViewedState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueViewedState), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_BoardViewedState_Board", "Board", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Board), "BoardViewedState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.BoardViewedState), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_BoardViewedState_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "BoardViewedState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.BoardViewedState), true)]
 
 #endregion
 
@@ -583,22 +585,6 @@ namespace HaveAVoice.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<BoardViewedState> BoardViewedStates
-        {
-            get
-            {
-                if ((_BoardViewedStates == null))
-                {
-                    _BoardViewedStates = base.CreateObjectSet<BoardViewedState>("BoardViewedStates");
-                }
-                return _BoardViewedStates;
-            }
-        }
-        private ObjectSet<BoardViewedState> _BoardViewedStates;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<Issue> Issues
         {
             get
@@ -771,6 +757,38 @@ namespace HaveAVoice.Models
             }
         }
         private ObjectSet<ContactU> _ContactUs;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<IssueViewedState> IssueViewedStates
+        {
+            get
+            {
+                if ((_IssueViewedStates == null))
+                {
+                    _IssueViewedStates = base.CreateObjectSet<IssueViewedState>("IssueViewedStates");
+                }
+                return _IssueViewedStates;
+            }
+        }
+        private ObjectSet<IssueViewedState> _IssueViewedStates;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<BoardViewedState> BoardViewedStates
+        {
+            get
+            {
+                if ((_BoardViewedStates == null))
+                {
+                    _BoardViewedStates = base.CreateObjectSet<BoardViewedState>("BoardViewedStates");
+                }
+                return _BoardViewedStates;
+            }
+        }
+        private ObjectSet<BoardViewedState> _BoardViewedStates;
 
         #endregion
         #region AddTo Methods
@@ -1000,14 +1018,6 @@ namespace HaveAVoice.Models
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the BoardViewedStates EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToBoardViewedStates(BoardViewedState boardViewedState)
-        {
-            base.AddObject("BoardViewedStates", boardViewedState);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the Issues EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToIssues(Issue issue)
@@ -1093,6 +1103,22 @@ namespace HaveAVoice.Models
         public void AddToContactUs(ContactU contactU)
         {
             base.AddObject("ContactUs", contactU);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the IssueViewedStates EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToIssueViewedStates(IssueViewedState issueViewedState)
+        {
+            base.AddObject("IssueViewedStates", issueViewedState);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the BoardViewedStates EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToBoardViewedStates(BoardViewedState boardViewedState)
+        {
+            base.AddObject("BoardViewedStates", boardViewedState);
         }
 
         #endregion
@@ -3386,13 +3412,15 @@ namespace HaveAVoice.Models
         /// <param name="boardId">Initial value of the BoardId property.</param>
         /// <param name="userId">Initial value of the UserId property.</param>
         /// <param name="viewed">Initial value of the Viewed property.</param>
-        public static BoardViewedState CreateBoardViewedState(global::System.Int32 id, global::System.Int32 boardId, global::System.Int32 userId, global::System.Boolean viewed)
+        /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
+        public static BoardViewedState CreateBoardViewedState(global::System.Int32 id, global::System.Int32 boardId, global::System.Int32 userId, global::System.Boolean viewed, global::System.DateTime dateTimeStamp)
         {
             BoardViewedState boardViewedState = new BoardViewedState();
             boardViewedState.Id = id;
             boardViewedState.BoardId = boardId;
             boardViewedState.UserId = userId;
             boardViewedState.Viewed = viewed;
+            boardViewedState.DateTimeStamp = dateTimeStamp;
             return boardViewedState;
         }
 
@@ -3497,6 +3525,30 @@ namespace HaveAVoice.Models
         private global::System.Boolean _Viewed;
         partial void OnViewedChanging(global::System.Boolean value);
         partial void OnViewedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateTimeStamp
+        {
+            get
+            {
+                return _DateTimeStamp;
+            }
+            set
+            {
+                OnDateTimeStampChanging(value);
+                ReportPropertyChanging("DateTimeStamp");
+                _DateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateTimeStamp");
+                OnDateTimeStampChanged();
+            }
+        }
+        private global::System.DateTime _DateTimeStamp;
+        partial void OnDateTimeStampChanging(global::System.DateTime value);
+        partial void OnDateTimeStampChanged();
 
         #endregion
     
@@ -5568,6 +5620,28 @@ namespace HaveAVoice.Models
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_IssueViewedStates_Issues", "IssueViewedState")]
+        public EntityCollection<IssueViewedState> IssueViewedStates
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<IssueViewedState>("HaveAVoice.Models.FK_IssueViewedStates_Issues", "IssueViewedState");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IssueViewedState>("HaveAVoice.Models.FK_IssueViewedStates_Issues", "IssueViewedState", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -7557,6 +7631,244 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<IssueReply>("HaveAVoice.Models.FK_IssueReplyDisposition_IssueReplys", "IssueReply", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="HaveAVoice.Models", Name="IssueViewedState")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class IssueViewedState : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new IssueViewedState object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="issueId">Initial value of the IssueId property.</param>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="viewed">Initial value of the Viewed property.</param>
+        /// <param name="lastUpdated">Initial value of the LastUpdated property.</param>
+        public static IssueViewedState CreateIssueViewedState(global::System.Int32 id, global::System.Int32 issueId, global::System.Int32 userId, global::System.Boolean viewed, global::System.DateTime lastUpdated)
+        {
+            IssueViewedState issueViewedState = new IssueViewedState();
+            issueViewedState.Id = id;
+            issueViewedState.IssueId = issueId;
+            issueViewedState.UserId = userId;
+            issueViewedState.Viewed = viewed;
+            issueViewedState.LastUpdated = lastUpdated;
+            return issueViewedState;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 IssueId
+        {
+            get
+            {
+                return _IssueId;
+            }
+            set
+            {
+                OnIssueIdChanging(value);
+                ReportPropertyChanging("IssueId");
+                _IssueId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IssueId");
+                OnIssueIdChanged();
+            }
+        }
+        private global::System.Int32 _IssueId;
+        partial void OnIssueIdChanging(global::System.Int32 value);
+        partial void OnIssueIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
+            }
+        }
+        private global::System.Int32 _UserId;
+        partial void OnUserIdChanging(global::System.Int32 value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Viewed
+        {
+            get
+            {
+                return _Viewed;
+            }
+            set
+            {
+                OnViewedChanging(value);
+                ReportPropertyChanging("Viewed");
+                _Viewed = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Viewed");
+                OnViewedChanged();
+            }
+        }
+        private global::System.Boolean _Viewed;
+        partial void OnViewedChanging(global::System.Boolean value);
+        partial void OnViewedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime LastUpdated
+        {
+            get
+            {
+                return _LastUpdated;
+            }
+            set
+            {
+                OnLastUpdatedChanging(value);
+                ReportPropertyChanging("LastUpdated");
+                _LastUpdated = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LastUpdated");
+                OnLastUpdatedChanged();
+            }
+        }
+        private global::System.DateTime _LastUpdated;
+        partial void OnLastUpdatedChanging(global::System.DateTime value);
+        partial void OnLastUpdatedChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_IssueViewedStates_Issues", "Issue")]
+        public Issue Issue
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Issue>("HaveAVoice.Models.FK_IssueViewedStates_Issues", "Issue").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Issue>("HaveAVoice.Models.FK_IssueViewedStates_Issues", "Issue").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Issue> IssueReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Issue>("HaveAVoice.Models.FK_IssueViewedStates_Issues", "Issue");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Issue>("HaveAVoice.Models.FK_IssueViewedStates_Issues", "Issue", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_IssueViewedStates_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueViewedStates_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueViewedStates_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_IssueViewedStates_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_IssueViewedStates_Users", "User", value);
                 }
             }
         }
@@ -11967,28 +12279,6 @@ namespace HaveAVoice.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_BoardViewedState_Users", "BoardViewedState")]
-        public EntityCollection<BoardViewedState> BoardViewedStates
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BoardViewedState>("HaveAVoice.Models.FK_BoardViewedState_Users", "BoardViewedState");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BoardViewedState>("HaveAVoice.Models.FK_BoardViewedState_Users", "BoardViewedState", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Issues_Users", "Issue")]
         public EntityCollection<Issue> Issues
         {
@@ -12243,6 +12533,50 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AuthorityVerification>("HaveAVoice.Models.FK_AuthorityVerification_Users", "AuthorityVerification", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_IssueViewedStates_Users", "IssueViewedState")]
+        public EntityCollection<IssueViewedState> IssueViewedStates
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<IssueViewedState>("HaveAVoice.Models.FK_IssueViewedStates_Users", "IssueViewedState");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IssueViewedState>("HaveAVoice.Models.FK_IssueViewedStates_Users", "IssueViewedState", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_BoardViewedState_Users", "BoardViewedState")]
+        public EntityCollection<BoardViewedState> BoardViewedStates
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BoardViewedState>("HaveAVoice.Models.FK_BoardViewedState_Users", "BoardViewedState");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BoardViewedState>("HaveAVoice.Models.FK_BoardViewedState_Users", "BoardViewedState", value);
                 }
             }
         }

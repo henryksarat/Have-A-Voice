@@ -23,24 +23,14 @@ namespace HaveAVoice.Services.UserFeatures {
             theRepository = aRepository;
             theValidationDictionary = aValidationDictionary;
         }
-        
-        public Board FindBoard(int aBoardId) {
-            return theRepository.FindBoardByBoardId(aBoardId);
-        }
 
-        public BoardModel GetBoard(UserInformationModel aUser, int aBoardId) {
+        public Board GetBoard(UserInformationModel aUser, int aBoardId) {
             if (!AllowedToPerformAction(aUser, HAVPermission.View_Board)) {
-                return new BoardModel();
+                return null;
             }
 
-            BoardModel myModel = new BoardModel() {
-                Board = theRepository.FindBoardByBoardId(aBoardId),
-                BoardReplies = theRepository.FindBoardRepliesByBoard(aBoardId)
-            };
-
             theRepository.MarkBoardAsViewed(aUser.Details, aBoardId);
-
-            return myModel;
+            return theRepository.FindBoardByBoardId(aBoardId);
         }
 
         public bool PostToBoard(UserInformationModel aPostingUser, int aSourceUserId, string aMessage) {
@@ -50,7 +40,11 @@ namespace HaveAVoice.Services.UserFeatures {
             if (!AllowedToPerformAction(aPostingUser, HAVPermission.Post_To_Board)) {
                 return false;
             }
-            theRepository.AddToBoard(aPostingUser.Details, aSourceUserId, aMessage);
+            Board myBoard = theRepository.AddToBoard(aPostingUser.Details, aSourceUserId, aMessage);
+
+            theRepository.AddUserToBoardViewedState(aSourceUserId, myBoard, false);
+            theRepository.AddUserToBoardViewedState(aPostingUser.Details.Id, myBoard, true);
+
             return true;
         }
 

@@ -7,8 +7,7 @@ using HaveAVoice.Models;
 
 namespace HaveAVoice.Services.UserFeatures {
     public interface IHAVBoardService {
-        Board FindBoard(int aBoardId);
-        BoardModel GetBoard(UserInformationModel aUser, int boardId);
+        Board GetBoard(UserInformationModel aUser, int boardId);
         bool PostToBoard(UserInformationModel aPostingUser, int aSourceUserId, string aMessage);
         bool EditBoardMessage(UserInformationModel anEditBy, Board aBoard);
         bool DeleteBoardMessage(UserInformationModel aDeletingUser, int aBoardId);

@@ -1,5 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInListModel<Board>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInListModel<NotificationModel>>" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
+<%@ Import Namespace="HaveAVoice.Models.View" %>
+<%@ Import Namespace="HaveAVoice.Helpers.Enums" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Notifications
@@ -18,7 +20,13 @@
 
 	    <% foreach (var item in Model.Models) { %>
 	    	<div class="notification m-btm20">
-	    		<%= Html.ActionLink("Now activity with this board message:" + item.Message, "View", "Board", new { id = item.Id }, null) %>
+                <% if (item.NotificationType == NotificationType.Issue) { %>
+	    		    New replies in your issue: <%= Html.ActionLink(item.Label, "Details", "Issue", new { id = item.Id }, null)%> (<%= item.DateTimeStamp %>)
+                <% } else if (item.NotificationType == NotificationType.ParticipatingBoard) { %>
+                    New comments to a board message you are participating in: <%= Html.ActionLink(item.Label, "Details", "Board", new { id = item.Id }, null)%> (<%= item.DateTimeStamp %>)
+                <% } else if (item.NotificationType == NotificationType.Board) { %>
+                    ad
+                <% } %>
 	    		<div class="clear">&nbsp;</div>
 	    	</div>
 	    <% } %>

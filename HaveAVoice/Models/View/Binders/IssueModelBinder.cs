@@ -14,7 +14,7 @@ namespace HaveAVoice.Models.View {
     public class IssueModelBinder : IModelBinder {
         public object BindModel(ControllerContext aControllerContext, ModelBindingContext aBindingContext) {
             IHAVIssueService issueService = new HAVIssueService(new ModelStateWrapper(null));
-            User myUser = HAVUserInformationFactory.GetUserInformation().Details;
+            UserInformationModel myUser = HAVUserInformationFactory.GetUserInformation();
 
             int issueId = Int32.Parse(BinderHelper.GetA(aBindingContext, "IssueId"));
             int myTotalAgrees = Int32.Parse(BinderHelper.GetA(aBindingContext, "TotalAgrees"));
@@ -22,16 +22,16 @@ namespace HaveAVoice.Models.View {
 
             string reply = BinderHelper.GetA(aBindingContext, "Reply");
 
-            Issue issue = issueService.GetIssue(issueId);
+            Issue issue = issueService.GetIssue(issueId, myUser);
 
             List<string> myRegisteredRoles = new List<string>();
             myRegisteredRoles.Add(Roles.OFFICIAL);
             myRegisteredRoles.Add(Roles.REGISTERED);
-            IEnumerable<IssueReplyModel> registeredUserReplys = issueService.GetReplysToIssue(myUser, issue, myRegisteredRoles, PersonFilter.People);
+            IEnumerable<IssueReplyModel> registeredUserReplys = issueService.GetReplysToIssue(myUser.Details, issue, myRegisteredRoles, PersonFilter.People);
 
             List<string> myOfficialRoles = new List<string>();
             myOfficialRoles.Add(Roles.OFFICIAL);
-            IEnumerable<IssueReplyModel> officialUserReplys = issueService.GetReplysToIssue(myUser, issue, myOfficialRoles, PersonFilter.Politicians);
+            IEnumerable<IssueReplyModel> officialUserReplys = issueService.GetReplysToIssue(myUser.Details, issue, myOfficialRoles, PersonFilter.Politicians);
             bool anonymous = BinderHelper.GetA(aBindingContext, "Anonymous") == "true,false" ? true : false;
             string extractedDisposition = BinderHelper.GetA(aBindingContext, "Disposition");
             Disposition dispotion;

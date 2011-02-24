@@ -36,11 +36,11 @@ namespace HaveAVoice.Controllers.Users {
             }
 
             User myUser = GetUserInformatonModel().Details;
-            LoggedInListModel<Board> myModel = new LoggedInListModel<Board>(myUser, SiteSection.Board);
+            LoggedInListModel<NotificationModel> myModel = new LoggedInListModel<NotificationModel>(myUser, SiteSection.Notification);
             try {
                 myModel.Models = theNotificationService.GetNotifications(myUser);
 
-                if (myModel.Models.Count<Board>() == 0) {
+                if (myModel.Models.Count<NotificationModel>() == 0) {
                     ViewData["Message"] = MessageHelper.NormalMessage(NO_NOTIFICAITONS);
                 }
             } catch (Exception myException) {
