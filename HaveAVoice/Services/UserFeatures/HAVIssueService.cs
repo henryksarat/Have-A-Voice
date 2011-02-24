@@ -114,6 +114,13 @@ namespace HaveAVoice.Services.UserFeatures {
             return theRepository.GetIssueReply(anIssueReplyId);
         }
 
+        public IssueReply GetIssueReply(User aViewingUser, int anIssueReplyId) {
+            IssueReply myIssueReply = GetIssueReply(anIssueReplyId);
+            theRepository.MarkIssueReplyAsViewed(aViewingUser.Id, anIssueReplyId);
+
+            return myIssueReply;
+        }
+
         public IEnumerable<IssueReplyComment> GetIssueReplyComments(int aIssueReplyId) {
             return theRepository.GetIssueReplyComments(aIssueReplyId);
         }

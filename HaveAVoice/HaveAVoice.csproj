@@ -435,7 +435,7 @@
     <Content Include="Views\Issue\Edit.aspx" />
     <Content Include="Views\Issue\Index.aspx" />
     <Content Include="Views\Issue\Details.aspx" />
-    <Content Include="Views\IssueReply\View.aspx" />
+    <Content Include="Views\IssueReply\Details.aspx" />
     <Content Include="Views\Message\Inbox.aspx" />
     <Content Include="Views\Message\Create.aspx" />
     <Content Include="Views\Message\View.aspx" />

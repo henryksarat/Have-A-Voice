@@ -314,7 +314,6 @@ namespace HaveAVoice.Helpers.UI {
             profileImg.MergeAttribute("src", myAvatarURL);
         	profileImg.MergeAttribute("class", "profile");
 
-
 			profileDiv.InnerHtml += profileImg.ToString();
 			wrprDiv.InnerHtml += profileDiv.ToString();
 			
@@ -371,8 +370,8 @@ namespace HaveAVoice.Helpers.UI {
 			rProfileDiv.MergeAttribute("class", "push-3 col-3 center issue-profile");
 			
 			var rProfileImg = new TagBuilder("img");
-			rProfileImg.MergeAttribute("alt", "Reply Username");
-			rProfileImg.MergeAttribute("src", "/Photos/no_profile_picture.jpg");
+            rProfileImg.MergeAttribute("alt", myName);
+			rProfileImg.MergeAttribute("src", myAvatarURL);
 			rProfileImg.MergeAttribute("class", "profile");
 			
 			rProfileDiv.InnerHtml += rProfileImg.ToString();
@@ -389,7 +388,7 @@ namespace HaveAVoice.Helpers.UI {
 			var rUserLink = new TagBuilder("a");
 			rUserLink.MergeAttribute("class", "name");
 			rUserLink.MergeAttribute("href", "#");
-			rUserLink.InnerHtml = "Full name";
+            rUserLink.InnerHtml = myName;
 			
 			rPaddingDiv.InnerHtml += rUserLink.ToString();
 			rPaddingDiv.InnerHtml += "&nbsp;";

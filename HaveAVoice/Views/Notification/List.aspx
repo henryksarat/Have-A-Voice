@@ -27,6 +27,10 @@
                     New comments to a board message you are participating in: <%= Html.ActionLink(item.Label, "Details", "Board", new { id = item.Id }, null)%> (<%= item.DateTimeStamp %>)
                 <% } else if (item.NotificationType == NotificationType.Board) { %>
                     <a href="<%= LinkHelper.Profile(item.TriggeredUser) %>"><%= NameHelper.FullName(item.TriggeredUser) %></a> posted a new <%= Html.ActionLink("message", "Details", "Board", new { id = item.Id }, null)%> on <a href="<%= LinkHelper.Profile(Model.NavigationModel.User) %>">your board</a>. (<%= item.DateTimeStamp %>)
+                <% } else if (item.NotificationType == NotificationType.ParticipatingIssueReply) { %>
+                    New comments to a reply to an issue you are participating in: <%= Html.ActionLink(item.Label, "Details", "IssueReply", new { id = item.Id }, null)%> (<%= item.DateTimeStamp %>)
+                <% } else if(item.NotificationType == NotificationType.IssueReply) { %>
+                    Someone commented on your <%= Html.ActionLink("reply", "Details", "IssueReply", new { id = item.Id }, null)%> to an issue.
                 <% } %>
 	    		<div class="clear">&nbsp;</div>
 	    	</div>

@@ -31,5 +31,23 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     && v.Viewed == false
                     select v).ToList<IssueViewedState>();
         }
+
+        public IEnumerable<IssueReplyViewedState> UnreadIssueReplies(User aUser) {
+            return (from v in theEntities.IssueReplyViewedStates
+                    join ir in theEntities.IssueReplys on v.IssueReplyId equals ir.Id
+                    where v.Viewed == false
+                    && v.UserId == aUser.Id
+                    && ir.UserId == aUser.Id
+                    select v).ToList<IssueReplyViewedState>();
+        }
+
+        public IEnumerable<IssueReplyViewedState> UnreadParticipatingIssueReplies(User aUser) {
+            return (from v in theEntities.IssueReplyViewedStates
+                    join ir in theEntities.IssueReplys on v.IssueReplyId equals ir.Id
+                    where v.Viewed == false
+                    && v.UserId == aUser.Id
+                    && ir.UserId != aUser.Id
+                    select v).ToList<IssueReplyViewedState>();
+        }
     }
 }

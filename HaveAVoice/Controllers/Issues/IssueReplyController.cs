@@ -128,22 +128,24 @@ namespace HaveAVoice.Controllers.Issues {
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult View(int id) {
+        public ActionResult Details(int id) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
+            UserInformationModel myUserInfo = GetUserInformatonModel();
+
             if (!HAVPermissionHelper.AllowedToPerformAction(GetUserInformatonModel(), HAVPermission.View_Issue_Reply)) {
                 return SendToErrorPage(HAVConstants.PAGE_NOT_FOUND);
             }
             try {
-                IssueReply myIssueReply = theService.GetIssueReply(id);
+                IssueReply myIssueReply = theService.GetIssueReply(myUserInfo.Details, id);
                 if (myIssueReply == null) {
                     return SendToResultPage(NON_EXISTENT);
                 }
 
                 IEnumerable<IssueReplyComment> myComments = theService.GetIssueReplyComments(id);
                 IssueReplyDetailsModel myIssueModelDetails = new IssueReplyDetailsModel(myIssueReply, myComments);
-                return View("View", myIssueModelDetails);
+                return View("Details", myIssueModelDetails);
             } catch (Exception myException) {
                 LogError(myException, VIEW_ERROR);
                 return SendToErrorPage(VIEW_ERROR);
@@ -151,7 +153,7 @@ namespace HaveAVoice.Controllers.Issues {
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult View(IssueReplyDetailsModel issueReplyDetails) {
+        public ActionResult Details(IssueReplyDetailsModel issueReplyDetails) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
@@ -165,7 +167,7 @@ namespace HaveAVoice.Controllers.Issues {
                 LogError(e, POST_COMMENT_ERROR);
                 ViewData["Message"] = MessageHelper.ErrorMessage(POST_COMMENT_ERROR);
             }
-            return View("View", issueReplyDetails);
+            return View("Details", issueReplyDetails);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

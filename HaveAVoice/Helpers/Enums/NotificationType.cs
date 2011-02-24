@@ -7,6 +7,8 @@ namespace HaveAVoice.Helpers.Enums {
     public enum NotificationType {
         Board,
         ParticipatingBoard,
-        Issue
+        Issue,
+        IssueReply,
+        ParticipatingIssueReply
     }
 }
