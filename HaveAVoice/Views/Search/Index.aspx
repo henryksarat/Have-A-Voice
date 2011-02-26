@@ -42,7 +42,7 @@
     <% using (Html.BeginForm()) {%>
 		<p>
             <%= Html.DropDownList("SearchType", new SelectList(new List<string>() { "User", "Issue"}, "User"))  %>
-			<label>Single City (local):</label>
+			<label>Search:</label>
             <%= Html.TextBox("SearchQuery")%>
 		</p>
 		
