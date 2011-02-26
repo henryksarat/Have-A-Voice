@@ -323,5 +323,9 @@ namespace HaveAVoice.Services.UserFeatures {
 
             return new IssueModel(anIssue, myMerged);
         }
+
+        public IEnumerable<Issue> GetIssueByTitleSearch(string aTitlePortion) {
+            return theRepository.GetIssuesByTitleContains(aTitlePortion);
+        }
     }
 }

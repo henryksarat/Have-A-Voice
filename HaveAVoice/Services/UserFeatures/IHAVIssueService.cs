@@ -12,12 +12,15 @@ namespace HaveAVoice.Services.UserFeatures {
         IssueModel CreateIssueModel(User aViewingUser, string aTitle);
         IssueModel CreateIssueModel(string aTitle);
 
+
         bool CreateIssue(UserInformationModel aUserCreating, Issue anIssueToCreate);
         bool CreateIssueReply(UserInformationModel aUserCreating, IssueModel anIssueModel);
         bool CreateIssueReply(UserInformationModel aUserCreating, int anIssueId, string aReply, int aDisposition, bool anAnonymous);
         bool CreateCommentToIssueReply(UserInformationModel aUserCreating, int anIssueReplyId, string aComment);
 
         Issue GetIssue(int anIssueId, UserInformationModel aViewingUser);
+        IEnumerable<Issue> GetIssueByTitleSearch(string aTitlePortion);
+
         IEnumerable<IssueReplyModel> GetReplysToIssue(User aUser, Issue anIssue, IEnumerable<string> aRoleName, PersonFilter aFilter);
         IssueReply GetIssueReply(int anIssueReplyId);
         IssueReply GetIssueReply(User aViewingUser, int anIssueReplyId);

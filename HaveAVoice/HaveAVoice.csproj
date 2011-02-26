@@ -94,7 +94,6 @@
     <Compile Include="Controllers\Issues\IssueReplyController.cs" />
     <Compile Include="Controllers\Users\NotificationController.cs" />
     <Compile Include="Controllers\Photos\PhotosController.cs" />
-    <Compile Include="Controllers\Users\SearchController.cs" />
     <Compile Include="Controllers\Users\UserPrivacySettingsController.cs" />
     <Compile Include="Helpers\Enums\FeedItem.cs" />
     <Compile Include="Helpers\IssueTitleHelper.cs" />
@@ -420,6 +419,8 @@
     <Content Include="Views\Calendar\List.aspx" />
     <Content Include="Views\Complaint\Create.aspx" />
     <Content Include="Views\IssueReply\Details.aspx" />
+    <Content Include="Views\Search\IssueResults.aspx" />
+    <Content Include="Views\Search\UserResults.aspx" />
     <Content Include="Views\Site\ContactUs.aspx" />
     <Content Include="Views\Error\Index.aspx" />
     <Content Include="Views\Friend\List.aspx" />

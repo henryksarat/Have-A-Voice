@@ -13,26 +13,40 @@
 <link rel="stylesheet" type="text/css" href="../../Content/jquery.autocomplete.css" />
 	
 <script type="text/javascript">
-    $().ready(function() {
+    $().ready(function () {
 
-        $("#suggest1").focus().autocomplete("http://localhost:50815/Search/getAjaxResult");
+        if ($("#SearchType").val() === "User") {
+            $("#SearchQuery").focus().autocomplete("/Search/getUserAjaxResult");
+        } else {
+            $("#SearchQuery").focus().autocomplete("/Search/getIssueAjaxResult");
+        }
 
-        $("#clear").click(function() {
+        $("#SearchType").change(function (e) {
+            if ($("#SearchType").val() === "User") {
+                $("#SearchQuery").focus().autocomplete("/Search/getUserAjaxResult");
+            } else {
+                $("#SearchQuery").focus().autocomplete("/Search/getIssueAjaxResult");
+            }
+        });
+        $("#clear").click(function () {
             $(":input").unautocomplete();
         });
     });
 
+
+
 </script>
+
     <h2>Look for an artist</h2>       
         
     <% using (Html.BeginForm()) {%>
 		<p>
+            <%= Html.DropDownList("SearchType", new SelectList(new List<string>() { "User", "Issue"}, "User"))  %>
 			<label>Single City (local):</label>
-			<input type="text" id="suggest1" />
-			<input type="button" value="Get Value" />
+            <%= Html.TextBox("SearchQuery")%>
 		</p>
 		
-		<input type="submit" value="Submit" />
+		<input type="submit" value="Search" />
     <% }%>
     
         <br />

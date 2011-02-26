@@ -10,5 +10,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
         User GetUserByShortUrl(string aShortUrl);
         User GetUser(string anEmail, string aPassword);
         User GetUser(string anEmail);
+        IEnumerable<User> GetUsersByNameContains(string aNamePortion);
     }
 }

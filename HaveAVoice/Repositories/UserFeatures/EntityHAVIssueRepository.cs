@@ -338,5 +338,11 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     where v.IssueReplyId == anIssueReplyId
                     select v).ToList<IssueReplyViewedState>();
         }
+
+        public IEnumerable<Issue> GetIssuesByTitleContains(string aTitlePortion) {
+            return (from i in theEntities.Issues
+                    where i.Title.Contains(aTitlePortion)
+                    select i).ToList<Issue>();
+        }
     }
 }

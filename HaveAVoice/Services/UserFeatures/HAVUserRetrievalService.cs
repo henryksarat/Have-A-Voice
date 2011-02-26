@@ -33,5 +33,9 @@ namespace HaveAVoice.Services.UserFeatures {
         public User GetUser(string anEmail) {
             return theUserRetrievalRepo.GetUser(anEmail);
         }
+
+        public IEnumerable<User> GetUsersByNameSearch(string aNamePortion) {
+            return theUserRetrievalRepo.GetUsersByNameContains(aNamePortion);
+        }
     }
 }

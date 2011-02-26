@@ -1,24 +1,25 @@
 ﻿using System.Linq;
 using HaveAVoice.Models;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVSearchRepository : IHAVSearchRepository {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
-        public string SearchResult(string aSearchString) {
+        public IEnumerable<User> UserSearch(string aSearchString) {
+            return (from u in theEntities.Users
+                    where u.FirstName.Contains(aSearchString)
+                    || u.LastName.Contains(aSearchString)
+                    orderby u.LastName
+                    select u).Take(10);
+        }
 
-            string searchResult = string.Empty;
-
-            var results = (from a in theEntities.Issues
-                           where a.Title.Contains(aSearchString)
-                           orderby a.Title
-                           select a).Take(10);
-
-            foreach(Issue issue in results) {
-                searchResult += string.Format("{0}|\r\n", issue.Title);   
-            }
-
-            return searchResult;
+        public IEnumerable<Issue> IssueSearch(string aSearchString) {
+            return (from i in theEntities.Issues
+                    where i.Title.Contains(aSearchString)
+                    orderby i.DateTimeStamp
+                    select i).Take(10);
         }
     }
 }

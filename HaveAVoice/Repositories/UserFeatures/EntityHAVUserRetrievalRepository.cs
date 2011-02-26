@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using HaveAVoice.Models;
+using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVUserRetrievalRepository : IHAVUserRetrievalRepository {
@@ -31,6 +32,14 @@ namespace HaveAVoice.Repositories.UserFeatures {
             return (from c in theEntities.Users
                     where c.Email == email
                     select c).FirstOrDefault();
+        }
+
+        public IEnumerable<User> GetUsersByNameContains(string aNamePortion) {
+            return (from u in theEntities.Users
+                    where u.FirstName + " " + u.LastName == aNamePortion
+                    || u.FirstName.Contains(aNamePortion) 
+                    || u.LastName.Contains(aNamePortion)
+                    select u);
         }
     }
 }

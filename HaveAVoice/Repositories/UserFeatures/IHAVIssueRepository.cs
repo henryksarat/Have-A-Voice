@@ -10,6 +10,8 @@ namespace HaveAVoice.Repositories.UserFeatures {
         Issue CreateIssue(Issue anIssueToCreate, User aUserCreating);
         Issue GetIssue(int anIssueId);
         Issue GetIssueByTitle(string aTitle);
+        IEnumerable<Issue> GetIssuesByTitleContains(string aTitlePortion);
+
         bool HasIssueTitleBeenUsed(string aTitle);
 
         IssueReply CreateIssueReply(User aUserCreating, int anIssueId, string aReply, bool anAnonymous, int aDisposition);

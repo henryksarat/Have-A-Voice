@@ -1,5 +1,8 @@
-﻿namespace HaveAVoice.Repositories.UserFeatures {
+﻿using System.Collections.Generic;
+using HaveAVoice.Models;
+namespace HaveAVoice.Repositories.UserFeatures {
     public interface IHAVSearchRepository {
-        string SearchResult(string aSearchString);
+        IEnumerable<User> UserSearch(string aSearchString);
+        IEnumerable<Issue> IssueSearch(string aSearchString);
     }
 }
