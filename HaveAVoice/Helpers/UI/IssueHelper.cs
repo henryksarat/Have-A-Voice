@@ -229,8 +229,12 @@ namespace HaveAVoice.Helpers.UI {
         }
 
         public static string Comment(IssueReplyComment aComment) {
+			var clrDiv = new TagBuilder("div");
+			clrDiv.MergeAttribute("class", "clear");
+			clrDiv.InnerHtml += "&nbsp;";
+			
         	var wrprDiv = new TagBuilder("div");
-        	wrprDiv.MergeAttribute("class", "m-btm10");
+        	wrprDiv.MergeAttribute("class", "m-btm5 alt");
         	
         	var profileDiv = new TagBuilder("div");
         	profileDiv.MergeAttribute("class", "push-6 col-3 center");
@@ -244,7 +248,7 @@ namespace HaveAVoice.Helpers.UI {
         	wrprDiv.InnerHtml += profileDiv.ToString();
         	
         	var commentDiv = new TagBuilder("div");
-        	commentDiv.MergeAttribute("class", "push-6 m-lft col-12 m-rgt row");
+        	commentDiv.MergeAttribute("class", "push-6 m-lft col-12 m-rgt comment");
         	
 			var spanDirSpeak = new TagBuilder("span");
             spanDirSpeak.MergeAttribute("class", "speak-lft");
@@ -264,8 +268,19 @@ namespace HaveAVoice.Helpers.UI {
         	paddingDiv.InnerHtml += "&nbsp;";
         	paddingDiv.InnerHtml += aComment.Comment;
         	
-        	paddingDiv.InnerHtml += ComplaintHelper.IssueReplyCommentLink(aComment.Id);
+        	var divOptions = new TagBuilder("div");
+        	divOptions.MergeAttribute("class", "options p-v10");
         	
+        	var divReport = new TagBuilder("div");
+        	divReport.MergeAttribute("class", "col-1 push-10");
+        	
+        	divReport.InnerHtml += ComplaintHelper.IssueReplyCommentLink(aComment.Id);
+        	divReport.InnerHtml += clrDiv.ToString();
+        	
+        	divOptions.InnerHtml += divReport.ToString();
+        	
+        	paddingDiv.InnerHtml += divOptions.ToString();
+
         	commentDiv.InnerHtml += paddingDiv.ToString();
         	wrprDiv.InnerHtml += commentDiv.ToString();
         	
@@ -285,10 +300,6 @@ namespace HaveAVoice.Helpers.UI {
 			divTime.InnerHtml += divTimePad.ToString();
 			
 			wrprDiv.InnerHtml += divTime.ToString();
-			
-			var clrDiv = new TagBuilder("div");
-			clrDiv.MergeAttribute("class", "clear");
-			clrDiv.InnerHtml += "&nbsp;";
 			
 			wrprDiv.InnerHtml += clrDiv.ToString();
 

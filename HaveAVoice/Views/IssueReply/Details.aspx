@@ -12,7 +12,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-	<div class="col-24">
+	<div class="col-24 m-top30">
 	
     <% using (Html.BeginForm(new { issueReplyId = Model.Id })) { %>
         <% Html.RenderPartial("Message"); %>
@@ -44,7 +44,7 @@
 						<span class="speak-lft">&nbsp;</span>
 						<div class="p-a10">
 							<%= Html.ValidationMessage("Comment", "*") %>
-							<%= Html.TextArea("Comment", string.Empty, 5, 63, new { resize = "none", @class = "comment" }) %>
+							<%= Html.TextArea("Comment", string.Empty, 5, 50, new { resize = "none", style = "width:100%" }) %>
 							<div class="clear">&nbsp;</div>
 							<hr />
 							<div class="col-11">

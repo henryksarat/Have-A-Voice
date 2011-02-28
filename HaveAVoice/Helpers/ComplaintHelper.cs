@@ -22,7 +22,7 @@ namespace HaveAVoice.Helpers {
         }
 
         public static string IssueReplyCommentLink(int aComment) {
-            return String.Format("<a href=\"/Complaint/Create?sourceId={0}&complaintType={1}\">{2}</a>",
+            return String.Format("<a href=\"/Complaint/Create?sourceId={0}&complaintType={1}\" class=\"issue-report\">{2}</a>",
                 aComment,
                 ComplaintType.IssueReplyComment,
                 "Report Comment");
