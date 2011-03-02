@@ -19,6 +19,9 @@
     </ul>
 </div>
 <div class="col-6">
+	<ul>
+		<li class="search"><a href="/Search/Index">Search</a></li>
+	</ul>
 	<ul class="right">
         <li><a href="/User/Edit">SETTINGS</a></li>
         <li><%= Html.ActionLink("LOGOUT", "LogOut", "Authentication")%></li>
