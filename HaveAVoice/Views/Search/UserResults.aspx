@@ -6,25 +6,50 @@
 <%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	UserResults
+	Search Users
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
-    <h2>User Results</h2>
-
-    <% Html.RenderPartial("Message"); %>
-    <% UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation(); %>
-    <% foreach (User myUser in Model) { %>
-        Full Name: <%= NameHelper.FullName(myUser) %><br />
-        Profile Picture: <%= PhotoHelper.ProfilePicture(myUser) %><br />
-        Short Url: <%= myUser.ShortUrl %><br />
-        <% if (myUserInfo!= null && !FriendHelper.IsFriend(myUserInfo.Details, myUser)) { %>
-            <%= Html.ActionLink("Add Friend", "Add", "Friend", new { id = myUser.Id }, null)%><br />
-        <% } %>
-        <%= Html.ActionLink("Message", "Create", "Message", new { id = myUser.Id }, null) %><br />
-        <br />
-    <% } %>
-
+    <div class="col-24">
+        <div class="spacer-30">&nbsp;</div>
+    
+    	<% Html.RenderPartial("Message"); %>
+    	<div class="clear">&nbsp;</div>
+    
+    	<div class="push-1 col-4 center p-t5 p-b5 t-tab b-wht">
+    		<span class="fnt-16 tint-6 bold">SEARCH</span>
+    		<div class="clear">&nbsp;</div>
+    	</div>
+    	<div class="clear">&nbsp;</div>
+    	
+    	<div class="b-wht m-btm10">
+    		<div class="spacer-10">&nbsp;</div>
+			<div class="clear">&nbsp;</div>
+		</div>
+		
+		<div class="col-24 m-btm10">
+		    <% UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation(); %>
+		    <% foreach (User myUser in Model) { %>
+		    	<div class="col-6 center">
+		    		<a href="<%= myUser.ShortUrl %>">
+		    			<img src="<%= PhotoHelper.ProfilePicture(myUser) %>" alt="<%= NameHelper.FullName(myUser) %>" class="profile" />
+		    		</a>
+		    		<br />
+		    		<a class="name" href="<%= myUser.ShortUrl %>">
+						<%= NameHelper.FullName(myUser) %>
+		    		</a><br />
+		    		<div class="col-3 center m-top5">
+		    			<%= Html.ActionLink("Message", "Create", "Message", new { id = myUser.Id }, new { @class = "button" }) %>
+		    			<div class="clear">&nbsp;</div>
+		    		</div>
+		    		<div class="col-3 center m-top5">
+				        <% if (myUserInfo!= null && !FriendHelper.IsFriend(myUserInfo.Details, myUser)) { %>
+				            <%= Html.ActionLink("Add Friend", "Add", "Friend", new { id = myUser.Id }, new { @class = "button" })%><br />
+				        <% } %>
+		    		</div>
+		    		<div class="clear">&nbsp;</div>
+		    	</div>
+		    <% } %>
+    		<div class="clear">&nbsp;</div>
+		</div>
 </asp:Content>
-

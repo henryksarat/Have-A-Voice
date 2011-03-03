@@ -245,6 +245,9 @@ a.forget:hover { text-decoration: underline; }
 .user-panel .user-control h2 { font-size: 16px; color: #63a8b8; margin-top: 5px; }
 .user-panel .user-control span.time { font-size: 12px; color: #a2a2a2; }
 
+ul li.search { text-indent: -9999px; outline: none; padding: 2px; }
+ul li.search a, ul li.search a:link, ul li.search a:visited { background:url("images/find.png") center center no-repeat; text-indent: -9999px; padding: 0px; margin: 0px; width: 24px; height: 24px; }
+
 
 /****************************************************************************/
 /************************* LEFT NAVIGATION **********************************/
