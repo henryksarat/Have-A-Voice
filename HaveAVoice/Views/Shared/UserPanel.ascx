@@ -17,28 +17,16 @@
           
             <%= NavigationHelper.UserNavigation(Model.SiteSection, Model.UserMenuMetaData, Model.User) %>
             
-            <% if(myUser != null) { %>
-                <% if (Model.SiteSection == SiteSection.Profile && (myUser.Details.Id != Model.User.Id)) { %>
-                    <% if (!FanHelper.IsFan(Model.User.Id, myUser.Details)) { %>
-                        <div class="f-rgt">
-            	            <div class="col-2 center">
-	            	            <a href="/Fan/Add/<%= Model.User.Id %>" class="filter like">
-			                        Fan
-		                        </a>
-		                        <div class="clear">&nbsp;</div>
-	                        </div>
-			            </div>
-                    <% } else {%>
-                        <div class="f-rgt">
-            	            <div class="col-2 center">
-	            	            <a href="/Fan/Remove/<%= Model.User.Id %>" class="filter like">
-			                        De-Fan
-		                        </a>
-		                        <div class="clear">&nbsp;</div>
-	                        </div>
-			            </div>
-                    <% } %>
-                <% } %>
+ 
+            <% if (Model.FanMetaData.Display) {%>
+                <div class="f-rgt">
+            	    <div class="col-2 center">
+	            	    <a href="<%= Model.FanMetaData.Url %>" class="filter like" alt="<%= Model.FanMetaData.AltText %>">
+			                <%= Model.FanMetaData.DisplayText%>
+		                </a>
+		                <div class="clear">&nbsp;</div>
+	                </div>
+			    </div>
             <% } %>
             <div class="clear">&nbsp;</div>
 		</div>

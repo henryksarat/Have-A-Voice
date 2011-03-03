@@ -9,6 +9,7 @@ using HaveAVoice.Util;
 namespace HaveAVoice.Models.View {
     public class NavigationModel {
         public IEnumerable<UserNavigationMenuModel> UserMenuMetaData { get; set; }
+        public NavigationItemModel FanMetaData { get; set; }
         public User User { get; private set; }
         public string ProfilePictureUrl { get; private set; }
         public string FullName { get; private set; }

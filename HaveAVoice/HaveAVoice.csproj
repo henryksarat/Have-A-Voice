@@ -147,6 +147,7 @@
     <Compile Include="Models\View\Binders\ImageBinder.cs" />
     <Compile Include="Models\View\BoardFeedModel.cs" />
     <Compile Include="Models\View\CreateUserModel.cs" />
+    <Compile Include="Models\View\NavigationItemModel.cs" />
     <Compile Include="Models\View\NotificationModel.cs" />
     <Compile Include="Models\View\UpdatePrivacySettingsModel.cs" />
     <Compile Include="Models\View\CreateUserModelBuilder.cs" />
@@ -369,6 +370,7 @@
     <Content Include="Content\images\dislike.png" />
     <Content Include="Content\images\edit.gif" />
     <Content Include="Content\images\facebook.png" />
+    <Content Include="Content\images\find.png" />
     <Content Include="Content\images\like-sm.png" />
     <Content Include="Content\images\like.png" />
     <Content Include="Content\images\logo.png" />

@@ -16,6 +16,34 @@ namespace HaveAVoice.Models.View {
             if(PrivacyHelper.IsAllowed(aPanelForUser, Helpers.Enums.PrivacyAction.DisplayProfile)) {
                 BuildMenu(aPanelForUser, aLoggedInUser);
             }
+
+            BuildFanNavigationItem(aPanelForUser, aLoggedInUser, aSection);
+        }
+
+        private void BuildFanNavigationItem(User aPanelForUser, User aLoggedInUser, SiteSection aSection) {
+            if (aLoggedInUser != null && IsAProfilePage(aSection) && !MyOwnPage(aPanelForUser, aLoggedInUser)) {
+                if (!FanHelper.IsFan(aPanelForUser.Id, aLoggedInUser)) {
+                    NavigationModel.FanMetaData = new NavigationItemModel() {
+                        AltText = "Fan this user",
+                        Url = "/Fan/Add/" + aPanelForUser.Id,
+                        DisplayText = "Fan"
+                    };
+                } else {
+                    NavigationModel.FanMetaData = new NavigationItemModel() {
+                        AltText = "Unfan this user",
+                        Url = "/Fan/Remove/" + aPanelForUser.Id,
+                        DisplayText = "De-fan"
+                    };
+                }
+            } else {
+                NavigationModel.FanMetaData = new NavigationItemModel() {
+                    Display = false
+                };
+            }
+        }
+
+        private static bool IsAProfilePage(SiteSection aSection) {
+            return aSection == SiteSection.Profile;
         }
 
         private void BuildMenu(User aPanelForUser, User aLoggedInUser) {
@@ -36,7 +64,7 @@ namespace HaveAVoice.Models.View {
             };
 
 
-            if (aPanelForUser.Id == aLoggedInUser.Id) {
+            if (MyOwnPage(aPanelForUser, aLoggedInUser)) {
                 myHomeMenuItem.AltText = "my homepage";
                 myIssueActivityMenuItem.AltText = "issues I'm participating in";
                 myPhotoMenuItem.AltText = "my photos";
@@ -55,6 +83,10 @@ namespace HaveAVoice.Models.View {
             myMenu.Add(myEventMenuItem);
 
             NavigationModel.UserMenuMetaData = myMenu;
+        }
+
+        private static bool MyOwnPage(User aPanelForUser, User aLoggedInUser) {
+            return aPanelForUser.Id == aLoggedInUser.Id;
         }
     }
 }

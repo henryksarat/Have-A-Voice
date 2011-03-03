@@ -70,6 +70,7 @@ namespace HaveAVoice.Controllers.Users {
             try {
                 if (theFanService.IsFan(myUser, id)) {
                     theFanService.Remove(myUser, id);
+                    RefreshUserInformation();
                     TempData["Message"] = MessageHelper.SuccessMessage(FAN_REMOVE_SUCCESS);
                 } else {
                     TempData["Message"] = MessageHelper.NormalMessage(NOT_FAN);
