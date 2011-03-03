@@ -78,10 +78,11 @@ namespace HaveAVoice.Controllers.Users {
                 return RedirectToLogin();
             }
             User myViewingUser = GetUserInformaton();
-            
+           
             try {
                 UserProfileModel myProfile = theService.Profile(id, myViewingUser);
-                LoggedInWrapperModel<UserProfileModel> myModel = new LoggedInWrapperModel<UserProfileModel>(myProfile.User, SiteSection.Profile);
+                LoggedInWrapperModel<UserProfileModel> myModel = 
+                    new LoggedInWrapperModel<UserProfileModel>(myProfile.User, myViewingUser, SiteSection.Profile);
                 myModel.Model = myProfile;
 
                 if (myModel.Model.IsEmpty()) {
@@ -179,7 +180,7 @@ namespace HaveAVoice.Controllers.Users {
             
             try {
                 UserProfileModel myProfile = theService.UserIssueActivity(id, myUser);
-                LoggedInWrapperModel<UserProfileModel> myModel = new LoggedInWrapperModel<UserProfileModel>(myProfile.User, SiteSection.IssueActivity);
+                LoggedInWrapperModel<UserProfileModel> myModel = new LoggedInWrapperModel<UserProfileModel>(myProfile.User, myUser, SiteSection.IssueActivity);
                 myModel.Model = myProfile;
 
                 if (myModel.Model.IsEmpty()) {

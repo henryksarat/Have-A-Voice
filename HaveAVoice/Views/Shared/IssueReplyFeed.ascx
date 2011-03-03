@@ -91,11 +91,11 @@
 
 <div class="reply-wrpr">
 	<% int j = 0; %>
+    <% UserInformationModel myUserInformation = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation(); %>
 	<% foreach (var item in Model.IssueReplyComments) { %>
 	    <div class="<% if (j % 2 == 0) { %>row<% } else { %>alt<% } %> reply push-3 col-19 m-btm5">
 		    <div class="col-1 center">
-                <% UserInformationModel myUserInformation = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation(); %>
-                <% bool myIsAllowedToView = PrivacyHelper.IsAllowed(item.User, HaveAVoice.Helpers.Enums.PrivacyAction.DisplayProfile, myUserInformation); %>
+                <% bool myIsAllowedToView = PrivacyHelper.IsAllowed(item.User, PrivacyAction.DisplayProfile, myUserInformation); %>
                 <% if (myIsAllowedToView) { %>
 		            <img src="<%= PhotoHelper.ProfilePicture(item.User) %>" alt="<%= NameHelper.FullName(item.User) %>" class="profile sm" />
 		        <% } else { %>
@@ -134,15 +134,13 @@
 	    <% j++; %>
 	<% } %>
 </div>
-<% UserInformationModel myUserModel = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation();  %>
-<% if(myUserModel != null) { %>
+<% if (myUserInformation != null) { %>
     <div class="board-reply m-btm5">
 	    <a href="#" rel="reply" class="push-17 alpha col-1 omega center button">Reply</a>
 	    <div class="push-3 col-19" style="display:none;">
 		    <div class="col-1 center">
-                <% string myFullName = myUserModel.Details.FirstName + " " + myUserModel.Details.LastName; %>
-                <% string myProfilePictureUrl = myUserModel.ProfilePictureUrl; %>
-			    <img src="<%= myProfilePictureUrl %>" alt="<%= myFullName %>" class="profile sm" />
+                <% string myProfilePictureUrl = myUserInformation.ProfilePictureUrl; %>
+			    <img src="<%= myProfilePictureUrl %>" alt="<%= myUserInformation.FullName %>" class="profile sm" />
 			    <div class="clear">&nbsp;</div>
 		    </div>
 		    <% using (Html.BeginForm("Create", "IssueReplyComment", new { issueReplyId = Model.Id })) { %>

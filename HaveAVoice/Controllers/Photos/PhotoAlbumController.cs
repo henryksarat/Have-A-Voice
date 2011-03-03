@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using HaveAVoice.Controllers.ActionFilters;
+using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Exceptions;
 using HaveAVoice.Helpers;
-using HaveAVoice.Helpers.ActionMethods;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
 using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Services.Helpers;
-using System.Web;
-using HaveAVoice.Controllers.ActionFilters;
 using HaveAVoice.Validation;
-using HaveAVoice.Controllers.Helpers;
 
 namespace HaveAVoice.Controllers.Users.Photos {
     public class PhotoAlbumController : HAVBaseController {
@@ -179,7 +175,7 @@ namespace HaveAVoice.Controllers.Users.Photos {
                 return SendToErrorPage(ALBUM_LIST_ERROR);
             }
 
-            LoggedInListModel<PhotoAlbum> myModel = new LoggedInListModel<PhotoAlbum>(myUserOfAlbum, SiteSection.Photos, aUserIdOfAlbum);
+            LoggedInListModel<PhotoAlbum> myModel = new LoggedInListModel<PhotoAlbum>(myUserOfAlbum, aRequestingUser, SiteSection.Photos);
 
             try {
                 myModel.Models = thePhotoAlbumService.GetPhotoAlbumsForUser(aRequestingUser, aUserIdOfAlbum);

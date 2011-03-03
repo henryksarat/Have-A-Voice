@@ -1,8 +1,8 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInListModel<PhotoAlbum>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInListModel<PhotoAlbum>>" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UI" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
-<%@Import Namespace="HaveAVoice.Helpers.UserInformation" %>
+<%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
@@ -70,7 +70,7 @@
 
 	<div class="col-21">
 	    <% UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation(); %>
-	    <% bool myIsUser = myUserInformationModel.Details.Id == Model.SourceUserIdOfContent; %>
+	    <% bool myIsUser = myUserInformationModel.Details.Id == Model.NavigationModel.User.Id; %>
 	
         <% Html.RenderPartial("Message"); %>
 

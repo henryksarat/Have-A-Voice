@@ -30,7 +30,7 @@
         <% Html.RenderPartial("Validation"); %>
 
         <% UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation(); %>
-        <% bool myIsUser = myUserInformationModel.Details.Id == Model.SourceUserIdOfContent; %>
+        <% bool myIsUser = myUserInformationModel.Details.Id == Model.NavigationModel.User.Id; %>
         <% if (myIsUser) { %>
 		    <div class="create">
 			    <div class="col-21">

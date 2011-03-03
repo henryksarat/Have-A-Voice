@@ -9,7 +9,7 @@ namespace HaveAVoice.Models.View {
         public Dictionary<string, IEnumerable<Pair<PrivacySetting, bool>>> PrivacySettings { get; set; }
 
         public DisplayPrivacySettingsModel(User aUser)
-            : base(aUser, SiteSection.EditPrivacy) {
+            : base(aUser, aUser, SiteSection.EditPrivacy) {
                 PrivacySettings = new Dictionary<string, IEnumerable<Pair<PrivacySetting, bool>>>();
         }
     }

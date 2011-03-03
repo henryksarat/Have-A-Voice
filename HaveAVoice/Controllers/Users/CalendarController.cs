@@ -73,7 +73,7 @@ namespace HaveAVoice.Controllers.Users {
                 return SendToErrorPage(LOAD_EVENTS_ERROR);
             }
 
-            LoggedInListModel<Event> myLoggedInModel = new LoggedInListModel<Event>(myUserOfCalendar, SiteSection.Calendar);
+            LoggedInListModel<Event> myLoggedInModel = new LoggedInListModel<Event>(myUserOfCalendar, aViewingUser, SiteSection.Calendar);
             try {
                 myLoggedInModel.Models = theEventService.GetEventsForUser(aViewingUser, aUserIdOfCalendar);
                 if (myLoggedInModel.Models.Count<Event>() == 0) {

@@ -162,6 +162,7 @@
     <Compile Include="Models\View\FeedModel.cs" />
     <Compile Include="Models\View\SiteSection.cs" />
     <Compile Include="Models\View\NavigationModel.cs" />
+    <Compile Include="Models\View\UserNavigationMenuModel.cs" />
     <Compile Include="Models\View\UserProfileModel.cs" />
     <Compile Include="Models\Wrappers\MessageWrapper.cs" />
     <Compile Include="Models\Wrappers\BasicTextModelWrapper.cs" />
@@ -352,6 +353,7 @@
     <Compile Include="Services\UserFeatures\IHAVMessageService.cs" />
     <Compile Include="Services\UserFeatures\HAVUserService.cs" />
     <Compile Include="Services\UserFeatures\IHAVUserService.cs" />
+    <Compile Include="Util\CssStyles\UserPanelNav.cs" />
     <Compile Include="Validation\IValidationDictionary.cs" />
     <Compile Include="Validation\ModelStateWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

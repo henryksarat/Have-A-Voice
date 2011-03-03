@@ -10,8 +10,10 @@ using HaveAVoice.Helpers.UserInformation;
 
 namespace HaveAVoice.Helpers.UI {
     public class NavigationHelper {
-        public static string UserNavigation(SiteSection aSiteSection, SiteSection[] aSections, string[] aCssClasses, string[] aUrls, string[] aDisplayNames, User aTargetUser) {
+        public static string UserNavigation(SiteSection aSiteSection, IEnumerable<UserNavigationMenuModel> aMenuItems, User aTargetUser) {
             bool myIsMyself = false;
+
+            IEnumerator<UserNavigationMenuModel> myMenuEnumerator = aMenuItems.GetEnumerator();
 
             UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation();
             if (myUserInfo != null && myUserInfo.Details.Id == aTargetUser.Id) {
@@ -19,14 +21,15 @@ namespace HaveAVoice.Helpers.UI {
             }
 
             var myUlTag = new TagBuilder("ul");
-
-            for (int myIndex = 0; myIndex < aSections.Count(); myIndex++) {
+            int myItemCount = 0;
+            while (myMenuEnumerator.MoveNext()) {
                 var myLiTag = new TagBuilder("li");
+                UserNavigationMenuModel myMenuItem = myMenuEnumerator.Current;
 
-                if (aSections[myIndex] == aSiteSection) {
-                    if (myIndex == 0) {
+                if (myMenuItem.SiteSection == aSiteSection) {
+                    if (myItemCount == 0) {
                         myLiTag.MergeAttribute("class", "first active");
-                    } else if (myIndex == (aSections.Count() - 1)) {
+                    } else if (myItemCount == (aMenuItems.Count() - 1)) {
                         myLiTag.MergeAttribute("class", "last active");
                     } else {
                         myLiTag.MergeAttribute("class", "active");
@@ -34,25 +37,24 @@ namespace HaveAVoice.Helpers.UI {
 
                 }
 
-                myLiTag.MergeAttribute("name", aDisplayNames[myIndex]); 
-
-                string myUrl = aUrls[myIndex];
-
-                if (!myIsMyself && !aUrls[myIndex].Equals("#")) {
-                    if (aSections[myIndex] == SiteSection.Home) {
+                myLiTag.MergeAttribute("name", myMenuItem.AltText);
+                string myUrl = myMenuItem.Url;
+                if (!myIsMyself && !myUrl.Equals("#")) {
+                    if (myMenuItem.SiteSection == SiteSection.Home) {
                         myUrl = LinkHelper.Profile(aTargetUser);
                     } else {
                         myUrl += "/" + aTargetUser.Id;
                     }
                 }
 
-                if (aUrls[myIndex].Equals("#")) {
+                if (myUrl.Equals("#")) {
                     myUrl = LinkHelper.Profile(aTargetUser);
                 }
 
-                myLiTag.InnerHtml += String.Format("<a class=\"{0}\" href=\"{1}\" title=\"{2}\">{2}</a>", aCssClasses[myIndex], myUrl, aDisplayNames[myIndex]);
+                myLiTag.InnerHtml += String.Format("<a class=\"{0}\" href=\"{1}\" title=\"{2}\">{2}</a>", myMenuItem.CssClass, myUrl, myMenuItem.AltText);
 
                 myUlTag.InnerHtml += myLiTag.ToString();
+                myItemCount++;
             }
 
             return myUlTag.ToString();
