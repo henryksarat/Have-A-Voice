@@ -34,12 +34,11 @@
 
 		<div class="m-lft col-15 m-rgt user-control">
 			<h1>
-				<%= Model.User.FirstName + " " + Model.User.LastName %>
+				<%= Model.FullName %>
 			</h1>
-			<% bool myIsAuthority = RoleHelper.IsPolitician(Model.User) || RoleHelper.IsPoliticalCandidate(Model.User); %>
             <% if (myUser != null) { %>
                 <% if (Model.SiteSection == SiteSection.Profile) { %>
-                    <% if (!FriendHelper.IsFriend(Model.User, myUser.Details) && !myIsAuthority) { %>
+                    <% if (!FriendHelper.IsFriend(Model.User, myUser.Details)) { %>
             	        <div class="col-6 m-top10">
             	    	    <% using (Html.BeginForm("Add", "Friend", new { id = Model.User.Id })) { %>
 				                <input type="submit" class="fan" value="Become a Friend" />
