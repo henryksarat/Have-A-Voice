@@ -23,13 +23,5 @@ namespace HaveAVoice.Models.Wrappers {
         public Issue ToModel() {
             return Issue.CreateIssue(Id, Title, Description, City, State,DateTime.UtcNow, 0, false);
         }
-
-        public static IssueWrapper Build(Issue aBoard) {
-            return new IssueWrapper() {
-                Id = aBoard.Id,
-                Title = aBoard.Title,
-                Description = aBoard.Description
-            };
-        }
     }
 }

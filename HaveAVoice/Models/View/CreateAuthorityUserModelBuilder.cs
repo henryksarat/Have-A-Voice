@@ -21,26 +21,23 @@ namespace HaveAVoice.Models.View {
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string AuthorityType { get; set; }
 
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string UserPosition { get; set; }
+
         public CreateAuthorityUserModelBuilder() {
             DateOfBirth = DateTime.UtcNow;
-            FirstName = string.Empty;
-            LastName = string.Empty;
-            Password = string.Empty;
-            RepresentingCity = string.Empty;
-            Email = string.Empty;
             States = new List<SelectListItem>();
-            RepresentingState = string.Empty;
-            AuthorityType = string.Empty;
-            Token = string.Empty;
         }
 
         public override User Build() {
             DateTime myTempDateFiller = DateTime.UtcNow;
             string myTempIp = "127.0.0.1";
 
-            return User.CreateUser(0, Email, Password, FirstName, LastName, 
+            User myUser = User.CreateUser(0, Email, Password, FirstName, LastName, 
                 RepresentingCity, RepresentingState, DateOfBirth, myTempDateFiller, myTempDateFiller,
                 myTempIp, ShortUrl, Gender);
+            myUser.UserPositionId = UserPosition;
+            return myUser;
         }
 
         public override String getDateOfBirthFormatted() {

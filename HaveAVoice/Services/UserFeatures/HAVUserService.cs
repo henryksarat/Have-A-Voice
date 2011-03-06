@@ -85,7 +85,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 return false;
             }
 
-            if (!ValidateToken(aUserToCreate.Email, aToken, anAuthorityType)) {
+            if (!ValidateToken(aUserToCreate.Email, aToken, anAuthorityType, aUserToCreate.UserPosition.ToString())) {
                 return false;
             }
 
@@ -175,8 +175,8 @@ namespace HaveAVoice.Services.UserFeatures {
 
         #region Validation"
 
-        private bool ValidateToken(string anEmail, string aToken, string anAuthorityType) {
-            if (!theAuthorityVerificationService.IsValidToken(anEmail, aToken, anAuthorityType)) {
+        private bool ValidateToken(string anEmail, string aToken, string anAuthorityType, string anAuthorityPosition) {
+            if (!theAuthorityVerificationService.IsValidToken(anEmail, aToken, anAuthorityType, anAuthorityPosition)) {
                 theValidationDictionary.AddError("Token", aToken, "An error occurred while authenticating you as an authority. Please follow the steps sent to your email again or contact henryksarat@haveavoice.com.");
             }
 

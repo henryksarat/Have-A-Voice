@@ -39,6 +39,10 @@ namespace HaveAVoice.Controllers.Issues {
         private const string PERSON_FILTER = "PersonFilter";
         private const string ISSUE_STANCE_FILTER = "IssueStanceFilter";
 
+        private const string REDIRECT_TO_DETAILS_VIEW = "RedirectToDetails";
+        private const string DETAILS_VIEW = "Details";
+        private const string EDIT_VIEW = "Edit";
+
         private IHAVIssueService theService;
 
         public IssueController() : 
@@ -95,7 +99,7 @@ namespace HaveAVoice.Controllers.Issues {
 
                 if (theService.CreateIssue(myUser, anIssueWrapper.ToModel())) {
                     TempData["Message"] = MessageHelper.SuccessMessage(POST_SUCCESS);
-                    return RedirectToAction("Details", new { title = anIssueWrapper.Title.Replace(' ', '-') });
+                    return RedirectToAction(DETAILS_VIEW, new { title = anIssueWrapper.Title.Replace(' ', '-') });
                 }
             } catch (Exception e) {
                 LogError(e, CREATING_ISSUE_ERROR);
@@ -115,7 +119,7 @@ namespace HaveAVoice.Controllers.Issues {
                 return RedirectToProfile();
             }
             if (myIssue != null) {
-                return RedirectToAction("Details", new { title = IssueTitleHelper.ConvertForUrl(myIssue.Title) });
+                return RedirectToAction(DETAILS_VIEW, new { title = IssueTitleHelper.ConvertForUrl(myIssue.Title) });
             } else {
                 TempData["Message"] = MessageHelper.ErrorMessage(REDIRECT_ERROR);
                 return RedirectToProfile();
@@ -140,7 +144,7 @@ namespace HaveAVoice.Controllers.Issues {
 
                 SaveIssueInformationToTempDataForFiltering(myIssueModel);
 
-                return View("Details", myIssueModel);
+                return View(DETAILS_VIEW, myIssueModel);
             } catch (Exception e) {
                 string details = "An error occurred while trying to view the issue.";
                 LogError(e, details);
@@ -158,7 +162,7 @@ namespace HaveAVoice.Controllers.Issues {
             try {
                 if (theService.CreateIssueReply(myUserInformation, issueModel)) {
                     TempData["Message"] = MessageHelper.SuccessMessage(REPLY_SUCCESS);
-                    return RedirectToAction("RedirectToDetails", new { id = issueModel.Issue.Id });
+                    return RedirectToAction(REDIRECT_TO_DETAILS_VIEW, new { id = issueModel.Issue.Id });
                 }
             } catch (Exception e) {
                 LogError(e, CREATING_COMMENT_ERROR);
@@ -193,7 +197,7 @@ namespace HaveAVoice.Controllers.Issues {
             } else if (section == SiteSection.MyIssueActivity) {
                 return RedirectToAction("IssueActivity", "Profile");
             } else {
-                return RedirectToAction("RedirectToDetails", "Issue", new { id = issueId });
+                return RedirectToAction(REDIRECT_TO_DETAILS_VIEW, "Issue", new { id = issueId });
             }
         }
                                             
@@ -216,7 +220,7 @@ namespace HaveAVoice.Controllers.Issues {
             return RedirectToAction("Index");
         }
 
-        [AcceptVerbs(HttpVerbs.Get)]
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult Edit(int id) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
@@ -229,7 +233,7 @@ namespace HaveAVoice.Controllers.Issues {
             try {
                 Issue myIssue = theService.GetIssue(id, myUserInformation);
                 if (myUserInformation.Details.Id == myIssue.User.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Edit_Any_Issue)) {
-                    return View("Edit", IssueWrapper.Build(myIssue));
+                    return View(EDIT_VIEW, myIssue);
                 } else {
                     return SendToErrorPage(HAVConstants.PAGE_NOT_FOUND);
                 }
@@ -239,7 +243,7 @@ namespace HaveAVoice.Controllers.Issues {
             }
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
         public ActionResult Edit(IssueWrapper anIssueWrapper) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
@@ -249,14 +253,14 @@ namespace HaveAVoice.Controllers.Issues {
                 bool myResult = theService.EditIssue(GetUserInformatonModel(), anIssueWrapper.ToModel());
                 if (myResult) {
                     TempData["Message"] = MessageHelper.SuccessMessage(EDIT_SUCCESS);
-                    return RedirectToAction("View", new {id = anIssueWrapper.Id});
+                    return RedirectToAction(REDIRECT_TO_DETAILS_VIEW, new { id = anIssueWrapper.Id });
                 }
             } catch (Exception myException) {
                 LogError(myException, EDIT_ISSUE_ERROR);
                 ViewData["Message"] = MessageHelper.ErrorMessage(EDIT_ISSUE_ERROR);
             }
 
-            return View("Edit", anIssueWrapper);
+            return RedirectToAction(EDIT_VIEW, new { id = anIssueWrapper.Id });
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

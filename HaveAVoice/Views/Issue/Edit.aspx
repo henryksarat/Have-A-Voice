@@ -1,11 +1,11 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.Wrappers.IssueWrapper>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.Issue>" %>
 <%@ Import Namespace="HaveAVoice.Helpers.Enums" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	EditIssueReply
 </asp:Content>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">   
     <div class="col-24">
         <div class="spacer-30">&nbsp;</div>
     
@@ -32,12 +32,11 @@
     		<div class="spacer-30">&nbsp;</div>
     		
     		<div class="push-1 col-22">
-
-			    <%= Html.ValidationSummary("Your issue wasn't edited. Please correct the errors and try again.") %>
-			    <%= Html.Encode(ViewData["Message"])%>
 				<div class="clear">&nbsp;</div>
 				
 			    <% using (Html.BeginForm("Edit", "Issue", FormMethod.Post, new { @class = "create" })) { %>
+                    <%= Html.Hidden("City", Model.City) %>
+                    <%= Html.Hidden("State", Model.State) %>
 	                <div class="col-4 m-rgt right">
 	                	<label for="Title">Title:</label>
 	                	<div class="clear">&nbsp;</div>

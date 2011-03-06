@@ -37,7 +37,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public bool CreateIssue(UserInformationModel aUserCreating, Issue aIssueToCreate) {
-            if (!ValidateIssue(aIssueToCreate)) {
+            if (!ValidateIssue(aIssueToCreate) || !IssueDoesntExist(aIssueToCreate.Title)) {
                 return false;
             }
 
@@ -149,6 +149,11 @@ namespace HaveAVoice.Services.UserFeatures {
 
             bool myOverride = HAVPermissionHelper.AllowedToPerformAction(aUserEditing, HAVPermission.Edit_Any_Issue);
             Issue myOriginalIssue = GetIssue(anIssue.Id, aUserEditing);
+
+            if (!myOriginalIssue.Title.Equals(anIssue.Title) && !IssueDoesntExist(anIssue.Title)) {
+                return false;
+            }
+
             if (myOriginalIssue.User.Id == aUserEditing.Details.Id || myOverride) {
                 theRepository.UpdateIssue(aUserEditing.Details, myOriginalIssue, anIssue, myOverride);
                 return true;
@@ -229,12 +234,18 @@ namespace HaveAVoice.Services.UserFeatures {
         private bool ValidateIssue(Issue aIssueToValidate) {
             if (aIssueToValidate.Title.Trim().Length == 0) {
                 theValidationDictionary.AddError("Title", aIssueToValidate.Title, "Title is required.");
-            } else if(theRepository.HasIssueTitleBeenUsed(aIssueToValidate.Title)) {
-                theValidationDictionary.AddError("Title", aIssueToValidate.Title, "An issue with that same exact title exists. Please reply to that issue.");
             }
 
             if (aIssueToValidate.Description.Trim().Length == 0) {
                 theValidationDictionary.AddError("Description", aIssueToValidate.Description, "Description is required.");
+            }
+
+            return theValidationDictionary.isValid;
+        }
+
+        private bool IssueDoesntExist(string aTitle) {
+            if (theRepository.HasIssueTitleBeenUsed(aTitle)) {
+                theValidationDictionary.AddError("Title", aTitle, "An issue with that same exact title exists. Please reply to that issue.");
             }
 
             return theValidationDictionary.isValid;

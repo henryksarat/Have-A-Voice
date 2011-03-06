@@ -85,6 +85,8 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_BoardViewedState_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "BoardViewedState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.BoardViewedState), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueReplyViewedStates_IssueReplys", "IssueReply", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.IssueReply), "IssueReplyViewedState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueReplyViewedState), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueReplyViewedStates_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "IssueReplyViewedState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueReplyViewedState), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Users_Positions", "UserPosition", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(HaveAVoice.Models.UserPosition), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.User), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_AuthorityVerification_UserPositions", "UserPosition", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.UserPosition), "AuthorityVerification", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.AuthorityVerification), true)]
 
 #endregion
 
@@ -807,6 +809,22 @@ namespace HaveAVoice.Models
             }
         }
         private ObjectSet<IssueReplyViewedState> _IssueReplyViewedStates;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<UserPosition> UserPositions
+        {
+            get
+            {
+                if ((_UserPositions == null))
+                {
+                    _UserPositions = base.CreateObjectSet<UserPosition>("UserPositions");
+                }
+                return _UserPositions;
+            }
+        }
+        private ObjectSet<UserPosition> _UserPositions;
 
         #endregion
         #region AddTo Methods
@@ -1145,6 +1163,14 @@ namespace HaveAVoice.Models
         public void AddToIssueReplyViewedStates(IssueReplyViewedState issueReplyViewedState)
         {
             base.AddObject("IssueReplyViewedStates", issueReplyViewedState);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the UserPositions EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToUserPositions(UserPosition userPosition)
+        {
+            base.AddObject("UserPositions", userPosition);
         }
 
         #endregion
@@ -2416,7 +2442,8 @@ namespace HaveAVoice.Models
         /// <param name="token">Initial value of the Token property.</param>
         /// <param name="verified">Initial value of the Verified property.</param>
         /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
-        public static AuthorityVerification CreateAuthorityVerification(global::System.String email, global::System.Int32 createdByUserId, global::System.Int32 roleId, global::System.String token, global::System.Boolean verified, global::System.DateTime dateTimeStamp)
+        /// <param name="userPositionId">Initial value of the UserPositionId property.</param>
+        public static AuthorityVerification CreateAuthorityVerification(global::System.String email, global::System.Int32 createdByUserId, global::System.Int32 roleId, global::System.String token, global::System.Boolean verified, global::System.DateTime dateTimeStamp, global::System.String userPositionId)
         {
             AuthorityVerification authorityVerification = new AuthorityVerification();
             authorityVerification.Email = email;
@@ -2425,6 +2452,7 @@ namespace HaveAVoice.Models
             authorityVerification.Token = token;
             authorityVerification.Verified = verified;
             authorityVerification.DateTimeStamp = dateTimeStamp;
+            authorityVerification.UserPositionId = userPositionId;
             return authorityVerification;
         }
 
@@ -2577,6 +2605,30 @@ namespace HaveAVoice.Models
         private global::System.DateTime _DateTimeStamp;
         partial void OnDateTimeStampChanging(global::System.DateTime value);
         partial void OnDateTimeStampChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String UserPositionId
+        {
+            get
+            {
+                return _UserPositionId;
+            }
+            set
+            {
+                OnUserPositionIdChanging(value);
+                ReportPropertyChanging("UserPositionId");
+                _UserPositionId = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("UserPositionId");
+                OnUserPositionIdChanged();
+            }
+        }
+        private global::System.String _UserPositionId;
+        partial void OnUserPositionIdChanging(global::System.String value);
+        partial void OnUserPositionIdChanged();
 
         #endregion
     
@@ -2654,6 +2706,44 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_AuthorityVerification_Users", "User", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_AuthorityVerification_UserPositions", "UserPosition")]
+        public UserPosition UserPosition
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserPosition>("HaveAVoice.Models.FK_AuthorityVerification_UserPositions", "UserPosition").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserPosition>("HaveAVoice.Models.FK_AuthorityVerification_UserPositions", "UserPosition").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<UserPosition> UserPositionReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserPosition>("HaveAVoice.Models.FK_AuthorityVerification_UserPositions", "UserPosition");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<UserPosition>("HaveAVoice.Models.FK_AuthorityVerification_UserPositions", "UserPosition", value);
                 }
             }
         }
@@ -11960,6 +12050,30 @@ namespace HaveAVoice.Models
         private global::System.String _Gender;
         partial void OnGenderChanging(global::System.String value);
         partial void OnGenderChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String UserPositionId
+        {
+            get
+            {
+                return _UserPositionId;
+            }
+            set
+            {
+                OnUserPositionIdChanging(value);
+                ReportPropertyChanging("UserPositionId");
+                _UserPositionId = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("UserPositionId");
+                OnUserPositionIdChanged();
+            }
+        }
+        private global::System.String _UserPositionId;
+        partial void OnUserPositionIdChanging(global::System.String value);
+        partial void OnUserPositionIdChanged();
 
         #endregion
     
@@ -12885,6 +12999,198 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IssueReplyViewedState>("HaveAVoice.Models.FK_IssueReplyViewedStates_Users", "IssueReplyViewedState", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Users_Positions", "UserPosition")]
+        public UserPosition UserPosition
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserPosition>("HaveAVoice.Models.FK_Users_Positions", "UserPosition").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserPosition>("HaveAVoice.Models.FK_Users_Positions", "UserPosition").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<UserPosition> UserPositionReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserPosition>("HaveAVoice.Models.FK_Users_Positions", "UserPosition");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<UserPosition>("HaveAVoice.Models.FK_Users_Positions", "UserPosition", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="HaveAVoice.Models", Name="UserPosition")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class UserPosition : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new UserPosition object.
+        /// </summary>
+        /// <param name="position">Initial value of the Position property.</param>
+        /// <param name="display">Initial value of the Display property.</param>
+        /// <param name="description">Initial value of the Description property.</param>
+        public static UserPosition CreateUserPosition(global::System.String position, global::System.String display, global::System.String description)
+        {
+            UserPosition userPosition = new UserPosition();
+            userPosition.Position = position;
+            userPosition.Display = display;
+            userPosition.Description = description;
+            return userPosition;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Position
+        {
+            get
+            {
+                return _Position;
+            }
+            set
+            {
+                if (_Position != value)
+                {
+                    OnPositionChanging(value);
+                    ReportPropertyChanging("Position");
+                    _Position = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("Position");
+                    OnPositionChanged();
+                }
+            }
+        }
+        private global::System.String _Position;
+        partial void OnPositionChanging(global::System.String value);
+        partial void OnPositionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Display
+        {
+            get
+            {
+                return _Display;
+            }
+            set
+            {
+                OnDisplayChanging(value);
+                ReportPropertyChanging("Display");
+                _Display = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Display");
+                OnDisplayChanged();
+            }
+        }
+        private global::System.String _Display;
+        partial void OnDisplayChanging(global::System.String value);
+        partial void OnDisplayChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Description
+        {
+            get
+            {
+                return _Description;
+            }
+            set
+            {
+                OnDescriptionChanging(value);
+                ReportPropertyChanging("Description");
+                _Description = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Description");
+                OnDescriptionChanged();
+            }
+        }
+        private global::System.String _Description;
+        partial void OnDescriptionChanging(global::System.String value);
+        partial void OnDescriptionChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Users_Positions", "User")]
+        public EntityCollection<User> Users
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<User>("HaveAVoice.Models.FK_Users_Positions", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<User>("HaveAVoice.Models.FK_Users_Positions", "User", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_AuthorityVerification_UserPositions", "AuthorityVerification")]
+        public EntityCollection<AuthorityVerification> AuthorityVerifications
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AuthorityVerification>("HaveAVoice.Models.FK_AuthorityVerification_UserPositions", "AuthorityVerification");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AuthorityVerification>("HaveAVoice.Models.FK_AuthorityVerification_UserPositions", "AuthorityVerification", value);
                 }
             }
         }

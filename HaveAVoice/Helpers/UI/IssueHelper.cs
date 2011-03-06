@@ -494,5 +494,9 @@ namespace HaveAVoice.Helpers.UI {
 
             return myIssueDisplay;
         }
+
+        public static bool ShouldDisplayEditLink(UserInformationModel aUserInformation, Issue anIssue) {
+            return (HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Edit_Issue) && aUserInformation.Details.Id == anIssue.UserId) || HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Edit_Any_Issue);
+        }
     }
 }

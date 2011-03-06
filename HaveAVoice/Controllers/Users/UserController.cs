@@ -85,14 +85,15 @@ namespace HaveAVoice.Controllers.Users {
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult CreateAuthority(string email, string token, string authorityType) {
+        public ActionResult CreateAuthority(string email, AuthorityVerificationModel model) {
             if (IsLoggedIn()) {
                 return RedirectToProfile();
             }
             return View("CreateAuthority", new CreateAuthorityUserModelBuilder() {
                 Email = email,
-                Token = token,
-                AuthorityType = authorityType,
+                Token = model.Token,
+                AuthorityType = model.AuthorityType,
+                UserPosition = model.AuthorityPosition,
                 States = new SelectList(HAVConstants.STATES, "Select"),
                 Genders = new SelectList(HAVConstants.GENDERS, "Select")
             });

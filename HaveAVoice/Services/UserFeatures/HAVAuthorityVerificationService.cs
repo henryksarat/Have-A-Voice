@@ -10,6 +10,7 @@ using HaveAVoice.Exceptions;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models.View;
 using HaveAVoice.Validation;
+using System.Text;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVAuthorityVerificationService : HAVBaseService, IHAVAuthorityVerificationService {
@@ -31,12 +32,12 @@ namespace HaveAVoice.Services.UserFeatures {
             theEmailService = anEmailService;
         }
 
-        public bool RequestTokenForAuthority(UserInformationModel aRequestingUser, string anEmail, string anAuthorityType) {
+        public bool RequestTokenForAuthority(UserInformationModel aRequestingUser, string anEmail, string anAuthorityType, string anAuthorityPosition) {
             if (!HAVPermissionHelper.AllowedToPerformAction(aRequestingUser, HAVPermission.Create_Authority_Verification_Token)) {
                 throw new CustomException(HAVConstants.NOT_ALLOWED);
             }
 
-            if(!IsValidEmail(anEmail) || !IsValidAuthorityType(anAuthorityType)) {
+            if(!IsValidAuthorityInformation(anEmail, anAuthorityType, anAuthorityPosition)) {
                 return false;
             }
 
@@ -44,50 +45,54 @@ namespace HaveAVoice.Services.UserFeatures {
             string myToken = myRandom.Next().ToString();
             string myHashedToken = HashHelper.HashAuthorityVerificationToken(myToken);
 
-            bool myExists = theAuthenticationRepo.TokenForEmailExists(anEmail, anAuthorityType);
+            bool myExists = theAuthenticationRepo.TokenForEmailExists(anEmail, anAuthorityType, anAuthorityPosition);
 
             if (myExists) {
-                theAuthenticationRepo.UpdateTokenForEmail(anEmail, myHashedToken, anAuthorityType);
+                theAuthenticationRepo.UpdateTokenForEmail(anEmail, myHashedToken, anAuthorityType, anAuthorityPosition);
             } else {
-                theAuthenticationRepo.CreateTokenForEmail(aRequestingUser.Details, anEmail, myHashedToken, anAuthorityType);
+                theAuthenticationRepo.CreateTokenForEmail(aRequestingUser.Details, anEmail, myHashedToken, anAuthorityType, anAuthorityPosition);
             }
 
-            EmailException myEmailException = null;
-            try {
-                SendTokenEmail(anEmail, myToken, anAuthorityType);
-            } catch (EmailException e) {
-                myEmailException = e;
-            }
+            SendTokenEmail(anEmail, myToken, anAuthorityType, anAuthorityPosition);
 
             return true;
         }
 
-        public bool IsValidToken(string anEmail, string aToken, string anAuthorityType) {
-            return theAuthenticationRepo.IsValidEmailWithToken(anEmail, HashHelper.HashAuthorityVerificationToken(aToken), anAuthorityType);
+        public bool IsValidToken(string anEmail, string aToken, string anAuthorityType, string anAuthorityPosition) {
+            return theAuthenticationRepo.IsValidEmailWithToken(anEmail, HashHelper.HashAuthorityVerificationToken(aToken), anAuthorityType, anAuthorityPosition);
         }
 
-        public void VerifyAuthority(string anEmail, string aToken, string anAuthorityType) {
-            theAuthenticationRepo.SetEmailWithTokenToVerified(anEmail, aToken, anAuthorityType);
+        public void VerifyAuthority(string anEmail, string aToken, string anAuthorityType, string anAuthorityPosition) {
+            theAuthenticationRepo.SetEmailWithTokenToVerified(anEmail, aToken, anAuthorityType, anAuthorityPosition);
         }
 
-        private bool IsValidEmail(string anEmail) {
+        private bool IsValidAuthorityInformation(string anEmail, string anAuthorityType, string anAuthorityPosition) {
             if (!ValidationHelper.IsValidEmail(anEmail)) {
                 theValidationDictionary.AddError("Email", anEmail, INVALID_EMAIL);
             }
 
-            return theValidationDictionary.isValid;
-        }
-
-        private bool IsValidAuthorityType(string anAuthorityType) {
             if (anAuthorityType.ToUpper().Equals("SELECT")) {
                 theValidationDictionary.AddError("AuthorityType", anAuthorityType, "Authority type is required.");
+            }
+
+            if (anAuthorityPosition.ToUpper().Equals("SELECT")) {
+                theValidationDictionary.AddError("AuthorityPosition", anAuthorityPosition, "Authority position is required.");
             }
 
             return theValidationDictionary.isValid;
         }
 
-        private void SendTokenEmail(string anEmail, string aToken, string anAuthorityType) {
-            string myUrl = HAVConstants.BASE_URL + "/AuthorityVerification/Verify?token=" + aToken + "&authorityType=" + anAuthorityType;
+        private void SendTokenEmail(string anEmail, string aToken, string anAuthorityType, string anAuthorityPosition) {
+            string myUrl = new StringBuilder()
+                .Append(HAVConstants.BASE_URL)
+                .Append("/AuthorityVerification/Verify")
+                .Append("?token=")
+                .Append(aToken)
+                .Append("&authorityType=")
+                .Append(anAuthorityType)
+                .Append("&authorityPosition=")
+                .Append(anAuthorityPosition)
+                .ToString();
 
             string myTokenLink = "<a href=\"" + myUrl + "\">" + myUrl + "</a>";
 
@@ -96,6 +101,10 @@ namespace HaveAVoice.Services.UserFeatures {
             } catch (Exception e) {
                 throw new EmailException("Couldn't send aEmail.", e);
             }
+        }
+
+        public IEnumerable<UserPosition> GetUserPositions() {
+            return theAuthenticationRepo.GetUserPositions();
         }
     }
 }

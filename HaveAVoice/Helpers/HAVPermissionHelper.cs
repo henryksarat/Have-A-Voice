@@ -111,14 +111,9 @@ namespace HaveAVoice.Helpers {
         }
 
         private static bool HasPermission(IEnumerable<Permission> aPermissions, HAVPermission aCheckingPermission) {
-            bool myContains = false;
-            foreach (Permission myPermission in aPermissions) {
-                if (myPermission.Name.Equals(aCheckingPermission.ToString())) {
-                    myContains = true;
-                    break;
-                }
-            }
-            return myContains;
+            return (from p in aPermissions
+                    where p.Name == aCheckingPermission.ToString()
+                    select p).Count<Permission>() > 0 ? true : false;
         }
     }
 }

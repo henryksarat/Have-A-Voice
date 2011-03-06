@@ -123,7 +123,7 @@
 						<div class="col-15 p-v10 options">
 							<div class="push-6 col-3 center">
                                   
-				                <% if (false) { %>
+				                <% if (IssueHelper.ShouldDisplayEditLink(myUserInformationModel, Model.Issue)) { %>
 				                    <%= Html.ActionLink("Edit", "Edit", new { id = Model.Issue.Id }, new { @class = "edit" })%>
 				                <% } else { %>
 				                	&nbsp;
