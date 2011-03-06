@@ -23,8 +23,6 @@ namespace HaveAVoice {
             ModelBinders.Binders.Add(typeof(EditUserModel), new EditUserModelBinder());
             ModelBinders.Binders.Remove(typeof(IssueModel));
             ModelBinders.Binders.Add(typeof(IssueModel), new IssueModelBinder());
-            ModelBinders.Binders.Remove(typeof(IssueReplyDetailsModel));
-            ModelBinders.Binders.Add(typeof(IssueReplyDetailsModel), new IssueReplyDetailsModelBinder());
             ModelBinders.Binders.Remove(typeof(PhotosModel));
             ModelBinders.Binders.Add(typeof(PhotosModel), new PhotosModelBinder());
             ModelBinders.Binders.Remove(typeof(RestrictionModel));
@@ -59,17 +57,23 @@ namespace HaveAVoice {
             );
 
             routes.MapRoute(
-                "ShortNameProfile", 
-                "{shortName}", 
-                new { controller = "Profile", action = "Show" },
-                new { shortName = @"[a-zA-Z0-9\.]*" } // Parameter defaults
-            );
-
-            routes.MapRoute(
                 "IssueWithTitle",
                 "Issue/Details/{title}",
                 new { controller = "Issue", action = "Details" },
                 new { title = @"[a-zA-Z0-9\.-]*" }
+            );
+
+            routes.MapRoute(
+                "Issues",
+                "Issue/{action}/{id}",
+                new { controller = "Issue", action = "Index", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                "ShortNameProfile", 
+                "{shortName}", 
+                new { controller = "Profile", action = "Show" },
+                new { shortName = @"[a-zA-Z0-9\.]*" } // Parameter defaults
             );
 
             routes.MapRoute(
@@ -87,7 +91,7 @@ namespace HaveAVoice {
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "Home", action = "NotLoggedIn", id = UrlParameter.Optional } // Parameter defaults
+                new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
         }
 

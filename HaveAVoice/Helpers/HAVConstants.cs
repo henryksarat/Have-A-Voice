@@ -20,7 +20,7 @@ namespace HaveAVoice.Helpers {
 
         public const long SECONDS_BEFORE_USER_TIMEOUT = 60 * 30;
         public static string PAGE_NOT_FOUND = "You do not have access.";
-        public const string NOT_ALLOWED = "You are not allowed to do that";
+        public const string NOT_ALLOWED = "You are not allowed to do that.";
         public static string ERROR = "An error has occurred. Please try again.";
         public static string NOT_FRIEND = "You must be a friend of the user.";
 

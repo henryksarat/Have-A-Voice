@@ -33,6 +33,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         public Issue GetIssueByTitle(string aTitle) {
             return (from i in theEntities.Issues
                     where i.Title == aTitle
+                    && i.Deleted == false
                     select i).FirstOrDefault();
         }
 

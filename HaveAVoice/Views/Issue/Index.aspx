@@ -59,14 +59,7 @@
 		    		</div>
 		    		
                     <div class="p-a5">
-			            <% if (false) { %>
-			            	<div class="push-4 col-3 center">
-			            		<%= Html.ActionLink("Delete", "DeleteIssue", new { deletingUserId = HAVUserInformationFactory.GetUserInformation().Details.Id, issueId = item.Issue.Id}, new { @class = "delete" }) %>
-			            		<div class="clear">&nbsp;</div>
-			            	</div>
-			            <% } else { %>
-			            	<div class="push-4 col-3">&nbsp;</div>
-			            <% } %>
+			            <div class="push-4 col-3">&nbsp;</div>
 			            
 			            <div class="push-4 col-3 center">
 			            	<span class="color-1">

@@ -150,13 +150,14 @@ namespace HaveAVoice.Services.UserFeatures {
             bool myOverride = HAVPermissionHelper.AllowedToPerformAction(aUserEditing, HAVPermission.Edit_Any_Issue);
             Issue myOriginalIssue = GetIssue(anIssue.Id, aUserEditing);
 
-            if (!myOriginalIssue.Title.Equals(anIssue.Title) && !IssueDoesntExist(anIssue.Title)) {
-                return false;
-            }
-
             if (myOriginalIssue.User.Id == aUserEditing.Details.Id || myOverride) {
+                if (!myOriginalIssue.Title.Equals(anIssue.Title) && !IssueDoesntExist(anIssue.Title)) {
+                    return false;
+                }
                 theRepository.UpdateIssue(aUserEditing.Details, myOriginalIssue, anIssue, myOverride);
                 return true;
+            } else {
+                theValidationDictionary.AddError("PerformAction", string.Empty, "You are not allowed to edit the issue.");
             }
 
             return false;
@@ -206,6 +207,8 @@ namespace HaveAVoice.Services.UserFeatures {
             if (myIssue.User.Id == aDeletingUser.Details.Id || myAdminOverride) {
                 theRepository.DeleteIssue(aDeletingUser.Details, myIssue, myAdminOverride);
                 return true;
+            } else {
+                theValidationDictionary.AddError("PerformAction", string.Empty, "You are not allowed to delete the issue.");
             }
             return false;
         }

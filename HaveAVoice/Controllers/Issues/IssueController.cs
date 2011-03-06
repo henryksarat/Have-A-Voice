@@ -126,7 +126,7 @@ namespace HaveAVoice.Controllers.Issues {
             }
         }
         
-        [AcceptVerbs(HttpVerbs.Get)]
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult Details(string title) {
             try {
                 title = IssueTitleHelper.ConvertFromUrl(title);
@@ -200,24 +200,28 @@ namespace HaveAVoice.Controllers.Issues {
                 return RedirectToAction(REDIRECT_TO_DETAILS_VIEW, "Issue", new { id = issueId });
             }
         }
-                                            
+
+        [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData] 
         public ActionResult Delete(int id) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
             if (!HAVPermissionHelper.AllowedToPerformAction(GetUserInformatonModel(), HAVPermission.Delete_Issue, HAVPermission.Delete_Any_Issue)) {
-                return SendToErrorPage(HAVConstants.PAGE_NOT_FOUND);
+                return SendToErrorPage(HAVConstants.NOT_ALLOWED);
             }
             UserInformationModel myUserInfo = GetUserInformatonModel();
             try {
-                theService.DeleteIssue(myUserInfo, id);
+                bool myResult = theService.DeleteIssue(myUserInfo, id);
+                if (myResult) {
+                    TempData["Message"] = MessageHelper.SuccessMessage(DELETE_SUCCESS);
+                    return RedirectToAction("Index", "Issue");
+                }
             } catch (Exception myException) {
                 LogError(myException, DELETE_ISSUE_ERROR);
-                return SendToErrorPage(DELETE_ISSUE_ERROR);
+                TempData["Message"] = MessageHelper.ErrorMessage(DELETE_ISSUE_ERROR);
             }
 
-            TempData["Message"] = MessageHelper.SuccessMessage(DELETE_SUCCESS);
-            return RedirectToAction("Index");
+            return RedirectToAction(REDIRECT_TO_DETAILS_VIEW, new { id = id });
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
@@ -227,7 +231,7 @@ namespace HaveAVoice.Controllers.Issues {
             }
             UserInformationModel myUserInformation = GetUserInformatonModel();
             if (!HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Edit_Issue, HAVPermission.Edit_Any_Issue)) {
-                return SendToErrorPage(HAVConstants.PAGE_NOT_FOUND);
+                return SendToErrorPage(HAVConstants.NOT_ALLOWED);
             }
 
             try {
@@ -235,7 +239,7 @@ namespace HaveAVoice.Controllers.Issues {
                 if (myUserInformation.Details.Id == myIssue.User.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Edit_Any_Issue)) {
                     return View(EDIT_VIEW, myIssue);
                 } else {
-                    return SendToErrorPage(HAVConstants.PAGE_NOT_FOUND);
+                    return SendToErrorPage(HAVConstants.NOT_ALLOWED);
                 }
             } catch (Exception myException) {
                 LogError(myException, EDIT_ISSUE_LOAD_ERROR);

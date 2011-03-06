@@ -121,18 +121,17 @@
 		
 						<div class="clear">&nbsp;</div>
 						<div class="col-15 p-v10 options">
-							<div class="push-6 col-3 center">
-                                  
-				                <% if (IssueHelper.ShouldDisplayEditLink(myUserInformationModel, Model.Issue)) { %>
-				                    <%= Html.ActionLink("Edit", "Edit", new { id = Model.Issue.Id }, new { @class = "edit" })%>
+			                <div class="push-6 col-3 center">
+				                <% if (IssueHelper.ShouldDisplayDeleteLink(myUserInformationModel, Model.Issue)) { %>
+				                    <%= Html.ActionLink("Delete", "Delete", new { id = Model.Issue.Id }, new { @class = "delete" })%>
 				                <% } else { %>
 				                	&nbsp;
 				                <% } %>
 				                <div class="clear">&nbsp;</div>
 			                </div>
-			                <div class="push-6 col-3 center">
-				                <% if (false) { %>
-				                    <%= Html.ActionLink("Delete", "Delete", new { id = Model.Issue.Id }, new { @class = "delete" })%>
+							<div class="push-6 col-3 center">
+				                <% if (IssueHelper.ShouldDisplayEditLink(myUserInformationModel, Model.Issue)) { %>
+				                    <%= Html.ActionLink("Edit", "Edit", new { id = Model.Issue.Id }, new { @class = "edit" })%>
 				                <% } else { %>
 				                	&nbsp;
 				                <% } %>
