@@ -18,7 +18,8 @@
         <% Html.RenderPartial("Message"); %>
         <% Html.RenderPartial("Validation"); %>
         <div class="clear">&nbsp;</div>
-
+        <%= IssueHelper.BuildIssueForIssueReplyDisplay(Model.Issue) %>
+        <div class="clear">&nbsp;</div>
         <%= IssueReplyHelper.IssueReply(Model) %>
         <% foreach (IssueReplyComment myComment in Model.IssueReplyComments) { %>
             <%= IssueReplyCommentHelper.BuildComment(myComment)%>

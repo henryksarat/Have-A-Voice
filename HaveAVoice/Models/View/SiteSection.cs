@@ -20,6 +20,7 @@ namespace HaveAVoice.Models.View {
         Fan, 
         EditPrivacy,
         Issue,
+        IssueReply,
         Notification
     }
 }

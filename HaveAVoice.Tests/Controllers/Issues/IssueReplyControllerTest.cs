@@ -25,7 +25,6 @@ namespace HaveAVoice.Tests.Controllers.Issues {
         private IssueReplyController theController;
         private Mock<IHAVIssueService> theMockedService;
         private IssueReply theIssueReply;
-        private IssueReplyDetailsModel theIssueReplyDetailsModel;
 
         [TestInitialize]
         public void Initialize() {
@@ -33,9 +32,9 @@ namespace HaveAVoice.Tests.Controllers.Issues {
             theIssueReply.User = theUserInformationBuilder.Build().Details;
             theMockedService = new Mock<IHAVIssueService>();
             theController = new IssueReplyController(theMockedService.Object, theMockedBaseService.Object);
-            theIssueReplyDetailsModel = new IssueReplyDetailsModel(new IssueReply(), new List<IssueReplyComment>());
             theController.ControllerContext = GetControllerContext();
         }
+        /*
 
         #region "Delete"
 
@@ -132,7 +131,6 @@ namespace HaveAVoice.Tests.Controllers.Issues {
             theMockedService.Verify(s => s.GetIssueReply(It.IsAny<int>()), Times.Exactly(1));
             AssertAuthenticatedCleanSuccessWithReturn(myResult, "Edit", theIssueReply);
         }
-        /*
         [TestMethod]
         public void ShouldEditReply() {
             theMockedService.Setup(s => s.EditIssueReply(It.IsAny<UserInformationModel>(), It.IsAny<IssueReply>())).Returns(() => true);
@@ -169,8 +167,6 @@ namespace HaveAVoice.Tests.Controllers.Issues {
             VerifyEdit(Times.Exactly(1));
             AssertAuthenticatedFailWithReturnBack(myResult, "Edit", theIssueReply);
         }
-        */
-        #endregion
 
         #region "View"
 
@@ -259,6 +255,7 @@ namespace HaveAVoice.Tests.Controllers.Issues {
         }
 
         #endregion
+        */
 
         private void VerifyEdit(Times aTimes) {
             theMockedService.Verify(s => s.EditIssueReply(It.IsAny<UserInformationModel>(), It.IsAny<IssueReply>()), aTimes);

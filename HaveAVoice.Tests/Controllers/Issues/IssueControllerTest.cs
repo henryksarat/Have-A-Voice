@@ -30,7 +30,6 @@ namespace HaveAVoice.Tests.Controllers.Issues {
         private IssueController theController;
         private Issue theIssue;
         private IssueModel theIssueModel;
-        private IssueReplyDetailsModel theIssueReplyDetailsModel;
 
         /*
         [TestInitialize]

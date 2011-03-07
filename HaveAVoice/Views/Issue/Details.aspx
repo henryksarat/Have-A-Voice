@@ -109,21 +109,19 @@
 				<div class="push-2 m-lft col-16 m-rgt comment">
 					<div class="p-a10">
 						<span class="speak-lft">&nbsp;</span>
-						<h1 class="m-btm10"><%= Html.Encode(Model.Issue.Title) %></h1>
-						<%= Html.Encode(Model.Issue.Description) %>
-						<br />
-
+						<h1><%= Html.Encode(Model.Issue.Title) %></h1>
                         <% string myName = NameHelper.FullName(Model.Issue.User); %>
                         <% string myIssueProfile = LinkHelper.Profile(Model.Issue.User); %>
-						<a class="name-2" href="<%= myIssueProfile %>"><%= myName %></a>
+						<a class="name-2" href="<%= myIssueProfile %>"><%= myName %></a> <span class="loc c-white"><%= Model.Issue.User.City %>, <%= Model.Issue.User.State %></span>
+                        <br />
+                        <br />
+						<%= Html.Encode(Model.Issue.Description) %>
 
-						<span class="loc c-white"><%= Model.Issue.User.City %>, <%= Model.Issue.User.State %></span>
-		
 						<div class="clear">&nbsp;</div>
 						<div class="col-15 p-v10 options">
 			                <div class="push-6 col-3 center">
 				                <% if (IssueHelper.ShouldDisplayDeleteLink(myUserInformationModel, Model.Issue)) { %>
-				                    <%= Html.ActionLink("Delete", "Delete", new { id = Model.Issue.Id }, new { @class = "delete" })%>
+				                    <a class="delete" href="<%= LinkHelper.DeleteIssue(Model.Issue) %>">Delete</a> 
 				                <% } else { %>
 				                	&nbsp;
 				                <% } %>
@@ -131,7 +129,7 @@
 			                </div>
 							<div class="push-6 col-3 center">
 				                <% if (IssueHelper.ShouldDisplayEditLink(myUserInformationModel, Model.Issue)) { %>
-				                    <%= Html.ActionLink("Edit", "Edit", new { id = Model.Issue.Id }, new { @class = "edit" })%>
+                                    <a class="edit" href="<%= LinkHelper.EditIssue(Model.Issue) %>">Edit</a> 
 				                <% } else { %>
 				                	&nbsp;
 				                <% } %>

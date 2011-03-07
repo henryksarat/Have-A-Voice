@@ -117,8 +117,8 @@ namespace HaveAVoice.Helpers.UI {
 
             var myDeleteDiv = DeleteDiv(myUserInformationModel, anIssueReply.Id, anIssueReply.User.Id);
             var myEditDiv = EditDiv(myUserInformationModel, anIssueReply.Id, anIssueReply.User.Id);
-            var myAgreeDiv = AgreeDiv(anIssueReply.Id, anIssueReply.Issue.Id, anIssueReply.TotalAgrees, anIssueReply.HasDisposition, HAVUserInformationFactory.IsLoggedIn());
-            var myDisagreeDiv = DisagreeDiv(anIssueReply.Id, anIssueReply.Issue.Id, anIssueReply.TotalDisagrees, anIssueReply.HasDisposition, HAVUserInformationFactory.IsLoggedIn());
+            var myAgreeDiv = AgreeDiv(anIssueReply.Id, anIssueReply.Issue.Id, anIssueReply.TotalAgrees, anIssueReply.HasDisposition, HAVUserInformationFactory.IsLoggedIn(), SiteSection.Issue, anIssueReply.Issue.Id);
+            var myDisagreeDiv = DisagreeDiv(anIssueReply.Id, anIssueReply.Issue.Id, anIssueReply.TotalDisagrees, anIssueReply.HasDisposition, HAVUserInformationFactory.IsLoggedIn(), SiteSection.Issue, anIssueReply.Issue.Id);
 
             myEditAndStancesPad.InnerHtml += myDeleteDiv.ToString();
             myEditAndStancesPad.InnerHtml += myEditDiv.ToString();
@@ -161,73 +161,6 @@ namespace HaveAVoice.Helpers.UI {
         }
 
         public static string IssueReply(IssueReply anIssueReply) {
-            string myIssueDiv = BuildIssueForIssueReplyDisplay(anIssueReply.Issue);
-            string myIssueReplyDiv = BuildReplyForIssueReplyDisplay(anIssueReply);
-
-            return myIssueDiv + SharedStyleHelper.ClearDiv() + myIssueReplyDiv;
-        }
-
-        private static string BuildIssueForIssueReplyDisplay(Issue anIssue) {
-            var myIssueDiv = new TagBuilder("div");
-            myIssueDiv.MergeAttribute("class", "m-btm10");
-
-            var myIssueProfileDiv = new TagBuilder("div");
-            myIssueProfileDiv.MergeAttribute("class", "col-3 center issue-profile");
-
-            string myIssueProfilePictureURL = PhotoHelper.ProfilePicture(anIssue.User);
-            string myIssueFullName = NameHelper.FullName(anIssue.User);
-
-            var myProfileImg = new TagBuilder("img");
-            myProfileImg.MergeAttribute("alt", myIssueFullName);
-            myProfileImg.MergeAttribute("src", myIssueProfilePictureURL);
-            myProfileImg.MergeAttribute("class", "profile");
-
-            myIssueProfileDiv.InnerHtml += myProfileImg.ToString();
-            myIssueDiv.InnerHtml += myIssueProfileDiv.ToString();
-
-            var myIssueInfoDiv = new TagBuilder("div");
-            myIssueInfoDiv.MergeAttribute("class", "m-lft col-18 m-rgt comment");
-
-            var myIssueInfoPadding = new TagBuilder("div");
-            myIssueInfoPadding.MergeAttribute("class", "p-a10");
-            myIssueInfoPadding.InnerHtml += SharedStyleHelper.InfoSpeakSpan();
-
-            var myHeadTitle = new TagBuilder("h1");
-            var myIssueLink = new TagBuilder("a");
-            myIssueLink.MergeAttribute("href", LinkHelper.IssueUrl(anIssue.Title));
-            myIssueLink.InnerHtml = anIssue.Title;
-            myHeadTitle.InnerHtml += myIssueLink.ToString();
-
-            myIssueInfoPadding.InnerHtml += myHeadTitle.ToString();
-            myIssueInfoPadding.InnerHtml += anIssue.Description;
-
-            myIssueInfoPadding.InnerHtml += SharedStyleHelper.ClearDiv();
-            myIssueInfoDiv.InnerHtml += myIssueInfoPadding.ToString();
-
-            myIssueDiv.InnerHtml += myIssueInfoDiv.ToString();
-
-            var myIssueTimeStamp = new TagBuilder("div");
-            myIssueTimeStamp.MergeAttribute("class", "col-3 date-tile");
-
-            var myIssueTimeStampPad = new TagBuilder("div");
-            myIssueTimeStampPad.MergeAttribute("class", "p-a10");
-
-            var myTimeStampSpan = new TagBuilder("span");
-            myTimeStampSpan.InnerHtml = anIssue.DateTimeStamp.ToString("MMM").ToUpper();
-
-            myIssueTimeStampPad.InnerHtml += myTimeStampSpan.ToString();
-            myIssueTimeStampPad.InnerHtml += "&nbsp;";
-            myIssueTimeStampPad.InnerHtml += anIssue.DateTimeStamp.ToString("dd");
-
-            myIssueTimeStamp.InnerHtml += myIssueTimeStampPad.ToString();
-
-            myIssueDiv.InnerHtml += myIssueTimeStamp.ToString();
-            myIssueDiv.InnerHtml += SharedStyleHelper.ClearDiv();
-
-            return myIssueDiv.ToString();
-        }
-
-        private static string BuildReplyForIssueReplyDisplay(IssueReply anIssueReply) {
             var myReplyDiv = new TagBuilder("div");
             myReplyDiv.MergeAttribute("class", "m-btm10 alt");
 
@@ -275,8 +208,8 @@ namespace HaveAVoice.Helpers.UI {
             bool myHasDisposition = GetHasDisposition(anIssueReply, myUserInformationModel);
             var myDeleteDiv = DeleteDiv(myUserInformationModel, anIssueReply.Id, anIssueReply.User.Id);
             var myEditDiv = EditDiv(myUserInformationModel, anIssueReply.Id, anIssueReply.User.Id);
-            var myAgreeDiv = AgreeDiv(anIssueReply.Id, anIssueReply.Issue.Id, myTotalAgrees, myHasDisposition, HAVUserInformationFactory.IsLoggedIn());
-            var myDisagreeDiv = DisagreeDiv(anIssueReply.Id, anIssueReply.Issue.Id, myTotalDisagrees, myHasDisposition, HAVUserInformationFactory.IsLoggedIn());
+            var myAgreeDiv = AgreeDiv(anIssueReply.Id, anIssueReply.Issue.Id, myTotalAgrees, myHasDisposition, HAVUserInformationFactory.IsLoggedIn(), SiteSection.IssueReply, anIssueReply.Id);
+            var myDisagreeDiv = DisagreeDiv(anIssueReply.Id, anIssueReply.Issue.Id, myTotalDisagrees, myHasDisposition, HAVUserInformationFactory.IsLoggedIn(), SiteSection.IssueReply, anIssueReply.Id);
 
             myEditAndStancesPad.InnerHtml += SharedStyleHelper.StyledHtmlDiv("col-2 center", ComplaintHelper.IssueReplyLinkStyled(anIssueReply.Id)).ToString();
             myEditAndStancesPad.InnerHtml += myDeleteDiv.ToString();
@@ -368,26 +301,27 @@ namespace HaveAVoice.Helpers.UI {
             return myDeleteDiv;
         }
 
-        private static TagBuilder AgreeDiv(int anIssueReplyId, int anIssueId, int aTotalAgrees, bool aHasDisposition, bool aIsLoggedIn) {
+        private static TagBuilder AgreeDiv(int anIssueReplyId, int anIssueId, int aTotalAgrees, bool aHasDisposition, bool aIsLoggedIn, SiteSection aSource, int aSourceId) {
             return StanceDiv(anIssueReplyId, anIssueId, aHasDisposition, aIsLoggedIn,
                LinkHelper.DisagreeIssueReply(anIssueReplyId, anIssueId, SiteSection.Issue, anIssueId),
-               "like", aTotalAgrees, "Agrees", "Agree");
+               "like", aTotalAgrees, "Agrees", "Agree", LinkHelper.AgreeIssueReply(anIssueReplyId, anIssueId, aSource, aSourceId));
         }
 
-        private static TagBuilder DisagreeDiv(int anIssueReplyId, int anIssueId, int aTotalDisagrees, bool aHasDisposition, bool aIsLoggedIn) {
+        private static TagBuilder DisagreeDiv(int anIssueReplyId, int anIssueId, int aTotalDisagrees, bool aHasDisposition, bool aIsLoggedIn, SiteSection aSource, int aSourceId) {
             return StanceDiv(anIssueReplyId, anIssueId, aHasDisposition, aIsLoggedIn,
                 LinkHelper.DisagreeIssueReply(anIssueReplyId, anIssueId, SiteSection.Issue, anIssueId),
-                "dislike", aTotalDisagrees, "Disagrees", "Disagree");
+                "dislike", aTotalDisagrees, "Disagrees", "Disagree", LinkHelper.DisagreeIssueReply(anIssueReplyId, anIssueId, aSource, aSourceId));
         }
 
         private static TagBuilder StanceDiv(int anIssueReplyId, int anIssueId, bool aHasDisposition, bool aIsLoggedIn,
-                                            string aStanceUrl, string aLinkCssClass, int aTotalForStance, string aSingularDisplayText, string aPluralDisplayText) {
+                                            string aStanceUrl, string aLinkCssClass, int aTotalForStance, string aSingularDisplayText, string aPluralDisplayText,
+                                            string aStanceLink) {
             var myStanceDiv = new TagBuilder("div");
             myStanceDiv.MergeAttribute("class", "col-3 center");
 
             if (!aHasDisposition && aIsLoggedIn) {
                 var myDisagreeLink = new TagBuilder("a");
-                myDisagreeLink.MergeAttribute("href", LinkHelper.DisagreeIssueReply(anIssueReplyId, anIssueId, SiteSection.Issue, anIssueId));
+                myDisagreeLink.MergeAttribute("href", aStanceLink);
                 myDisagreeLink.MergeAttribute("class", aLinkCssClass);
                 myDisagreeLink.InnerHtml += aPluralDisplayText + " (" + aTotalForStance + ")";
                 myStanceDiv.InnerHtml += myDisagreeLink.ToString();

@@ -17,11 +17,15 @@ namespace HaveAVoice.Helpers {
         }
 
         public static string EditIssue(Issue anIssue) {
-            return "/Issue/Edit/" + anIssue;
+            return "/Issue/Edit/" + anIssue.Id;
         }
 
         public static string DeleteIssue(Issue anIssue) {
-            return "/Issue/Delete/" + anIssue;
+            return "/Issue/Delete/" + anIssue.Id;
+        }
+
+        public static string IssueReplyUrl(int anIssueReplyId) {
+            return "/IssueReply/Details/" + anIssueReplyId;
         }
 
         public static string ReportIssue(Issue anIssue) {
