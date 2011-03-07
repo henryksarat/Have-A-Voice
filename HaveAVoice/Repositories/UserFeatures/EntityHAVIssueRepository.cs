@@ -151,10 +151,12 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         public void MarkIssueReplyAsViewed(int aUserId, int anIssueReplyId) {
             IssueReplyViewedState myViewedState = GetIssueReplyViewedState(aUserId, anIssueReplyId);
-            myViewedState.Viewed = true;
-            myViewedState.LastUpdated = DateTime.UtcNow;
-            theEntities.ApplyCurrentValues(myViewedState.EntityKey.EntitySetName, myViewedState);
-            theEntities.SaveChanges();
+            if (myViewedState != null) {
+                myViewedState.Viewed = true;
+                myViewedState.LastUpdated = DateTime.UtcNow;
+                theEntities.ApplyCurrentValues(myViewedState.EntityKey.EntitySetName, myViewedState);
+                theEntities.SaveChanges();
+            }
         }
 
         public void CreateIssueDisposition(User aUser, int anIssueId, int aDisposition) {

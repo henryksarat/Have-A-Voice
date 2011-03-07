@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using HaveAVoice.Models;
 using System.Web.Mvc;
+using HaveAVoice.Models.View;
 
 namespace HaveAVoice.Helpers.UI {
     public class IssueReplyHelper {
@@ -25,6 +26,16 @@ namespace HaveAVoice.Helpers.UI {
 
 
             return myList;
+        }
+
+        public static bool ShouldDisplayEditLink(UserInformationModel aUserInformation, int anIssueReplyAuthorUserId) {
+            return (HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Edit_Issue_Reply) && aUserInformation.Details.Id == anIssueReplyAuthorUserId) 
+                || HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Edit_Any_Issue_Reply);
+        }
+
+        public static bool ShouldDisplayDeleteLink(UserInformationModel aUserInformation, int anIssueReplyAuthorUserId) {
+            return (HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Delete_Issue_Reply) && aUserInformation.Details.Id == anIssueReplyAuthorUserId) 
+                || HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Delete_Any_Issue_Reply);
         }
     }
 }

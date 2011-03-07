@@ -311,6 +311,7 @@ form.create input[type=button]:hover { color: #115f71; background: #fff; }
 /****************************************************************************/
 .comment .options span { font-size: 12px; }
 .row a.name, .row a.name:link, .row a.name:visited, .alt a.name, .alt a.name:link, .alt a.name:visited { font-size: 12px; font-style: normal; font-weight: bold; text-decoration: none; color: #20a9c9; }
+.row a.reply, .row a.reply:link, .row a.reply:visited, .alt a.reply, .alt a.reply:link, .alt a.reply:visited { font-size: 12px; font-style: normal; text-decoration: none; color: #20a9c9; }
 .row a.like, .row a.like:link, .row a.like:visited, .alt a.like, .alt a.like:link, .alt a.like:visited, .agree a.like, .agree a.like:link, .agree a.like:visited, .disagree a.like, .disagree a.like:link, .disagree a.like:visited, .comment a.like, .comment a.like:link, .comment a.like:visited { color: #2070c9; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; background: transparent; }
 .row span.like, .alt span.like, .comment span.like { color: #2070c9; font-size: 12px; background: transparent; }
 .row a.dislike, .row a.dislike:link, .row a.dislike:visited, .alt a.dislike, .alt a.dislike:link, .alt a.dislike:visited, .comment a.dislike, .comment a.dislike:link, .comment a.dislike:visited { text-decoration: none; font-size: 12px; font-weight: bold; font-style: normal; text-transform: uppercase; }

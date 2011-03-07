@@ -18,7 +18,7 @@
 			<div class="p-a10">
 				<span class="fnt-14 teal">Regarding <a href="<%= LinkHelper.IssueUrl(Model.Issue.Title) %>" class="issue"><%= Model.Issue.Title %></a></span><br />
 				<a href="/Profile/Show/<%= Model.UserId %>" class="name"><%= Model.DisplayName %></a> says:
-				<%= Model.Reply%>
+				<a href="/IssueReply/Details/<%=Model.Id %>" class="reply"><%= Model.Reply%></a>
 				<br />
 				<span class="loc"><%= Model.Issue.City %>, <%= Model.Issue.State %></span> <span class="<%= Model.IconType %>" title="<%= Model.IconType %>">&nbsp;</span>
 				<div class="clear">&nbsp;</div>
@@ -33,11 +33,9 @@
 						<div class="col-3 center">
 							<% if (Model.TotalComments == 0) { %>
 								&nbsp;
-								<!--
 								<a href="#" class="comment">
 									Comment
 								</a>
-								//-->
 							<% } else { %>
 								<span class="comment"><%= Model.TotalComments%> 
 									Comment<% if (Model.TotalComments > 1) { %>s<% } %>

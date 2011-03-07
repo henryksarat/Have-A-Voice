@@ -51,154 +51,95 @@ namespace HaveAVoice.Helpers.UI {
         }
 
         private static string BuildIssueReplyTable(IssueReplyModel anIssueReply) {
-            bool myIsAllowed = PrivacyHelper.IsAllowed(anIssueReply.User, PrivacyAction.DisplayProfile);
-
-        	var stanceDiv = new TagBuilder("div");
+        	var myReplyDiv = new TagBuilder("div");
 
             if(anIssueReply.IssueStance == (int)IssueStanceFilter.Agree) {
-        	    stanceDiv.MergeAttribute("class", "agree m-btm10");
+        	    myReplyDiv.MergeAttribute("class", "agree m-btm10");
             } else {
-                stanceDiv.MergeAttribute("class", "disagree m-btm10");
+                myReplyDiv.MergeAttribute("class", "disagree m-btm10");
             }
 
-			var profileDiv = new TagBuilder("div");
+			var myProfileDiv = new TagBuilder("div");
             if (anIssueReply.IssueStance == (int)IssueStanceFilter.Disagree) {
-			    profileDiv.MergeAttribute("class", "col-2 center push-20");
+			    myProfileDiv.MergeAttribute("class", "col-2 center push-20");
 			} else {
-				profileDiv.MergeAttribute("class", "push-6 col-2 center");
+				myProfileDiv.MergeAttribute("class", "push-6 col-2 center");
 			}
 
-			var profileImg = new TagBuilder("img");
-			if (anIssueReply.Anonymous || !myIsAllowed) {
-				profileImg.MergeAttribute("alt", "Anonymous");
-                profileImg.MergeAttribute("src", PhotoHelper.ConstructUrl(HAVConstants.NO_PROFILE_PICTURE_IMAGE));
+			var myProfileImage = new TagBuilder("img");
+			if (anIssueReply.Anonymous) {
+				myProfileImage.MergeAttribute("alt", "Anonymous");
+                myProfileImage.MergeAttribute("src", PhotoHelper.ConstructUrl(HAVConstants.NO_PROFILE_PICTURE_IMAGE));
 			}  else {
-				profileImg.MergeAttribute("alt", NameHelper.FullName(anIssueReply.User));
-				profileImg.MergeAttribute("src", PhotoHelper.ProfilePicture(anIssueReply.User));
+				myProfileImage.MergeAttribute("alt", NameHelper.FullName(anIssueReply.User));
+				myProfileImage.MergeAttribute("src", PhotoHelper.ProfilePicture(anIssueReply.User));
 			}
-			profileImg.MergeAttribute("class", "profile");
+			myProfileImage.MergeAttribute("class", "profile");
 			
-			profileDiv.InnerHtml += profileImg.ToString();
-			stanceDiv.InnerHtml += profileDiv.ToString();
+			myProfileDiv.InnerHtml += myProfileImage.ToString();
+			myReplyDiv.InnerHtml += myProfileDiv.ToString();
 			
-			var stanceComment = new TagBuilder("div");
+			var myReplyCommentDiv = new TagBuilder("div");
 			if (anIssueReply.IssueStance == (int)IssueStanceFilter.Disagree) {
-				stanceComment.MergeAttribute("class", "push-6 m-lft col-12 m-rgt comment");
+				myReplyCommentDiv.MergeAttribute("class", "push-6 m-lft col-12 m-rgt comment");
 			} else {
-				stanceComment.MergeAttribute("class", "push-6 m-lft col-12 m-rgt comment");
+				myReplyCommentDiv.MergeAttribute("class", "push-6 m-lft col-12 m-rgt comment");
 			}
 			
-			var spanDirSpeak = new TagBuilder("span");
+			var mySpeakSpan = new TagBuilder("span");
 			
             if (anIssueReply.IssueStance == (int)IssueStanceFilter.Agree) {
-                spanDirSpeak.MergeAttribute("class", "speak-lft");
+                mySpeakSpan.MergeAttribute("class", "speak-lft");
             } else {
-                spanDirSpeak.MergeAttribute("class", "speak-rgt");
+                mySpeakSpan.MergeAttribute("class", "speak-rgt");
             }
-			spanDirSpeak.InnerHtml = "&nbsp;";
+			mySpeakSpan.InnerHtml = "&nbsp;";
 			
-			stanceComment.InnerHtml += spanDirSpeak.ToString();
+			myReplyCommentDiv.InnerHtml += mySpeakSpan.ToString();
 
-			var divCommentPad = new TagBuilder("div");
-			divCommentPad.MergeAttribute("class","p-a10");
+			var myReplyCommentPad = new TagBuilder("div");
+			myReplyCommentPad.MergeAttribute("class","p-a10");
 			
-			var hrefName = new TagBuilder("a");
-			hrefName.MergeAttribute("class", "name");
-            if (anIssueReply.Anonymous || !myIsAllowed) {
-				hrefName.InnerHtml = "Anonymous";
-				hrefName.MergeAttribute("href", "#");
+			var myName = new TagBuilder("a");
+			myName.MergeAttribute("class", "name");
+            if (anIssueReply.Anonymous) {
+				myName.InnerHtml = "Anonymous";
+				myName.MergeAttribute("href", "#");
 			} else {
-                hrefName.InnerHtml = NameHelper.FullName(anIssueReply.User);
-                hrefName.MergeAttribute("href", LinkHelper.Profile(anIssueReply.User));
+                myName.InnerHtml = NameHelper.FullName(anIssueReply.User);
+                myName.MergeAttribute("href", LinkHelper.Profile(anIssueReply.User));
 			}
 			
-			divCommentPad.InnerHtml += hrefName.ToString();
-			divCommentPad.InnerHtml += "&nbsp;";
-			divCommentPad.InnerHtml += anIssueReply.Reply;
+			myReplyCommentPad.InnerHtml += myName.ToString();
+			myReplyCommentPad.InnerHtml += "&nbsp;";
+			myReplyCommentPad.InnerHtml += anIssueReply.Reply;
 
-			var clrDiv = new TagBuilder("div");
-			clrDiv.MergeAttribute("class", "clear");
-			clrDiv.InnerHtml += "&nbsp;";
+            myReplyCommentPad.InnerHtml += ClearDiv();
+
+            UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation();
+
+			var myEditAndStancesDiv = new TagBuilder("div");
+			myEditAndStancesDiv.MergeAttribute("class", "col-11 options");
+
+            var myEditAndStancesPad = new TagBuilder("div");
+            myEditAndStancesPad.MergeAttribute("class", "p-v10");
+
+            var myDeleteDiv = DeleteDiv(myUserInformationModel, anIssueReply.Id, anIssueReply.User.Id);
+            var myEditDiv = EditDiv(myUserInformationModel, anIssueReply.Id, anIssueReply.User.Id);
+            var myAgreeDiv = AgreeDiv(anIssueReply.Id, anIssueReply.Issue.Id, anIssueReply.TotalAgrees, anIssueReply.HasDisposition, HAVUserInformationFactory.IsLoggedIn());
+            var myDisagreeDiv = DisagreeDiv(anIssueReply.Id, anIssueReply.Issue.Id, anIssueReply.TotalDisagrees, anIssueReply.HasDisposition, HAVUserInformationFactory.IsLoggedIn());
+
+            myEditAndStancesPad.InnerHtml += myDeleteDiv.ToString();
+            myEditAndStancesPad.InnerHtml += myEditDiv.ToString();
+			myEditAndStancesPad.InnerHtml += myAgreeDiv.ToString();
+			myEditAndStancesPad.InnerHtml += myDisagreeDiv.ToString();
+            myEditAndStancesPad.InnerHtml += ClearDiv();
 			
-			divCommentPad.InnerHtml += clrDiv.ToString();
-
-			var optionWrpr = new TagBuilder("div");
-			optionWrpr.MergeAttribute("class", "col-11 options");
-
-            var optionsDiv = new TagBuilder("div");
-            optionsDiv.MergeAttribute("class", "p-v10");
-
-			var editDiv = new TagBuilder("div");
-			editDiv.MergeAttribute("class", "col-2 center");
+			myEditAndStancesDiv.InnerHtml += myEditAndStancesPad.ToString();
 			
-            /*UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation();
-            if (anIssueReply.User.Id == myUserInformationModel.Details.Id && HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Edit_Issue_Reply)) {
-                var myEdit = new TagBuilder("a");
-                myEdit.MergeAttribute("href", LinkHelper.EditIssueReply(anIssueReply.Id));
-                myEdit.MergeAttribute("class", "edit");
-                myEdit.InnerHtml += "Edit";
-                editDiv.InnerHtml += myEdit.ToString();
-            } else {*/
-            	editDiv.InnerHtml += "&nbsp;";
-            //}
-            optionsDiv.InnerHtml += editDiv.ToString();
-            
-            var deleteDiv = new TagBuilder("div");
-            deleteDiv.MergeAttribute("class", "col-3 center");
-            
-            /*if(anIssueReply.User.Id == myUserInformationModel.Details.Id && HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Delete_Issue_Reply)) {
-                var myDelete = new TagBuilder("a");
-                myDelete.MergeAttribute("href", LinkHelper.EditIssueReply(anIssueReply.Id));
-                myDelete.MergeAttribute("class", "delete");
-                myDelete.InnerHtml += "Delete";
-                deleteDiv.InnerHtml += myDelete.ToString();
-            } else {*/
-            	deleteDiv.InnerHtml += "&nbsp;";
-            //}
-            optionsDiv.InnerHtml += deleteDiv.ToString();
-            
-            var likeDiv = new TagBuilder("div");
-            likeDiv.MergeAttribute("class", "col-3 center");
-            
-            var dislikeDiv = new TagBuilder("div");
-            dislikeDiv.MergeAttribute("class", "col-3 center");
-            
-            if(!anIssueReply.HasDisposition && HAVUserInformationFactory.IsLoggedIn()) {
-                var myLikeDisposition = new TagBuilder("a");
-                myLikeDisposition.MergeAttribute("href", LinkHelper.AgreeIssueReply(anIssueReply.Id, anIssueReply.Issue.Id, SiteSection.Issue, anIssueReply.Issue.Id));
-                myLikeDisposition.MergeAttribute("class", "like");
-                myLikeDisposition.InnerHtml += "Agree (" + anIssueReply.TotalAgrees + ")";
-                likeDiv.InnerHtml +=myLikeDisposition.ToString();
-
-                var myDislikeDisposition = new TagBuilder("a");
-                myDislikeDisposition.MergeAttribute("href", LinkHelper.DisagreeIssueReply(anIssueReply.Id, anIssueReply.Issue.Id, SiteSection.Issue, anIssueReply.Issue.Id));
-                myDislikeDisposition.MergeAttribute("class", "dislike");
-                myDislikeDisposition.InnerHtml += "Disagree (" + anIssueReply.TotalDisagrees + ")";
-                dislikeDiv.InnerHtml +=myDislikeDisposition.ToString();
-            } else {
-                var myLikeSpan = new TagBuilder("span");
-                myLikeSpan.MergeAttribute("class", "like");
-                string mySingleOrPlural = anIssueReply.TotalAgrees == 1 ? " Person Agrees" : " People Agree";
-                myLikeSpan.InnerHtml = anIssueReply.TotalAgrees.ToString() + mySingleOrPlural;
-                likeDiv.InnerHtml += myLikeSpan.ToString();
-
-                var myDislikeSpan = new TagBuilder("span");
-                myDislikeSpan.MergeAttribute("class", "dislike");
-                mySingleOrPlural = anIssueReply.TotalDisagrees == 1 ? " Person Disagrees" : " People Disagree";
-                myDislikeSpan.InnerHtml = anIssueReply.TotalDisagrees.ToString() + mySingleOrPlural;
-                dislikeDiv.InnerHtml += myDislikeSpan.ToString();
-            }
-
-			optionsDiv.InnerHtml += likeDiv.ToString();
-			optionsDiv.InnerHtml += dislikeDiv.ToString();
+			myReplyCommentPad.InnerHtml += myEditAndStancesDiv.ToString();
 			
-			optionsDiv.InnerHtml += clrDiv.ToString();
-			
-			optionWrpr.InnerHtml += optionsDiv.ToString();
-			
-			divCommentPad.InnerHtml += optionWrpr.ToString();
-			
-			stanceComment.InnerHtml += divCommentPad.ToString();
+			myReplyCommentDiv.InnerHtml += myReplyCommentPad.ToString();
 
 			var divTimeStamp = new TagBuilder("div");
 			
@@ -208,7 +149,7 @@ namespace HaveAVoice.Helpers.UI {
             	divTimeStamp.MergeAttribute("class", "col-3 date-tile push-6");
             }
             
-            stanceDiv.InnerHtml += stanceComment.ToString();
+            myReplyDiv.InnerHtml += myReplyCommentDiv.ToString();
 			
 			var divTimePad = new TagBuilder("div");
 			divTimePad.MergeAttribute("class", "p-a10");
@@ -222,10 +163,10 @@ namespace HaveAVoice.Helpers.UI {
 			
 			divTimeStamp.InnerHtml += divTimePad.ToString();
 			
-			stanceDiv.InnerHtml += divTimeStamp.ToString();
-			stanceDiv.InnerHtml += clrDiv.ToString();
+			myReplyDiv.InnerHtml += divTimeStamp.ToString();
+			myReplyDiv.InnerHtml += ClearDiv();
 
-        	return stanceDiv.ToString(TagRenderMode.Normal);
+        	return myReplyDiv.ToString(TagRenderMode.Normal);
         }
 
         public static string Comment(IssueReplyComment aComment) {
@@ -242,7 +183,7 @@ namespace HaveAVoice.Helpers.UI {
             var profileImg = new TagBuilder("img");
         	profileImg.MergeAttribute("class", "profile");
         	profileImg.MergeAttribute("alt", NameHelper.FullName(aComment.User));
-        	profileImg.MergeAttribute("src", "/Photos/no_profile_picture.jpg");
+        	profileImg.MergeAttribute("src", PhotoHelper.ProfilePicture(aComment.User));
         	
         	profileDiv.InnerHtml += profileImg.ToString();
         	wrprDiv.InnerHtml += profileDiv.ToString();
@@ -307,127 +248,230 @@ namespace HaveAVoice.Helpers.UI {
         }
 
         public static string IssueReply(IssueReply anIssueReply) {
-        	var wrprDiv = new TagBuilder("div");
-        	wrprDiv.MergeAttribute("class", "m-btm10");
-        	
-        	var profileDiv = new TagBuilder("div");
-        	profileDiv.MergeAttribute("class", "col-3 center issue-profile");
-        	
-            string myAvatarURL = PhotoHelper.ConstructUrl(HAVConstants.NO_PROFILE_PICTURE_IMAGE);
-            string myName = "Anonymous";
-            if (PrivacyHelper.IsAllowed(anIssueReply.User, PrivacyAction.DisplayProfile)) {
-                myAvatarURL = PhotoHelper.ProfilePicture(anIssueReply.User);
-                myName = NameHelper.FullName(anIssueReply.User);
+            string myIssueDiv = BuildIssueForIssueReplyDisplay(anIssueReply.Issue);
+            string myIssueReplyDiv = BuildReplyForIssueReplyDisplay(anIssueReply);
+
+            return myIssueDiv + ClearDiv() + myIssueReplyDiv;
+        }
+
+        private static string BuildIssueForIssueReplyDisplay(Issue anIssue) {
+            var myIssueDiv = new TagBuilder("div");
+            myIssueDiv.MergeAttribute("class", "m-btm10");
+
+            var myIssueProfileDiv = new TagBuilder("div");
+            myIssueProfileDiv.MergeAttribute("class", "col-3 center issue-profile");
+
+            string myIssueProfilePictureURL = PhotoHelper.ProfilePicture(anIssue.User);
+            string myIssueFullName = NameHelper.FullName(anIssue.User);
+
+            var myProfileImg = new TagBuilder("img");
+            myProfileImg.MergeAttribute("alt", myIssueFullName);
+            myProfileImg.MergeAttribute("src", myIssueProfilePictureURL);
+            myProfileImg.MergeAttribute("class", "profile");
+
+            myIssueProfileDiv.InnerHtml += myProfileImg.ToString();
+            myIssueDiv.InnerHtml += myIssueProfileDiv.ToString();
+
+            var myIssueInfoDiv = new TagBuilder("div");
+            myIssueInfoDiv.MergeAttribute("class", "m-lft col-18 m-rgt comment");
+
+            var myIssueInfoPadding = new TagBuilder("div");
+            myIssueInfoPadding.MergeAttribute("class", "p-a10");
+            myIssueInfoPadding.InnerHtml += InfoSpeakSpan();
+
+            var myHeadTitle = new TagBuilder("h1");
+            var myIssueLink = new TagBuilder("a");
+            myIssueLink.MergeAttribute("href", LinkHelper.IssueUrl(anIssue.Title));
+            myIssueLink.InnerHtml = anIssue.Title;
+            myHeadTitle.InnerHtml += myIssueLink.ToString();
+
+            myIssueInfoPadding.InnerHtml += myHeadTitle.ToString();
+            myIssueInfoPadding.InnerHtml += anIssue.Description;
+
+            myIssueInfoPadding.InnerHtml += ClearDiv();
+            myIssueInfoDiv.InnerHtml += myIssueInfoPadding.ToString();
+
+            myIssueDiv.InnerHtml += myIssueInfoDiv.ToString();
+
+            var myIssueTimeStamp = new TagBuilder("div");
+            myIssueTimeStamp.MergeAttribute("class", "col-3 date-tile");
+
+            var myIssueTimeStampPad = new TagBuilder("div");
+            myIssueTimeStampPad.MergeAttribute("class", "p-a10");
+
+            var myTimeStampSpan = new TagBuilder("span");
+            myTimeStampSpan.InnerHtml = anIssue.DateTimeStamp.ToString("MMM").ToUpper();
+
+            myIssueTimeStampPad.InnerHtml += myTimeStampSpan.ToString();
+            myIssueTimeStampPad.InnerHtml += "&nbsp;";
+            myIssueTimeStampPad.InnerHtml += anIssue.DateTimeStamp.ToString("dd");
+
+            myIssueTimeStamp.InnerHtml += myIssueTimeStampPad.ToString();
+
+            myIssueDiv.InnerHtml += myIssueTimeStamp.ToString();
+            myIssueDiv.InnerHtml += ClearDiv();
+
+            return myIssueDiv.ToString();
+        }
+
+        private static string BuildReplyForIssueReplyDisplay(IssueReply anIssueReply) {
+            var myReplyDiv = new TagBuilder("div");
+            myReplyDiv.MergeAttribute("class", "m-btm10 alt");
+
+            var myReplyProfileDiv = new TagBuilder("div");
+            myReplyProfileDiv.MergeAttribute("class", "push-3 col-3 center issue-profile");
+
+            string myReplyProfilePictureURL = PhotoHelper.ProfilePicture(anIssueReply.User);
+            string myReplyFullName = NameHelper.FullName(anIssueReply.User);
+
+            var myProfileImage = new TagBuilder("img");
+            myProfileImage.MergeAttribute("alt", myReplyFullName);
+            myProfileImage.MergeAttribute("src", myReplyProfilePictureURL);
+            myProfileImage.MergeAttribute("class", "profile");
+
+            myReplyProfileDiv.InnerHtml += myProfileImage.ToString();
+            myReplyDiv.InnerHtml += myReplyProfileDiv.ToString();
+
+            var myReplyInfoDiv = new TagBuilder("div");
+            myReplyInfoDiv.MergeAttribute("class", "push-3 m-lft col-15 m-rgt comment");
+
+            var myReplyInfoPadding = new TagBuilder("div");
+            myReplyInfoPadding.MergeAttribute("class", "p-a10");
+            myReplyInfoPadding.InnerHtml += InfoSpeakSpan();
+
+            var myUserLink = new TagBuilder("a");
+            myUserLink.MergeAttribute("class", "name");
+            myUserLink.MergeAttribute("href", LinkHelper.Profile(anIssueReply.User));
+            myUserLink.InnerHtml = myReplyFullName;
+
+            myReplyInfoPadding.InnerHtml += myUserLink.ToString();
+            myReplyInfoPadding.InnerHtml += "&nbsp;";
+            myReplyInfoPadding.InnerHtml += anIssueReply.Reply;
+            myReplyInfoPadding.InnerHtml += ClearDiv();
+
+            //asdasd
+            UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation();
+
+            var myEditAndStancesDiv = new TagBuilder("div");
+            myEditAndStancesDiv.MergeAttribute("class", "col-11 options");
+
+            var myEditAndStancesPad = new TagBuilder("div");
+            myEditAndStancesPad.MergeAttribute("class", "p-v10");
+
+            var myDeleteDiv = DeleteDiv(myUserInformationModel, anIssueReply.Id, anIssueReply.User.Id);
+            var myEditDiv = EditDiv(myUserInformationModel, anIssueReply.Id, anIssueReply.User.Id);
+
+            myEditAndStancesPad.InnerHtml += myDeleteDiv.ToString();
+            myEditAndStancesPad.InnerHtml += myEditDiv.ToString();
+            myEditAndStancesPad.InnerHtml += ClearDiv();
+
+            myEditAndStancesDiv.InnerHtml += myEditAndStancesPad.ToString();
+
+            myReplyInfoPadding.InnerHtml += myEditAndStancesDiv.ToString();
+
+            myReplyInfoDiv.InnerHtml += myReplyInfoPadding.ToString();
+
+            myReplyDiv.InnerHtml += myReplyInfoDiv.ToString();
+
+            var myReplyTimeStampDiv = new TagBuilder("div");
+            myReplyTimeStampDiv.MergeAttribute("class", "push-3 col-3 date-tile");
+
+            var myReplyTimeStampPad = new TagBuilder("div");
+            myReplyTimeStampPad.MergeAttribute("class", "p-a10");
+
+            var rTime = new TagBuilder("span");
+            rTime.InnerHtml = anIssueReply.DateTimeStamp.ToString("MMM").ToUpper();
+
+            myReplyTimeStampPad.InnerHtml += rTime.ToString();
+            myReplyTimeStampPad.InnerHtml += "&nbsp;";
+            myReplyTimeStampPad.InnerHtml += anIssueReply.DateTimeStamp.ToString("dd");
+
+            myReplyTimeStampDiv.InnerHtml += myReplyTimeStampPad.ToString();
+
+            myReplyDiv.InnerHtml += myReplyTimeStampDiv.ToString();
+            myReplyDiv.InnerHtml += ClearDiv();
+
+            return myReplyDiv.ToString();
+        }
+
+        private static TagBuilder EditDiv(UserInformationModel myUserInformationModel, int anIssueReplyId, int anIssueReplyAuthorUserId) {
+            var myEditDiv = new TagBuilder("div");
+            myEditDiv.MergeAttribute("class", "col-2 center");
+
+            if (IssueReplyHelper.ShouldDisplayEditLink(myUserInformationModel, anIssueReplyAuthorUserId)) {
+                var myEditLink = new TagBuilder("a");
+                myEditLink.MergeAttribute("href", LinkHelper.EditIssueReply(anIssueReplyId));
+                myEditLink.MergeAttribute("class", "edit");
+                myEditLink.InnerHtml += "Edit";
+                myEditDiv.InnerHtml += myEditLink.ToString();
+            } else {
+                myEditDiv.InnerHtml += "&nbsp;";
+            }
+            return myEditDiv;
+        }
+
+        private static TagBuilder DeleteDiv(UserInformationModel myUserInformationModel, int anIssueReplyId, int anIssueReplyAuthorUserId) {
+            var myDeleteDiv = new TagBuilder("div");
+            myDeleteDiv.MergeAttribute("class", "col-3 center");
+
+            if (IssueReplyHelper.ShouldDisplayDeleteLink(myUserInformationModel, anIssueReplyAuthorUserId)) {
+                var myDeleteLink = new TagBuilder("a");
+                myDeleteLink.MergeAttribute("href", LinkHelper.EditIssueReply(anIssueReplyId));
+                myDeleteLink.MergeAttribute("class", "delete");
+                myDeleteLink.InnerHtml += "Delete";
+                myDeleteDiv.InnerHtml += myDeleteLink.ToString();
+            } else {
+                myDeleteDiv.InnerHtml += "&nbsp;";
+            }
+            return myDeleteDiv;
+        }
+
+        private static TagBuilder AgreeDiv(int anIssueReplyId, int anIssueId, int aTotalAgrees, bool aHasDisposition, bool aIsLoggedIn) {
+            return StanceDiv(anIssueReplyId, anIssueId, aHasDisposition, aIsLoggedIn,
+               LinkHelper.DisagreeIssueReply(anIssueReplyId, anIssueId, SiteSection.Issue, anIssueId),
+               "like", aTotalAgrees, "Agrees", "Agree");  
+        }
+
+        private static TagBuilder DisagreeDiv(int anIssueReplyId, int anIssueId, int aTotalDisagrees, bool aHasDisposition, bool aIsLoggedIn) {
+            return StanceDiv(anIssueReplyId, anIssueId, aHasDisposition, aIsLoggedIn, 
+                LinkHelper.DisagreeIssueReply(anIssueReplyId, anIssueId, SiteSection.Issue, anIssueId), 
+                "dislike", aTotalDisagrees, "Disagrees", "Disagree");  
+        }
+
+        private static TagBuilder StanceDiv(int anIssueReplyId, int anIssueId, bool aHasDisposition, bool aIsLoggedIn, 
+                                            string aStanceUrl, string aLinkCssClass, int aTotalForStance, string aSingularDisplayText, string aPluralDisplayText) {
+            var myStanceDiv = new TagBuilder("div");
+            myStanceDiv.MergeAttribute("class", "col-3 center");
+
+            if (!aHasDisposition && aIsLoggedIn) {
+                var myDisagreeLink = new TagBuilder("a");
+                myDisagreeLink.MergeAttribute("href", LinkHelper.DisagreeIssueReply(anIssueReplyId, anIssueId, SiteSection.Issue, anIssueId));
+                myDisagreeLink.MergeAttribute("class", aLinkCssClass);
+                myDisagreeLink.InnerHtml += aPluralDisplayText + " (" + aTotalForStance + ")";
+                myStanceDiv.InnerHtml += myDisagreeLink.ToString();
+            } else {
+                var myDisagreeSpan = new TagBuilder("span");
+                myDisagreeSpan.MergeAttribute("class", aLinkCssClass);
+                string mySingleOrPlural = aTotalForStance == 1 ? " Person " + aSingularDisplayText : " People " + aPluralDisplayText;
+                myDisagreeSpan.InnerHtml = aTotalForStance.ToString() + mySingleOrPlural;
+                myStanceDiv.InnerHtml += myDisagreeSpan.ToString();
             }
 
-        	var profileImg = new TagBuilder("img");
-            profileImg.MergeAttribute("alt", myName);
-            profileImg.MergeAttribute("src", myAvatarURL);
-        	profileImg.MergeAttribute("class", "profile");
+            return myStanceDiv;
+        }
 
-			profileDiv.InnerHtml += profileImg.ToString();
-			wrprDiv.InnerHtml += profileDiv.ToString();
-			
-			var commentDiv = new TagBuilder("div");
-			commentDiv.MergeAttribute("class", "m-lft col-18 m-rgt comment");
-			
-			var paddingDiv = new TagBuilder("div");
-            paddingDiv.MergeAttribute("class", "p-a10");
-			
-			var spanSpeak = new TagBuilder("span");
-            spanSpeak.MergeAttribute("class", "speak-lft");
-			spanSpeak.InnerHtml = "&nbsp;";
-			
-			paddingDiv.InnerHtml += spanSpeak.ToString();
-			
-			var headTitle = new TagBuilder("h1");
-            headTitle.MergeAttribute("class", "m-btm10");
-			headTitle.InnerHtml += anIssueReply.Issue.Title;
-			
-			paddingDiv.InnerHtml += headTitle.ToString();
-			paddingDiv.InnerHtml += anIssueReply.Issue.Description;
-			
-			var clrDiv = new TagBuilder("div");
-			clrDiv.MergeAttribute("class", "clear");
-			clrDiv.InnerHtml = "&nbsp;";
-			
-			paddingDiv.InnerHtml += clrDiv.ToString();
-			commentDiv.InnerHtml += paddingDiv.ToString();
-			
-			wrprDiv.InnerHtml += commentDiv.ToString();
-			
-			var divTimeStamp = new TagBuilder("div");
-        	divTimeStamp.MergeAttribute("class", "col-3 date-tile");
-			
-			var divTimePad = new TagBuilder("div");
-			divTimePad.MergeAttribute("class", "p-a10");
+        private static string InfoSpeakSpan() {
+            var myInfoSpeakSpan = new TagBuilder("span");
+            myInfoSpeakSpan.MergeAttribute("class", "speak-lft");
+            myInfoSpeakSpan.InnerHtml = "&nbsp;";
+            return myInfoSpeakSpan.ToString();
+        }
 
-			var spanTime = new TagBuilder("span");
-			spanTime.InnerHtml = anIssueReply.Issue.DateTimeStamp.ToString("MMM").ToUpper();
-			
-			divTimePad.InnerHtml += spanTime.ToString();
-			divTimePad.InnerHtml += "&nbsp;";
-			divTimePad.InnerHtml += anIssueReply.Issue.DateTimeStamp.ToString("dd");
-			
-			divTimeStamp.InnerHtml += divTimePad.ToString();
-			
-			wrprDiv.InnerHtml += divTimeStamp.ToString();
-			wrprDiv.InnerHtml += clrDiv.ToString();
-			
-			var replyDiv = new TagBuilder("div");
-			replyDiv.MergeAttribute("class", "m-btm10");
-			
-			var rProfileDiv = new TagBuilder("div");
-			rProfileDiv.MergeAttribute("class", "push-3 col-3 center issue-profile");
-			
-			var rProfileImg = new TagBuilder("img");
-            rProfileImg.MergeAttribute("alt", myName);
-			rProfileImg.MergeAttribute("src", myAvatarURL);
-			rProfileImg.MergeAttribute("class", "profile");
-			
-			rProfileDiv.InnerHtml += rProfileImg.ToString();
-			replyDiv.InnerHtml += rProfileDiv.ToString();
-			
-			var rCommentDiv = new TagBuilder("div");
-            rCommentDiv.MergeAttribute("class", "push-3 m-lft col-15 m-rgt row");
-			
-			var rPaddingDiv = new TagBuilder("div");
-			rPaddingDiv.MergeAttribute("class", "p-a10");
-			
-			rPaddingDiv.InnerHtml += spanSpeak.ToString();
-			
-			var rUserLink = new TagBuilder("a");
-			rUserLink.MergeAttribute("class", "name");
-			rUserLink.MergeAttribute("href", "#");
-            rUserLink.InnerHtml = myName;
-			
-			rPaddingDiv.InnerHtml += rUserLink.ToString();
-			rPaddingDiv.InnerHtml += "&nbsp;";
-			rPaddingDiv.InnerHtml += anIssueReply.Reply;
-			
-			rCommentDiv.InnerHtml += rPaddingDiv.ToString();
-			
-			replyDiv.InnerHtml += rCommentDiv.ToString();
-			
-			var rTimeStamp = new TagBuilder("div");
-			rTimeStamp.MergeAttribute("class", "push-3 col-3 date-tile");
-			
-			var rTimePad = new TagBuilder("div");
-			rTimePad.MergeAttribute("class", "p-a10");
-			
-			var rTime = new TagBuilder("span");
-			rTime.InnerHtml = anIssueReply.DateTimeStamp.ToString("MMM").ToUpper();
-			
-			rTimePad.InnerHtml += rTime.ToString();
-			rTimePad.InnerHtml += "&nbsp;";
-			rTimePad.InnerHtml += anIssueReply.DateTimeStamp.ToString("dd");
-			
-			rTimeStamp.InnerHtml += rTimePad.ToString();
-			
-			replyDiv.InnerHtml += rTimeStamp.ToString();
-			replyDiv.InnerHtml += clrDiv.ToString();
-
-            return wrprDiv.ToString(TagRenderMode.Normal) + clrDiv.ToString(TagRenderMode.Normal) + replyDiv.ToString(TagRenderMode.Normal);
+        private static string ClearDiv() {
+            var myClearDiv = new TagBuilder("div");
+            myClearDiv.MergeAttribute("class", "clear");
+            myClearDiv.InnerHtml = "&nbsp;";
+            return myClearDiv.ToString();
         }
 
         public static string BuildIssueDisplay(IEnumerable<IssueWithDispositionModel> anIssues, bool anIsLike) {
@@ -496,11 +540,13 @@ namespace HaveAVoice.Helpers.UI {
         }
 
         public static bool ShouldDisplayEditLink(UserInformationModel aUserInformation, Issue anIssue) {
-            return (HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Edit_Issue) && aUserInformation.Details.Id == anIssue.UserId) || HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Edit_Any_Issue);
+            return (HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Edit_Issue) && aUserInformation.Details.Id == anIssue.UserId) 
+                || HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Edit_Any_Issue);
         }
 
         public static bool ShouldDisplayDeleteLink(UserInformationModel aUserInformation, Issue anIssue) {
-            return (HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Delete_Issue) && aUserInformation.Details.Id == anIssue.UserId) || HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Delete_Any_Issue);
+            return (HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Delete_Issue) && aUserInformation.Details.Id == anIssue.UserId) 
+                || HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Delete_Any_Issue);
         }
     }
 }
