@@ -19,9 +19,9 @@
         <% Html.RenderPartial("Validation"); %>
         <div class="clear">&nbsp;</div>
 
-        <%= IssueHelper.IssueReply(Model) %>
-        <% foreach (IssueReplyComment comment in Model.IssueReplyComments) { %>
-            <%= IssueHelper.Comment(comment) %>
+        <%= IssueReplyHelper.IssueReply(Model) %>
+        <% foreach (IssueReplyComment myComment in Model.IssueReplyComments) { %>
+            <%= IssueReplyCommentHelper.BuildComment(myComment)%>
         <% } %>
 
 		<% if (!HAVUserInformationFactory.IsLoggedIn()) { %>

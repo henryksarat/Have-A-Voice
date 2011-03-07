@@ -163,7 +163,7 @@
 	        <div class="clear">&nbsp;</div>
 
             <% foreach (IssueReplyModel reply in Model.Replys) { %>
-                <%= IssueHelper.UserIssueReply(reply) %>
+                <%= IssueReplyHelper.UserIssueReply(reply) %>
 
                 <div class="clear">&nbsp;</div>
             <% } %>
