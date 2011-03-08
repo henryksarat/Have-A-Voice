@@ -13,7 +13,6 @@ namespace HaveAVoice.Helpers.UI {
             return myComplaintDiv;
         }
 
-
         public static string InfoSpeakSpan() {
             var myInfoSpeakSpan = new TagBuilder("span");
             myInfoSpeakSpan.MergeAttribute("class", "speak-lft");

@@ -103,59 +103,9 @@
 	        <div class="clear">&nbsp;</div>
 	        
 	        <div class="m-btm10">
-		        <div class="push-2 col-3 center issue-profile">
-					<img src="<%= PhotoHelper.ProfilePicture(Model.Issue.User) %>" alt="<%= NameHelper.FullName(Model.Issue.User) %>" class="profile lg" />
-				</div>
-				<div class="push-2 m-lft col-16 m-rgt comment">
-					<div class="p-a10">
-						<span class="speak-lft">&nbsp;</span>
-						<h1><%= Html.Encode(Model.Issue.Title) %></h1>
-                        <% string myName = NameHelper.FullName(Model.Issue.User); %>
-                        <% string myIssueProfile = LinkHelper.Profile(Model.Issue.User); %>
-						<a class="name-2" href="<%= myIssueProfile %>"><%= myName %></a> <span class="loc c-white"><%= Model.Issue.User.City %>, <%= Model.Issue.User.State %></span>
-                        <br />
-                        <br />
-						<%= Html.Encode(Model.Issue.Description) %>
-
-						<div class="clear">&nbsp;</div>
-						<div class="col-15 p-v10 options">
-			                <div class="push-6 col-3 center">
-				                <% if (IssueHelper.ShouldDisplayDeleteLink(myUserInformationModel, Model.Issue)) { %>
-				                    <a class="delete" href="<%= LinkHelper.DeleteIssue(Model.Issue) %>">Delete</a> 
-				                <% } else { %>
-				                	&nbsp;
-				                <% } %>
-				                <div class="clear">&nbsp;</div>
-			                </div>
-							<div class="push-6 col-3 center">
-				                <% if (IssueHelper.ShouldDisplayEditLink(myUserInformationModel, Model.Issue)) { %>
-                                    <a class="edit" href="<%= LinkHelper.EditIssue(Model.Issue) %>">Edit</a> 
-				                <% } else { %>
-				                	&nbsp;
-				                <% } %>
-				                <div class="clear">&nbsp;</div>
-			                </div>
-			                <div class="push-6 col-3 center">
-                                <% if(myUserInformationModel != null) { %>
-			                	    <%= ComplaintHelper.IssueLink(Model.Issue.Id) %>
-                                <% } %>
-			                	<div class="clear">&nbsp;</div>
-			                </div>
-			                <div class="clear">&nbsp;</div>
-		                </div>
-					</div>
-					<div class="clear">&nbsp;</div>
-				</div>
-				<div class="push-2 col-3 stats fnt-12">
-					<div class="p-a5">
-						<h4 class="m-btm5">Stats</h4>
-						<div class="bold">Posted:</div>
-						<div class="m-lft10 m-btm5"><%= Model.Issue.DateTimeStamp.ToString("MMM dd, yyyy").ToUpper() %></div>
-						<div class="m-btm5"><span class="bold">Agrees:</span> <%= Model.TotalAgrees %></div>
-						<div><span class="bold">Disagrees:</span> <%= Model.TotalDisagrees %></div>
-					</div>
-					<div class="clear">&nbsp;</div>
-				</div>
+                <%= IssueHelper.ProfilePictureDiv(Model.Issue, "push-2 col-3 center issue-profile", "profile lg") %>
+                <%= IssueHelper.IssueInformationDiv(Model.Issue, "push-2 m-lft col-16 m-rgt comment", "col-15 p-v10 options", "push-6 col-3 center", "push-6 col-3 center", "push-6 col-3 center")%>
+                <%= IssueHelper.IssueStats(Model.Issue, "push-2 col-3 stats fnt-12", "p-a5", "h4", "m-btm5", "bold", "m-lft10 m-btm5", "m-btm5", string.Empty, "bold", "MMM dd, yyyy") %>
 				<div class="clear">&nbsp;</div>
 			</div>
 	        <div class="clear">&nbsp;</div>
