@@ -19,9 +19,9 @@
         <% Html.RenderPartial("Validation"); %>
         <div class="clear">&nbsp;</div>
         <div class="m-btm10">
-            <%= IssueHelper.ProfilePictureDiv(Model.Issue, "col-3 center issue-profile", "profile")%>
+            <%= SharedIssueStyleHelper.ProfilePictureDiv(Model.Issue.User, false, "col-3 center issue-profile", "profile")%>
             <%= IssueHelper.IssueInformationDiv(Model.Issue, "m-lft col-18 m-rgt comment", "col-17 p-v10 options", "push-10 col-2 center", "push-10 col-2 center", "push-10 col-3 center")%>
-            <%= IssueHelper.TimeStampDiv(Model.Issue, "col-3 date-tile", "p-a10", "MMM", "dd")%>
+            <%= SharedIssueStyleHelper.TimeStampDiv(Model.Issue.DateTimeStamp, "col-3 date-tile", "p-a10", "MMM", "dd")%>
             <div class="clear">&nbsp;</div>
         </div>
         <div class="clear">&nbsp;</div>

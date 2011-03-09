@@ -27,72 +27,68 @@ namespace HaveAVoice.Helpers.UI {
                 myCount++;
             }
 
-
             return myList;
-        }
-
-        public static bool ShouldDisplayEditLink(UserInformationModel aUserInformation, int anIssueReplyAuthorUserId) {
-            return (HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Edit_Issue_Reply) && aUserInformation.Details.Id == anIssueReplyAuthorUserId) 
-                || HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Edit_Any_Issue_Reply);
-        }
-
-        public static bool ShouldDisplayDeleteLink(UserInformationModel aUserInformation, int anIssueReplyAuthorUserId) {
-            return (HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Delete_Issue_Reply) && aUserInformation.Details.Id == anIssueReplyAuthorUserId) 
-                || HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Delete_Any_Issue_Reply);
         }
 
         public static string UserIssueReply(IssueReplyModel anIssueReply) {
             var myReplyDiv = new TagBuilder("div");
 
             if (anIssueReply.IssueStance == (int)IssueStanceFilter.Agree) {
-                myReplyDiv.MergeAttribute("class", "agree m-btm10");
+                myReplyDiv.AddCssClass("agree m-btm10");
             } else {
-                myReplyDiv.MergeAttribute("class", "disagree m-btm10");
+                myReplyDiv.AddCssClass("disagree m-btm10");
             }
 
-            var myProfileDiv = new TagBuilder("div");
+            string myTimeStampDviCssClass = string.Empty;
             if (anIssueReply.IssueStance == (int)IssueStanceFilter.Disagree) {
-                myProfileDiv.MergeAttribute("class", "col-2 center push-20");
+                myTimeStampDviCssClass = "col-3 date-tile pull-9 right";
             } else {
-                myProfileDiv.MergeAttribute("class", "push-6 col-2 center");
+                myTimeStampDviCssClass = "col-3 date-tile push-6";
             }
 
-            var myProfileImage = new TagBuilder("img");
-            if (anIssueReply.Anonymous) {
-                myProfileImage.MergeAttribute("alt", "Anonymous");
-                myProfileImage.MergeAttribute("src", PhotoHelper.ConstructUrl(HAVConstants.NO_PROFILE_PICTURE_IMAGE));
+            myReplyDiv.InnerHtml += ProfilePictureDiv(anIssueReply);
+            myReplyDiv.InnerHtml += ReplyInfoDiv(anIssueReply);
+            myReplyDiv.InnerHtml += SharedIssueStyleHelper.TimeStampDiv(anIssueReply.DateTimeStamp, myTimeStampDviCssClass, "p-a10", "MMM", "dd");
+
+            return myReplyDiv.ToString(TagRenderMode.Normal);
+        }
+
+        private static string ProfilePictureDiv(IssueReplyModel anIssueReply) {
+            string myDivCssClass = string.Empty;
+            if (anIssueReply.IssueStance == (int)IssueStanceFilter.Disagree) {
+                myDivCssClass = "col-2 center push-20";
             } else {
-                myProfileImage.MergeAttribute("alt", NameHelper.FullName(anIssueReply.User));
-                myProfileImage.MergeAttribute("src", PhotoHelper.ProfilePicture(anIssueReply.User));
+                myDivCssClass = "push-6 col-2 center";
             }
-            myProfileImage.MergeAttribute("class", "profile");
 
-            myProfileDiv.InnerHtml += myProfileImage.ToString();
-            myReplyDiv.InnerHtml += myProfileDiv.ToString();
+            return SharedIssueStyleHelper.ProfilePictureDiv(anIssueReply.User, anIssueReply.Anonymous, myDivCssClass, "profile");
+        }
 
+        private static string ReplyInfoDiv(IssueReplyModel anIssueReply) {
+            
             var myReplyCommentDiv = new TagBuilder("div");
             if (anIssueReply.IssueStance == (int)IssueStanceFilter.Disagree) {
-                myReplyCommentDiv.MergeAttribute("class", "push-6 m-lft col-12 m-rgt comment");
+                myReplyCommentDiv.AddCssClass("push-6 m-lft col-12 m-rgt comment");
             } else {
-                myReplyCommentDiv.MergeAttribute("class", "push-6 m-lft col-12 m-rgt comment");
+                myReplyCommentDiv.AddCssClass("push-6 m-lft col-12 m-rgt comment");
             }
 
             var mySpeakSpan = new TagBuilder("span");
 
             if (anIssueReply.IssueStance == (int)IssueStanceFilter.Agree) {
-                mySpeakSpan.MergeAttribute("class", "speak-lft");
+                mySpeakSpan.AddCssClass("speak-lft");
             } else {
-                mySpeakSpan.MergeAttribute("class", "speak-rgt");
+                mySpeakSpan.AddCssClass("speak-rgt");
             }
             mySpeakSpan.InnerHtml = "&nbsp;";
 
             myReplyCommentDiv.InnerHtml += mySpeakSpan.ToString();
 
             var myReplyCommentPad = new TagBuilder("div");
-            myReplyCommentPad.MergeAttribute("class", "p-a10");
+            myReplyCommentPad.AddCssClass("p-a10");
 
             var myName = new TagBuilder("a");
-            myName.MergeAttribute("class", "name");
+            myName.AddCssClass("name");
             if (anIssueReply.Anonymous) {
                 myName.InnerHtml = "Anonymous";
                 myName.MergeAttribute("href", "#");
@@ -110,10 +106,10 @@ namespace HaveAVoice.Helpers.UI {
             UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation();
 
             var myEditAndStancesDiv = new TagBuilder("div");
-            myEditAndStancesDiv.MergeAttribute("class", "col-11 options");
+            myEditAndStancesDiv.AddCssClass("col-11 options");
 
             var myEditAndStancesPad = new TagBuilder("div");
-            myEditAndStancesPad.MergeAttribute("class", "p-v10");
+            myEditAndStancesPad.AddCssClass("p-v10");
 
             var myDeleteDiv = DeleteDiv(myUserInformationModel, anIssueReply.Id, anIssueReply.User.Id);
             var myEditDiv = EditDiv(myUserInformationModel, anIssueReply.Id, anIssueReply.User.Id);
@@ -132,40 +128,15 @@ namespace HaveAVoice.Helpers.UI {
 
             myReplyCommentDiv.InnerHtml += myReplyCommentPad.ToString();
 
-            var divTimeStamp = new TagBuilder("div");
-
-            if (anIssueReply.IssueStance == (int)IssueStanceFilter.Disagree) {
-                divTimeStamp.MergeAttribute("class", "col-3 date-tile pull-9 right");
-            } else {
-                divTimeStamp.MergeAttribute("class", "col-3 date-tile push-6");
-            }
-
-            myReplyDiv.InnerHtml += myReplyCommentDiv.ToString();
-
-            var divTimePad = new TagBuilder("div");
-            divTimePad.MergeAttribute("class", "p-a10");
-
-            var spanTime = new TagBuilder("span");
-            spanTime.InnerHtml = anIssueReply.DateTimeStamp.ToString("MMM").ToUpper();
-
-            divTimePad.InnerHtml += spanTime.ToString();
-            divTimePad.InnerHtml += "&nbsp;";
-            divTimePad.InnerHtml += anIssueReply.DateTimeStamp.ToString("dd");
-
-            divTimeStamp.InnerHtml += divTimePad.ToString();
-
-            myReplyDiv.InnerHtml += divTimeStamp.ToString();
-            myReplyDiv.InnerHtml += SharedStyleHelper.ClearDiv();
-
-            return myReplyDiv.ToString(TagRenderMode.Normal);
+            return myReplyCommentDiv.ToString();
         }
 
         public static string IssueReply(IssueReply anIssueReply) {
             var myReplyDiv = new TagBuilder("div");
-            myReplyDiv.MergeAttribute("class", "m-btm10 alt");
+            myReplyDiv.AddCssClass("m-btm10 alt");
 
             var myReplyProfileDiv = new TagBuilder("div");
-            myReplyProfileDiv.MergeAttribute("class", "push-3 col-3 center issue-profile");
+            myReplyProfileDiv.AddCssClass("push-3 col-3 center issue-profile");
 
             string myReplyProfilePictureURL = PhotoHelper.ProfilePicture(anIssueReply.User);
             string myReplyFullName = NameHelper.FullName(anIssueReply.User);
@@ -173,20 +144,20 @@ namespace HaveAVoice.Helpers.UI {
             var myProfileImage = new TagBuilder("img");
             myProfileImage.MergeAttribute("alt", myReplyFullName);
             myProfileImage.MergeAttribute("src", myReplyProfilePictureURL);
-            myProfileImage.MergeAttribute("class", "profile");
+            myProfileImage.AddCssClass("profile");
 
             myReplyProfileDiv.InnerHtml += myProfileImage.ToString();
             myReplyDiv.InnerHtml += myReplyProfileDiv.ToString();
 
             var myReplyInfoDiv = new TagBuilder("div");
-            myReplyInfoDiv.MergeAttribute("class", "push-3 m-lft col-15 m-rgt comment");
+            myReplyInfoDiv.AddCssClass("push-3 m-lft col-15 m-rgt comment");
 
             var myReplyInfoPadding = new TagBuilder("div");
-            myReplyInfoPadding.MergeAttribute("class", "p-a10");
+            myReplyInfoPadding.AddCssClass("p-a10");
             myReplyInfoPadding.InnerHtml += SharedStyleHelper.InfoSpeakSpan();
 
             var myUserLink = new TagBuilder("a");
-            myUserLink.MergeAttribute("class", "name");
+            myUserLink.AddCssClass("name");
             myUserLink.MergeAttribute("href", LinkHelper.Profile(anIssueReply.User));
             myUserLink.InnerHtml = myReplyFullName;
 
@@ -198,10 +169,10 @@ namespace HaveAVoice.Helpers.UI {
             UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation();
 
             var myEditAndStancesDiv = new TagBuilder("div");
-            myEditAndStancesDiv.MergeAttribute("class", "col-14 options");
+            myEditAndStancesDiv.AddCssClass("col-14 options");
 
             var myEditAndStancesPad = new TagBuilder("div");
-            myEditAndStancesPad.MergeAttribute("class", "p-v10 p-h10");
+            myEditAndStancesPad.AddCssClass("p-v10 p-h10");
 
             int myTotalAgrees = GetTotalAgrees(anIssueReply);
             int myTotalDisagrees = GetTotalDisagrees(anIssueReply);
@@ -227,10 +198,10 @@ namespace HaveAVoice.Helpers.UI {
             myReplyDiv.InnerHtml += myReplyInfoDiv.ToString();
 
             var myReplyTimeStampDiv = new TagBuilder("div");
-            myReplyTimeStampDiv.MergeAttribute("class", "push-3 col-3 date-tile");
+            myReplyTimeStampDiv.AddCssClass("push-3 col-3 date-tile");
 
             var myReplyTimeStampPad = new TagBuilder("div");
-            myReplyTimeStampPad.MergeAttribute("class", "p-a10");
+            myReplyTimeStampPad.AddCssClass("p-a10");
 
             var rTime = new TagBuilder("span");
             rTime.InnerHtml = anIssueReply.DateTimeStamp.ToString("MMM").ToUpper();
@@ -271,12 +242,12 @@ namespace HaveAVoice.Helpers.UI {
 
         private static TagBuilder EditDiv(UserInformationModel myUserInformationModel, int anIssueReplyId, int anIssueReplyAuthorUserId) {
             var myEditDiv = new TagBuilder("div");
-            myEditDiv.MergeAttribute("class", "col-2 center");
+            myEditDiv.AddCssClass("col-2 center");
 
             if (IssueReplyHelper.ShouldDisplayEditLink(myUserInformationModel, anIssueReplyAuthorUserId)) {
                 var myEditLink = new TagBuilder("a");
                 myEditLink.MergeAttribute("href", LinkHelper.EditIssueReply(anIssueReplyId));
-                myEditLink.MergeAttribute("class", "edit");
+                myEditLink.AddCssClass("edit");
                 myEditLink.InnerHtml += "Edit";
                 myEditDiv.InnerHtml += myEditLink.ToString();
             } else {
@@ -287,12 +258,12 @@ namespace HaveAVoice.Helpers.UI {
 
         private static TagBuilder DeleteDiv(UserInformationModel myUserInformationModel, int anIssueReplyId, int anIssueReplyAuthorUserId) {
             var myDeleteDiv = new TagBuilder("div");
-            myDeleteDiv.MergeAttribute("class", "col-3 center");
+            myDeleteDiv.AddCssClass("col-3 center");
 
             if (IssueReplyHelper.ShouldDisplayDeleteLink(myUserInformationModel, anIssueReplyAuthorUserId)) {
                 var myDeleteLink = new TagBuilder("a");
                 myDeleteLink.MergeAttribute("href", LinkHelper.EditIssueReply(anIssueReplyId));
-                myDeleteLink.MergeAttribute("class", "delete");
+                myDeleteLink.AddCssClass("delete");
                 myDeleteLink.InnerHtml += "Delete";
                 myDeleteDiv.InnerHtml += myDeleteLink.ToString();
             } else {
@@ -317,23 +288,33 @@ namespace HaveAVoice.Helpers.UI {
                                             string aStanceUrl, string aLinkCssClass, int aTotalForStance, string aSingularDisplayText, string aPluralDisplayText,
                                             string aStanceLink) {
             var myStanceDiv = new TagBuilder("div");
-            myStanceDiv.MergeAttribute("class", "col-3 center");
+            myStanceDiv.AddCssClass("col-3 center");
 
             if (!aHasDisposition && aIsLoggedIn) {
                 var myDisagreeLink = new TagBuilder("a");
                 myDisagreeLink.MergeAttribute("href", aStanceLink);
-                myDisagreeLink.MergeAttribute("class", aLinkCssClass);
+                myDisagreeLink.AddCssClass(aLinkCssClass);
                 myDisagreeLink.InnerHtml += aPluralDisplayText + " (" + aTotalForStance + ")";
                 myStanceDiv.InnerHtml += myDisagreeLink.ToString();
             } else {
                 var myDisagreeSpan = new TagBuilder("span");
-                myDisagreeSpan.MergeAttribute("class", aLinkCssClass);
+                myDisagreeSpan.AddCssClass(aLinkCssClass);
                 string mySingleOrPlural = aTotalForStance == 1 ? " Person " + aSingularDisplayText : " People " + aPluralDisplayText;
                 myDisagreeSpan.InnerHtml = aTotalForStance.ToString() + mySingleOrPlural;
                 myStanceDiv.InnerHtml += myDisagreeSpan.ToString();
             }
 
             return myStanceDiv;
+        }
+
+        private static bool ShouldDisplayEditLink(UserInformationModel aUserInformation, int anIssueReplyAuthorUserId) {
+            return (HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Edit_Issue_Reply) && aUserInformation.Details.Id == anIssueReplyAuthorUserId)
+                || HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Edit_Any_Issue_Reply);
+        }
+
+        private static bool ShouldDisplayDeleteLink(UserInformationModel aUserInformation, int anIssueReplyAuthorUserId) {
+            return (HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Delete_Issue_Reply) && aUserInformation.Details.Id == anIssueReplyAuthorUserId)
+                || HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Delete_Any_Issue_Reply);
         }
     }
 }

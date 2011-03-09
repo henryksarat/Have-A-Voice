@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using HaveAVoice.Services.Helpers;
+using HaveAVoice.Models;
 
 namespace HaveAVoice.Helpers.UI {
     class SharedStyleHelper {

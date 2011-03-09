@@ -97,40 +97,6 @@ namespace HaveAVoice.Helpers.UI {
             return myIssueDisplay;
         }
 
-        public static string TimeStampDiv(Issue anIssue, string aDivCssClass, string aPaddingDivCssClass, string aDateTimeStampMonthFormat, string aDateTimeStampDayFormat) {
-            var myIssueTimeStampDiv = new TagBuilder("div");
-            myIssueTimeStampDiv.AddCssClass(aDivCssClass);
-
-            var myIssueTimeStampPad = new TagBuilder("div");
-            myIssueTimeStampPad.AddCssClass(aPaddingDivCssClass);
-
-            var myTimeStampSpan = new TagBuilder("span");
-            myTimeStampSpan.InnerHtml = anIssue.DateTimeStamp.ToString(aDateTimeStampMonthFormat).ToUpper();
-
-            myIssueTimeStampPad.InnerHtml += myTimeStampSpan.ToString();
-            myIssueTimeStampPad.InnerHtml += "&nbsp;";
-            myIssueTimeStampPad.InnerHtml += anIssue.DateTimeStamp.ToString(aDateTimeStampDayFormat);
-
-            myIssueTimeStampDiv.InnerHtml += myIssueTimeStampPad.ToString();
-
-            return myIssueTimeStampDiv.ToString();
-        }
-
-        public static string ProfilePictureDiv(Issue anIssue, string aDivCssClass, string anImageCssClass) {
-            var myProfilePictureDiv = new TagBuilder("div");
-            myProfilePictureDiv.AddCssClass(aDivCssClass);
-
-            var myImage = new TagBuilder("img");
-            myImage.AddCssClass(anImageCssClass);
-            myImage.MergeAttribute("src", PhotoHelper.ProfilePicture(anIssue.User));
-            myImage.MergeAttribute("alt", NameHelper.FullName(anIssue.User));
-
-            myProfilePictureDiv.InnerHtml = myImage.ToString();
-            myProfilePictureDiv.InnerHtml += SharedStyleHelper.ClearDiv();
-
-            return myProfilePictureDiv.ToString();
-        }
-
         public static string IssueInformationDiv(Issue anIssue, string anIssueInfoCssClass, string anEditAndStanceCssClass, string anDeleteCssClass, string anEditCssClass, string aReportCssClass) {
             UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation();
 

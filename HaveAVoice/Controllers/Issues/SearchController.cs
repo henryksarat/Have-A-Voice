@@ -49,10 +49,9 @@ namespace HaveAVoice.Controllers.Issues {
             return View();
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Index(string searchQuery, string searchType) {
+        public ActionResult DoSearch(string SearchQuery, string searchType) {
             if(searchType.Equals("User")) {
-                IEnumerable<User> myUsers = theUserRetrievalService.GetUsersByNameSearch(searchQuery);
+                IEnumerable<User> myUsers = theUserRetrievalService.GetUsersByNameSearch(SearchQuery);
 
                 if(myUsers.Count<User>() == 1) {
                     return RedirectToAction("Show", "Profile", new { shortName = myUsers.ElementAt(0).ShortUrl });
@@ -63,7 +62,7 @@ namespace HaveAVoice.Controllers.Issues {
                     return View(USER_RESULTS, myUsers);
                 }
             } else {
-                IEnumerable<Issue> myIssues = theIssueService.GetIssueByTitleSearch(searchQuery);
+                IEnumerable<Issue> myIssues = theIssueService.GetIssueByTitleSearch(SearchQuery);
 
                 if (myIssues.Count<Issue>() == 1) {
                     return RedirectToAction("Details", "Issue", new { title = IssueTitleHelper.ConvertForUrl(myIssues.ElementAt(0).Title) });
