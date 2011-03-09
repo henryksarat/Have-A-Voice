@@ -10,17 +10,16 @@
 <link rel="stylesheet" type="text/css" href="/Content/jquery.autocomplete.css" />
 
 <script type="text/javascript" language="javascript" src="/Content/jquery.autocomplete.js"></script>
-<script type="text/javascript" language="javascript" src="/Content/localdata.js"></script>
 
 <script type="text/javascript">
 	$(function() {
-		$(".search").click(function() {
+		$("a.search").click(function() {
 			if ($(".pnl").is(":visible")) {
-				$(".pnl", $(this)).hide();
-				$(this).removeClass("selected");
+				$(".pnl").hide();
+				$(this).parent().removeClass("selected");
 			} else {
-				$(".pnl", $(this)).show();
-				$(this).addClass("selected");
+				$(".pnl").show();
+				$(this).parent().addClass("selected");
 			}
 			return false;
 		});
@@ -28,20 +27,26 @@
 		$("a.people").click(function() {
 			$(this).addClass("selected");
 			$("a.issue").removeClass("selected");
+			$("#SearchQuery").unautocomplete();
+			$("#SearchQuery").focus().autocomplete("/Search/getUserAjaxResult");
 			
 			return false;
 		});
 		
 		$("a.issue").click(function() {
 			$(this).addClass("selected");
-			$("a.issue").removeClass("selected");
+			$("a.people").removeClass("selected");
+			$("#SearchQuery").unautocomplete();
+			$("#SearchQuery").focus().autocomplete("/Search/getIssueAjaxResult");
 			
 			return false;
 		});
 		
 		if ($("a.people").hasClass("selected")) {
+			$("#SearchQuery").unautocomplete();
 			$("#SearchQuery").focus().autocomplete("/Search/getUserAjaxResult");
 		} else {
+			$("#SearchQuery").unautocomplete();
 			$("#SearchQuery").focus().autocomplete("/Search/getIssueAjaxResult");
 		}
 	});
@@ -61,9 +66,15 @@
             	<li class="search">
             		<a href="#" class="search">Search</a>
             		<div class="pnl">
-            			<a class="people selected" href="#">Users</a>
-            			<input type="text" name="Search" id="SearchQuery" />
-            			<a class="issue" href="#">Issues</a>
+            			<% using (Html.BeginForm()) { %>
+	            			<a class="people selected" href="#">Users</a>
+	            			<input type="text" name="Search" id="SearchQuery" />
+	            			<a class="issue" href="#">Issues</a>
+							<div class="clear">&nbsp;</div>
+							<div class="right">
+								<input type="submit" class="button" value="Search" />
+							</div>
+	            		<% } %>
             		</div>
             	</li>
             </ul>

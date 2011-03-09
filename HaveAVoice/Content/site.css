@@ -245,16 +245,16 @@ a.forget:hover { text-decoration: underline; }
 .user-panel .user-control h2 { font-size: 16px; color: #63a8b8; margin-top: 5px; }
 .user-panel .user-control span.time { font-size: 12px; color: #a2a2a2; }
 
-ul li.search { text-indent: -9999px; outline: none; padding: 2px; }
-ul li.search a.search, ul li.search a.search:link, ul li.search a.search:visited { background:url("images/find.png") center center no-repeat; text-indent: -9999px; padding: 0px; margin: 0px; width: 24px; height: 24px; position: relative; }
+ul li.search { text-indent: -9999px; outline: none; padding: 2px; position: relative; }
+ul li.search a.search, ul li.search a.search:link, ul li.search a.search:visited { background:url("images/find.png") center center no-repeat; text-indent: -9999px; padding: 0px; margin: 0px; width: 24px; height: 24px; }
 
-ul li.search.selected { border-bottom-left-radius: 0px; border-bottom-right-radius: 0px; -moz-border-radius-bottomleft: 0px; -moz-border-radius-bottomright: 0px; -webkit-border-bottom-left-radius: 0px; -webkit-border-bottom-right-radius: 0px; background-color: #c0d8de; position: relative; }
-ul li.search div.pnl { width: 320px; height: 360px; position: absolute; z-index: 100; right: 0; display: none; padding: 10px; }
+ul li.search.selected { border-bottom-left-radius: 0px; border-bottom-right-radius: 0px; -moz-border-radius-bottomleft: 0px; -moz-border-radius-bottomright: 0px; -webkit-border-bottom-left-radius: 0px; -webkit-border-bottom-right-radius: 0px; background-color: #c0d8de; }
+ul li.search div.pnl { width: 320px; position: absolute; z-index: 100; right: 0; display: none; padding: 10px; background-color: #c0d8de; }
 
-ul li.search div.pnl a.people, ul li.search div.pnl a.people:link, ul li.search div.pnl a.people:visited { outline: none; height: 24px; width: 24px; background:url("images/resident.png") center center no-repeat; text-indent: -9999px; padding: 0px; }
-ul li.search div.pnl a.issue, ul li.search div.pnl a.issue:link, ul li.search div.pnl a.issue:visited { outline: none; height: 24px; width: 24px; background:url("images/menu/message.png") center center no-repeat; text-indent: -9999px; padding: 0px; }
+ul li.search div.pnl a.people, ul li.search div.pnl a.people:link, ul li.search div.pnl a.people:visited { outline: none; height: 24px; width: 24px; background:url("images/resident.png") center center no-repeat; text-indent: -9999px; padding: 0px; display: block; float: left; }
+ul li.search div.pnl a.issue, ul li.search div.pnl a.issue:link, ul li.search div.pnl a.issue:visited { outline: none; height: 24px; width: 24px; background:url("images/menu/message.png") center center no-repeat; text-indent: -9999px; padding: 0px; display: block; float: left; }
 ul li.search div.pnl a.people.selected, ul li.search div.pnl a.people:hover, ul li.search div.pnl a.issue.selected, ul li.search div.pnl a.issue:hover { background-color: #fff; }
-ul li.search div.pnl input[type=text] { height: 24px; font-size: 12px; color: #fff; border: 0 none transparent; width: 252px; }
+ul li.search div.pnl input[type=text] { height: 24px; font-size: 12px; color: #000; border: 0 none transparent; width: 262px; background: #fff; display: inline; float: left; padding: 0px 5px; }
 
 
 /****************************************************************************/
