@@ -27,6 +27,7 @@
 		$("a.people").click(function() {
 			$(this).addClass("selected");
 			$("a.issue").removeClass("selected");
+			$("#SearchType").val("User");
 			$("#SearchQuery").unautocomplete();
 			$("#SearchQuery").focus().autocomplete("/Search/getUserAjaxResult");
 			
@@ -36,6 +37,7 @@
 		$("a.issue").click(function() {
 			$(this).addClass("selected");
 			$("a.people").removeClass("selected");
+			$("#SearchType").val("Issues");
 			$("#SearchQuery").unautocomplete();
 			$("#SearchQuery").focus().autocomplete("/Search/getIssueAjaxResult");
 			
@@ -66,10 +68,14 @@
             	<li class="search">
             		<a href="#" class="search">Search</a>
             		<div class="pnl">
-            			<% using (Html.BeginForm()) { %>
+            			<% using (Html.BeginForm("DoSearch", "Search")) { %>
 	            			<a class="people selected" href="#">Users</a>
-	            			<input type="text" name="Search" id="SearchQuery" />
+	            			<input type="text" name="SearchQuery" id="SearchQuery" />
 	            			<a class="issue" href="#">Issues</a>
+	            			<select id="SearchType" name="SearchType">
+	            				<option value="User" selected="selected">User</option>
+	            				<option value="Issues">Issues</option>
+	            			</select>
 							<div class="clear">&nbsp;</div>
 							<div class="right">
 								<input type="submit" class="button" value="Search" />

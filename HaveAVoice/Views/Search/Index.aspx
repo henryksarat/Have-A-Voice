@@ -50,7 +50,7 @@
 		
 		<div class="col-24 m-btm10">
 			<!-- null, null, FormMethod.Post, new { @class = "create" } -->
-		    <% using (Html.BeginForm()) { %>
+		    <% using (Html.BeginForm("DoSearch", "Search")) { %>
                 <div class="push-6 col-2 m-rgt right">
                 	<label for="SearchType">Search:</label>
                 	<div class="clear">&nbsp;</div>
