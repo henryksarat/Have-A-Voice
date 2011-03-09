@@ -255,6 +255,7 @@ ul li.search div.pnl a.people, ul li.search div.pnl a.people:link, ul li.search 
 ul li.search div.pnl a.issue, ul li.search div.pnl a.issue:link, ul li.search div.pnl a.issue:visited { outline: none; height: 24px; width: 24px; background:url("images/menu/message.png") center center no-repeat; text-indent: -9999px; padding: 0px; display: block; float: left; background-size: 16px; -moz-background-size: 16px; -webkit-background-size: 16px; }
 ul li.search div.pnl a.people.selected, ul li.search div.pnl a.people:hover, ul li.search div.pnl a.issue.selected, ul li.search div.pnl a.issue:hover { background-color: #fff; }
 ul li.search div.pnl input[type=text] { height: 24px; font-size: 12px; color: #000; border: 0 none transparent; width: 262px; background: #fff; display: inline; float: left; padding: 0px 5px; }
+ul li.search div.pnl select { display: none; }
 
 
 /****************************************************************************/
