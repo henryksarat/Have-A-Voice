@@ -4,7 +4,7 @@
 <%@ Import Namespace="HaveAVoice.Models" %>
 
 <% User myUser = HAVUserInformationFactory.GetUserInformation().Details; %>
-<div class="col-12">
+<div class="col-12 fnt-12">
     <ul>
         <li><a href="/Profile/Show">HOME</a></li>
 		<li>
@@ -18,10 +18,7 @@
 		<li><a href="/Issue/Index">ISSUES</a></li>
     </ul>
 </div>
-<div class="col-6">
-	<ul>
-		<li class="search"><a href="/Search/Index">Search</a></li>
-	</ul>
+<div class="col-6 fnt-12">
 	<ul class="right">
         <li><a href="/User/Edit">SETTINGS</a></li>
         <li><%= Html.ActionLink("LOGOUT", "LogOut", "Authentication")%></li>

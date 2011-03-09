@@ -94,13 +94,6 @@
 	            <input type="submit" value="Login" class="button" />
 	            <div class="clear">&nbsp;</div>
 	        </div>
-	        
-        	<div class="col-3 f-rgt">
-				<ul>
-					<li class="search"><a href="/Search/Index">Search</a></li>
-				</ul>
-				<div class="clear">&nbsp;</div>
-			</div>
 	    </div>
 	<% } %>
 	<div class="clear">&nbsp;</div>

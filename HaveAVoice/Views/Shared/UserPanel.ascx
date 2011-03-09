@@ -7,6 +7,46 @@
 <%@ Import Namespace="HaveAVoice.Helpers.Enums" %>
 <%@ Import Namespace="HaveAVoice.Helpers" %>
 
+<link rel="stylesheet" type="text/css" href="/Content/jquery.autocomplete.css" />
+
+<script type="text/javascript" language="javascript" src="/Content/jquery.autocomplete.js"></script>
+<script type="text/javascript" language="javascript" src="/Content/localdata.js"></script>
+
+<script type="text/javascript">
+	$(function() {
+		$(".search").click(function() {
+			if ($(".pnl").is(":visible")) {
+				$(".pnl", $(this)).hide();
+				$(this).removeClass("selected");
+			} else {
+				$(".pnl", $(this)).show();
+				$(this).addClass("selected");
+			}
+			return false;
+		});
+		
+		$("a.people").click(function() {
+			$(this).addClass("selected");
+			$("a.issue").removeClass("selected");
+			
+			return false;
+		});
+		
+		$("a.issue").click(function() {
+			$(this).addClass("selected");
+			$("a.issue").removeClass("selected");
+			
+			return false;
+		});
+		
+		if ($("a.people").hasClass("selected")) {
+			$("#SearchQuery").focus().autocomplete("/Search/getUserAjaxResult");
+		} else {
+			$("#SearchQuery").focus().autocomplete("/Search/getIssueAjaxResult");
+		}
+	});
+</script>
+
 <div class="col-24 user-panel">
     <% UserInformationModel myUser = HAVUserInformationFactory.GetUserInformation(); %>
 	<div class="col-3 center">
@@ -17,6 +57,16 @@
           
             <%= NavigationHelper.UserNavigation(Model.SiteSection, Model.UserMenuMetaData, Model.User) %>
             
+            <ul class="f-rgt fnt-12">
+            	<li class="search">
+            		<a href="#" class="search">Search</a>
+            		<div class="pnl">
+            			<a class="people selected" href="#">Users</a>
+            			<input type="text" name="Search" id="SearchQuery" />
+            			<a class="issue" href="#">Issues</a>
+            		</div>
+            	</li>
+            </ul>
  
             <% if (Model.FanMetaData.Display) {%>
                 <div class="f-rgt">
