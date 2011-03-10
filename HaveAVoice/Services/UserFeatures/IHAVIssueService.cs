@@ -12,6 +12,8 @@ namespace HaveAVoice.Services.UserFeatures {
         IssueModel CreateIssueModel(User aViewingUser, string aTitle);
         IssueModel CreateIssueModel(string aTitle);
 
+        IEnumerable<Issue> GetMostPopularIssuesByHitCount(int aLimit);
+        IEnumerable<Issue> GetNewestIssues(int aLimit);
 
         bool CreateIssue(UserInformationModel aUserCreating, Issue anIssueToCreate);
         bool CreateIssueReply(UserInformationModel aUserCreating, IssueModel anIssueModel);

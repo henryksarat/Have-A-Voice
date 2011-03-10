@@ -41,7 +41,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
             theBaseService = new Mock<IHAVBaseService>();
             theFriendService = new Mock<IHAVFriendService>();
 
-            theService = new HAVHomeService(new ModelStateWrapper(theModelState), theFriendService.Object, theMockRepository.Object, theBaseRepository.Object);
+            //theService = new HAVHomeService(new ModelStateWrapper(theModelState), theFriendService.Object, theMockRepository.Object, theBaseRepository.Object);
         }
     }
 }

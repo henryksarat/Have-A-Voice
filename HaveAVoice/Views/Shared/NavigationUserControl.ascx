@@ -11,10 +11,11 @@
 			FRIENDS<%= NavigationCountHelper.PendingFriendCount(myUser)%>
 			<ul>
 				<li><a href="/Friend/List">Friends</a></li>
-				<li><a href="/Friend/Pending">Friend Requests</a></li>
+				<li><a href="/Friend/Pending">FRIEND REQUESTS</a></li>
 			</ul>
 		</li>
 		<li><a href="/Message/Inbox">MAIL<%= NavigationCountHelper.NewMessageCount(myUser)%></a></li>
+        <li><a href="/Notification/List">NOTIFICATIONS<%= NavigationCountHelper.NotificationCount(myUser)%></a></li>
 		<li><a href="/Issue/Index">ISSUES</a></li>
     </ul>
 </div>

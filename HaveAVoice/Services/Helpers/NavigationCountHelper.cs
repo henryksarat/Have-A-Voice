@@ -22,8 +22,8 @@ namespace HaveAVoice.Services.Helpers {
         }
 
         public static string NotificationCount(User aRequestingUser) {
-            IHAVNavigationService myService = new HAVNavigationService();
-            return BuildSpanReturn(myService.NotificationCount(aRequestingUser));
+            IHAVNotificationService myService = new HAVNotificationService();
+            return BuildSpanReturn(myService.GetNotificationCount(aRequestingUser));
         }
 
         private static string BuildSpanReturn(int aCount) {

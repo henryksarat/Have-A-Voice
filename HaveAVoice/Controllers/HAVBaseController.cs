@@ -13,6 +13,7 @@ namespace HaveAVoice.Controllers  {
     public abstract class HAVBaseController : Controller {
         private const string AUTHENTICATION_DURING_COOKIE_ERROR = "An error occurred while trying to authentication when grabbing the login info from a cookie.";
         private const string AFTER_AUTHENTICATION_ERROR = "An error occurred after authentication after a cookie.";
+        private const string READ_ME_ERROR = "An error occurred while reading the read me credentials.";
 
         public IUserInformation theUserInformation;
 
@@ -57,7 +58,14 @@ namespace HaveAVoice.Controllers  {
         protected bool IsLoggedIn() {
             if (!HAVUserInformationFactory.IsLoggedIn()) {
 
-                User myUser = theAuthService.ReadRememberMeCredentials();
+                User myUser = null;
+
+                try {
+                    myUser = theAuthService.ReadRememberMeCredentials();
+                } catch (Exception myException) {
+                    LogError(myException, READ_ME_ERROR);
+                }
+
                 if (myUser != null) {
                     UserInformationModel userModel = null;
                     try {

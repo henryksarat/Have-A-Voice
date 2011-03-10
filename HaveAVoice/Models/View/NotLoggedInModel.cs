@@ -5,15 +5,12 @@ using System.Web;
 
 namespace HaveAVoice.Models.View {
     public class NotLoggedInModel {
-        public IEnumerable<IssueWithDispositionModel> LikedIssues { get; set; }
-        public IEnumerable<IssueWithDispositionModel> DislikedIssues { get; set; }
-        public IEnumerable<IssueReply> NewestIssueReplys { get; set; }
-        public IEnumerable<IssueReply> MostPopularIssueReplys { get; set; }
+        public IEnumerable<Issue> MostPopular { get; set; }
+        public IEnumerable<Issue> Newest { get; set; }
+
         public NotLoggedInModel() {
-            LikedIssues = new List<IssueWithDispositionModel>();
-            DislikedIssues = new List<IssueWithDispositionModel>();
-            NewestIssueReplys = new List<IssueReply>();
-            MostPopularIssueReplys = new List<IssueReply>();
+            MostPopular = new List<Issue>();
+            Newest = new List<Issue>();
         }
     }
 }

@@ -11,25 +11,6 @@ using HaveAVoice.Helpers.UserInformation;
 
 namespace HaveAVoice.Helpers.UI {
     public class IssueReplyHelper {
-        public static string IssueReplyDisplay(IEnumerable<IssueReply> anIssueReplies) {
-            string myList = string.Empty;
-
-            int myCount = 0;
-
-            foreach (IssueReply myIssueReply in anIssueReplies) {
-                if (myCount >= 4) {
-                    break;
-                }
-                var myLI = new TagBuilder("li");
-                myLI.InnerHtml = myIssueReply.Reply;
-                myList += myLI.ToString();
-
-                myCount++;
-            }
-
-            return myList;
-        }
-
         public static string UserIssueReply(IssueReplyModel anIssueReply) {
             var myReplyDiv = new TagBuilder("div");
 
@@ -49,6 +30,7 @@ namespace HaveAVoice.Helpers.UI {
             myReplyDiv.InnerHtml += ProfilePictureDiv(anIssueReply);
             myReplyDiv.InnerHtml += ReplyInfoDiv(anIssueReply);
             myReplyDiv.InnerHtml += SharedIssueStyleHelper.TimeStampDiv(anIssueReply.DateTimeStamp, myTimeStampDviCssClass, "p-a10", "MMM", "dd");
+            myReplyDiv.InnerHtml += SharedStyleHelper.ClearDiv();
 
             return myReplyDiv.ToString(TagRenderMode.Normal);
         }
@@ -134,20 +116,7 @@ namespace HaveAVoice.Helpers.UI {
         public static string IssueReply(IssueReply anIssueReply) {
             var myReplyDiv = new TagBuilder("div");
             myReplyDiv.AddCssClass("m-btm10 alt");
-
-            var myReplyProfileDiv = new TagBuilder("div");
-            myReplyProfileDiv.AddCssClass("push-3 col-3 center issue-profile");
-
-            string myReplyProfilePictureURL = PhotoHelper.ProfilePicture(anIssueReply.User);
-            string myReplyFullName = NameHelper.FullName(anIssueReply.User);
-
-            var myProfileImage = new TagBuilder("img");
-            myProfileImage.MergeAttribute("alt", myReplyFullName);
-            myProfileImage.MergeAttribute("src", myReplyProfilePictureURL);
-            myProfileImage.AddCssClass("profile");
-
-            myReplyProfileDiv.InnerHtml += myProfileImage.ToString();
-            myReplyDiv.InnerHtml += myReplyProfileDiv.ToString();
+            myReplyDiv.InnerHtml += SharedIssueStyleHelper.ProfilePictureDiv(anIssueReply.User, anIssueReply.Anonymous, "push-3 col-3 center issue-profile", "profile");
 
             var myReplyInfoDiv = new TagBuilder("div");
             myReplyInfoDiv.AddCssClass("push-3 m-lft col-15 m-rgt comment");
@@ -155,6 +124,9 @@ namespace HaveAVoice.Helpers.UI {
             var myReplyInfoPadding = new TagBuilder("div");
             myReplyInfoPadding.AddCssClass("p-a10");
             myReplyInfoPadding.InnerHtml += SharedStyleHelper.InfoSpeakSpan();
+
+            string myReplyProfilePictureURL = PhotoHelper.ProfilePicture(anIssueReply.User);
+            string myReplyFullName = NameHelper.FullName(anIssueReply.User);
 
             var myUserLink = new TagBuilder("a");
             myUserLink.AddCssClass("name");

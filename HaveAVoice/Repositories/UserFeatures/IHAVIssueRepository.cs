@@ -8,9 +8,13 @@ namespace HaveAVoice.Repositories.UserFeatures {
         IEnumerable<Issue> GetLatestIssues();
         IEnumerable<IssueWithDispositionModel> GetIssues(User aUser);
         Issue CreateIssue(Issue anIssueToCreate, User aUserCreating);
+        void AddHitToIssue(int anIssueId);
         Issue GetIssue(int anIssueId);
         Issue GetIssueByTitle(string aTitle);
         IEnumerable<Issue> GetIssuesByTitleContains(string aTitlePortion);
+
+        IEnumerable<Issue> GetMostPopularIssuesByHitCount(int aLimit);
+        IEnumerable<Issue> GetNewestIssues(int aLimit);
 
         bool HasIssueTitleBeenUsed(string aTitle);
 

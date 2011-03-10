@@ -31,11 +31,11 @@
 		    <% UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation(); %>
 		    <% foreach (User myUser in Model) { %>
 		    	<div class="col-6 center">
-		    		<a href="<%= myUser.ShortUrl %>">
+		    		<a href="<%= LinkHelper.Profile(myUser) %>">
 		    			<img src="<%= PhotoHelper.ProfilePicture(myUser) %>" alt="<%= NameHelper.FullName(myUser) %>" class="profile" />
 		    		</a>
 		    		<br />
-		    		<a class="name" href="<%= myUser.ShortUrl %>">
+		    		<a class="name" href="<%= LinkHelper.Profile(myUser) %>">
 						<%= NameHelper.FullName(myUser) %>
 		    		</a><br />
 		    		<div class="col-3 center m-top5">

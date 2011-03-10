@@ -22,7 +22,13 @@ namespace HaveAVoice.Repositories.UserFeatures {
             theEntities.SaveChanges();
 
              return anIssueToCreate;
-         }
+        }
+
+        public void AddHitToIssue(int anIssueId) {
+            IssueHit myIssueHit = IssueHit.CreateIssueHit(0, anIssueId, 1, DateTime.UtcNow);
+            theEntities.AddToIssueHits(myIssueHit);
+            theEntities.SaveChanges();
+        }
 
         public Issue GetIssue(int anIssueId) {
             return (from i in theEntities.Issues
@@ -346,6 +352,42 @@ namespace HaveAVoice.Repositories.UserFeatures {
             return (from i in theEntities.Issues
                     where i.Title.Contains(aTitlePortion)
                     select i).ToList<Issue>();
+        }
+
+
+        public IEnumerable<Issue> GetMostPopularIssuesByHitCount(int aLimit) {
+            IEnumerable<AggregatedIssueHit> myMostPopular = (from h in theEntities.IssueHits
+                                              group h by h.IsssueId into g
+                                              select new AggregatedIssueHit { IssueId = g.Key, HitCountSum = g.Sum(h2 => h2.HitCount) } )
+                                              .OrderByDescending(p => p.HitCountSum)
+                                              .Take<AggregatedIssueHit>(aLimit);
+
+            List<Issue> myMostPopularIssues = (from p in myMostPopular
+                                           join i in theEntities.Issues on p.IssueId equals i.Id
+                                           select i).ToList<Issue>();
+
+            if (myMostPopularIssues.Count<Issue>() < aLimit) {
+                int myCountNeeded = aLimit - myMostPopularIssues.Count;
+                IEnumerable<Issue> myNewestIssues = GetNewestIssues(aLimit).Except(myMostPopularIssues);
+
+                myMostPopularIssues.AddRange(myNewestIssues);
+            }
+
+
+            return myMostPopularIssues;
+        }
+
+        public IEnumerable<Issue> GetNewestIssues(int aLimit) {
+            return (from i in theEntities.Issues
+                    select i)
+                    .OrderByDescending(i2 => i2.DateTimeStamp)
+                    .Take<Issue>(aLimit)
+                    .ToList<Issue>();
+        }
+
+        private class AggregatedIssueHit {
+            public int IssueId;
+            public int HitCountSum;
         }
     }
 }

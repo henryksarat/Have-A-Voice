@@ -32,17 +32,17 @@ namespace HaveAVoice.Helpers.UI {
             return linkTag.ToString();
         }
 
-        public static string BuildIssueDisplay(IEnumerable<IssueWithDispositionModel> anIssues, bool anIsLike) {
+        public static string BuildIssueDisplay(IEnumerable<Issue> anIssues) {
             string myIssueDisplay = string.Empty;
 
-            foreach (IssueWithDispositionModel myIssue in anIssues) {
+            foreach (Issue myIssue in anIssues) {
                 string myAvatarURL = PhotoHelper.ConstructUrl(HAVConstants.NO_PROFILE_PICTURE_IMAGE);
                 string myName = "Anonymous";
                 string myProfile = "/Authentication/Login";
                 //if (PrivacyHelper.IsAllowed(myIssue.Issue.User, PrivacyAction.DisplayProfile)) {
-                    myAvatarURL = PhotoHelper.ProfilePicture(myIssue.Issue.User);
-                    myName = NameHelper.FullName(myIssue.Issue.User);
-                    myProfile = LinkHelper.Profile(myIssue.Issue.User);
+                    myAvatarURL = PhotoHelper.ProfilePicture(myIssue.User);
+                    myName = NameHelper.FullName(myIssue.User);
+                    myProfile = LinkHelper.Profile(myIssue.User);
                 //}
                 
                 var myClearDiv = new TagBuilder("div");
@@ -69,21 +69,21 @@ namespace HaveAVoice.Helpers.UI {
 
 				var issueLink = new TagBuilder("a");
 				issueLink.MergeAttribute("class", "iss-fnt");
-				issueLink.MergeAttribute("href", LinkHelper.IssueUrl(myIssue.Issue.Title));
-				issueLink.InnerHtml = myIssue.Issue.Title;
+				issueLink.MergeAttribute("href", LinkHelper.IssueUrl(myIssue.Title));
+				issueLink.InnerHtml = myIssue.Title;
                 myContextDiv.InnerHtml += issueLink.ToString();
                 myContextDiv.InnerHtml += "<br />";
-                myContextDiv.InnerHtml += myIssue.Issue.Description + "  ";
+                myContextDiv.InnerHtml += myIssue.Description + "  ";
                 
                 var readMore = new TagBuilder("a");
                 readMore.MergeAttribute("class", "read-more");
-                readMore.MergeAttribute("href", LinkHelper.IssueUrl(myIssue.Issue.Title));
+                readMore.MergeAttribute("href", LinkHelper.IssueUrl(myIssue.Title));
                 readMore.InnerHtml += "Read More and particiapte &raquo;";
                 myContextDiv.InnerHtml += readMore.ToString();
 
                 var mySpan = new TagBuilder("span");
                 mySpan.MergeAttribute("class", "profile");
-                mySpan.InnerHtml = String.Format("On {0} by {1} - {2}, {3}", myIssue.Issue.DateTimeStamp, myName, myIssue.Issue.City, myIssue.Issue.State);
+                mySpan.InnerHtml = String.Format("On {0} by {1} - {2}, {3}", myIssue.DateTimeStamp, myName, myIssue.City, myIssue.State);
                 myContextDiv.InnerHtml += mySpan.ToString();
                 myContextDiv.InnerHtml += myClearDiv.ToString();
 

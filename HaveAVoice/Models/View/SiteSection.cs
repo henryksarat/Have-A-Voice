@@ -21,6 +21,7 @@ namespace HaveAVoice.Models.View {
         EditPrivacy,
         Issue,
         IssueReply,
-        Notification
+        Notification,
+        BoardReply
     }
 }

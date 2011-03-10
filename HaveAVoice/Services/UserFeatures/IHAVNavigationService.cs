@@ -8,6 +8,5 @@ namespace HaveAVoice.Services.UserFeatures {
     public interface IHAVNavigationService {
         int NewMessageCount(User aRequestingUser);
         int PendingFriendCount(User aRequestingUser);
-        int NotificationCount(User aRequestingUser);
     }
 }

@@ -21,7 +21,7 @@ namespace HaveAVoice.Controllers.Home {
         private const string UNABLE_TO_ADD_FILTER = "Unable to add the filter, please try again.";
 
         private const string VIEW_DATA_MESSAGE = "Message";
-        private const string NOT_LOGGED_IN = "NotLoggedIn";
+        private const string MAIN = "Main";
 
         private IHAVAuthenticationService theAuthService;
         private IHAVWhoIsOnlineService theWhoIsOnlineService;
@@ -46,10 +46,7 @@ namespace HaveAVoice.Controllers.Home {
         }
 
         [OutputCache(Duration = 60, VaryByParam = "none")]
-        public ActionResult NotLoggedIn() {
-            if (IsLoggedIn()) {
-                return RedirectToProfile();
-            }
+        public ActionResult Main() {
             NotLoggedInModel myModel = new NotLoggedInModel();
             try {
                 myModel = theService.NotLoggedIn();
@@ -58,7 +55,7 @@ namespace HaveAVoice.Controllers.Home {
                 ViewData[VIEW_DATA_MESSAGE] = MessageHelper.ErrorMessage(PAGE_LOAD_ERROR);
             }
 
-            return View(NOT_LOGGED_IN, myModel);
+            return View(MAIN, myModel);
         }
     }
 }

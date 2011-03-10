@@ -87,6 +87,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueReplyViewedStates_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "IssueReplyViewedState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueReplyViewedState), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Users_Positions", "UserPosition", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(HaveAVoice.Models.UserPosition), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.User), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_AuthorityVerification_UserPositions", "UserPosition", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.UserPosition), "AuthorityVerification", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.AuthorityVerification), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueHits_Issues", "Issue", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Issue), "IssueHit", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueHit), true)]
 
 #endregion
 
@@ -825,6 +826,22 @@ namespace HaveAVoice.Models
             }
         }
         private ObjectSet<UserPosition> _UserPositions;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<IssueHit> IssueHits
+        {
+            get
+            {
+                if ((_IssueHits == null))
+                {
+                    _IssueHits = base.CreateObjectSet<IssueHit>("IssueHits");
+                }
+                return _IssueHits;
+            }
+        }
+        private ObjectSet<IssueHit> _IssueHits;
 
         #endregion
         #region AddTo Methods
@@ -1171,6 +1188,14 @@ namespace HaveAVoice.Models
         public void AddToUserPositions(UserPosition userPosition)
         {
             base.AddObject("UserPositions", userPosition);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the IssueHits EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToIssueHits(IssueHit issueHit)
+        {
+            base.AddObject("IssueHits", issueHit);
         }
 
         #endregion
@@ -5758,6 +5783,28 @@ namespace HaveAVoice.Models
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_IssueHits_Issues", "IssueHit")]
+        public EntityCollection<IssueHit> IssueHits
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<IssueHit>("HaveAVoice.Models.FK_IssueHits_Issues", "IssueHit");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IssueHit>("HaveAVoice.Models.FK_IssueHits_Issues", "IssueHit", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -6179,6 +6226,180 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Issue>("HaveAVoice.Models.FK_IssueDisposition_Issues", "Issue", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="HaveAVoice.Models", Name="IssueHit")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class IssueHit : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new IssueHit object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="isssueId">Initial value of the IsssueId property.</param>
+        /// <param name="hitCount">Initial value of the HitCount property.</param>
+        /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
+        public static IssueHit CreateIssueHit(global::System.Int32 id, global::System.Int32 isssueId, global::System.Int32 hitCount, global::System.DateTime dateTimeStamp)
+        {
+            IssueHit issueHit = new IssueHit();
+            issueHit.Id = id;
+            issueHit.IsssueId = isssueId;
+            issueHit.HitCount = hitCount;
+            issueHit.DateTimeStamp = dateTimeStamp;
+            return issueHit;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 IsssueId
+        {
+            get
+            {
+                return _IsssueId;
+            }
+            set
+            {
+                OnIsssueIdChanging(value);
+                ReportPropertyChanging("IsssueId");
+                _IsssueId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsssueId");
+                OnIsssueIdChanged();
+            }
+        }
+        private global::System.Int32 _IsssueId;
+        partial void OnIsssueIdChanging(global::System.Int32 value);
+        partial void OnIsssueIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 HitCount
+        {
+            get
+            {
+                return _HitCount;
+            }
+            set
+            {
+                OnHitCountChanging(value);
+                ReportPropertyChanging("HitCount");
+                _HitCount = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("HitCount");
+                OnHitCountChanged();
+            }
+        }
+        private global::System.Int32 _HitCount;
+        partial void OnHitCountChanging(global::System.Int32 value);
+        partial void OnHitCountChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateTimeStamp
+        {
+            get
+            {
+                return _DateTimeStamp;
+            }
+            set
+            {
+                OnDateTimeStampChanging(value);
+                ReportPropertyChanging("DateTimeStamp");
+                _DateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateTimeStamp");
+                OnDateTimeStampChanged();
+            }
+        }
+        private global::System.DateTime _DateTimeStamp;
+        partial void OnDateTimeStampChanging(global::System.DateTime value);
+        partial void OnDateTimeStampChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_IssueHits_Issues", "Issue")]
+        public Issue Issue
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Issue>("HaveAVoice.Models.FK_IssueHits_Issues", "Issue").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Issue>("HaveAVoice.Models.FK_IssueHits_Issues", "Issue").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Issue> IssueReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Issue>("HaveAVoice.Models.FK_IssueHits_Issues", "Issue");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Issue>("HaveAVoice.Models.FK_IssueHits_Issues", "Issue", value);
                 }
             }
         }

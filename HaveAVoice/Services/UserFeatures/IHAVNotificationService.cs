@@ -7,6 +7,7 @@ using HaveAVoice.Models.View;
 
 namespace HaveAVoice.Services.UserFeatures {
     public interface IHAVNotificationService {
+        int GetNotificationCount(User aUser);
         IEnumerable<NotificationModel> GetNotifications(User aUser);
     }
 }

@@ -69,9 +69,9 @@
             		<a href="#" class="search">Search</a>
             		<div class="pnl">
             			<% using (Html.BeginForm("DoSearch", "Search")) { %>
-	            			<a class="people selected" href="#">Users</a>
+	            			<a class="people selected" href="#" alt="Search users">Users</a>
 	            			<input type="text" name="SearchQuery" id="SearchQuery" />
-	            			<a class="issue" href="#">Issues</a>
+	            			<a class="issue" href="#" alt="Search issues">Issues</a>
 	            			<select id="SearchType" name="SearchType">
 	            				<option value="User" selected="selected">User</option>
 	            				<option value="Issues">Issues</option>

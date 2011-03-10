@@ -13,6 +13,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     join v in theEntities.BoardViewedStates on b.Id equals v.BoardId
                     where v.Viewed == false
                     && b.OwnerUserId == aUser.Id
+                    && v.UserId == aUser.Id
                     select b).ToList<Board>();
         }
 

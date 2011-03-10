@@ -37,7 +37,7 @@ namespace HaveAVoice.Controllers.Users {
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
-        public ActionResult Create(int ownerUserId, int boardId, string boardReply) {
+        public ActionResult Create(int boardId, string boardReply, SiteSection source, int sourceId) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
@@ -50,7 +50,11 @@ namespace HaveAVoice.Controllers.Users {
                 TempData["Message"] = MessageHelper.ErrorMessage(POST_REPLY_ERROR);
             }
 
-            return RedirectToProfile(ownerUserId);
+            if (source == SiteSection.Profile) {
+                return RedirectToProfile(sourceId);
+            } else {
+                return RedirectToAction("Details", "Board", new { id = sourceId });
+            }
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]

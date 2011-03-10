@@ -301,11 +301,13 @@ namespace HaveAVoice.Services.UserFeatures {
             if (aViewingUser != null && aViewingUser.Id == myIssue.UserId) {
                 theRepository.MarkIssueAsReadForAuthor(myIssue);
             }
+            theRepository.AddHitToIssue(myIssue.Id);
             return FillIssueModel(aViewingUser, myIssue);
         }
 
         public IssueModel CreateIssueModel(string aTitle) {
             Issue myIssue = theRepository.GetIssueByTitle(aTitle);
+            theRepository.AddHitToIssue(myIssue.Id);
             return FillIssueModel(null, myIssue);
         }
 
@@ -340,6 +342,15 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public IEnumerable<Issue> GetIssueByTitleSearch(string aTitlePortion) {
             return theRepository.GetIssuesByTitleContains(aTitlePortion);
+        }
+
+        public IEnumerable<Issue> GetMostPopularIssuesByHitCount(int aLimit) {
+            return theRepository.GetMostPopularIssuesByHitCount(aLimit);
+        }
+
+
+        public IEnumerable<Issue> GetNewestIssues(int aLimit) {
+            return theRepository.GetNewestIssues(aLimit);
         }
     }
 }

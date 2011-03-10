@@ -65,7 +65,7 @@
                 <% string myProfilePictureUrl = myUserModel.ProfilePictureUrl; %>
 			    <img src="<%= myProfilePictureUrl %>" alt="<%= myFullName %>" class="profile sm" />
 		    </div>
-		    <% using (Html.BeginForm("Create", "BoardReply", new { ownerUserId = Model.OwnerUserId, boardId = Model.Id })) { %>
+		    <% using (Html.BeginForm("Create", "BoardReply", new { source = SiteSection.Profile, sourceId = Model.OwnerUserId, boardId = Model.Id })) { %>
 			    <div class="m-lft col-14">
 				    <div class="alpha col-12">
 			            <%= Html.ValidationMessage("BoardReply", "*")%>

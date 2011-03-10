@@ -21,6 +21,16 @@ namespace HaveAVoice.Services.UserFeatures {
                 theNotificationRepo = aNotificationRepo;
         }
 
+        public int GetNotificationCount(User aUser) {
+            int myUnreadBoards = theNotificationRepo.UnreadBoardMessages(aUser).Count<Board>();
+            int myUnreadParticipatingBoards = theNotificationRepo.UnreadParticipatingBoardMessages(aUser).Count<BoardViewedState>();
+            int myUnreadIssues = theNotificationRepo.UnreadIssues(aUser).Count<IssueViewedState>();
+            int myUnreadIssueReplies = theNotificationRepo.UnreadIssueReplies(aUser).Count<IssueReplyViewedState>();
+            int myUnreadParticipatingIssueReplies = theNotificationRepo.UnreadParticipatingIssueReplies(aUser).Count<IssueReplyViewedState>();
+
+            return myUnreadBoards + myUnreadParticipatingBoards + myUnreadIssues + myUnreadIssueReplies + myUnreadParticipatingIssueReplies;
+        }
+
         public IEnumerable<NotificationModel> GetNotifications(User aUser) {
             IEnumerable<Board> myUnreadBoards = theNotificationRepo.UnreadBoardMessages(aUser);
             IEnumerable<BoardViewedState> myUnreadParticipatingBoards = theNotificationRepo.UnreadParticipatingBoardMessages(aUser);
