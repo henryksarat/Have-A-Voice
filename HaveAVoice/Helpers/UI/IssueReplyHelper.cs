@@ -29,7 +29,7 @@ namespace HaveAVoice.Helpers.UI {
 
             myReplyDiv.InnerHtml += ProfilePictureDiv(anIssueReply);
             myReplyDiv.InnerHtml += ReplyInfoDiv(anIssueReply);
-            myReplyDiv.InnerHtml += SharedIssueStyleHelper.TimeStampDiv(anIssueReply.DateTimeStamp, myTimeStampDviCssClass, "p-a10", "MMM", "dd");
+            myReplyDiv.InnerHtml += SharedContentStyleHelper.TimeStampDiv(anIssueReply.DateTimeStamp, myTimeStampDviCssClass, "p-a10", string.Empty, "MMM", "dd");
             myReplyDiv.InnerHtml += SharedStyleHelper.ClearDiv();
 
             return myReplyDiv.ToString(TagRenderMode.Normal);
@@ -43,7 +43,7 @@ namespace HaveAVoice.Helpers.UI {
                 myDivCssClass = "push-6 col-2 center";
             }
 
-            return SharedIssueStyleHelper.ProfilePictureDiv(anIssueReply.User, anIssueReply.Anonymous, myDivCssClass, "profile");
+            return SharedContentStyleHelper.ProfilePictureDiv(anIssueReply.User, anIssueReply.Anonymous, myDivCssClass, "profile");
         }
 
         private static string ReplyInfoDiv(IssueReplyModel anIssueReply) {
@@ -116,7 +116,7 @@ namespace HaveAVoice.Helpers.UI {
         public static string IssueReply(IssueReply anIssueReply) {
             var myReplyDiv = new TagBuilder("div");
             myReplyDiv.AddCssClass("m-btm10 alt");
-            myReplyDiv.InnerHtml += SharedIssueStyleHelper.ProfilePictureDiv(anIssueReply.User, anIssueReply.Anonymous, "push-3 col-3 center issue-profile", "profile");
+            myReplyDiv.InnerHtml += SharedContentStyleHelper.ProfilePictureDiv(anIssueReply.User, anIssueReply.Anonymous, "push-3 col-3 center issue-profile", "profile");
 
             var myReplyInfoDiv = new TagBuilder("div");
             myReplyInfoDiv.AddCssClass("push-3 m-lft col-15 m-rgt comment");

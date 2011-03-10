@@ -28,5 +28,13 @@ namespace HaveAVoice.Helpers.UI {
             myClearDiv.InnerHtml = "&nbsp;";
             return myClearDiv.ToString();
         }
+
+        public static string Link(string aCssClass, string aUrl, string aDisplay) {
+            var myLink = new TagBuilder("a");
+            myLink.AddCssClass(aCssClass);
+            myLink.MergeAttribute("href", aUrl);
+            myLink.InnerHtml = aDisplay;
+            return myLink.ToString();
+        }
     }
 }

@@ -111,8 +111,9 @@
     <Compile Include="Helpers\LinkHelper.cs" />
     <Compile Include="Helpers\PresentationHelper.cs" />
     <Compile Include="Helpers\ProfileHelper.cs" />
+    <Compile Include="Helpers\UI\BoardHelper.cs" />
     <Compile Include="Helpers\UI\IssueReplyCommentHelper.cs" />
-    <Compile Include="Helpers\UI\SharedIssueStyleHelper.cs" />
+    <Compile Include="Helpers\UI\SharedContentStyleHelper.cs" />
     <Compile Include="Helpers\UI\SharedStyleHelper.cs" />
     <Compile Include="Helpers\UserRoleHelper.cs" />
     <Compile Include="Controllers\Admin\RestrictionController.cs" />

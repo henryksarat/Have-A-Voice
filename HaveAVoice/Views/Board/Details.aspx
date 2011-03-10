@@ -4,6 +4,7 @@
 <%@Import Namespace="HaveAVoice.Helpers" %>
 <%@Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 <%@Import Namespace="HaveAVoice.Services.Helpers" %>
+<%@Import Namespace="HaveAVoice.Helpers.UI" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	View
@@ -20,49 +21,19 @@
         <% Html.RenderPartial("Validation"); %>
 		<div class="clear">&nbsp;</div>
 
-
         <div class="board-alt p-v10 m-btm5">
-	        <div class="col-2 center">
-		        <img src="<%= PhotoHelper.ProfilePicture(Model.Model.PostedByUser) %>" alt="<%= NameHelper.FullName(Model.Model.PostedByUser) %>" class="profile" />
-	        </div>
-	        <div class="col-16 m-btm10">
-		        <div class="m-lft col-16">
-			        <div class="p-h10">
-				        <a class="name" href="<%= LinkHelper.Profile(Model.Model.PostedByUser) %>"><%= NameHelper.FullName(Model.Model.PostedByUser) %></a>
-                        <%= Model.Model.Message %>
-				        <div class="clear">&nbsp;</div>
-			        </div>
-		        </div>
-	        </div>
-	        <div class="col-3 right">
-		        <div class="p-h5">
-			        <div class="date-tile">
-				        <span><%= Model.Model.DateTimeStamp.ToString("MMM").ToUpper()%></span> <%= Model.Model.DateTimeStamp.ToString("dd")%>
-			        </div>
-		        </div>
-	        </div>
+            <%= SharedContentStyleHelper.ProfilePictureDiv(Model.Model.PostedByUser, false, "col-2 center", "profile") %>
+            <%= BoardHelper.BoardInformationDiv("col-16 m-btm10", "m-lft col-16", "p-h10", "name", Model.Model.PostedByUser, Model.Model.Message) %>
+            <%= SharedContentStyleHelper.TimeStampDiv(Model.Model.DateTimeStamp, "col-3 right", "p-h5", "date-tile", "MMM", "dd")  %>
 	        <div class="clear">&nbsp;</div>
         </div>
         <div class="board-wrpr">
 	        <% int j = 0; %>
 	        <% foreach (BoardReply myReply in Model.Model.BoardReplies) { %>		
 	            <div class="board-<% if (j % 2 == 0) { %>row<% } else { %>alt<% } %> p-v10 push-3 col-18 m-btm5">
-		            <div class="col-1 center">
-		                <img src="<%= PhotoHelper.ProfilePicture(myReply.User) %>" alt="<%= NameHelper.FullName(myReply.User) %>" class="profile sm" />
-		            </div>
-		            <div class="m-lft col-14">
-		                <div class="p-h10">
-		                    <a href="<%= LinkHelper.Profile(myReply.User) %>" class="name"><%= NameHelper.FullName(myReply.User)%></a>
-		                    <%= myReply.Message %>
-		                </div>
-		            </div>
-		            <div class="col-3 right">
-		                <div class="p-h5">
-		                    <div class="date-tile">
-		                        <span><%= myReply.DateTimeStamp.ToString("MMM").ToUpper() %></span> <%= myReply.DateTimeStamp.ToString("dd") %>
-		                    </div>
-		                </div>
-		            </div>
+                    <%= SharedContentStyleHelper.ProfilePictureDiv(myReply.User, false, "col-1 center", "profile sm") %>
+		            <%= BoardHelper.BoardInformationDiv("m-lft col-14", "p-h10", string.Empty, "name", myReply.User, myReply.Message) %>
+		            <%= SharedContentStyleHelper.TimeStampDiv(myReply.DateTimeStamp, "col-3 right", "p-h5", "date-tile", "MMM", "dd") %>
 		            <div class="clear">&nbsp;</div>
 		        </div>
 		        <div class="clear">&nbsp;</div>

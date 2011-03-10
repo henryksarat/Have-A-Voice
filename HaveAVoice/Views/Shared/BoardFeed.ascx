@@ -3,28 +3,13 @@
 <%@ Import Namespace="HaveAVoice.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
+<%@ Import Namespace="HaveAVoice.Helpers.UI" %>
 
 <% int myCount = (int)ViewData["Count"]; %>
 <div class="board-<% if(myCount % 2 == 0) { %>row<% } else { %>alt<% } %> p-v10 m-btm5">
-	<div class="col-2 center">
-		<img src="<%= Model.ProfilePictureUrl %>" alt="<%= Model.DisplayName %>" class="profile" />
-	</div>
-	<div class="col-16 m-btm10">
-		<div class="m-lft col-16">
-			<div class="p-h10">
-				<a class="name" href="/Profile/Show/<%= Model.UserId %>"><%= Model.DisplayName%></a>
-                <%= Model.Message%>
-				<div class="clear">&nbsp;</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-3 right">
-		<div class="p-h5">
-			<div class="date-tile">
-				<span><%= Model.DateTimeStamp.ToString("MMM").ToUpper()%></span> <%= Model.DateTimeStamp.ToString("dd")%>
-			</div>
-		</div>
-	</div>
+    <%= SharedContentStyleHelper.ProfilePictureDiv(Model.PostingUser, false, "col-2 center", "profile") %>
+    <%= BoardHelper.BoardInformationDiv("col-16 m-btm10", "m-lft col-16", "p-h10", "name", Model.PostingUser, Model.Message) %>
+    <%= SharedContentStyleHelper.TimeStampDiv(Model.DateTimeStamp, "col-3 right", "p-h5", "date-tile", "MMM", "dd")  %>
 	<div class="clear">&nbsp;</div>
 </div>
 
@@ -32,22 +17,9 @@
 	<% int j = 0; %>
 	<% foreach (BoardReply myReply in Model.BoardReplys) { %>		
 	    <div class="board-<% if (j % 2 == 0) { %>row<% } else { %>alt<% } %> p-v10 push-3 col-18 m-btm5">
-		    <div class="col-1 center">
-		        <img src="<%= PhotoHelper.ProfilePicture(myReply.User) %>" alt="<%= NameHelper.FullName(myReply.User) %>" class="profile sm" />
-		    </div>
-		    <div class="m-lft col-14">
-		        <div class="p-h10">
-		            <a href="<%= LinkHelper.Profile(myReply.User) %>" class="name"><%= NameHelper.FullName(myReply.User)%></a>
-		            <%= myReply.Message %>
-		        </div>
-		    </div>
-		    <div class="col-3 right">
-		        <div class="p-h5">
-		            <div class="date-tile">
-		                <span><%= myReply.DateTimeStamp.ToString("MMM").ToUpper() %></span> <%= myReply.DateTimeStamp.ToString("dd") %>
-		            </div>
-		        </div>
-		    </div>
+            <%= SharedContentStyleHelper.ProfilePictureDiv(myReply.User, false, "col-1 center", "profile sm") %>
+		    <%= BoardHelper.BoardInformationDiv("m-lft col-14", "p-h10", string.Empty, "name", myReply.User, myReply.Message) %>
+		    <%= SharedContentStyleHelper.TimeStampDiv(myReply.DateTimeStamp, "col-3 right", "p-h5", "date-tile", "MMM", "dd") %>
 		    <div class="clear">&nbsp;</div>
 		</div>
 		<div class="clear">&nbsp;</div>
