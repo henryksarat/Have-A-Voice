@@ -55,33 +55,29 @@ namespace HaveAVoice.Helpers.UI {
                 myReplyCommentDiv.AddCssClass("push-6 m-lft col-12 m-rgt comment");
             }
 
-            var mySpeakSpan = new TagBuilder("span");
-
+            string mySpeakSpan = string.Empty;
             if (anIssueReply.IssueStance == (int)IssueStanceFilter.Agree) {
-                mySpeakSpan.AddCssClass("speak-lft");
+                mySpeakSpan = SharedStyleHelper.InfoSpeakSpan("speak-lft");
             } else {
-                mySpeakSpan.AddCssClass("speak-rgt");
+                mySpeakSpan = SharedStyleHelper.InfoSpeakSpan("speak-rgt");
             }
-            mySpeakSpan.InnerHtml = "&nbsp;";
 
             myReplyCommentDiv.InnerHtml += mySpeakSpan.ToString();
 
             var myReplyCommentPad = new TagBuilder("div");
             myReplyCommentPad.AddCssClass("p-a10");
 
-            var myName = new TagBuilder("a");
-            myName.AddCssClass("name");
+            string myName = string.Empty;
             if (anIssueReply.Anonymous) {
-                myName.InnerHtml = "Anonymous";
-                myName.MergeAttribute("href", "#");
+                myName = SharedStyleHelper.Link("name", "#", HAVConstants.ANONYMOUS);
             } else {
-                myName.InnerHtml = NameHelper.FullName(anIssueReply.User);
-                myName.MergeAttribute("href", LinkHelper.Profile(anIssueReply.User));
+                myName = SharedStyleHelper.Link("name", LinkHelper.Profile(anIssueReply.User), NameHelper.FullName(anIssueReply.User));
             }
 
             myReplyCommentPad.InnerHtml += myName.ToString();
             myReplyCommentPad.InnerHtml += "&nbsp;";
             myReplyCommentPad.InnerHtml += anIssueReply.Reply;
+            myReplyCommentPad.InnerHtml += SharedStyleHelper.Link("read-more", LinkHelper.IssueReplyUrl(anIssueReply.Id), " &raquo;&raquo;");
 
             myReplyCommentPad.InnerHtml += SharedStyleHelper.ClearDiv();
 
@@ -123,7 +119,7 @@ namespace HaveAVoice.Helpers.UI {
 
             var myReplyInfoPadding = new TagBuilder("div");
             myReplyInfoPadding.AddCssClass("p-a10");
-            myReplyInfoPadding.InnerHtml += SharedStyleHelper.InfoSpeakSpan();
+            myReplyInfoPadding.InnerHtml += SharedStyleHelper.InfoSpeakSpan("speak-lft");
 
             string myReplyProfilePictureURL = PhotoHelper.ProfilePicture(anIssueReply.User);
             string myReplyFullName = NameHelper.FullName(anIssueReply.User);
@@ -146,8 +142,8 @@ namespace HaveAVoice.Helpers.UI {
             var myEditAndStancesPad = new TagBuilder("div");
             myEditAndStancesPad.AddCssClass("p-v10 p-h10");
 
-            int myTotalAgrees = GetTotalAgrees(anIssueReply);
-            int myTotalDisagrees = GetTotalDisagrees(anIssueReply);
+            int myTotalAgrees = GetTotalStance(anIssueReply, Disposition.Like);
+            int myTotalDisagrees = GetTotalStance(anIssueReply, Disposition.Dislike);
             bool myHasDisposition = GetHasDisposition(anIssueReply, myUserInformationModel);
             var myDeleteDiv = DeleteDiv(myUserInformationModel, anIssueReply.Id, anIssueReply.User.Id);
             var myEditDiv = EditDiv(myUserInformationModel, anIssueReply.Id, anIssueReply.User.Id);
@@ -190,24 +186,17 @@ namespace HaveAVoice.Helpers.UI {
             return myReplyDiv.ToString();
         }
 
-        private static int GetTotalAgrees(IssueReply anIssueReply) {
+        private static int GetTotalStance(IssueReply anIssueReply, Disposition aDisposition) {
             int myTotalAgrees = (from s in anIssueReply.IssueReplyDispositions
-                                 where s.Disposition == (int)Disposition.Like
+                                 where s.Disposition == (int)aDisposition
                                  select s).Count<IssueReplyDisposition>();
             return myTotalAgrees;
         }
 
-        private static int GetTotalDisagrees(IssueReply anIssueReply) {
-            int myTotalDisagrees = (from s in anIssueReply.IssueReplyDispositions
-                                    where s.Disposition == (int)Disposition.Dislike
-                                    select s).Count<IssueReplyDisposition>();
-            return myTotalDisagrees;
-        }
-
-        private static bool GetHasDisposition(IssueReply anIssueReply, UserInformationModel myUserInformationModel) {
-            bool myHasDisposition = myUserInformationModel.Details != null &&
+        private static bool GetHasDisposition(IssueReply anIssueReply, UserInformationModel aUserInformationModel) {
+            bool myHasDisposition = aUserInformationModel != null &&
                                     (from s in anIssueReply.IssueReplyDispositions
-                                     where s.UserId == myUserInformationModel.Details.Id
+                                     where s.UserId == aUserInformationModel.Details.Id
                                      select s).Count<IssueReplyDisposition>() > 0 ? true : false;
             return myHasDisposition;
         }
@@ -245,38 +234,11 @@ namespace HaveAVoice.Helpers.UI {
         }
 
         private static TagBuilder AgreeDiv(int anIssueReplyId, int anIssueId, int aTotalAgrees, bool aHasDisposition, bool aIsLoggedIn, SiteSection aSource, int aSourceId) {
-            return StanceDiv(anIssueReplyId, anIssueId, aHasDisposition, aIsLoggedIn,
-               LinkHelper.DisagreeIssueReply(anIssueReplyId, anIssueId, SiteSection.Issue, anIssueId),
-               "like", aTotalAgrees, "Agrees", "Agree", LinkHelper.AgreeIssueReply(anIssueReplyId, anIssueId, aSource, aSourceId));
+            return SharedContentStyleHelper.AgreeStanceDiv("col-3 center", aHasDisposition, aIsLoggedIn, aTotalAgrees, LinkHelper.AgreeIssueReply(anIssueReplyId, anIssueId, aSource, aSourceId));
         }
 
         private static TagBuilder DisagreeDiv(int anIssueReplyId, int anIssueId, int aTotalDisagrees, bool aHasDisposition, bool aIsLoggedIn, SiteSection aSource, int aSourceId) {
-            return StanceDiv(anIssueReplyId, anIssueId, aHasDisposition, aIsLoggedIn,
-                LinkHelper.DisagreeIssueReply(anIssueReplyId, anIssueId, SiteSection.Issue, anIssueId),
-                "dislike", aTotalDisagrees, "Disagrees", "Disagree", LinkHelper.DisagreeIssueReply(anIssueReplyId, anIssueId, aSource, aSourceId));
-        }
-
-        private static TagBuilder StanceDiv(int anIssueReplyId, int anIssueId, bool aHasDisposition, bool aIsLoggedIn,
-                                            string aStanceUrl, string aLinkCssClass, int aTotalForStance, string aSingularDisplayText, string aPluralDisplayText,
-                                            string aStanceLink) {
-            var myStanceDiv = new TagBuilder("div");
-            myStanceDiv.AddCssClass("col-3 center");
-
-            if (!aHasDisposition && aIsLoggedIn) {
-                var myDisagreeLink = new TagBuilder("a");
-                myDisagreeLink.MergeAttribute("href", aStanceLink);
-                myDisagreeLink.AddCssClass(aLinkCssClass);
-                myDisagreeLink.InnerHtml += aPluralDisplayText + " (" + aTotalForStance + ")";
-                myStanceDiv.InnerHtml += myDisagreeLink.ToString();
-            } else {
-                var myDisagreeSpan = new TagBuilder("span");
-                myDisagreeSpan.AddCssClass(aLinkCssClass);
-                string mySingleOrPlural = aTotalForStance == 1 ? " Person " + aSingularDisplayText : " People " + aPluralDisplayText;
-                myDisagreeSpan.InnerHtml = aTotalForStance.ToString() + mySingleOrPlural;
-                myStanceDiv.InnerHtml += myDisagreeSpan.ToString();
-            }
-
-            return myStanceDiv;
+            return SharedContentStyleHelper.DisagreeStanceDiv("col-3 center", aHasDisposition, aIsLoggedIn, aTotalDisagrees, LinkHelper.DisagreeIssueReply(anIssueReplyId, anIssueId, aSource, aSourceId));
         }
 
         private static bool ShouldDisplayEditLink(UserInformationModel aUserInformation, int anIssueReplyAuthorUserId) {

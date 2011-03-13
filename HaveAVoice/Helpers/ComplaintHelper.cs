@@ -14,11 +14,11 @@ namespace HaveAVoice.Helpers {
             return String.Format("/Complaint/Create?sourceId={0}&complaintType={1}", aReplyId, ComplaintType.IssueReply);
         }
 
-        public static string IssueLink(int aIssue) {
-            return String.Format("<a href=\"/Complaint/Create?sourceId={0}&complaintType={1}\" class=\"report\">{2}</a>",
-                aIssue,
+        public static string IssueLink(int anIssueId) {
+            return String.Format("<a href=\"/Complaint/Create?sourceId={0}&complaintType={1}\" class=\"issue-report\" alt=\"{2}\">{2}</a>",
+                anIssueId,
                 ComplaintType.Issue,
-                "Report Issue");
+                "Report this issue");
         }
 
         public static string IssueReplyLinkStyled(int aReplyId) {

@@ -196,6 +196,8 @@ namespace HaveAVoice.Controllers.Issues {
                 return RedirectToAction("IssueActivity", "Profile", new { id = sourceId });
             } else if (section == SiteSection.MyIssueActivity) {
                 return RedirectToAction("IssueActivity", "Profile");
+            } else if(section == SiteSection.IssueReply) {
+                return RedirectToAction("Details", "IssueReply", new { id = sourceId });
             } else {
                 return RedirectToAction(REDIRECT_TO_DETAILS_VIEW, "Issue", new { id = issueId });
             }

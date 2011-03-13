@@ -58,5 +58,35 @@ namespace HaveAVoice.Helpers.UI {
             return SharedStyleHelper.Link(aCssClass, LinkHelper.Profile(aUser), NameHelper.FullName(aUser));
         }
 
+        public static TagBuilder AgreeStanceDiv(string aCssClass, bool aHasDisposition, bool anIsLoggedIn, int aTotalAgrees, string aStanceUrl) {
+            return StanceDiv(aCssClass, aHasDisposition, anIsLoggedIn, "like", aTotalAgrees, "Agrees", "Agree", aStanceUrl);
+        }
+
+        public static TagBuilder DisagreeStanceDiv(string aCssClass, bool aHasDisposition, bool anIsLoggedIn, int aTotalDisagrees, string aStanceUrl) {
+            return StanceDiv(aCssClass, aHasDisposition, anIsLoggedIn, "dislike", aTotalDisagrees, "Disagrees", "Disagree", aStanceUrl);
+        }
+
+        private static TagBuilder StanceDiv(string aCssClass, bool aHasDisposition, bool aIsLoggedIn, string aLinkCssClass, int aTotalForStance,
+                                            string aSingularDisplayText, string aPluralDisplayText, string aStanceLink) {
+            var myStanceDiv = new TagBuilder("div");
+            myStanceDiv.AddCssClass(aCssClass);
+
+            if (!aHasDisposition && aIsLoggedIn) {
+                var myDisagreeLink = new TagBuilder("a");
+                myDisagreeLink.MergeAttribute("href", aStanceLink);
+                myDisagreeLink.AddCssClass(aLinkCssClass);
+                myDisagreeLink.InnerHtml += aPluralDisplayText + " (" + aTotalForStance + ")";
+                myStanceDiv.InnerHtml += myDisagreeLink.ToString();
+            } else {
+                var myDisagreeSpan = new TagBuilder("span");
+                myDisagreeSpan.AddCssClass(aLinkCssClass);
+                string mySingleOrPlural = aTotalForStance == 1 ? " Person " + aSingularDisplayText : " People " + aPluralDisplayText;
+                myDisagreeSpan.InnerHtml = aTotalForStance.ToString() + mySingleOrPlural;
+                myStanceDiv.InnerHtml += myDisagreeSpan.ToString();
+            }
+
+            return myStanceDiv;
+        }
+
     }
 }

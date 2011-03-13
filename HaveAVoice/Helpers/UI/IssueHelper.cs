@@ -97,15 +97,34 @@ namespace HaveAVoice.Helpers.UI {
             return myIssueDisplay;
         }
 
-        public static string IssueInformationDiv(Issue anIssue, string anIssueInfoCssClass, string anEditAndStanceCssClass, string anDeleteCssClass, string anEditCssClass, string aReportCssClass) {
+        public static string IssueInformationDiv(Issue anIssue, string anIssueInfoCssClass, string anEditAndStanceCssClass, string aReportCssClass, string anAgreeCssClass,
+                                                 string aDisagreeCssClass, string aDeleteCssClass, string anEditCssClass, string anAlternateStanceDeleteCssClass, string anAlternateStanceEditCssClass, bool aUseAlternate,
+                                                 SiteSection aSiteSection, int aSourceId) {
+            string myAgreeCssClass = anAgreeCssClass;
+            string myDisagreeCssClass = aDisagreeCssClass;
+            string myDeleteCssClass = aDeleteCssClass;
+            string myEditCssClass = anEditCssClass;
             UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation();
+            bool myHasStance = GetHasStance(anIssue, myUserInfo);
 
+            if (aUseAlternate && (myHasStance || myUserInfo == null)) {
+                myAgreeCssClass = string.Empty;
+                myDisagreeCssClass = string.Empty;
+                myDeleteCssClass = anAlternateStanceDeleteCssClass;
+                myEditCssClass = anAlternateStanceEditCssClass;
+            }
+            return IssueInformationDiv(anIssue, myUserInfo, myHasStance, anIssueInfoCssClass, anEditAndStanceCssClass, aReportCssClass, myAgreeCssClass, 
+                myDisagreeCssClass, myDeleteCssClass, myEditCssClass, aSiteSection, aSourceId);
+        }
+
+        private static string IssueInformationDiv(Issue anIssue, UserInformationModel aUserInfoModel, bool aHasStance, string anIssueInfoCssClass, string anEditAndStanceCssClass, string aReportCssClass, string anAgreeCssClass,
+                                                 string aDisagreeCssClass, string anDeleteCssClass, string anEditCssClass, SiteSection aSiteSection, int aSourceId) {
             var myIssueInfoDiv = new TagBuilder("div");
             myIssueInfoDiv.AddCssClass(anIssueInfoCssClass);
 
             var myIssueInfoPadding = new TagBuilder("div");
             myIssueInfoPadding.AddCssClass("p-a10");
-            myIssueInfoPadding.InnerHtml += SharedStyleHelper.InfoSpeakSpan();
+            myIssueInfoPadding.InnerHtml += SharedStyleHelper.InfoSpeakSpan("speak-lft");
 
             var myHeadTitle = new TagBuilder("h1");
             var myIssueLink = new TagBuilder("a");
@@ -133,9 +152,15 @@ namespace HaveAVoice.Helpers.UI {
 
             var myEditAndStanceDiv = new TagBuilder("div");
             myEditAndStanceDiv.AddCssClass(anEditAndStanceCssClass);
-            myEditAndStanceDiv.InnerHtml += DeleteDiv(myUserInfo, anIssue, anDeleteCssClass);
-            myEditAndStanceDiv.InnerHtml += EditDiv(myUserInfo, anIssue, anEditCssClass);
-            myEditAndStanceDiv.InnerHtml += ComplaintDiv(myUserInfo, anIssue, aReportCssClass);
+            myEditAndStanceDiv.InnerHtml += SharedStyleHelper.StyledHtmlDiv(aReportCssClass, ComplaintHelper.IssueLink(anIssue.Id)).ToString();
+            myEditAndStanceDiv.InnerHtml += DeleteDiv(aUserInfoModel, anIssue, anDeleteCssClass);
+            myEditAndStanceDiv.InnerHtml += EditDiv(aUserInfoModel, anIssue, anEditCssClass);
+            if (anAgreeCssClass != string.Empty) {
+                myEditAndStanceDiv.InnerHtml += AgreeDiv(aUserInfoModel, anIssue, anAgreeCssClass, aSiteSection, aSourceId);
+            }
+            if (aDisagreeCssClass != string.Empty) {
+                myEditAndStanceDiv.InnerHtml += DisagreeDiv(aUserInfoModel, anIssue, aDisagreeCssClass, aSiteSection, aSourceId);
+            }
             myEditAndStanceDiv.InnerHtml += SharedStyleHelper.ClearDiv();
 
             myIssueInfoPadding.InnerHtml += myEditAndStanceDiv.ToString();
@@ -192,10 +217,32 @@ namespace HaveAVoice.Helpers.UI {
             return myStatsDiv.ToString();
         }
 
+        private static TagBuilder AgreeDiv(UserInformationModel aUserInformation, Issue anIssue, string aCssClass, SiteSection aSource, int aSourceId) {
+            bool myHasDisposition = GetHasStance(anIssue, aUserInformation);
+            bool myIsLoggedIn = aUserInformation != null;
+            int myTotalAgrees = GetTotalStance(anIssue, Disposition.Like);
+            return SharedContentStyleHelper.AgreeStanceDiv(aCssClass, myHasDisposition, myIsLoggedIn, myTotalAgrees, LinkHelper.AgreeIssue(anIssue.Id, aSource, aSourceId));
+        }
+
+        private static TagBuilder DisagreeDiv(UserInformationModel aUserInformation, Issue anIssue, string aCssClass, SiteSection aSource, int aSourceId) {
+            bool myHasDisposition = GetHasStance(anIssue, aUserInformation);
+            bool myIsLoggedIn = aUserInformation != null;
+            int myTotalDisagrees = GetTotalStance(anIssue, Disposition.Dislike);
+            return SharedContentStyleHelper.DisagreeStanceDiv(aCssClass, myHasDisposition, myIsLoggedIn, myTotalDisagrees, LinkHelper.DisagreeIssue(anIssue.Id, aSource, aSourceId));
+        }
+
         private static int GetTotalStance(Issue anIssue, Disposition aStance) {
             return (from s in anIssue.IssueDispositions
                     where s.Disposition == (int)aStance
                     select s).Count<IssueDisposition>();
+        }
+
+        private static bool GetHasStance(Issue anIssue, UserInformationModel aUserInfoModel) {
+            bool myHasDisposition =  aUserInfoModel != null &&
+                                    (from s in anIssue.IssueDispositions
+                                     where s.UserId == aUserInfoModel.Details.Id
+                                     select s).Count<IssueDisposition>() > 0 ? true : false;
+            return myHasDisposition;
         }
 
         private static bool ShouldDisplayEditLink(UserInformationModel aUserInformation, Issue anIssue) {
