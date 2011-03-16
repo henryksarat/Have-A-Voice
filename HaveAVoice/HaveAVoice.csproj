@@ -433,6 +433,7 @@
     <Content Include="Views\IssueReply\Details.aspx" />
     <Content Include="Views\Search\IssueResults.aspx" />
     <Content Include="Views\Search\UserResults.aspx" />
+    <Content Include="Views\Shared\MainPageLoggedInPanel.ascx" />
     <Content Include="Views\Site\ContactUs.aspx" />
     <Content Include="Views\Error\Index.aspx" />
     <Content Include="Views\Friend\List.aspx" />
@@ -474,7 +475,7 @@
     <Content Include="Views\Shared\IssueFeed.ascx" />
     <Content Include="Views\Shared\Message.ascx" />
     <Content Include="Views\Shared\NavigationUserControl.ascx" />
-    <Content Include="Views\Shared\NotLoggedInUserPanel.ascx" />
+    <Content Include="Views\Shared\MainPageNotLoggedInPanel.ascx" />
     <Content Include="Views\Shared\LeftNavigation.ascx" />
     <Content Include="Views\Shared\Tabs.ascx" />
     <Content Include="Views\Shared\Error.aspx" />

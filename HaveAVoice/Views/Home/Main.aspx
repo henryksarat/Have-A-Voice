@@ -8,8 +8,10 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <% Html.RenderPartial("Message"); %>
-    <% if (!HAVUserInformationFactory.IsLoggedIn()) { %>
-        <% Html.RenderPartial("NotLoggedInUserPanel"); %>
+    <% if (HAVUserInformationFactory.IsLoggedIn()) { %>
+        <% Html.RenderPartial("MainPageLoggedInPanel"); %>
+    <% } else { %>
+        <% Html.RenderPartial("MainPageNotLoggedInPanel"); %>
     <% } %>
     <div class="clear">&nbsp;</div>
     

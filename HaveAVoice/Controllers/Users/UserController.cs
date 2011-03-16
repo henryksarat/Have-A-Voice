@@ -19,7 +19,7 @@ namespace HaveAVoice.Controllers.Users {
     public class UserController : HAVBaseController {
         private const string EDIT_SUCCESS = "Your account has been edited successfully!";
         private const string CREATE_ACCOUNT_TITLE = "User account created!";
-        private const string CREATE_ACCOUNT_SUCCESS = "An email has been sent to the email you provided. Follow the instructions to activate your account so you can login and start using the site.";
+        private const string CREATE_ACCOUNT_SUCCESS = "An email has been sent to the email you provided. Follow the instructions in the email activate your account so you can login and start using the site.";
         private const string CREATE_AUTHORITY_ACCOUNT_SUCCESS = "The authority account has been created! You may now proceed to login.";
         private const string EMAIL_ERROR = "Couldn't send activation e-mail so the User has been activated.";
         private const string CREATE_ACCOUNT_ERROR_MESSAGE = "An error has occurred. Please try again.";

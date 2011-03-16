@@ -15,7 +15,7 @@ using System.Text;
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVAuthorityVerificationService : HAVBaseService, IHAVAuthorityVerificationService {
         private const string TOKEN_SUBJECT = "have a voice | authority authentication";
-        private const string TOKEN_BODY = "Hello! <br/ ><br/ > You are classified as an authority and therefore must sign up in a special way. Please follow this link: <br/ >";
+        private const string TOKEN_BODY = "Hello!\nYou are classified as an authority and therefore must sign up in a special way. Please follow this link: <br/ >";
         private const string INVALID_EMAIL = "That is not a valid email.";
 
         private IValidationDictionary theValidationDictionary;
@@ -93,11 +93,8 @@ namespace HaveAVoice.Services.UserFeatures {
                 .Append("&authorityPosition=")
                 .Append(anAuthorityPosition)
                 .ToString();
-
-            string myTokenLink = "<a href=\"" + myUrl + "\">" + myUrl + "</a>";
-
             try {
-                theEmailService.SendEmail(anEmail, TOKEN_SUBJECT, TOKEN_BODY + myTokenLink);
+                theEmailService.SendEmail(anEmail, TOKEN_SUBJECT, TOKEN_BODY + myUrl);
             } catch (Exception e) {
                 throw new EmailException("Couldn't send aEmail.", e);
             }

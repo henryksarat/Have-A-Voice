@@ -38,19 +38,19 @@
 		
 		<div class="push-5 col-16 m-btm10 fnt-12">
 			<div class="m-lft col-3 m-rgt center">
-                <%= IssueHelper.PersonFilterButton(PersonFilter.All, myFilter, "All", "filter", "filterSelected") %>
+                <%= IssueHelper.PersonFilterButton(PersonFilter.All, myFilter, "All", "filter", "filterSelected", Model.Issue.Id) %>
                 <div class="clear">&nbsp;</div>
 			</div>
 			<div class="m-lft col-3 m-rgt center">
-                <%= IssueHelper.PersonFilterButton(PersonFilter.Politicians, myFilter, "Politicians", "filter", "filterSelected") %>
+                <%= IssueHelper.PersonFilterButton(PersonFilter.Politicians, myFilter, "Politicians", "filter", "filterSelected", Model.Issue.Id)%>
                 <div class="clear">&nbsp;</div>
 			</div>
 			<div class="m-lft col-4 m-rgt center">
-                <%= IssueHelper.PersonFilterButton(PersonFilter.PoliticalCandidates, myFilter, "Political Candidates", "filter", "filterSelected") %>
+                <%= IssueHelper.PersonFilterButton(PersonFilter.PoliticalCandidates, myFilter, "Political Candidates", "filter", "filterSelected", Model.Issue.Id)%>
                 <div class="clear">&nbsp;</div>
 			</div>
 			<div class="m-lft col-3 m-rgt center">
-                <%= IssueHelper.PersonFilterButton(PersonFilter.People, myFilter, "People", "filter", "filterSelected") %>
+                <%= IssueHelper.PersonFilterButton(PersonFilter.People, myFilter, "People", "filter", "filterSelected", Model.Issue.Id)%>
                 <div class="clear">&nbsp;</div>
 			</div>
 		</div>
@@ -58,15 +58,15 @@
 		
 		<div class="push-7 col-9 m-btm10 fnt-12">
 			<div class="m-lft col-3 m-rgt center">
-                <%= IssueHelper.IssueStanceFilterButton(IssueStanceFilter.All, myFilter, "filter", "filterSelected") %>
+                <%= IssueHelper.IssueStanceFilterButton(IssueStanceFilter.All, myFilter, "filter", "filterSelected", Model.Issue.Id)%>
                 <div class="clear">&nbsp;</div>
 			</div>
 			<div class="m-lft col-3 m-rgt center">
-                <%= IssueHelper.IssueStanceFilterButton(IssueStanceFilter.Agree, myFilter, "filter like", "filterSelected like") %>
+                <%= IssueHelper.IssueStanceFilterButton(IssueStanceFilter.Agree, myFilter, "filter like", "filterSelected like", Model.Issue.Id)%>
                 <div class="clear">&nbsp;</div>
 			</div>
 			<div class="m-lft col-3 m-rgt center">
-                <%= IssueHelper.IssueStanceFilterButton(IssueStanceFilter.Disagree, myFilter, "filter dislike", "filterSelected dislike") %>
+                <%= IssueHelper.IssueStanceFilterButton(IssueStanceFilter.Disagree, myFilter, "filter dislike", "filterSelected dislike", Model.Issue.Id)%>
                 <div class="clear">&nbsp;</div>
 			</div>
 		</div>

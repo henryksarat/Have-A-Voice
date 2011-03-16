@@ -45,7 +45,7 @@ namespace HaveAVoice.Controllers.Home {
             return View("Index");
         }
 
-        [OutputCache(Duration = 60, VaryByParam = "none")]
+        [OutputCache(Duration = 10, VaryByParam = "none")]
         public ActionResult Main() {
             NotLoggedInModel myModel = new NotLoggedInModel();
             try {

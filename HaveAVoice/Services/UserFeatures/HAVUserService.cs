@@ -17,7 +17,7 @@ using HaveAVoice.Helpers.Enums;
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVUserService : HAVBaseService, IHAVUserService {
         private const string ACTIVATION_SUBJECT = "have a voice | account activation";
-        private const string ACTIVATION_BODY = "Hello! <br/ ><br/ > To finalize completion of your have a voice account, please click the following link: <br/ >";
+        private const string ACTIVATION_BODY = "Hello!\nTo finalize completion of your have a voice account, please click following link or copy and paste it into your browser: ";
         private const string INVALID_EMAIL = "That is not a valid email.";
 
         private IValidationDictionary theValidationDictionary;
@@ -164,10 +164,9 @@ namespace HaveAVoice.Services.UserFeatures {
 
         private void SendActivationCode(User aUser) {
             string myUrl = HAVConstants.BASE_URL + "/Authentication/ActivateAccount/" + aUser.ActivationCode;
-            string myActivationLink = "<a href=\"" + myUrl + "\">" + myUrl + "</a>";
 
             try {
-                theEmailService.SendEmail(aUser.Email, ACTIVATION_SUBJECT, ACTIVATION_BODY + myActivationLink);
+                theEmailService.SendEmail(aUser.Email, ACTIVATION_SUBJECT, ACTIVATION_BODY + myUrl);
             } catch (Exception e) {
                 throw new EmailException("Couldn't send aEmail.", e);
             }

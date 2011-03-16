@@ -20,6 +20,7 @@ namespace HaveAVoice.Controllers.Issues {
     public class IssueController : HAVBaseController {
         private const string GET_LATEST_ISSUES_ERROR = "Unable to get the latest myIssues.";
         private const string NO_ISSUES = "There are no issues to display.";
+        private const string ISSUE_REFRESHED = "The issue has been refreshed. Please filter it again.";
 
         private const string POST_SUCCESS = "Issue posted succesfully.";
         private const string DELETE_SUCCESS = "Issue deleted succesfully.";
@@ -27,6 +28,7 @@ namespace HaveAVoice.Controllers.Issues {
         private const string REPLY_SUCCESS = "Reply posted successfully!";
         private const string DISPOSITION_SUCCESS = "Disposition added successfully!";
         private const string ISSUE_DOESNT_EXIST = "Issue doesn't exist";
+        private const string ISSUE_CREATE_TIMEOUT = "It seems like your session timed out. Please save your progress, relogin, and post again.";
 
         private const string CREATING_ISSUE_ERROR = "Error creating issue. Please try again.";
         private const string CREATING_COMMENT_ERROR = "Error posting comment for the issue reply. Please try again.";
@@ -90,7 +92,8 @@ namespace HaveAVoice.Controllers.Issues {
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Create(IssueWrapper anIssueWrapper) {
             if (!IsLoggedIn()) {
-                return RedirectToLogin();
+                ViewData["Message"] = MessageHelper.NormalMessage(ISSUE_CREATE_TIMEOUT);
+                return View("Create", anIssueWrapper);
             }
 
             UserInformationModel myUser = GetUserInformatonModel();
@@ -270,17 +273,21 @@ namespace HaveAVoice.Controllers.Issues {
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult FilterIssueByPersonFilter(PersonFilter filterValue) {
-            return FilterIssue(PERSON_FILTER, filterValue.ToString());
+        public ActionResult FilterIssueByPersonFilter(PersonFilter filterValue, int id) {
+            return FilterIssue(PERSON_FILTER, filterValue.ToString(), id);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult FilterIssueByIssueStanceFilter(IssueStanceFilter filterValue) {
-            return FilterIssue(ISSUE_STANCE_FILTER, filterValue.ToString());
+        public ActionResult FilterIssueByIssueStanceFilter(IssueStanceFilter filterValue, int id) {
+            return FilterIssue(ISSUE_STANCE_FILTER, filterValue.ToString(), id);
         }
 
-        private ActionResult FilterIssue(string aFilterType, string aFilterValue) {
+        private ActionResult FilterIssue(string aFilterType, string aFilterValue, int anId) {
             IssueModel myOriginalModel = GetOriginalIssue();
+            if (myOriginalModel == null) {
+                TempData["Message"] = MessageHelper.NormalMessage(ISSUE_REFRESHED);
+                return RedirectToAction(REDIRECT_TO_DETAILS_VIEW, new { id = anId });
+            }
             Dictionary<string, string> myFilter = GetUpdatedFilter(aFilterType, aFilterValue);
 
             IEnumerable<IssueReplyModel> myFilteredReplys = FilterReplys(myOriginalModel, myFilter);
