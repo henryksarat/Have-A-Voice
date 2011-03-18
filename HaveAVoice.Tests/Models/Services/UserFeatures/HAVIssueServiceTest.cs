@@ -14,6 +14,8 @@ using HaveAVoice.Models.View.Builders;
 using HaveAVoice.Helpers;
 using System.Collections.Generic;
 using HaveAVoice.Tests.Helpers;
+using HaveAVoice.Repositories.Issues;
+using HaveAVoice.Services.Issues;
 
 
 namespace HaveAVoice.Tests.Models.Services.UserFeatures {
@@ -41,7 +43,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
         private Issue theIssue;
         private IssueReply theIssueReply;
         private IssueReplyComment theComment;
-
+        /*
         [TestInitialize]
         public void Initialize() {
             theModelState = new ModelStateDictionary();
@@ -158,7 +160,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
             Assert.IsFalse(result);
             var error = theModelState["Disposition"].Errors[0];
             Assert.AreEqual("Disposition is required.", error.ErrorMessage);
-        }*/
+        }
         
         [TestMethod]
         public void ShouldEditIssue() {
@@ -304,6 +306,6 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
 
         private void AssertEditReplComment(Times aTimes, bool anAdminOverride) {
             theMockRepository.Verify(r => r.UpdateIssueReplyComment(It.IsAny<User>(), It.IsAny<IssueReplyComment>(), It.IsAny<IssueReplyComment>(), anAdminOverride), aTimes);
-        }
+        }*/
     }
 }

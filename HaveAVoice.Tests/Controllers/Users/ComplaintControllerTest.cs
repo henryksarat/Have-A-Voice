@@ -9,6 +9,7 @@ using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Validation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using HaveAVoice.Services.Issues;
 
 namespace HaveAVoice.Tests.Controllers.Users {
     [TestClass]

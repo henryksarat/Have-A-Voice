@@ -10,6 +10,7 @@ using HaveAVoice.Helpers;
 using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Models;
 using HaveAVoice.Controllers.Helpers;
+using HaveAVoice.Services.Issues;
 
 namespace HaveAVoice.Controllers.Issues {
     public class SearchController : HAVBaseController {

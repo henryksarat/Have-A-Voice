@@ -9,6 +9,7 @@ using System;
 using HaveAVoice.Models;
 using System.Linq;
 using HaveAVoice.Services.Helpers;
+using HaveAVoice.Services.Issues;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVHomeService : HAVBaseService, IHAVHomeService {

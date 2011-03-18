@@ -7,6 +7,7 @@ using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Models.View;
 using HaveAVoice.Models;
 using HaveAVoice.Services.UserFeatures;
+using HaveAVoice.Services.Issues;
 
 namespace HaveAVoice.Helpers {
     public static class ComplaintHelper {
@@ -35,7 +36,9 @@ namespace HaveAVoice.Helpers {
                 "Report Comment");
         }
 
-        public static void FillComplaintModelBuilder(ComplaintModel.Builder aBuilder, IHAVUserRetrievalService aUserRetrievalService, IHAVIssueService aIssueService, IHAVPhotoService aPhotoService) {
+        public static void FillComplaintModelBuilder(ComplaintModel.Builder aBuilder, IHAVUserRetrievalService aUserRetrievalService, 
+                                                     IHAVIssueService aIssueService, IHAVIssueReplyService anIssueReplyService, IHAVIssueReplyCommentService anIssueReplyCommentService, 
+                                                     IHAVPhotoService aPhotoService) {
             UserInformationModel myUser = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation();
             switch (aBuilder.ComplaintType()) {
                 case ComplaintType.Issue:
@@ -44,12 +47,12 @@ namespace HaveAVoice.Helpers {
                     aBuilder.SourceDescription(myIssue.Title);
                     break;
                 case ComplaintType.IssueReply:
-                    IssueReply myIssueReply = aIssueService.GetIssueReply(aBuilder.SourceId());
+                    IssueReply myIssueReply = anIssueReplyService.GetIssueReply(aBuilder.SourceId());
                     aBuilder.TowardUser(myIssueReply.User);
                     aBuilder.SourceDescription(myIssueReply.Reply);
                     break;
                 case ComplaintType.IssueReplyComment:
-                    IssueReplyComment myIssueReplyComment = aIssueService.GetIssueReplyComment(aBuilder.SourceId());
+                    IssueReplyComment myIssueReplyComment = anIssueReplyCommentService.GetIssueReplyComment(aBuilder.SourceId());
                     aBuilder.TowardUser(myIssueReplyComment.User);
                     aBuilder.SourceDescription(myIssueReplyComment.Comment);
                     break;

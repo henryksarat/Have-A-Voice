@@ -13,6 +13,7 @@ using HaveAVoice.Tests.Helpers;
 using HaveAVoice.Helpers;
 using HaveAVoice.Tests.Models;
 using HaveAVoice.Models.View;
+using HaveAVoice.Services.Issues;
 
 namespace HaveAVoice.Tests.Controllers.Issues {
     [TestClass]
@@ -25,6 +26,7 @@ namespace HaveAVoice.Tests.Controllers.Issues {
         private IssueReplyController theController;
         private Mock<IHAVIssueService> theMockedService;
         private IssueReply theIssueReply;
+        /*
 
         [TestInitialize]
         public void Initialize() {
@@ -34,7 +36,6 @@ namespace HaveAVoice.Tests.Controllers.Issues {
             theController = new IssueReplyController(theMockedService.Object, theMockedBaseService.Object);
             theController.ControllerContext = GetControllerContext();
         }
-        /*
 
         #region "Delete"
 
@@ -255,11 +256,11 @@ namespace HaveAVoice.Tests.Controllers.Issues {
         }
 
         #endregion
-        */
 
         private void VerifyEdit(Times aTimes) {
             theMockedService.Verify(s => s.EditIssueReply(It.IsAny<UserInformationModel>(), It.IsAny<IssueReply>()), aTimes);
         }
+        */
 
         protected override Controller GetController() {
             return theController;

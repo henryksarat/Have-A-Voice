@@ -11,12 +11,15 @@ using HaveAVoice.Models.View;
 using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Controllers.ActionFilters;
+using HaveAVoice.Services.Issues;
 
 namespace HaveAVoice.Controllers.Users {
     public class ComplaintController : HAVBaseController {
         private IHAVComplaintService theService;
         private IHAVUserRetrievalService theUserRetrievalService;
         private IHAVIssueService theIssueService;
+        private IHAVIssueReplyService theIssueReplyService;
+        private IHAVIssueReplyCommentService theIssueReplyCommentService;
         private IHAVPhotoService thePhotoService;
 
         public ComplaintController()
@@ -25,6 +28,8 @@ namespace HaveAVoice.Controllers.Users {
             theService = new HAVComplaintService(myModelWrapper);
             theUserRetrievalService = new HAVUserRetrievalService();
             theIssueService = new HAVIssueService(myModelWrapper);
+            theIssueReplyService = new HAVIssueReplyService(myModelWrapper);
+            theIssueReplyCommentService = new HAVIssueReplyCommentService(myModelWrapper);
             thePhotoService = new HAVPhotoService();
         }
 
@@ -47,7 +52,7 @@ namespace HaveAVoice.Controllers.Users {
             ComplaintType myType = (ComplaintType)Enum.Parse(typeof(ComplaintType), complaintType);
             ComplaintModel.Builder myBuilder = new ComplaintModel.Builder(sourceId, myType);
             try {
-                ComplaintHelper.FillComplaintModelBuilder(myBuilder, theUserRetrievalService, theIssueService, thePhotoService);
+                ComplaintHelper.FillComplaintModelBuilder(myBuilder, theUserRetrievalService, theIssueService, theIssueReplyService, theIssueReplyCommentService, thePhotoService);
             } catch (Exception e) {
                 LogError(e, String.Format("Unable get complaint info. [complaintModel={0}]", myBuilder.Build().ToString()));
                 return SendToErrorPage("Unable to get the necessary information for the complaint. Please try again.");

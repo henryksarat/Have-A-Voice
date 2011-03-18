@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using HaveAVoice.Models.View;
-using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Services;
 using HaveAVoice.Repositories;
 using HaveAVoice.Validation;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models;
-using System.ComponentModel.DataAnnotations;
 using HaveAVoice.Controllers.ActionFilters;
 using HaveAVoice.Controllers.Helpers;
+using HaveAVoice.Services.Issues;
 
 namespace HaveAVoice.Controllers.Issues {
     public class IssueReplyCommentController : HAVBaseController {
@@ -25,14 +21,13 @@ namespace HaveAVoice.Controllers.Issues {
         private static string EDIT_LOAD_ERROR = "Error while retrieving your original comment. Please try again.";
         private static string EDIT_ERROR = "Error editing the comment. Please try again.";
         
-        private IHAVIssueService theService;
+        private IHAVIssueReplyCommentService theService;
 
-        public IssueReplyCommentController() : 
-            base(new HAVBaseService(new HAVBaseRepository())) {
-            theService = new HAVIssueService(new ModelStateWrapper(this.ModelState));
+        public IssueReplyCommentController() : base(new HAVBaseService(new HAVBaseRepository())) {
+            theService = new HAVIssueReplyCommentService(new ModelStateWrapper(this.ModelState));
         }
 
-        public IssueReplyCommentController(IHAVIssueService aService, IHAVBaseService baseService)
+        public IssueReplyCommentController(IHAVIssueReplyCommentService aService, IHAVBaseService baseService)
             : base(baseService) {
             theService = aService;
         }

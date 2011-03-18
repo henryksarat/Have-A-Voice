@@ -15,6 +15,7 @@ using HaveAVoice.Controllers.Helpers;
 using System.Collections;
 using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Controllers.ActionFilters;
+using HaveAVoice.Services.Issues;
 
 namespace HaveAVoice.Controllers.Issues {
     public class IssueController : HAVBaseController {
@@ -45,16 +46,20 @@ namespace HaveAVoice.Controllers.Issues {
         private const string DETAILS_VIEW = "Details";
         private const string EDIT_VIEW = "Edit";
 
-        private IHAVIssueService theService;
+        private IHAVIssueService theIssueService;
+        private IHAVIssueReplyService theIssueReplyService;
 
         public IssueController() : 
             base(new HAVBaseService(new HAVBaseRepository())) {
-            theService = new HAVIssueService(new ModelStateWrapper(this.ModelState));
+            IValidationDictionary myModelState = new ModelStateWrapper(this.ModelState);
+
+            theIssueService = new HAVIssueService(myModelState);
+            theIssueReplyService = new HAVIssueReplyService(myModelState);
         }
 
         public IssueController(IHAVIssueService aService, IHAVBaseService baseService)
             : base(baseService) {
-            theService = aService;
+            theIssueService = aService;
         }
 
         public ActionResult Index() {
@@ -64,7 +69,7 @@ namespace HaveAVoice.Controllers.Issues {
 
             IEnumerable<IssueWithDispositionModel> myIssues;
             try {
-                myIssues = theService.GetIssues(GetUserInformaton()).OrderByDescending(i => i.Issue.DateTimeStamp);
+                myIssues = theIssueService.GetIssues(GetUserInformaton()).OrderByDescending(i => i.Issue.DateTimeStamp);
             } catch (Exception e) {
                 LogError(e, GET_LATEST_ISSUES_ERROR);
                 return SendToErrorPage(GET_LATEST_ISSUES_ERROR);
@@ -100,7 +105,7 @@ namespace HaveAVoice.Controllers.Issues {
 
             try {
 
-                if (theService.CreateIssue(myUser, anIssueWrapper.ToModel())) {
+                if (theIssueService.CreateIssue(myUser, anIssueWrapper.ToModel())) {
                     TempData["Message"] = MessageHelper.SuccessMessage(POST_SUCCESS);
                     return RedirectToAction(DETAILS_VIEW, new { title = anIssueWrapper.Title.Replace(' ', '-') });
                 }
@@ -115,7 +120,7 @@ namespace HaveAVoice.Controllers.Issues {
         public ActionResult RedirectToDetails(int id) {
             Issue myIssue;
             try {
-                myIssue = theService.GetIssue(id, GetUserInformatonModel());
+                myIssue = theIssueService.GetIssue(id, GetUserInformatonModel());
             } catch (Exception e) {
                 TempData["Message"] = MessageHelper.ErrorMessage(REDIRECT_ERROR);
                 LogError(e, REDIRECT_ERROR);
@@ -136,9 +141,9 @@ namespace HaveAVoice.Controllers.Issues {
                 IssueModel myIssueModel;
 
                 if (IsLoggedIn()) {
-                    myIssueModel = theService.CreateIssueModel(GetUserInformatonModel().Details,title);
+                    myIssueModel = theIssueService.CreateIssueModel(GetUserInformatonModel().Details,title);
                 } else {
-                    myIssueModel = theService.CreateIssueModel(title);
+                    myIssueModel = theIssueService.CreateIssueModel(title);
                 }
 
                 if (myIssueModel == null) {
@@ -163,7 +168,7 @@ namespace HaveAVoice.Controllers.Issues {
             UserInformationModel myUserInformation = GetUserInformatonModel();
 
             try {
-                if (theService.CreateIssueReply(myUserInformation, issueModel)) {
+                if (theIssueReplyService.CreateIssueReply(myUserInformation, issueModel)) {
                     TempData["Message"] = MessageHelper.SuccessMessage(REPLY_SUCCESS);
                     return RedirectToAction(REDIRECT_TO_DETAILS_VIEW, new { id = issueModel.Issue.Id });
                 }
@@ -181,7 +186,7 @@ namespace HaveAVoice.Controllers.Issues {
             }
             User aUser = GetUserInformaton();
             try {
-                bool myResult = theService.AddIssueDisposition(aUser, issueId, (int)disposition);
+                bool myResult = theIssueService.AddIssueStance(aUser, issueId, (int)disposition);
                 if (!myResult) {
                     return SendToErrorPage("You can only provide a disposition towards an issue once.");
                 }
@@ -216,7 +221,7 @@ namespace HaveAVoice.Controllers.Issues {
             }
             UserInformationModel myUserInfo = GetUserInformatonModel();
             try {
-                bool myResult = theService.DeleteIssue(myUserInfo, id);
+                bool myResult = theIssueService.DeleteIssue(myUserInfo, id);
                 if (myResult) {
                     TempData["Message"] = MessageHelper.SuccessMessage(DELETE_SUCCESS);
                     return RedirectToAction("Index", "Issue");
@@ -240,7 +245,7 @@ namespace HaveAVoice.Controllers.Issues {
             }
 
             try {
-                Issue myIssue = theService.GetIssue(id, myUserInformation);
+                Issue myIssue = theIssueService.GetIssue(id, myUserInformation);
                 if (myUserInformation.Details.Id == myIssue.User.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Edit_Any_Issue)) {
                     return View(EDIT_VIEW, myIssue);
                 } else {
@@ -259,7 +264,7 @@ namespace HaveAVoice.Controllers.Issues {
             }
             
             try {
-                bool myResult = theService.EditIssue(GetUserInformatonModel(), anIssueWrapper.ToModel());
+                bool myResult = theIssueService.EditIssue(GetUserInformatonModel(), anIssueWrapper.ToModel());
                 if (myResult) {
                     TempData["Message"] = MessageHelper.SuccessMessage(EDIT_SUCCESS);
                     return RedirectToAction(REDIRECT_TO_DETAILS_VIEW, new { id = anIssueWrapper.Id });

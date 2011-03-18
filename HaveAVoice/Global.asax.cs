@@ -60,7 +60,7 @@ namespace HaveAVoice {
                 "IssueWithTitle",
                 "Issue/Details/{title}",
                 new { controller = "Issue", action = "Details" },
-                new { title = @"[a-zA-Z0-9\.-]*" }
+                new { title = @"^[a-zA-Z]+(([\'\,\.\-][a-zA-Z])?[a-zA-Z]*)*$" }
             );
 
             routes.MapRoute(

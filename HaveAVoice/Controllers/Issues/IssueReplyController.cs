@@ -14,6 +14,7 @@ using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Models.Wrappers;
 using HaveAVoice.Controllers.ActionFilters;
 using HaveAVoice.Controllers.Helpers;
+using HaveAVoice.Services.Issues;
 
 namespace HaveAVoice.Controllers.Issues {
     public class IssueReplyController : HAVBaseController {
@@ -31,17 +32,20 @@ namespace HaveAVoice.Controllers.Issues {
         private static string DELETE_ERROR = "An error occurred while deleting the reply. Please try again.";
         private static string POST_COMMENT_ERROR = "Error posting the comment. Please try again.";
         private static string DISPOSITION_ERROR = "An error occurred while posting your disposition.";
-        
-        private IHAVIssueService theService;
+
+        private IHAVIssueReplyService theIssueReplyService;
+        private IHAVIssueReplyCommentService theIssueReplyCommentService;
 
         public IssueReplyController() : 
             base(new HAVBaseService(new HAVBaseRepository())) {
-            theService = new HAVIssueService(new ModelStateWrapper(this.ModelState));
+                IValidationDictionary myModelState = new ModelStateWrapper(this.ModelState);
+                theIssueReplyService = new HAVIssueReplyService(myModelState);
+                theIssueReplyCommentService = new HAVIssueReplyCommentService(myModelState);
         }
 
-        public IssueReplyController(IHAVIssueService aService, IHAVBaseService baseService)
+        public IssueReplyController(IHAVIssueReplyService aService, IHAVBaseService baseService)
             : base(baseService) {
-            theService = aService;
+            theIssueReplyService = aService;
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
@@ -52,7 +56,7 @@ namespace HaveAVoice.Controllers.Issues {
             UserInformationModel myUserInformation = GetUserInformatonModel();
 
             try {
-                if (theService.CreateIssueReply(myUserInformation, issueId, reply, disposition, anonymous)) {
+                if (theIssueReplyService.CreateIssueReply(myUserInformation, issueId, reply, disposition, anonymous)) {
                     TempData["Message"] = MessageHelper.SuccessMessage(REPLY_SUCCESS);
                     return RedirectToProfile();
                 }
@@ -74,7 +78,7 @@ namespace HaveAVoice.Controllers.Issues {
             }
 
             try {
-                theService.DeleteIssueReply(GetUserInformatonModel(), id);
+                theIssueReplyService.DeleteIssueReply(GetUserInformatonModel(), id);
                 TempData["Message"] = MessageHelper.SuccessMessage(DELETE_SUCCESS);
             } catch (Exception myException) {
                 LogError(myException, DELETE_ERROR);
@@ -95,7 +99,7 @@ namespace HaveAVoice.Controllers.Issues {
             }
 
             try {
-                IssueReply myIssueReply = theService.GetIssueReply(id);
+                IssueReply myIssueReply = theIssueReplyService.GetIssueReply(id);
 
                 if (myUserInformation.Details.Id == myIssueReply.User.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Edit_Any_Issue_Reply)) {
                     return View("Edit", IssueReplyWrapper.Build(myIssueReply));
@@ -114,7 +118,7 @@ namespace HaveAVoice.Controllers.Issues {
                 return RedirectToLogin();
             }
             try {
-                bool myResult = theService.EditIssueReply(GetUserInformatonModel(), aReplyWrapper.ToModel());
+                bool myResult = theIssueReplyService.EditIssueReply(GetUserInformatonModel(), aReplyWrapper.ToModel());
                 if (myResult) {
                     TempData["Message"] = MessageHelper.SuccessMessage(EDIT_SUCCESS);
                     return RedirectToAction("View", new { id = aReplyWrapper.Id });
@@ -138,7 +142,7 @@ namespace HaveAVoice.Controllers.Issues {
                 return SendToErrorPage(HAVConstants.PAGE_NOT_FOUND);
             }
             try {
-                IssueReply myIssueReply = theService.GetIssueReply(myUserInfo.Details, id);
+                IssueReply myIssueReply = theIssueReplyService.GetIssueReply(myUserInfo.Details, id);
                 if (myIssueReply == null) {
                     return SendToResultPage(NON_EXISTENT);
                 }
@@ -156,7 +160,7 @@ namespace HaveAVoice.Controllers.Issues {
             }
             UserInformationModel myUserInformation = GetUserInformatonModel();
             try {
-                if (theService.CreateCommentToIssueReply(myUserInformation, issueReplyId, comment)) {
+                if (theIssueReplyCommentService.CreateCommentToIssueReply(myUserInformation, issueReplyId, comment)) {
                     TempData["Message"] = MessageHelper.SuccessMessage(POST_COMMENT_SUCCESS);
                     return RedirectToAction("Details", new { id = issueReplyId });
                 }
@@ -175,7 +179,7 @@ namespace HaveAVoice.Controllers.Issues {
             }
             User aUser = GetUserInformaton();
             try {
-                bool myResult = theService.AddIssueReplyDisposition(aUser, id, (int)disposition);
+                bool myResult = theIssueReplyService.AddIssueReplyStance(aUser, id, (int)disposition);
                 if (!myResult) {
                     return SendToErrorPage("You can only provide a disposition towards a person's reply to an issue once.");
                 }

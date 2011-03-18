@@ -14,6 +14,8 @@ using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Tests.Helpers;
 using HaveAVoice.Tests.Models;
+using HaveAVoice.Repositories.Issues;
+using HaveAVoice.Services.Issues;
 
 namespace HaveAVoice.Tests.Controllers.Issues {
     [TestClass]

@@ -13,6 +13,7 @@ using HaveAVoice.Tests.Helpers;
 using HaveAVoice.Helpers;
 using HaveAVoice.Tests.Models;
 using HaveAVoice.Models.View;
+using HaveAVoice.Services.Issues;
 
 namespace HaveAVoice.Tests.Controllers.Issues {
     [TestClass]
@@ -23,7 +24,7 @@ namespace HaveAVoice.Tests.Controllers.Issues {
         private IssueReplyCommentController theController;
         private Mock<IHAVIssueService> theMockedService;
         private IssueReplyComment theComment;
-
+        /*
         [TestInitialize]
         public void Initialize() {
             theComment = IssueReplyComment.CreateIssueReplyComment(0, 0, COMMENT, DateTime.UtcNow, 0, false);
@@ -110,10 +111,10 @@ namespace HaveAVoice.Tests.Controllers.Issues {
             VerifyEdit(Times.Exactly(1));
             AssertAuthenticatedFailWithReturnBack(myResult, "Edit", theComment);
         }
-        */
         private void VerifyEdit(Times aTimes) {
             theMockedService.Verify(s => s.EditIssueReplyComment(It.IsAny<UserInformationModel>(), It.IsAny<IssueReplyComment>()), aTimes);
         }
+        */
 
         protected override Controller GetController() {
             return theController;
