@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using HaveAVoice.Models;
+using Social.Friend.Repositories;
 
 namespace HaveAVoice.Repositories.UserFeatures {
-    public class EntityHAVFriendRepository : IHAVFriendRepository {
+    public class EntityHAVFriendRepository : IFriendRepository<User, Friend> {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
         public void AddFriend(User aUser, int aSourceUserId) {

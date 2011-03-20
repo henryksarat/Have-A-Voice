@@ -12,20 +12,23 @@ using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Services.Helpers;
 using HaveAVoice.Exceptions;
 using HaveAVoice.Helpers;
+using Social.Friend.Services;
+using HaveAVoice.Models.SocialWrappers;
+using Social.User.Models;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVProfileService : HAVBaseService, IHAVProfileService {
         private IHAVUserRetrievalService theUserRetrievalService;
-        private IHAVFriendService theFriendService;
+        private IFriendService<User, Friend> theFriendService;
         private IHAVPhotoAlbumService thePhotoAlbumService;
         private IHAVProfileRepository theRepository;
         private IValidationDictionary theValidationDictionary;
         private IHAVBoardRepository theBoardRepository;
 
         public HAVProfileService(IValidationDictionary validationDictionary)
-            : this(validationDictionary, new HAVUserRetrievalService(), new HAVFriendService(), new HAVPhotoAlbumService(validationDictionary), new EntityHAVProfileRepository(), new EntityHAVBoardRepository(), new HAVBaseRepository()) { }
+            : this(validationDictionary, new HAVUserRetrievalService(), new FriendService<User, Friend>(new EntityHAVFriendRepository()), new HAVPhotoAlbumService(validationDictionary), new EntityHAVProfileRepository(), new EntityHAVBoardRepository(), new HAVBaseRepository()) { }
 
-        public HAVProfileService(IValidationDictionary aValidationDictionary, IHAVUserRetrievalService aUserRetrievalService, IHAVFriendService aFriendService, IHAVPhotoAlbumService aPhotoAlbumService, IHAVProfileRepository aRepository,
+        public HAVProfileService(IValidationDictionary aValidationDictionary, IHAVUserRetrievalService aUserRetrievalService, IFriendService<User, Friend> aFriendService, IHAVPhotoAlbumService aPhotoAlbumService, IHAVProfileRepository aRepository,
                                             IHAVBoardRepository aBoardRepository, IHAVBaseRepository aBaseRepository) : base(aBaseRepository) {
             theValidationDictionary = aValidationDictionary;
             theUserRetrievalService = aUserRetrievalService;
@@ -79,7 +82,9 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public UserProfileModel UserIssueActivity(int aUserId, User aViewingUser) {
-            if(theFriendService.IsFriend(aUserId, aViewingUser)) {
+            AbstractUserModel<User> myAbstractUser = new UserModel(aViewingUser);
+
+            if (theFriendService.IsFriend(aUserId, myAbstractUser)) {
                 User myUser = theUserRetrievalService.GetUser(aUserId);
                 UserProfileModel myModel = new UserProfileModel(myUser) {
                     IssueFeed = CreateIssueFeed(theRepository.IssuesUserCreated(myUser), aViewingUser, PersonFilter.People),
@@ -330,11 +335,12 @@ namespace HaveAVoice.Services.UserFeatures {
 
         private FriendStatus GetFriendStatus(int aSourceUserId, User aViewingUser) {
             FriendStatus myFriendStatus = FriendStatus.None;
-            bool myIsPending = theFriendService.IsPending(aSourceUserId, aViewingUser);
+            AbstractUserModel<User> myAbstractUserModel = new UserModel(aViewingUser);
+            bool myIsPending = theFriendService.IsPending(aSourceUserId, myAbstractUserModel);
             bool myIsFriend = false;
 
             if (!myIsPending) {
-                myIsFriend = theFriendService.IsFriend(aSourceUserId, aViewingUser);
+                myIsFriend = theFriendService.IsFriend(aSourceUserId, myAbstractUserModel);
                 if (myIsFriend) {
                     myFriendStatus = FriendStatus.Approved;
                 }

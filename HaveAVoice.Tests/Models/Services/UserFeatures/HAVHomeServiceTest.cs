@@ -18,7 +18,7 @@ using System.Collections.Generic;
 
 namespace HaveAVoice.Tests.Models.Services.UserFeatures {
     [TestClass]
-    public class HAVHomeServiceTest {
+    public class HAVHomeServiceTest {/*
         private static User USER = DatamodelFactory.createUserModelBuilder().Build();
         private static string ZIP_CODE = "60630";
         private static string CITY = "Chicago";
@@ -43,5 +43,6 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
 
             //theService = new HAVHomeService(new ModelStateWrapper(theModelState), theFriendService.Object, theMockRepository.Object, theBaseRepository.Object);
         }
+                                      * */
     }
 }

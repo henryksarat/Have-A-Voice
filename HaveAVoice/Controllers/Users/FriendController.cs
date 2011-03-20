@@ -10,6 +10,10 @@ using HaveAVoice.Models;
 using HaveAVoice.Models.View;
 using HaveAVoice.Helpers;
 using HaveAVoice.Controllers.Helpers;
+using Social.Friend.Services;
+using HaveAVoice.Repositories.UserFeatures;
+using Social.User.Models;
+using HaveAVoice.Models.SocialWrappers;
 
 namespace HaveAVoice.Controllers.Users
 {
@@ -36,16 +40,16 @@ namespace HaveAVoice.Controllers.Users
         private const string LIST_VIEW = "List";
         private const string FRIENDS_OF_VIEW = "FriendsOf";
         private const string PENDING_FRINEDS_VIEW = "Pending";
-      
 
-        private IHAVFriendService theFriendService;
+
+        private IFriendService<User, Friend> theFriendService;
 
         public FriendController() : 
             base(new HAVBaseService(new HAVBaseRepository())) {
-                theFriendService = new HAVFriendService();
+                theFriendService = new FriendService<User, Friend>(new EntityHAVFriendRepository());
         }
 
-        public FriendController(IHAVBaseService aBaseService, IHAVFriendService aFriendService)
+        public FriendController(IHAVBaseService aBaseService, IFriendService<User, Friend> aFriendService)
             : base(aBaseService) {
                 theFriendService = aFriendService;
         }
@@ -55,7 +59,7 @@ namespace HaveAVoice.Controllers.Users
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            User myUser = GetUserInformaton();
+            AbstractUserModel<User> myUser = GetSocialUserInformation();
 
             try {
                 if (theFriendService.IsPending(id, myUser)) {
@@ -83,7 +87,7 @@ namespace HaveAVoice.Controllers.Users
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            User myUser = GetUserInformaton();
+            AbstractUserModel<User> myUser = GetSocialUserInformation();
 
             try {
                 if (!theFriendService.IsFriend(id, myUser)) {

@@ -147,6 +147,7 @@
     </Compile>
     <Compile Include="Helpers\ActionMethods\AcceptParameterAttribute.cs" />
     <Compile Include="Helpers\ActionMethods\CaptchaValidatorAttribute.cs" />
+    <Compile Include="Models\SocialWrappers\UserModel.cs" />
     <Compile Include="Models\View\AuthorityVerificationModel.cs" />
     <Compile Include="Models\View\Binders\UpdatePrivacySettingsModelBinder.cs" />
     <Compile Include="Models\View\Binders\ImageBinder.cs" />
@@ -185,6 +186,7 @@
     <Compile Include="Repositories\SiteFeatures\EntityHAVContactUsRepository.cs" />
     <Compile Include="Repositories\SiteFeatures\IHAVContactUsRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVFanRepository.cs" />
+    <Compile Include="Repositories\UserFeatures\IFriendRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVFanRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVPhotoAlbumRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVPhotoAlbumRepository.cs" />
@@ -234,12 +236,10 @@
     <Compile Include="Services\UserFeatures\IHAVFanService.cs" />
     <Compile Include="Services\UserFeatures\HAVPhotoAlbumService.cs" />
     <Compile Include="Services\UserFeatures\HAVAuthorityVerificationService.cs" />
-    <Compile Include="Services\UserFeatures\HAVFriendService.cs" />
     <Compile Include="Services\UserFeatures\HAVNavigationService.cs" />
     <Compile Include="Services\UserFeatures\HAVNotificationService.cs" />
     <Compile Include="Services\UserFeatures\HAVUserRetrievalService.cs" />
     <Compile Include="Services\UserFeatures\IHAVAuthorityVerificationService.cs" />
-    <Compile Include="Services\UserFeatures\IHAVFriendService.cs" />
     <Compile Include="Services\UserFeatures\IHAVNavigationService.cs" />
     <Compile Include="Services\UserFeatures\IHAVNotificationService.cs" />
     <Compile Include="Services\UserFeatures\IHAVPhotoAlbumService.cs" />
@@ -543,6 +543,16 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>HaveAVoiceDBModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Friend\Friend.csproj">
+      <Project>{5BB2B446-431B-4D66-8A7A-2A6F64E35492}</Project>
+      <Name>Friend</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\User\User.csproj">
+      <Project>{1765CF75-9243-4BA7-8399-3D30614C6006}</Project>
+      <Name>User</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

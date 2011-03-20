@@ -8,6 +8,8 @@ using HaveAVoice.Helpers;
 using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Controllers.Helpers;
+using HaveAVoice.Models.SocialWrappers;
+using Social.User.Models;
 
 namespace HaveAVoice.Controllers  {
     public abstract class HAVBaseController : Controller {
@@ -39,6 +41,10 @@ namespace HaveAVoice.Controllers  {
         protected User GetUserInformaton() {
             UserInformationModel myUserInformation = GetUserInformatonModel();
             return myUserInformation != null ? myUserInformation.Details : null;
+        }
+
+        protected AbstractUserModel<User> GetSocialUserInformation() {
+            return new UserModel(GetUserInformaton());
         }
 
         protected UserInformationModel GetUserInformatonModel() {

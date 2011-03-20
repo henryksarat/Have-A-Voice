@@ -9,18 +9,21 @@ using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Models;
 using HaveAVoice.Helpers;
 using HaveAVoice.Exceptions;
+using Social.Friend.Services;
+using HaveAVoice.Models.SocialWrappers;
+using Social.User.Models;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVCalendarService : HAVBaseService, IHAVCalendarService {
         private IValidationDictionary theValidationDictionary;
-        private IHAVFriendService theFriendService;
+        private IFriendService<User, Friend> theFriendService;
         private IHAVPhotoService thePhotoService;
         private IHAVCalendarRepository theRepository;
 
         public HAVCalendarService(IValidationDictionary aValidationDictionary)
-            : this(aValidationDictionary, new HAVFriendService(), new HAVPhotoService(), new EntityHAVCalendarRepository(), new HAVBaseRepository()) { }
+            : this(aValidationDictionary, new FriendService<User, Friend>(new EntityHAVFriendRepository()), new HAVPhotoService(), new EntityHAVCalendarRepository(), new HAVBaseRepository()) { }
 
-        public HAVCalendarService(IValidationDictionary aValidationDictionary, IHAVFriendService aFriendService, IHAVPhotoService aPhotoService, 
+        public HAVCalendarService(IValidationDictionary aValidationDictionary, IFriendService<User, Friend> aFriendService, IHAVPhotoService aPhotoService, 
                                   IHAVCalendarRepository aRepository, IHAVBaseRepository baseRepository)
             : base(baseRepository) {
             theValidationDictionary = aValidationDictionary;
@@ -59,7 +62,9 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public IEnumerable<Event> GetEventsForUser(User aViewingUser, int aUserId) {
-            if (aViewingUser.Id == aUserId || theFriendService.IsFriend(aUserId, aViewingUser)) {
+            AbstractUserModel<User> myAbstractUser = new UserModel(aViewingUser);
+ 
+            if (aViewingUser.Id == aUserId || theFriendService.IsFriend(aUserId, myAbstractUser)) {
                 return theRepository.FindEvents(aUserId, DateTime.UtcNow);
             }
 

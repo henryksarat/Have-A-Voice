@@ -5,6 +5,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaveAVoice", "HaveAVoice\Ha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaveAVoice.Tests", "HaveAVoice.Tests\HaveAVoice.Tests.csproj", "{3A8FA171-CFF4-46C4-963F-064C9022A3DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User", "User\User.csproj", "{1765CF75-9243-4BA7-8399-3D30614C6006}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Friend", "Friend\Friend.csproj", "{5BB2B446-431B-4D66-8A7A-2A6F64E35492}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +23,14 @@ Global
 		{3A8FA171-CFF4-46C4-963F-064C9022A3DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A8FA171-CFF4-46C4-963F-064C9022A3DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A8FA171-CFF4-46C4-963F-064C9022A3DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1765CF75-9243-4BA7-8399-3D30614C6006}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1765CF75-9243-4BA7-8399-3D30614C6006}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1765CF75-9243-4BA7-8399-3D30614C6006}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1765CF75-9243-4BA7-8399-3D30614C6006}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BB2B446-431B-4D66-8A7A-2A6F64E35492}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BB2B446-431B-4D66-8A7A-2A6F64E35492}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BB2B446-431B-4D66-8A7A-2A6F64E35492}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BB2B446-431B-4D66-8A7A-2A6F64E35492}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

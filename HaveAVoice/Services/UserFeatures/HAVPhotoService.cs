@@ -13,27 +13,33 @@ using HaveAVoice.Models.View;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
+using Social.Friend.Services;
+using Social.User.Models;
+using HaveAVoice.Models.SocialWrappers;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVPhotoService : HAVBaseService, IHAVPhotoService {
         private const int MAX_SIZE = 840;
         private const string UNAUTHORIZED_UPLOAD = "You are not allowed to upload to that album.";
 
-        private IHAVFriendService theFriendService;
+        private IFriendService<User, Friend> theFriendService;
         private IHAVPhotoAlbumRepository thePhotoAlbumRepo;
         private IHAVPhotoRepository thePhotoRepo;
  
         public HAVPhotoService()
-            : this(new HAVFriendService(), new EntityHAVPhotoAlbumRepository(), new EntityHAVPhotoRepository(), new HAVBaseRepository()) { }
+            : this(new FriendService<User, Friend>(new EntityHAVFriendRepository()), new EntityHAVPhotoAlbumRepository(), new EntityHAVPhotoRepository(), new HAVBaseRepository()) { }
 
-        public HAVPhotoService(IHAVFriendService aFriendService, IHAVPhotoAlbumRepository aPhotoAlbumRepo, IHAVPhotoRepository aPhotoRepo, IHAVBaseRepository aBaseRepository) : base(aBaseRepository) {
+        public HAVPhotoService(IFriendService<User, Friend> aFriendService, IHAVPhotoAlbumRepository aPhotoAlbumRepo, IHAVPhotoRepository aPhotoRepo, IHAVBaseRepository aBaseRepository)
+            : base(aBaseRepository) {
             thePhotoAlbumRepo = aPhotoAlbumRepo;
             theFriendService = aFriendService;
             thePhotoRepo = aPhotoRepo;
         }
 
         public IEnumerable<Photo> GetPhotos(User aViewingUser, int anAlbumId, int aUserId) {
-            if (theFriendService.IsFriend(aUserId, aViewingUser)) {
+            AbstractUserModel<User> myAbstractUser = new UserModel(aViewingUser);
+
+            if (theFriendService.IsFriend(aUserId, myAbstractUser)) {
                 return thePhotoRepo.GetPhotos(aUserId, anAlbumId);
             }
 
@@ -53,7 +59,8 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public Photo GetPhoto(User aViewingUser,  int aPhotoId) {
             Photo myPhotoId = thePhotoRepo.GetPhoto(aPhotoId);
-            if (theFriendService.IsFriend(myPhotoId.UploadedByUserId, aViewingUser)) {
+            AbstractUserModel<User> myAbstractUserModel = new UserModel(aViewingUser);
+            if (theFriendService.IsFriend(myPhotoId.UploadedByUserId, myAbstractUserModel)) {
                 return myPhotoId;
             }
 

@@ -9,18 +9,21 @@ using HaveAVoice.Helpers;
 using HaveAVoice.Exceptions;
 using HaveAVoice.Validation;
 using HaveAVoice.Models.View;
+using Social.Friend.Services;
+using Social.User.Models;
+using HaveAVoice.Models.SocialWrappers;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVPhotoAlbumService : HAVBaseService, IHAVPhotoAlbumService {
         private IValidationDictionary theValidationDictionary;
-        private IHAVFriendService theFriendService;
+        private IFriendService<User, Friend> theFriendService;
         private IHAVPhotoAlbumRepository thePhotoAlbumRepo;
         private IHAVPhotoService thePhotoService;
 
         public HAVPhotoAlbumService(IValidationDictionary validationDictionary)
-            : this(validationDictionary, new HAVPhotoService(), new HAVFriendService(), new EntityHAVPhotoAlbumRepository(), new HAVBaseRepository()) { }
+            : this(validationDictionary, new HAVPhotoService(), new FriendService<User, Friend>(new EntityHAVFriendRepository()), new EntityHAVPhotoAlbumRepository(), new HAVBaseRepository()) { }
 
-        public HAVPhotoAlbumService(IValidationDictionary aValidationDictionary, IHAVPhotoService aPhotoService, IHAVFriendService aFriendService, IHAVPhotoAlbumRepository aPhotoAlbumRepo, IHAVBaseRepository aBaseRepository)
+        public HAVPhotoAlbumService(IValidationDictionary aValidationDictionary, IHAVPhotoService aPhotoService, IFriendService<User, Friend> aFriendService, IHAVPhotoAlbumRepository aPhotoAlbumRepo, IHAVBaseRepository aBaseRepository)
             : base(aBaseRepository) {
             theValidationDictionary = aValidationDictionary;
             thePhotoService = aPhotoService;
@@ -38,7 +41,8 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public IEnumerable<PhotoAlbum> GetPhotoAlbumsForUser(User aRequestingUser, int aUserIdOfAlbum) {
-            if(theFriendService.IsFriend(aUserIdOfAlbum, aRequestingUser)) {
+            AbstractUserModel<User> myAbstractUserModel = new UserModel(aRequestingUser);
+            if (theFriendService.IsFriend(aUserIdOfAlbum, myAbstractUserModel)) {
                 return thePhotoAlbumRepo.GetPhotoAlbumsForUser(aUserIdOfAlbum);
             }
 
@@ -47,7 +51,8 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public PhotoAlbum GetPhotoAlbum(UserInformationModel aUserModel, int anAlbumId) {
             PhotoAlbum myAlbum = thePhotoAlbumRepo.GetPhotoAlbum(anAlbumId);
-            if (theFriendService.IsFriend(myAlbum.CreatedByUserId, aUserModel.Details)) {
+            AbstractUserModel<User> myAbstractUserModel = new UserModel(aUserModel.Details);
+            if (theFriendService.IsFriend(myAlbum.CreatedByUserId, myAbstractUserModel)) {
                 return myAlbum;
             }
 
