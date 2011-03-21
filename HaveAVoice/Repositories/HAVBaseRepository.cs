@@ -3,6 +3,7 @@ using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
+using Social.Generic.Models;
 
 namespace HaveAVoice.Repositories {
     public class HAVBaseRepository : IHAVBaseRepository {
@@ -32,7 +33,7 @@ namespace HaveAVoice.Repositories {
         }
 
         private User GetUserInformaton() {
-            UserInformationModel myUserInformation = HAVUserInformationFactory.GetUserInformation();
+            UserInformationModel<User> myUserInformation = HAVUserInformationFactory.GetUserInformation();
             if (myUserInformation != null) {
                 return myUserInformation.Details;
             }

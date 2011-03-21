@@ -2,8 +2,9 @@
 <%@ Import Namespace="HaveAVoice.Helpers.UI" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
-<%@Import Namespace="HaveAVoice.Helpers.UserInformation" %>
+<%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
+<%@ Import Namespace="Social.Generic.Models" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Gallery
@@ -24,7 +25,7 @@
 			<%= Model.Model.Description %>
         </div>
 
-        <% UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation(); %>
+        <% UserInformationModel<User> myUserInformationModel = HAVUserInformationFactory.GetUserInformation(); %>
         <% if (myUserInformationModel.Details.Id == Model.Model.CreatedByUserId) { %>
 		    <div class="filter">
 			    <% using (Html.BeginForm("Create", "Photos", FormMethod.Post, new { enctype = "multipart/form-data", @class = "create btint-6" })) { %>

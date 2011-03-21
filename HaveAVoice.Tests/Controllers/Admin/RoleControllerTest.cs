@@ -1,23 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Web.Mvc;
-using Moq;
-using HaveAVoice.Repositories;
-using HaveAVoice.Services;
-using HaveAVoice.Validation;
-using HaveAVoice.Helpers;
-using HaveAVoice.Models;
-using HaveAVoice.Controllers.Admin;
-using HaveAVoice.Models.View;
-using HaveAVoice.Services.AdminFeatures;
-using HaveAVoice.Repositories.AdminFeatures;
-using HaveAVoice.Tests.Helpers;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HaveAVoice.Tests.Controllers.Admin {
     [TestClass]
     public class RoleControllerTest : ControllerTestCase  {
+        /*
         private static int[] SELECTED_PERMISSIONS = new int[] {0};
         private static int[] SELECTED_USERS = new int[] { 0 };
         private static int ROLE_ID = 3;
@@ -485,6 +471,6 @@ namespace HaveAVoice.Tests.Controllers.Admin {
             theRoleService.Setup(s => s.GetAllRoles()).Throws<Exception>();
             var myResult = theController.SwitchUserRoles(SELECTED_USERS, FROM_ROLE_ID, TO_ROLE_ID) as ViewResult;
             AssertAuthenticatedErrorLogWithRedirect(myResult);
-        }
+        }*/
     }
 }

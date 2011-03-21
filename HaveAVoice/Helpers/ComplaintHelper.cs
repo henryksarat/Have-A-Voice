@@ -8,6 +8,7 @@ using HaveAVoice.Models.View;
 using HaveAVoice.Models;
 using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Services.Issues;
+using Social.Generic.Models;
 
 namespace HaveAVoice.Helpers {
     public static class ComplaintHelper {
@@ -39,7 +40,7 @@ namespace HaveAVoice.Helpers {
         public static void FillComplaintModelBuilder(ComplaintModel.Builder aBuilder, IHAVUserRetrievalService aUserRetrievalService, 
                                                      IHAVIssueService aIssueService, IHAVIssueReplyService anIssueReplyService, IHAVIssueReplyCommentService anIssueReplyCommentService, 
                                                      IHAVPhotoService aPhotoService) {
-            UserInformationModel myUser = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation();
+            UserInformationModel<User> myUser = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation();
             switch (aBuilder.ComplaintType()) {
                 case ComplaintType.Issue:
                     Issue myIssue = aIssueService.GetIssue(aBuilder.SourceId(), myUser);

@@ -8,6 +8,9 @@ using HaveAVoice.Models.View;
 using HaveAVoice.Services.Helpers;
 using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Helpers.UserInformation;
+using Social.Generic.Models;
+using Social.Admin.Helpers;
+using Social.Generic.Helpers;
 
 namespace HaveAVoice.Helpers.UI {
     public class IssueReplyHelper {
@@ -81,7 +84,7 @@ namespace HaveAVoice.Helpers.UI {
 
             myReplyCommentPad.InnerHtml += SharedStyleHelper.ClearDiv();
 
-            UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation();
+            UserInformationModel<User> myUserInformationModel = HAVUserInformationFactory.GetUserInformation();
 
             var myEditAndStancesDiv = new TagBuilder("div");
             myEditAndStancesDiv.AddCssClass("col-11 options");
@@ -134,7 +137,7 @@ namespace HaveAVoice.Helpers.UI {
             myReplyInfoPadding.InnerHtml += anIssueReply.Reply;
             myReplyInfoPadding.InnerHtml += SharedStyleHelper.ClearDiv();
 
-            UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation();
+            UserInformationModel<User> myUserInformationModel = HAVUserInformationFactory.GetUserInformation();
 
             var myEditAndStancesDiv = new TagBuilder("div");
             myEditAndStancesDiv.AddCssClass("col-14 options");
@@ -193,7 +196,7 @@ namespace HaveAVoice.Helpers.UI {
             return myTotalAgrees;
         }
 
-        private static bool GetHasDisposition(IssueReply anIssueReply, UserInformationModel aUserInformationModel) {
+        private static bool GetHasDisposition(IssueReply anIssueReply, UserInformationModel<User> aUserInformationModel) {
             bool myHasDisposition = aUserInformationModel != null &&
                                     (from s in anIssueReply.IssueReplyDispositions
                                      where s.UserId == aUserInformationModel.Details.Id
@@ -201,7 +204,7 @@ namespace HaveAVoice.Helpers.UI {
             return myHasDisposition;
         }
 
-        private static TagBuilder EditDiv(UserInformationModel myUserInformationModel, int anIssueReplyId, int anIssueReplyAuthorUserId) {
+        private static TagBuilder EditDiv(UserInformationModel<User> myUserInformationModel, int anIssueReplyId, int anIssueReplyAuthorUserId) {
             var myEditDiv = new TagBuilder("div");
             myEditDiv.AddCssClass("col-2 center");
 
@@ -217,7 +220,7 @@ namespace HaveAVoice.Helpers.UI {
             return myEditDiv;
         }
 
-        private static TagBuilder DeleteDiv(UserInformationModel myUserInformationModel, int anIssueReplyId, int anIssueReplyAuthorUserId) {
+        private static TagBuilder DeleteDiv(UserInformationModel<User> myUserInformationModel, int anIssueReplyId, int anIssueReplyAuthorUserId) {
             var myDeleteDiv = new TagBuilder("div");
             myDeleteDiv.AddCssClass("col-3 center");
 
@@ -241,14 +244,14 @@ namespace HaveAVoice.Helpers.UI {
             return SharedContentStyleHelper.DisagreeStanceDiv("col-3 center", aHasDisposition, aIsLoggedIn, aTotalDisagrees, LinkHelper.DisagreeIssueReply(anIssueReplyId, anIssueId, aSource, aSourceId));
         }
 
-        private static bool ShouldDisplayEditLink(UserInformationModel aUserInformation, int anIssueReplyAuthorUserId) {
-            return (HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Edit_Issue_Reply) && aUserInformation.Details.Id == anIssueReplyAuthorUserId)
-                || HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Edit_Any_Issue_Reply);
+        private static bool ShouldDisplayEditLink(UserInformationModel<User> aUserInformation, int anIssueReplyAuthorUserId) {
+            return (PermissionHelper<User>.AllowedToPerformAction(aUserInformation, SocialPermission.Edit_Issue_Reply) && aUserInformation.Details.Id == anIssueReplyAuthorUserId)
+                || PermissionHelper<User>.AllowedToPerformAction(aUserInformation, SocialPermission.Edit_Any_Issue_Reply);
         }
 
-        private static bool ShouldDisplayDeleteLink(UserInformationModel aUserInformation, int anIssueReplyAuthorUserId) {
-            return (HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Delete_Issue_Reply) && aUserInformation.Details.Id == anIssueReplyAuthorUserId)
-                || HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Delete_Any_Issue_Reply);
+        private static bool ShouldDisplayDeleteLink(UserInformationModel<User> aUserInformation, int anIssueReplyAuthorUserId) {
+            return (PermissionHelper<User>.AllowedToPerformAction(aUserInformation, SocialPermission.Delete_Issue_Reply) && aUserInformation.Details.Id == anIssueReplyAuthorUserId)
+                || PermissionHelper<User>.AllowedToPerformAction(aUserInformation, SocialPermission.Delete_Any_Issue_Reply);
         }
     }
 }

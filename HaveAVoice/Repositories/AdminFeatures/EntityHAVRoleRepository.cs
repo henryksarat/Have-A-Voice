@@ -6,9 +6,10 @@ using HaveAVoice.Repositories;
 using HaveAVoice.Helpers;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Models;
+using Social.Admin.Repositories;
 
 namespace HaveAVoice.Repositories.AdminFeatures {
-    public class EntityHAVRoleRepository : IHAVRoleRepository {
+    public class EntityHAVRoleRepository : IRoleRepository<User, Role> {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
         public IEnumerable<Role> GetAllRoles() {

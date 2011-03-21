@@ -5,6 +5,7 @@
 <%@ Import Namespace="HaveAVoice.Helpers" %>
 <%@Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 <%@Import Namespace="HaveAVoice.Helpers.Enums" %>
+<%@ Import Namespace="Social.Generic.Models" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Gallery
@@ -21,7 +22,7 @@
         <% Html.RenderPartial("Message"); %>
         <div class="clear">&nbsp;</div>
 	    
-	    <% UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation(); %>
+	    <% UserInformationModel<User> myUserInformationModel = HAVUserInformationFactory.GetUserInformation(); %>
 	    <% if (myUserInformationModel.Details.Id == Model.Model.UploadedByUserId) { %>
 	        <%= Html.ActionLink("Set as profile picture", "SetProfilePicture", "Photos", new { id = Model.Model.Id }, new { @class = "button"}) %>
             <%= Html.ActionLink("Set as album cover", "SetAlbumCover", "Photos", new { id = Model.Model.Id }, new { @class = "button" })%>

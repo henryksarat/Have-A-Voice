@@ -1,16 +1,11 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Validation;
-using HaveAVoice.Services;
+﻿using System.Web.Mvc;
+using HaveAVoice.Models;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
-using System.Web.Mvc;
-using HaveAVoice.Models;
+using HaveAVoice.Services;
+using HaveAVoice.Services.UserFeatures;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace HaveAVoice.Tests.Models.Services.UserFeatures {
     [TestClass]
@@ -25,7 +20,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
         private Mock<IHAVBaseRepository> theBaseRepository;
         private Mock<IHAVBaseService> theMockedBaseService;
 
-
+        /*
         [TestInitialize]
         public void Initialize() {
             theModelState = new ModelStateDictionary();
@@ -116,7 +111,7 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
         }
 
         #endregion
-
+        */
 
     }
 }

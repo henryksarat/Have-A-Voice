@@ -7,13 +7,13 @@ using HaveAVoice.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using HaveAVoice.Models.View;
-using HaveAVoice.Models.View.Builders;
 using HaveAVoice.Helpers;
 using System.Collections.Generic;
 
 namespace HaveAVoice.Tests.Controllers {
     [TestClass]
     public abstract class ControllerTestCase {
+        /*
         private static Object REDIRECT_NOT_MOCKED = null;
 
         protected UserInformationModelBuilder theUserInformationBuilder = new UserInformationModelBuilder(new User());
@@ -166,6 +166,6 @@ namespace HaveAVoice.Tests.Controllers {
             Assert.IsNull(GetController().ViewData["Message"]);
             Assert.AreEqual(aViewName, aResult.ViewName);
             Assert.IsInstanceOfType(aResult.ViewData.Model, aClass.GetType());
-        }
+        }*/
     }
 }

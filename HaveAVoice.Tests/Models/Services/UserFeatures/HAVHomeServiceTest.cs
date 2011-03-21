@@ -1,20 +1,4 @@
-﻿using System;
-using System.Web.Mvc;
-using HaveAVoice.Exceptions;
-using HaveAVoice.Helpers;
-using HaveAVoice.Helpers.UserInformation;
-using HaveAVoice.Models;
-using HaveAVoice.Models.View;
-using HaveAVoice.Repositories;
-using HaveAVoice.Repositories.UserFeatures;
-using HaveAVoice.Services;
-using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Validation;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using System.Web;
-using HaveAVoice.Repositories.AdminFeatures;
-using System.Collections.Generic;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HaveAVoice.Tests.Models.Services.UserFeatures {
     [TestClass]

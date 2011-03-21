@@ -2,31 +2,34 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using HaveAVoice.Helpers;
+using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
 using HaveAVoice.Services;
-using HaveAVoice.Validation;
 using HaveAVoice.Services.AdminFeatures;
-using HaveAVoice.Controllers.Helpers;
-
+using Social.Admin.Helpers;
+using Social.Generic.Helpers;
+using Social.Validation;
+using Social.Admin.Services;
+using HaveAVoice.Repositories.AdminFeatures;
 
 namespace HaveAVoice.Controllers.Admin {
     public class RestrictionController : AdminBaseController {
         private static string PAGE_NOT_FOUND = "You do not have access.";
 
         private IHAVRestrictionService theService;
-        private IHAVRoleService theRoleService;
+        private IRoleService<User, Role> theRoleService;
 
 
         public RestrictionController() 
             : base(new HAVBaseService(new HAVBaseRepository())) {
-            theService = new HAVRestrictionService(new ModelStateWrapper(this.ModelState));
-            theRoleService = new HAVRoleService(new ModelStateWrapper(this.ModelState));
+                IValidationDictionary myModelState = new ModelStateWrapper(this.ModelState);
+                theService = new HAVRestrictionService(myModelState);
+                theRoleService = new RoleService<User, Role>(myModelState, new EntityHAVRoleRepository());
         }
 
-        public RestrictionController(IHAVRestrictionService service, IHAVBaseService baseService, IHAVRoleService roleService)
+        public RestrictionController(IHAVRestrictionService service, IHAVBaseService baseService, IRoleService<User, Role> roleService)
             : base(baseService) {
             theService = service;
             theRoleService = roleService;
@@ -36,7 +39,7 @@ namespace HaveAVoice.Controllers.Admin {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            if (!HAVPermissionHelper.AllowedToPerformAction(GetUserInformatonModel(), HAVPermission.View_Restrictions)) {
+            if (!PermissionHelper<User>.AllowedToPerformAction(GetUserInformatonModel(), SocialPermission.View_Restrictions)) {
                 return SendToErrorPage(PAGE_NOT_FOUND);
             }
 
@@ -61,7 +64,7 @@ namespace HaveAVoice.Controllers.Admin {
                 return RedirectToLogin();
             }
 
-            if (!HAVPermissionHelper.AllowedToPerformAction(GetUserInformatonModel(), HAVPermission.Create_Restriction)) {
+            if (!PermissionHelper<User>.AllowedToPerformAction(GetUserInformatonModel(), SocialPermission.Create_Restriction)) {
                 return SendToErrorPage(PAGE_NOT_FOUND);
             }
             
@@ -91,7 +94,7 @@ namespace HaveAVoice.Controllers.Admin {
                 return RedirectToLogin();
             }
 
-            if (!HAVPermissionHelper.AllowedToPerformAction(GetUserInformatonModel(), HAVPermission.Delete_Restriction)) {
+            if (!PermissionHelper<User>.AllowedToPerformAction(GetUserInformatonModel(), SocialPermission.Delete_Restriction)) {
                 return SendToErrorPage(PAGE_NOT_FOUND);
             }
 
@@ -132,7 +135,7 @@ namespace HaveAVoice.Controllers.Admin {
                 return RedirectToLogin();
             }
 
-            if (!HAVPermissionHelper.AllowedToPerformAction(GetUserInformatonModel(), HAVPermission.Edit_Restriction)) {
+            if (!PermissionHelper<User>.AllowedToPerformAction(GetUserInformatonModel(), SocialPermission.Edit_Restriction)) {
                 return SendToErrorPage(PAGE_NOT_FOUND);
             }
 

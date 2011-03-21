@@ -1,16 +1,18 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using HaveAVoice.Repositories.UserFeatures;
-using HaveAVoice.Repositories;
-using HaveAVoice.Models.View;
-using HaveAVoice.Models;
-using HaveAVoice.Services.Helpers;
 using HaveAVoice.Exceptions;
-using HaveAVoice.Repositories.AdminFeatures;
 using HaveAVoice.Helpers;
 using HaveAVoice.Helpers.Enums;
+using HaveAVoice.Models;
+using HaveAVoice.Repositories;
+using HaveAVoice.Repositories.AdminFeatures;
+using HaveAVoice.Repositories.UserFeatures;
+using HaveAVoice.Services.Helpers;
+using Social.Admin.Repositories;
+using Social.Generic.Helpers;
+using Social.Generic.Models;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVAuthenticationService : HAVBaseService, IHAVAuthenticationService {
@@ -18,13 +20,15 @@ namespace HaveAVoice.Services.UserFeatures {
         private IHAVUserRetrievalService theUserRetrievalService;
         private IHAVAuthenticationRepository theAuthRepo;
         private IHAVUserRepository theUserRepo;
-        private IHAVRoleRepository theRoleRepo;
+        private IRoleRepository<User, Role> theRoleRepo;
 
         public HAVAuthenticationService()
-            : this(new HAVUserRetrievalService(), new HAVBaseRepository(), new HAVUserPrivacySettingsService(), new EntityHAVAuthenticationRepository(), new EntityHAVUserRepository(), new EntityHAVRoleRepository()) { }
+            : this(new HAVUserRetrievalService(), new HAVBaseRepository(), new HAVUserPrivacySettingsService(), 
+            new EntityHAVAuthenticationRepository(), new EntityHAVUserRepository(), new EntityHAVRoleRepository()) { }
 
-        public HAVAuthenticationService(IHAVUserRetrievalService aUserRetrievalService, IHAVBaseRepository baseRepository, 
-                                                       IHAVUserPrivacySettingsService aPrivacyService, IHAVAuthenticationRepository anAuthRepo, IHAVUserRepository aUserRepo, IHAVRoleRepository aRoleRepo)
+        public HAVAuthenticationService(IHAVUserRetrievalService aUserRetrievalService, IHAVBaseRepository baseRepository,
+                                        IHAVUserPrivacySettingsService aPrivacyService, IHAVAuthenticationRepository anAuthRepo, 
+                                        IHAVUserRepository aUserRepo, IRoleRepository<User, Role> aRoleRepo)
             : base(baseRepository) {
             theUserRetrievalService = aUserRetrievalService;
             thePrivacySettingsService = aPrivacyService;
@@ -33,28 +37,28 @@ namespace HaveAVoice.Services.UserFeatures {
             theRoleRepo = aRoleRepo;
         }
 
-        public UserInformationModel RefreshUserInformationModel(UserInformationModel aUserInformationModel) {
+        public UserInformationModel<User> RefreshUserInformationModel(UserInformationModel<User> aUserInformationModel) {
             return AuthenticateUserWithHashedPassword(aUserInformationModel.Details.Email, aUserInformationModel.Details.Password);
         }
 
-        public UserInformationModel AuthenticateUser(string anEmail, string aPassword) {
+        public UserInformationModel<User> AuthenticateUser(string anEmail, string aPassword) {
             aPassword = HashHelper.HashPassword(aPassword);
             return AuthenticateUserWithHashedPassword(anEmail, aPassword);
         }
 
-        private UserInformationModel AuthenticateUserWithHashedPassword(string anEmail, string aHashedPassword) {
+        private UserInformationModel<User>AuthenticateUserWithHashedPassword(string anEmail, string aHashedPassword) {
             User myUser = theUserRetrievalService.GetUser(anEmail, aHashedPassword);
             return CreateUserInformationModel(myUser);
         }
 
-        public UserInformationModel CreateUserInformationModel(User aUser) {
+        public UserInformationModel<User>CreateUserInformationModel(User aUser) {
             if (aUser == null) {
                 return null;
             }
 
             IEnumerable<Permission> myPermissions = theAuthRepo.FindPermissionsForUser(aUser);
             bool myIsConfirmed = (from p in myPermissions
-                                  where p.Name == HAVPermission.Confirmed_User.ToString()
+                                  where p.Name == SocialPermission.Confirmed_User.ToString()
                                   select p).Count<Permission>() > 0 ? true : false;
 
             if (!myIsConfirmed) {
@@ -73,8 +77,57 @@ namespace HaveAVoice.Services.UserFeatures {
                 throw new Exception("The user has no privacy settings.");
             }
 
-            return new UserInformationModel(aUser, myPermissions, myRestriction, myPrivacySettings);
+            return new UserInformationModel<User>(aUser) {
+                Permissions = ConvertPermissionToEnums(myPermissions),
+                PrivacySettings = ConvertPrivacySettingsToEnums(myPrivacySettings),
+                PermissionToRestriction = ConvertRestrictionToHashTable(myRestriction),
+                ProfilePictureUrl = PhotoHelper.ProfilePicture(aUser),
+                FullName = NameHelper.FullName(aUser)
+            };
         }
+
+        private IEnumerable<SocialPermission> ConvertPermissionToEnums(IEnumerable<Permission> aPermissions) {
+            IEnumerable<SocialPermission> myPermissions =
+                (from p in aPermissions
+                 select (SocialPermission)Enum.Parse(typeof(SocialPermission), p.Name))
+                .ToList<SocialPermission>();
+            return myPermissions;
+        }
+
+        private IEnumerable<SocialPrivacySetting> ConvertPrivacySettingsToEnums(IEnumerable<PrivacySetting> aPrivacySettings) {
+            IEnumerable<SocialPrivacySetting> myPrivacySettings =
+                (from p in aPrivacySettings
+                 select (SocialPrivacySetting)Enum.Parse(typeof(SocialPrivacySetting), p.Name))
+                .ToList<SocialPrivacySetting>();
+            return myPrivacySettings;
+        }
+
+        private Hashtable ConvertRestrictionToHashTable(Restriction aRestriction) {
+            Hashtable myPermissionToRestriction = new Hashtable();
+
+            List<Pair<SocialRestriction, long>> myRestrictions = new List<Pair<SocialRestriction, long>>();
+            myRestrictions.Add(CreateRestrictionList(SocialRestriction.SecondsToWait, aRestriction.IssuePostsWaitTimeBeforePostSeconds));
+            myRestrictions.Add(CreateRestrictionList(SocialRestriction.TimeLimit, aRestriction.IssuePostsTimeLimit));
+            myRestrictions.Add(CreateRestrictionList(SocialRestriction.OccurencesWithinTimeLimit, aRestriction.IssuePostsWithinTimeLimit));
+
+            myPermissionToRestriction.Add(SocialPermission.Post_Issue, myRestrictions);
+
+            myRestrictions = new List<Pair<SocialRestriction, long>>();
+            myRestrictions.Add(CreateRestrictionList(SocialRestriction.SecondsToWait, aRestriction.IssueReplyPostsWaitTimeBeforePostSeconds));
+            myRestrictions.Add(CreateRestrictionList(SocialRestriction.TimeLimit, aRestriction.IssueReplyPostsTimeLimit));
+            myRestrictions.Add(CreateRestrictionList(SocialRestriction.OccurencesWithinTimeLimit, aRestriction.IssueReplyPostsWithinTimeLimit));
+
+            myPermissionToRestriction.Add(SocialPermission.Post_Issue_Reply, myRestrictions);
+            return myPermissionToRestriction;
+        }
+
+        private Pair<SocialRestriction, long> CreateRestrictionList(SocialRestriction anEnumeratedRestriction, long restrictionValue) {
+            Pair<SocialRestriction, long> pair = new Pair<SocialRestriction, long>();
+            pair.First = anEnumeratedRestriction;
+            pair.Second = restrictionValue;
+            return pair;
+        }
+
 
         public void CreateRememberMeCredentials(User aUser) {
             string myCookieHash = CreateCookieHash(aUser);

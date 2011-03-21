@@ -1,21 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Web.Mvc;
-using Moq;
-using HaveAVoice.Validation;
-using HaveAVoice.Services;
-using HaveAVoice.Repositories;
-using HaveAVoice.Models;
-using System.Collections.Generic;
-using HaveAVoice.Services.AdminFeatures;
-using HaveAVoice.Repositories.AdminFeatures;
-using HaveAVoice.Models.View;
-using HaveAVoice.Models.View.Builders;
-using HaveAVoice.Helpers;
 
 
 namespace HaveAVoice.Tests.Models.Services.AdminFeatures {
     [TestClass]
     public class HAVRoleServiceTest {
+        /*
         private static string ROLE_NAME = "Admin";
         private static string ROLE_DESCRIPTION = "Admin Role.";
         private static bool DEFAULT_ROLE = false;
@@ -91,6 +80,6 @@ namespace HaveAVoice.Tests.Models.Services.AdminFeatures {
             Assert.IsFalse(myResult);
             var myError = theModelState["Restriction"].Errors[0];
             Assert.AreEqual("Please select a restriction.", myError.ErrorMessage);
-        }
+        }*/
     }
 }

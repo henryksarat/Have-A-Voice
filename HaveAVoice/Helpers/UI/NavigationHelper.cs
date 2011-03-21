@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Collections;
 using HaveAVoice.Models;
 using HaveAVoice.Helpers.UserInformation;
+using Social.Generic.Models;
 
 namespace HaveAVoice.Helpers.UI {
     public class NavigationHelper {
@@ -15,7 +16,7 @@ namespace HaveAVoice.Helpers.UI {
 
             IEnumerator<UserNavigationMenuModel> myMenuEnumerator = aMenuItems.GetEnumerator();
 
-            UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation();
+            UserInformationModel<User> myUserInfo = HAVUserInformationFactory.GetUserInformation();
             if (myUserInfo != null && myUserInfo.Details.Id == aTargetUser.Id) {
                 myIsMyself = true;
             }

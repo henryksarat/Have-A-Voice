@@ -1,4 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.IssueReplyCommentWrapper>" %>
+<%@ Import Namespace="HaveAVoice.Models" %>
+<%@ Import Namespace="Social.Generic.Models" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Edit Your Comment
@@ -14,7 +16,7 @@
 			<div class="row">
 				<div class="col-2 center">
 					<%= Html.Hidden("IssueReplyId", Model.IssueReplyId) %>
-		            <% HaveAVoice.Models.View.UserInformationModel myUserInfo = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation(); %>
+		            <% UserInformationModel<User> myUserInfo = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation(); %>
 					<img src="<%= myUserInfo.ProfilePictureUrl %>" alt="<%= myUserInfo.FullName  %>" class="profile" />
 					<div class="clear">&nbsp;</div>
 				</div>

@@ -1,4 +1,4 @@
-﻿namespace HaveAVoice.Validation
+﻿namespace Social.Validation
 {
     public interface IValidationDictionary
     {

@@ -260,10 +260,10 @@ namespace HaveAVoice.Tests.Controllers.Issues {
         private void VerifyEdit(Times aTimes) {
             theMockedService.Verify(s => s.EditIssueReply(It.IsAny<UserInformationModel>(), It.IsAny<IssueReply>()), aTimes);
         }
-        */
 
         protected override Controller GetController() {
             return theController;
         }
+        */
     }
 }

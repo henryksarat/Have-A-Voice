@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Web.Mvc;
+using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Models;
 using HaveAVoice.Repositories;
 using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Validation;
-using HaveAVoice.Models.View;
-using HaveAVoice.Helpers;
-using HaveAVoice.Controllers.ActionFilters;
-using HaveAVoice.Controllers.Helpers;
+using Social.Admin.Helpers;
+using Social.Generic.Helpers;
+using Social.Validation;
 
 namespace HaveAVoice.Controllers.Users
 {
@@ -46,7 +44,7 @@ namespace HaveAVoice.Controllers.Users
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            if (!HAVPermissionHelper.AllowedToPerformAction(GetUserInformatonModel(), HAVPermission.View_Feedback)) {
+            if (!PermissionHelper<User>.AllowedToPerformAction(GetUserInformatonModel(), SocialPermission.View_Feedback)) {
                 return SendToErrorPage(PAGE_NOT_FOUND);
             }
 

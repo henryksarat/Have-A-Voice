@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using HaveAVoice.Controllers.ActionFilters;
-using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Validation;
-using HaveAVoice.Services;
-using HaveAVoice.Repositories;
+using HaveAVoice.Controllers.Helpers;
+using HaveAVoice.Helpers;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
-using HaveAVoice.Helpers;
-using HaveAVoice.Controllers.Helpers;
+using HaveAVoice.Repositories;
+using HaveAVoice.Services;
+using HaveAVoice.Services.UserFeatures;
+using Social.Admin.Helpers;
+using Social.Generic.Helpers;
+using Social.Generic.Models;
+using Social.Validation;
 
 namespace HaveAVoice.Controllers.Users {
     public class BoardReplyController : HAVBaseController {
@@ -99,8 +99,8 @@ namespace HaveAVoice.Controllers.Users {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel myUserInfo = GetUserInformatonModel();
-            if (!HAVPermissionHelper.AllowedToPerformAction(myUserInfo, HAVPermission.Delete_Board_Reply, HAVPermission.Delete_Any_Board_Reply)) {
+            UserInformationModel<User> myUserInfo = GetUserInformatonModel();
+            if (!PermissionHelper<User>.AllowedToPerformAction(myUserInfo, SocialPermission.Delete_Board_Reply, SocialPermission.Delete_Any_Board_Reply)) {
                 return SendToErrorPage(HAVConstants.PAGE_NOT_FOUND);
             }
             try {

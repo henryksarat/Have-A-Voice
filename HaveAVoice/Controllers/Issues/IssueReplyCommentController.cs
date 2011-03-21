@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Web.Mvc;
-using HaveAVoice.Models.View;
-using HaveAVoice.Services;
-using HaveAVoice.Repositories;
-using HaveAVoice.Validation;
-using HaveAVoice.Helpers;
-using HaveAVoice.Models;
 using HaveAVoice.Controllers.ActionFilters;
 using HaveAVoice.Controllers.Helpers;
+using HaveAVoice.Helpers;
+using HaveAVoice.Models;
+using HaveAVoice.Repositories;
+using HaveAVoice.Services;
 using HaveAVoice.Services.Issues;
+using Social.Admin.Helpers;
+using Social.Generic.Helpers;
+using Social.Generic.Models;
 
 namespace HaveAVoice.Controllers.Issues {
     public class IssueReplyCommentController : HAVBaseController {
@@ -24,7 +25,7 @@ namespace HaveAVoice.Controllers.Issues {
         private IHAVIssueReplyCommentService theService;
 
         public IssueReplyCommentController() : base(new HAVBaseService(new HAVBaseRepository())) {
-            theService = new HAVIssueReplyCommentService(new ModelStateWrapper(this.ModelState));
+            theService = new HAVIssueReplyCommentService(new Social.Validation.ModelStateWrapper(this.ModelState));
         }
 
         public IssueReplyCommentController(IHAVIssueReplyCommentService aService, IHAVBaseService baseService)
@@ -37,7 +38,7 @@ namespace HaveAVoice.Controllers.Issues {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel myUserInformation = GetUserInformatonModel();
+            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
 
             try {
                 if (theService.CreateCommentToIssueReply(myUserInformation, issueReplyId, comment)) {
@@ -57,8 +58,8 @@ namespace HaveAVoice.Controllers.Issues {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel myUserInfo = GetUserInformatonModel();
-            if (!HAVPermissionHelper.AllowedToPerformAction(myUserInfo, HAVPermission.Delete_Issue_Reply_Comment, HAVPermission.Delete_Any_Issue_Reply_Comment)) {
+            UserInformationModel<User> myUserInfo = GetUserInformatonModel();
+            if (!PermissionHelper<User>.AllowedToPerformAction(myUserInfo, SocialPermission.Delete_Issue_Reply_Comment, SocialPermission.Delete_Any_Issue_Reply_Comment)) {
                 return SendToErrorPage(HAVConstants.PAGE_NOT_FOUND);
             }
             try {
@@ -77,15 +78,15 @@ namespace HaveAVoice.Controllers.Issues {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel myUserInformation = GetUserInformatonModel();
-            if (!HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Edit_Issue_Reply_Comment, HAVPermission.Edit_Any_Issue_Reply_Comment)) {
+            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
+            if (!PermissionHelper<User>.AllowedToPerformAction(myUserInformation, SocialPermission.Edit_Issue_Reply_Comment, SocialPermission.Edit_Any_Issue_Reply_Comment)) {
                 return SendToErrorPage(HAVConstants.PAGE_NOT_FOUND);
             }
 
             try {
                 IssueReplyComment myComment = theService.GetIssueReplyComment(id);
 
-                if (myUserInformation.Details.Id == myComment.User.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Edit_Any_Issue_Reply_Comment)) {
+                if (myUserInformation.Details.Id == myComment.User.Id || PermissionHelper<User>.AllowedToPerformAction(myUserInformation, SocialPermission.Edit_Any_Issue_Reply_Comment)) {
                     return View("Edit", IssueReplyCommentWrapper.Build(myComment));
                 } else {
                     return SendToErrorPage(HAVConstants.PAGE_NOT_FOUND);

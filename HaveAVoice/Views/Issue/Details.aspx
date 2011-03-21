@@ -5,6 +5,10 @@
 <%@Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 <%@Import Namespace="HaveAVoice.Helpers.Enums" %>
 <%@Import Namespace="HaveAVoice.Services.Helpers" %>
+<%@Import Namespace="Social.Admin.Helpers" %>
+<%@Import Namespace="Social.Generic.Models" %>
+<%@Import Namespace="HaveAVoice.Models" %>
+<%@ Import Namespace="Social.Generic.Helpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Issue - <%= Model.Issue.Title %>
@@ -89,7 +93,7 @@
 
 	    <% using (Html.BeginForm()) { %>
             
-			<% UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation(); %>
+			<% UserInformationModel<User> myUserInformationModel = HAVUserInformationFactory.GetUserInformation(); %>
 	        <% if (myUserInformationModel != null) { %>
                 <%= Html.Hidden("City", myUserInformationModel.Details.City)%>
 	            <%= Html.Hidden("State", myUserInformationModel.Details.State)%>
@@ -143,7 +147,7 @@
 								</span>
 								<div class="clear">&nbsp;</div>
 								
-							    <% if (HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, HAVPermission.Post_Anonymous_Issue_Reply)) { %>   
+							    <% if (PermissionHelper<User>.AllowedToPerformAction(myUserInformationModel, SocialPermission.Post_Anonymous_Issue_Reply)) { %>   
 							        <%= Html.CheckBox("Anonymous", Model.Anonymous)%> Post reply as Anonymous
 							    <% } %>
 								<div class="clear">&nbsp;</div>

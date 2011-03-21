@@ -1,8 +1,7 @@
-﻿using HaveAVoice.Validation;
+﻿using HaveAVoice.Models;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
-using HaveAVoice.Models.View;
-using HaveAVoice.Models;
+using Social.Validation;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVComplaintService : HAVBaseService, IHAVComplaintService {

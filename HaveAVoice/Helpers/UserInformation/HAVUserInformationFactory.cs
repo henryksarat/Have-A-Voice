@@ -7,6 +7,7 @@ using System.Collections;
 using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models.View;
+using Social.Generic.Models;
 
 namespace HaveAVoice.Helpers.UserInformation {
     public class HAVUserInformationFactory {
@@ -14,7 +15,7 @@ namespace HaveAVoice.Helpers.UserInformation {
         
         private HAVUserInformationFactory() { }
 
-        public static UserInformationModel GetUserInformation() {
+        public static UserInformationModel<User> GetUserInformation() {
             SetDefaultInstance();
             return theFactory.GetUserInformaton();
         }

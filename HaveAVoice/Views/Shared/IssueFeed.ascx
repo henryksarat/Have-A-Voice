@@ -3,6 +3,7 @@
 <%@ Import Namespace="HaveAVoice.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
+<%@ Import Namespace="Social.Generic.Models" %>
 
 <% int myCount = (int)ViewData["Count"]; %>
 <% SiteSection mySection = (SiteSection)ViewData["SiteSection"]; %>
@@ -89,7 +90,7 @@
 	<% foreach (var item in Model.IssueReplys) { %>
 	    <div class="<% if (j % 2 == 0) { %>row<% } else { %>alt<% } %> reply push-3 col-18 m-btm10">
 		    <div class="col-1 center">
-                <% UserInformationModel myUserInformation = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation(); %>
+                <% UserInformationModel<User> myUserInformation = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation(); %>
                 <% bool myIsAllowedToView = true; %>
                 <% if (item.Anonymous || !PrivacyHelper.IsAllowed(item.User, HaveAVoice.Helpers.Enums.PrivacyAction.DisplayProfile, myUserInformation)) { %>
                     <% myIsAllowedToView = false; %>
@@ -125,7 +126,7 @@
 	<% } %>
 </div>
 
-<% UserInformationModel myUserModel = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation();  %>
+<% UserInformationModel<User> myUserModel = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation();  %>
 <% if(myUserModel != null) { %>
     <div class="board-reply m-btm5">
 	    <a href="#" rel="reply" class="push-17 alpha col-1 omega center button">Reply</a>

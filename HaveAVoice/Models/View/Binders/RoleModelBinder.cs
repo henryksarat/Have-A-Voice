@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
-using HaveAVoice.Validation;
-using HaveAVoice.Helpers;
-using HaveAVoice.Services.AdminFeatures;
 
 namespace HaveAVoice.Models.View {
     public class RoleModelBinder : IModelBinder {

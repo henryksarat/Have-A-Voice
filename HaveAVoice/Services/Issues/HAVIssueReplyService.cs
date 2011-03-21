@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using HaveAVoice.Repositories.Issues;
-using HaveAVoice.Validation;
-using HaveAVoice.Models.View;
-using HaveAVoice.Models;
-using HaveAVoice.Helpers;
+﻿using System.Collections.Generic;
 using HaveAVoice.Helpers.Enums;
+using HaveAVoice.Models;
+using HaveAVoice.Models.View;
+using HaveAVoice.Repositories.Issues;
+using Social.Admin.Helpers;
+using Social.Generic.Helpers;
+using Social.Generic.Models;
+using Social.Validation;
 
 namespace HaveAVoice.Services.Issues {
     public class HAVIssueReplyService : IHAVIssueReplyService {
@@ -33,12 +32,12 @@ namespace HaveAVoice.Services.Issues {
             }
         }
 
-        public bool CreateIssueReply(UserInformationModel aUserCreating, IssueModel anIssueModel) {
+        public bool CreateIssueReply(UserInformationModel<User> aUserCreating, IssueModel anIssueModel) {
             if (!ValidateReply(anIssueModel.Comment, (int)anIssueModel.Disposition)) {
                 return false;
             }
 
-            if (!AllowedToPerformAction(aUserCreating, HAVPermission.Post_Issue_Reply)) {
+            if (!AllowedToPerformAction(aUserCreating, SocialPermission.Post_Issue_Reply)) {
                 return false;
             }
 
@@ -48,12 +47,12 @@ namespace HaveAVoice.Services.Issues {
             return true;
         }
 
-        public bool CreateIssueReply(UserInformationModel aUserCreating, int anIssueId, string aReply, int aDisposition, bool anAnonymous) {
+        public bool CreateIssueReply(UserInformationModel<User> aUserCreating, int anIssueId, string aReply, int aDisposition, bool anAnonymous) {
             if (!ValidateReply(aReply, aDisposition)) {
                 return false;
             }
 
-            if (!AllowedToPerformAction(aUserCreating, HAVPermission.Post_Issue_Reply)) {
+            if (!AllowedToPerformAction(aUserCreating, SocialPermission.Post_Issue_Reply)) {
                 return false;
             }
 
@@ -63,16 +62,16 @@ namespace HaveAVoice.Services.Issues {
             return true;
         }
 
-        public bool EditIssueReply(UserInformationModel aUserEditing, IssueReply anIssueReply) {
+        public bool EditIssueReply(UserInformationModel<User> aUserEditing, IssueReply anIssueReply) {
             if (!ValidateReply(anIssueReply)) {
                 return false;
             }
 
-            if (!AllowedToPerformAction(aUserEditing, HAVPermission.Edit_Issue_Reply, HAVPermission.Edit_Any_Issue_Reply)) {
+            if (!AllowedToPerformAction(aUserEditing, SocialPermission.Edit_Issue_Reply, SocialPermission.Edit_Any_Issue_Reply)) {
                 return false;
             }
 
-            bool myOverride = HAVPermissionHelper.AllowedToPerformAction(aUserEditing, HAVPermission.Edit_Any_Issue_Reply);
+            bool myOverride = PermissionHelper<User>.AllowedToPerformAction(aUserEditing, SocialPermission.Edit_Any_Issue_Reply);
             IssueReply myOriginalReply = GetIssueReply(anIssueReply.Id);
             if (myOriginalReply.User.Id == aUserEditing.Details.Id || myOverride) {
                 theIssueReplyRepository.UpdateIssueReply(aUserEditing.Details, myOriginalReply, anIssueReply, myOverride);
@@ -82,8 +81,8 @@ namespace HaveAVoice.Services.Issues {
             return false;
         }
 
-        public bool DeleteIssueReply(UserInformationModel aDeletingUser, int anIssueReplyId) {
-            bool myAdminOverride = HAVPermissionHelper.AllowedToPerformAction(aDeletingUser, HAVPermission.Delete_Any_Issue_Reply);
+        public bool DeleteIssueReply(UserInformationModel<User> aDeletingUser, int anIssueReplyId) {
+            bool myAdminOverride = PermissionHelper<User>.AllowedToPerformAction(aDeletingUser, SocialPermission.Delete_Any_Issue_Reply);
             IssueReply myReply = GetIssueReply(anIssueReplyId);
             if (myReply.User.Id == aDeletingUser.Details.Id || myAdminOverride) {
                 theIssueReplyRepository.DeleteIssueReply(aDeletingUser.Details, myReply, myAdminOverride);
@@ -122,8 +121,8 @@ namespace HaveAVoice.Services.Issues {
             return theValidationDictionary.isValid;
         }
 
-        private bool AllowedToPerformAction(UserInformationModel aUser, params HAVPermission[] aPermissions) {
-            if (!HAVPermissionHelper.AllowedToPerformAction(aUser, aPermissions)) {
+        private bool AllowedToPerformAction(UserInformationModel<User> aUser, params SocialPermission[] aPermissions) {
+            if (!PermissionHelper<User>.AllowedToPerformAction(aUser, aPermissions)) {
                 theValidationDictionary.AddError("PerformAction", string.Empty, "You are not allowed to post. Please try again.");
             }
 

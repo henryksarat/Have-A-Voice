@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using HaveAVoice.Models;
 using HaveAVoice.Repositories.AdminFeatures;
+using Social.Admin.Repositories;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVAuthorityVerificationRepository : IHAVAuthorityVerificationRepository {
@@ -65,7 +66,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         private Role GetRoleByName(string aName) {
-            IHAVRoleRepository myRoleRepo = new EntityHAVRoleRepository();
+            IRoleRepository<User, Role> myRoleRepo = new EntityHAVRoleRepository();
             return myRoleRepo.GetRoleByName(aName);
         }
     }

@@ -14,6 +14,7 @@ using HaveAVoice.Models;
 namespace HaveAVoice.Tests.Controllers.Admin {
     [TestClass]
     public class FeedbackControllerTest : ControllerTestCase {
+        /*
         private static string FEEDBACK = "Best site ever!";
 
         private static FeedbackController theController;
@@ -93,10 +94,10 @@ namespace HaveAVoice.Tests.Controllers.Admin {
 
             AssertAuthenticatedErrorLogReturnBack(myResult, "Index");
         }
-         * */
 
         protected override Controller GetController() {
             return theController;
         }
+        */
     }
 }

@@ -1,21 +1,22 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using HaveAVoice.Controllers.ActionFilters;
+using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Helpers;
-using HaveAVoice.Helpers.UserInformation;
+using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
 using HaveAVoice.Models.Wrappers;
 using HaveAVoice.Repositories;
 using HaveAVoice.Services;
-using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Validation;
-using HaveAVoice.Controllers.Helpers;
-using System.Collections;
-using HaveAVoice.Helpers.Enums;
-using HaveAVoice.Controllers.ActionFilters;
 using HaveAVoice.Services.Issues;
+using Social.Admin.Helpers;
+using Social.Generic.Helpers;
+using Social.Generic.Models;
+using Social.Validation;
 
 namespace HaveAVoice.Controllers.Issues {
     public class IssueController : HAVBaseController {
@@ -87,7 +88,7 @@ namespace HaveAVoice.Controllers.Issues {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            if(!HAVPermissionHelper.AllowedToPerformAction(GetUserInformatonModel(), HAVPermission.Post_Issue)) {
+            if(!PermissionHelper<User>.AllowedToPerformAction(GetUserInformatonModel(), SocialPermission.Post_Issue)) {
                 return SendToErrorPage(HAVConstants.PAGE_NOT_FOUND);
             }
 
@@ -101,7 +102,7 @@ namespace HaveAVoice.Controllers.Issues {
                 return View("Create", anIssueWrapper);
             }
 
-            UserInformationModel myUser = GetUserInformatonModel();
+            UserInformationModel<User> myUser = GetUserInformatonModel();
 
             try {
 
@@ -165,7 +166,7 @@ namespace HaveAVoice.Controllers.Issues {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel myUserInformation = GetUserInformatonModel();
+            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
 
             try {
                 if (theIssueReplyService.CreateIssueReply(myUserInformation, issueModel)) {
@@ -216,10 +217,10 @@ namespace HaveAVoice.Controllers.Issues {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            if (!HAVPermissionHelper.AllowedToPerformAction(GetUserInformatonModel(), HAVPermission.Delete_Issue, HAVPermission.Delete_Any_Issue)) {
+            if (!PermissionHelper<User>.AllowedToPerformAction(GetUserInformatonModel(), SocialPermission.Delete_Issue, SocialPermission.Delete_Any_Issue)) {
                 return SendToErrorPage(HAVConstants.NOT_ALLOWED);
             }
-            UserInformationModel myUserInfo = GetUserInformatonModel();
+            UserInformationModel<User> myUserInfo = GetUserInformatonModel();
             try {
                 bool myResult = theIssueService.DeleteIssue(myUserInfo, id);
                 if (myResult) {
@@ -239,14 +240,14 @@ namespace HaveAVoice.Controllers.Issues {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel myUserInformation = GetUserInformatonModel();
-            if (!HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Edit_Issue, HAVPermission.Edit_Any_Issue)) {
+            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
+            if (!PermissionHelper<User>.AllowedToPerformAction(myUserInformation, SocialPermission.Edit_Issue, SocialPermission.Edit_Any_Issue)) {
                 return SendToErrorPage(HAVConstants.NOT_ALLOWED);
             }
 
             try {
                 Issue myIssue = theIssueService.GetIssue(id, myUserInformation);
-                if (myUserInformation.Details.Id == myIssue.User.Id || HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Edit_Any_Issue)) {
+                if (myUserInformation.Details.Id == myIssue.User.Id || PermissionHelper<User>.AllowedToPerformAction(myUserInformation, SocialPermission.Edit_Any_Issue)) {
                     return View(EDIT_VIEW, myIssue);
                 } else {
                     return SendToErrorPage(HAVConstants.NOT_ALLOWED);

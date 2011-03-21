@@ -5,6 +5,7 @@
 <%@Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 <%@Import Namespace="HaveAVoice.Services.Helpers" %>
 <%@Import Namespace="HaveAVoice.Helpers.UI" %>
+<%@Import Namespace="Social.Generic.Models" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	View
@@ -41,7 +42,7 @@
 	        <% } %>
         </div>
 
-        <% UserInformationModel myUserModel = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation();  %>
+        <% UserInformationModel<User> myUserModel = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation();  %>
         <% if (myUserModel != null) { %>
             <div class="board-reply m-btm5">
 	            <div class="push-3 col-19">

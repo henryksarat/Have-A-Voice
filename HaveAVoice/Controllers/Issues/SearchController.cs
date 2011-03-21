@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using HaveAVoice.Validation;
-using HaveAVoice.Services;
-using HaveAVoice.Repositories;
-using HaveAVoice.Helpers;
-using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Models;
 using HaveAVoice.Controllers.Helpers;
+using HaveAVoice.Helpers;
+using HaveAVoice.Models;
+using HaveAVoice.Repositories;
+using HaveAVoice.Services;
 using HaveAVoice.Services.Issues;
+using HaveAVoice.Services.UserFeatures;
+using Social.Validation;
 
 namespace HaveAVoice.Controllers.Issues {
     public class SearchController : HAVBaseController {

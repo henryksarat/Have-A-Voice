@@ -4,6 +4,7 @@
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
+<%@ Import Namespace="Social.Generic.Models" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Search Users
@@ -28,7 +29,7 @@
 		</div>
 		
 		<div class="col-24 m-btm10">
-		    <% UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation(); %>
+		    <% UserInformationModel<User> myUserInfo = HAVUserInformationFactory.GetUserInformation(); %>
 		    <% foreach (User myUser in Model) { %>
 		    	<div class="col-6 center">
 		    		<a href="<%= LinkHelper.Profile(myUser) %>">

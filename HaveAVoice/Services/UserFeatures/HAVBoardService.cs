@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using HaveAVoice.Repositories.UserFeatures;
-using HaveAVoice.Validation;
-using HaveAVoice.Repositories;
-using HaveAVoice.Helpers;
-using HaveAVoice.Models.View;
 using HaveAVoice.Models;
+using HaveAVoice.Repositories;
+using HaveAVoice.Repositories.UserFeatures;
+using Social.Admin.Helpers;
+using Social.Generic.Helpers;
+using Social.Generic.Models;
+using Social.Validation;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVBoardService : HAVBaseService, IHAVBoardService {
@@ -24,8 +23,8 @@ namespace HaveAVoice.Services.UserFeatures {
             theValidationDictionary = aValidationDictionary;
         }
 
-        public Board GetBoard(UserInformationModel aUser, int aBoardId) {
-            if (!AllowedToPerformAction(aUser, HAVPermission.View_Board)) {
+        public Board GetBoard(UserInformationModel<User> aUser, int aBoardId) {
+            if (!AllowedToPerformAction(aUser, SocialPermission.View_Board)) {
                 return null;
             }
 
@@ -33,11 +32,11 @@ namespace HaveAVoice.Services.UserFeatures {
             return theRepository.FindBoardByBoardId(aBoardId);
         }
 
-        public bool PostToBoard(UserInformationModel aPostingUser, int aSourceUserId, string aMessage) {
+        public bool PostToBoard(UserInformationModel<User> aPostingUser, int aSourceUserId, string aMessage) {
             if (!ValidateBoardMessage(aMessage)) {
                 return false;
             }
-            if (!AllowedToPerformAction(aPostingUser, HAVPermission.Post_To_Board)) {
+            if (!AllowedToPerformAction(aPostingUser, SocialPermission.Post_To_Board)) {
                 return false;
             }
             Board myBoard = theRepository.AddToBoard(aPostingUser.Details, aSourceUserId, aMessage);
@@ -48,16 +47,16 @@ namespace HaveAVoice.Services.UserFeatures {
             return true;
         }
 
-        public bool EditBoardMessage(UserInformationModel anEditBy, Board aNewBoard) {
+        public bool EditBoardMessage(UserInformationModel<User> anEditBy, Board aNewBoard) {
             if (!ValidateBoardMessage(aNewBoard.Message)) {
                 return false;
             }
 
-            if (!AllowedToPerformAction(anEditBy, HAVPermission.Edit_Board_Message, HAVPermission.Edit_Any_Board_Message)) {
+            if (!AllowedToPerformAction(anEditBy, SocialPermission.Edit_Board_Message, SocialPermission.Edit_Any_Board_Message)) {
                 return false;
             }
 
-            bool myOverride = HAVPermissionHelper.AllowedToPerformAction(anEditBy, HAVPermission.Edit_Any_Board_Message);
+            bool myOverride = PermissionHelper<User>.AllowedToPerformAction(anEditBy, SocialPermission.Edit_Any_Board_Message);
 
             Board myOriginalBoard = theRepository.FindBoardByBoardId(aNewBoard.Id);
             if (myOriginalBoard.PostedUserId == anEditBy.Details.Id || myOverride) {
@@ -69,11 +68,11 @@ namespace HaveAVoice.Services.UserFeatures {
             return false;
         }
 
-        public bool DeleteBoardMessage(UserInformationModel aDeletingUser, int aBoardId) {
-            if (!AllowedToPerformAction(aDeletingUser, HAVPermission.Delete_Board_Message, HAVPermission.Delete_Any_Board_Message)) {
+        public bool DeleteBoardMessage(UserInformationModel<User> aDeletingUser, int aBoardId) {
+            if (!AllowedToPerformAction(aDeletingUser, SocialPermission.Delete_Board_Message, SocialPermission.Delete_Any_Board_Message)) {
                 return false;
             }
-            bool myOverride = HAVPermissionHelper.AllowedToPerformAction(aDeletingUser, HAVPermission.Delete_Any_Board_Message);
+            bool myOverride = PermissionHelper<User>.AllowedToPerformAction(aDeletingUser, SocialPermission.Delete_Any_Board_Message);
 
             Board myOriginalBoard = theRepository.FindBoardByBoardId(aBoardId);
 
@@ -92,18 +91,18 @@ namespace HaveAVoice.Services.UserFeatures {
             return theRepository.FindBoardReplyByBoardReplyId(aReplyId);
         }
 
-        public IEnumerable<BoardReply> FindBoardRepliesForBoard(UserInformationModel aUser, int aBoardId) {
-            if (!AllowedToPerformAction(aUser, HAVPermission.View_Board)) {
+        public IEnumerable<BoardReply> FindBoardRepliesForBoard(UserInformationModel<User> aUser, int aBoardId) {
+            if (!AllowedToPerformAction(aUser, SocialPermission.View_Board)) {
                 return new LinkedList<BoardReply>();
             }
             return theRepository.FindBoardRepliesByBoard(aBoardId);
         }
 
-        public bool PostReplyToBoard(UserInformationModel aPostingUser, int aBoardId, string aReply) {
+        public bool PostReplyToBoard(UserInformationModel<User> aPostingUser, int aBoardId, string aReply) {
             if (!ValidateBoardReply(aReply)) {
                 return false;
             }
-            if (!AllowedToPerformAction(aPostingUser, HAVPermission.Post_Reply_To_Board)) {
+            if (!AllowedToPerformAction(aPostingUser, SocialPermission.Post_Reply_To_Board)) {
                 return false;
             }
             theRepository.AddReplyToBoard(aPostingUser.Details, aBoardId, aReply);
@@ -112,15 +111,15 @@ namespace HaveAVoice.Services.UserFeatures {
             return true;
         }
 
-        public bool EditBoardReply(UserInformationModel anEditedBy, BoardReply aBoardReply) {
+        public bool EditBoardReply(UserInformationModel<User> anEditedBy, BoardReply aBoardReply) {
             if (!ValidateBoardReply(aBoardReply.Message)) {
                 return false;
             }
-            if (!AllowedToPerformAction(anEditedBy, HAVPermission.Edit_Board_Reply, HAVPermission.Edit_Any_Board_Reply)) {
+            if (!AllowedToPerformAction(anEditedBy, SocialPermission.Edit_Board_Reply, SocialPermission.Edit_Any_Board_Reply)) {
                 return false;
             }
             
-            bool myOverrideDelete = HAVPermissionHelper.AllowedToPerformAction(anEditedBy, HAVPermission.Edit_Any_Board_Reply);
+            bool myOverrideDelete = PermissionHelper<User>.AllowedToPerformAction(anEditedBy, SocialPermission.Edit_Any_Board_Reply);
 
             BoardReply myOriginalReply = theRepository.FindBoardReplyByBoardReplyId(aBoardReply.Id);
             if (myOriginalReply.UserId == anEditedBy.Details.Id || myOverrideDelete) {
@@ -130,11 +129,11 @@ namespace HaveAVoice.Services.UserFeatures {
             return false;
         }
 
-        public bool DeleteBoardReply(UserInformationModel aDeletingUser, int aBoardReplyId) {
-            if (!AllowedToPerformAction(aDeletingUser, HAVPermission.Delete_Board_Reply, HAVPermission.Delete_Any_Board_Reply)) {
+        public bool DeleteBoardReply(UserInformationModel<User> aDeletingUser, int aBoardReplyId) {
+            if (!AllowedToPerformAction(aDeletingUser, SocialPermission.Delete_Board_Reply, SocialPermission.Delete_Any_Board_Reply)) {
                 return false;
             }
-            bool myOverrideDelete = HAVPermissionHelper.AllowedToPerformAction(aDeletingUser, HAVPermission.Delete_Any_Board_Reply);
+            bool myOverrideDelete = PermissionHelper<User>.AllowedToPerformAction(aDeletingUser, SocialPermission.Delete_Any_Board_Reply);
 
             BoardReply myOriginalReply = theRepository.FindBoardReplyByBoardReplyId(aBoardReplyId);
             Board myBoard = theRepository.FindBoardByBoardId(myOriginalReply.BoardId);
@@ -162,8 +161,8 @@ namespace HaveAVoice.Services.UserFeatures {
             return theValidationDictionary.isValid;
         }
 
-        private bool AllowedToPerformAction(UserInformationModel aUser, params HAVPermission[] aPermissions) {
-            if (!HAVPermissionHelper.AllowedToPerformAction(aUser, aPermissions)) {
+        private bool AllowedToPerformAction(UserInformationModel<User> aUser, params SocialPermission[] aPermissions) {
+            if (!PermissionHelper<User>.AllowedToPerformAction(aUser, aPermissions)) {
                 AddPermissionDeniedToValidationDictionary();
             }
 

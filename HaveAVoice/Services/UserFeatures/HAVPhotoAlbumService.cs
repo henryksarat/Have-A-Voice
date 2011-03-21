@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using HaveAVoice.Exceptions;
+using HaveAVoice.Helpers;
+using HaveAVoice.Models;
+using HaveAVoice.Models.SocialWrappers;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
-using HaveAVoice.Models;
-using HaveAVoice.Helpers;
-using HaveAVoice.Exceptions;
-using HaveAVoice.Validation;
-using HaveAVoice.Models.View;
 using Social.Friend.Services;
+using Social.Generic.Models;
 using Social.User.Models;
-using HaveAVoice.Models.SocialWrappers;
+using Social.Validation;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVPhotoAlbumService : HAVBaseService, IHAVPhotoAlbumService {
@@ -49,7 +47,7 @@ namespace HaveAVoice.Services.UserFeatures {
             throw new NotFriendException();
         }
 
-        public PhotoAlbum GetPhotoAlbum(UserInformationModel aUserModel, int anAlbumId) {
+        public PhotoAlbum GetPhotoAlbum(UserInformationModel<User> aUserModel, int anAlbumId) {
             PhotoAlbum myAlbum = thePhotoAlbumRepo.GetPhotoAlbum(anAlbumId);
             AbstractUserModel<User> myAbstractUserModel = new UserModel(aUserModel.Details);
             if (theFriendService.IsFriend(myAlbum.CreatedByUserId, myAbstractUserModel)) {
@@ -59,7 +57,7 @@ namespace HaveAVoice.Services.UserFeatures {
             throw new NotFriendException();
         }
 
-        public PhotoAlbum GetPhotoAlbumForEdit(UserInformationModel aUserModel, int anAlbumId) {
+        public PhotoAlbum GetPhotoAlbumForEdit(UserInformationModel<User> aUserModel, int anAlbumId) {
             PhotoAlbum myAlbum = thePhotoAlbumRepo.GetPhotoAlbum(anAlbumId);
             if (myAlbum.CreatedByUserId == aUserModel.Details.Id) {
                 return myAlbum;
@@ -75,7 +73,7 @@ namespace HaveAVoice.Services.UserFeatures {
             return theValidationDictionary.isValid;
         }
 
-        public bool EditPhotoAlbum(UserInformationModel aUserEditingModel, int anAlbumId, string aName, string aDescription) {
+        public bool EditPhotoAlbum(UserInformationModel<User> aUserEditingModel, int anAlbumId, string aName, string aDescription) {
             if (!ValidateAlbumName(aName)) {
                 return false;
             }
@@ -90,7 +88,7 @@ namespace HaveAVoice.Services.UserFeatures {
             throw new CustomException(HAVConstants.NOT_ALLOWED);
         }
 
-        public void DeletePhotoAlbum(UserInformationModel aUserDeletingModel, int anAlbumId) {
+        public void DeletePhotoAlbum(UserInformationModel<User> aUserDeletingModel, int anAlbumId) {
             PhotoAlbum myAlbum = thePhotoAlbumRepo.GetPhotoAlbum(anAlbumId);
 
             if (myAlbum.CreatedByUserId == aUserDeletingModel.Details.Id) {

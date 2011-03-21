@@ -2,26 +2,32 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using HaveAVoice.Models;
-using HaveAVoice.Services;
-using HaveAVoice.Validation;
-using HaveAVoice.Repositories;
-using HaveAVoice.Helpers;
-using HaveAVoice.Models.View;
-using HaveAVoice.Services.AdminFeatures;
 using HaveAVoice.Controllers.Helpers;
+using HaveAVoice.Models;
+using HaveAVoice.Models.SocialWrappers;
+using HaveAVoice.Models.View;
+using HaveAVoice.Repositories;
+using HaveAVoice.Repositories.AdminFeatures;
+using HaveAVoice.Services;
+using Social.Admin;
+using Social.Admin.Helpers;
+using Social.Generic.Helpers;
+using Social.Generic.Models;
+using Social.Validation;
 
 namespace HaveAVoice.Controllers.Admin {
     public class PermissionController : AdminBaseController {
         private static string PAGE_NOT_FOUND = "You do not have access.";
-        private IHAVPermissionService thePermissionService;
+        private IPermissionService<User, Permission> thePermissionService;
 
          public PermissionController() 
             : base(new HAVBaseService(new HAVBaseRepository())) {
-            thePermissionService = new HAVPermissionService(new ModelStateWrapper(this.ModelState));
+                thePermissionService = new PermissionService<User, Permission>(
+                    new ModelStateWrapper(this.ModelState),
+                    new EntityHAVPermissionRepository());
         }
 
-         public PermissionController(IHAVBaseService myBaseService, IHAVPermissionService myPermissionService)
+         public PermissionController(IHAVBaseService myBaseService, IPermissionService<User, Permission> myPermissionService)
             : base(myBaseService) {
             thePermissionService = myPermissionService;
         }
@@ -30,7 +36,7 @@ namespace HaveAVoice.Controllers.Admin {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            if (!HAVPermissionHelper.AllowedToPerformAction(GetUserInformatonModel(), HAVPermission.View_Permissions)) {
+            if (!PermissionHelper<User>.AllowedToPerformAction(GetUserInformatonModel(), SocialPermission.View_Permissions)) {
                 return SendToErrorPage(PAGE_NOT_FOUND);
             }
 
@@ -50,8 +56,8 @@ namespace HaveAVoice.Controllers.Admin {
         }
 
         public ActionResult Create() {
-            UserInformationModel myUserInformation = GetUserInformatonModel();
-            if (!HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Create_Permission)) {
+            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
+            if (!PermissionHelper<User>.AllowedToPerformAction(myUserInformation, SocialPermission.Create_Permission)) {
                 return SendToErrorPage(PAGE_NOT_FOUND);
             }
             return View("Create");
@@ -63,7 +69,8 @@ namespace HaveAVoice.Controllers.Admin {
                 return RedirectToLogin();
             }
             try {
-                if (thePermissionService.Create(GetUserInformatonModel(), model.Permission)) {
+                AbstractPermissionModel<Permission> myPermissionWrapper = new SocialPermissionModel(model.Permission);
+                if (thePermissionService.Create(GetUserInformatonModel(), myPermissionWrapper)) {
                     return RedirectToAction("Index");
                 }
             } catch (Exception e) {
@@ -78,8 +85,8 @@ namespace HaveAVoice.Controllers.Admin {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel myUserInformation = GetUserInformatonModel();
-            if (!HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Edit_Permission)) {
+            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
+            if (!PermissionHelper<User>.AllowedToPerformAction(myUserInformation, SocialPermission.Edit_Permission)) {
                 return SendToErrorPage(PAGE_NOT_FOUND);
             }
             Permission permission = null;
@@ -102,8 +109,10 @@ namespace HaveAVoice.Controllers.Admin {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
+            
             try {
-                if (thePermissionService.Edit(GetUserInformatonModel(), permission)) {
+                AbstractPermissionModel<Permission> myPermissionWrapper = new SocialPermissionModel(permission);
+                if (thePermissionService.Edit(GetUserInformatonModel(), myPermissionWrapper)) {
                     return RedirectToAction("Index");
                 }
             } catch (Exception e) {
@@ -117,8 +126,8 @@ namespace HaveAVoice.Controllers.Admin {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel myUserInformation = GetUserInformatonModel();
-            if (!HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Delete_Permission)) {
+            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
+            if (!PermissionHelper<User>.AllowedToPerformAction(myUserInformation, SocialPermission.Delete_Permission)) {
                 return SendToErrorPage(PAGE_NOT_FOUND);
             }
             Permission permission = null;

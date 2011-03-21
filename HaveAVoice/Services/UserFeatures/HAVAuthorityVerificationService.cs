@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using HaveAVoice.Repositories.UserFeatures;
-using HaveAVoice.Repositories;
-using HaveAVoice.Services.Helpers;
-using HaveAVoice.Models;
+using System.Text;
 using HaveAVoice.Exceptions;
 using HaveAVoice.Helpers;
-using HaveAVoice.Models.View;
-using HaveAVoice.Validation;
-using System.Text;
+using HaveAVoice.Models;
+using HaveAVoice.Repositories;
+using HaveAVoice.Repositories.UserFeatures;
+using HaveAVoice.Services.Helpers;
+using Social.Admin.Helpers;
+using Social.Generic.Helpers;
+using Social.Generic.Models;
+using Social.Validation;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVAuthorityVerificationService : HAVBaseService, IHAVAuthorityVerificationService {
@@ -32,8 +32,8 @@ namespace HaveAVoice.Services.UserFeatures {
             theEmailService = anEmailService;
         }
 
-        public bool RequestTokenForAuthority(UserInformationModel aRequestingUser, string anEmail, string anAuthorityType, string anAuthorityPosition) {
-            if (!HAVPermissionHelper.AllowedToPerformAction(aRequestingUser, HAVPermission.Create_Authority_Verification_Token)) {
+        public bool RequestTokenForAuthority(UserInformationModel<User> aRequestingUser, string anEmail, string anAuthorityType, string anAuthorityPosition) {
+            if (!PermissionHelper<User>.AllowedToPerformAction(aRequestingUser, SocialPermission.Create_Authority_Verification_Token)) {
                 throw new CustomException(HAVConstants.NOT_ALLOWED);
             }
 

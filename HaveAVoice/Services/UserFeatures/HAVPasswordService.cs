@@ -5,7 +5,7 @@ using HaveAVoice.Models;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services.Helpers;
-using HaveAVoice.Validation;
+using Social.Validation;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVPasswordService : HAVBaseService, IHAVPasswordService {

@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using HaveAVoice.Validation;
-using HaveAVoice.Repositories;
-using HaveAVoice.Repositories.UserFeatures;
-using HaveAVoice.Models.View;
-using HaveAVoice.Models.View.Builders;
-using HaveAVoice.Models;
-using HaveAVoice.Helpers.Enums;
-using HaveAVoice.Services.Helpers;
 using HaveAVoice.Exceptions;
 using HaveAVoice.Helpers;
-using Social.Friend.Services;
+using HaveAVoice.Helpers.Enums;
+using HaveAVoice.Models;
 using HaveAVoice.Models.SocialWrappers;
+using HaveAVoice.Models.View;
+using HaveAVoice.Repositories;
+using HaveAVoice.Repositories.UserFeatures;
+using HaveAVoice.Services.Helpers;
+using Social.Friend.Services;
+using Social.Generic.Models;
 using Social.User.Models;
+using Social.Validation;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVProfileService : HAVBaseService, IHAVProfileService {
@@ -97,7 +96,7 @@ namespace HaveAVoice.Services.UserFeatures {
             throw new CustomException(HAVConstants.NOT_ALLOWED);
         }
 
-        public UserProfileModel AuthorityProfile(UserInformationModel anAuthorityUserInformation) {
+        public UserProfileModel AuthorityProfile(UserInformationModel<User> anAuthorityUserInformation) {
             User myAuthorityUser = anAuthorityUserInformation.Details;
             List<IssueFeedModel> myIssueFeed = CreateIssueFeedForAuthority(theRepository.FilteredIssuesFeed(myAuthorityUser), anAuthorityUserInformation, PersonFilter.People).ToList<IssueFeedModel>();
             List<IssueReplyFeedModel> myIssueReplyFeed = CreateIssueReplyFeedForAuthority(theRepository.FilteredIssueReplysFeed(myAuthorityUser), anAuthorityUserInformation, PersonFilter.People).ToList<IssueReplyFeedModel>();
@@ -199,7 +198,7 @@ namespace HaveAVoice.Services.UserFeatures {
             return myFeedModels;
         }
 
-        private IEnumerable<IssueFeedModel> CreateIssueFeedForAuthority(IEnumerable<Issue> anIssues, UserInformationModel aViewingUser, PersonFilter aPersonFilter) {
+        private IEnumerable<IssueFeedModel> CreateIssueFeedForAuthority(IEnumerable<Issue> anIssues, UserInformationModel<User> aViewingUser, PersonFilter aPersonFilter) {
             List<IssueFeedModel> myFeedModels = new List<IssueFeedModel>();
             foreach (Issue myIssue in anIssues) {
                 IEnumerable<IssueDisposition> myIssueDisposition = myIssue.IssueDispositions;
@@ -232,7 +231,7 @@ namespace HaveAVoice.Services.UserFeatures {
             return myFeedModels;
         }
 
-        private IEnumerable<IssueReplyFeedModel> CreateIssueReplyFeedForAuthority(IEnumerable<IssueReply> anIssueReplys, UserInformationModel aViewingUser, PersonFilter aPersonFilter) {
+        private IEnumerable<IssueReplyFeedModel> CreateIssueReplyFeedForAuthority(IEnumerable<IssueReply> anIssueReplys, UserInformationModel<User> aViewingUser, PersonFilter aPersonFilter) {
             List<IssueReplyFeedModel> myFeedModels = new List<IssueReplyFeedModel>();
 
             foreach (IssueReply myIssueReply in anIssueReplys) {

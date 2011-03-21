@@ -10,7 +10,8 @@ using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
 using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Validation;
+using Social.Generic.Models;
+using Social.Validation;
 
 namespace HaveAVoice.Controllers.Users.Photos {
     public class PhotoAlbumController : HAVBaseController {
@@ -90,7 +91,7 @@ namespace HaveAVoice.Controllers.Users.Photos {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel myUser = GetUserInformatonModel();
+            UserInformationModel<User> myUser = GetUserInformatonModel();
             try {
                 thePhotoAlbumService.DeletePhotoAlbum(myUser, id);
                 TempData["Message"] = MessageHelper.SuccessMessage(DELETE_SUCCESS);
@@ -109,7 +110,7 @@ namespace HaveAVoice.Controllers.Users.Photos {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel myUser = GetUserInformatonModel();
+            UserInformationModel<User> myUser = GetUserInformatonModel();
             LoggedInWrapperModel<PhotoAlbum> myPhotoAlbum = new LoggedInWrapperModel<PhotoAlbum>(myUser.Details, SiteSection.Photos);
             try {
                 myPhotoAlbum.Model = thePhotoAlbumService.GetPhotoAlbum(myUser, id);
@@ -129,7 +130,7 @@ namespace HaveAVoice.Controllers.Users.Photos {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel myUser = GetUserInformatonModel();
+            UserInformationModel<User> myUser = GetUserInformatonModel();
             LoggedInWrapperModel<PhotoAlbum> myPhotoAlbum = new LoggedInWrapperModel<PhotoAlbum>(myUser.Details, SiteSection.Photos);
             try {
                 myPhotoAlbum.Model = thePhotoAlbumService.GetPhotoAlbumForEdit(myUser, id);
@@ -149,7 +150,7 @@ namespace HaveAVoice.Controllers.Users.Photos {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel myUser = GetUserInformatonModel();
+            UserInformationModel<User> myUser = GetUserInformatonModel();
             try {
                 bool myResult = thePhotoAlbumService.EditPhotoAlbum(myUser, albumId, name, description);
                 if (myResult) {

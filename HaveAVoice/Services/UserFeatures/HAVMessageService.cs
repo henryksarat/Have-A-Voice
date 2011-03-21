@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using HaveAVoice.Validation;
+using HaveAVoice.Models;
 using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
-using HaveAVoice.Models;
 using HaveAVoice.Services.UserFeatures.Helpers;
+using Social.Validation;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVMessageService : HAVBaseService, IHAVMessageService {

@@ -6,6 +6,7 @@
 <%@ Import Namespace="HaveAVoice.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UI" %>
+<%@ Import Namespace="Social.Generic.Models" %>
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
@@ -59,7 +60,7 @@
 			});
 		//-->
 	</script>
-    <% UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation(); %>
+    <% UserInformationModel<User> myUserInfo = HAVUserInformationFactory.GetUserInformation(); %>
     
     <% Html.RenderPartial("UserPanel", Model.NavigationModel); %>
     <div class="col-3 m-rgt left-nav">

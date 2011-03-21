@@ -5,20 +5,18 @@ using System.Web;
 using HaveAVoice.Models;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models.View;
+using Social.Generic.Models;
+using Social.Generic.Helpers;
+using Social.Admin.Helpers;
 
 namespace HaveAVoice.Services.Helpers {
     public class RoleHelper {
-        public static bool IsPolitician(UserInformationModel aUser) {
-            IEnumerable<string> myPermissions = (from p in aUser.Permissions
-                                                 select p.Name).ToList<string>();
-
-            return myPermissions.Contains(HAVPermission.Confirmed_Politician.ToString());
+        public static bool IsPolitician(UserInformationModel<User> aUser) {
+            return PermissionHelper<User>.HasPermission(aUser, SocialPermission.Confirmed_Politician);
         }
 
-        public static bool IsPoliticalCandidate(UserInformationModel aUser) {
-            IEnumerable<string> myPermissions = (from p in aUser.Permissions
-                                                 select p.Name).ToList<string>();
-            return myPermissions.Contains(HAVPermission.Confirmed_Political_Candidate.ToString());
+        public static bool IsPoliticalCandidate(UserInformationModel<User> aUser) {
+            return PermissionHelper<User>.HasPermission(aUser, SocialPermission.Confirmed_Political_Candidate);
         }
 
         public static bool IsPolitician(User aUserToCheckAgainst) {

@@ -1,8 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInListModel<Event>>" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Helpers" %>
-<%@Import Namespace="HaveAVoice.Helpers.UserInformation" %>
+<%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
+<%@ Import Namespace="Social.Generic.Models" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Calendar
@@ -29,7 +30,7 @@
         <% Html.RenderPartial("Message"); %>
         <% Html.RenderPartial("Validation"); %>
 
-        <% UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation(); %>
+        <% UserInformationModel<User> myUserInformationModel = HAVUserInformationFactory.GetUserInformation(); %>
         <% bool myIsUser = myUserInformationModel.Details.Id == Model.NavigationModel.User.Id; %>
         <% if (myIsUser) { %>
 		    <div class="create">

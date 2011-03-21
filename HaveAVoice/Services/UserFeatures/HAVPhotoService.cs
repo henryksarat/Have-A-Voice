@@ -16,6 +16,7 @@ using System.Drawing.Drawing2D;
 using Social.Friend.Services;
 using Social.User.Models;
 using HaveAVoice.Models.SocialWrappers;
+using Social.Generic.Models;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVPhotoService : HAVBaseService, IHAVPhotoService {
@@ -109,7 +110,7 @@ namespace HaveAVoice.Services.UserFeatures {
             return thePhotoRepo.GetProfilePicture(aUserId);
         }
 
-        public void UploadImageWithDatabaseReference(UserInformationModel aUserToUploadFor, int anAlbumId, HttpPostedFileBase aImageFile) {
+        public void UploadImageWithDatabaseReference(UserInformationModel<User> aUserToUploadFor, int anAlbumId, HttpPostedFileBase aImageFile) {
             PhotoAlbum myAlbum = thePhotoAlbumRepo.GetPhotoAlbum(anAlbumId);
              if (myAlbum.CreatedByUserId == aUserToUploadFor.Details.Id) {
                  string myImageName = UploadImage(aUserToUploadFor.Details, aImageFile);

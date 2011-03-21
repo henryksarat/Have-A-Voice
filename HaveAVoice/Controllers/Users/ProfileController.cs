@@ -1,22 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using HaveAVoice.Controllers.Admin;
-using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Validation;
-using HaveAVoice.Repositories;
-using HaveAVoice.Services;
-using HaveAVoice.Models;
-using System.Text;
-using HaveAVoice.Models.View;
-using HaveAVoice.Controllers.Helpers;
+using System.Web.UI;
 using HaveAVoice.Controllers.ActionFilters;
+using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Exceptions;
 using HaveAVoice.Helpers;
 using HaveAVoice.Helpers.Enums;
-using System.Web.UI;
+using HaveAVoice.Models;
+using HaveAVoice.Models.View;
+using HaveAVoice.Repositories;
+using HaveAVoice.Services;
+using HaveAVoice.Services.UserFeatures;
+using Social.Admin.Helpers;
+using Social.Generic.Helpers;
+using Social.Generic.Models;
+using Social.Validation;
 
 namespace HaveAVoice.Controllers.Users {
     public class ProfileController : HAVBaseController {
@@ -103,11 +102,11 @@ namespace HaveAVoice.Controllers.Users {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel myUser = GetUserInformatonModel();
+            UserInformationModel<User> myUser = GetUserInformatonModel();
             LoggedInWrapperModel<UserProfileModel> myModel = new LoggedInWrapperModel<UserProfileModel>(myUser.Details, SiteSection.MyProfile);
 
             try {
-                if (HAVPermissionHelper.AllowedToPerformAction(myUser, HAVPermission.Authority_Feed)) {
+                if (PermissionHelper<User>.AllowedToPerformAction(myUser, SocialPermission.Authority_Feed)) {
                     myModel.Model = theService.AuthorityProfile(myUser);
                 } else {
                     myModel.Model = theService.MyProfile(myUser.Details);

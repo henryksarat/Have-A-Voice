@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using HaveAVoice.Validation;
-using HaveAVoice.Helpers;
 using HaveAVoice.Services.AdminFeatures;
+using Social.Validation;
+using Social.Admin.Services;
+using HaveAVoice.Repositories.AdminFeatures;
 
 namespace HaveAVoice.Models.View {
     public class RestrictionModelBinder : IModelBinder {
         public object BindModel(ControllerContext aControllerContext, ModelBindingContext aBindingContext) {
-            IHAVRoleService restrictionService = new HAVRoleService(new ModelStateWrapper(null));
+            IRoleService<User, Role> restrictionService = new RoleService<User, Role>(new ModelStateWrapper(null), new EntityHAVRoleRepository());
             List<Role> roles = restrictionService.GetAllRoles().ToList();
 
             string myName = BinderHelper.GetA(aBindingContext, "Name");

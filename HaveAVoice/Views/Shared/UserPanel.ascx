@@ -6,6 +6,7 @@
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Helpers.Enums" %>
 <%@ Import Namespace="HaveAVoice.Helpers" %>
+<%@ Import Namespace="Social.Generic.Models" %>
 
 <link rel="stylesheet" type="text/css" href="/Content/jquery.autocomplete.css" />
 
@@ -55,7 +56,7 @@
 </script>
 
 <div class="col-24 user-panel">
-    <% UserInformationModel myUser = HAVUserInformationFactory.GetUserInformation(); %>
+    <% UserInformationModel<User> myUser = HAVUserInformationFactory.GetUserInformation(); %>
 	<div class="col-3 center">
 		<img src="<%= Model.ProfilePictureUrl %>" alt="<%= Model.FullName %>" class="profile" />
 	</div>

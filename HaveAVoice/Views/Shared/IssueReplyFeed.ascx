@@ -4,6 +4,7 @@
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
 <%@ Import Namespace="HaveAVoice.Helpers.Enums" %>
+<%@ Import Namespace="Social.Generic.Models" %>
 
 <% int myCount = (int)ViewData["Count"]; %>
 <% SiteSection mySection = (SiteSection)ViewData["SiteSection"]; %>
@@ -91,7 +92,7 @@
 
 <div class="reply-wrpr">
 	<% int j = 0; %>
-    <% UserInformationModel myUserInformation = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation(); %>
+    <% UserInformationModel<User> myUserInformation = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation(); %>
 	<% foreach (var item in Model.IssueReplyComments) { %>
 	    <div class="<% if (j % 2 == 0) { %>row<% } else { %>alt<% } %> reply push-3 col-19 m-btm5">
 		    <div class="col-1 center">

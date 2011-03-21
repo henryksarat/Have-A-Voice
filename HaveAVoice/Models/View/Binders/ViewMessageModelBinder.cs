@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using HaveAVoice.Helpers;
-using HaveAVoice.Services;
-using HaveAVoice.Validation;
-using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Helpers.UserInformation;
+using HaveAVoice.Services.UserFeatures;
+using Social.Validation;
 
 namespace HaveAVoice.Models.View {
     public class ViewMessageModelBinder : IModelBinder {

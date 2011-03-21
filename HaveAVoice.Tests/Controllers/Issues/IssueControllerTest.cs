@@ -1,21 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Web.Mvc;
-using Moq;
-using HaveAVoice.Repositories;
-using HaveAVoice.Services;
-using HaveAVoice.Validation;
-using HaveAVoice.Helpers;
+﻿using HaveAVoice.Controllers.Issues;
 using HaveAVoice.Models;
-using HaveAVoice.Controllers.Issues;
 using HaveAVoice.Models.View;
-using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Repositories.UserFeatures;
-using HaveAVoice.Tests.Helpers;
-using HaveAVoice.Tests.Models;
 using HaveAVoice.Repositories.Issues;
 using HaveAVoice.Services.Issues;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace HaveAVoice.Tests.Controllers.Issues {
     [TestClass]
@@ -365,7 +354,7 @@ namespace HaveAVoice.Tests.Controllers.Issues {
             VerifyEdit(Times.Exactly(1));
             AssertAuthenticatedFailWithReturnBack(myResult, "Edit", theIssue);
         }
-         * */
+         
 
         private void VerifyEdit(Times aTimes) {
             theMockedService.Verify(s => s.EditIssue(It.IsAny<UserInformationModel>(), It.IsAny<Issue>()), aTimes);
@@ -374,5 +363,6 @@ namespace HaveAVoice.Tests.Controllers.Issues {
         protected override Controller GetController() {
             return theController;
         }
+        */
     }
 }

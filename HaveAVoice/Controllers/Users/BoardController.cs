@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using HaveAVoice.Models.View;
-using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Services;
-using HaveAVoice.Validation;
-using HaveAVoice.Repositories;
-using HaveAVoice.Helpers;
-using HaveAVoice.Models;
 using HaveAVoice.Controllers.ActionFilters;
 using HaveAVoice.Controllers.Helpers;
+using HaveAVoice.Helpers;
+using HaveAVoice.Models;
+using HaveAVoice.Models.View;
+using HaveAVoice.Repositories;
+using HaveAVoice.Services;
+using HaveAVoice.Services.UserFeatures;
+using Social.Admin.Helpers;
+using Social.Generic.Helpers;
+using Social.Generic.Models;
+using Social.Validation;
 
 namespace HaveAVoice.Controllers.Users {
     public class BoardController : HAVBaseController {
@@ -59,7 +59,7 @@ namespace HaveAVoice.Controllers.Users {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel myPostingUser = GetUserInformatonModel();
+            UserInformationModel<User> myPostingUser = GetUserInformatonModel();
             try {
                 bool myBoardResult = theService.PostToBoard(myPostingUser, sourceUserId, boardMessage);
                 if (myBoardResult) {
@@ -122,8 +122,8 @@ namespace HaveAVoice.Controllers.Users {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel myUserInfo = GetUserInformatonModel();
-            if (!HAVPermissionHelper.AllowedToPerformAction(myUserInfo, HAVPermission.Delete_Board_Message, HAVPermission.Delete_Any_Board_Message)) {
+            UserInformationModel<User> myUserInfo = GetUserInformatonModel();
+            if (!PermissionHelper<User>.AllowedToPerformAction(myUserInfo, SocialPermission.Delete_Board_Message, SocialPermission.Delete_Any_Board_Message)) {
                 return SendToErrorPage(HAVConstants.PAGE_NOT_FOUND);
             }
             try {

@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Mvc;
 using HaveAVoice.Exceptions;
 using HaveAVoice.Helpers;
+using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services.Helpers;
-using HaveAVoice.Validation;
-using HaveAVoice.Helpers.Enums;
+using Social.Validation;
 
 
 namespace HaveAVoice.Services.UserFeatures {

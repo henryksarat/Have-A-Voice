@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
 
-namespace HaveAVoice.Helpers {
-    public enum HAVPrivacySetting {
+namespace Social.Generic.Helpers {
+    public enum SocialPrivacySetting {
         //Displaying profile
         Display_Profile_To_Friend,
         Display_Profile_To_Not_Friend,

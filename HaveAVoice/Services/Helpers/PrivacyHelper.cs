@@ -1,22 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using HaveAVoice.Models;
-using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Helpers.Enums;
-using HaveAVoice.Helpers;
-using HaveAVoice.Models.View;
+using HaveAVoice.Helpers.UserInformation;
+using HaveAVoice.Models;
+using Social.Admin.Helpers;
+using Social.Generic.Helpers;
+using Social.Generic.Models;
 
 namespace HaveAVoice.Services.Helpers {
     public class PrivacyHelper {
         public static bool IsAllowed(User aPrivacyUser, PrivacyAction aPrivacyAction) {
-            UserInformationModel myUser = HAVUserInformationFactory.GetUserInformation();
+            UserInformationModel<User> myUser = HAVUserInformationFactory.GetUserInformation();
             return IsAllowed(aPrivacyUser, aPrivacyAction, myUser);
         }
 
-        public static bool IsAllowed(User aPrivacyUser, PrivacyAction aPrivacyAction, UserInformationModel aViewingUser) {
+        public static bool IsAllowed(User aPrivacyUser, PrivacyAction aPrivacyAction, UserInformationModel<User> aViewingUser) {
             bool myIsAllowed = true;
             if (aViewingUser != null && (aViewingUser.Details.Id == aPrivacyUser.Id)) {
                 return true;
@@ -29,21 +27,21 @@ namespace HaveAVoice.Services.Helpers {
 
             if (aPrivacyAction == PrivacyAction.DisplayProfile) {
                 if (aViewingUser == null || (aViewingUser != null && !FriendHelper.IsFriend(aPrivacyUser, aViewingUser.Details))) {
-                    if (HasPrivacySetting(myTargetUsersSettings, HAVPrivacySetting.Display_Profile_To_Not_Friend)) {
+                    if (HasPrivacySetting(myTargetUsersSettings, SocialPrivacySetting.Display_Profile_To_Not_Friend)) {
                         myIsAllowed = true;
                     } else {
                         myIsAllowed = false;
                     }
                 }
-                if (aViewingUser != null && HAVPermissionHelper.HasPermission(aViewingUser, HAVPermission.Confirmed_Politician)) {
-                    if (HasPrivacySetting(myTargetUsersSettings, HAVPrivacySetting.Display_Profile_To_Politician)) {
+                if (aViewingUser != null && PermissionHelper<User>.HasPermission(aViewingUser, SocialPermission.Confirmed_Politician)) {
+                    if (HasPrivacySetting(myTargetUsersSettings, SocialPrivacySetting.Display_Profile_To_Politician)) {
                         myIsAllowed = true;
                     } else {
                         myIsAllowed = false;
                     }
                 }
-                if (aViewingUser != null && HAVPermissionHelper.HasPermission(aViewingUser, HAVPermission.Confirmed_Political_Candidate)) {
-                    if (HasPrivacySetting(myTargetUsersSettings, HAVPrivacySetting.Display_Profile_To_Political_Candidate)) {
+                if (aViewingUser != null && PermissionHelper<User>.HasPermission(aViewingUser, SocialPermission.Confirmed_Political_Candidate)) {
+                    if (HasPrivacySetting(myTargetUsersSettings, SocialPrivacySetting.Display_Profile_To_Political_Candidate)) {
                         myIsAllowed = true;
                     } else {
                         myIsAllowed = false;
@@ -54,7 +52,7 @@ namespace HaveAVoice.Services.Helpers {
             return myIsAllowed;
         }
 
-        private static bool HasPrivacySetting(IEnumerable<string> aPrivacySettings, HAVPrivacySetting aPrivacy) {
+        private static bool HasPrivacySetting(IEnumerable<string> aPrivacySettings, SocialPrivacySetting aPrivacy) {
             return aPrivacySettings.Contains(aPrivacy.ToString());
         }
     }

@@ -10,6 +10,7 @@ using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Models.SocialWrappers;
 using Social.User.Models;
+using Social.Generic.Models;
 
 namespace HaveAVoice.Controllers  {
     public abstract class HAVBaseController : Controller {
@@ -39,7 +40,7 @@ namespace HaveAVoice.Controllers  {
         }
 
         protected User GetUserInformaton() {
-            UserInformationModel myUserInformation = GetUserInformatonModel();
+            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
             return myUserInformation != null ? myUserInformation.Details : null;
         }
 
@@ -47,12 +48,12 @@ namespace HaveAVoice.Controllers  {
             return new UserModel(GetUserInformaton());
         }
 
-        protected UserInformationModel GetUserInformatonModel() {
+        protected UserInformationModel<User> GetUserInformatonModel() {
             return HAVUserInformationFactory.GetUserInformation();
         }
 
         protected void RefreshUserInformation() {
-            UserInformationModel myUserInformationModel = GetUserInformatonModel();
+            UserInformationModel<User> myUserInformationModel = GetUserInformatonModel();
             try {
                 myUserInformationModel = theAuthService.RefreshUserInformationModel(GetUserInformatonModel());
             } catch (Exception myException) {
@@ -73,7 +74,7 @@ namespace HaveAVoice.Controllers  {
                 }
 
                 if (myUser != null) {
-                    UserInformationModel userModel = null;
+                    UserInformationModel<User> userModel = null;
                     try {
                         userModel = theAuthService.CreateUserInformationModel(myUser);
                     } catch (Exception e) {
@@ -144,7 +145,7 @@ namespace HaveAVoice.Controllers  {
             Session["ErrorMessage"] = errorModel;
         }
 
-        private void CreateUserInformationSession(UserInformationModel aUserModel) {
+        private void CreateUserInformationSession(UserInformationModel<User> aUserModel) {
             Session["UserInformation"] = aUserModel;
         }
     }

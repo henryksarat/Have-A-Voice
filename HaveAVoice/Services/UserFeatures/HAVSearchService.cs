@@ -1,9 +1,8 @@
-﻿using HaveAVoice.Validation;
+﻿using System.Collections.Generic;
+using HaveAVoice.Helpers;
+using HaveAVoice.Models;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
-using System.Collections.Generic;
-using HaveAVoice.Models;
-using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVSearchService : HAVBaseService, IHAVSearchService {

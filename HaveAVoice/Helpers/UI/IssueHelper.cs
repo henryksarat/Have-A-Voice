@@ -8,6 +8,9 @@ using HaveAVoice.Models.View;
 using HaveAVoice.Services.Helpers;
 using System.Collections.Generic;
 using System.Linq;
+using Social.Generic.Models;
+using Social.Admin.Helpers;
+using Social.Generic.Helpers;
 
 namespace HaveAVoice.Helpers.UI {
     public class IssueHelper {
@@ -104,7 +107,7 @@ namespace HaveAVoice.Helpers.UI {
             string myDisagreeCssClass = aDisagreeCssClass;
             string myDeleteCssClass = aDeleteCssClass;
             string myEditCssClass = anEditCssClass;
-            UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation();
+            UserInformationModel<User> myUserInfo = HAVUserInformationFactory.GetUserInformation();
             bool myHasStance = GetHasStance(anIssue, myUserInfo);
 
             if (aUseAlternate && (myHasStance || myUserInfo == null)) {
@@ -117,7 +120,7 @@ namespace HaveAVoice.Helpers.UI {
                 myDisagreeCssClass, myDeleteCssClass, myEditCssClass, aSiteSection, aSourceId);
         }
 
-        private static string IssueInformationDiv(Issue anIssue, UserInformationModel aUserInfoModel, bool aHasStance, string anIssueInfoCssClass, string anEditAndStanceCssClass, string aReportCssClass, string anAgreeCssClass,
+        private static string IssueInformationDiv(Issue anIssue, UserInformationModel<User> aUserInfoModel, bool aHasStance, string anIssueInfoCssClass, string anEditAndStanceCssClass, string aReportCssClass, string anAgreeCssClass,
                                                  string aDisagreeCssClass, string anDeleteCssClass, string anEditCssClass, SiteSection aSiteSection, int aSourceId) {
             var myIssueInfoDiv = new TagBuilder("div");
             myIssueInfoDiv.AddCssClass(anIssueInfoCssClass);
@@ -217,14 +220,14 @@ namespace HaveAVoice.Helpers.UI {
             return myStatsDiv.ToString();
         }
 
-        private static TagBuilder AgreeDiv(UserInformationModel aUserInformation, Issue anIssue, string aCssClass, SiteSection aSource, int aSourceId) {
+        private static TagBuilder AgreeDiv(UserInformationModel<User> aUserInformation, Issue anIssue, string aCssClass, SiteSection aSource, int aSourceId) {
             bool myHasDisposition = GetHasStance(anIssue, aUserInformation);
             bool myIsLoggedIn = aUserInformation != null;
             int myTotalAgrees = GetTotalStance(anIssue, Disposition.Like);
             return SharedContentStyleHelper.AgreeStanceDiv(aCssClass, myHasDisposition, myIsLoggedIn, myTotalAgrees, LinkHelper.AgreeIssue(anIssue.Id, aSource, aSourceId));
         }
 
-        private static TagBuilder DisagreeDiv(UserInformationModel aUserInformation, Issue anIssue, string aCssClass, SiteSection aSource, int aSourceId) {
+        private static TagBuilder DisagreeDiv(UserInformationModel<User> aUserInformation, Issue anIssue, string aCssClass, SiteSection aSource, int aSourceId) {
             bool myHasDisposition = GetHasStance(anIssue, aUserInformation);
             bool myIsLoggedIn = aUserInformation != null;
             int myTotalDisagrees = GetTotalStance(anIssue, Disposition.Dislike);
@@ -237,7 +240,7 @@ namespace HaveAVoice.Helpers.UI {
                     select s).Count<IssueDisposition>();
         }
 
-        private static bool GetHasStance(Issue anIssue, UserInformationModel aUserInfoModel) {
+        private static bool GetHasStance(Issue anIssue, UserInformationModel<User> aUserInfoModel) {
             bool myHasDisposition =  aUserInfoModel != null &&
                                     (from s in anIssue.IssueDispositions
                                      where s.UserId == aUserInfoModel.Details.Id
@@ -245,14 +248,14 @@ namespace HaveAVoice.Helpers.UI {
             return myHasDisposition;
         }
 
-        private static bool ShouldDisplayEditLink(UserInformationModel aUserInformation, Issue anIssue) {
-            return (HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Edit_Issue) && aUserInformation.Details.Id == anIssue.UserId)
-                || HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Edit_Any_Issue);
+        private static bool ShouldDisplayEditLink(UserInformationModel<User> aUserInformation, Issue anIssue) {
+            return (PermissionHelper<User>.AllowedToPerformAction(aUserInformation, SocialPermission.Edit_Issue) && aUserInformation.Details.Id == anIssue.UserId)
+                || PermissionHelper<User>.AllowedToPerformAction(aUserInformation, SocialPermission.Edit_Any_Issue);
         }
 
-        private static bool ShouldDisplayDeleteLink(UserInformationModel aUserInformation, Issue anIssue) {
-            return (HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Delete_Issue) && aUserInformation.Details.Id == anIssue.UserId)
-                || HAVPermissionHelper.AllowedToPerformAction(aUserInformation, HAVPermission.Delete_Any_Issue);
+        private static bool ShouldDisplayDeleteLink(UserInformationModel<User> aUserInformation, Issue anIssue) {
+            return (PermissionHelper<User>.AllowedToPerformAction(aUserInformation, SocialPermission.Delete_Issue) && aUserInformation.Details.Id == anIssue.UserId)
+                || PermissionHelper<User>.AllowedToPerformAction(aUserInformation, SocialPermission.Delete_Any_Issue);
         }
 
         private static string Filter(string aFilterType, string anActionMethodName, string aFilterText, Dictionary<string, string> aSelectedFilters, string aDisplayName, string aNonSelectedCssClass, string aSelectedCssClass, int aSourceId) {
@@ -269,7 +272,7 @@ namespace HaveAVoice.Helpers.UI {
             return linkTag.ToString();
         }
 
-        private static TagBuilder DeleteDiv(UserInformationModel myUserInformationModel, Issue anIssue, string aCssClass) {
+        private static TagBuilder DeleteDiv(UserInformationModel<User> myUserInformationModel, Issue anIssue, string aCssClass) {
             var myDeleteDiv = new TagBuilder("div");
             myDeleteDiv.MergeAttribute("class", aCssClass);
 
@@ -287,7 +290,7 @@ namespace HaveAVoice.Helpers.UI {
             return myDeleteDiv;
         }
 
-        private static TagBuilder EditDiv(UserInformationModel myUserInformationModel, Issue anIssue, string aCssClass) {
+        private static TagBuilder EditDiv(UserInformationModel<User> myUserInformationModel, Issue anIssue, string aCssClass) {
             var myEditDiv = new TagBuilder("div");
             myEditDiv.MergeAttribute("class", aCssClass);
 
@@ -305,7 +308,7 @@ namespace HaveAVoice.Helpers.UI {
             return myEditDiv;
         }
 
-        private static TagBuilder ComplaintDiv(UserInformationModel myUserInformationModel, Issue anIssue, string aCssClass) {
+        private static TagBuilder ComplaintDiv(UserInformationModel<User> myUserInformationModel, Issue anIssue, string aCssClass) {
             var myComplaintDiv = new TagBuilder("div");
             myComplaintDiv.MergeAttribute("class", aCssClass);
 

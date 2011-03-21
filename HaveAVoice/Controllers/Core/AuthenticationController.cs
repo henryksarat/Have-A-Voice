@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Validation;
-using HaveAVoice.Services;
-using HaveAVoice.Repositories;
-using HaveAVoice.Models.View;
-using HaveAVoice.Exceptions;
 using HaveAVoice.Controllers.Helpers;
+using HaveAVoice.Exceptions;
+using HaveAVoice.Models;
+using HaveAVoice.Repositories;
+using HaveAVoice.Services;
 using HaveAVoice.Services.Helpers;
+using HaveAVoice.Services.UserFeatures;
+using Social.Generic.Models;
+using Social.Validation;
 
 namespace HaveAVoice.Controllers.Core {
     public class AuthenticationController : HAVBaseController {
@@ -56,7 +55,7 @@ namespace HaveAVoice.Controllers.Core {
                 return RedirectToProfile();
             }
 
-            UserInformationModel userModel = null;
+            UserInformationModel<User> userModel = null;
             try {
                 userModel = theAuthService.AuthenticateUser(email, password);
             } catch (Exception e) {
@@ -113,7 +112,7 @@ namespace HaveAVoice.Controllers.Core {
             return RedirectToAction("Login");
         }
 
-        private void CreateUserInformationSession(UserInformationModel aUserModel) {
+        private void CreateUserInformationSession(UserInformationModel<User> aUserModel) {
             Session["UserInformation"] = aUserModel;
         }
     }

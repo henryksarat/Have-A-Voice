@@ -4,6 +4,7 @@
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UI" %>
+<%@ Import Namespace="Social.Generic.Models" %>
 
 <% int myCount = (int)ViewData["Count"]; %>
 <div class="board-<% if(myCount % 2 == 0) { %>row<% } else { %>alt<% } %> p-v10 m-btm5">
@@ -27,7 +28,7 @@
 	<% } %>
 </div>
 	
-<% UserInformationModel myUserModel = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation();  %>
+<% UserInformationModel<User> myUserModel = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation();  %>
 <% if (myUserModel != null) { %>
     <div class="board-reply m-btm5">
 	    <a href="#" rel="reply" class="push-17 alpha col-1 omega center button">Reply</a>

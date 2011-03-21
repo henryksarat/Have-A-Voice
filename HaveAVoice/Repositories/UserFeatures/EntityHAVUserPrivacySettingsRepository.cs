@@ -5,13 +5,14 @@ using System.Web;
 using HaveAVoice.Services;
 using HaveAVoice.Models;
 using HaveAVoice.Helpers;
+using Social.Generic.Helpers;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVUserPrivacySettingsRepository : IHAVUserPrivacySettingsRepository {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
-        public void AddPrivacySettingsForUser(User aTargetUser, HAVPrivacySetting[] aSettings) {
-            foreach (HAVPrivacySetting mySetting in aSettings) {
+        public void AddPrivacySettingsForUser(User aTargetUser, SocialPrivacySetting[] aSettings) {
+            foreach (SocialPrivacySetting mySetting in aSettings) {
                 PrivacySetting myPrivacySetting = FindPrivacySettingByName(mySetting.ToString());
                 UserPrivacySetting myUserPrivacySetting = UserPrivacySetting.CreateUserPrivacySetting(0, aTargetUser.Id, myPrivacySetting.Name);
 

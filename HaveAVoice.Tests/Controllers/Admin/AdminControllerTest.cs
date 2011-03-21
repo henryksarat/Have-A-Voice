@@ -11,41 +11,44 @@ using System.Web.Mvc;
 namespace HaveAVoice.Tests.Controllers.Admin {
     [TestClass]
     public class AdminControllerTest : ControllerTestCase {
-        private static AdminController theController;
+        /*
 
-        [TestInitialize]
-        public void Initialize() {
-            theController = new AdminController(theMockedBaseService.Object);
-            theController.ControllerContext = GetControllerContext();
-        }
+            private static AdminController theController;
 
-        [TestMethod]
-        public void ShouldLoadAdminMainPage() {
-            PermissionTestHelper.AddPermissionToUserInformation(theUserInformationBuilder, HAVPermission.View_Admin);
+            [TestInitialize]
+            public void Initialize() {
+                theController = new AdminController(theMockedBaseService.Object);
+                theController.ControllerContext = GetControllerContext();
+            }
 
-            var myResult = theController.Index() as ViewResult;
+            [TestMethod]
+            public void ShouldLoadAdminMainPage() {
+                PermissionTestHelper.AddPermissionToUserInformation(theUserInformationBuilder, HAVPermission.View_Admin);
 
-            AssertAuthenticatedCleanSuccess(myResult, "Index");
-        }
+                var myResult = theController.Index() as ViewResult;
 
-        [TestMethod]
-        public void ShouldNotLoadAdminMainPageWithoutPermission() {
-            var myResult = theController.Index() as ViewResult;
+                AssertAuthenticatedCleanSuccess(myResult, "Index");
+            }
 
-            AssertAuthenticatedRedirection(myResult);
-        }
+            [TestMethod]
+            public void ShouldNotLoadAdminMainPageWithoutPermission() {
+                var myResult = theController.Index() as ViewResult;
 
-        [TestMethod]
-        public void ShouldNotLoadAdminMainPageNotLoggedIn() {
-            MockNotLoggedIn();
+                AssertAuthenticatedRedirection(myResult);
+            }
 
-            var myResult = theController.Index() as ViewResult;
+            [TestMethod]
+            public void ShouldNotLoadAdminMainPageNotLoggedIn() {
+                MockNotLoggedIn();
 
-            AssertAuthenticatedRedirection(myResult);
-        }
+                var myResult = theController.Index() as ViewResult;
 
-        protected override Controller GetController() {
-            return theController;
-        }
+                AssertAuthenticatedRedirection(myResult);
+            }
+
+            protected override Controller GetController() {
+                return theController;
+            }
+         */
     }
 }

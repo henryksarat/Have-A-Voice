@@ -1,8 +1,8 @@
-﻿using HaveAVoice.Validation;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using HaveAVoice.Models;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.AdminFeatures;
-using HaveAVoice.Models;
+using Social.Validation;
 
 namespace HaveAVoice.Services.AdminFeatures {
     public class HAVErrorService : HAVBaseService, IHAVErrorService {

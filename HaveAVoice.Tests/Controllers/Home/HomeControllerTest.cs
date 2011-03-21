@@ -72,9 +72,10 @@ namespace HaveAVoice.Tests.Controllers.Home {
             };
             return myModel;
         }
-        */
+        
         protected override System.Web.Mvc.Controller GetController() {
             return theController;
         }
+        */
     }
 }

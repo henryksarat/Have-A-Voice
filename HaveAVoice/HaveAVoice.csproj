@@ -105,9 +105,7 @@
     <Compile Include="Helpers\Enums\IssueStanceFilter.cs" />
     <Compile Include="Helpers\Exceptions\CustomException.cs" />
     <Compile Include="Helpers\Exceptions\NotFriendException.cs" />
-    <Compile Include="Helpers\HAVPermissionHelper.cs" />
     <Compile Include="Helpers\HAVPrivacyHelper.cs" />
-    <Compile Include="Helpers\HAVPrivacySetting.cs" />
     <Compile Include="Helpers\LinkHelper.cs" />
     <Compile Include="Helpers\PresentationHelper.cs" />
     <Compile Include="Helpers\ProfileHelper.cs" />
@@ -133,7 +131,6 @@
     <Compile Include="Helpers\Enums\ComplaintType.cs" />
     <Compile Include="Helpers\Relation.cs" />
     <Compile Include="Helpers\UI\ImageHelper.cs" />
-    <Compile Include="Helpers\HAVPermission.cs" />
     <Compile Include="Helpers\UI\NavigationHelper.cs" />
     <Compile Include="Helpers\UserInformation\UserSettings.cs" />
     <Compile Include="Helpers\Enums\ForgotPasswordPhase.cs" />
@@ -147,6 +144,8 @@
     </Compile>
     <Compile Include="Helpers\ActionMethods\AcceptParameterAttribute.cs" />
     <Compile Include="Helpers\ActionMethods\CaptchaValidatorAttribute.cs" />
+    <Compile Include="Models\SocialWrappers\SocialPermissionModel.cs" />
+    <Compile Include="Models\SocialWrappers\SocialRoleModel.cs" />
     <Compile Include="Models\SocialWrappers\UserModel.cs" />
     <Compile Include="Models\View\AuthorityVerificationModel.cs" />
     <Compile Include="Models\View\Binders\UpdatePrivacySettingsModelBinder.cs" />
@@ -177,7 +176,6 @@
     <Compile Include="Models\Wrappers\IssueReplyWrapper.cs" />
     <Compile Include="Models\Wrappers\IssueWrapper.cs" />
     <Compile Include="Repositories\AdminFeatures\EntityHAVPermissionRepository.cs" />
-    <Compile Include="Repositories\AdminFeatures\IHAVPermissionRepository.cs" />
     <Compile Include="Repositories\Issues\EntityHAVIssueReplyCommentRepository.cs" />
     <Compile Include="Repositories\Issues\EntityHAVIssueReplyRepository.cs" />
     <Compile Include="Repositories\Issues\Helpers\IssueReplyViewedHelper.cs" />
@@ -219,8 +217,6 @@
     <Compile Include="Repositories\UserFeatures\IHAVPhotoRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVUserPrivacySettingsRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVUserRetrievalRepository.cs" />
-    <Compile Include="Services\AdminFeatures\HAVPermissionService.cs" />
-    <Compile Include="Services\AdminFeatures\IHAVPermissionService.cs" />
     <Compile Include="Services\Helpers\NavigationCountHelper.cs" />
     <Compile Include="Services\Helpers\PrivacyHelper.cs" />
     <Compile Include="Services\Helpers\PhotoHelper.cs" />
@@ -288,7 +284,6 @@
     <Compile Include="Models\Wrappers\BoardReplyWrapper.cs" />
     <Compile Include="Models\Wrappers\BoardWrapper.cs" />
     <Compile Include="Models\View\BoardModel.cs" />
-    <Compile Include="Models\View\Builders\UserInformationModelBuilder.cs" />
     <Compile Include="Models\View\ComplaintModel.cs" />
     <Compile Include="Models\View\EditIssueReplyModel.cs" />
     <Compile Include="Models\View\ErrorModel.cs" />
@@ -314,7 +309,6 @@
     <Compile Include="Models\View\Binders\EditUserModelBinder.cs" />
     <Compile Include="Models\View\StringWrapper.cs" />
     <Compile Include="Models\View\SwitchUserRoles.cs" />
-    <Compile Include="Models\View\UserInformationModel.cs" />
     <Compile Include="Models\View\UserPicturesModel.cs" />
     <Compile Include="Models\View\Binders\UserPicturesModelBinder.cs" />
     <Compile Include="Models\View\ViewMessageModel.cs" />
@@ -329,7 +323,6 @@
     <Compile Include="Repositories\AdminFeatures\EntityHAVRestrictionRepository.cs" />
     <Compile Include="Repositories\AdminFeatures\IHAVRestrictionRepository.cs" />
     <Compile Include="Repositories\AdminFeatures\EntityHAVRoleRepository.cs" />
-    <Compile Include="Repositories\AdminFeatures\IHAVRoleRepository.cs" />
     <Compile Include="Repositories\HAVBaseRepository.cs" />
     <Compile Include="Repositories\IHAVBaseRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVHomeRepository.cs" />
@@ -350,8 +343,6 @@
     <Compile Include="Services\AdminFeatures\IHAVErrorService.cs" />
     <Compile Include="Services\AdminFeatures\HAVRestrictionService.cs" />
     <Compile Include="Services\AdminFeatures\IHAVRestrictionService.cs" />
-    <Compile Include="Services\AdminFeatures\HAVRoleService.cs" />
-    <Compile Include="Services\AdminFeatures\IHAVRoleService.cs" />
     <Compile Include="Services\HAVBaseService.cs" />
     <Compile Include="Services\IHAVBaseService.cs" />
     <Compile Include="Services\UserFeatures\HAVHomeService.cs" />
@@ -369,8 +360,6 @@
     <Compile Include="Services\UserFeatures\HAVUserService.cs" />
     <Compile Include="Services\UserFeatures\IHAVUserService.cs" />
     <Compile Include="Util\CssStyles\UserPanelNav.cs" />
-    <Compile Include="Validation\IValidationDictionary.cs" />
-    <Compile Include="Validation\ModelStateWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -545,13 +534,25 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Admin\Admin.csproj">
+      <Project>{F6ECA5A8-34DB-4218-8D99-56FFDA3A3DF8}</Project>
+      <Name>Admin</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Friend\Friend.csproj">
       <Project>{5BB2B446-431B-4D66-8A7A-2A6F64E35492}</Project>
       <Name>Friend</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Generic\Generic.csproj">
+      <Project>{E75FF555-CD9D-42B4-9D4D-07955F5629B3}</Project>
+      <Name>Generic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\User\User.csproj">
       <Project>{1765CF75-9243-4BA7-8399-3D30614C6006}</Project>
       <Name>User</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Validation\Validation.csproj">
+      <Project>{3A71D0D2-1A14-4E7B-9AA7-7945B3408528}</Project>
+      <Name>Validation</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

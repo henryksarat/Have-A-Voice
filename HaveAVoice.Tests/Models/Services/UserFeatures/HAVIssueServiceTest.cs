@@ -1,26 +1,19 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Web.Mvc;
-using Moq;
-using HaveAVoice.Validation;
-using HaveAVoice.Services;
-using HaveAVoice.Repositories;
-using HaveAVoice.Models;
 using HaveAVoice.Helpers.Enums;
-using HaveAVoice.Models.View;
-using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Repositories.UserFeatures;
-using HaveAVoice.Models.View.Builders;
-using HaveAVoice.Helpers;
-using System.Collections.Generic;
-using HaveAVoice.Tests.Helpers;
+using HaveAVoice.Models;
+using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.Issues;
+using HaveAVoice.Services;
 using HaveAVoice.Services.Issues;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 
 namespace HaveAVoice.Tests.Models.Services.UserFeatures {
     [TestClass]
     public class HAVIssueServiceTest {
+        /*
         private static int ID = 1;
         private static string REPLY = "reply";
         private static Disposition DISPOSITION = Disposition.Like;

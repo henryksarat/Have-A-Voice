@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Web.Mvc;
+using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Exceptions;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
 using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Validation;
-using HaveAVoice.Controllers.Helpers;
+using Social.Validation;
 
 namespace HaveAVoice.Controllers.Core {
     public class PasswordController : HAVBaseController {

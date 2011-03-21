@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Validation;
-using HaveAVoice.Services;
-using HaveAVoice.Repositories;
-using HaveAVoice.Models.View;
+using HaveAVoice.Controllers.ActionFilters;
+using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Exceptions;
 using HaveAVoice.Helpers;
-using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Models;
-using HaveAVoice.Controllers.ActionFilters;
+using HaveAVoice.Models.View;
+using HaveAVoice.Repositories;
+using HaveAVoice.Services;
+using HaveAVoice.Services.UserFeatures;
+using Social.Admin.Helpers;
+using Social.Generic.Helpers;
+using Social.Generic.Models;
+using Social.Validation;
 
 namespace HaveAVoice.Controllers.Core {
     public class AuthorityVerificationController : HAVBaseController {
@@ -47,8 +48,8 @@ namespace HaveAVoice.Controllers.Core {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel myUserInformation = GetUserInformatonModel();
-            if (!HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Create_Authority_Verification_Token)) {
+            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
+            if (!PermissionHelper<User>.AllowedToPerformAction(myUserInformation, SocialPermission.Create_Authority_Verification_Token)) {
                 return SendToErrorPage(HAVConstants.PAGE_NOT_FOUND);
             }
             try {
@@ -74,7 +75,7 @@ namespace HaveAVoice.Controllers.Core {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel myUserInformation = GetUserInformatonModel();
+            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
             try {
                 if (theAuthService.RequestTokenForAuthority(myUserInformation, email, authorityType, authorityPosition)) {
                     return SendToResultPage("A token has been created and sent to the authority with the email " + email);

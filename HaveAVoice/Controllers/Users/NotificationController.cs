@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Services;
-using HaveAVoice.Repositories;
-using HaveAVoice.Validation;
+using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
-using HaveAVoice.Controllers.Helpers;
+using HaveAVoice.Repositories;
+using HaveAVoice.Services;
+using HaveAVoice.Services.UserFeatures;
 
 namespace HaveAVoice.Controllers.Users {
     public class NotificationController : HAVBaseController {

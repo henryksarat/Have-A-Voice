@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
 
-namespace HaveAVoice.Helpers {
-    public enum HAVPermission {
+namespace Social.Generic.Helpers {
+    public enum SocialPermission {
         //Board
         Delete_Board_Message,
         Delete_Any_Board_Message,
@@ -23,7 +23,7 @@ namespace HaveAVoice.Helpers {
         Delete_Issue,
         Edit_Any_Issue,
         Edit_Issue,
-        Post_Issue, 
+        Post_Issue,
         View_Issue,
         //Issue Reply
         Delete_Any_Issue_Reply,
@@ -73,6 +73,5 @@ namespace HaveAVoice.Helpers {
         //Site
         View_Feedback,
         View_ErrorLog
-
     }
 }

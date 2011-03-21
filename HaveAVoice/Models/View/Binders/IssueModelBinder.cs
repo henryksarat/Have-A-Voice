@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using HaveAVoice.Models;
-using HaveAVoice.Validation;
-using HaveAVoice.Helpers;
 using HaveAVoice.Helpers.Enums;
-using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Services.Issues;
+using Social.Generic.Models;
+using Social.Validation;
 
 namespace HaveAVoice.Models.View {
     public class IssueModelBinder : IModelBinder {
@@ -17,7 +13,7 @@ namespace HaveAVoice.Models.View {
             IHAVIssueService issueService = new HAVIssueService(new ModelStateWrapper(null));
             IHAVIssueReplyService issueReplyService = new HAVIssueReplyService(new ModelStateWrapper(null));
 
-            UserInformationModel myUser = HAVUserInformationFactory.GetUserInformation();
+            UserInformationModel<User> myUser = HAVUserInformationFactory.GetUserInformation();
 
             int issueId = Int32.Parse(BinderHelper.GetA(aBindingContext, "IssueId"));
             int myTotalAgrees = Int32.Parse(BinderHelper.GetA(aBindingContext, "TotalAgrees"));

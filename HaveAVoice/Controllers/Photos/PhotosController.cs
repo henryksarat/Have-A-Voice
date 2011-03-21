@@ -13,6 +13,7 @@ using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Services.Helpers;
 using System.Web;
 using HaveAVoice.Controllers.Helpers;
+using Social.Generic.Models;
 
 namespace HaveAVoice.Controllers.Users.Photos {
     public class PhotosController : HAVBaseController {
@@ -53,7 +54,7 @@ namespace HaveAVoice.Controllers.Users.Photos {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel myUser = GetUserInformatonModel();
+            UserInformationModel<User> myUser = GetUserInformatonModel();
 
             try {
                 thePhotoService.UploadImageWithDatabaseReference(myUser, albumId, imageFile);

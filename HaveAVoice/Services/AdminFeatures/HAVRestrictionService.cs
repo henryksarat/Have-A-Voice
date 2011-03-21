@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
-using HaveAVoice.Validation;
+using HaveAVoice.Models;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.AdminFeatures;
-using HaveAVoice.Models.View;
-using HaveAVoice.Helpers;
-using HaveAVoice.Models;
+using Social.Admin.Helpers;
+using Social.Generic.Helpers;
+using Social.Generic.Models;
+using Social.Validation;
 
 namespace HaveAVoice.Services.AdminFeatures {
     public class HAVRestrictionService : HAVBaseService, IHAVRestrictionService {
@@ -43,11 +44,11 @@ namespace HaveAVoice.Services.AdminFeatures {
             return theRepository.GetRestriction(restrictionId);
         }
         
-        public bool CreateRestriction(UserInformationModel aCreatedByUser, Restriction aRestrictionToCreate) {
+        public bool CreateRestriction(UserInformationModel<User> aCreatedByUser, Restriction aRestrictionToCreate) {
             if (!ValidateRestriction(aRestrictionToCreate)) {
                 return false;
             }
-            if (!AllowedToPerformAction(aCreatedByUser, HAVPermission.Create_Restriction)) {
+            if (!AllowedToPerformAction(aCreatedByUser, SocialPermission.Create_Restriction)) {
                 return false;
             }
 
@@ -55,27 +56,27 @@ namespace HaveAVoice.Services.AdminFeatures {
             return true;
         }
 
-        public bool EditRestriction(UserInformationModel anEditedByUser, Restriction aRestrictionToEdit) {
+        public bool EditRestriction(UserInformationModel<User> anEditedByUser, Restriction aRestrictionToEdit) {
             if (!ValidateRestriction(aRestrictionToEdit)) {
                 return false;
             }
-            if (!AllowedToPerformAction(anEditedByUser, HAVPermission.Edit_Restriction)) {
+            if (!AllowedToPerformAction(anEditedByUser, SocialPermission.Edit_Restriction)) {
                 return false;
             }
             theRepository.EditRestriction(anEditedByUser.Details, aRestrictionToEdit);
             return true;
         }
 
-        public bool DeleteRestriction(UserInformationModel aDeletedByUser, Restriction aRestrictionDelete) {
-            if (!AllowedToPerformAction(aDeletedByUser, HAVPermission.Delete_Restriction)) {
+        public bool DeleteRestriction(UserInformationModel<User> aDeletedByUser, Restriction aRestrictionDelete) {
+            if (!AllowedToPerformAction(aDeletedByUser, SocialPermission.Delete_Restriction)) {
                 return false;
             }
             theRepository.DeleteRestriction(aDeletedByUser.Details, aRestrictionDelete);
             return true;
         }
 
-        private bool AllowedToPerformAction(UserInformationModel aUser, HAVPermission aPermission) {
-            if (!HAVPermissionHelper.AllowedToPerformAction(aUser, aPermission)) {
+        private bool AllowedToPerformAction(UserInformationModel<User> aUser, SocialPermission aPermission) {
+            if (!PermissionHelper<User>.AllowedToPerformAction(aUser, aPermission)) {
                 theValidationDictionary.AddError("PerformAction", string.Empty, "You are not allowed to perform that action.");
             }
 

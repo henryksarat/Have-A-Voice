@@ -1,8 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Exceptions;
 using HaveAVoice.Helpers;
 using HaveAVoice.Helpers.ActionMethods;
@@ -11,9 +10,7 @@ using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
 using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Validation;
-using HaveAVoice.Controllers.ActionFilters;
-using HaveAVoice.Controllers.Helpers;
+using Social.Validation;
 
 namespace HaveAVoice.Controllers.Users {
     public class UserController : HAVBaseController {

@@ -6,6 +6,7 @@ using HaveAVoice.Models.View;
 using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Repositories.AdminFeatures;
 using HaveAVoice.Models;
+using Social.Admin.Repositories;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVUserRepository : IHAVUserRepository {
@@ -26,7 +27,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         private UserRole AddUserToNotConfirmedUserRole(User user) {
-            IHAVRoleRepository roleRepository = new EntityHAVRoleRepository();
+            IRoleRepository<User, Role> roleRepository = new EntityHAVRoleRepository();
             Role notConfirmedUserRole = roleRepository.GetNotConfirmedUserRole();
 
             return AddUserToRole(user, notConfirmedUserRole);
@@ -42,7 +43,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         public User DeleteUserFromRole(int userId, int roleId) {
-            IHAVRoleRepository roleRepository = new EntityHAVRoleRepository();
+            IRoleRepository<User, Role> roleRepository = new EntityHAVRoleRepository();
 
             User user = GetUser(userId);
             Role role = roleRepository.FindRole(roleId);

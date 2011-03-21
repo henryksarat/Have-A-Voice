@@ -6,8 +6,6 @@ using Social.User.Models;
 
 namespace HaveAVoice.Models.SocialWrappers {
     public class UserModel : AbstractUserModel<User> {
-        private UserModel theModel;
-
         public UserModel(User anExternal) {
             Id = anExternal.Id;
             Email = anExternal.Email;

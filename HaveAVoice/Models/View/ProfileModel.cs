@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using HaveAVoice.Models.View.Builders;
-using HaveAVoice.Helpers.Enums;
+﻿using System.Collections.Generic;
 using HaveAVoice.Helpers;
+using HaveAVoice.Helpers.Enums;
 
 namespace HaveAVoice.Models.View {
     public class ProfileModel {

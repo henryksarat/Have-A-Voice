@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web.Mvc;
-using HaveAVoice.Controllers.Users;
-using HaveAVoice.Models;
-using HaveAVoice.Models.View;
-using HaveAVoice.Repositories.UserFeatures;
-using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Validation;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HaveAVoice.Tests.Controllers.Users {
     [TestClass]
     public class MessageControllerTest : ControllerTestCase {
+        /*
         private static int SEND_TO_USER_ID = 45;
 
         private static User theLoggedInUser;
@@ -49,5 +40,6 @@ namespace HaveAVoice.Tests.Controllers.Users {
          protected override Controller GetController() {
             return theController;
         }
+         * */
     }
 }

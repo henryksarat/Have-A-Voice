@@ -4,6 +4,7 @@
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
+<%@ Import Namespace="Social.Generic.Models" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Albums
@@ -69,7 +70,7 @@
     </div>
 
 	<div class="col-21">
-	    <% UserInformationModel myUserInformationModel = HAVUserInformationFactory.GetUserInformation(); %>
+	    <% UserInformationModel<User> myUserInformationModel = HAVUserInformationFactory.GetUserInformation(); %>
 	    <% bool myIsUser = myUserInformationModel.Details.Id == Model.NavigationModel.User.Id; %>
 	
         <% Html.RenderPartial("Message"); %>

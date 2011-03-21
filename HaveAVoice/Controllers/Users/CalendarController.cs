@@ -1,19 +1,17 @@
 ﻿
 using System;
+using System.Linq;
 using System.Web.Mvc;
-using HaveAVoice.Services.UserFeatures;
+using HaveAVoice.Controllers.ActionFilters;
+using HaveAVoice.Controllers.Helpers;
+using HaveAVoice.Exceptions;
 using HaveAVoice.Helpers;
-using HaveAVoice.Validation;
-using HaveAVoice.Repositories;
-using HaveAVoice.Services;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
-using HaveAVoice.Helpers.Enums;
-using HaveAVoice.Controllers.Helpers;
-using System.Collections.Generic;
-using HaveAVoice.Controllers.ActionFilters;
-using HaveAVoice.Exceptions;
-using System.Linq;
+using HaveAVoice.Repositories;
+using HaveAVoice.Services;
+using HaveAVoice.Services.UserFeatures;
+using Social.Validation;
 
 namespace HaveAVoice.Controllers.Users {
     public class CalendarController : HAVBaseController {

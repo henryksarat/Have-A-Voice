@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using HaveAVoice.Models;
+using Social.Admin;
 
 namespace HaveAVoice.Repositories.AdminFeatures {
-    public class EntityHAVPermissionRepository : IHAVPermissionRepository {
+    public class EntityHAVPermissionRepository : IPermissionRepository<User, Permission> {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
         public Permission Create(User aCreatedByUser, Permission aPermissionToCreate) {

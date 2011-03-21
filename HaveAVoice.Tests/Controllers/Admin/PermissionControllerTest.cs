@@ -1,22 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web.Mvc;
-using HaveAVoice.Controllers.Admin;
-using HaveAVoice.Helpers;
-using HaveAVoice.Models;
-using HaveAVoice.Repositories;
-using HaveAVoice.Services;
-using HaveAVoice.Validation;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using HaveAVoice.Models.View;
-using HaveAVoice.Services.AdminFeatures;
-using HaveAVoice.Repositories.AdminFeatures;
-using HaveAVoice.Tests.Helpers;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HaveAVoice.Tests.Controllers.Admin {
     [TestClass]
     public class PermissionControllerTest : ControllerTestCase {
+        /*
         private static int VALID_PERMISSION_ID = 4;
         private static int INVALID_PERMISSION_ID = 5;
         
@@ -284,6 +271,6 @@ namespace HaveAVoice.Tests.Controllers.Admin {
 
         protected override Controller GetController() {
             return theController;
-        }
+        }*/
     }
 }

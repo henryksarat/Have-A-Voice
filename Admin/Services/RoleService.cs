@@ -1,66 +1,62 @@
-﻿using HaveAVoice.Validation;
-using System.Collections.Generic;
-using HaveAVoice.Repositories;
-using HaveAVoice.Repositories.AdminFeatures;
-using HaveAVoice.Models.View;
-using HaveAVoice.Helpers;
-using HaveAVoice.Models;
+﻿using System.Collections.Generic;
+using Social.Admin.Helpers;
+using Social.Admin.Repositories;
+using Social.Generic.Helpers;
+using Social.Generic.Models;
+using Social.Validation;
 
-namespace HaveAVoice.Services.AdminFeatures {
-    public class HAVRoleService : HAVBaseService, IHAVRoleService {
+namespace Social.Admin.Services {
+    public class RoleService<T, U> : IRoleService<T, U> {
         private IValidationDictionary theValidationDictionary;
-        private IHAVRoleRepository theRoleRepo;
+        private IRoleRepository<T, U> theRoleRepo;
 
-        public HAVRoleService(IValidationDictionary aValidationDictionary)
-            : this(aValidationDictionary, new EntityHAVRoleRepository(), new HAVBaseRepository()) { }
 
-        public HAVRoleService(IValidationDictionary aValidationDictionary, IHAVRoleRepository aRepository,
-                                          IHAVBaseRepository baseRepository) : base(baseRepository) {
+        public RoleService(IValidationDictionary aValidationDictionary, IRoleRepository<T, U> aRepository) {
             theValidationDictionary = aValidationDictionary;
             theRoleRepo = aRepository;
         }
 
-        public Role FindRole(int id) {
+        public U FindRole(int id) {
             return theRoleRepo.FindRole(id);;
         }
 
-        public IEnumerable<Role> GetAllRoles() {
+        public IEnumerable<U> GetAllRoles() {
             return theRoleRepo.GetAllRoles();
         }
 
-        public bool Create(UserInformationModel aCreatedByUser, Role aRoleToCreate, List<int> aSelectedPermissionIds, int aSelectedRestrictionId) {
+        public bool Create(UserInformationModel<T> aCreatedByUser, AbstractRoleModel<U> aRoleToCreate, List<int> aSelectedPermissionIds, int aSelectedRestrictionId) {
             if (!ValidateRole(aRoleToCreate) | !ValidateRestriction(aSelectedRestrictionId)) {
                 return false;
             }
-            if (!AllowedToPerformAction(aCreatedByUser, HAVPermission.Create_Role)) {
+            if (!AllowedToPerformAction(aCreatedByUser, SocialPermission.Create_Role)) {
                 return false;
             }
 
-            theRoleRepo.Create(aCreatedByUser.Details, aRoleToCreate, aSelectedPermissionIds, aSelectedRestrictionId);
+            theRoleRepo.Create(aCreatedByUser.Details, aRoleToCreate.FromModel(), aSelectedPermissionIds, aSelectedRestrictionId);
             return true;
         }
 
-        public bool Edit(UserInformationModel anEditedByUser, Role aRoleToEdit, List<int> aSelectedPermissions, int selectedRestrictionId) {
+        public bool Edit(UserInformationModel<T> anEditedByUser, AbstractRoleModel<U> aRoleToEdit, List<int> aSelectedPermissions, int selectedRestrictionId) {
             if (!ValidateRole(aRoleToEdit)) {
                 return false;
             }
-            if (!AllowedToPerformAction(anEditedByUser, HAVPermission.Edit_Role)) {
+            if (!AllowedToPerformAction(anEditedByUser, SocialPermission.Edit_Role)) {
                 return false;
             }
-            theRoleRepo.Edit(anEditedByUser.Details, aRoleToEdit, aSelectedPermissions, selectedRestrictionId);
+            theRoleRepo.Edit(anEditedByUser.Details, aRoleToEdit.FromModel(), aSelectedPermissions, selectedRestrictionId);
             return true;
             
         }
        
-        public bool Delete(UserInformationModel aDeletedByUser, Role aRoleToDelete) {
-            if (!AllowedToPerformAction(aDeletedByUser, HAVPermission.Delete_Role)) {
+        public bool Delete(UserInformationModel<T> aDeletedByUser, U aRoleToDelete) {
+            if (!AllowedToPerformAction(aDeletedByUser, SocialPermission.Delete_Role)) {
                 return false;
             }
             theRoleRepo.Delete(aDeletedByUser.Details, aRoleToDelete);
             return true;
         }
 
-        public IEnumerable<User> UsersInRole(int aRoleId) {
+        public IEnumerable<T> UsersInRole(int aRoleId) {
             return theRoleRepo.FindUsersInRole(aRoleId);
         }
 
@@ -89,19 +85,7 @@ namespace HaveAVoice.Services.AdminFeatures {
             return true;
         }
 
-        private bool ValidatePermission(Permission aPermission) {
-            if (aPermission.Name.Trim().Length == 0) {
-                theValidationDictionary.AddError("Name", aPermission.Name.Trim(), "Permission name is required.");
-            }
-
-            if (aPermission.Description.Trim().Length == 0) {
-                theValidationDictionary.AddError("Description", aPermission.Description.Trim(), "Permission description is required.");
-            }
-
-            return theValidationDictionary.isValid;
-        }
-
-        private bool ValidateRole(Role role) {
+        private bool ValidateRole(AbstractRoleModel<U> role) {
             if (role.Name.Trim().Length == 0) {
                 theValidationDictionary.AddError("Name", role.Name.Trim(), "Role name is required.");
             }
@@ -119,8 +103,8 @@ namespace HaveAVoice.Services.AdminFeatures {
             return theValidationDictionary.isValid;
         }
 
-        private bool AllowedToPerformAction(UserInformationModel aUser, HAVPermission aPermission) {
-            if (!HAVPermissionHelper.AllowedToPerformAction(aUser, aPermission)) {
+        private bool AllowedToPerformAction(UserInformationModel<T> aUser, SocialPermission aPermission) {
+            if (!PermissionHelper<T>.AllowedToPerformAction(aUser, aPermission)) {
                 theValidationDictionary.AddError("PerformAction", string.Empty, "You are not allowed to perform that action.");
             }
 

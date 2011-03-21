@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-using HaveAVoice.Helpers;
-using HaveAVoice.Helpers.Enums;
-using HaveAVoice.Helpers.UserInformation;
-using HaveAVoice.Models;
-using HaveAVoice.Models.View;
-using HaveAVoice.Services.UserFeatures;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using HaveAVoice.Models.View.Builders;
-
+﻿
 namespace HaveAVoice.Tests.Helpers {
+    /*
     [TestClass]
     public class HAVUserInformationTest {
         private static int RESTRICTION_ID = 5;
@@ -79,6 +68,5 @@ namespace HaveAVoice.Tests.Helpers {
 
             Assert.IsNull(user);
         }
-*/
-    }
+    }*/
 }

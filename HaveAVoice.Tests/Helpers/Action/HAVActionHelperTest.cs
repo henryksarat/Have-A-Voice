@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-using HaveAVoice.Helpers;
-using HaveAVoice.Helpers.UserInformation;
-using HaveAVoice.Models;
-using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Models.View;
-using HaveAVoice.Models.View.Builders;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HaveAVoice.Tests.Helpers.Action {
     [TestClass]
     public class HAVActionHelperTest {
+        /*
         private static int RESTRICTION_ID = 5;
         private Restriction theRestriction;
         private UserInformationModelBuilder theUserInformationModelBuilder;
@@ -93,5 +84,6 @@ namespace HaveAVoice.Tests.Helpers.Action {
             bool myAllowedToPost = HAVPermissionHelper.AllowedToPerformAction(theUserInformationModelBuilder.Build(), HAVPermission.Post_Issue);
             Assert.IsFalse(myAllowedToPost);
         }
+         * */
     }
 }

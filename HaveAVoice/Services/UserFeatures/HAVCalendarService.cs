@@ -1,17 +1,16 @@
-﻿using System.Collections.Generic;
-using HaveAVoice.Validation;
-using HaveAVoice.Helpers.Enums;
-using HaveAVoice.Repositories;
-using HaveAVoice.Models.View;
-using HaveAVoice.Repositories.UserFeatures;
-using System;
-using HaveAVoice.Helpers.UserInformation;
-using HaveAVoice.Models;
-using HaveAVoice.Helpers;
+﻿using System;
+using System.Collections.Generic;
 using HaveAVoice.Exceptions;
-using Social.Friend.Services;
+using HaveAVoice.Models;
 using HaveAVoice.Models.SocialWrappers;
+using HaveAVoice.Repositories;
+using HaveAVoice.Repositories.UserFeatures;
+using Social.Admin.Helpers;
+using Social.Friend.Services;
+using Social.Generic.Helpers;
+using Social.Generic.Models;
 using Social.User.Models;
+using Social.Validation;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVCalendarService : HAVBaseService, IHAVCalendarService {
@@ -56,8 +55,8 @@ namespace HaveAVoice.Services.UserFeatures {
             return true;
         }
 
-        public void DeleteEvent(UserInformationModel anUserInformation, int anEventId) {
-            bool myAdminOverride = HAVPermissionHelper.AllowedToPerformAction(anUserInformation, HAVPermission.Delete_Any_Event);
+        public void DeleteEvent(UserInformationModel<User> anUserInformation, int anEventId) {
+            bool myAdminOverride = PermissionHelper<User>.AllowedToPerformAction(anUserInformation, SocialPermission.Delete_Any_Event);
             theRepository.DeleteEvent(anUserInformation.Details, anEventId, myAdminOverride);
         }
 

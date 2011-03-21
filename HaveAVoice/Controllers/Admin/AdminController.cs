@@ -7,6 +7,9 @@ using HaveAVoice.Models.View;
 using HaveAVoice.Services;
 using HaveAVoice.Repositories;
 using HaveAVoice.Helpers;
+using Social.Generic.Helpers;
+using Social.Admin.Helpers;
+using HaveAVoice.Models;
 
 namespace HaveAVoice.Controllers.Admin {
     public class AdminController : AdminBaseController {
@@ -24,7 +27,7 @@ namespace HaveAVoice.Controllers.Admin {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            if (!HAVPermissionHelper.AllowedToPerformAction(GetUserInformatonModel(), HAVPermission.View_Admin)) {
+            if (!PermissionHelper<User>.AllowedToPerformAction(GetUserInformatonModel(), SocialPermission.View_Admin)) {
                 return SendToErrorPage(PAGE_NOT_FOUND);
             }
             return View("Index");

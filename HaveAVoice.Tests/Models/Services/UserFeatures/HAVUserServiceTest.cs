@@ -1,25 +1,9 @@
-﻿using System;
-using System.Web.Mvc;
-using HaveAVoice.Exceptions;
-using HaveAVoice.Helpers;
-using HaveAVoice.Helpers.UserInformation;
-using HaveAVoice.Models;
-using HaveAVoice.Models.View;
-using HaveAVoice.Repositories;
-using HaveAVoice.Repositories.UserFeatures;
-using HaveAVoice.Services;
-using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Validation;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using System.Web;
-using HaveAVoice.Repositories.AdminFeatures;
-using System.Collections.Generic;
-using HaveAVoice.Models.View.Builders;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HaveAVoice.Tests.Models.Services.UserFeatures {
     [TestClass]
     public class HAVUserServiceTest {
+        /*
         private static string FIRST_NAME = "Henryk";
         private static string EMAIL = "henryksarat@yahoo.com";
         private static string PASSWORD = "aPassword";
@@ -152,6 +136,6 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
             Assert.IsFalse(myResult);
             var myError = theModelState["Email"].Errors[0];
             Assert.AreEqual("Someone already registered with that myException-mail. Please try another one.", myError.ErrorMessage);
-        }
+        }*/
     }
 }

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using HaveAVoice.Validation;
-using HaveAVoice.Repositories.UserFeatures;
-using HaveAVoice.Repositories;
+﻿using System.Collections.Generic;
 using HaveAVoice.Models;
+using HaveAVoice.Repositories;
+using HaveAVoice.Repositories.UserFeatures;
+using Social.Validation;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVFeedbackService : HAVBaseService, IHAVFeedbackService {

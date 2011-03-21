@@ -1,21 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Web.Mvc;
-using Moq;
-using HaveAVoice.Validation;
-using HaveAVoice.Services;
-using HaveAVoice.Repositories;
-using HaveAVoice.Models;
-using System.Collections.Generic;
-using HaveAVoice.Services.AdminFeatures;
-using HaveAVoice.Repositories.AdminFeatures;
-using HaveAVoice.Models.View;
-using HaveAVoice.Models.View.Builders;
-using HaveAVoice.Helpers;
 
 
 namespace HaveAVoice.Tests.Models.Services.AdminFeatures {
     [TestClass]
     public class HAVPermissionServiceTest {
+        /*
         private static string PERMISSION_NAME = "View Message";
         private static string PERMISSION_DESCRIPTION = "Permission to view a message.";
         private static User USER = new User();
@@ -87,5 +76,6 @@ namespace HaveAVoice.Tests.Models.Services.AdminFeatures {
             var myError = theModelState["Description"].Errors[0];
             Assert.AreEqual("Permission description is required.", myError.ErrorMessage);
         }
+         * */
     }
 }

@@ -3,15 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Helpers;
 using HaveAVoice.Helpers.ActionMethods;
 using HaveAVoice.Models;
+using HaveAVoice.Models.SocialWrappers;
+using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
+using HaveAVoice.Repositories.AdminFeatures;
 using HaveAVoice.Services;
 using HaveAVoice.Services.AdminFeatures;
-using HaveAVoice.Validation;
-using HaveAVoice.Models.View;
-using HaveAVoice.Controllers.Helpers;
+using Social.Admin;
+using Social.Admin.Helpers;
+using Social.Admin.Services;
+using Social.Generic.Helpers;
+using Social.Generic.Models;
+using Social.Validation;
 
 namespace HaveAVoice.Controllers.Admin {
     public class RoleController : AdminBaseController {
@@ -25,20 +32,20 @@ namespace HaveAVoice.Controllers.Admin {
         private static string ROLE_NOT_FOUND = "Role not found.";
         private static string PAGE_NOT_FOUND = "You do not have access.";
 
-        private IHAVRoleService theRoleService;
-        private IHAVPermissionService thePermissionService;
+        private IRoleService<User, Role> theRoleService;
+        private IPermissionService<User, Permission> thePermissionService;
         private IHAVRestrictionService theRestrictionService;
         private ModelStateWrapper theModelState;
 
         public RoleController() 
             : base(new HAVBaseService(new HAVBaseRepository())) {
-            theRoleService = new HAVRoleService(new ModelStateWrapper(this.ModelState));
-            thePermissionService = new HAVPermissionService(new ModelStateWrapper(this.ModelState));
             theModelState = new ModelStateWrapper(this.ModelState);
+            theRoleService = new RoleService<User, Role>(theModelState, new EntityHAVRoleRepository());
+            thePermissionService = new PermissionService<User, Permission>(theModelState, new EntityHAVPermissionRepository());
             theRestrictionService = new HAVRestrictionService(theModelState);
         }
 
-        public RoleController(IHAVBaseService aBaseService, IHAVRoleService myRoleService, IHAVPermissionService myPermissionService, IHAVRestrictionService myRestrictionService)
+        public RoleController(IHAVBaseService aBaseService, IRoleService<User, Role> myRoleService, IPermissionService<User, Permission> myPermissionService, IHAVRestrictionService myRestrictionService)
             : base(aBaseService) {
             theRoleService = myRoleService;
             thePermissionService = myPermissionService;
@@ -49,7 +56,7 @@ namespace HaveAVoice.Controllers.Admin {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            if (!HAVPermissionHelper.AllowedToPerformAction(GetUserInformatonModel(), HAVPermission.View_Roles)) {
+            if (!PermissionHelper<User>.AllowedToPerformAction(GetUserInformatonModel(), SocialPermission.View_Roles)) {
                 return SendToErrorPage(PAGE_NOT_FOUND);
             }
 
@@ -73,7 +80,7 @@ namespace HaveAVoice.Controllers.Admin {
                 return RedirectToLogin();
             }
 
-            if(!HAVPermissionHelper.AllowedToPerformAction(GetUserInformatonModel(), HAVPermission.Create_Role)) {
+            if(!PermissionHelper<User>.AllowedToPerformAction(GetUserInformatonModel(), SocialPermission.Create_Role)) {
                 return SendToErrorPage(PAGE_NOT_FOUND);
             }
 
@@ -95,7 +102,8 @@ namespace HaveAVoice.Controllers.Admin {
             }
 
             try {
-                if (theRoleService.Create(GetUserInformatonModel(), model.Role, model.SelectedPermissionsIds, model.SelectedRestrictionId)) {
+                AbstractRoleModel<Role> mySocialModel = new SocialRoleModel(model.Role);
+                if (theRoleService.Create(GetUserInformatonModel(), mySocialModel, model.SelectedPermissionsIds, model.SelectedRestrictionId)) {
                     return RedirectToAction("Index");
                 }
             } catch (Exception e) {
@@ -116,8 +124,8 @@ namespace HaveAVoice.Controllers.Admin {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel myUserInformation = GetUserInformatonModel();
-            if (!HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Edit_Role)) {
+            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
+            if (!PermissionHelper<User>.AllowedToPerformAction(myUserInformation, SocialPermission.Edit_Role)) {
                 return SendToErrorPage(PAGE_NOT_FOUND);
             }
 
@@ -150,7 +158,8 @@ namespace HaveAVoice.Controllers.Admin {
             }
 
             try {
-                if (theRoleService.Edit(GetUserInformatonModel(), role.Role, role.SelectedPermissionsIds, role.SelectedRestrictionId)) {
+                AbstractRoleModel<Role> mySocialModel = new SocialRoleModel(role.Role);
+                if (theRoleService.Edit(GetUserInformatonModel(), mySocialModel, role.SelectedPermissionsIds, role.SelectedRestrictionId)) {
                     return RedirectToAction("Index");
                 }
             } catch (Exception e) {
@@ -171,8 +180,8 @@ namespace HaveAVoice.Controllers.Admin {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel myUserInformation = GetUserInformatonModel();
-            if (!HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Delete_Role)) {
+            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
+            if (!PermissionHelper<User>.AllowedToPerformAction(myUserInformation, SocialPermission.Delete_Role)) {
                 return SendToErrorPage(PAGE_NOT_FOUND);
             }
             Role role = null;
@@ -209,8 +218,8 @@ namespace HaveAVoice.Controllers.Admin {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel myUserInformation = GetUserInformatonModel();
-            if (!HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Switch_Users_Role)) {
+            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
+            if (!PermissionHelper<User>.AllowedToPerformAction(myUserInformation, SocialPermission.Switch_Users_Role)) {
                 return SendToErrorPage(PAGE_NOT_FOUND);
             }
             List<Role> myRoles = new List<Role>();
@@ -236,8 +245,8 @@ namespace HaveAVoice.Controllers.Admin {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel myUserInformation = GetUserInformatonModel();
-            if (!HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Switch_Users_Role)) {
+            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
+            if (!PermissionHelper<User>.AllowedToPerformAction(myUserInformation, SocialPermission.Switch_Users_Role)) {
                 return SendToErrorPage(PAGE_NOT_FOUND);
             }
             SwitchUserRoles mySwitchRoles = new SwitchUserRoles.Builder().Build();
@@ -257,8 +266,8 @@ namespace HaveAVoice.Controllers.Admin {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel myUserInformation = GetUserInformatonModel();
-            if (!HAVPermissionHelper.AllowedToPerformAction(myUserInformation, HAVPermission.Switch_Users_Role)) {
+            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
+            if (!PermissionHelper<User>.AllowedToPerformAction(myUserInformation, SocialPermission.Switch_Users_Role)) {
                 return SendToErrorPage(PAGE_NOT_FOUND);
             }
             List<int> mySelectedUsers = SelectedUserIds == null ? new List<int>() : SelectedUserIds.ToList<int>();

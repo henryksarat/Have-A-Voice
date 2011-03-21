@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using HaveAVoice.Repositories;
-using HaveAVoice.Repositories.UserFeatures;
+﻿using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.SiteFeatures;
-using HaveAVoice.Validation;
 using HaveAVoice.Services.Helpers;
+using Social.Validation;
 
 namespace HaveAVoice.Services.SiteFeatures {
     public class HAVContactUsService : HAVBaseService, IHAVContactUsService {

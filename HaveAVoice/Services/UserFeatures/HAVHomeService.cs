@@ -1,16 +1,10 @@
-﻿using System.Collections.Generic;
-using HaveAVoice.Validation;
+﻿using HaveAVoice.Models;
+using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
-using HaveAVoice.Helpers.Enums;
-using HaveAVoice.Models.View;
-using HaveAVoice.Helpers;
-using System;
-using HaveAVoice.Models;
-using System.Linq;
-using HaveAVoice.Services.Helpers;
 using HaveAVoice.Services.Issues;
 using Social.Friend.Services;
+using Social.Validation;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVHomeService : HAVBaseService, IHAVHomeService {

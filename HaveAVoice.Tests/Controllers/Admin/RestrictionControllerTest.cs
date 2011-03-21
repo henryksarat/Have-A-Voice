@@ -1,23 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using HaveAVoice.Models;
-using System.Web.Mvc;
-using Moq;
-using HaveAVoice.Helpers;
-using HaveAVoice.Repositories;
-using HaveAVoice.Services;
-using HaveAVoice.Validation;
-using HaveAVoice.Controllers.Admin;
-using HaveAVoice.Models.View;
-using HaveAVoice.Services.AdminFeatures;
-using HaveAVoice.Repositories.AdminFeatures;
-using HaveAVoice.Models.View.Builders;
-using HaveAVoice.Tests.Helpers;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HaveAVoice.Tests.Controllers.Admin {
     [TestClass]
     public class RestrictionControllerTest : ControllerTestCase {
+        /*
         private static int[] SELECTED_PERMISSIONS = new int[] { 0 };
 
         private static Restriction theRestriction;
@@ -339,5 +325,6 @@ namespace HaveAVoice.Tests.Controllers.Admin {
 
             AssertAuthenticatedErrorLogReturnBack(myResult, "Edit");
         }
+         * */
     }
 }

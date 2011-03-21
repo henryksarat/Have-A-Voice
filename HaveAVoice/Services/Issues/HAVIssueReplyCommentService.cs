@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using HaveAVoice.Repositories.Issues;
-using HaveAVoice.Validation;
+﻿using System.Collections.Generic;
 using HaveAVoice.Models;
-using HaveAVoice.Models.View;
-using HaveAVoice.Helpers;
+using HaveAVoice.Repositories.Issues;
+using Social.Admin.Helpers;
+using Social.Generic.Helpers;
+using Social.Generic.Models;
+using Social.Validation;
 
 namespace HaveAVoice.Services.Issues {
     public class HAVIssueReplyCommentService : IHAVIssueReplyCommentService {
@@ -21,12 +19,12 @@ namespace HaveAVoice.Services.Issues {
             theIssueReplyCommentRepository = anIssueReplyCommentRepo;
         }
 
-        public bool CreateCommentToIssueReply(UserInformationModel aUserCreating, int anIssueReplyId, string aComment) {
+        public bool CreateCommentToIssueReply(UserInformationModel<User> aUserCreating, int anIssueReplyId, string aComment) {
             if (!ValidateComment(aComment)) {
                 return false;
             }
 
-            if (!AllowedToPerformAction(aUserCreating, HAVPermission.Post_Issue_Reply_Comment)) {
+            if (!AllowedToPerformAction(aUserCreating, SocialPermission.Post_Issue_Reply_Comment)) {
                 return false;
             }
 
@@ -34,8 +32,8 @@ namespace HaveAVoice.Services.Issues {
             return true;
         }
 
-        public bool DeleteIssueReplyComment(UserInformationModel aDeletingUser, int anIssueReplyCommentId) {
-            bool myAdminOverride = HAVPermissionHelper.AllowedToPerformAction(aDeletingUser, HAVPermission.Delete_Any_Issue_Reply_Comment);
+        public bool DeleteIssueReplyComment(UserInformationModel<User> aDeletingUser, int anIssueReplyCommentId) {
+            bool myAdminOverride = PermissionHelper<User>.AllowedToPerformAction(aDeletingUser, SocialPermission.Delete_Any_Issue_Reply_Comment);
             IssueReplyComment myComment = GetIssueReplyComment(anIssueReplyCommentId);
 
             if (myComment.User.Id == aDeletingUser.Details.Id || myAdminOverride) {
@@ -45,16 +43,16 @@ namespace HaveAVoice.Services.Issues {
             return false;
         }
 
-        public bool EditIssueReplyComment(UserInformationModel aUserEditing, IssueReplyComment aComment) {
+        public bool EditIssueReplyComment(UserInformationModel<User> aUserEditing, IssueReplyComment aComment) {
             if (!ValidateComment(aComment)) {
                 return false;
             }
 
-            if (!AllowedToPerformAction(aUserEditing, HAVPermission.Edit_Issue_Reply_Comment, HAVPermission.Edit_Any_Issue_Reply_Comment)) {
+            if (!AllowedToPerformAction(aUserEditing, SocialPermission.Edit_Issue_Reply_Comment, SocialPermission.Edit_Any_Issue_Reply_Comment)) {
                 return false;
             }
 
-            bool myOverrideDelete = HAVPermissionHelper.AllowedToPerformAction(aUserEditing, HAVPermission.Edit_Any_Issue_Reply_Comment);
+            bool myOverrideDelete = PermissionHelper<User>.AllowedToPerformAction(aUserEditing, SocialPermission.Edit_Any_Issue_Reply_Comment);
             IssueReplyComment myOriginalComment = GetIssueReplyComment(aComment.Id);
             if (myOriginalComment.UserId == aUserEditing.Details.Id || myOverrideDelete) {
                 theIssueReplyCommentRepository.UpdateIssueReplyComment(aUserEditing.Details, myOriginalComment, aComment, myOverrideDelete);
@@ -84,8 +82,8 @@ namespace HaveAVoice.Services.Issues {
             return theValidationDictionary.isValid;
         }
 
-        private bool AllowedToPerformAction(UserInformationModel aUser, params HAVPermission[] aPermissions) {
-            if (!HAVPermissionHelper.AllowedToPerformAction(aUser, aPermissions)) {
+        private bool AllowedToPerformAction(UserInformationModel<User> aUser, params SocialPermission[] aPermissions) {
+            if (!PermissionHelper<User>.AllowedToPerformAction(aUser, aPermissions)) {
                 theValidationDictionary.AddError("PerformAction", string.Empty, "You are not allowed to post. Please try again.");
             }
 

@@ -1,11 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.IssueReply>" %>
-
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UI" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
+<%@ Import Namespace="Social.Generic.Models" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	View a Reply
@@ -43,7 +43,7 @@
 			<div class="reply">
 				<div class="row">
 					<div class="push-6 col-3 center">
-                        <% UserInformationModel myUserInfo = HAVUserInformationFactory.GetUserInformation(); %>
+                        <% UserInformationModel<User> myUserInfo = HAVUserInformationFactory.GetUserInformation(); %>
 						<img src="<%= myUserInfo.ProfilePictureUrl %>" alt="<%= myUserInfo.FullName %>" class="profile" />
 					</div>
 					<div class="push-6 m-lft col-12 m-rgt comment">

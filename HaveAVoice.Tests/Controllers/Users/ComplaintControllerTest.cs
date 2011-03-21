@@ -1,19 +1,9 @@
-﻿using System;
-using System.Web.Mvc;
-using HaveAVoice.Controllers.Users;
-using HaveAVoice.Helpers.Enums;
-using HaveAVoice.Models;
-using HaveAVoice.Models.View;
-using HaveAVoice.Repositories.UserFeatures;
-using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Validation;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using HaveAVoice.Services.Issues;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HaveAVoice.Tests.Controllers.Users {
     [TestClass]
     public class ComplaintControllerTest : ControllerTestCase {
+        /*
         private const int COMPLAINT_SOURCE_ID = 3;
         private const int STARTED_BY_USER_ID = 0;
         private const string COMPLAINT = "I'm complaining.";
@@ -51,5 +41,6 @@ namespace HaveAVoice.Tests.Controllers.Users {
         protected override Controller GetController() {
             return theController;
         }
+        */
     }
 }

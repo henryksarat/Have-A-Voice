@@ -6,6 +6,9 @@ using System;
 using HaveAVoice.Helpers.Enums;
 using System.Collections.Generic;
 using HaveAVoice.Services.UserFeatures;
+using Social.Generic.Models;
+using Social.Generic.Helpers;
+using Social.Admin.Helpers;
 
 namespace HaveAVoice.Helpers.UserInformation {
     public class UserInformation : IUserInformation {
@@ -20,12 +23,12 @@ namespace HaveAVoice.Helpers.UserInformation {
             theWhoIsOnlineService = aWhoIsOnlineService;
         }
 
-        public UserInformationModel GetUserInformaton() {
+        public UserInformationModel<User> GetUserInformaton() {
             //This becomes null sometimes for some reason... investigate furthur
             if (theHttpContext.Session == null) {
                 return null;
             }
-            UserInformationModel myUserInformationModel = (UserInformationModel)theHttpContext.Session["UserInformation"];
+            UserInformationModel<User> myUserInformationModel = (UserInformationModel<User>)theHttpContext.Session["UserInformation"];
             string myIpAddress = theHttpContext.Request.UserHostAddress;
             if (myUserInformationModel != null) {
                 myUserInformationModel = UpdateUserOnlineStatus(myUserInformationModel, myIpAddress);
@@ -33,7 +36,7 @@ namespace HaveAVoice.Helpers.UserInformation {
             return myUserInformationModel;
         }
 
-        private UserInformationModel UpdateUserOnlineStatus(UserInformationModel myUserInformationModel, string ipAddress) {
+        private UserInformationModel<User> UpdateUserOnlineStatus(UserInformationModel<User> myUserInformationModel, string ipAddress) {
             try {
                 if (!theWhoIsOnlineService.IsOnline(myUserInformationModel.Details, ipAddress)) {
                     theHttpContext.Session.Clear();
@@ -53,9 +56,9 @@ namespace HaveAVoice.Helpers.UserInformation {
             return new UserInformation(aHttpBaseContext, aWhoIsOnlineService);
         }
 
-        public bool AllowedToPerformAction(HAVPermission aPermission) {
-            UserInformationModel myUserInformationModel = (UserInformationModel)theHttpContext.Session["UserInformation"];
-            return HAVPermissionHelper.AllowedToPerformAction(myUserInformationModel, aPermission);
+        public bool AllowedToPerformAction(SocialPermission aPermission) {
+            UserInformationModel<User> myUserInformationModel = (UserInformationModel<User>)theHttpContext.Session["UserInformation"];
+            return PermissionHelper<User>.AllowedToPerformAction(myUserInformationModel, aPermission);
         }
     }
 }
