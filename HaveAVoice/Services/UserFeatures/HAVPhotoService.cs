@@ -1,22 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Web;
+using HaveAVoice.Exceptions;
+using HaveAVoice.Helpers;
+using HaveAVoice.Models;
+using HaveAVoice.Models.SocialWrappers;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
-using HaveAVoice.Models;
-using HaveAVoice.Helpers;
-using HaveAVoice.Exceptions;
-using System.IO;
 using HaveAVoice.Services.Helpers;
-using HaveAVoice.Models.View;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.Drawing.Drawing2D;
 using Social.Friend.Services;
-using Social.User.Models;
-using HaveAVoice.Models.SocialWrappers;
 using Social.Generic.Models;
+using Social.User.Models;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVPhotoService : HAVBaseService, IHAVPhotoService {
@@ -38,7 +36,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public IEnumerable<Photo> GetPhotos(User aViewingUser, int anAlbumId, int aUserId) {
-            AbstractUserModel<User> myAbstractUser = new UserModel(aViewingUser);
+            AbstractUserModel<User> myAbstractUser = SocialUserModel.Create(aViewingUser);
 
             if (theFriendService.IsFriend(aUserId, myAbstractUser)) {
                 return thePhotoRepo.GetPhotos(aUserId, anAlbumId);
@@ -60,7 +58,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public Photo GetPhoto(User aViewingUser,  int aPhotoId) {
             Photo myPhotoId = thePhotoRepo.GetPhoto(aPhotoId);
-            AbstractUserModel<User> myAbstractUserModel = new UserModel(aViewingUser);
+            AbstractUserModel<User> myAbstractUserModel = SocialUserModel.Create(aViewingUser);
             if (theFriendService.IsFriend(myPhotoId.UploadedByUserId, myAbstractUserModel)) {
                 return myPhotoId;
             }

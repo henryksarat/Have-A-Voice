@@ -7,6 +7,7 @@
 <%@ Import Namespace="HaveAVoice.Helpers.Enums" %>
 <%@ Import Namespace="HaveAVoice.Helpers" %>
 <%@ Import Namespace="Social.Generic.Models" %>
+<%@ Import Namespace="Social.Generic.Constants" %>
 
 <link rel="stylesheet" type="text/css" href="/Content/jquery.autocomplete.css" />
 
@@ -127,8 +128,8 @@
 					    <div class="p-a5">
 						    <h4>Issues In Your <%= Model.LocalIssueLocation%></h4>
 						    <div class="clear">&nbsp;</div>
-						    Resident <a href="<%= HaveAVoice.Helpers.LinkHelper.Profile(Model.LocalIssue.User) %>" class="name"><%= HaveAVoice.Helpers.NameHelper.FullName(Model.LocalIssue.User)%></a> says, &quot;<%= Model.LocalIssue.Description%>&quot;<br />
-                            In <%= Model.LocalIssue.User.Gender.ToUpper().Equals(HAVGender.Male.ToString().ToUpper()) ? "his" : "her"%> issue: <b><a href="<%= LinkHelper.IssueUrl(Model.LocalIssue.Title) %>" class="issue"><%= Model.LocalIssue.Title%></a></b>.
+						    Resident <a href="<%= LinkHelper.Profile(Model.LocalIssue.User) %>" class="name"><%= NameHelper.FullName(Model.LocalIssue.User)%></a> says, &quot;<%= Model.LocalIssue.Description%>&quot;<br />
+                            In <%= Model.LocalIssue.User.Gender.ToUpper().Equals(Gender.MALE.ToUpper()) ? "his" : "her"%> issue: <b><a href="<%= LinkHelper.IssueUrl(Model.LocalIssue.Title) %>" class="issue"><%= Model.LocalIssue.Title%></a></b>.
 			            </div>
                     <% } %>
 			        <div class="clear">&nbsp;</div>

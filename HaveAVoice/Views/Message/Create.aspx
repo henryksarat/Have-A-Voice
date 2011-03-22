@@ -35,7 +35,6 @@
 		        <%= Html.Hidden("ToFullName", Model.Model. ToFullName)%>
 		        <%= Html.Hidden("ToUserProfilePictureUrl", Model.Model.ToUserProfilePictureUrl)%>
 		        
-		        <%= Html.Encode(ViewData["Message"]) %>
 		        <div class="clear">&nbsp;</div>
 		        
 		        <div class="col-18 m-btm10">

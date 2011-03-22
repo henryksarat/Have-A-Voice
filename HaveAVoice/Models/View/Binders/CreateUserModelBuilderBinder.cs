@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using HaveAVoice.Helpers;
+using Social.Generic.Constants;
 
 namespace HaveAVoice.Models.View {
     public class CreateUserModelBuilderBinder : IModelBinder {
@@ -23,8 +24,8 @@ namespace HaveAVoice.Models.View {
                 LastName = myLastName,
                 Gender = myGender,
                 DateOfBirth = myDateOfBirth,
-                States = new SelectList(HAVConstants.STATES, myState),
-                Genders = new SelectList(HAVConstants.GENDERS, myGender),
+                States = new SelectList(UnitedStates.STATES, myState),
+                Genders = new SelectList(Constants.GENDERS, myGender),
                 State = myState,
                 Agreement = myAgreement
             };

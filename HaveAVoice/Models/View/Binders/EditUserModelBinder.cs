@@ -4,6 +4,7 @@ using System.Web;
 using System.Web.Mvc;
 using HaveAVoice.Helpers;
 using HaveAVoice.Services.UserFeatures;
+using Social.Generic.Constants;
 
 namespace HaveAVoice.Models.View {
     public class EditUserModelBinder : IModelBinder {
@@ -42,8 +43,8 @@ namespace HaveAVoice.Models.View {
             user.AboutMe = myAboutMe;
             user.Gender = myGender;
 
-            IEnumerable<SelectListItem> myStates = new SelectList(HAVConstants.STATES, user.State);
-            IEnumerable<SelectListItem> myGenders = new SelectList(HAVConstants.GENDERS, user.Gender);
+            IEnumerable<SelectListItem> myStates = new SelectList(UnitedStates.STATES, user.State);
+            IEnumerable<SelectListItem> myGenders = new SelectList(Constants.GENDERS, user.Gender);
 
             return new EditUserModel(user) {
                 States = myStates,

@@ -5,11 +5,16 @@ using System.Web.Mvc;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models;
+using HaveAVoice.Models.SocialWrappers;
 using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
+using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services;
 using HaveAVoice.Services.Helpers;
 using HaveAVoice.Services.UserFeatures;
+using Social.Generic.Models;
+using Social.Messaging.Services;
+using Social.User.Models;
 using Social.Validation;
 
 namespace HaveAVoice.Controllers.Users {
@@ -30,17 +35,17 @@ namespace HaveAVoice.Controllers.Users {
         private const string CREATE_VIEW = "Create";
         private const string VIEW_MESSAGE_VIEW = "View";
 
-        private IHAVMessageService theService;
+        private IMessageService<User, Message, Reply> theService;
         private IHAVUserRetrievalService theUserRetrievalService;
 
         public MessageController() : 
             base(new HAVBaseService(new HAVBaseRepository())) {
             IValidationDictionary myValidationDictionary = new ModelStateWrapper(this.ModelState);
-            theService = new HAVMessageService(myValidationDictionary);
+            theService = new MessageService<User, Message, Reply>(myValidationDictionary, new EntityHAVMessageRepository());
             theUserRetrievalService = new HAVUserRetrievalService();
         }
 
-        public MessageController(IHAVBaseService aBaseService, IHAVMessageService aMessageService, IHAVUserRetrievalService aUserRetrievalService)
+        public MessageController(IHAVBaseService aBaseService, IMessageService<User, Message, Reply> aMessageService, IHAVUserRetrievalService aUserRetrievalService)
             : base(aBaseService) {
             theService = aMessageService;
             theUserRetrievalService = aUserRetrievalService;
@@ -54,8 +59,8 @@ namespace HaveAVoice.Controllers.Users {
             User myUser = GetUserInformaton();
             LoggedInListModel<InboxMessage> myModel = new LoggedInListModel<InboxMessage>(myUser, SiteSection.Message);
             try {
-
-                myModel.Models = theService.GetMessagesForUser(myUser).ToList<InboxMessage>();
+                AbstractUserModel<User> mySocialModel = SocialUserModel.Create(myUser);
+                myModel.Models = theService.GetMessagesForUser(mySocialModel).ToList<InboxMessage>();
                 if (myModel.Models.Count<InboxMessage>() == 0) {
                     ViewData[ERROR_MESSAGE_VIEWDATA] = MessageHelper.NormalMessage(NO_MESSAGES);
                 }
@@ -121,7 +126,8 @@ namespace HaveAVoice.Controllers.Users {
             User myUser = GetUserInformaton();
             
             try {
-                if (theService.CreateMessage(myUser.Id, aMessage.ToModel())) {
+                AbstractMessageModel<Message> mySocialMessage = SocialMessageWrapper.Create(aMessage.ToModel());
+                if (theService.CreateMessage(myUser.Id, mySocialMessage)) {
                     TempData["Message"] = MessageHelper.SuccessMessage(SEND_SUCCESS);
                     return RedirectToProfile(aMessage.ToUserId);
                 }

@@ -5,10 +5,28 @@ using System.Web;
 using HaveAVoice.Models.View;
 using System.Data.Objects;
 using HaveAVoice.Models;
+using Social.Messaging.Repositories;
+using Social.Generic.Models;
+using HaveAVoice.Models.SocialWrappers;
 
 namespace HaveAVoice.Repositories.UserFeatures {
-    public class EntityHAVMessageRepository : IHAVMessageRepository {
+    public class EntityHAVMessageRepository : IMessageRepository<User, Message, Reply> {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
+
+        public IEnumerable<Message> GetAllMessages() {
+            return theEntities.Messages.ToList<Message>();
+        }
+
+        public IEnumerable<AbstractMessageModel<Message>> GetAllMessagesAsAbstract() {
+            IEnumerable<Message> myMessages =  (from m in theEntities.Messages
+                                                select m).ToList();
+
+            IEnumerable<AbstractMessageModel<Message>> myAbstract = (from m in myMessages
+                                                                     select SocialMessageWrapper.Create(m))
+                                                                     .ToList<AbstractMessageModel<Message>>();
+            return myAbstract;
+
+        }
 
         public Message CreateMessage(int fromUserId, Message messageToCreate) {
             messageToCreate.FromUserId = fromUserId;
@@ -18,15 +36,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
             theEntities.SaveChanges();
 
             return messageToCreate;
-        }
-
-        public IEnumerable<Message> GetAllMessages() {
-            return theEntities.Messages.ToList<Message>();
-
-        }
-
-        public IEnumerable<Reply> GetAllReplys() {
-            return theEntities.Replys.ToList<Reply>();
         }
 
         public void DeleteMessages(List<Int32> messagesToDelete, User user) {
@@ -48,11 +57,29 @@ namespace HaveAVoice.Repositories.UserFeatures {
         public Message GetMessage(User aViewingUser, int aMessageId) {
             return (from m in theEntities.Messages.Include("FromUser").Include("Replys.User")
                     where m.Id == aMessageId
-                    && ((aViewingUser.Id == m.ToUserId && !m.ToDeleted)  || (aViewingUser.Id == m.FromUserId && !m.FromDeleted))
+                    && ((aViewingUser.Id == m.ToUserId && !m.ToDeleted) || (aViewingUser.Id == m.FromUserId && !m.FromDeleted))
                     select m).FirstOrDefault<Message>();
         }
 
-        public Message CreateReply(int messageId, User user, string body) {
+        public bool UserInvolvedInMessage(User aUser, int aMessageId) {
+            Message myMessage = GetMessage(aMessageId);
+            return myMessage.FromUserId == aUser.Id || myMessage.ToUserId == aUser.Id;
+        }
+
+        public IEnumerable<Reply> GetAllReplys() {
+            return theEntities.Replys.ToList<Reply>();
+        }
+
+        public IEnumerable<AbstractReplyModel<Reply>> GetAllReplysAsAbstract() {
+            IEnumerable<Reply> myReplies =  (from r in theEntities.Replys
+                                             select r).ToList<Reply>();
+            IEnumerable<AbstractReplyModel<Reply>> myAbstracts = (from r in myReplies
+                                                                  select SocialReplyWrapper.Create(r))
+                                                                  .ToList<AbstractReplyModel<Reply>>();
+            return myAbstracts;
+        }
+
+        public AbstractMessageModel<Message> CreateReply(int messageId, User user, string body) {
             Message message = GetMessage(messageId);
 
             Reply myReply = Reply.CreateReply(0, user.Id, messageId, body, DateTime.UtcNow);
@@ -71,7 +98,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
             theEntities.AddToReplys(myReply);
             theEntities.SaveChanges();
 
-            return message;
+            return SocialMessageWrapper.Create(message);
         }
 
         public Message ChangeMessageViewedStateForMe(int messageId, User toUser, bool viewed) {

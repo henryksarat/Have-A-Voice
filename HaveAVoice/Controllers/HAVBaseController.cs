@@ -45,7 +45,7 @@ namespace HaveAVoice.Controllers  {
         }
 
         protected AbstractUserModel<User> GetSocialUserInformation() {
-            return new UserModel(GetUserInformaton());
+            return SocialUserModel.Create(GetUserInformaton());
         }
 
         protected UserInformationModel<User> GetUserInformatonModel() {

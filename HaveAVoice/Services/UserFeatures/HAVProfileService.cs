@@ -81,7 +81,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public UserProfileModel UserIssueActivity(int aUserId, User aViewingUser) {
-            AbstractUserModel<User> myAbstractUser = new UserModel(aViewingUser);
+            AbstractUserModel<User> myAbstractUser = SocialUserModel.Create(aViewingUser);
 
             if (theFriendService.IsFriend(aUserId, myAbstractUser)) {
                 User myUser = theUserRetrievalService.GetUser(aUserId);
@@ -334,7 +334,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
         private FriendStatus GetFriendStatus(int aSourceUserId, User aViewingUser) {
             FriendStatus myFriendStatus = FriendStatus.None;
-            AbstractUserModel<User> myAbstractUserModel = new UserModel(aViewingUser);
+            AbstractUserModel<User> myAbstractUserModel = SocialUserModel.Create(aViewingUser);
             bool myIsPending = theFriendService.IsPending(aSourceUserId, myAbstractUserModel);
             bool myIsFriend = false;
 

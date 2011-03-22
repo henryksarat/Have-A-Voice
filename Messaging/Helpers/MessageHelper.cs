@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using HaveAVoice.Models.View;
-using HaveAVoice.Models;
-using HaveAVoice.Services.Helpers;
-using HaveAVoice.Helpers;
+using Social.Generic.Models;
+using Social.User.Models;
 
-namespace HaveAVoice.Services.UserFeatures.Helpers {
-    public class MessageHelper {
-        public static List<InboxMessage> GenerateInbox(User aUser, IEnumerable<Message> aMessages, IEnumerable<Reply> aReplys) {
+namespace Social.Messaging.Helpers {
+    public static class MessageHelper<T, U, V> {
+        public static List<InboxMessage> GenerateInbox(AbstractUserModel<T> aUser, 
+                                                       IEnumerable<AbstractMessageModel<U>> aMessages, 
+                                                       IEnumerable<AbstractReplyModel<V>> aReplys) {
             //Get the last reply for a message for the user,
             //ordered by the reply DateTimeStamp or by the message DateTimeStamp
             return (from m in aMessages
-                    let allReplys = aReplys.Where(r2 => m.Id == r2.MessageId).OrderByDescending(r3 => r3.DateTimeStamp).ToList<Reply>()
-                    let latestReply = allReplys.FirstOrDefault<Reply>()
+                    let allReplys = aReplys.Where(r2 => m.Id == r2.MessageId).OrderByDescending(r3 => r3.DateTimeStamp).ToList()
+                    let latestReply = allReplys.FirstOrDefault()
                     where (m.ToDeleted == false
                     && m.ToUserId == aUser.Id)
                     || (m.FromDeleted == false
@@ -23,13 +21,13 @@ namespace HaveAVoice.Services.UserFeatures.Helpers {
                     orderby (latestReply != null ? latestReply.DateTimeStamp : m.DateTimeStamp) descending
                     select new InboxMessage {
                         MessageId = m.Id,
-                        Subject = m.Subject,
-                        FromUser = NameHelper.FullName(m.FromUser),
-                        FromUserId = m.FromUser.Id,
+                        Subject = m.Subject, 
+                        FromUser = m.FromUserFullName,
+                        FromUserId = m.FromUserId,
                         LastReply = (latestReply == null ? m.Body : latestReply.Body),
                         Viewed = (m.ToUserId == aUser.Id ? m.ToViewed : m.FromViewed),
                         DateTimeStamp = (latestReply == null ? m.DateTimeStamp : latestReply.DateTimeStamp),
-                        FromUserProfilePictureUrl = PhotoHelper.ProfilePicture(m.FromUser)
+                        FromUserProfilePictureUrl = m.FromUserProfilePictureUrl
                     }).ToList<InboxMessage>();
         }
     }

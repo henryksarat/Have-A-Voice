@@ -61,7 +61,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public IEnumerable<Event> GetEventsForUser(User aViewingUser, int aUserId) {
-            AbstractUserModel<User> myAbstractUser = new UserModel(aViewingUser);
+            AbstractUserModel<User> myAbstractUser = SocialUserModel.Create(aViewingUser);
  
             if (aViewingUser.Id == aUserId || theFriendService.IsFriend(aUserId, myAbstractUser)) {
                 return theRepository.FindEvents(aUserId, DateTime.UtcNow);

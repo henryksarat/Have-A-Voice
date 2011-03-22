@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using HaveAVoice.Models;
+﻿using System.Linq;
 using System.Web.Mvc;
-using HaveAVoice.Models.View;
-using HaveAVoice.Services.Helpers;
 using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Helpers.UserInformation;
-using Social.Generic.Models;
+using HaveAVoice.Models;
+using HaveAVoice.Models.View;
+using HaveAVoice.Services.Helpers;
 using Social.Admin.Helpers;
 using Social.Generic.Helpers;
+using Social.Generic.Models;
 
 namespace HaveAVoice.Helpers.UI {
     public class IssueReplyHelper {

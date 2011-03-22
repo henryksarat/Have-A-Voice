@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1765CF75-9243-4BA7-8399-3D30614C6006}</ProjectGuid>
+    <ProjectGuid>{552FC1DE-F722-4ADF-B887-1AB0C2B6DEE0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Social.User</RootNamespace>
-    <AssemblyName>User</AssemblyName>
+    <RootNamespace>Social.Photo</RootNamespace>
+    <AssemblyName>Photo</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,8 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\NameHelper.cs" />
-    <Compile Include="Models\AbstractUserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

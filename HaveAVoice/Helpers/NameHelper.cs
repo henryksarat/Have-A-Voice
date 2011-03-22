@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using HaveAVoice.Models;
+using Social.User.Helpers;
+using HaveAVoice.Models.SocialWrappers;
 
 namespace HaveAVoice.Helpers {
     public class NameHelper {
@@ -11,7 +13,7 @@ namespace HaveAVoice.Helpers {
         }
 
         public static string FullName(User aUser) {
-            return aUser.FirstName + " " + aUser.LastName;
+            return NameHelper<User>.FullName(SocialUserModel.Create(aUser));
         }
     }
 }

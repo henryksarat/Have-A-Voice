@@ -39,7 +39,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public IEnumerable<PhotoAlbum> GetPhotoAlbumsForUser(User aRequestingUser, int aUserIdOfAlbum) {
-            AbstractUserModel<User> myAbstractUserModel = new UserModel(aRequestingUser);
+            AbstractUserModel<User> myAbstractUserModel = SocialUserModel.Create(aRequestingUser);
             if (theFriendService.IsFriend(aUserIdOfAlbum, myAbstractUserModel)) {
                 return thePhotoAlbumRepo.GetPhotoAlbumsForUser(aUserIdOfAlbum);
             }
@@ -49,7 +49,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public PhotoAlbum GetPhotoAlbum(UserInformationModel<User> aUserModel, int anAlbumId) {
             PhotoAlbum myAlbum = thePhotoAlbumRepo.GetPhotoAlbum(anAlbumId);
-            AbstractUserModel<User> myAbstractUserModel = new UserModel(aUserModel.Details);
+            AbstractUserModel<User> myAbstractUserModel = SocialUserModel.Create(aUserModel.Details);
             if (theFriendService.IsFriend(myAlbum.CreatedByUserId, myAbstractUserModel)) {
                 return myAlbum;
             }

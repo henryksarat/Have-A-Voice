@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using HaveAVoice.Helpers;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using Social.Generic.Constants;
 
 namespace HaveAVoice.Models.View {
     public class FilteredFeedModel {
@@ -14,7 +11,7 @@ namespace HaveAVoice.Models.View {
         public FilteredFeedModel(User aUser) {
             NavigationModel = new NavigationModel(aUser, SiteSection.Home);
             FeedModels = new List<FeedModel>();
-            States = new SelectList(HAVConstants.STATES, "Select");
+            States = new SelectList(UnitedStates.STATES, Constants.SELECT);
         }
     }
 }

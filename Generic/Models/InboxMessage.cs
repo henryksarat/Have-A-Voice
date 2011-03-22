@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using HaveAVoice.Helpers;
+using System.Text;
 
-namespace HaveAVoice.Models.View {
+namespace Social.Generic.Models {
     public class InboxMessage {
         public int MessageId { get; set; }
         public string LastReply { get; set; }
@@ -20,7 +19,7 @@ namespace HaveAVoice.Models.View {
             Subject = string.Empty;
             FromUser = string.Empty;
             Viewed = true;
-            FromUserProfilePictureUrl = HAVConstants.NO_PROFILE_PICTURE_URL;
+            FromUserProfilePictureUrl = Constants.Constants.NO_PROFILE_PICTURE_URL;
         }
     }
 }

@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Text;
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HaveAVoice.Models;
-using HaveAVoice.Tests.Models;
 using HaveAVoice.Models.View;
-using HaveAVoice.Services.UserFeatures.Helpers;
+using HaveAVoice.Tests.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace HaveAVoice.Tests.Services.Helpers {
     [TestClass]
     public class MessageHelperTest {
+        /*
         private const int MESSAGE_ID = 3;
         private const int OTHER_MESSAGE_ID = 4;
         private const string MESSAGE_TITLE = "subject1";
@@ -182,6 +180,7 @@ namespace HaveAVoice.Tests.Services.Helpers {
 
             return myMessages;
         }
+         * */
 
     }
 }

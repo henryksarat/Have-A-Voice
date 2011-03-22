@@ -10,6 +10,8 @@ using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services.Helpers;
 using Social.Validation;
+using Social.Generic;
+using Social.Generic.Constants;
 
 
 namespace HaveAVoice.Services.UserFeatures {
@@ -142,11 +144,11 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public EditUserModel GetUserForEdit(User aUser) {
             int myUserId = aUser.Id;
-            IEnumerable<SelectListItem> myStates =
-                new SelectList(HAVConstants.STATES, aUser.State);
-            IEnumerable<SelectListItem> myGenders =
-                new SelectList(HAVConstants.GENDERS, aUser.Gender);
             User myUser = theUserRetrievalService.GetUser(myUserId);
+            IEnumerable<SelectListItem> myStates =
+                new SelectList(UnitedStates.STATES, myUser.State);
+            IEnumerable<SelectListItem> myGenders =
+                new SelectList(Constants.GENDERS, myUser.Gender);
 
             return new EditUserModel(myUser) {
                 OriginalEmail = myUser.Email,
@@ -229,8 +231,8 @@ namespace HaveAVoice.Services.UserFeatures {
             if (aUser.City.Trim().Length == 0) {
                 theValidationDictionary.AddError("City", aUser.City.Trim(), "City is required.");
             }
-            if (aUser.Gender.Equals(HAVGender.Select.ToString())) {
-                theValidationDictionary.AddError("Gender", HAVGender.Select.ToString(), "Gender is required.");
+            if (aUser.Gender.Equals(Constants.SELECT)) {
+                theValidationDictionary.AddError("Gender", Constants.SELECT, "Gender is required.");
             }
             if (aUser.State.Trim().Length != 2) {
                 theValidationDictionary.AddError("State", aUser.State.Trim(), "State is required.");

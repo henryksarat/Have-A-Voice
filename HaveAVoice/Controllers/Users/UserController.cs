@@ -10,6 +10,7 @@ using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
 using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
+using Social.Generic.Constants;
 using Social.Validation;
 
 namespace HaveAVoice.Controllers.Users {
@@ -50,9 +51,9 @@ namespace HaveAVoice.Controllers.Users {
             if (IsLoggedIn()) {
                 return RedirectToProfile();
             }
-            return View("Create", new CreateUserModelBuilder() { 
-                States = new SelectList(HAVConstants.STATES, "Select"),
-                Genders = new SelectList(HAVConstants.GENDERS, "Select")
+            return View("Create", new CreateUserModelBuilder() {
+                States = new SelectList(UnitedStates.STATES, Constants.SELECT),
+                Genders = new SelectList(Constants.GENDERS, Constants.SELECT)
             });
         }
 
@@ -91,8 +92,8 @@ namespace HaveAVoice.Controllers.Users {
                 Token = model.Token,
                 AuthorityType = model.AuthorityType,
                 UserPosition = model.AuthorityPosition,
-                States = new SelectList(HAVConstants.STATES, "Select"),
-                Genders = new SelectList(HAVConstants.GENDERS, "Select")
+                States = new SelectList(UnitedStates.STATES, Constants.SELECT),
+                Genders = new SelectList(Constants.GENDERS, Constants.SELECT)
             });
         }
 
@@ -116,8 +117,8 @@ namespace HaveAVoice.Controllers.Users {
         }
 
         private void AddStatesAndGenders(CreateUserModel aUserModel, string aState) {
-            aUserModel.Genders = new SelectList(HAVConstants.GENDERS, aUserModel.Gender);
-            aUserModel.States = new SelectList(HAVConstants.STATES, aState);
+            aUserModel.Genders = new SelectList(Constants.GENDERS, aUserModel.Gender);
+            aUserModel.States = new SelectList(UnitedStates.STATES, aState);
         }
 
         public ActionResult Edit() {
@@ -143,6 +144,7 @@ namespace HaveAVoice.Controllers.Users {
             try {
                 if (theService.EditUser(userToEdit)) {
                     TempData["Message"] = MessageHelper.SuccessMessage(EDIT_SUCCESS);
+                    RefreshUserInformation();
                     return RedirectToAction("Edit");
                 }
             } catch (Exception exception) {

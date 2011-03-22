@@ -100,7 +100,6 @@
     <Compile Include="Helpers\NameHelper.cs" />
     <Compile Include="Helpers\Enums\NotificationType.cs" />
     <Compile Include="Helpers\Enums\FriendStatus.cs" />
-    <Compile Include="Helpers\Enums\Gender.cs" />
     <Compile Include="Helpers\Enums\PersonFilter.cs" />
     <Compile Include="Helpers\Enums\IssueStanceFilter.cs" />
     <Compile Include="Helpers\Exceptions\CustomException.cs" />
@@ -144,7 +143,9 @@
     </Compile>
     <Compile Include="Helpers\ActionMethods\AcceptParameterAttribute.cs" />
     <Compile Include="Helpers\ActionMethods\CaptchaValidatorAttribute.cs" />
+    <Compile Include="Models\SocialWrappers\SocialMessageWrapper.cs" />
     <Compile Include="Models\SocialWrappers\SocialPermissionModel.cs" />
+    <Compile Include="Models\SocialWrappers\SocialReplyWrapper.cs" />
     <Compile Include="Models\SocialWrappers\SocialRoleModel.cs" />
     <Compile Include="Models\SocialWrappers\UserModel.cs" />
     <Compile Include="Models\View\AuthorityVerificationModel.cs" />
@@ -205,10 +206,8 @@
     <Compile Include="Services\Helpers\FanHelper.cs" />
     <Compile Include="Services\Helpers\FriendHelper.cs" />
     <Compile Include="Services\Helpers\IssueHelper.cs" />
-    <Compile Include="Services\Helpers\MessageHelper.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVAuthenticationRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVBoardRepository.cs" />
-    <Compile Include="Repositories\UserFeatures\IHAVFriendRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVFeedbackRepository.cs" />
     <Compile Include="Models\ServiceConstants.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVNavigationRepository.cs" />
@@ -293,7 +292,6 @@
     <Compile Include="Models\View\IssueWithDispositionModel.cs" />
     <Compile Include="Models\View\LoggedInModel.cs" />
     <Compile Include="Models\View\MessageBuilder.cs" />
-    <Compile Include="Models\View\MessageInbox.cs" />
     <Compile Include="Models\View\MessageModel.cs" />
     <Compile Include="Models\View\PermissionModel.cs" />
     <Compile Include="Models\View\Binders\PermissionModelBinder.cs" />
@@ -336,7 +334,6 @@
     <Compile Include="Repositories\UserFeatures\IHAVProfileRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVSearchRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVMessageRepository.cs" />
-    <Compile Include="Repositories\UserFeatures\IHAVMessageRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVUserRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVUserRepository.cs" />
     <Compile Include="Services\AdminFeatures\HAVErrorService.cs" />
@@ -355,8 +352,6 @@
     <Compile Include="Services\Issues\IHAVIssueService.cs" />
     <Compile Include="Services\UserFeatures\IHAVProfileService.cs" />
     <Compile Include="Services\UserFeatures\IHAVSearchService.cs" />
-    <Compile Include="Services\UserFeatures\HAVMessageService.cs" />
-    <Compile Include="Services\UserFeatures\IHAVMessageService.cs" />
     <Compile Include="Services\UserFeatures\HAVUserService.cs" />
     <Compile Include="Services\UserFeatures\IHAVUserService.cs" />
     <Compile Include="Util\CssStyles\UserPanelNav.cs" />
@@ -546,6 +541,10 @@
       <Project>{E75FF555-CD9D-42B4-9D4D-07955F5629B3}</Project>
       <Name>Generic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Messaging\Messaging.csproj">
+      <Project>{AC9BB02F-5404-4791-B2D6-C24BA825CC60}</Project>
+      <Name>Messaging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\User\User.csproj">
       <Project>{1765CF75-9243-4BA7-8399-3D30614C6006}</Project>
       <Name>User</Name>
@@ -554,6 +553,9 @@
       <Project>{3A71D0D2-1A14-4E7B-9AA7-7945B3408528}</Project>
       <Name>Validation</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
