@@ -10,25 +10,35 @@ using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services.Helpers;
+using Social.Board.Repositories;
 using Social.Friend.Services;
 using Social.Generic.Models;
 using Social.User.Models;
+using Social.User.Services;
 using Social.Validation;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVProfileService : HAVBaseService, IHAVProfileService {
-        private IHAVUserRetrievalService theUserRetrievalService;
+        private IUserRetrievalService<User> theUserRetrievalService;
         private IFriendService<User, Friend> theFriendService;
         private IHAVPhotoAlbumService thePhotoAlbumService;
         private IHAVProfileRepository theRepository;
         private IValidationDictionary theValidationDictionary;
-        private IHAVBoardRepository theBoardRepository;
+        private IBoardRepository<User, Board, BoardReply> theBoardRepository;
 
         public HAVProfileService(IValidationDictionary validationDictionary)
-            : this(validationDictionary, new HAVUserRetrievalService(), new FriendService<User, Friend>(new EntityHAVFriendRepository()), new HAVPhotoAlbumService(validationDictionary), new EntityHAVProfileRepository(), new EntityHAVBoardRepository(), new HAVBaseRepository()) { }
+            : this(validationDictionary,
+                   new UserRetrievalService<User>(new EntityHAVUserRetrievalRepository()), 
+                   new FriendService<User, Friend>(new EntityHAVFriendRepository()), 
+                   new HAVPhotoAlbumService(validationDictionary), 
+                   new EntityHAVProfileRepository(), 
+                   new EntityHAVBoardRepository(), 
+                   new HAVBaseRepository()) { }
 
-        public HAVProfileService(IValidationDictionary aValidationDictionary, IHAVUserRetrievalService aUserRetrievalService, IFriendService<User, Friend> aFriendService, IHAVPhotoAlbumService aPhotoAlbumService, IHAVProfileRepository aRepository,
-                                            IHAVBoardRepository aBoardRepository, IHAVBaseRepository aBaseRepository) : base(aBaseRepository) {
+        public HAVProfileService(IValidationDictionary aValidationDictionary, IUserRetrievalService<User> aUserRetrievalService, 
+                                 IFriendService<User, Friend> aFriendService, IHAVPhotoAlbumService aPhotoAlbumService, IHAVProfileRepository aRepository,
+                                 IBoardRepository<User, Board, BoardReply> aBoardRepository, IHAVBaseRepository aBaseRepository)
+            : base(aBaseRepository) {
             theValidationDictionary = aValidationDictionary;
             theUserRetrievalService = aUserRetrievalService;
             theFriendService = aFriendService;

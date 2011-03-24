@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using HaveAVoice.Services;
-using HaveAVoice.Repositories;
-using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Models;
-using System.Text;
-using HaveAVoice.Models.View;
 using HaveAVoice.Controllers.Helpers;
-using HaveAVoice.Helpers;
+using HaveAVoice.Models;
+using HaveAVoice.Models.View;
+using HaveAVoice.Repositories;
+using HaveAVoice.Repositories.UserFeatures;
+using HaveAVoice.Services;
+using Social.User.Models;
+using Social.User.Services;
 
 namespace HaveAVoice.Controllers.Users
 {
@@ -21,14 +18,14 @@ namespace HaveAVoice.Controllers.Users
 
         private const string EDIT_VIEW = "Edit";
 
-        private IHAVUserPrivacySettingsService thePrivacyService;
+        private IUserPrivacySettingsService<User, PrivacySetting> thePrivacyService;
 
         public UserPrivacySettingsController() : 
             base(new HAVBaseService(new HAVBaseRepository())) {
-            thePrivacyService = new HAVUserPrivacySettingsService();
+                thePrivacyService = new UserPrivacySettingsService<User, PrivacySetting>(new EntityHAVUserPrivacySettingsRepository());
         }
 
-        public UserPrivacySettingsController(IHAVBaseService aBaseService, IHAVUserPrivacySettingsService aPrivacyService)
+        public UserPrivacySettingsController(IHAVBaseService aBaseService, IUserPrivacySettingsService<User, PrivacySetting> aPrivacyService)
             : base(aBaseService) {
             thePrivacyService = aPrivacyService;
         }
@@ -41,7 +38,7 @@ namespace HaveAVoice.Controllers.Users
             User myUser = GetUserInformaton();
             DisplayPrivacySettingsModel myPrivacySettingSelections = new DisplayPrivacySettingsModel(myUser);
             try {
-                myPrivacySettingSelections = thePrivacyService.GetPrivacySettingsForEdit(myUser);
+                myPrivacySettingSelections.PrivacySettings = thePrivacyService.GetPrivacySettingsGrouped(myUser);
             } catch (Exception e) {
                 LogError(e, RETRIEVE_FAIL);
                 return SendToErrorPage(RETRIEVE_FAIL);
@@ -52,7 +49,7 @@ namespace HaveAVoice.Controllers.Users
 
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Edit(UpdatePrivacySettingsModel aSettings) {
+        public ActionResult Edit(UpdatePrivacySettingsModel<PrivacySetting> aSettings) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }

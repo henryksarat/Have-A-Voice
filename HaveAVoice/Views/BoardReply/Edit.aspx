@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.BoardReplyWrapper>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<BoardReply>" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="Social.Generic.Models" %>
 

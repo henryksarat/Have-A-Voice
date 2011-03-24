@@ -34,9 +34,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Recaptcha">
-      <HintPath>..\..\..\..\Visual Studio 2008\Projects\HaveAVoice\HaveAVoice\bin\Recaptcha.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -128,7 +125,6 @@
     <Compile Include="Controllers\Users\UserController.cs" />
     <Compile Include="Helpers\ComplaintHelper.cs" />
     <Compile Include="Helpers\Enums\ComplaintType.cs" />
-    <Compile Include="Helpers\Relation.cs" />
     <Compile Include="Helpers\UI\ImageHelper.cs" />
     <Compile Include="Helpers\UI\NavigationHelper.cs" />
     <Compile Include="Helpers\UserInformation\UserSettings.cs" />
@@ -143,10 +139,14 @@
     </Compile>
     <Compile Include="Helpers\ActionMethods\AcceptParameterAttribute.cs" />
     <Compile Include="Helpers\ActionMethods\CaptchaValidatorAttribute.cs" />
+    <Compile Include="Models\SocialWrappers\SocialBoardReplyModel.cs" />
+    <Compile Include="Models\SocialWrappers\SocialBoardModel.cs" />
     <Compile Include="Models\SocialWrappers\SocialMessageWrapper.cs" />
     <Compile Include="Models\SocialWrappers\SocialPermissionModel.cs" />
+    <Compile Include="Models\SocialWrappers\SocialPrivacySettingsModel.cs" />
     <Compile Include="Models\SocialWrappers\SocialReplyWrapper.cs" />
     <Compile Include="Models\SocialWrappers\SocialRoleModel.cs" />
+    <Compile Include="Models\SocialWrappers\SocialWhoIsOnlineModel.cs" />
     <Compile Include="Models\SocialWrappers\UserModel.cs" />
     <Compile Include="Models\View\AuthorityVerificationModel.cs" />
     <Compile Include="Models\View\Binders\UpdatePrivacySettingsModelBinder.cs" />
@@ -155,17 +155,14 @@
     <Compile Include="Models\View\CreateUserModel.cs" />
     <Compile Include="Models\View\NavigationItemModel.cs" />
     <Compile Include="Models\View\NotificationModel.cs" />
-    <Compile Include="Models\View\UpdatePrivacySettingsModel.cs" />
     <Compile Include="Models\View\CreateUserModelBuilder.cs" />
     <Compile Include="Models\View\DisplayPrivacySettingsModel.cs" />
     <Compile Include="Models\View\IssueFeedModel.cs" />
     <Compile Include="Models\View\IssueReplyFeedModel.cs" />
     <Compile Include="Models\View\PhotoAlbumFeedModel.cs" />
-    <Compile Include="Models\View\SingleFeedItem.cs" />
     <Compile Include="Models\View\LoggedInListModel.cs" />
     <Compile Include="Models\View\LoggedInWrapperModel.cs" />
     <Compile Include="Models\View\NotLoggedInModel.cs" />
-    <Compile Include="Models\View\FilteredFeedModel.cs" />
     <Compile Include="Models\View\FeedModel.cs" />
     <Compile Include="Models\View\SiteSection.cs" />
     <Compile Include="Models\View\NavigationModel.cs" />
@@ -207,20 +204,16 @@
     <Compile Include="Services\Helpers\FriendHelper.cs" />
     <Compile Include="Services\Helpers\IssueHelper.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVAuthenticationRepository.cs" />
-    <Compile Include="Repositories\UserFeatures\IHAVBoardRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVFeedbackRepository.cs" />
     <Compile Include="Models\ServiceConstants.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVNavigationRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVNotificationRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVPasswordRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVPhotoRepository.cs" />
-    <Compile Include="Repositories\UserFeatures\IHAVUserPrivacySettingsRepository.cs" />
-    <Compile Include="Repositories\UserFeatures\IHAVUserRetrievalRepository.cs" />
     <Compile Include="Services\Helpers\NavigationCountHelper.cs" />
     <Compile Include="Services\Helpers\PrivacyHelper.cs" />
     <Compile Include="Services\Helpers\PhotoHelper.cs" />
     <Compile Include="Services\Helpers\RoleHelper.cs" />
-    <Compile Include="Services\Helpers\ValidationHelper.cs" />
     <Compile Include="Services\Issues\HAVIssueReplyCommentService.cs" />
     <Compile Include="Services\Issues\HAVIssueReplyService.cs" />
     <Compile Include="Services\Issues\IHAVIssueReplyCommentService.cs" />
@@ -233,44 +226,27 @@
     <Compile Include="Services\UserFeatures\HAVAuthorityVerificationService.cs" />
     <Compile Include="Services\UserFeatures\HAVNavigationService.cs" />
     <Compile Include="Services\UserFeatures\HAVNotificationService.cs" />
-    <Compile Include="Services\UserFeatures\HAVUserRetrievalService.cs" />
     <Compile Include="Services\UserFeatures\IHAVAuthorityVerificationService.cs" />
     <Compile Include="Services\UserFeatures\IHAVNavigationService.cs" />
     <Compile Include="Services\UserFeatures\IHAVNotificationService.cs" />
     <Compile Include="Services\UserFeatures\IHAVPhotoAlbumService.cs" />
-    <Compile Include="Services\UserFeatures\IHAVUserRetrievalService.cs" />
-    <Compile Include="Repositories\UserFeatures\IHAVWhoIsOnlineRepository.cs" />
-    <Compile Include="Services\Helpers\PasswordHelper.cs" />
     <Compile Include="Services\UserFeatures\HAVAuthenticationService.cs" />
-    <Compile Include="Services\UserFeatures\HAVPasswordService.cs" />
     <Compile Include="Services\UserFeatures\HAVPhotoService.cs" />
-    <Compile Include="Services\UserFeatures\HAVUserPrivacySettingsService.cs" />
-    <Compile Include="Services\UserFeatures\IHAVPasswordService.cs" />
     <Compile Include="Services\UserFeatures\IHAVPhotoService.cs" />
-    <Compile Include="Services\UserFeatures\IHAVUserPrivacySettingsService.cs" />
-    <Compile Include="Services\UserFeatures\IHAVWhoIsOnlineService.cs" />
-    <Compile Include="Services\UserFeatures\HAVBoardService.cs" />
     <Compile Include="Services\UserFeatures\HAVFeedbackService.cs" />
-    <Compile Include="Services\UserFeatures\HAVWhoIsOnlineService.cs" />
     <Compile Include="Services\UserFeatures\IHAVAuthenticationService.cs" />
-    <Compile Include="Services\UserFeatures\IHAVBoardService.cs" />
     <Compile Include="Services\UserFeatures\IHAVFeedbackService.cs" />
     <Compile Include="Models\View\Binders\BinderHelper.cs" />
-    <Compile Include="Helpers\CaptchaHelper.cs" />
     <Compile Include="Helpers\UI\IssueReplyHelper.cs" />
     <Compile Include="Helpers\UI\CheckBoxHelper.cs" />
     <Compile Include="Helpers\CloneHelper.cs" />
-    <Compile Include="Helpers\DateHelper.cs" />
     <Compile Include="Helpers\Enums\RestrictionList.cs" />
     <Compile Include="Helpers\Enums\Disposition.cs" />
     <Compile Include="Helpers\HAVConstants.cs" />
-    <Compile Include="Helpers\HAVEmail.cs" />
     <Compile Include="Helpers\UserInformation\HAVUserInformationFactory.cs" />
-    <Compile Include="Helpers\IHAVEmail.cs" />
     <Compile Include="Helpers\UI\IssueHelper.cs" />
     <Compile Include="Helpers\UserInformation\IUserInformation.cs" />
     <Compile Include="Helpers\UI\MessageHelper.cs" />
-    <Compile Include="Helpers\Pair.cs" />
     <Compile Include="Helpers\UserInformation\RestrictionLog.cs" />
     <Compile Include="Helpers\SelectionHelper.cs" />
     <Compile Include="Services\Helpers\TimezoneHelper.cs" />
@@ -280,9 +256,6 @@
     <Compile Include="Repositories\UserFeatures\IHAVCalendarRepository.cs" />
     <Compile Include="Services\UserFeatures\HAVCalendarService.cs" />
     <Compile Include="Services\UserFeatures\IHAVCalendarService.cs" />
-    <Compile Include="Models\Wrappers\BoardReplyWrapper.cs" />
-    <Compile Include="Models\Wrappers\BoardWrapper.cs" />
-    <Compile Include="Models\View\BoardModel.cs" />
     <Compile Include="Models\View\ComplaintModel.cs" />
     <Compile Include="Models\View\EditIssueReplyModel.cs" />
     <Compile Include="Models\View\ErrorModel.cs" />
@@ -293,19 +266,15 @@
     <Compile Include="Models\View\LoggedInModel.cs" />
     <Compile Include="Models\View\MessageBuilder.cs" />
     <Compile Include="Models\View\MessageModel.cs" />
-    <Compile Include="Models\View\PermissionModel.cs" />
-    <Compile Include="Models\View\Binders\PermissionModelBinder.cs" />
     <Compile Include="Models\View\ProfileModel.cs" />
     <Compile Include="Models\View\RestrictionModel.cs" />
     <Compile Include="Models\View\Binders\RestrictionModelBinder.cs" />
     <Compile Include="Models\View\RoleModel.cs" />
     <Compile Include="Models\View\Binders\RoleModelBinder.cs" />
-    <Compile Include="Models\View\SelectionModel.cs" />
     <Compile Include="Models\View\CreateAuthorityUserModelBuilder.cs" />
     <Compile Include="Models\View\Binders\CreateUserModelBuilderBinder.cs" />
     <Compile Include="Models\View\EditUserModel.cs" />
     <Compile Include="Models\View\Binders\EditUserModelBinder.cs" />
-    <Compile Include="Models\View\StringWrapper.cs" />
     <Compile Include="Models\View\SwitchUserRoles.cs" />
     <Compile Include="Models\View\UserPicturesModel.cs" />
     <Compile Include="Models\View\Binders\UserPicturesModelBinder.cs" />
@@ -317,7 +286,6 @@
       <DependentUpon>HaveAVoiceDBModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Repositories\AdminFeatures\EntityHAVErrorRepository.cs" />
-    <Compile Include="Repositories\AdminFeatures\IHAVErrorRepository.cs" />
     <Compile Include="Repositories\AdminFeatures\EntityHAVRestrictionRepository.cs" />
     <Compile Include="Repositories\AdminFeatures\IHAVRestrictionRepository.cs" />
     <Compile Include="Repositories\AdminFeatures\EntityHAVRoleRepository.cs" />
@@ -336,8 +304,6 @@
     <Compile Include="Repositories\UserFeatures\EntityHAVMessageRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVUserRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVUserRepository.cs" />
-    <Compile Include="Services\AdminFeatures\HAVErrorService.cs" />
-    <Compile Include="Services\AdminFeatures\IHAVErrorService.cs" />
     <Compile Include="Services\AdminFeatures\HAVRestrictionService.cs" />
     <Compile Include="Services\AdminFeatures\IHAVRestrictionService.cs" />
     <Compile Include="Services\HAVBaseService.cs" />
@@ -533,6 +499,18 @@
       <Project>{F6ECA5A8-34DB-4218-8D99-56FFDA3A3DF8}</Project>
       <Name>Admin</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Board\Board.csproj">
+      <Project>{755E3949-7FFD-44DC-84A2-639BA4BED8A2}</Project>
+      <Name>Board</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Email\Email.csproj">
+      <Project>{E1E6EFDF-E70F-4413-8C2D-E51A2F6310F2}</Project>
+      <Name>Email</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Error\Error.csproj">
+      <Project>{C4E1209B-218E-4E1C-ACE0-8FF05B684C93}</Project>
+      <Name>Error</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Friend\Friend.csproj">
       <Project>{5BB2B446-431B-4D66-8A7A-2A6F64E35492}</Project>
       <Name>Friend</Name>
@@ -553,9 +531,6 @@
       <Project>{3A71D0D2-1A14-4E7B-9AA7-7945B3408528}</Project>
       <Name>Validation</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

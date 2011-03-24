@@ -4,7 +4,7 @@ using HaveAVoice.Services.Helpers;
 using HaveAVoice.Util;
 
 namespace HaveAVoice.Models.View {
-    public abstract class LoggedInModel {
+    public class LoggedInModel {
         public NavigationModel NavigationModel { get; private set; }
 
         public LoggedInModel(User aPanelForUser, User aLoggedInUser, SiteSection aSection) {

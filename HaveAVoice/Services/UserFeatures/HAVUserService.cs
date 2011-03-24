@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using HaveAVoice.Exceptions;
 using HaveAVoice.Helpers;
-using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services.Helpers;
-using Social.Validation;
-using Social.Generic;
+using Social.Email;
 using Social.Generic.Constants;
-
+using Social.Generic.Helpers;
+using Social.User.Services;
+using Social.Validation;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVUserService : HAVBaseService, IHAVUserService {
@@ -21,25 +21,23 @@ namespace HaveAVoice.Services.UserFeatures {
         private const string INVALID_EMAIL = "That is not a valid email.";
 
         private IValidationDictionary theValidationDictionary;
-        private IHAVUserRetrievalService theUserRetrievalService;
+        private IUserRetrievalService<User> theUserRetrievalService;
         private IHAVAuthorityVerificationService theAuthorityVerificationService;
         private IHAVAuthenticationService theAuthService;
-        private IHAVPhotoService thePhotoService;
         private IHAVUserRepository theUserRepo;
-        private IHAVEmail theEmailService;
+        private IEmail theEmailService;
 
         public HAVUserService(IValidationDictionary theValidationDictionary)
-            : this(theValidationDictionary, new HAVUserRetrievalService(), new HAVAuthorityVerificationService(theValidationDictionary), new HAVAuthenticationService(), new HAVPhotoService(), 
-                    new EntityHAVUserRepository(), new HAVEmail(), new HAVBaseRepository()) { }
-        
-        public HAVUserService(IValidationDictionary aValidationDictionary, IHAVUserRetrievalService aUserRetrievalService, 
+            : this(theValidationDictionary, new UserRetrievalService<User>(new EntityHAVUserRetrievalRepository()), new HAVAuthorityVerificationService(theValidationDictionary), new HAVAuthenticationService(), new HAVPhotoService(), 
+                    new EntityHAVUserRepository(), new SocialEmail(), new HAVBaseRepository()) { }
+
+        public HAVUserService(IValidationDictionary aValidationDictionary, IUserRetrievalService<User> aUserRetrievalService, 
                                          IHAVAuthorityVerificationService anAuthorityVerificationService, IHAVAuthenticationService anAuthService, IHAVPhotoService aPhotoService,  
-                                         IHAVUserRepository aUserRepo, IHAVEmail aEmailService, IHAVBaseRepository baseRepository) : base(baseRepository) {
+                                         IHAVUserRepository aUserRepo, IEmail aEmailService, IHAVBaseRepository baseRepository) : base(baseRepository) {
             theValidationDictionary = aValidationDictionary;
             theUserRetrievalService = aUserRetrievalService;
             theAuthorityVerificationService = anAuthorityVerificationService;
             theAuthService = anAuthService;
-            thePhotoService = aPhotoService;
             theUserRepo = aUserRepo;
             theEmailService = aEmailService;
         }
@@ -107,7 +105,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         private User CompleteAddingFieldsToUser(User aUserToCreate, string aIpAddress) {
-            aUserToCreate.Password = HashHelper.HashPassword(aUserToCreate.Password);
+            aUserToCreate.Password = HashHelper.DoHash(aUserToCreate.Password);
             aUserToCreate.RegistrationDate = DateTime.UtcNow;
             aUserToCreate.RegistrationIp = aIpAddress;
             aUserToCreate.LastLogin = DateTime.UtcNow;
@@ -130,7 +128,7 @@ namespace HaveAVoice.Services.UserFeatures {
             } else if (!ValidatePassword(password, aUser.RetypedPassword)) {
                 return false;
             } else {
-                aUser.UserInformation.Password = HashHelper.HashPassword(password);
+                aUser.UserInformation.Password = HashHelper.DoHash(password);
             }
 
             theUserRepo.UpdateUser(aUser.UserInformation);
@@ -202,7 +200,7 @@ namespace HaveAVoice.Services.UserFeatures {
             if (aUser.Password.Trim().Length == 0) {
                 theValidationDictionary.AddError("Password", aUser.Password.Trim(), "Password is required.");
             }
-            if (!ValidationHelper.IsValidEmail(aUser.Email)) {
+            if (!EmailValidation.IsValidEmail(aUser.Email)) {
                 theValidationDictionary.AddError("Email", aUser.Email.Trim(), "E-mail is required.");
             } else if (theUserRepo.EmailRegistered(aUser.Email.Trim())) {
                 theValidationDictionary.AddError("Email", aUser.Email.Trim(), "Someone already registered with that email. Please try another one.");
@@ -237,7 +235,7 @@ namespace HaveAVoice.Services.UserFeatures {
             if (aUser.State.Trim().Length != 2) {
                 theValidationDictionary.AddError("State", aUser.State.Trim(), "State is required.");
             }
-            if (!ValidationHelper.IsValidEmail(aUser.Email)) {
+            if (!EmailValidation.IsValidEmail(aUser.Email)) {
                 theValidationDictionary.AddError("Email", aUser.Email, INVALID_EMAIL);
             }
             if (aUser.DateOfBirth.Year == 1) {
@@ -282,7 +280,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         private bool ValidEmail(string anEmail, string anOriginalEmail) {
-            if (!ValidationHelper.IsValidEmail(anEmail)) {
+            if (!EmailValidation.IsValidEmail(anEmail)) {
                 theValidationDictionary.AddError("Email", anEmail.Trim(), INVALID_EMAIL);
             } else if (anOriginalEmail != null && (anOriginalEmail != anEmail)
                 && (theUserRepo.EmailRegistered(anEmail))) {
@@ -293,7 +291,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         private bool ValidateFileImage(string aImageFile) {
-            if (thePhotoService.IsValidImage(aImageFile)) {
+            if (!PhotoValidation.IsValidImageFile(aImageFile)) {
                 theValidationDictionary.AddError("ProfilePictureUpload", aImageFile, "Image must be either a .jpg, .jpeg, or .gif.");
             }
 

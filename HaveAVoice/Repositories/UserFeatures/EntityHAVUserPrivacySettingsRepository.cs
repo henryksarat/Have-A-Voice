@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using HaveAVoice.Services;
 using HaveAVoice.Models;
-using HaveAVoice.Helpers;
+using HaveAVoice.Models.SocialWrappers;
 using Social.Generic.Helpers;
+using Social.User.Models;
+using Social.User.Repositories;
 
 namespace HaveAVoice.Repositories.UserFeatures {
-    public class EntityHAVUserPrivacySettingsRepository : IHAVUserPrivacySettingsRepository {
+    public class EntityHAVUserPrivacySettingsRepository : IUserPrivacySettingsRepository<User, PrivacySetting> {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
         public void AddPrivacySettingsForUser(User aTargetUser, SocialPrivacySetting[] aSettings) {
@@ -22,22 +21,19 @@ namespace HaveAVoice.Repositories.UserFeatures {
             theEntities.SaveChanges();
         }
 
-        public IEnumerable<PrivacySetting> FindPrivacySettingsForUser(User aUser) {
-            return (from p in theEntities.PrivacySettings
-                    join up in theEntities.UserPrivacySettings on p.Name equals up.PrivacySettingName
-                    where up.UserId == aUser.Id
-                    select p).ToList<PrivacySetting>();
+        public IEnumerable<AbstractPrivacySettingModel<PrivacySetting>> FindPrivacySettingsForUser(User aUser) {
+            IEnumerable<PrivacySetting> mySettings = (from p in theEntities.PrivacySettings
+                                                      join up in theEntities.UserPrivacySettings on p.Name equals up.PrivacySettingName
+                                                      where up.UserId == aUser.Id
+                                                      select p).ToList<PrivacySetting>();
+            return mySettings.Select(p => SocialPrivacySettingModel.Create(p));
         }
 
-        private PrivacySetting FindPrivacySettingByName(string aName) {
-            return (from p in theEntities.PrivacySettings
-                    where p.Name == aName
-                    select p).FirstOrDefault<PrivacySetting>();
-        }
+        public IEnumerable<AbstractPrivacySettingModel<PrivacySetting>> GetAllPrivacySettings() {
+            IEnumerable<PrivacySetting> mySettings = (from p in theEntities.PrivacySettings
+                                                      select p).ToList<PrivacySetting>();
 
-        public IEnumerable<PrivacySetting> GetAllPrivacySettings() {
-            return (from p in theEntities.PrivacySettings
-                    select p).ToList<PrivacySetting>();
+            return mySettings.Select(p => SocialPrivacySettingModel.Create(p));
         }
 
         public void UpdatePrivacySettingsForUser(User aUser, IEnumerable<PrivacySetting> aSettingsToRemove, IEnumerable<PrivacySetting> aSettingsToAdd) {
@@ -59,6 +55,12 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     where u.UserId == aUser.Id
                     && u.PrivacySettingName == aSetting.Name
                     select u).FirstOrDefault<UserPrivacySetting>();
+        }
+
+        private PrivacySetting FindPrivacySettingByName(string aName) {
+            return (from p in theEntities.PrivacySettings
+                    where p.Name == aName
+                    select p).FirstOrDefault<PrivacySetting>();
         }
     }
 }

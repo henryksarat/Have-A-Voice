@@ -4,11 +4,13 @@ using HaveAVoice.Controllers.ActionFilters;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models;
+using HaveAVoice.Models.SocialWrappers;
 using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
+using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services;
-using HaveAVoice.Services.UserFeatures;
 using Social.Admin.Helpers;
+using Social.Board.Services;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Validation;
@@ -24,15 +26,14 @@ namespace HaveAVoice.Controllers.Users {
         private static string EDIT_REPLY_ERROR = "Unable to edit the board reply. Please try again.";
         private static string DELETE_REPLY_ERROR = "Unable to delete the board reply. Please try again.";
 
-        private IHAVBoardService theService;
+        private IBoardService<User, Board, BoardReply> theService;
 
         public BoardReplyController()
             : base(new HAVBaseService(new HAVBaseRepository())) {
-                theService = new HAVBoardService(new ModelStateWrapper(this.ModelState));
+                theService = new BoardService<User, Board, BoardReply>(new ModelStateWrapper(this.ModelState), new EntityHAVBoardRepository());
         }
 
-        public BoardReplyController(IHAVBoardService aService, IHAVBaseService aBaseService)
-            : base(aBaseService) {
+        public BoardReplyController(IBoardService<User, Board, BoardReply> aService, IHAVBaseService aBaseService) : base(aBaseService) {
                 theService = aService;
         }
 
@@ -64,13 +65,10 @@ namespace HaveAVoice.Controllers.Users {
             }
             try {
                 BoardReply myReply = theService.FindBoardReply(id);
-
                 if (GetUserInformatonModel().Details.Id != myReply.UserId) {
                     return SendToErrorPage(HAVConstants.PAGE_NOT_FOUND);
                 }
-
-                BoardReplyWrapper myWrapper = BoardReplyWrapper.Build(myReply);
-                return View("Edit", myWrapper);
+                return View("Edit", myReply);
             } catch (Exception myException) {
                 LogError(myException, VIEW_REPLY_ERROR);
                 return SendToErrorPage(VIEW_REPLY_ERROR);
@@ -78,12 +76,12 @@ namespace HaveAVoice.Controllers.Users {
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
-        public ActionResult Edit(BoardReplyWrapper aBoardReplyWrapper) {
+        public ActionResult Edit(SocialBoardReplyModel aBoardReply) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
             try {
-                if (theService.EditBoardReply(GetUserInformatonModel(), aBoardReplyWrapper.ToModel())) {
+                if (theService.EditBoardReply(GetUserInformatonModel(), aBoardReply)) {
                     TempData["Message"] = MessageHelper.SuccessMessage(EDIT_REPLY_SUCCES);
                 }
             } catch (Exception myException) {
@@ -91,7 +89,7 @@ namespace HaveAVoice.Controllers.Users {
                 TempData["Message"] = MessageHelper.ErrorMessage(EDIT_REPLY_ERROR);
             }
 
-            return RedirectToAction("Edit", new { id = aBoardReplyWrapper.Id });
+            return RedirectToAction("Edit", new { id = aBoardReply.Id });
         }
 
         [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]

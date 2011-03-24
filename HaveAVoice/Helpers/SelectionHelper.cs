@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using HaveAVoice.Models;
+using Social.Generic;
 
 namespace HaveAVoice.Helpers {
     public class SelectionHelper {

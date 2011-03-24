@@ -15,6 +15,7 @@ using HaveAVoice.Services.Helpers;
 using Social.Friend.Services;
 using Social.Generic.Models;
 using Social.User.Models;
+using Social.Validation;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVPhotoService : HAVBaseService, IHAVPhotoService {
@@ -95,11 +96,6 @@ namespace HaveAVoice.Services.UserFeatures {
             Photo myPhoto = thePhotoRepo.AddReferenceToImage(aUserToUploadFor, myProfilePictureAlbum.Id, myImageName, true);
         }
 
-        public bool IsValidImage(string anImageFile) {
-            return !String.IsNullOrEmpty(anImageFile)
-                && (anImageFile.ToUpper().EndsWith(".JPG") || anImageFile.ToUpper().EndsWith(".JPEG") || anImageFile.ToUpper().EndsWith(".GIF"));
-        }
-
         public Photo GetProfilePicutre(User aUser) {
             return GetProfilePicture(aUser.Id);
         }
@@ -129,7 +125,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         private string UploadImage(User aUserToUploadFor, HttpPostedFileBase aImageFile) {
-            if(!IsValidImage(aImageFile.FileName)) {
+            if(!PhotoValidation.IsValidImageFile(aImageFile.FileName)) {
                     throw new CustomException("Please specify a proper image file that ends in .gif, .jpg, or .jpeg.");
             }
             string[] mySplitOnPeriod = aImageFile.FileName.Split(new char[] { '.' });

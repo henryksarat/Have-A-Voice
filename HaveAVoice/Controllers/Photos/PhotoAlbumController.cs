@@ -8,9 +8,11 @@ using HaveAVoice.Helpers;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
+using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
 using Social.Generic.Models;
+using Social.User.Services;
 using Social.Validation;
 
 namespace HaveAVoice.Controllers.Users.Photos {
@@ -33,15 +35,15 @@ namespace HaveAVoice.Controllers.Users.Photos {
         private const string DELETE_VIEW = "Delete";
 
         private IHAVPhotoAlbumService thePhotoAlbumService;
-        private IHAVUserRetrievalService theUserRetrievalService;
+        private IUserRetrievalService<User> theUserRetrievalService;
 
         public PhotoAlbumController() : 
             base(new HAVBaseService(new HAVBaseRepository())) {
                 thePhotoAlbumService = new HAVPhotoAlbumService(new ModelStateWrapper(this.ModelState));
-                theUserRetrievalService = new HAVUserRetrievalService();
+                theUserRetrievalService = new UserRetrievalService<User>(new EntityHAVUserRetrievalRepository());
         }
 
-        public PhotoAlbumController(IHAVPhotoAlbumService aPhotoAlbumService, IHAVUserRetrievalService aUserRetrievalService, IHAVBaseService aBaseService)
+        public PhotoAlbumController(IHAVPhotoAlbumService aPhotoAlbumService, IUserRetrievalService<User> aUserRetrievalService, IHAVBaseService aBaseService)
             : base(aBaseService) {
                 thePhotoAlbumService = aPhotoAlbumService;
                 theUserRetrievalService = aUserRetrievalService;

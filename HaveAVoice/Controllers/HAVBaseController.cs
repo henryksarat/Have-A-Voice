@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Web.Mvc;
-using HaveAVoice.Models;
-using HaveAVoice.Models.View;
-using HaveAVoice.Services;
 using System.Web.Routing;
-using HaveAVoice.Helpers;
-using HaveAVoice.Helpers.UserInformation;
-using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Controllers.Helpers;
+using HaveAVoice.Helpers.UserInformation;
+using HaveAVoice.Models;
 using HaveAVoice.Models.SocialWrappers;
-using Social.User.Models;
+using HaveAVoice.Models.View;
+using HaveAVoice.Repositories.UserFeatures;
+using HaveAVoice.Services;
+using HaveAVoice.Services.UserFeatures;
 using Social.Generic.Models;
+using Social.User.Models;
+using Social.Users.Services;
 
 namespace HaveAVoice.Controllers  {
     public abstract class HAVBaseController : Controller {
@@ -22,12 +23,12 @@ namespace HaveAVoice.Controllers  {
 
         private IHAVBaseService theErrorService;
         private IHAVAuthenticationService theAuthService;
-        private IHAVWhoIsOnlineService theWhoIsOnlineService;
+        private IWhoIsOnlineService<User, WhoIsOnline> theWhoIsOnlineService;
 
-        public HAVBaseController(IHAVBaseService baseService) : 
-            this(baseService, new HAVAuthenticationService(), new HAVWhoIsOnlineService()) { }
+        public HAVBaseController(IHAVBaseService baseService) :
+            this(baseService, new HAVAuthenticationService(), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository())) { }
 
-        public HAVBaseController(IHAVBaseService baseService, IHAVAuthenticationService anAuthService, IHAVWhoIsOnlineService aWhoIsOnlineService) {
+        public HAVBaseController(IHAVBaseService baseService, IHAVAuthenticationService anAuthService, IWhoIsOnlineService<User, WhoIsOnline> aWhoIsOnlineService) {
             theErrorService = baseService;
             theAuthService = anAuthService;
             theWhoIsOnlineService = aWhoIsOnlineService;
@@ -36,7 +37,6 @@ namespace HaveAVoice.Controllers  {
         protected override void Initialize(RequestContext rc) {
             base.Initialize(rc);
             HAVUserInformationFactory.SetInstance(UserInformation.Instance());
-            theErrorService.ResetConnection();
         }
 
         protected User GetUserInformaton() {

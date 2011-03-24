@@ -9,6 +9,8 @@ using HaveAVoice.Services;
 using HaveAVoice.Services.Issues;
 using HaveAVoice.Services.UserFeatures;
 using Social.Validation;
+using Social.User.Services;
+using HaveAVoice.Repositories.UserFeatures;
 
 namespace HaveAVoice.Controllers.Issues {
     public class SearchController : HAVBaseController {
@@ -18,16 +20,16 @@ namespace HaveAVoice.Controllers.Issues {
         private const string SEARCH = "Search";
         
         private IHAVSearchService theService;
-        private IHAVUserRetrievalService theUserRetrievalService;
+        private IUserRetrievalService<User> theUserRetrievalService;
         private IHAVIssueService theIssueService;
 
         public SearchController() : base(new HAVBaseService(new HAVBaseRepository())) {
             theService = new HAVSearchService();
-            theUserRetrievalService = new HAVUserRetrievalService();
+            theUserRetrievalService = new UserRetrievalService<User>(new EntityHAVUserRetrievalRepository());
             theIssueService = new HAVIssueService(new ModelStateWrapper(this.ModelState));
         }
 
-        public SearchController(IHAVSearchService aService, IHAVUserRetrievalService aUserRetrivalService, 
+        public SearchController(IHAVSearchService aService, IUserRetrievalService<User> aUserRetrivalService, 
                                 IHAVIssueService anIssueService, IHAVBaseService baseService)
             : base(baseService) {
             theService = aService;

@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using HaveAVoice.Helpers;
+using Social.Generic;
 
 namespace HaveAVoice.Models.View {
     public class RoleModel {

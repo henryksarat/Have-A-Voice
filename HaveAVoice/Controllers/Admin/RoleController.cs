@@ -16,6 +16,7 @@ using HaveAVoice.Services.AdminFeatures;
 using Social.Admin;
 using Social.Admin.Helpers;
 using Social.Admin.Services;
+using Social.Generic;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Validation;

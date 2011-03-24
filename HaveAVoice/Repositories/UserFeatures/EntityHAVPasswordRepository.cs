@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using HaveAVoice.Models;
+using HaveAVoice.Models.SocialWrappers;
+using Social.User.Models;
+using Social.User.Repositories;
 
 namespace HaveAVoice.Repositories.UserFeatures {
-    public class EntityHAVPasswordRepository : IHAVPasswordRepository {
+    public class EntityHAVPasswordRepository : IPasswordRepository<User> {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
         public void UpdateUserForgotPasswordHash(string anEmail, string aHashCode) {
@@ -16,11 +17,12 @@ namespace HaveAVoice.Repositories.UserFeatures {
             theEntities.SaveChanges();
         }
 
-        public User GetUserByEmailAndForgotPasswordHash(string anEmail, string aHashCode) {
-            return (from c in theEntities.Users
-                    where c.Email == anEmail
-                    && c.ForgotPasswordHash == aHashCode
-                    select c).FirstOrDefault();
+        public AbstractUserModel<User> GetUserByEmailAndForgotPasswordHash(string anEmail, string aHashCode) {
+            User myUser = (from c in theEntities.Users
+                           where c.Email == anEmail
+                           && c.ForgotPasswordHash == aHashCode
+                           select c).FirstOrDefault<User>();
+            return SocialUserModel.Create(myUser);
         }
 
         public void ChangePassword(int aUserId, string aPassword) {
@@ -33,12 +35,12 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         private User FindUserByEmail(string anEmail) {
-            IHAVUserRetrievalRepository myUserRepo = new EntityHAVUserRetrievalRepository();
+            IUserRetrievalRepository<User> myUserRepo = new EntityHAVUserRetrievalRepository();
             return myUserRepo.GetUser(anEmail);
         }
 
         private User FindUserByUserId(int aUserId) {
-            IHAVUserRetrievalRepository myUserRepo = new EntityHAVUserRetrievalRepository();
+            IUserRetrievalRepository<User> myUserRepo = new EntityHAVUserRetrievalRepository();
             return myUserRepo.GetUser(aUserId);
         }
     }

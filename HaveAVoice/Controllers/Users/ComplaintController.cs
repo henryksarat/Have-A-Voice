@@ -10,12 +10,14 @@ using HaveAVoice.Repositories;
 using HaveAVoice.Services;
 using HaveAVoice.Services.Issues;
 using HaveAVoice.Services.UserFeatures;
+using Social.User.Services;
 using Social.Validation;
+using HaveAVoice.Repositories.UserFeatures;
 
 namespace HaveAVoice.Controllers.Users {
     public class ComplaintController : HAVBaseController {
         private IHAVComplaintService theService;
-        private IHAVUserRetrievalService theUserRetrievalService;
+        private IUserRetrievalService<User> theUserRetrievalService;
         private IHAVIssueService theIssueService;
         private IHAVIssueReplyService theIssueReplyService;
         private IHAVIssueReplyCommentService theIssueReplyCommentService;
@@ -25,7 +27,7 @@ namespace HaveAVoice.Controllers.Users {
             : base(new HAVBaseService(new HAVBaseRepository())) {
              ModelStateWrapper myModelWrapper = new ModelStateWrapper(this.ModelState);
             theService = new HAVComplaintService(myModelWrapper);
-            theUserRetrievalService = new HAVUserRetrievalService();
+            theUserRetrievalService = new UserRetrievalService<User>(new EntityHAVUserRetrievalRepository());
             theIssueService = new HAVIssueService(myModelWrapper);
             theIssueReplyService = new HAVIssueReplyService(myModelWrapper);
             theIssueReplyCommentService = new HAVIssueReplyCommentService(myModelWrapper);
@@ -33,8 +35,8 @@ namespace HaveAVoice.Controllers.Users {
         }
 
         public ComplaintController(IHAVComplaintService aService, IHAVBaseService aBaseService, 
-                                               IHAVUserRetrievalService aUserRetrievalService, IHAVIssueService aIssueService, 
-                                               IHAVPhotoService aPhotoService) : base(aBaseService) {
+                                   IUserRetrievalService<User> aUserRetrievalService, IHAVIssueService aIssueService, 
+                                   IHAVPhotoService aPhotoService) : base(aBaseService) {
             theService = aService;
             theUserRetrievalService = aUserRetrievalService;
             theIssueService = aIssueService;

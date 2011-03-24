@@ -8,6 +8,7 @@ using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services.Helpers;
 using Social.Admin.Helpers;
+using Social.Email;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Validation;
@@ -20,12 +21,12 @@ namespace HaveAVoice.Services.UserFeatures {
 
         private IValidationDictionary theValidationDictionary;
         private IHAVAuthorityVerificationRepository theAuthenticationRepo;
-        private IHAVEmail theEmailService;
+        private IEmail theEmailService;
 
         public HAVAuthorityVerificationService(IValidationDictionary aValidationDictionary) 
-            : this(aValidationDictionary, new HAVBaseRepository(), new HAVEmail(), new EntityHAVAuthorityVerificationRepository()) { }
+            : this(aValidationDictionary, new HAVBaseRepository(), new SocialEmail(), new EntityHAVAuthorityVerificationRepository()) { }
 
-        public HAVAuthorityVerificationService(IValidationDictionary aValidationDictionary, IHAVBaseRepository aBaseRepository, IHAVEmail anEmailService, IHAVAuthorityVerificationRepository anAuthorityService)
+        public HAVAuthorityVerificationService(IValidationDictionary aValidationDictionary, IHAVBaseRepository aBaseRepository, IEmail anEmailService, IHAVAuthorityVerificationRepository anAuthorityService)
             : base(aBaseRepository) {
                 theValidationDictionary = aValidationDictionary;
             theAuthenticationRepo = anAuthorityService;
@@ -43,7 +44,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
             Random myRandom = new Random(DateTime.UtcNow.Millisecond);
             string myToken = myRandom.Next().ToString();
-            string myHashedToken = HashHelper.HashAuthorityVerificationToken(myToken);
+            string myHashedToken = HashHelper.DoHash(myToken);
 
             bool myExists = theAuthenticationRepo.TokenForEmailExists(anEmail, anAuthorityType, anAuthorityPosition);
 
@@ -59,7 +60,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public bool IsValidToken(string anEmail, string aToken, string anAuthorityType, string anAuthorityPosition) {
-            return theAuthenticationRepo.IsValidEmailWithToken(anEmail, HashHelper.HashAuthorityVerificationToken(aToken), anAuthorityType, anAuthorityPosition);
+            return theAuthenticationRepo.IsValidEmailWithToken(anEmail, HashHelper.DoHash(aToken), anAuthorityType, anAuthorityPosition);
         }
 
         public void VerifyAuthority(string anEmail, string aToken, string anAuthorityType, string anAuthorityPosition) {
@@ -67,7 +68,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         private bool IsValidAuthorityInformation(string anEmail, string anAuthorityType, string anAuthorityPosition) {
-            if (!ValidationHelper.IsValidEmail(anEmail)) {
+            if (!EmailValidation.IsValidEmail(anEmail)) {
                 theValidationDictionary.AddError("Email", anEmail, INVALID_EMAIL);
             }
 

@@ -14,6 +14,7 @@ using Social.Admin.Helpers;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Validation;
+using HaveAVoice.Controllers.ActionFilters;
 
 namespace HaveAVoice.Controllers.Admin {
     public class PermissionController : AdminBaseController {
@@ -55,6 +56,7 @@ namespace HaveAVoice.Controllers.Admin {
              return View("Index", permissions);
         }
 
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult Create() {
             UserInformationModel<User> myUserInformation = GetUserInformatonModel();
             if (!PermissionHelper<User>.AllowedToPerformAction(myUserInformation, SocialPermission.Create_Permission)) {
@@ -63,14 +65,13 @@ namespace HaveAVoice.Controllers.Admin {
             return View("Create");
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Create(PermissionModel model) {
+        [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
+        public ActionResult Create(SocialPermissionModel model) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
             try {
-                AbstractPermissionModel<Permission> myPermissionWrapper = new SocialPermissionModel(model.Permission);
-                if (thePermissionService.Create(GetUserInformatonModel(), myPermissionWrapper)) {
+                if (thePermissionService.Create(GetUserInformatonModel(), model)) {
                     return RedirectToAction("Index");
                 }
             } catch (Exception e) {
@@ -78,7 +79,7 @@ namespace HaveAVoice.Controllers.Admin {
                 ViewData["Message"] = MessageHelper.ErrorMessage("Error creating the restrictionModel. Check the error log and try again.");
             }
 
-            return View("Create", model);
+            return RedirectToAction("Create");
         }
 
         public ActionResult Edit(int id) {

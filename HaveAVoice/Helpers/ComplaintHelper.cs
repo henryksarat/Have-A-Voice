@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 using HaveAVoice.Helpers.Enums;
-using HaveAVoice.Models.View;
 using HaveAVoice.Models;
-using HaveAVoice.Services.UserFeatures;
+using HaveAVoice.Models.View;
 using HaveAVoice.Services.Issues;
+using HaveAVoice.Services.UserFeatures;
 using Social.Generic.Models;
+using Social.User.Services;
 
 namespace HaveAVoice.Helpers {
     public static class ComplaintHelper {
@@ -37,7 +34,7 @@ namespace HaveAVoice.Helpers {
                 "Report Comment");
         }
 
-        public static void FillComplaintModelBuilder(ComplaintModel.Builder aBuilder, IHAVUserRetrievalService aUserRetrievalService, 
+        public static void FillComplaintModelBuilder(ComplaintModel.Builder aBuilder, IUserRetrievalService<User> aUserRetrievalService, 
                                                      IHAVIssueService aIssueService, IHAVIssueReplyService anIssueReplyService, IHAVIssueReplyCommentService anIssueReplyCommentService, 
                                                      IHAVPhotoService aPhotoService) {
             UserInformationModel<User> myUser = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation();

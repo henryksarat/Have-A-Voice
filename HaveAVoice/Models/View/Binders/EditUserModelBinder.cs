@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 using HaveAVoice.Helpers;
-using HaveAVoice.Services.UserFeatures;
+using HaveAVoice.Repositories.UserFeatures;
 using Social.Generic.Constants;
+using Social.User.Services;
 
 namespace HaveAVoice.Models.View {
     public class EditUserModelBinder : IModelBinder {
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext) {
-            IHAVUserRetrievalService myUserRetrievalService = new HAVUserRetrievalService();
+            IUserRetrievalService<User> myUserRetrievalService = new UserRetrievalService<User>(new EntityHAVUserRetrievalRepository());
 
             string myProfilePictureUrl = BinderHelper.GetA(bindingContext, "ProfilePictureURL");
             string myOriginalEmail = BinderHelper.GetA(bindingContext, "OriginalEmail");

@@ -1,10 +1,9 @@
-﻿using System.Web.Mvc;
+﻿using System.Web;
+using System.Web.Mvc;
 using System.Web.Routing;
-using HaveAVoice.Models.View;
-using HaveAVoice.Helpers;
-using System.Web;
-using System.Collections.Generic;
 using HaveAVoice.Models;
+using HaveAVoice.Models.View;
+using Social.User.Models;
 
 namespace HaveAVoice {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
@@ -27,10 +26,8 @@ namespace HaveAVoice {
             ModelBinders.Binders.Add(typeof(PhotosModel), new PhotosModelBinder());
             ModelBinders.Binders.Remove(typeof(RestrictionModel));
             ModelBinders.Binders.Add(typeof(RestrictionModel), new RestrictionModelBinder());
-            ModelBinders.Binders.Remove(typeof(PermissionModel));
-            ModelBinders.Binders.Add(typeof(PermissionModel), new PermissionModelBinder());
-            ModelBinders.Binders.Remove(typeof(UpdatePrivacySettingsModel));
-            ModelBinders.Binders.Add(typeof(UpdatePrivacySettingsModel), new UpdatePrivacySettingsModelBinder());
+            ModelBinders.Binders.Remove(typeof(UpdatePrivacySettingsModel<PrivacySetting>));
+            ModelBinders.Binders.Add(typeof(UpdatePrivacySettingsModel<PrivacySetting>), new UpdatePrivacySettingsModelBinder());
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 

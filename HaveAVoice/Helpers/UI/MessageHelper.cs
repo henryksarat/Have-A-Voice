@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using HaveAVoice.Helpers;
+using Social.Generic.Helpers;
 
 namespace HaveAVoice.Helpers.UI {
     public class MessageHelper {

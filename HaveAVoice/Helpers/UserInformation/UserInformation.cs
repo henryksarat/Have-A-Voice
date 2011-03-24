@@ -1,30 +1,27 @@
 ﻿using System.Web;
 using HaveAVoice.Models;
-using System.Collections;
-using HaveAVoice.Models.View;
-using System;
-using HaveAVoice.Helpers.Enums;
-using System.Collections.Generic;
+using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services.UserFeatures;
-using Social.Generic.Models;
-using Social.Generic.Helpers;
 using Social.Admin.Helpers;
+using Social.Generic.Helpers;
+using Social.Generic.Models;
+using Social.Users.Services;
 
 namespace HaveAVoice.Helpers.UserInformation {
     public class UserInformation : IUserInformation {
         private HttpContextBase theHttpContext;
-        private IHAVWhoIsOnlineService theWhoIsOnlineService;
+        private IWhoIsOnlineService<User, WhoIsOnline> theWhoIsOnlineService;
 
         private UserInformation() {
         }
 
-        private UserInformation(HttpContextBase aHttpBaseContext, IHAVWhoIsOnlineService aWhoIsOnlineService) {
+        private UserInformation(HttpContextBase aHttpBaseContext, IWhoIsOnlineService<User, WhoIsOnline> aWhoIsOnlineService) {
             theHttpContext = aHttpBaseContext;
             theWhoIsOnlineService = aWhoIsOnlineService;
         }
 
         public UserInformationModel<User> GetUserInformaton() {
-            //This becomes null sometimes for some reason... investigate furthur
+            //This becomes null sometimes for some reason... investigate furtur
             if (theHttpContext.Session == null) {
                 return null;
             }
@@ -49,10 +46,10 @@ namespace HaveAVoice.Helpers.UserInformation {
         }
 
         public static UserInformation Instance() {
-            return new UserInformation(new HttpContextWrapper(HttpContext.Current), new HAVWhoIsOnlineService());
+            return new UserInformation(new HttpContextWrapper(HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()));
         }
 
-        public static UserInformation Instance(HttpContextBase aHttpBaseContext, IHAVWhoIsOnlineService aWhoIsOnlineService) {
+        public static UserInformation Instance(HttpContextBase aHttpBaseContext, IWhoIsOnlineService<User, WhoIsOnline> aWhoIsOnlineService) {
             return new UserInformation(aHttpBaseContext, aWhoIsOnlineService);
         }
 

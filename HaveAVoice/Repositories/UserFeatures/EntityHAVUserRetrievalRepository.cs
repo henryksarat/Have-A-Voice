@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using HaveAVoice.Models;
-using HaveAVoice.Helpers;
+using Social.User.Repositories;
 
 namespace HaveAVoice.Repositories.UserFeatures {
-    public class EntityHAVUserRetrievalRepository : IHAVUserRetrievalRepository {
+    public class EntityHAVUserRetrievalRepository : IUserRetrievalRepository<User> {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
         public User GetUser(int id) {

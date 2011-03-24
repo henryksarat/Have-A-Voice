@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using HaveAVoice.Models;
+using Social.User.Repositories;
+using Social.User.Models;
+using HaveAVoice.Models.SocialWrappers;
 
 namespace HaveAVoice.Repositories.UserFeatures {
-    public class EntityHAVWhoIsOnlineRepository : IHAVWhoIsOnlineRepository {
+    public class EntityHAVWhoIsOnlineRepository : IWhoIsOnlineRepository<User, WhoIsOnline> {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
         public List<WhoIsOnline> GetWhoIsOnlineEntries(User aCurrentUser, string aCurrentIpAddress) {
@@ -29,11 +31,9 @@ namespace HaveAVoice.Repositories.UserFeatures {
             theEntities.SaveChanges();
         }
 
-        public WhoIsOnline GetWhoIsOnlineEntry(User aCurrentUser, string aCurrentIpAddress) {
-            return (from w in theEntities.WhoIsOnlines
-                    where w.User.Id == aCurrentUser.Id
-                    && w.IpAddress == aCurrentIpAddress
-                    select w).FirstOrDefault<WhoIsOnline>();
+        public AbstractWhoIsOnlineModel<WhoIsOnline> GetAbstractWhoIsOnlineEntry(User aCurrentUser, string aCurrentIpAddress) {
+            WhoIsOnline myOnline = GetWhoIsOnlineEntry(aCurrentUser, aCurrentIpAddress);
+            return SocialWhoIsOnlineModel.Create(myOnline);
         }
 
         public void MarkForceLogOutOfOtherUsers(User aCurrentUser, string aCurrentIpAddress) {
@@ -56,6 +56,13 @@ namespace HaveAVoice.Repositories.UserFeatures {
             }
 
             theEntities.SaveChanges();
+        }
+
+        private WhoIsOnline GetWhoIsOnlineEntry(User aCurrentUser, string aCurrentIpAddress) {
+            return (from w in theEntities.WhoIsOnlines
+                    where w.User.Id == aCurrentUser.Id
+                    && w.IpAddress == aCurrentIpAddress
+                    select w).FirstOrDefault<WhoIsOnline>();
         }
     }
 }

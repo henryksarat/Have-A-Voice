@@ -13,7 +13,6 @@ namespace HaveAVoice.Services.UserFeatures {
         void SetToProfilePicture(User aUser, int aPhotoId);
         void DeletePhoto(User aUserDeleting, int aPhotoId);
         Photo GetPhoto(User aViewingUser, int aPhotoId);
-        bool IsValidImage(string anImageFile);
         void UploadProfilePicture(User aUserToUploadFor, HttpPostedFileBase anImage);
         void UploadImageWithDatabaseReference(UserInformationModel<User> aUserToUploadFor, int anAlbumId, HttpPostedFileBase aImageFile);
         void SetPhotoAsAlbumCover(User myEditingUser, int aPhotoId);

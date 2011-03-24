@@ -8,6 +8,7 @@ using Social.Generic.Helpers;
 
 namespace Social.Generic.Models {
     public class UserInformationModel<T> {
+        public int UserId { get; set; }
         public T Details { get; set; }
         public IEnumerable<SocialPermission> Permissions { get; set; }
         public IEnumerable<SocialPrivacySetting> PrivacySettings { get; set; }
@@ -15,8 +16,9 @@ namespace Social.Generic.Models {
         public string ProfilePictureUrl { get; set; }
         public string FullName { get; set; }
 
-        public UserInformationModel(T aUser) {
+        public UserInformationModel(T aUser, int aUserId) {
             this.Details = aUser;
+            UserId = aUserId;
             PrivacySettings = new List<SocialPrivacySetting>();
             Permissions = new List<SocialPermission>();
             PermissionToRestriction = new Hashtable();

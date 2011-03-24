@@ -16,6 +16,7 @@ using Social.Generic.Models;
 using Social.Messaging.Services;
 using Social.User.Models;
 using Social.Validation;
+using Social.User.Services;
 
 namespace HaveAVoice.Controllers.Users {
     public class MessageController : HAVBaseController {
@@ -36,16 +37,16 @@ namespace HaveAVoice.Controllers.Users {
         private const string VIEW_MESSAGE_VIEW = "View";
 
         private IMessageService<User, Message, Reply> theService;
-        private IHAVUserRetrievalService theUserRetrievalService;
+        private IUserRetrievalService<User> theUserRetrievalService;
 
         public MessageController() : 
             base(new HAVBaseService(new HAVBaseRepository())) {
             IValidationDictionary myValidationDictionary = new ModelStateWrapper(this.ModelState);
             theService = new MessageService<User, Message, Reply>(myValidationDictionary, new EntityHAVMessageRepository());
-            theUserRetrievalService = new HAVUserRetrievalService();
+            theUserRetrievalService = new UserRetrievalService<User>(new EntityHAVUserRetrievalRepository());
         }
 
-        public MessageController(IHAVBaseService aBaseService, IMessageService<User, Message, Reply> aMessageService, IHAVUserRetrievalService aUserRetrievalService)
+        public MessageController(IHAVBaseService aBaseService, IMessageService<User, Message, Reply> aMessageService, IUserRetrievalService<User> aUserRetrievalService)
             : base(aBaseService) {
             theService = aMessageService;
             theUserRetrievalService = aUserRetrievalService;

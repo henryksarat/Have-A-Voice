@@ -12,10 +12,11 @@ namespace Social.Generic.Constants {
         public const string ANONYMOUS = "Anonymous";
 
         public const long SECONDS_BEFORE_USER_TIMEOUT = 60 * 30;
-        public static string PAGE_NOT_FOUND = "You do not have access.";
+        public const string PAGE_NOT_FOUND = "You do not have access.";
         public const string NOT_ALLOWED = "You are not allowed to do that.";
-        public static string ERROR = "An error has occurred. Please try again.";
-        public static string NOT_FRIEND = "You must be a friend of the user.";
+        public const string PERMISSION_DENIED = "You are not allowed to perform that action.";
+        public const string ERROR = "An error has occurred. Please try again.";
+        public const string NOT_FRIEND = "You must be a friend of the user.";
 
         public const string SELECT = "Select";
 

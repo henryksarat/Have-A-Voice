@@ -16,9 +16,5 @@ namespace HaveAVoice.Services {
         public void LogError(Exception exception, string details) {
             theBaseRespository.LogError(exception, details);
         }
-
-        public void ResetConnection() {
-            theBaseRespository.ResetConnection();
-        }
     }
 }

@@ -8,6 +8,12 @@ using HaveAVoice.Repositories;
 using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
 using Social.Validation;
+using Social.User;
+using HaveAVoice.Repositories.UserFeatures;
+using Social.Email;
+using Social.User.Services;
+using HaveAVoice.Models;
+using Social.Generic.Models;
 
 namespace HaveAVoice.Controllers.Core {
     public class PasswordController : HAVBaseController {
@@ -21,16 +27,20 @@ namespace HaveAVoice.Controllers.Core {
         private const string PROCESS_VIEW = "Process";
         private const string ERROR_MESSAGE_VIEWDATA = "Message";
 
-        private IHAVPasswordService thePasswordService;
+        private IPasswordService<User> thePasswordService;
         private IValidationDictionary theValidationDictionary;
 
         public PasswordController() : 
             base(new HAVBaseService(new HAVBaseRepository())) {
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
-            thePasswordService = new HAVPasswordService(theValidationDictionary);
+            IUserRetrievalService<User> myUserRetrievalService = new UserRetrievalService<User>(new EntityHAVUserRetrievalRepository());
+            thePasswordService = new PasswordService<User>(theValidationDictionary, 
+                                                           new SocialEmail(),
+                                                           myUserRetrievalService, 
+                                                           new EntityHAVPasswordRepository());
         }
 
-        public PasswordController(IHAVBaseService aBaseService, IHAVPasswordService aPasswordService)
+        public PasswordController(IHAVBaseService aBaseService, IPasswordService<User> aPasswordService)
             : base(aBaseService) {
                 thePasswordService = aPasswordService;
         }
@@ -43,7 +53,7 @@ namespace HaveAVoice.Controllers.Core {
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Request(string email) {
             try {
-                if (thePasswordService.ForgotPasswordRequest(email)) {
+                if (thePasswordService.ForgotPasswordRequest(HAVConstants.BASE_URL, email)) {
                     return SendToResultPage(EMAIL_SENT);
                 }
             } catch (EmailException e) {
@@ -59,7 +69,7 @@ namespace HaveAVoice.Controllers.Core {
 
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Process(string id) {
-            return View(PROCESS_VIEW, new StringWrapper(id));
+            return View(PROCESS_VIEW, new StringModel(id));
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
@@ -73,7 +83,7 @@ namespace HaveAVoice.Controllers.Core {
                 ViewData[ERROR_MESSAGE_VIEWDATA] = MessageHelper.ErrorMessage(HAVConstants.ERROR);
             }
 
-            return View(PROCESS_VIEW, new StringWrapper(forgotPasswordHash));
+            return View(PROCESS_VIEW, new StringModel(forgotPasswordHash));
         }
     }
 }

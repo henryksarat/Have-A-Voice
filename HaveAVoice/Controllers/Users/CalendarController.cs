@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Linq;
 using System.Web.Mvc;
 using HaveAVoice.Controllers.ActionFilters;
@@ -9,8 +8,10 @@ using HaveAVoice.Helpers;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
+using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
+using Social.User.Services;
 using Social.Validation;
 
 namespace HaveAVoice.Controllers.Users {
@@ -27,16 +28,16 @@ namespace HaveAVoice.Controllers.Users {
         private static string LIST_VIEW = "List";
 
         private IHAVCalendarService theEventService;
-        private IHAVUserRetrievalService theUserRetrievalService;
+        private IUserRetrievalService<User> theUserRetrievalService;
 
         public CalendarController()
             : base(new HAVBaseService(new HAVBaseRepository())) {
              ModelStateWrapper myModelWrapper = new ModelStateWrapper(this.ModelState);
              theEventService = new HAVCalendarService(myModelWrapper);
-             theUserRetrievalService = new HAVUserRetrievalService();
+             theUserRetrievalService = new UserRetrievalService<User>(new EntityHAVUserRetrievalRepository());
         }
 
-        public CalendarController(IHAVCalendarService aService, IHAVUserRetrievalService aUserRetrievalService, IHAVBaseService aBaseService)
+        public CalendarController(IHAVCalendarService aService, IUserRetrievalService<User> aUserRetrievalService, IHAVBaseService aBaseService)
             : base(aBaseService) {
             theEventService = aService;
             theUserRetrievalService = aUserRetrievalService;

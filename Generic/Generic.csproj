@@ -31,8 +31,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Recaptcha">
+      <HintPath>..\..\Recaptcha.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,15 +49,24 @@
     <Compile Include="Constants\Constants.cs" />
     <Compile Include="Constants\Gender.cs" />
     <Compile Include="Constants\States.cs" />
+    <Compile Include="Exceptions\NotFriendException.cs" />
+    <Compile Include="Exceptions\EmailException.cs" />
+    <Compile Include="Helpers\CaptchaHelper.cs" />
+    <Compile Include="Helpers\DateHelper.cs" />
+    <Compile Include="Helpers\HashHelper.cs" />
     <Compile Include="Helpers\SocialPermission.cs" />
     <Compile Include="Helpers\SocialPrivacySetting.cs" />
     <Compile Include="Helpers\SocialRestriction.cs" />
+    <Compile Include="Models\AbstractAuditedModel.cs" />
+    <Compile Include="Models\AbstractBoardModel.cs" />
     <Compile Include="Models\AbstractMessageModel.cs" />
     <Compile Include="Models\AbstractPermissionModel.cs" />
     <Compile Include="Models\AbstractRoleModel.cs" />
     <Compile Include="Models\AbstractSocialModel.cs" />
     <Compile Include="Models\AbstractReplyModel.cs" />
+    <Compile Include="Models\AbstractBoardReplyModel.cs" />
     <Compile Include="Models\InboxMessage.cs" />
+    <Compile Include="Models\StringWrapper.cs" />
     <Compile Include="Models\UserInformationModel.cs" />
     <Compile Include="Pair.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

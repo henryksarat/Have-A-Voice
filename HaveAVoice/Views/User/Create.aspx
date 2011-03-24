@@ -1,6 +1,6 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.CreateUserModelBuilder>" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UI" %>
-<%@ Import Namespace="HaveAVoice.Helpers" %>
+<%@ Import Namespace="Social.Generic.Helpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	User Registration
@@ -205,6 +205,7 @@
 	    			</div>
 	    			<div class="clear">&nbsp;</div>
 	    			<div class="spacer-10">&nbsp;</div>
+
 					<!-- 
 					<div class="col-4 m-rgt right">
 						<label for="Captcha">Captcha:</label>

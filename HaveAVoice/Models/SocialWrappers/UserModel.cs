@@ -6,7 +6,7 @@ using Social.User.Models;
 
 namespace HaveAVoice.Models.SocialWrappers {
     public class SocialUserModel : AbstractUserModel<User> {
-        public static SocialUserModel Create(User anExternal) {
+        public static AbstractUserModel<User> Create(User anExternal) {
             return new SocialUserModel(anExternal);
         }
 

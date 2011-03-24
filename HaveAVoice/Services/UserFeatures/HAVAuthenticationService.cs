@@ -11,23 +11,26 @@ using HaveAVoice.Repositories.AdminFeatures;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services.Helpers;
 using Social.Admin.Repositories;
+using Social.Generic;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
+using Social.User.Services;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVAuthenticationService : HAVBaseService, IHAVAuthenticationService {
-        private IHAVUserPrivacySettingsService thePrivacySettingsService;
-        private IHAVUserRetrievalService theUserRetrievalService;
+        private IUserPrivacySettingsService<User, PrivacySetting> thePrivacySettingsService;
+        private IUserRetrievalService<User> theUserRetrievalService;
         private IHAVAuthenticationRepository theAuthRepo;
         private IHAVUserRepository theUserRepo;
         private IRoleRepository<User, Role> theRoleRepo;
 
         public HAVAuthenticationService()
-            : this(new HAVUserRetrievalService(), new HAVBaseRepository(), new HAVUserPrivacySettingsService(), 
-            new EntityHAVAuthenticationRepository(), new EntityHAVUserRepository(), new EntityHAVRoleRepository()) { }
+            : this(new UserRetrievalService<User>(new EntityHAVUserRetrievalRepository()), new HAVBaseRepository(), 
+                   new UserPrivacySettingsService<User, PrivacySetting>(new EntityHAVUserPrivacySettingsRepository()), 
+                   new EntityHAVAuthenticationRepository(), new EntityHAVUserRepository(), new EntityHAVRoleRepository()) { }
 
-        public HAVAuthenticationService(IHAVUserRetrievalService aUserRetrievalService, IHAVBaseRepository baseRepository,
-                                        IHAVUserPrivacySettingsService aPrivacyService, IHAVAuthenticationRepository anAuthRepo, 
+        public HAVAuthenticationService(IUserRetrievalService<User> aUserRetrievalService, IHAVBaseRepository baseRepository,
+                                        IUserPrivacySettingsService<User, PrivacySetting> aPrivacyService, IHAVAuthenticationRepository anAuthRepo, 
                                         IHAVUserRepository aUserRepo, IRoleRepository<User, Role> aRoleRepo)
             : base(baseRepository) {
             theUserRetrievalService = aUserRetrievalService;
@@ -42,7 +45,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public UserInformationModel<User> AuthenticateUser(string anEmail, string aPassword) {
-            aPassword = HashHelper.HashPassword(aPassword);
+            aPassword = HashHelper.DoHash(aPassword);
             return AuthenticateUserWithHashedPassword(anEmail, aPassword);
         }
 
@@ -77,7 +80,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 throw new Exception("The user has no privacy settings.");
             }
 
-            return new UserInformationModel<User>(aUser) {
+            return new UserInformationModel<User>(aUser, aUser.Id) {
                 Permissions = ConvertPermissionToEnums(myPermissions),
                 PrivacySettings = ConvertPrivacySettingsToEnums(myPrivacySettings),
                 PermissionToRestriction = ConvertRestrictionToHashTable(myRestriction),
@@ -185,9 +188,9 @@ namespace HaveAVoice.Services.UserFeatures {
             theRoleRepo.MoveUsersToRole(myUsers, myNotConfirmedRole.Id, aRoleToMoveTo.Id);
 
             if (aRoleToMoveTo.Name.Equals(Roles.POLITICIAN) || aRoleToMoveTo.Name.Equals(Roles.POLITICAL_CANDIDATE)) {
-                thePrivacySettingsService.AddAuthorityPrivacySettingsForUser(myUser);
+                thePrivacySettingsService.AddPrivacySettingsForUser(myUser, HAVPrivacyHelper.GetAuthorityPrivacySettings());
             } else {
-                thePrivacySettingsService.AddDefaultPrivacySettingsForUser(myUser);
+                thePrivacySettingsService.AddPrivacySettingsForUser(myUser, HAVPrivacyHelper.GetDefaultPrivacySettings());
             }
 
             return myUser;

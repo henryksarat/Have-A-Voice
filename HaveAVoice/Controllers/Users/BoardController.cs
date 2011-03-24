@@ -4,11 +4,13 @@ using HaveAVoice.Controllers.ActionFilters;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models;
+using HaveAVoice.Models.SocialWrappers;
 using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
+using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services;
-using HaveAVoice.Services.UserFeatures;
 using Social.Admin.Helpers;
+using Social.Board.Services;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Validation;
@@ -24,15 +26,13 @@ namespace HaveAVoice.Controllers.Users {
         private static string EDIT_BOARD_ERROR = "Unable to edit the board message. Please try again.";
         private static string DELETE_BOARD_ERROR = "Unable to delete the board message. Please try again.";
 
-        private IHAVBoardService theService;
+        private IBoardService<User, Board, BoardReply> theService;
 
-        public BoardController()
-            : base(new HAVBaseService(new HAVBaseRepository())) {
-                theService = new HAVBoardService(new ModelStateWrapper(this.ModelState));
+        public BoardController() : base(new HAVBaseService(new HAVBaseRepository())) {
+                theService = new BoardService<User, Board, BoardReply>(new ModelStateWrapper(this.ModelState), new EntityHAVBoardRepository());
         }
 
-        public BoardController(IHAVBoardService aService, IHAVBaseService aBaseService)
-            : base(aBaseService) {
+        public BoardController(IBoardService<User, Board, BoardReply> aService, IHAVBaseService aBaseService) : base(aBaseService) {
                 theService = aService;
         }
 
@@ -82,30 +82,25 @@ namespace HaveAVoice.Controllers.Users {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            BoardWrapper myBoardWrapper;
             try {
                 Board myBoard = theService.GetBoard(GetUserInformatonModel(), id);
-
                 if (GetUserInformatonModel().Details.Id != myBoard.PostedUserId) {
                     return SendToErrorPage(HAVConstants.PAGE_NOT_FOUND);
                 }
-
-                myBoardWrapper = BoardWrapper.Build(myBoard);
+                return View("Edit", myBoard);
             } catch(Exception myException) {
                 LogError(myException, VIEW_BOARD_ERROR);
                 return SendToErrorPage(VIEW_BOARD_ERROR);
             }
-
-            return View("Edit", myBoardWrapper);
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
-        public ActionResult Edit(BoardWrapper aBoard) {
+        public ActionResult Edit(SocialBoardModel aBoard) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
             try {
-                bool myBoardResult =  theService.EditBoardMessage(GetUserInformatonModel(), aBoard.ToModel());
+                bool myBoardResult = theService.EditBoardMessage(GetUserInformatonModel(), aBoard);
                 if (myBoardResult) {
                     TempData["Message"] = MessageHelper.SuccessMessage(EDIT_BOARD_SUCCES);
                 }

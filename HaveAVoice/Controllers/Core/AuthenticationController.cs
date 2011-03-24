@@ -5,10 +5,12 @@ using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Exceptions;
 using HaveAVoice.Models;
 using HaveAVoice.Repositories;
+using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services;
 using HaveAVoice.Services.Helpers;
 using HaveAVoice.Services.UserFeatures;
 using Social.Generic.Models;
+using Social.Users.Services;
 using Social.Validation;
 
 namespace HaveAVoice.Controllers.Core {
@@ -25,17 +27,17 @@ namespace HaveAVoice.Controllers.Core {
         private static string ACTIVATION_ERROR = "Error while activating your account. Please try again.";
 
         private IHAVAuthenticationService theAuthService;
-        private IHAVWhoIsOnlineService theWhoIsOnlineService;
+        private IWhoIsOnlineService<User, WhoIsOnline> theWhoIsOnlineService;
         private IValidationDictionary theValidationDictionary;
 
         public AuthenticationController() :
             base(new HAVBaseService(new HAVBaseRepository())) {
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
             theAuthService = new HAVAuthenticationService();
-            theWhoIsOnlineService = new HAVWhoIsOnlineService();
+            theWhoIsOnlineService = new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository());
         }
 
-        public AuthenticationController(IHAVBaseService baseService, IHAVAuthenticationService anAuthService, IHAVWhoIsOnlineService aWhoIsOnlineService)
+        public AuthenticationController(IHAVBaseService baseService, IHAVAuthenticationService anAuthService, IWhoIsOnlineService<User, WhoIsOnline> aWhoIsOnlineService)
             : base(baseService) {
             theAuthService = anAuthService;
             theWhoIsOnlineService = aWhoIsOnlineService;

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using HaveAVoice.Helpers;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using Social.Generic;
 
 namespace HaveAVoice.Models.View {
     public class SwitchUserRoles {
