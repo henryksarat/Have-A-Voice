@@ -14,15 +14,15 @@ using UniversityOfMe.Repositories;
 
 namespace UniversityOfMe.Controllers {
     public class UserController : BaseSocialController {
-        private IUserService<User> theRegistrationService;
+        private IUserService<User, Role, UserRole> theRegistrationService;
         private IValidationDictionary theValidationDictionary;
 
         public UserController() {
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
-            theRegistrationService = new UserService<User>(theValidationDictionary, new EntityUserRepository(), new SocialEmail());
+            theRegistrationService = new UserService<User, Role, UserRole>(theValidationDictionary, new EntityUserRepository(), new SocialEmail());
         }
 
-        public UserController(IUserService<User> service, IUserService<User> aRegistratonService) {
+        public UserController(IUserService<User, Role, UserRole> service, IUserService<User, Role, UserRole> aRegistratonService) {
             theRegistrationService = aRegistratonService;
         }
 

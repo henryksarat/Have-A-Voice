@@ -6,6 +6,7 @@ using HaveAVoice.Models;
 using HaveAVoice.Repositories.UserFeatures;
 using Social.Admin.Repositories;
 using Social.Generic.Constants;
+using Social.User;
 
 namespace HaveAVoice.Repositories.AdminFeatures {
     public class EntityHAVRoleRepository : IRoleRepository<User, Role> {
@@ -21,8 +22,7 @@ namespace HaveAVoice.Repositories.AdminFeatures {
                     select r).FirstOrDefault();
         }
 
-        public Role Create(User aCreatedByUser, Role aRoleToCreate, List<int> aPermissionId, int aSelectedRestrictionId) {
-            aRoleToCreate.RestrictionId = aSelectedRestrictionId;
+        public Role Create(User aCreatedByUser, Role aRoleToCreate, List<int> aPermissionId) {
             aRoleToCreate.EditedByUserId = aCreatedByUser.Id;
             theEntities.AddToRoles(aRoleToCreate);
             theEntities.SaveChanges();
@@ -36,7 +36,7 @@ namespace HaveAVoice.Repositories.AdminFeatures {
             return aRoleToCreate;
         }
 
-        public Role Edit(User anEditedByUser, Role aRoleToEdit, List<Int32> aSelectedPermissionIds, int aSelectedRestrictionId) {
+        public Role Edit(User anEditedByUser, Role aRoleToEdit, List<Int32> aSelectedPermissionIds) {
             Role myOriginalRole = FindRole(aRoleToEdit.Id);
             
             IEnumerable<RolePermission> myRolePermissions = GetRolePermissions(aRoleToEdit);
@@ -49,7 +49,6 @@ namespace HaveAVoice.Repositories.AdminFeatures {
             
             myOriginalRole.Description = aRoleToEdit.Description;
             myOriginalRole.Name = aRoleToEdit.Name;
-            myOriginalRole.RestrictionId = aSelectedRestrictionId;
             myOriginalRole.EditedByUserId = anEditedByUser.Id;
             theEntities.ApplyCurrentValues(myOriginalRole.EntityKey.EntitySetName, myOriginalRole);
             theEntities.SaveChanges();
@@ -99,7 +98,7 @@ namespace HaveAVoice.Repositories.AdminFeatures {
         }
 
         public void MoveUsersToRole(List<int> aUsers, int aFromRoleId, int aToRoleId) {
-            IHAVUserRepository myUserRepo = new EntityHAVUserRepository();
+            IUserRepository<User, Role, UserRole> myUserRepo = new EntityHAVUserRepository();
             Role myMoveToRole = FindRole(aToRoleId);
             foreach (int myUserId in aUsers) {
                 UserRole myOriginalUserRole = GetUserRole(myUserId, aFromRoleId);

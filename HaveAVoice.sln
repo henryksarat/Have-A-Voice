@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversityOfMe", "Universit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversityOfMe.Tests", "UniversityOfMe.Tests\UniversityOfMe.Tests.csproj", "{DB37DDC9-EA72-4723-8669-15607A767F79}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authentication", "Authentication\Authentication.csproj", "{7D365142-37D3-4397-90AC-5761FA085C01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,10 @@ Global
 		{DB37DDC9-EA72-4723-8669-15607A767F79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB37DDC9-EA72-4723-8669-15607A767F79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB37DDC9-EA72-4723-8669-15607A767F79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D365142-37D3-4397-90AC-5761FA085C01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D365142-37D3-4397-90AC-5761FA085C01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D365142-37D3-4397-90AC-5761FA085C01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D365142-37D3-4397-90AC-5761FA085C01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

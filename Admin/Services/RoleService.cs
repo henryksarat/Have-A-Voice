@@ -24,26 +24,26 @@ namespace Social.Admin.Services {
             return theRoleRepo.GetAllRoles();
         }
 
-        public bool Create(UserInformationModel<T> aCreatedByUser, AbstractRoleModel<U> aRoleToCreate, List<int> aSelectedPermissionIds, int aSelectedRestrictionId) {
-            if (!ValidateRole(aRoleToCreate) | !ValidateRestriction(aSelectedRestrictionId)) {
+        public bool Create(UserInformationModel<T> aCreatedByUser, AbstractRoleModel<U> aRoleToCreate, List<int> aSelectedPermissionIds) {
+            if (!ValidateRole(aRoleToCreate)) {
                 return false;
             }
             if (!AllowedToPerformAction(aCreatedByUser, SocialPermission.Create_Role)) {
                 return false;
             }
 
-            theRoleRepo.Create(aCreatedByUser.Details, aRoleToCreate.FromModel(), aSelectedPermissionIds, aSelectedRestrictionId);
+            theRoleRepo.Create(aCreatedByUser.Details, aRoleToCreate.FromModel(), aSelectedPermissionIds);
             return true;
         }
 
-        public bool Edit(UserInformationModel<T> anEditedByUser, AbstractRoleModel<U> aRoleToEdit, List<int> aSelectedPermissions, int selectedRestrictionId) {
+        public bool Edit(UserInformationModel<T> anEditedByUser, AbstractRoleModel<U> aRoleToEdit, List<int> aSelectedPermissions) {
             if (!ValidateRole(aRoleToEdit)) {
                 return false;
             }
             if (!AllowedToPerformAction(anEditedByUser, SocialPermission.Edit_Role)) {
                 return false;
             }
-            theRoleRepo.Edit(anEditedByUser.Details, aRoleToEdit.FromModel(), aSelectedPermissions, selectedRestrictionId);
+            theRoleRepo.Edit(anEditedByUser.Details, aRoleToEdit.FromModel(), aSelectedPermissions);
             return true;
             
         }
@@ -93,13 +93,6 @@ namespace Social.Admin.Services {
                 theValidationDictionary.AddError("Description", role.Description.Trim(), "Role description is required.");
             }
 
-            return theValidationDictionary.isValid;
-        }
-
-        private bool ValidateRestriction(int restrictionId) {
-            if (restrictionId == 0) {
-                theValidationDictionary.AddError("Restriction", string.Empty, "Please select a restriction.");
-            }
             return theValidationDictionary.isValid;
         }
 

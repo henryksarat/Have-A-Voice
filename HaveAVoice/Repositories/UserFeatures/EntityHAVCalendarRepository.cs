@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using HaveAVoice.Models;
+using Social.User;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVCalendarRepository : IHAVCalendarRepository {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
         public void AddEvent(int aUserId, DateTime aDate, string anInformation) {
-            IHAVUserRepository myUserRepo = new EntityHAVUserRepository();
+            IUserRepository<User, Role, UserRole> myUserRepo = new EntityHAVUserRepository();
             Event myEvent = Event.CreateEvent(0, aUserId, aDate, anInformation, false);
             theEntities.AddToEvents(myEvent);
             theEntities.SaveChanges();

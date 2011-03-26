@@ -31,17 +31,17 @@ namespace HaveAVoice.Controllers.Users {
 
         
         private IHAVUserService theService;
-        private IUserService<User> theRegistrationService;
+        private IUserService<User, Role, UserRole> theRegistrationService;
         private IValidationDictionary theValidationDictionary;
 
         public UserController() : 
             base(new HAVBaseService(new HAVBaseRepository())) {
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
             theService = new HAVUserService(theValidationDictionary);
-            theRegistrationService = new UserService<User>(theValidationDictionary, new EntityHAVUserRepository(), new SocialEmail());
+            theRegistrationService = new UserService<User, Role, UserRole>(theValidationDictionary, new EntityHAVUserRepository(), new SocialEmail());
         }
 
-        public UserController(IHAVUserService service, IUserService<User> aRegistratonService, IHAVBaseService baseService)
+        public UserController(IHAVUserService service, IUserService<User, Role, UserRole> aRegistratonService, IHAVBaseService baseService)
             : base(baseService) {
             theService = service;
             theRegistrationService = aRegistratonService;

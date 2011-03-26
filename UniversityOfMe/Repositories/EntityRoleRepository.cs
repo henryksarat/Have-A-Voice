@@ -10,11 +10,11 @@ namespace UniversityOfMe.Repositories {
     public class EntityRoleRepository : IRoleRepository<User, Role> {
         private UniversityOfMeEntities theEntities = new UniversityOfMeEntities();
 
-        public Role Create(User aCreatedByUser, Role aRoleToCreate, List<int> aSelectedPermissionIds, int aSelectedRestrictionId) {
+        public Role Create(User aCreatedByUser, Role aRoleToCreate, List<int> aSelectedPermissionIds) {
             throw new NotImplementedException();
         }
 
-        public Role Edit(User aEditedByUser, Role aRoleToEdit, List<int> aSelectedPermissionIds, int aSelectedRestrictionId) {
+        public Role Edit(User aEditedByUser, Role aRoleToEdit, List<int> aSelectedPermissionIds) {
             throw new NotImplementedException();
         }
 

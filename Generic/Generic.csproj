@@ -58,7 +58,6 @@
     <Compile Include="Helpers\HashHelper.cs" />
     <Compile Include="Helpers\SocialPermission.cs" />
     <Compile Include="Helpers\SocialPrivacySetting.cs" />
-    <Compile Include="Helpers\SocialRestriction.cs" />
     <Compile Include="Models\AbstractAuditedModel.cs" />
     <Compile Include="Models\AbstractBoardModel.cs" />
     <Compile Include="Models\AbstractMessageModel.cs" />

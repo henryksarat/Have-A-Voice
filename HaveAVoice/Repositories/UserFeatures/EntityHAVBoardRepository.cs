@@ -5,6 +5,7 @@ using HaveAVoice.Models;
 using HaveAVoice.Models.SocialWrappers;
 using Social.Board.Repositories;
 using Social.Generic.Models;
+using Social.User;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVBoardRepository : IBoardRepository<User, Board, BoardReply> {
@@ -17,7 +18,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         public Board AddToBoard(User aPostedByUser, int aSourceUserId, string aMessage) {
-            IHAVUserRepository myUserRepository = new EntityHAVUserRepository();
+            IUserRepository<User, Role, UserRole> myUserRepository = new EntityHAVUserRepository();
             Board myBoard = Board.CreateBoard(0, aSourceUserId, aPostedByUser.Id, aMessage, DateTime.UtcNow, false);
             theEntities.AddToBoards(myBoard);
             theEntities.SaveChanges();

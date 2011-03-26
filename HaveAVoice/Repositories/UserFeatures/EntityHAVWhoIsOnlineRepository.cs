@@ -5,6 +5,7 @@ using HaveAVoice.Models;
 using Social.User.Repositories;
 using Social.User.Models;
 using HaveAVoice.Models.SocialWrappers;
+using Social.User;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVWhoIsOnlineRepository : IWhoIsOnlineRepository<User, WhoIsOnline> {
@@ -18,7 +19,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         public void AddToWhoIsOnline(User aCurrentUser, string aCurrentIpAddress) {
-            IHAVUserRepository userRepository = new EntityHAVUserRepository();
+            IUserRepository<User, Role, UserRole> userRepository = new EntityHAVUserRepository();
             WhoIsOnline myWhoIsOnline = WhoIsOnline.CreateWhoIsOnline(0, aCurrentUser.Id, DateTime.UtcNow, aCurrentIpAddress, false);
             theEntities.AddToWhoIsOnlines(myWhoIsOnline);
             theEntities.SaveChanges();

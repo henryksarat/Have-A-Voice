@@ -20,13 +20,10 @@ namespace HaveAVoice.Models.View {
                 }
             }
 
-            int myRestrictionId = BinderHelper.GetAInt(bindingContext, "SelectedRestriction");
-
-            Role myRole = Role.CreateRole(myRoleId, myName, myDescription, myDefaultRole, myRestrictionId, false);
+            Role myRole = Role.CreateRole(myRoleId, myName, myDescription, myDefaultRole, false);
 
             RoleModel myModel = new RoleModel(myRole);
             myModel.SelectedPermissionsIds = mySelectedPermissions;
-            myModel.SelectedRestrictionId = myRestrictionId;
 
             return myModel;
         }

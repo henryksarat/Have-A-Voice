@@ -5,10 +5,11 @@ using HaveAVoice.Models.SocialWrappers;
 using HaveAVoice.Repositories.AdminFeatures;
 using Social.Admin.Exceptions;
 using Social.Admin.Repositories;
+using Social.User;
 using Social.User.Models;
 
 namespace HaveAVoice.Repositories.UserFeatures {
-    public class EntityHAVUserRepository : IHAVUserRepository {
+    public class EntityHAVUserRepository : IUserRepository<User, Role, UserRole> {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
         public AbstractUserModel<User> CreateUser(User userToCreate) {

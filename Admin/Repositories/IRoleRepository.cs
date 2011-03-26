@@ -2,8 +2,8 @@
 
 namespace Social.Admin.Repositories {
     public interface IRoleRepository<T, U> {
-        U Create(T aCreatedByUser, U aRoleToCreate, List<int> aSelectedPermissionIds, int aSelectedRestrictionId);
-        U Edit(T aEditedByUser, U aRoleToEdit, List<int> aSelectedPermissionIds, int aSelectedRestrictionId);
+        U Create(T aCreatedByUser, U aRoleToCreate, List<int> aSelectedPermissionIds);
+        U Edit(T aEditedByUser, U aRoleToEdit, List<int> aSelectedPermissionIds);
         void Delete(T aDeletedByUser, U aRoleToDelete);
         U FindRole(int id);
         IEnumerable<T> FindUsersInRole(int aRoleId);

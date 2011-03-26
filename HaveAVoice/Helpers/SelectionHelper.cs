@@ -23,24 +23,6 @@ namespace HaveAVoice.Helpers {
             return permissionSelection;
         }
 
-        public static List<Pair<Restriction, bool>> RestrictionSelection(int selectedRestriction, IEnumerable<Restriction> allRestrictions) {
-            List<Pair<Restriction, bool>> roleSelection = new List<Pair<Restriction, bool>>();
-
-            foreach (Restriction restriction in allRestrictions) {
-                Pair<Restriction, bool> pair = new Pair<Restriction, bool>();
-                pair.First = restriction;
-                pair.Second = false;
-
-                if (selectedRestriction != 0 && selectedRestriction == restriction.Id) {
-                    pair.Second = true;
-                }
-
-                roleSelection.Add(pair);
-            }
-
-            return roleSelection;
-        }
-
         public static List<Pair<User, bool>> UserSelection(List<int> aSelectedUsers, IEnumerable<User> anAllUsers) {
             List<Pair<User, bool>> myUserSelection = new List<Pair<User, bool>>();
 

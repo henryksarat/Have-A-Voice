@@ -12,7 +12,6 @@
 
     <%= Html.ActionLink("Role Management", "Index", "Role", null, null) %>
     <%= Html.ActionLink("Permission Management", "Index", "Permission", null, null) %>
-    <%= Html.ActionLink("Restriction Management", "Index", "Restriction", null, null) %>
     <%= Html.ActionLink("Edit User Roles", "SwitchUserRoles", "Role", null, null) %>
 
 </asp:Content>

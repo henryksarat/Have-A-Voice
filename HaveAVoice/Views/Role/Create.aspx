@@ -40,16 +40,6 @@
                 <%}%>
             </p>
             <p>
-
-                <label for="Restriction">Choose a Restriction:</label><br />
-                <%= Html.ValidationMessage("Restriction", "*") %>
-                <% foreach (var restrictionSelection in (Model.RestrictionSelection() as List<Pair<Restriction, bool>>)) { %>
-                        <%= Html.RadioButton("SelectedRestriction", restrictionSelection.First.Id, restrictionSelection.Second)%>
-                        <%=restrictionSelection.First.Name%>
-                    <br />
-                <%}%>
-            </p>
-            <p>
                 <table>
                     <tr>
                         <td colspan="2"><label for="DefaultRole">Default Role:</label></td>

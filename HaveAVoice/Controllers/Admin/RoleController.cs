@@ -12,7 +12,6 @@ using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.AdminFeatures;
 using HaveAVoice.Services;
-using HaveAVoice.Services.AdminFeatures;
 using Social.Admin;
 using Social.Admin.Helpers;
 using Social.Admin.Services;
@@ -35,7 +34,6 @@ namespace HaveAVoice.Controllers.Admin {
 
         private IRoleService<User, Role> theRoleService;
         private IPermissionService<User, Permission> thePermissionService;
-        private IHAVRestrictionService theRestrictionService;
         private ModelStateWrapper theModelState;
 
         public RoleController() 
@@ -43,14 +41,12 @@ namespace HaveAVoice.Controllers.Admin {
             theModelState = new ModelStateWrapper(this.ModelState);
             theRoleService = new RoleService<User, Role>(theModelState, new EntityHAVRoleRepository());
             thePermissionService = new PermissionService<User, Permission>(theModelState, new EntityHAVPermissionRepository());
-            theRestrictionService = new HAVRestrictionService(theModelState);
         }
 
-        public RoleController(IHAVBaseService aBaseService, IRoleService<User, Role> myRoleService, IPermissionService<User, Permission> myPermissionService, IHAVRestrictionService myRestrictionService)
+        public RoleController(IHAVBaseService aBaseService, IRoleService<User, Role> myRoleService, IPermissionService<User, Permission> myPermissionService)
             : base(aBaseService) {
             theRoleService = myRoleService;
             thePermissionService = myPermissionService;
-            theRestrictionService = myRestrictionService;
         }
 
         public ActionResult Index() {
@@ -86,7 +82,7 @@ namespace HaveAVoice.Controllers.Admin {
             }
 
             try {
-                Role role = Role.CreateRole(0, string.Empty, string.Empty, false, 0, false);
+                Role role = Role.CreateRole(0, string.Empty, string.Empty, false, false);
                 RoleModel myModel = CreateRoleModel(role);
 
                 return View("Create", myModel);
@@ -103,8 +99,8 @@ namespace HaveAVoice.Controllers.Admin {
             }
 
             try {
-                AbstractRoleModel<Role> mySocialModel = new SocialRoleModel(model.Role);
-                if (theRoleService.Create(GetUserInformatonModel(), mySocialModel, model.SelectedPermissionsIds, model.SelectedRestrictionId)) {
+                AbstractRoleModel<Role> mySocialModel = SocialRoleModel.Create(model.Role);
+                if (theRoleService.Create(GetUserInformatonModel(), mySocialModel, model.SelectedPermissionsIds)) {
                     return RedirectToAction("Index");
                 }
             } catch (Exception e) {
@@ -144,7 +140,6 @@ namespace HaveAVoice.Controllers.Admin {
             
             try {
                 RoleModel myModel = CreateRoleModel(role);
-                myModel.SelectedRestrictionId = role.Restriction.Id;
                 return View("Edit", myModel);
             } catch (Exception e) {
                 LogError(e, CREATE_MODEL_ERROR);
@@ -159,8 +154,8 @@ namespace HaveAVoice.Controllers.Admin {
             }
 
             try {
-                AbstractRoleModel<Role> mySocialModel = new SocialRoleModel(role.Role);
-                if (theRoleService.Edit(GetUserInformatonModel(), mySocialModel, role.SelectedPermissionsIds, role.SelectedRestrictionId)) {
+                AbstractRoleModel<Role> mySocialModel = SocialRoleModel.Create(role.Role);
+                if (theRoleService.Edit(GetUserInformatonModel(), mySocialModel, role.SelectedPermissionsIds)) {
                     return RedirectToAction("Index");
                 }
             } catch (Exception e) {
@@ -299,11 +294,6 @@ namespace HaveAVoice.Controllers.Admin {
             if (myPermissions.Count == 0) {
                 ViewData["PermissionMessage"] = MessageHelper.NormalMessage("There are currently no permissions created, please create a permission first.");
             }
-            List<Restriction> myRestrictions = theRestrictionService.GetAllRestrictions().ToList<Restriction>(); ;
-            if (myRestrictions.Count == 0) {
-                ViewData["RestrictionMessage"] = MessageHelper.NormalMessage("There are currently no restrictions created, please create a restriction first.");
-            }
-            myModel.AllRestrictions = myRestrictions;
             myModel.AllPermissions = myPermissions;
 
             return myModel;
@@ -311,7 +301,6 @@ namespace HaveAVoice.Controllers.Admin {
 
         private RoleModel CreateRoleModel(RoleModel aModel) {
             RoleModel myModel = CreateRoleModel(aModel.Role);
-            myModel.SelectedRestrictionId = aModel.SelectedRestrictionId;
             myModel.SelectedPermissionsIds = aModel.SelectedPermissionsIds;
             return myModel;
         }

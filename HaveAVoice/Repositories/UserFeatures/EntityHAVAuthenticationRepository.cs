@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using HaveAVoice.Models;
-using HaveAVoice.Services.UserFeatures;
 using HaveAVoice.Services.Helpers;
+using Social.User;
+using Social.User.Repositories;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVAuthenticationRepository : IHAVAuthenticationRepository {
@@ -26,15 +26,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     select c).FirstOrDefault();
         }
 
-        public Restriction FindRestrictionsForUser(User aUser) {
-            return (from u in theEntities.Users
-                    join ur in theEntities.UserRoles on u.Id equals ur.User.Id
-                    join r in theEntities.Roles on ur.Role.Id equals r.Id
-                    join res in theEntities.Restrictions on r.Restriction.Id equals res.Id
-                    where u.Id == aUser.Id
-                    select res).FirstOrDefault<Restriction>();
-        }
-
         public User FindUserByCookieHash(int aUserId, string aCookieHash) {
             DateTime dateTimeCookieExpires = DateTime.Now.AddHours(CookieHelper.REMEMBER_ME_COOKIE_HOURS);
             return (from c in theEntities.Users
@@ -44,14 +35,14 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         public User UpdateCookieHashCreationDate(User aUser) {
-            IHAVUserRepository myUserRepo = new EntityHAVUserRepository();
+            IUserRepository<User, Role, UserRole> myUserRepo = new EntityHAVUserRepository();
             aUser.CookieCreationDate = DateTime.Now;
             UpdateUser(aUser);
             return aUser;
         }
 
         private void UpdateUser(User aUser) {
-            IHAVUserRepository myUserRepo = new EntityHAVUserRepository();
+            IUserRepository<User, Role, UserRole> myUserRepo = new EntityHAVUserRepository();
             myUserRepo.UpdateUser(aUser);
 
         }

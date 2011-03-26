@@ -13,6 +13,7 @@ using Social.Generic.Constants;
 using Social.Generic.Helpers;
 using Social.User.Services;
 using Social.Validation;
+using Social.User;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVUserService : HAVBaseService, IHAVUserService {
@@ -24,7 +25,7 @@ namespace HaveAVoice.Services.UserFeatures {
         private IUserRetrievalService<User> theUserRetrievalService;
         private IHAVAuthorityVerificationService theAuthorityVerificationService;
         private IHAVAuthenticationService theAuthService;
-        private IHAVUserRepository theUserRepo;
+        private IUserRepository<User, Role, UserRole> theUserRepo;
         private IEmail theEmailService;
 
         public HAVUserService(IValidationDictionary theValidationDictionary)
@@ -32,8 +33,9 @@ namespace HaveAVoice.Services.UserFeatures {
                     new EntityHAVUserRepository(), new SocialEmail(), new HAVBaseRepository()) { }
 
         public HAVUserService(IValidationDictionary aValidationDictionary, IUserRetrievalService<User> aUserRetrievalService, 
-                                         IHAVAuthorityVerificationService anAuthorityVerificationService, IHAVAuthenticationService anAuthService, IHAVPhotoService aPhotoService,  
-                                         IHAVUserRepository aUserRepo, IEmail aEmailService, IHAVBaseRepository baseRepository) : base(baseRepository) {
+                                         IHAVAuthorityVerificationService anAuthorityVerificationService, IHAVAuthenticationService anAuthService, IHAVPhotoService aPhotoService,
+                                         IUserRepository<User, Role, UserRole> aUserRepo, IEmail aEmailService, IHAVBaseRepository baseRepository)
+            : base(baseRepository) {
             theValidationDictionary = aValidationDictionary;
             theUserRetrievalService = aUserRetrievalService;
             theAuthorityVerificationService = anAuthorityVerificationService;

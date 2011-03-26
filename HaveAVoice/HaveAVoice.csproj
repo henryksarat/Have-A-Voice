@@ -107,7 +107,6 @@
     <Compile Include="Helpers\UI\SharedContentStyleHelper.cs" />
     <Compile Include="Helpers\UI\SharedStyleHelper.cs" />
     <Compile Include="Helpers\UserRoleHelper.cs" />
-    <Compile Include="Controllers\Admin\RestrictionController.cs" />
     <Compile Include="Controllers\Admin\PermissionController.cs" />
     <Compile Include="Controllers\Admin\RoleController.cs" />
     <Compile Include="Controllers\Errors\ErrorController.cs" />
@@ -178,6 +177,7 @@
     <Compile Include="Repositories\SiteFeatures\IHAVContactUsRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVFanRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IFriendRepository.cs" />
+    <Compile Include="Repositories\UserFeatures\IHAVAuthenticationRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVFanRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVPhotoAlbumRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVPhotoAlbumRepository.cs" />
@@ -198,7 +198,7 @@
     <Compile Include="Services\Helpers\FanHelper.cs" />
     <Compile Include="Services\Helpers\FriendHelper.cs" />
     <Compile Include="Services\Helpers\IssueHelper.cs" />
-    <Compile Include="Repositories\UserFeatures\IHAVAuthenticationRepository.cs" />
+    <Compile Include="Services\UserFeatures\IHAVAuthenticationRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVFeedbackRepository.cs" />
     <Compile Include="Models\ServiceConstants.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVNavigationRepository.cs" />
@@ -262,8 +262,6 @@
     <Compile Include="Models\View\MessageBuilder.cs" />
     <Compile Include="Models\View\MessageModel.cs" />
     <Compile Include="Models\View\ProfileModel.cs" />
-    <Compile Include="Models\View\RestrictionModel.cs" />
-    <Compile Include="Models\View\Binders\RestrictionModelBinder.cs" />
     <Compile Include="Models\View\RoleModel.cs" />
     <Compile Include="Models\View\Binders\RoleModelBinder.cs" />
     <Compile Include="Models\View\CreateAuthorityUserModelBuilder.cs" />
@@ -281,8 +279,6 @@
       <DependentUpon>HaveAVoiceDBModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Repositories\AdminFeatures\EntityHAVErrorRepository.cs" />
-    <Compile Include="Repositories\AdminFeatures\EntityHAVRestrictionRepository.cs" />
-    <Compile Include="Repositories\AdminFeatures\IHAVRestrictionRepository.cs" />
     <Compile Include="Repositories\AdminFeatures\EntityHAVRoleRepository.cs" />
     <Compile Include="Repositories\HAVBaseRepository.cs" />
     <Compile Include="Repositories\IHAVBaseRepository.cs" />
@@ -298,9 +294,6 @@
     <Compile Include="Repositories\UserFeatures\IHAVSearchRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVMessageRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVUserRepository.cs" />
-    <Compile Include="Repositories\UserFeatures\IHAVUserRepository.cs" />
-    <Compile Include="Services\AdminFeatures\HAVRestrictionService.cs" />
-    <Compile Include="Services\AdminFeatures\IHAVRestrictionService.cs" />
     <Compile Include="Services\HAVBaseService.cs" />
     <Compile Include="Services\IHAVBaseService.cs" />
     <Compile Include="Services\UserFeatures\HAVHomeService.cs" />
@@ -413,10 +406,6 @@
     <Content Include="Views\PhotoAlbum\Details.aspx" />
     <Content Include="Views\PhotoAlbum\Edit.aspx" />
     <Content Include="Views\Profile\IssueActivity.aspx" />
-    <Content Include="Views\Restriction\Create.aspx" />
-    <Content Include="Views\Restriction\Delete.aspx" />
-    <Content Include="Views\Restriction\Edit.aspx" />
-    <Content Include="Views\Restriction\Index.aspx" />
     <Content Include="Views\Role\Create.aspx" />
     <Content Include="Views\Role\Delete.aspx" />
     <Content Include="Views\Role\Edit.aspx" />

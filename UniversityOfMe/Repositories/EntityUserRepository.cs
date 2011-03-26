@@ -7,7 +7,7 @@ using UniversityOfMe.Models;
 using UniversityOfMe.Models.Social;
 
 namespace UniversityOfMe.Repositories {
-    public class EntityUserRepository : IUserRepository<User> {
+    public class EntityUserRepository : IUserRepository<User, Role, UserRole> {
         private UniversityOfMeEntities theEntities = new UniversityOfMeEntities();
 
         public AbstractUserModel<User> CreateUser(User userToCreate) {
@@ -65,6 +65,19 @@ namespace UniversityOfMe.Repositories {
             return (from c in theEntities.Users
                     where c.Id == anId
                     select c).FirstOrDefault();
+        }
+
+
+        public void UpdateUser(User userToEdit) {
+            throw new System.NotImplementedException();
+        }
+
+        public User DeleteUserFromRole(int userId, int roleId) {
+            throw new System.NotImplementedException();
+        }
+
+        public void RemoveUserFromRole(User aUser, Role aRole) {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -12,9 +12,9 @@ using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services.Helpers;
 using Social.Admin.Exceptions;
 using Social.Admin.Repositories;
-using Social.Generic;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
+using Social.User;
 using Social.User.Services;
 
 namespace HaveAVoice.Services.UserFeatures {
@@ -22,7 +22,7 @@ namespace HaveAVoice.Services.UserFeatures {
         private IUserPrivacySettingsService<User, PrivacySetting> thePrivacySettingsService;
         private IUserRetrievalService<User> theUserRetrievalService;
         private IHAVAuthenticationRepository theAuthRepo;
-        private IHAVUserRepository theUserRepo;
+        private IUserRepository<User, Role, UserRole> theUserRepo;
         private IRoleRepository<User, Role> theRoleRepo;
 
         public HAVAuthenticationService()
@@ -32,7 +32,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public HAVAuthenticationService(IUserRetrievalService<User> aUserRetrievalService, IHAVBaseRepository baseRepository,
                                         IUserPrivacySettingsService<User, PrivacySetting> aPrivacyService, IHAVAuthenticationRepository anAuthRepo, 
-                                        IHAVUserRepository aUserRepo, IRoleRepository<User, Role> aRoleRepo)
+                                        IUserRepository<User, Role, UserRole> aUserRepo, IRoleRepository<User, Role> aRoleRepo)
             : base(baseRepository) {
             theUserRetrievalService = aUserRetrievalService;
             thePrivacySettingsService = aPrivacyService;
@@ -69,12 +69,6 @@ namespace HaveAVoice.Services.UserFeatures {
                 return null;
             }
 
-            Restriction myRestriction = theAuthRepo.FindRestrictionsForUser(aUser);
-
-            if (myRestriction == null) {
-                throw new Exception("The user has no restriction.");
-            }
-
             IEnumerable<PrivacySetting> myPrivacySettings = thePrivacySettingsService.FindPrivacySettingsForUser(aUser);
 
             if (myPrivacySettings == null) {
@@ -84,7 +78,6 @@ namespace HaveAVoice.Services.UserFeatures {
             return new UserInformationModel<User>(aUser, aUser.Id) {
                 Permissions = ConvertPermissionToEnums(myPermissions),
                 PrivacySettings = ConvertPrivacySettingsToEnums(myPrivacySettings),
-                PermissionToRestriction = ConvertRestrictionToHashTable(myRestriction),
                 ProfilePictureUrl = PhotoHelper.ProfilePicture(aUser),
                 FullName = NameHelper.FullName(aUser)
             };
@@ -105,33 +98,6 @@ namespace HaveAVoice.Services.UserFeatures {
                 .ToList<SocialPrivacySetting>();
             return myPrivacySettings;
         }
-
-        private Hashtable ConvertRestrictionToHashTable(Restriction aRestriction) {
-            Hashtable myPermissionToRestriction = new Hashtable();
-
-            List<Pair<SocialRestriction, long>> myRestrictions = new List<Pair<SocialRestriction, long>>();
-            myRestrictions.Add(CreateRestrictionList(SocialRestriction.SecondsToWait, aRestriction.IssuePostsWaitTimeBeforePostSeconds));
-            myRestrictions.Add(CreateRestrictionList(SocialRestriction.TimeLimit, aRestriction.IssuePostsTimeLimit));
-            myRestrictions.Add(CreateRestrictionList(SocialRestriction.OccurencesWithinTimeLimit, aRestriction.IssuePostsWithinTimeLimit));
-
-            myPermissionToRestriction.Add(SocialPermission.Post_Issue, myRestrictions);
-
-            myRestrictions = new List<Pair<SocialRestriction, long>>();
-            myRestrictions.Add(CreateRestrictionList(SocialRestriction.SecondsToWait, aRestriction.IssueReplyPostsWaitTimeBeforePostSeconds));
-            myRestrictions.Add(CreateRestrictionList(SocialRestriction.TimeLimit, aRestriction.IssueReplyPostsTimeLimit));
-            myRestrictions.Add(CreateRestrictionList(SocialRestriction.OccurencesWithinTimeLimit, aRestriction.IssueReplyPostsWithinTimeLimit));
-
-            myPermissionToRestriction.Add(SocialPermission.Post_Issue_Reply, myRestrictions);
-            return myPermissionToRestriction;
-        }
-
-        private Pair<SocialRestriction, long> CreateRestrictionList(SocialRestriction anEnumeratedRestriction, long restrictionValue) {
-            Pair<SocialRestriction, long> pair = new Pair<SocialRestriction, long>();
-            pair.First = anEnumeratedRestriction;
-            pair.Second = restrictionValue;
-            return pair;
-        }
-
 
         public void CreateRememberMeCredentials(User aUser) {
             string myCookieHash = CreateCookieHash(aUser);

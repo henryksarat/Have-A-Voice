@@ -13,7 +13,6 @@
     <h2>Edit</h2>
 
     <% Html.RenderPartial("Message"); %>
-    <%= ViewData["RestrictionMessage"] %><br />
     <%= ViewData["PermissionMessage"] %><br />
     <% Html.RenderPartial("Validation"); %>
     
@@ -47,14 +46,6 @@
                 <% foreach (var permissionSelection in (Model.PermissionSelection() as List<Pair<Permission, bool>>)) { %>
                         <%=CheckBoxHelper.StandardCheckbox("SelectedPermissions", permissionSelection.First.Id.ToString(), permissionSelection.Second) %>
                         <%=permissionSelection.First.Name %>
-                    <br />
-                <%}%>              
-            </p>
-            <p>Restrictions</p>
-            <p>
-                <% foreach (var restrictionSelection in (Model.RestrictionSelection() as List<Pair<Restriction, bool>>)) { %>
-                        <%=Html.RadioButton("SelectedRestriction", restrictionSelection.First.Id.ToString(), restrictionSelection.Second)%>
-                        <%=restrictionSelection.First.Name%>
                     <br />
                 <%}%>              
             </p>

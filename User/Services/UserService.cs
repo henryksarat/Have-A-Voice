@@ -9,14 +9,14 @@ using Social.Validation;
 using Social.Generic.Constants;
 
 namespace Social.User {
-    public class UserService<T> : IUserService<T> {
+    public class UserService<T, U, V> : IUserService<T, U, V> {
         private const string INVALID_EMAIL = "That is not a valid email.";
 
         private IValidationDictionary theValidationDictionary;
-        private IUserRepository<T> theUserRepo;
+        private IUserRepository<T, U, V> theUserRepo;
         private IEmail theEmailService;
 
-        public UserService(IValidationDictionary aValidationDictionary, IUserRepository<T> aUserRepo, IEmail aEmailService) {
+        public UserService(IValidationDictionary aValidationDictionary, IUserRepository<T, U, V> aUserRepo, IEmail aEmailService) {
             theValidationDictionary = aValidationDictionary;
             theUserRepo = aUserRepo;
             theEmailService = aEmailService;
