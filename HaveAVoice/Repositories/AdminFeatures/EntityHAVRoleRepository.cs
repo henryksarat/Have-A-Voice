@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Linq;
-using System.Collections.Generic;
 using System.Collections;
-using HaveAVoice.Repositories;
-using HaveAVoice.Helpers;
-using HaveAVoice.Repositories.UserFeatures;
+using System.Collections.Generic;
+using System.Linq;
 using HaveAVoice.Models;
+using HaveAVoice.Repositories.UserFeatures;
 using Social.Admin.Repositories;
+using Social.Generic.Constants;
 
 namespace HaveAVoice.Repositories.AdminFeatures {
     public class EntityHAVRoleRepository : IRoleRepository<User, Role> {
@@ -83,7 +82,7 @@ namespace HaveAVoice.Repositories.AdminFeatures {
 
         public Role GetNotConfirmedUserRole() {
             Role notConfirmedRole = (from c in theEntities.Roles
-                    where c.Name == HAVConstants.NOT_CONFIRMED_USER_ROLE
+                    where c.Name == Constants.NOT_CONFIRMED_USER_ROLE
                     select c).FirstOrDefault();
 
             if (notConfirmedRole == null)

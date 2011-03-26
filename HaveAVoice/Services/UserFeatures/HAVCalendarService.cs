@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using HaveAVoice.Exceptions;
 using HaveAVoice.Models;
 using HaveAVoice.Models.SocialWrappers;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
 using Social.Admin.Helpers;
+using Social.Friend.Exceptions;
 using Social.Friend.Services;
 using Social.Generic.Helpers;
 using Social.Generic.Models;

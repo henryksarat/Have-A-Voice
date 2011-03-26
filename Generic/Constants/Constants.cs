@@ -11,6 +11,8 @@ namespace Social.Generic.Constants {
         public const string ANONYMOUS_PICTURE_URL = NO_PROFILE_PICTURE_URL;
         public const string ANONYMOUS = "Anonymous";
 
+        public const string NOT_CONFIRMED_USER_ROLE = "Not confirmed";
+
         public const long SECONDS_BEFORE_USER_TIMEOUT = 60 * 30;
         public const string PAGE_NOT_FOUND = "You do not have access.";
         public const string NOT_ALLOWED = "You are not allowed to do that.";

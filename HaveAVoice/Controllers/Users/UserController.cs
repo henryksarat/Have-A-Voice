@@ -2,15 +2,21 @@ using System;
 using System.Web;
 using System.Web.Mvc;
 using HaveAVoice.Controllers.Helpers;
-using HaveAVoice.Exceptions;
 using HaveAVoice.Helpers;
 using HaveAVoice.Helpers.ActionMethods;
 using HaveAVoice.Models;
+using HaveAVoice.Models.SocialWrappers;
 using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
+using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
+using Social.Email;
+using Social.Email.Exceptions;
 using Social.Generic.Constants;
+using Social.Services.UserFeatures;
+using Social.User;
+using Social.User.Models;
 using Social.Validation;
 
 namespace HaveAVoice.Controllers.Users {
@@ -25,17 +31,20 @@ namespace HaveAVoice.Controllers.Users {
 
         
         private IHAVUserService theService;
+        private IUserService<User> theRegistrationService;
         private IValidationDictionary theValidationDictionary;
 
         public UserController() : 
             base(new HAVBaseService(new HAVBaseRepository())) {
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
             theService = new HAVUserService(theValidationDictionary);
+            theRegistrationService = new UserService<User>(theValidationDictionary, new EntityHAVUserRepository(), new SocialEmail());
         }
 
-        public UserController(IHAVUserService service, IHAVBaseService baseService)
+        public UserController(IHAVUserService service, IUserService<User> aRegistratonService, IHAVBaseService baseService)
             : base(baseService) {
             theService = service;
+            theRegistrationService = aRegistratonService;
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
@@ -64,8 +73,11 @@ namespace HaveAVoice.Controllers.Users {
                 return RedirectToProfile();
             }
             try {
-                User myUserToCreate = aUserToCreate.Build();
-                bool myResult = theService.CreateUser(myUserToCreate, captchaValid, aUserToCreate.Agreement, HttpContext.Request.UserHostAddress);
+                SocialUserModel myUserToCreate = SocialUserModel.Create(aUserToCreate.Build());
+                bool myResult = theRegistrationService.CreateUser(myUserToCreate, captchaValid, 
+                                                                  aUserToCreate.Agreement, HttpContext.Request.UserHostAddress, 
+                                                                  HAVConstants.BASE_URL, HAVConstants.ACTIVATION_SUBJECT, HAVConstants.ACTIVATION_BODY, 
+                                                                  new RegistrationStrategy());
                 if (myResult) {
                     return SendToResultPage(CREATE_ACCOUNT_TITLE, CREATE_ACCOUNT_SUCCESS);
                 }

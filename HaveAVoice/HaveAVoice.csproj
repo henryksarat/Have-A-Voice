@@ -68,9 +68,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\ActionFilters\ExportModelStateToTempData.cs" />
-    <Compile Include="Controllers\ActionFilters\ImportModelStateFromTempData.cs" />
-    <Compile Include="Controllers\ActionFilters\ModelStateTempDataTransfer.cs" />
     <Compile Include="Controllers\ActionFilters\RequiredRouteValueAttribute.cs" />
     <Compile Include="Controllers\Admin\AdminBaseController.cs" />
     <Compile Include="Controllers\Admin\AdminController.cs" />
@@ -100,11 +97,11 @@
     <Compile Include="Helpers\Enums\PersonFilter.cs" />
     <Compile Include="Helpers\Enums\IssueStanceFilter.cs" />
     <Compile Include="Helpers\Exceptions\CustomException.cs" />
-    <Compile Include="Helpers\Exceptions\NotFriendException.cs" />
     <Compile Include="Helpers\HAVPrivacyHelper.cs" />
     <Compile Include="Helpers\LinkHelper.cs" />
     <Compile Include="Helpers\PresentationHelper.cs" />
     <Compile Include="Helpers\ProfileHelper.cs" />
+    <Compile Include="Helpers\RegistrationStrategy.cs" />
     <Compile Include="Helpers\UI\BoardHelper.cs" />
     <Compile Include="Helpers\UI\IssueReplyCommentHelper.cs" />
     <Compile Include="Helpers\UI\SharedContentStyleHelper.cs" />
@@ -131,8 +128,6 @@
     <Compile Include="Helpers\Enums\ForgotPasswordPhase.cs" />
     <Compile Include="Helpers\Enums\PrivacyAction.cs" />
     <Compile Include="Helpers\Enums\Roles.cs" />
-    <Compile Include="Helpers\Exceptions\EmailException.cs" />
-    <Compile Include="Helpers\Exceptions\NullRoleException.cs" />
     <Compile Include="Helpers\Exceptions\NullUserException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -147,7 +142,7 @@
     <Compile Include="Models\SocialWrappers\SocialReplyWrapper.cs" />
     <Compile Include="Models\SocialWrappers\SocialRoleModel.cs" />
     <Compile Include="Models\SocialWrappers\SocialWhoIsOnlineModel.cs" />
-    <Compile Include="Models\SocialWrappers\UserModel.cs" />
+    <Compile Include="Models\SocialWrappers\SocialUserModel.cs" />
     <Compile Include="Models\View\AuthorityVerificationModel.cs" />
     <Compile Include="Models\View\Binders\UpdatePrivacySettingsModelBinder.cs" />
     <Compile Include="Models\View\Binders\ImageBinder.cs" />

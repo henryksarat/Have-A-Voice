@@ -1,16 +1,11 @@
-﻿using System.Collections.Generic;
-using HaveAVoice.Models.View;
-using HaveAVoice.Models;
+﻿using HaveAVoice.Models;
+using HaveAVoice.Models.SocialWrappers;
+using Social.User;
 
 namespace HaveAVoice.Repositories.UserFeatures {
-    public interface IHAVUserRepository {
-        User CreateUser(User userToCreate);
+    public interface IHAVUserRepository : IUserRepository<User> {
         void UpdateUser(User userToEdit);
-        void DeleteUser(User userToDelete);
         User DeleteUserFromRole(int userId, int roleId);
-        bool EmailRegistered(string email);
-        bool ShortUrlTaken(string aShortUrl);
-
         void RemoveUserFromRole(User aUser, Role aRole);
         UserRole AddUserToRole(User user, Role role);
     }

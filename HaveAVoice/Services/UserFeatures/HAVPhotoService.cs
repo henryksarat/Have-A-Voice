@@ -12,6 +12,7 @@ using HaveAVoice.Models.SocialWrappers;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services.Helpers;
+using Social.Friend.Exceptions;
 using Social.Friend.Services;
 using Social.Generic.Models;
 using Social.User.Models;

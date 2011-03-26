@@ -3,7 +3,6 @@ using System.Linq;
 using System.Web.Mvc;
 using HaveAVoice.Controllers.ActionFilters;
 using HaveAVoice.Controllers.Helpers;
-using HaveAVoice.Exceptions;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
@@ -11,6 +10,8 @@ using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
+using Social.Friend.Exceptions;
+using Social.Generic.ActionFilters;
 using Social.User.Services;
 using Social.Validation;
 

@@ -1,10 +1,10 @@
 ﻿using System;
 using Social.Email;
-using Social.Generic.Exceptions;
-using Social.User.Repositories;
-using Social.Validation;
+using Social.Email.Exceptions;
 using Social.Generic.Helpers;
 using Social.User.Models;
+using Social.User.Repositories;
+using Social.Validation;
 
 namespace Social.User.Services {
     public class PasswordService<T> : IPasswordService<T> {

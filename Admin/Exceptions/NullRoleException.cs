@@ -7,22 +7,22 @@ using System.Runtime.Serialization;
 //Henryk:
 //Great custom myException tutorial:
 //http://blog.gurock.com/articles/creating-custom-exceptions-in-dotnet/
-namespace HaveAVoice.Exceptions {
+namespace Social.Admin.Exceptions {
     [Serializable]
-    public class EmailException : Exception {
-        public EmailException() {
+    public class NullRoleException : Exception {
+        public NullRoleException() {
         }
 
-        public EmailException(string message)
+        public NullRoleException(string message)
             : base(message) {
         }
 
-        public EmailException(string message,
+        public NullRoleException(string message,
            Exception innerException)
             : base(message, innerException) {
         }
 
-        protected EmailException(SerializationInfo info,
+        protected NullRoleException(SerializationInfo info,
            StreamingContext context)
             : base(info, context) {
         }

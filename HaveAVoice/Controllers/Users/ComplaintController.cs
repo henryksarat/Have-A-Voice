@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Web.Mvc;
-using HaveAVoice.Controllers.ActionFilters;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Helpers;
 using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
+using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services;
 using HaveAVoice.Services.Issues;
 using HaveAVoice.Services.UserFeatures;
+using Social.Generic.ActionFilters;
 using Social.User.Services;
 using Social.Validation;
-using HaveAVoice.Repositories.UserFeatures;
 
 namespace HaveAVoice.Controllers.Users {
     public class ComplaintController : HAVBaseController {

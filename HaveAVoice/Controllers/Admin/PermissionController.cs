@@ -5,16 +5,15 @@ using System.Web.Mvc;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Models;
 using HaveAVoice.Models.SocialWrappers;
-using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.AdminFeatures;
 using HaveAVoice.Services;
 using Social.Admin;
 using Social.Admin.Helpers;
+using Social.Generic.ActionFilters;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Validation;
-using HaveAVoice.Controllers.ActionFilters;
 
 namespace HaveAVoice.Controllers.Admin {
     public class PermissionController : AdminBaseController {

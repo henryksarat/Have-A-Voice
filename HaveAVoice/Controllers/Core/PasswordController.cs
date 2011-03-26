@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Web.Mvc;
 using HaveAVoice.Controllers.Helpers;
-using HaveAVoice.Exceptions;
 using HaveAVoice.Helpers;
-using HaveAVoice.Models.View;
-using HaveAVoice.Repositories;
-using HaveAVoice.Services;
-using HaveAVoice.Services.UserFeatures;
-using Social.Validation;
-using Social.User;
-using HaveAVoice.Repositories.UserFeatures;
-using Social.Email;
-using Social.User.Services;
 using HaveAVoice.Models;
+using HaveAVoice.Repositories;
+using HaveAVoice.Repositories.UserFeatures;
+using HaveAVoice.Services;
+using Social.Email;
+using Social.Email.Exceptions;
 using Social.Generic.Models;
+using Social.User;
+using Social.User.Services;
+using Social.Validation;
 
 namespace HaveAVoice.Controllers.Core {
     public class PasswordController : HAVBaseController {

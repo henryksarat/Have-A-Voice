@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Web.Mvc;
-using HaveAVoice.Controllers.ActionFilters;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models;
@@ -11,6 +10,7 @@ using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services;
 using Social.Admin.Helpers;
 using Social.Board.Services;
+using Social.Generic.ActionFilters;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Validation;

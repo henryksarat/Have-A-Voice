@@ -5,24 +5,24 @@ using System.Web;
 using System.Runtime.Serialization;
 
 //Henryk:
-//Great custom exception tutorial:
+//Great custom myException tutorial:
 //http://blog.gurock.com/articles/creating-custom-exceptions-in-dotnet/
-namespace Social.Generic.Exceptions {
+namespace Social.Email.Exceptions {
     [Serializable]
-    public class NotFriendException : Exception {
-        public NotFriendException() {
+    public class EmailException : Exception {
+        public EmailException() {
         }
 
-        public NotFriendException(string message)
+        public EmailException(string message)
             : base(message) {
         }
 
-        public NotFriendException(string message,
+        public EmailException(string message,
            Exception innerException)
             : base(message, innerException) {
         }
 
-        protected NotFriendException(SerializationInfo info,
+        protected EmailException(SerializationInfo info,
            StreamingContext context)
             : base(info, context) {
         }

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Web.Mvc;
-using HaveAVoice.Controllers.ActionFilters;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Repositories;
 using HaveAVoice.Services;
 using HaveAVoice.Services.SiteFeatures;
+using Social.Generic.ActionFilters;
 using Social.Validation;
 
 namespace HaveAVoice.Controllers.Core {

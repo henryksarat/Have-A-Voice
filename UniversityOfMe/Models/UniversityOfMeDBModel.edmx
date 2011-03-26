@@ -1,0 +1,475 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="UniversityOfMeModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="UniversityOfMeModelStoreContainer">
+          <EntitySet Name="RolePermissions" EntityType="UniversityOfMeModel.Store.RolePermissions" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Roles" EntityType="UniversityOfMeModel.Store.Roles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Universities" EntityType="UniversityOfMeModel.Store.Universities" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserPrivacySettings" EntityType="UniversityOfMeModel.Store.UserPrivacySettings" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserRoles" EntityType="UniversityOfMeModel.Store.UserRoles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Users" EntityType="UniversityOfMeModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_RolePermissions_Roles" Association="UniversityOfMeModel.Store.FK_RolePermissions_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="RolePermissions" EntitySet="RolePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPrivacySettings_Users" Association="UniversityOfMeModel.Store.FK_UserPrivacySettings_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserPrivacySettings" EntitySet="UserPrivacySettings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles_Roles" Association="UniversityOfMeModel.Store.FK_UserRoles_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles_Users" Association="UniversityOfMeModel.Store.FK_UserRoles_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_University" Association="UniversityOfMeModel.Store.FK_Users_University">
+            <End Role="Universities" EntitySet="Universities" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="RolePermissions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="PermissionId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="DefaultRole" Type="bit" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="EditedByUserId" Type="int" />
+          <Property Name="DeletedByUserId" Type="int" />
+        </EntityType>
+        <EntityType Name="Universities">
+          <Key>
+            <PropertyRef Name="EmailExtension" />
+          </Key>
+          <Property Name="EmailExtension" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="UniversityName" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UserPrivacySettings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="PrivacySettingName" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UserRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UniversityId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Email" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Password" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="FirstName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="100" />
+          <Property Name="LastName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Gender" Type="varchar" Nullable="false" MaxLength="6" />
+          <Property Name="City" Type="varchar" MaxLength="100" />
+          <Property Name="State" Type="char" MaxLength="2" />
+          <Property Name="Zip" Type="int" />
+          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="LastLogin" Type="datetime" Nullable="false" />
+          <Property Name="RegistrationDate" Type="datetime" Nullable="false" />
+          <Property Name="RegistrationIp" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="Website" Type="varchar" MaxLength="100" />
+          <Property Name="AboutMe" Type="text" />
+          <Property Name="CookieHash" Type="varchar" MaxLength="500" />
+          <Property Name="CookieCreationDate" Type="smalldatetime" />
+          <Property Name="ActivationCode" Type="varchar" MaxLength="100" />
+          <Property Name="ForgotPasswordHash" Type="varchar" MaxLength="500" />
+          <Property Name="ForgotPasswordHashDateTimeStamp" Type="datetime" />
+          <Property Name="ShortUrl" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_RolePermissions_Roles">
+          <End Role="Roles" Type="UniversityOfMeModel.Store.Roles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RolePermissions" Type="UniversityOfMeModel.Store.RolePermissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RolePermissions">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPrivacySettings_Users">
+          <End Role="Users" Type="UniversityOfMeModel.Store.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserPrivacySettings" Type="UniversityOfMeModel.Store.UserPrivacySettings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserPrivacySettings">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoles_Roles">
+          <End Role="Roles" Type="UniversityOfMeModel.Store.Roles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserRoles" Type="UniversityOfMeModel.Store.UserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoles_Users">
+          <End Role="Users" Type="UniversityOfMeModel.Store.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserRoles" Type="UniversityOfMeModel.Store.UserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_University">
+          <End Role="Universities" Type="UniversityOfMeModel.Store.Universities" Multiplicity="1" />
+          <End Role="Users" Type="UniversityOfMeModel.Store.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Universities">
+              <PropertyRef Name="EmailExtension" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="UniversityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UniversityOfMeModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="UniversityOfMeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="RolePermissions" EntityType="UniversityOfMeModel.RolePermission" />
+          <EntitySet Name="Roles" EntityType="UniversityOfMeModel.Role" />
+          <EntitySet Name="UserPrivacySettings" EntityType="UniversityOfMeModel.UserPrivacySetting" />
+          <EntitySet Name="UserRoles" EntityType="UniversityOfMeModel.UserRole" />
+          <AssociationSet Name="FK_RolePermissions_Roles" Association="UniversityOfMeModel.FK_RolePermissions_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="RolePermissions" EntitySet="RolePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles_Roles" Association="UniversityOfMeModel.FK_UserRoles_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+          <EntitySet Name="Users" EntityType="UniversityOfMeModel.User" />
+          <AssociationSet Name="FK_UserPrivacySettings_Users" Association="UniversityOfMeModel.FK_UserPrivacySettings_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserPrivacySetting" EntitySet="UserPrivacySettings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles_Users" Association="UniversityOfMeModel.FK_UserRoles_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserRole" EntitySet="UserRoles" />
+          </AssociationSet>
+          <EntitySet Name="Universities" EntityType="UniversityOfMeModel.University" />
+          <AssociationSet Name="FK_Users_University" Association="UniversityOfMeModel.FK_Users_University">
+            <End Role="University" EntitySet="Universities" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="RolePermission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="PermissionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="UniversityOfMeModel.FK_RolePermissions_Roles" FromRole="RolePermissions" ToRole="Roles" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="DefaultRole" Type="Boolean" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="EditedByUserId" Type="Int32" />
+          <Property Name="DeletedByUserId" Type="Int32" />
+          <NavigationProperty Name="RolePermissions" Relationship="UniversityOfMeModel.FK_RolePermissions_Roles" FromRole="Roles" ToRole="RolePermissions" />
+          <NavigationProperty Name="UserRoles" Relationship="UniversityOfMeModel.FK_UserRoles_Roles" FromRole="Roles" ToRole="UserRoles" />
+        </EntityType>
+        <EntityType Name="UserPrivacySetting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="PrivacySettingName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="User" Relationship="UniversityOfMeModel.FK_UserPrivacySettings_Users" FromRole="UserPrivacySetting" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="UniversityOfMeModel.FK_UserRoles_Roles" FromRole="UserRoles" ToRole="Roles" />
+          <NavigationProperty Name="User" Relationship="UniversityOfMeModel.FK_UserRoles_Users" FromRole="UserRole" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_RolePermissions_Roles">
+          <End Role="Roles" Type="UniversityOfMeModel.Role" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RolePermissions" Type="UniversityOfMeModel.RolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RolePermissions">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoles_Roles">
+          <End Role="Roles" Type="UniversityOfMeModel.Role" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserRoles" Type="UniversityOfMeModel.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="UniversityId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MiddleName" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Gender" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="City" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="State" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Type="Int32" Name="Zip" />
+          <Property Type="DateTime" Name="DateOfBirth" Nullable="false" />
+          <Property Type="DateTime" Name="LastLogin" Nullable="false" />
+          <Property Type="DateTime" Name="RegistrationDate" Nullable="false" />
+          <Property Type="String" Name="RegistrationIp" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Website" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AboutMe" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CookieHash" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CookieCreationDate" />
+          <Property Type="String" Name="ActivationCode" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ForgotPasswordHash" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="ForgotPasswordHashDateTimeStamp" />
+          <Property Type="String" Name="ShortUrl" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UserPrivacySettings" Relationship="UniversityOfMeModel.FK_UserPrivacySettings_Users" FromRole="User" ToRole="UserPrivacySetting" />
+          <NavigationProperty Name="UserRoles" Relationship="UniversityOfMeModel.FK_UserRoles_Users" FromRole="User" ToRole="UserRole" />
+          <NavigationProperty Name="University" Relationship="UniversityOfMeModel.FK_Users_University" FromRole="User" ToRole="University" />
+        </EntityType>
+        <Association Name="FK_UserPrivacySettings_Users">
+          <End Type="UniversityOfMeModel.User" Role="User" Multiplicity="1" />
+          <End Type="UniversityOfMeModel.UserPrivacySetting" Role="UserPrivacySetting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserPrivacySetting">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoles_Users">
+          <End Type="UniversityOfMeModel.User" Role="User" Multiplicity="1" />
+          <End Type="UniversityOfMeModel.UserRole" Role="UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="University">
+          <Key>
+            <PropertyRef Name="EmailExtension" />
+          </Key>
+          <Property Type="String" Name="EmailExtension" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="UniversityName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Users" Relationship="UniversityOfMeModel.FK_Users_University" FromRole="University" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Users_University">
+          <End Type="UniversityOfMeModel.University" Role="University" Multiplicity="1" />
+          <End Type="UniversityOfMeModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="University">
+              <PropertyRef Name="EmailExtension" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="UniversityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="UniversityOfMeModelStoreContainer" CdmEntityContainer="UniversityOfMeEntities">
+          <EntitySetMapping Name="RolePermissions"><EntityTypeMapping TypeName="UniversityOfMeModel.RolePermission"><MappingFragment StoreEntitySet="RolePermissions">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+            <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Roles"><EntityTypeMapping TypeName="UniversityOfMeModel.Role"><MappingFragment StoreEntitySet="Roles">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="DefaultRole" ColumnName="DefaultRole" />
+            <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+            <ScalarProperty Name="EditedByUserId" ColumnName="EditedByUserId" />
+            <ScalarProperty Name="DeletedByUserId" ColumnName="DeletedByUserId" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="UserPrivacySettings"><EntityTypeMapping TypeName="UniversityOfMeModel.UserPrivacySetting"><MappingFragment StoreEntitySet="UserPrivacySettings">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="PrivacySettingName" ColumnName="PrivacySettingName" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="UserRoles"><EntityTypeMapping TypeName="UniversityOfMeModel.UserRole"><MappingFragment StoreEntitySet="UserRoles">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="UniversityOfMeModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="ShortUrl" ColumnName="ShortUrl" />
+                <ScalarProperty Name="ForgotPasswordHashDateTimeStamp" ColumnName="ForgotPasswordHashDateTimeStamp" />
+                <ScalarProperty Name="ForgotPasswordHash" ColumnName="ForgotPasswordHash" />
+                <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
+                <ScalarProperty Name="CookieCreationDate" ColumnName="CookieCreationDate" />
+                <ScalarProperty Name="CookieHash" ColumnName="CookieHash" />
+                <ScalarProperty Name="AboutMe" ColumnName="AboutMe" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="RegistrationIp" ColumnName="RegistrationIp" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UniversityId" ColumnName="UniversityId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Universities">
+            <EntityTypeMapping TypeName="UniversityOfMeModel.University">
+              <MappingFragment StoreEntitySet="Universities">
+                <ScalarProperty Name="UniversityName" ColumnName="UniversityName" />
+                <ScalarProperty Name="EmailExtension" ColumnName="EmailExtension" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="UniversityOfMeDBModel" ZoomLevel="74">
+        <EntityTypeShape EntityType="UniversityOfMeModel.RolePermission" Width="1.5" PointX="5.25" PointY="9.75" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityOfMeModel.Role" Width="1.5" PointX="3" PointY="9.25" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityOfMeModel.UserPrivacySetting" Width="1.5" PointX="5.25" PointY="3.875" Height="1.7879850260416657" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityOfMeModel.UserRole" Width="1.5" PointX="5.25" PointY="0.75" Height="1.9802864583333317" IsExpanded="true" />
+        <AssociationConnector Association="UniversityOfMeModel.FK_RolePermissions_Roles" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="10.643992513020834" />
+          <ConnectorPoint PointX="5.25" PointY="10.643992513020834" />
+        </AssociationConnector>
+        <AssociationConnector Association="UniversityOfMeModel.FK_UserRoles_Roles" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="9.2511528461538468" />
+          <ConnectorPoint PointX="4.875" PointY="8.8761528461538468" />
+          <ConnectorPoint PointX="4.875" PointY="1.4638196145833335" />
+          <ConnectorPoint PointX="5.25" PointY="1.4638196145833335" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="UniversityOfMeModel.User" Width="1.5" PointX="3" PointY="1.75" Height="6.0186165364583317" />
+        <AssociationConnector Association="UniversityOfMeModel.FK_UserPrivacySettings_Users" >
+          <ConnectorPoint PointX="4.5" PointY="4.7689925130208337" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="4.7689925130208328" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="4.7689925130208337" />
+          <ConnectorPoint PointX="5.25" PointY="4.7689925130208337" />
+        </AssociationConnector>
+        <AssociationConnector Association="UniversityOfMeModel.FK_UserRoles_Users" >
+          <ConnectorPoint PointX="4.5" PointY="2.2401432291666663" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="2.2401432291666659" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="2.2401432291666663" />
+          <ConnectorPoint PointX="5.25" PointY="2.2401432291666663" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="UniversityOfMeModel.University" Width="1.5" PointX="0.75" PointY="4" Height="1.5956835937499996" />
+        <AssociationConnector Association="UniversityOfMeModel.FK_Users_University" >
+          <ConnectorPoint PointX="2.25" PointY="4.797841796875" />
+          <ConnectorPoint PointX="3" PointY="4.797841796875" />
+        </AssociationConnector>
+        </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

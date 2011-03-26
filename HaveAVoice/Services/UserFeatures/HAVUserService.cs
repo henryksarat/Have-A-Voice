@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using HaveAVoice.Exceptions;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
@@ -9,6 +8,7 @@ using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services.Helpers;
 using Social.Email;
+using Social.Email.Exceptions;
 using Social.Generic.Constants;
 using Social.Generic.Helpers;
 using Social.User.Services;
@@ -42,42 +42,6 @@ namespace HaveAVoice.Services.UserFeatures {
             theEmailService = aEmailService;
         }
 
-        public bool CreateUser(User aUserToCreate, bool aCaptchaValid, bool aAgreement, string aIpAddress) {
-            if (!ValidateNewUser(aUserToCreate)) {
-                return false;
-            }
-
-            if (!ValidCaptchaImage(aCaptchaValid)) {
-                return false;
-            }
-
-            if(!ValidateAgreement(aAgreement)) {
-                return false;
-            }
-
-            aUserToCreate = CompleteAddingFieldsToUser(aUserToCreate, aIpAddress);
-            aUserToCreate = theUserRepo.CreateUser(aUserToCreate);
-
-            EmailException myEmailException = null;
-            try {
-                SendActivationCode(aUserToCreate);
-            } catch (EmailException e) {
-                myEmailException = e;
-            }
-
-            if (myEmailException != null) {
-                try {
-                    theAuthService.ActivateNewUser(aUserToCreate.ActivationCode);
-                } catch (Exception e) {
-                    theUserRepo.DeleteUser(aUserToCreate);
-                    throw e;
-                }
-                throw new EmailException("Couldn't send aEmail.", myEmailException);
-            }
-
-            return true;
-        }
-
         public bool CreateUserAuthority(User aUserToCreate, string aToken, string anAuthorityType, bool anAgreement, string anIpAddress) {
             if (!ValidateNewUser(aUserToCreate)) {
                 return false;
@@ -92,7 +56,7 @@ namespace HaveAVoice.Services.UserFeatures {
             }
 
             aUserToCreate = CompleteAddingFieldsToUser(aUserToCreate, anIpAddress);
-            aUserToCreate = theUserRepo.CreateUser(aUserToCreate);
+            aUserToCreate = theUserRepo.CreateUser(aUserToCreate).FromModel();
 
             try {
                 theAuthService.ActivateAuthority(aUserToCreate.ActivationCode, anAuthorityType);

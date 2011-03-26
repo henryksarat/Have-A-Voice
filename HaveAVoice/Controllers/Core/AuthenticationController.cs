@@ -12,6 +12,7 @@ using HaveAVoice.Services.UserFeatures;
 using Social.Generic.Models;
 using Social.Users.Services;
 using Social.Validation;
+using Social.Admin.Exceptions;
 
 namespace HaveAVoice.Controllers.Core {
     public class AuthenticationController : HAVBaseController {

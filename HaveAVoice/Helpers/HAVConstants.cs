@@ -9,8 +9,10 @@ using HaveAVoice.Helpers.Enums;
 namespace HaveAVoice.Helpers {
     public class HAVConstants {
         public const string BASE_URL = "http://www.haveavoice.com";
-        public const string NOT_CONFIRMED_USER_ROLE = "Not confirmed";
         public const string AUTHORITY_USER_ROLE = "Authority";
+
+        public const string ACTIVATION_BODY = "Hello!\nTo finalize completion of your have a voice account, please click following link or copy and paste it into your browser: ";
+        public const string ACTIVATION_SUBJECT = "have a voice | account activation";
 
         public const string PHOTO_LOCATION_FROM_VIEW = "/Photos/";
         public const string NO_PROFILE_PICTURE_IMAGE = "no_profile_picture.jpg";

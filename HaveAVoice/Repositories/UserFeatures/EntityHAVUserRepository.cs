@@ -1,18 +1,17 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
+﻿using System.Linq;
 using HaveAVoice.Exceptions;
-using HaveAVoice.Models.View;
-using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Repositories.AdminFeatures;
 using HaveAVoice.Models;
+using HaveAVoice.Models.SocialWrappers;
+using HaveAVoice.Repositories.AdminFeatures;
+using Social.Admin.Exceptions;
 using Social.Admin.Repositories;
+using Social.User.Models;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVUserRepository : IHAVUserRepository {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
-        public User CreateUser(User userToCreate) {
+        public AbstractUserModel<User> CreateUser(User userToCreate) {
             theEntities.AddToUsers(userToCreate);
             theEntities.SaveChanges();
 
@@ -23,7 +22,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
                 throw new NullRoleException("Deleted user because there was no \"Not confirmed\" role assigned properly.", exception);
             }
 
-            return userToCreate;
+            return SocialUserModel.Create(userToCreate);
         }
 
         private UserRole AddUserToNotConfirmedUserRole(User user) {
@@ -34,12 +33,12 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         public UserRole AddUserToRole(User user, Role role) {
-            UserRole userRole = UserRole.CreateUserRole(0, user.Id, role.Id);
+            UserRole myRole = UserRole.CreateUserRole(0, user.Id, role.Id);
 
-            theEntities.AddToUserRoles(userRole);
+            theEntities.AddToUserRoles(myRole);
             theEntities.SaveChanges();
 
-            return userRole;
+            return myRole;
         }
 
         public User DeleteUserFromRole(int userId, int roleId) {

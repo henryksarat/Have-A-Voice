@@ -11,6 +11,8 @@ using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
+using Social.Friend.Exceptions;
+using Social.Generic.ActionFilters;
 using Social.Generic.Models;
 using Social.User.Services;
 using Social.Validation;

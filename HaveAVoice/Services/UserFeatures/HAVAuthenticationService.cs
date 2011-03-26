@@ -10,6 +10,7 @@ using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.AdminFeatures;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services.Helpers;
+using Social.Admin.Exceptions;
 using Social.Admin.Repositories;
 using Social.Generic;
 using Social.Generic.Helpers;

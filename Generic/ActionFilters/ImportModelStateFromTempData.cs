@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace HaveAVoice.Controllers.ActionFilters {
+namespace Social.Generic.ActionFilters {
     public class ImportModelStateFromTempData : ModelStateTempDataTransfer {
 	    public override void OnActionExecuted(ActionExecutedContext aFilterContext)
 	    {

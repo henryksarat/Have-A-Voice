@@ -46,11 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionFilters\ExportModelStateToTempData.cs" />
+    <Compile Include="ActionFilters\ImportModelStateFromTempData.cs" />
+    <Compile Include="ActionFilters\ModelStateTempDataTransfer.cs" />
     <Compile Include="Constants\Constants.cs" />
     <Compile Include="Constants\Gender.cs" />
     <Compile Include="Constants\States.cs" />
-    <Compile Include="Exceptions\NotFriendException.cs" />
-    <Compile Include="Exceptions\EmailException.cs" />
+    <Compile Include="Controllers\BaseSocialController.cs" />
     <Compile Include="Helpers\CaptchaHelper.cs" />
     <Compile Include="Helpers\DateHelper.cs" />
     <Compile Include="Helpers\HashHelper.cs" />
