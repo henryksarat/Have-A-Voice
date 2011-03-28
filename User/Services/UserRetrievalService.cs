@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Social.Generic.Models;
 using Social.User.Repositories;
 
 namespace Social.User.Services {
@@ -27,6 +28,10 @@ namespace Social.User.Services {
 
         public IEnumerable<T> GetUsersByNameSearch(string aNamePortion) {
             return theUserRetrievalRepo.GetUsersByNameContains(aNamePortion);
+        }
+
+        public AbstractUserModel<T> GetAbstractUser(string anEmail, string aPassword) {
+            return theUserRetrievalRepo.GetAbstractUser(anEmail, aPassword);
         }
     }
 }

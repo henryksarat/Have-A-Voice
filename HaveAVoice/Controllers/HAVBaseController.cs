@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using HaveAVoice.Controllers.Helpers;
+using HaveAVoice.Helpers;
 using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Models;
 using HaveAVoice.Models.SocialWrappers;
@@ -9,9 +11,11 @@ using HaveAVoice.Models.View;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
+using Social.Authentication;
 using Social.Generic.Models;
 using Social.User.Models;
 using Social.Users.Services;
+using Social.Generic.Services;
 
 namespace HaveAVoice.Controllers  {
     public abstract class HAVBaseController : Controller {
@@ -19,16 +23,16 @@ namespace HaveAVoice.Controllers  {
         private const string AFTER_AUTHENTICATION_ERROR = "An error occurred after authentication after a cookie.";
         private const string READ_ME_ERROR = "An error occurred while reading the read me credentials.";
 
-        public IUserInformation theUserInformation;
+        public IUserInformation<User, WhoIsOnline> theUserInformation;
 
-        private IHAVBaseService theErrorService;
+        private IBaseService<User> theErrorService;
         private IHAVAuthenticationService theAuthService;
         private IWhoIsOnlineService<User, WhoIsOnline> theWhoIsOnlineService;
 
-        public HAVBaseController(IHAVBaseService baseService) :
+        public HAVBaseController(IBaseService<User> baseService) :
             this(baseService, new HAVAuthenticationService(), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository())) { }
 
-        public HAVBaseController(IHAVBaseService baseService, IHAVAuthenticationService anAuthService, IWhoIsOnlineService<User, WhoIsOnline> aWhoIsOnlineService) {
+        public HAVBaseController(IBaseService<User> baseService, IHAVAuthenticationService anAuthService, IWhoIsOnlineService<User, WhoIsOnline> aWhoIsOnlineService) {
             theErrorService = baseService;
             theAuthService = anAuthService;
             theWhoIsOnlineService = aWhoIsOnlineService;
@@ -36,7 +40,7 @@ namespace HaveAVoice.Controllers  {
 
         protected override void Initialize(RequestContext rc) {
             base.Initialize(rc);
-            HAVUserInformationFactory.SetInstance(UserInformation.Instance());
+            HAVUserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository())));
         }
 
         protected User GetUserInformaton() {
@@ -55,7 +59,8 @@ namespace HaveAVoice.Controllers  {
         protected void RefreshUserInformation() {
             UserInformationModel<User> myUserInformationModel = GetUserInformatonModel();
             try {
-                myUserInformationModel = theAuthService.RefreshUserInformationModel(GetUserInformatonModel());
+                myUserInformationModel = 
+                    theAuthService.RefreshUserInformationModel(myUserInformationModel.Details.Email, myUserInformationModel.Details.Password, new ProfilePictureStrategy());
             } catch (Exception myException) {
                 LogError(myException, String.Format("Big problem! Was unable to refresg the user information model for userid={0}", myUserInformationModel.Details.Id));
             }
@@ -75,8 +80,9 @@ namespace HaveAVoice.Controllers  {
 
                 if (myUser != null) {
                     UserInformationModel<User> userModel = null;
+                    AbstractUserModel<User> mySocialUserModel = SocialUserModel.Create(myUser);
                     try {
-                        userModel = theAuthService.CreateUserInformationModel(myUser);
+                        userModel = theAuthService.CreateUserInformationModel(mySocialUserModel, new ProfilePictureStrategy());
                     } catch (Exception e) {
                         LogError(e, AUTHENTICATION_DURING_COOKIE_ERROR);
                     }
@@ -86,7 +92,7 @@ namespace HaveAVoice.Controllers  {
                             theWhoIsOnlineService.AddToWhoIsOnline(userModel.Details, HttpContext.Request.UserHostAddress);
 
                             CreateUserInformationSession(userModel);
-                            theAuthService.CreateRememberMeCredentials(userModel.Details);
+                            theAuthService.CreateRememberMeCredentials(SocialUserModel.Create(userModel.Details));
                         } catch (Exception e) {
                             LogError(e, AFTER_AUTHENTICATION_ERROR);
                         }
@@ -112,7 +118,8 @@ namespace HaveAVoice.Controllers  {
         }
 
         protected void LogError(Exception anException, string aDetails) {
-            theErrorService.LogError(anException, aDetails);
+            AbstractUserModel<User> mySocialUserInfo = GetSocialUserInformation();
+            theErrorService.LogError(mySocialUserInfo, anException, aDetails);
         }
 
         protected ActionResult RedirectToLogin() {

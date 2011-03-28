@@ -10,19 +10,22 @@ using Social.Validation;
 using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
 using UniversityOfMe.Models.View;
+using UniversityOfMe.Repositories.UserRepos;
 using UniversityOfMe.Repositories;
+using Social.Generic.Services;
 
 namespace UniversityOfMe.Controllers {
     public class UserController : BaseSocialController {
         private IUserService<User, Role, UserRole> theRegistrationService;
         private IValidationDictionary theValidationDictionary;
 
-        public UserController() {
+        public UserController() : base(new BaseService<User>(new EntityBaseRepository())) {
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
             theRegistrationService = new UserService<User, Role, UserRole>(theValidationDictionary, new EntityUserRepository(), new SocialEmail());
         }
 
-        public UserController(IUserService<User, Role, UserRole> service, IUserService<User, Role, UserRole> aRegistratonService) {
+        public UserController(IUserService<User, Role, UserRole> aRegistratonService, IBaseService<User> aBaseService)
+            : base(aBaseService) {
             theRegistrationService = aRegistratonService;
         }
 

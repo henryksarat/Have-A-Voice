@@ -11,19 +11,19 @@ using Social.Friend.Services;
 using Social.Generic.Models;
 using Social.User.Models;
 using Social.Validation;
+using Social.Generic.Repositories;
 
 namespace HaveAVoice.Services.UserFeatures {
-    public class HAVPhotoAlbumService : HAVBaseService, IHAVPhotoAlbumService {
+    public class HAVPhotoAlbumService : IHAVPhotoAlbumService {
         private IValidationDictionary theValidationDictionary;
         private IFriendService<User, Friend> theFriendService;
         private IHAVPhotoAlbumRepository thePhotoAlbumRepo;
         private IHAVPhotoService thePhotoService;
 
         public HAVPhotoAlbumService(IValidationDictionary validationDictionary)
-            : this(validationDictionary, new HAVPhotoService(), new FriendService<User, Friend>(new EntityHAVFriendRepository()), new EntityHAVPhotoAlbumRepository(), new HAVBaseRepository()) { }
+            : this(validationDictionary, new HAVPhotoService(), new FriendService<User, Friend>(new EntityHAVFriendRepository()), new EntityHAVPhotoAlbumRepository()) { }
 
-        public HAVPhotoAlbumService(IValidationDictionary aValidationDictionary, IHAVPhotoService aPhotoService, IFriendService<User, Friend> aFriendService, IHAVPhotoAlbumRepository aPhotoAlbumRepo, IHAVBaseRepository aBaseRepository)
-            : base(aBaseRepository) {
+        public HAVPhotoAlbumService(IValidationDictionary aValidationDictionary, IHAVPhotoService aPhotoService, IFriendService<User, Friend> aFriendService, IHAVPhotoAlbumRepository aPhotoAlbumRepo) {
             theValidationDictionary = aValidationDictionary;
             thePhotoService = aPhotoService;
             theFriendService = aFriendService;

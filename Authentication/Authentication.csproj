@@ -41,12 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\CookieHelper.cs" />
+    <Compile Include="Helpers\IProfilePictureStrategy.cs" />
+    <Compile Include="Helpers\IUserActivationStrategy.cs" />
+    <Compile Include="IUserInformation.cs" />
+    <Compile Include="UserInformation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IAuthenticationRepository.cs" />
+    <Compile Include="Services\AuthenticationService.cs" />
+    <Compile Include="Services\IAuthenticationService.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Admin\Admin.csproj">
       <Project>{F6ECA5A8-34DB-4218-8D99-56FFDA3A3DF8}</Project>

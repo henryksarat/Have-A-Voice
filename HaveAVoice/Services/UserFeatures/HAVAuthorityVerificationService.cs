@@ -4,7 +4,6 @@ using System.Text;
 using HaveAVoice.Exceptions;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models;
-using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
 using Social.Admin.Helpers;
 using Social.Email;
@@ -14,7 +13,7 @@ using Social.Generic.Models;
 using Social.Validation;
 
 namespace HaveAVoice.Services.UserFeatures {
-    public class HAVAuthorityVerificationService : HAVBaseService, IHAVAuthorityVerificationService {
+    public class HAVAuthorityVerificationService : IHAVAuthorityVerificationService {
         private const string TOKEN_SUBJECT = "have a voice | authority authentication";
         private const string TOKEN_BODY = "Hello!\nYou are classified as an authority and therefore must sign up in a special way. Please follow this link: <br/ >";
         private const string INVALID_EMAIL = "That is not a valid email.";
@@ -24,10 +23,9 @@ namespace HaveAVoice.Services.UserFeatures {
         private IEmail theEmailService;
 
         public HAVAuthorityVerificationService(IValidationDictionary aValidationDictionary) 
-            : this(aValidationDictionary, new HAVBaseRepository(), new SocialEmail(), new EntityHAVAuthorityVerificationRepository()) { }
+            : this(aValidationDictionary, new SocialEmail(), new EntityHAVAuthorityVerificationRepository()) { }
 
-        public HAVAuthorityVerificationService(IValidationDictionary aValidationDictionary, IHAVBaseRepository aBaseRepository, IEmail anEmailService, IHAVAuthorityVerificationRepository anAuthorityService)
-            : base(aBaseRepository) {
+        public HAVAuthorityVerificationService(IValidationDictionary aValidationDictionary, IEmail anEmailService, IHAVAuthorityVerificationRepository anAuthorityService) {
                 theValidationDictionary = aValidationDictionary;
             theAuthenticationRepo = anAuthorityService;
             theEmailService = anEmailService;

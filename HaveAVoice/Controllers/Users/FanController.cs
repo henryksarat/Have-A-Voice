@@ -11,6 +11,7 @@ using HaveAVoice.Models.View;
 using HaveAVoice.Helpers;
 using HaveAVoice.Controllers.ActionFilters;
 using HaveAVoice.Controllers.Helpers;
+using Social.Generic.Services;
 
 namespace HaveAVoice.Controllers.Users {
     public class FanController : HAVBaseController {
@@ -28,11 +29,11 @@ namespace HaveAVoice.Controllers.Users {
         private IHAVFanService theFanService;
 
         public FanController() : 
-            base(new HAVBaseService(new HAVBaseRepository())) {
+            base(new BaseService<User>(new HAVBaseRepository())) {
                 theFanService = new HAVFanService();
         }
 
-        public FanController(IHAVBaseService aBaseService, IHAVFanService aFanService)
+        public FanController(IBaseService<User> aBaseService, IHAVFanService aFanService)
             : base(aBaseService) {
                 theFanService = aFanService;
         }

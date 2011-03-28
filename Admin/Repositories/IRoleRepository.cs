@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Social.Generic.Models;
 
 namespace Social.Admin.Repositories {
     public interface IRoleRepository<T, U> {
@@ -11,6 +12,8 @@ namespace Social.Admin.Repositories {
         U GetDefaultRole();
         U GetRoleByName(string aName);
         U GetNotConfirmedUserRole();
+        AbstractRoleModel<U> GetAbstractNotConfirmedUserRole();
+        AbstractRoleModel<U> GetAbstractDefaultRole();
         void MoveUsersToRole(List<int> aUsers, int aFromRoleId, int aToRoleId);
     }
 }

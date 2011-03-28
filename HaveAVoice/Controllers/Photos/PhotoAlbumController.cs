@@ -16,6 +16,7 @@ using Social.Generic.ActionFilters;
 using Social.Generic.Models;
 using Social.User.Services;
 using Social.Validation;
+using Social.Generic.Services;
 
 namespace HaveAVoice.Controllers.Users.Photos {
     public class PhotoAlbumController : HAVBaseController {
@@ -40,12 +41,12 @@ namespace HaveAVoice.Controllers.Users.Photos {
         private IUserRetrievalService<User> theUserRetrievalService;
 
         public PhotoAlbumController() : 
-            base(new HAVBaseService(new HAVBaseRepository())) {
+            base(new BaseService<User>(new HAVBaseRepository())) {
                 thePhotoAlbumService = new HAVPhotoAlbumService(new ModelStateWrapper(this.ModelState));
                 theUserRetrievalService = new UserRetrievalService<User>(new EntityHAVUserRetrievalRepository());
         }
 
-        public PhotoAlbumController(IHAVPhotoAlbumService aPhotoAlbumService, IUserRetrievalService<User> aUserRetrievalService, IHAVBaseService aBaseService)
+        public PhotoAlbumController(IHAVPhotoAlbumService aPhotoAlbumService, IUserRetrievalService<User> aUserRetrievalService, IBaseService<User> aBaseService)
             : base(aBaseService) {
                 thePhotoAlbumService = aPhotoAlbumService;
                 theUserRetrievalService = aUserRetrievalService;

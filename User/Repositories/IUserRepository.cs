@@ -1,15 +1,14 @@
-﻿using Social.User.Models;
+﻿using Social.Generic.Models;
 
 namespace Social.User {
     public interface IUserRepository<T, U, V> {
+        V AddUserToRole(T user, U role);
         AbstractUserModel<T> CreateUser(T userToCreate);
         void DeleteUser(T userToDelete);
-        bool EmailRegistered(string email);
-        bool ShortUrlTaken(string aShortUrl);
-
-        void UpdateUser(T userToEdit);
         T DeleteUserFromRole(int userId, int roleId);
+        bool EmailRegistered(string email);
         void RemoveUserFromRole(T aUser, U aRole);
-        V AddUserToRole(T user, U role);
+        bool ShortUrlTaken(string aShortUrl);
+        void UpdateUser(T userToEdit);
     }
 }

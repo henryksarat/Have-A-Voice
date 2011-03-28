@@ -13,6 +13,7 @@ using HaveAVoice.Services.UserFeatures;
 using Social.Generic.ActionFilters;
 using Social.User.Services;
 using Social.Validation;
+using Social.Generic.Services;
 
 namespace HaveAVoice.Controllers.Users {
     public class ComplaintController : HAVBaseController {
@@ -24,7 +25,7 @@ namespace HaveAVoice.Controllers.Users {
         private IHAVPhotoService thePhotoService;
 
         public ComplaintController()
-            : base(new HAVBaseService(new HAVBaseRepository())) {
+            : base(new BaseService<User>(new HAVBaseRepository())) {
              ModelStateWrapper myModelWrapper = new ModelStateWrapper(this.ModelState);
             theService = new HAVComplaintService(myModelWrapper);
             theUserRetrievalService = new UserRetrievalService<User>(new EntityHAVUserRetrievalRepository());
@@ -34,7 +35,7 @@ namespace HaveAVoice.Controllers.Users {
             thePhotoService = new HAVPhotoService();
         }
 
-        public ComplaintController(IHAVComplaintService aService, IHAVBaseService aBaseService, 
+        public ComplaintController(IHAVComplaintService aService, IBaseService<User> aBaseService, 
                                    IUserRetrievalService<User> aUserRetrievalService, IHAVIssueService aIssueService, 
                                    IHAVPhotoService aPhotoService) : base(aBaseService) {
             theService = aService;

@@ -14,6 +14,7 @@ using Social.Generic.ActionFilters;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Validation;
+using Social.Generic.Services;
 
 namespace HaveAVoice.Controllers.Admin {
     public class PermissionController : AdminBaseController {
@@ -21,13 +22,13 @@ namespace HaveAVoice.Controllers.Admin {
         private IPermissionService<User, Permission> thePermissionService;
 
          public PermissionController() 
-            : base(new HAVBaseService(new HAVBaseRepository())) {
+            : base(new BaseService<User>(new HAVBaseRepository())) {
                 thePermissionService = new PermissionService<User, Permission>(
                     new ModelStateWrapper(this.ModelState),
                     new EntityHAVPermissionRepository());
         }
 
-         public PermissionController(IHAVBaseService myBaseService, IPermissionService<User, Permission> myPermissionService)
+         public PermissionController(IBaseService<User> myBaseService, IPermissionService<User, Permission> myPermissionService)
             : base(myBaseService) {
             thePermissionService = myPermissionService;
         }
@@ -111,7 +112,7 @@ namespace HaveAVoice.Controllers.Admin {
             }
             
             try {
-                AbstractPermissionModel<Permission> myPermissionWrapper = new SocialPermissionModel(permission);
+                AbstractPermissionModel<Permission> myPermissionWrapper = SocialPermissionModel.Create(permission);
                 if (thePermissionService.Edit(GetUserInformatonModel(), myPermissionWrapper)) {
                     return RedirectToAction("Index");
                 }

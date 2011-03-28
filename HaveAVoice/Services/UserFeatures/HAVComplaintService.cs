@@ -4,15 +4,14 @@ using HaveAVoice.Repositories.UserFeatures;
 using Social.Validation;
 
 namespace HaveAVoice.Services.UserFeatures {
-    public class HAVComplaintService : HAVBaseService, IHAVComplaintService {
+    public class HAVComplaintService : IHAVComplaintService {
         private IHAVComplaintRepository theRepository;
         private IValidationDictionary theValidationDictionary;
 
         public HAVComplaintService(IValidationDictionary validationDictionary)
-            : this(validationDictionary, new EntityHAVComplaintRepository(), new HAVBaseRepository()) { }
+            : this(validationDictionary, new EntityHAVComplaintRepository()) { }
 
-        public HAVComplaintService(IValidationDictionary aValidationDictionary, IHAVComplaintRepository aRepository,
-                                   IHAVBaseRepository aBaseRepository) : base(aBaseRepository) {
+        public HAVComplaintService(IValidationDictionary aValidationDictionary, IHAVComplaintRepository aRepository) {
             theRepository = aRepository;
             theValidationDictionary = aValidationDictionary;
         }

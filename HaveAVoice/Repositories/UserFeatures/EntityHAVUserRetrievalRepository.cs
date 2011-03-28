@@ -1,11 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using HaveAVoice.Models;
+using HaveAVoice.Models.SocialWrappers;
+using Social.Generic.Models;
 using Social.User.Repositories;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVUserRetrievalRepository : IUserRetrievalRepository<User> {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
+
+        public AbstractUserModel<User> GetAbstractUser(string anEmail, string aPassword) {
+            return SocialUserModel.Create(GetUser(anEmail, aPassword));
+        }
 
         public User GetUser(int id) {
             return (from c in theEntities.Users

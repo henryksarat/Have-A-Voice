@@ -23,6 +23,11 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserPrivacySettings_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "UserPrivacySetting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserPrivacySetting), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserRoles_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "UserRole", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserRole), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Users_University", "University", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.University), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.User), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_WhoIsOnline_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "WhoIsOnline", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.WhoIsOnline), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ErrorLog_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ErrorLog", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ErrorLog), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_RolePermissions_Permissions", "Permission", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Permission), "RolePermission", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.RolePermission), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_PrivacySettings_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "PrivacySetting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.PrivacySetting), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserPrivacySettings_PrivacySettings", "PrivacySetting", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.PrivacySetting), "UserPrivacySetting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserPrivacySetting), true)]
 
 #endregion
 
@@ -169,6 +174,70 @@ namespace UniversityOfMe.Models
             }
         }
         private ObjectSet<University> _Universities;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<WhoIsOnline> WhoIsOnlines
+        {
+            get
+            {
+                if ((_WhoIsOnlines == null))
+                {
+                    _WhoIsOnlines = base.CreateObjectSet<WhoIsOnline>("WhoIsOnlines");
+                }
+                return _WhoIsOnlines;
+            }
+        }
+        private ObjectSet<WhoIsOnline> _WhoIsOnlines;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ErrorLog> ErrorLogs
+        {
+            get
+            {
+                if ((_ErrorLogs == null))
+                {
+                    _ErrorLogs = base.CreateObjectSet<ErrorLog>("ErrorLogs");
+                }
+                return _ErrorLogs;
+            }
+        }
+        private ObjectSet<ErrorLog> _ErrorLogs;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Permission> Permissions
+        {
+            get
+            {
+                if ((_Permissions == null))
+                {
+                    _Permissions = base.CreateObjectSet<Permission>("Permissions");
+                }
+                return _Permissions;
+            }
+        }
+        private ObjectSet<Permission> _Permissions;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<PrivacySetting> PrivacySettings
+        {
+            get
+            {
+                if ((_PrivacySettings == null))
+                {
+                    _PrivacySettings = base.CreateObjectSet<PrivacySetting>("PrivacySettings");
+                }
+                return _PrivacySettings;
+            }
+        }
+        private ObjectSet<PrivacySetting> _PrivacySettings;
 
         #endregion
         #region AddTo Methods
@@ -220,6 +289,38 @@ namespace UniversityOfMe.Models
         {
             base.AddObject("Universities", university);
         }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the WhoIsOnlines EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToWhoIsOnlines(WhoIsOnline whoIsOnline)
+        {
+            base.AddObject("WhoIsOnlines", whoIsOnline);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ErrorLogs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToErrorLogs(ErrorLog errorLog)
+        {
+            base.AddObject("ErrorLogs", errorLog);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Permissions EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPermissions(Permission permission)
+        {
+            base.AddObject("Permissions", permission);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the PrivacySettings EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPrivacySettings(PrivacySetting privacySetting)
+        {
+            base.AddObject("PrivacySettings", privacySetting);
+        }
 
         #endregion
     }
@@ -228,6 +329,712 @@ namespace UniversityOfMe.Models
     #endregion
     
     #region Entities
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="ErrorLog")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ErrorLog : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new ErrorLog object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="exception">Initial value of the Exception property.</param>
+        /// <param name="innerException">Initial value of the InnerException property.</param>
+        /// <param name="stackTrace">Initial value of the StackTrace property.</param>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
+        /// <param name="details">Initial value of the Details property.</param>
+        public static ErrorLog CreateErrorLog(global::System.Int32 id, global::System.String exception, global::System.String innerException, global::System.String stackTrace, global::System.Int32 userId, global::System.DateTime dateTimeStamp, global::System.String details)
+        {
+            ErrorLog errorLog = new ErrorLog();
+            errorLog.Id = id;
+            errorLog.Exception = exception;
+            errorLog.InnerException = innerException;
+            errorLog.StackTrace = stackTrace;
+            errorLog.UserId = userId;
+            errorLog.DateTimeStamp = dateTimeStamp;
+            errorLog.Details = details;
+            return errorLog;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Exception
+        {
+            get
+            {
+                return _Exception;
+            }
+            set
+            {
+                OnExceptionChanging(value);
+                ReportPropertyChanging("Exception");
+                _Exception = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Exception");
+                OnExceptionChanged();
+            }
+        }
+        private global::System.String _Exception;
+        partial void OnExceptionChanging(global::System.String value);
+        partial void OnExceptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String InnerException
+        {
+            get
+            {
+                return _InnerException;
+            }
+            set
+            {
+                OnInnerExceptionChanging(value);
+                ReportPropertyChanging("InnerException");
+                _InnerException = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("InnerException");
+                OnInnerExceptionChanged();
+            }
+        }
+        private global::System.String _InnerException;
+        partial void OnInnerExceptionChanging(global::System.String value);
+        partial void OnInnerExceptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String StackTrace
+        {
+            get
+            {
+                return _StackTrace;
+            }
+            set
+            {
+                OnStackTraceChanging(value);
+                ReportPropertyChanging("StackTrace");
+                _StackTrace = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("StackTrace");
+                OnStackTraceChanged();
+            }
+        }
+        private global::System.String _StackTrace;
+        partial void OnStackTraceChanging(global::System.String value);
+        partial void OnStackTraceChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
+            }
+        }
+        private global::System.Int32 _UserId;
+        partial void OnUserIdChanging(global::System.Int32 value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateTimeStamp
+        {
+            get
+            {
+                return _DateTimeStamp;
+            }
+            set
+            {
+                OnDateTimeStampChanging(value);
+                ReportPropertyChanging("DateTimeStamp");
+                _DateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateTimeStamp");
+                OnDateTimeStampChanged();
+            }
+        }
+        private global::System.DateTime _DateTimeStamp;
+        partial void OnDateTimeStampChanging(global::System.DateTime value);
+        partial void OnDateTimeStampChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Details
+        {
+            get
+            {
+                return _Details;
+            }
+            set
+            {
+                OnDetailsChanging(value);
+                ReportPropertyChanging("Details");
+                _Details = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Details");
+                OnDetailsChanged();
+            }
+        }
+        private global::System.String _Details;
+        partial void OnDetailsChanging(global::System.String value);
+        partial void OnDetailsChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ErrorLog_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_ErrorLog_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_ErrorLog_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_ErrorLog_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_ErrorLog_Users", "User", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="Permission")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Permission : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Permission object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="name">Initial value of the Name property.</param>
+        /// <param name="description">Initial value of the Description property.</param>
+        /// <param name="deleted">Initial value of the Deleted property.</param>
+        public static Permission CreatePermission(global::System.Int32 id, global::System.String name, global::System.String description, global::System.Boolean deleted)
+        {
+            Permission permission = new Permission();
+            permission.Id = id;
+            permission.Name = name;
+            permission.Description = description;
+            permission.Deleted = deleted;
+            return permission;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Description
+        {
+            get
+            {
+                return _Description;
+            }
+            set
+            {
+                OnDescriptionChanging(value);
+                ReportPropertyChanging("Description");
+                _Description = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Description");
+                OnDescriptionChanged();
+            }
+        }
+        private global::System.String _Description;
+        partial void OnDescriptionChanging(global::System.String value);
+        partial void OnDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Deleted
+        {
+            get
+            {
+                return _Deleted;
+            }
+            set
+            {
+                OnDeletedChanging(value);
+                ReportPropertyChanging("Deleted");
+                _Deleted = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Deleted");
+                OnDeletedChanged();
+            }
+        }
+        private global::System.Boolean _Deleted;
+        partial void OnDeletedChanging(global::System.Boolean value);
+        partial void OnDeletedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> EditByUserId
+        {
+            get
+            {
+                return _EditByUserId;
+            }
+            set
+            {
+                OnEditByUserIdChanging(value);
+                ReportPropertyChanging("EditByUserId");
+                _EditByUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("EditByUserId");
+                OnEditByUserIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _EditByUserId;
+        partial void OnEditByUserIdChanging(Nullable<global::System.Int32> value);
+        partial void OnEditByUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> DeletedByUserId
+        {
+            get
+            {
+                return _DeletedByUserId;
+            }
+            set
+            {
+                OnDeletedByUserIdChanging(value);
+                ReportPropertyChanging("DeletedByUserId");
+                _DeletedByUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DeletedByUserId");
+                OnDeletedByUserIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _DeletedByUserId;
+        partial void OnDeletedByUserIdChanging(Nullable<global::System.Int32> value);
+        partial void OnDeletedByUserIdChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_RolePermissions_Permissions", "RolePermission")]
+        public EntityCollection<RolePermission> RolePermissions
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RolePermission>("UniversityOfMeModel.FK_RolePermissions_Permissions", "RolePermission");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RolePermission>("UniversityOfMeModel.FK_RolePermissions_Permissions", "RolePermission", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="PrivacySetting")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class PrivacySetting : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new PrivacySetting object.
+        /// </summary>
+        /// <param name="name">Initial value of the Name property.</param>
+        /// <param name="createdByUserId">Initial value of the CreatedByUserId property.</param>
+        /// <param name="displayName">Initial value of the DisplayName property.</param>
+        /// <param name="description">Initial value of the Description property.</param>
+        /// <param name="privacyGroup">Initial value of the PrivacyGroup property.</param>
+        /// <param name="listOrder">Initial value of the ListOrder property.</param>
+        public static PrivacySetting CreatePrivacySetting(global::System.String name, global::System.Int32 createdByUserId, global::System.String displayName, global::System.String description, global::System.String privacyGroup, global::System.Int32 listOrder)
+        {
+            PrivacySetting privacySetting = new PrivacySetting();
+            privacySetting.Name = name;
+            privacySetting.CreatedByUserId = createdByUserId;
+            privacySetting.DisplayName = displayName;
+            privacySetting.Description = description;
+            privacySetting.PrivacyGroup = privacyGroup;
+            privacySetting.ListOrder = listOrder;
+            return privacySetting;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                if (_Name != value)
+                {
+                    OnNameChanging(value);
+                    ReportPropertyChanging("Name");
+                    _Name = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("Name");
+                    OnNameChanged();
+                }
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 CreatedByUserId
+        {
+            get
+            {
+                return _CreatedByUserId;
+            }
+            set
+            {
+                OnCreatedByUserIdChanging(value);
+                ReportPropertyChanging("CreatedByUserId");
+                _CreatedByUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CreatedByUserId");
+                OnCreatedByUserIdChanged();
+            }
+        }
+        private global::System.Int32 _CreatedByUserId;
+        partial void OnCreatedByUserIdChanging(global::System.Int32 value);
+        partial void OnCreatedByUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String DisplayName
+        {
+            get
+            {
+                return _DisplayName;
+            }
+            set
+            {
+                OnDisplayNameChanging(value);
+                ReportPropertyChanging("DisplayName");
+                _DisplayName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("DisplayName");
+                OnDisplayNameChanged();
+            }
+        }
+        private global::System.String _DisplayName;
+        partial void OnDisplayNameChanging(global::System.String value);
+        partial void OnDisplayNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Description
+        {
+            get
+            {
+                return _Description;
+            }
+            set
+            {
+                OnDescriptionChanging(value);
+                ReportPropertyChanging("Description");
+                _Description = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Description");
+                OnDescriptionChanged();
+            }
+        }
+        private global::System.String _Description;
+        partial void OnDescriptionChanging(global::System.String value);
+        partial void OnDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String PrivacyGroup
+        {
+            get
+            {
+                return _PrivacyGroup;
+            }
+            set
+            {
+                OnPrivacyGroupChanging(value);
+                ReportPropertyChanging("PrivacyGroup");
+                _PrivacyGroup = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("PrivacyGroup");
+                OnPrivacyGroupChanged();
+            }
+        }
+        private global::System.String _PrivacyGroup;
+        partial void OnPrivacyGroupChanging(global::System.String value);
+        partial void OnPrivacyGroupChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ListOrder
+        {
+            get
+            {
+                return _ListOrder;
+            }
+            set
+            {
+                OnListOrderChanging(value);
+                ReportPropertyChanging("ListOrder");
+                _ListOrder = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ListOrder");
+                OnListOrderChanged();
+            }
+        }
+        private global::System.Int32 _ListOrder;
+        partial void OnListOrderChanging(global::System.Int32 value);
+        partial void OnListOrderChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_PrivacySettings_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_PrivacySettings_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_PrivacySettings_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_PrivacySettings_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_PrivacySettings_Users", "User", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_UserPrivacySettings_PrivacySettings", "UserPrivacySetting")]
+        public EntityCollection<UserPrivacySetting> UserPrivacySettings
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserPrivacySetting>("UniversityOfMeModel.FK_UserPrivacySettings_PrivacySettings", "UserPrivacySetting");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserPrivacySetting>("UniversityOfMeModel.FK_UserPrivacySettings_PrivacySettings", "UserPrivacySetting", value);
+                }
+            }
+        }
+
+        #endregion
+    }
     
     /// <summary>
     /// No Metadata Documentation available.
@@ -624,6 +1431,44 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Role>("UniversityOfMeModel.FK_RolePermissions_Roles", "Roles", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_RolePermissions_Permissions", "Permission")]
+        public Permission Permission
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Permission>("UniversityOfMeModel.FK_RolePermissions_Permissions", "Permission").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Permission>("UniversityOfMeModel.FK_RolePermissions_Permissions", "Permission").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Permission> PermissionReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Permission>("UniversityOfMeModel.FK_RolePermissions_Permissions", "Permission");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Permission>("UniversityOfMeModel.FK_RolePermissions_Permissions", "Permission", value);
                 }
             }
         }
@@ -1423,6 +2268,72 @@ namespace UniversityOfMe.Models
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_WhoIsOnline_Users", "WhoIsOnline")]
+        public EntityCollection<WhoIsOnline> WhoIsOnlines
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<WhoIsOnline>("UniversityOfMeModel.FK_WhoIsOnline_Users", "WhoIsOnline");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<WhoIsOnline>("UniversityOfMeModel.FK_WhoIsOnline_Users", "WhoIsOnline", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ErrorLog_Users", "ErrorLog")]
+        public EntityCollection<ErrorLog> ErrorLogs
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ErrorLog>("UniversityOfMeModel.FK_ErrorLog_Users", "ErrorLog");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ErrorLog>("UniversityOfMeModel.FK_ErrorLog_Users", "ErrorLog", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_PrivacySettings_Users", "PrivacySetting")]
+        public EntityCollection<PrivacySetting> PrivacySettings
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PrivacySetting>("UniversityOfMeModel.FK_PrivacySettings_Users", "PrivacySetting");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PrivacySetting>("UniversityOfMeModel.FK_PrivacySettings_Users", "PrivacySetting", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -1568,6 +2479,44 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_UserPrivacySettings_Users", "User", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_UserPrivacySettings_PrivacySettings", "PrivacySetting")]
+        public PrivacySetting PrivacySetting
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PrivacySetting>("UniversityOfMeModel.FK_UserPrivacySettings_PrivacySettings", "PrivacySetting").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PrivacySetting>("UniversityOfMeModel.FK_UserPrivacySettings_PrivacySettings", "PrivacySetting").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<PrivacySetting> PrivacySettingReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<PrivacySetting>("UniversityOfMeModel.FK_UserPrivacySettings_PrivacySettings", "PrivacySetting");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<PrivacySetting>("UniversityOfMeModel.FK_UserPrivacySettings_PrivacySettings", "PrivacySetting", value);
                 }
             }
         }
@@ -1754,6 +2703,206 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_UserRoles_Users", "User", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="WhoIsOnline")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class WhoIsOnline : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new WhoIsOnline object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
+        /// <param name="ipAddress">Initial value of the IpAddress property.</param>
+        /// <param name="forceLogOut">Initial value of the ForceLogOut property.</param>
+        public static WhoIsOnline CreateWhoIsOnline(global::System.Int32 id, global::System.Int32 userId, global::System.DateTime dateTimeStamp, global::System.String ipAddress, global::System.Boolean forceLogOut)
+        {
+            WhoIsOnline whoIsOnline = new WhoIsOnline();
+            whoIsOnline.Id = id;
+            whoIsOnline.UserId = userId;
+            whoIsOnline.DateTimeStamp = dateTimeStamp;
+            whoIsOnline.IpAddress = ipAddress;
+            whoIsOnline.ForceLogOut = forceLogOut;
+            return whoIsOnline;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
+            }
+        }
+        private global::System.Int32 _UserId;
+        partial void OnUserIdChanging(global::System.Int32 value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateTimeStamp
+        {
+            get
+            {
+                return _DateTimeStamp;
+            }
+            set
+            {
+                OnDateTimeStampChanging(value);
+                ReportPropertyChanging("DateTimeStamp");
+                _DateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateTimeStamp");
+                OnDateTimeStampChanged();
+            }
+        }
+        private global::System.DateTime _DateTimeStamp;
+        partial void OnDateTimeStampChanging(global::System.DateTime value);
+        partial void OnDateTimeStampChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String IpAddress
+        {
+            get
+            {
+                return _IpAddress;
+            }
+            set
+            {
+                OnIpAddressChanging(value);
+                ReportPropertyChanging("IpAddress");
+                _IpAddress = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("IpAddress");
+                OnIpAddressChanged();
+            }
+        }
+        private global::System.String _IpAddress;
+        partial void OnIpAddressChanging(global::System.String value);
+        partial void OnIpAddressChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean ForceLogOut
+        {
+            get
+            {
+                return _ForceLogOut;
+            }
+            set
+            {
+                OnForceLogOutChanging(value);
+                ReportPropertyChanging("ForceLogOut");
+                _ForceLogOut = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ForceLogOut");
+                OnForceLogOutChanged();
+            }
+        }
+        private global::System.Boolean _ForceLogOut;
+        partial void OnForceLogOutChanging(global::System.Boolean value);
+        partial void OnForceLogOutChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_WhoIsOnline_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_WhoIsOnline_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_WhoIsOnline_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_WhoIsOnline_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_WhoIsOnline_Users", "User", value);
                 }
             }
         }

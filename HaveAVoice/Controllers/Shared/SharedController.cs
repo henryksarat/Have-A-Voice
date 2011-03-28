@@ -7,13 +7,15 @@ using System.Web.Mvc.Ajax;
 using HaveAVoice.Models.View;
 using HaveAVoice.Services;
 using HaveAVoice.Repositories;
+using Social.Generic.Services;
+using HaveAVoice.Models;
 
 namespace HaveAVoice.Controllers.Shared
 {
     public class SharedController : HAVBaseController
     {
         public SharedController()
-            : base(new HAVBaseService(new HAVBaseRepository())) { }
+            : base(new BaseService<User>(new HAVBaseRepository())) { }
 
         public ActionResult PageNotFound() {
             ErrorModel error = new ErrorModel();

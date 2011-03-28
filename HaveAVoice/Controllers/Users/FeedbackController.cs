@@ -10,6 +10,7 @@ using HaveAVoice.Services.UserFeatures;
 using Social.Admin.Helpers;
 using Social.Generic.Helpers;
 using Social.Validation;
+using Social.Generic.Services;
 
 namespace HaveAVoice.Controllers.Users
 {
@@ -21,12 +22,12 @@ namespace HaveAVoice.Controllers.Users
 
         private IHAVFeedbackService theFeedbackService;
         public FeedbackController()
-            : base(new HAVBaseService(new HAVBaseRepository())) {
+            : base(new BaseService<User>(new HAVBaseRepository())) {
              ModelStateWrapper myModelWrapper = new ModelStateWrapper(this.ModelState);
              theFeedbackService = new HAVFeedbackService(myModelWrapper);
         }
 
-        public FeedbackController(IHAVBaseService aBaseService, IHAVFeedbackService aService)
+        public FeedbackController(IBaseService<User> aBaseService, IHAVFeedbackService aService)
             : base(aBaseService) {
             theFeedbackService = aService;
         }

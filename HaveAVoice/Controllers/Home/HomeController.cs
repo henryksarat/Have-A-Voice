@@ -5,8 +5,8 @@ using HaveAVoice.Models;
 using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
-using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
+using Social.Generic.Services;
 using Social.Users.Services;
 using Social.Validation;
 
@@ -25,13 +25,13 @@ namespace HaveAVoice.Controllers.Home {
         private IHAVHomeService theService;
 
         public HomeController() : 
-            base(new HAVBaseService(new HAVBaseRepository())) {
+            base(new BaseService<User>(new HAVBaseRepository())) {
             theService = new HAVHomeService(new ModelStateWrapper(this.ModelState));
             theAuthService = new HAVAuthenticationService();
             theWhoIsOnlineService = new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository());
         }
 
-        public HomeController(IHAVBaseService aBaseService, IHAVAuthenticationService anAuthService, IHAVHomeService aService, IWhoIsOnlineService<User, WhoIsOnline> aWhoIsOnlineService)
+        public HomeController(IBaseService<User> aBaseService, IHAVAuthenticationService anAuthService, IHAVHomeService aService, IWhoIsOnlineService<User, WhoIsOnline> aWhoIsOnlineService)
             : base(aBaseService) {
             theAuthService = anAuthService;
             theService = aService;

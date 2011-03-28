@@ -10,14 +10,13 @@ using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Services.UserFeatures {
-    public class HAVNotificationService : HAVBaseService, IHAVNotificationService {
+    public class HAVNotificationService : IHAVNotificationService {
         private IHAVNotificationRepository theNotificationRepo;
 
         public HAVNotificationService()
-            : this(new HAVBaseRepository(), new EntityHAVNotificationRepository()) { }
+            : this(new EntityHAVNotificationRepository()) { }
 
-        public HAVNotificationService(IHAVBaseRepository aBaseRepository, IHAVNotificationRepository aNotificationRepo)
-            : base(aBaseRepository) {
+        public HAVNotificationService(IHAVNotificationRepository aNotificationRepo) {
                 theNotificationRepo = aNotificationRepo;
         }
 

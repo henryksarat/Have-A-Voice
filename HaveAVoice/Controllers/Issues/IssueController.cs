@@ -17,6 +17,7 @@ using Social.Generic.ActionFilters;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Validation;
+using Social.Generic.Services;
 
 namespace HaveAVoice.Controllers.Issues {
     public class IssueController : HAVBaseController {
@@ -51,14 +52,14 @@ namespace HaveAVoice.Controllers.Issues {
         private IHAVIssueReplyService theIssueReplyService;
 
         public IssueController() : 
-            base(new HAVBaseService(new HAVBaseRepository())) {
+            base(new BaseService<User>(new HAVBaseRepository())) {
             IValidationDictionary myModelState = new ModelStateWrapper(this.ModelState);
 
             theIssueService = new HAVIssueService(myModelState);
             theIssueReplyService = new HAVIssueReplyService(myModelState);
         }
 
-        public IssueController(IHAVIssueService aService, IHAVBaseService baseService)
+        public IssueController(IHAVIssueService aService, IBaseService<User> baseService)
             : base(baseService) {
             theIssueService = aService;
         }

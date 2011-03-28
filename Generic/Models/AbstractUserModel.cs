@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 
-namespace Social.User.Models {
+namespace Social.Generic.Models {
     public abstract class AbstractUserModel<T> {
         public int Id { get; set; }
         [DisplayFormat(ConvertEmptyStringToNull = false)]

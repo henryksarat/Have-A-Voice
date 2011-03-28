@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Social.User.Models;
+﻿using Social.Generic.Models;
 
 namespace HaveAVoice.Models.SocialWrappers {
     public class SocialUserModel : AbstractUserModel<User> {

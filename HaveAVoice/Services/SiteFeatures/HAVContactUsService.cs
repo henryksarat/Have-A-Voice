@@ -2,17 +2,18 @@
 using HaveAVoice.Repositories.SiteFeatures;
 using HaveAVoice.Services.Helpers;
 using Social.Validation;
+using HaveAVoice.Models;
+using Social.Generic.Repositories;
 
 namespace HaveAVoice.Services.SiteFeatures {
-    public class HAVContactUsService : HAVBaseService, IHAVContactUsService {
+    public class HAVContactUsService : IHAVContactUsService {
         private IHAVContactUsRepository theContactUsRepo;
         private IValidationDictionary theValidationDictionary;
 
         public HAVContactUsService(IValidationDictionary validationDictionary)
-            : this(validationDictionary, new HAVBaseRepository(), new EntityHAVContactUsRepository()) { }
+            : this(validationDictionary, new EntityHAVContactUsRepository()) { }
 
-        public HAVContactUsService(IValidationDictionary aValidationDictionary, IHAVBaseRepository aBaseRepository, IHAVContactUsRepository aContactUsRepo)
-            : base(aBaseRepository) {
+        public HAVContactUsService(IValidationDictionary aValidationDictionary, IHAVContactUsRepository aContactUsRepo) {
                 theContactUsRepo = aContactUsRepo;
                 theValidationDictionary = aValidationDictionary;
         }

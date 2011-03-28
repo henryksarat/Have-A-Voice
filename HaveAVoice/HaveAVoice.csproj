@@ -101,11 +101,13 @@
     <Compile Include="Helpers\LinkHelper.cs" />
     <Compile Include="Helpers\PresentationHelper.cs" />
     <Compile Include="Helpers\ProfileHelper.cs" />
+    <Compile Include="Helpers\ProfilePictureStrategy.cs" />
     <Compile Include="Helpers\RegistrationStrategy.cs" />
     <Compile Include="Helpers\UI\BoardHelper.cs" />
     <Compile Include="Helpers\UI\IssueReplyCommentHelper.cs" />
     <Compile Include="Helpers\UI\SharedContentStyleHelper.cs" />
     <Compile Include="Helpers\UI\SharedStyleHelper.cs" />
+    <Compile Include="Helpers\UserActivationStrategy.cs" />
     <Compile Include="Helpers\UserRoleHelper.cs" />
     <Compile Include="Controllers\Admin\PermissionController.cs" />
     <Compile Include="Controllers\Admin\RoleController.cs" />
@@ -198,7 +200,6 @@
     <Compile Include="Services\Helpers\FanHelper.cs" />
     <Compile Include="Services\Helpers\FriendHelper.cs" />
     <Compile Include="Services\Helpers\IssueHelper.cs" />
-    <Compile Include="Services\UserFeatures\IHAVAuthenticationRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVFeedbackRepository.cs" />
     <Compile Include="Models\ServiceConstants.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVNavigationRepository.cs" />
@@ -240,13 +241,11 @@
     <Compile Include="Helpers\HAVConstants.cs" />
     <Compile Include="Helpers\UserInformation\HAVUserInformationFactory.cs" />
     <Compile Include="Helpers\UI\IssueHelper.cs" />
-    <Compile Include="Helpers\UserInformation\IUserInformation.cs" />
     <Compile Include="Helpers\UI\MessageHelper.cs" />
     <Compile Include="Helpers\UserInformation\RestrictionLog.cs" />
     <Compile Include="Helpers\SelectionHelper.cs" />
     <Compile Include="Services\Helpers\TimezoneHelper.cs" />
     <Compile Include="Helpers\UI\UserHelper.cs" />
-    <Compile Include="Helpers\UserInformation\UserInformation.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVCalendarRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVCalendarRepository.cs" />
     <Compile Include="Services\UserFeatures\HAVCalendarService.cs" />
@@ -281,7 +280,6 @@
     <Compile Include="Repositories\AdminFeatures\EntityHAVErrorRepository.cs" />
     <Compile Include="Repositories\AdminFeatures\EntityHAVRoleRepository.cs" />
     <Compile Include="Repositories\HAVBaseRepository.cs" />
-    <Compile Include="Repositories\IHAVBaseRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVHomeRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVProfileRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVHomeRepository.cs" />
@@ -294,8 +292,6 @@
     <Compile Include="Repositories\UserFeatures\IHAVSearchRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVMessageRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVUserRepository.cs" />
-    <Compile Include="Services\HAVBaseService.cs" />
-    <Compile Include="Services\IHAVBaseService.cs" />
     <Compile Include="Services\UserFeatures\HAVHomeService.cs" />
     <Compile Include="Services\UserFeatures\HAVProfileService.cs" />
     <Compile Include="Services\UserFeatures\IHAVHomeService.cs" />
@@ -482,6 +478,10 @@
     <ProjectReference Include="..\Admin\Admin.csproj">
       <Project>{F6ECA5A8-34DB-4218-8D99-56FFDA3A3DF8}</Project>
       <Name>Admin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Authentication\Authentication.csproj">
+      <Project>{7D365142-37D3-4397-90AC-5761FA085C01}</Project>
+      <Name>Authentication</Name>
     </ProjectReference>
     <ProjectReference Include="..\Board\Board.csproj">
       <Project>{755E3949-7FFD-44DC-84A2-639BA4BED8A2}</Project>

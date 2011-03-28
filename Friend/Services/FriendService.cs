@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using Social.Friend.Repositories;
-using Social.User.Models;
+using Social.Generic.Models;
 
 namespace Social.Friend.Services {
     public class FriendService<T, U> : IFriendService<T, U> {

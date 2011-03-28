@@ -13,18 +13,17 @@ using Social.User.Models;
 using Social.Validation;
 
 namespace HaveAVoice.Services.UserFeatures {
-    public class HAVCalendarService : HAVBaseService, IHAVCalendarService {
+    public class HAVCalendarService : IHAVCalendarService {
         private IValidationDictionary theValidationDictionary;
         private IFriendService<User, Friend> theFriendService;
         private IHAVPhotoService thePhotoService;
         private IHAVCalendarRepository theRepository;
 
         public HAVCalendarService(IValidationDictionary aValidationDictionary)
-            : this(aValidationDictionary, new FriendService<User, Friend>(new EntityHAVFriendRepository()), new HAVPhotoService(), new EntityHAVCalendarRepository(), new HAVBaseRepository()) { }
+            : this(aValidationDictionary, new FriendService<User, Friend>(new EntityHAVFriendRepository()), new HAVPhotoService(), new EntityHAVCalendarRepository()) { }
 
         public HAVCalendarService(IValidationDictionary aValidationDictionary, IFriendService<User, Friend> aFriendService, IHAVPhotoService aPhotoService, 
-                                  IHAVCalendarRepository aRepository, IHAVBaseRepository baseRepository)
-            : base(baseRepository) {
+                                  IHAVCalendarRepository aRepository) {
             theValidationDictionary = aValidationDictionary;
             thePhotoService = aPhotoService;
             theFriendService = aFriendService;

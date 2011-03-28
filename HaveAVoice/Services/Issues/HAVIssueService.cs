@@ -13,18 +13,17 @@ using Social.Generic.Models;
 using Social.Validation;
 
 namespace HaveAVoice.Services.Issues {
-    public class HAVIssueService : HAVBaseService, IHAVIssueService {
+    public class HAVIssueService : IHAVIssueService {
         private IValidationDictionary theValidationDictionary;
         private IHAVIssueRepository theIssueRepository;
         private IHAVIssueReplyRepository theIssueReplyRepository;
         private IHAVIssueReplyCommentRepository theIssueReplyCommentRepository;
 
         public HAVIssueService(IValidationDictionary aValidationDictionary)
-            : this(aValidationDictionary, new EntityHAVIssueRepository(), new EntityHAVIssueReplyRepository(), new EntityHAVIssueReplyCommentRepository(), new HAVBaseRepository()) { }
+            : this(aValidationDictionary, new EntityHAVIssueRepository(), new EntityHAVIssueReplyRepository(), new EntityHAVIssueReplyCommentRepository()) { }
 
         public HAVIssueService(IValidationDictionary aValidationDictionary, IHAVIssueRepository aRepository, IHAVIssueReplyRepository anIssueReplyRepo,
-                               IHAVIssueReplyCommentRepository anIssueReplyCommentRepo, IHAVBaseRepository baseRepository)
-            : base(baseRepository) {
+                               IHAVIssueReplyCommentRepository anIssueReplyCommentRepo) {
             theValidationDictionary = aValidationDictionary;
             theIssueRepository = aRepository;
             theIssueReplyRepository = anIssueReplyRepo;

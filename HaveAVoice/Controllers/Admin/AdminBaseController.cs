@@ -1,8 +1,6 @@
-﻿
-using HaveAVoice.Helpers;
-using HaveAVoice.Services;
-using System.Web.Routing;
-using System.Web.Mvc;
+﻿using System.Web.Routing;
+using HaveAVoice.Models;
+using Social.Generic.Services;
 
 namespace HaveAVoice.Controllers.Admin  {
     public abstract class AdminBaseController : HAVBaseController {
@@ -10,7 +8,7 @@ namespace HaveAVoice.Controllers.Admin  {
             base.Initialize(rc);
         }
 
-        public AdminBaseController(IHAVBaseService baseService)
+        public AdminBaseController(IBaseService<User> baseService)
             : base(baseService) {
         }
     }

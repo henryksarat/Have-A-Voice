@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Social.User.Models;
+﻿using Social.Generic.Models;
 
 namespace Social.User.Helpers {
     public class NameHelper<U> {

@@ -15,7 +15,7 @@ namespace Social.User.Services {
         }
 
         public IEnumerable<U> FindPrivacySettingsForUser(T aUser) {
-            return FindAbstractPrivacySettingsForUser(aUser).Select(p => p.FromModel());
+            return GetAbstractPrivacySettingsForUser(aUser).Select(p => p.FromModel());
         }
 
         public void AddPrivacySettingsForUser(T aUser, SocialPrivacySetting[] aPrivacySettings) {
@@ -25,7 +25,7 @@ namespace Social.User.Services {
         public Dictionary<string, IEnumerable<Pair<U, bool>>> GetPrivacySettingsGrouped(T aUser) {
             Dictionary<string, IEnumerable<Pair<U, bool>>> myPrivacySelection = new Dictionary<string, IEnumerable<Pair<U, bool>>>();
 
-            IEnumerable<AbstractPrivacySettingModel<U>> myPrivacySettings = FindAbstractPrivacySettingsForUser(aUser);
+            IEnumerable<AbstractPrivacySettingModel<U>> myPrivacySettings = GetAbstractPrivacySettingsForUser(aUser);
             IEnumerable<AbstractPrivacySettingModel<U>> myAllPrivacySettings = thePrivacySettingsRepo.GetAllPrivacySettings();
             IEnumerable<AbstractPrivacySettingModel<U>> myExcludedPrivacySettings =  myAllPrivacySettings.Except(myPrivacySettings);
 
@@ -65,7 +65,7 @@ namespace Social.User.Services {
         }
 
         public void UpdatePrivacySettings(T aUser, UpdatePrivacySettingsModel<U> aPrivacySettings) {
-            IEnumerable<string> myPrivacySettings = (from p in FindAbstractPrivacySettingsForUser(aUser)
+            IEnumerable<string> myPrivacySettings = (from p in GetAbstractPrivacySettingsForUser(aUser)
                                                      select p.Name).ToList<string>();
             List<AbstractPrivacySettingModel<U>> mySelectSettings = new List<AbstractPrivacySettingModel<U>>();
             List<AbstractPrivacySettingModel<U>> myNotSelectSettings = new List<AbstractPrivacySettingModel<U>>();
@@ -90,8 +90,8 @@ namespace Social.User.Services {
             thePrivacySettingsRepo.UpdatePrivacySettingsForUser(aUser, myToRemove, myToAdd);
         }
 
-        private IEnumerable<AbstractPrivacySettingModel<U>> FindAbstractPrivacySettingsForUser(T aUser) {
+        public IEnumerable<AbstractPrivacySettingModel<U>> GetAbstractPrivacySettingsForUser(T aUser) {
             return thePrivacySettingsRepo.FindPrivacySettingsForUser(aUser);
-        }    
+        }
     }
 }

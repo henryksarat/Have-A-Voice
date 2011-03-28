@@ -10,16 +10,17 @@ using HaveAVoice.Helpers;
 using Social.Generic.Helpers;
 using Social.Admin.Helpers;
 using HaveAVoice.Models;
+using Social.Generic.Services;
 
 namespace HaveAVoice.Controllers.Admin {
     public class AdminController : AdminBaseController {
         private static string PAGE_NOT_FOUND = "You do not have access.";
 
         public AdminController() : 
-            base(new HAVBaseService(new HAVBaseRepository())) {
+            base(new BaseService<User>(new HAVBaseRepository())) {
         }
 
-        public AdminController(IHAVBaseService aBaseService)
+        public AdminController(IBaseService<User> aBaseService)
             : base(aBaseService) {
         }
 

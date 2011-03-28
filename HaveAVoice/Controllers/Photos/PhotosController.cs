@@ -14,6 +14,7 @@ using HaveAVoice.Services.Helpers;
 using System.Web;
 using HaveAVoice.Controllers.Helpers;
 using Social.Generic.Models;
+using Social.Generic.Services;
 
 namespace HaveAVoice.Controllers.Users.Photos {
     public class PhotosController : HAVBaseController {
@@ -40,11 +41,11 @@ namespace HaveAVoice.Controllers.Users.Photos {
         private IHAVPhotoService thePhotoService;
 
         public PhotosController() : 
-            base(new HAVBaseService(new HAVBaseRepository())) {
+            base(new BaseService<User>(new HAVBaseRepository())) {
             thePhotoService = new HAVPhotoService();
         }
 
-        public PhotosController(IHAVPhotoService aPhotoService, IHAVBaseService aBaseService)
+        public PhotosController(IHAVPhotoService aPhotoService, IBaseService<User> aBaseService)
             : base(aBaseService) {
                 thePhotoService = aPhotoService;
         }

@@ -6,6 +6,8 @@ using HaveAVoice.Services;
 using HaveAVoice.Services.SiteFeatures;
 using Social.Generic.ActionFilters;
 using Social.Validation;
+using HaveAVoice.Models;
+using Social.Generic.Services;
 
 namespace HaveAVoice.Controllers.Core {
     public class SiteController : HAVBaseController {
@@ -15,12 +17,12 @@ namespace HaveAVoice.Controllers.Core {
         private IValidationDictionary theValidationDictionary;
 
         public SiteController() :
-            base(new HAVBaseService(new HAVBaseRepository())) {
+            base(new BaseService<User>(new HAVBaseRepository())) {
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
             theContactUsService = new HAVContactUsService(theValidationDictionary);
         }
 
-        public SiteController(IHAVBaseService baseService, IHAVContactUsService aContactUsService)
+        public SiteController(IBaseService<User> baseService, IHAVContactUsService aContactUsService)
             : base(baseService) {
             theContactUsService = aContactUsService;
         }

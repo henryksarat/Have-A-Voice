@@ -5,12 +5,21 @@ using HaveAVoice.Models.SocialWrappers;
 using HaveAVoice.Repositories.AdminFeatures;
 using Social.Admin.Exceptions;
 using Social.Admin.Repositories;
+using Social.Generic.Models;
 using Social.User;
-using Social.User.Models;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVUserRepository : IUserRepository<User, Role, UserRole> {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
+
+        public UserRole AddUserToRole(User aUser, Role aRole) {
+            UserRole myRole = UserRole.CreateUserRole(0, aUser.Id, aRole.Id);
+
+            theEntities.AddToUserRoles(myRole);
+            theEntities.SaveChanges();
+
+            return myRole;
+        }
 
         public AbstractUserModel<User> CreateUser(User userToCreate) {
             theEntities.AddToUsers(userToCreate);
@@ -26,20 +35,11 @@ namespace HaveAVoice.Repositories.UserFeatures {
             return SocialUserModel.Create(userToCreate);
         }
 
-        private UserRole AddUserToNotConfirmedUserRole(User user) {
-            IRoleRepository<User, Role> roleRepository = new EntityHAVRoleRepository();
-            Role notConfirmedUserRole = roleRepository.GetNotConfirmedUserRole();
-
-            return AddUserToRole(user, notConfirmedUserRole);
-        }
-
-        public UserRole AddUserToRole(User user, Role role) {
-            UserRole myRole = UserRole.CreateUserRole(0, user.Id, role.Id);
-
-            theEntities.AddToUserRoles(myRole);
+        public void DeleteUser(User userToDelete) {
+            theEntities = new HaveAVoiceEntities();
+            User originalUser = GetUser(userToDelete.Id);
+            theEntities.DeleteObject(originalUser);
             theEntities.SaveChanges();
-
-            return myRole;
         }
 
         public User DeleteUserFromRole(int userId, int roleId) {
@@ -61,31 +61,10 @@ namespace HaveAVoice.Repositories.UserFeatures {
             return user;
         }
 
-        private UserRole GetUserRole(User user, Role role) {
-            return (from c in theEntities.UserRoles
-                    where c.User.Id == user.Id
-                    && c.Role.Id == role.Id
-                    select c).FirstOrDefault();
-        }
-
-        public void DeleteUser(User userToDelete) {
-            theEntities = new HaveAVoiceEntities(); 
-            User originalUser = GetUser(userToDelete.Id);
-            theEntities.DeleteObject(originalUser);
-            theEntities.SaveChanges();
-        }
-
-
         public bool EmailRegistered(string email) {
             return (from c in theEntities.Users
                     where c.Email == email
                     select c).Count() != 0 ? true : false;
-        }
-
-        public bool ShortUrlTaken(string aShortUrl) {
-            return (from u in theEntities.Users
-                    where u.ShortUrl == aShortUrl
-                    select u).Count() != 0 ? true : false;
         }
 
         public void RemoveUserFromRole(User myUser, Role myRole) {
@@ -98,10 +77,30 @@ namespace HaveAVoice.Repositories.UserFeatures {
             theEntities.SaveChanges();
         }
 
+        public bool ShortUrlTaken(string aShortUrl) {
+            return (from u in theEntities.Users
+                    where u.ShortUrl == aShortUrl
+                    select u).Count() != 0 ? true : false;
+        }
+
         public void UpdateUser(User userToEdit) {
             User originalUser = GetUser(userToEdit.Id);
             theEntities.ApplyCurrentValues(originalUser.EntityKey.EntitySetName, userToEdit);
             theEntities.SaveChanges();
+        }
+
+        private UserRole GetUserRole(User user, Role role) {
+            return (from c in theEntities.UserRoles
+                    where c.User.Id == user.Id
+                    && c.Role.Id == role.Id
+                    select c).FirstOrDefault();
+        }
+
+        private UserRole AddUserToNotConfirmedUserRole(User user) {
+            IRoleRepository<User, Role> roleRepository = new EntityHAVRoleRepository();
+            Role notConfirmedUserRole = roleRepository.GetNotConfirmedUserRole();
+
+            return AddUserToRole(user, notConfirmedUserRole);
         }
 
         private bool CanFriend(int listenedToUserId, int aFriendUserId) {

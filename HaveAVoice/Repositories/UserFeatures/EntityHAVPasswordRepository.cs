@@ -4,6 +4,7 @@ using HaveAVoice.Models;
 using HaveAVoice.Models.SocialWrappers;
 using Social.User.Models;
 using Social.User.Repositories;
+using Social.Generic.Models;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVPasswordRepository : IPasswordRepository<User> {

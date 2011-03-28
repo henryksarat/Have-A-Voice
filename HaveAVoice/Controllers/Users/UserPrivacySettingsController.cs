@@ -8,6 +8,7 @@ using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services;
 using Social.User.Models;
 using Social.User.Services;
+using Social.Generic.Services;
 
 namespace HaveAVoice.Controllers.Users
 {
@@ -21,11 +22,11 @@ namespace HaveAVoice.Controllers.Users
         private IUserPrivacySettingsService<User, PrivacySetting> thePrivacyService;
 
         public UserPrivacySettingsController() : 
-            base(new HAVBaseService(new HAVBaseRepository())) {
+            base(new BaseService<User>(new HAVBaseRepository())) {
                 thePrivacyService = new UserPrivacySettingsService<User, PrivacySetting>(new EntityHAVUserPrivacySettingsRepository());
         }
 
-        public UserPrivacySettingsController(IHAVBaseService aBaseService, IUserPrivacySettingsService<User, PrivacySetting> aPrivacyService)
+        public UserPrivacySettingsController(IBaseService<User> aBaseService, IUserPrivacySettingsService<User, PrivacySetting> aPrivacyService)
             : base(aBaseService) {
             thePrivacyService = aPrivacyService;
         }

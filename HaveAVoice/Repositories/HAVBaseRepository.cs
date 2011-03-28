@@ -1,12 +1,11 @@
 ﻿using System;
 using HaveAVoice.Helpers.UserInformation;
-using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Models;
-using HaveAVoice.Models.View;
 using Social.Generic.Models;
+using Social.Generic.Repositories;
 
 namespace HaveAVoice.Repositories {
-    public class HAVBaseRepository : IHAVBaseRepository {
+    public class HAVBaseRepository : IBaseRepository<User> {
         private static HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
         private static int ERROR_USER_ID = 91;
 
@@ -15,11 +14,10 @@ namespace HaveAVoice.Repositories {
             return theEntities;
         }
 
-        public void LogError(Exception exception, string details) {
+        public void LogError(AbstractUserModel<User> aUserInformation, Exception exception, string details) {
             ResetConnection();
-            User myUser = GetUserInformaton();
             try {
-                int myLoggingUserId = myUser != null ? myUser.Id : ERROR_USER_ID;
+                int myLoggingUserId = aUserInformation != null ? aUserInformation.Id : ERROR_USER_ID;
                 String exceptionMessage = exception.Message;
                 String innerException = exception.InnerException != null ?
                                 exception.InnerException.Message : "No inner exception";
@@ -40,7 +38,7 @@ namespace HaveAVoice.Repositories {
             return null;
         }
 
-        public void ResetConnection() {
+        private void ResetConnection() {
             if (theEntities != null) {
                 theEntities.Dispose();
                 theEntities = null;

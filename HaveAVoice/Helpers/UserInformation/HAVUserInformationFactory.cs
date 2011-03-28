@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using HaveAVoice.Models;
-using System.Collections;
-using HaveAVoice.Helpers.Enums;
-using HaveAVoice.Helpers;
-using HaveAVoice.Models.View;
+using HaveAVoice.Repositories.UserFeatures;
+using HaveAVoice.Services.UserFeatures;
+using Social.Authentication;
 using Social.Generic.Models;
 
 namespace HaveAVoice.Helpers.UserInformation {
     public class HAVUserInformationFactory {
-        private static IUserInformation theFactory;
+        private static IUserInformation<User, WhoIsOnline> theFactory;
         
         private HAVUserInformationFactory() { }
 
@@ -24,21 +20,13 @@ namespace HaveAVoice.Helpers.UserInformation {
             return GetUserInformation() != null;
         }
 
-        public static void Dispose() {
-            Dispose(UserInformation.Instance());
-        }
-
-        public static void SetInstance(IUserInformation userInformation) {
-            theFactory = userInformation;
-        }
-
-        public static void Dispose(IUserInformation userInformation) {
+        public static void SetInstance(IUserInformation<User, WhoIsOnline> userInformation) {
             theFactory = userInformation;
         }
 
         private static void SetDefaultInstance() {
             if (theFactory == null) {
-                theFactory = UserInformation.Instance();
+                theFactory = UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()));
             }
         }
     }

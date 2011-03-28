@@ -18,7 +18,7 @@ using Social.User.Services;
 using Social.Validation;
 
 namespace HaveAVoice.Services.UserFeatures {
-    public class HAVProfileService : HAVBaseService, IHAVProfileService {
+    public class HAVProfileService : IHAVProfileService {
         private IUserRetrievalService<User> theUserRetrievalService;
         private IFriendService<User, Friend> theFriendService;
         private IHAVPhotoAlbumService thePhotoAlbumService;
@@ -32,13 +32,11 @@ namespace HaveAVoice.Services.UserFeatures {
                    new FriendService<User, Friend>(new EntityHAVFriendRepository()), 
                    new HAVPhotoAlbumService(validationDictionary), 
                    new EntityHAVProfileRepository(), 
-                   new EntityHAVBoardRepository(), 
-                   new HAVBaseRepository()) { }
+                   new EntityHAVBoardRepository()) { }
 
         public HAVProfileService(IValidationDictionary aValidationDictionary, IUserRetrievalService<User> aUserRetrievalService, 
                                  IFriendService<User, Friend> aFriendService, IHAVPhotoAlbumService aPhotoAlbumService, IHAVProfileRepository aRepository,
-                                 IBoardRepository<User, Board, BoardReply> aBoardRepository, IHAVBaseRepository aBaseRepository)
-            : base(aBaseRepository) {
+                                 IBoardRepository<User, Board, BoardReply> aBoardRepository) {
             theValidationDictionary = aValidationDictionary;
             theUserRetrievalService = aUserRetrievalService;
             theFriendService = aFriendService;

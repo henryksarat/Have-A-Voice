@@ -19,6 +19,7 @@ using Social.Generic;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Validation;
+using Social.Generic.Services;
 
 namespace HaveAVoice.Controllers.Admin {
     public class RoleController : AdminBaseController {
@@ -37,13 +38,13 @@ namespace HaveAVoice.Controllers.Admin {
         private ModelStateWrapper theModelState;
 
         public RoleController() 
-            : base(new HAVBaseService(new HAVBaseRepository())) {
+            : base(new BaseService<User>(new HAVBaseRepository())) {
             theModelState = new ModelStateWrapper(this.ModelState);
             theRoleService = new RoleService<User, Role>(theModelState, new EntityHAVRoleRepository());
             thePermissionService = new PermissionService<User, Permission>(theModelState, new EntityHAVPermissionRepository());
         }
 
-        public RoleController(IHAVBaseService aBaseService, IRoleService<User, Role> myRoleService, IPermissionService<User, Permission> myPermissionService)
+        public RoleController(IBaseService<User> aBaseService, IRoleService<User, Role> myRoleService, IPermissionService<User, Permission> myPermissionService)
             : base(aBaseService) {
             theRoleService = myRoleService;
             thePermissionService = myPermissionService;

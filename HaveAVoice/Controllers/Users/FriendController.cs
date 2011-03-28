@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using HaveAVoice.Services;
-using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Repositories;
+using HaveAVoice.Controllers.Helpers;
+using HaveAVoice.Helpers;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
-using HaveAVoice.Helpers;
-using HaveAVoice.Controllers.Helpers;
-using Social.Friend.Services;
+using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
-using Social.User.Models;
-using HaveAVoice.Models.SocialWrappers;
+using HaveAVoice.Services;
+using Social.Friend.Services;
+using Social.Generic.Models;
+using Social.Generic.Services;
 
 namespace HaveAVoice.Controllers.Users
 {
@@ -45,11 +42,11 @@ namespace HaveAVoice.Controllers.Users
         private IFriendService<User, Friend> theFriendService;
 
         public FriendController() : 
-            base(new HAVBaseService(new HAVBaseRepository())) {
+            base(new BaseService<User>(new HAVBaseRepository())) {
                 theFriendService = new FriendService<User, Friend>(new EntityHAVFriendRepository());
         }
 
-        public FriendController(IHAVBaseService aBaseService, IFriendService<User, Friend> aFriendService)
+        public FriendController(IBaseService<User> aBaseService, IFriendService<User, Friend> aFriendService)
             : base(aBaseService) {
                 theFriendService = aFriendService;
         }

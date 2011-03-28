@@ -7,6 +7,7 @@ using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
 using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
+using Social.Generic.Services;
 
 namespace HaveAVoice.Controllers.Users {
     public class NotificationController : HAVBaseController {
@@ -18,11 +19,11 @@ namespace HaveAVoice.Controllers.Users {
         private IHAVNotificationService theNotificationService;
 
         public NotificationController()
-            : base(new HAVBaseService(new HAVBaseRepository())) {
+            : base(new BaseService<User>(new HAVBaseRepository())) {
                 theNotificationService = new HAVNotificationService();
         }
 
-        public NotificationController(IHAVBaseService aBaseService, IHAVNotificationService aNoticiationService)
+        public NotificationController(IBaseService<User> aBaseService, IHAVNotificationService aNoticiationService)
             : base(aBaseService) {
                 theNotificationService = aNoticiationService;
         }

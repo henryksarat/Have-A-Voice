@@ -7,14 +7,13 @@ using HaveAVoice.Repositories;
 using HaveAVoice.Models;
 
 namespace HaveAVoice.Services.UserFeatures {
-    public class HAVFanService : HAVBaseService, IHAVFanService {
+    public class HAVFanService : IHAVFanService {
         private IHAVFanRepository theFanRepo;
 
         public HAVFanService()
-            : this(new HAVBaseRepository(), new EntityHAVFanRepository()) { }
+            : this(new EntityHAVFanRepository()) { }
 
-        public HAVFanService(IHAVBaseRepository aBaseRepository, IHAVFanRepository aFanRepo)
-            : base(aBaseRepository) {
+        public HAVFanService(IHAVFanRepository aFanRepo) {
                 theFanRepo = aFanRepo;
         }
 

@@ -1,4 +1,5 @@
-﻿using Social.User.Models;
+﻿using Social.Generic.Models;
+
 namespace Social.User.Repositories {
     public interface IPasswordRepository<T> {
         void UpdateUserForgotPasswordHash(string anEmail, string aHashCode);

@@ -5,13 +5,13 @@ using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
 
 namespace HaveAVoice.Services.UserFeatures {
-    public class HAVSearchService : HAVBaseService, IHAVSearchService {
+    public class HAVSearchService : IHAVSearchService {
         private IHAVSearchRepository theRepository;
 
         public HAVSearchService()
-            : this(new EntityHAVSearchRepository(), new HAVBaseRepository()) { }
+            : this(new EntityHAVSearchRepository()) { }
 
-        public HAVSearchService(IHAVSearchRepository aRepository, IHAVBaseRepository baseRepository) : base(baseRepository) {
+        public HAVSearchService(IHAVSearchRepository aRepository) {
             theRepository = aRepository;
         }
 

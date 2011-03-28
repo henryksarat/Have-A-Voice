@@ -2,7 +2,7 @@
 using Social.Email;
 using Social.Email.Exceptions;
 using Social.Generic.Helpers;
-using Social.User.Models;
+using Social.Generic.Models;
 using Social.User.Repositories;
 using Social.Validation;
 

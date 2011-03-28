@@ -14,6 +14,7 @@ using Social.Generic.ActionFilters;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Validation;
+using Social.Generic.Services;
 
 namespace HaveAVoice.Controllers.Core {
     public class AuthorityVerificationController : HAVBaseController {
@@ -33,12 +34,12 @@ namespace HaveAVoice.Controllers.Core {
 
         
         public AuthorityVerificationController() :
-            base(new HAVBaseService(new HAVBaseRepository())) {
+            base(new BaseService<User>(new HAVBaseRepository())) {
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
             theAuthService = new HAVAuthorityVerificationService(theValidationDictionary);
         }
 
-        public AuthorityVerificationController(IHAVBaseService baseService, IHAVAuthorityVerificationService anAuthService)
+        public AuthorityVerificationController(IBaseService<User> baseService, IHAVAuthorityVerificationService anAuthService)
             : base(baseService) {
             theAuthService = anAuthService;
         }

@@ -1,5 +1,5 @@
-﻿using Social.User.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using Social.Generic.Models;
 
 namespace UniversityOfMe.Models.Social {
     public class SocialUserModel : AbstractUserModel<User> {

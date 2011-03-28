@@ -10,6 +10,8 @@ using Moq;
 namespace HaveAVoice.Tests.Models.Services.UserFeatures {
     [TestClass]
     public class HAVComplaintServiceTest {
+        /*
+
         private static int VALID_COMPLAINT_SOURCE_ID = 45;
         private static string VALID_COMPLAINT = "This sucks.";
         private static User USER = new User();
@@ -20,7 +22,6 @@ namespace HaveAVoice.Tests.Models.Services.UserFeatures {
         private Mock<IHAVBaseRepository> theBaseRepository;
         private Mock<IHAVBaseService> theMockedBaseService;
 
-        /*
         [TestInitialize]
         public void Initialize() {
             theModelState = new ModelStateDictionary();

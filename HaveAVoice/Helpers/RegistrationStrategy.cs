@@ -1,11 +1,11 @@
 ﻿using HaveAVoice.Models;
+using Social.Generic.Models;
 using Social.User.Helpers;
-using Social.User.Models;
 using Social.Validation;
 
 namespace HaveAVoice.Helpers {
     public class RegistrationStrategy : IRegistrationStrategy<User> {
-        public bool ExtraFieldsAreValid(Social.User.Models.AbstractUserModel<User> aUser, IValidationDictionary aValidationDictionary) {
+        public bool ExtraFieldsAreValid(AbstractUserModel<User> aUser, IValidationDictionary aValidationDictionary) {
             if (aUser.State.Trim().Length != 2) {
                 aValidationDictionary.AddError("State", aUser.State.Trim(), "State is required.");
             }

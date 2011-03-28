@@ -18,6 +18,7 @@ using Social.Services.UserFeatures;
 using Social.User;
 using Social.User.Models;
 using Social.Validation;
+using Social.Generic.Services;
 
 namespace HaveAVoice.Controllers.Users {
     public class UserController : HAVBaseController {
@@ -35,13 +36,13 @@ namespace HaveAVoice.Controllers.Users {
         private IValidationDictionary theValidationDictionary;
 
         public UserController() : 
-            base(new HAVBaseService(new HAVBaseRepository())) {
+            base(new BaseService<User>(new HAVBaseRepository())) {
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
             theService = new HAVUserService(theValidationDictionary);
             theRegistrationService = new UserService<User, Role, UserRole>(theValidationDictionary, new EntityHAVUserRepository(), new SocialEmail());
         }
 
-        public UserController(IHAVUserService service, IUserService<User, Role, UserRole> aRegistratonService, IHAVBaseService baseService)
+        public UserController(IHAVUserService service, IUserService<User, Role, UserRole> aRegistratonService, IBaseService<User> baseService)
             : base(baseService) {
             theService = service;
             theRegistrationService = aRegistratonService;

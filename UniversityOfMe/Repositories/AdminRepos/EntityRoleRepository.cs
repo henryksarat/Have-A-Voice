@@ -6,7 +6,7 @@ using Social.Admin.Repositories;
 using UniversityOfMe.Models;
 using Social.Generic.Constants;
 
-namespace UniversityOfMe.Repositories {
+namespace UniversityOfMe.Repositories.AdminRepos {
     public class EntityRoleRepository : IRoleRepository<User, Role> {
         private UniversityOfMeEntities theEntities = new UniversityOfMeEntities();
 
@@ -54,6 +54,19 @@ namespace UniversityOfMe.Repositories {
         }
 
         public void MoveUsersToRole(List<int> aUsers, int aFromRoleId, int aToRoleId) {
+            throw new NotImplementedException();
+        }
+
+
+        public Social.Generic.Models.AbstractRoleModel<Role> GetAbstractNotConfirmedUserRole() {
+            throw new NotImplementedException();
+        }
+
+        public Social.Generic.Models.AbstractRoleModel<Role> GetAbstractDefaultRole() {
+            throw new NotImplementedException();
+        }
+
+        public Social.Generic.Models.AbstractRoleModel<Role> GetAbstractRoleByName(string aRoleName) {
             throw new NotImplementedException();
         }
     }

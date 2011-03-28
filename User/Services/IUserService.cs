@@ -1,4 +1,4 @@
-﻿using Social.User.Models;
+﻿using Social.Generic.Models;
 using Social.User.Helpers;
 
 namespace Social.Services.UserFeatures {

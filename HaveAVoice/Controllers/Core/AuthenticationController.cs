@@ -3,16 +3,19 @@ using System.Web;
 using System.Web.Mvc;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Exceptions;
+using HaveAVoice.Helpers;
 using HaveAVoice.Models;
+using HaveAVoice.Models.SocialWrappers;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
-using HaveAVoice.Services;
 using HaveAVoice.Services.Helpers;
 using HaveAVoice.Services.UserFeatures;
+using Social.Admin.Exceptions;
+using Social.Authentication.Services;
 using Social.Generic.Models;
+using Social.Generic.Services;
 using Social.Users.Services;
 using Social.Validation;
-using Social.Admin.Exceptions;
 
 namespace HaveAVoice.Controllers.Core {
     public class AuthenticationController : HAVBaseController {
@@ -27,18 +30,18 @@ namespace HaveAVoice.Controllers.Core {
         private static string OUR_ERROR = "Couldn't activate the account because of something on our end. Please try again later.";
         private static string ACTIVATION_ERROR = "Error while activating your account. Please try again.";
 
-        private IHAVAuthenticationService theAuthService;
+        private IAuthenticationService<User, Role, Permission, UserRole, PrivacySetting> theAuthService;
         private IWhoIsOnlineService<User, WhoIsOnline> theWhoIsOnlineService;
         private IValidationDictionary theValidationDictionary;
 
         public AuthenticationController() :
-            base(new HAVBaseService(new HAVBaseRepository())) {
+            base(new BaseService<User>(new HAVBaseRepository())) {
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
             theAuthService = new HAVAuthenticationService();
             theWhoIsOnlineService = new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository());
         }
 
-        public AuthenticationController(IHAVBaseService baseService, IHAVAuthenticationService anAuthService, IWhoIsOnlineService<User, WhoIsOnline> aWhoIsOnlineService)
+        public AuthenticationController(IBaseService<User> baseService, IHAVAuthenticationService anAuthService, IWhoIsOnlineService<User, WhoIsOnline> aWhoIsOnlineService)
             : base(baseService) {
             theAuthService = anAuthService;
             theWhoIsOnlineService = aWhoIsOnlineService;
@@ -60,7 +63,7 @@ namespace HaveAVoice.Controllers.Core {
 
             UserInformationModel<User> userModel = null;
             try {
-                userModel = theAuthService.AuthenticateUser(email, password);
+                userModel = theAuthService.AuthenticateUser(email, password, new ProfilePictureStrategy());
             } catch (Exception e) {
                 LogError(e, AUTHENTICAITON_ERROR);
                 ViewData["Message"] = MessageHelper.ErrorMessage(AUTHENTICAITON_ERROR);
@@ -72,7 +75,7 @@ namespace HaveAVoice.Controllers.Core {
 
                 CreateUserInformationSession(userModel);
                 if (rememberMe) {
-                    theAuthService.CreateRememberMeCredentials(userModel.Details);
+                    theAuthService.CreateRememberMeCredentials(SocialUserModel.Create(userModel.Details));
                 }
             } else {
                 ViewData["Message"] = MessageHelper.NormalMessage(INCORRECT_LOGIN);

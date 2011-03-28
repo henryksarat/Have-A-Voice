@@ -7,6 +7,8 @@ using HaveAVoice.Repositories.UserFeatures;
 using Social.Admin.Repositories;
 using Social.Generic.Constants;
 using Social.User;
+using HaveAVoice.Models.SocialWrappers;
+using Social.Generic.Models;
 
 namespace HaveAVoice.Repositories.AdminFeatures {
     public class EntityHAVRoleRepository : IRoleRepository<User, Role> {
@@ -194,6 +196,14 @@ namespace HaveAVoice.Repositories.AdminFeatures {
             foreach (Int32 mySelectedPermissionId in aSelectedPermissionIds) {
                 CreateRolePermission(aRoleToEdit.Id, mySelectedPermissionId);
             }
+        }
+
+        public AbstractRoleModel<Role> GetAbstractNotConfirmedUserRole() {
+            return SocialRoleModel.Create(GetNotConfirmedUserRole());
+        }
+
+        public AbstractRoleModel<Role> GetAbstractDefaultRole() {
+            return SocialRoleModel.Create(GetDefaultRole());
         }
     }
 }

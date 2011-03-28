@@ -14,6 +14,7 @@ using Social.Generic.ActionFilters;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Validation;
+using Social.Generic.Services;
 
 namespace HaveAVoice.Controllers.Users {
     public class BoardReplyController : HAVBaseController {
@@ -29,11 +30,11 @@ namespace HaveAVoice.Controllers.Users {
         private IBoardService<User, Board, BoardReply> theService;
 
         public BoardReplyController()
-            : base(new HAVBaseService(new HAVBaseRepository())) {
+            : base(new BaseService<User>(new HAVBaseRepository())) {
                 theService = new BoardService<User, Board, BoardReply>(new ModelStateWrapper(this.ModelState), new EntityHAVBoardRepository());
         }
 
-        public BoardReplyController(IBoardService<User, Board, BoardReply> aService, IHAVBaseService aBaseService) : base(aBaseService) {
+        public BoardReplyController(IBoardService<User, Board, BoardReply> aService, IBaseService<User> aBaseService) : base(aBaseService) {
                 theService = aService;
         }
 

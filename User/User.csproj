@@ -43,11 +43,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\IRegistrationHelper.cs" />
+    <Compile Include="Exceptions\NullUserException.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Helpers\NameHelper.cs" />
     <Compile Include="Services\IUserService.cs" />
-    <Compile Include="Models\AbstractUserModel.cs" />
     <Compile Include="Models\AbstractUserPrivacySettingsModel.cs" />
     <Compile Include="Models\AbstractWhoIsOnlineModel.cs" />
     <Compile Include="Models\UpdatePrivacySettingsModel.cs" />

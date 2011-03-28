@@ -1,12 +1,12 @@
 ﻿using System;
 using Social.Email;
 using Social.Email.Exceptions;
+using Social.Generic.Constants;
 using Social.Generic.Helpers;
+using Social.Generic.Models;
 using Social.Services.UserFeatures;
 using Social.User.Helpers;
-using Social.User.Models;
 using Social.Validation;
-using Social.Generic.Constants;
 
 namespace Social.User {
     public class UserService<T, U, V> : IUserService<T, U, V> {

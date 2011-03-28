@@ -6,15 +6,35 @@
     <edmx:StorageModels>
     <Schema Namespace="UniversityOfMeModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="UniversityOfMeModelStoreContainer">
+          <EntitySet Name="ErrorLog" EntityType="UniversityOfMeModel.Store.ErrorLog" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Permissions" EntityType="UniversityOfMeModel.Store.Permissions" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PrivacySettings" EntityType="UniversityOfMeModel.Store.PrivacySettings" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="RolePermissions" EntityType="UniversityOfMeModel.Store.RolePermissions" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Roles" EntityType="UniversityOfMeModel.Store.Roles" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Universities" EntityType="UniversityOfMeModel.Store.Universities" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserPrivacySettings" EntityType="UniversityOfMeModel.Store.UserPrivacySettings" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserRoles" EntityType="UniversityOfMeModel.Store.UserRoles" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="UniversityOfMeModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="WhoIsOnline" EntityType="UniversityOfMeModel.Store.WhoIsOnline" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_ErrorLog_Users" Association="UniversityOfMeModel.Store.FK_ErrorLog_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ErrorLog" EntitySet="ErrorLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrivacySettings_Users" Association="UniversityOfMeModel.Store.FK_PrivacySettings_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PrivacySettings" EntitySet="PrivacySettings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolePermissions_Permissions" Association="UniversityOfMeModel.Store.FK_RolePermissions_Permissions">
+            <End Role="Permissions" EntitySet="Permissions" />
+            <End Role="RolePermissions" EntitySet="RolePermissions" />
+          </AssociationSet>
           <AssociationSet Name="FK_RolePermissions_Roles" Association="UniversityOfMeModel.Store.FK_RolePermissions_Roles">
             <End Role="Roles" EntitySet="Roles" />
             <End Role="RolePermissions" EntitySet="RolePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPrivacySettings_PrivacySettings" Association="UniversityOfMeModel.Store.FK_UserPrivacySettings_PrivacySettings">
+            <End Role="PrivacySettings" EntitySet="PrivacySettings" />
+            <End Role="UserPrivacySettings" EntitySet="UserPrivacySettings" />
           </AssociationSet>
           <AssociationSet Name="FK_UserPrivacySettings_Users" Association="UniversityOfMeModel.Store.FK_UserPrivacySettings_Users">
             <End Role="Users" EntitySet="Users" />
@@ -32,7 +52,45 @@
             <End Role="Universities" EntitySet="Universities" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
+          <AssociationSet Name="FK_WhoIsOnline_Users" Association="UniversityOfMeModel.Store.FK_WhoIsOnline_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="WhoIsOnline" EntitySet="WhoIsOnline" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="ErrorLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Exception" Type="text" Nullable="false" />
+          <Property Name="InnerException" Type="text" Nullable="false" />
+          <Property Name="StackTrace" Type="text" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="DateTimeStamp" Type="smalldatetime" Nullable="false" />
+          <Property Name="Details" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Permissions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="varchar" Nullable="false" MaxLength="500" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="EditByUserId" Type="int" />
+          <Property Name="DeletedByUserId" Type="int" />
+        </EntityType>
+        <EntityType Name="PrivacySettings">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="CreatedByUserId" Type="int" Nullable="false" />
+          <Property Name="DisplayName" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="Description" Type="text" Nullable="false" />
+          <Property Name="PrivacyGroup" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="ListOrder" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="RolePermissions">
           <Key>
             <PropertyRef Name="Id" />
@@ -104,6 +162,56 @@
           <Property Name="ForgotPasswordHashDateTimeStamp" Type="datetime" />
           <Property Name="ShortUrl" Type="varchar" Nullable="false" MaxLength="50" />
         </EntityType>
+        <EntityType Name="WhoIsOnline">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="DateTimeStamp" Type="smalldatetime" Nullable="false" />
+          <Property Name="IpAddress" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="ForceLogOut" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ErrorLog_Users">
+          <End Role="Users" Type="UniversityOfMeModel.Store.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ErrorLog" Type="UniversityOfMeModel.Store.ErrorLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ErrorLog">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrivacySettings_Users">
+          <End Role="Users" Type="UniversityOfMeModel.Store.Users" Multiplicity="1" />
+          <End Role="PrivacySettings" Type="UniversityOfMeModel.Store.PrivacySettings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PrivacySettings">
+              <PropertyRef Name="CreatedByUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolePermissions_Permissions">
+          <End Role="Permissions" Type="UniversityOfMeModel.Store.Permissions" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RolePermissions" Type="UniversityOfMeModel.Store.RolePermissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permissions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RolePermissions">
+              <PropertyRef Name="PermissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RolePermissions_Roles">
           <End Role="Roles" Type="UniversityOfMeModel.Store.Roles" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -115,6 +223,20 @@
             </Principal>
             <Dependent Role="RolePermissions">
               <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPrivacySettings_PrivacySettings">
+          <End Role="PrivacySettings" Type="UniversityOfMeModel.Store.PrivacySettings" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserPrivacySettings" Type="UniversityOfMeModel.Store.UserPrivacySettings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PrivacySettings">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="UserPrivacySettings">
+              <PropertyRef Name="PrivacySettingName" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -172,6 +294,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_WhoIsOnline_Users">
+          <End Role="Users" Type="UniversityOfMeModel.Store.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="WhoIsOnline" Type="UniversityOfMeModel.Store.WhoIsOnline" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WhoIsOnline">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -203,6 +339,30 @@
             <End Role="University" EntitySet="Universities" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
+          <EntitySet Name="WhoIsOnlines" EntityType="UniversityOfMeModel.WhoIsOnline" />
+          <AssociationSet Name="FK_WhoIsOnline_Users" Association="UniversityOfMeModel.FK_WhoIsOnline_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="WhoIsOnline" EntitySet="WhoIsOnlines" />
+          </AssociationSet>
+          <EntitySet Name="ErrorLogs" EntityType="UniversityOfMeModel.ErrorLog" />
+          <AssociationSet Name="FK_ErrorLog_Users" Association="UniversityOfMeModel.FK_ErrorLog_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ErrorLog" EntitySet="ErrorLogs" />
+          </AssociationSet>
+          <EntitySet Name="Permissions" EntityType="UniversityOfMeModel.Permission" />
+          <EntitySet Name="PrivacySettings" EntityType="UniversityOfMeModel.PrivacySetting" />
+          <AssociationSet Name="FK_RolePermissions_Permissions" Association="UniversityOfMeModel.FK_RolePermissions_Permissions">
+            <End Role="Permission" EntitySet="Permissions" />
+            <End Role="RolePermission" EntitySet="RolePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrivacySettings_Users" Association="UniversityOfMeModel.FK_PrivacySettings_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="PrivacySetting" EntitySet="PrivacySettings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPrivacySettings_PrivacySettings" Association="UniversityOfMeModel.FK_UserPrivacySettings_PrivacySettings">
+            <End Role="PrivacySetting" EntitySet="PrivacySettings" />
+            <End Role="UserPrivacySetting" EntitySet="UserPrivacySettings" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="RolePermission">
           <Key>
@@ -212,6 +372,7 @@
           <Property Name="RoleId" Type="Int32" Nullable="false" />
           <Property Name="PermissionId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Role" Relationship="UniversityOfMeModel.FK_RolePermissions_Roles" FromRole="RolePermissions" ToRole="Roles" />
+          <NavigationProperty Name="Permission" Relationship="UniversityOfMeModel.FK_RolePermissions_Permissions" FromRole="RolePermission" ToRole="Permission" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -235,6 +396,7 @@
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="PrivacySettingName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="User" Relationship="UniversityOfMeModel.FK_UserPrivacySettings_Users" FromRole="UserPrivacySetting" ToRole="User" />
+          <NavigationProperty Name="PrivacySetting" Relationship="UniversityOfMeModel.FK_UserPrivacySettings_PrivacySettings" FromRole="UserPrivacySetting" ToRole="PrivacySetting" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -304,6 +466,9 @@
           <NavigationProperty Name="UserPrivacySettings" Relationship="UniversityOfMeModel.FK_UserPrivacySettings_Users" FromRole="User" ToRole="UserPrivacySetting" />
           <NavigationProperty Name="UserRoles" Relationship="UniversityOfMeModel.FK_UserRoles_Users" FromRole="User" ToRole="UserRole" />
           <NavigationProperty Name="University" Relationship="UniversityOfMeModel.FK_Users_University" FromRole="User" ToRole="University" />
+          <NavigationProperty Name="WhoIsOnlines" Relationship="UniversityOfMeModel.FK_WhoIsOnline_Users" FromRole="User" ToRole="WhoIsOnline" />
+          <NavigationProperty Name="ErrorLogs" Relationship="UniversityOfMeModel.FK_ErrorLog_Users" FromRole="User" ToRole="ErrorLog" />
+          <NavigationProperty Name="PrivacySettings" Relationship="UniversityOfMeModel.FK_PrivacySettings_Users" FromRole="User" ToRole="PrivacySetting" />
         </EntityType>
         <Association Name="FK_UserPrivacySettings_Users">
           <End Type="UniversityOfMeModel.User" Role="User" Multiplicity="1" />
@@ -346,6 +511,115 @@
             </Principal>
             <Dependent Role="User">
               <PropertyRef Name="UniversityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="WhoIsOnline">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="DateTime" Name="DateTimeStamp" Nullable="false" />
+          <Property Type="String" Name="IpAddress" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="ForceLogOut" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="UniversityOfMeModel.FK_WhoIsOnline_Users" FromRole="WhoIsOnline" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_WhoIsOnline_Users">
+          <End Type="UniversityOfMeModel.User" Role="User" Multiplicity="1" />
+          <End Type="UniversityOfMeModel.WhoIsOnline" Role="WhoIsOnline" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WhoIsOnline">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ErrorLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Exception" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="InnerException" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="StackTrace" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="DateTime" Name="DateTimeStamp" Nullable="false" />
+          <Property Type="String" Name="Details" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="User" Relationship="UniversityOfMeModel.FK_ErrorLog_Users" FromRole="ErrorLog" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_ErrorLog_Users">
+          <End Type="UniversityOfMeModel.User" Role="User" Multiplicity="1" />
+          <End Type="UniversityOfMeModel.ErrorLog" Role="ErrorLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ErrorLog">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="Deleted" Nullable="false" />
+          <Property Type="Int32" Name="EditByUserId" />
+          <Property Type="Int32" Name="DeletedByUserId" />
+          <NavigationProperty Name="RolePermissions" Relationship="UniversityOfMeModel.FK_RolePermissions_Permissions" FromRole="Permission" ToRole="RolePermission" />
+        </EntityType>
+        <EntityType Name="PrivacySetting">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="CreatedByUserId" Nullable="false" />
+          <Property Type="String" Name="DisplayName" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PrivacyGroup" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ListOrder" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="UniversityOfMeModel.FK_PrivacySettings_Users" FromRole="PrivacySetting" ToRole="User" />
+          <NavigationProperty Name="UserPrivacySettings" Relationship="UniversityOfMeModel.FK_UserPrivacySettings_PrivacySettings" FromRole="PrivacySetting" ToRole="UserPrivacySetting" />
+        </EntityType>
+        <Association Name="FK_RolePermissions_Permissions">
+          <End Type="UniversityOfMeModel.Permission" Role="Permission" Multiplicity="1" />
+          <End Type="UniversityOfMeModel.RolePermission" Role="RolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RolePermission">
+              <PropertyRef Name="PermissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrivacySettings_Users">
+          <End Type="UniversityOfMeModel.User" Role="User" Multiplicity="1" />
+          <End Type="UniversityOfMeModel.PrivacySetting" Role="PrivacySetting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PrivacySetting">
+              <PropertyRef Name="CreatedByUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPrivacySettings_PrivacySettings">
+          <End Type="UniversityOfMeModel.PrivacySetting" Role="PrivacySetting" Multiplicity="1" />
+          <End Type="UniversityOfMeModel.UserPrivacySetting" Role="UserPrivacySetting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PrivacySetting">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="UserPrivacySetting">
+              <PropertyRef Name="PrivacySettingName" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -416,6 +690,54 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="WhoIsOnlines">
+            <EntityTypeMapping TypeName="UniversityOfMeModel.WhoIsOnline">
+              <MappingFragment StoreEntitySet="WhoIsOnline">
+                <ScalarProperty Name="ForceLogOut" ColumnName="ForceLogOut" />
+                <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+                <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ErrorLogs">
+            <EntityTypeMapping TypeName="UniversityOfMeModel.ErrorLog">
+              <MappingFragment StoreEntitySet="ErrorLog">
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
+                <ScalarProperty Name="InnerException" ColumnName="InnerException" />
+                <ScalarProperty Name="Exception" ColumnName="Exception" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permissions">
+            <EntityTypeMapping TypeName="UniversityOfMeModel.Permission">
+              <MappingFragment StoreEntitySet="Permissions">
+                <ScalarProperty Name="DeletedByUserId" ColumnName="DeletedByUserId" />
+                <ScalarProperty Name="EditByUserId" ColumnName="EditByUserId" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrivacySettings">
+            <EntityTypeMapping TypeName="UniversityOfMeModel.PrivacySetting">
+              <MappingFragment StoreEntitySet="PrivacySettings">
+                <ScalarProperty Name="ListOrder" ColumnName="ListOrder" />
+                <ScalarProperty Name="PrivacyGroup" ColumnName="PrivacyGroup" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="CreatedByUserId" ColumnName="CreatedByUserId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -436,38 +758,79 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="UniversityOfMeDBModel" ZoomLevel="74">
+      <Diagram Name="UniversityOfMeDBModel" ZoomLevel="81">
         <EntityTypeShape EntityType="UniversityOfMeModel.RolePermission" Width="1.5" PointX="5.25" PointY="9.75" Height="1.7879850260416674" IsExpanded="true" />
         <EntityTypeShape EntityType="UniversityOfMeModel.Role" Width="1.5" PointX="3" PointY="9.25" Height="2.7494921874999996" IsExpanded="true" />
         <EntityTypeShape EntityType="UniversityOfMeModel.UserPrivacySetting" Width="1.5" PointX="5.25" PointY="3.875" Height="1.7879850260416657" IsExpanded="true" />
         <EntityTypeShape EntityType="UniversityOfMeModel.UserRole" Width="1.5" PointX="5.25" PointY="0.75" Height="1.9802864583333317" IsExpanded="true" />
         <AssociationConnector Association="UniversityOfMeModel.FK_RolePermissions_Roles" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="10.643992513020834" />
-          <ConnectorPoint PointX="5.25" PointY="10.643992513020834" />
+          <ConnectorPoint PointX="4.5" PointY="10.740143229166666" />
+          <ConnectorPoint PointX="4.822916666666667" PointY="10.740143229166666" />
+          <ConnectorPoint PointX="5.052083333333333" PointY="10.740143229166666" />
+          <ConnectorPoint PointX="5.25" PointY="10.740143229166666" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_UserRoles_Roles" ManuallyRouted="false">
           <ConnectorPoint PointX="4.5" PointY="9.2511528461538468" />
           <ConnectorPoint PointX="4.875" PointY="8.8761528461538468" />
-          <ConnectorPoint PointX="4.875" PointY="1.4638196145833335" />
-          <ConnectorPoint PointX="5.25" PointY="1.4638196145833335" />
+          <ConnectorPoint PointX="4.875" PointY="1.4638196145833322" />
+          <ConnectorPoint PointX="5.25" PointY="1.4638196145833322" />
         </AssociationConnector>
         <EntityTypeShape EntityType="UniversityOfMeModel.User" Width="1.5" PointX="3" PointY="1.75" Height="6.0186165364583317" />
         <AssociationConnector Association="UniversityOfMeModel.FK_UserPrivacySettings_Users" >
-          <ConnectorPoint PointX="4.5" PointY="4.7689925130208337" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="4.7689925130208328" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="4.7689925130208337" />
-          <ConnectorPoint PointX="5.25" PointY="4.7689925130208337" />
+          <ConnectorPoint PointX="4.5" PointY="4.8651432291666659" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="4.865143229166665" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="4.8651432291666659" />
+          <ConnectorPoint PointX="5.25" PointY="4.8651432291666659" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_UserRoles_Users" >
-          <ConnectorPoint PointX="4.5" PointY="2.2401432291666663" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="2.2401432291666659" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="2.2401432291666663" />
-          <ConnectorPoint PointX="5.25" PointY="2.2401432291666663" />
+          <ConnectorPoint PointX="4.5" PointY="2.2401432291666659" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="2.2401432291666654" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="2.2401432291666659" />
+          <ConnectorPoint PointX="5.25" PointY="2.2401432291666659" />
         </AssociationConnector>
         <EntityTypeShape EntityType="UniversityOfMeModel.University" Width="1.5" PointX="0.75" PointY="4" Height="1.5956835937499996" />
         <AssociationConnector Association="UniversityOfMeModel.FK_Users_University" >
           <ConnectorPoint PointX="2.25" PointY="4.797841796875" />
           <ConnectorPoint PointX="3" PointY="4.797841796875" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="UniversityOfMeModel.WhoIsOnline" Width="1.5" PointX="5.25" PointY="6.75" Height="2.1725878906249996" />
+        <AssociationConnector Association="UniversityOfMeModel.FK_WhoIsOnline_Users" >
+          <ConnectorPoint PointX="4.5" PointY="7.4363425853729135" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="7.4363425853729126" />
+          <ConnectorPoint PointX="4.989583333333333" PointY="7.4363425853729135" />
+          <ConnectorPoint PointX="5.25" PointY="7.4363425853729135" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="UniversityOfMeModel.ErrorLog" Width="1.5" PointX="5.25" PointY="12.625" Height="2.5571907552083317" />
+        <AssociationConnector Association="UniversityOfMeModel.FK_ErrorLog_Users" >
+          <ConnectorPoint PointX="4.5" PointY="8.32013521794872" />
+          <ConnectorPoint PointX="4.8160744349011217" PointY="8.6362096528498391" />
+          <ConnectorPoint PointX="4.9339255650988791" PointY="8.7540607830475974" />
+          <ConnectorPoint PointX="4.9375" PointY="8.75763521794872" />
+          <ConnectorPoint PointX="4.9375" PointY="13.903595377604166" />
+          <ConnectorPoint PointX="5.25" PointY="13.903595377604166" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="UniversityOfMeModel.Permission" Width="1.5" PointX="7.375" PointY="1" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="UniversityOfMeModel.PrivacySetting" Width="1.5" PointX="5.25" PointY="16.75" Height="2.5571907552083317" />
+        <AssociationConnector Association="UniversityOfMeModel.FK_RolePermissions_Permissions" >
+          <ConnectorPoint PointX="8.125" PointY="3.3648893229166674" />
+          <ConnectorPoint PointX="8.125" PointY="10.740143229166666" />
+          <ConnectorPoint PointX="6.75" PointY="10.740143229166666" />
+        </AssociationConnector>
+        <AssociationConnector Association="UniversityOfMeModel.FK_PrivacySettings_Users" >
+          <ConnectorPoint PointX="4.5" PointY="8.3385967564102561" />
+          <ConnectorPoint PointX="4.8160744349011217" PointY="8.6546711913113761" />
+          <ConnectorPoint PointX="4.9651755650988791" PointY="8.8037723215091344" />
+          <ConnectorPoint PointX="4.96875" PointY="8.8073467564102561" />
+          <ConnectorPoint PointX="4.96875" PointY="18.028595377604166" />
+          <ConnectorPoint PointX="5.25" PointY="18.028595377604166" />
+        </AssociationConnector>
+        <AssociationConnector Association="UniversityOfMeModel.FK_UserPrivacySettings_PrivacySettings" >
+          <ConnectorPoint PointX="5.2823066923076922" PointY="16.75" />
+          <ConnectorPoint PointX="5.0276755650988791" PointY="16.495368872791186" />
+          <ConnectorPoint PointX="4.9098244349011209" PointY="16.37751774259343" />
+          <ConnectorPoint PointX="4.90625" PointY="16.373943307692308" />
+          <ConnectorPoint PointX="4.90625" PointY="6.1990364583333317" />
+          <ConnectorPoint PointX="5.25" PointY="5.8552864583333326" />
         </AssociationConnector>
         </Diagram>
     </Diagrams>

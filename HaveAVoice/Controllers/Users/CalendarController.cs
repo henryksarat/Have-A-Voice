@@ -14,6 +14,7 @@ using Social.Friend.Exceptions;
 using Social.Generic.ActionFilters;
 using Social.User.Services;
 using Social.Validation;
+using Social.Generic.Services;
 
 namespace HaveAVoice.Controllers.Users {
     public class CalendarController : HAVBaseController {
@@ -32,13 +33,13 @@ namespace HaveAVoice.Controllers.Users {
         private IUserRetrievalService<User> theUserRetrievalService;
 
         public CalendarController()
-            : base(new HAVBaseService(new HAVBaseRepository())) {
+            : base(new BaseService<User>(new HAVBaseRepository())) {
              ModelStateWrapper myModelWrapper = new ModelStateWrapper(this.ModelState);
              theEventService = new HAVCalendarService(myModelWrapper);
              theUserRetrievalService = new UserRetrievalService<User>(new EntityHAVUserRetrievalRepository());
         }
 
-        public CalendarController(IHAVCalendarService aService, IUserRetrievalService<User> aUserRetrievalService, IHAVBaseService aBaseService)
+        public CalendarController(IHAVCalendarService aService, IUserRetrievalService<User> aUserRetrievalService, IBaseService<User> aBaseService)
             : base(aBaseService) {
             theEventService = aService;
             theUserRetrievalService = aUserRetrievalService;

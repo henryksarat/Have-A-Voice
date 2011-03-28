@@ -16,7 +16,7 @@ using Social.Validation;
 using Social.User;
 
 namespace HaveAVoice.Services.UserFeatures {
-    public class HAVUserService : HAVBaseService, IHAVUserService {
+    public class HAVUserService : IHAVUserService {
         private const string ACTIVATION_SUBJECT = "have a voice | account activation";
         private const string ACTIVATION_BODY = "Hello!\nTo finalize completion of your have a voice account, please click following link or copy and paste it into your browser: ";
         private const string INVALID_EMAIL = "That is not a valid email.";
@@ -30,12 +30,11 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public HAVUserService(IValidationDictionary theValidationDictionary)
             : this(theValidationDictionary, new UserRetrievalService<User>(new EntityHAVUserRetrievalRepository()), new HAVAuthorityVerificationService(theValidationDictionary), new HAVAuthenticationService(), new HAVPhotoService(), 
-                    new EntityHAVUserRepository(), new SocialEmail(), new HAVBaseRepository()) { }
+                    new EntityHAVUserRepository(), new SocialEmail()) { }
 
         public HAVUserService(IValidationDictionary aValidationDictionary, IUserRetrievalService<User> aUserRetrievalService, 
                                          IHAVAuthorityVerificationService anAuthorityVerificationService, IHAVAuthenticationService anAuthService, IHAVPhotoService aPhotoService,
-                                         IUserRepository<User, Role, UserRole> aUserRepo, IEmail aEmailService, IHAVBaseRepository baseRepository)
-            : base(baseRepository) {
+                                         IUserRepository<User, Role, UserRole> aUserRepo, IEmail aEmailService) {
             theValidationDictionary = aValidationDictionary;
             theUserRetrievalService = aUserRetrievalService;
             theAuthorityVerificationService = anAuthorityVerificationService;

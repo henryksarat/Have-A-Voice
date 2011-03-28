@@ -10,6 +10,7 @@ using Social.Admin.Helpers;
 using Social.Generic.ActionFilters;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
+using Social.Generic.Services;
 
 namespace HaveAVoice.Controllers.Issues {
     public class IssueReplyCommentController : HAVBaseController {
@@ -24,11 +25,11 @@ namespace HaveAVoice.Controllers.Issues {
         
         private IHAVIssueReplyCommentService theService;
 
-        public IssueReplyCommentController() : base(new HAVBaseService(new HAVBaseRepository())) {
+        public IssueReplyCommentController() : base(new BaseService<User>(new HAVBaseRepository())) {
             theService = new HAVIssueReplyCommentService(new Social.Validation.ModelStateWrapper(this.ModelState));
         }
 
-        public IssueReplyCommentController(IHAVIssueReplyCommentService aService, IHAVBaseService baseService)
+        public IssueReplyCommentController(IHAVIssueReplyCommentService aService, IBaseService<User> baseService)
             : base(baseService) {
             theService = aService;
         }

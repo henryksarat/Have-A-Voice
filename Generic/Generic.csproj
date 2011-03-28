@@ -52,7 +52,6 @@
     <Compile Include="Constants\Constants.cs" />
     <Compile Include="Constants\Gender.cs" />
     <Compile Include="Constants\States.cs" />
-    <Compile Include="Controllers\BaseSocialController.cs" />
     <Compile Include="Helpers\CaptchaHelper.cs" />
     <Compile Include="Helpers\DateHelper.cs" />
     <Compile Include="Helpers\HashHelper.cs" />
@@ -66,13 +65,20 @@
     <Compile Include="Models\AbstractSocialModel.cs" />
     <Compile Include="Models\AbstractReplyModel.cs" />
     <Compile Include="Models\AbstractBoardReplyModel.cs" />
+    <Compile Include="Models\AbstractUserModel.cs" />
     <Compile Include="Models\InboxMessage.cs" />
     <Compile Include="Models\StringWrapper.cs" />
     <Compile Include="Models\UserInformationModel.cs" />
     <Compile Include="Pair.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IHAVBaseRepository.cs" />
+    <Compile Include="Repositories\SocialUserModel.cs" />
+    <Compile Include="Services\BaseService.cs" />
+    <Compile Include="Services\IBaseService.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.Config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -9,17 +9,15 @@ using HaveAVoice.Exceptions;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models;
 using HaveAVoice.Models.SocialWrappers;
-using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services.Helpers;
 using Social.Friend.Exceptions;
 using Social.Friend.Services;
 using Social.Generic.Models;
-using Social.User.Models;
 using Social.Validation;
 
 namespace HaveAVoice.Services.UserFeatures {
-    public class HAVPhotoService : HAVBaseService, IHAVPhotoService {
+    public class HAVPhotoService : IHAVPhotoService {
         private const int MAX_SIZE = 840;
         private const string UNAUTHORIZED_UPLOAD = "You are not allowed to upload to that album.";
 
@@ -28,10 +26,9 @@ namespace HaveAVoice.Services.UserFeatures {
         private IHAVPhotoRepository thePhotoRepo;
  
         public HAVPhotoService()
-            : this(new FriendService<User, Friend>(new EntityHAVFriendRepository()), new EntityHAVPhotoAlbumRepository(), new EntityHAVPhotoRepository(), new HAVBaseRepository()) { }
+            : this(new FriendService<User, Friend>(new EntityHAVFriendRepository()), new EntityHAVPhotoAlbumRepository(), new EntityHAVPhotoRepository()) { }
 
-        public HAVPhotoService(IFriendService<User, Friend> aFriendService, IHAVPhotoAlbumRepository aPhotoAlbumRepo, IHAVPhotoRepository aPhotoRepo, IHAVBaseRepository aBaseRepository)
-            : base(aBaseRepository) {
+        public HAVPhotoService(IFriendService<User, Friend> aFriendService, IHAVPhotoAlbumRepository aPhotoAlbumRepo, IHAVPhotoRepository aPhotoRepo) {
             thePhotoAlbumRepo = aPhotoAlbumRepo;
             theFriendService = aFriendService;
             thePhotoRepo = aPhotoRepo;

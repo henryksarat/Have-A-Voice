@@ -5,15 +5,10 @@ using System.Web;
 using HaveAVoice.Models.View;
 using HaveAVoice.Models;
 using Social.Generic.Models;
+using Social.Authentication.Services;
 
 namespace HaveAVoice.Services.UserFeatures {
-    public interface IHAVAuthenticationService {
-        void ActivateNewUser(string activationCode);
+    public interface IHAVAuthenticationService : IAuthenticationService<User, Role, Permission, UserRole, PrivacySetting> {
         void ActivateAuthority(string anActivationCode, string anAuthorityType);
-        UserInformationModel<User> RefreshUserInformationModel(UserInformationModel<User> aUserInformationModel);
-        UserInformationModel<User> AuthenticateUser(string anEmail, string aPassword);
-        UserInformationModel<User> CreateUserInformationModel(User aUser);
-        void CreateRememberMeCredentials(User aUserModel);
-        User ReadRememberMeCredentials();
     }
 }

@@ -8,5 +8,6 @@ namespace Social.User.Repositories {
         IEnumerable<AbstractPrivacySettingModel<U>> FindPrivacySettingsForUser(T aUser);
         IEnumerable<AbstractPrivacySettingModel<U>> GetAllPrivacySettings();
         void UpdatePrivacySettingsForUser(T aUser, IEnumerable<U> aSettingsToRemove, IEnumerable<U> aSettingsToAdd);
+
     }
 }

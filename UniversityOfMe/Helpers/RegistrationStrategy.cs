@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using Social.Generic.Models;
 using Social.User.Helpers;
-using Social.User.Models;
 using Social.Validation;
 using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;

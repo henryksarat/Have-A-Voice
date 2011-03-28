@@ -47,6 +47,10 @@
     <Compile Include="Services\IFriendService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Generic\Generic.csproj">
+      <Project>{E75FF555-CD9D-42B4-9D4D-07955F5629B3}</Project>
+      <Name>Generic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\User\User.csproj">
       <Project>{1765CF75-9243-4BA7-8399-3D30614C6006}</Project>
       <Name>User</Name>

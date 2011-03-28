@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Social.User.Models;
+﻿using System.Collections.Generic;
+using Social.Generic.Models;
 
 namespace Social.Friend.Services {
     public interface IFriendService<T, U> {

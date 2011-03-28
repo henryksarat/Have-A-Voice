@@ -5,10 +5,10 @@ using HaveAVoice.Helpers;
 using HaveAVoice.Models;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
-using HaveAVoice.Services;
 using Social.Email;
 using Social.Email.Exceptions;
 using Social.Generic.Models;
+using Social.Generic.Services;
 using Social.User;
 using Social.User.Services;
 using Social.Validation;
@@ -29,7 +29,7 @@ namespace HaveAVoice.Controllers.Core {
         private IValidationDictionary theValidationDictionary;
 
         public PasswordController() : 
-            base(new HAVBaseService(new HAVBaseRepository())) {
+            base(new BaseService<User>(new HAVBaseRepository())) {
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
             IUserRetrievalService<User> myUserRetrievalService = new UserRetrievalService<User>(new EntityHAVUserRetrievalRepository());
             thePasswordService = new PasswordService<User>(theValidationDictionary, 
@@ -38,7 +38,7 @@ namespace HaveAVoice.Controllers.Core {
                                                            new EntityHAVPasswordRepository());
         }
 
-        public PasswordController(IHAVBaseService aBaseService, IPasswordService<User> aPasswordService)
+        public PasswordController(IBaseService<User> aBaseService, IPasswordService<User> aPasswordService)
             : base(aBaseService) {
                 thePasswordService = aPasswordService;
         }

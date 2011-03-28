@@ -17,6 +17,7 @@ using Social.Generic.ActionFilters;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Validation;
+using Social.Generic.Services;
 
 namespace HaveAVoice.Controllers.Users {
     public class ProfileController : HAVBaseController {
@@ -37,11 +38,11 @@ namespace HaveAVoice.Controllers.Users {
         private IHAVProfileService theService;
 
         public ProfileController()
-            : base(new HAVBaseService(new HAVBaseRepository())) {
+            : base(new BaseService<User>(new HAVBaseRepository())) {
             theService = new HAVProfileService(new ModelStateWrapper(this.ModelState));
         }
 
-        public ProfileController(IHAVProfileService aService, IHAVBaseService aBaseService)
+        public ProfileController(IHAVProfileService aService, IBaseService<User> aBaseService)
             : base(aBaseService) {
             theService = aService;
         }
