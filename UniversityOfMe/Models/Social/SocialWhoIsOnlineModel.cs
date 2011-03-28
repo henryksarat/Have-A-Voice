@@ -7,7 +7,10 @@ using Social.User.Models;
 namespace UniversityOfMe.Models.Social {
     public class SocialWhoIsOnlineModel : AbstractWhoIsOnlineModel<WhoIsOnline> {
         public static SocialWhoIsOnlineModel Create(WhoIsOnline anExternal) {
-            return new SocialWhoIsOnlineModel(anExternal);
+            if (anExternal != null) {
+                return new SocialWhoIsOnlineModel(anExternal);
+            }
+            return null;
         }
 
         public override WhoIsOnline FromModel() {

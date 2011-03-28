@@ -135,6 +135,7 @@
     </Compile>
     <Compile Include="Helpers\ActionMethods\AcceptParameterAttribute.cs" />
     <Compile Include="Helpers\ActionMethods\CaptchaValidatorAttribute.cs" />
+    <Compile Include="Models\SocialWrappers\SocialRolePermissionModel.cs" />
     <Compile Include="Models\SocialWrappers\SocialBoardReplyModel.cs" />
     <Compile Include="Models\SocialWrappers\SocialBoardModel.cs" />
     <Compile Include="Models\SocialWrappers\SocialMessageWrapper.cs" />

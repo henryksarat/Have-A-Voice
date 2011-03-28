@@ -57,7 +57,7 @@ namespace HaveAVoice.Services.UserFeatures {
             }
 
             aUserToCreate = CompleteAddingFieldsToUser(aUserToCreate, anIpAddress);
-            aUserToCreate = theUserRepo.CreateUser(aUserToCreate).FromModel();
+            aUserToCreate = theUserRepo.CreateUser(aUserToCreate, Constants.NOT_CONFIRMED_USER_ROLE).FromModel();
 
             try {
                 theAuthService.ActivateAuthority(aUserToCreate.ActivationCode, anAuthorityType);

@@ -13,18 +13,19 @@ using Social.User.Exceptions;
 using Social.User.Helpers;
 using Social.User.Models;
 using Social.User.Services;
+using Social.Generic.Constants;
 
 namespace Social.Authentication.Services {
-    public class AuthenticationService<T, U, V, W, X> : IAuthenticationService<T, U, V, W, X> {
+    public class AuthenticationService<T, U, V, W, X, Y> : IAuthenticationService<T, U, V, W, X, Y> {
         private IUserPrivacySettingsService<T, X> thePrivacySettingsService;
         private IUserRetrievalService<T> theUserRetrievalService;
         private IAuthenticationRepository<T, V> theAuthRepo;
         private IUserRepository<T, U, W> theUserRepo;
-        private IRoleRepository<T, U> theRoleRepo;
+        private IRoleRepository<T, U, Y> theRoleRepo;
 
         public AuthenticationService(IUserRetrievalService<T> aUserRetrievalService, IUserPrivacySettingsService<T, X> aPrivacyService, 
-                                     IAuthenticationRepository<T, V> anAuthRepo, IUserRepository<T, U, W> aUserRepo, 
-                                     IRoleRepository<T, U> aRoleRepo) {
+                                     IAuthenticationRepository<T, V> anAuthRepo, IUserRepository<T, U, W> aUserRepo,
+                                     IRoleRepository<T, U, Y> aRoleRepo) {
             theUserRetrievalService = aUserRetrievalService;
             thePrivacySettingsService = aPrivacyService;
             theAuthRepo = anAuthRepo;
@@ -128,7 +129,7 @@ namespace Social.Authentication.Services {
                 throw new NullUserException("There is no user matching that activation code.");
             }
 
-            AbstractRoleModel<U> myNotConfirmedRole = theRoleRepo.GetAbstractNotConfirmedUserRole();
+            AbstractRoleModel<U> myNotConfirmedRole = theRoleRepo.GetAbstractRoleByName(Constants.NOT_CONFIRMED_USER_ROLE);
             if (myNotConfirmedRole == null) {
                 throw new NullRoleException("There is no \"Not confirmed\" role");
             }
@@ -161,7 +162,7 @@ namespace Social.Authentication.Services {
             }
         }
 
-        protected IRoleRepository<T, U> GetRoleRepo() {
+        protected IRoleRepository<T, U, Y> GetRoleRepo() {
             return theRoleRepo;
         }
     }

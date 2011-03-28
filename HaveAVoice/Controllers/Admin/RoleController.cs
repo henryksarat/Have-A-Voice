@@ -11,40 +11,31 @@ using HaveAVoice.Models.SocialWrappers;
 using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.AdminFeatures;
-using HaveAVoice.Services;
 using Social.Admin;
+using Social.Admin.Exceptions;
 using Social.Admin.Helpers;
 using Social.Admin.Services;
 using Social.Generic;
+using Social.Generic.Constants;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
-using Social.Validation;
 using Social.Generic.Services;
+using Social.Validation;
 
 namespace HaveAVoice.Controllers.Admin {
     public class RoleController : AdminBaseController {
-        private static string ERROR_MESSAGE = "An error has occurred. Please try again later.";
-        private static string CREATE_MODEL_ERROR = "Unable to create model.";
-        private static string GET_ROLE_ERROR = "Unable to get role.";
-        private static string GET_ALL_ROLES_ERROR = "Unable to get all roles.";
-        private static string NO_ROLES = "There are no roles.";
-        private static string CREATE_ROLE_ERROR = "Unable to create role.";
-        private static string EDIT_ROLE_ERROR = "Unable to edit role.";
-        private static string ROLE_NOT_FOUND = "Role not found.";
-        private static string PAGE_NOT_FOUND = "You do not have access.";
-
-        private IRoleService<User, Role> theRoleService;
+        private IRoleService<User, Role, RolePermission> theRoleService;
         private IPermissionService<User, Permission> thePermissionService;
         private ModelStateWrapper theModelState;
 
         public RoleController() 
             : base(new BaseService<User>(new HAVBaseRepository())) {
             theModelState = new ModelStateWrapper(this.ModelState);
-            theRoleService = new RoleService<User, Role>(theModelState, new EntityHAVRoleRepository());
+            theRoleService = new RoleService<User, Role, RolePermission>(theModelState, new EntityHAVRoleRepository());
             thePermissionService = new PermissionService<User, Permission>(theModelState, new EntityHAVPermissionRepository());
         }
 
-        public RoleController(IBaseService<User> aBaseService, IRoleService<User, Role> myRoleService, IPermissionService<User, Permission> myPermissionService)
+        public RoleController(IBaseService<User> aBaseService, IRoleService<User, Role, RolePermission> myRoleService, IPermissionService<User, Permission> myPermissionService)
             : base(aBaseService) {
             theRoleService = myRoleService;
             thePermissionService = myPermissionService;
@@ -54,23 +45,21 @@ namespace HaveAVoice.Controllers.Admin {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            if (!PermissionHelper<User>.AllowedToPerformAction(GetUserInformatonModel(), SocialPermission.View_Roles)) {
-                return SendToErrorPage(PAGE_NOT_FOUND);
-            }
-
-            IEnumerable<Role> roles = null;
 
             try {
-                roles = theRoleService.GetAllRoles().ToList<Role>();
+                IEnumerable<Role> myRoles = theRoleService.GetAllRoles(GetUserInformatonModel()).ToList<Role>();
+
+                if (myRoles.Count() == 0) {
+                    ViewData["Message"] = MessageHelper.NormalMessage(RoleKeys.NO_ROLES);
+                }
+
+                return View("Index", myRoles);
+            } catch (PermissionDenied anException) {
+                return SendToErrorPage(anException.Message);
             } catch (Exception e) {
-                LogError(e, GET_ALL_ROLES_ERROR);
-                return SendToErrorPage(GET_ALL_ROLES_ERROR);
+                LogError(e, RoleKeys.GET_ALL_ROLES_ERROR);
+                return SendToErrorPage(RoleKeys.GET_ALL_ROLES_ERROR);
             }
-            if (roles.Count() == 0) {
-                ViewData["Message"] = MessageHelper.NormalMessage(NO_ROLES);
-            }
-            
-            return View("Index", roles);
         }
 
         public ActionResult Create() {
@@ -79,17 +68,17 @@ namespace HaveAVoice.Controllers.Admin {
             }
 
             if(!PermissionHelper<User>.AllowedToPerformAction(GetUserInformatonModel(), SocialPermission.Create_Role)) {
-                return SendToErrorPage(PAGE_NOT_FOUND);
+                return SendToErrorPage(ErrorKeys.PERMISSION_DENIED);
             }
 
             try {
-                Role role = Role.CreateRole(0, string.Empty, string.Empty, false, false);
-                RoleModel myModel = CreateRoleModel(role);
+                Role myRole = Role.CreateRole(0, string.Empty, string.Empty, false, false);
+                RoleModel myModel = CreateRoleModel(myRole);
 
                 return View("Create", myModel);
             } catch (Exception e) {
-                LogError(e, CREATE_MODEL_ERROR);
-                return SendToErrorPage(ERROR_MESSAGE);
+                LogError(e, RoleKeys.CREATE_MODEL_ERROR);
+                return SendToErrorPage(ErrorKeys.ERROR_MESSAGE);
             }
         }
 
@@ -104,17 +93,19 @@ namespace HaveAVoice.Controllers.Admin {
                 if (theRoleService.Create(GetUserInformatonModel(), mySocialModel, model.SelectedPermissionsIds)) {
                     return RedirectToAction("Index");
                 }
+            } catch (PermissionDenied anException) {
+                return SendToErrorPage(anException.Message);
             } catch (Exception e) {
-                LogError(e, CREATE_ROLE_ERROR);
-                ViewData["Message"] = MessageHelper.ErrorMessage(ERROR_MESSAGE);
+                LogError(e, RoleKeys.CREATE_ROLE_ERROR);
+                ViewData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
             }
 
             try {
                 RoleModel myModel = CreateRoleModel(model);
                 return View("Create", myModel);
             } catch (Exception e) {
-                LogError(e, CREATE_MODEL_ERROR);
-                return SendToErrorPage(ERROR_MESSAGE);
+                LogError(e, RoleKeys.CREATE_MODEL_ERROR);
+                return SendToErrorPage(ErrorKeys.ERROR_MESSAGE);
             }
         }
 
@@ -122,29 +113,27 @@ namespace HaveAVoice.Controllers.Admin {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
-            if (!PermissionHelper<User>.AllowedToPerformAction(myUserInformation, SocialPermission.Edit_Role)) {
-                return SendToErrorPage(PAGE_NOT_FOUND);
-            }
 
             Role role = null;
             try {
-                role = theRoleService.FindRole(id);
+                role = theRoleService.FindRole(GetUserInformatonModel(), id, SocialPermission.Edit_Role);
+            } catch (PermissionDenied anException) {
+                return SendToErrorPage(anException.Message);
             } catch (Exception e) {
-                LogError(e, GET_ROLE_ERROR);
-                return SendToErrorPage(ERROR_MESSAGE);
+                LogError(e, RoleKeys.GET_ROLE_ERROR);
+                return SendToErrorPage(ErrorKeys.ERROR_MESSAGE);
             }
 
             if (role == null) {
-                return SendToResultPage(ROLE_NOT_FOUND);
+                return SendToResultPage(RoleKeys.ROLE_NOT_FOUND);
             }
             
             try {
                 RoleModel myModel = CreateRoleModel(role);
                 return View("Edit", myModel);
             } catch (Exception e) {
-                LogError(e, CREATE_MODEL_ERROR);
-                return SendToErrorPage(ERROR_MESSAGE);
+                LogError(e, RoleKeys.CREATE_MODEL_ERROR);
+                return SendToErrorPage(ErrorKeys.ERROR_MESSAGE);
             }
         }
 
@@ -157,19 +146,22 @@ namespace HaveAVoice.Controllers.Admin {
             try {
                 AbstractRoleModel<Role> mySocialModel = SocialRoleModel.Create(role.Role);
                 if (theRoleService.Edit(GetUserInformatonModel(), mySocialModel, role.SelectedPermissionsIds)) {
+                    TempData["Message"] = MessageHelper.SuccessMessage(RoleKeys.EDIT_SUCCESS); 
                     return RedirectToAction("Index");
                 }
+            } catch (PermissionDenied anException) {
+                return SendToErrorPage(anException.Message);
             } catch (Exception e) {
-                LogError(e, EDIT_ROLE_ERROR);
-                ViewData["Message"] = MessageHelper.ErrorMessage(ERROR_MESSAGE);
+                LogError(e, RoleKeys.EDIT_ROLE_ERROR);
+                ViewData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
             }
 
             try {
                 RoleModel myModel = CreateRoleModel(role);
                 return View("Edit", myModel);
             } catch (Exception e) {
-                LogError(e, CREATE_MODEL_ERROR);
-                return SendToErrorPage(ERROR_MESSAGE);
+                LogError(e, RoleKeys.CREATE_MODEL_ERROR);
+                return SendToErrorPage(ErrorKeys.ERROR_MESSAGE);
             }            
         }
 
@@ -177,23 +169,21 @@ namespace HaveAVoice.Controllers.Admin {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
-            if (!PermissionHelper<User>.AllowedToPerformAction(myUserInformation, SocialPermission.Delete_Role)) {
-                return SendToErrorPage(PAGE_NOT_FOUND);
-            }
-            Role role = null;
+
             try {
-                role = theRoleService.FindRole(id);
+                Role myRole = theRoleService.FindRole(GetUserInformatonModel(), id, SocialPermission.Delete_Role);
+
+                if (myRole == null) {
+                    return SendToResultPage(RoleKeys.ROLE_NOT_FOUND);
+                }
+
+                return View("Delete", myRole);
+            } catch (PermissionDenied anException) {
+                return SendToErrorPage(anException.Message);
             } catch (Exception e) {
-                LogError(e, GET_ROLE_ERROR);
-                return SendToErrorPage(ERROR_MESSAGE);
+                LogError(e, RoleKeys.GET_ROLE_ERROR);
+                return SendToErrorPage(ErrorKeys.ERROR_MESSAGE);
             }
-
-            if (role == null) {
-                return SendToResultPage(ROLE_NOT_FOUND);
-            }
-
-            return View("Delete", role);
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
@@ -204,10 +194,13 @@ namespace HaveAVoice.Controllers.Admin {
 
             try {
                 theRoleService.Delete(GetUserInformatonModel(), roleToDelete);
+                TempData["Message"] = MessageHelper.SuccessMessage(RoleKeys.DELETE_SUCCESS); 
                 return RedirectToAction("Index");
+            } catch (PermissionDenied anException) {
+                return SendToErrorPage(anException.Message);
             } catch (Exception e) {
-                LogError(e, "Error occurred while clicking the submit button when deleting a restrictionModel.");
-                return SendToErrorPage("Error while deleting the restrictionModel. Please check the error log.");
+                LogError(e, RoleKeys.DELETE_ERROR);
+                return SendToErrorPage(ErrorKeys.ERROR_MESSAGE);
             }
         }
 
@@ -217,22 +210,23 @@ namespace HaveAVoice.Controllers.Admin {
             }
             UserInformationModel<User> myUserInformation = GetUserInformatonModel();
             if (!PermissionHelper<User>.AllowedToPerformAction(myUserInformation, SocialPermission.Switch_Users_Role)) {
-                return SendToErrorPage(PAGE_NOT_FOUND);
+                return SendToErrorPage(ErrorKeys.PERMISSION_DENIED);
             }
             List<Role> myRoles = new List<Role>();
             try {
-                myRoles = theRoleService.GetAllRoles().ToList<Role>();
+                myRoles = theRoleService.GetAllRoles(GetUserInformatonModel()).ToList<Role>();
+
+                SwitchUserRoles mySwitchRoles = new SwitchUserRoles.Builder()
+                                                    .Roles(myRoles)
+                                                    .SelectedCurrentRoleId(0)
+                                                    .SelectedMoveToRoleId(0)
+                                                    .Build();
+
+                return View("SwitchUserRoles", mySwitchRoles);
             } catch (Exception e) {
                 LogError(e, "Error getting the list of roles.");
                 return SendToErrorPage("Error getting the list of roles. Please check the error log.");
             }
-            SwitchUserRoles mySwitchRoles = new SwitchUserRoles.Builder()
-                .Roles(myRoles)
-                .SelectedCurrentRoleId(0)
-                .SelectedMoveToRoleId(0)
-                .Build();
-
-            return View("SwitchUserRoles", mySwitchRoles);
         }
 
         [ActionName("SwitchUserRoles")]
@@ -244,16 +238,15 @@ namespace HaveAVoice.Controllers.Admin {
             }
             UserInformationModel<User> myUserInformation = GetUserInformatonModel();
             if (!PermissionHelper<User>.AllowedToPerformAction(myUserInformation, SocialPermission.Switch_Users_Role)) {
-                return SendToErrorPage(PAGE_NOT_FOUND);
+                return SendToErrorPage(ErrorKeys.PERMISSION_DENIED);
             }
-            SwitchUserRoles mySwitchRoles = new SwitchUserRoles.Builder().Build();
             try {
-                mySwitchRoles = CreateSwitchUserRolesModel(null, CurrentRoleId, MoveToRoleId);
+                SwitchUserRoles mySwitchRoles = CreateSwitchUserRolesModel(null, CurrentRoleId, MoveToRoleId);
+                return View("SwitchUserRoles", mySwitchRoles);
             } catch (Exception e) {
                 LogError(e, "Error creating the SwitchUserRolesModel.");
                 return SendToErrorPage("Error getting the content to load on the page. Please check the error log.");
             }
-            return View("SwitchUserRoles", mySwitchRoles);
         }
 
         [ActionName("SwitchUserRoles")]
@@ -263,13 +256,9 @@ namespace HaveAVoice.Controllers.Admin {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
-            if (!PermissionHelper<User>.AllowedToPerformAction(myUserInformation, SocialPermission.Switch_Users_Role)) {
-                return SendToErrorPage(PAGE_NOT_FOUND);
-            }
             List<int> mySelectedUsers = SelectedUserIds == null ? new List<int>() : SelectedUserIds.ToList<int>();
             try {
-                if (theRoleService.MoveUsersToRole(mySelectedUsers, CurrentRoleId, MoveToRoleId)) {
+                if (theRoleService.MoveUsersToRole(GetUserInformatonModel(), mySelectedUsers, CurrentRoleId, MoveToRoleId)) {
                     return SendToResultPage("Users moved!");
                 }
             } catch (Exception e) {
@@ -279,25 +268,13 @@ namespace HaveAVoice.Controllers.Admin {
                 return SendToErrorPage("Error getting the content to load on the page. Please check the error log.");
             }
 
-            SwitchUserRoles mySwitchRoles = new SwitchUserRoles.Builder().Build();
             try {
-                mySwitchRoles = CreateSwitchUserRolesModel(SelectedUserIds, CurrentRoleId, MoveToRoleId);
+                SwitchUserRoles mySwitchRoles = CreateSwitchUserRolesModel(SelectedUserIds, CurrentRoleId, MoveToRoleId);
+                return View("SwitchUserRoles", mySwitchRoles);
             } catch (Exception e) {
                 LogError(e, "Error creating the SwitchUserRolesModel.");
                 return SendToErrorPage("Error getting the content to load on the page. Please check the error log.");
             }
-            return View("SwitchUserRoles", mySwitchRoles);
-        }
-
-        private RoleModel CreateRoleModel(Role aModel) {
-            RoleModel myModel = new RoleModel(aModel);
-            List<Permission> myPermissions = thePermissionService.GetAllPermissions().ToList<Permission>();
-            if (myPermissions.Count == 0) {
-                ViewData["PermissionMessage"] = MessageHelper.NormalMessage("There are currently no permissions created, please create a permission first.");
-            }
-            myModel.AllPermissions = myPermissions;
-
-            return myModel;
         }
 
         private RoleModel CreateRoleModel(RoleModel aModel) {
@@ -306,10 +283,22 @@ namespace HaveAVoice.Controllers.Admin {
             return myModel;
         }
 
+        private RoleModel CreateRoleModel(Role aModel) {
+            List<Permission> myPermissions = thePermissionService.GetAllPermissions().ToList<Permission>();
+            if (myPermissions.Count == 0) {
+                ViewData["PermissionMessage"] = MessageHelper.NormalMessage("There are currently no permissions created, please create a permission first.");
+            }
+
+            RoleModel myModel = new RoleModel(aModel) {
+                AllPermissions = myPermissions
+            };
+
+            return myModel;
+        }
 
         private SwitchUserRoles CreateSwitchUserRolesModel(int[] SelectedUserIds, int aCurrentRole, int aMoveToRole) {
             List<int> mySelectedUsers = SelectedUserIds == null ? new List<int>() : SelectedUserIds.ToList<int>();
-            IEnumerable<Role> myRoles = theRoleService.GetAllRoles();
+            IEnumerable<Role> myRoles = theRoleService.GetAllRoles(GetUserInformatonModel());
             List<Pair<User, bool>> myUsers = UserSelection(mySelectedUsers, aCurrentRole);
 
             return new SwitchUserRoles.Builder()

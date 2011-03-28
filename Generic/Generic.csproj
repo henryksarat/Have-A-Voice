@@ -49,8 +49,11 @@
     <Compile Include="ActionFilters\ExportModelStateToTempData.cs" />
     <Compile Include="ActionFilters\ImportModelStateFromTempData.cs" />
     <Compile Include="ActionFilters\ModelStateTempDataTransfer.cs" />
+    <Compile Include="Constants\AuthenticationKeys.cs" />
     <Compile Include="Constants\Constants.cs" />
+    <Compile Include="Constants\ErrorKeys.cs" />
     <Compile Include="Constants\Gender.cs" />
+    <Compile Include="Constants\RoleKeys.cs" />
     <Compile Include="Constants\States.cs" />
     <Compile Include="Helpers\CaptchaHelper.cs" />
     <Compile Include="Helpers\DateHelper.cs" />
@@ -62,6 +65,7 @@
     <Compile Include="Models\AbstractMessageModel.cs" />
     <Compile Include="Models\AbstractPermissionModel.cs" />
     <Compile Include="Models\AbstractRoleModel.cs" />
+    <Compile Include="Models\AbstractRolePermissionModel.cs" />
     <Compile Include="Models\AbstractSocialModel.cs" />
     <Compile Include="Models\AbstractReplyModel.cs" />
     <Compile Include="Models\AbstractBoardReplyModel.cs" />

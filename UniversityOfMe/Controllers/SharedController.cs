@@ -3,6 +3,7 @@ using Social.Generic.Models;
 using Social.Generic.Services;
 using UniversityOfMe.Models;
 using UniversityOfMe.Repositories;
+using UniversityOfMe.Models.View;
 
 namespace UniversityOfMe.Controllers.Shared {
     public class SharedController : BaseSocialController {
@@ -16,7 +17,7 @@ namespace UniversityOfMe.Controllers.Shared {
         }
 
         public ActionResult Result() {
-            StringModel myMessage = (StringModel)Session["Message"];
+            MessageModel myMessage = (MessageModel)Session["Message"];
             Session.Remove("Message");
             return View("Result", myMessage);
         }

@@ -8,7 +8,7 @@ using Social.Generic.Models;
 using Social.Authentication.Services;
 
 namespace HaveAVoice.Services.UserFeatures {
-    public interface IHAVAuthenticationService : IAuthenticationService<User, Role, Permission, UserRole, PrivacySetting> {
+    public interface IHAVAuthenticationService : IAuthenticationService<User, Role, Permission, UserRole, PrivacySetting, RolePermission> {
         void ActivateAuthority(string anActivationCode, string anAuthorityType);
     }
 }

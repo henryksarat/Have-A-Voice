@@ -4,23 +4,33 @@ using Social.Admin.Repositories;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Validation;
+using Social.Generic.Constants;
+using Social.Admin.Exceptions;
+using System.Linq;
+using System;
 
 namespace Social.Admin.Services {
-    public class RoleService<T, U> : IRoleService<T, U> {
+    public class RoleService<T, U, V> : IRoleService<T, U, V> {
         private IValidationDictionary theValidationDictionary;
-        private IRoleRepository<T, U> theRoleRepo;
+        private IRoleRepository<T, U, V> theRoleRepo;
 
 
-        public RoleService(IValidationDictionary aValidationDictionary, IRoleRepository<T, U> aRepository) {
+        public RoleService(IValidationDictionary aValidationDictionary, IRoleRepository<T, U, V> aRepository) {
             theValidationDictionary = aValidationDictionary;
             theRoleRepo = aRepository;
         }
 
-        public U FindRole(int id) {
-            return theRoleRepo.FindRole(id);;
+        public U FindRole(UserInformationModel<T> aViewingUser, int aRoleId, SocialPermission aSocialPermission) {
+            if (!AllowedToPerformAction(aViewingUser, aSocialPermission)) {
+                throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
+            }
+            return theRoleRepo.FindRole(aRoleId);
         }
 
-        public IEnumerable<U> GetAllRoles() {
+        public IEnumerable<U> GetAllRoles(UserInformationModel<T> aViewingUser) {
+            if (!AllowedToPerformAction(aViewingUser, SocialPermission.View_Roles)) {
+                throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
+            }
             return theRoleRepo.GetAllRoles();
         }
 
@@ -29,7 +39,7 @@ namespace Social.Admin.Services {
                 return false;
             }
             if (!AllowedToPerformAction(aCreatedByUser, SocialPermission.Create_Role)) {
-                return false;
+                throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
             }
 
             theRoleRepo.Create(aCreatedByUser.Details, aRoleToCreate.FromModel(), aSelectedPermissionIds);
@@ -41,18 +51,44 @@ namespace Social.Admin.Services {
                 return false;
             }
             if (!AllowedToPerformAction(anEditedByUser, SocialPermission.Edit_Role)) {
-                return false;
+                throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
             }
-            theRoleRepo.Edit(anEditedByUser.Details, aRoleToEdit.FromModel(), aSelectedPermissions);
+
+            IEnumerable<int> myCurrentPermissionsAssociatedWithRole = theRoleRepo.GetAbstractRolePermissionsByRole(aRoleToEdit.FromModel()).Select(r => r.PermissionId);
+            List<int> myPermissionsToCreateAssociateWith = new List<int>();
+            List<int> myPermissionToDeleteAssociationWith = new List<int>();
+
+            if (myCurrentPermissionsAssociatedWithRole.Count() == 0) {
+                myPermissionsToCreateAssociateWith.AddRange(aSelectedPermissions);
+            } else if (aSelectedPermissions == null || aSelectedPermissions.Count == 0) {
+                myPermissionToDeleteAssociationWith.AddRange(myCurrentPermissionsAssociatedWithRole);
+            } else {
+                myPermissionToDeleteAssociationWith.AddRange(myCurrentPermissionsAssociatedWithRole.Except(aSelectedPermissions).ToList<int>());
+                myPermissionsToCreateAssociateWith.AddRange(aSelectedPermissions.Except(myCurrentPermissionsAssociatedWithRole).ToList<int>());
+            }
+
+            theRoleRepo.Edit(anEditedByUser.Details, aRoleToEdit.FromModel(), myPermissionsToCreateAssociateWith, myPermissionToDeleteAssociationWith);
             return true;
             
         }
        
         public bool Delete(UserInformationModel<T> aDeletedByUser, U aRoleToDelete) {
             if (!AllowedToPerformAction(aDeletedByUser, SocialPermission.Delete_Role)) {
-                return false;
+                throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
             }
             theRoleRepo.Delete(aDeletedByUser.Details, aRoleToDelete);
+            return true;
+        }
+
+        public bool MoveUsersToRole(UserInformationModel<T> aUserDoingMove, List<int> aUsers, int aFromRoleId, int aToRoleId) {
+            if (!ValidateSwitchingRole(aUsers, aFromRoleId, aToRoleId)) {
+                return false;
+            }
+            if (!AllowedToPerformAction(aUserDoingMove, SocialPermission.Switch_Users_Role)) {
+                throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
+            }
+
+            theRoleRepo.MoveUsersToRole(aUsers, aFromRoleId, aToRoleId);
             return true;
         }
 
@@ -75,14 +111,6 @@ namespace Social.Admin.Services {
             }
 
             return theValidationDictionary.isValid;
-        }
-
-        public bool MoveUsersToRole(List<int> aUsers, int aFromRoleId, int aToRoleId) {
-            if (!ValidateSwitchingRole(aUsers, aFromRoleId, aToRoleId)) {
-                return false;
-            }
-            theRoleRepo.MoveUsersToRole(aUsers, aFromRoleId, aToRoleId);
-            return true;
         }
 
         private bool ValidateRole(AbstractRoleModel<U> role) {

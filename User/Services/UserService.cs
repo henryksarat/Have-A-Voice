@@ -40,7 +40,7 @@ namespace Social.User {
             aUserToCreate = CompleteAddingFieldsToUser(aUserToCreate, aIpAddress);
             aUserToCreate = aRegistrationStrategy.AddFieldsToUserObject(aUserToCreate);
 
-            aUserToCreate = theUserRepo.CreateUser(aUserToCreate.FromModel());
+            aUserToCreate = theUserRepo.CreateUser(aUserToCreate.FromModel(), Constants.NOT_CONFIRMED_USER_ROLE);
 
             EmailException myEmailException = null;
             try {

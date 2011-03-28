@@ -3,7 +3,10 @@
 namespace UniversityOfMe.Models.Social {
     public class SocialPermissionModel : AbstractPermissionModel<Permission> {
         public static SocialPermissionModel Create(Permission anExternal) {
-            return new SocialPermissionModel(anExternal);
+            if (anExternal != null) {
+                return new SocialPermissionModel(anExternal);
+            }
+            return null;
         }
 
         public SocialPermissionModel() { }

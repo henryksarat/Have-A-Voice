@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using HaveAVoice.Models;
 using HaveAVoice.Repositories.AdminFeatures;
 using Social.Admin.Repositories;
@@ -66,7 +65,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         private Role GetRoleByName(string aName) {
-            IRoleRepository<User, Role> myRoleRepo = new EntityHAVRoleRepository();
+            IRoleRepository<User, Role, RolePermission> myRoleRepo = new EntityHAVRoleRepository();
             return myRoleRepo.GetRoleByName(aName);
         }
     }

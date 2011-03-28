@@ -31,6 +31,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversityOfMe.Tests", "Uni
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authentication", "Authentication\Authentication.csproj", "{7D365142-37D3-4397-90AC-5761FA085C01}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseWebsite", "BaseWebsite\BaseWebsite.csproj", "{D26AE180-BD39-4C37-BE71-54D645D5320D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseWebsite.Tests", "BaseWebsite.Tests\BaseWebsite.Tests.csproj", "{80B04D3B-E62B-4496-BE42-F9A01A35EF37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +101,14 @@ Global
 		{7D365142-37D3-4397-90AC-5761FA085C01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D365142-37D3-4397-90AC-5761FA085C01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D365142-37D3-4397-90AC-5761FA085C01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D26AE180-BD39-4C37-BE71-54D645D5320D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D26AE180-BD39-4C37-BE71-54D645D5320D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D26AE180-BD39-4C37-BE71-54D645D5320D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D26AE180-BD39-4C37-BE71-54D645D5320D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80B04D3B-E62B-4496-BE42-F9A01A35EF37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80B04D3B-E62B-4496-BE42-F9A01A35EF37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80B04D3B-E62B-4496-BE42-F9A01A35EF37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80B04D3B-E62B-4496-BE42-F9A01A35EF37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -3,7 +3,7 @@
 namespace Social.User {
     public interface IUserRepository<T, U, V> {
         V AddUserToRole(T user, U role);
-        AbstractUserModel<T> CreateUser(T userToCreate);
+        AbstractUserModel<T> CreateUser(T userToCreate, string aNotConfirmedRoleName);
         void DeleteUser(T userToDelete);
         T DeleteUserFromRole(int userId, int roleId);
         bool EmailRegistered(string email);

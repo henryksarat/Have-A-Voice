@@ -3,7 +3,10 @@
 namespace UniversityOfMe.Models.Social {
     public class SocialPrivacySettingModel : AbstractPrivacySettingModel<PrivacySetting> {
         public static AbstractPrivacySettingModel<PrivacySetting> Create(PrivacySetting anExternal) {
-            return new SocialPrivacySettingModel(anExternal);
+            if (anExternal != null) {
+                return new SocialPrivacySettingModel(anExternal);
+            }
+            return null;
         }
 
         public override PrivacySetting FromModel() {

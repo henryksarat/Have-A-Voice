@@ -2,18 +2,17 @@
 using Social.Generic.Models;
 
 namespace Social.Admin.Repositories {
-    public interface IRoleRepository<T, U> {
-        U Create(T aCreatedByUser, U aRoleToCreate, List<int> aSelectedPermissionIds);
-        U Edit(T aEditedByUser, U aRoleToEdit, List<int> aSelectedPermissionIds);
+    public interface IRoleRepository<T, U, V> {
+        U Create(T aCreatedByUser, U aRoleToCreate, IEnumerable<int> aPermissionId);
+        U Edit(T aEditedByUser, U aRoleToEdit, IEnumerable<int> aPermissionsToCreateAssociationWith, IEnumerable<int> aPermissionsToDeleteAssociationWith);
         void Delete(T aDeletedByUser, U aRoleToDelete);
         U FindRole(int id);
         IEnumerable<T> FindUsersInRole(int aRoleId);
-        IEnumerable<U> GetAllRoles();
-        U GetDefaultRole();
-        U GetRoleByName(string aName);
-        U GetNotConfirmedUserRole();
-        AbstractRoleModel<U> GetAbstractNotConfirmedUserRole();
         AbstractRoleModel<U> GetAbstractDefaultRole();
+        AbstractRoleModel<U> GetAbstractRoleByName(string aName);
+        IEnumerable<AbstractRolePermissionModel<V>> GetAbstractRolePermissionsByRole(U aRoleToGetPermissionsFor);
+        IEnumerable<U> GetAllRoles();
+        U GetRoleByName(string aName);
         void MoveUsersToRole(List<int> aUsers, int aFromRoleId, int aToRoleId);
     }
 }

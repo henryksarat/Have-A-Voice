@@ -21,12 +21,12 @@ namespace HaveAVoice.Repositories.UserFeatures {
             return myRole;
         }
 
-        public AbstractUserModel<User> CreateUser(User userToCreate) {
+        public AbstractUserModel<User> CreateUser(User userToCreate, string aNotConfirmedRoleName) {
             theEntities.AddToUsers(userToCreate);
             theEntities.SaveChanges();
 
             try {
-                AddUserToNotConfirmedUserRole(userToCreate);
+                AddUserToNotConfirmedUserRole(userToCreate, aNotConfirmedRoleName);
             } catch (NullRoleException exception) {
                 DeleteUser(userToCreate);
                 throw new NullRoleException("Deleted user because there was no \"Not confirmed\" role assigned properly.", exception);
@@ -43,7 +43,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         public User DeleteUserFromRole(int userId, int roleId) {
-            IRoleRepository<User, Role> roleRepository = new EntityHAVRoleRepository();
+            IRoleRepository<User, Role, RolePermission> roleRepository = new EntityHAVRoleRepository();
 
             User user = GetUser(userId);
             Role role = roleRepository.FindRole(roleId);
@@ -96,9 +96,9 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     select c).FirstOrDefault();
         }
 
-        private UserRole AddUserToNotConfirmedUserRole(User user) {
-            IRoleRepository<User, Role> roleRepository = new EntityHAVRoleRepository();
-            Role notConfirmedUserRole = roleRepository.GetNotConfirmedUserRole();
+        private UserRole AddUserToNotConfirmedUserRole(User user, string aNotConfirmedRoleName) {
+            IRoleRepository<User, Role, RolePermission> roleRepository = new EntityHAVRoleRepository();
+            Role notConfirmedUserRole = roleRepository.GetRoleByName(aNotConfirmedRoleName);
 
             return AddUserToRole(user, notConfirmedUserRole);
         }

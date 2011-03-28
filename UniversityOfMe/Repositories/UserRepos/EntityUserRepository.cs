@@ -21,12 +21,12 @@ namespace UniversityOfMe.Repositories.UserRepos {
             return myRole;
         }
 
-        public AbstractUserModel<User> CreateUser(User userToCreate) {
+        public AbstractUserModel<User> CreateUser(User userToCreate, string aNotConfirmedRoleName) {
             theEntities.AddToUsers(userToCreate);
             theEntities.SaveChanges();
 
             try {
-                AddUserToNotConfirmedUserRole(userToCreate);
+                AddUserToNotConfirmedUserRole(userToCreate, aNotConfirmedRoleName);
             } catch (NullRoleException exception) {
                 DeleteUser(userToCreate);
                 throw new NullRoleException("Deleted user because there was no \"Not confirmed\" role assigned properly.", exception);
@@ -43,7 +43,7 @@ namespace UniversityOfMe.Repositories.UserRepos {
         }
 
         public User DeleteUserFromRole(int userId, int roleId) {
-            IRoleRepository<User, Role> roleRepository = new EntityRoleRepository();
+            IRoleRepository<User, Role, RolePermission> roleRepository = new EntityRoleRepository();
 
             User user = GetUser(userId);
             Role role = roleRepository.FindRole(roleId);
@@ -96,11 +96,11 @@ namespace UniversityOfMe.Repositories.UserRepos {
                     select c).FirstOrDefault();
         }
 
-        private UserRole AddUserToNotConfirmedUserRole(User user) {
-            IRoleRepository<User, Role> roleRepository = new EntityRoleRepository();
-            Role notConfirmedUserRole = roleRepository.GetNotConfirmedUserRole();
+        private UserRole AddUserToNotConfirmedUserRole(User aUser, string aNotConfirmedRoleName) {
+            IRoleRepository<User, Role, RolePermission> roleRepository = new EntityRoleRepository();
+            Role notConfirmedUserRole = roleRepository.GetRoleByName(aNotConfirmedRoleName);
 
-            return AddUserToRole(user, notConfirmedUserRole);
+            return AddUserToRole(aUser, notConfirmedUserRole);
         }
 
         private bool CanMessage(int listenedToUserId, int listeningUserId) {

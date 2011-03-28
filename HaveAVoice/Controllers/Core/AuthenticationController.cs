@@ -12,6 +12,7 @@ using HaveAVoice.Services.Helpers;
 using HaveAVoice.Services.UserFeatures;
 using Social.Admin.Exceptions;
 using Social.Authentication.Services;
+using Social.Generic.Constants;
 using Social.Generic.Models;
 using Social.Generic.Services;
 using Social.Users.Services;
@@ -19,18 +20,9 @@ using Social.Validation;
 
 namespace HaveAVoice.Controllers.Core {
     public class AuthenticationController : HAVBaseController {
-        private const string ACCOUNT_ACTIVATED_TITLE = "Account activated!";
         private const string ACCOUNT_ACTIVATED_BODY = "You may now login and access have a voice!";
-        private const string LOGGED_OUT = "You have logged out successfully.";
 
-        private static string AUTHENTICAITON_ERROR = "Error authenticating. Please try again.";
-        private static string INCORRECT_LOGIN = "Incorrect username and password combination.";
-        private static string INVALID_ACTIVATION_CODE = "Invalid activation code.";
-        private static string SPECIFIC_ROLE_ERROR = "Unable to activate the account because of a role issue.";
-        private static string OUR_ERROR = "Couldn't activate the account because of something on our end. Please try again later.";
-        private static string ACTIVATION_ERROR = "Error while activating your account. Please try again.";
-
-        private IAuthenticationService<User, Role, Permission, UserRole, PrivacySetting> theAuthService;
+        private IAuthenticationService<User, Role, Permission, UserRole, PrivacySetting, RolePermission> theAuthService;
         private IWhoIsOnlineService<User, WhoIsOnline> theWhoIsOnlineService;
         private IValidationDictionary theValidationDictionary;
 
@@ -65,8 +57,8 @@ namespace HaveAVoice.Controllers.Core {
             try {
                 userModel = theAuthService.AuthenticateUser(email, password, new ProfilePictureStrategy());
             } catch (Exception e) {
-                LogError(e, AUTHENTICAITON_ERROR);
-                ViewData["Message"] = MessageHelper.ErrorMessage(AUTHENTICAITON_ERROR);
+                LogError(e, AuthenticationKeys.AUTHENTICAITON_ERROR);
+                ViewData["Message"] = MessageHelper.ErrorMessage(AuthenticationKeys.AUTHENTICAITON_ERROR);
                 return View("Login");
             }
 
@@ -78,7 +70,7 @@ namespace HaveAVoice.Controllers.Core {
                     theAuthService.CreateRememberMeCredentials(SocialUserModel.Create(userModel.Details));
                 }
             } else {
-                ViewData["Message"] = MessageHelper.NormalMessage(INCORRECT_LOGIN);
+                ViewData["Message"] = MessageHelper.NormalMessage(AuthenticationKeys.INCORRECT_LOGIN);
                 return View("Login");
             }
 
@@ -93,15 +85,15 @@ namespace HaveAVoice.Controllers.Core {
             string myError;
             try {
                 theAuthService.ActivateNewUser(id);
-                return SendToResultPage(ACCOUNT_ACTIVATED_TITLE, ACCOUNT_ACTIVATED_BODY);
+                return SendToResultPage(AuthenticationKeys.ACCOUNT_ACTIVATED_TITLE, ACCOUNT_ACTIVATED_BODY);
             } catch (NullUserException) {
-                myError = INVALID_ACTIVATION_CODE;
+                myError = AuthenticationKeys.INVALID_ACTIVATION_CODE;
             } catch (NullRoleException e) {
-                LogError(e, SPECIFIC_ROLE_ERROR);
-                myError = OUR_ERROR;
+                LogError(e, AuthenticationKeys.SPECIFIC_ROLE_ERROR);
+                myError = AuthenticationKeys.OUR_ERROR;
             } catch (Exception e) {
-                LogError(e, ACTIVATION_ERROR);
-                myError = ACTIVATION_ERROR;
+                LogError(e, AuthenticationKeys.ACTIVATION_ERROR);
+                myError = AuthenticationKeys.ACTIVATION_ERROR;
             }
             return SendToErrorPage(myError);
         }
@@ -114,7 +106,7 @@ namespace HaveAVoice.Controllers.Core {
             theWhoIsOnlineService.RemoveFromWhoIsOnline(GetUserInformaton(), HttpContext.Request.UserHostAddress);
             Session.Clear();
             CookieHelper.ClearCookies();
-            TempData["Message"] = MessageHelper.SuccessMessage(LOGGED_OUT);
+            TempData["Message"] = MessageHelper.SuccessMessage(AuthenticationKeys.LOGGED_OUT);
             return RedirectToAction("Login");
         }
 

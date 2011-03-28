@@ -1,20 +1,23 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Social.Admin.Repositories;
+using Social.Generic.Models;
+using Social.User;
 using UniversityOfMe.Models;
-using Social.Generic.Constants;
+using UniversityOfMe.Models.Social;
+using UniversityOfMe.Repositories.UserRepos;
 
 namespace UniversityOfMe.Repositories.AdminRepos {
-    public class EntityRoleRepository : IRoleRepository<User, Role> {
+    public class EntityRoleRepository : IRoleRepository<User, Role, RolePermission> {
         private UniversityOfMeEntities theEntities = new UniversityOfMeEntities();
 
-        public Role Create(User aCreatedByUser, Role aRoleToCreate, List<int> aSelectedPermissionIds) {
+        public Role Create(User aCreatedByUser, Role aRoleToCreate, IEnumerable<int> aPermissionId) {
             throw new NotImplementedException();
         }
 
-        public Role Edit(User aEditedByUser, Role aRoleToEdit, List<int> aSelectedPermissionIds) {
+        public Role Edit(User aEditedByUser, Role aRoleToEdit, IEnumerable<int> aPermissionsToCreateAssociationWith, IEnumerable<int> aPermissionsToDeleteAssociationWith) {
             throw new NotImplementedException();
         }
 
@@ -30,11 +33,19 @@ namespace UniversityOfMe.Repositories.AdminRepos {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Role> GetAllRoles() {
+        public AbstractRoleModel<Role> GetAbstractDefaultRole() {
             throw new NotImplementedException();
         }
 
-        public Role GetDefaultRole() {
+        public AbstractRoleModel<Role> GetAbstractRoleByName(string aName) {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<AbstractRolePermissionModel<RolePermission>> GetAbstractRolePermissionsByRole(Role aRoleToGetPermissionsFor) {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Role> GetAllRoles() {
             throw new NotImplementedException();
         }
 
@@ -42,31 +53,7 @@ namespace UniversityOfMe.Repositories.AdminRepos {
             throw new NotImplementedException();
         }
 
-        public Role GetNotConfirmedUserRole() {
-            Role notConfirmedRole = (from c in theEntities.Roles
-                                     where c.Name == Constants.NOT_CONFIRMED_USER_ROLE
-                                     select c).FirstOrDefault();
-
-            if (notConfirmedRole == null)
-                throw new NullReferenceException("Unable to get the Not Confirmed User Role.");
-
-            return notConfirmedRole;
-        }
-
         public void MoveUsersToRole(List<int> aUsers, int aFromRoleId, int aToRoleId) {
-            throw new NotImplementedException();
-        }
-
-
-        public Social.Generic.Models.AbstractRoleModel<Role> GetAbstractNotConfirmedUserRole() {
-            throw new NotImplementedException();
-        }
-
-        public Social.Generic.Models.AbstractRoleModel<Role> GetAbstractDefaultRole() {
-            throw new NotImplementedException();
-        }
-
-        public Social.Generic.Models.AbstractRoleModel<Role> GetAbstractRoleByName(string aRoleName) {
             throw new NotImplementedException();
         }
     }

@@ -7,7 +7,7 @@ using Social.Authentication.Services;
 using Social.User.Services;
 
 namespace HaveAVoice.Services.UserFeatures {
-    public class HAVAuthenticationService : AuthenticationService<User, Role, Permission, UserRole, PrivacySetting>, IHAVAuthenticationService {
+    public class HAVAuthenticationService : AuthenticationService<User, Role, Permission, UserRole, PrivacySetting, RolePermission>, IHAVAuthenticationService {
         public HAVAuthenticationService()
             : base(new UserRetrievalService<User>(new EntityHAVUserRetrievalRepository()), 
                    new UserPrivacySettingsService<User, PrivacySetting>(new EntityHAVUserPrivacySettingsRepository()), 

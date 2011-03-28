@@ -9,7 +9,10 @@ namespace UniversityOfMe.Models.Social {
         protected SocialUserModel() { }
 
         public static SocialUserModel Create(User anExternal) {
-            return new SocialUserModel(anExternal);
+            if (anExternal != null) {
+                return new SocialUserModel(anExternal);
+            }
+            return null;
         }
 
         public override User FromModel() {
