@@ -71,6 +71,7 @@
     <Compile Include="Models\AbstractBoardReplyModel.cs" />
     <Compile Include="Models\AbstractUserModel.cs" />
     <Compile Include="Models\InboxMessage.cs" />
+    <Compile Include="Models\MessageModel.cs" />
     <Compile Include="Models\StringWrapper.cs" />
     <Compile Include="Models\UserInformationModel.cs" />
     <Compile Include="Pair.cs" />

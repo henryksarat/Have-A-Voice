@@ -14,8 +14,8 @@ namespace HaveAVoice {
         public static void RegisterRoutes(RouteCollection routes) {
             ModelBinders.Binders.Remove(typeof(HttpPostedFileBase));
             ModelBinders.Binders.Add(typeof(HttpPostedFileBase), new ImageBinder());
-            ModelBinders.Binders.Remove(typeof(RoleModel));
-            ModelBinders.Binders.Add(typeof(RoleModel), new RoleModelBinder());
+            ModelBinders.Binders.Remove(typeof(RoleViewModel));
+            ModelBinders.Binders.Add(typeof(RoleViewModel), new RoleModelBinder());
             ModelBinders.Binders.Remove(typeof(ViewMessageModel));
             ModelBinders.Binders.Add(typeof(ViewMessageModel), new ViewMessageModelBinder());
             ModelBinders.Binders.Remove(typeof(EditUserModel));

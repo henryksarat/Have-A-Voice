@@ -3,7 +3,6 @@ using Social.Generic.Models;
 using Social.Generic.Services;
 using UniversityOfMe.Models;
 using UniversityOfMe.Repositories;
-using UniversityOfMe.Models.View;
 
 namespace UniversityOfMe.Controllers.Shared {
     public class SharedController : BaseSocialController {

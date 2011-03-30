@@ -8,6 +8,8 @@ using Social.Admin.Helpers;
 using Social.Validation;
 using Social.Generic.Models;
 using Social.Generic.Helpers;
+using Social.Admin.Exceptions;
+using Social.Generic.Constants;
 
 namespace Social.Admin  {
     public class PermissionService<T, U> : IPermissionService<T, U> {
@@ -19,7 +21,10 @@ namespace Social.Admin  {
             thePermissionRepo = aRepository;
         }
 
-        public IEnumerable<U> GetAllPermissions() {
+        public IEnumerable<U> GetAllPermissions(UserInformationModel<T> aViewingUser) {
+            if (!AllowedToPerformAction(aViewingUser, SocialPermission.View_Permissions)) {
+                throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
+            }
             return thePermissionRepo.GetAllPermissions();
         }
 
@@ -33,7 +38,7 @@ namespace Social.Admin  {
             }
 
             if (!AllowedToPerformAction(aCreatedByUser, SocialPermission.Create_Permission)) {
-                return false;
+                throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
             }
 
             thePermissionRepo.Create(aCreatedByUser.Details, aPermissionToCreate.FromModel());
@@ -46,7 +51,7 @@ namespace Social.Admin  {
             }
 
             if (!AllowedToPerformAction(anEditedByUser, SocialPermission.Edit_Permission)) {
-                return false;
+                throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
             }
 
             thePermissionRepo.Edit(anEditedByUser.Details, aPermissionToEdit.FromModel());
@@ -55,7 +60,7 @@ namespace Social.Admin  {
 
         public bool Delete(UserInformationModel<T> aDeletedByUser, U aPermissionToDelete) {
             if (!AllowedToPerformAction(aDeletedByUser, SocialPermission.Delete_Permission)) {
-                return false;
+                throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
             }
 
             thePermissionRepo.Delete(aDeletedByUser.Details, aPermissionToDelete);

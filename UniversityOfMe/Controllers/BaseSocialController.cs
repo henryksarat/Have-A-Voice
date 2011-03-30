@@ -13,7 +13,6 @@ using Social.Users.Services;
 using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
 using UniversityOfMe.Models.Social;
-using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories;
 using UniversityOfMe.Repositories.AdminRepos;
 using UniversityOfMe.Repositories.AuthenticationRepos;
@@ -151,7 +150,7 @@ namespace UniversityOfMe.Controllers  {
         }
 
         private void AddMessageToSession(string title, string details) {
-            MessageModel messageModel = new MessageModel();
+            Social.Generic.Models.MessageModel messageModel = new Social.Generic.Models.MessageModel();
             messageModel.Title = title;
             messageModel.Details = details;
             Session["Message"] = messageModel;

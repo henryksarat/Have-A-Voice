@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.SwitchUserRoles>"  %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<BaseWebsite.Models.SwitchUserRoles<User, Role>>"  %>
 <%@ Import Namespace="HaveAVoice.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UI" %>
 <%@ Import Namespace="HaveAVoice.Models" %>

@@ -69,8 +69,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ActionFilters\RequiredRouteValueAttribute.cs" />
-    <Compile Include="Controllers\Admin\AdminBaseController.cs" />
     <Compile Include="Controllers\Admin\AdminController.cs" />
+    <Compile Include="Controllers\Admin\RoleController.cs" />
     <Compile Include="Controllers\Core\AuthenticationController.cs" />
     <Compile Include="Controllers\Core\AuthorityVerificationController.cs" />
     <Compile Include="Controllers\Core\PasswordController.cs" />
@@ -110,7 +110,6 @@
     <Compile Include="Helpers\UserActivationStrategy.cs" />
     <Compile Include="Helpers\UserRoleHelper.cs" />
     <Compile Include="Controllers\Admin\PermissionController.cs" />
-    <Compile Include="Controllers\Admin\RoleController.cs" />
     <Compile Include="Controllers\Errors\ErrorController.cs" />
     <Compile Include="Controllers\HAVBaseController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
@@ -483,6 +482,10 @@
     <ProjectReference Include="..\Authentication\Authentication.csproj">
       <Project>{7D365142-37D3-4397-90AC-5761FA085C01}</Project>
       <Name>Authentication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BaseWebsite\BaseWebsite.csproj">
+      <Project>{D26AE180-BD39-4C37-BE71-54D645D5320D}</Project>
+      <Name>BaseWebsite</Name>
     </ProjectReference>
     <ProjectReference Include="..\Board\Board.csproj">
       <Project>{755E3949-7FFD-44DC-84A2-639BA4BED8A2}</Project>

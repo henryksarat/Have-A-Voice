@@ -1,32 +1,51 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Web.Mvc;
-using Social.Generic;
+using BaseWebsite.Models;
+using Social.Admin;
+using Social.Admin.Exceptions;
+using Social.Admin.Helpers;
+using Social.Admin.Repositories;
+using Social.Admin.Services;
+using Social.Authentication;
+using Social.Authentication.Services;
 using Social.Generic.Constants;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Generic.Services;
-using Social.Admin.Services;
-using Social.Admin;
+using Social.Users.Services;
 using Social.Validation;
+using Social.Generic;
+using BaseWebsite.Helpers;
+using System.Text;
 
 namespace BaseWebsite.Controllers.Admin {
     //T = User
     //U = Role
     //V = Permission
-    //X = RolePermission
-    public class RoleController<T, U, V, X> : AdminBaseController<T> {
-        /*
-        private IRoleService<T, U, X> theRoleService;
+    //W = UserRole
+    //X = PrivacySetting
+    //Y = RolePermission
+    //Z = WhoIsOnline
+    public abstract class AbstractRoleController<T, U, V, W, X, Y, Z> : BaseController<T, U, V, W, X, Y, Z> {
+        private IRoleService<T, U, Y> theRoleService;
         private IPermissionService<T, V> thePermissionService;
         private ModelStateWrapper theModelState;
 
-        public RoleController(IBaseService<T> aBaseService, IRoleService<T, U, X> myRoleService, IPermissionService<T, V> myPermissionService) : base(aBaseService) {
-            theRoleService = myRoleService;
-            thePermissionService = myPermissionService;
+        public AbstractRoleController(IBaseService<T> aBaseService, IUserInformation<T, Z> aUserInformation, IAuthenticationService<T, U, V, W, X, Y> anAuthService, 
+                                      IWhoIsOnlineService<T, Z> aWhoIsOnlineService, IRoleRepository<T, U, Y> aRoleRepository, IPermissionRepository<T, V> myPermissionRepository) : 
+            base(aBaseService, aUserInformation, anAuthService, aWhoIsOnlineService) {
+                theModelState = new ModelStateWrapper(this.ModelState);
+                theRoleService = new RoleService<T, U, Y>(theModelState, aRoleRepository);
+                thePermissionService = new PermissionService<T, V>(theModelState, myPermissionRepository);
         }
+
+        protected abstract U CreateEmptyRole();
+        protected abstract AbstractRoleModel<U> CreateSocialRoleModel(U aRole);
+        protected abstract AbstractRoleViewModel<U, V> CreateRoleViewModel(U aRole, IEnumerable<V> aPermissions);
+        protected abstract SelectList GetCurrentRoles(IEnumerable<U> aRoles, int aSelectedCurrentRoleId);
+        protected abstract SelectList GetMoveToRoles(IEnumerable<U> aRoles, int aSelectedMoveToRoleId);
 
         public ActionResult Index() {
             if (!IsLoggedIn()) {
@@ -34,10 +53,10 @@ namespace BaseWebsite.Controllers.Admin {
             }
 
             try {
-                IEnumerable<Role> myRoles = theRoleService.GetAllRoles(GetUserInformatonModel()).ToList<Role>();
+                IEnumerable<U> myRoles = theRoleService.GetAllRoles(GetUserInformatonModel()).ToList<U>();
 
                 if (myRoles.Count() == 0) {
-                    ViewData["Message"] = MessageHelper.NormalMessage(RoleKeys.NO_ROLES);
+                    ViewData["Message"] = NormalMessage(RoleKeys.NO_ROLES);
                 }
 
                 return View("Index", myRoles);
@@ -49,34 +68,31 @@ namespace BaseWebsite.Controllers.Admin {
             }
         }
 
-        public ActionResult Create() {
+        protected ActionResult Create() {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
 
-            if(!PermissionHelper<User>.AllowedToPerformAction(GetUserInformatonModel(), SocialPermission.Create_Role)) {
+            if(!PermissionHelper<T>.AllowedToPerformAction(GetUserInformatonModel(), SocialPermission.Create_Role)) {
                 return SendToErrorPage(ErrorKeys.PERMISSION_DENIED);
             }
 
             try {
-                Role myRole = Role.CreateRole(0, string.Empty, string.Empty, false, false);
-                RoleModel myModel = CreateRoleModel(myRole);
-
-                return View("Create", myModel);
+                U myRole = CreateEmptyRole();
+                  return View("Create", CreateRoleModel(myRole));
             } catch (Exception e) {
                 LogError(e, RoleKeys.CREATE_MODEL_ERROR);
                 return SendToErrorPage(ErrorKeys.ERROR_MESSAGE);
             }
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Create(RoleModel model) {
+        protected ActionResult Create(AbstractRoleViewModel<U, V> model) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
 
             try {
-                AbstractRoleModel<Role> mySocialModel = SocialRoleModel.Create(model.Role);
+                AbstractRoleModel<U> mySocialModel = CreateSocialRoleModel(model.Role);
                 if (theRoleService.Create(GetUserInformatonModel(), mySocialModel, model.SelectedPermissionsIds)) {
                     return RedirectToAction("Index");
                 }
@@ -84,11 +100,11 @@ namespace BaseWebsite.Controllers.Admin {
                 return SendToErrorPage(anException.Message);
             } catch (Exception e) {
                 LogError(e, RoleKeys.CREATE_ROLE_ERROR);
-                ViewData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
+                ViewData["Message"] = ErrorMessage(ErrorKeys.ERROR_MESSAGE);
             }
 
             try {
-                RoleModel myModel = CreateRoleModel(model);
+                AbstractRoleViewModel<U, V> myModel = CreateRoleModel(model);
                 return View("Create", myModel);
             } catch (Exception e) {
                 LogError(e, RoleKeys.CREATE_MODEL_ERROR);
@@ -96,12 +112,12 @@ namespace BaseWebsite.Controllers.Admin {
             }
         }
 
-        public ActionResult Edit(int id) {
+        protected ActionResult Edit(int id) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
 
-            Role role = null;
+            U role = default(U);
             try {
                 role = theRoleService.FindRole(GetUserInformatonModel(), id, SocialPermission.Edit_Role);
             } catch (PermissionDenied anException) {
@@ -116,7 +132,7 @@ namespace BaseWebsite.Controllers.Admin {
             }
             
             try {
-                RoleModel myModel = CreateRoleModel(role);
+                AbstractRoleViewModel<U, V> myModel = CreateRoleModel(role);
                 return View("Edit", myModel);
             } catch (Exception e) {
                 LogError(e, RoleKeys.CREATE_MODEL_ERROR);
@@ -124,27 +140,26 @@ namespace BaseWebsite.Controllers.Admin {
             }
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Edit(RoleModel role) {
+        protected ActionResult Edit(AbstractRoleViewModel<U, V> role) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
 
             try {
-                AbstractRoleModel<Role> mySocialModel = SocialRoleModel.Create(role.Role);
+                AbstractRoleModel<U> mySocialModel = CreateSocialRoleModel(role.Role);
                 if (theRoleService.Edit(GetUserInformatonModel(), mySocialModel, role.SelectedPermissionsIds)) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(RoleKeys.EDIT_SUCCESS); 
+                    TempData["Message"] = SuccessMessage(RoleKeys.EDIT_SUCCESS); 
                     return RedirectToAction("Index");
                 }
             } catch (PermissionDenied anException) {
                 return SendToErrorPage(anException.Message);
             } catch (Exception e) {
                 LogError(e, RoleKeys.EDIT_ROLE_ERROR);
-                ViewData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
+                ViewData["Message"] = ErrorMessage(ErrorKeys.ERROR_MESSAGE);
             }
 
             try {
-                RoleModel myModel = CreateRoleModel(role);
+                AbstractRoleViewModel<U, V> myModel = CreateRoleModel(role);
                 return View("Edit", myModel);
             } catch (Exception e) {
                 LogError(e, RoleKeys.CREATE_MODEL_ERROR);
@@ -152,13 +167,13 @@ namespace BaseWebsite.Controllers.Admin {
             }            
         }
 
-        public ActionResult Delete(int id) {
+        protected ActionResult Delete(int id) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
 
             try {
-                Role myRole = theRoleService.FindRole(GetUserInformatonModel(), id, SocialPermission.Delete_Role);
+                U myRole = theRoleService.FindRole(GetUserInformatonModel(), id, SocialPermission.Delete_Role);
 
                 if (myRole == null) {
                     return SendToResultPage(RoleKeys.ROLE_NOT_FOUND);
@@ -173,15 +188,14 @@ namespace BaseWebsite.Controllers.Admin {
             }
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Delete(Role roleToDelete) {
+        protected ActionResult Delete(U roleToDelete) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
 
             try {
                 theRoleService.Delete(GetUserInformatonModel(), roleToDelete);
-                TempData["Message"] = MessageHelper.SuccessMessage(RoleKeys.DELETE_SUCCESS); 
+                TempData["Message"] = SuccessMessage(RoleKeys.DELETE_SUCCESS); 
                 return RedirectToAction("Index");
             } catch (PermissionDenied anException) {
                 return SendToErrorPage(anException.Message);
@@ -191,23 +205,22 @@ namespace BaseWebsite.Controllers.Admin {
             }
         }
 
-        public ActionResult SwitchUserRoles() {
+        protected ActionResult SwitchUserRoles() {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
-            if (!PermissionHelper<User>.AllowedToPerformAction(myUserInformation, SocialPermission.Switch_Users_Role)) {
+            UserInformationModel<T> myUserInformation = GetUserInformatonModel();
+            if (!PermissionHelper<T>.AllowedToPerformAction(myUserInformation, SocialPermission.Switch_Users_Role)) {
                 return SendToErrorPage(ErrorKeys.PERMISSION_DENIED);
             }
-            List<Role> myRoles = new List<Role>();
+            List<U> myRoles = new List<U>();
             try {
-                myRoles = theRoleService.GetAllRoles(GetUserInformatonModel()).ToList<Role>();
+                myRoles = theRoleService.GetAllRoles(GetUserInformatonModel()).ToList<U>();
 
-                SwitchUserRoles mySwitchRoles = new SwitchUserRoles.Builder()
-                                                    .Roles(myRoles)
-                                                    .SelectedCurrentRoleId(0)
-                                                    .SelectedMoveToRoleId(0)
-                                                    .Build();
+                SwitchUserRoles<T, U> mySwitchRoles = new SwitchUserRoles<T, U>() {
+                    MoveToRoles = GetCurrentRoles(myRoles, 0),
+                    CurrentRoles = GetMoveToRoles(myRoles, 0)
+                };
 
                 return View("SwitchUserRoles", mySwitchRoles);
             } catch (Exception e) {
@@ -216,19 +229,16 @@ namespace BaseWebsite.Controllers.Admin {
             }
         }
 
-        [ActionName("SwitchUserRoles")]
-        [AcceptParameter(Name = "button", Value = "Get users for this role")]
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult SwitchUserRoles(int CurrentRoleId, int MoveToRoleId) {
+        protected ActionResult SwitchUserRoles(int CurrentRoleId, int MoveToRoleId) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
-            if (!PermissionHelper<User>.AllowedToPerformAction(myUserInformation, SocialPermission.Switch_Users_Role)) {
+            UserInformationModel<T> myUserInformation = GetUserInformatonModel();
+            if (!PermissionHelper<T>.AllowedToPerformAction(myUserInformation, SocialPermission.Switch_Users_Role)) {
                 return SendToErrorPage(ErrorKeys.PERMISSION_DENIED);
             }
             try {
-                SwitchUserRoles mySwitchRoles = CreateSwitchUserRolesModel(null, CurrentRoleId, MoveToRoleId);
+                SwitchUserRoles<T, U> mySwitchRoles = CreateSwitchUserRolesModel(null, CurrentRoleId, MoveToRoleId);
                 return View("SwitchUserRoles", mySwitchRoles);
             } catch (Exception e) {
                 LogError(e, "Error creating the SwitchUserRolesModel.");
@@ -236,10 +246,7 @@ namespace BaseWebsite.Controllers.Admin {
             }
         }
 
-        [ActionName("SwitchUserRoles")]
-        [AcceptParameter(Name = "button", Value = "Move users to this role")]
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult SwitchUserRoles(int[] SelectedUserIds, int CurrentRoleId, int MoveToRoleId) {
+        protected ActionResult SwitchUserRoles(int[] SelectedUserIds, int CurrentRoleId, int MoveToRoleId) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
@@ -250,13 +257,13 @@ namespace BaseWebsite.Controllers.Admin {
                 }
             } catch (Exception e) {
                 LogError(e, new StringBuilder().AppendFormat("Error moving the users to a new role. "
-                    + "[selectedUserIds={0};currentRoldId={1};moveToRoleId={2}]", 
+                    + "[selectedUserIds={0};currentRoldId={1};moveToRoleId={2}]",
                     SelectedUserIds, CurrentRoleId, MoveToRoleId).ToString());
                 return SendToErrorPage("Error getting the content to load on the page. Please check the error log.");
             }
 
             try {
-                SwitchUserRoles mySwitchRoles = CreateSwitchUserRolesModel(SelectedUserIds, CurrentRoleId, MoveToRoleId);
+                SwitchUserRoles<T, U> mySwitchRoles = CreateSwitchUserRolesModel(SelectedUserIds, CurrentRoleId, MoveToRoleId);
                 return View("SwitchUserRoles", mySwitchRoles);
             } catch (Exception e) {
                 LogError(e, "Error creating the SwitchUserRolesModel.");
@@ -264,41 +271,39 @@ namespace BaseWebsite.Controllers.Admin {
             }
         }
 
-        private RoleModel CreateRoleModel(RoleModel aModel) {
-            RoleModel myModel = CreateRoleModel(aModel.Role);
+        private SwitchUserRoles<T, U> CreateSwitchUserRolesModel(int[] SelectedUserIds, int aCurrentRole, int aMoveToRole) {
+            List<int> mySelectedUsers = SelectedUserIds == null ? new List<int>() : SelectedUserIds.ToList<int>();
+            IEnumerable<U> myRoles = theRoleService.GetAllRoles(GetUserInformatonModel());
+            List<Pair<T, bool>> myUsers = UserSelection(mySelectedUsers, aCurrentRole);
+
+            return new SwitchUserRoles<T, U>() {
+                Users = myUsers,
+                SelectedCurrentRoleId = aCurrentRole,
+                SelectedMoveToRoleId = aMoveToRole,
+                MoveToRoles = GetCurrentRoles(myRoles, aMoveToRole),
+                CurrentRoles = GetMoveToRoles(myRoles, aCurrentRole)
+            };
+        }
+
+        private List<Pair<T, bool>> UserSelection(List<int> aSelectedUsers, int aRoleId) {
+            List<AbstractUserModel<T>> myUsers = theRoleService.UsersInRole(aRoleId).Select(u => GetSocialUserInformation(u)).ToList<AbstractUserModel<T>>();
+            return SelectionHelper<T>.UserSelection(aSelectedUsers, myUsers);
+        }
+
+
+        private AbstractRoleViewModel<U, V> CreateRoleModel(AbstractRoleViewModel<U, V> aModel) {
+            AbstractRoleViewModel<U, V> myModel = CreateRoleModel(aModel.Role);
             myModel.SelectedPermissionsIds = aModel.SelectedPermissionsIds;
             return myModel;
         }
 
-        private RoleModel CreateRoleModel(Role aModel) {
-            List<Permission> myPermissions = thePermissionService.GetAllPermissions().ToList<Permission>();
+        private AbstractRoleViewModel<U, V> CreateRoleModel(U aModel) {
+            List<V> myPermissions = thePermissionService.GetAllPermissions(GetUserInformatonModel()).ToList<V>();
             if (myPermissions.Count == 0) {
-                ViewData["PermissionMessage"] = MessageHelper.NormalMessage("There are currently no permissions created, please create a permission first.");
+                ViewData["PermissionMessage"] = NormalMessage("There are currently no permissions created, please create a permission first.");
             }
 
-            RoleModel myModel = new RoleModel(aModel) {
-                AllPermissions = myPermissions
-            };
-
-            return myModel;
+            return CreateRoleViewModel(aModel, myPermissions);
         }
-
-        private SwitchUserRoles CreateSwitchUserRolesModel(int[] SelectedUserIds, int aCurrentRole, int aMoveToRole) {
-            List<int> mySelectedUsers = SelectedUserIds == null ? new List<int>() : SelectedUserIds.ToList<int>();
-            IEnumerable<Role> myRoles = theRoleService.GetAllRoles(GetUserInformatonModel());
-            List<Pair<User, bool>> myUsers = UserSelection(mySelectedUsers, aCurrentRole);
-
-            return new SwitchUserRoles.Builder()
-                .Roles(myRoles)
-                .Users(myUsers)
-                .SelectedCurrentRoleId(aCurrentRole)
-                .SelectedMoveToRoleId(aMoveToRole)
-                .Build();
-        }
-
-        private List<Pair<User, bool>> UserSelection(List<int> aSelectedUsers, int aRoleId) {
-            List<User> myUsers = theRoleService.UsersInRole(aRoleId).ToList<User>();
-            return SelectionHelper.UserSelection(aSelectedUsers, myUsers);
-        }*/
     }
 }

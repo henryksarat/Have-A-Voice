@@ -2,6 +2,7 @@
 
 namespace Social.Authentication {
     public interface IUserInformation<T, U> {
+        bool IsLoggedIn();
         UserInformationModel<T> GetUserInformaton();
     }
 }

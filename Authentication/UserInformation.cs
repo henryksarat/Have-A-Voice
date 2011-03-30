@@ -15,6 +15,10 @@ namespace Social.Authentication {
             theWhoIsOnlineService = aWhoIsOnlineService;
         }
 
+        public bool IsLoggedIn() {
+            return GetUserInformaton() != null;
+        }
+
         public UserInformationModel<T> GetUserInformaton() {
             //This becomes null sometimes for some reason... investigate furtur
             if (theHttpContext.Session == null) {

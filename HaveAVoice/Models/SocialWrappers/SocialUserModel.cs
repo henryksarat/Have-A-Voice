@@ -3,7 +3,10 @@
 namespace HaveAVoice.Models.SocialWrappers {
     public class SocialUserModel : AbstractUserModel<User> {
         public static SocialUserModel Create(User anExternal) {
-            return new SocialUserModel(anExternal);
+            if (anExternal != null) {
+                return new SocialUserModel(anExternal);
+            }
+            return null;
         }
 
         public override User FromModel() {

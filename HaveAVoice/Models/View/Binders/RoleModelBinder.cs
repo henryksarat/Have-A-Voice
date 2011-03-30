@@ -22,7 +22,7 @@ namespace HaveAVoice.Models.View {
 
             Role myRole = Role.CreateRole(myRoleId, myName, myDescription, myDefaultRole, false);
 
-            RoleModel myModel = new RoleModel(myRole);
+            RoleViewModel myModel = new RoleViewModel(myRole);
             myModel.SelectedPermissionsIds = mySelectedPermissions;
 
             return myModel;

@@ -9,6 +9,7 @@ using HaveAVoice.Services;
 using HaveAVoice.Repositories;
 using Social.Generic.Services;
 using HaveAVoice.Models;
+using Social.Generic.Models;
 
 namespace HaveAVoice.Controllers.Shared
 {
@@ -24,7 +25,7 @@ namespace HaveAVoice.Controllers.Shared
         }
 
         public ActionResult Error() {
-            ErrorModel error = (ErrorModel)Session["ErrorMessage"];
+            StringModel error = (StringModel)Session["ErrorMessage"];
             Session.Remove("ErrorMessage");
             return View("Error", error);
         }

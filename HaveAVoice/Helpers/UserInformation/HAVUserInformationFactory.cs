@@ -24,6 +24,11 @@ namespace HaveAVoice.Helpers.UserInformation {
             theFactory = userInformation;
         }
 
+        public static IUserInformation<User, WhoIsOnline> GetInstance() {
+            SetDefaultInstance();
+            return theFactory;
+        }
+
         private static void SetDefaultInstance() {
             if (theFactory == null) {
                 theFactory = UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()));
