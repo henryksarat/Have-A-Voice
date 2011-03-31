@@ -24,12 +24,12 @@ namespace HaveAVoice.Controllers.Admin {
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Index() {
+        new public ActionResult Index() {
             return base.Index();
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
-        public ActionResult Create() {
+        new public ActionResult Create() {
             return base.Create();
         }
 
@@ -39,22 +39,22 @@ namespace HaveAVoice.Controllers.Admin {
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Edit(int id) {
+        new public ActionResult Edit(int id) {
             return base.Edit(id);
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Edit(Permission permission) {
+        new public ActionResult Edit(Permission permission) {
             return base.Edit(permission);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Delete(int id) {
+        new public ActionResult Delete(int id) {
             return base.Delete(id);
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Delete(Permission permission) {
+        new public ActionResult Delete(Permission permission) {
             return base.Delete(permission);
         }
 

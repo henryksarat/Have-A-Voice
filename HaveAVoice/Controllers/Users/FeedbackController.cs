@@ -41,7 +41,7 @@ namespace HaveAVoice.Controllers.Users
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult View() {
+        new public ActionResult View() {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }

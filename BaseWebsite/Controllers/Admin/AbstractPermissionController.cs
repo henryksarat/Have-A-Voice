@@ -7,6 +7,7 @@ using Social.Admin.Exceptions;
 using Social.Admin.Helpers;
 using Social.Authentication;
 using Social.Authentication.Services;
+using Social.Generic.Constants;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Generic.Services;
@@ -22,7 +23,6 @@ namespace BaseWebsite.Controllers.Admin {
     //Y = RolePermission
     //Z = WhoIsOnline
     public abstract class AbstractPermissionController<T, U, V, W, X, Y, Z> : BaseController<T, U, V, W, X, Y, Z> {
-        private static string PAGE_NOT_FOUND = "You do not have access.";
         private IPermissionService<T, V> thePermissionService;
 
         public AbstractPermissionController(IBaseService<T> aBaseService, IUserInformation<T, Z> aUserInformation, IAuthenticationService<T, U, V, W, X, Y> anAuthService, 
@@ -38,7 +38,7 @@ namespace BaseWebsite.Controllers.Admin {
                 return RedirectToLogin();
             }
             if (!PermissionHelper<T>.AllowedToPerformAction(GetUserInformatonModel(), SocialPermission.View_Permissions)) {
-                return SendToErrorPage(PAGE_NOT_FOUND);
+                return SendToErrorPage(ErrorKeys.PERMISSION_DENIED);
             }
 
              try {
@@ -60,7 +60,7 @@ namespace BaseWebsite.Controllers.Admin {
         protected ActionResult Create() {
             UserInformationModel<T> myUserInformation = GetUserInformatonModel();
             if (!PermissionHelper<T>.AllowedToPerformAction(myUserInformation, SocialPermission.Create_Permission)) {
-                return SendToErrorPage(PAGE_NOT_FOUND);
+                return SendToErrorPage(ErrorKeys.PERMISSION_DENIED);
             }
             return View("Create");
         }
@@ -89,7 +89,7 @@ namespace BaseWebsite.Controllers.Admin {
             }
             UserInformationModel<T> myUserInformation = GetUserInformatonModel();
             if (!PermissionHelper<T>.AllowedToPerformAction(myUserInformation, SocialPermission.Edit_Permission)) {
-                return SendToErrorPage(PAGE_NOT_FOUND);
+                return SendToErrorPage(ErrorKeys.PERMISSION_DENIED);
             }
 
             try {
@@ -131,7 +131,7 @@ namespace BaseWebsite.Controllers.Admin {
             }
             UserInformationModel<T> myUserInformation = GetUserInformatonModel();
             if (!PermissionHelper<T>.AllowedToPerformAction(myUserInformation, SocialPermission.Delete_Permission)) {
-                return SendToErrorPage(PAGE_NOT_FOUND);
+                return SendToErrorPage(ErrorKeys.PERMISSION_DENIED);
             }
             
             try {

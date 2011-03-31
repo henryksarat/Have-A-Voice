@@ -1,63 +1,89 @@
-﻿using System;
+﻿using System.Web;
 using System.Web.Mvc;
+using BaseWebsite.Controllers.Core;
 using HaveAVoice.Controllers.Helpers;
-using HaveAVoice.Repositories;
-using HaveAVoice.Services;
-using HaveAVoice.Services.SiteFeatures;
-using Social.Generic.ActionFilters;
-using Social.Validation;
+using HaveAVoice.Helpers;
 using HaveAVoice.Models;
+using HaveAVoice.Models.SocialWrappers;
+using HaveAVoice.Repositories;
+using HaveAVoice.Repositories.UserFeatures;
+using HaveAVoice.Services.UserFeatures;
+using Social.Authentication;
+using Social.Authentication.Helpers;
+using Social.Generic.ActionFilters;
+using Social.Generic.Models;
 using Social.Generic.Services;
+using HaveAVoice.Repositories.SiteFeatures;
 
 namespace HaveAVoice.Controllers.Core {
-    public class SiteController : HAVBaseController {
-        private const string SUBMISSION_ERROR = "An error occurred while submitting your request. Please try again.";
-
-        private IHAVContactUsService theContactUsService;
-        private IValidationDictionary theValidationDictionary;
-
+    public class SiteController : AbstractSiteController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
         public SiteController() :
-            base(new BaseService<User>(new HAVBaseRepository())) {
-            theValidationDictionary = new ModelStateWrapper(this.ModelState);
-            theContactUsService = new HAVContactUsService(theValidationDictionary);
-        }
-
-        public SiteController(IBaseService<User> baseService, IHAVContactUsService aContactUsService)
-            : base(baseService) {
-            theContactUsService = aContactUsService;
+            base(new BaseService<User>(new HAVBaseRepository()),
+                   UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository())),
+                   new HAVAuthenticationService(),
+                   new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()),
+                   new EntityHAVContactUsRepository()) {
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
-        public ActionResult ContactUs() {
-            return View("ContactUs");
+        new public ActionResult ContactUs() {
+            return base.ContactUs();
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
-        public ActionResult ContactUs(string email, string inquiryType, string inquiry) {
-            try {
-                bool myResult = theContactUsService.AddContactUsInquiry(email, inquiryType, inquiry);
-
-                if (myResult) {
-                    TempData["Message"] = MessageHelper.SuccessMessage("Inquiry processed. Thank you for the submission!");
-                }
-            } catch (Exception e) {
-                TempData["Message"] = MessageHelper.ErrorMessage(SUBMISSION_ERROR);
-                LogError(e, SUBMISSION_ERROR);
-            }
-
-            return RedirectToAction("ContactUs");
+        new public ActionResult ContactUs(string email, string inquiryType, string inquiry) {
+            return base.ContactUs(email, inquiryType, inquiry);
         }
 
-        public ActionResult Privacy() {
+        [AcceptVerbs(HttpVerbs.Get)]
+        new public ActionResult Privacy() {
             return View("Privacy");
         }
 
-        public ActionResult AboutUs() {
+        [AcceptVerbs(HttpVerbs.Get)]
+        new public ActionResult AboutUs() {
             return View("AboutUs");
         }
 
-        public ActionResult Terms() {
+        [AcceptVerbs(HttpVerbs.Get)]
+        new public ActionResult Terms() {
             return View("Terms");
+        }
+
+        protected override AbstractUserModel<User> GetSocialUserInformation() {
+            return SocialUserModel.Create(GetUserInformaton());
+        }
+
+        protected override AbstractUserModel<User> GetSocialUserInformation(User aUser) {
+            return SocialUserModel.Create(aUser);
+        }
+
+        protected override IProfilePictureStrategy<User> ProfilePictureStrategy() {
+            return new ProfilePictureStrategy();
+        }
+
+        protected override string UserEmail() {
+            return GetUserInformaton().Email;
+        }
+
+        protected override string UserPassword() {
+            return GetUserInformaton().Password;
+        }
+
+        protected override int UserId() {
+            return GetUserInformaton().Id;
+        }
+
+        protected override string ErrorMessage(string aMessage) {
+            return MessageHelper.ErrorMessage(aMessage);
+        }
+
+        protected override string NormalMessage(string aMessage) {
+            return MessageHelper.NormalMessage(aMessage);
+        }
+
+        protected override string SuccessMessage(string aMessage) {
+            return MessageHelper.SuccessMessage(aMessage);
         }
     }
 }

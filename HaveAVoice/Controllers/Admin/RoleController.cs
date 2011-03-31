@@ -29,12 +29,12 @@ namespace HaveAVoice.Controllers.Admin {
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Index() {
+        new public ActionResult Index() {
             return base.Index();
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Create() {
+        new public ActionResult Create() {
             return base.Create();
         }
 
@@ -44,41 +44,41 @@ namespace HaveAVoice.Controllers.Admin {
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Edit(int id) {
+        new public ActionResult Edit(int id) {
             return base.Edit(id);
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Edit(RoleViewModel role) {
+        new public ActionResult Edit(RoleViewModel role) {
             return base.Edit(role);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Delete(int id) {
+        new public ActionResult Delete(int id) {
             return base.Delete(id);
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Delete(Role roleToDelete) {
+        new public ActionResult Delete(Role roleToDelete) {
             return base.Delete(roleToDelete);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult SwitchUserRoles() {
+        new public ActionResult SwitchUserRoles() {
             return base.SwitchUserRoles();
         }
 
         [ActionName("SwitchUserRoles")]
         [AcceptParameter(Name = "button", Value = "Get users for this role")]
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult SwitchUserRoles(int CurrentRoleId, int MoveToRoleId) {
+        new public ActionResult SwitchUserRoles(int CurrentRoleId, int MoveToRoleId) {
             return base.SwitchUserRoles(CurrentRoleId, MoveToRoleId);
         }
 
         [ActionName("SwitchUserRoles")]
         [AcceptParameter(Name = "button", Value = "Move users to this role")]
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult SwitchUserRoles(int[] SelectedUserIds, int CurrentRoleId, int MoveToRoleId) {
+        new public ActionResult SwitchUserRoles(int[] SelectedUserIds, int CurrentRoleId, int MoveToRoleId) {
             return base.SwitchUserRoles(SelectedUserIds, CurrentRoleId, MoveToRoleId);
         }
 

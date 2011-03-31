@@ -1,117 +1,84 @@
-﻿using System;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
+using BaseWebsite.Controllers.Core;
 using HaveAVoice.Controllers.Helpers;
-using HaveAVoice.Exceptions;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models;
 using HaveAVoice.Models.SocialWrappers;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
-using HaveAVoice.Services.Helpers;
 using HaveAVoice.Services.UserFeatures;
-using Social.Admin.Exceptions;
-using Social.Authentication.Services;
-using Social.Generic.Constants;
+using Social.Authentication;
+using Social.Authentication.Helpers;
 using Social.Generic.Models;
 using Social.Generic.Services;
-using Social.Users.Services;
-using Social.Validation;
+using Social.Generic.ActionFilters;
 
 namespace HaveAVoice.Controllers.Core {
-    public class AuthenticationController : HAVBaseController {
+    public class AuthenticationController : AbstractAuthenticationController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
         private const string ACCOUNT_ACTIVATED_BODY = "You may now login and access have a voice!";
 
-        private IAuthenticationService<User, Role, Permission, UserRole, PrivacySetting, RolePermission> theAuthService;
-        private IWhoIsOnlineService<User, WhoIsOnline> theWhoIsOnlineService;
-        private IValidationDictionary theValidationDictionary;
-
-        public AuthenticationController() :
-            base(new BaseService<User>(new HAVBaseRepository())) {
-            theValidationDictionary = new ModelStateWrapper(this.ModelState);
-            theAuthService = new HAVAuthenticationService();
-            theWhoIsOnlineService = new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository());
-        }
-
-        public AuthenticationController(IBaseService<User> baseService, IHAVAuthenticationService anAuthService, IWhoIsOnlineService<User, WhoIsOnline> aWhoIsOnlineService)
-            : base(baseService) {
-            theAuthService = anAuthService;
-            theWhoIsOnlineService = aWhoIsOnlineService;
+        public AuthenticationController()
+            : base(new BaseService<User>(new HAVBaseRepository()), 
+                   UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository())),
+              new HAVAuthenticationService(), 
+              new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository())) {
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Login() {
-            if (IsLoggedIn()) {
-                return RedirectToProfile();
-            }
-            return View("Login");
+        new public ActionResult Login() {
+            return base.Login();
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Login(string email, string password, bool rememberMe) {
-            if (IsLoggedIn()) {
-                return RedirectToProfile();
-            }
-
-            UserInformationModel<User> userModel = null;
-            try {
-                userModel = theAuthService.AuthenticateUser(email, password, new ProfilePictureStrategy());
-            } catch (Exception e) {
-                LogError(e, AuthenticationKeys.AUTHENTICAITON_ERROR);
-                ViewData["Message"] = MessageHelper.ErrorMessage(AuthenticationKeys.AUTHENTICAITON_ERROR);
-                return View("Login");
-            }
-
-            if (userModel != null) {
-                theWhoIsOnlineService.AddToWhoIsOnline(userModel.Details, HttpContext.Request.UserHostAddress);
-
-                CreateUserInformationSession(userModel);
-                if (rememberMe) {
-                    theAuthService.CreateRememberMeCredentials(SocialUserModel.Create(userModel.Details));
-                }
-            } else {
-                ViewData["Message"] = MessageHelper.NormalMessage(AuthenticationKeys.INCORRECT_LOGIN);
-                return View("Login");
-            }
-
-            return RedirectToProfile();
+        new public ActionResult Login(string email, string password, bool rememberMe) {
+            return base.Login(email, password, rememberMe);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult ActivateAccount(string id) {
-            if (IsLoggedIn()) {
-                return RedirectToProfile();
-            }
-            string myError;
-            try {
-                theAuthService.ActivateNewUser(id);
-                return SendToResultPage(AuthenticationKeys.ACCOUNT_ACTIVATED_TITLE, ACCOUNT_ACTIVATED_BODY);
-            } catch (NullUserException) {
-                myError = AuthenticationKeys.INVALID_ACTIVATION_CODE;
-            } catch (NullRoleException e) {
-                LogError(e, AuthenticationKeys.SPECIFIC_ROLE_ERROR);
-                myError = AuthenticationKeys.OUR_ERROR;
-            } catch (Exception e) {
-                LogError(e, AuthenticationKeys.ACTIVATION_ERROR);
-                myError = AuthenticationKeys.ACTIVATION_ERROR;
-            }
-            return SendToErrorPage(myError);
+            return base.ActivateAccount(id, ACCOUNT_ACTIVATED_BODY);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult LogOut() {
-            if (!IsLoggedIn()) {
-                return RedirectToHomePage();
-            }
-            theWhoIsOnlineService.RemoveFromWhoIsOnline(GetUserInformaton(), HttpContext.Request.UserHostAddress);
-            Session.Clear();
-            CookieHelper.ClearCookies();
-            TempData["Message"] = MessageHelper.SuccessMessage(AuthenticationKeys.LOGGED_OUT);
-            return RedirectToAction("Login");
+        new public ActionResult LogOut() {
+            return base.LogOut();
         }
 
-        private void CreateUserInformationSession(UserInformationModel<User> aUserModel) {
-            Session["UserInformation"] = aUserModel;
+        protected override AbstractUserModel<User> GetSocialUserInformation() {
+            return SocialUserModel.Create(GetUserInformaton());
+        }
+
+        protected override AbstractUserModel<User> GetSocialUserInformation(User aUser) {
+            return SocialUserModel.Create(aUser);
+        }
+
+        protected override IProfilePictureStrategy<User> ProfilePictureStrategy() {
+            return new ProfilePictureStrategy();
+        }
+
+        protected override string UserEmail() {
+            return GetUserInformaton().Email;
+        }
+
+        protected override string UserPassword() {
+            return GetUserInformaton().Password;
+        }
+
+        protected override int UserId() {
+            return GetUserInformaton().Id;
+        }
+
+        protected override string ErrorMessage(string aMessage) {
+            return MessageHelper.ErrorMessage(aMessage);
+        }
+
+        protected override string NormalMessage(string aMessage) {
+            return MessageHelper.NormalMessage(aMessage);
+        }
+
+        protected override string SuccessMessage(string aMessage) {
+            return MessageHelper.SuccessMessage(aMessage);
         }
     }
 }

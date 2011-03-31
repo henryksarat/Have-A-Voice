@@ -23,7 +23,7 @@ namespace HaveAVoice.Controllers.Admin {
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Index() {
+        new public ActionResult Index() {
             return base.Index();
         }
 
