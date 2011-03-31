@@ -60,7 +60,7 @@ namespace BaseWebsite.Controllers.Core {
 
                 CreateUserInformationSession(userModel);
                 if (rememberMe) {
-                    theAuthService.CreateRememberMeCredentials(GetSocialUserInformation(userModel.Details));
+                    theAuthService.CreateRememberMeCredentials(CreateSocialUserModel(userModel.Details));
                 }
             } else {
                 ViewData["Message"] = NormalMessage(AuthenticationKeys.INCORRECT_LOGIN);

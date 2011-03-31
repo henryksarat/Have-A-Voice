@@ -112,7 +112,7 @@ namespace HaveAVoice.Controllers.Admin {
             return SocialUserModel.Create(GetUserInformaton());
         }
 
-        protected override AbstractUserModel<User> GetSocialUserInformation(User aUser) {
+        protected override AbstractUserModel<User> CreateSocialUserModel(User aUser) {
             return SocialUserModel.Create(aUser);
         }
 

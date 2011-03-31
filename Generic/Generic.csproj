@@ -55,6 +55,7 @@
     <Compile Include="Constants\Gender.cs" />
     <Compile Include="Constants\RoleKeys.cs" />
     <Compile Include="Constants\States.cs" />
+    <Compile Include="Constants\ValidationKeys.cs" />
     <Compile Include="Helpers\CaptchaHelper.cs" />
     <Compile Include="Helpers\DateHelper.cs" />
     <Compile Include="Helpers\HashHelper.cs" />

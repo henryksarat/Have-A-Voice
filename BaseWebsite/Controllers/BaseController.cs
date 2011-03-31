@@ -33,7 +33,7 @@ namespace BaseWebsite.Controllers {
         }
 
         protected abstract AbstractUserModel<T> GetSocialUserInformation();
-        protected abstract AbstractUserModel<T> GetSocialUserInformation(T aUser);
+        protected abstract AbstractUserModel<T> CreateSocialUserModel(T aUser);
 
         protected abstract IProfilePictureStrategy<T> ProfilePictureStrategy();
         
@@ -78,7 +78,7 @@ namespace BaseWebsite.Controllers {
 
                 if (myUser != null) {
                     UserInformationModel<T> userModel = null;
-                    AbstractUserModel<T> mySocialUserModel = GetSocialUserInformation(myUser);
+                    AbstractUserModel<T> mySocialUserModel = CreateSocialUserModel(myUser);
                     try {
                         userModel = theAuthService.CreateUserInformationModel(mySocialUserModel, ProfilePictureStrategy());
                     } catch (Exception e) {
@@ -90,7 +90,7 @@ namespace BaseWebsite.Controllers {
                             theWhoIsOnlineService.AddToWhoIsOnline(userModel.Details, HttpContext.Request.UserHostAddress);
 
                             CreateUserInformationSession(userModel);
-                            theAuthService.CreateRememberMeCredentials(GetSocialUserInformation(userModel.Details));
+                            theAuthService.CreateRememberMeCredentials(CreateSocialUserModel(userModel.Details));
                         } catch (Exception e) {
                             LogError(e, AFTER_AUTHENTICATION_ERROR);
                         }

@@ -47,6 +47,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EmailValidation.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Generic\Generic.csproj">
+      <Project>{E75FF555-CD9D-42B4-9D4D-07955F5629B3}</Project>
+      <Name>Generic</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

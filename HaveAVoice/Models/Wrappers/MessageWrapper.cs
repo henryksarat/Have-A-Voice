@@ -4,6 +4,7 @@ using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Models {
     public class MessageWrapper {
+        /*
         public int ToUserId { get; set; }
 
         public string ToFullName { get; set; }
@@ -27,5 +28,6 @@ namespace HaveAVoice.Models {
                 ToUserProfilePictureUrl = aProfilePictureUrl
             };
         }
+         * */
     }
 }

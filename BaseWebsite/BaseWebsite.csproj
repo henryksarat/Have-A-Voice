@@ -72,9 +72,13 @@
     <Compile Include="Controllers\Core\AbstractAuthenticationController.cs" />
     <Compile Include="Controllers\Core\AbstractPasswordController.cs" />
     <Compile Include="Controllers\Core\AbstractSiteController.cs" />
+    <Compile Include="Controllers\Users\AbstractUserController.cs" />
+    <Compile Include="Controllers\Messaging\AbstractMessageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ILoggedInListModel.cs" />
+    <Compile Include="Models\ILoggedInModel.cs" />
     <Compile Include="Models\SwitchUserRoles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\AbstractRoleModel.cs" />
@@ -110,6 +114,10 @@
     <ProjectReference Include="..\Generic\Generic.csproj">
       <Project>{E75FF555-CD9D-42B4-9D4D-07955F5629B3}</Project>
       <Name>Generic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Messaging\Messaging.csproj">
+      <Project>{AC9BB02F-5404-4791-B2D6-C24BA825CC60}</Project>
+      <Name>Messaging</Name>
     </ProjectReference>
     <ProjectReference Include="..\Site\Site.csproj">
       <Project>{603D670F-6710-46C5-8A0B-CC2FC20F76CD}</Project>

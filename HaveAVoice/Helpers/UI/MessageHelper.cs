@@ -30,7 +30,7 @@ namespace HaveAVoice.Helpers.UI {
         	
         	var userLinkDiv = new TagBuilder("div");
         	userLinkDiv.MergeAttribute("class", "p-t10");
-        	userLinkDiv.InnerHtml = String.Format("<a href=\"View/{0}\">{1}</a>", aMessageId, aFromUser);
+            userLinkDiv.InnerHtml = String.Format("<a href=\"Details/{0}\">{1}</a>", aMessageId, aFromUser);
         	
         	var clrDiv = new TagBuilder("div");
         	clrDiv.MergeAttribute("class", "clear");
@@ -51,7 +51,7 @@ namespace HaveAVoice.Helpers.UI {
         	
         	var sbjDiv = new TagBuilder("div");
         	sbjDiv.MergeAttribute("class", "p-t10");
-        	sbjDiv.InnerHtml = String.Format("<a href=\"View/{0}\">{1}</a>", aMessageId, aSubject);
+            sbjDiv.InnerHtml = String.Format("<a href=\"Details/{0}\">{1}</a>", aMessageId, aSubject);
         	
         	var bdyDiv = new TagBuilder("div");
         	bdyDiv.MergeAttribute("class", "p-b10");
@@ -111,7 +111,7 @@ namespace HaveAVoice.Helpers.UI {
             var trTag = new TagBuilder("tr");
 
             var tdTag = new TagBuilder("td");
-            tdTag.InnerHtml = String.Format("<a href=\"View/{0}\">{1}</a>", messageId, subject);
+            tdTag.InnerHtml = String.Format("<a href=\"Details/{0}\">{1}</a>", messageId, subject);
             trTag.InnerHtml = tdTag.ToString();
             tableTag.InnerHtml += trTag.ToString();
 
@@ -121,7 +121,7 @@ namespace HaveAVoice.Helpers.UI {
             tableTag.InnerHtml += trTag.ToString();
 
             tdTag = new TagBuilder("td");
-            tdTag.InnerHtml = String.Format("<a href=\"View/{0}\">{1}</a>", messageId, body);
+            tdTag.InnerHtml = String.Format("<a href=\"Details/{0}\">{1}</a>", messageId, body);
             trTag.InnerHtml = tdTag.ToString();
             tableTag.InnerHtml += trTag.ToString();
 

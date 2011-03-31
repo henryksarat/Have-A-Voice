@@ -1,6 +1,7 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInWrapperModel<MessageWrapper>>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInWrapperModel<Social.Generic.Models.AbstractMessageModel<Message>>>" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
+<%@ Import Namespace="HaveAVoice.Models.SocialWrappers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Send a Message
@@ -19,20 +20,20 @@
 	    <div class="clear">&nbsp;</div>
 	    
 	    <div class="col-3">
-        <%= Model.Model.ToFullName %>
-	    	<img src="<%=Model.Model.ToUserProfilePictureUrl %>" alt="<%= Model.Model.ToFullName %>" class="profile" />
+        <%= Model.Get().ToUserFullName %>
+	    	<img src="<%=Model.Model.ToUserProfilePictureUrl %>" alt="<%= Model.Model.ToUserFullName %>" class="profile" />
 	    	<div class="clear">&nbsp;</div>
 	    </div>
 	    <div class="col-18">
 	    	<div class="col-18">
-	    		<h4><%= Html.Encode("Message: " + Model.Model.ToFullName)%></h4>
+	    		<h4><%= Html.Encode("Message: " + Model.Get().ToUserFullName)%></h4>
 				<div class="clear">&nbsp;</div>
 	    	</div>
 	    	<div class="clear">&nbsp;</div>
 	    	
 	        <% using (Html.BeginForm("Create", "Message", FormMethod.Post, new { @class = "create" })) { %>
 		        <%= Html.Hidden("ToUserId", Model.Model.ToUserId)%>
-		        <%= Html.Hidden("ToFullName", Model.Model. ToFullName)%>
+		        <%= Html.Hidden("ToFullName", Model.Get().ToUserFullName)%>
 		        <%= Html.Hidden("ToUserProfilePictureUrl", Model.Model.ToUserProfilePictureUrl)%>
 		        
 		        <div class="clear">&nbsp;</div>

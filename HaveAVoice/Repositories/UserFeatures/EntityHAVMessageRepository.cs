@@ -22,7 +22,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
                                                 select m).ToList();
 
             IEnumerable<AbstractMessageModel<Message>> myAbstract = (from m in myMessages
-                                                                     select SocialMessageWrapper.Create(m))
+                                                                     select SocialMessageModel.Create(m))
                                                                      .ToList<AbstractMessageModel<Message>>();
             return myAbstract;
 
@@ -98,7 +98,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
             theEntities.AddToReplys(myReply);
             theEntities.SaveChanges();
 
-            return SocialMessageWrapper.Create(message);
+            return SocialMessageModel.Create(message);
         }
 
         public Message ChangeMessageViewedStateForMe(int messageId, User toUser, bool viewed) {

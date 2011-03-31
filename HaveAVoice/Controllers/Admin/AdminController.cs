@@ -14,7 +14,7 @@ using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Controllers.Admin {
-    public class AdminController<T, U, V, W, X, Y, Z> : AbstractAdminController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
+    public class AdminController : AbstractAdminController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
         public AdminController()
             : base(new BaseService<User>(new HAVBaseRepository()), 
                    UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository())),
@@ -31,7 +31,7 @@ namespace HaveAVoice.Controllers.Admin {
             return SocialUserModel.Create(GetUserInformaton());
         }
 
-        protected override AbstractUserModel<User> GetSocialUserInformation(User aUser) {
+        protected override AbstractUserModel<User> CreateSocialUserModel(User aUser) {
             return SocialUserModel.Create(aUser);
         }
 

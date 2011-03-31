@@ -286,7 +286,7 @@ namespace BaseWebsite.Controllers.Admin {
         }
 
         private List<Pair<T, bool>> UserSelection(List<int> aSelectedUsers, int aRoleId) {
-            List<AbstractUserModel<T>> myUsers = theRoleService.UsersInRole(aRoleId).Select(u => GetSocialUserInformation(u)).ToList<AbstractUserModel<T>>();
+            List<AbstractUserModel<T>> myUsers = theRoleService.UsersInRole(aRoleId).Select(u => CreateSocialUserModel(u)).ToList<AbstractUserModel<T>>();
             return SelectionHelper<T>.UserSelection(aSelectedUsers, myUsers);
         }
 

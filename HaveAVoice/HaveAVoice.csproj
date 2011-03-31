@@ -137,7 +137,7 @@
     <Compile Include="Models\SocialWrappers\SocialRolePermissionModel.cs" />
     <Compile Include="Models\SocialWrappers\SocialBoardReplyModel.cs" />
     <Compile Include="Models\SocialWrappers\SocialBoardModel.cs" />
-    <Compile Include="Models\SocialWrappers\SocialMessageWrapper.cs" />
+    <Compile Include="Models\SocialWrappers\SocialMessageModel.cs" />
     <Compile Include="Models\SocialWrappers\SocialPermissionModel.cs" />
     <Compile Include="Models\SocialWrappers\SocialPrivacySettingsModel.cs" />
     <Compile Include="Models\SocialWrappers\SocialReplyWrapper.cs" />
@@ -267,8 +267,6 @@
     <Compile Include="Models\View\SwitchUserRoles.cs" />
     <Compile Include="Models\View\UserPicturesModel.cs" />
     <Compile Include="Models\View\Binders\UserPicturesModelBinder.cs" />
-    <Compile Include="Models\View\ViewMessageModel.cs" />
-    <Compile Include="Models\View\Binders\ViewMessageModelBinder.cs" />
     <Compile Include="Models\HaveAVoiceDBModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -390,7 +388,7 @@
     <Content Include="Views\Issue\Details.aspx" />
     <Content Include="Views\Message\Inbox.aspx" />
     <Content Include="Views\Message\Create.aspx" />
-    <Content Include="Views\Message\View.aspx" />
+    <Content Include="Views\Message\Details.aspx" />
     <Content Include="Views\Notification\List.aspx" />
     <Content Include="Views\Permission\Create.aspx" />
     <Content Include="Views\Permission\Delete.aspx" />

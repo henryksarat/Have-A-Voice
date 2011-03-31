@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Social.Generic.Constants;
 
 namespace Social.Validation {
     public class ModelStateWrapper : IValidationDictionary {
@@ -15,6 +16,10 @@ namespace Social.Validation {
 
         public bool isValid {
             get { return theModelState.IsValid; }
+        }
+
+        public void ForceModleStateExport() {
+            theModelState.AddModelError(ValidationKeys.FORCED_MODELSTATE_EXPORT, string.Empty);
         }
     }
 }

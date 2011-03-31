@@ -1,6 +1,9 @@
 ﻿using Social.Generic.Models;
 
 namespace Social.User {
+    //T = User
+    //U = Role
+    //V = UserRole
     public interface IUserRepository<T, U, V> {
         V AddUserToRole(T user, U role);
         AbstractUserModel<T> CreateUser(T userToCreate, string aNotConfirmedRoleName);
