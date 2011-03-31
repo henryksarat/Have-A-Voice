@@ -56,7 +56,7 @@ namespace BaseWebsite.Controllers.Messaging {
 
         protected abstract ILoggedInListModel<InboxMessage> CreateLoggedInListModelForInbox(T aUser);
         protected abstract ILoggedInModel<AbstractMessageModel<A>> CreatedLoggedInModelForMessageCreate(T aUser);
-        protected abstract ILoggedInModel<A> CreatedLoggedInModelForViewingMessage<T>(T aUser);
+        protected abstract ILoggedInModel<A> CreatedLoggedInModelForViewingMessage(T aUser);
         protected abstract AbstractMessageModel<A> CreateNewMessageSocialMessageModel(T aUser);
         protected abstract int GetMessageIdFromMessage(A aMessage);
 

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 using BaseWebsite.Controllers.Messaging;
-using BaseWebsite.Models;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Helpers;
+using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Models;
 using HaveAVoice.Models.SocialWrappers;
 using HaveAVoice.Models.View;
@@ -16,12 +16,11 @@ using HaveAVoice.Services.UserFeatures;
 using Social.Authentication;
 using Social.Authentication.Helpers;
 using Social.BaseWebsite.Models;
+using Social.Generic.ActionFilters;
 using Social.Generic.Models;
 using Social.Generic.Services;
 using Social.Messaging.Services;
 using Social.User.Services;
-using HaveAVoice.Helpers.UserInformation;
-using Social.Generic.ActionFilters;
 
 namespace HaveAVoice.Controllers.Users {
     public class MessageController : AbstractMessageController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline, Message, Reply> {
@@ -30,12 +29,12 @@ namespace HaveAVoice.Controllers.Users {
 
         public MessageController() :
             base(new BaseService<User>(new HAVBaseRepository()),
-                   UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository())),
-              new HAVAuthenticationService(),
-              new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()),
-              new EntityHAVUserRetrievalRepository(),
-              new EntityHAVMessageRepository()) {
-                  HAVUserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository())));
+                  UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository())),
+                  new HAVAuthenticationService(),
+                  new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()),
+                  new EntityHAVUserRetrievalRepository(),
+                  new EntityHAVMessageRepository()) {
+            HAVUserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository())));
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

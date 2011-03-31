@@ -69,14 +69,18 @@
     <Compile Include="Controllers\Admin\AbstractPermissionController.cs" />
     <Compile Include="Controllers\Admin\AbstractAdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\Boards\AbstractBoardController.cs" />
+    <Compile Include="Controllers\Boards\AbstractBoardReplyController.cs" />
     <Compile Include="Controllers\Core\AbstractAuthenticationController.cs" />
     <Compile Include="Controllers\Core\AbstractPasswordController.cs" />
     <Compile Include="Controllers\Core\AbstractSiteController.cs" />
     <Compile Include="Controllers\Users\AbstractUserController.cs" />
     <Compile Include="Controllers\Messaging\AbstractMessageController.cs" />
+    <Compile Include="Controllers\Friends\AbstractFriendController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\SiteSection.cs" />
     <Compile Include="Models\ILoggedInListModel.cs" />
     <Compile Include="Models\ILoggedInModel.cs" />
     <Compile Include="Models\SwitchUserRoles.cs" />
@@ -107,9 +111,17 @@
       <Project>{7D365142-37D3-4397-90AC-5761FA085C01}</Project>
       <Name>Authentication</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Board\Board.csproj">
+      <Project>{755E3949-7FFD-44DC-84A2-639BA4BED8A2}</Project>
+      <Name>Board</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Email\Email.csproj">
       <Project>{E1E6EFDF-E70F-4413-8C2D-E51A2F6310F2}</Project>
       <Name>Email</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Friend\Friend.csproj">
+      <Project>{5BB2B446-431B-4D66-8A7A-2A6F64E35492}</Project>
+      <Name>Friend</Name>
     </ProjectReference>
     <ProjectReference Include="..\Generic\Generic.csproj">
       <Project>{E75FF555-CD9D-42B4-9D4D-07955F5629B3}</Project>
