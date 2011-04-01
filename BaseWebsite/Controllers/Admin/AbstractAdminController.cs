@@ -8,6 +8,13 @@ using Social.Generic.Services;
 using Social.Users.Services;
 
 namespace BaseWebsite.Controllers.Admin {
+    //T = User
+    //U = Role
+    //V = Permission
+    //W = UserRole
+    //X = PrivacySetting
+    //Y = RolePermission
+    //Z = WhoIsOnline
     public abstract class AbstractAdminController<T, U, V, W, X, Y, Z> : BaseController<T, U, V, W, X, Y, Z> {
         public AbstractAdminController(IBaseService<T> aBaseService, IUserInformation<T, Z> aUserInformation, IAuthenticationService<T, U, V, W, X, Y> anAuthService,
                                        IWhoIsOnlineService<T, Z> aWhoIsOnlineService) :

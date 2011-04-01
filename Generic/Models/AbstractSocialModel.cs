@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace Social.Generic.Models {
-    public interface AbstractSocialModel<T> {
-        T FromModel();
+    public abstract class AbstractSocialModel<T> {
+        public T Model { get; set; }
     }
 }

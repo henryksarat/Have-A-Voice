@@ -134,6 +134,8 @@
     </Compile>
     <Compile Include="Helpers\ActionMethods\AcceptParameterAttribute.cs" />
     <Compile Include="Helpers\ActionMethods\CaptchaValidatorAttribute.cs" />
+    <Compile Include="Models\SocialWrappers\SocialPhotoModel.cs" />
+    <Compile Include="Models\SocialWrappers\SocialPhotoAlbumModel.cs" />
     <Compile Include="Models\SocialWrappers\SocialRolePermissionModel.cs" />
     <Compile Include="Models\SocialWrappers\SocialBoardReplyModel.cs" />
     <Compile Include="Models\SocialWrappers\SocialBoardModel.cs" />
@@ -177,11 +179,8 @@
     <Compile Include="Repositories\Issues\IHAVIssueReplyRepository.cs" />
     <Compile Include="Repositories\SiteFeatures\EntityHAVContactUsRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVFanRepository.cs" />
-    <Compile Include="Repositories\UserFeatures\IFriendRepository.cs" />
-    <Compile Include="Repositories\UserFeatures\IHAVAuthenticationRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVFanRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVPhotoAlbumRepository.cs" />
-    <Compile Include="Repositories\UserFeatures\IHAVPhotoAlbumRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVAuthenticationRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVAuthorityVerificationRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVBoardRepository.cs" />
@@ -203,8 +202,6 @@
     <Compile Include="Models\ServiceConstants.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVNavigationRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVNotificationRepository.cs" />
-    <Compile Include="Repositories\UserFeatures\IHAVPasswordRepository.cs" />
-    <Compile Include="Repositories\UserFeatures\IHAVPhotoRepository.cs" />
     <Compile Include="Services\Helpers\NavigationCountHelper.cs" />
     <Compile Include="Services\Helpers\PrivacyHelper.cs" />
     <Compile Include="Services\Helpers\PhotoHelper.cs" />
@@ -215,17 +212,13 @@
     <Compile Include="Services\Issues\IHAVIssueReplyService.cs" />
     <Compile Include="Services\UserFeatures\HAVFanService.cs" />
     <Compile Include="Services\UserFeatures\IHAVFanService.cs" />
-    <Compile Include="Services\UserFeatures\HAVPhotoAlbumService.cs" />
     <Compile Include="Services\UserFeatures\HAVAuthorityVerificationService.cs" />
     <Compile Include="Services\UserFeatures\HAVNavigationService.cs" />
     <Compile Include="Services\UserFeatures\HAVNotificationService.cs" />
     <Compile Include="Services\UserFeatures\IHAVAuthorityVerificationService.cs" />
     <Compile Include="Services\UserFeatures\IHAVNavigationService.cs" />
     <Compile Include="Services\UserFeatures\IHAVNotificationService.cs" />
-    <Compile Include="Services\UserFeatures\IHAVPhotoAlbumService.cs" />
     <Compile Include="Services\UserFeatures\HAVAuthenticationService.cs" />
-    <Compile Include="Services\UserFeatures\HAVPhotoService.cs" />
-    <Compile Include="Services\UserFeatures\IHAVPhotoService.cs" />
     <Compile Include="Services\UserFeatures\HAVFeedbackService.cs" />
     <Compile Include="Services\UserFeatures\IHAVAuthenticationService.cs" />
     <Compile Include="Services\UserFeatures\IHAVFeedbackService.cs" />
@@ -505,6 +498,10 @@
     <ProjectReference Include="..\Messaging\Messaging.csproj">
       <Project>{AC9BB02F-5404-4791-B2D6-C24BA825CC60}</Project>
       <Name>Messaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Photo\Photo.csproj">
+      <Project>{552FC1DE-F722-4ADF-B887-1AB0C2B6DEE0}</Project>
+      <Name>Photo</Name>
     </ProjectReference>
     <ProjectReference Include="..\Site\Site.csproj">
       <Project>{603D670F-6710-46C5-8A0B-CC2FC20F76CD}</Project>

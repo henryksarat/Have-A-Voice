@@ -7,13 +7,12 @@ using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Models;
 using HaveAVoice.Models.SocialWrappers;
 using HaveAVoice.Models.View;
-using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services.Helpers;
 using Social.Board.Repositories;
 using Social.Friend.Services;
 using Social.Generic.Models;
-using Social.User.Models;
+using Social.Photo.Services;
 using Social.User.Services;
 using Social.Validation;
 
@@ -21,7 +20,7 @@ namespace HaveAVoice.Services.UserFeatures {
     public class HAVProfileService : IHAVProfileService {
         private IUserRetrievalService<User> theUserRetrievalService;
         private IFriendService<User, Friend> theFriendService;
-        private IHAVPhotoAlbumService thePhotoAlbumService;
+        private IPhotoAlbumService<User, PhotoAlbum, Photo, Friend> thePhotoAlbumService;
         private IHAVProfileRepository theRepository;
         private IValidationDictionary theValidationDictionary;
         private IBoardRepository<User, Board, BoardReply> theBoardRepository;
@@ -29,13 +28,19 @@ namespace HaveAVoice.Services.UserFeatures {
         public HAVProfileService(IValidationDictionary validationDictionary)
             : this(validationDictionary,
                    new UserRetrievalService<User>(new EntityHAVUserRetrievalRepository()), 
-                   new FriendService<User, Friend>(new EntityHAVFriendRepository()), 
-                   new HAVPhotoAlbumService(validationDictionary), 
-                   new EntityHAVProfileRepository(), 
+                   new FriendService<User, Friend>(new EntityHAVFriendRepository()),
+                   new PhotoAlbumService<User, PhotoAlbum, Photo, Friend>(validationDictionary, 
+                       new PhotoService<User, PhotoAlbum, Photo, Friend>(new FriendService<User, Friend>(new EntityHAVFriendRepository()), new EntityHAVPhotoAlbumRepository(), new EntityHAVPhotoRepository()),
+                       new FriendService<User, Friend>(new EntityHAVFriendRepository()),
+                       new EntityHAVPhotoAlbumRepository()),
+                   new EntityHAVProfileRepository(),
                    new EntityHAVBoardRepository()) { }
 
-        public HAVProfileService(IValidationDictionary aValidationDictionary, IUserRetrievalService<User> aUserRetrievalService, 
-                                 IFriendService<User, Friend> aFriendService, IHAVPhotoAlbumService aPhotoAlbumService, IHAVProfileRepository aRepository,
+        public HAVProfileService(IValidationDictionary aValidationDictionary, 
+                                 IUserRetrievalService<User> aUserRetrievalService, 
+                                 IFriendService<User, Friend> aFriendService, 
+                                 IPhotoAlbumService<User, PhotoAlbum, Photo, Friend> aPhotoAlbumService, 
+                                 IHAVProfileRepository aRepository,
                                  IBoardRepository<User, Board, BoardReply> aBoardRepository) {
             theValidationDictionary = aValidationDictionary;
             theUserRetrievalService = aUserRetrievalService;

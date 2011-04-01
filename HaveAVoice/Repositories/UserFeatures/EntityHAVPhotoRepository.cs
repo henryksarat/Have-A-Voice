@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using HaveAVoice.Models;
+using Social.Photo.Repositories;
+using Social.Generic.Models;
+using HaveAVoice.Models.SocialWrappers;
 
 namespace HaveAVoice.Repositories.UserFeatures {
-    public class EntityHAVPhotoRepository : HAVBaseRepository, IHAVPhotoRepository {
+    public class EntityHAVPhotoRepository : IPhotoRepository<User, Photo> {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
         public Photo AddReferenceToImage(User aUser, int anAlbumId, string anImageName, bool aProfilePicture) {
@@ -17,17 +20,14 @@ namespace HaveAVoice.Repositories.UserFeatures {
             return myPhoto;
         }
 
-        public Photo GetProfilePicture(int aUserId) {
-            return (from up in theEntities.Photos
-                    where up.User.Id == aUserId
-                    && up.ProfilePicture == true
-                    select up).FirstOrDefault();
+        public void DeletePhoto(int aPhotoId) {
+            Photo myPhoto = GetPhoto(aPhotoId);
+            theEntities.DeleteObject(myPhoto);
+            theEntities.SaveChanges();
         }
 
-        public Photo GetPhoto(int aPhotoId) {
-            return (from up in theEntities.Photos
-                    where up.Id == aPhotoId
-                    select up).FirstOrDefault();
+        public AbstractPhotoModel<Photo> GetAbstractPhoto(int aPhotoId) {
+            return SocialPhotoModel.Create(GetPhoto(aPhotoId));
         }
 
         public IEnumerable<Photo> GetPhotos(int aUserId, int anAlbumId) {
@@ -39,18 +39,8 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     select p).ToList<Photo>();
         }
 
-        public void DeletePhoto(int aPhotoId) {
-            Photo myPhoto = GetPhoto(aPhotoId);
-            theEntities.DeleteObject(myPhoto);
-            theEntities.SaveChanges();
-        }
-
-        private void UnSetCurrentPhoto(User aUser) {
-            Photo currentProfilePicture = GetProfilePicture(aUser.Id);
-            if (currentProfilePicture != null) {
-                currentProfilePicture.ProfilePicture = false;
-                theEntities.ApplyCurrentValues(currentProfilePicture.EntityKey.EntitySetName, currentProfilePicture);
-            }
+        public AbstractPhotoModel<Photo> GetAbstractProfilePicture(int aUserId) {
+            return SocialPhotoModel.Create(GetProfilePicture(aUserId));
         }
 
         public void SetPhotoAsAlbumCover(int aPhotoId) {
@@ -67,6 +57,27 @@ namespace HaveAVoice.Repositories.UserFeatures {
             }
 
             theEntities.SaveChanges();
+        }
+
+        private Photo GetPhoto(int aPhotoId) {
+            return (from up in theEntities.Photos
+                    where up.Id == aPhotoId
+                    select up).FirstOrDefault();
+        }
+
+        private Photo GetProfilePicture(int aUserId) {
+            return (from up in theEntities.Photos
+                    where up.User.Id == aUserId
+                    && up.ProfilePicture == true
+                    select up).FirstOrDefault();
+        }
+
+        private void UnSetCurrentPhoto(User aUser) {
+            Photo currentProfilePicture = GetProfilePicture(aUser.Id);
+            if (currentProfilePicture != null) {
+                currentProfilePicture.ProfilePicture = false;
+                theEntities.ApplyCurrentValues(currentProfilePicture.EntityKey.EntitySetName, currentProfilePicture);
+            }
         }
     
         private Photo GetPhotoAlbumCoverPhoto(int anAlbumId) {

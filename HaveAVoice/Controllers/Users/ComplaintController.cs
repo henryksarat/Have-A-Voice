@@ -14,6 +14,8 @@ using Social.Generic.ActionFilters;
 using Social.User.Services;
 using Social.Validation;
 using Social.Generic.Services;
+using Social.Photo.Services;
+using Social.Friend.Services;
 
 namespace HaveAVoice.Controllers.Users {
     public class ComplaintController : HAVBaseController {
@@ -22,7 +24,7 @@ namespace HaveAVoice.Controllers.Users {
         private IHAVIssueService theIssueService;
         private IHAVIssueReplyService theIssueReplyService;
         private IHAVIssueReplyCommentService theIssueReplyCommentService;
-        private IHAVPhotoService thePhotoService;
+        private IPhotoService<User, PhotoAlbum, Photo, Friend> thePhotoService;
 
         public ComplaintController()
             : base(new BaseService<User>(new HAVBaseRepository())) {
@@ -32,12 +34,13 @@ namespace HaveAVoice.Controllers.Users {
             theIssueService = new HAVIssueService(myModelWrapper);
             theIssueReplyService = new HAVIssueReplyService(myModelWrapper);
             theIssueReplyCommentService = new HAVIssueReplyCommentService(myModelWrapper);
-            thePhotoService = new HAVPhotoService();
+            thePhotoService = new PhotoService<User, PhotoAlbum, Photo, Friend>(new FriendService<User, Friend>(new EntityHAVFriendRepository()), new EntityHAVPhotoAlbumRepository(), new EntityHAVPhotoRepository());
         }
 
         public ComplaintController(IHAVComplaintService aService, IBaseService<User> aBaseService, 
-                                   IUserRetrievalService<User> aUserRetrievalService, IHAVIssueService aIssueService, 
-                                   IHAVPhotoService aPhotoService) : base(aBaseService) {
+                                   IUserRetrievalService<User> aUserRetrievalService, IHAVIssueService aIssueService,
+                                   IPhotoService<User, PhotoAlbum, Photo, Friend> aPhotoService)
+            : base(aBaseService) {
             theService = aService;
             theUserRetrievalService = aUserRetrievalService;
             theIssueService = aIssueService;

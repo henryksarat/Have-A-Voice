@@ -5,124 +5,121 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Web;
-using HaveAVoice.Exceptions;
-using HaveAVoice.Helpers;
-using HaveAVoice.Models;
-using HaveAVoice.Models.SocialWrappers;
-using HaveAVoice.Repositories.UserFeatures;
-using HaveAVoice.Services.Helpers;
 using Social.Friend.Exceptions;
 using Social.Friend.Services;
+using Social.Generic.Constants;
+using Social.Generic.Exceptions;
 using Social.Generic.Models;
+using Social.Photo.Helpers;
+using Social.Photo.Repositories;
+using Social.Photo.Services;
 using Social.Validation;
 
 namespace HaveAVoice.Services.UserFeatures {
-    public class HAVPhotoService : IHAVPhotoService {
+    //T = User
+    //U = PhotoAlbum
+    //V = Photo
+    //W = Friend
+    public class PhotoService<T, U, V, W> : IPhotoService<T, U, V, W> {
         private const int MAX_SIZE = 840;
         private const string UNAUTHORIZED_UPLOAD = "You are not allowed to upload to that album.";
 
-        private IFriendService<User, Friend> theFriendService;
-        private IHAVPhotoAlbumRepository thePhotoAlbumRepo;
-        private IHAVPhotoRepository thePhotoRepo;
- 
-        public HAVPhotoService()
-            : this(new FriendService<User, Friend>(new EntityHAVFriendRepository()), new EntityHAVPhotoAlbumRepository(), new EntityHAVPhotoRepository()) { }
+        private IFriendService<T, W> theFriendService;
+        private IPhotoAlbumRepository<T, U, V> thePhotoAlbumRepo;
+        private IPhotoRepository<T, V> thePhotoRepo;
 
-        public HAVPhotoService(IFriendService<User, Friend> aFriendService, IHAVPhotoAlbumRepository aPhotoAlbumRepo, IHAVPhotoRepository aPhotoRepo) {
+        public PhotoService(IFriendService<T, W> aFriendService, IPhotoAlbumRepository<T, U, V> aPhotoAlbumRepo, IPhotoRepository<T, V> aPhotoRepo) {
             thePhotoAlbumRepo = aPhotoAlbumRepo;
             theFriendService = aFriendService;
             thePhotoRepo = aPhotoRepo;
         }
 
-        public IEnumerable<Photo> GetPhotos(User aViewingUser, int anAlbumId, int aUserId) {
-            AbstractUserModel<User> myAbstractUser = SocialUserModel.Create(aViewingUser);
-
-            if (theFriendService.IsFriend(aUserId, myAbstractUser)) {
+        public IEnumerable<V> GetPhotos(AbstractUserModel<T> aViewingUser, int anAlbumId, int aUserId) {
+            if (theFriendService.IsFriend(aUserId, aViewingUser)) {
                 return thePhotoRepo.GetPhotos(aUserId, anAlbumId);
             }
 
             throw new NotFriendException();
         }
 
-        public void DeletePhoto(User aUserDeleting, int aPhotoId) {
-            Photo myPhoto = GetPhoto(aUserDeleting, aPhotoId);
+        public void DeletePhoto(AbstractUserModel<T> aUserDeleting, int aPhotoId) {
+            AbstractPhotoModel<V> myPhoto = GetPhoto(aUserDeleting, aPhotoId);
             if (myPhoto.UploadedByUserId == aUserDeleting.Id) {
                 PhysicallyDeletePhoto(myPhoto.ImageName);
 
                 thePhotoRepo.DeletePhoto(aPhotoId);
             } else {
-                throw new CustomException(HAVConstants.NOT_ALLOWED);
+                throw new CustomException(ErrorKeys.PERMISSION_DENIED);
             }
         }
 
-        public Photo GetPhoto(User aViewingUser,  int aPhotoId) {
-            Photo myPhotoId = thePhotoRepo.GetPhoto(aPhotoId);
-            AbstractUserModel<User> myAbstractUserModel = SocialUserModel.Create(aViewingUser);
-            if (theFriendService.IsFriend(myPhotoId.UploadedByUserId, myAbstractUserModel)) {
-                return myPhotoId;
+        public AbstractPhotoModel<V> GetPhoto(AbstractUserModel<T> aViewingUser, int aPhotoId) {
+            AbstractPhotoModel<V> myPhoto = thePhotoRepo.GetAbstractPhoto(aPhotoId);
+            if (theFriendService.IsFriend(myPhoto.UploadedByUserId, aViewingUser)) {
+                return myPhoto;
             }
 
             throw new NotFriendException();
         }
 
-        public void SetToProfilePicture(User aUser, int aPhotoId) {
-            Photo myCurrentProfile = thePhotoRepo.GetProfilePicture(aUser.Id);
+        public void SetToProfilePicture(AbstractUserModel<T> aUser, int aPhotoId) {
+            AbstractPhotoModel<V> myCurrentProfile = thePhotoRepo.GetAbstractProfilePicture(aUser.Id);
             if (myCurrentProfile != null) {
                 if (myCurrentProfile.UploadedByUserId == aUser.Id) {
                     thePhotoRepo.DeletePhoto(myCurrentProfile.Id);
                     PhysicallyDeletePhoto(myCurrentProfile.ImageName);
                 } else {
-                    throw new CustomException(HAVConstants.NOT_ALLOWED);
+                    throw new CustomException(ErrorKeys.PERMISSION_DENIED);
                 }
             }
 
-            Photo myNewProfilePhoto = thePhotoRepo.GetPhoto(aPhotoId);
+            AbstractPhotoModel<V> myNewProfilePhoto = thePhotoRepo.GetAbstractPhoto(aPhotoId);
 
             if (myNewProfilePhoto.UploadedByUserId == aUser.Id) {
                 string[] myNewProfileSplit = myNewProfilePhoto.ImageName.Split('.');
                 string myNewProfilePictureImageName = myNewProfileSplit[0] + "-profile." + myNewProfileSplit[1];
                 ResizeImage(myNewProfilePhoto.ImageName, myNewProfilePictureImageName, 120);
-                thePhotoRepo.AddReferenceToImage(aUser, myNewProfilePhoto.PhotoAlbumId, myNewProfilePictureImageName, true);
+                thePhotoRepo.AddReferenceToImage(aUser.FromModel(), myNewProfilePhoto.PhotoAlbumId, myNewProfilePictureImageName, true);
             } else {
-                throw new CustomException(HAVConstants.NOT_ALLOWED);
+                throw new CustomException(ErrorKeys.PERMISSION_DENIED);
             }
         }
 
-        public void UploadProfilePicture(User aUserToUploadFor, HttpPostedFileBase aImageFile) {
-            PhotoAlbum myProfilePictureAlbum = thePhotoAlbumRepo.GetProfilePictureAlbumForUser(aUserToUploadFor);
+        public void UploadProfilePicture(AbstractUserModel<T> aUserToUploadFor, HttpPostedFileBase aImageFile) {
+            AbstractPhotoAlbumModel<U, V> myProfilePictureAlbum = thePhotoAlbumRepo.GetAbstractProfilePictureAlbumForUser(aUserToUploadFor.FromModel());
             string myImageName = UploadImage(aUserToUploadFor, aImageFile);
-            Photo myPhoto = thePhotoRepo.AddReferenceToImage(aUserToUploadFor, myProfilePictureAlbum.Id, myImageName, true);
+            V myPhoto = thePhotoRepo.AddReferenceToImage(aUserToUploadFor.FromModel(), myProfilePictureAlbum.Id, myImageName, true);
         }
 
-        public Photo GetProfilePicutre(User aUser) {
-            return GetProfilePicture(aUser.Id);
+        public V GetProfilePicture(int aUserId) {
+            AbstractPhotoModel<V> myAbstractPhoto = thePhotoRepo.GetAbstractProfilePicture(aUserId);
+            if (myAbstractPhoto != null) {
+                return myAbstractPhoto.Model;
+            }
+            return default(V);
         }
 
-        public Photo GetProfilePicture(int aUserId) {
-            return thePhotoRepo.GetProfilePicture(aUserId);
-        }
-
-        public void UploadImageWithDatabaseReference(UserInformationModel<User> aUserToUploadFor, int anAlbumId, HttpPostedFileBase aImageFile) {
-            PhotoAlbum myAlbum = thePhotoAlbumRepo.GetPhotoAlbum(anAlbumId);
-             if (myAlbum.CreatedByUserId == aUserToUploadFor.Details.Id) {
-                 string myImageName = UploadImage(aUserToUploadFor.Details, aImageFile);
-                 thePhotoRepo.AddReferenceToImage(aUserToUploadFor.Details, anAlbumId, myImageName, false);
+        public void UploadImageWithDatabaseReference(AbstractUserModel<T> aUserToUploadFor, int anAlbumId, HttpPostedFileBase aImageFile) {
+            AbstractPhotoAlbumModel<U, V> myAlbum = thePhotoAlbumRepo.GetAbstractPhotoAlbum(anAlbumId);
+             if (myAlbum.CreatedByUserId == aUserToUploadFor.Id) {
+                 string myImageName = UploadImage(aUserToUploadFor, aImageFile);
+                 thePhotoRepo.AddReferenceToImage(aUserToUploadFor.FromModel(), anAlbumId, myImageName, false);
              }
 
              new CustomException(UNAUTHORIZED_UPLOAD);
          }
 
-        public void SetPhotoAsAlbumCover(User myEditingUser, int aPhotoId) {
-            Photo myPhoto = thePhotoRepo.GetPhoto(aPhotoId);
+        public void SetPhotoAsAlbumCover(AbstractUserModel<T> myEditingUser, int aPhotoId) {
+            AbstractPhotoModel<V> myPhoto = thePhotoRepo.GetAbstractPhoto(aPhotoId);
 
             if (myPhoto.UploadedByUserId == myEditingUser.Id) {
                 thePhotoRepo.SetPhotoAsAlbumCover(aPhotoId);
             } else {
-                throw new CustomException(HAVConstants.NOT_ALLOWED);
+                throw new CustomException(ErrorKeys.PERMISSION_DENIED);
             }
         }
 
-        private string UploadImage(User aUserToUploadFor, HttpPostedFileBase aImageFile) {
+        private string UploadImage(AbstractUserModel<T> aUserToUploadFor, HttpPostedFileBase aImageFile) {
             if(!PhotoValidation.IsValidImageFile(aImageFile.FileName)) {
                     throw new CustomException("Please specify a proper image file that ends in .gif, .jpg, or .jpeg.");
             }

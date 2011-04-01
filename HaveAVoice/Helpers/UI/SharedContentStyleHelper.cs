@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using HaveAVoice.Models;
 using HaveAVoice.Services.Helpers;
+using Social.Generic.Constants;
 
 namespace HaveAVoice.Helpers.UI {
     public class SharedContentStyleHelper {
@@ -14,7 +15,7 @@ namespace HaveAVoice.Helpers.UI {
 
             if (anIsAnonymous) {
                 myImage.MergeAttribute("alt", "Anonymous");
-                myImage.MergeAttribute("src", PhotoHelper.ConstructUrl(HAVConstants.NO_PROFILE_PICTURE_IMAGE));
+                myImage.MergeAttribute("src", PhotoHelper.ConstructUrl(Constants.NO_PROFILE_PICTURE_IMAGE));
             } else {
                 myImage.MergeAttribute("src", PhotoHelper.ProfilePicture(aUser));
                 myImage.MergeAttribute("alt", NameHelper.FullName(aUser));

@@ -4,16 +4,15 @@ using System.Web.Mvc;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
-using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services.Helpers;
 using Social.Email;
 using Social.Email.Exceptions;
 using Social.Generic.Constants;
 using Social.Generic.Helpers;
+using Social.User;
 using Social.User.Services;
 using Social.Validation;
-using Social.User;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVUserService : IHAVUserService {
@@ -29,11 +28,11 @@ namespace HaveAVoice.Services.UserFeatures {
         private IEmail theEmailService;
 
         public HAVUserService(IValidationDictionary theValidationDictionary)
-            : this(theValidationDictionary, new UserRetrievalService<User>(new EntityHAVUserRetrievalRepository()), new HAVAuthorityVerificationService(theValidationDictionary), new HAVAuthenticationService(), new HAVPhotoService(), 
+            : this(theValidationDictionary, new UserRetrievalService<User>(new EntityHAVUserRetrievalRepository()), new HAVAuthorityVerificationService(theValidationDictionary), new HAVAuthenticationService(), 
                     new EntityHAVUserRepository(), new SocialEmail()) { }
 
-        public HAVUserService(IValidationDictionary aValidationDictionary, IUserRetrievalService<User> aUserRetrievalService, 
-                                         IHAVAuthorityVerificationService anAuthorityVerificationService, IHAVAuthenticationService anAuthService, IHAVPhotoService aPhotoService,
+        public HAVUserService(IValidationDictionary aValidationDictionary, IUserRetrievalService<User> aUserRetrievalService,
+                                         IHAVAuthorityVerificationService anAuthorityVerificationService, IHAVAuthenticationService anAuthService,
                                          IUserRepository<User, Role, UserRole> aUserRepo, IEmail aEmailService) {
             theValidationDictionary = aValidationDictionary;
             theUserRetrievalService = aUserRetrievalService;

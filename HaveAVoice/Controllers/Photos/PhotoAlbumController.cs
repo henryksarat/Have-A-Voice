@@ -1,201 +1,116 @@
-﻿using System;
-using System.Linq;
+﻿using System.Web;
 using System.Web.Mvc;
+using BaseWebsite.Controllers.Photos;
 using HaveAVoice.Controllers.ActionFilters;
 using HaveAVoice.Controllers.Helpers;
-using HaveAVoice.Exceptions;
 using HaveAVoice.Helpers;
+using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Models;
+using HaveAVoice.Models.SocialWrappers;
 using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
-using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
-using Social.Friend.Exceptions;
+using Social.Authentication;
+using Social.Authentication.Helpers;
+using Social.BaseWebsite.Models;
 using Social.Generic.ActionFilters;
 using Social.Generic.Models;
-using Social.User.Services;
-using Social.Validation;
 using Social.Generic.Services;
 
 namespace HaveAVoice.Controllers.Users.Photos {
-    public class PhotoAlbumController : HAVBaseController {
-        private static string CREATED_SUCCESS = "Photo album created!";
-        private const string EDIT_SUCCESS = "Photo album edited successfully!";
-        private const string DELETE_SUCCESS = "Photo album deleted successfully!";
-        private const string NO_ALBUMS = "There are currently no albums created.";
-
-        private const string USER_RETRIEVAL_ERROR = "Error retrieving the user.";
-        private const string GET_ALBUM_ERROR = "Error retrieving the album. Please try again.";
-        private const string ALBUM_LIST_ERROR = "Error retrieving your photo album list. Please try again.";
-        private const string CREATED_FAIL = "Error creating photo album. Please try again.";
-        private const string EDIT_ERROR = "Error editing the photo album. Please try again.";
-        private const string DELETE_ERROR = "Error editing the photo album. Please try again.";
-
-        private const string LIST_VIEW = "List";
-        private const string DETAILS_VIEW = "Details";
-        private const string EDIT_VIEW = "Edit";
-        private const string DELETE_VIEW = "Delete";
-
-        private IHAVPhotoAlbumService thePhotoAlbumService;
-        private IUserRetrievalService<User> theUserRetrievalService;
-
-        public PhotoAlbumController() : 
-            base(new BaseService<User>(new HAVBaseRepository())) {
-                thePhotoAlbumService = new HAVPhotoAlbumService(new ModelStateWrapper(this.ModelState));
-                theUserRetrievalService = new UserRetrievalService<User>(new EntityHAVUserRetrievalRepository());
-        }
-
-        public PhotoAlbumController(IHAVPhotoAlbumService aPhotoAlbumService, IUserRetrievalService<User> aUserRetrievalService, IBaseService<User> aBaseService)
-            : base(aBaseService) {
-                thePhotoAlbumService = aPhotoAlbumService;
-                theUserRetrievalService = aUserRetrievalService;
+    public class PhotoAlbumController : AbstractPhotoAlbumController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline, PhotoAlbum, Photo, Friend> {
+        public PhotoAlbumController() :
+            base(new BaseService<User>(new HAVBaseRepository()),
+                  UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository())),
+                  new HAVAuthenticationService(),
+                  new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()),
+                  new EntityHAVPhotoAlbumRepository(),
+                  new EntityHAVPhotoRepository(),
+                  new EntityHAVFriendRepository(),
+                  new EntityHAVUserRetrievalRepository()) {
+            HAVUserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository())));
         }
 
         [RequiredRouteValueAttribute.RequireRouteValues(new string[] { })]
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
-        public ActionResult List() {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            User myUser = GetUserInformaton();
-            return ListPhotoAlbums(myUser, myUser.Id);
+        new public ActionResult List() {
+            return base.List();
         }
 
         [RequiredRouteValueAttribute.RequireRouteValues(new[] { "id" })]
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
-        public ActionResult List(int id) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            User myUser = GetUserInformaton();
-            return ListPhotoAlbums(myUser, id);
+        new public ActionResult List(int id) {
+            return base.List(id);
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
-        public ActionResult Create(string name, string description) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            try {
-                User myUser = GetUserInformatonModel().Details;
-                bool myResult = thePhotoAlbumService.CreatePhotoAlbum(myUser, name, description);
-                if (myResult) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(CREATED_SUCCESS);
-                }
-            } catch (Exception myException) {
-                TempData["Message"] = MessageHelper.ErrorMessage(CREATED_FAIL);
-                LogError(myException, CREATED_FAIL);
-            }
-
-            return RedirectToAction(LIST_VIEW);
+        new public ActionResult Create(string name, string description) {
+            return base.Create(name, description);
         }
 
         [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
-        public ActionResult Delete(int id) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            UserInformationModel<User> myUser = GetUserInformatonModel();
-            try {
-                thePhotoAlbumService.DeletePhotoAlbum(myUser, id);
-                TempData["Message"] = MessageHelper.SuccessMessage(DELETE_SUCCESS);
-            } catch (CustomException e) {
-                return SendToErrorPage(e.Message);
-            } catch (Exception e) {
-                TempData["Message"] = MessageHelper.ErrorMessage(DELETE_ERROR);
-                LogError(e, DELETE_ERROR);
-            }
-
-            return RedirectToAction(LIST_VIEW);
+        new public ActionResult Delete(int id) {
+            return base.Delete(id);
         }
 
         [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
-        public ActionResult Details(int id) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            UserInformationModel<User> myUser = GetUserInformatonModel();
-            LoggedInWrapperModel<PhotoAlbum> myPhotoAlbum = new LoggedInWrapperModel<PhotoAlbum>(myUser.Details, SiteSection.Photos);
-            try {
-                myPhotoAlbum.Model = thePhotoAlbumService.GetPhotoAlbum(myUser, id);
-            } catch (NotFriendException e) {
-                return SendToErrorPage(HAVConstants.NOT_FRIEND);
-            } catch (Exception myException) {
-                TempData["Message"] = MessageHelper.ErrorMessage(GET_ALBUM_ERROR);
-                LogError(myException, GET_ALBUM_ERROR);
-                return RedirectToAction(LIST_VIEW);
-            }
-
-            return View(DETAILS_VIEW, myPhotoAlbum);
+        new public ActionResult Details(int id) {
+            return base.Details(id);
         }
 
         [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData, ImportModelStateFromTempData]
-        public ActionResult Edit(int id) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            UserInformationModel<User> myUser = GetUserInformatonModel();
-            LoggedInWrapperModel<PhotoAlbum> myPhotoAlbum = new LoggedInWrapperModel<PhotoAlbum>(myUser.Details, SiteSection.Photos);
-            try {
-                myPhotoAlbum.Model = thePhotoAlbumService.GetPhotoAlbumForEdit(myUser, id);
-            } catch (CustomException e) {
-                return SendToErrorPage(e.Message);
-            } catch (Exception e) {
-                TempData["Message"] = MessageHelper.ErrorMessage(GET_ALBUM_ERROR);
-                LogError(e, GET_ALBUM_ERROR);
-                return RedirectToAction(LIST_VIEW);
-            }
-
-            return View(EDIT_VIEW, myPhotoAlbum);
+        new public ActionResult Edit(int id) {
+            return base.Edit(id);
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
-        public ActionResult Edit(int albumId, string name, string description) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            UserInformationModel<User> myUser = GetUserInformatonModel();
-            try {
-                bool myResult = thePhotoAlbumService.EditPhotoAlbum(myUser, albumId, name, description);
-                if (myResult) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(EDIT_SUCCESS);
-                    return RedirectToAction(LIST_VIEW);
-                }
-            } catch (CustomException e) {
-                return SendToErrorPage(e.Message);
-            } catch (Exception e) {
-                TempData["Message"] = MessageHelper.ErrorMessage(EDIT_ERROR);
-                LogError(e, EDIT_ERROR);
-            }
-
-            return RedirectToAction(EDIT_VIEW);
+        new public ActionResult Edit(int albumId, string name, string description) {
+            return base.Edit(albumId, name, description);
         }
 
-        private ActionResult ListPhotoAlbums(User aRequestingUser, int aUserIdOfAlbum) {
-            User myUserOfAlbum;
-            try {
-                myUserOfAlbum = theUserRetrievalService.GetUser(aUserIdOfAlbum);
-            } catch (Exception e) {
-                LogError(e, USER_RETRIEVAL_ERROR);
-                return SendToErrorPage(ALBUM_LIST_ERROR);
-            }
+        protected override AbstractUserModel<User> GetSocialUserInformation() {
+            return SocialUserModel.Create(GetUserInformaton());
+        }
 
-            LoggedInListModel<PhotoAlbum> myModel = new LoggedInListModel<PhotoAlbum>(myUserOfAlbum, aRequestingUser, SiteSection.Photos);
+        protected override AbstractUserModel<User> CreateSocialUserModel(User aUser) {
+            return SocialUserModel.Create(aUser);
+        }
 
-            try {
-                myModel.Models = thePhotoAlbumService.GetPhotoAlbumsForUser(aRequestingUser, aUserIdOfAlbum);
-                if (myModel.Models.Count<PhotoAlbum>() == 0) {
-                    TempData["Message"] = NO_ALBUMS;
-                }
-            } catch (NotFriendException e) {
-                return SendToErrorPage(HAVConstants.NOT_FRIEND);
-            } catch (Exception e) {
-                LogError(e, ALBUM_LIST_ERROR);
-                ViewData["Message"] = MessageHelper.ErrorMessage(ALBUM_LIST_ERROR);
-            }
+        protected override IProfilePictureStrategy<User> ProfilePictureStrategy() {
+            return new ProfilePictureStrategy();
+        }
 
-            return View(LIST_VIEW, myModel);
+        protected override string UserEmail() {
+            return GetUserInformaton().Email;
+        }
+
+        protected override string UserPassword() {
+            return GetUserInformaton().Password;
+        }
+
+        protected override int UserId() {
+            return GetUserInformaton().Id;
+        }
+
+        protected override string ErrorMessage(string aMessage) {
+            return MessageHelper.ErrorMessage(aMessage);
+        }
+
+        protected override string NormalMessage(string aMessage) {
+            return MessageHelper.NormalMessage(aMessage);
+        }
+
+        protected override string SuccessMessage(string aMessage) {
+            return MessageHelper.SuccessMessage(aMessage);
+        }
+
+        protected override ILoggedInModel<PhotoAlbum> CreateLoggedInWrapperModel(User aUser) {
+            return new LoggedInWrapperModel<PhotoAlbum>(aUser, SiteSection.Photos);
+        }
+
+        protected override ILoggedInListModel<PhotoAlbum> CreateLoggedInListModel(User myUserOfAlbum, User aRequestingUser) {
+            return new LoggedInListModel<PhotoAlbum>(myUserOfAlbum, aRequestingUser, SiteSection.Photos);
         }
     }
 }

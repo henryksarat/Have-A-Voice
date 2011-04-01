@@ -5,6 +5,7 @@ using System.Web;
 using HaveAVoice.Models;
 using System.Web.Mvc;
 using HaveAVoice.Helpers;
+using Social.Generic.Constants;
 
 namespace HaveAVoice.Models.View {
     public class PhotosModel {
@@ -14,7 +15,7 @@ namespace HaveAVoice.Models.View {
         public List<int> SelectedPhotos { get; set; }
 
         public PhotosModel() {
-            this.ProfilePictureURL = HAVConstants.NO_PROFILE_PICTURE_URL;
+            this.ProfilePictureURL = Constants.NO_PROFILE_PICTURE_URL;
             this.Photos = new List<Photo>();
             this.SelectedPhotos = new List<int>();
         }

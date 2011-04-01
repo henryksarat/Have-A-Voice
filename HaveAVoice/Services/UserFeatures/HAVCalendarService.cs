@@ -2,27 +2,28 @@
 using System.Collections.Generic;
 using HaveAVoice.Models;
 using HaveAVoice.Models.SocialWrappers;
-using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
 using Social.Admin.Helpers;
 using Social.Friend.Exceptions;
 using Social.Friend.Services;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
-using Social.User.Models;
+using Social.Photo.Services;
 using Social.Validation;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVCalendarService : IHAVCalendarService {
         private IValidationDictionary theValidationDictionary;
         private IFriendService<User, Friend> theFriendService;
-        private IHAVPhotoService thePhotoService;
+        private IPhotoService<User, PhotoAlbum, Photo, Friend> thePhotoService;
         private IHAVCalendarRepository theRepository;
 
         public HAVCalendarService(IValidationDictionary aValidationDictionary)
-            : this(aValidationDictionary, new FriendService<User, Friend>(new EntityHAVFriendRepository()), new HAVPhotoService(), new EntityHAVCalendarRepository()) { }
+            : this(aValidationDictionary, new FriendService<User, Friend>(new EntityHAVFriendRepository()),
+                                                                          new PhotoService<User, PhotoAlbum, Photo, Friend>(new FriendService<User, Friend>(new EntityHAVFriendRepository()), new EntityHAVPhotoAlbumRepository(), new EntityHAVPhotoRepository()),
+                                                                          new EntityHAVCalendarRepository()) { }
 
-        public HAVCalendarService(IValidationDictionary aValidationDictionary, IFriendService<User, Friend> aFriendService, IHAVPhotoService aPhotoService, 
+        public HAVCalendarService(IValidationDictionary aValidationDictionary, IFriendService<User, Friend> aFriendService, IPhotoService<User, PhotoAlbum, Photo, Friend> aPhotoService, 
                                   IHAVCalendarRepository aRepository) {
             theValidationDictionary = aValidationDictionary;
             thePhotoService = aPhotoService;

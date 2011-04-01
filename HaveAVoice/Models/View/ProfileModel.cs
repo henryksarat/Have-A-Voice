@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using HaveAVoice.Helpers;
 using HaveAVoice.Helpers.Enums;
+using Social.Generic.Constants;
 
 namespace HaveAVoice.Models.View {
     public class ProfileModel {
@@ -14,7 +15,7 @@ namespace HaveAVoice.Models.View {
 
         public ProfileModel(User aUser) {
             User = aUser;
-            ProfilePictureUrl = HAVConstants.NO_PROFILE_PICTURE_URL;
+            ProfilePictureUrl = Constants.NO_PROFILE_PICTURE_URL;
             IssueReplys = new List<IssueReply>();
             BoardMessage = string.Empty;
             BoardMessages = new List<Board>();

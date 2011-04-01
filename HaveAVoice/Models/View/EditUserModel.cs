@@ -5,6 +5,7 @@ using System.Web;
 using HaveAVoice.Models;
 using System.Web.Mvc;
 using HaveAVoice.Helpers;
+using Social.Generic.Constants;
 
 namespace HaveAVoice.Models.View {
     public class EditUserModel {
@@ -24,7 +25,7 @@ namespace HaveAVoice.Models.View {
             UserInformation = aUser;
             NewPassword = string.Empty;
             RetypedPassword = string.Empty;
-            ProfilePictureURL = HAVConstants.NO_PROFILE_PICTURE_URL;
+            ProfilePictureURL = Constants.NO_PROFILE_PICTURE_URL;
             States = new List<SelectListItem>();
             Genders = new List<SelectListItem>();
         }

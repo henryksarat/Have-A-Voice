@@ -1,35 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using HaveAVoice.Models;
+using Social.Photo.Repositories;
+using Social.Generic.Models;
+using HaveAVoice.Models.SocialWrappers;
 
 namespace HaveAVoice.Repositories.UserFeatures {
-    public class EntityHAVPhotoAlbumRepository : HAVBaseRepository, IHAVPhotoAlbumRepository {
+    public class EntityHAVPhotoAlbumRepository : IPhotoAlbumRepository<User, PhotoAlbum, Photo> {
         private const string PROFILE_PICTURE_ALBUM = "Profile Pictures";
 
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
-
-        public PhotoAlbum GetProfilePictureAlbumForUser(User aUser) {
-            PhotoAlbum myAlbum = GetPhotoAlbumForUserandAlbumName(aUser, PROFILE_PICTURE_ALBUM);
-            if (myAlbum == null) {
-                myAlbum = Create(aUser, PROFILE_PICTURE_ALBUM, string.Empty);
-            }
-
-            return myAlbum;
-        }
-
-        public PhotoAlbum GetPhotoAlbum(int anAlbumId) {
-            return (from p in theEntities.PhotoAlbums
-                    where p.Id == anAlbumId
-                    select p).FirstOrDefault<PhotoAlbum>();
-        }
-
-        public IEnumerable<PhotoAlbum> GetPhotoAlbumsForUser(int aUserIdOfAlbum) {
-            return (from p in theEntities.PhotoAlbums
-                    where p.CreatedByUserId == aUserIdOfAlbum
-                    select p).ToList<PhotoAlbum>();
-        }
 
         public PhotoAlbum Create(User aUser, string aName, string aDescription) {
             PhotoAlbum myAlbum = PhotoAlbum.CreatePhotoAlbum(0, aName, aUser.Id);
@@ -39,6 +19,14 @@ namespace HaveAVoice.Repositories.UserFeatures {
             theEntities.SaveChanges();
 
             return myAlbum;
+        }
+
+        public void Delete(int anAlbumId) {
+            theEntities = new HaveAVoiceEntities();
+            PhotoAlbum myAlbum = GetPhotoAlbum(anAlbumId);
+
+            theEntities.DeleteObject(myAlbum);
+            theEntities.SaveChanges();
         }
 
         public void Edit(int anAlbumId, string aName, string aDescription) {
@@ -51,18 +39,35 @@ namespace HaveAVoice.Repositories.UserFeatures {
             theEntities.SaveChanges();
         }
 
-        public void Delete(int anAlbumId) {
-            theEntities = new HaveAVoiceEntities();
-            PhotoAlbum myAlbum = GetPhotoAlbum(anAlbumId);
+        public AbstractPhotoAlbumModel<PhotoAlbum, Photo> GetAbstractPhotoAlbum(int anAlbumId) {
+            return SocialPhotoAlbumModel.Create(GetPhotoAlbum(anAlbumId));
+        }
 
-            theEntities.DeleteObject(myAlbum);
-            theEntities.SaveChanges();
+        public IEnumerable<PhotoAlbum> GetPhotoAlbumsForUser(int aUserIdOfAlbum) {
+            return (from p in theEntities.PhotoAlbums
+                    where p.CreatedByUserId == aUserIdOfAlbum
+                    select p).ToList<PhotoAlbum>();
+        }
+
+        public AbstractPhotoAlbumModel<PhotoAlbum, Photo> GetAbstractProfilePictureAlbumForUser(User aUser) {
+            PhotoAlbum myAlbum = GetPhotoAlbumForUserandAlbumName(aUser, PROFILE_PICTURE_ALBUM);
+            if (myAlbum == null) {
+                myAlbum = Create(aUser, PROFILE_PICTURE_ALBUM, string.Empty);
+            }
+
+            return SocialPhotoAlbumModel.Create(myAlbum);
         }
 
         private PhotoAlbum GetPhotoAlbumForUserandAlbumName(User aUser, string aPhotoAlbumnName) {
             return (from p in theEntities.PhotoAlbums
                     where p.CreatedByUserId == aUser.Id
                     && p.Name == aPhotoAlbumnName
+                    select p).FirstOrDefault<PhotoAlbum>();
+        }
+
+        private PhotoAlbum GetPhotoAlbum(int anAlbumId) {
+            return (from p in theEntities.PhotoAlbums
+                    where p.Id == anAlbumId
                     select p).FirstOrDefault<PhotoAlbum>();
         }
     }

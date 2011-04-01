@@ -6,6 +6,8 @@ using HaveAVoice.Services.Issues;
 using HaveAVoice.Services.UserFeatures;
 using Social.Generic.Models;
 using Social.User.Services;
+using Social.Photo.Services;
+using HaveAVoice.Models.SocialWrappers;
 
 namespace HaveAVoice.Helpers {
     public static class ComplaintHelper {
@@ -35,8 +37,8 @@ namespace HaveAVoice.Helpers {
         }
 
         public static void FillComplaintModelBuilder(ComplaintModel.Builder aBuilder, IUserRetrievalService<User> aUserRetrievalService, 
-                                                     IHAVIssueService aIssueService, IHAVIssueReplyService anIssueReplyService, IHAVIssueReplyCommentService anIssueReplyCommentService, 
-                                                     IHAVPhotoService aPhotoService) {
+                                                     IHAVIssueService aIssueService, IHAVIssueReplyService anIssueReplyService, IHAVIssueReplyCommentService anIssueReplyCommentService,
+                                                     IPhotoService<User, PhotoAlbum, Photo, Friend> aPhotoService) {
             UserInformationModel<User> myUser = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation();
             switch (aBuilder.ComplaintType()) {
                 case ComplaintType.Issue:
@@ -60,7 +62,7 @@ namespace HaveAVoice.Helpers {
                     aBuilder.SourceDescription("You are reporting this user because of their profile.");
                     break;
                 case ComplaintType.PhotoComplaint:
-                    Photo myPhoto = aPhotoService.GetPhoto(myUser.Details, aBuilder.SourceId());
+                    Photo myPhoto = aPhotoService.GetPhoto(SocialUserModel.Create(myUser.Details), aBuilder.SourceId()).Model;
                     aBuilder.TowardUser(myPhoto.User);
                     aBuilder.SourceDescription(myPhoto.ImageName);
                     break;

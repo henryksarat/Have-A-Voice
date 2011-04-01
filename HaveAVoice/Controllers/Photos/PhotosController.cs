@@ -1,186 +1,98 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Web;
 using System.Web.Mvc;
-using HaveAVoice.Exceptions;
+using BaseWebsite.Controllers.Photos;
+using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Helpers;
-using HaveAVoice.Helpers.ActionMethods;
+using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Models;
+using HaveAVoice.Models.SocialWrappers;
 using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
-using HaveAVoice.Services;
+using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Services.Helpers;
-using System.Web;
-using HaveAVoice.Controllers.Helpers;
+using Social.Authentication;
+using Social.Authentication.Helpers;
+using Social.BaseWebsite.Models;
 using Social.Generic.Models;
 using Social.Generic.Services;
+using Social.Photo.Services;
 
 namespace HaveAVoice.Controllers.Users.Photos {
-    public class PhotosController : HAVBaseController {
-        private const string PROFILE_PICTURE_SUCCESS = "New profile picture set!";
-        private const string DELETE_SUCCESS = "Photo deleted successfully!";
-        private const string UPLOAD_SUCCESS = "Photo uploaded!";
-        private const string ALBUM_COVER_SET = "Album cover set!";
-
-        private const string PROFILE_PICTURE_ERROR = "Error setting the profile picture. Please try again.";
-        private const string DISPLAY_ERROR = "Unable to display the photo. Please try again.";
-        private const string SELECT_ONE_ERROR = "Please select only ONE image.";
-        private const string SELECT_ONE_OR_MORE_ERROR = "Please select AT LEAST one or more images.";
-        private const string SET_PROFILE_PICTURE_ERRROR = "Error settings profile picture.";
-        private const string DELETE_ERROR = "Error deleting photo.";
-        private const string UPLOAD_ERROR = "Error uploading the picture. Please try again.";
-        private const string ALBUM_COVER_ERROR = "Error settings photo as the album cover. Please try again.";
-
-        private const string PHOTO_ALBUM_DETAILS = "Details";
-        private const string PHOTO_ALBUM_CONTROLLER = "PhotoAlbum";
-        private const string PHOTO_ALBUM_LIST = "List";
-        private const string EDIT_VIEW = "Edit";
-        private const string DISPLAY_VIEW = "Display";
-
-        private IHAVPhotoService thePhotoService;
-
+    public class PhotosController : AbstractPhotosController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline, PhotoAlbum, Photo, Friend> {
         public PhotosController() : 
-            base(new BaseService<User>(new HAVBaseRepository())) {
-            thePhotoService = new HAVPhotoService();
-        }
-
-        public PhotosController(IHAVPhotoService aPhotoService, IBaseService<User> aBaseService)
-            : base(aBaseService) {
-                thePhotoService = aPhotoService;
+            base(new BaseService<User>(new HAVBaseRepository()),
+                  UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository())),
+                  new HAVAuthenticationService(),
+                  new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()),
+                  new EntityHAVPhotoAlbumRepository(),
+                  new EntityHAVPhotoRepository(),
+                  new EntityHAVFriendRepository()) {
+            HAVUserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository())));
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Create(int albumId, HttpPostedFileBase imageFile) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            UserInformationModel<User> myUser = GetUserInformatonModel();
-
-            try {
-                thePhotoService.UploadImageWithDatabaseReference(myUser, albumId, imageFile);
-                TempData["Message"] = MessageHelper.SuccessMessage(UPLOAD_SUCCESS);
-            } catch (CustomException myException) {
-                TempData["Message"] = MessageHelper.NormalMessage(myException.Message);
-            } catch (Exception myException) {
-                TempData["Message"] = MessageHelper.ErrorMessage(UPLOAD_ERROR);
-                LogError(myException, UPLOAD_ERROR);
-            }
-            return RedirectToAction(PHOTO_ALBUM_DETAILS, PHOTO_ALBUM_CONTROLLER, new { id = albumId });
+        new public ActionResult Create(int albumId, HttpPostedFileBase imageFile) {
+            return base.Create(albumId, imageFile);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Display(int id) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            User myUser = GetUserInformaton();
-
-            LoggedInWrapperModel<Photo> myModel = new LoggedInWrapperModel<Photo>(myUser, SiteSection.Photos);
-            try {
-                myModel.Model = thePhotoService.GetPhoto(myUser, id);
-            } catch (Exception e) {
-                LogError(e, DISPLAY_ERROR);
-                return SendToErrorPage(DISPLAY_ERROR);
-            }
-
-            return View(DISPLAY_VIEW, myModel);
+        new public ActionResult Display(int id) {
+            return base.Display(id);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult SetProfilePicture(int id) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            User myUser = GetUserInformaton();
-            try {
-                thePhotoService.SetToProfilePicture(GetUserInformaton(), id);
-                return RedirectToProfile();
-            } catch (CustomException myException) {
-                return SendToErrorPage(myException.Message);
-            } catch (Exception e) {
-                TempData["Message"] = MessageHelper.ErrorMessage(SET_PROFILE_PICTURE_ERRROR);
-                return RedirectToAction(DISPLAY_VIEW, new { id = id });
-            }
+        new public ActionResult SetProfilePicture(int id) {
+            return base.SetProfilePicture(id);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Delete(int id) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            User myUser = GetUserInformaton();
-            try {
-                thePhotoService.DeletePhoto(myUser, id);
-                TempData["Message"] = MessageHelper.SuccessMessage(DELETE_SUCCESS);
-            } catch(CustomException e) {
-                TempData["Message"] = MessageHelper.NormalMessage(e.Message);
-            } catch (Exception e) {
-                TempData["Message"] = MessageHelper.ErrorMessage(DELETE_ERROR);
-            }
-
-            return RedirectToAction(DISPLAY_VIEW, new { id = id });
+        new public ActionResult Delete(int id) {
+            return base.Delete(id);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult SetAlbumCover(int id) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            User myUser = GetUserInformaton();
-            try {
-                thePhotoService.SetPhotoAsAlbumCover(myUser, id);
-                TempData["Message"] = MessageHelper.SuccessMessage(ALBUM_COVER_SET);
-                return RedirectToAction(PHOTO_ALBUM_LIST, PHOTO_ALBUM_CONTROLLER);
-            } catch (CustomException e) {
-                return SendToErrorPage(e.Message);
-            } catch (Exception e) {
-                LogError(e, ALBUM_COVER_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(ALBUM_COVER_ERROR);
-            }
-
-            return RedirectToAction(DISPLAY_VIEW, new { id = id });
+        new public ActionResult SetAlbumCover(int id) {
+            return base.SetAlbumCover(id);
         }
 
-        /*
-        [ActionName(EDIT_VIEW)]
-        [AcceptParameter(Name = "button", Value = "SetProfilePicture")]
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Edit_SetProfilePicture(PhotosModel aPhotosModel) {
-            if (aPhotosModel.SelectedPhotos.Count != 1) {
-                ViewData["Message"] = SELECT_ONE_ERROR;
-            } else {
-                try {
-                    thePhotoService.SetToProfilePicture(GetUserInformaton(), aPhotosModel.SelectedPhotos.First());
-                    TempData["Message"] = PROFILE_PICTURE_SUCCESS;
-                    return RedirectToProfile();
-                } catch (Exception e) {
-                    LogError(e, PROFILE_PICTURE_ERROR);
-                    ViewData["Message"] = PROFILE_PICTURE_ERROR;
-                }
-            }
-
-            return View(EDIT_VIEW, aPhotosModel);
+        protected override AbstractUserModel<User> GetSocialUserInformation() {
+            return SocialUserModel.Create(GetUserInformaton());
         }
 
-        [ActionName(EDIT_VIEW)]
-        [AcceptParameter(Name = "button", Value = "Delete")]
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Edit_Delete(PhotosModel aPhotosModel) {
-            if (aPhotosModel.SelectedPhotos.Count == 0) {
-                ViewData["Message"] = SELECT_ONE_OR_MORE_ERROR;
-            } else {
-                try {
-                    //thePhotoService.DeletePhotos(aPhotosModel.SelectedPhotos);
-                    return SendToResultPage(DELETE_SUCCESS);
-                } catch (Exception e) {
-                    LogError(e, HAVConstants.ERROR);
-                    ViewData["Message"] = HAVConstants.ERROR;
-                }
-            }
-
-            return View(EDIT_VIEW, aPhotosModel);
+        protected override AbstractUserModel<User> CreateSocialUserModel(User aUser) {
+            return SocialUserModel.Create(aUser);
         }
-         * */
+
+        protected override IProfilePictureStrategy<User> ProfilePictureStrategy() {
+            return new ProfilePictureStrategy();
+        }
+
+        protected override string UserEmail() {
+            return GetUserInformaton().Email;
+        }
+
+        protected override string UserPassword() {
+            return GetUserInformaton().Password;
+        }
+
+        protected override int UserId() {
+            return GetUserInformaton().Id;
+        }
+
+        protected override string ErrorMessage(string aMessage) {
+            return MessageHelper.ErrorMessage(aMessage);
+        }
+
+        protected override string NormalMessage(string aMessage) {
+            return MessageHelper.NormalMessage(aMessage);
+        }
+
+        protected override string SuccessMessage(string aMessage) {
+            return MessageHelper.SuccessMessage(aMessage);
+        }
+
+        protected override ILoggedInModel<Photo> CreateLoggedInWrapperModel(User aUser) {
+            return new LoggedInWrapperModel<Photo>(aUser, SiteSection.Photos);
+        }
     }
 }

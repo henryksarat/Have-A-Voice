@@ -10,6 +10,7 @@ using HaveAVoice.Services.Helpers;
 using Social.Admin.Helpers;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
+using Social.Generic.Constants;
 
 namespace HaveAVoice.Helpers.UI {
     public class IssueHelper {
@@ -38,7 +39,7 @@ namespace HaveAVoice.Helpers.UI {
             string myIssueDisplay = string.Empty;
 
             foreach (Issue myIssue in anIssues) {
-                string myAvatarURL = PhotoHelper.ConstructUrl(HAVConstants.NO_PROFILE_PICTURE_IMAGE);
+                string myAvatarURL = PhotoHelper.ConstructUrl(Constants.NO_PROFILE_PICTURE_IMAGE);
                 string myName = "Anonymous";
                 string myProfile = "/Authentication/Login";
                 //if (PrivacyHelper.IsAllowed(myIssue.Issue.User, PrivacyAction.DisplayProfile)) {

@@ -1,26 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using HaveAVoice.Models;
+﻿using System.Linq;
 using HaveAVoice.Helpers;
+using HaveAVoice.Models;
+using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services.UserFeatures;
+using Social.Friend.Services;
+using Social.Generic.Constants;
+using Social.Photo.Services;
 
 namespace HaveAVoice.Services.Helpers {
     public class PhotoHelper {
         public static string ProfilePicture(User aUser) {
-            string myProfileUrl = HAVConstants.NO_PROFILE_PICTURE_URL;
+            string myProfileUrl = Constants.NO_PROFILE_PICTURE_URL;
 
             if(!aUser.Equals(ProfileHelper.GetAnonymousProfile())) {
                 Photo myProfilePicture = (from u in aUser.Photos where u.ProfilePicture == true select u).FirstOrDefault<Photo>();
                 if (myProfilePicture != null) {
-                    myProfileUrl = HAVConstants.PHOTO_LOCATION_FROM_VIEW + myProfilePicture.ImageName;
+                    myProfileUrl = Constants.PHOTO_LOCATION_FROM_VIEW + myProfilePicture.ImageName;
                 } else {
-                    IHAVPhotoService myPhotoService = new HAVPhotoService();
+                    IPhotoService<User, PhotoAlbum, Photo, Friend> myPhotoService = new PhotoService<User, PhotoAlbum, Photo, Friend>(new FriendService<User, Friend>(new EntityHAVFriendRepository()), new EntityHAVPhotoAlbumRepository(), new EntityHAVPhotoRepository());
                     Photo myPhoto = myPhotoService.GetProfilePicture(aUser.Id);
 
                     if (myPhoto != null) {
-                        myProfileUrl =  HAVConstants.PHOTO_LOCATION_FROM_VIEW + myPhoto.ImageName;
+                        myProfileUrl = Constants.PHOTO_LOCATION_FROM_VIEW + myPhoto.ImageName;
                     }
                 }
             }
@@ -29,7 +30,7 @@ namespace HaveAVoice.Services.Helpers {
         }
 
         public static string ConstructUrl(string anImageName) {
-            return HAVConstants.PHOTO_LOCATION_FROM_VIEW + anImageName;
+            return Social.Photo.Helpers.PhotoHelper.ConstructUrl(anImageName);
         }
 
         public static string RetrievePhotoAlbumCoverUrl(PhotoAlbum anAlbum) {

@@ -5,6 +5,7 @@ using System.Web;
 using System.IO;
 using System.Web.Mvc;
 using HaveAVoice.Helpers.Enums;
+using Social.Generic.Constants;
 
 namespace HaveAVoice.Helpers {
     public class HAVConstants {
@@ -14,10 +15,7 @@ namespace HaveAVoice.Helpers {
         public const string ACTIVATION_BODY = "Hello!\nTo finalize completion of your have a voice account, please click following link or copy and paste it into your browser: ";
         public const string ACTIVATION_SUBJECT = "have a voice | account activation";
 
-        public const string PHOTO_LOCATION_FROM_VIEW = "/Photos/";
-        public const string NO_PROFILE_PICTURE_IMAGE = "no_profile_picture.jpg";
-        public const string NO_PROFILE_PICTURE_URL = PHOTO_LOCATION_FROM_VIEW + NO_PROFILE_PICTURE_IMAGE;
-        public const string ANONYMOUS_PICTURE_URL = NO_PROFILE_PICTURE_URL;
+        public const string ANONYMOUS_PICTURE_URL = Constants.NO_PROFILE_PICTURE_URL;
         public const string ANONYMOUS = "Anonymous";
 
         public const long SECONDS_BEFORE_USER_TIMEOUT = 60 * 30;
