@@ -6,6 +6,7 @@ using Social.Admin.Exceptions;
 using Social.Admin.Repositories;
 using Social.Authentication.Helpers;
 using Social.Authentication.Repositories;
+using Social.Generic.Constants;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.User;
@@ -13,7 +14,6 @@ using Social.User.Exceptions;
 using Social.User.Helpers;
 using Social.User.Models;
 using Social.User.Services;
-using Social.Generic.Constants;
 
 namespace Social.Authentication.Services {
     public class AuthenticationService<T, U, V, W, X, Y> : IAuthenticationService<T, U, V, W, X, Y> {
@@ -52,7 +52,7 @@ namespace Social.Authentication.Services {
                 return null;
             }
 
-            T myUser = aUser.FromModel();
+            T myUser = aUser.CreateNewModel();
 
             IEnumerable<AbstractPermissionModel<V>> myPermissions = theAuthRepo.FindPermissionsForUser(myUser);
             bool myIsConfirmed = (from p in myPermissions
@@ -141,7 +141,7 @@ namespace Social.Authentication.Services {
 
             aUseActivationStrategy.AddPrivacySettingsBasedOnRole(thePrivacySettingsService, myUser, aRoleToMoveToName);
             
-            return myUser.FromModel();
+            return myUser.CreateNewModel();
         }
 
         private string CreateCookieHash(AbstractUserModel<T> aUser) {
@@ -150,7 +150,7 @@ namespace Social.Authentication.Services {
                 System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(aUser.Id + DateTime.Now.ToString(), "SHA1");
             aUser.CookieHash = myCookieHash;
             aUser.CookieHashCreationDate = DateTime.Now;
-            theUserRepo.UpdateUser(aUser.FromModel());
+            theUserRepo.UpdateUser(aUser.CreateNewModel());
             return myCookieHash;
         }
 

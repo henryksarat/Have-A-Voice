@@ -3,9 +3,6 @@ using Social.Generic.Models;
 
 namespace UniversityOfMe.Models.Social {
     public class SocialUserModel : AbstractUserModel<User> {
-        [DisplayFormat(ConvertEmptyStringToNull = false)]
-        private string theUniversity = string.Empty;
-
         protected SocialUserModel() { }
 
         public static SocialUserModel Create(User anExternal) {
@@ -15,8 +12,8 @@ namespace UniversityOfMe.Models.Social {
             return null;
         }
 
-        public override User FromModel() {
-            User myUser = User.CreateUser(Id, theUniversity, Email, Password, FirstName, LastName, 
+        public override User CreateNewModel() {
+            User myUser = User.CreateUser(Id, Email, Password, FirstName, LastName, 
                 Gender, DateOfBirth, LastLogin, RegistrationDate, RegistrationIp, ShortUrl);
             myUser.City = City;
             myUser.State = State;
@@ -31,8 +28,6 @@ namespace UniversityOfMe.Models.Social {
         }
 
         private SocialUserModel(User anExternal) {
-            theUniversity = anExternal.UniversityId;
-
             Id = anExternal.Id;
             Email = anExternal.Email;
             Password = anExternal.Password;

@@ -10,9 +10,9 @@ namespace HaveAVoice.Helpers {
                                                   AbstractUserModel<User> aUser, 
                                                   string aRoleToMoveToName) {
             if (aRoleToMoveToName.Equals(Roles.POLITICIAN) || aRoleToMoveToName.Equals(Roles.POLITICAL_CANDIDATE)) {
-                aPrivacySettingService.AddPrivacySettingsForUser(aUser.FromModel(), HAVPrivacyHelper.GetAuthorityPrivacySettings());
+                aPrivacySettingService.AddPrivacySettingsForUser(aUser.Model, HAVPrivacyHelper.GetAuthorityPrivacySettings());
             } else {
-                aPrivacySettingService.AddPrivacySettingsForUser(aUser.FromModel(), HAVPrivacyHelper.GetDefaultPrivacySettings());
+                aPrivacySettingService.AddPrivacySettingsForUser(aUser.Model, HAVPrivacyHelper.GetDefaultPrivacySettings());
             }
         }
     }

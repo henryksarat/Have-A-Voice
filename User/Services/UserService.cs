@@ -38,9 +38,14 @@ namespace Social.User {
             }
 
             aUserToCreate = CompleteAddingFieldsToUser(aUserToCreate, aIpAddress);
-            aUserToCreate = aRegistrationStrategy.AddFieldsToUserObject(aUserToCreate);
+            aUserToCreate = theUserRepo.CreateUser(aUserToCreate.CreateNewModel(), Constants.NOT_CONFIRMED_USER_ROLE);
 
-            aUserToCreate = theUserRepo.CreateUser(aUserToCreate.FromModel(), Constants.NOT_CONFIRMED_USER_ROLE);
+            try {
+                aRegistrationStrategy.PostRegistration(aUserToCreate);
+            } catch (Exception myException) {
+                theUserRepo.DeleteUser(aUserToCreate.CreateNewModel());
+                throw myException;
+            }
 
             EmailException myEmailException = null;
             try {
@@ -51,11 +56,10 @@ namespace Social.User {
 
             if (myEmailException != null) {
                 try {
-                    //Gernerify authentication
-                    //theAuthService.ActivateNewUser(aUserToCreate.ActivationCode);
-                } catch (Exception e) {
-                    theUserRepo.DeleteUser(aUserToCreate.FromModel());
-                    throw e;
+                    aRegistrationStrategy.BackUpPlanForEmailNotSending(aUserToCreate);
+                } catch (Exception myException) {
+                    theUserRepo.DeleteUser(aUserToCreate.Model);
+                    throw myException;
                 }
                 throw new EmailException("Couldn't send aEmail.", myEmailException);
             }

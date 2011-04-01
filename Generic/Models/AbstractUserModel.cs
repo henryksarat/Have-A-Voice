@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.ComponentModel.DataAnnotations;
 
 namespace Social.Generic.Models {
-    public abstract class AbstractUserModel<T> {
+    public abstract class AbstractUserModel<T> : AbstractSocialModel<T> {
         public int Id { get; set; }
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Email { get; set; }
@@ -42,6 +39,6 @@ namespace Social.Generic.Models {
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Gender { get; set; }
 
-        public abstract T FromModel();
+        public abstract T CreateNewModel();
     }
 }

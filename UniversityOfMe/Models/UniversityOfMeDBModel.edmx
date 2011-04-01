@@ -12,9 +12,11 @@
           <EntitySet Name="RolePermissions" EntityType="UniversityOfMeModel.Store.RolePermissions" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Roles" EntityType="UniversityOfMeModel.Store.Roles" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Universities" EntityType="UniversityOfMeModel.Store.Universities" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UniversityEmails" EntityType="UniversityOfMeModel.Store.UniversityEmails" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserPrivacySettings" EntityType="UniversityOfMeModel.Store.UserPrivacySettings" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserRoles" EntityType="UniversityOfMeModel.Store.UserRoles" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="UniversityOfMeModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserUniversity" EntityType="UniversityOfMeModel.Store.UserUniversity" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="WhoIsOnline" EntityType="UniversityOfMeModel.Store.WhoIsOnline" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_ErrorLog_Users" Association="UniversityOfMeModel.Store.FK_ErrorLog_Users">
             <End Role="Users" EntitySet="Users" />
@@ -32,6 +34,10 @@
             <End Role="Roles" EntitySet="Roles" />
             <End Role="RolePermissions" EntitySet="RolePermissions" />
           </AssociationSet>
+          <AssociationSet Name="FK_UniversityEmails_Universities" Association="UniversityOfMeModel.Store.FK_UniversityEmails_Universities">
+            <End Role="Universities" EntitySet="Universities" />
+            <End Role="UniversityEmails" EntitySet="UniversityEmails" />
+          </AssociationSet>
           <AssociationSet Name="FK_UserPrivacySettings_PrivacySettings" Association="UniversityOfMeModel.Store.FK_UserPrivacySettings_PrivacySettings">
             <End Role="PrivacySettings" EntitySet="PrivacySettings" />
             <End Role="UserPrivacySettings" EntitySet="UserPrivacySettings" />
@@ -48,9 +54,13 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="UserRoles" EntitySet="UserRoles" />
           </AssociationSet>
-          <AssociationSet Name="FK_Users_University" Association="UniversityOfMeModel.Store.FK_Users_University">
-            <End Role="Universities" EntitySet="Universities" />
+          <AssociationSet Name="FK_UserUniversity_UniversityEmails" Association="UniversityOfMeModel.Store.FK_UserUniversity_UniversityEmails">
+            <End Role="UniversityEmails" EntitySet="UniversityEmails" />
+            <End Role="UserUniversity" EntitySet="UserUniversity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserUniversity_Users" Association="UniversityOfMeModel.Store.FK_UserUniversity_Users">
             <End Role="Users" EntitySet="Users" />
+            <End Role="UserUniversity" EntitySet="UserUniversity" />
           </AssociationSet>
           <AssociationSet Name="FK_WhoIsOnline_Users" Association="UniversityOfMeModel.Store.FK_WhoIsOnline_Users">
             <End Role="Users" EntitySet="Users" />
@@ -113,10 +123,17 @@
         </EntityType>
         <EntityType Name="Universities">
           <Key>
-            <PropertyRef Name="EmailExtension" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="EmailExtension" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Id" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="UniversityName" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UniversityEmails">
+          <Key>
+            <PropertyRef Name="Email" />
+          </Key>
+          <Property Name="Email" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="UniversityId" Type="varchar" Nullable="false" MaxLength="50" />
         </EntityType>
         <EntityType Name="UserPrivacySettings">
           <Key>
@@ -139,7 +156,6 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="UniversityId" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="Email" Type="varchar" Nullable="false" MaxLength="100" />
           <Property Name="Password" Type="varchar" Nullable="false" MaxLength="200" />
           <Property Name="FirstName" Type="varchar" Nullable="false" MaxLength="50" />
@@ -161,6 +177,14 @@
           <Property Name="ForgotPasswordHash" Type="varchar" MaxLength="500" />
           <Property Name="ForgotPasswordHashDateTimeStamp" Type="datetime" />
           <Property Name="ShortUrl" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UserUniversity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="UniversityEmailId" Type="varchar" Nullable="false" MaxLength="50" />
         </EntityType>
         <EntityType Name="WhoIsOnline">
           <Key>
@@ -226,6 +250,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UniversityEmails_Universities">
+          <End Role="Universities" Type="UniversityOfMeModel.Store.Universities" Multiplicity="1" />
+          <End Role="UniversityEmails" Type="UniversityOfMeModel.Store.UniversityEmails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Universities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UniversityEmails">
+              <PropertyRef Name="UniversityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserPrivacySettings_PrivacySettings">
           <End Role="PrivacySettings" Type="UniversityOfMeModel.Store.PrivacySettings" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -282,15 +318,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Users_University">
-          <End Role="Universities" Type="UniversityOfMeModel.Store.Universities" Multiplicity="1" />
-          <End Role="Users" Type="UniversityOfMeModel.Store.Users" Multiplicity="*" />
+        <Association Name="FK_UserUniversity_UniversityEmails">
+          <End Role="UniversityEmails" Type="UniversityOfMeModel.Store.UniversityEmails" Multiplicity="1" />
+          <End Role="UserUniversity" Type="UniversityOfMeModel.Store.UserUniversity" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Universities">
-              <PropertyRef Name="EmailExtension" />
+            <Principal Role="UniversityEmails">
+              <PropertyRef Name="Email" />
             </Principal>
-            <Dependent Role="Users">
-              <PropertyRef Name="UniversityId" />
+            <Dependent Role="UserUniversity">
+              <PropertyRef Name="UniversityEmailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserUniversity_Users">
+          <End Role="Users" Type="UniversityOfMeModel.Store.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserUniversity" Type="UniversityOfMeModel.Store.UserUniversity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserUniversity">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -334,11 +384,6 @@
             <End Role="User" EntitySet="Users" />
             <End Role="UserRole" EntitySet="UserRoles" />
           </AssociationSet>
-          <EntitySet Name="Universities" EntityType="UniversityOfMeModel.University" />
-          <AssociationSet Name="FK_Users_University" Association="UniversityOfMeModel.FK_Users_University">
-            <End Role="University" EntitySet="Universities" />
-            <End Role="User" EntitySet="Users" />
-          </AssociationSet>
           <EntitySet Name="WhoIsOnlines" EntityType="UniversityOfMeModel.WhoIsOnline" />
           <AssociationSet Name="FK_WhoIsOnline_Users" Association="UniversityOfMeModel.FK_WhoIsOnline_Users">
             <End Role="User" EntitySet="Users" />
@@ -362,6 +407,21 @@
           <AssociationSet Name="FK_UserPrivacySettings_PrivacySettings" Association="UniversityOfMeModel.FK_UserPrivacySettings_PrivacySettings">
             <End Role="PrivacySetting" EntitySet="PrivacySettings" />
             <End Role="UserPrivacySetting" EntitySet="UserPrivacySettings" />
+          </AssociationSet>
+          <EntitySet Name="Universities" EntityType="UniversityOfMeModel.University" />
+          <EntitySet Name="UniversityEmails" EntityType="UniversityOfMeModel.UniversityEmail" />
+          <EntitySet Name="UserUniversities" EntityType="UniversityOfMeModel.UserUniversity" />
+          <AssociationSet Name="FK_UniversityEmails_Universities" Association="UniversityOfMeModel.FK_UniversityEmails_Universities">
+            <End Role="University" EntitySet="Universities" />
+            <End Role="UniversityEmail" EntitySet="UniversityEmails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserUniversity_UniversityEmails" Association="UniversityOfMeModel.FK_UserUniversity_UniversityEmails">
+            <End Role="UniversityEmail" EntitySet="UniversityEmails" />
+            <End Role="UserUniversity" EntitySet="UserUniversities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserUniversity_Users" Association="UniversityOfMeModel.FK_UserUniversity_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserUniversity" EntitySet="UserUniversities" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="RolePermission">
@@ -441,7 +501,6 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="UniversityId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Email" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Password" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -465,10 +524,10 @@
           <Property Type="String" Name="ShortUrl" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="UserPrivacySettings" Relationship="UniversityOfMeModel.FK_UserPrivacySettings_Users" FromRole="User" ToRole="UserPrivacySetting" />
           <NavigationProperty Name="UserRoles" Relationship="UniversityOfMeModel.FK_UserRoles_Users" FromRole="User" ToRole="UserRole" />
-          <NavigationProperty Name="University" Relationship="UniversityOfMeModel.FK_Users_University" FromRole="User" ToRole="University" />
           <NavigationProperty Name="WhoIsOnlines" Relationship="UniversityOfMeModel.FK_WhoIsOnline_Users" FromRole="User" ToRole="WhoIsOnline" />
           <NavigationProperty Name="ErrorLogs" Relationship="UniversityOfMeModel.FK_ErrorLog_Users" FromRole="User" ToRole="ErrorLog" />
           <NavigationProperty Name="PrivacySettings" Relationship="UniversityOfMeModel.FK_PrivacySettings_Users" FromRole="User" ToRole="PrivacySetting" />
+          <NavigationProperty Name="UserUniversities" Relationship="UniversityOfMeModel.FK_UserUniversity_Users" FromRole="User" ToRole="UserUniversity" />
         </EntityType>
         <Association Name="FK_UserPrivacySettings_Users">
           <End Type="UniversityOfMeModel.User" Role="User" Multiplicity="1" />
@@ -491,26 +550,6 @@
             </Principal>
             <Dependent Role="UserRole">
               <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="University">
-          <Key>
-            <PropertyRef Name="EmailExtension" />
-          </Key>
-          <Property Type="String" Name="EmailExtension" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="UniversityName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Users" Relationship="UniversityOfMeModel.FK_Users_University" FromRole="University" ToRole="User" />
-        </EntityType>
-        <Association Name="FK_Users_University">
-          <End Type="UniversityOfMeModel.University" Role="University" Multiplicity="1" />
-          <End Type="UniversityOfMeModel.User" Role="User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="University">
-              <PropertyRef Name="EmailExtension" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="UniversityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -623,6 +662,69 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="University">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Id" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="UniversityName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UniversityEmails" Relationship="UniversityOfMeModel.FK_UniversityEmails_Universities" FromRole="University" ToRole="UniversityEmail" />
+        </EntityType>
+        <EntityType Name="UniversityEmail">
+          <Key>
+            <PropertyRef Name="Email" />
+          </Key>
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="UniversityId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="University" Relationship="UniversityOfMeModel.FK_UniversityEmails_Universities" FromRole="UniversityEmail" ToRole="University" />
+          <NavigationProperty Name="UserUniversities" Relationship="UniversityOfMeModel.FK_UserUniversity_UniversityEmails" FromRole="UniversityEmail" ToRole="UserUniversity" />
+        </EntityType>
+        <EntityType Name="UserUniversity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="UniversityEmailId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UniversityEmail" Relationship="UniversityOfMeModel.FK_UserUniversity_UniversityEmails" FromRole="UserUniversity" ToRole="UniversityEmail" />
+          <NavigationProperty Name="User" Relationship="UniversityOfMeModel.FK_UserUniversity_Users" FromRole="UserUniversity" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_UniversityEmails_Universities">
+          <End Type="UniversityOfMeModel.University" Role="University" Multiplicity="1" />
+          <End Type="UniversityOfMeModel.UniversityEmail" Role="UniversityEmail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="University">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UniversityEmail">
+              <PropertyRef Name="UniversityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserUniversity_UniversityEmails">
+          <End Type="UniversityOfMeModel.UniversityEmail" Role="UniversityEmail" Multiplicity="1" />
+          <End Type="UniversityOfMeModel.UserUniversity" Role="UserUniversity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UniversityEmail">
+              <PropertyRef Name="Email" />
+            </Principal>
+            <Dependent Role="UserUniversity">
+              <PropertyRef Name="UniversityEmailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserUniversity_Users">
+          <End Type="UniversityOfMeModel.User" Role="User" Multiplicity="1" />
+          <End Type="UniversityOfMeModel.UserUniversity" Role="UserUniversity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserUniversity">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -677,16 +779,7 @@
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="UniversityId" ColumnName="UniversityId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Universities">
-            <EntityTypeMapping TypeName="UniversityOfMeModel.University">
-              <MappingFragment StoreEntitySet="Universities">
-                <ScalarProperty Name="UniversityName" ColumnName="UniversityName" />
-                <ScalarProperty Name="EmailExtension" ColumnName="EmailExtension" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -738,6 +831,31 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Universities">
+            <EntityTypeMapping TypeName="UniversityOfMeModel.University">
+              <MappingFragment StoreEntitySet="Universities">
+                <ScalarProperty Name="UniversityName" ColumnName="UniversityName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UniversityEmails">
+            <EntityTypeMapping TypeName="UniversityOfMeModel.UniversityEmail">
+              <MappingFragment StoreEntitySet="UniversityEmails">
+                <ScalarProperty Name="UniversityId" ColumnName="UniversityId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserUniversities">
+            <EntityTypeMapping TypeName="UniversityOfMeModel.UserUniversity">
+              <MappingFragment StoreEntitySet="UserUniversity">
+                <ScalarProperty Name="UniversityEmailId" ColumnName="UniversityEmailId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -775,7 +893,7 @@
           <ConnectorPoint PointX="4.875" PointY="1.4638196145833322" />
           <ConnectorPoint PointX="5.25" PointY="1.4638196145833322" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="UniversityOfMeModel.User" Width="1.5" PointX="3" PointY="1.75" Height="6.0186165364583317" />
+        <EntityTypeShape EntityType="UniversityOfMeModel.User" Width="1.5" PointX="3" PointY="1.75" Height="6.4032194010416656" />
         <AssociationConnector Association="UniversityOfMeModel.FK_UserPrivacySettings_Users" >
           <ConnectorPoint PointX="4.5" PointY="4.8651432291666659" />
           <ConnectorPoint PointX="4.791666666666667" PointY="4.865143229166665" />
@@ -788,39 +906,34 @@
           <ConnectorPoint PointX="4.958333333333333" PointY="2.2401432291666659" />
           <ConnectorPoint PointX="5.25" PointY="2.2401432291666659" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="UniversityOfMeModel.University" Width="1.5" PointX="0.75" PointY="4" Height="1.5956835937499996" />
-        <AssociationConnector Association="UniversityOfMeModel.FK_Users_University" >
-          <ConnectorPoint PointX="2.25" PointY="4.797841796875" />
-          <ConnectorPoint PointX="3" PointY="4.797841796875" />
-        </AssociationConnector>
         <EntityTypeShape EntityType="UniversityOfMeModel.WhoIsOnline" Width="1.5" PointX="5.25" PointY="6.75" Height="2.1725878906249996" />
         <AssociationConnector Association="UniversityOfMeModel.FK_WhoIsOnline_Users" >
-          <ConnectorPoint PointX="4.5" PointY="7.4363425853729135" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="7.4363425853729126" />
-          <ConnectorPoint PointX="4.989583333333333" PointY="7.4363425853729135" />
-          <ConnectorPoint PointX="5.25" PointY="7.4363425853729135" />
+          <ConnectorPoint PointX="4.5" PointY="7.4516097005208328" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="7.4516097005208319" />
+          <ConnectorPoint PointX="4.989583333333333" PointY="7.4516097005208328" />
+          <ConnectorPoint PointX="5.25" PointY="7.4516097005208328" />
         </AssociationConnector>
         <EntityTypeShape EntityType="UniversityOfMeModel.ErrorLog" Width="1.5" PointX="5.25" PointY="12.625" Height="2.5571907552083317" />
         <AssociationConnector Association="UniversityOfMeModel.FK_ErrorLog_Users" >
-          <ConnectorPoint PointX="4.5" PointY="8.32013521794872" />
-          <ConnectorPoint PointX="4.8160744349011217" PointY="8.6362096528498391" />
-          <ConnectorPoint PointX="4.9339255650988791" PointY="8.7540607830475974" />
-          <ConnectorPoint PointX="4.9375" PointY="8.75763521794872" />
+          <ConnectorPoint PointX="4.5" PointY="8.1278337856570513" />
+          <ConnectorPoint PointX="4.8160744349011217" PointY="8.4439082205581713" />
+          <ConnectorPoint PointX="4.9339255650988791" PointY="8.56175935075593" />
+          <ConnectorPoint PointX="4.9375" PointY="8.5653337856570513" />
           <ConnectorPoint PointX="4.9375" PointY="13.903595377604166" />
           <ConnectorPoint PointX="5.25" PointY="13.903595377604166" />
         </AssociationConnector>
         <EntityTypeShape EntityType="UniversityOfMeModel.Permission" Width="1.5" PointX="7.375" PointY="1" Height="2.3648893229166674" />
         <EntityTypeShape EntityType="UniversityOfMeModel.PrivacySetting" Width="1.5" PointX="5.25" PointY="16.75" Height="2.5571907552083317" />
         <AssociationConnector Association="UniversityOfMeModel.FK_RolePermissions_Permissions" >
-          <ConnectorPoint PointX="8.125" PointY="3.3648893229166674" />
-          <ConnectorPoint PointX="8.125" PointY="10.740143229166666" />
+          <ConnectorPoint PointX="7.78125" PointY="3.3648893229166674" />
+          <ConnectorPoint PointX="7.78125" PointY="10.740143229166666" />
           <ConnectorPoint PointX="6.75" PointY="10.740143229166666" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_PrivacySettings_Users" >
-          <ConnectorPoint PointX="4.5" PointY="8.3385967564102561" />
-          <ConnectorPoint PointX="4.8160744349011217" PointY="8.6546711913113761" />
-          <ConnectorPoint PointX="4.9651755650988791" PointY="8.8037723215091344" />
-          <ConnectorPoint PointX="4.96875" PointY="8.8073467564102561" />
+          <ConnectorPoint PointX="4.5" PointY="8.1462953241185883" />
+          <ConnectorPoint PointX="4.8160744349011217" PointY="8.4623697590197082" />
+          <ConnectorPoint PointX="4.9651755650988791" PointY="8.6114708892174665" />
+          <ConnectorPoint PointX="4.96875" PointY="8.6150453241185883" />
           <ConnectorPoint PointX="4.96875" PointY="18.028595377604166" />
           <ConnectorPoint PointX="5.25" PointY="18.028595377604166" />
         </AssociationConnector>
@@ -831,6 +944,21 @@
           <ConnectorPoint PointX="4.90625" PointY="16.373943307692308" />
           <ConnectorPoint PointX="4.90625" PointY="6.1990364583333317" />
           <ConnectorPoint PointX="5.25" PointY="5.8552864583333326" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="UniversityOfMeModel.University" Width="1.5" PointX="0.625" PointY="9.5" Height="1.5956835937500031" />
+        <EntityTypeShape EntityType="UniversityOfMeModel.UniversityEmail" Width="1.5" PointX="0.625" PointY="6.875" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="UniversityOfMeModel.UserUniversity" Width="1.5" PointX="0.5" PointY="4" Height="1.9802864583333388" />
+        <AssociationConnector Association="UniversityOfMeModel.FK_UniversityEmails_Universities" >
+          <ConnectorPoint PointX="1.375" PointY="9.5" />
+          <ConnectorPoint PointX="1.375" PointY="8.6629850260416674" />
+        </AssociationConnector>
+        <AssociationConnector Association="UniversityOfMeModel.FK_UserUniversity_UniversityEmails" >
+          <ConnectorPoint PointX="1.3125" PointY="6.875" />
+          <ConnectorPoint PointX="1.3125" PointY="5.9802864583333388" />
+        </AssociationConnector>
+        <AssociationConnector Association="UniversityOfMeModel.FK_UserUniversity_Users" >
+          <ConnectorPoint PointX="3" PointY="4.9901432291666694" />
+          <ConnectorPoint PointX="2" PointY="4.9901432291666694" />
         </AssociationConnector>
         </Diagram>
     </Diagrams>

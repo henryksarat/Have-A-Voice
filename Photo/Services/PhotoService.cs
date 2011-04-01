@@ -79,16 +79,16 @@ namespace HaveAVoice.Services.UserFeatures {
                 string[] myNewProfileSplit = myNewProfilePhoto.ImageName.Split('.');
                 string myNewProfilePictureImageName = myNewProfileSplit[0] + "-profile." + myNewProfileSplit[1];
                 ResizeImage(myNewProfilePhoto.ImageName, myNewProfilePictureImageName, 120);
-                thePhotoRepo.AddReferenceToImage(aUser.FromModel(), myNewProfilePhoto.PhotoAlbumId, myNewProfilePictureImageName, true);
+                thePhotoRepo.AddReferenceToImage(aUser.Model, myNewProfilePhoto.PhotoAlbumId, myNewProfilePictureImageName, true);
             } else {
                 throw new CustomException(ErrorKeys.PERMISSION_DENIED);
             }
         }
 
         public void UploadProfilePicture(AbstractUserModel<T> aUserToUploadFor, HttpPostedFileBase aImageFile) {
-            AbstractPhotoAlbumModel<U, V> myProfilePictureAlbum = thePhotoAlbumRepo.GetAbstractProfilePictureAlbumForUser(aUserToUploadFor.FromModel());
+            AbstractPhotoAlbumModel<U, V> myProfilePictureAlbum = thePhotoAlbumRepo.GetAbstractProfilePictureAlbumForUser(aUserToUploadFor.Model);
             string myImageName = UploadImage(aUserToUploadFor, aImageFile);
-            V myPhoto = thePhotoRepo.AddReferenceToImage(aUserToUploadFor.FromModel(), myProfilePictureAlbum.Id, myImageName, true);
+            V myPhoto = thePhotoRepo.AddReferenceToImage(aUserToUploadFor.Model, myProfilePictureAlbum.Id, myImageName, true);
         }
 
         public V GetProfilePicture(int aUserId) {
@@ -103,7 +103,7 @@ namespace HaveAVoice.Services.UserFeatures {
             AbstractPhotoAlbumModel<U, V> myAlbum = thePhotoAlbumRepo.GetAbstractPhotoAlbum(anAlbumId);
              if (myAlbum.CreatedByUserId == aUserToUploadFor.Id) {
                  string myImageName = UploadImage(aUserToUploadFor, aImageFile);
-                 thePhotoRepo.AddReferenceToImage(aUserToUploadFor.FromModel(), anAlbumId, myImageName, false);
+                 thePhotoRepo.AddReferenceToImage(aUserToUploadFor.Model, anAlbumId, myImageName, false);
              }
 
              new CustomException(UNAUTHORIZED_UPLOAD);

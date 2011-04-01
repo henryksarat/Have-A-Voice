@@ -68,20 +68,25 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\BaseSocialController.cs" />
+    <Compile Include="Controllers\Admin\AdminController.cs" />
+    <Compile Include="Controllers\Admin\PermissionController.cs" />
+    <Compile Include="Controllers\Admin\RoleController.cs" />
     <Compile Include="Controllers\Core\AuthenticationController.cs" />
+    <Compile Include="Controllers\Helpers\InstanceHelper.cs" />
     <Compile Include="Controllers\SharedController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\Users\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\EmailHelper.cs" />
     <Compile Include="Helpers\ProfilePictureStrategy.cs" />
     <Compile Include="Helpers\RegistrationStrategy.cs" />
+    <Compile Include="Helpers\SelectionHelper.cs" />
     <Compile Include="Helpers\UOMConstants.cs" />
     <Compile Include="Models\Social\SocialPermissionModel.cs" />
     <Compile Include="Models\Social\SocialPrivacySettingsModel.cs" />
     <Compile Include="Models\Social\SocialRoleModel.cs" />
+    <Compile Include="Models\Social\SocialRolePermissionModel.cs" />
     <Compile Include="Models\Social\SocialUserModel.cs" />
     <Compile Include="Models\Social\SocialWhoIsOnlineModel.cs" />
     <Compile Include="Models\UniversityOfMeDBModel.Designer.cs">
@@ -91,6 +96,7 @@
     </Compile>
     <Compile Include="Models\View\CreateUserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AdminRepos\EntityPermissionRepository.cs" />
     <Compile Include="Repositories\AdminRepos\EntityRoleRepository.cs" />
     <Compile Include="Repositories\UserRepos\EntityUserRepository.cs" />
     <Compile Include="Repositories\EntityWhoIsOnlineRepository.cs" />
@@ -98,11 +104,12 @@
     <Compile Include="Repositories\IUniversityRepository.cs" />
     <Compile Include="Repositories\AuthenticationRepos\EntityAuthenticationRepository.cs" />
     <Compile Include="Repositories\UserRepos\EntityUserPrivacySettingsRepository.cs" />
-    <Compile Include="Repositories\UniversityRepository.cs" />
+    <Compile Include="Repositories\EntityUniversityRepository.cs" />
     <Compile Include="Repositories\UserRepos\EntityUserRetrievalRepository.cs" />
     <Compile Include="Services\IUniversityService.cs" />
     <Compile Include="Services\UniversityService.cs" />
     <Compile Include="UserInformation\UserInformationFactory.cs" />
+    <Compile Include="Models\View\RoleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\UniversityOfMe.mdf" />
@@ -113,7 +120,17 @@
     <Content Include="Content\jquery-ui-1.7.2.custom.css" />
     <Content Include="Content\jquery-ui-1.7.2.custom.min.js" />
     <Content Include="Global.asax" />
+    <Content Include="Views\Admin\Index.aspx" />
     <Content Include="Views\Authentication\Login.aspx" />
+    <Content Include="Views\Permission\Create.aspx" />
+    <Content Include="Views\Permission\Delete.aspx" />
+    <Content Include="Views\Permission\Edit.aspx" />
+    <Content Include="Views\Permission\Index.aspx" />
+    <Content Include="Views\Role\Create.aspx" />
+    <Content Include="Views\Role\Delete.aspx" />
+    <Content Include="Views\Role\Edit.aspx" />
+    <Content Include="Views\Role\Index.aspx" />
+    <Content Include="Views\Role\SwitchUserRoles.aspx" />
     <Content Include="Views\Shared\Error.aspx" />
     <Content Include="Views\Shared\Message.ascx" />
     <Content Include="Views\Shared\Result.aspx" />
@@ -144,7 +161,6 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\Admin\" />
     <Folder Include="Repositories\Site\" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +177,10 @@
     <ProjectReference Include="..\Authentication\Authentication.csproj">
       <Project>{7D365142-37D3-4397-90AC-5761FA085C01}</Project>
       <Name>Authentication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BaseWebsite\BaseWebsite.csproj">
+      <Project>{D26AE180-BD39-4C37-BE71-54D645D5320D}</Project>
+      <Name>BaseWebsite</Name>
     </ProjectReference>
     <ProjectReference Include="..\Email\Email.csproj">
       <Project>{E1E6EFDF-E70F-4413-8C2D-E51A2F6310F2}</Project>

@@ -7,6 +7,7 @@ using Social.User.Exceptions;
 using UniversityOfMe.Models;
 using UniversityOfMe.Models.Social;
 using UniversityOfMe.Repositories.AdminRepos;
+using UniversityOfMe.Helpers;
 
 namespace UniversityOfMe.Repositories.UserRepos {
     public class EntityUserRepository : IUserRepository<User, Role, UserRole> {
@@ -14,12 +15,12 @@ namespace UniversityOfMe.Repositories.UserRepos {
 
         public UserRole AddUserToRole(User aUser, Role aRole) {
             UserRole myRole = UserRole.CreateUserRole(0, aUser.Id, aRole.Id);
-
             theEntities.AddToUserRoles(myRole);
             theEntities.SaveChanges();
 
             return myRole;
         }
+
 
         public AbstractUserModel<User> CreateUser(User userToCreate, string aNotConfirmedRoleName) {
             theEntities.AddToUsers(userToCreate);

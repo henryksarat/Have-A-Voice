@@ -4,6 +4,7 @@ using Social.Validation;
 namespace Social.User.Helpers {
     public interface IRegistrationStrategy<T> {
         bool ExtraFieldsAreValid(AbstractUserModel<T> aUser, IValidationDictionary aValidationDictionary);
-        AbstractUserModel<T> AddFieldsToUserObject(AbstractUserModel<T> aUser);
+        void PostRegistration(AbstractUserModel<T> aUser);
+        void BackUpPlanForEmailNotSending(AbstractUserModel<T> aUser);
     }
 }

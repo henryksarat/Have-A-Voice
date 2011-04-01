@@ -6,6 +6,8 @@ using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
 using UniversityOfMe.Models.Social;
 using UniversityOfMe.Services;
+using UniversityOfMe.Controllers.Helpers;
+using Social.Authentication.Services;
 
 public class RegistrationStrategy : IRegistrationStrategy<User> {
     public bool ExtraFieldsAreValid(AbstractUserModel<User> aUser, IValidationDictionary aValidationDictionary) {
@@ -21,9 +23,13 @@ public class RegistrationStrategy : IRegistrationStrategy<User> {
         return aValidationDictionary.isValid;
     }
 
-    public AbstractUserModel<User> AddFieldsToUserObject(AbstractUserModel<User> aUser) {
-        User myUser = aUser.FromModel();
-        myUser.UniversityId = EmailHelper.ExtractEmailExtension(myUser.Email);
-        return SocialUserModel.Create(myUser);
+    public void PostRegistration(AbstractUserModel<User> aUser) {
+        IUniversityService theUniversityService = new UniversityService();
+        theUniversityService.AddUserToUniversity(aUser.CreateNewModel());
+    }
+
+    public void BackUpPlanForEmailNotSending(AbstractUserModel<User> aUser) {
+        IAuthenticationService<User, Role, Permission, UserRole, PrivacySetting, RolePermission> myAuthService = InstanceHelper.CreateAuthencationService();
+        myAuthService.ActivateNewUser(aUser.ActivationCode);
     }
 }

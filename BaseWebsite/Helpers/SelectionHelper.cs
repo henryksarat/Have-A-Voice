@@ -9,7 +9,7 @@ namespace BaseWebsite.Helpers {
 
             foreach (AbstractUserModel<T> myUser in anAllUsers) {
                 Pair<T, bool> pair = new Pair<T, bool>();
-                pair.First = myUser.FromModel();
+                pair.First = myUser.Model;
                 pair.Second = false;
 
                 if (aSelectedUsers != null && aSelectedUsers.Contains(myUser.Id)) {

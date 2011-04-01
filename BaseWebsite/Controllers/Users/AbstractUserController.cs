@@ -50,15 +50,14 @@ namespace BaseWebsite.Controllers.Users {
             }
         }
 
-        protected ActionResult Create(T aUserToCreate, bool captchaValid, bool anAgreement, string aBaseUrl, 
+        protected ActionResult Create(AbstractUserModel<T> aUserToCreate, bool captchaValid, bool anAgreement, string aBaseUrl, 
                                       string anActivationSubject, string anActivationBody, 
                                       IRegistrationStrategy<T> aRegistrationStrategy) {
             if (IsLoggedIn()) {
                 return RedirectToProfile();
             }
             try {
-                AbstractUserModel<T> myUserToCreate = CreateSocialUserModel(aUserToCreate);
-                bool myResult = theRegistrationService.CreateUser(myUserToCreate, captchaValid, 
+                bool myResult = theRegistrationService.CreateUser(aUserToCreate, captchaValid, 
                                                                   anAgreement, HttpContext.Request.UserHostAddress, 
                                                                   aBaseUrl, anActivationSubject, anActivationBody, 
                                                                   aRegistrationStrategy);

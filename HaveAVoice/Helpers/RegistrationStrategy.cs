@@ -2,6 +2,8 @@
 using Social.Generic.Models;
 using Social.User.Helpers;
 using Social.Validation;
+using Social.Authentication.Services;
+using HaveAVoice.Services.UserFeatures;
 
 namespace HaveAVoice.Helpers {
     public class RegistrationStrategy : IRegistrationStrategy<User> {
@@ -15,8 +17,13 @@ namespace HaveAVoice.Helpers {
             return aValidationDictionary.isValid;
         }
 
-        public AbstractUserModel<User> AddFieldsToUserObject(AbstractUserModel<User> aUser) {
-            return aUser;
+        public void PostRegistration(AbstractUserModel<User> aUser) {
+            //No post registration for have a voice
+        }
+
+        public void BackUpPlanForEmailNotSending(AbstractUserModel<User> aUser) {
+            IHAVAuthenticationService myAuthService = new HAVAuthenticationService();
+            myAuthService.ActivateNewUser(aUser.ActivationCode);
         }
     }
 }

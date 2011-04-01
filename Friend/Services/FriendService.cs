@@ -11,7 +11,7 @@ namespace Social.Friend.Services {
         }
 
         public void AddFriend(AbstractUserModel<T> aUser, int aSourceUserId) {
-            theFriendRepo.AddFriend(aUser.FromModel(), aSourceUserId);
+            theFriendRepo.AddFriend(aUser.Model, aSourceUserId);
         }
 
         public void ApproveFriend(int aFriendId) {
@@ -31,19 +31,19 @@ namespace Social.Friend.Services {
         }
 
         public bool IsFriend(int aUserId, AbstractUserModel<T> aFriend) {
-            return aUserId == aFriend.Id || theFriendRepo.IsFriend(aUserId, aFriend.FromModel());
+            return aUserId == aFriend.Id || theFriendRepo.IsFriend(aUserId, aFriend.Model);
         }
 
         public bool IsPending(int aUserId, AbstractUserModel<T> aFriend) {
-            return theFriendRepo.IsPending(aUserId, aFriend.FromModel());
+            return theFriendRepo.IsPending(aUserId, aFriend.Model);
         }
 
         public bool IsPendingForResponse(AbstractUserModel<T> aUser, int aFriendId) {
-            return theFriendRepo.IsPendingForResponse(aUser.FromModel(), aFriendId);
+            return theFriendRepo.IsPendingForResponse(aUser.Model, aFriendId);
         }
 
         public void RemoveFriend(AbstractUserModel<T> aUser, int aSourceId) {
-            theFriendRepo.DeleteFriend(aUser.FromModel(), aSourceId);
+            theFriendRepo.DeleteFriend(aUser.Model, aSourceId);
         }
     }
 }

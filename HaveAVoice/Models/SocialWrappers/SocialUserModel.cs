@@ -9,7 +9,7 @@ namespace HaveAVoice.Models.SocialWrappers {
             return null;
         }
 
-        public override User FromModel() {
+        public override User CreateNewModel() {
             User myUser = User.CreateUser(Id, Email, Password, FirstName, LastName, City, State, DateOfBirth, LastLogin, RegistrationDate, RegistrationIp, ShortUrl, Gender);
             myUser.Website = Website;
             myUser.AboutMe = AboutMe;

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
-namespace HaveAVoice.Helpers.UI {
+namespace Social.ViewHelpers {
     public class CheckBoxHelper {
         public static string StandardCheckbox(string aName, string aValue, bool aIsChecked) {
             var checkboxTag = new TagBuilder("input");

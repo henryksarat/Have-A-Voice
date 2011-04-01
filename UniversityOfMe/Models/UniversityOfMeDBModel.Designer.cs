@@ -22,12 +22,14 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserRoles_Roles", "Roles", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Role), "UserRoles", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserRole), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserPrivacySettings_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "UserPrivacySetting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserPrivacySetting), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserRoles_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "UserRole", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserRole), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Users_University", "University", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.University), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.User), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_WhoIsOnline_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "WhoIsOnline", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.WhoIsOnline), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ErrorLog_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ErrorLog", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ErrorLog), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_RolePermissions_Permissions", "Permission", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Permission), "RolePermission", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.RolePermission), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_PrivacySettings_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "PrivacySetting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.PrivacySetting), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserPrivacySettings_PrivacySettings", "PrivacySetting", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.PrivacySetting), "UserPrivacySetting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserPrivacySetting), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UniversityEmails_Universities", "University", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.University), "UniversityEmail", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UniversityEmail), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserUniversity_UniversityEmails", "UniversityEmail", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.UniversityEmail), "UserUniversity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserUniversity), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserUniversity_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "UserUniversity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserUniversity), true)]
 
 #endregion
 
@@ -162,22 +164,6 @@ namespace UniversityOfMe.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<University> Universities
-        {
-            get
-            {
-                if ((_Universities == null))
-                {
-                    _Universities = base.CreateObjectSet<University>("Universities");
-                }
-                return _Universities;
-            }
-        }
-        private ObjectSet<University> _Universities;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<WhoIsOnline> WhoIsOnlines
         {
             get
@@ -238,6 +224,54 @@ namespace UniversityOfMe.Models
             }
         }
         private ObjectSet<PrivacySetting> _PrivacySettings;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<University> Universities
+        {
+            get
+            {
+                if ((_Universities == null))
+                {
+                    _Universities = base.CreateObjectSet<University>("Universities");
+                }
+                return _Universities;
+            }
+        }
+        private ObjectSet<University> _Universities;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<UniversityEmail> UniversityEmails
+        {
+            get
+            {
+                if ((_UniversityEmails == null))
+                {
+                    _UniversityEmails = base.CreateObjectSet<UniversityEmail>("UniversityEmails");
+                }
+                return _UniversityEmails;
+            }
+        }
+        private ObjectSet<UniversityEmail> _UniversityEmails;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<UserUniversity> UserUniversities
+        {
+            get
+            {
+                if ((_UserUniversities == null))
+                {
+                    _UserUniversities = base.CreateObjectSet<UserUniversity>("UserUniversities");
+                }
+                return _UserUniversities;
+            }
+        }
+        private ObjectSet<UserUniversity> _UserUniversities;
 
         #endregion
         #region AddTo Methods
@@ -283,14 +317,6 @@ namespace UniversityOfMe.Models
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the Universities EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToUniversities(University university)
-        {
-            base.AddObject("Universities", university);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the WhoIsOnlines EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToWhoIsOnlines(WhoIsOnline whoIsOnline)
@@ -320,6 +346,30 @@ namespace UniversityOfMe.Models
         public void AddToPrivacySettings(PrivacySetting privacySetting)
         {
             base.AddObject("PrivacySettings", privacySetting);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Universities EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToUniversities(University university)
+        {
+            base.AddObject("Universities", university);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the UniversityEmails EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToUniversityEmails(UniversityEmail universityEmail)
+        {
+            base.AddObject("UniversityEmails", universityEmail);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the UserUniversities EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToUserUniversities(UserUniversity userUniversity)
+        {
+            base.AddObject("UserUniversities", userUniversity);
         }
 
         #endregion
@@ -1489,12 +1539,12 @@ namespace UniversityOfMe.Models
         /// <summary>
         /// Create a new University object.
         /// </summary>
-        /// <param name="emailExtension">Initial value of the EmailExtension property.</param>
+        /// <param name="id">Initial value of the Id property.</param>
         /// <param name="universityName">Initial value of the UniversityName property.</param>
-        public static University CreateUniversity(global::System.String emailExtension, global::System.String universityName)
+        public static University CreateUniversity(global::System.String id, global::System.String universityName)
         {
             University university = new University();
-            university.EmailExtension = emailExtension;
+            university.Id = id;
             university.UniversityName = universityName;
             return university;
         }
@@ -1507,27 +1557,27 @@ namespace UniversityOfMe.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String EmailExtension
+        public global::System.String Id
         {
             get
             {
-                return _EmailExtension;
+                return _Id;
             }
             set
             {
-                if (_EmailExtension != value)
+                if (_Id != value)
                 {
-                    OnEmailExtensionChanging(value);
-                    ReportPropertyChanging("EmailExtension");
-                    _EmailExtension = StructuralObject.SetValidValue(value, false);
-                    ReportPropertyChanged("EmailExtension");
-                    OnEmailExtensionChanged();
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
                 }
             }
         }
-        private global::System.String _EmailExtension;
-        partial void OnEmailExtensionChanging(global::System.String value);
-        partial void OnEmailExtensionChanged();
+        private global::System.String _Id;
+        partial void OnIdChanging(global::System.String value);
+        partial void OnIdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1563,18 +1613,162 @@ namespace UniversityOfMe.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Users_University", "User")]
-        public EntityCollection<User> Users
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_UniversityEmails_Universities", "UniversityEmail")]
+        public EntityCollection<UniversityEmail> UniversityEmails
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<User>("UniversityOfMeModel.FK_Users_University", "User");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UniversityEmail>("UniversityOfMeModel.FK_UniversityEmails_Universities", "UniversityEmail");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<User>("UniversityOfMeModel.FK_Users_University", "User", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UniversityEmail>("UniversityOfMeModel.FK_UniversityEmails_Universities", "UniversityEmail", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="UniversityEmail")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class UniversityEmail : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new UniversityEmail object.
+        /// </summary>
+        /// <param name="email">Initial value of the Email property.</param>
+        /// <param name="universityId">Initial value of the UniversityId property.</param>
+        public static UniversityEmail CreateUniversityEmail(global::System.String email, global::System.String universityId)
+        {
+            UniversityEmail universityEmail = new UniversityEmail();
+            universityEmail.Email = email;
+            universityEmail.UniversityId = universityId;
+            return universityEmail;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Email
+        {
+            get
+            {
+                return _Email;
+            }
+            set
+            {
+                if (_Email != value)
+                {
+                    OnEmailChanging(value);
+                    ReportPropertyChanging("Email");
+                    _Email = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("Email");
+                    OnEmailChanged();
+                }
+            }
+        }
+        private global::System.String _Email;
+        partial void OnEmailChanging(global::System.String value);
+        partial void OnEmailChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String UniversityId
+        {
+            get
+            {
+                return _UniversityId;
+            }
+            set
+            {
+                OnUniversityIdChanging(value);
+                ReportPropertyChanging("UniversityId");
+                _UniversityId = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("UniversityId");
+                OnUniversityIdChanged();
+            }
+        }
+        private global::System.String _UniversityId;
+        partial void OnUniversityIdChanging(global::System.String value);
+        partial void OnUniversityIdChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_UniversityEmails_Universities", "University")]
+        public University University
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<University>("UniversityOfMeModel.FK_UniversityEmails_Universities", "University").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<University>("UniversityOfMeModel.FK_UniversityEmails_Universities", "University").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<University> UniversityReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<University>("UniversityOfMeModel.FK_UniversityEmails_Universities", "University");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<University>("UniversityOfMeModel.FK_UniversityEmails_Universities", "University", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_UserUniversity_UniversityEmails", "UserUniversity")]
+        public EntityCollection<UserUniversity> UserUniversities
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserUniversity>("UniversityOfMeModel.FK_UserUniversity_UniversityEmails", "UserUniversity");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserUniversity>("UniversityOfMeModel.FK_UserUniversity_UniversityEmails", "UserUniversity", value);
                 }
             }
         }
@@ -1596,7 +1790,6 @@ namespace UniversityOfMe.Models
         /// Create a new User object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="universityId">Initial value of the UniversityId property.</param>
         /// <param name="email">Initial value of the Email property.</param>
         /// <param name="password">Initial value of the Password property.</param>
         /// <param name="firstName">Initial value of the FirstName property.</param>
@@ -1607,11 +1800,10 @@ namespace UniversityOfMe.Models
         /// <param name="registrationDate">Initial value of the RegistrationDate property.</param>
         /// <param name="registrationIp">Initial value of the RegistrationIp property.</param>
         /// <param name="shortUrl">Initial value of the ShortUrl property.</param>
-        public static User CreateUser(global::System.Int32 id, global::System.String universityId, global::System.String email, global::System.String password, global::System.String firstName, global::System.String lastName, global::System.String gender, global::System.DateTime dateOfBirth, global::System.DateTime lastLogin, global::System.DateTime registrationDate, global::System.String registrationIp, global::System.String shortUrl)
+        public static User CreateUser(global::System.Int32 id, global::System.String email, global::System.String password, global::System.String firstName, global::System.String lastName, global::System.String gender, global::System.DateTime dateOfBirth, global::System.DateTime lastLogin, global::System.DateTime registrationDate, global::System.String registrationIp, global::System.String shortUrl)
         {
             User user = new User();
             user.Id = id;
-            user.UniversityId = universityId;
             user.Email = email;
             user.Password = password;
             user.FirstName = firstName;
@@ -1654,30 +1846,6 @@ namespace UniversityOfMe.Models
         private global::System.Int32 _Id;
         partial void OnIdChanging(global::System.Int32 value);
         partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String UniversityId
-        {
-            get
-            {
-                return _UniversityId;
-            }
-            set
-            {
-                OnUniversityIdChanging(value);
-                ReportPropertyChanging("UniversityId");
-                _UniversityId = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("UniversityId");
-                OnUniversityIdChanged();
-            }
-        }
-        private global::System.String _UniversityId;
-        partial void OnUniversityIdChanging(global::System.String value);
-        partial void OnUniversityIdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2237,44 +2405,6 @@ namespace UniversityOfMe.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Users_University", "University")]
-        public University University
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<University>("UniversityOfMeModel.FK_Users_University", "University").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<University>("UniversityOfMeModel.FK_Users_University", "University").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<University> UniversityReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<University>("UniversityOfMeModel.FK_Users_University", "University");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<University>("UniversityOfMeModel.FK_Users_University", "University", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_WhoIsOnline_Users", "WhoIsOnline")]
         public EntityCollection<WhoIsOnline> WhoIsOnlines
         {
@@ -2331,6 +2461,28 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PrivacySetting>("UniversityOfMeModel.FK_PrivacySettings_Users", "PrivacySetting", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_UserUniversity_Users", "UserUniversity")]
+        public EntityCollection<UserUniversity> UserUniversities
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserUniversity>("UniversityOfMeModel.FK_UserUniversity_Users", "UserUniversity");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserUniversity>("UniversityOfMeModel.FK_UserUniversity_Users", "UserUniversity", value);
                 }
             }
         }
@@ -2703,6 +2855,192 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_UserRoles_Users", "User", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="UserUniversity")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class UserUniversity : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new UserUniversity object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="universityEmailId">Initial value of the UniversityEmailId property.</param>
+        public static UserUniversity CreateUserUniversity(global::System.Int32 id, global::System.Int32 userId, global::System.String universityEmailId)
+        {
+            UserUniversity userUniversity = new UserUniversity();
+            userUniversity.Id = id;
+            userUniversity.UserId = userId;
+            userUniversity.UniversityEmailId = universityEmailId;
+            return userUniversity;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
+            }
+        }
+        private global::System.Int32 _UserId;
+        partial void OnUserIdChanging(global::System.Int32 value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String UniversityEmailId
+        {
+            get
+            {
+                return _UniversityEmailId;
+            }
+            set
+            {
+                OnUniversityEmailIdChanging(value);
+                ReportPropertyChanging("UniversityEmailId");
+                _UniversityEmailId = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("UniversityEmailId");
+                OnUniversityEmailIdChanged();
+            }
+        }
+        private global::System.String _UniversityEmailId;
+        partial void OnUniversityEmailIdChanging(global::System.String value);
+        partial void OnUniversityEmailIdChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_UserUniversity_UniversityEmails", "UniversityEmail")]
+        public UniversityEmail UniversityEmail
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UniversityEmail>("UniversityOfMeModel.FK_UserUniversity_UniversityEmails", "UniversityEmail").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UniversityEmail>("UniversityOfMeModel.FK_UserUniversity_UniversityEmails", "UniversityEmail").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<UniversityEmail> UniversityEmailReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UniversityEmail>("UniversityOfMeModel.FK_UserUniversity_UniversityEmails", "UniversityEmail");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<UniversityEmail>("UniversityOfMeModel.FK_UserUniversity_UniversityEmails", "UniversityEmail", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_UserUniversity_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_UserUniversity_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_UserUniversity_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_UserUniversity_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_UserUniversity_Users", "User", value);
                 }
             }
         }
