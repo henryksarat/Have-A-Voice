@@ -13,15 +13,31 @@ namespace UniversityOfMe.Repositories {
             theEntities.SaveChanges();
         }
 
-        public IEnumerable<string> ValidEmails() {
-            return (from u in theEntities.UniversityEmails
-                    select u.Email).ToList<string>();
+        public IEnumerable<AcademicTerm> GetAcademicTerms() {
+            return (from a in theEntities.AcademicTerms
+                    select a).ToList<AcademicTerm>();
         }
 
         private UniversityEmail GetUniversityEmailFromEmail(string anEmail) {
             return (from ue in theEntities.UniversityEmails 
                     where ue.Email == anEmail
                     select ue).FirstOrDefault<UniversityEmail>();
+        }
+
+        public IEnumerable<University> Universities() {
+            return (from u in theEntities.Universities
+                    select u).ToList<University>();
+        }
+
+        public IEnumerable<string> UniversityEmails(string aUniversityId) {
+            return (from ue in theEntities.UniversityEmails
+                    where ue.UniversityId == aUniversityId
+                    select ue.Email).ToList<string>();
+        }
+
+        public IEnumerable<string> ValidEmails() {
+            return (from u in theEntities.UniversityEmails
+                    select u.Email).ToList<string>();
         }
     }
 }

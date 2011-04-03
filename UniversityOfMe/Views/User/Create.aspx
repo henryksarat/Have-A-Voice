@@ -19,6 +19,7 @@
     <h2>Create</h2>
 
     <% using (Html.BeginForm()) {%>
+        <% Html.RenderPartial("Message"); %>
         <% Html.RenderPartial("Validation"); %>
 
         <fieldset>

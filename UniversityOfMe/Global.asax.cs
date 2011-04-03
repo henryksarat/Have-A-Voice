@@ -14,6 +14,12 @@ namespace UniversityOfMe {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                "UniversityDefault", // Route name
+                "{universityId}/{controller}/{action}/{id}",
+                new { id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "User", action = "Create", id = UrlParameter.Optional } // Parameter defaults

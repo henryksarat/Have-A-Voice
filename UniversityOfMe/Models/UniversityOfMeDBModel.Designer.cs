@@ -30,6 +30,11 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UniversityEmails_Universities", "University", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.University), "UniversityEmail", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UniversityEmail), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserUniversity_UniversityEmails", "UniversityEmail", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.UniversityEmail), "UserUniversity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserUniversity), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserUniversity_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "UserUniversity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserUniversity), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ProfessorReviews_AcademicTerm", "AcademicTerm", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.AcademicTerm), "ProfessorReview", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ProfessorReview), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ProfessorReviews_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ProfessorReview", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ProfessorReview), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ProfessorReviews_Professors", "Professor", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Professor), "ProfessorReview", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ProfessorReview), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Professors_Universities", "University", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.University), "Professor", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Professor), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Professors_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "Professor", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Professor), true)]
 
 #endregion
 
@@ -272,6 +277,54 @@ namespace UniversityOfMe.Models
             }
         }
         private ObjectSet<UserUniversity> _UserUniversities;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<AcademicTerm> AcademicTerms
+        {
+            get
+            {
+                if ((_AcademicTerms == null))
+                {
+                    _AcademicTerms = base.CreateObjectSet<AcademicTerm>("AcademicTerms");
+                }
+                return _AcademicTerms;
+            }
+        }
+        private ObjectSet<AcademicTerm> _AcademicTerms;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ProfessorReview> ProfessorReviews
+        {
+            get
+            {
+                if ((_ProfessorReviews == null))
+                {
+                    _ProfessorReviews = base.CreateObjectSet<ProfessorReview>("ProfessorReviews");
+                }
+                return _ProfessorReviews;
+            }
+        }
+        private ObjectSet<ProfessorReview> _ProfessorReviews;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Professor> Professors
+        {
+            get
+            {
+                if ((_Professors == null))
+                {
+                    _Professors = base.CreateObjectSet<Professor>("Professors");
+                }
+                return _Professors;
+            }
+        }
+        private ObjectSet<Professor> _Professors;
 
         #endregion
         #region AddTo Methods
@@ -371,6 +424,30 @@ namespace UniversityOfMe.Models
         {
             base.AddObject("UserUniversities", userUniversity);
         }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the AcademicTerms EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToAcademicTerms(AcademicTerm academicTerm)
+        {
+            base.AddObject("AcademicTerms", academicTerm);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ProfessorReviews EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToProfessorReviews(ProfessorReview professorReview)
+        {
+            base.AddObject("ProfessorReviews", professorReview);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Professors EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToProfessors(Professor professor)
+        {
+            base.AddObject("Professors", professor);
+        }
 
         #endregion
     }
@@ -379,6 +456,112 @@ namespace UniversityOfMe.Models
     #endregion
     
     #region Entities
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="AcademicTerm")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class AcademicTerm : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new AcademicTerm object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="displayName">Initial value of the DisplayName property.</param>
+        public static AcademicTerm CreateAcademicTerm(global::System.String id, global::System.String displayName)
+        {
+            AcademicTerm academicTerm = new AcademicTerm();
+            academicTerm.Id = id;
+            academicTerm.DisplayName = displayName;
+            return academicTerm;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.String _Id;
+        partial void OnIdChanging(global::System.String value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String DisplayName
+        {
+            get
+            {
+                return _DisplayName;
+            }
+            set
+            {
+                OnDisplayNameChanging(value);
+                ReportPropertyChanging("DisplayName");
+                _DisplayName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("DisplayName");
+                OnDisplayNameChanged();
+            }
+        }
+        private global::System.String _DisplayName;
+        partial void OnDisplayNameChanging(global::System.String value);
+        partial void OnDisplayNameChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ProfessorReviews_AcademicTerm", "ProfessorReview")]
+        public EntityCollection<ProfessorReview> ProfessorReviews
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProfessorReview>("UniversityOfMeModel.FK_ProfessorReviews_AcademicTerm", "ProfessorReview");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProfessorReview>("UniversityOfMeModel.FK_ProfessorReviews_AcademicTerm", "ProfessorReview", value);
+                }
+            }
+        }
+
+        #endregion
+    }
     
     /// <summary>
     /// No Metadata Documentation available.
@@ -1089,6 +1272,698 @@ namespace UniversityOfMe.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="Professor")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Professor : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Professor object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="universityId">Initial value of the UniversityId property.</param>
+        /// <param name="firstName">Initial value of the FirstName property.</param>
+        /// <param name="lastName">Initial value of the LastName property.</param>
+        /// <param name="createdByUserId">Initial value of the CreatedByUserId property.</param>
+        /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
+        public static Professor CreateProfessor(global::System.Int32 id, global::System.String universityId, global::System.String firstName, global::System.String lastName, global::System.Int32 createdByUserId, global::System.DateTime dateTimeStamp)
+        {
+            Professor professor = new Professor();
+            professor.Id = id;
+            professor.UniversityId = universityId;
+            professor.FirstName = firstName;
+            professor.LastName = lastName;
+            professor.CreatedByUserId = createdByUserId;
+            professor.DateTimeStamp = dateTimeStamp;
+            return professor;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String UniversityId
+        {
+            get
+            {
+                return _UniversityId;
+            }
+            set
+            {
+                OnUniversityIdChanging(value);
+                ReportPropertyChanging("UniversityId");
+                _UniversityId = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("UniversityId");
+                OnUniversityIdChanged();
+            }
+        }
+        private global::System.String _UniversityId;
+        partial void OnUniversityIdChanging(global::System.String value);
+        partial void OnUniversityIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String FirstName
+        {
+            get
+            {
+                return _FirstName;
+            }
+            set
+            {
+                OnFirstNameChanging(value);
+                ReportPropertyChanging("FirstName");
+                _FirstName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("FirstName");
+                OnFirstNameChanged();
+            }
+        }
+        private global::System.String _FirstName;
+        partial void OnFirstNameChanging(global::System.String value);
+        partial void OnFirstNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String LastName
+        {
+            get
+            {
+                return _LastName;
+            }
+            set
+            {
+                OnLastNameChanging(value);
+                ReportPropertyChanging("LastName");
+                _LastName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("LastName");
+                OnLastNameChanged();
+            }
+        }
+        private global::System.String _LastName;
+        partial void OnLastNameChanging(global::System.String value);
+        partial void OnLastNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 CreatedByUserId
+        {
+            get
+            {
+                return _CreatedByUserId;
+            }
+            set
+            {
+                OnCreatedByUserIdChanging(value);
+                ReportPropertyChanging("CreatedByUserId");
+                _CreatedByUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CreatedByUserId");
+                OnCreatedByUserIdChanged();
+            }
+        }
+        private global::System.Int32 _CreatedByUserId;
+        partial void OnCreatedByUserIdChanging(global::System.Int32 value);
+        partial void OnCreatedByUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateTimeStamp
+        {
+            get
+            {
+                return _DateTimeStamp;
+            }
+            set
+            {
+                OnDateTimeStampChanging(value);
+                ReportPropertyChanging("DateTimeStamp");
+                _DateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateTimeStamp");
+                OnDateTimeStampChanged();
+            }
+        }
+        private global::System.DateTime _DateTimeStamp;
+        partial void OnDateTimeStampChanging(global::System.DateTime value);
+        partial void OnDateTimeStampChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ProfessorReviews_Professors", "ProfessorReview")]
+        public EntityCollection<ProfessorReview> ProfessorReviews
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProfessorReview>("UniversityOfMeModel.FK_ProfessorReviews_Professors", "ProfessorReview");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProfessorReview>("UniversityOfMeModel.FK_ProfessorReviews_Professors", "ProfessorReview", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Professors_Universities", "University")]
+        public University University
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<University>("UniversityOfMeModel.FK_Professors_Universities", "University").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<University>("UniversityOfMeModel.FK_Professors_Universities", "University").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<University> UniversityReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<University>("UniversityOfMeModel.FK_Professors_Universities", "University");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<University>("UniversityOfMeModel.FK_Professors_Universities", "University", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Professors_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_Professors_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_Professors_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_Professors_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_Professors_Users", "User", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="ProfessorReview")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ProfessorReview : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new ProfessorReview object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="professorId">Initial value of the ProfessorId property.</param>
+        /// <param name="academicTermId">Initial value of the AcademicTermId property.</param>
+        /// <param name="year">Initial value of the Year property.</param>
+        /// <param name="class">Initial value of the Class property.</param>
+        /// <param name="rating">Initial value of the Rating property.</param>
+        /// <param name="review">Initial value of the Review property.</param>
+        /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
+        /// <param name="anonymous">Initial value of the Anonymous property.</param>
+        public static ProfessorReview CreateProfessorReview(global::System.Int32 id, global::System.Int32 userId, global::System.Int32 professorId, global::System.String academicTermId, global::System.Int32 year, global::System.String @class, global::System.Int32 rating, global::System.String review, global::System.DateTime dateTimeStamp, global::System.Boolean anonymous)
+        {
+            ProfessorReview professorReview = new ProfessorReview();
+            professorReview.Id = id;
+            professorReview.UserId = userId;
+            professorReview.ProfessorId = professorId;
+            professorReview.AcademicTermId = academicTermId;
+            professorReview.Year = year;
+            professorReview.Class = @class;
+            professorReview.Rating = rating;
+            professorReview.Review = review;
+            professorReview.DateTimeStamp = dateTimeStamp;
+            professorReview.Anonymous = anonymous;
+            return professorReview;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
+            }
+        }
+        private global::System.Int32 _UserId;
+        partial void OnUserIdChanging(global::System.Int32 value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ProfessorId
+        {
+            get
+            {
+                return _ProfessorId;
+            }
+            set
+            {
+                OnProfessorIdChanging(value);
+                ReportPropertyChanging("ProfessorId");
+                _ProfessorId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ProfessorId");
+                OnProfessorIdChanged();
+            }
+        }
+        private global::System.Int32 _ProfessorId;
+        partial void OnProfessorIdChanging(global::System.Int32 value);
+        partial void OnProfessorIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String AcademicTermId
+        {
+            get
+            {
+                return _AcademicTermId;
+            }
+            set
+            {
+                OnAcademicTermIdChanging(value);
+                ReportPropertyChanging("AcademicTermId");
+                _AcademicTermId = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("AcademicTermId");
+                OnAcademicTermIdChanged();
+            }
+        }
+        private global::System.String _AcademicTermId;
+        partial void OnAcademicTermIdChanging(global::System.String value);
+        partial void OnAcademicTermIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Year
+        {
+            get
+            {
+                return _Year;
+            }
+            set
+            {
+                OnYearChanging(value);
+                ReportPropertyChanging("Year");
+                _Year = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Year");
+                OnYearChanged();
+            }
+        }
+        private global::System.Int32 _Year;
+        partial void OnYearChanging(global::System.Int32 value);
+        partial void OnYearChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Class
+        {
+            get
+            {
+                return _Class;
+            }
+            set
+            {
+                OnClassChanging(value);
+                ReportPropertyChanging("Class");
+                _Class = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Class");
+                OnClassChanged();
+            }
+        }
+        private global::System.String _Class;
+        partial void OnClassChanging(global::System.String value);
+        partial void OnClassChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Rating
+        {
+            get
+            {
+                return _Rating;
+            }
+            set
+            {
+                OnRatingChanging(value);
+                ReportPropertyChanging("Rating");
+                _Rating = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Rating");
+                OnRatingChanged();
+            }
+        }
+        private global::System.Int32 _Rating;
+        partial void OnRatingChanging(global::System.Int32 value);
+        partial void OnRatingChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Review
+        {
+            get
+            {
+                return _Review;
+            }
+            set
+            {
+                OnReviewChanging(value);
+                ReportPropertyChanging("Review");
+                _Review = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Review");
+                OnReviewChanged();
+            }
+        }
+        private global::System.String _Review;
+        partial void OnReviewChanging(global::System.String value);
+        partial void OnReviewChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateTimeStamp
+        {
+            get
+            {
+                return _DateTimeStamp;
+            }
+            set
+            {
+                OnDateTimeStampChanging(value);
+                ReportPropertyChanging("DateTimeStamp");
+                _DateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateTimeStamp");
+                OnDateTimeStampChanged();
+            }
+        }
+        private global::System.DateTime _DateTimeStamp;
+        partial void OnDateTimeStampChanging(global::System.DateTime value);
+        partial void OnDateTimeStampChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Anonymous
+        {
+            get
+            {
+                return _Anonymous;
+            }
+            set
+            {
+                OnAnonymousChanging(value);
+                ReportPropertyChanging("Anonymous");
+                _Anonymous = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Anonymous");
+                OnAnonymousChanged();
+            }
+        }
+        private global::System.Boolean _Anonymous;
+        partial void OnAnonymousChanging(global::System.Boolean value);
+        partial void OnAnonymousChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ProfessorReviews_AcademicTerm", "AcademicTerm")]
+        public AcademicTerm AcademicTerm
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<AcademicTerm>("UniversityOfMeModel.FK_ProfessorReviews_AcademicTerm", "AcademicTerm").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<AcademicTerm>("UniversityOfMeModel.FK_ProfessorReviews_AcademicTerm", "AcademicTerm").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<AcademicTerm> AcademicTermReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<AcademicTerm>("UniversityOfMeModel.FK_ProfessorReviews_AcademicTerm", "AcademicTerm");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<AcademicTerm>("UniversityOfMeModel.FK_ProfessorReviews_AcademicTerm", "AcademicTerm", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ProfessorReviews_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_ProfessorReviews_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_ProfessorReviews_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_ProfessorReviews_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_ProfessorReviews_Users", "User", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ProfessorReviews_Professors", "Professor")]
+        public Professor Professor
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Professor>("UniversityOfMeModel.FK_ProfessorReviews_Professors", "Professor").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Professor>("UniversityOfMeModel.FK_ProfessorReviews_Professors", "Professor").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Professor> ProfessorReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Professor>("UniversityOfMeModel.FK_ProfessorReviews_Professors", "Professor");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Professor>("UniversityOfMeModel.FK_ProfessorReviews_Professors", "Professor", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="Role")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -1625,6 +2500,28 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UniversityEmail>("UniversityOfMeModel.FK_UniversityEmails_Universities", "UniversityEmail", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Professors_Universities", "Professor")]
+        public EntityCollection<Professor> Professors
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Professor>("UniversityOfMeModel.FK_Professors_Universities", "Professor");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Professor>("UniversityOfMeModel.FK_Professors_Universities", "Professor", value);
                 }
             }
         }
@@ -2483,6 +3380,50 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserUniversity>("UniversityOfMeModel.FK_UserUniversity_Users", "UserUniversity", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ProfessorReviews_Users", "ProfessorReview")]
+        public EntityCollection<ProfessorReview> ProfessorReviews
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProfessorReview>("UniversityOfMeModel.FK_ProfessorReviews_Users", "ProfessorReview");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProfessorReview>("UniversityOfMeModel.FK_ProfessorReviews_Users", "ProfessorReview", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Professors_Users", "Professor")]
+        public EntityCollection<Professor> Professors
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Professor>("UniversityOfMeModel.FK_Professors_Users", "Professor");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Professor>("UniversityOfMeModel.FK_Professors_Users", "Professor", value);
                 }
             }
         }
