@@ -11,7 +11,7 @@ namespace UniversityOfMe.Helpers {
         public const string ACTIVATION_SUBJECT = "universityOf.Me | account activation";
 
         public static List<string> ACADEMIC_TERMS = new List<string>() { 
-            Constants.SELECT,
+            Social.Generic.Constants.Constants.SELECT,
             "Spring",
             "Summer",
             "Fall",
@@ -23,5 +23,7 @@ namespace UniversityOfMe.Helpers {
             DateTime.UtcNow.Year - 1,
             DateTime.UtcNow.Year - 2
         };
+
+        public const string NOT_APART_OF_UNIVERSITY = "You are not apart of this university.";
     }
 }

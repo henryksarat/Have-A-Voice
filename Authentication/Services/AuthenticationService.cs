@@ -52,7 +52,7 @@ namespace Social.Authentication.Services {
                 return null;
             }
 
-            T myUser = aUser.CreateNewModel();
+            T myUser = aUser.Model;
 
             IEnumerable<AbstractPermissionModel<V>> myPermissions = theAuthRepo.FindPermissionsForUser(myUser);
             bool myIsConfirmed = (from p in myPermissions

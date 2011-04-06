@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Web;
 using Social.Friend.Exceptions;
 using Social.Friend.Services;
@@ -45,7 +40,7 @@ namespace HaveAVoice.Services.UserFeatures {
         public void DeletePhoto(AbstractUserModel<T> aUserDeleting, int aPhotoId) {
             AbstractPhotoModel<V> myPhoto = GetPhoto(aUserDeleting, aPhotoId);
             if (myPhoto.UploadedByUserId == aUserDeleting.Id) {
-                PhysicallyDeletePhoto(myPhoto.ImageName);
+                PhotoHelper.PhysicallyDeletePhoto(HttpContext.Current.Server.MapPath(PhotoHelper.ConstructUrl(myPhoto.ImageName)));
 
                 thePhotoRepo.DeletePhoto(aPhotoId);
             } else {
@@ -67,7 +62,7 @@ namespace HaveAVoice.Services.UserFeatures {
             if (myCurrentProfile != null) {
                 if (myCurrentProfile.UploadedByUserId == aUser.Id) {
                     thePhotoRepo.DeletePhoto(myCurrentProfile.Id);
-                    PhysicallyDeletePhoto(myCurrentProfile.ImageName);
+                    PhotoHelper.PhysicallyDeletePhoto(HttpContext.Current.Server.MapPath(PhotoHelper.ConstructUrl(myCurrentProfile.ImageName)));
                 } else {
                     throw new CustomException(ErrorKeys.PERMISSION_DENIED);
                 }
@@ -78,7 +73,7 @@ namespace HaveAVoice.Services.UserFeatures {
             if (myNewProfilePhoto.UploadedByUserId == aUser.Id) {
                 string[] myNewProfileSplit = myNewProfilePhoto.ImageName.Split('.');
                 string myNewProfilePictureImageName = myNewProfileSplit[0] + "-profile." + myNewProfileSplit[1];
-                ResizeImage(myNewProfilePhoto.ImageName, myNewProfilePictureImageName, 120);
+                PhotoHelper.ResizeImageAndUpload(Constants.PHOTO_LOCATION_FROM_VIEW, myNewProfilePhoto.ImageName, myNewProfilePictureImageName, 120);
                 thePhotoRepo.AddReferenceToImage(aUser.Model, myNewProfilePhoto.PhotoAlbumId, myNewProfilePictureImageName, true);
             } else {
                 throw new CustomException(ErrorKeys.PERMISSION_DENIED);
@@ -123,74 +118,8 @@ namespace HaveAVoice.Services.UserFeatures {
             if(!PhotoValidation.IsValidImageFile(aImageFile.FileName)) {
                     throw new CustomException("Please specify a proper image file that ends in .gif, .jpg, or .jpeg.");
             }
-            string[] mySplitOnPeriod = aImageFile.FileName.Split(new char[] { '.' });
-            string myFileExtension = mySplitOnPeriod[mySplitOnPeriod.Length - 1];
-            string myFileNamePrefix = aUserToUploadFor.Id + "_" + DateTime.UtcNow.GetHashCode();
-            string myOriginalFile = myFileNamePrefix + "-original." + myFileExtension;
-            string myNewFile = myFileNamePrefix + "." + myFileExtension;
-            string myOriginalFilePath = HttpContext.Current.Server.MapPath(PhotoHelper.ConstructUrl(myOriginalFile));
-            aImageFile.SaveAs(myOriginalFilePath);
-            
-            ResizeImage(myOriginalFile, myNewFile, MAX_SIZE);
-
-            PhysicallyDeletePhoto(myOriginalFile);
-            return myNewFile;
+            return PhotoHelper.TakeImageAndResizeAndUpload(Constants.PHOTO_LOCATION_FROM_VIEW, aUserToUploadFor.Id.ToString(), aImageFile, MAX_SIZE);
         }
 
-        private void ResizeImage(string anOriginalImageName, string aNewImageName, int aSize) {
-            string myOriginalFilePath = HttpContext.Current.Server.MapPath(PhotoHelper.ConstructUrl(anOriginalImageName));
-            string myNewFilePath = HttpContext.Current.Server.MapPath(PhotoHelper.ConstructUrl(aNewImageName));
-
-            Image myOriginal = Image.FromFile(myOriginalFilePath);
-
-            Image myActual = ScaleBySize(myOriginal, aSize);
-            myActual.Save(myNewFilePath);
-            myActual.Dispose();
-
-            myOriginal.Dispose();
-        }
-
-        private Image ScaleBySize(Image myPhoto, int aSize) {
-            float mySourceWidth = myPhoto.Width;
-            float mySourceHeight = myPhoto.Height;
-            float myDesiredHeight = mySourceHeight;
-            float myDesiredWidth = mySourceWidth;
-            
-            if (mySourceWidth > mySourceHeight && mySourceWidth > aSize) {
-                myDesiredWidth = aSize;
-                myDesiredHeight = (float)(mySourceHeight * aSize / mySourceWidth);
-            } else if (mySourceHeight > mySourceWidth && mySourceHeight > aSize) {
-                myDesiredHeight = aSize;
-                myDesiredWidth = (float)(mySourceWidth * aSize / mySourceHeight);
-            } else if(mySourceWidth > aSize && mySourceHeight > aSize) {
-                myDesiredWidth = aSize;
-                myDesiredHeight = aSize;
-            }
-
-            Bitmap myBitmap = new Bitmap((int)myDesiredWidth, (int)myDesiredHeight,
-                                        PixelFormat.Format32bppPArgb);
-            myBitmap.SetResolution(myPhoto.HorizontalResolution, myPhoto.VerticalResolution);
-
-            Graphics myGraphicPhoto = Graphics.FromImage(myBitmap);
-            myGraphicPhoto.InterpolationMode = InterpolationMode.HighQualityBicubic;
-
-            myGraphicPhoto.DrawImage(myPhoto,
-                new Rectangle(0, 0, (int)myDesiredWidth, (int)myDesiredHeight),
-                new Rectangle(0, 0, (int)mySourceWidth, (int)mySourceHeight),
-                GraphicsUnit.Pixel);
-
-            myGraphicPhoto.Dispose();
-
-            return myBitmap;
-        }
-
-        private void PhysicallyDeletePhoto(string anImageName) {
-            FileInfo myFile = new FileInfo(HttpContext.Current.Server.MapPath(PhotoHelper.ConstructUrl(anImageName)));
-            if (myFile.Exists) {
-                myFile.Delete();
-            } else {
-                throw new FileNotFoundException();
-            }
-        }
     }
 }

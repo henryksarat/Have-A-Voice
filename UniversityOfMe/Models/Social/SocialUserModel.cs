@@ -50,6 +50,8 @@ namespace UniversityOfMe.Models.Social {
             ForgotPasswordHashDateTimeStamp = anExternal.ForgotPasswordHashDateTimeStamp;
             ShortUrl = anExternal.ShortUrl;
             Zip = anExternal.Zip;
+
+            Model = anExternal;
         }
     }
 }
