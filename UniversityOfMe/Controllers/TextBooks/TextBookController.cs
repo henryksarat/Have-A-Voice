@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BaseWebsite.Controllers;
 using HaveAVoice.Helpers.UserInformation;
-using HaveAVoice.Services.Clubs;
+using HaveAVoice.Services.TextBooks;
 using HaveAVoice.Services.UserFeatures;
 using Social.Authentication;
 using Social.Authentication.Helpers;
@@ -13,6 +14,7 @@ using Social.Generic.Constants;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Generic.Services;
+using Social.Photo.Exceptions;
 using Social.Validation;
 using UniversityOfMe.Controllers.Helpers;
 using UniversityOfMe.Helpers;
@@ -20,29 +22,30 @@ using UniversityOfMe.Models;
 using UniversityOfMe.Models.Social;
 using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories;
-using UniversityOfMe.Services;
-using UniversityOfMe.Services.Professors;
+using UniversityOfMe.Services.TextBooks;
 
 namespace UniversityOfMe.Controllers.Clubs {
  
-    public class ClubController : BaseController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
-        public const string CLUB_CREATED = "Club created successfully!";
-        public const string CLUB_LIST_ERROR = "Error getting club list. Please try again.";
-        public const string CLUB_TYPE_ERROR = "Error getting club types. Please try again.";
-        public const string GET_CLUB_ERROR = "An error has occurred while retrieving the club. Please try again.";
+    public class TextBookController : BaseController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
+        private const string TEXTBOOK_ADDED = "Textbook posted successfully!";
+        private const string NO_TEXTBOOKS = "There are no textbooks currently being sold and there is no one looking for textbooks currently.";
+        private const string MARKED_NON_ACTIVE = "The textbook entry has been marked as being non-active.";
 
-        IClubService theClubService;
-        IUniversityService theUniversityService;
+        private const string TEXTBOOK_GET_ERROR = "Error getting the textbooks for your unviersity. Please try again.";
+        private const string TEXTBOOK_IMAGE_UPLOAD_ERROR = "I'm sorry we wern't able to upload your textbook image for some reason. Please try again.";
+        private const string GET_TEXTBOOK_CONDITIONS_ERROR = "We were unable to retrieve the textbook conditions you can select. Please refresh the page.";
 
-        public ClubController()
+        IValidationDictionary theValidation;
+        ITextBookService theTextBookService;
+
+        public TextBookController()
             : base(new BaseService<User>(new EntityBaseRepository()),
                    UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())),
                    InstanceHelper.CreateAuthencationService(),
                    new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())) {
             UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
-            IValidationDictionary myModelState = new ModelStateWrapper(this.ModelState);
-            theClubService = new ClubService(myModelState);
-            theUniversityService = new UniversityService();
+            theValidation = new ModelStateWrapper(this.ModelState);
+            theTextBookService = new TextBookService(theValidation);
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
@@ -55,43 +58,45 @@ namespace UniversityOfMe.Controllers.Clubs {
                 return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
             }
 
-            IDictionary<string, string> myClubTypes = DictionaryHelper.DictionaryWithSelect();
+            IDictionary<string, string> myBuySellTypes = theTextBookService.CreateBuySellDictionaryEntry();
+            IDictionary<string, string> myBookConditionTypes = DictionaryHelper.DictionaryWithSelect();
 
             try {
-                myClubTypes = theClubService.CreateAllClubTypesDictionaryEntry();
-            } catch (Exception myExpcetion) {
-                LogError(myExpcetion, CLUB_TYPE_ERROR);
-                ViewData["Message"] = CLUB_TYPE_ERROR;
+                myBookConditionTypes = theTextBookService.CreateTextBookConditionsDictionaryEntry();
+            } catch (Exception myException) {
+                LogError(myException, GET_TEXTBOOK_CONDITIONS_ERROR);
+                ViewData["Message"] = GET_TEXTBOOK_CONDITIONS_ERROR;
             }
 
-            return View("Create", new CreateClubModel() {
-                ClubTypes = new SelectList(myClubTypes, "Value", "Key")
+            return View("Create", new CreateTextBookModel() {
+                UniversityId = universityId,
+                BuySellOptions = new SelectList(myBuySellTypes, "Value", "Key"),
+                TextBookConditions = new SelectList(myBookConditionTypes, "Value", "Key")
             });
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
-        public ActionResult Create(CreateClubModel club) {
+        public ActionResult Create(CreateTextBookModel textbook) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-
-            if (!UniversityHelper.IsFromUniversity(GetUserInformatonModel().Details, club.UniversityId)) {
-                return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
-            }
-
+            
             UserInformationModel<User> myUserInformation = GetUserInformatonModel();
-
-
+            
             try {
-                bool myResult = theClubService.CreateClub(myUserInformation, club);
+                bool myResult = theTextBookService.CreateTextBook(myUserInformation, textbook);
 
                 if (myResult) {
-                    TempData["Message"] = CLUB_CREATED;
+                    TempData["Message"] = TEXTBOOK_ADDED;
                     return RedirectToAction("List");
                 }
+            } catch(PhotoException myException) {
+                LogError(myException, TEXTBOOK_IMAGE_UPLOAD_ERROR);
+                TempData["Message"] = TEXTBOOK_IMAGE_UPLOAD_ERROR;
+                theValidation.ForceModleStateExport();
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                ViewData["Message"] = ErrorKeys.ERROR_MESSAGE;
+                TempData["Message"] = ErrorKeys.ERROR_MESSAGE;
             }
 
             return RedirectToAction("Create");
@@ -100,16 +105,16 @@ namespace UniversityOfMe.Controllers.Clubs {
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult Details(int id) {
             try {
-                Club myClub = theClubService.GetClub(id);
+                TextBook myTextBook = theTextBookService.GetTextBook(id);
 
-                if (!UniversityHelper.IsFromUniversity(GetUserInformatonModel().Details, myClub.UniversityId)) {
+                if (!UniversityHelper.IsFromUniversity(GetUserInformatonModel().Details, myTextBook.UniversityId)) {
                     return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
                 }
 
-                return View("Details", myClub);
+                return View("Details", myTextBook);
             } catch (Exception myException) {
-                LogError(myException, GET_CLUB_ERROR);
-                return SendToResultPage(GET_CLUB_ERROR);
+                LogError(myException, ErrorKeys.ERROR_MESSAGE);
+                return SendToResultPage(ErrorKeys.ERROR_MESSAGE);
             }
         }
 
@@ -123,18 +128,39 @@ namespace UniversityOfMe.Controllers.Clubs {
                 return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
             }
 
-            IEnumerable<Club> myClubs = new List<Club>();
+            IEnumerable<TextBook> myTextBooks = new List<TextBook>();
 
             try {
-                myClubs = theClubService.GetClubs(universityId);
+                myTextBooks = theTextBookService.GetTextBooksForUniversity(universityId);
+
+                if (myTextBooks.Count<TextBook>() == 0) {
+                    ViewData["Message"] = NO_TEXTBOOKS;
+                }
             } catch (Exception myException) {
-                LogError(myException, CLUB_LIST_ERROR);
-                ViewData["Message"] = CLUB_LIST_ERROR;
+                LogError(myException, TEXTBOOK_GET_ERROR);
+                ViewData["Message"] = TEXTBOOK_GET_ERROR;
             }
 
-            return View("List", myClubs);
+            return View("List", myTextBooks);
         }
-        
+
+        [AcceptVerbs(HttpVerbs.Post), ImportModelStateFromTempData]
+        public ActionResult MarkAsNonActive(int id) {
+            try {
+                bool myResult = theTextBookService.MarkAsNotActive(GetUserInformatonModel(), id);
+
+                if(myResult) {
+                    TempData["Message"] = MARKED_NON_ACTIVE;
+                }
+
+                return RedirectToAction("List");
+            } catch (Exception myException) {
+                LogError(myException, ErrorKeys.ERROR_MESSAGE);
+                TempData["Message"] = ErrorKeys.ERROR_MESSAGE;
+                return RedirectToAction("Details", new { id = id });
+            }
+        }
+
         protected override AbstractUserModel<User> GetSocialUserInformation() {
             return SocialUserModel.Create(GetUserInformaton());
         }

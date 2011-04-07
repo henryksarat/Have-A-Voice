@@ -79,11 +79,13 @@
     <Compile Include="Controllers\Professors\ProfessorReviewController.cs" />
     <Compile Include="Controllers\Professors\ProfessorController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
+    <Compile Include="Controllers\TextBooks\TextBookController.cs" />
     <Compile Include="Controllers\Users\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Constants\ClubConstants.cs" />
+    <Compile Include="Helpers\Constants\TextBookConstants.cs" />
     <Compile Include="Helpers\EmailHelper.cs" />
     <Compile Include="Helpers\Functionality\ClubHelper.cs" />
     <Compile Include="Helpers\NameHelper.cs" />
@@ -105,6 +107,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UniversityOfMeDBModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\View\CreateTextBookModel.cs" />
     <Compile Include="Models\View\CreateClubModel.cs" />
     <Compile Include="Models\View\CreateProfessorReviewModel.cs" />
     <Compile Include="Models\View\CreateUserModel.cs" />
@@ -116,8 +119,10 @@
     <Compile Include="Repositories\Clubs\IClubRepository.cs" />
     <Compile Include="Repositories\Professors\EntityProfessorReviewRepository.cs" />
     <Compile Include="Repositories\Professors\IProfessorRepository.cs" />
+    <Compile Include="Repositories\TextBooks\ITextBookRepository.cs" />
     <Compile Include="Repositories\Professors\EntityProfessorRepository.cs" />
     <Compile Include="Repositories\Professors\IProfessorReviewRepository.cs" />
+    <Compile Include="Repositories\TextBooks\EntityTextBookRepository.cs" />
     <Compile Include="Repositories\UserRepos\EntityUserRepository.cs" />
     <Compile Include="Repositories\EntityWhoIsOnlineRepository.cs" />
     <Compile Include="Repositories\EntityBaseRepository.cs" />
@@ -133,6 +138,8 @@
     <Compile Include="Services\Professors\IProfessorReviewService.cs" />
     <Compile Include="Services\Professors\ProfessorService.cs" />
     <Compile Include="Services\Professors\IProfessorService.cs" />
+    <Compile Include="Services\TextBooks\TextBookService.cs" />
+    <Compile Include="Services\TextBooks\ITextBookService.cs" />
     <Compile Include="Services\UniversityService.cs" />
     <Compile Include="UserInformation\UserInformationFactory.cs" />
     <Compile Include="Models\View\RoleViewModel.cs" />
@@ -168,6 +175,9 @@
     <Content Include="Views\Shared\Message.ascx" />
     <Content Include="Views\Shared\Result.aspx" />
     <Content Include="Views\Shared\Validation.ascx" />
+    <Content Include="Views\TextBook\Create.aspx" />
+    <Content Include="Views\TextBook\Details.aspx" />
+    <Content Include="Views\TextBook\List.aspx" />
     <Content Include="Views\User\Create.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -197,6 +207,7 @@
     <Folder Include="ClubPhotos\" />
     <Folder Include="Models\Wrappers\" />
     <Folder Include="Repositories\Site\" />
+    <Folder Include="TextBookPhotos\" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Models\UniversityOfMeDBModel.edmx">

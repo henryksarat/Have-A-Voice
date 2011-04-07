@@ -14,7 +14,6 @@ namespace UniversityOfMe.Models.View {
         public string ClubType { get; set; }
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Name { get; set; }
-        [DisplayFormat(ConvertEmptyStringToNull = false)]
         public HttpPostedFileBase ClubImage { get; set; }
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Description { get; set; }
