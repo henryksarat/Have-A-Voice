@@ -9,8 +9,8 @@ namespace UniversityOfMe.Helpers {
             return aValue.Replace(' ', '_');
         }
 
-        public static string FromUrlFriendly(string aValue) {
-            return aValue.Replace('_', ' ');
+        public static string[] FromUrlFriendly(string aValue) {
+            return aValue.Replace('_', ' ').Split(' ');
         }
     }
 }

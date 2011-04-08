@@ -37,8 +37,7 @@ namespace HaveAVoice.Services.Issues {
         public IEnumerable<ProfessorReview> GetProfessorReviews(UserInformationModel<User> aViewingUser, string aUniversityId, string aProfessorName) {
             bool myIsFromUniversity = theUniversityService.IsFromUniversity(aViewingUser.Details, aUniversityId);
 
-            string myFullName = URLHelper.FromUrlFriendly(aProfessorName);
-            string[] mySplitName = myFullName.Split(' ');
+            string[] mySplitName = URLHelper.FromUrlFriendly(aProfessorName);
 
             if (mySplitName.Length != 2) {
                 throw new CustomException("The professors name doesn't have a first and last name.");

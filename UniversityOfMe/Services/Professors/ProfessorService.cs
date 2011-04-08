@@ -42,8 +42,7 @@ namespace HaveAVoice.Services.Issues {
         }
 
         public bool IsProfessorExists(string aUniversityId, string aFullname) {
-            string myFullName = URLHelper.FromUrlFriendly(aFullname);
-            string[] mySplitName = myFullName.Split(' ');
+            string[] mySplitName = URLHelper.FromUrlFriendly(aFullname);
 
             if (mySplitName.Length != 2) {
                 return false;

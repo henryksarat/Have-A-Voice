@@ -71,6 +71,8 @@
     <Compile Include="Controllers\Admin\AdminController.cs" />
     <Compile Include="Controllers\Admin\PermissionController.cs" />
     <Compile Include="Controllers\Admin\RoleController.cs" />
+    <Compile Include="Controllers\Classes\ClassController.cs" />
+    <Compile Include="Controllers\Classes\ClassReplyController.cs" />
     <Compile Include="Controllers\Clubs\ClubBoardController.cs" />
     <Compile Include="Controllers\Clubs\ClubController.cs" />
     <Compile Include="Controllers\Clubs\ClubMemberController.cs" />
@@ -107,6 +109,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UniversityOfMeDBModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\View\CreateClassModel.cs" />
     <Compile Include="Models\View\CreateTextBookModel.cs" />
     <Compile Include="Models\View\CreateClubModel.cs" />
     <Compile Include="Models\View\CreateProfessorReviewModel.cs" />
@@ -115,6 +118,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AdminRepos\EntityPermissionRepository.cs" />
     <Compile Include="Repositories\AdminRepos\EntityRoleRepository.cs" />
+    <Compile Include="Repositories\Classes\EntityClassRepository.cs" />
+    <Compile Include="Repositories\Classes\IClassRepository.cs" />
     <Compile Include="Repositories\Clubs\EntityClubRepository.cs" />
     <Compile Include="Repositories\Clubs\IClubRepository.cs" />
     <Compile Include="Repositories\Professors\EntityProfessorReviewRepository.cs" />
@@ -131,6 +136,8 @@
     <Compile Include="Repositories\UserRepos\EntityUserPrivacySettingsRepository.cs" />
     <Compile Include="Repositories\EntityUniversityRepository.cs" />
     <Compile Include="Repositories\UserRepos\EntityUserRetrievalRepository.cs" />
+    <Compile Include="Services\Classes\IClassService.cs" />
+    <Compile Include="Services\Classes\ClassService.cs" />
     <Compile Include="Services\Clubs\IClubService.cs" />
     <Compile Include="Services\Clubs\ClubService.cs" />
     <Compile Include="Services\IUniversityService.cs" />
@@ -155,6 +162,9 @@
     <Content Include="Global.asax" />
     <Content Include="Views\Admin\Index.aspx" />
     <Content Include="Views\Authentication\Login.aspx" />
+    <Content Include="Views\Class\Create.aspx" />
+    <Content Include="Views\Class\Details.aspx" />
+    <Content Include="Views\Class\List.aspx" />
     <Content Include="Views\Club\Create.aspx" />
     <Content Include="Views\Club\Details.aspx" />
     <Content Include="Views\Club\List.aspx" />
@@ -206,7 +216,6 @@
   <ItemGroup>
     <Folder Include="ClubPhotos\" />
     <Folder Include="Models\Wrappers\" />
-    <Folder Include="Repositories\Site\" />
     <Folder Include="TextBookPhotos\" />
   </ItemGroup>
   <ItemGroup>

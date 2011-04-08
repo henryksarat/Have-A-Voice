@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<UniversityOfMe.Models.Club>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<UniversityOfMe.Models.Class>>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	List
@@ -11,7 +11,6 @@
     <% Html.RenderPartial("Message"); %>
     <% Html.RenderPartial("Validation"); %>
 
-
     <table>
         <tr>
             <th></th>
@@ -22,19 +21,22 @@
                 UniversityId
             </th>
             <th>
-                ClubType
-            </th>
-            <th>
                 CreatedByUserId
             </th>
             <th>
-                Name
+                AcademicTermId
             </th>
             <th>
-                Picture
+                ClassCode
             </th>
             <th>
-                Description
+                ClassTitle
+            </th>
+            <th>
+                Year
+            </th>
+            <th>
+                Details
             </th>
             <th>
                 DateTimeStamp
@@ -56,19 +58,22 @@
                 <%: item.UniversityId %>
             </td>
             <td>
-                <%: item.ClubType %>
-            </td>
-            <td>
                 <%: item.CreatedByUserId %>
             </td>
             <td>
-                <%: item.Name %>
+                <%: item.AcademicTermId %>
             </td>
             <td>
-                <%: item.Picture %>
+                <%: item.ClassCode %>
             </td>
             <td>
-                <%: item.Description %>
+                <%: item.ClassTitle %>
+            </td>
+            <td>
+                <%: item.Year %>
+            </td>
+            <td>
+                <%: item.Details %>
             </td>
             <td>
                 <%: String.Format("{0:g}", item.DateTimeStamp) %>
