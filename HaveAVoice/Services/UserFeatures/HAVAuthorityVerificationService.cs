@@ -15,7 +15,7 @@ using Social.Validation;
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVAuthorityVerificationService : IHAVAuthorityVerificationService {
         private const string TOKEN_SUBJECT = "have a voice | authority authentication";
-        private const string TOKEN_BODY = "Hello!\nYou are classified as an authority and therefore must sign up in a special way. Please follow this link: <br/ >";
+        private const string TOKEN_BODY = "Hello!\nYou are classified as an authority and therefore must sign up in a special way. Please follow this link: ";
         private const string INVALID_EMAIL = "That is not a valid email.";
 
         private IValidationDictionary theValidationDictionary;

@@ -56,11 +56,6 @@ namespace Social.Generic.Helpers {
         Delete_Permission,
         Edit_Permission,
         View_Permissions,
-        //Restrictions
-        Create_Restriction,
-        Delete_Restriction,
-        Edit_Restriction,
-        View_Restrictions,
         //Authority Verification
         Create_Authority_Verification_Token,
         Authority_Feed,

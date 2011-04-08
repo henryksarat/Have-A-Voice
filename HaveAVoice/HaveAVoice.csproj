@@ -68,7 +68,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\ActionFilters\RequiredRouteValueAttribute.cs" />
     <Compile Include="Controllers\Admin\AdminController.cs" />
     <Compile Include="Controllers\Admin\RoleController.cs" />
     <Compile Include="Controllers\Core\AuthenticationController.cs" />

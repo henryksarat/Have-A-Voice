@@ -47,7 +47,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 return false;
             }
 
-            if (!ValidateToken(aUserToCreate.Email, aToken, anAuthorityType, aUserToCreate.UserPosition.ToString())) {
+            if (!ValidateToken(aUserToCreate.Email, aToken, anAuthorityType, aUserToCreate.UserPositionId)) {
                 return false;
             }
 

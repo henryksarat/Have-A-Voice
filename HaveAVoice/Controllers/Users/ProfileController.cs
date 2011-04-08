@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.UI;
-using HaveAVoice.Controllers.ActionFilters;
+using Generic.ActionFilters.ActionFilters;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Exceptions;
 using HaveAVoice.Helpers;
@@ -10,14 +10,13 @@ using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
 using HaveAVoice.Repositories;
-using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
 using Social.Admin.Helpers;
 using Social.Generic.ActionFilters;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
-using Social.Validation;
 using Social.Generic.Services;
+using Social.Validation;
 
 namespace HaveAVoice.Controllers.Users {
     public class ProfileController : HAVBaseController {

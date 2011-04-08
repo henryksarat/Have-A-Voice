@@ -53,11 +53,9 @@
 		                <div class="clear">&nbsp;</div>
 	                </div>
 	                <div class="clear">&nbsp;</div>
-                    <!--
 	                <div class="right">
-					    <a href="/Authentication/Login" class="more-dislike">More Topics Disliked By Members &gt;&gt;</a>
+					    <a href="/Issue/Index" class="more-like">More Issues Posted By Members &gt;&gt;</a>
 				    </div>
-                    -->
 	                <div class="clear">&nbsp;</div>
 	            </div>
 	            <div class="clear">&nbsp;</div>

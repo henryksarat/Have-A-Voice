@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using BaseWebsite.Controllers.Photos;
-using HaveAVoice.Controllers.ActionFilters;
+using Generic.ActionFilters.ActionFilters;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Helpers;
 using HaveAVoice.Helpers.UserInformation;
@@ -32,7 +32,7 @@ namespace HaveAVoice.Controllers.Users.Photos {
             HAVUserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository())));
         }
 
-        [RequiredRouteValueAttribute.RequireRouteValues(new string[] { })]
+        [Generic.ActionFilters.ActionFilters.RequiredRouteValueAttribute.RequireRouteValues(new string[] { })]
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         new public ActionResult List() {
             return base.List();

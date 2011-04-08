@@ -22,6 +22,8 @@ namespace HaveAVoice.Models.SocialWrappers {
         }
 
         private SocialUserModel(User anExternal) {
+            Model = anExternal;
+
             Id = anExternal.Id;
             Email = anExternal.Email;
             Password = anExternal.Password;
