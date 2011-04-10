@@ -17,30 +17,33 @@ using UniversityOfMe.Models;
 using UniversityOfMe.Models.Social;
 using UniversityOfMe.Repositories;
 using UniversityOfMe.Services.Classes;
+using UniversityOfMe.Services.GeneralPostings;
+using HaveAVoice.Services.GeneralPostings;
 
 namespace UniversityOfMe.Controllers.Classes {
-    public class ClassReplyController : BaseController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
-        private const string REPLY_POSTED = "The reply to the class has been posted.";
+    public class GeneralPostingReplyController : BaseController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
+        
+        private const string REPLY_POSTED = "The reply to the posting has been posted.";
 
-        IClassService theClassService;
+        IGeneralPostingService theGeneralPostingService;
         IValidationDictionary theValidationDictionary;
 
-        public ClassReplyController()
+        public GeneralPostingReplyController()
             : base(new BaseService<User>(new EntityBaseRepository()),
                    UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())),
                    InstanceHelper.CreateAuthencationService(),
                    new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())) {
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
-            theClassService = new ClassService(theValidationDictionary);
+            theGeneralPostingService = new GeneralPostingService(theValidationDictionary);
         }
-
+    
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
-        public ActionResult Create(string universityId, int classId, string reply) {
+        public ActionResult Create(string universityId, int generalPostingId, string reply) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
             try {
-                bool myResult = theClassService.CreateClassReply(GetUserInformatonModel(), classId, reply);
+                bool myResult = theGeneralPostingService.CreateGeneralPostingReply(GetUserInformatonModel(), generalPostingId, reply);
 
                 if (myResult) {
                     TempData["Message"] = REPLY_POSTED;
@@ -51,9 +54,9 @@ namespace UniversityOfMe.Controllers.Classes {
                 theValidationDictionary.ForceModleStateExport();
             }
 
-            return RedirectToAction("DetailsWithClassId", "Class", new { classId = classId });
+            return RedirectToAction("Details", "GeneralPosting", new { id = generalPostingId });
         }
-
+        
         protected override AbstractUserModel<User> GetSocialUserInformation() {
             return SocialUserModel.Create(GetUserInformaton());
         }

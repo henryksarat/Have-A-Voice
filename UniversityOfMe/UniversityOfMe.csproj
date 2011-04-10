@@ -77,6 +77,8 @@
     <Compile Include="Controllers\Clubs\ClubController.cs" />
     <Compile Include="Controllers\Clubs\ClubMemberController.cs" />
     <Compile Include="Controllers\Core\AuthenticationController.cs" />
+    <Compile Include="Controllers\GeneralPostings\GeneralPostingController.cs" />
+    <Compile Include="Controllers\GeneralPostings\GeneralPostingReplyController.cs" />
     <Compile Include="Controllers\Helpers\InstanceHelper.cs" />
     <Compile Include="Controllers\Professors\ProfessorReviewController.cs" />
     <Compile Include="Controllers\Professors\ProfessorController.cs" />
@@ -122,6 +124,8 @@
     <Compile Include="Repositories\Classes\IClassRepository.cs" />
     <Compile Include="Repositories\Clubs\EntityClubRepository.cs" />
     <Compile Include="Repositories\Clubs\IClubRepository.cs" />
+    <Compile Include="Repositories\GeneralPostings\EntityGeneralPostingRepository.cs" />
+    <Compile Include="Repositories\GeneralPostings\IGeneralPostingRepository.cs" />
     <Compile Include="Repositories\Professors\EntityProfessorReviewRepository.cs" />
     <Compile Include="Repositories\Professors\IProfessorRepository.cs" />
     <Compile Include="Repositories\TextBooks\ITextBookRepository.cs" />
@@ -140,6 +144,8 @@
     <Compile Include="Services\Classes\ClassService.cs" />
     <Compile Include="Services\Clubs\IClubService.cs" />
     <Compile Include="Services\Clubs\ClubService.cs" />
+    <Compile Include="Services\GeneralPostings\GeneralPostingService.cs" />
+    <Compile Include="Services\GeneralPostings\IGeneralPostingService.cs" />
     <Compile Include="Services\IUniversityService.cs" />
     <Compile Include="Services\Professors\ProfessorReviewService.cs" />
     <Compile Include="Services\Professors\IProfessorReviewService.cs" />
@@ -273,7 +279,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>2598</DevelopmentServerPort>
+          <DevelopmentServerPort>2324</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
