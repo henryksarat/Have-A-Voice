@@ -27,7 +27,7 @@ namespace HaveAVoice.Controllers.Users.Photos {
                   new EntityHAVPhotoAlbumRepository(),
                   new EntityHAVPhotoRepository(),
                   new EntityHAVFriendRepository()) {
-            HAVUserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository())));
+            HAVUserInformationFactory.SetInstance(GetUserInformationInstance());
         }
 
         [AcceptVerbs(HttpVerbs.Post)]

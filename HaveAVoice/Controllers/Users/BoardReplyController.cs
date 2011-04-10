@@ -1,6 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using BaseWebsite.Controllers.Boards;
+using BaseWebsite.Helpers;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Helpers;
 using HaveAVoice.Helpers.UserInformation;
@@ -12,11 +13,9 @@ using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services.UserFeatures;
 using Social.Authentication;
 using Social.Authentication.Helpers;
-using Social.Board.Services;
 using Social.Generic.ActionFilters;
 using Social.Generic.Models;
 using Social.Generic.Services;
-using BaseWebsite.Helpers;
 
 namespace HaveAVoice.Controllers.Users {
     public class BoardReplyController : AbstractBoardReplyController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline, Board, BoardReply> {
@@ -26,7 +25,7 @@ namespace HaveAVoice.Controllers.Users {
                    new HAVAuthenticationService(),
                    new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()),
                    new EntityHAVBoardRepository()) {
-            HAVUserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository())));
+            HAVUserInformationFactory.SetInstance(GetUserInformationInstance());
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]

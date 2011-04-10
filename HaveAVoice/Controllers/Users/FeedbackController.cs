@@ -4,16 +4,12 @@ using System.Linq;
 using System.Web.Mvc;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Models;
-using HaveAVoice.Repositories;
-using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
 using Social.Admin.Helpers;
 using Social.Generic.Helpers;
 using Social.Validation;
-using Social.Generic.Services;
 
-namespace HaveAVoice.Controllers.Users
-{
+namespace HaveAVoice.Controllers.Users {
     public class FeedbackController : HAVBaseController {
         private static string FEEDBACK_ERROR = "An error occurred, please try again shortly.";
         private static string FEEDBACK_SUCCESS = "Feedback submitted, thank you!";
@@ -21,14 +17,12 @@ namespace HaveAVoice.Controllers.Users
         private static string ERROR = "An error occurred. Please try again.";
 
         private IHAVFeedbackService theFeedbackService;
-        public FeedbackController()
-            : base(new BaseService<User>(new HAVBaseRepository())) {
+        public FeedbackController() {
              ModelStateWrapper myModelWrapper = new ModelStateWrapper(this.ModelState);
              theFeedbackService = new HAVFeedbackService(myModelWrapper);
         }
 
-        public FeedbackController(IBaseService<User> aBaseService, IHAVFeedbackService aService)
-            : base(aBaseService) {
+        public FeedbackController(IHAVFeedbackService aService) {
             theFeedbackService = aService;
         }
 

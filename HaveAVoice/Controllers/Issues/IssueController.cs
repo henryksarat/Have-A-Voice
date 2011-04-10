@@ -51,16 +51,14 @@ namespace HaveAVoice.Controllers.Issues {
         private IHAVIssueService theIssueService;
         private IHAVIssueReplyService theIssueReplyService;
 
-        public IssueController() : 
-            base(new BaseService<User>(new HAVBaseRepository())) {
+        public IssueController() {
             IValidationDictionary myModelState = new ModelStateWrapper(this.ModelState);
 
             theIssueService = new HAVIssueService(myModelState);
             theIssueReplyService = new HAVIssueReplyService(myModelState);
         }
 
-        public IssueController(IHAVIssueService aService, IBaseService<User> baseService)
-            : base(baseService) {
+        public IssueController(IHAVIssueService aService) {
             theIssueService = aService;
         }
 

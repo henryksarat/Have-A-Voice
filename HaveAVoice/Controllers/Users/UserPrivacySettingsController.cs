@@ -10,8 +10,7 @@ using Social.User.Models;
 using Social.User.Services;
 using Social.Generic.Services;
 
-namespace HaveAVoice.Controllers.Users
-{
+namespace HaveAVoice.Controllers.Users {
     public class UserPrivacySettingsController : HAVBaseController {
         private static string EDIT_SUCCESS = "Your account has been edited successfully!";
         private const string RETRIEVE_FAIL = "Error retreiving your privacy settings. Please try again.";
@@ -21,13 +20,11 @@ namespace HaveAVoice.Controllers.Users
 
         private IUserPrivacySettingsService<User, PrivacySetting> thePrivacyService;
 
-        public UserPrivacySettingsController() : 
-            base(new BaseService<User>(new HAVBaseRepository())) {
-                thePrivacyService = new UserPrivacySettingsService<User, PrivacySetting>(new EntityHAVUserPrivacySettingsRepository());
+        public UserPrivacySettingsController() {
+            thePrivacyService = new UserPrivacySettingsService<User, PrivacySetting>(new EntityHAVUserPrivacySettingsRepository());
         }
 
-        public UserPrivacySettingsController(IBaseService<User> aBaseService, IUserPrivacySettingsService<User, PrivacySetting> aPrivacyService)
-            : base(aBaseService) {
+        public UserPrivacySettingsController(IBaseService<User> aBaseService, IUserPrivacySettingsService<User, PrivacySetting> aPrivacyService) {
             thePrivacyService = aPrivacyService;
         }
 

@@ -4,10 +4,7 @@ using System.Web.Mvc;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
-using HaveAVoice.Repositories;
-using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
-using Social.Generic.Services;
 
 namespace HaveAVoice.Controllers.Users {
     public class NotificationController : HAVBaseController {
@@ -18,14 +15,12 @@ namespace HaveAVoice.Controllers.Users {
 
         private IHAVNotificationService theNotificationService;
 
-        public NotificationController()
-            : base(new BaseService<User>(new HAVBaseRepository())) {
-                theNotificationService = new HAVNotificationService();
+        public NotificationController() {
+            theNotificationService = new HAVNotificationService();
         }
 
-        public NotificationController(IBaseService<User> aBaseService, IHAVNotificationService aNoticiationService)
-            : base(aBaseService) {
-                theNotificationService = aNoticiationService;
+        public NotificationController(IHAVNotificationService aNoticiationService) {
+            theNotificationService = aNoticiationService;
         }
 
         public ActionResult List() {

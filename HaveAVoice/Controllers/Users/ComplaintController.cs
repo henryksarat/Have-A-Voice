@@ -26,8 +26,7 @@ namespace HaveAVoice.Controllers.Users {
         private IHAVIssueReplyCommentService theIssueReplyCommentService;
         private IPhotoService<User, PhotoAlbum, Photo, Friend> thePhotoService;
 
-        public ComplaintController()
-            : base(new BaseService<User>(new HAVBaseRepository())) {
+        public ComplaintController() {
              ModelStateWrapper myModelWrapper = new ModelStateWrapper(this.ModelState);
             theService = new HAVComplaintService(myModelWrapper);
             theUserRetrievalService = new UserRetrievalService<User>(new EntityHAVUserRetrievalRepository());
@@ -39,8 +38,7 @@ namespace HaveAVoice.Controllers.Users {
 
         public ComplaintController(IHAVComplaintService aService, IBaseService<User> aBaseService, 
                                    IUserRetrievalService<User> aUserRetrievalService, IHAVIssueService aIssueService,
-                                   IPhotoService<User, PhotoAlbum, Photo, Friend> aPhotoService)
-            : base(aBaseService) {
+                                   IPhotoService<User, PhotoAlbum, Photo, Friend> aPhotoService) {
             theService = aService;
             theUserRetrievalService = aUserRetrievalService;
             theIssueService = aIssueService;

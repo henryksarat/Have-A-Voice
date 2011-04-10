@@ -13,7 +13,6 @@ using HaveAVoice.Services.UserFeatures;
 using Social.Authentication;
 using Social.Authentication.Helpers;
 using Social.BaseWebsite.Models;
-using Social.Board.Services;
 using Social.Generic.ActionFilters;
 using Social.Generic.Models;
 using Social.Generic.Services;
@@ -26,7 +25,7 @@ namespace HaveAVoice.Controllers.Users {
                    new HAVAuthenticationService(),
                    new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()),
                    new EntityHAVBoardRepository()) {
-            HAVUserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository())));
+            HAVUserInformationFactory.SetInstance(GetUserInformationInstance());
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]

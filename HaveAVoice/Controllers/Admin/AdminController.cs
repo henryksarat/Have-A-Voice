@@ -12,6 +12,7 @@ using Social.Authentication.Helpers;
 using HaveAVoice.Models.SocialWrappers;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Helpers;
+using HaveAVoice.Helpers.UserInformation;
 
 namespace HaveAVoice.Controllers.Admin {
     public class AdminController : AbstractAdminController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
@@ -20,6 +21,7 @@ namespace HaveAVoice.Controllers.Admin {
                    UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository())),
               new HAVAuthenticationService(), 
               new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository())) {
+            HAVUserInformationFactory.SetInstance(GetUserInformationInstance());
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

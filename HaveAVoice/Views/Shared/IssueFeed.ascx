@@ -2,6 +2,7 @@
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
+<%@ Import Namespace="HaveAVoice.Helpers.UI" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
 <%@ Import Namespace="Social.Generic.Models" %>
 
@@ -9,77 +10,9 @@
 <% SiteSection mySection = (SiteSection)ViewData["SiteSection"]; %>
 <% int mySourceId = (int)ViewData["SourceId"]; %>
 <div class="m-btm5">
-	<div class="col-2 center">
-		<img src="<%= Model.ProfilePictureUrl %>" alt="<%= Model.DisplayName %>" class="profile" />
-	</div>
-	<div class="col-16">
-		<div class="m-lft col-16 comment">
-			<div class="p-a10">
-				<h1><a href="<%= LinkHelper.IssueUrl(Model.Title) %>"><%= Model.Title%></a></h1>
-				<br />
-				<%= Model.Description %>
-				<br />
-				<span class="loc"><%= Model.City %>, <%= Model.State %></span> <span class="<%= Model.IconType %>" title="<%= Model.IconType %>">&nbsp;</span>
-				<div class="clear">&nbsp;</div>
-
-				<div class="col-15">
-					<div class="push-6 col-9 p-v10">
-						<div class="col-3 center">
-							<% if (Model.TotalReplys == 0) { %>
-								&nbsp;
-								<!--
-								<a href="#" class="comment">
-										Reply
-								</a>
-								//-->
-							<% } else { %>
-								<span class="comment"><%= Model.TotalReplys%> 
-										Repl<% if (Model.TotalReplys > 1) { %>ies<% } else { %>y<% } %>
-								</span>
-							<% } %>
-							<div class="clear">&nbsp;</div>
-						</div>
-						<div class="col-3 center">
-							<% if (Model.HasDisposition) { %>
-								<span class="like">
-									<%= Model.TotalLikes%>
-									<% if (Model.TotalLikes == 1) { %>
-										Person Agrees
-									<% } else { %>
-										People Agree
-									<% } %>
-								</span>
-							<% } else { %>
-								<a href="<%= LinkHelper.AgreeIssue(Model.Id, mySection, mySourceId) %>" class="like">Agree</a>
-							<% } %>
-						</div>
-						<div class="col-3 center">
-							<% if (Model.HasDisposition) { %>
-								<span class="dislike">
-									<%= Model.TotalDislikes%>
-									<% if (Model.TotalDislikes == 1) { %>
-										Person Disagrees
-									<% } else { %>
-										People Disagree 
-									<% } %>
-								</span>
-							<% } else { %>
-								<a href="<%= LinkHelper.DisagreeIssue(Model.Id, mySection, mySourceId) %>" class="dislike">Disagree</a>
-							<% } %>
-						</div>
-					</div>
-					<div class="clear">&nbsp;</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-3">
-		<div class="p-a5">
-			<div class="date-tile">
-				<span><%= Model.DateTimeStamp.ToString("MMM").ToUpper()%></span> <%= Model.DateTimeStamp.ToString("dd")%>
-			</div>
-		</div>
-	</div>
+    <%= SharedContentStyleHelper.ProfilePictureDiv(Model.Issue.User, Model.IsAnonymous, "col-2 center", "profile")%>
+    <%= IssueHelper.IssueInformationDiv(Model.Issue, Model.IsAnonymous, "col-16 m-lft comment", "col-16 col-9 p-v10", "col-3 center", "col-3 center", "col-3 center", "col-3 center", "col-3 center", string.Empty, string.Empty, false, SiteSection.MyProfile, 0)%>
+    <%= SharedContentStyleHelper.TimeStampDiv(Model.DateTimeStamp, "col-3", "p-a5", "date-tile", "MMM", "dd")  %>
 	<div class="clear">&nbsp;</div>
 </div>
 <div class="clear">&nbsp;</div>
@@ -87,7 +20,7 @@
 
 <div class="reply-wrpr">
 	<% int j = 0; %>
-	<% foreach (var item in Model.IssueReplys) { %>
+	<% foreach (var item in Model.Issue.IssueReplys) { %>
 	    <div class="<% if (j % 2 == 0) { %>row<% } else { %>alt<% } %> reply push-3 col-18 m-btm10">
 		    <div class="col-1 center">
                 <% UserInformationModel<User> myUserInformation = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation(); %>

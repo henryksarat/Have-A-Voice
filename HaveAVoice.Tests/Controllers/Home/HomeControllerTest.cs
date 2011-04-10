@@ -17,7 +17,6 @@ namespace HaveAVoice.Tests.Controllers.Home {
     public class HomeControllerTest : ControllerTestCase {
         private Mock<IHAVHomeService> theMockedService;
         private Mock<IHAVHomeRepository> theMockRepository;
-        private HomeController theController;
         private NotLoggedInModel theModel;
         /*
         [TestInitialize]

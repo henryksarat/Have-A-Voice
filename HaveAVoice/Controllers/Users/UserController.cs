@@ -17,6 +17,7 @@ using Social.Generic.Constants;
 using Social.Generic.Models;
 using Social.Generic.Services;
 using Social.Validation;
+using HaveAVoice.Helpers.UserInformation;
 
 namespace HaveAVoice.Controllers.Users {
     public class UserController : AbstractUserController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
@@ -34,6 +35,7 @@ namespace HaveAVoice.Controllers.Users {
             UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()))
             , new HAVAuthenticationService(), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()),
             new EntityHAVUserRepository()) {
+            HAVUserInformationFactory.SetInstance(GetUserInformationInstance());
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
             theService = new HAVUserService(theValidationDictionary);
         }

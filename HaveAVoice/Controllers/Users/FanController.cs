@@ -23,14 +23,12 @@ namespace HaveAVoice.Controllers.Users {
 
         private IHAVFanService theFanService;
 
-        public FanController() : 
-            base(new BaseService<User>(new HAVBaseRepository())) {
+        public FanController() {
                 theFanService = new HAVFanService();
         }
 
-        public FanController(IBaseService<User> aBaseService, IHAVFanService aFanService)
-            : base(aBaseService) {
-                theFanService = aFanService;
+        public FanController(IHAVFanService aFanService) {
+            theFanService = aFanService;
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

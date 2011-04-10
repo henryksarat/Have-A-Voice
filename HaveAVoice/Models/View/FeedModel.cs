@@ -10,12 +10,14 @@ namespace HaveAVoice.Models.View {
         public int UserId { get; set; }
         public string DisplayName { get; set; }
         public string ProfilePictureUrl { get; set; }
+        public bool IsAnonymous { get; set; }
 
         public FeedModel(User aUser) {
             PostingUser = aUser;
             DisplayName = NameHelper.FullName(aUser);
             UserId = aUser.Id;
             ProfilePictureUrl = PhotoHelper.ProfilePicture(aUser);
+            IsAnonymous = false;
         }
     }
 }

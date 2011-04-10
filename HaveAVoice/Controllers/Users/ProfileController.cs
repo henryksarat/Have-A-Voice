@@ -9,13 +9,11 @@ using HaveAVoice.Helpers;
 using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
-using HaveAVoice.Repositories;
 using HaveAVoice.Services.UserFeatures;
 using Social.Admin.Helpers;
 using Social.Generic.ActionFilters;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
-using Social.Generic.Services;
 using Social.Validation;
 
 namespace HaveAVoice.Controllers.Users {
@@ -36,13 +34,11 @@ namespace HaveAVoice.Controllers.Users {
 
         private IHAVProfileService theService;
 
-        public ProfileController()
-            : base(new BaseService<User>(new HAVBaseRepository())) {
+        public ProfileController() {
             theService = new HAVProfileService(new ModelStateWrapper(this.ModelState));
         }
 
-        public ProfileController(IHAVProfileService aService, IBaseService<User> aBaseService)
-            : base(aBaseService) {
+        public ProfileController(IHAVProfileService aService) {
             theService = aService;
         }
 

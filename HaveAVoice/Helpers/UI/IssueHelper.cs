@@ -100,7 +100,7 @@ namespace HaveAVoice.Helpers.UI {
             return myIssueDisplay;
         }
 
-        public static string IssueInformationDiv(Issue anIssue, string anIssueInfoCssClass, string anEditAndStanceCssClass, string aReportCssClass, string anAgreeCssClass,
+        public static string IssueInformationDiv(Issue anIssue, bool anIsAnonymous, string anIssueInfoCssClass, string anEditAndStanceCssClass, string aReportCssClass, string anAgreeCssClass,
                                                  string aDisagreeCssClass, string aDeleteCssClass, string anEditCssClass, string anAlternateStanceDeleteCssClass, string anAlternateStanceEditCssClass, bool aUseAlternate,
                                                  SiteSection aSiteSection, int aSourceId) {
             string myAgreeCssClass = anAgreeCssClass;
@@ -116,11 +116,11 @@ namespace HaveAVoice.Helpers.UI {
                 myDeleteCssClass = anAlternateStanceDeleteCssClass;
                 myEditCssClass = anAlternateStanceEditCssClass;
             }
-            return IssueInformationDiv(anIssue, myUserInfo, myHasStance, anIssueInfoCssClass, anEditAndStanceCssClass, aReportCssClass, myAgreeCssClass, 
+            return IssueInformationDiv(anIssue, anIsAnonymous, myUserInfo, myHasStance, anIssueInfoCssClass, anEditAndStanceCssClass, aReportCssClass, myAgreeCssClass, 
                 myDisagreeCssClass, myDeleteCssClass, myEditCssClass, aSiteSection, aSourceId);
         }
 
-        private static string IssueInformationDiv(Issue anIssue, UserInformationModel<User> aUserInfoModel, bool aHasStance, string anIssueInfoCssClass, string anEditAndStanceCssClass, string aReportCssClass, string anAgreeCssClass,
+        private static string IssueInformationDiv(Issue anIssue, bool anAnonymous, UserInformationModel<User> aUserInfoModel, bool aHasStance, string anIssueInfoCssClass, string anEditAndStanceCssClass, string aReportCssClass, string anAgreeCssClass,
                                                  string aDisagreeCssClass, string anDeleteCssClass, string anEditCssClass, SiteSection aSiteSection, int aSourceId) {
             var myIssueInfoDiv = new TagBuilder("div");
             myIssueInfoDiv.AddCssClass(anIssueInfoCssClass);
@@ -135,19 +135,34 @@ namespace HaveAVoice.Helpers.UI {
             myIssueLink.InnerHtml = anIssue.Title;
             myHeadTitle.InnerHtml += myIssueLink.ToString();
 
+            string myName = NameHelper.FullName(anIssue.User);
+            string myProfileLink = LinkHelper.Profile(anIssue.User);
+            if (anAnonymous) {
+                myName = HAVConstants.ANONYMOUS;
+                myProfileLink = "#";
+            }
+
             var myNameLink = new TagBuilder("a");
             myNameLink.AddCssClass("name-2");
-            myNameLink.MergeAttribute("href", LinkHelper.Profile(anIssue.User));
-            myNameLink.InnerHtml = NameHelper.FullName(anIssue.User);
+            myNameLink.MergeAttribute("href", myProfileLink);
+            myNameLink.InnerHtml = myName;
 
             var myLocationSpan = new TagBuilder("span");
             myLocationSpan.AddCssClass("loc c-white");
             myLocationSpan.InnerHtml = anIssue.City + ", " + anIssue.State;
 
+            string myUserType = GetUserTypeForIssue(anIssue);
+            var myIconSpan = new TagBuilder("span");
+            myIconSpan.AddCssClass(myUserType);
+            myIconSpan.MergeAttribute("title", myUserType);
+            myIconSpan.InnerHtml = "&nbsp;";
+
             myIssueInfoPadding.InnerHtml += myHeadTitle.ToString();
             myIssueInfoPadding.InnerHtml += myNameLink.ToString();
             myIssueInfoPadding.InnerHtml += "&nbsp;";
             myIssueInfoPadding.InnerHtml += myLocationSpan.ToString();
+            myIssueInfoPadding.InnerHtml += "&nbsp;";
+            myIssueInfoPadding.InnerHtml += myIconSpan.ToString();
             myIssueInfoPadding.InnerHtml += new TagBuilder("br").ToString();
             myIssueInfoPadding.InnerHtml += anIssue.Description;
 
@@ -170,6 +185,23 @@ namespace HaveAVoice.Helpers.UI {
 
             myIssueInfoDiv.InnerHtml += myIssueInfoPadding.ToString();
             return myIssueInfoDiv.ToString();
+        }
+
+        private static string GetUserTypeForIssue(Issue anIssue) {
+            string myType = "resident";
+            foreach (UserRole myUserRole in anIssue.User.UserRoles.ToList<UserRole>()) {
+                foreach (RolePermission myRolePermission in myUserRole.Role.RolePermissions) {
+                    if(myRolePermission.Permission.Name.Equals(SocialPermission.Confirmed_Politician.ToString())) {
+                        myType = "politician";
+                        break;
+                    } else if(myRolePermission.Permission.Name.Equals(SocialPermission.Confirmed_Political_Candidate.ToString())) {
+                        myType = "candidate";
+                        break;
+                    }
+                }
+            }
+
+            return myType;
         }
 
         public static string IssueStats(Issue anIssue, string aDivCssClass, string aDivPaddingCssClass, string aStatsHeading, 

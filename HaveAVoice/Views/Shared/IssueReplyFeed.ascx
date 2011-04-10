@@ -2,6 +2,7 @@
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
+<%@ Import Namespace="HaveAVoice.Helpers.UI" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
 <%@ Import Namespace="HaveAVoice.Helpers.Enums" %>
 <%@ Import Namespace="Social.Generic.Models" %>
@@ -10,9 +11,7 @@
 <% SiteSection mySection = (SiteSection)ViewData["SiteSection"]; %>
 <% int mySourceId = (int)ViewData["SourceId"]; %>
 <div class="<% if(myCount % 2 == 0) { %>row<% } else { %>alt<% } %> m-btm5">
-	<div class="push-2 col-2 center">
-		<img src="<%= Model.ProfilePictureUrl %>" alt="<%= Model.DisplayName %>" class="profile" />
-	</div>
+    <%= SharedContentStyleHelper.ProfilePictureDiv(Model.PostingUser, Model.IsAnonymous, "push-2 col-2 center", "profile")%>
 	<div class="push-2 col-14">
 		<div class="m-lft col-14 comment">
 			<span class="speak-lft">&nbsp;</span>

@@ -59,7 +59,7 @@
 <div class="col-24 user-panel">
     <% UserInformationModel<User> myUser = HAVUserInformationFactory.GetUserInformation(); %>
 	<div class="col-3 center">
-		<img src="<%= Model.ProfilePictureUrl %>" alt="<%= Model.FullName %>" class="profile" />
+		<a href="/<%= Model.User.ShortUrl %>"><img src="<%= Model.ProfilePictureUrl %>" alt="<%= Model.FullName %>" class="profile" /></a>
 	</div>
 	<div class="col-15">
 		<div class="m-lft col-15 m-rgt">

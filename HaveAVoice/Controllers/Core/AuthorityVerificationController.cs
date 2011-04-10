@@ -6,15 +6,12 @@ using HaveAVoice.Exceptions;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
-using HaveAVoice.Repositories;
-using HaveAVoice.Services;
 using HaveAVoice.Services.UserFeatures;
 using Social.Admin.Helpers;
 using Social.Generic.ActionFilters;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Validation;
-using Social.Generic.Services;
 
 namespace HaveAVoice.Controllers.Core {
     public class AuthorityVerificationController : HAVBaseController {
@@ -33,14 +30,12 @@ namespace HaveAVoice.Controllers.Core {
         private IValidationDictionary theValidationDictionary;
 
         
-        public AuthorityVerificationController() :
-            base(new BaseService<User>(new HAVBaseRepository())) {
+        public AuthorityVerificationController() {
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
             theAuthService = new HAVAuthorityVerificationService(theValidationDictionary);
         }
 
-        public AuthorityVerificationController(IBaseService<User> baseService, IHAVAuthorityVerificationService anAuthService)
-            : base(baseService) {
+        public AuthorityVerificationController(IHAVAuthorityVerificationService anAuthService) {
             theAuthService = anAuthService;
         }
 

@@ -25,12 +25,11 @@ namespace HaveAVoice.Controllers.Issues {
         
         private IHAVIssueReplyCommentService theService;
 
-        public IssueReplyCommentController() : base(new BaseService<User>(new HAVBaseRepository())) {
+        public IssueReplyCommentController() {
             theService = new HAVIssueReplyCommentService(new Social.Validation.ModelStateWrapper(this.ModelState));
         }
 
-        public IssueReplyCommentController(IHAVIssueReplyCommentService aService, IBaseService<User> baseService)
-            : base(baseService) {
+        public IssueReplyCommentController(IHAVIssueReplyCommentService aService) {
             theService = aService;
         }
 

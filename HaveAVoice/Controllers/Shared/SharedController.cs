@@ -1,22 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Mvc.Ajax;
-using HaveAVoice.Models.View;
-using HaveAVoice.Services;
-using HaveAVoice.Repositories;
-using Social.Generic.Services;
 using HaveAVoice.Models;
+using HaveAVoice.Models.View;
+using HaveAVoice.Repositories;
 using Social.Generic.Models;
+using Social.Generic.Services;
 
 namespace HaveAVoice.Controllers.Shared
 {
     public class SharedController : HAVBaseController
     {
-        public SharedController()
-            : base(new BaseService<User>(new HAVBaseRepository())) { }
+        public SharedController() { }
 
         public ActionResult PageNotFound() {
             ErrorModel error = new ErrorModel();

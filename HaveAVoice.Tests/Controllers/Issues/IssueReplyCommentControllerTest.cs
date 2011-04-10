@@ -21,7 +21,6 @@ namespace HaveAVoice.Tests.Controllers.Issues {
         private static int ID = 1;
         private static string COMMENT = "Whatever";
 
-        private IssueReplyCommentController theController;
         private Mock<IHAVIssueService> theMockedService;
         private IssueReplyComment theComment;
         /*

@@ -45,6 +45,10 @@ namespace BaseWebsite.Controllers {
         protected abstract string NormalMessage(string aMessage);
         protected abstract string SuccessMessage(string aMessage);
 
+        protected IUserInformation<T, Z> GetUserInformationInstance() {
+            return theUserInformation;
+        }
+
         protected T GetUserInformaton() {
             UserInformationModel<T> myUserInformation = GetUserInformatonModel();
             return myUserInformation != null ? myUserInformation.Details : default(T);

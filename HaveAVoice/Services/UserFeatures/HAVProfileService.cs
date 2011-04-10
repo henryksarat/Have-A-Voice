@@ -156,34 +156,6 @@ namespace HaveAVoice.Services.UserFeatures {
             return myProfileModel;
         }
 
-        private IEnumerable<IssueFeedModel> CreateIssueFeedForAuthority(IEnumerable<Issue> anIssues, User aViewingUser) {
-            List<IssueFeedModel> myFeedModels = new List<IssueFeedModel>();
-
-            foreach (Issue myIssue in anIssues) {
-                IEnumerable<IssueDisposition> myIssueDisposition = myIssue.IssueDispositions;
-                if (PrivacyHelper.IsAllowed(myIssue.User, PrivacyAction.DisplayProfile)) {
-
-                }
-                IssueFeedModel myFeedModel = new IssueFeedModel(myIssue.User) {
-                    Id = myIssue.Id,
-                    DateTimeStamp = TimezoneHelper.ConvertToLocalTimeZone(myIssue.DateTimeStamp),
-                    Title = myIssue.Title,
-                    Description = myIssue.Description,
-                    State = myIssue.State,
-                    City = myIssue.City,
-                    TotalLikes = (from d in myIssueDisposition where d.Disposition == (int)Disposition.Like select d).Count<IssueDisposition>(),
-                    TotalDislikes = (from d in myIssueDisposition where d.Disposition == (int)Disposition.Dislike select d).Count<IssueDisposition>(),
-                    HasDisposition = (from d in myIssueDisposition where d.UserId == aViewingUser.Id select d).Count<IssueDisposition>() > 0 ? true : false,
-                    TotalReplys = myIssue.IssueReplys.Count,
-                    IssueReplys = myIssue.IssueReplys
-                };
-
-                myFeedModels.Add(myFeedModel);
-            }
-
-            return myFeedModels;
-        }
-
         private IEnumerable<IssueFeedModel> CreateIssueFeed(IEnumerable<Issue> anIssues, User aViewingUser, PersonFilter aPersonFilter) {
             List<IssueFeedModel> myFeedModels = new List<IssueFeedModel>();
 
@@ -191,18 +163,9 @@ namespace HaveAVoice.Services.UserFeatures {
                 IEnumerable<IssueDisposition> myIssueDisposition = myIssue.IssueDispositions;
 
                 IssueFeedModel myFeedModel = new IssueFeedModel(myIssue.User) {
-                    Id = myIssue.Id,
-                    DateTimeStamp = TimezoneHelper.ConvertToLocalTimeZone(myIssue.DateTimeStamp),
-                    Title = myIssue.Title,
-                    City = myIssue.City,
-                    State = myIssue.State,
-                    Description = myIssue.Description,
+                    Issue = myIssue,
                     PersonFilter = aPersonFilter,
-                    TotalLikes = (from d in myIssueDisposition where d.Disposition == (int)Disposition.Like select d).Count<IssueDisposition>(),
-                    TotalDislikes = (from d in myIssueDisposition where d.Disposition == (int)Disposition.Dislike select d).Count<IssueDisposition>(),
-                    HasDisposition = ((aViewingUser == null ) || (from d in myIssueDisposition where d.UserId == aViewingUser.Id select d).Count<IssueDisposition>() > 0) ? true : false,
-                    TotalReplys = myIssue.IssueReplys.Count,
-                    IssueReplys = myIssue.IssueReplys
+                    DateTimeStamp = TimezoneHelper.ConvertToLocalTimeZone(myIssue.DateTimeStamp)
                 };
 
                 myFeedModels.Add(myFeedModel);
@@ -217,25 +180,12 @@ namespace HaveAVoice.Services.UserFeatures {
                 IEnumerable<IssueDisposition> myIssueDisposition = myIssue.IssueDispositions;
 
                 bool myIsAllowed = PrivacyHelper.IsAllowed(myIssue.User, PrivacyAction.DisplayProfile, aViewingUser);
-                User myUser = myIssue.User;
 
-                if (!myIsAllowed) {
-                    myUser = ProfileHelper.GetAnonymousProfile();
-                }
-
-                IssueFeedModel myFeedModel = new IssueFeedModel(myUser) {
-                    Id = myIssue.Id,
-                    DateTimeStamp = TimezoneHelper.ConvertToLocalTimeZone(myIssue.DateTimeStamp),
-                    Title = myIssue.Title,
-                    City = myIssue.City,
-                    State = myIssue.State,
-                    Description = myIssue.Description,
+                IssueFeedModel myFeedModel = new IssueFeedModel(myIssue.User) {
+                    Issue = myIssue,
                     PersonFilter = aPersonFilter,
-                    TotalLikes = (from d in myIssueDisposition where d.Disposition == (int)Disposition.Like select d).Count<IssueDisposition>(),
-                    TotalDislikes = (from d in myIssueDisposition where d.Disposition == (int)Disposition.Dislike select d).Count<IssueDisposition>(),
-                    HasDisposition = (from d in myIssueDisposition where d.UserId == aViewingUser.Details.Id select d).Count<IssueDisposition>() > 0 ? true : false,
-                    TotalReplys = myIssue.IssueReplys.Count,
-                    IssueReplys = myIssue.IssueReplys
+                    IsAnonymous = !myIsAllowed,
+                    DateTimeStamp = TimezoneHelper.ConvertToLocalTimeZone(myIssue.DateTimeStamp)
                 };
 
                 myFeedModels.Add(myFeedModel);
@@ -258,6 +208,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 }
 
                 IssueReplyFeedModel myFeedModel = new IssueReplyFeedModel(myUser) {
+                    IsAnonymous = !myIsAllowed,
                     Id = myIssueReply.Id,
                     DateTimeStamp = TimezoneHelper.ConvertToLocalTimeZone(myIssueReply.DateTimeStamp),
                     State = myIssueReply.State,

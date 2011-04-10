@@ -14,6 +14,7 @@ using Social.Authentication.Helpers;
 using Social.Generic.ActionFilters;
 using Social.Generic.Models;
 using Social.Generic.Services;
+using HaveAVoice.Helpers.UserInformation;
 
 namespace HaveAVoice.Controllers.Admin {
     public class PermissionController : AbstractPermissionController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
@@ -21,6 +22,7 @@ namespace HaveAVoice.Controllers.Admin {
             : base(new BaseService<User>(new HAVBaseRepository()), 
             UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()))
             , new HAVAuthenticationService(), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()), new EntityHAVPermissionRepository()) {
+            HAVUserInformationFactory.SetInstance(GetUserInformationInstance());
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

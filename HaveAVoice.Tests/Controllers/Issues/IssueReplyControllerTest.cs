@@ -23,7 +23,6 @@ namespace HaveAVoice.Tests.Controllers.Issues {
         private static string REPLY = "Whatever";
         private static string DISPOSITION = "LIKE";
 
-        private IssueReplyController theController;
         private Mock<IHAVIssueService> theMockedService;
         private IssueReply theIssueReply;
         /*

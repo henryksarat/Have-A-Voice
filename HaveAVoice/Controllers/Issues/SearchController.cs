@@ -4,14 +4,11 @@ using System.Web.Mvc;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models;
-using HaveAVoice.Repositories;
-using HaveAVoice.Services;
+using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services.Issues;
 using HaveAVoice.Services.UserFeatures;
-using Social.Validation;
 using Social.User.Services;
-using HaveAVoice.Repositories.UserFeatures;
-using Social.Generic.Services;
+using Social.Validation;
 
 namespace HaveAVoice.Controllers.Issues {
     public class SearchController : HAVBaseController {
@@ -24,15 +21,14 @@ namespace HaveAVoice.Controllers.Issues {
         private IUserRetrievalService<User> theUserRetrievalService;
         private IHAVIssueService theIssueService;
 
-        public SearchController() : base(new BaseService<User>(new HAVBaseRepository())) {
+        public SearchController() {
             theService = new HAVSearchService();
             theUserRetrievalService = new UserRetrievalService<User>(new EntityHAVUserRetrievalRepository());
             theIssueService = new HAVIssueService(new ModelStateWrapper(this.ModelState));
         }
 
         public SearchController(IHAVSearchService aService, IUserRetrievalService<User> aUserRetrivalService, 
-                                IHAVIssueService anIssueService, IBaseService<User> baseService)
-            : base(baseService) {
+                                IHAVIssueService anIssueService) {
             theService = aService;
             theUserRetrievalService = aUserRetrivalService;
             theIssueService = anIssueService;

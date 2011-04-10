@@ -29,7 +29,7 @@ namespace HaveAVoice.Controllers.Users.Photos {
                   new EntityHAVPhotoRepository(),
                   new EntityHAVFriendRepository(),
                   new EntityHAVUserRetrievalRepository()) {
-            HAVUserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository())));
+            HAVUserInformationFactory.SetInstance(GetUserInformationInstance());
         }
 
         [Generic.ActionFilters.ActionFilters.RequiredRouteValueAttribute.RequireRouteValues(new string[] { })]

@@ -18,7 +18,6 @@ namespace HaveAVoice.Tests.Controllers.Issues {
         private IHAVIssueService theService;
         private Mock<IHAVIssueService> theMockedService;
         private Mock<IHAVIssueRepository> theMockRepository;
-        private IssueController theController;
         private Issue theIssue;
         private IssueModel theIssueModel;
 

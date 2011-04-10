@@ -3,9 +3,11 @@ using System.Web.Mvc;
 using BaseWebsite.Controllers.Core;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Helpers;
+using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Models;
 using HaveAVoice.Models.SocialWrappers;
 using HaveAVoice.Repositories;
+using HaveAVoice.Repositories.SiteFeatures;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services.UserFeatures;
 using Social.Authentication;
@@ -13,7 +15,6 @@ using Social.Authentication.Helpers;
 using Social.Generic.ActionFilters;
 using Social.Generic.Models;
 using Social.Generic.Services;
-using HaveAVoice.Repositories.SiteFeatures;
 
 namespace HaveAVoice.Controllers.Core {
     public class SiteController : AbstractSiteController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
@@ -23,6 +24,7 @@ namespace HaveAVoice.Controllers.Core {
                    new HAVAuthenticationService(),
                    new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()),
                    new EntityHAVContactUsRepository()) {
+            HAVUserInformationFactory.SetInstance(GetUserInformationInstance());
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]

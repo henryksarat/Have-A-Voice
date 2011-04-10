@@ -14,6 +14,7 @@ using Social.Generic.Models;
 using Social.Generic.Services;
 using Social.User;
 using Social.Validation;
+using HaveAVoice.Helpers.UserInformation;
 
 namespace HaveAVoice.Controllers.Core {
     public class PasswordController : AbstractPasswordController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
@@ -24,6 +25,7 @@ namespace HaveAVoice.Controllers.Core {
                    new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()),
                    new EntityHAVUserRetrievalRepository(),
                    new EntityHAVPasswordRepository()) {
+            HAVUserInformationFactory.SetInstance(GetUserInformationInstance());
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
