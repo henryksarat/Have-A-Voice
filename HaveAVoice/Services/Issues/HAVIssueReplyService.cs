@@ -7,6 +7,8 @@ using Social.Admin.Helpers;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Validation;
+using Social.Generic.Constants;
+using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Services.Issues {
     public class HAVIssueReplyService : IHAVIssueReplyService {
@@ -32,17 +34,15 @@ namespace HaveAVoice.Services.Issues {
             }
         }
 
-        public bool CreateIssueReply(UserInformationModel<User> aUserCreating, IssueModel anIssueModel) {
-            if (!ValidateReply(anIssueModel.Comment, (int)anIssueModel.Disposition)) {
+        public bool CreateIssueReply(IssueModel anIssueModel) {
+            if (!ValidIssueModel(anIssueModel)) {
                 return false;
             }
 
-            if (!AllowedToPerformAction(aUserCreating, SocialPermission.Post_Issue_Reply)) {
-                return false;
-            }
-
-            theIssueReplyRepository.CreateIssueReply(aUserCreating.Details, anIssueModel.Issue.Id, anIssueModel.Comment, anIssueModel.Anonymous, (int)anIssueModel.Disposition);
-            theIssueRepository.MarkIssueAsUnreadForAuthor(anIssueModel.Issue.Id);
+            theIssueReplyRepository.CreateIssueReply(anIssueModel.UserId, anIssueModel.City, anIssueModel.State, 
+                                                     anIssueModel.Zip, anIssueModel.IssueId, anIssueModel.Reply, 
+                                                     anIssueModel.Anonymous, (int)anIssueModel.Disposition, anIssueModel.FirstName, anIssueModel.LastName);
+            theIssueRepository.MarkIssueAsUnreadForAuthor(anIssueModel.IssueId);
 
             return true;
         }
@@ -56,7 +56,7 @@ namespace HaveAVoice.Services.Issues {
                 return false;
             }
 
-            theIssueReplyRepository.CreateIssueReply(aUserCreating.Details, anIssueId, aReply, anAnonymous, aDisposition);
+            //theIssueReplyRepository.CreateIssueReply(aUserCreating.Details, anIssueId, aReply, anAnonymous, aDisposition);
             theIssueRepository.MarkIssueAsUnreadForAuthor(anIssueId);
 
             return true;
@@ -102,12 +102,53 @@ namespace HaveAVoice.Services.Issues {
             return myIssueReply;
         }
 
+        public IEnumerable<IssueReplyModel> GetReplysToIssue(Issue anIssue, IEnumerable<string> aRoleNames, PersonFilter aFilter) {
+            return theIssueReplyRepository.GetReplysToIssue(anIssue, aRoleNames, aFilter);
+        }
+
         public IEnumerable<IssueReplyModel> GetReplysToIssue(User aUser, Issue anIssue, IEnumerable<string> aRoleNames, PersonFilter aFilter) {
             return theIssueReplyRepository.GetReplysToIssue(aUser, anIssue, aRoleNames, aFilter);
         }
 
         private bool ValidateReply(IssueReply anIssueReply) {
             return ValidateReply(anIssueReply.Reply, anIssueReply.Disposition);
+        }
+
+        private bool ValidIssueModel(IssueModel anIssueModel) {
+            if (anIssueModel.Reply.Trim().Length == 0) {
+                theValidationDictionary.AddError("Reply", anIssueModel.Reply, "Reply is required.");
+            }
+            if (anIssueModel.Disposition == (int)Disposition.None) {
+                theValidationDictionary.AddError("Disposition", anIssueModel.Disposition.ToString(), "Disposition is required.");
+            }
+
+            if (anIssueModel.UserId == HAVConstants.PRIVATE_USER_ID) {
+                if (anIssueModel.FirstName.Trim().Length == 0) {
+                    theValidationDictionary.AddError("FirstName", anIssueModel.FirstName, "First name is required.");
+                }
+
+                if (anIssueModel.LastName.Trim().Length == 0) {
+                    theValidationDictionary.AddError("LastName", anIssueModel.LastName, "Last name is required.");
+                }
+            }
+
+            if (anIssueModel.Zip.ToString().Trim().Length != 5) {
+                if (anIssueModel.UserId == HAVConstants.PRIVATE_USER_ID) {
+                    theValidationDictionary.AddError("Zip", anIssueModel.Zip.ToString(), "The zip code must be 5 digits.");
+                } else {
+                    theValidationDictionary.AddError("Zip", anIssueModel.Zip.ToString(), "It appears your account isn't associated with a zip code. Please go to Settings, located at the top, and enter a zip code. Then try posting again.");
+                }
+            }
+
+            if (anIssueModel.City.Trim().Length == 0) {
+                theValidationDictionary.AddError("City", anIssueModel.City, "City is required.");
+            }
+
+            if (string.IsNullOrEmpty(anIssueModel.State) || anIssueModel.State.Equals(Constants.SELECT)) {
+                theValidationDictionary.AddError("State", anIssueModel.State, "State is required.");
+            }
+
+            return theValidationDictionary.isValid;
         }
 
         private bool ValidateReply(string aReply, int aDisposition) {

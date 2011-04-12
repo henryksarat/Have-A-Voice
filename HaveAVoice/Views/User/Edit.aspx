@@ -46,6 +46,7 @@
 			<div class="clear">&nbsp;</div>
 
 			<% using(Html.BeginForm("Edit", "User", FormMethod.Post, new { enctype = "multipart/form-data" })) { %>
+                <%= Html.Hidden("Id", Model.UserInformation.Id) %>
 	            <%= Html.Hidden("OriginalEmail", Model.OriginalEmail) %>
                 <%= Html.Hidden("OriginalFullName", Model.OriginalFullName) %>
                 <%= Html.Hidden("OriginalGender", Model.OriginalGender) %>
@@ -125,6 +126,16 @@
 		                <%= Html.ValidationMessage("State", "*") %>
 	                </span>
 	            </div>
+	            <div class="col-18 spacer-15">&nbsp;</div>
+				<div class="col-6">
+					<label>Zip:</label>
+				</div>
+				<div class="push-1 col-6">
+	                <%= Html.TextBox("Zip", Model.UserInformation.Zip) %>
+	                <span class="req">
+		                <%= Html.ValidationMessage("Zip", "*") %>
+	                </span>
+				</div>
 	            <div class="col-18 spacer-15">&nbsp;</div>
 				<div class="col-6">
 					<label>Website:</label>

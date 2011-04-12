@@ -10,12 +10,6 @@ using HaveAVoice.Helpers;
 namespace HaveAVoice.Models.View {
     public class CreateAuthorityUserModelBuilder : CreateUserModel {
         [DisplayFormat(ConvertEmptyStringToNull = false)]
-        public string RepresentingCity { get; set; }
-
-        [DisplayFormat(ConvertEmptyStringToNull = false)]
-        public string RepresentingState { get; set; }
-
-        [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Token { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
@@ -29,19 +23,10 @@ namespace HaveAVoice.Models.View {
             States = new List<SelectListItem>();
         }
 
-        public override User Build() {
-            DateTime myTempDateFiller = DateTime.UtcNow;
-            string myTempIp = "127.0.0.1";
-
-            User myUser = User.CreateUser(0, Email, Password, FirstName, LastName, 
-                RepresentingCity, RepresentingState, DateOfBirth, myTempDateFiller, myTempDateFiller,
-                myTempIp, ShortUrl, Gender);
+        public override User CreateNewModel() {
+            User myUser = base.CreateNewModel();
             myUser.UserPositionId = UserPosition;
             return myUser;
-        }
-
-        public override String getDateOfBirthFormatted() {
-            return DateOfBirth.ToString("MM-dd-yyyy");
         }
     }
 }

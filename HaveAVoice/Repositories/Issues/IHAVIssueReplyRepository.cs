@@ -8,7 +8,7 @@ using HaveAVoice.Helpers.Enums;
 
 namespace HaveAVoice.Repositories.Issues {
     public interface IHAVIssueReplyRepository {
-        IssueReply CreateIssueReply(User aUserCreating, int anIssueId, string aReply, bool anAnonymous, int aDisposition);
+        IssueReply CreateIssueReply(int aUserId, string aUserCity, string aUserState, int aUserZipCode, int anIssueId, string aReply, bool anAnonymous, int aDisposition, string aFirstName, string aLastName);
         void CreateIssueReplyStance(User aUser, int anIssueReplyId, int aDisposition);
         void DeleteIssueReply(User aDeletingUser, IssueReply anIssueReply, bool anAdminDelete);
         IssueReply GetIssueReply(int anIssueReplyId);

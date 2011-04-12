@@ -80,22 +80,29 @@ namespace HaveAVoice.Services.UserFeatures {
             return aUserToCreate;
         }
 
-        public bool EditUser(EditUserModel aUser) {
-            if (!ValidateEditedUser(aUser.UserInformation, aUser.OriginalEmail)) {
+        public bool EditUser(EditUserModel aUser, string aHashedPassword) {
+            if (!ValidateEditedUser(aUser, aUser.OriginalEmail)) {
                 return false;
             }
 
-            string password = aUser.NewPassword;
-
-            if (password.Trim() == string.Empty) {
-                aUser.UserInformation.Password = aUser.OriginalPassword;
-            } else if (!ValidatePassword(password, aUser.RetypedPassword)) {
+            if (aUser.NewPassword != string.Empty && !ValidatePassword(aUser.NewPassword, aUser.RetypedPassword)) {
                 return false;
-            } else {
-                aUser.UserInformation.Password = HashHelper.DoHash(password);
-            }
+            } 
 
-            theUserRepo.UpdateUser(aUser.UserInformation);
+            User myOriginalUser = theUserRetrievalService.GetUser(aUser.Id);
+            myOriginalUser.Email = aUser.Email;
+            myOriginalUser.Password = aHashedPassword;
+            myOriginalUser.FirstName = aUser.FirstName;
+            myOriginalUser.LastName = aUser.LastName;
+            myOriginalUser.DateOfBirth = aUser.DateOfBirth;
+            myOriginalUser.City = aUser.City;
+            myOriginalUser.State = aUser.State;
+            myOriginalUser.Zip = aUser.Zip;
+            myOriginalUser.Website = aUser.Website;
+            myOriginalUser.Gender = aUser.Gender;
+            myOriginalUser.AboutMe = aUser.AboutMe;
+
+            theUserRepo.UpdateUser(myOriginalUser);
 
             return true;
         }
@@ -178,9 +185,38 @@ namespace HaveAVoice.Services.UserFeatures {
             return ValidateUser(aUser);
         }
 
-        private bool ValidateEditedUser(User aUser, string aOriginalEmail) {
+        private bool ValidateEditedUser(EditUserModel aUser, string aOriginalEmail) {
             ValidEmail(aUser.Email, aOriginalEmail);
-            return ValidateUser(aUser);
+
+            if (aUser.FirstName.Trim().Length == 0) {
+                theValidationDictionary.AddError("FirstName", aUser.FirstName.Trim(), "First name is required.");
+            }
+            if (aUser.LastName.Trim().Length == 0) {
+                theValidationDictionary.AddError("LastName", aUser.LastName.Trim(), "Last name is required.");
+            }
+            if (aUser.City.Trim().Length == 0) {
+                theValidationDictionary.AddError("City", aUser.City.Trim(), "City is required.");
+            }
+            if (aUser.Gender.Equals(Constants.SELECT)) {
+                theValidationDictionary.AddError("Gender", Constants.SELECT, "Gender is required.");
+            }
+            if (aUser.State.Trim().Length != 2) {
+                theValidationDictionary.AddError("State", aUser.State.Trim(), "State is required.");
+            }
+            if (aUser.Zip.ToString().Trim().Length != 5) {
+                theValidationDictionary.AddError("Zip", aUser.Zip.ToString().Trim(), "Zip code must be 5 digits.");
+            }
+            if (!EmailValidation.IsValidEmail(aUser.Email)) {
+                theValidationDictionary.AddError("Email", aUser.Email, INVALID_EMAIL);
+            }
+            if (aUser.DateOfBirth.Year == 1) {
+                theValidationDictionary.AddError("DateOfBirth", aUser.DateOfBirth.ToString(), "Date of Birth required.");
+            }
+            if (aUser.DateOfBirth > DateTime.Today.AddYears(-18)) {
+                theValidationDictionary.AddError("DateOfBirth", aUser.DateOfBirth.ToString(), "You must be at least 18 years old.");
+            }
+
+            return theValidationDictionary.isValid;
         }
 
         private bool ValidateUser(User aUser) {
@@ -198,6 +234,9 @@ namespace HaveAVoice.Services.UserFeatures {
             }
             if (aUser.State.Trim().Length != 2) {
                 theValidationDictionary.AddError("State", aUser.State.Trim(), "State is required.");
+            }
+            if (aUser.Zip.ToString().Trim().Length != 5) {
+                theValidationDictionary.AddError("Zip", aUser.Zip.ToString().Trim(), "Zip code must be 5 digits.");
             }
             if (!EmailValidation.IsValidEmail(aUser.Email)) {
                 theValidationDictionary.AddError("Email", aUser.Email, INVALID_EMAIL);

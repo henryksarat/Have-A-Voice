@@ -12,10 +12,13 @@ namespace HaveAVoice.Models {
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string State { get; set; }
 
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string ZipCode { get; set; }
+
         public int Disposition {get; set;}
         
         public IssueReply ToModel() {
-            return IssueReply.CreateIssueReply(Id, 0, 0, Body, City, State, Disposition, false, DateTime.UtcNow, false);
+            return IssueReply.CreateIssueReply(Id, 0, 0, Body, City, State, int.Parse(ZipCode), Disposition, false, DateTime.UtcNow, false);
         }
 
         public static IssueReplyWrapper Build(IssueReply aReply) {

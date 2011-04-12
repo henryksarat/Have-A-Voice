@@ -47,7 +47,8 @@ namespace HaveAVoice.Helpers.UI {
         }
 
         private static string ReplyInfoDiv(IssueReplyModel anIssueReply) {
-            
+            bool myIsTempAccount = anIssueReply.User.Id == HAVConstants.PRIVATE_USER_ID;
+
             var myReplyCommentDiv = new TagBuilder("div");
             if (anIssueReply.IssueStance == (int)IssueStanceFilter.Disagree) {
                 myReplyCommentDiv.AddCssClass("push-6 m-lft col-12 m-rgt comment");
@@ -71,13 +72,19 @@ namespace HaveAVoice.Helpers.UI {
             if (anIssueReply.Anonymous) {
                 myName = SharedStyleHelper.Link("name", "#", HAVConstants.ANONYMOUS);
             } else {
-                myName = SharedStyleHelper.Link("name", LinkHelper.Profile(anIssueReply.User), NameHelper.FullName(anIssueReply.User));
+                if (myIsTempAccount) {
+                    myName = SharedStyleHelper.Link("name", "#", anIssueReply.FirstName + " " + anIssueReply.LastName + " (unregistered)");
+                } else {
+                    myName = SharedStyleHelper.Link("name", LinkHelper.Profile(anIssueReply.User), NameHelper.FullName(anIssueReply.User));
+                }
             }
 
             myReplyCommentPad.InnerHtml += myName.ToString();
             myReplyCommentPad.InnerHtml += "&nbsp;";
             myReplyCommentPad.InnerHtml += anIssueReply.Reply;
-            myReplyCommentPad.InnerHtml += SharedStyleHelper.Link("read-more", LinkHelper.IssueReplyUrl(anIssueReply.Id), " &raquo;&raquo;");
+            if (!myIsTempAccount) {
+                myReplyCommentPad.InnerHtml += SharedStyleHelper.Link("read-more", LinkHelper.IssueReplyUrl(anIssueReply.Id), " &raquo;&raquo;");
+            }
 
             myReplyCommentPad.InnerHtml += SharedStyleHelper.ClearDiv();
 

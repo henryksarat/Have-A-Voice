@@ -18,6 +18,8 @@ using Social.Generic.Models;
 using Social.Generic.Services;
 using Social.Validation;
 using HaveAVoice.Helpers.UserInformation;
+using Social.Generic.ActionFilters;
+using Social.Generic.Helpers;
 
 namespace HaveAVoice.Controllers.Users {
     public class UserController : AbstractUserController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
@@ -59,7 +61,7 @@ namespace HaveAVoice.Controllers.Users {
         [CaptchaValidator]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Create(CreateUserModelBuilder aUserToCreate, bool captchaValid) {
-            ActionResult myActionResult = base.Create(SocialUserModel.Create(aUserToCreate.Build()), captchaValid, aUserToCreate.Agreement, 
+            ActionResult myActionResult = base.Create(SocialUserModel.Create(aUserToCreate.CreateNewModel()), captchaValid, aUserToCreate.Agreement, 
                                                       HAVConstants.BASE_URL, HAVConstants.ACTIVATION_SUBJECT, HAVConstants.ACTIVATION_BODY,
                                                       new RegistrationStrategy());
 
@@ -92,7 +94,7 @@ namespace HaveAVoice.Controllers.Users {
                 return RedirectToProfile();
             }
             try {
-                bool myResult = theService.CreateUserAuthority(aBuilder.Build(), aBuilder.Token, aBuilder.AuthorityType, 
+                bool myResult = theService.CreateUserAuthority(aBuilder.CreateNewModel(), aBuilder.Token, aBuilder.AuthorityType, 
                                                                aBuilder.Agreement, HttpContext.Request.UserHostAddress);
                 if (myResult) {
                     return SendToResultPage(CREATE_ACCOUNT_TITLE, CREATE_AUTHORITY_ACCOUNT_SUCCESS);
@@ -102,10 +104,11 @@ namespace HaveAVoice.Controllers.Users {
                 LogError(e, CREATE_ACCOUNT_ERROR);
             }
 
-            AddStatesAndGenders(aBuilder, aBuilder.RepresentingState);
+            AddStatesAndGenders(aBuilder, aBuilder.State);
             return View("CreateAuthority", aBuilder);
         }
 
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult Edit() {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
@@ -124,20 +127,29 @@ namespace HaveAVoice.Controllers.Users {
             return View("Edit", myModel);
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
         public ActionResult Edit(EditUserModel userToEdit) {
             try {
-                if (theService.EditUser(userToEdit)) {
+
+                string myPassword = userToEdit.NewPassword;
+                if (myPassword.Trim() == string.Empty) {
+                    myPassword = userToEdit.OriginalPassword;
+                } else {
+                    myPassword = HashHelper.DoHash(myPassword);
+                }
+
+                if (theService.EditUser(userToEdit, myPassword)) {
                     TempData["Message"] = MessageHelper.SuccessMessage(EDIT_SUCCESS);
-                    RefreshUserInformation();
+                    RefreshUserInformation(myPassword);
                     return RedirectToAction("Edit");
                 }
             } catch (Exception exception) {
                 LogError(exception, "Error editing the user.");
-                ViewData["Message"] = MessageHelper.ErrorMessage("An error has occurred please try your submission again later.");
+                TempData["Message"] = MessageHelper.ErrorMessage("An error has occurred please try your submission again later.");
+                theValidationDictionary.ForceModleStateExport();
             }
 
-            return View("Edit", userToEdit);
+            return RedirectToAction("Edit");
         }
 
         protected override AbstractUserModel<User> GetSocialUserInformation() {
@@ -174,6 +186,17 @@ namespace HaveAVoice.Controllers.Users {
 
         protected override string SuccessMessage(string aMessage) {
             return MessageHelper.SuccessMessage(aMessage);
+        }
+
+        private void RefreshUserInformation(string aHashedPassword) {
+            UserInformationModel<User> myUserInformationModel = GetUserInformatonModel();
+            try {
+                myUserInformationModel =
+                    GetAuthenticationService().RefreshUserInformationModel(UserEmail(), aHashedPassword, ProfilePictureStrategy());
+            } catch (Exception myException) {
+                LogError(myException, String.Format("Big problem! Was unable to refresh the user information model for userid={0}", UserId()));
+            }
+            Session["UserInformation"] = myUserInformationModel;
         }
 
         private void AddStatesAndGenders(CreateUserModel aUserModel, string aState) {

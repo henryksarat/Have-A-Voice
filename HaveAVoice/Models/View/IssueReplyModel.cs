@@ -9,6 +9,8 @@ namespace HaveAVoice.Models.View {
         public Issue Issue { get; set; }
         public int Id { get; set; }
         public User User { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string Reply { get; set; }
         public DateTime DateTimeStamp { get; set; }
         public int CommentCount { get; set; }

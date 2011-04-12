@@ -6,19 +6,25 @@ using HaveAVoice.Models;
 using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Models.View;
 using HaveAVoice.Repositories.Issues.Helpers;
+using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Repositories.Issues {
     public class EntityHAVIssueReplyRepository : IHAVIssueReplyRepository {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
-        public IssueReply CreateIssueReply(User aUserCreating, int anIssueId, string aReply, bool anAnonymous, int aDisposition) {
-            IssueReply myIssueReply = IssueReply.CreateIssueReply(0, anIssueId, aUserCreating.Id, aReply, aUserCreating.City, aUserCreating.State, aDisposition, anAnonymous, DateTime.UtcNow, false);
-            myIssueReply.Zip = aUserCreating.Zip;
+        public IssueReply CreateIssueReply(int aUserId, string aUserCity, string aUserState, int aUserZipCode, int anIssueId, string aReply, bool anAnonymous, int aDisposition, string aFirstName, string aLastName) {
+            IssueReply myIssueReply = IssueReply.CreateIssueReply(0, anIssueId, aUserId, aReply, aUserCity, aUserState, aUserZipCode, aDisposition, anAnonymous, DateTime.UtcNow, false);
+            if (aUserId == HAVConstants.PRIVATE_USER_ID) {
+                myIssueReply.FirstName = aFirstName;
+                myIssueReply.LastName = aLastName;
+            }
 
             theEntities.AddToIssueReplys(myIssueReply);
             theEntities.SaveChanges();
 
-            IssueReplyViewedHelper.CreateIssueReplyViewedState(theEntities, aUserCreating.Id, myIssueReply.Id, true);
+            if (aUserId != HAVConstants.PRIVATE_USER_ID) {
+                IssueReplyViewedHelper.CreateIssueReplyViewedState(theEntities, aUserId, myIssueReply.Id, true);
+            }
 
             return myIssueReply;
         }
@@ -59,6 +65,8 @@ namespace HaveAVoice.Repositories.Issues {
                         IssueStance = (ir.Disposition == 1) ? (int)IssueStanceFilter.Agree : (int)IssueStanceFilter.Disagree,
                         User = u,
                         Reply = ir.Reply,
+                        FirstName = ir.FirstName,
+                        LastName = ir.LastName,
                         DateTimeStamp = ir.DateTimeStamp,
                         CommentCount = ir.IssueReplyComments.Where(cc => cc.Deleted == false).Count(),
                         Anonymous = ir.Anonymous,
@@ -87,6 +95,8 @@ namespace HaveAVoice.Repositories.Issues {
                         IssueStance = (ir.Disposition == 1) ? (int)IssueStanceFilter.Agree : (int)IssueStanceFilter.Disagree,
                         User = u,
                         Reply = ir.Reply,
+                        FirstName = ir.FirstName,
+                        LastName = ir.LastName,
                         DateTimeStamp = ir.DateTimeStamp,
                         CommentCount = ir.IssueReplyComments.Where(cc => cc.Deleted == false).Count(),
                         Anonymous = ir.Anonymous,

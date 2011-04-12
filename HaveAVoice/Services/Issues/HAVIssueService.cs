@@ -11,6 +11,8 @@ using Social.Admin.Helpers;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Validation;
+using Social.Generic.Constants;
+using System.Web.Mvc;
 
 namespace HaveAVoice.Services.Issues {
     public class HAVIssueService : IHAVIssueService {
@@ -194,7 +196,9 @@ namespace HaveAVoice.Services.Issues {
 
             myMerged = myMerged.OrderByDescending(i => i.DateTimeStamp).ToList<IssueReplyModel>();
 
-            return new IssueModel(anIssue, myMerged);
+            return new IssueModel(anIssue, myMerged) {
+                States = new SelectList(UnitedStates.STATES, Constants.SELECT)
+            } ;
         }
     }
 }

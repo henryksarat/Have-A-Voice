@@ -1,25 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using HaveAVoice.Models;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using HaveAVoice.Helpers;
 using Social.Generic.Constants;
 
 namespace HaveAVoice.Models.View {
-    public class EditUserModel {
+    public class EditUserModel : CreateUserModel {
         public User UserInformation { get; set; }
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string OriginalFullName { get; set; }
+
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string OriginalGender { get; set; }
+
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string OriginalWebsite { get; set; }
+
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string NewPassword { get; set; }
+
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string RetypedPassword { get; set; }
+
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string OriginalEmail { get; set; }
+
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string OriginalPassword { get; set; }
+
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string ProfilePictureURL { get; set; }
-        public IEnumerable<SelectListItem> States { get; set; }
-        public IEnumerable<SelectListItem> Genders { get; set; }
+
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string Website { get; set; }
+
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string AboutMe { get; set; }
+
+        public EditUserModel() { }
 
         public EditUserModel(User aUser) {
             UserInformation = aUser;
@@ -28,6 +45,13 @@ namespace HaveAVoice.Models.View {
             ProfilePictureURL = Constants.NO_PROFILE_PICTURE_URL;
             States = new List<SelectListItem>();
             Genders = new List<SelectListItem>();
+        }
+
+        public override User CreateNewModel() {
+            User myUser = base.CreateNewModel();
+            myUser.Website = Website;
+            myUser.AboutMe = AboutMe;
+            return myUser;
         }
     }
 }

@@ -1,7 +1,10 @@
-﻿using Social.Generic.Models;
+﻿using HaveAVoice.Models.View;
+using Social.Generic.Models;
 
 namespace HaveAVoice.Models.SocialWrappers {
     public class SocialUserModel : AbstractUserModel<User> {
+        public string Zip { get; set; }
+
         public static SocialUserModel Create(User anExternal) {
             if (anExternal != null) {
                 return new SocialUserModel(anExternal);
@@ -10,7 +13,7 @@ namespace HaveAVoice.Models.SocialWrappers {
         }
 
         public override User CreateNewModel() {
-            User myUser = User.CreateUser(Id, Email, Password, FirstName, LastName, City, State, DateOfBirth, LastLogin, RegistrationDate, RegistrationIp, ShortUrl, Gender);
+            User myUser = User.CreateUser(Id, Email, Password, FirstName, LastName, City, State, DateOfBirth, LastLogin, RegistrationDate, RegistrationIp, int.Parse(Zip), ShortUrl, Gender);
             myUser.Website = Website;
             myUser.AboutMe = AboutMe;
             myUser.CookieHash = CookieHash;
@@ -45,7 +48,7 @@ namespace HaveAVoice.Models.SocialWrappers {
             ForgotPasswordHash = anExternal.ForgotPasswordHash;
             ForgotPasswordHashDateTimeStamp = anExternal.ForgotPasswordHashDateTimeStamp;
             ShortUrl = anExternal.ShortUrl;
-            Zip = anExternal.Zip;
+            Zip = anExternal.Zip.ToString();
         }
     }
 }

@@ -17,8 +17,7 @@ namespace HaveAVoice.Repositories.Issues {
         }
 
         public Issue CreateIssue(Issue anIssueToCreate, User aUserCreating) {
-            anIssueToCreate = Issue.CreateIssue(0, anIssueToCreate.Title, anIssueToCreate.Description, aUserCreating.City, aUserCreating.State, DateTime.UtcNow, aUserCreating.Id, false);
-            anIssueToCreate.Zip = aUserCreating.Zip;
+            anIssueToCreate = Issue.CreateIssue(0, anIssueToCreate.Title, anIssueToCreate.Description, aUserCreating.City, aUserCreating.State, aUserCreating.Zip, DateTime.UtcNow, aUserCreating.Id, false);
 
             theEntities.AddToIssues(anIssueToCreate);
             theEntities.SaveChanges();

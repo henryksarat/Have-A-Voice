@@ -50,12 +50,13 @@ namespace HaveAVoice.Controllers.Issues {
 
         private IHAVIssueService theIssueService;
         private IHAVIssueReplyService theIssueReplyService;
+        private IValidationDictionary theValidationDictionary;
 
         public IssueController() {
-            IValidationDictionary myModelState = new ModelStateWrapper(this.ModelState);
+            theValidationDictionary = new ModelStateWrapper(this.ModelState);
 
-            theIssueService = new HAVIssueService(myModelState);
-            theIssueReplyService = new HAVIssueReplyService(myModelState);
+            theIssueService = new HAVIssueService(theValidationDictionary);
+            theIssueReplyService = new HAVIssueReplyService(theValidationDictionary);
         }
 
         public IssueController(IHAVIssueService aService) {
@@ -160,23 +161,18 @@ namespace HaveAVoice.Controllers.Issues {
             }
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
         public ActionResult Details(IssueModel issueModel) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
-
             try {
-                if (theIssueReplyService.CreateIssueReply(myUserInformation, issueModel)) {
+                if (theIssueReplyService.CreateIssueReply(issueModel)) {
                     TempData["Message"] = MessageHelper.SuccessMessage(REPLY_SUCCESS);
-                    return RedirectToAction(REDIRECT_TO_DETAILS_VIEW, new { id = issueModel.Issue.Id });
                 }
             } catch (Exception e) {
                 LogError(e, CREATING_COMMENT_ERROR);
-                ViewData["Message"] = MessageHelper.ErrorMessage(CREATING_COMMENT_ERROR);
+                TempData["Message"] = MessageHelper.ErrorMessage(CREATING_COMMENT_ERROR);
+                theValidationDictionary.ForceModleStateExport();
             }
-            return View("Details", issueModel);
+            return RedirectToAction(REDIRECT_TO_DETAILS_VIEW, new { id = issueModel.IssueId });
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

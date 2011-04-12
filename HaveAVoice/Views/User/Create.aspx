@@ -187,6 +187,20 @@
 					<div class="clear">&nbsp;</div>
 					<div class="spacer-10">&nbsp;</div>
 
+					<div class="col-4 m-rgt right">
+						<label for="City">Zip Code:</label>
+					</div>
+					<div class="col-4">
+						<%= Html.TextBox("Zip", Model.City)%>
+					</div>
+					<div class="col-12 m-lft">
+						<span class="req">
+							<%= Html.ValidationMessage("Zip", "*") %>
+						</span>
+					</div>
+					<div class="clear">&nbsp;</div>
+					<div class="spacer-10">&nbsp;</div>
+
 	    			<div class="col-4 m-rgt right">
 	    				<label for="FirstName">have a voice<sup>&trade;</sup> URL:</label>
 	    			</div>

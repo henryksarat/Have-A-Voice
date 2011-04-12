@@ -20,12 +20,6 @@ namespace HaveAVoice.Controllers  {
         private const string AFTER_AUTHENTICATION_ERROR = "An error occurred after authentication after a cookie.";
         private const string READ_ME_ERROR = "An error occurred while reading the read me credentials.";
 
-        public IUserInformation<User, WhoIsOnline> theUserInformation;
-
-        private IBaseService<User> theErrorService;
-        private IHAVAuthenticationService theAuthService;
-        private IWhoIsOnlineService<User, WhoIsOnline> theWhoIsOnlineService;
-
         public HAVBaseController()
             : base(new BaseService<User>(new HAVBaseRepository()),
                    UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository())),

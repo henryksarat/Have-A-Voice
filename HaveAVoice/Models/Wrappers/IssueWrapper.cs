@@ -20,8 +20,11 @@ namespace HaveAVoice.Models.Wrappers {
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string State { get; set; }
 
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string ZipCode { get; set; }
+
         public Issue ToModel() {
-            return Issue.CreateIssue(Id, Title, Description, City, State,DateTime.UtcNow, 0, false);
+            return Issue.CreateIssue(Id, Title, Description, City, State, int.Parse(ZipCode), DateTime.UtcNow, 0, false);
         }
     }
 }

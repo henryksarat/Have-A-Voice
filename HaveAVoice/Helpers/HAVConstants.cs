@@ -31,6 +31,7 @@ namespace HaveAVoice.Helpers {
         public const bool MALE = true;
         public const bool FEMALE = false;
 
+        public const int PRIVATE_USER_ID = 112;
 
         public static List<string> INQUIRY_TYPES = new List<string>() {
             "Select",

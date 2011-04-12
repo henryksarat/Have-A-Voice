@@ -14,6 +14,14 @@ namespace HaveAVoice.Helpers {
             if (aUser.City.Trim().Length == 0) {
                 aValidationDictionary.AddError("City", aUser.City.Trim(), "City is required.");
             }
+
+            if (aUser.City.Trim().Length == 0) {
+                aValidationDictionary.AddError("City", aUser.City.Trim(), "City is required.");
+            }
+            int myZipCode;
+            if (aUser.Zip.ToString().Trim().Length != 6) {
+                aValidationDictionary.AddError("Zip", aUser.Zip.ToString(), "The zip code must be 6 digits.");
+            }
             return aValidationDictionary.isValid;
         }
 

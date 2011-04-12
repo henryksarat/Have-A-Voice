@@ -177,11 +177,11 @@
 					<div class="spacer-10">&nbsp;</div>
 					
 					<div class="col-4 m-rgt right">
-						<label for="City">Representing City:</label>
+						<label for="City">City:</label>
 	    				<div class="clear">&nbsp;</div>
 					</div>
 					<div class="col-4">
-						<%= Html.TextBox("RepresentingCity", Model.RepresentingCity)%>
+						<%= Html.TextBox("City", Model.City)%>
 	    				<div class="clear">&nbsp;</div>
 					</div>
 					<div class="col-12 m-lft">
@@ -194,11 +194,11 @@
 					<div class="spacer-10">&nbsp;</div>
 					
 					<div class="col-4 m-rgt right">
-						<label for="State">Representing State:</label>
+						<label for="State">State:</label>
 	    				<div class="clear">&nbsp;</div>
 					</div>
 					<div class="col-4">
-						<%= Html.DropDownList("RepresentingState", Model.States) %>
+						<%= Html.DropDownList("State", Model.States) %>
 	    				<div class="clear">&nbsp;</div>
 					</div>
 					<div class="col-14 m-lft">

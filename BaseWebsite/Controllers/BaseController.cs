@@ -138,7 +138,11 @@ namespace BaseWebsite.Controllers {
         }
 
         protected ActionResult RedirectToHomePage() {
-            return RedirectToAction("NotLoggedIn", "Home");
+            return RedirectToAction("Main", "Home");
+        }
+
+        protected IAuthenticationService<T, U, V, W, X, Y> GetAuthenticationService() {
+            return theAuthService;
         }
 
         private void AddMessageToSession(string title, string details) {

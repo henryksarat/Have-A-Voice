@@ -20,11 +20,12 @@ namespace Social.Authentication {
         }
 
         public UserInformationModel<T> GetUserInformaton() {
-            //This becomes null sometimes for some reason... investigate furtur
+            //This becomes null sometimes for some reason... investigate furthur
             if (theHttpContext.Session == null) {
                 return null;
             }
             UserInformationModel<T> myUserInformationModel = (UserInformationModel<T>)theHttpContext.Session["UserInformation"];
+            theHttpContext.Session["UserInformation"] = myUserInformationModel;
             string myIpAddress = theHttpContext.Request.UserHostAddress;
             if (myUserInformationModel != null) {
                 myUserInformationModel = UpdateUserOnlineStatus(myUserInformationModel, myIpAddress);

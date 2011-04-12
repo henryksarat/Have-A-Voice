@@ -5,36 +5,29 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using HaveAVoice.Helpers.Enums;
+using Social.Generic.Models;
 
 namespace HaveAVoice.Models.View {
-    public abstract class CreateUserModel {
-        [DisplayFormat(ConvertEmptyStringToNull = false)]
-        public string FirstName { get; set; }
-
-        [DisplayFormat(ConvertEmptyStringToNull = false)]
-        public string LastName { get; set; }
-        public DateTime DateOfBirth { get; set; }
-
-        [DisplayFormat(ConvertEmptyStringToNull = false)]
-        public string Password { get; set; }
-
-        [DisplayFormat(ConvertEmptyStringToNull = false)]
-        public string Email { get; set; }
-
+    public abstract class CreateUserModel : AbstractUserModel<User> {
         public bool Agreement { get; set; }
 
         public IEnumerable<SelectListItem> Genders { get; set; }
 
         public IEnumerable<SelectListItem> States { get; set; }
 
-        [DisplayFormat(ConvertEmptyStringToNull = false)]
-        public string Gender { get; set; }
+        public int Zip { get; set; }
 
-        [DisplayFormat(ConvertEmptyStringToNull = false)]
-        public string ShortUrl { get; set; }
+        public String getDateOfBirthFormatted() {
+            return DateOfBirth.ToString("MM-dd-yyyy");
+        }
 
-        public abstract User Build();
+        public override User CreateNewModel() {
+            DateTime myTempDateFiller = DateTime.UtcNow;
+            string myTempIp = "127.0.0.1";
 
-        public abstract String getDateOfBirthFormatted();
+            return User.CreateUser(0, Email, Password, FirstName, LastName, City,
+                                   State, DateOfBirth, myTempDateFiller, myTempDateFiller,
+                                   myTempIp, Zip, ShortUrl, Gender);
+        }
     }
 }
