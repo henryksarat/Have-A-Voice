@@ -129,7 +129,7 @@
 					<div class="row">
 						<div class="m-lft col-20 comment push-4">
 							<div class="msg-2">
-								You may post a reply but please provide your first name, last name, and location. The name is requried for display purposes and the zip code will classify your reply in your region, this is so your political representatives can see what their constituents are thinking!. You can always check the "Post reply as Anonymous" checkbox to have your information not display.
+								You are NOT logged in, but you may still post a reply. The name is requried for display purposes and the location will classify your reply in your region, this is so your political representatives can see what their constituents are thinking! You can always check the "Post reply as Anonymous" checkbox to have your information not display at all.
 							</div>
 							<div class="clear">&nbsp;</div>
 						</div>

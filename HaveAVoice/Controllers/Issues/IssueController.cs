@@ -18,6 +18,7 @@ using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Validation;
 using Social.Generic.Services;
+using Social.Generic.Constants;
 
 namespace HaveAVoice.Controllers.Issues {
     public class IssueController : HAVBaseController {
@@ -296,6 +297,7 @@ namespace HaveAVoice.Controllers.Issues {
 
             SaveOriginalIssue(myOriginalModel);
 
+            mynewModel.States = new SelectList(UnitedStates.STATES, Constants.SELECT);
             return View("Details", mynewModel);
         }
 

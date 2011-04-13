@@ -240,7 +240,6 @@
     <Compile Include="Models\View\EditIssueReplyModel.cs" />
     <Compile Include="Models\View\ErrorModel.cs" />
     <Compile Include="Models\View\IssueModel.cs" />
-    <Compile Include="Models\View\Binders\IssueModelBinder.cs" />
     <Compile Include="Models\View\IssueReplyModel.cs" />
     <Compile Include="Models\View\IssueWithDispositionModel.cs" />
     <Compile Include="Models\View\LoggedInModel.cs" />
@@ -250,9 +249,7 @@
     <Compile Include="Models\View\RoleViewModel.cs" />
     <Compile Include="Models\View\Binders\RoleModelBinder.cs" />
     <Compile Include="Models\View\CreateAuthorityUserModelBuilder.cs" />
-    <Compile Include="Models\View\Binders\CreateUserModelBuilderBinder.cs" />
     <Compile Include="Models\View\EditUserModel.cs" />
-    <Compile Include="Models\View\Binders\EditUserModelBinder.cs" />
     <Compile Include="Models\View\SwitchUserRoles.cs" />
     <Compile Include="Models\View\UserPicturesModel.cs" />
     <Compile Include="Models\View\Binders\UserPicturesModelBinder.cs" />
@@ -531,7 +528,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>2327</DevelopmentServerPort>
+          <DevelopmentServerPort>40554</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

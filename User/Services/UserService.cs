@@ -25,15 +25,13 @@ namespace Social.User {
         public bool CreateUser(AbstractUserModel<T> aUserToCreate, bool aCaptchaValid, bool aAgreement, 
                                string aIpAddress, string aBaseUrl, string anActivationSubject, string anActivationBody, 
                                IRegistrationStrategy<T> aRegistrationStrategy) {
-            if (!ValidateNewUser(aUserToCreate, aBaseUrl) | !ValidateAgreement(aAgreement)) {
+            if (!ValidateNewUser(aUserToCreate, aBaseUrl) | 
+                !ValidateAgreement(aAgreement) | 
+                !aRegistrationStrategy.ExtraFieldsAreValid(aUserToCreate, theValidationDictionary)) {
                 return false;
             }
 
             if (!ValidCaptchaImage(aCaptchaValid)) {
-                return false;
-            }
-
-            if (!aRegistrationStrategy.ExtraFieldsAreValid(aUserToCreate, theValidationDictionary)) {
                 return false;
             }
 

@@ -191,7 +191,7 @@
 						<label for="City">Zip Code:</label>
 					</div>
 					<div class="col-4">
-						<%= Html.TextBox("Zip", Model.City)%>
+						<%= Html.TextBox("Zip", Model.Zip)%>
 					</div>
 					<div class="col-12 m-lft">
 						<span class="req">
