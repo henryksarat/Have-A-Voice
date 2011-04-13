@@ -16,6 +16,7 @@ using UniversityOfMe.Models.Social;
 using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories;
 using UniversityOfMe.Repositories.AdminRepos;
+using UniversityOfMe.UserInformation;
 
 namespace UniversityOfMe.Controllers.Admin {
     public class RoleController : AbstractRoleController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
@@ -24,6 +25,7 @@ namespace UniversityOfMe.Controllers.Admin {
             UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())), 
             InstanceHelper.CreateAuthencationService(), 
             new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new EntityRoleRepository(), new EntityPermissionRepository()) {
+            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

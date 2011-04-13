@@ -1,28 +1,26 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
-using BaseWebsite.Controllers;
 using HaveAVoice.Services.Issues;
 using HaveAVoice.Services.UserFeatures;
 using Social.Authentication;
 using Social.Authentication.Helpers;
+using Social.Generic.ActionFilters;
 using Social.Generic.Constants;
 using Social.Generic.Models;
-using Social.Generic.Services;
 using Social.Validation;
-using UniversityOfMe.Controllers.Helpers;
 using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
 using UniversityOfMe.Models.Social;
 using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories;
-using UniversityOfMe.Services.Professors;
-using Social.Generic.ActionFilters;
 using UniversityOfMe.Services;
+using UniversityOfMe.Services.Professors;
+using UniversityOfMe.UserInformation;
 
 namespace UniversityOfMe.Controllers.Professors {
 
-    public class ProfessorReviewController : BaseController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
+    public class ProfessorReviewController : UOFMeBaseController {
         private const string PROFESSOR_REVIEW = "The review for the professor has been posted!";
         private const string PROFESSOR_DOESNT_EXIST = "Couldn't find that professor. Please create that professor profile.";
 
@@ -30,11 +28,8 @@ namespace UniversityOfMe.Controllers.Professors {
         IProfessorService theProfessorService;
         IUniversityService theUniversityService;
 
-        public ProfessorReviewController()
-            : base(new BaseService<User>(new EntityBaseRepository()),
-                   UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())),
-                   InstanceHelper.CreateAuthencationService(),
-                   new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())) {
+        public ProfessorReviewController() {
+            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
             IValidationDictionary myModelState = new ModelStateWrapper(this.ModelState);
             theProfessorReviewService = new ProfessorReviewService(myModelState);
             theProfessorService = new ProfessorService(myModelState);

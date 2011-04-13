@@ -2,6 +2,7 @@
 using System.Linq;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
+using Social.Validation;
 
 namespace Social.Admin.Helpers {
     public class PermissionHelper<T> {
@@ -13,6 +14,14 @@ namespace Social.Admin.Helpers {
         
         public static bool HasPermission(UserInformationModel<T> aUserToCheck, SocialPermission aPermission) {
             return aUserToCheck.Permissions.Contains(aPermission);
+        }
+
+        public static bool AllowedToPerformAction(IValidationDictionary aValidationDictionary, UserInformationModel<T> aUser, SocialPermission aPermission) {
+            if (!PermissionHelper<T>.AllowedToPerformAction(aUser, aPermission)) {
+                aValidationDictionary.AddError("PerformAction", string.Empty, "You are not allowed to perform that action.");
+            }
+
+            return aValidationDictionary.isValid;
         }
         
         public static bool AllowedToPerformAction(UserInformationModel<T> aUserInformation, params SocialPermission[] aPermissions) {

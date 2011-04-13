@@ -39,6 +39,7 @@ namespace Social.Generic.Helpers {
         Edit_Issue_Reply_Comment,
         Post_Issue_Reply_Comment,
         //Events
+        Edit_Any_Event,
         Delete_Any_Event,
         //Messagining
         Send_Private_Message,

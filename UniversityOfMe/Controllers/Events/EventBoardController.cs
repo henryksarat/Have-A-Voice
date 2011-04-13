@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
-using HaveAVoice.Services.Clubs;
+using HaveAVoice.Services.Events;
 using HaveAVoice.Services.UserFeatures;
 using Social.Authentication;
 using Social.Generic.ActionFilters;
@@ -9,25 +9,25 @@ using Social.Generic.Models;
 using Social.Validation;
 using UniversityOfMe.Models;
 using UniversityOfMe.Repositories;
-using UniversityOfMe.Services.Professors;
+using UniversityOfMe.Services.Events;
 using UniversityOfMe.UserInformation;
 
-namespace UniversityOfMe.Controllers.Clubs {
-    public class ClubBoardController : UOFMeBaseController {
-        private const string POSTED_TO_BOARD = "Posted to the clubs board!";
+namespace UniversityOfMe.Controllers.Events {
+    public class EventBoardController : UOFMeBaseController {
+        private const string POSTED_TO_BOARD = "Posted to the events board!";
 
-        private const string POSTING_TO_BOARD_ERROR = "An error occurred while posting to the club board. Please try again.";
+        private const string POSTING_TO_BOARD_ERROR = "An error occurred while posting to the event board. Please try again.";
 
-        IClubService theClubService;
+        IEventService theEventService;
 
-        public ClubBoardController() {
+        public EventBoardController() {
             UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
             IValidationDictionary myModelState = new ModelStateWrapper(this.ModelState);
-            theClubService = new ClubService(myModelState);
+            theEventService = new EventService(myModelState);
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
-        public ActionResult Create(string boardMessage, int clubId) {
+        public ActionResult Create(string boardMessage, int eventId) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
@@ -35,7 +35,7 @@ namespace UniversityOfMe.Controllers.Clubs {
             UserInformationModel<User> myUserInformation = GetUserInformatonModel();
 
             try {
-                bool myResult = theClubService.PostToClubBoard(myUserInformation, clubId, boardMessage);
+                bool myResult = theEventService.PostToEventBoard(myUserInformation, eventId, boardMessage);
                 if (myResult) {
                     TempData["Message"] = POSTED_TO_BOARD;
                 }
@@ -44,7 +44,7 @@ namespace UniversityOfMe.Controllers.Clubs {
                 TempData["Message"] = POSTING_TO_BOARD_ERROR;
             }
 
-            return RedirectToAction("Details", "Club", new { id = clubId });
+            return RedirectToAction("Details", "Event", new { id = eventId });
         }
     }
 }

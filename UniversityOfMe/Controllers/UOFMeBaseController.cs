@@ -1,5 +1,4 @@
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web;
 using BaseWebsite.Controllers;
 using HaveAVoice.Services.UserFeatures;
 using Social.Authentication;
@@ -12,19 +11,13 @@ using UniversityOfMe.Models;
 using UniversityOfMe.Models.Social;
 using UniversityOfMe.Repositories;
 
-namespace UniversityOfMe.Controllers.Shared {
-    public class SharedController : UOFMeBaseController {
-        public ActionResult Error() {
-            StringModel myError = (StringModel)Session["ErrorMessage"];
-            Session.Remove("ErrorMessage");
-            return View("Error", myError);
-        }
-
-        public ActionResult Result() {
-            MessageModel myMessage = (MessageModel)Session["Message"];
-            Session.Remove("Message");
-            return View("Result", myMessage);
-        }
+namespace UniversityOfMe.Controllers {
+    public class UOFMeBaseController : BaseController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
+        public UOFMeBaseController()
+            : base(new BaseService<User>(new EntityBaseRepository()),
+                   UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())),
+                   InstanceHelper.CreateAuthencationService(),
+                   new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())) { }
 
         protected override AbstractUserModel<User> GetSocialUserInformation() {
             return SocialUserModel.Create(GetUserInformaton());

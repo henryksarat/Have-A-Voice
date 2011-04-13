@@ -1,38 +1,31 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
-using BaseWebsite.Controllers;
-using HaveAVoice.Services.Classes;
+using HaveAVoice.Services.GeneralPostings;
 using HaveAVoice.Services.UserFeatures;
 using Social.Authentication;
 using Social.Authentication.Helpers;
 using Social.Generic.ActionFilters;
 using Social.Generic.Constants;
 using Social.Generic.Models;
-using Social.Generic.Services;
 using Social.Validation;
-using UniversityOfMe.Controllers.Helpers;
 using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
 using UniversityOfMe.Models.Social;
 using UniversityOfMe.Repositories;
-using UniversityOfMe.Services.Classes;
 using UniversityOfMe.Services.GeneralPostings;
-using HaveAVoice.Services.GeneralPostings;
+using UniversityOfMe.UserInformation;
 
 namespace UniversityOfMe.Controllers.Classes {
-    public class GeneralPostingReplyController : BaseController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
+    public class GeneralPostingReplyController : UOFMeBaseController {
         
         private const string REPLY_POSTED = "The reply to the posting has been posted.";
 
         IGeneralPostingService theGeneralPostingService;
         IValidationDictionary theValidationDictionary;
 
-        public GeneralPostingReplyController()
-            : base(new BaseService<User>(new EntityBaseRepository()),
-                   UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())),
-                   InstanceHelper.CreateAuthencationService(),
-                   new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())) {
+        public GeneralPostingReplyController() {
+            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
             theGeneralPostingService = new GeneralPostingService(theValidationDictionary);
         }

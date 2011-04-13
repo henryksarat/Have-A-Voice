@@ -7,7 +7,6 @@ using Social.Authentication.Helpers;
 using Social.Generic.Constants;
 using Social.Generic.Models;
 using Social.Generic.Services;
-using Social.Validation;
 using UniversityOfMe.Controllers.Helpers;
 using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
@@ -15,6 +14,7 @@ using UniversityOfMe.Models.Social;
 using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories;
 using UniversityOfMe.Repositories.UserRepos;
+using UniversityOfMe.UserInformation;
 
 namespace UniversityOfMe.Controllers.Users {
     public class UserController : AbstractUserController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
@@ -29,7 +29,9 @@ namespace UniversityOfMe.Controllers.Users {
             UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())),
             InstanceHelper.CreateAuthencationService(), 
             new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()),
-            new EntityUserRepository()) { }
+            new EntityUserRepository()) {
+            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
+        }
 
         [AcceptVerbs(HttpVerbs.Get)]
         new public ActionResult Index() {

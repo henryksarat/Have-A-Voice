@@ -5,7 +5,7 @@ using Social.Generic.Models;
 using UniversityOfMe.Models;
 using UniversityOfMe.Repositories;
 
-namespace HaveAVoice.Helpers.UserInformation {
+namespace UniversityOfMe.UserInformation {
     public class UserInformationFactory {
         private static IUserInformation<User, WhoIsOnline> theFactory;
 

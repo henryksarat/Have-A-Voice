@@ -21,14 +21,14 @@ namespace Social.Admin.Services {
         }
 
         public U FindRole(UserInformationModel<T> aViewingUser, int aRoleId, SocialPermission aSocialPermission) {
-            if (!AllowedToPerformAction(aViewingUser, aSocialPermission)) {
+            if (!PermissionHelper<T>.AllowedToPerformAction(theValidationDictionary, aViewingUser, aSocialPermission)) {
                 throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
             }
             return theRoleRepo.FindRole(aRoleId);
         }
 
         public IEnumerable<U> GetAllRoles(UserInformationModel<T> aViewingUser) {
-            if (!AllowedToPerformAction(aViewingUser, SocialPermission.View_Roles)) {
+            if (!PermissionHelper<T>.AllowedToPerformAction(theValidationDictionary, aViewingUser, SocialPermission.View_Roles)) {
                 throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
             }
             return theRoleRepo.GetAllRoles();
@@ -38,7 +38,7 @@ namespace Social.Admin.Services {
             if (!ValidateRole(aRoleToCreate)) {
                 return false;
             }
-            if (!AllowedToPerformAction(aCreatedByUser, SocialPermission.Create_Role)) {
+            if (!PermissionHelper<T>.AllowedToPerformAction(theValidationDictionary, aCreatedByUser, SocialPermission.Create_Role)) {
                 throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
             }
 
@@ -50,7 +50,7 @@ namespace Social.Admin.Services {
             if (!ValidateRole(aRoleToEdit)) {
                 return false;
             }
-            if (!AllowedToPerformAction(anEditedByUser, SocialPermission.Edit_Role)) {
+            if (!PermissionHelper<T>.AllowedToPerformAction(theValidationDictionary, anEditedByUser, SocialPermission.Edit_Role)) {
                 throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
             }
 
@@ -73,7 +73,7 @@ namespace Social.Admin.Services {
         }
        
         public bool Delete(UserInformationModel<T> aDeletedByUser, U aRoleToDelete) {
-            if (!AllowedToPerformAction(aDeletedByUser, SocialPermission.Delete_Role)) {
+            if (!PermissionHelper<T>.AllowedToPerformAction(theValidationDictionary, aDeletedByUser, SocialPermission.Delete_Role)) {
                 throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
             }
             theRoleRepo.Delete(aDeletedByUser.Details, aRoleToDelete);
@@ -84,7 +84,7 @@ namespace Social.Admin.Services {
             if (!ValidateSwitchingRole(aUsers, aFromRoleId, aToRoleId)) {
                 return false;
             }
-            if (!AllowedToPerformAction(aUserDoingMove, SocialPermission.Switch_Users_Role)) {
+            if (!PermissionHelper<T>.AllowedToPerformAction(theValidationDictionary, aUserDoingMove, SocialPermission.Switch_Users_Role)) {
                 throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
             }
 
@@ -119,14 +119,6 @@ namespace Social.Admin.Services {
             }
             if (role.Description.Trim().Length == 0) {
                 theValidationDictionary.AddError("Description", role.Description.Trim(), "Role description is required.");
-            }
-
-            return theValidationDictionary.isValid;
-        }
-
-        private bool AllowedToPerformAction(UserInformationModel<T> aUser, SocialPermission aPermission) {
-            if (!PermissionHelper<T>.AllowedToPerformAction(aUser, aPermission)) {
-                theValidationDictionary.AddError("PerformAction", string.Empty, "You are not allowed to perform that action.");
             }
 
             return theValidationDictionary.isValid;

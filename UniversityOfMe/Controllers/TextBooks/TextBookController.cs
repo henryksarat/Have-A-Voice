@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using BaseWebsite.Controllers;
-using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Services.TextBooks;
 using HaveAVoice.Services.UserFeatures;
 using Social.Authentication;
@@ -13,20 +11,19 @@ using Social.Generic.ActionFilters;
 using Social.Generic.Constants;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
-using Social.Generic.Services;
 using Social.Photo.Exceptions;
 using Social.Validation;
-using UniversityOfMe.Controllers.Helpers;
 using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
 using UniversityOfMe.Models.Social;
 using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories;
 using UniversityOfMe.Services.TextBooks;
+using UniversityOfMe.UserInformation;
 
 namespace UniversityOfMe.Controllers.Clubs {
  
-    public class TextBookController : BaseController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
+    public class TextBookController : UOFMeBaseController {
         private const string TEXTBOOK_ADDED = "Textbook posted successfully!";
         private const string NO_TEXTBOOKS = "There are no textbooks currently being sold and there is no one looking for textbooks currently.";
         private const string MARKED_NON_ACTIVE = "The textbook entry has been marked as being non-active.";
@@ -38,11 +35,7 @@ namespace UniversityOfMe.Controllers.Clubs {
         IValidationDictionary theValidation;
         ITextBookService theTextBookService;
 
-        public TextBookController()
-            : base(new BaseService<User>(new EntityBaseRepository()),
-                   UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())),
-                   InstanceHelper.CreateAuthencationService(),
-                   new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())) {
+        public TextBookController() {
             UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
             theValidation = new ModelStateWrapper(this.ModelState);
             theTextBookService = new TextBookService(theValidation);
@@ -159,42 +152,6 @@ namespace UniversityOfMe.Controllers.Clubs {
                 TempData["Message"] = ErrorKeys.ERROR_MESSAGE;
                 return RedirectToAction("Details", new { id = id });
             }
-        }
-
-        protected override AbstractUserModel<User> GetSocialUserInformation() {
-            return SocialUserModel.Create(GetUserInformaton());
-        }
-
-        protected override AbstractUserModel<User> CreateSocialUserModel(User aUser) {
-            return SocialUserModel.Create(aUser);
-        }
-
-        protected override IProfilePictureStrategy<User> ProfilePictureStrategy() {
-            return new ProfilePictureStrategy();
-        }
-
-        protected override string UserEmail() {
-            return GetUserInformaton().Email;
-        }
-
-        protected override string UserPassword() {
-            return GetUserInformaton().Password;
-        }
-
-        protected override int UserId() {
-            return GetUserInformaton().Id;
-        }
-
-        protected override string ErrorMessage(string aMessage) {
-            return aMessage;
-        }
-
-        protected override string NormalMessage(string aMessage) {
-            return aMessage;
-        }
-
-        protected override string SuccessMessage(string aMessage) {
-            return aMessage;
         }
     }
 }

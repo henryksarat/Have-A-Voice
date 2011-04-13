@@ -77,6 +77,8 @@
     <Compile Include="Controllers\Clubs\ClubController.cs" />
     <Compile Include="Controllers\Clubs\ClubMemberController.cs" />
     <Compile Include="Controllers\Core\AuthenticationController.cs" />
+    <Compile Include="Controllers\Events\EventBoardController.cs" />
+    <Compile Include="Controllers\Events\EventController.cs" />
     <Compile Include="Controllers\GeneralPostings\GeneralPostingController.cs" />
     <Compile Include="Controllers\GeneralPostings\GeneralPostingReplyController.cs" />
     <Compile Include="Controllers\Helpers\InstanceHelper.cs" />
@@ -84,6 +86,7 @@
     <Compile Include="Controllers\Professors\ProfessorController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\TextBooks\TextBookController.cs" />
+    <Compile Include="Controllers\UOFMeBaseController.cs" />
     <Compile Include="Controllers\Users\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -91,6 +94,7 @@
     <Compile Include="Helpers\Constants\ClubConstants.cs" />
     <Compile Include="Helpers\Constants\TextBookConstants.cs" />
     <Compile Include="Helpers\EmailHelper.cs" />
+    <Compile Include="Helpers\FriendHelper.cs" />
     <Compile Include="Helpers\Functionality\ClubHelper.cs" />
     <Compile Include="Helpers\NameHelper.cs" />
     <Compile Include="Helpers\ProfilePictureStrategy.cs" />
@@ -111,6 +115,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UniversityOfMeDBModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\View\EventViewModel.cs" />
     <Compile Include="Models\View\CreateClassModel.cs" />
     <Compile Include="Models\View\CreateTextBookModel.cs" />
     <Compile Include="Models\View\CreateClubModel.cs" />
@@ -124,6 +129,8 @@
     <Compile Include="Repositories\Classes\IClassRepository.cs" />
     <Compile Include="Repositories\Clubs\EntityClubRepository.cs" />
     <Compile Include="Repositories\Clubs\IClubRepository.cs" />
+    <Compile Include="Repositories\Events\EntityEventRepository.cs" />
+    <Compile Include="Repositories\Events\IEventRepository.cs" />
     <Compile Include="Repositories\GeneralPostings\EntityGeneralPostingRepository.cs" />
     <Compile Include="Repositories\GeneralPostings\IGeneralPostingRepository.cs" />
     <Compile Include="Repositories\Professors\EntityProfessorReviewRepository.cs" />
@@ -144,6 +151,8 @@
     <Compile Include="Services\Classes\ClassService.cs" />
     <Compile Include="Services\Clubs\IClubService.cs" />
     <Compile Include="Services\Clubs\ClubService.cs" />
+    <Compile Include="Services\Events\EventService.cs" />
+    <Compile Include="Services\Events\IEventService.cs" />
     <Compile Include="Services\GeneralPostings\GeneralPostingService.cs" />
     <Compile Include="Services\GeneralPostings\IGeneralPostingService.cs" />
     <Compile Include="Services\IUniversityService.cs" />
@@ -174,6 +183,10 @@
     <Content Include="Views\Club\Create.aspx" />
     <Content Include="Views\Club\Details.aspx" />
     <Content Include="Views\Club\List.aspx" />
+    <Content Include="Views\Event\Create.aspx" />
+    <Content Include="Views\Event\Details.aspx" />
+    <Content Include="Views\Event\Edit.aspx" />
+    <Content Include="Views\Event\List.aspx" />
     <Content Include="Views\Permission\Create.aspx" />
     <Content Include="Views\Permission\Delete.aspx" />
     <Content Include="Views\Permission\Edit.aspx" />

@@ -1,31 +1,29 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using BaseWebsite.Controllers;
 using HaveAVoice.Services.Issues;
 using HaveAVoice.Services.UserFeatures;
 using Social.Authentication;
-using Social.Generic.Services;
-using Social.Validation;
-using UniversityOfMe.Controllers.Helpers;
-using UniversityOfMe.Models;
-using UniversityOfMe.Models.View;
-using UniversityOfMe.Repositories;
-using UniversityOfMe.Services.Professors;
-using UniversityOfMe.Services;
-using Social.Generic.Models;
-using UniversityOfMe.Models.Social;
-using UniversityOfMe.Helpers;
 using Social.Authentication.Helpers;
 using Social.Generic.ActionFilters;
-using System.Linq;
-using System;
 using Social.Generic.Constants;
 using Social.Generic.Exceptions;
+using Social.Generic.Models;
+using Social.Validation;
+using UniversityOfMe.Helpers;
+using UniversityOfMe.Models;
+using UniversityOfMe.Models.Social;
+using UniversityOfMe.Models.View;
+using UniversityOfMe.Repositories;
+using UniversityOfMe.Services;
+using UniversityOfMe.Services.Professors;
+using UniversityOfMe.UserInformation;
 
 namespace UniversityOfMe.Controllers.Professors {
- 
-    public class ProfessorController : BaseController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
+
+    public class ProfessorController : UOFMeBaseController {
         private const string PROFESSOR_CREATED = "Professor created successfully! You can now proceed to review them.";
         private const string NO_PROFESSOR_REVIEWS = "There are no reviews for this professor. Be the first to review this professor!";
         private const string PROFESSOR_DOESNT_EXIST = "I'm sorry but that professor doesn't exist in the database. Please create the professor and then be the first to review them!";
@@ -34,11 +32,8 @@ namespace UniversityOfMe.Controllers.Professors {
         IProfessorReviewService theProfessorReviewService;
         IUniversityService theUniversityService;
 
-        public ProfessorController()
-            : base(new BaseService<User>(new EntityBaseRepository()),
-                   UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())),
-                   InstanceHelper.CreateAuthencationService(),
-                   new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())) {
+        public ProfessorController() {
+            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
             IValidationDictionary myModelState = new ModelStateWrapper(this.ModelState);
             theProfessorService = new ProfessorService(myModelState);
             theProfessorReviewService = new ProfessorReviewService(myModelState);
