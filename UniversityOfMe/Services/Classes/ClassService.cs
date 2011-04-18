@@ -1,16 +1,14 @@
-﻿using Social.Generic.Constants;
-using Social.Validation;
-using UniversityOfMe.Models;
-using UniversityOfMe.Repositories.Classes;
-using UniversityOfMe.Services.Classes;
+﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using Social.Generic.Constants;
 using Social.Generic.Models;
-using UniversityOfMe.Models.View;
-using System.Collections.Generic;
+using Social.Validation;
 using UniversityOfMe.Helpers;
-using System.Text.RegularExpressions;
-using System.Text.RegularExpressions;
+using UniversityOfMe.Models;
+using UniversityOfMe.Models.View;
+using UniversityOfMe.Repositories.Classes;
 
-namespace HaveAVoice.Services.Classes {
+namespace UniversityOfMe.Services.Classes {
     public class ClassService : IClassService {
         private IValidationDictionary theValidationDictionary;
         private IClassRepository theClassRepository;

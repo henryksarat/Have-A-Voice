@@ -5,7 +5,7 @@ using HaveAVoice.Models;
 using HaveAVoice.Models.SocialWrappers;
 using Social.Board.Repositories;
 using Social.Generic.Models;
-using Social.User;
+using Social.User.Repositories;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVBoardRepository : IBoardRepository<User, Board, BoardReply> {

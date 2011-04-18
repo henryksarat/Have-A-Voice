@@ -15,6 +15,7 @@ using Social.Authentication.Helpers;
 using Social.BaseWebsite.Models;
 using Social.Generic.Models;
 using Social.Generic.Services;
+using Social.Users.Services;
 
 namespace HaveAVoice.Controllers.Users {
     public class FriendController : AbstractFriendController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline, Friend> {
@@ -96,6 +97,10 @@ namespace HaveAVoice.Controllers.Users {
 
         protected override ILoggedInListModel<Friend> CreateLoggedInListModel(User aUser) {
             return new LoggedInListModel<Friend>(aUser, SiteSection.Friend);
+        }
+
+        protected override ActionResult RedirectToProfile() {
+            return RedirectToAction("Show", "Profile");
         }
     }
 }

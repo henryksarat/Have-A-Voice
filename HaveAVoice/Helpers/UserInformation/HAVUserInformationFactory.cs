@@ -1,9 +1,9 @@
 ﻿using System.Web;
 using HaveAVoice.Models;
 using HaveAVoice.Repositories.UserFeatures;
-using HaveAVoice.Services.UserFeatures;
 using Social.Authentication;
 using Social.Generic.Models;
+using Social.Users.Services;
 
 namespace HaveAVoice.Helpers.UserInformation {
     public class HAVUserInformationFactory {

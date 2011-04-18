@@ -13,6 +13,7 @@ using Social.Authentication.Helpers;
 using Social.Generic.Models;
 using Social.Generic.Services;
 using Social.Users.Services;
+using System.Web.Mvc;
 
 namespace HaveAVoice.Controllers  {
     public abstract class HAVBaseController : BaseController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
@@ -62,6 +63,10 @@ namespace HaveAVoice.Controllers  {
 
         protected override string SuccessMessage(string aMessage) {
             return MessageHelper.SuccessMessage(aMessage);
+        }
+
+        protected override ActionResult RedirectToProfile() {
+            return RedirectToAction("Show", "Profile");
         }
     }
 }

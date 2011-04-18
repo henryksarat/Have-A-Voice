@@ -1,4 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<UniversityOfMe.Models.ProfessorReview>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<UniversityOfMe.Models.Professor>" %>
+<%@ Import Namespace="UniversityOfMe.Models" %>
+<%@ Import Namespace="UniversityOfMe.Helpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Details
@@ -13,86 +15,39 @@
 
     <table>
         <tr>
-            <th></th>
             <th>
-                Id
+                University
             </th>
             <th>
-                UserId
+                First Name
             </th>
             <th>
-                ProfessorId
-            </th>
-            <th>
-                AcademicTermId
-            </th>
-            <th>
-                Year
-            </th>
-            <th>
-                Class
-            </th>
-            <th>
-                Rating
-            </th>
-            <th>
-                Review
-            </th>
-            <th>
-                DateTimeStamp
-            </th>
-            <th>
-                Anonymous
+                Last Name
             </th>
         </tr>
-
-    <% foreach (var item in Model) { %>
-    
         <tr>
             <td>
-                <%: Html.ActionLink("Edit", "Edit", new { id=item.Id }) %> |
-                <%: Html.ActionLink("Details", "Details", new { id=item.Id })%> |
-                <%: Html.ActionLink("Delete", "Delete", new { id=item.Id })%>
+                <%: Model.UniversityId %>
             </td>
             <td>
-                <%: item.Id %>
+                <%: Model.FirstName%>
             </td>
             <td>
-                <%: item.UserId %>
-            </td>
-            <td>
-                <%: item.ProfessorId %>
-            </td>
-            <td>
-                <%: item.AcademicTermId %>
-            </td>
-            <td>
-                <%: item.Year %>
-            </td>
-            <td>
-                <%: item.Class %>
-            </td>
-            <td>
-                <%: item.Rating %>
-            </td>
-            <td>
-                <%: item.Review %>
-            </td>
-            <td>
-                <%: String.Format("{0:g}", item.DateTimeStamp) %>
-            </td>
-            <td>
-                <%: item.Anonymous %>
+                <%: Model.LastName%>
             </td>
         </tr>
-    
-    <% } %>
-
     </table>
 
-    <p>
-        <%: Html.ActionLink("Create New", "Create") %>
-    </p>
+    <br /><br />
+    <a href="/<%= Model.UniversityId %>/ProfessorReview/Create/<%= Model.Id %>">Create New Review</a><br /><br />
 
+    <% foreach(ProfessorReview myReview in Model.ProfessorReviews.OrderByDescending(pr => pr.DateTimeStamp)) {  %>
+        By user: <%= myReview.Anonymous ? "Anonymous" : NameHelper.FullName(myReview.User) %><br />
+        Date Posted: <%= myReview.DateTimeStamp %><br />
+        Rating: <%= myReview.Rating %><br />          
+        Term: <%= myReview.AcademicTerm.DisplayName %><br />
+        Year: <%= myReview.Year %><br />
+        Review: <%= myReview.Review %><br /><br />
+    <% } %>
 </asp:Content>
 

@@ -15,7 +15,7 @@ using Social.Authentication.Helpers;
 using Social.BaseWebsite.Models;
 using Social.Generic.Models;
 using Social.Generic.Services;
-using Social.Photo.Services;
+using Social.Users.Services;
 
 namespace HaveAVoice.Controllers.Users.Photos {
     public class PhotosController : AbstractPhotosController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline, PhotoAlbum, Photo, Friend> {
@@ -93,6 +93,10 @@ namespace HaveAVoice.Controllers.Users.Photos {
 
         protected override ILoggedInModel<Photo> CreateLoggedInWrapperModel(User aUser) {
             return new LoggedInWrapperModel<Photo>(aUser, SiteSection.Photos);
+        }
+
+        protected override ActionResult RedirectToProfile() {
+            return RedirectToAction("Show", "Profile");
         }
     }
 }

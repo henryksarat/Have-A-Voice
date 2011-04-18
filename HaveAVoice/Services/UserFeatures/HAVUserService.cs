@@ -10,7 +10,7 @@ using Social.Email;
 using Social.Email.Exceptions;
 using Social.Generic.Constants;
 using Social.Generic.Helpers;
-using Social.User;
+using Social.User.Repositories;
 using Social.User.Services;
 using Social.Validation;
 

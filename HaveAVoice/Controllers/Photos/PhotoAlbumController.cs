@@ -17,6 +17,7 @@ using Social.BaseWebsite.Models;
 using Social.Generic.ActionFilters;
 using Social.Generic.Models;
 using Social.Generic.Services;
+using Social.Users.Services;
 
 namespace HaveAVoice.Controllers.Users.Photos {
     public class PhotoAlbumController : AbstractPhotoAlbumController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline, PhotoAlbum, Photo, Friend> {
@@ -111,6 +112,10 @@ namespace HaveAVoice.Controllers.Users.Photos {
 
         protected override ILoggedInListModel<PhotoAlbum> CreateLoggedInListModel(User myUserOfAlbum, User aRequestingUser) {
             return new LoggedInListModel<PhotoAlbum>(myUserOfAlbum, aRequestingUser, SiteSection.Photos);
+        }
+
+        protected override ActionResult RedirectToProfile() {
+            return RedirectToAction("Show", "Profile");
         }
     }
 }

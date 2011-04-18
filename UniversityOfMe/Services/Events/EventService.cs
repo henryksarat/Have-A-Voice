@@ -13,7 +13,7 @@ using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories.Events;
 using UniversityOfMe.Services.Events;
 
-namespace HaveAVoice.Services.Events {
+namespace UniversityOfMe.Services.Events {
     public class EventService : IEventService {
         private IValidationDictionary theValidationDictionary;
         private IEventRepository theEventRepository;

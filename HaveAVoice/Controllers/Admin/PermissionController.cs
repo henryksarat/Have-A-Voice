@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using BaseWebsite.Controllers.Admin;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Helpers;
+using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Models;
 using HaveAVoice.Models.SocialWrappers;
 using HaveAVoice.Repositories;
@@ -14,7 +15,7 @@ using Social.Authentication.Helpers;
 using Social.Generic.ActionFilters;
 using Social.Generic.Models;
 using Social.Generic.Services;
-using HaveAVoice.Helpers.UserInformation;
+using Social.Users.Services;
 
 namespace HaveAVoice.Controllers.Admin {
     public class PermissionController : AbstractPermissionController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
@@ -98,6 +99,10 @@ namespace HaveAVoice.Controllers.Admin {
 
         protected override AbstractPermissionModel<Permission> CreateSocialPermissionModel(Permission aPermission) {
             return SocialPermissionModel.Create(aPermission);
+        }
+
+        protected override ActionResult RedirectToProfile() {
+            return RedirectToAction("Show", "Profile");
         }
     }
 }

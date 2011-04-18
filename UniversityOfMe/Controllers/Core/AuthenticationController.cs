@@ -1,11 +1,11 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using BaseWebsite.Controllers.Core;
-using HaveAVoice.Services.UserFeatures;
 using Social.Authentication;
 using Social.Authentication.Helpers;
 using Social.Generic.Models;
 using Social.Generic.Services;
+using Social.Users.Services;
 using UniversityOfMe.Controllers.Helpers;
 using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
@@ -79,6 +79,10 @@ namespace UniversityOfMe.Controllers.Core {
 
         protected override string SuccessMessage(string aMessage) {
             return aMessage;
+        }
+
+        protected override ActionResult RedirectToProfile() {
+            return RedirectToAction(UOMConstants.UNVIERSITY_MAIN_VIEW, UOMConstants.UNVIERSITY_MAIN_CONTROLLER, new { universityId = UniversityHelper.GetMainUniversity(GetUserInformaton()) });
         }
     }
 }

@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using HaveAVoice.Services.Classes;
-using HaveAVoice.Services.UserFeatures;
 using Social.Authentication;
 using Social.Generic.ActionFilters;
 using Social.Generic.Constants;
 using Social.Generic.Helpers;
+using Social.Users.Services;
 using Social.Validation;
 using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
@@ -32,7 +31,7 @@ namespace UniversityOfMe.Controllers.Classes {
             UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
             theClassService = new ClassService(theValidationDictionary);
-            theUniversityService = new UniversityService();
+            theUniversityService = new UniversityService(theValidationDictionary);
         }
 
         public ActionResult List(string universityId) {

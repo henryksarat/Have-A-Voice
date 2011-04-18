@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Social.Authentication.Repositories;
 using Social.Generic.Models;
-using Social.User;
+using Social.User.Repositories;
 using UniversityOfMe.Models;
 using UniversityOfMe.Models.Social;
 using UniversityOfMe.Repositories.UserRepos;

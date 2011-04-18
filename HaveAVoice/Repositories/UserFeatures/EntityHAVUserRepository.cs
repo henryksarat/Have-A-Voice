@@ -6,7 +6,7 @@ using HaveAVoice.Repositories.AdminFeatures;
 using Social.Admin.Exceptions;
 using Social.Admin.Repositories;
 using Social.Generic.Models;
-using Social.User;
+using Social.User.Repositories;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVUserRepository : IUserRepository<User, Role, UserRole> {

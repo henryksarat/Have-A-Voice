@@ -5,6 +5,7 @@ using BaseWebsite.Controllers.Users;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Helpers;
 using HaveAVoice.Helpers.ActionMethods;
+using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Models;
 using HaveAVoice.Models.SocialWrappers;
 using HaveAVoice.Models.View;
@@ -13,13 +14,13 @@ using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services.UserFeatures;
 using Social.Authentication;
 using Social.Authentication.Helpers;
+using Social.Generic.ActionFilters;
 using Social.Generic.Constants;
+using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Generic.Services;
+using Social.Users.Services;
 using Social.Validation;
-using HaveAVoice.Helpers.UserInformation;
-using Social.Generic.ActionFilters;
-using Social.Generic.Helpers;
 
 namespace HaveAVoice.Controllers.Users {
     public class UserController : AbstractUserController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
@@ -202,6 +203,10 @@ namespace HaveAVoice.Controllers.Users {
         private void AddStatesAndGenders(CreateUserModel aUserModel, string aState) {
             aUserModel.Genders = new SelectList(Constants.GENDERS, aUserModel.Gender);
             aUserModel.States = new SelectList(UnitedStates.STATES, aState);
+        }
+
+        protected override ActionResult RedirectToProfile() {
+            return RedirectToAction("Show", "Profile");
         }
     }
 }

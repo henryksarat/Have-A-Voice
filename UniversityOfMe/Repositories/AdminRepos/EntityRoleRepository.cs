@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Social.Admin.Repositories;
 using Social.Generic.Models;
-using Social.User;
 using UniversityOfMe.Models;
 using UniversityOfMe.Models.Social;
 using UniversityOfMe.Repositories.UserRepos;
@@ -92,7 +91,7 @@ namespace UniversityOfMe.Repositories.AdminRepos {
         }
 
         public void MoveUsersToRole(List<int> aUsers, int aFromRoleId, int aToRoleId) {
-            IUserRepository<User, Role, UserRole> myUserRepo = new EntityUserRepository();
+            IUofMeUserRepository myUserRepo = new EntityUserRepository();
             Role myMoveToRole = FindRole(aToRoleId);
             foreach (int myUserId in aUsers) {
                 UserRole myOriginalUserRole = GetUserRole(myUserId, aFromRoleId);

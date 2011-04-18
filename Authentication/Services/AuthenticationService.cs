@@ -9,10 +9,10 @@ using Social.Authentication.Repositories;
 using Social.Generic.Constants;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
-using Social.User;
 using Social.User.Exceptions;
 using Social.User.Helpers;
 using Social.User.Models;
+using Social.User.Repositories;
 using Social.User.Services;
 
 namespace Social.Authentication.Services {

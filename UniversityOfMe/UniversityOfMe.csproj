@@ -84,6 +84,7 @@
     <Compile Include="Controllers\Helpers\InstanceHelper.cs" />
     <Compile Include="Controllers\Professors\ProfessorReviewController.cs" />
     <Compile Include="Controllers\Professors\ProfessorController.cs" />
+    <Compile Include="Controllers\University\UniversityController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\TextBooks\TextBookController.cs" />
     <Compile Include="Controllers\UOFMeBaseController.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Helpers\ProfilePictureStrategy.cs" />
     <Compile Include="Helpers\RegistrationStrategy.cs" />
     <Compile Include="Helpers\SelectionHelper.cs" />
+    <Compile Include="Helpers\TextShortener.cs" />
     <Compile Include="Helpers\UniversityHelper.cs" />
     <Compile Include="Helpers\UOMConstants.cs" />
     <Compile Include="Helpers\UOMErrorKeys.cs" />
@@ -122,6 +124,7 @@
     <Compile Include="Models\View\CreateProfessorReviewModel.cs" />
     <Compile Include="Models\View\CreateUserModel.cs" />
     <Compile Include="Models\View\CreateProfessorModel.cs" />
+    <Compile Include="Models\View\UniversityView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AdminRepos\EntityPermissionRepository.cs" />
     <Compile Include="Repositories\AdminRepos\EntityRoleRepository.cs" />
@@ -147,6 +150,7 @@
     <Compile Include="Repositories\UserRepos\EntityUserPrivacySettingsRepository.cs" />
     <Compile Include="Repositories\EntityUniversityRepository.cs" />
     <Compile Include="Repositories\UserRepos\EntityUserRetrievalRepository.cs" />
+    <Compile Include="Repositories\UserRepos\IUofMeUserRepository.cs" />
     <Compile Include="Services\Classes\IClassService.cs" />
     <Compile Include="Services\Classes\ClassService.cs" />
     <Compile Include="Services\Clubs\IClubService.cs" />
@@ -163,6 +167,8 @@
     <Compile Include="Services\TextBooks\TextBookService.cs" />
     <Compile Include="Services\TextBooks\ITextBookService.cs" />
     <Compile Include="Services\UniversityService.cs" />
+    <Compile Include="Services\Users\IUofMeUserService.cs" />
+    <Compile Include="Services\Users\UofMeUserService.cs" />
     <Compile Include="UserInformation\UserInformationFactory.cs" />
     <Compile Include="Models\View\RoleViewModel.cs" />
   </ItemGroup>
@@ -187,6 +193,9 @@
     <Content Include="Views\Event\Details.aspx" />
     <Content Include="Views\Event\Edit.aspx" />
     <Content Include="Views\Event\List.aspx" />
+    <Content Include="Views\GeneralPosting\Create.aspx" />
+    <Content Include="Views\GeneralPosting\Details.aspx" />
+    <Content Include="Views\GeneralPosting\List.aspx" />
     <Content Include="Views\Permission\Create.aspx" />
     <Content Include="Views\Permission\Delete.aspx" />
     <Content Include="Views\Permission\Edit.aspx" />
@@ -207,6 +216,7 @@
     <Content Include="Views\TextBook\Create.aspx" />
     <Content Include="Views\TextBook\Details.aspx" />
     <Content Include="Views\TextBook\List.aspx" />
+    <Content Include="Views\University\Main.aspx" />
     <Content Include="Views\User\Create.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -234,6 +244,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ClubPhotos\" />
+    <Folder Include="Controllers\Profile\" />
     <Folder Include="Models\Wrappers\" />
     <Folder Include="TextBookPhotos\" />
   </ItemGroup>
@@ -292,7 +303,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>2324</DevelopmentServerPort>
+          <DevelopmentServerPort>19691</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

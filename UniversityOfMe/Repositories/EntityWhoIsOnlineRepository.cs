@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Social.User;
 using Social.User.Models;
 using Social.User.Repositories;
 using UniversityOfMe.Models;

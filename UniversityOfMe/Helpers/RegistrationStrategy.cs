@@ -8,10 +8,12 @@ using UniversityOfMe.Models.Social;
 using UniversityOfMe.Services;
 using UniversityOfMe.Controllers.Helpers;
 using Social.Authentication.Services;
+using System.Web.Mvc;
 
 public class RegistrationStrategy : IRegistrationStrategy<User> {
     public bool ExtraFieldsAreValid(AbstractUserModel<User> aUser, IValidationDictionary aValidationDictionary) {
-        IUniversityService theUniversityService = new UniversityService();
+        IValidationDictionary myValidation = new ModelStateWrapper(new ModelStateDictionary());
+        IUniversityService theUniversityService = new UniversityService(myValidation);
 
         if (!theUniversityService.IsValidUniversityEmailAddress(aUser.Email)) {
             IEnumerable<string> myValidEmails = theUniversityService.ValidEmails();
@@ -24,7 +26,8 @@ public class RegistrationStrategy : IRegistrationStrategy<User> {
     }
 
     public void PostRegistration(AbstractUserModel<User> aUser) {
-        IUniversityService theUniversityService = new UniversityService();
+        IValidationDictionary myValidation = new ModelStateWrapper(new ModelStateDictionary());
+        IUniversityService theUniversityService = new UniversityService(myValidation);
         theUniversityService.AddUserToUniversity(aUser.CreateNewModel());
     }
 

@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
-using HaveAVoice.Services.Issues;
-using HaveAVoice.Services.UserFeatures;
 using Social.Authentication;
 using Social.Authentication.Helpers;
 using Social.Generic.ActionFilters;
 using Social.Generic.Constants;
 using Social.Generic.Models;
+using Social.Users.Services;
 using Social.Validation;
 using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
@@ -24,16 +23,17 @@ namespace UniversityOfMe.Controllers.Professors {
         private const string PROFESSOR_REVIEW = "The review for the professor has been posted!";
         private const string PROFESSOR_DOESNT_EXIST = "Couldn't find that professor. Please create that professor profile.";
 
-        IProfessorReviewService theProfessorReviewService;
-        IProfessorService theProfessorService;
-        IUniversityService theUniversityService;
+        private IValidationDictionary theValidationDictionary;
+        private IProfessorReviewService theProfessorReviewService;
+        private IProfessorService theProfessorService;
+        private IUniversityService theUniversityService;
 
         public ProfessorReviewController() {
             UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
-            IValidationDictionary myModelState = new ModelStateWrapper(this.ModelState);
-            theProfessorReviewService = new ProfessorReviewService(myModelState);
-            theProfessorService = new ProfessorService(myModelState);
-            theUniversityService = new UniversityService();
+            theValidationDictionary = new ModelStateWrapper(this.ModelState);
+            theProfessorReviewService = new ProfessorReviewService(theValidationDictionary);
+            theProfessorService = new ProfessorService(theValidationDictionary);
+            theUniversityService = new UniversityService(theValidationDictionary);
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
@@ -63,7 +63,8 @@ namespace UniversityOfMe.Controllers.Professors {
             bool myResult = theProfessorReviewService.CreateProfessorReview(GetUserInformatonModel(), professorReview.ToModel());
 
             if (myResult) {
-                return SendToResultPage(PROFESSOR_REVIEW);
+                TempData["Message"] = PROFESSOR_REVIEW;
+                return RedirectToAction("Details", "Professor", new { id = URLHelper.ToUrlFriendly(professorReview.ProfessorName) });
             }
 
             return RedirectToAction("Create");

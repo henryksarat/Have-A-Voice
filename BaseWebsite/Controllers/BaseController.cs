@@ -45,6 +45,8 @@ namespace BaseWebsite.Controllers {
         protected abstract string NormalMessage(string aMessage);
         protected abstract string SuccessMessage(string aMessage);
 
+        protected abstract ActionResult RedirectToProfile();
+
         protected IUserInformation<T, Z> GetUserInformationInstance() {
             return theUserInformation;
         }
@@ -127,10 +129,6 @@ namespace BaseWebsite.Controllers {
         protected ActionResult RedirectToLogin() {
             TempData["Message"] = NormalMessage("You must be logged in to do that.");
             return RedirectToAction("Login", "Authentication");
-        }
-
-        protected ActionResult RedirectToProfile() {
-            return RedirectToAction("Show", "Profile");
         }
 
         protected ActionResult RedirectToProfile(int anId) {

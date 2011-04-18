@@ -1,6 +1,6 @@
 ﻿using Social.Generic.Models;
 
-namespace Social.User {
+namespace Social.User.Repositories {
     //T = User
     //U = Role
     //V = UserRole

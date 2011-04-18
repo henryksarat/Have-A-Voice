@@ -1,10 +1,9 @@
-﻿using Social.Users.Services;
-using Social.User.Repositories;
-using System;
+﻿using System;
 using Social.Generic.Constants;
 using Social.User.Models;
+using Social.User.Repositories;
 
-namespace HaveAVoice.Services.UserFeatures {
+namespace Social.Users.Services {
     public class WhoIsOnlineService<T, U> : IWhoIsOnlineService<T, U> {
         private IWhoIsOnlineRepository<T, U> theRepository;
 

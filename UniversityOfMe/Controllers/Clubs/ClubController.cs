@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 using HaveAVoice.Services.Clubs;
-using HaveAVoice.Services.UserFeatures;
 using Social.Authentication;
 using Social.Generic.ActionFilters;
 using Social.Generic.Constants;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
+using Social.Users.Services;
 using Social.Validation;
 using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
@@ -26,14 +26,15 @@ namespace UniversityOfMe.Controllers.Clubs {
         public const string CLUB_TYPE_ERROR = "Error getting club types. Please try again.";
         public const string GET_CLUB_ERROR = "An error has occurred while retrieving the club. Please try again.";
 
+        IValidationDictionary theValidationDictionary;
         IClubService theClubService;
         IUniversityService theUniversityService;
 
         public ClubController() {
             UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
-            IValidationDictionary myModelState = new ModelStateWrapper(this.ModelState);
-            theClubService = new ClubService(myModelState);
-            theUniversityService = new UniversityService();
+            theValidationDictionary = new ModelStateWrapper(this.ModelState);
+            theClubService = new ClubService(theValidationDictionary);
+            theUniversityService = new UniversityService(theValidationDictionary);
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]

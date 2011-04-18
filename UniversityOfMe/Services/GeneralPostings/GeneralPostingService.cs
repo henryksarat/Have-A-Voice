@@ -7,7 +7,7 @@ using UniversityOfMe.Repositories.Classes;
 using UniversityOfMe.Repositories.GeneralPostings;
 using UniversityOfMe.Services.GeneralPostings;
 
-namespace HaveAVoice.Services.GeneralPostings {
+namespace UniversityOfMe.Services.GeneralPostings {
     public class GeneralPostingService : IGeneralPostingService {
         private IValidationDictionary theValidationDictionary;
         private IGeneralPostingRepository theGeneralPostingRepository;
@@ -55,7 +55,7 @@ namespace HaveAVoice.Services.GeneralPostings {
             }
 
             if (string.IsNullOrEmpty(aBody)) {
-                theValidationDictionary.AddError("Body", aBody, "Text is required.");
+                theValidationDictionary.AddError("Body", aBody, "A body is required for the posting.");
             }
 
             return theValidationDictionary.isValid;

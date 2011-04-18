@@ -1,18 +1,19 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using BaseWebsite.Controllers.Admin;
+using HaveAVoice.Controllers.Helpers;
+using HaveAVoice.Helpers;
+using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Models;
+using HaveAVoice.Models.SocialWrappers;
 using HaveAVoice.Repositories;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services.UserFeatures;
 using Social.Authentication;
-using Social.Generic.Services;
-using Social.Generic.Models;
 using Social.Authentication.Helpers;
-using HaveAVoice.Models.SocialWrappers;
-using HaveAVoice.Controllers.Helpers;
-using HaveAVoice.Helpers;
-using HaveAVoice.Helpers.UserInformation;
+using Social.Generic.Models;
+using Social.Generic.Services;
+using Social.Users.Services;
 
 namespace HaveAVoice.Controllers.Admin {
     public class AdminController : AbstractAdminController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
@@ -63,6 +64,10 @@ namespace HaveAVoice.Controllers.Admin {
 
         protected override string SuccessMessage(string aMessage) {
             return MessageHelper.SuccessMessage(aMessage);
+        }
+
+        protected override ActionResult RedirectToProfile() {
+            return RedirectToAction("Show", "Profile");
         }
     }
 }

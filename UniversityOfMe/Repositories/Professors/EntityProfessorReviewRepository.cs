@@ -16,14 +16,5 @@ namespace UniversityOfMe.Repositories.Professors {
             theEntities.AddToProfessorReviews(aProfessorReview);
             theEntities.SaveChanges();
         }
-
-        public IEnumerable<ProfessorReview> GetProfessorReviewsByUnversityAndName(string aUniversityId, string aProfessorFirstName, string aProfessorLastName) {
-            return (from pr in theEntities.ProfessorReviews
-                    join p in theEntities.Professors on pr.ProfessorId equals p.Id
-                    where p.UniversityId == aUniversityId
-                    && p.FirstName == aProfessorFirstName
-                    && p.LastName == aProfessorLastName
-                    select pr).ToList<ProfessorReview>();
-        }
     }
 }

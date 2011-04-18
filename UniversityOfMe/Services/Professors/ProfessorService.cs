@@ -1,31 +1,44 @@
 ﻿using System.Collections.Generic;
 using Social.Generic.Constants;
+using Social.Generic.Exceptions;
 using Social.Generic.Models;
 using Social.Validation;
-using UniversityOfMe.Models;
-using UniversityOfMe.Repositories;
-using UniversityOfMe.Repositories.Professors;
-using UniversityOfMe.Services;
-using UniversityOfMe.Services.Professors;
 using UniversityOfMe.Helpers;
+using UniversityOfMe.Models;
+using UniversityOfMe.Repositories.Professors;
 
-namespace HaveAVoice.Services.Issues {
+namespace UniversityOfMe.Services.Professors {
     public class ProfessorService : IProfessorService {
         private IValidationDictionary theValidationDictionary;
         private IProfessorRepository theProfessorRepository;
-        private IUniversityService theUniversityService;
 
         public ProfessorService(IValidationDictionary aValidationDictionary)
-            : this(aValidationDictionary, new EntityProfessorRepository(), new UniversityService(new EntityUniversityRepository())) { }
+            : this(aValidationDictionary, new EntityProfessorRepository()) { }
 
-        public ProfessorService(IValidationDictionary aValidationDictionary, IProfessorRepository aProfessorRepo, IUniversityService aUniversityService) {
+        public ProfessorService(IValidationDictionary aValidationDictionary, IProfessorRepository aProfessorRepo) {
             theValidationDictionary = aValidationDictionary;
             theProfessorRepository = aProfessorRepo;
-            theUniversityService = aUniversityService;
         }
 
         public Professor GetProfessor(int aProfessorId) {
             return theProfessorRepository.GetProfessor(aProfessorId);
+        }
+
+        public Professor GetProfessor(UserInformationModel<User> aViewingUser, string aUniversityId, string aProfessorName) {
+            bool myIsFromUniversity = UniversityHelper.IsFromUniversity(aViewingUser.Details, aUniversityId);
+
+            string[] mySplitName = URLHelper.FromUrlFriendly(aProfessorName);
+
+            if (mySplitName.Length != 2) {
+                throw new CustomException("The professors name doesn't have a first and last name.");
+            }
+            string myFirstname = mySplitName[0];
+            string myLastname = mySplitName[1];
+
+            if (myIsFromUniversity) {
+                return theProfessorRepository.GetProfessor(aUniversityId, myFirstname, myLastname);
+            }
+            throw new CustomException(UOMErrorKeys.NOT_FROM_UNVIERSITY);
         }
 
         public IEnumerable<Professor> GetProfessorsForUniversity(string aUniversityId) {

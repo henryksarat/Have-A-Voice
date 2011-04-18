@@ -21,6 +21,7 @@ using Social.Generic.Models;
 using Social.Generic.Services;
 using Social.Messaging.Services;
 using Social.User.Services;
+using Social.Users.Services;
 
 namespace HaveAVoice.Controllers.Users {
     public class MessageController : AbstractMessageController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline, Message, Reply> {
@@ -129,6 +130,10 @@ namespace HaveAVoice.Controllers.Users {
 
         protected override int GetMessageIdFromMessage(Message aMessage) {
             return aMessage.Id;
+        }
+
+        protected override ActionResult RedirectToProfile() {
+            return RedirectToAction("Show", "Profile");
         }
     }
 }

@@ -1,17 +1,56 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using UniversityOfMe.Helpers;
-using UniversityOfMe.Repositories;
-using UniversityOfMe.Models;
+using HaveAVoice.Services.Clubs;
 using Social.Generic.Constants;
+using Social.Generic.Models;
+using Social.Validation;
+using UniversityOfMe.Helpers;
+using UniversityOfMe.Models;
+using UniversityOfMe.Models.View;
+using UniversityOfMe.Repositories;
+using UniversityOfMe.Services.Classes;
+using UniversityOfMe.Services.Events;
+using UniversityOfMe.Services.GeneralPostings;
+using UniversityOfMe.Services.Professors;
+using UniversityOfMe.Services.TextBooks;
+using UniversityOfMe.Services.Users;
 
 namespace UniversityOfMe.Services {
     public class UniversityService : IUniversityService {
-        IUniversityRepository theUniversityRepository;
+        private IUofMeUserService theUserService;
+        private IProfessorService theProfessorService;
+        private IClassService theClassService;
+        private IEventService theEventService;
+        private ITextBookService theTextBookService;
+        private IClubService theClubService;
+        private IGeneralPostingService theGeneralPostingService;
+        private IUniversityRepository theUniversityRepository;
 
-        public UniversityService(): this(new EntityUniversityRepository()) { }
+        public UniversityService(IValidationDictionary aValidationDictionary) 
+            : this(new UofMeUserService(aValidationDictionary),
+                   new ProfessorService(aValidationDictionary), 
+                   new ClassService(aValidationDictionary), 
+                   new EventService(aValidationDictionary), 
+                   new TextBookService(aValidationDictionary), 
+                   new ClubService(aValidationDictionary), 
+                   new GeneralPostingService(aValidationDictionary), 
+                   new EntityUniversityRepository()) { }
 
-        public UniversityService(IUniversityRepository aUniversityRepository) {
+        public UniversityService(IUofMeUserService aUserService,
+                                 IProfessorService aProfessorService, 
+                                 IClassService aClassService, 
+                                 IEventService anEventService, 
+                                 ITextBookService aTextBookService, 
+                                 IClubService aClubService, 
+                                 IGeneralPostingService aGeneralPostingService, 
+                                 IUniversityRepository aUniversityRepository) {
+            theUserService = aUserService;
+            theProfessorService = aProfessorService;
+            theClassService = aClassService;
+            theEventService = anEventService;
+            theTextBookService = aTextBookService;
+            theClubService = aClubService;
+            theGeneralPostingService = aGeneralPostingService;
             theUniversityRepository = aUniversityRepository;
         }
 
@@ -38,6 +77,27 @@ namespace UniversityOfMe.Services {
                 myDictionary.Add(myAcademicTerm.DisplayName, myAcademicTerm.Id);
             }
             return myDictionary;
+        }
+
+        public UniversityView GetUniversityProfile(UserInformationModel<User> aUserInformation, string aUniversityId) {
+            University myUniversity = theUniversityRepository.GetUniversity(aUniversityId);
+            IEnumerable<Professor> myProfessors = theProfessorService.GetProfessorsForUniversity(aUniversityId);
+            IEnumerable<Class> myClasses = theClassService.GetClassesForUniversity(aUniversityId);
+            IEnumerable<Event> myEvents = theEventService.GetEventsForUniversity(aUserInformation.Details, aUniversityId);
+            IEnumerable<TextBook> myTextBooks = theTextBookService.GetTextBooksForUniversity(aUniversityId);
+            IEnumerable<Club> myOrganizations = theClubService.GetClubs(aUniversityId);
+            IEnumerable<GeneralPosting> myGeneralPostings = theGeneralPostingService.GetGeneralPostingsForUniversity(aUniversityId);
+
+            return new UniversityView() {
+                University = myUniversity,
+                Professors = myProfessors,
+                Classes = myClasses,
+                Events = myEvents,
+                TextBooks = myTextBooks,
+                Organizations = myOrganizations,
+                GeneralPostings = myGeneralPostings,
+                NewestUsers = theUserService.GetNewestUsers(aUniversityId, 10)
+            };
         }
 
         public bool IsValidUniversityEmailAddress(string anEmailAddress) {

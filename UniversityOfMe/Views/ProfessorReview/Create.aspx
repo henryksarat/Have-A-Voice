@@ -12,6 +12,7 @@
         <% Html.RenderPartial("Message"); %>
         <% Html.RenderPartial("Validation"); %>
         <%= Html.Hidden("ProfessorId", Model.ProfessorId) %>
+        <%= Html.Hidden("ProfessorName", Model.ProfessorName) %>
 
         <fieldset>
             <div class="editor-label">

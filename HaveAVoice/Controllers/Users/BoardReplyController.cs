@@ -16,6 +16,7 @@ using Social.Authentication.Helpers;
 using Social.Generic.ActionFilters;
 using Social.Generic.Models;
 using Social.Generic.Services;
+using Social.Users.Services;
 
 namespace HaveAVoice.Controllers.Users {
     public class BoardReplyController : AbstractBoardReplyController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline, Board, BoardReply> {
@@ -88,6 +89,10 @@ namespace HaveAVoice.Controllers.Users {
 
         protected override int GetBoardReplyUserId(BoardReply aBoardReply) {
             return aBoardReply.UserId;
+        }
+
+        protected override ActionResult RedirectToProfile() {
+            return RedirectToAction("Show", "Profile");
         }
     }
 }

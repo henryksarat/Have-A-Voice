@@ -7,9 +7,9 @@ using Social.Email;
 using Social.Email.Exceptions;
 using Social.Generic.Models;
 using Social.Generic.Services;
-using Social.Services.UserFeatures;
-using Social.User;
 using Social.User.Helpers;
+using Social.User.Repositories;
+using Social.User.Services;
 using Social.Users.Services;
 using Social.Validation;
 

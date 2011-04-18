@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
-using HaveAVoice.Services.GeneralPostings;
-using HaveAVoice.Services.UserFeatures;
 using Social.Authentication;
 using Social.Authentication.Helpers;
 using Social.Generic.ActionFilters;
 using Social.Generic.Constants;
 using Social.Generic.Models;
+using Social.Users.Services;
 using Social.Validation;
 using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;

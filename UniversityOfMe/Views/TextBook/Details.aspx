@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<UniversityOfMe.Models.TextBook>" %>
+<%@ Import Namespace="UniversityOfMe.UserInformation" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Details
@@ -53,10 +54,10 @@
         <div class="display-label">Active</div>
         <div class="display-field"><%: Model.Active %></div>
 
-        <% if (HaveAVoice.Helpers.UserInformation.UserInformationFactory.GetUserInformation().Details.Id == Model.UserId) { %>
+        <% if (UserInformationFactory.GetUserInformation().Details.Id == Model.UserId) { %>
             <% using (Html.BeginForm("MarkAsNonActive", "TextBook", new { id = Model.Id })) {%>
                 <p>
-                    <input type="submit" value="Create" />
+                    <input type="submit" value="Delete Textbook Entry" />
                 </p>
             <% } %>
         <% } %>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using HaveAVoice.Models;
-using Social.User;
+using Social.User.Repositories;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVCalendarRepository : IHAVCalendarRepository {

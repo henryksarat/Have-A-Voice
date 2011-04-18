@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using HaveAVoice.Services.Issues;
-using HaveAVoice.Services.UserFeatures;
 using Social.Authentication;
 using Social.Authentication.Helpers;
 using Social.Generic.ActionFilters;
 using Social.Generic.Constants;
 using Social.Generic.Exceptions;
 using Social.Generic.Models;
+using Social.Users.Services;
 using Social.Validation;
 using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
@@ -28,16 +27,15 @@ namespace UniversityOfMe.Controllers.Professors {
         private const string NO_PROFESSOR_REVIEWS = "There are no reviews for this professor. Be the first to review this professor!";
         private const string PROFESSOR_DOESNT_EXIST = "I'm sorry but that professor doesn't exist in the database. Please create the professor and then be the first to review them!";
 
+        IValidationDictionary theValidationDictionary;
         IProfessorService theProfessorService;
-        IProfessorReviewService theProfessorReviewService;
         IUniversityService theUniversityService;
 
         public ProfessorController() {
             UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
-            IValidationDictionary myModelState = new ModelStateWrapper(this.ModelState);
-            theProfessorService = new ProfessorService(myModelState);
-            theProfessorReviewService = new ProfessorReviewService(myModelState);
-            theUniversityService = new UniversityService();
+            theValidationDictionary = new ModelStateWrapper(this.ModelState);
+            theProfessorService = new ProfessorService(theValidationDictionary);
+            theUniversityService = new UniversityService(theValidationDictionary);
         }
 
         public ActionResult List(string universityId) {
@@ -67,6 +65,7 @@ namespace UniversityOfMe.Controllers.Professors {
             return RedirectToAction("Create");
         }
 
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult Details(string universityId, string id) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
@@ -79,13 +78,13 @@ namespace UniversityOfMe.Controllers.Professors {
                     return RedirectToAction("Create", "Professor");
                 }
 
-                IEnumerable<ProfessorReview> myProfessorReviews = theProfessorReviewService.GetProfessorReviews(GetUserInformatonModel(), universityId, id);
+                Professor myProfessor = theProfessorService.GetProfessor(GetUserInformatonModel(), universityId, id);
 
-                if (myProfessorReviews.Count() == 0) {
+                if (myProfessor.ProfessorReviews.Count() == 0) {
                     ViewData["Message"] = NO_PROFESSOR_REVIEWS;
                 }
 
-                return View("Details", myProfessorReviews);
+                return View("Details", myProfessor);
             } catch(CustomException myException) {
                 LogError(myException, myException.Message + ", name=" + id);
             } catch (Exception myException) {

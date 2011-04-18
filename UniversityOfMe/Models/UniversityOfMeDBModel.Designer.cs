@@ -30,11 +30,6 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UniversityEmails_Universities", "University", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.University), "UniversityEmail", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UniversityEmail), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserUniversity_UniversityEmails", "UniversityEmail", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.UniversityEmail), "UserUniversity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserUniversity), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserUniversity_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "UserUniversity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserUniversity), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ProfessorReviews_AcademicTerm", "AcademicTerm", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.AcademicTerm), "ProfessorReview", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ProfessorReview), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ProfessorReviews_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ProfessorReview", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ProfessorReview), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ProfessorReviews_Professors", "Professor", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Professor), "ProfessorReview", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ProfessorReview), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Professors_Universities", "University", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.University), "Professor", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Professor), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Professors_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "Professor", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Professor), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Clubs_ClubTypes", "ClubType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.ClubType), "Club", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Club), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Clubs_Universities", "University", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.University), "Club", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Club), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Clubs_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "Club", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Club), true)]
@@ -44,16 +39,9 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClubMembers_Users_AddedByUser", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ClubMember", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClubMember), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClubMembers_Users_ClubMemeber", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ClubMember", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClubMember), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClubMembers_Users_DeletedByUser", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(UniversityOfMe.Models.User), "ClubMember", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClubMember), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_TextBooks_TextBookConditions", "TextBookCondition", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.TextBookCondition), "TextBook", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.TextBook), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_TextBooks_Universities", "University", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.University), "TextBook", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.TextBook), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_TextBooks_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "TextBook", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.TextBook), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Classes_AcademicTerm", "AcademicTerm", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.AcademicTerm), "Class", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Class), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Classes_Universities", "University", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.University), "Class", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Class), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Classes_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "Class", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Class), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassReplies_Classes", "Class", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Class), "ClassReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassReply), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassReply_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ClassReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassReply), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_GeneralPostingReplies_GeneralPostings", "GeneralPosting", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.GeneralPosting), "GeneralPostingReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.GeneralPostingReply), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_GeneralPostingReplies_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "GeneralPostingReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.GeneralPostingReply), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_GeneralPostings_Universities", "University", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.University), "GeneralPosting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.GeneralPosting), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_GeneralPostings_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "GeneralPosting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.GeneralPosting), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Friends_FriendUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "Friend", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Friend), true)]
@@ -62,6 +50,18 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Events_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "Event", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Event), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_EventBoard_Events", "Event", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Event), "EventBoard", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.EventBoard), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_EventBoard_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "EventBoard", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.EventBoard), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassReplies_Classes", "Class", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Class), "ClassReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassReply), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassReply_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ClassReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassReply), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_GeneralPostingReplies_GeneralPostings", "GeneralPosting", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.GeneralPosting), "GeneralPostingReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.GeneralPostingReply), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_GeneralPostingReplies_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "GeneralPostingReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.GeneralPostingReply), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ProfessorReviews_AcademicTerm", "AcademicTerm", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.AcademicTerm), "ProfessorReview", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ProfessorReview), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ProfessorReviews_Professors", "Professor", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Professor), "ProfessorReview", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ProfessorReview), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ProfessorReviews_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ProfessorReview", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ProfessorReview), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Professors_Universities", "University", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.University), "Professor", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Professor), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Professors_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "Professor", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Professor), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_TextBooks_TextBookConditions", "TextBookCondition", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.TextBookCondition), "TextBook", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.TextBook), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_TextBooks_Universities", "University", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.University), "TextBook", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.TextBook), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_TextBooks_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "TextBook", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.TextBook), true)]
 
 #endregion
 
@@ -324,38 +324,6 @@ namespace UniversityOfMe.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<ProfessorReview> ProfessorReviews
-        {
-            get
-            {
-                if ((_ProfessorReviews == null))
-                {
-                    _ProfessorReviews = base.CreateObjectSet<ProfessorReview>("ProfessorReviews");
-                }
-                return _ProfessorReviews;
-            }
-        }
-        private ObjectSet<ProfessorReview> _ProfessorReviews;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Professor> Professors
-        {
-            get
-            {
-                if ((_Professors == null))
-                {
-                    _Professors = base.CreateObjectSet<Professor>("Professors");
-                }
-                return _Professors;
-            }
-        }
-        private ObjectSet<Professor> _Professors;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<ClubType> ClubTypes
         {
             get
@@ -436,22 +404,6 @@ namespace UniversityOfMe.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<TextBook> TextBooks
-        {
-            get
-            {
-                if ((_TextBooks == null))
-                {
-                    _TextBooks = base.CreateObjectSet<TextBook>("TextBooks");
-                }
-                return _TextBooks;
-            }
-        }
-        private ObjectSet<TextBook> _TextBooks;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<Class> Classes
         {
             get
@@ -464,38 +416,6 @@ namespace UniversityOfMe.Models
             }
         }
         private ObjectSet<Class> _Classes;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<ClassReply> ClassReplies
-        {
-            get
-            {
-                if ((_ClassReplies == null))
-                {
-                    _ClassReplies = base.CreateObjectSet<ClassReply>("ClassReplies");
-                }
-                return _ClassReplies;
-            }
-        }
-        private ObjectSet<ClassReply> _ClassReplies;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<GeneralPostingReply> GeneralPostingReplies
-        {
-            get
-            {
-                if ((_GeneralPostingReplies == null))
-                {
-                    _GeneralPostingReplies = base.CreateObjectSet<GeneralPostingReply>("GeneralPostingReplies");
-                }
-                return _GeneralPostingReplies;
-            }
-        }
-        private ObjectSet<GeneralPostingReply> _GeneralPostingReplies;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -560,6 +480,86 @@ namespace UniversityOfMe.Models
             }
         }
         private ObjectSet<EventBoard> _EventBoards;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ClassReply> ClassReplies
+        {
+            get
+            {
+                if ((_ClassReplies == null))
+                {
+                    _ClassReplies = base.CreateObjectSet<ClassReply>("ClassReplies");
+                }
+                return _ClassReplies;
+            }
+        }
+        private ObjectSet<ClassReply> _ClassReplies;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<GeneralPostingReply> GeneralPostingReplies
+        {
+            get
+            {
+                if ((_GeneralPostingReplies == null))
+                {
+                    _GeneralPostingReplies = base.CreateObjectSet<GeneralPostingReply>("GeneralPostingReplies");
+                }
+                return _GeneralPostingReplies;
+            }
+        }
+        private ObjectSet<GeneralPostingReply> _GeneralPostingReplies;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ProfessorReview> ProfessorReviews
+        {
+            get
+            {
+                if ((_ProfessorReviews == null))
+                {
+                    _ProfessorReviews = base.CreateObjectSet<ProfessorReview>("ProfessorReviews");
+                }
+                return _ProfessorReviews;
+            }
+        }
+        private ObjectSet<ProfessorReview> _ProfessorReviews;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Professor> Professors
+        {
+            get
+            {
+                if ((_Professors == null))
+                {
+                    _Professors = base.CreateObjectSet<Professor>("Professors");
+                }
+                return _Professors;
+            }
+        }
+        private ObjectSet<Professor> _Professors;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<TextBook> TextBooks
+        {
+            get
+            {
+                if ((_TextBooks == null))
+                {
+                    _TextBooks = base.CreateObjectSet<TextBook>("TextBooks");
+                }
+                return _TextBooks;
+            }
+        }
+        private ObjectSet<TextBook> _TextBooks;
 
         #endregion
         #region AddTo Methods
@@ -669,22 +669,6 @@ namespace UniversityOfMe.Models
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the ProfessorReviews EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToProfessorReviews(ProfessorReview professorReview)
-        {
-            base.AddObject("ProfessorReviews", professorReview);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Professors EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToProfessors(Professor professor)
-        {
-            base.AddObject("Professors", professor);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the ClubTypes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToClubTypes(ClubType clubType)
@@ -725,35 +709,11 @@ namespace UniversityOfMe.Models
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the TextBooks EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToTextBooks(TextBook textBook)
-        {
-            base.AddObject("TextBooks", textBook);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the Classes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToClasses(Class @class)
         {
             base.AddObject("Classes", @class);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the ClassReplies EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToClassReplies(ClassReply classReply)
-        {
-            base.AddObject("ClassReplies", classReply);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the GeneralPostingReplies EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToGeneralPostingReplies(GeneralPostingReply generalPostingReply)
-        {
-            base.AddObject("GeneralPostingReplies", generalPostingReply);
         }
     
         /// <summary>
@@ -786,6 +746,46 @@ namespace UniversityOfMe.Models
         public void AddToEventBoards(EventBoard eventBoard)
         {
             base.AddObject("EventBoards", eventBoard);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ClassReplies EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToClassReplies(ClassReply classReply)
+        {
+            base.AddObject("ClassReplies", classReply);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the GeneralPostingReplies EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToGeneralPostingReplies(GeneralPostingReply generalPostingReply)
+        {
+            base.AddObject("GeneralPostingReplies", generalPostingReply);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ProfessorReviews EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToProfessorReviews(ProfessorReview professorReview)
+        {
+            base.AddObject("ProfessorReviews", professorReview);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Professors EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToProfessors(Professor professor)
+        {
+            base.AddObject("Professors", professor);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the TextBooks EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToTextBooks(TextBook textBook)
+        {
+            base.AddObject("TextBooks", textBook);
         }
 
         #endregion
@@ -883,28 +883,6 @@ namespace UniversityOfMe.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ProfessorReviews_AcademicTerm", "ProfessorReview")]
-        public EntityCollection<ProfessorReview> ProfessorReviews
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProfessorReview>("UniversityOfMeModel.FK_ProfessorReviews_AcademicTerm", "ProfessorReview");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProfessorReview>("UniversityOfMeModel.FK_ProfessorReviews_AcademicTerm", "ProfessorReview", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Classes_AcademicTerm", "Class")]
         public EntityCollection<Class> Classes
         {
@@ -917,6 +895,28 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Class>("UniversityOfMeModel.FK_Classes_AcademicTerm", "Class", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ProfessorReviews_AcademicTerm", "ProfessorReview")]
+        public EntityCollection<ProfessorReview> ProfessorReviews
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProfessorReview>("UniversityOfMeModel.FK_ProfessorReviews_AcademicTerm", "ProfessorReview");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProfessorReview>("UniversityOfMeModel.FK_ProfessorReviews_AcademicTerm", "ProfessorReview", value);
                 }
             }
         }
@@ -4023,28 +4023,6 @@ namespace UniversityOfMe.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_GeneralPostingReplies_GeneralPostings", "GeneralPostingReply")]
-        public EntityCollection<GeneralPostingReply> GeneralPostingReplies
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<GeneralPostingReply>("UniversityOfMeModel.FK_GeneralPostingReplies_GeneralPostings", "GeneralPostingReply");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<GeneralPostingReply>("UniversityOfMeModel.FK_GeneralPostingReplies_GeneralPostings", "GeneralPostingReply", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_GeneralPostings_Universities", "University")]
         public University University
         {
@@ -4111,6 +4089,28 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_GeneralPostings_Users", "User", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_GeneralPostingReplies_GeneralPostings", "GeneralPostingReply")]
+        public EntityCollection<GeneralPostingReply> GeneralPostingReplies
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<GeneralPostingReply>("UniversityOfMeModel.FK_GeneralPostingReplies_GeneralPostings", "GeneralPostingReply");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<GeneralPostingReply>("UniversityOfMeModel.FK_GeneralPostingReplies_GeneralPostings", "GeneralPostingReply", value);
                 }
             }
         }
@@ -5429,44 +5429,6 @@ namespace UniversityOfMe.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ProfessorReviews_Users", "User")]
-        public User User
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_ProfessorReviews_Users", "User").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_ProfessorReviews_Users", "User").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<User> UserReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_ProfessorReviews_Users", "User");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_ProfessorReviews_Users", "User", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ProfessorReviews_Professors", "Professor")]
         public Professor Professor
         {
@@ -5495,6 +5457,44 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Professor>("UniversityOfMeModel.FK_ProfessorReviews_Professors", "Professor", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ProfessorReviews_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_ProfessorReviews_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_ProfessorReviews_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_ProfessorReviews_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_ProfessorReviews_Users", "User", value);
                 }
             }
         }
@@ -6637,28 +6637,6 @@ namespace UniversityOfMe.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Professors_Universities", "Professor")]
-        public EntityCollection<Professor> Professors
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Professor>("UniversityOfMeModel.FK_Professors_Universities", "Professor");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Professor>("UniversityOfMeModel.FK_Professors_Universities", "Professor", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Clubs_Universities", "Club")]
         public EntityCollection<Club> Clubs
         {
@@ -6671,28 +6649,6 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Club>("UniversityOfMeModel.FK_Clubs_Universities", "Club", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_TextBooks_Universities", "TextBook")]
-        public EntityCollection<TextBook> TextBooks
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TextBook>("UniversityOfMeModel.FK_TextBooks_Universities", "TextBook");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TextBook>("UniversityOfMeModel.FK_TextBooks_Universities", "TextBook", value);
                 }
             }
         }
@@ -6759,6 +6715,50 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Event>("UniversityOfMeModel.FK_Events_Universities", "Event", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Professors_Universities", "Professor")]
+        public EntityCollection<Professor> Professors
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Professor>("UniversityOfMeModel.FK_Professors_Universities", "Professor");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Professor>("UniversityOfMeModel.FK_Professors_Universities", "Professor", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_TextBooks_Universities", "TextBook")]
+        public EntityCollection<TextBook> TextBooks
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TextBook>("UniversityOfMeModel.FK_TextBooks_Universities", "TextBook");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TextBook>("UniversityOfMeModel.FK_TextBooks_Universities", "TextBook", value);
                 }
             }
         }
@@ -7627,50 +7627,6 @@ namespace UniversityOfMe.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ProfessorReviews_Users", "ProfessorReview")]
-        public EntityCollection<ProfessorReview> ProfessorReviews
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProfessorReview>("UniversityOfMeModel.FK_ProfessorReviews_Users", "ProfessorReview");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProfessorReview>("UniversityOfMeModel.FK_ProfessorReviews_Users", "ProfessorReview", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Professors_Users", "Professor")]
-        public EntityCollection<Professor> Professors
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Professor>("UniversityOfMeModel.FK_Professors_Users", "Professor");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Professor>("UniversityOfMeModel.FK_Professors_Users", "Professor", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Clubs_Users", "Club")]
         public EntityCollection<Club> Clubs
         {
@@ -7781,28 +7737,6 @@ namespace UniversityOfMe.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_TextBooks_Users", "TextBook")]
-        public EntityCollection<TextBook> TextBooks
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TextBook>("UniversityOfMeModel.FK_TextBooks_Users", "TextBook");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TextBook>("UniversityOfMeModel.FK_TextBooks_Users", "TextBook", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Classes_Users", "Class")]
         public EntityCollection<Class> Classes
         {
@@ -7815,50 +7749,6 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Class>("UniversityOfMeModel.FK_Classes_Users", "Class", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClassReply_Users", "ClassReply")]
-        public EntityCollection<ClassReply> ClassReplies
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ClassReply>("UniversityOfMeModel.FK_ClassReply_Users", "ClassReply");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClassReply>("UniversityOfMeModel.FK_ClassReply_Users", "ClassReply", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_GeneralPostingReplies_Users", "GeneralPostingReply")]
-        public EntityCollection<GeneralPostingReply> GeneralPostingReplies
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<GeneralPostingReply>("UniversityOfMeModel.FK_GeneralPostingReplies_Users", "GeneralPostingReply");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<GeneralPostingReply>("UniversityOfMeModel.FK_GeneralPostingReplies_Users", "GeneralPostingReply", value);
                 }
             }
         }
@@ -7969,6 +7859,116 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EventBoard>("UniversityOfMeModel.FK_EventBoard_Users", "EventBoard", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClassReply_Users", "ClassReply")]
+        public EntityCollection<ClassReply> ClassReplies
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ClassReply>("UniversityOfMeModel.FK_ClassReply_Users", "ClassReply");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClassReply>("UniversityOfMeModel.FK_ClassReply_Users", "ClassReply", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_GeneralPostingReplies_Users", "GeneralPostingReply")]
+        public EntityCollection<GeneralPostingReply> GeneralPostingReplies
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<GeneralPostingReply>("UniversityOfMeModel.FK_GeneralPostingReplies_Users", "GeneralPostingReply");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<GeneralPostingReply>("UniversityOfMeModel.FK_GeneralPostingReplies_Users", "GeneralPostingReply", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ProfessorReviews_Users", "ProfessorReview")]
+        public EntityCollection<ProfessorReview> ProfessorReviews
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProfessorReview>("UniversityOfMeModel.FK_ProfessorReviews_Users", "ProfessorReview");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProfessorReview>("UniversityOfMeModel.FK_ProfessorReviews_Users", "ProfessorReview", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Professors_Users", "Professor")]
+        public EntityCollection<Professor> Professors
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Professor>("UniversityOfMeModel.FK_Professors_Users", "Professor");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Professor>("UniversityOfMeModel.FK_Professors_Users", "Professor", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_TextBooks_Users", "TextBook")]
+        public EntityCollection<TextBook> TextBooks
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TextBook>("UniversityOfMeModel.FK_TextBooks_Users", "TextBook");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TextBook>("UniversityOfMeModel.FK_TextBooks_Users", "TextBook", value);
                 }
             }
         }

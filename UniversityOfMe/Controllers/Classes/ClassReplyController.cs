@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
-using HaveAVoice.Services.Classes;
-using HaveAVoice.Services.UserFeatures;
 using Social.Authentication;
 using Social.Generic.ActionFilters;
 using Social.Generic.Constants;
+using Social.Users.Services;
 using Social.Validation;
 using UniversityOfMe.Models;
 using UniversityOfMe.Repositories;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Social.Generic.Constants;
+using System.Web.Mvc;
 
 namespace UniversityOfMe.Helpers {
     public class UOMConstants {
@@ -25,5 +26,8 @@ namespace UniversityOfMe.Helpers {
         };
 
         public const string NOT_APART_OF_UNIVERSITY = "You are not apart of this university.";
+
+        public const string UNVIERSITY_MAIN_CONTROLLER = "University";
+        public const string UNVIERSITY_MAIN_VIEW = "Main";
     }
 }

@@ -1,16 +1,15 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Social.Admin.Exceptions;
 using Social.Admin.Repositories;
 using Social.Generic.Models;
-using Social.User;
 using Social.User.Exceptions;
 using UniversityOfMe.Models;
 using UniversityOfMe.Models.Social;
 using UniversityOfMe.Repositories.AdminRepos;
-using UniversityOfMe.Helpers;
 
 namespace UniversityOfMe.Repositories.UserRepos {
-    public class EntityUserRepository : IUserRepository<User, Role, UserRole> {
+    public class EntityUserRepository : IUofMeUserRepository {
         private UniversityOfMeEntities theEntities = new UniversityOfMeEntities();
 
         public UserRole AddUserToRole(User aUser, Role aRole) {
@@ -66,6 +65,15 @@ namespace UniversityOfMe.Repositories.UserRepos {
             return (from c in theEntities.Users
                     where c.Email == email
                     select c).Count() != 0 ? true : false;
+        }
+
+        public IEnumerable<User> GetNewestUserFromUniversity(string aUniversity, int aLimit) {
+            return (from u in theEntities.Users
+                    join uu in theEntities.UserUniversities on u.Id equals uu.UserId
+                    join ue in theEntities.UniversityEmails on uu.UniversityEmailId equals ue.Email
+                    where ue.UniversityId == aUniversity
+                    select u).Take<User>(aLimit).ToList<User>();
+                    
         }
 
         public void RemoveUserFromRole(User myUser, Role myRole) {

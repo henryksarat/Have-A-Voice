@@ -16,6 +16,7 @@ using Social.BaseWebsite.Models;
 using Social.Generic.ActionFilters;
 using Social.Generic.Models;
 using Social.Generic.Services;
+using Social.Users.Services;
 
 namespace HaveAVoice.Controllers.Users {
     public class BoardController : AbstractBoardController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline, Board, BoardReply> {
@@ -95,6 +96,10 @@ namespace HaveAVoice.Controllers.Users {
 
         protected override int GetPostedByUserId(Board aMessage) {
             return aMessage.PostedUserId;
+        }
+
+        protected override ActionResult RedirectToProfile() {
+            return RedirectToAction("Show", "Profile");
         }
     }
 }

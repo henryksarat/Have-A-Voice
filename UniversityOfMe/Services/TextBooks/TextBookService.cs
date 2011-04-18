@@ -1,19 +1,17 @@
-﻿using Social.Validation;
-using UniversityOfMe.Repositories.Textbooks;
-using UniversityOfMe.Repositories.TextBooks;
-using UniversityOfMe.Services.TextBooks;
-using UniversityOfMe.Models.View;
+﻿using System;
 using System.Collections.Generic;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
-using UniversityOfMe.Models;
-using System.Web;
-using Social.Photo.Helpers;
-using UniversityOfMe.Helpers.Constants;
-using System;
 using Social.Photo.Exceptions;
+using Social.Photo.Helpers;
+using Social.Validation;
+using UniversityOfMe.Helpers.Constants;
+using UniversityOfMe.Models;
+using UniversityOfMe.Models.View;
+using UniversityOfMe.Repositories.Textbooks;
+using UniversityOfMe.Repositories.TextBooks;
 
-namespace HaveAVoice.Services.TextBooks {
+namespace UniversityOfMe.Services.TextBooks {
     public class TextBookService : ITextBookService {
         private IValidationDictionary theValidationDictionary;
         private ITextBookRepository theTextBookRepo;

@@ -5,6 +5,7 @@ using BaseWebsite.Controllers.Admin;
 using BaseWebsite.Models;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Helpers;
+using HaveAVoice.Helpers.UserInformation;
 using HaveAVoice.Models;
 using HaveAVoice.Models.SocialWrappers;
 using HaveAVoice.Models.View;
@@ -17,7 +18,7 @@ using Social.Authentication.Helpers;
 using Social.Generic.ActionFilters;
 using Social.Generic.Models;
 using Social.Generic.Services;
-using HaveAVoice.Helpers.UserInformation;
+using Social.Users.Services;
 
 namespace HaveAVoice.Controllers.Admin {
     public class RoleController : AbstractRoleController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
@@ -166,6 +167,10 @@ namespace HaveAVoice.Controllers.Admin {
             }
 
             return new SelectList(myFinalRoles, "Value", "Text", aSelectedMoveToRoleId);
+        }
+
+        protected override ActionResult RedirectToProfile() {
+            return RedirectToAction("Show", "Profile");
         }
     }
 }

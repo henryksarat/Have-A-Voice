@@ -6,7 +6,7 @@ using HaveAVoice.Models.SocialWrappers;
 using HaveAVoice.Repositories.UserFeatures;
 using Social.Admin.Repositories;
 using Social.Generic.Models;
-using Social.User;
+using Social.User.Repositories;
 
 namespace HaveAVoice.Repositories.AdminFeatures {
     public class EntityHAVRoleRepository : IRoleRepository<User, Role, RolePermission> {

@@ -2,10 +2,10 @@
 using System.Web;
 using System.Web.Mvc;
 using HaveAVoice.Services.Clubs;
-using HaveAVoice.Services.UserFeatures;
 using Social.Authentication;
 using Social.Generic.ActionFilters;
 using Social.Generic.Models;
+using Social.Users.Services;
 using Social.Validation;
 using UniversityOfMe.Models;
 using UniversityOfMe.Repositories;

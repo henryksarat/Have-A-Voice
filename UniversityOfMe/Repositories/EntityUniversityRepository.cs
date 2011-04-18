@@ -18,6 +18,12 @@ namespace UniversityOfMe.Repositories {
                     select a).ToList<AcademicTerm>();
         }
 
+        public University GetUniversity(string aUniversityId) {
+            return (from u in theEntities.Universities
+                    where u.Id == aUniversityId
+                    select u).FirstOrDefault<University>();
+        }
+
         private UniversityEmail GetUniversityEmailFromEmail(string anEmail) {
             return (from ue in theEntities.UniversityEmails 
                     where ue.Email == anEmail

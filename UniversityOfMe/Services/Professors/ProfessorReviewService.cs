@@ -1,27 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using Social.Generic.Models;
+using Social.Validation;
 using UniversityOfMe.Models;
 using UniversityOfMe.Repositories.Professors;
-using UniversityOfMe.Services.Professors;
-using Social.Validation;
-using Social.Generic.Models;
-using UniversityOfMe.Services;
-using UniversityOfMe.Repositories;
-using Social.Generic.Exceptions;
-using UniversityOfMe.Helpers;
 
-namespace HaveAVoice.Services.Issues {
+namespace UniversityOfMe.Services.Professors {
     public class ProfessorReviewService : IProfessorReviewService {
         private IValidationDictionary theValidationDictionary;
         private IProfessorReviewRepository theProfessorReviewRepository;
-        private IUniversityService theUniversityService;
 
         public ProfessorReviewService(IValidationDictionary aValidationDictionary)
-            : this(aValidationDictionary, new EntityProfessorReviewRepository(), new UniversityService(new EntityUniversityRepository())) { }
+            : this(aValidationDictionary, new EntityProfessorReviewRepository()) { }
 
-        public ProfessorReviewService(IValidationDictionary aValidationDictionary, IProfessorReviewRepository aProfessorReviewRepo, IUniversityService aUniversityService) {
+        public ProfessorReviewService(IValidationDictionary aValidationDictionary, IProfessorReviewRepository aProfessorReviewRepo) {
             theValidationDictionary = aValidationDictionary;
             theProfessorReviewRepository = aProfessorReviewRepo;
-            theUniversityService = aUniversityService;
         }
 
         public bool CreateProfessorReview(UserInformationModel<User> aReviewingUser, ProfessorReview aProfessorReview) {
@@ -32,23 +24,6 @@ namespace HaveAVoice.Services.Issues {
             theProfessorReviewRepository.CreateProfessorReview(aReviewingUser.Details, aProfessorReview);
 
             return true;
-        }
-
-        public IEnumerable<ProfessorReview> GetProfessorReviews(UserInformationModel<User> aViewingUser, string aUniversityId, string aProfessorName) {
-            bool myIsFromUniversity = theUniversityService.IsFromUniversity(aViewingUser.Details, aUniversityId);
-
-            string[] mySplitName = URLHelper.FromUrlFriendly(aProfessorName);
-
-            if (mySplitName.Length != 2) {
-                throw new CustomException("The professors name doesn't have a first and last name.");
-            }
-            string myFirstname = mySplitName[0];
-            string myLastname = mySplitName[1];
-
-            if (myIsFromUniversity) {
-                return theProfessorReviewRepository.GetProfessorReviewsByUnversityAndName(aUniversityId, myFirstname, myLastname);
-            }
-            throw new CustomException(UOMErrorKeys.NOT_FROM_UNVIERSITY);
         }
 
         private bool ValidateProfessorReview(ProfessorReview aProfessorReview) {
