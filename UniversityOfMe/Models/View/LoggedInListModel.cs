@@ -3,7 +3,12 @@ using Social.BaseWebsite.Models;
 
 namespace UniversityOfMe.Models.View {
     public class LoggedInListModel<T> : ILoggedInListModel<T> {
+        public User User { get; private set; }
         private IEnumerable<T> Models;
+
+        public LoggedInListModel(User aUser) {
+            User = aUser;
+        }
 
         public IEnumerable<T> Get() {
             return Models;

@@ -102,7 +102,7 @@ namespace UniversityOfMe.Controllers.Messaging {
         }
 
         protected override ILoggedInListModel<InboxMessage> CreateLoggedInListModelForInbox(User aUser) {
-            return new LoggedInListModel<InboxMessage>();
+            return new LoggedInListModel<InboxMessage>(aUser);
         }
 
         protected override AbstractMessageModel<Message> CreateNewMessageSocialMessageModel(User aUser) {

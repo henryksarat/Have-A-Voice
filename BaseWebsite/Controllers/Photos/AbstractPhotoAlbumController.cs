@@ -128,8 +128,7 @@ namespace BaseWebsite.Controllers.Photos {
             return View(DETAILS_VIEW, myPhotoAlbum);
         }
 
-        [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData, ImportModelStateFromTempData]
-        public ActionResult Edit(int id) {
+        protected ActionResult Edit(int id) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
@@ -148,8 +147,7 @@ namespace BaseWebsite.Controllers.Photos {
             return View(EDIT_VIEW, myPhotoAlbum);
         }
 
-        [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
-        public ActionResult Edit(int albumId, string name, string description) {
+        protected ActionResult Edit(int albumId, string name, string description) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }

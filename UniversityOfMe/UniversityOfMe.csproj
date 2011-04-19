@@ -83,6 +83,8 @@
     <Compile Include="Controllers\GeneralPostings\GeneralPostingReplyController.cs" />
     <Compile Include="Controllers\Helpers\InstanceHelper.cs" />
     <Compile Include="Controllers\Messaging\MessageController.cs" />
+    <Compile Include="Controllers\Photos\PhotoAlbumController.cs" />
+    <Compile Include="Controllers\Photos\PhotoController.cs" />
     <Compile Include="Controllers\Professors\ProfessorReviewController.cs" />
     <Compile Include="Controllers\Professors\ProfessorController.cs" />
     <Compile Include="Controllers\University\UniversityController.cs" />
@@ -216,6 +218,10 @@
     <Content Include="Views\Permission\Delete.aspx" />
     <Content Include="Views\Permission\Edit.aspx" />
     <Content Include="Views\Permission\Index.aspx" />
+    <Content Include="Views\PhotoAlbum\Details.aspx" />
+    <Content Include="Views\PhotoAlbum\Edit.aspx" />
+    <Content Include="Views\PhotoAlbum\List.aspx" />
+    <Content Include="Views\Photo\Display.aspx" />
     <Content Include="Views\ProfessorReview\Create.aspx" />
     <Content Include="Views\Professor\Create.aspx" />
     <Content Include="Views\Professor\Details.aspx" />

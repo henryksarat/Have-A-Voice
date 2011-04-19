@@ -1,35 +1,35 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using BaseWebsite.Controllers.Photos;
-using HaveAVoice.Controllers.Helpers;
-using HaveAVoice.Helpers;
-using HaveAVoice.Helpers.UserInformation;
-using HaveAVoice.Models;
-using HaveAVoice.Models.SocialWrappers;
-using HaveAVoice.Models.View;
-using HaveAVoice.Repositories;
-using HaveAVoice.Repositories.UserFeatures;
-using HaveAVoice.Services.UserFeatures;
 using Social.Authentication;
 using Social.Authentication.Helpers;
 using Social.BaseWebsite.Models;
 using Social.Generic.Models;
 using Social.Generic.Services;
 using Social.Users.Services;
+using UniversityOfMe.Controllers.Helpers;
+using UniversityOfMe.Helpers;
+using UniversityOfMe.Models;
+using UniversityOfMe.Models.Social;
+using UniversityOfMe.Models.View;
+using UniversityOfMe.Repositories;
+using UniversityOfMe.Repositories.Friends;
+using UniversityOfMe.Repositories.Photos;
+using UniversityOfMe.UserInformation;
 
-namespace HaveAVoice.Controllers.Users.Photos {
-    public class PhotosController : AbstractPhotosController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline, PhotoAlbum, Photo, Friend> {
-        public PhotosController() : 
-            base(new BaseService<User>(new HAVBaseRepository()),
-                  UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository())),
-                  new HAVAuthenticationService(),
-                  new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()),
-                  new EntityHAVPhotoAlbumRepository(),
-                  new EntityHAVPhotoRepository(),
-                  new EntityHAVFriendRepository()) {
-            HAVUserInformationFactory.SetInstance(GetUserInformationInstance());
+namespace UniversityOfMe.Controllers.Photos {
+    public class PhotoController : AbstractPhotosController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline, PhotoAlbum, Photo, Friend> {
+        public PhotoController()
+            : base(new BaseService<User>(new EntityBaseRepository()), 
+                    UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())), 
+                    InstanceHelper.CreateAuthencationService(), 
+                    new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), 
+                    new EntityPhotoAlbumRepository(),
+                    new EntityPhotoRepository(),
+                    new EntityFriendRepository()) {
+            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
         }
-
+        
         [AcceptVerbs(HttpVerbs.Post)]
         new public ActionResult Create(int albumId, HttpPostedFileBase imageFile) {
             return base.Create(albumId, imageFile);
@@ -80,23 +80,23 @@ namespace HaveAVoice.Controllers.Users.Photos {
         }
 
         protected override string ErrorMessage(string aMessage) {
-            return MessageHelper.ErrorMessage(aMessage);
+            return aMessage;
         }
 
         protected override string NormalMessage(string aMessage) {
-            return MessageHelper.NormalMessage(aMessage);
+            return aMessage;
         }
 
         protected override string SuccessMessage(string aMessage) {
-            return MessageHelper.SuccessMessage(aMessage);
+            return aMessage;
         }
 
         protected override ILoggedInModel<Photo> CreateLoggedInWrapperModel(User aUser) {
-            return new LoggedInWrapperModel<Photo>(aUser, SiteSection.Photos);
+            return new LoggedInWrapperModel<Photo>(aUser);
         }
 
         protected override ActionResult RedirectToProfile() {
-            return RedirectToAction("Show", "Profile");
+            return RedirectToAction(UOMConstants.UNVIERSITY_MAIN_VIEW, UOMConstants.UNVIERSITY_MAIN_CONTROLLER, new { universityId = UniversityHelper.GetMainUniversity(GetUserInformaton()) });
         }
     }
 }

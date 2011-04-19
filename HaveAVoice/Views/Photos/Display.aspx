@@ -26,7 +26,7 @@
 	    <% if (myUserInformationModel.Details.Id == Model.Model.UploadedByUserId) { %>
 	        <%= Html.ActionLink("Set as profile picture", "SetProfilePicture", "Photos", new { id = Model.Model.Id }, new { @class = "button"}) %>
             <%= Html.ActionLink("Set as album cover", "SetAlbumCover", "Photos", new { id = Model.Model.Id }, new { @class = "button" })%>
-            <%= Html.ActionLink("Delete", "Delete", "Photos", new { id = Model.Model.Id }, new { @class = "button delete" }) %>
+            <%= Html.ActionLink("Delete", "Delete", "Photos", new { id = Model.Model.Id, albumId = Model.Get().PhotoAlbumId }, new { @class = "button delete" })%>
 	    <% } %>
 	    <div class="f-rgt">
 	    	<a href="<%= LinkHelper.Report(Model.Model.Id, ComplaintType.PhotoComplaint) %>" class="button delete">Report</a>

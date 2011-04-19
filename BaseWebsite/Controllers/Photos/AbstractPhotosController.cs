@@ -110,7 +110,7 @@ namespace BaseWebsite.Controllers.Photos {
             }
         }
 
-        protected ActionResult Delete(int id) {
+        protected ActionResult Delete(int id, int anAlbumId) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
@@ -118,6 +118,7 @@ namespace BaseWebsite.Controllers.Photos {
             try {
                 thePhotoService.DeletePhoto(CreateSocialUserModel(myUser), id);
                 TempData["Message"] = SuccessMessage(DELETE_SUCCESS);
+                return RedirectToAction(PHOTO_ALBUM_DETAILS, PHOTO_ALBUM_CONTROLLER, new { id = anAlbumId });
             } catch(CustomException e) {
                 TempData["Message"] = NormalMessage(e.Message);
             } catch (Exception e) {

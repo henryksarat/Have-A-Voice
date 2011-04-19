@@ -21,5 +21,13 @@ namespace UniversityOfMe.Helpers {
         public static string ProfileUrl(User aUser) {
             return "/" + aUser.ShortUrl;
         }
+
+        public static string PhotoAlbumDetailsUrl(PhotoAlbum aPhotoAlbum) {
+            return "/PhotoAlbum/Details/" + aPhotoAlbum.Id;
+        }
+
+        public static string PhotoDisplayUrl(Photo aPhoto) {
+            return "/Photo/Display/" + aPhoto.Id;
+        }
     }
 }

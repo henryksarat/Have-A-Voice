@@ -17,7 +17,13 @@
     <table>
         <tr>
             <td>
+                <img src="<%= PhotoHelper.ProfilePicture(Model.User) %>" />
+            </td>
+            <td>
                 <a href="/Message/Inbox"><%= Model.GetUnreadMessageCount() %> new messages</a>
+            </td>
+            <td>
+                <a href="/PhotoAlbum/List">My Photos</a>
             </td>
         </tr>
     </table>

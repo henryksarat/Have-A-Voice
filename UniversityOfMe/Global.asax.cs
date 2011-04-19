@@ -16,7 +16,19 @@ namespace UniversityOfMe {
             routes.MapRoute(
                 "DefaultMessage", // Route name
                 "Message/{action}/{id}", // URL with parameters
-                new { controller = "Message", action = "Create" } // Parameter defaults
+                new { controller = "Message", action = "Inbox" } // Parameter defaults
+            );
+
+            routes.MapRoute(
+                "DefaultPhotoAlbum", // Route name
+                "PhotoAlbum/{action}/{id}", // URL with parameters
+                new { controller = "PhotoAlbum", action = "List" } // Parameter defaults
+            );
+
+            routes.MapRoute(
+                "DefaultPhoto", // Route name
+                "Photo/{action}/{id}", // URL with parameters
+                new { controller = "Photo", action = "List" } // Parameter defaults
             );
 
             routes.MapRoute(

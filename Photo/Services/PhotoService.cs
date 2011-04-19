@@ -96,12 +96,12 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public void UploadImageWithDatabaseReference(AbstractUserModel<T> aUserToUploadFor, int anAlbumId, HttpPostedFileBase aImageFile) {
             AbstractPhotoAlbumModel<U, V> myAlbum = thePhotoAlbumRepo.GetAbstractPhotoAlbum(anAlbumId);
-             if (myAlbum.CreatedByUserId == aUserToUploadFor.Id) {
-                 string myImageName = UploadImage(aUserToUploadFor, aImageFile);
-                 thePhotoRepo.AddReferenceToImage(aUserToUploadFor.Model, anAlbumId, myImageName, false);
-             }
-
-             new CustomException(UNAUTHORIZED_UPLOAD);
+            if (myAlbum.CreatedByUserId == aUserToUploadFor.Id) {
+                string myImageName = UploadImage(aUserToUploadFor, aImageFile);
+                thePhotoRepo.AddReferenceToImage(aUserToUploadFor.Model, anAlbumId, myImageName, false);
+            } else {
+                new CustomException(UNAUTHORIZED_UPLOAD);
+            }
          }
 
         public void SetPhotoAsAlbumCover(AbstractUserModel<T> myEditingUser, int aPhotoId) {
@@ -115,7 +115,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         private string UploadImage(AbstractUserModel<T> aUserToUploadFor, HttpPostedFileBase aImageFile) {
-            if(!PhotoValidation.IsValidImageFile(aImageFile.FileName)) {
+            if(aImageFile == null || !PhotoValidation.IsValidImageFile(aImageFile.FileName)) {
                     throw new CustomException("Please specify a proper image file that ends in .gif, .jpg, or .jpeg.");
             }
             return PhotoHelper.TakeImageAndResizeAndUpload(Constants.PHOTO_LOCATION_FROM_VIEW, aUserToUploadFor.Id.ToString(), aImageFile, MAX_SIZE);

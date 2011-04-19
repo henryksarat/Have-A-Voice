@@ -29,5 +29,13 @@ namespace UniversityOfMe.Helpers {
         public static string ConstructUrl(string anImageName) {
             return Social.Photo.Helpers.PhotoHelper.ConstructUrl(anImageName);
         }
+
+        public static string PhotoAlbumCover(PhotoAlbum myPhotoAlbum) {
+            Photo myDefaultPhoto = (from p in myPhotoAlbum.Photos
+                                    where p.AlbumCover == true
+                                    select p).FirstOrDefault<Photo>();
+            string myPhotoAlbumCoverImageName = myDefaultPhoto != null ? myDefaultPhoto.ImageName : "whatever.jpb";
+            return ConstructUrl(myPhotoAlbumCoverImageName);
+        }
     }
 }
