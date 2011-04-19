@@ -13,9 +13,9 @@ namespace UniversityOfMe.Services.Users {
             : base(aValidationDictionary, new EntityUserRepository(), new SocialEmail()) {
             theUserRepository = new EntityUserRepository();
         }
-        
-        public IEnumerable<User> GetNewestUsers(string aUniversityId, int aLimit) {
-            return theUserRepository.GetNewestUserFromUniversity(aUniversityId, aLimit);
+
+        public IEnumerable<User> GetNewestUsers(User aRequestingUser, string aUniversityId, int aLimit) {
+            return theUserRepository.GetNewestUsersFromUniversity(aRequestingUser, aUniversityId, aLimit);
         }
     }
 }

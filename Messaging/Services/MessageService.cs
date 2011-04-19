@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Social.Generic.Models;
+using Social.Messaging.Helpers;
 using Social.Messaging.Repositories;
 using Social.Validation;
-using Social.Messaging.Helpers;
-using Social.User.Models;
 
 namespace Social.Messaging.Services {
     public class MessageService<T, U, V> : IMessageService<T, U, V> {
@@ -21,6 +20,14 @@ namespace Social.Messaging.Services {
                 return false;
             }
             theRepository.CreateMessage(fromUserId, messageToCreate.FromModel());
+            return true;
+        }
+
+        public bool CreateMessage(int aFromUserId, int aToUserId, string aSubject, string aBody) {
+            if (!ValidateMessage(aSubject, aBody)) {
+                return false;
+            }
+            theRepository.CreateMessage(aFromUserId, aToUserId, aSubject, aBody);
             return true;
         }
 
@@ -63,6 +70,18 @@ namespace Social.Messaging.Services {
             }
             if (message.Body.Trim().Length == 0) {
                 theValidationDictionary.AddError("Body", message.Body.Trim(), "Body is required.");
+            }
+
+            return theValidationDictionary.isValid;
+        }
+
+        public bool ValidateMessage(string aSubject, string aBody) {
+
+            if (aSubject.Trim().Length == 0) {
+                theValidationDictionary.AddError("Subject", aSubject.Trim(), "Subject is required.");
+            }
+            if (aBody.Trim().Length == 0) {
+                theValidationDictionary.AddError("Body", aBody.Trim(), "Body is required.");
             }
 
             return theValidationDictionary.isValid;

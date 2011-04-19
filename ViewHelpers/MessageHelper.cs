@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
-using HaveAVoice.Helpers;
-using Social.Generic.Helpers;
 
-namespace HaveAVoice.Helpers.UI {
+namespace Social.ViewHelpers {
     public class MessageHelper {
         public static string MessageList(int aFromUserId, string aFromUser, string aFromUserProfilePictureUrl, int aMessageId, string aSubject, string aBody, DateTime aDateTimeStamp, bool aViewed) {
         	var wrprDiv = new TagBuilder("div");
@@ -38,7 +36,7 @@ namespace HaveAVoice.Helpers.UI {
         	
 			var dtDiv = new TagBuilder("div");
 			dtDiv.MergeAttribute("class", "p-b10 fnt-10");
-			dtDiv.InnerHtml = DateHelper.ConvertToLocalTime(aDateTimeStamp).ToString("MMMM dd, yyyy");
+			dtDiv.InnerHtml = aDateTimeStamp.ToString("MMMM dd, yyyy");
 			
 			dtwrprDiv.InnerHtml += userLinkDiv.ToString();
 			dtwrprDiv.InnerHtml += clrDiv.ToString();
@@ -92,7 +90,6 @@ namespace HaveAVoice.Helpers.UI {
         	wrprDiv.MergeAttribute("class", "p-v10");
         	
             var imageTag = new TagBuilder("img");
-            /* HENRYK UPDATE URL TO BE THE ACTUAL USER IMAGE */
             imageTag.MergeAttribute("src", aFromUserProfilePictureUrl);
             imageTag.MergeAttribute("class", "profile sm");
 
@@ -116,7 +113,7 @@ namespace HaveAVoice.Helpers.UI {
             tableTag.InnerHtml += trTag.ToString();
 
             tdTag = new TagBuilder("td");
-            tdTag.InnerHtml = DateHelper.ConvertToLocalTime(dateTimeStamp).ToString();
+            tdTag.InnerHtml = dateTimeStamp.ToString();
             trTag.InnerHtml = tdTag.ToString();
             tableTag.InnerHtml += trTag.ToString();
 
@@ -152,7 +149,7 @@ namespace HaveAVoice.Helpers.UI {
         	
         	var dateSpan = new TagBuilder("span");
             dateSpan.MergeAttribute("class", "fnt-10");
-        	dateSpan.InnerHtml = DateHelper.ConvertToLocalTime(aDateTimeStamp).ToString("MMMM dd, yyyy");
+        	dateSpan.InnerHtml = aDateTimeStamp.ToString("MMMM dd, yyyy");
         	
         	nameDiv.InnerHtml += nameSpan.ToString();
         	nameDiv.InnerHtml += dateSpan.ToString();
@@ -188,7 +185,7 @@ namespace HaveAVoice.Helpers.UI {
             tableTag.InnerHtml += trTag.ToString();
 
             tdTag = new TagBuilder("td");
-            tdTag.InnerHtml = DateHelper.ConvertToLocalTime(dateTimeStamp).ToString();
+            tdTag.InnerHtml = dateTimeStamp.ToString();
             trTag.InnerHtml = tdTag.ToString();
             tableTag.InnerHtml += trTag.ToString();
 

@@ -1,7 +1,8 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInWrapperModel<Social.Generic.Models.AbstractMessageModel<Message>>>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInWrapperModel<User>>" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
-<%@ Import Namespace="HaveAVoice.Models.SocialWrappers" %>
+<%@ Import Namespace="HaveAVoice.Helpers" %>
+<%@ Import Namespace="HaveAVoice.Services.Helpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Send a Message
@@ -20,21 +21,19 @@
 	    <div class="clear">&nbsp;</div>
 	    
 	    <div class="col-3">
-        <%= Model.Get().ToUserFullName %>
-	    	<img src="<%=Model.Model.ToUserProfilePictureUrl %>" alt="<%= Model.Model.ToUserFullName %>" class="profile" />
+        <%= NameHelper.FullName(Model.Get()) %>
+	    	<img src="<%= PhotoHelper.ProfilePicture(Model.Get()) %>" alt="<%= NameHelper.FullName(Model.Get()) %>" class="profile" />
 	    	<div class="clear">&nbsp;</div>
 	    </div>
 	    <div class="col-18">
 	    	<div class="col-18">
-	    		<h4><%= Html.Encode("Message: " + Model.Get().ToUserFullName)%></h4>
+	    		<h4><%= Html.Encode("Message: " + NameHelper.FullName(Model.Get()))%></h4>
 				<div class="clear">&nbsp;</div>
 	    	</div>
 	    	<div class="clear">&nbsp;</div>
 	    	
 	        <% using (Html.BeginForm("Create", "Message", FormMethod.Post, new { @class = "create" })) { %>
-		        <%= Html.Hidden("ToUserId", Model.Model.ToUserId)%>
-		        <%= Html.Hidden("ToFullName", Model.Get().ToUserFullName)%>
-		        <%= Html.Hidden("ToUserProfilePictureUrl", Model.Model.ToUserProfilePictureUrl)%>
+		        <%= Html.Hidden("ToUserId", Model.Get().Id)%>
 		        
 		        <div class="clear">&nbsp;</div>
 		        

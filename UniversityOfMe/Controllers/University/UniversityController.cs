@@ -37,8 +37,10 @@ namespace UniversityOfMe.Controllers.Clubs {
             }
 
             try {
+                LoggedInWrapperModel<UniversityView> myLoggedInModel = new LoggedInWrapperModel<UniversityView>(GetUserInformatonModel().Details);
                 UniversityView myUniveristyView = theUniversityService.GetUniversityProfile(GetUserInformatonModel(), universityId);
-                return View("Main", myUniveristyView);
+                myLoggedInModel.Set(myUniveristyView);
+                return View("Main", myLoggedInModel);
             } catch (Exception myException) {
                 LogError(myException, UNIVERSITY_PROFILE_ERROR);
                 return SendToErrorPage(UNIVERSITY_PROFILE_ERROR);

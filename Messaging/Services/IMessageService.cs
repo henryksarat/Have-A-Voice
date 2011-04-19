@@ -6,6 +6,7 @@ using Social.User.Models;
 namespace Social.Messaging.Services {
     public interface IMessageService<T, U, V> {
         bool CreateMessage(int fromUserId, AbstractMessageModel<U> messageToCreate);
+        bool CreateMessage(int afromUserId, int aToUserId, string aSubject, string aBody);
         IEnumerable<InboxMessage> GetMessagesForUser(AbstractUserModel<T> toUser);
         void DeleteMessages(List<Int32> messagesToDelete, T user);
         U GetMessage(int messageId, T user);

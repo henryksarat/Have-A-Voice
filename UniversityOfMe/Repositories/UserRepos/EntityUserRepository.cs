@@ -67,11 +67,12 @@ namespace UniversityOfMe.Repositories.UserRepos {
                     select c).Count() != 0 ? true : false;
         }
 
-        public IEnumerable<User> GetNewestUserFromUniversity(string aUniversity, int aLimit) {
+        public IEnumerable<User> GetNewestUsersFromUniversity(User aRequestingUser, string aUniversity, int aLimit) {
             return (from u in theEntities.Users
                     join uu in theEntities.UserUniversities on u.Id equals uu.UserId
                     join ue in theEntities.UniversityEmails on uu.UniversityEmailId equals ue.Email
                     where ue.UniversityId == aUniversity
+                    && u.Id != aRequestingUser.Id
                     select u).Take<User>(aLimit).ToList<User>();
                     
         }

@@ -227,7 +227,6 @@
     <Compile Include="Helpers\HAVConstants.cs" />
     <Compile Include="Helpers\UserInformation\HAVUserInformationFactory.cs" />
     <Compile Include="Helpers\UI\IssueHelper.cs" />
-    <Compile Include="Helpers\UI\MessageHelper.cs" />
     <Compile Include="Helpers\UserInformation\RestrictionLog.cs" />
     <Compile Include="Helpers\SelectionHelper.cs" />
     <Compile Include="Services\Helpers\TimezoneHelper.cs" />

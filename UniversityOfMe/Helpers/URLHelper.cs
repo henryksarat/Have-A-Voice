@@ -17,5 +17,9 @@ namespace UniversityOfMe.Helpers {
         public static string BuildClassUrl(Class aClass) {
             return "/" + aClass.UniversityId + "/Class/Details/" + String.Join("_", aClass.ClassCode, aClass.AcademicTermId, aClass.Year);
         }
+
+        public static string ProfileUrl(User aUser) {
+            return "/" + aUser.ShortUrl;
+        }
     }
 }

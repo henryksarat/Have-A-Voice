@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using HaveAVoice.Models.View;
-using System.Data.Objects;
-using HaveAVoice.Models;
-using Social.Messaging.Repositories;
 using Social.Generic.Models;
-using HaveAVoice.Models.SocialWrappers;
+using Social.Messaging.Repositories;
+using UniversityOfMe.Models;
+using UniversityOfMe.Models.Social;
+using UniversityOfMe.Models.SocialWrappers;
 
-namespace HaveAVoice.Repositories.UserFeatures {
-    public class EntityHAVMessageRepository : IMessageRepository<User, Message, Reply> {
-        private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
+namespace UniversityOfMe.Repositories.Messaging {
+    public class EntityMessageRepository : IMessageRepository<User, Message, MessageReply> {
+        private UniversityOfMeEntities theEntities = new UniversityOfMeEntities();
 
         public IEnumerable<Message> GetAllMessages() {
             return theEntities.Messages.ToList<Message>();
@@ -62,7 +60,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         public Message GetMessage(User aViewingUser, int aMessageId) {
-            return (from m in theEntities.Messages.Include("FromUser").Include("Replys.User")
+            return (from m in theEntities.Messages.Include("FromUser").Include("MessageReplies.User")
                     where m.Id == aMessageId
                     && ((aViewingUser.Id == m.ToUserId && !m.ToDeleted) || (aViewingUser.Id == m.FromUserId && !m.FromDeleted))
                     select m).FirstOrDefault<Message>();
@@ -73,23 +71,23 @@ namespace HaveAVoice.Repositories.UserFeatures {
             return myMessage.FromUserId == aUser.Id || myMessage.ToUserId == aUser.Id;
         }
 
-        public IEnumerable<Reply> GetAllReplys() {
-            return theEntities.Replys.ToList<Reply>();
+        public IEnumerable<MessageReply> GetAllReplys() {
+            return theEntities.MessageReplies.ToList<MessageReply>();
         }
 
-        public IEnumerable<AbstractReplyModel<Reply>> GetAllReplysAsAbstract() {
-            IEnumerable<Reply> myReplies =  (from r in theEntities.Replys
-                                             select r).ToList<Reply>();
-            IEnumerable<AbstractReplyModel<Reply>> myAbstracts = (from r in myReplies
-                                                                  select SocialReplyWrapper.Create(r))
-                                                                  .ToList<AbstractReplyModel<Reply>>();
+        public IEnumerable<AbstractReplyModel<MessageReply>> GetAllReplysAsAbstract() {
+            IEnumerable<MessageReply> myReplies = (from r in theEntities.MessageReplies
+                                                   select r).ToList<MessageReply>();
+            IEnumerable<AbstractReplyModel<MessageReply>> myAbstracts = (from r in myReplies
+                                                                         select SocialMessageReplyModel.Create(r))
+                                                                         .ToList<AbstractReplyModel<MessageReply>>();
             return myAbstracts;
         }
 
         public AbstractMessageModel<Message> CreateReply(int messageId, User user, string body) {
             Message message = GetMessage(messageId);
 
-            Reply myReply = Reply.CreateReply(0, user.Id, messageId, body, DateTime.UtcNow);
+            MessageReply myReply = MessageReply.CreateMessageReply(0, user.Id, messageId, body, DateTime.UtcNow);
 
             bool updatedRepliedTo = false;
 
@@ -102,7 +100,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
                 theEntities.ApplyCurrentValues(message.EntityKey.EntitySetName, message);
             }
 
-            theEntities.AddToReplys(myReply);
+            theEntities.AddToMessageReplies(myReply);
             theEntities.SaveChanges();
 
             return SocialMessageModel.Create(message);
@@ -141,7 +139,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         private Message GetMessage(int aMessageId) {
-            return (from m in theEntities.Messages.Include("FromUser").Include("Replys.User")
+            return (from m in theEntities.Messages.Include("FromUser").Include("MessageReplies.User")
                     where m.Id == aMessageId
                     select m).FirstOrDefault<Message>();
         }

@@ -96,7 +96,7 @@ namespace UniversityOfMe.Services {
                 TextBooks = myTextBooks,
                 Organizations = myOrganizations,
                 GeneralPostings = myGeneralPostings,
-                NewestUsers = theUserService.GetNewestUsers(aUniversityId, 10)
+                NewestUsers = theUserService.GetNewestUsers(aUserInformation.Details, aUniversityId, 10)
             };
         }
 

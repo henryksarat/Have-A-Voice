@@ -3,37 +3,33 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 using BaseWebsite.Controllers.Messaging;
-using HaveAVoice.Controllers.Helpers;
-using HaveAVoice.Helpers;
-using HaveAVoice.Helpers.UserInformation;
-using HaveAVoice.Models;
-using HaveAVoice.Models.SocialWrappers;
-using HaveAVoice.Models.View;
-using HaveAVoice.Repositories;
-using HaveAVoice.Repositories.UserFeatures;
-using HaveAVoice.Services.Helpers;
-using HaveAVoice.Services.UserFeatures;
 using Social.Authentication;
 using Social.Authentication.Helpers;
 using Social.BaseWebsite.Models;
 using Social.Generic.ActionFilters;
 using Social.Generic.Models;
 using Social.Generic.Services;
-using Social.Messaging.Services;
-using Social.User.Services;
 using Social.Users.Services;
+using UniversityOfMe.Controllers.Helpers;
+using UniversityOfMe.Helpers;
+using UniversityOfMe.Models;
+using UniversityOfMe.Models.Social;
+using UniversityOfMe.Models.View;
+using UniversityOfMe.Repositories;
+using UniversityOfMe.Repositories.Messaging;
+using UniversityOfMe.Repositories.UserRepos;
+using UniversityOfMe.UserInformation;
 
-namespace HaveAVoice.Controllers.Users {
-    public class MessageController : AbstractMessageController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline, Message, Reply> {
-        public MessageController() :
-            base(new BaseService<User>(new HAVBaseRepository()),
-                  UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository())),
-                  new HAVAuthenticationService(),
-                  new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()),
-                  new EntityHAVUserRetrievalRepository(),
-                  new EntityHAVMessageRepository()) {
-            HAVUserInformationFactory.SetInstance(GetUserInformationInstance());
+namespace UniversityOfMe.Controllers.Messaging {
+    public class MessageController : AbstractMessageController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline, Message, MessageReply> {
+        public MessageController()
+            : base(new BaseService<User>(new EntityBaseRepository()), 
+            UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())),
+            InstanceHelper.CreateAuthencationService(),
+            new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new EntityUserRetrievalRepository(), new EntityMessageRepository()) {
+            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
         }
+
 
         [AcceptVerbs(HttpVerbs.Get)]
         new public ActionResult Inbox() {
@@ -45,12 +41,12 @@ namespace HaveAVoice.Controllers.Users {
             return base.Inbox(selectedMessages);
         }
 
-        [AcceptVerbs(HttpVerbs.Get)]
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         new public ActionResult Create(int id) {
             return base.Create(id);
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
         new public ActionResult Create(int toUserId, string subject, string body) {
             return base.Create(toUserId, subject, body);
         }
@@ -61,8 +57,8 @@ namespace HaveAVoice.Controllers.Users {
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
-        public ActionResult CreateReply(Message message, string reply) {
-            return base.CreateReply(message.Id, reply);
+        new public ActionResult CreateReply(int messageId, string reply) {
+            return base.CreateReply(messageId, reply);
         }
 
         protected override AbstractUserModel<User> GetSocialUserInformation() {
@@ -90,15 +86,15 @@ namespace HaveAVoice.Controllers.Users {
         }
 
         protected override string ErrorMessage(string aMessage) {
-            return MessageHelper.ErrorMessage(aMessage);
+            return aMessage;
         }
 
         protected override string NormalMessage(string aMessage) {
-            return MessageHelper.NormalMessage(aMessage);
+            return aMessage;
         }
 
         protected override string SuccessMessage(string aMessage) {
-            return MessageHelper.SuccessMessage(aMessage);
+            return aMessage;
         }
 
         private bool isSelf(int id) {
@@ -106,7 +102,7 @@ namespace HaveAVoice.Controllers.Users {
         }
 
         protected override ILoggedInListModel<InboxMessage> CreateLoggedInListModelForInbox(User aUser) {
-            return new LoggedInListModel<InboxMessage>(aUser, SiteSection.Message);
+            return new LoggedInListModel<InboxMessage>();
         }
 
         protected override AbstractMessageModel<Message> CreateNewMessageSocialMessageModel(User aUser) {
@@ -118,7 +114,7 @@ namespace HaveAVoice.Controllers.Users {
         }
 
         protected override ILoggedInModel<Message> CreatedLoggedInModelForViewingMessage(User aUser) {
-            return new LoggedInWrapperModel<Message>(aUser, SiteSection.Message);
+            return new LoggedInWrapperModel<Message>(aUser);
         }
 
         protected override ActionResult RedirectToProfile() {
@@ -126,7 +122,7 @@ namespace HaveAVoice.Controllers.Users {
         }
 
         protected override ILoggedInModel<User> CreatedLoggedInModelForCreatingAMessage(User aUser) {
-            return new LoggedInWrapperModel<User>(aUser, SiteSection.Message);
+            return new LoggedInWrapperModel<User>(aUser);
         }
     }
 }

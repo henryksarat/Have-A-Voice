@@ -30,6 +30,7 @@ namespace BaseWebsite.Controllers.Messaging {
         private const string SEND_SUCCESS = "Message sent successfully!";
         private const string REPLY_SUCCESS = "Reply sent successfully!";
         private const string NO_MESSAGES_TO_DELETE = "No messages selected to be deleted.";
+        private const string MESSAGES_DELETED = "Messages deleted successfully!";
 
         private const string INBOX_LOAD_ERROR = "An error occurred while trying to load your inbox. Please try again.";
         private const string USER_RETRIEVAL_ERROR = "Unable to retreieve the users information. Please try again.";
@@ -37,6 +38,7 @@ namespace BaseWebsite.Controllers.Messaging {
         private const string RETRIEVE_ERROR = "Error retrieving the message. Please try again.";
         private const string REPLY_ERROR = "An error occurred while sending the reply. Please try again.";
 
+        private const string CONTROLLER_NAME = "Message";
         private const string ERROR_MESSAGE_VIEWDATA = "Message";
         private const string INBOX_VIEW = "Inbox";
         private const string CREATE_VIEW = "Create";
@@ -55,10 +57,9 @@ namespace BaseWebsite.Controllers.Messaging {
         }
 
         protected abstract ILoggedInListModel<InboxMessage> CreateLoggedInListModelForInbox(T aUser);
-        protected abstract ILoggedInModel<AbstractMessageModel<A>> CreatedLoggedInModelForMessageCreate(T aUser);
         protected abstract ILoggedInModel<A> CreatedLoggedInModelForViewingMessage(T aUser);
+        protected abstract ILoggedInModel<T> CreatedLoggedInModelForCreatingAMessage(T aUser);
         protected abstract AbstractMessageModel<A> CreateNewMessageSocialMessageModel(T aUser);
-        protected abstract int GetMessageIdFromMessage(A aMessage);
 
         protected ActionResult Inbox() {
             if (!IsLoggedIn()) {
@@ -91,6 +92,8 @@ namespace BaseWebsite.Controllers.Messaging {
                     TempData["Message"] = NormalMessage(NO_MESSAGES_TO_DELETE);
                 } else {
                     theService.DeleteMessages(selectedMessages, myUser);
+                    RefreshUserInformation();
+                    TempData["Message"] = SuccessMessage(MESSAGES_DELETED);
                 }
             } catch (Exception e) {
                 LogError(e, ErrorKeys.ERROR_MESSAGE);
@@ -111,10 +114,10 @@ namespace BaseWebsite.Controllers.Messaging {
 
             T myUser = theUserRetrievalService.GetUser(id);
 
-            ILoggedInModel<AbstractMessageModel<A>> myModel = CreatedLoggedInModelForMessageCreate(myUser);
+            ILoggedInModel<T> myModel = CreatedLoggedInModelForCreatingAMessage(myUser);
 
             try {
-                myModel.Set(CreateNewMessageSocialMessageModel(myUser));
+                myModel.Set(myUser);
                 return View(CREATE_VIEW, myModel);
             } catch (Exception e) {
                 LogError(e, USER_RETRIEVAL_ERROR);
@@ -122,24 +125,22 @@ namespace BaseWebsite.Controllers.Messaging {
             }
         }
 
-        protected ActionResult Create(AbstractMessageModel<A> aMessage) {
+        protected ActionResult Create(int aToUserId, string aSubject, string aBody) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
             try {
-                if (theService.CreateMessage(UserId(), aMessage)) {
+                if (theService.CreateMessage(UserId(), aToUserId, aSubject, aBody)) {
                     TempData["Message"] = SuccessMessage(SEND_SUCCESS);
-                    return RedirectToProfile(aMessage.ToUserId);
+                    return RedirectToProfile(aToUserId);
                 }
             } catch (Exception e) {
                 LogError(e, SEND_ERROR);
-                ViewData[ERROR_MESSAGE_VIEWDATA] = ErrorMessage(SEND_ERROR);
+                TempData[ERROR_MESSAGE_VIEWDATA] = ErrorMessage(SEND_ERROR);
+                theValidationDictionary.ForceModleStateExport();
             }
 
-            T myUser = GetUserInformaton();
-            ILoggedInModel<AbstractMessageModel<A>> myModel = CreatedLoggedInModelForMessageCreate(myUser);
-            myModel.Set(aMessage);
-            return View(CREATE_VIEW, myModel);
+            return RedirectToAction(CREATE_VIEW, CONTROLLER_NAME, new { id = aToUserId });
         }
 
         protected ActionResult Details(int id) {
@@ -169,14 +170,14 @@ namespace BaseWebsite.Controllers.Messaging {
             }
         }
 
-        protected ActionResult CreateReply(A aMessage, string aReply) {
+        protected ActionResult CreateReply(int aMessageId, string aReply) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
 
             try {
                 T myUser = GetUserInformaton();
-                if (theService.CreateReply(GetMessageIdFromMessage(aMessage), myUser, aReply)) {
+                if (theService.CreateReply(aMessageId, myUser, aReply)) {
                     TempData["Message"] = SuccessMessage(REPLY_SUCCESS);
                 }
             } catch (Exception e) {
@@ -185,7 +186,7 @@ namespace BaseWebsite.Controllers.Messaging {
                 theValidationDictionary.ForceModleStateExport();
             }
 
-            return RedirectToAction(VIEW_MESSAGE_VIEW, new { id = GetMessageIdFromMessage(aMessage) });
+            return RedirectToAction(VIEW_MESSAGE_VIEW, new { id = aMessageId });
         }
 
         private bool isSelf(int id) {

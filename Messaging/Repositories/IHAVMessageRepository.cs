@@ -7,6 +7,7 @@ namespace Social.Messaging.Repositories {
         IEnumerable<U> GetAllMessages();
         IEnumerable<AbstractMessageModel<U>> GetAllMessagesAsAbstract();
         U CreateMessage(int fromUserId, U messageToCreate);
+        U CreateMessage(int aFromUserId, int aToUserId, string aSubject, string aBody);
         void DeleteMessages(List<Int32> messagesToDelete, T user);
         U GetMessage(T aViewingUser, int messageId);
         bool UserInvolvedInMessage(T aUser, int aMessageId);
