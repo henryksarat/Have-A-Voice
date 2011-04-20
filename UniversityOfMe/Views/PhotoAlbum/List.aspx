@@ -20,7 +20,7 @@
         <%= Html.ActionLink("Edit", "Edit", "PhotoAlbum", new { id = myPhotoAlbum.Id }, null) %><br /><br />
     <% } %>
 	
-    <% using (Html.BeginForm("Create", "PhotoAlbum")) {%>
+    <% using (Html.BeginForm("Create", "PhotoAlbum",FormMethod.Post)) {%>
         <div class="editor-label">
             <%: Html.Label("Name") %>
         </div>

@@ -7,6 +7,7 @@ using Social.User.Exceptions;
 using UniversityOfMe.Models;
 using UniversityOfMe.Models.Social;
 using UniversityOfMe.Repositories.AdminRepos;
+using UniversityOfMe.Helpers;
 
 namespace UniversityOfMe.Repositories.UserRepos {
     public class EntityUserRepository : IUofMeUserRepository {
@@ -95,8 +96,28 @@ namespace UniversityOfMe.Repositories.UserRepos {
 
         public void UpdateUser(User userToEdit) {
             User originalUser = GetUser(userToEdit.Id);
+
+            DeleteCurrentUserUniversities(userToEdit);
+            string myEmail = EmailHelper.ExtractEmailExtension(userToEdit.Email);
+            UserUniversity myUserUniversity = UserUniversity.CreateUserUniversity(0, userToEdit.Id, myEmail);
+            
+            theEntities.AddToUserUniversities(myUserUniversity);
             theEntities.ApplyCurrentValues(originalUser.EntityKey.EntitySetName, userToEdit);
+
             theEntities.SaveChanges();
+        }
+
+        private void DeleteCurrentUserUniversities(User aUser) {
+            IEnumerable<UserUniversity> myUserUniversities = GetUserUniversities(aUser);
+            foreach(UserUniversity myUserUniversity in myUserUniversities) {
+                theEntities.DeleteObject(myUserUniversity);
+            }
+        }
+
+        private IEnumerable<UserUniversity> GetUserUniversities(User aUser) {
+            return (from uu in theEntities.UserUniversities
+                    where uu.UserId == aUser.Id
+                    select uu).ToList<UserUniversity>();
         }
 
         private UserRole GetUserRole(User user, Role role) {

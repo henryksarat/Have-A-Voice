@@ -25,6 +25,9 @@
             <td>
                 <a href="/PhotoAlbum/List">My Photos</a>
             </td>
+            <td>
+                <a href="/User/Edit">Account Settings</a>
+            </td>
         </tr>
     </table>
     <table>

@@ -43,7 +43,8 @@ namespace BaseWebsite.Controllers.Boards {
             ILoggedInModel<A> myModel = CreateLoggedInWrapperModel(myUser); 
             
             try {
-                myModel.Set(theService.GetBoard(GetUserInformatonModel(), id));
+                A myBoard = theService.GetBoard(GetUserInformatonModel(), id);
+                myModel.Set(myBoard);
             } catch (Exception myException) {
                 LogError(myException, VIEW_BOARD_ERROR);
                 return SendToErrorPage(VIEW_BOARD_ERROR);

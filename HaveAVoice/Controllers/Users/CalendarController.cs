@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
-using Generic.ActionFilters.ActionFilters;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models;

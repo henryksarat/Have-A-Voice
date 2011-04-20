@@ -11,6 +11,9 @@ namespace UniversityOfMe.Models.View {
             DateOfBirth = DateTime.UtcNow;
         }
 
+        protected CreateUserModel(User aUser)
+            : base(aUser) { }
+
         public string getDateOfBirthFormatted() {
             return DateOfBirth.ToString("MM-dd-yyyy");
         }

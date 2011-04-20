@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Web.Mvc;
-using Generic.ActionFilters.ActionFilters;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
-using HaveAVoice.Repositories;
 using HaveAVoice.Services.UserFeatures;
-using Social.Generic.Services;
+using Social.Generic.ActionFilters;
 
 namespace HaveAVoice.Controllers.Users {
     public class FanController : HAVBaseController {

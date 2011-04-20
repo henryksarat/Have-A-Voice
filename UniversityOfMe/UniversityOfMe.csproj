@@ -71,6 +71,8 @@
     <Compile Include="Controllers\Admin\AdminController.cs" />
     <Compile Include="Controllers\Admin\PermissionController.cs" />
     <Compile Include="Controllers\Admin\RoleController.cs" />
+    <Compile Include="Controllers\Boards\BoardController.cs" />
+    <Compile Include="Controllers\Boards\BoardReplyController.cs" />
     <Compile Include="Controllers\Classes\ClassController.cs" />
     <Compile Include="Controllers\Classes\ClassReplyController.cs" />
     <Compile Include="Controllers\Clubs\ClubBoardController.cs" />
@@ -87,6 +89,7 @@
     <Compile Include="Controllers\Photos\PhotoController.cs" />
     <Compile Include="Controllers\Professors\ProfessorReviewController.cs" />
     <Compile Include="Controllers\Professors\ProfessorController.cs" />
+    <Compile Include="Controllers\Users\ProfileController.cs" />
     <Compile Include="Controllers\University\UniversityController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\TextBooks\TextBookController.cs" />
@@ -105,11 +108,14 @@
     <Compile Include="Helpers\ProfilePictureStrategy.cs" />
     <Compile Include="Helpers\RegistrationStrategy.cs" />
     <Compile Include="Helpers\SelectionHelper.cs" />
+    <Compile Include="Helpers\SiteSection.cs" />
     <Compile Include="Helpers\TextShortener.cs" />
     <Compile Include="Helpers\UniversityHelper.cs" />
     <Compile Include="Helpers\UOMConstants.cs" />
     <Compile Include="Helpers\UOMErrorKeys.cs" />
     <Compile Include="Helpers\URLHelper.cs" />
+    <Compile Include="Models\Social\SocialBoardModel.cs" />
+    <Compile Include="Models\Social\SocialBoardReplyModel.cs" />
     <Compile Include="Models\Social\SocialMessageModel.cs" />
     <Compile Include="Models\Social\SocialPermissionModel.cs" />
     <Compile Include="Models\Social\SocialPhotoAlbumModel.cs" />
@@ -125,6 +131,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UniversityOfMeDBModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\View\EditUserModel.cs" />
     <Compile Include="Models\View\EventViewModel.cs" />
     <Compile Include="Models\View\CreateClassModel.cs" />
     <Compile Include="Models\View\CreateTextBookModel.cs" />
@@ -138,6 +145,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AdminRepos\EntityPermissionRepository.cs" />
     <Compile Include="Repositories\AdminRepos\EntityRoleRepository.cs" />
+    <Compile Include="Repositories\Boards\EntityBoardRepository.cs" />
+    <Compile Include="Repositories\Boards\IBoardRepository.cs" />
     <Compile Include="Repositories\Classes\EntityClassRepository.cs" />
     <Compile Include="Repositories\Classes\IClassRepository.cs" />
     <Compile Include="Repositories\Clubs\EntityClubRepository.cs" />
@@ -198,6 +207,7 @@
     <Content Include="Photos\no_profile_picture.jpg" />
     <Content Include="Views\Admin\Index.aspx" />
     <Content Include="Views\Authentication\Login.aspx" />
+    <Content Include="Views\Board\Details.aspx" />
     <Content Include="Views\Class\Create.aspx" />
     <Content Include="Views\Class\Details.aspx" />
     <Content Include="Views\Class\List.aspx" />
@@ -226,6 +236,7 @@
     <Content Include="Views\Professor\Create.aspx" />
     <Content Include="Views\Professor\Details.aspx" />
     <Content Include="Views\Professor\List.aspx" />
+    <Content Include="Views\Profile\Show.aspx" />
     <Content Include="Views\Role\Create.aspx" />
     <Content Include="Views\Role\Delete.aspx" />
     <Content Include="Views\Role\Edit.aspx" />
@@ -240,6 +251,7 @@
     <Content Include="Views\TextBook\List.aspx" />
     <Content Include="Views\University\Main.aspx" />
     <Content Include="Views\User\Create.aspx" />
+    <Content Include="Views\User\Edit.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -266,7 +278,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ClubPhotos\" />
-    <Folder Include="Controllers\Profile\" />
     <Folder Include="Models\Wrappers\" />
     <Folder Include="TextBookPhotos\" />
   </ItemGroup>
@@ -288,6 +299,10 @@
     <ProjectReference Include="..\BaseWebsite\BaseWebsite.csproj">
       <Project>{D26AE180-BD39-4C37-BE71-54D645D5320D}</Project>
       <Name>BaseWebsite</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Board\Board.csproj">
+      <Project>{755E3949-7FFD-44DC-84A2-639BA4BED8A2}</Project>
+      <Name>Board</Name>
     </ProjectReference>
     <ProjectReference Include="..\Email\Email.csproj">
       <Project>{E1E6EFDF-E70F-4413-8C2D-E51A2F6310F2}</Project>

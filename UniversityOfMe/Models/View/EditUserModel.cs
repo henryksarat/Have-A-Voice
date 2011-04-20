@@ -3,11 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using Social.Generic.Constants;
 
-namespace HaveAVoice.Models.View {
+namespace UniversityOfMe.Models.View {
     public class EditUserModel : CreateUserModel {
-
-        public User UserInformation { get; set; }
-
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string OriginalFullName { get; set; }
 
@@ -32,22 +29,16 @@ namespace HaveAVoice.Models.View {
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string ProfilePictureURL { get; set; }
 
+        public IEnumerable<SelectListItem> States { get; set; }
+
         public EditUserModel() { }
 
-        public EditUserModel(User aUser) {
-            UserInformation = aUser;
+        public EditUserModel(User aUser) : base(aUser) {
             NewPassword = string.Empty;
             RetypedPassword = string.Empty;
             ProfilePictureURL = Constants.NO_PROFILE_PICTURE_URL;
             States = new List<SelectListItem>();
             Genders = new List<SelectListItem>();
-        }
-
-        public override User CreateNewModel() {
-            User myUser = base.CreateNewModel();
-            myUser.Website = Website;
-            myUser.AboutMe = AboutMe;
-            return myUser;
         }
     }
 }

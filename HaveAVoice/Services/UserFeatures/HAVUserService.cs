@@ -85,7 +85,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 return false;
             }
 
-            if (aUser.NewPassword != string.Empty && !ValidatePassword(aUser.NewPassword, aUser.RetypedPassword)) {
+            if (aUser.NewPassword != string.Empty && !PasswordValidation.ValidPassword(theValidationDictionary, aUser.NewPassword, aUser.RetypedPassword)) {
                 return false;
             } 
 
@@ -188,6 +188,8 @@ namespace HaveAVoice.Services.UserFeatures {
         private bool ValidateEditedUser(EditUserModel aUser, string aOriginalEmail) {
             ValidEmail(aUser.Email, aOriginalEmail);
 
+            DateOfBirthValidation.ValidDateOfBirth(theValidationDictionary, aUser.DateOfBirth);
+
             if (aUser.FirstName.Trim().Length == 0) {
                 theValidationDictionary.AddError("FirstName", aUser.FirstName.Trim(), "First name is required.");
             }
@@ -208,18 +210,14 @@ namespace HaveAVoice.Services.UserFeatures {
             }
             if (!EmailValidation.IsValidEmail(aUser.Email)) {
                 theValidationDictionary.AddError("Email", aUser.Email, INVALID_EMAIL);
-            }
-            if (aUser.DateOfBirth.Year == 1) {
-                theValidationDictionary.AddError("DateOfBirth", aUser.DateOfBirth.ToString(), "Date of Birth required.");
-            }
-            if (aUser.DateOfBirth > DateTime.Today.AddYears(-18)) {
-                theValidationDictionary.AddError("DateOfBirth", aUser.DateOfBirth.ToString(), "You must be at least 18 years old.");
             }
 
             return theValidationDictionary.isValid;
         }
 
         private bool ValidateUser(User aUser) {
+            DateOfBirthValidation.ValidDateOfBirth(theValidationDictionary, aUser.DateOfBirth);
+
             if (aUser.FirstName.Trim().Length == 0) {
                 theValidationDictionary.AddError("FirstName", aUser.FirstName.Trim(), "First name is required.");
             }
@@ -240,25 +238,6 @@ namespace HaveAVoice.Services.UserFeatures {
             }
             if (!EmailValidation.IsValidEmail(aUser.Email)) {
                 theValidationDictionary.AddError("Email", aUser.Email, INVALID_EMAIL);
-            }
-            if (aUser.DateOfBirth.Year == 1) {
-                theValidationDictionary.AddError("DateOfBirth", aUser.DateOfBirth.ToString(), "Date of Birth required.");
-            }
-            if (aUser.DateOfBirth > DateTime.Today.AddYears(-18)) {
-                theValidationDictionary.AddError("DateOfBirth", aUser.DateOfBirth.ToString(), "You must be at least 18 years old.");
-            }
-
-            return theValidationDictionary.isValid;
-        }
-
-        private bool ValidatePassword(string aPassword, string aRetypedPassword) {
-            if (aPassword.Trim().Length == 0) {
-                theValidationDictionary.AddError("Password", "", "Password is required.");
-            }
-            if (aRetypedPassword == null || aRetypedPassword.Trim().Length == 0) {
-                theValidationDictionary.AddError("RetypedPassword", "", "Please type your password again.");
-            } else if (!aPassword.Equals(aRetypedPassword)) {
-                theValidationDictionary.AddError("RetypedPassword", "", "Passwords must match.");
             }
 
             return theValidationDictionary.isValid;

@@ -7,6 +7,8 @@ using Social.Admin.Exceptions;
 using Social.Admin.Repositories;
 using Social.Generic.Models;
 using Social.User.Repositories;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVUserRepository : IUserRepository<User, Role, UserRole> {
@@ -88,6 +90,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
             theEntities.ApplyCurrentValues(originalUser.EntityKey.EntitySetName, userToEdit);
             theEntities.SaveChanges();
         }
+
 
         private UserRole GetUserRole(User user, Role role) {
             return (from c in theEntities.UserRoles

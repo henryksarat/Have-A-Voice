@@ -69,6 +69,16 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_PhotoAlbum_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "PhotoAlbum", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.PhotoAlbum), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Photos_PhotoAlbum", "PhotoAlbum", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.PhotoAlbum), "Photo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Photo), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Photos_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "Photo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Photo), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_AuditBoard_Board", "Board", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Board), "AuditBoard", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.AuditBoard), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_AuditBoard_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "AuditBoard", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.AuditBoard), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_AuditBoardReplies_BoardReply", "BoardReply", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.BoardReply), "AuditBoardReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.AuditBoardReply), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_AuditBoardReplies_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "AuditBoardReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.AuditBoardReply), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Board_OwnerUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "Board", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Board), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Board_PostedUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "Board", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Board), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_BoardReply_Board", "Board", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Board), "BoardReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.BoardReply), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_BoardViewedState_Board", "Board", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Board), "BoardViewedState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.BoardViewedState), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_BoardReply_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "BoardReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.BoardReply), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_BoardViewedState_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "BoardViewedState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.BoardViewedState), true)]
 
 #endregion
 
@@ -631,6 +641,86 @@ namespace UniversityOfMe.Models
             }
         }
         private ObjectSet<Photo> _Photos;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<AuditBoard> AuditBoards
+        {
+            get
+            {
+                if ((_AuditBoards == null))
+                {
+                    _AuditBoards = base.CreateObjectSet<AuditBoard>("AuditBoards");
+                }
+                return _AuditBoards;
+            }
+        }
+        private ObjectSet<AuditBoard> _AuditBoards;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<AuditBoardReply> AuditBoardReplies
+        {
+            get
+            {
+                if ((_AuditBoardReplies == null))
+                {
+                    _AuditBoardReplies = base.CreateObjectSet<AuditBoardReply>("AuditBoardReplies");
+                }
+                return _AuditBoardReplies;
+            }
+        }
+        private ObjectSet<AuditBoardReply> _AuditBoardReplies;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Board> Boards
+        {
+            get
+            {
+                if ((_Boards == null))
+                {
+                    _Boards = base.CreateObjectSet<Board>("Boards");
+                }
+                return _Boards;
+            }
+        }
+        private ObjectSet<Board> _Boards;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<BoardReply> BoardReplies
+        {
+            get
+            {
+                if ((_BoardReplies == null))
+                {
+                    _BoardReplies = base.CreateObjectSet<BoardReply>("BoardReplies");
+                }
+                return _BoardReplies;
+            }
+        }
+        private ObjectSet<BoardReply> _BoardReplies;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<BoardViewedState> BoardViewedStates
+        {
+            get
+            {
+                if ((_BoardViewedStates == null))
+                {
+                    _BoardViewedStates = base.CreateObjectSet<BoardViewedState>("BoardViewedStates");
+                }
+                return _BoardViewedStates;
+            }
+        }
+        private ObjectSet<BoardViewedState> _BoardViewedStates;
 
         #endregion
         #region AddTo Methods
@@ -890,6 +980,46 @@ namespace UniversityOfMe.Models
         {
             base.AddObject("Photos", photo);
         }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the AuditBoards EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToAuditBoards(AuditBoard auditBoard)
+        {
+            base.AddObject("AuditBoards", auditBoard);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the AuditBoardReplies EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToAuditBoardReplies(AuditBoardReply auditBoardReply)
+        {
+            base.AddObject("AuditBoardReplies", auditBoardReply);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Boards EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToBoards(Board board)
+        {
+            base.AddObject("Boards", board);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the BoardReplies EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToBoardReplies(BoardReply boardReply)
+        {
+            base.AddObject("BoardReplies", boardReply);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the BoardViewedStates EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToBoardViewedStates(BoardViewedState boardViewedState)
+        {
+            base.AddObject("BoardViewedStates", boardViewedState);
+        }
 
         #endregion
     }
@@ -1020,6 +1150,1480 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProfessorReview>("UniversityOfMeModel.FK_ProfessorReviews_AcademicTerm", "ProfessorReview", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="AuditBoard")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class AuditBoard : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new AuditBoard object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="boardId">Initial value of the BoardId property.</param>
+        /// <param name="message">Initial value of the Message property.</param>
+        /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
+        /// <param name="updatedByUserId">Initial value of the UpdatedByUserId property.</param>
+        public static AuditBoard CreateAuditBoard(global::System.Int32 id, global::System.Int32 boardId, global::System.String message, global::System.DateTime dateTimeStamp, global::System.Int32 updatedByUserId)
+        {
+            AuditBoard auditBoard = new AuditBoard();
+            auditBoard.Id = id;
+            auditBoard.BoardId = boardId;
+            auditBoard.Message = message;
+            auditBoard.DateTimeStamp = dateTimeStamp;
+            auditBoard.UpdatedByUserId = updatedByUserId;
+            return auditBoard;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 BoardId
+        {
+            get
+            {
+                return _BoardId;
+            }
+            set
+            {
+                OnBoardIdChanging(value);
+                ReportPropertyChanging("BoardId");
+                _BoardId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("BoardId");
+                OnBoardIdChanged();
+            }
+        }
+        private global::System.Int32 _BoardId;
+        partial void OnBoardIdChanging(global::System.Int32 value);
+        partial void OnBoardIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Message
+        {
+            get
+            {
+                return _Message;
+            }
+            set
+            {
+                OnMessageChanging(value);
+                ReportPropertyChanging("Message");
+                _Message = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Message");
+                OnMessageChanged();
+            }
+        }
+        private global::System.String _Message;
+        partial void OnMessageChanging(global::System.String value);
+        partial void OnMessageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateTimeStamp
+        {
+            get
+            {
+                return _DateTimeStamp;
+            }
+            set
+            {
+                OnDateTimeStampChanging(value);
+                ReportPropertyChanging("DateTimeStamp");
+                _DateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateTimeStamp");
+                OnDateTimeStampChanged();
+            }
+        }
+        private global::System.DateTime _DateTimeStamp;
+        partial void OnDateTimeStampChanging(global::System.DateTime value);
+        partial void OnDateTimeStampChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UpdatedByUserId
+        {
+            get
+            {
+                return _UpdatedByUserId;
+            }
+            set
+            {
+                OnUpdatedByUserIdChanging(value);
+                ReportPropertyChanging("UpdatedByUserId");
+                _UpdatedByUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UpdatedByUserId");
+                OnUpdatedByUserIdChanged();
+            }
+        }
+        private global::System.Int32 _UpdatedByUserId;
+        partial void OnUpdatedByUserIdChanging(global::System.Int32 value);
+        partial void OnUpdatedByUserIdChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_AuditBoard_Board", "Board")]
+        public Board Board
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Board>("UniversityOfMeModel.FK_AuditBoard_Board", "Board").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Board>("UniversityOfMeModel.FK_AuditBoard_Board", "Board").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Board> BoardReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Board>("UniversityOfMeModel.FK_AuditBoard_Board", "Board");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Board>("UniversityOfMeModel.FK_AuditBoard_Board", "Board", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_AuditBoard_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_AuditBoard_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_AuditBoard_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_AuditBoard_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_AuditBoard_Users", "User", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="AuditBoardReply")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class AuditBoardReply : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new AuditBoardReply object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="boardReplyId">Initial value of the BoardReplyId property.</param>
+        /// <param name="message">Initial value of the Message property.</param>
+        /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
+        /// <param name="updatedByUserId">Initial value of the UpdatedByUserId property.</param>
+        public static AuditBoardReply CreateAuditBoardReply(global::System.Int32 id, global::System.Int32 boardReplyId, global::System.String message, global::System.DateTime dateTimeStamp, global::System.Int32 updatedByUserId)
+        {
+            AuditBoardReply auditBoardReply = new AuditBoardReply();
+            auditBoardReply.Id = id;
+            auditBoardReply.BoardReplyId = boardReplyId;
+            auditBoardReply.Message = message;
+            auditBoardReply.DateTimeStamp = dateTimeStamp;
+            auditBoardReply.UpdatedByUserId = updatedByUserId;
+            return auditBoardReply;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 BoardReplyId
+        {
+            get
+            {
+                return _BoardReplyId;
+            }
+            set
+            {
+                OnBoardReplyIdChanging(value);
+                ReportPropertyChanging("BoardReplyId");
+                _BoardReplyId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("BoardReplyId");
+                OnBoardReplyIdChanged();
+            }
+        }
+        private global::System.Int32 _BoardReplyId;
+        partial void OnBoardReplyIdChanging(global::System.Int32 value);
+        partial void OnBoardReplyIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Message
+        {
+            get
+            {
+                return _Message;
+            }
+            set
+            {
+                OnMessageChanging(value);
+                ReportPropertyChanging("Message");
+                _Message = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Message");
+                OnMessageChanged();
+            }
+        }
+        private global::System.String _Message;
+        partial void OnMessageChanging(global::System.String value);
+        partial void OnMessageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateTimeStamp
+        {
+            get
+            {
+                return _DateTimeStamp;
+            }
+            set
+            {
+                OnDateTimeStampChanging(value);
+                ReportPropertyChanging("DateTimeStamp");
+                _DateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateTimeStamp");
+                OnDateTimeStampChanged();
+            }
+        }
+        private global::System.DateTime _DateTimeStamp;
+        partial void OnDateTimeStampChanging(global::System.DateTime value);
+        partial void OnDateTimeStampChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UpdatedByUserId
+        {
+            get
+            {
+                return _UpdatedByUserId;
+            }
+            set
+            {
+                OnUpdatedByUserIdChanging(value);
+                ReportPropertyChanging("UpdatedByUserId");
+                _UpdatedByUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UpdatedByUserId");
+                OnUpdatedByUserIdChanged();
+            }
+        }
+        private global::System.Int32 _UpdatedByUserId;
+        partial void OnUpdatedByUserIdChanging(global::System.Int32 value);
+        partial void OnUpdatedByUserIdChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_AuditBoardReplies_BoardReply", "BoardReply")]
+        public BoardReply BoardReply
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BoardReply>("UniversityOfMeModel.FK_AuditBoardReplies_BoardReply", "BoardReply").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BoardReply>("UniversityOfMeModel.FK_AuditBoardReplies_BoardReply", "BoardReply").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<BoardReply> BoardReplyReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BoardReply>("UniversityOfMeModel.FK_AuditBoardReplies_BoardReply", "BoardReply");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BoardReply>("UniversityOfMeModel.FK_AuditBoardReplies_BoardReply", "BoardReply", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_AuditBoardReplies_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_AuditBoardReplies_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_AuditBoardReplies_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_AuditBoardReplies_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_AuditBoardReplies_Users", "User", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="Board")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Board : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Board object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="ownerUserId">Initial value of the OwnerUserId property.</param>
+        /// <param name="postedUserId">Initial value of the PostedUserId property.</param>
+        /// <param name="message">Initial value of the Message property.</param>
+        /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
+        /// <param name="deleted">Initial value of the Deleted property.</param>
+        public static Board CreateBoard(global::System.Int32 id, global::System.Int32 ownerUserId, global::System.Int32 postedUserId, global::System.String message, global::System.DateTime dateTimeStamp, global::System.Boolean deleted)
+        {
+            Board board = new Board();
+            board.Id = id;
+            board.OwnerUserId = ownerUserId;
+            board.PostedUserId = postedUserId;
+            board.Message = message;
+            board.DateTimeStamp = dateTimeStamp;
+            board.Deleted = deleted;
+            return board;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 OwnerUserId
+        {
+            get
+            {
+                return _OwnerUserId;
+            }
+            set
+            {
+                OnOwnerUserIdChanging(value);
+                ReportPropertyChanging("OwnerUserId");
+                _OwnerUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("OwnerUserId");
+                OnOwnerUserIdChanged();
+            }
+        }
+        private global::System.Int32 _OwnerUserId;
+        partial void OnOwnerUserIdChanging(global::System.Int32 value);
+        partial void OnOwnerUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 PostedUserId
+        {
+            get
+            {
+                return _PostedUserId;
+            }
+            set
+            {
+                OnPostedUserIdChanging(value);
+                ReportPropertyChanging("PostedUserId");
+                _PostedUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PostedUserId");
+                OnPostedUserIdChanged();
+            }
+        }
+        private global::System.Int32 _PostedUserId;
+        partial void OnPostedUserIdChanging(global::System.Int32 value);
+        partial void OnPostedUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Message
+        {
+            get
+            {
+                return _Message;
+            }
+            set
+            {
+                OnMessageChanging(value);
+                ReportPropertyChanging("Message");
+                _Message = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Message");
+                OnMessageChanged();
+            }
+        }
+        private global::System.String _Message;
+        partial void OnMessageChanging(global::System.String value);
+        partial void OnMessageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateTimeStamp
+        {
+            get
+            {
+                return _DateTimeStamp;
+            }
+            set
+            {
+                OnDateTimeStampChanging(value);
+                ReportPropertyChanging("DateTimeStamp");
+                _DateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateTimeStamp");
+                OnDateTimeStampChanged();
+            }
+        }
+        private global::System.DateTime _DateTimeStamp;
+        partial void OnDateTimeStampChanging(global::System.DateTime value);
+        partial void OnDateTimeStampChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> UpdatedByUserId
+        {
+            get
+            {
+                return _UpdatedByUserId;
+            }
+            set
+            {
+                OnUpdatedByUserIdChanging(value);
+                ReportPropertyChanging("UpdatedByUserId");
+                _UpdatedByUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UpdatedByUserId");
+                OnUpdatedByUserIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _UpdatedByUserId;
+        partial void OnUpdatedByUserIdChanging(Nullable<global::System.Int32> value);
+        partial void OnUpdatedByUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> UpdatedDateTimeStamp
+        {
+            get
+            {
+                return _UpdatedDateTimeStamp;
+            }
+            set
+            {
+                OnUpdatedDateTimeStampChanging(value);
+                ReportPropertyChanging("UpdatedDateTimeStamp");
+                _UpdatedDateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UpdatedDateTimeStamp");
+                OnUpdatedDateTimeStampChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _UpdatedDateTimeStamp;
+        partial void OnUpdatedDateTimeStampChanging(Nullable<global::System.DateTime> value);
+        partial void OnUpdatedDateTimeStampChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Deleted
+        {
+            get
+            {
+                return _Deleted;
+            }
+            set
+            {
+                OnDeletedChanging(value);
+                ReportPropertyChanging("Deleted");
+                _Deleted = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Deleted");
+                OnDeletedChanged();
+            }
+        }
+        private global::System.Boolean _Deleted;
+        partial void OnDeletedChanging(global::System.Boolean value);
+        partial void OnDeletedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> DeletedByUserId
+        {
+            get
+            {
+                return _DeletedByUserId;
+            }
+            set
+            {
+                OnDeletedByUserIdChanging(value);
+                ReportPropertyChanging("DeletedByUserId");
+                _DeletedByUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DeletedByUserId");
+                OnDeletedByUserIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _DeletedByUserId;
+        partial void OnDeletedByUserIdChanging(Nullable<global::System.Int32> value);
+        partial void OnDeletedByUserIdChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_AuditBoard_Board", "AuditBoard")]
+        public EntityCollection<AuditBoard> AuditBoards
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AuditBoard>("UniversityOfMeModel.FK_AuditBoard_Board", "AuditBoard");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AuditBoard>("UniversityOfMeModel.FK_AuditBoard_Board", "AuditBoard", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Board_OwnerUserId_Users", "User")]
+        public User OwnerUser
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_Board_OwnerUserId_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_Board_OwnerUserId_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> OwnerUserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_Board_OwnerUserId_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_Board_OwnerUserId_Users", "User", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Board_PostedUserId_Users", "User")]
+        public User PostedByUser
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_Board_PostedUserId_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_Board_PostedUserId_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> PostedByUserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_Board_PostedUserId_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_Board_PostedUserId_Users", "User", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_BoardReply_Board", "BoardReply")]
+        public EntityCollection<BoardReply> BoardReplies
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BoardReply>("UniversityOfMeModel.FK_BoardReply_Board", "BoardReply");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BoardReply>("UniversityOfMeModel.FK_BoardReply_Board", "BoardReply", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_BoardViewedState_Board", "BoardViewedState")]
+        public EntityCollection<BoardViewedState> BoardViewedStates
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BoardViewedState>("UniversityOfMeModel.FK_BoardViewedState_Board", "BoardViewedState");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BoardViewedState>("UniversityOfMeModel.FK_BoardViewedState_Board", "BoardViewedState", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="BoardReply")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class BoardReply : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new BoardReply object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="boardId">Initial value of the BoardId property.</param>
+        /// <param name="message">Initial value of the Message property.</param>
+        /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
+        /// <param name="deleted">Initial value of the Deleted property.</param>
+        public static BoardReply CreateBoardReply(global::System.Int32 id, global::System.Int32 userId, global::System.Int32 boardId, global::System.String message, global::System.DateTime dateTimeStamp, global::System.Boolean deleted)
+        {
+            BoardReply boardReply = new BoardReply();
+            boardReply.Id = id;
+            boardReply.UserId = userId;
+            boardReply.BoardId = boardId;
+            boardReply.Message = message;
+            boardReply.DateTimeStamp = dateTimeStamp;
+            boardReply.Deleted = deleted;
+            return boardReply;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
+            }
+        }
+        private global::System.Int32 _UserId;
+        partial void OnUserIdChanging(global::System.Int32 value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 BoardId
+        {
+            get
+            {
+                return _BoardId;
+            }
+            set
+            {
+                OnBoardIdChanging(value);
+                ReportPropertyChanging("BoardId");
+                _BoardId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("BoardId");
+                OnBoardIdChanged();
+            }
+        }
+        private global::System.Int32 _BoardId;
+        partial void OnBoardIdChanging(global::System.Int32 value);
+        partial void OnBoardIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Message
+        {
+            get
+            {
+                return _Message;
+            }
+            set
+            {
+                OnMessageChanging(value);
+                ReportPropertyChanging("Message");
+                _Message = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Message");
+                OnMessageChanged();
+            }
+        }
+        private global::System.String _Message;
+        partial void OnMessageChanging(global::System.String value);
+        partial void OnMessageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateTimeStamp
+        {
+            get
+            {
+                return _DateTimeStamp;
+            }
+            set
+            {
+                OnDateTimeStampChanging(value);
+                ReportPropertyChanging("DateTimeStamp");
+                _DateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateTimeStamp");
+                OnDateTimeStampChanged();
+            }
+        }
+        private global::System.DateTime _DateTimeStamp;
+        partial void OnDateTimeStampChanging(global::System.DateTime value);
+        partial void OnDateTimeStampChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> UpdatedByUserId
+        {
+            get
+            {
+                return _UpdatedByUserId;
+            }
+            set
+            {
+                OnUpdatedByUserIdChanging(value);
+                ReportPropertyChanging("UpdatedByUserId");
+                _UpdatedByUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UpdatedByUserId");
+                OnUpdatedByUserIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _UpdatedByUserId;
+        partial void OnUpdatedByUserIdChanging(Nullable<global::System.Int32> value);
+        partial void OnUpdatedByUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> UpdatedDateTimeStamp
+        {
+            get
+            {
+                return _UpdatedDateTimeStamp;
+            }
+            set
+            {
+                OnUpdatedDateTimeStampChanging(value);
+                ReportPropertyChanging("UpdatedDateTimeStamp");
+                _UpdatedDateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UpdatedDateTimeStamp");
+                OnUpdatedDateTimeStampChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _UpdatedDateTimeStamp;
+        partial void OnUpdatedDateTimeStampChanging(Nullable<global::System.DateTime> value);
+        partial void OnUpdatedDateTimeStampChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Deleted
+        {
+            get
+            {
+                return _Deleted;
+            }
+            set
+            {
+                OnDeletedChanging(value);
+                ReportPropertyChanging("Deleted");
+                _Deleted = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Deleted");
+                OnDeletedChanged();
+            }
+        }
+        private global::System.Boolean _Deleted;
+        partial void OnDeletedChanging(global::System.Boolean value);
+        partial void OnDeletedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> DeletedByUserId
+        {
+            get
+            {
+                return _DeletedByUserId;
+            }
+            set
+            {
+                OnDeletedByUserIdChanging(value);
+                ReportPropertyChanging("DeletedByUserId");
+                _DeletedByUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DeletedByUserId");
+                OnDeletedByUserIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _DeletedByUserId;
+        partial void OnDeletedByUserIdChanging(Nullable<global::System.Int32> value);
+        partial void OnDeletedByUserIdChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_AuditBoardReplies_BoardReply", "AuditBoardReply")]
+        public EntityCollection<AuditBoardReply> AuditBoardReplies
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AuditBoardReply>("UniversityOfMeModel.FK_AuditBoardReplies_BoardReply", "AuditBoardReply");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AuditBoardReply>("UniversityOfMeModel.FK_AuditBoardReplies_BoardReply", "AuditBoardReply", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_BoardReply_Board", "Board")]
+        public Board Board
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Board>("UniversityOfMeModel.FK_BoardReply_Board", "Board").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Board>("UniversityOfMeModel.FK_BoardReply_Board", "Board").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Board> BoardReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Board>("UniversityOfMeModel.FK_BoardReply_Board", "Board");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Board>("UniversityOfMeModel.FK_BoardReply_Board", "Board", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_BoardReply_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_BoardReply_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_BoardReply_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_BoardReply_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_BoardReply_Users", "User", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="BoardViewedState")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class BoardViewedState : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new BoardViewedState object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="boardId">Initial value of the BoardId property.</param>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="viewed">Initial value of the Viewed property.</param>
+        /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
+        public static BoardViewedState CreateBoardViewedState(global::System.Int32 id, global::System.Int32 boardId, global::System.Int32 userId, global::System.Boolean viewed, global::System.DateTime dateTimeStamp)
+        {
+            BoardViewedState boardViewedState = new BoardViewedState();
+            boardViewedState.Id = id;
+            boardViewedState.BoardId = boardId;
+            boardViewedState.UserId = userId;
+            boardViewedState.Viewed = viewed;
+            boardViewedState.DateTimeStamp = dateTimeStamp;
+            return boardViewedState;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 BoardId
+        {
+            get
+            {
+                return _BoardId;
+            }
+            set
+            {
+                OnBoardIdChanging(value);
+                ReportPropertyChanging("BoardId");
+                _BoardId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("BoardId");
+                OnBoardIdChanged();
+            }
+        }
+        private global::System.Int32 _BoardId;
+        partial void OnBoardIdChanging(global::System.Int32 value);
+        partial void OnBoardIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
+            }
+        }
+        private global::System.Int32 _UserId;
+        partial void OnUserIdChanging(global::System.Int32 value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Viewed
+        {
+            get
+            {
+                return _Viewed;
+            }
+            set
+            {
+                OnViewedChanging(value);
+                ReportPropertyChanging("Viewed");
+                _Viewed = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Viewed");
+                OnViewedChanged();
+            }
+        }
+        private global::System.Boolean _Viewed;
+        partial void OnViewedChanging(global::System.Boolean value);
+        partial void OnViewedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateTimeStamp
+        {
+            get
+            {
+                return _DateTimeStamp;
+            }
+            set
+            {
+                OnDateTimeStampChanging(value);
+                ReportPropertyChanging("DateTimeStamp");
+                _DateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateTimeStamp");
+                OnDateTimeStampChanged();
+            }
+        }
+        private global::System.DateTime _DateTimeStamp;
+        partial void OnDateTimeStampChanging(global::System.DateTime value);
+        partial void OnDateTimeStampChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_BoardViewedState_Board", "Board")]
+        public Board Board
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Board>("UniversityOfMeModel.FK_BoardViewedState_Board", "Board").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Board>("UniversityOfMeModel.FK_BoardViewedState_Board", "Board").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Board> BoardReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Board>("UniversityOfMeModel.FK_BoardViewedState_Board", "Board");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Board>("UniversityOfMeModel.FK_BoardViewedState_Board", "Board", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_BoardViewedState_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_BoardViewedState_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_BoardViewedState_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_BoardViewedState_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_BoardViewedState_Users", "User", value);
                 }
             }
         }
@@ -9320,6 +10924,138 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Photo>("UniversityOfMeModel.FK_Photos_Users", "Photo", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_AuditBoard_Users", "AuditBoard")]
+        public EntityCollection<AuditBoard> AuditBoards
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AuditBoard>("UniversityOfMeModel.FK_AuditBoard_Users", "AuditBoard");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AuditBoard>("UniversityOfMeModel.FK_AuditBoard_Users", "AuditBoard", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_AuditBoardReplies_Users", "AuditBoardReply")]
+        public EntityCollection<AuditBoardReply> AuditBoardReplies
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AuditBoardReply>("UniversityOfMeModel.FK_AuditBoardReplies_Users", "AuditBoardReply");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AuditBoardReply>("UniversityOfMeModel.FK_AuditBoardReplies_Users", "AuditBoardReply", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Board_OwnerUserId_Users", "Board")]
+        public EntityCollection<Board> Boards
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Board>("UniversityOfMeModel.FK_Board_OwnerUserId_Users", "Board");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Board>("UniversityOfMeModel.FK_Board_OwnerUserId_Users", "Board", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Board_PostedUserId_Users", "Board")]
+        public EntityCollection<Board> BoardsPostedOn
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Board>("UniversityOfMeModel.FK_Board_PostedUserId_Users", "Board");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Board>("UniversityOfMeModel.FK_Board_PostedUserId_Users", "Board", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_BoardReply_Users", "BoardReply")]
+        public EntityCollection<BoardReply> BoardReplies
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BoardReply>("UniversityOfMeModel.FK_BoardReply_Users", "BoardReply");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BoardReply>("UniversityOfMeModel.FK_BoardReply_Users", "BoardReply", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_BoardViewedState_Users", "BoardViewedState")]
+        public EntityCollection<BoardViewedState> BoardViewedStates
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BoardViewedState>("UniversityOfMeModel.FK_BoardViewedState_Users", "BoardViewedState");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BoardViewedState>("UniversityOfMeModel.FK_BoardViewedState_Users", "BoardViewedState", value);
                 }
             }
         }

@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Reflection;
 
-namespace Generic.ActionFilters.ActionFilters {
+namespace Social.Generic.ActionFilters {
     public class RequiredRouteValueAttribute {
         public class RequireRouteValuesAttribute : ActionMethodSelectorAttribute {
             public RequireRouteValuesAttribute(string[] valueNames) {

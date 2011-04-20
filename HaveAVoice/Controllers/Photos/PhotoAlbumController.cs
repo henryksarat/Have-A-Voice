@@ -1,7 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using BaseWebsite.Controllers.Photos;
-using Generic.ActionFilters.ActionFilters;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Helpers;
 using HaveAVoice.Helpers.UserInformation;
@@ -33,7 +32,7 @@ namespace HaveAVoice.Controllers.Users.Photos {
             HAVUserInformationFactory.SetInstance(GetUserInformationInstance());
         }
 
-        [Generic.ActionFilters.ActionFilters.RequiredRouteValueAttribute.RequireRouteValues(new string[] { })]
+        [RequiredRouteValueAttribute.RequireRouteValues(new string[] { })]
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         new public ActionResult List() {
             return base.List();

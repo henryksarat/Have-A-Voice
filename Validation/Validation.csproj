@@ -44,10 +44,12 @@
     <Compile Include="DropDownItemValidation.cs" />
     <Compile Include="IValidationDictionary.cs" />
     <Compile Include="ModelStateWrapper.cs" />
+    <Compile Include="PasswordValidation.cs" />
     <Compile Include="PhotoValidation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EmailValidation.cs" />
     <Compile Include="RangeValidation.cs" />
+    <Compile Include="DateOfBirthValidation.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Generic\Generic.csproj">

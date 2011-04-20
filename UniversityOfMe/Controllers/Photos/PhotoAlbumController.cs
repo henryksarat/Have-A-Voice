@@ -1,7 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using BaseWebsite.Controllers.Photos;
-using Generic.ActionFilters.ActionFilters;
 using Social.Authentication;
 using Social.Authentication.Helpers;
 using Social.BaseWebsite.Models;
@@ -34,7 +33,7 @@ namespace UniversityOfMe.Controllers.Photos {
             UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
         }
         
-        [Generic.ActionFilters.ActionFilters.RequiredRouteValueAttribute.RequireRouteValues(new string[] { })]
+        [RequiredRouteValueAttribute.RequireRouteValues(new string[] { })]
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         new public ActionResult List() {
             return base.List();

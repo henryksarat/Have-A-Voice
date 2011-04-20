@@ -27,7 +27,7 @@ namespace UniversityOfMe.Models.Social {
             return myUser;
         }
 
-        private SocialUserModel(User anExternal) {
+        protected SocialUserModel(User anExternal) {
             Id = anExternal.Id;
             Email = anExternal.Email;
             Password = anExternal.Password;
