@@ -49,6 +49,12 @@ namespace UniversityOfMe {
                 "Photo/{action}/{id}", // URL with parameters
                 new { controller = "Photo", action = "List", id = UrlParameter.Optional } // Parameter defaults
             );
+
+            routes.MapRoute(
+                "DefaultFriend", // Route name
+                "Friend/{action}/{id}", // URL with parameters
+                new { controller = "Friend", action = "List", id = UrlParameter.Optional } // Parameter defaults
+            );
             
             routes.MapRoute(
                 "UniversityDefault", // Route name

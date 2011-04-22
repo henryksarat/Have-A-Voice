@@ -2,6 +2,8 @@
 <%@ Import Namespace="UniversityOfMe.Models" %>
 <%@ Import Namespace="UniversityOfMe.Helpers" %>
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
+<%@ Import Namespace="UniversityOfMe.UserInformation" %>
+<%@ Import Namespace="Social.Generic.Models" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	UniversityOf.Me - <%=NameHelper.FullName(Model.Get()) %>'s Profile
@@ -11,15 +13,21 @@
     <% Html.RenderPartial("Message"); %>
     <% Html.RenderPartial("Validation"); %>
 
+    
+    <% UserInformationModel<User> myLoggedInUser = UserInformationFactory.GetUserInformation(); %>
     Information:<br />
     ProfilePicture: <img src="<%= PhotoHelper.ProfilePicture(Model.Get()) %>" /><br />
     Full Name: <br /> <%=NameHelper.FullName(Model.Get()) %><br />
     University Affiliations: <br />
     <% foreach (string myUniversity in UniversityHelper.GetUniversityAffiliations(Model.Get())) { %>
         <%= myUniversity %> <br />
-    <% } %>
-    
-    <br />
+    <% } %><br /><br />
+    <% if (!FriendHelper.IsFriend(Model.Get(), myLoggedInUser.Details)) { %>
+        <%= Html.ActionLink("Add as friend", "Add", "Friend", new { id = Model.Get().Id }, null)%>
+    <% } %><br />
+    <%= Html.ActionLink("Message user", "Create", "Message", new { id = Model.Get().Id }, null)%>
+
+    <br /><br />
 
     Post to Board:
 

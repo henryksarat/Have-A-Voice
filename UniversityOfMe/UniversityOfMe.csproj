@@ -89,6 +89,7 @@
     <Compile Include="Controllers\Photos\PhotoController.cs" />
     <Compile Include="Controllers\Professors\ProfessorReviewController.cs" />
     <Compile Include="Controllers\Professors\ProfessorController.cs" />
+    <Compile Include="Controllers\Users\FriendController.cs" />
     <Compile Include="Controllers\Users\ProfileController.cs" />
     <Compile Include="Controllers\University\UniversityController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
