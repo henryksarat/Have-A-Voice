@@ -35,7 +35,7 @@ namespace UniversityOfMe.Helpers {
             string myProfessorImage = ConstructProfessorUrl(ProfessorConstants.NO_PROFESOR_IMAGE);
             if (aProfessor.ProfessorSuggestedPhotoId != null) {
                 myProfessorImage = ConstructProfessorUrl(aProfessor.ProfessorSuggestedPhoto.ImageName);
-            } else if (string.IsNullOrEmpty(aProfessor.ProfessorImage)) {
+            } else if (!string.IsNullOrEmpty(aProfessor.ProfessorImage)) {
                 myProfessorImage = ConstructProfessorUrl(aProfessor.ProfessorImage);
             }
             return myProfessorImage;
