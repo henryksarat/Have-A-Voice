@@ -9,12 +9,14 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <h2>Details</h2>
-
+        <% Html.RenderPartial("Validation"); %><br />
         <% Html.RenderPartial("Message"); %>
-        <% Html.RenderPartial("Validation"); %>
+        
 
     <table>
         <tr>
+            <th>
+            </th>
             <th>
                 University
             </th>
@@ -27,6 +29,9 @@
         </tr>
         <tr>
             <td>
+                <img src="<%= PhotoHelper.ConstructProfessorUrl(Model) %>" />
+            </td>
+            <td>
                 <%: Model.UniversityId %>
             </td>
             <td>
@@ -37,6 +42,26 @@
             </td>
         </tr>
     </table>
+
+    Suggest a photo:<br />
+    <% using (Html.BeginForm("SuggestProfessorPicture", "Professor", FormMethod.Post, new { enctype = "multipart/form-data" })) {%>
+        <%= Html.Hidden("ProfessorId", Model.Id) %>
+        <%= Html.Hidden("FirstName", Model.FirstName) %>
+        <%= Html.Hidden("LastName", Model.LastName) %>
+        
+        <div class="editor-label">
+            <%: Html.Label("Optional Professor Image") %>
+        </div>
+        <div class="editor-field">
+            <input type="file" id="ProfessorImage" name="ProfessorImage" size="23" />
+            <%: Html.ValidationMessage("ProfessorImage", "*")%>
+        </div>
+
+        <p>
+            <input type="submit" value="Suggest" />
+        </p>
+    <% } %>
+    
 
     <br /><br />
     <a href="/<%= Model.UniversityId %>/ProfessorReview/Create/<%= Model.Id %>">Create New Review</a><br /><br />

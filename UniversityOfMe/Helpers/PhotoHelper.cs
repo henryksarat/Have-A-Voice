@@ -5,6 +5,7 @@ using Social.Photo.Services;
 using UniversityOfMe.Models;
 using UniversityOfMe.Repositories.Friends;
 using UniversityOfMe.Repositories.Photos;
+using UniversityOfMe.Helpers.Constants;
 
 namespace UniversityOfMe.Helpers {
     public class PhotoHelper {
@@ -27,7 +28,21 @@ namespace UniversityOfMe.Helpers {
         }
 
         public static string ConstructUrl(string anImageName) {
-            return Social.Photo.Helpers.PhotoHelper.ConstructUrl(anImageName);
+            return Social.Photo.Helpers.SocialPhotoHelper.ConstructUrl(anImageName);
+        }
+        
+        public static string ConstructProfessorUrl(Professor aProfessor) {
+            string myProfessorImage = ConstructProfessorUrl(ProfessorConstants.NO_PROFESOR_IMAGE);
+            if (aProfessor.ProfessorSuggestedPhotoId != null) {
+                myProfessorImage = ConstructProfessorUrl(aProfessor.ProfessorSuggestedPhoto.ImageName);
+            } else if (string.IsNullOrEmpty(aProfessor.ProfessorImage)) {
+                myProfessorImage = ConstructProfessorUrl(aProfessor.ProfessorImage);
+            }
+            return myProfessorImage;
+        }
+
+        public static string ConstructProfessorUrl(string anImageName) {
+            return ProfessorConstants.PROFESSOR_PHOTO_PATH + anImageName;
         }
 
         public static string PhotoAlbumCover(PhotoAlbum myPhotoAlbum) {

@@ -7,7 +7,7 @@ using System.Web;
 using Social.Generic.Constants;
 
 namespace Social.Photo.Helpers {
-    public static class PhotoHelper {
+    public static class SocialPhotoHelper {
         public static string ConstructUrl(string anImageName) {
             return Constants.PHOTO_LOCATION_FROM_VIEW + anImageName;
         }
@@ -32,7 +32,7 @@ namespace Social.Photo.Helpers {
 
             ResizeImageAndUpload(aPhotoStoragePath, myOriginalFile, myNewFile, aMaxSize);
 
-            PhotoHelper.PhysicallyDeletePhoto(HttpContext.Current.Server.MapPath(aPhotoStoragePath + myOriginalFile));
+            SocialPhotoHelper.PhysicallyDeletePhoto(HttpContext.Current.Server.MapPath(aPhotoStoragePath + myOriginalFile));
             return myNewFile;
         }
 

@@ -40,7 +40,7 @@ namespace HaveAVoice.Services.UserFeatures {
         public void DeletePhoto(AbstractUserModel<T> aUserDeleting, int aPhotoId) {
             AbstractPhotoModel<V> myPhoto = GetPhoto(aUserDeleting, aPhotoId);
             if (myPhoto.UploadedByUserId == aUserDeleting.Id) {
-                PhotoHelper.PhysicallyDeletePhoto(HttpContext.Current.Server.MapPath(PhotoHelper.ConstructUrl(myPhoto.ImageName)));
+                SocialPhotoHelper.PhysicallyDeletePhoto(HttpContext.Current.Server.MapPath(SocialPhotoHelper.ConstructUrl(myPhoto.ImageName)));
 
                 thePhotoRepo.DeletePhoto(aPhotoId);
             } else {
@@ -62,7 +62,7 @@ namespace HaveAVoice.Services.UserFeatures {
             if (myCurrentProfile != null) {
                 if (myCurrentProfile.UploadedByUserId == aUser.Id) {
                     thePhotoRepo.DeletePhoto(myCurrentProfile.Id);
-                    PhotoHelper.PhysicallyDeletePhoto(HttpContext.Current.Server.MapPath(PhotoHelper.ConstructUrl(myCurrentProfile.ImageName)));
+                    SocialPhotoHelper.PhysicallyDeletePhoto(HttpContext.Current.Server.MapPath(SocialPhotoHelper.ConstructUrl(myCurrentProfile.ImageName)));
                 } else {
                     throw new CustomException(ErrorKeys.PERMISSION_DENIED);
                 }
@@ -73,7 +73,7 @@ namespace HaveAVoice.Services.UserFeatures {
             if (myNewProfilePhoto.UploadedByUserId == aUser.Id) {
                 string[] myNewProfileSplit = myNewProfilePhoto.ImageName.Split('.');
                 string myNewProfilePictureImageName = myNewProfileSplit[0] + "-profile." + myNewProfileSplit[1];
-                PhotoHelper.ResizeImageAndUpload(Constants.PHOTO_LOCATION_FROM_VIEW, myNewProfilePhoto.ImageName, myNewProfilePictureImageName, 120);
+                SocialPhotoHelper.ResizeImageAndUpload(Constants.PHOTO_LOCATION_FROM_VIEW, myNewProfilePhoto.ImageName, myNewProfilePictureImageName, 120);
                 thePhotoRepo.AddReferenceToImage(aUser.Model, myNewProfilePhoto.PhotoAlbumId, myNewProfilePictureImageName, true);
             } else {
                 throw new CustomException(ErrorKeys.PERMISSION_DENIED);
@@ -118,7 +118,7 @@ namespace HaveAVoice.Services.UserFeatures {
             if(aImageFile == null || !PhotoValidation.IsValidImageFile(aImageFile.FileName)) {
                     throw new CustomException("Please specify a proper image file that ends in .gif, .jpg, or .jpeg.");
             }
-            return PhotoHelper.TakeImageAndResizeAndUpload(Constants.PHOTO_LOCATION_FROM_VIEW, aUserToUploadFor.Id.ToString(), aImageFile, MAX_SIZE);
+            return SocialPhotoHelper.TakeImageAndResizeAndUpload(Constants.PHOTO_LOCATION_FROM_VIEW, aUserToUploadFor.Id.ToString(), aImageFile, MAX_SIZE);
         }
 
     }

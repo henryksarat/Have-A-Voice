@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<UniversityOfMe.Models.View.CreateProfessorModel>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<dynamic>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Create
@@ -17,24 +17,24 @@
                 <%: Html.Label("First Name") %>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.FirstName)%>
-                <%: Html.ValidationMessageFor(model => model.FirstName, "*")%>
+                <%: Html.TextBox("FirstName")%>
+                <%: Html.ValidationMessage("FirstName", "*")%>
             </div>
 
             <div class="editor-label">
                 <%: Html.Label("Last Name") %>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.LastName)%>
-                <%: Html.ValidationMessageFor(model => model.LastName, "*")%>
+                <%: Html.TextBox("LastName")%>
+                <%: Html.ValidationMessage("LastName", "*")%>
             </div>
 
             <div class="editor-label">
-                <%: Html.Label("University") %>
+                <%: Html.Label("Optional Professor Image") %>
             </div>
             <div class="editor-field">
-                <%: Html.DropDownListFor(model => model.UniversityId, Model.Universities)%>
-                <%: Html.ValidationMessageFor(model => model.UniversityId, "*")%>
+                <input type="file" id="ProfessorImage" name="ProfessorImage" size="23" />
+                <%: Html.ValidationMessage("ProfessorImage", "*")%>
             </div>
             
             <p>

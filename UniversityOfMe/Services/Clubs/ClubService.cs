@@ -180,7 +180,7 @@ namespace HaveAVoice.Services.Clubs {
             string myImageName = string.Empty;
 
             try {
-                myImageName = PhotoHelper.TakeImageAndResizeAndUpload(ClubConstants.CLUB_PHOTO_PATH, aName.Replace(" ", ""), aClubImage, ClubConstants.CLUB_MAX_SIZE);
+                myImageName = SocialPhotoHelper.TakeImageAndResizeAndUpload(ClubConstants.CLUB_PHOTO_PATH, aName.Replace(" ", ""), aClubImage, ClubConstants.CLUB_MAX_SIZE);
             } catch (Exception myException) {
                 throw new PhotoException("Error while resizing and uploading the club photo. ", myException);
             }
@@ -188,7 +188,7 @@ namespace HaveAVoice.Services.Clubs {
                 myClub.Picture = myImageName;
                 theClubRepository.UpdateClub(myClub);
             } catch (Exception myException) {
-                PhotoHelper.PhysicallyDeletePhoto(HttpContext.Current.Server.MapPath(ClubConstants.CLUB_PHOTO_PATH + myImageName));
+                SocialPhotoHelper.PhysicallyDeletePhoto(HttpContext.Current.Server.MapPath(ClubConstants.CLUB_PHOTO_PATH + myImageName));
                 throw new CustomException("Error while updating the club to the new club photo.", myException);
             }
         }

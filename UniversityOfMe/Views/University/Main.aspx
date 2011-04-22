@@ -46,11 +46,14 @@
                 <% foreach (Professor myProfessor in Model.Get().Professors.Take<Professor>(5)) { %>
                     * <a href="/<%= myProfessor.UniversityId %>/Professor/Details/<%= myProfessor.FirstName + "_" +  myProfessor.LastName %>"><%= myProfessor.FirstName + " " +  myProfessor.LastName %></a>
                     <% int myTotalReviews = myProfessor.ProfessorReviews.Count; %>
-                    <%= myProfessor.ProfessorReviews.Sum<ProfessorReview>(pr => pr.Rating) / myTotalReviews%> stars (<%= myTotalReviews%> ratings)
+                    <% if (myTotalReviews > 0) { %>
+                        <%= myProfessor.ProfessorReviews.Sum<ProfessorReview>(pr => pr.Rating) / myTotalReviews%> stars (<%= myTotalReviews%> ratings)
+                    <% } %>
                     <br />
                 <% } %>
 
                 <a href="/<%= Model.Get().University.Id %>/Professor/List">View all</a>
+                <a href="/<%= Model.Get().University.Id %>/Professor/Create">Create</a>
             </td>
             <td>
                 Latest Class Ratings<br />

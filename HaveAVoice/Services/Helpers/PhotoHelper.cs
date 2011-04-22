@@ -30,7 +30,7 @@ namespace HaveAVoice.Services.Helpers {
         }
 
         public static string ConstructUrl(string anImageName) {
-            return Social.Photo.Helpers.PhotoHelper.ConstructUrl(anImageName);
+            return Social.Photo.Helpers.SocialPhotoHelper.ConstructUrl(anImageName);
         }
 
         public static string RetrievePhotoAlbumCoverUrl(PhotoAlbum anAlbum) {

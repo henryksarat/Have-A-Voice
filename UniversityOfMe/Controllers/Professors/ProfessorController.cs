@@ -14,49 +14,61 @@ using Social.Validation;
 using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
 using UniversityOfMe.Models.Social;
-using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories;
-using UniversityOfMe.Services;
 using UniversityOfMe.Services.Professors;
 using UniversityOfMe.UserInformation;
+using Social.Photo.Exceptions;
 
 namespace UniversityOfMe.Controllers.Professors {
 
     public class ProfessorController : UOFMeBaseController {
         private const string PROFESSOR_CREATED = "Professor created successfully! You can now proceed to review them.";
+        private const string PROFESSOR_PICTURE_SUGGESTION_SUCCESS = "Thanks for suggesting a picture for the professor! We will review it and if we think it should replace the current one, we will do so.";
         private const string NO_PROFESSOR_REVIEWS = "There are no reviews for this professor. Be the first to review this professor!";
         private const string PROFESSOR_DOESNT_EXIST = "I'm sorry but that professor doesn't exist in the database. Please create the professor and then be the first to review them!";
 
+        private const string PROFESSOR_SUGGESTED_ERROR = "An error occurred while trying to upload the suggested picture. Please try again.";
+
         IValidationDictionary theValidationDictionary;
         IProfessorService theProfessorService;
-        IUniversityService theUniversityService;
 
         public ProfessorController() {
             UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
             theProfessorService = new ProfessorService(theValidationDictionary);
-            theUniversityService = new UniversityService(theValidationDictionary);
         }
 
         public ActionResult List(string universityId) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            if (!UniversityHelper.IsFromUniversity(GetUserInformatonModel().Details, universityId)) {
+                return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
+            }
             IEnumerable<Professor> myProfessors = theProfessorService.GetProfessorsForUniversity(universityId);
             return View("List", myProfessors);
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult Create(string universityId) {
-            CreateProfessorModel myViewModel = new CreateProfessorModel() {
-                Universities = new SelectList(theUniversityService.CreateAllUniversitiesDictionaryEntry(), "Value", "Key")
-            };
-            return View("Create", myViewModel);
-        }
-
-        [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
-        public ActionResult Create(CreateProfessorModel professor) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            bool myResult = theProfessorService.CreateProfessor(GetUserInformatonModel(), professor.ToModel());
+            if (!UniversityHelper.IsFromUniversity(GetUserInformatonModel().Details, universityId)) {
+                return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
+            }
+            return View("Create");
+        }
+
+        [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
+        public ActionResult Create(string universityId, string firstName, string lastName, HttpPostedFileBase professorImage) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            if (!UniversityHelper.IsFromUniversity(GetUserInformatonModel().Details, universityId)) {
+                return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
+            }
+            bool myResult = theProfessorService.CreateProfessor(GetUserInformatonModel(), universityId, firstName, lastName, professorImage);
 
             if (myResult) {
                 return SendToResultPage(PROFESSOR_CREATED);
@@ -69,6 +81,9 @@ namespace UniversityOfMe.Controllers.Professors {
         public ActionResult Details(string universityId, string id) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
+            }
+            if (!UniversityHelper.IsFromUniversity(GetUserInformatonModel().Details, universityId)) {
+                return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
             }
             try {
                 bool myExists = theProfessorService.IsProfessorExists(universityId, id);
@@ -92,6 +107,34 @@ namespace UniversityOfMe.Controllers.Professors {
             }
 
             return SendToResultPage(ErrorKeys.ERROR_MESSAGE);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
+        public ActionResult SuggestProfessorPicture(string universityId, int professorId, HttpPostedFileBase professorImage, string firstName, string lastName) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
+
+            if (!UniversityHelper.IsFromUniversity(GetUserInformatonModel().Details, universityId)) {
+                return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
+            }
+
+            try {
+                bool myResult = theProfessorService.CreateProfessorImageSuggestion(myUserInformation, professorId, professorImage);
+
+                if (myResult) {
+                    TempData["Message"] = PROFESSOR_PICTURE_SUGGESTION_SUCCESS;
+                }
+            } catch(PhotoException myException) {
+                LogError(myException, PROFESSOR_SUGGESTED_ERROR);
+                TempData["Message"] = PROFESSOR_SUGGESTED_ERROR;
+            } catch (Exception myException) {
+                LogError(myException, ErrorKeys.ERROR_MESSAGE);
+                TempData["Message"] = ErrorKeys.ERROR_MESSAGE;
+            }
+
+            return RedirectToAction("Details", new { id = URLHelper.ToUrlFriendly(firstName + " " + lastName) });
         }
 
         protected override AbstractUserModel<User> GetSocialUserInformation() {

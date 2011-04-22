@@ -99,6 +99,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Constants\ClubConstants.cs" />
+    <Compile Include="Helpers\Constants\ProfessorConstants.cs" />
     <Compile Include="Helpers\Constants\TextBookConstants.cs" />
     <Compile Include="Helpers\EmailHelper.cs" />
     <Compile Include="Helpers\FriendHelper.cs" />
@@ -138,7 +139,6 @@
     <Compile Include="Models\View\CreateClubModel.cs" />
     <Compile Include="Models\View\CreateProfessorReviewModel.cs" />
     <Compile Include="Models\View\CreateUserModel.cs" />
-    <Compile Include="Models\View\CreateProfessorModel.cs" />
     <Compile Include="Models\View\LoggedInListModel.cs" />
     <Compile Include="Models\View\LoggedInWrapperModel.cs" />
     <Compile Include="Models\View\UniversityView.cs" />
@@ -279,6 +279,7 @@
   <ItemGroup>
     <Folder Include="ClubPhotos\" />
     <Folder Include="Models\Wrappers\" />
+    <Folder Include="ProfessorPhotos\" />
     <Folder Include="TextBookPhotos\" />
   </ItemGroup>
   <ItemGroup>

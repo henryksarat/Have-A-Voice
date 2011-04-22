@@ -34,7 +34,7 @@ namespace UniversityOfMe.Services.TextBooks {
 
             if (aCreateTextBookModel.BookImage != null) {
                 try {
-                    myBookImageName = PhotoHelper.TakeImageAndResizeAndUpload(
+                    myBookImageName = SocialPhotoHelper.TakeImageAndResizeAndUpload(
                         TextBookConstants.TEXTBOOK_PHOTO_PATH, 
                         aCreateTextBookModel.BookTitle.GetHashCode().ToString(),
                         aCreateTextBookModel.BookImage,
@@ -125,7 +125,7 @@ namespace UniversityOfMe.Services.TextBooks {
             }
 
             if (aCreateTextBoook.BookImage != null && !PhotoValidation.IsValidImageFile(aCreateTextBoook.BookImage.FileName)) {
-                theValidationDictionary.AddError("BookImage", aCreateTextBoook.BookImage.FileName, "Please specify a proper image file that ends in .gif, .jpg, or .jpeg.");
+                theValidationDictionary.AddError("BookImage", aCreateTextBoook.BookImage.FileName, PhotoValidation.INVALID_IMAGE);
             }
 
             return theValidationDictionary.isValid;

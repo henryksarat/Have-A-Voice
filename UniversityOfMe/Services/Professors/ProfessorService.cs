@@ -1,11 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Web;
 using Social.Generic.Constants;
 using Social.Generic.Exceptions;
 using Social.Generic.Models;
 using Social.Validation;
-using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
 using UniversityOfMe.Repositories.Professors;
+using UniversityOfMe.Helpers;
+using Social.Photo.Helpers;
+using UniversityOfMe.Helpers.Constants;
+using System;
+using Social.Photo.Exceptions;
 
 namespace UniversityOfMe.Services.Professors {
     public class ProfessorService : IProfessorService {
@@ -20,8 +25,64 @@ namespace UniversityOfMe.Services.Professors {
             theProfessorRepository = aProfessorRepo;
         }
 
+        public IEnumerable<Professor> GetProfessorsForUniversity(string aUniversityId) {
+            return theProfessorRepository.GetProfessorsByUniversity(aUniversityId);
+        }
+
+        public bool CreateProfessor(UserInformationModel<User> aCreatingUser, string aUniversityId, string aFirstName, string aLastName, HttpPostedFileBase aProfessorImage) {
+            if (!ValidProfessor(aUniversityId, aFirstName, aLastName, aProfessorImage)) {
+                return false;
+            }
+
+            string myProfessorImage = string.Empty;
+
+            if (aProfessorImage != null) {
+                try {
+                    myProfessorImage = SocialPhotoHelper.TakeImageAndResizeAndUpload(
+                        ProfessorConstants.PROFESSOR_PHOTO_PATH,
+                        aUniversityId + "_" + aFirstName.Trim().Replace(" ", "") + "_" + aLastName.Trim().Replace(" ", ""),
+                        aProfessorImage,
+                        ProfessorConstants.PROFESSOR_MAX_SIZE);
+                } catch (Exception myException) {
+                    throw new PhotoException("Unable to upload the professor image.", myException);
+                }
+            }
+
+
+            theProfessorRepository.CreateProfessor(aCreatingUser.Details, aUniversityId, aFirstName, aLastName, myProfessorImage);
+            return true;
+        }
+
+
         public Professor GetProfessor(int aProfessorId) {
             return theProfessorRepository.GetProfessor(aProfessorId);
+        }
+
+        public bool CreateProfessorImageSuggestion(UserInformationModel<User> aSuggestingUser, int aProfessorId, HttpPostedFileBase aProfessorImage) {
+            if (!ValidProfessorSuggestedImage(aProfessorImage)) {
+                return false;
+            }
+
+            string myProfessorImage = string.Empty;
+
+            try {
+                myProfessorImage = SocialPhotoHelper.TakeImageAndResizeAndUpload(
+                    ProfessorConstants.PROFESSOR_PHOTO_PATH,
+                    "Suggested_" + aProfessorId,
+                    aProfessorImage,
+                    ProfessorConstants.PROFESSOR_MAX_SIZE);
+            } catch (Exception myException) {
+                throw new PhotoException("Unable to upload the professor image.", myException);
+            }
+
+            try {
+                theProfessorRepository.CreateProfessorSuggestedPicture(aSuggestingUser.Details, aProfessorId, myProfessorImage);
+            } catch (Exception myException) {
+                SocialPhotoHelper.PhysicallyDeletePhoto(HttpContext.Current.Server.MapPath(PhotoHelper.ConstructProfessorUrl(myProfessorImage)));
+                throw new Exception("Unable to create the professor suggested picture database entry so we removed the image.", myException);
+            }
+
+            return true;
         }
 
         public Professor GetProfessor(UserInformationModel<User> aViewingUser, string aUniversityId, string aProfessorName) {
@@ -41,19 +102,6 @@ namespace UniversityOfMe.Services.Professors {
             throw new CustomException(UOMErrorKeys.NOT_FROM_UNVIERSITY);
         }
 
-        public IEnumerable<Professor> GetProfessorsForUniversity(string aUniversityId) {
-            return theProfessorRepository.GetProfessorsByUniversity(aUniversityId);
-        }
-
-        public bool CreateProfessor(UserInformationModel<User> aCreatingUser, Professor aProfessor) {
-            if (!ValidateProfessor(aProfessor)) {
-                return false;
-            }
-
-            theProfessorRepository.CreateProfessor(aCreatingUser.Details, aProfessor);
-            return true;
-        }
-
         public bool IsProfessorExists(string aUniversityId, string aFullname) {
             string[] mySplitName = URLHelper.FromUrlFriendly(aFullname);
 
@@ -68,20 +116,44 @@ namespace UniversityOfMe.Services.Professors {
             return myProfessor == null ? false : true;
         }
 
-        private bool ValidateProfessor(Professor aProfessor) {
-            if (string.IsNullOrEmpty(aProfessor.FirstName)) {
-                theValidationDictionary.AddError("FirstName", aProfessor.FirstName, "First name is required.");
+        private bool ValidProfessor(string aUniversityId, string aFirstName, string aLastName, HttpPostedFileBase aProfessorImage) {
+            if (string.IsNullOrEmpty(aFirstName)) {
+                theValidationDictionary.AddError("FirstName", aFirstName, "First name is required.");
             }
 
-            if (string.IsNullOrEmpty(aProfessor.LastName)) {
-                theValidationDictionary.AddError("LastName", aProfessor.LastName, "Last name is required.");
+            if (string.IsNullOrEmpty(aLastName)) {
+                theValidationDictionary.AddError("LastName", aLastName, "Last name is required.");
             }
 
-            if (string.IsNullOrEmpty(aProfessor.UniversityId) || aProfessor.UniversityId.Equals(Constants.SELECT)) {
-                theValidationDictionary.AddError("UniversityId", aProfessor.UniversityId, "A university is required.");
+            if (string.IsNullOrEmpty(aUniversityId) || aUniversityId.Equals(Constants.SELECT)) {
+                theValidationDictionary.AddError("UniversityId", aUniversityId, "A university is required.");
+            }
+
+            if (theProfessorRepository.GetProfessor(aUniversityId, aFirstName, aLastName) != null) {
+                theValidationDictionary.AddError("FirstName", aFirstName, "That professor already exists in the system. Please do a search and review that professor.");
+                theValidationDictionary.AddError("LastName", aLastName, string.Empty);
+            }
+
+            ValidProfessorImage(aProfessorImage);
+
+            return theValidationDictionary.isValid;
+        }
+
+        private bool ValidProfessorSuggestedImage(HttpPostedFileBase aProfessorImage) {
+            if (aProfessorImage == null || !ValidProfessorImage(aProfessorImage)) {
+                theValidationDictionary.AddError("ProfessorImage", string.Empty, PhotoValidation.INVALID_IMAGE);
             }
 
             return theValidationDictionary.isValid;
         }
+
+        private bool ValidProfessorImage(HttpPostedFileBase aProfessorImage) {
+            if (aProfessorImage != null && !PhotoValidation.IsValidImageFile(aProfessorImage.FileName)) {
+                theValidationDictionary.AddError("ProfessorImage", aProfessorImage.FileName, PhotoValidation.INVALID_IMAGE);
+            }
+
+            return theValidationDictionary.isValid;
+        }
+
     }
 }

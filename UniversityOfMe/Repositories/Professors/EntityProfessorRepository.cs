@@ -15,9 +15,15 @@ namespace UniversityOfMe.Repositories.Professors {
                     select p).ToList<Professor>();
         }
 
-        public void CreateProfessor(User aCreatingUser, Professor aProfessor) {
-            Professor myProfessor = Professor.CreateProfessor(0, aProfessor.UniversityId, aProfessor.FirstName, aProfessor.LastName, aCreatingUser.Id, DateTime.UtcNow);
+        public void CreateProfessor(User aCreatingUser, string aUniversityId, string aFirstName, string aLastName, string aProfessorImage) {
+            Professor myProfessor = Professor.CreateProfessor(0, aUniversityId, aCreatingUser.Id, aFirstName, aLastName, aProfessorImage, DateTime.UtcNow);
             theEntities.AddToProfessors(myProfessor);
+            theEntities.SaveChanges();
+        }
+
+        public void CreateProfessorSuggestedPicture(User aSuggestingUser, int aProfessorId, string aProfessorImage) {
+            ProfessorSuggestedPhoto mySuggested = ProfessorSuggestedPhoto.CreateProfessorSuggestedPhoto(0, aSuggestingUser.Id, aProfessorId, aProfessorImage, DateTime.UtcNow);
+            theEntities.AddToProfessorSuggestedPhotos(mySuggested);
             theEntities.SaveChanges();
         }
 
