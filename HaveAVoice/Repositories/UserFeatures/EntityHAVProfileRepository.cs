@@ -8,6 +8,68 @@ namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVProfileRepository : IHAVProfileRepository {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
+        public IEnumerable<Issue> AuthorityIssuesFeedByCity(User aUser) {
+            return (from i in theEntities.Issues
+                    join u in theEntities.Users on i.User.Id equals u.Id
+                    where u.Id != aUser.Id
+                    && i.Deleted == false
+                    && i.City == aUser.City
+                    select i).OrderByDescending(i => i.DateTimeStamp).ToList<Issue>();
+        }
+
+        public IEnumerable<Issue> AuthorityIssuesFeedByState(User aUser) {
+            return (from i in theEntities.Issues
+                    join u in theEntities.Users on i.User.Id equals u.Id
+                    where u.Id != aUser.Id
+                    && i.Deleted == false
+                    && i.State == aUser.State
+                    select i).OrderByDescending(i => i.DateTimeStamp).ToList<Issue>();
+        }
+
+        public IEnumerable<Issue> AuthorityIssuesFeedByZipCode(User aUser) {
+            IEnumerable<int> myAuthoritiesViewableZipCodes = GetAuthorityViewableZipCodes(aUser);
+
+            return (from i in theEntities.Issues
+                    join u in theEntities.Users on i.User.Id equals u.Id
+                    where u.Id != aUser.Id
+                    && i.Deleted == false
+                    && myAuthoritiesViewableZipCodes.Contains(i.Zip)
+                    select i).OrderByDescending(i => i.DateTimeStamp).ToList<Issue>();
+        }
+
+        public IEnumerable<IssueReply> AuthorityIssueReplysFeedByCity(User aUser) {
+            IEnumerable<int> myAuthoritiesViewableZipCodes = GetAuthorityViewableZipCodes(aUser);
+
+            return (from ir in theEntities.IssueReplys
+                    join u in theEntities.Users on ir.User.Id equals u.Id
+                    where u.Id != aUser.Id
+                    && ir.Deleted == false
+                    && ir.City == aUser.City
+                    select ir).OrderByDescending(ir => ir.DateTimeStamp).ToList<IssueReply>();
+        }
+
+        public IEnumerable<IssueReply> AuthorityIssueReplysFeedByState(User aUser) {
+            IEnumerable<int> myAuthoritiesViewableZipCodes = GetAuthorityViewableZipCodes(aUser);
+
+            return (from ir in theEntities.IssueReplys
+                    join u in theEntities.Users on ir.User.Id equals u.Id
+                    where u.Id != aUser.Id
+                    && ir.Deleted == false
+                    && ir.State == aUser.State
+                    select ir).OrderByDescending(ir => ir.DateTimeStamp).ToList<IssueReply>();
+        }
+
+        public IEnumerable<IssueReply> AuthorityIssueReplysFeedByZipCode(User aUser) {
+            IEnumerable<int> myAuthoritiesViewableZipCodes = GetAuthorityViewableZipCodes(aUser);
+
+            return (from ir in theEntities.IssueReplys
+                    join u in theEntities.Users on ir.User.Id equals u.Id
+                    where u.Id != aUser.Id
+                    && ir.Deleted == false
+                    && myAuthoritiesViewableZipCodes.Contains(ir.Zip)
+                    select ir).OrderByDescending(ir => ir.DateTimeStamp).ToList<IssueReply>();
+        }
+
         public IEnumerable<Issue> IssuesUserCreated(User aUser) {
             return (from i in theEntities.Issues
                     where i.UserId == aUser.Id
@@ -93,25 +155,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     && f.Deleted == false
                     select f).OrderByDescending(f2 => f2.DateTimeStamp).ToList<IssueReply>();
         }
-
-        public IEnumerable<Issue> FilteredIssuesFeed(User aUser) {
-            return (from i in theEntities.Issues
-                    join u in theEntities.Users on i.User.Id equals u.Id
-                    where u.Id != aUser.Id
-                    && i.Deleted == false
-                    && i.State == u.State
-                    select i).OrderByDescending(i => i.DateTimeStamp).ToList<Issue>();
-        }
-
-        public IEnumerable<IssueReply> FilteredIssueReplysFeed(User aUser) {
-            return (from ir in theEntities.IssueReplys
-                    join u in theEntities.Users on ir.User.Id equals u.Id
-                    where u.Id != aUser.Id
-                    && ir.Deleted == false
-                    && ir.State == u.State
-                    select ir).OrderByDescending(ir => ir.DateTimeStamp).ToList<IssueReply>();
-        }
-
+        
         public Issue RandomLocalIssue(User aForUser) {
             IEnumerable<Issue> myLocalIssues = (from i in theEntities.Issues
                                                 where i.City == aForUser.City
@@ -136,6 +180,12 @@ namespace HaveAVoice.Repositories.UserFeatures {
             int myRandomIndex = new Random().Next(myCount);
 
             return myLocalIssues.Skip(myRandomIndex).FirstOrDefault<Issue>();
+        }
+
+        private IEnumerable<int> GetAuthorityViewableZipCodes(User aUser) {
+            return (from z in theEntities.AuthorityViewableZipCodes
+                    where z.UserId == aUser.Id
+                    select z.ZipCode).ToList<int>();
         }
     }
 }

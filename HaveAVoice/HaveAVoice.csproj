@@ -88,6 +88,7 @@
     <Compile Include="Controllers\Users\NotificationController.cs" />
     <Compile Include="Controllers\Photos\PhotosController.cs" />
     <Compile Include="Controllers\Users\UserPrivacySettingsController.cs" />
+    <Compile Include="Helpers\Authority\AuthorityClassification.cs" />
     <Compile Include="Helpers\Enums\FeedItem.cs" />
     <Compile Include="Helpers\IssueTitleHelper.cs" />
     <Compile Include="Helpers\NameHelper.cs" />

@@ -7,6 +7,14 @@ using HaveAVoice.Helpers.Enums;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public interface IHAVProfileRepository {
+        IEnumerable<Issue> AuthorityIssuesFeedByCity(User aUser);
+        IEnumerable<Issue> AuthorityIssuesFeedByState(User aUser);
+        IEnumerable<Issue> AuthorityIssuesFeedByZipCode(User aUser);
+        IEnumerable<IssueReply> AuthorityIssueReplysFeedByCity(User aUser);
+        IEnumerable<IssueReply> AuthorityIssueReplysFeedByState(User aUser);
+        IEnumerable<IssueReply> AuthorityIssueReplysFeedByZipCode(User aUser);
+
+
         IEnumerable<Issue> IssuesUserCreated(User aUser);
         IEnumerable<IssueReply> IssuesUserRepliedTo(User aUser);
 
@@ -18,9 +26,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         IEnumerable<Issue> UserIssueFeed(int aTargetUserId);
         IEnumerable<IssueReply> UserIssueReplyFeed(int aTargetUserId);
-
-        IEnumerable<Issue> FilteredIssuesFeed(User aUser);
-        IEnumerable<IssueReply> FilteredIssueReplysFeed(User aUser);
 
         Issue RandomLocalIssue(User aForUser);
     }

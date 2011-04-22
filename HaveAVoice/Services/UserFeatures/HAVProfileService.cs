@@ -15,6 +15,7 @@ using Social.Generic.Models;
 using Social.Photo.Services;
 using Social.User.Services;
 using Social.Validation;
+using HaveAVoice.Helpers.Authority;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVProfileService : IHAVProfileService {
@@ -111,8 +112,24 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public UserProfileModel AuthorityProfile(UserInformationModel<User> anAuthorityUserInformation) {
             User myAuthorityUser = anAuthorityUserInformation.Details;
-            List<IssueFeedModel> myIssueFeed = CreateIssueFeedForAuthority(theRepository.FilteredIssuesFeed(myAuthorityUser), anAuthorityUserInformation, PersonFilter.People).ToList<IssueFeedModel>();
-            List<IssueReplyFeedModel> myIssueReplyFeed = CreateIssueReplyFeedForAuthority(theRepository.FilteredIssueReplysFeed(myAuthorityUser), anAuthorityUserInformation, PersonFilter.People).ToList<IssueReplyFeedModel>();
+            IEnumerable<Issue> myPeoplesIssues = new List<Issue>();
+            IEnumerable<IssueReply> myPeoplesIssueReplies = new List<IssueReply>();
+
+            string myAuthorityPosition = myAuthorityUser.UserPosition.Position.ToUpper();
+
+            if (AuthorityClassification.GetAuthorityPostionsViewableByZip().Contains(myAuthorityPosition)) {
+                myPeoplesIssues = theRepository.AuthorityIssuesFeedByZipCode(myAuthorityUser);
+                myPeoplesIssueReplies = theRepository.AuthorityIssueReplysFeedByZipCode(myAuthorityUser);
+            } else if (AuthorityClassification.GetAuthorityPostionsViewableByCity().Contains(myAuthorityPosition)) {
+                myPeoplesIssues = theRepository.AuthorityIssuesFeedByCity(myAuthorityUser);
+                myPeoplesIssueReplies = theRepository.AuthorityIssueReplysFeedByCity(myAuthorityUser);
+            } else if (AuthorityClassification.GetAuthorityPostionsViewableByState().Contains(myAuthorityPosition)) {
+                myPeoplesIssues = theRepository.AuthorityIssuesFeedByState(myAuthorityUser);
+                myPeoplesIssueReplies = theRepository.AuthorityIssueReplysFeedByState(myAuthorityUser);
+            }
+
+            List<IssueFeedModel> myIssueFeed = CreateIssueFeedForAuthority(myPeoplesIssues, anAuthorityUserInformation, PersonFilter.People).ToList<IssueFeedModel>();
+            List<IssueReplyFeedModel> myIssueReplyFeed = CreateIssueReplyFeedForAuthority(myPeoplesIssueReplies, anAuthorityUserInformation, PersonFilter.People).ToList<IssueReplyFeedModel>();
             IEnumerable<IssueFeedModel> myPoliticiansIssueFeed = CreateIssueFeed(theRepository.IssueFeedByRole(UserRoleHelper.PoliticianRoles()), myAuthorityUser, PersonFilter.Politicians);
             IEnumerable<IssueReplyFeedModel> myPoliticiansIssueReplyFeed = CreateIssueReplyFeed(theRepository.IssueReplyFeedByRole(UserRoleHelper.PoliticianRoles()), myAuthorityUser, PersonFilter.Politicians);
             IEnumerable<IssueFeedModel> myPoliticalCandidateIssueFeed = CreateIssueFeed(theRepository.IssueFeedByRole(UserRoleHelper.PoliticalCandidateRoles()), myAuthorityUser, PersonFilter.PoliticalCandidates);
@@ -120,11 +137,11 @@ namespace HaveAVoice.Services.UserFeatures {
 
             myIssueFeed.AddRange(myPoliticiansIssueFeed);
             myIssueFeed.AddRange(myPoliticalCandidateIssueFeed);
-            myIssueFeed = myIssueFeed.OrderByDescending(i => i.DateTimeStamp).ToList<IssueFeedModel>();
+            myIssueFeed = myIssueFeed.OrderByDescending(i => i.DateTimeStamp).Take<IssueFeedModel>(10).ToList<IssueFeedModel>();
 
             myIssueReplyFeed.AddRange(myPoliticiansIssueReplyFeed);
             myIssueReplyFeed.AddRange(myPoliticalCandidateIssueReplyFeed);
-            myIssueReplyFeed = myIssueReplyFeed.OrderByDescending(ir => ir.DateTimeStamp).ToList<IssueReplyFeedModel>();
+            myIssueReplyFeed = myIssueReplyFeed.OrderByDescending(ir => ir.DateTimeStamp).Take<IssueReplyFeedModel>(10).ToList<IssueReplyFeedModel>();
 
             Issue myRandomLocalIssue = theRepository.RandomLocalIssue(myAuthorityUser);
 
