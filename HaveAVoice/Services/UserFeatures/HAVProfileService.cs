@@ -120,9 +120,9 @@ namespace HaveAVoice.Services.UserFeatures {
             if (AuthorityClassification.GetAuthorityPostionsViewableByZip().Contains(myAuthorityPosition)) {
                 myPeoplesIssues = theRepository.AuthorityIssuesFeedByZipCode(myAuthorityUser);
                 myPeoplesIssueReplies = theRepository.AuthorityIssueReplysFeedByZipCode(myAuthorityUser);
-            } else if (AuthorityClassification.GetAuthorityPostionsViewableByCity().Contains(myAuthorityPosition)) {
-                myPeoplesIssues = theRepository.AuthorityIssuesFeedByCity(myAuthorityUser);
-                myPeoplesIssueReplies = theRepository.AuthorityIssueReplysFeedByCity(myAuthorityUser);
+            } else if (AuthorityClassification.GetAuthorityPostionsViewableByCityState().Contains(myAuthorityPosition)) {
+                myPeoplesIssues = theRepository.AuthorityIssuesFeedByCityState(myAuthorityUser);
+                myPeoplesIssueReplies = theRepository.AuthorityIssueReplysFeedByCityState(myAuthorityUser);
             } else if (AuthorityClassification.GetAuthorityPostionsViewableByState().Contains(myAuthorityPosition)) {
                 myPeoplesIssues = theRepository.AuthorityIssuesFeedByState(myAuthorityUser);
                 myPeoplesIssueReplies = theRepository.AuthorityIssueReplysFeedByState(myAuthorityUser);

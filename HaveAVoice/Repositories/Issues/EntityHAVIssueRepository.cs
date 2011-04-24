@@ -41,15 +41,16 @@ namespace HaveAVoice.Repositories.Issues {
         public IEnumerable<IssueWithDispositionModel> GetIssues(User aUser) {
             ObjectQuery<Issue> myIssues = theEntities.Issues;
             ObjectQuery<IssueDisposition> myIssueDispositions = theEntities.IssueDispositions;
+            int myUserId = aUser == null ? 0 : aUser.Id;
 
             return (from i in myIssues
                     let d = myIssueDispositions.Where(d2 => d2.Issue.Id == i.Id)
-                    .Where(d2 => d2.User.Id == aUser.Id)
+                    .Where(d2 => d2.User.Id == myUserId)
                     .FirstOrDefault()
                     where i.Deleted == false
                     select new IssueWithDispositionModel() {
                         Issue = i,
-                        HasDisposition = (d == null ? false : true),
+                        HasDisposition = (d == null && aUser != null ? false : true),
                         TotalAgrees = (from d2 in i.IssueDispositions
                                        where d2.Disposition == (int)Disposition.Like
                                        select d2).Count<IssueDisposition>(),

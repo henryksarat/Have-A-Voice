@@ -8,12 +8,13 @@ namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVProfileRepository : IHAVProfileRepository {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
-        public IEnumerable<Issue> AuthorityIssuesFeedByCity(User aUser) {
+        public IEnumerable<Issue> AuthorityIssuesFeedByCityState(User aUser) {
             return (from i in theEntities.Issues
                     join u in theEntities.Users on i.User.Id equals u.Id
                     where u.Id != aUser.Id
                     && i.Deleted == false
                     && i.City == aUser.City
+                    && i.State == aUser.State
                     select i).OrderByDescending(i => i.DateTimeStamp).ToList<Issue>();
         }
 
@@ -37,7 +38,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     select i).OrderByDescending(i => i.DateTimeStamp).ToList<Issue>();
         }
 
-        public IEnumerable<IssueReply> AuthorityIssueReplysFeedByCity(User aUser) {
+        public IEnumerable<IssueReply> AuthorityIssueReplysFeedByCityState(User aUser) {
             IEnumerable<int> myAuthoritiesViewableZipCodes = GetAuthorityViewableZipCodes(aUser);
 
             return (from ir in theEntities.IssueReplys
@@ -45,6 +46,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     where u.Id != aUser.Id
                     && ir.Deleted == false
                     && ir.City == aUser.City
+                    && ir.State == aUser.State
                     select ir).OrderByDescending(ir => ir.DateTimeStamp).ToList<IssueReply>();
         }
 

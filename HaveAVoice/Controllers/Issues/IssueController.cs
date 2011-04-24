@@ -9,16 +9,13 @@ using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
 using HaveAVoice.Models.Wrappers;
-using HaveAVoice.Repositories;
-using HaveAVoice.Services;
 using HaveAVoice.Services.Issues;
 using Social.Admin.Helpers;
 using Social.Generic.ActionFilters;
+using Social.Generic.Constants;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Validation;
-using Social.Generic.Services;
-using Social.Generic.Constants;
 
 namespace HaveAVoice.Controllers.Issues {
     public class IssueController : HAVBaseController {
@@ -65,10 +62,6 @@ namespace HaveAVoice.Controllers.Issues {
         }
 
         public ActionResult Index() {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-
             IEnumerable<IssueWithDispositionModel> myIssues;
             try {
                 myIssues = theIssueService.GetIssues(GetUserInformaton()).OrderByDescending(i => i.Issue.DateTimeStamp);

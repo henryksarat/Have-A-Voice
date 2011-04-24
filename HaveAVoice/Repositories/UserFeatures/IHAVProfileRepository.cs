@@ -7,10 +7,10 @@ using HaveAVoice.Helpers.Enums;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public interface IHAVProfileRepository {
-        IEnumerable<Issue> AuthorityIssuesFeedByCity(User aUser);
+        IEnumerable<Issue> AuthorityIssuesFeedByCityState(User aUser);
         IEnumerable<Issue> AuthorityIssuesFeedByState(User aUser);
         IEnumerable<Issue> AuthorityIssuesFeedByZipCode(User aUser);
-        IEnumerable<IssueReply> AuthorityIssueReplysFeedByCity(User aUser);
+        IEnumerable<IssueReply> AuthorityIssueReplysFeedByCityState(User aUser);
         IEnumerable<IssueReply> AuthorityIssueReplysFeedByState(User aUser);
         IEnumerable<IssueReply> AuthorityIssueReplysFeedByZipCode(User aUser);
 

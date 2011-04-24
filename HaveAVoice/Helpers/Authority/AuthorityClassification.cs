@@ -12,7 +12,7 @@ namespace HaveAVoice.Helpers.Authority {
             return myViewablePositions;
         }
 
-        public static List<string> GetAuthorityPostionsViewableByCity() {
+        public static List<string> GetAuthorityPostionsViewableByCityState() {
             List<string> myViewablePositions = new List<string>();
             myViewablePositions.Add("MAYOR");
             myViewablePositions.Add("CITY_CLERK");
