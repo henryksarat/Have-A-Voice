@@ -79,6 +79,7 @@
     <Compile Include="Controllers\Clubs\ClubController.cs" />
     <Compile Include="Controllers\Clubs\ClubMemberController.cs" />
     <Compile Include="Controllers\Core\AuthenticationController.cs" />
+    <Compile Include="Controllers\Dating\DatingController.cs" />
     <Compile Include="Controllers\Events\EventBoardController.cs" />
     <Compile Include="Controllers\Events\EventController.cs" />
     <Compile Include="Controllers\GeneralPostings\GeneralPostingController.cs" />
@@ -152,6 +153,8 @@
     <Compile Include="Repositories\Classes\IClassRepository.cs" />
     <Compile Include="Repositories\Clubs\EntityClubRepository.cs" />
     <Compile Include="Repositories\Clubs\IClubRepository.cs" />
+    <Compile Include="Repositories\Dating\DatingRepository.cs" />
+    <Compile Include="Repositories\Dating\IDatingRepository.cs" />
     <Compile Include="Repositories\Events\EntityEventRepository.cs" />
     <Compile Include="Repositories\Events\IEventRepository.cs" />
     <Compile Include="Repositories\Friends\EntityFriendRepository.cs" />
@@ -166,6 +169,7 @@
     <Compile Include="Repositories\Professors\EntityProfessorRepository.cs" />
     <Compile Include="Repositories\Professors\IProfessorReviewRepository.cs" />
     <Compile Include="Repositories\TextBooks\EntityTextBookRepository.cs" />
+    <Compile Include="Repositories\UserRepos\IUofMeUserRetrievalRepository.cs" />
     <Compile Include="Repositories\UserRepos\EntityUserRepository.cs" />
     <Compile Include="Repositories\EntityWhoIsOnlineRepository.cs" />
     <Compile Include="Repositories\EntityBaseRepository.cs" />
@@ -179,6 +183,7 @@
     <Compile Include="Services\Classes\ClassService.cs" />
     <Compile Include="Services\Clubs\IClubService.cs" />
     <Compile Include="Services\Clubs\ClubService.cs" />
+    <Compile Include="Services\Dating\DatingService.cs" />
     <Compile Include="Services\Events\EventService.cs" />
     <Compile Include="Services\Events\IEventService.cs" />
     <Compile Include="Services\GeneralPostings\GeneralPostingService.cs" />
@@ -191,6 +196,9 @@
     <Compile Include="Services\TextBooks\TextBookService.cs" />
     <Compile Include="Services\TextBooks\ITextBookService.cs" />
     <Compile Include="Services\UniversityService.cs" />
+    <Compile Include="Services\Dating\IDatingService.cs" />
+    <Compile Include="Services\Users\UofMeUserRetrievalService.cs" />
+    <Compile Include="Services\Users\IUofMeUserRetrievalService.cs" />
     <Compile Include="Services\Users\IUofMeUserService.cs" />
     <Compile Include="Services\Users\UofMeUserService.cs" />
     <Compile Include="UserInformation\UserInformationFactory.cs" />

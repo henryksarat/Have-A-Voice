@@ -14,10 +14,12 @@ using UniversityOfMe.Services.GeneralPostings;
 using UniversityOfMe.Services.Professors;
 using UniversityOfMe.Services.TextBooks;
 using UniversityOfMe.Services.Users;
+using UniversityOfMe.Services.Dating;
 
 namespace UniversityOfMe.Services {
     public class UniversityService : IUniversityService {
         private IUofMeUserService theUserService;
+        private IDatingService theDatingService;
         private IProfessorService theProfessorService;
         private IClassService theClassService;
         private IEventService theEventService;
@@ -28,6 +30,7 @@ namespace UniversityOfMe.Services {
 
         public UniversityService(IValidationDictionary aValidationDictionary) 
             : this(new UofMeUserService(aValidationDictionary),
+                   new DatingService(),
                    new ProfessorService(aValidationDictionary), 
                    new ClassService(aValidationDictionary), 
                    new EventService(aValidationDictionary), 
@@ -37,6 +40,7 @@ namespace UniversityOfMe.Services {
                    new EntityUniversityRepository()) { }
 
         public UniversityService(IUofMeUserService aUserService,
+                                 IDatingService aDatingService,
                                  IProfessorService aProfessorService, 
                                  IClassService aClassService, 
                                  IEventService anEventService, 
@@ -45,6 +49,7 @@ namespace UniversityOfMe.Services {
                                  IGeneralPostingService aGeneralPostingService, 
                                  IUniversityRepository aUniversityRepository) {
             theUserService = aUserService;
+            theDatingService = aDatingService;
             theProfessorService = aProfessorService;
             theClassService = aClassService;
             theEventService = anEventService;
@@ -90,6 +95,8 @@ namespace UniversityOfMe.Services {
 
             return new UniversityView() {
                 University = myUniversity,
+                DatingMember = theDatingService.GetDatingMember(aUserInformation.Details),
+                DatingMatchMember = theDatingService.UserDatingMatch(aUserInformation.Details),
                 Professors = myProfessors,
                 Classes = myClasses,
                 Events = myEvents,

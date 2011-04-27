@@ -33,6 +33,42 @@
     <table>
         <tr>
             <td>
+                <% if (Model.Get().HasDatingMatch()) { %>
+                    There is a dating match, you said you would date this person and they said they would date you.<br />
+                    <img src="<%= PhotoHelper.ProfilePicture(Model.Get().DatingMatchMember.AskedUser) %>" />
+                    <%= NameHelper.FullName(Model.Get().DatingMatchMember.AskedUser) %> <br />
+
+                    <%= Html.ActionLink("Message", "Create", "Message", new { id = Model.Get().DatingMatchMember.AskedUserId }, null)%>
+                    <% using (Html.BeginForm("MarkAsSeen", "Dating")) {%>
+                        <%= Html.Hidden("DatingLogId", Model.Get().DatingMatchMember.Id) %>
+                        <input type="submit" value="Don't show this anymore" />
+                    <% } %>
+                <% } %>
+            </td>
+            <td>
+                UofMe Dating:<br />
+                <% if (Model.Get().HasDatingMember()) { %>
+                    Would you date <%= NameHelper.FullName(Model.Get().DatingMember) %>? <br />
+                    <img src="<%= PhotoHelper.ProfilePicture(Model.Get().DatingMember) %>" />
+
+                    <% using (Html.BeginForm("Create", "Dating")) {%>
+                        <%= Html.Hidden("Response", true) %>
+                        <%= Html.Hidden("SourceUserId", Model.Get().DatingMember.Id)  %>
+                        <input type="submit" value="Yes" />
+                    <% } %>
+
+                    <% using (Html.BeginForm("Create", "Dating")) {%>
+                        <%= Html.Hidden("Response", false) %>
+                        <%= Html.Hidden("SourceUserId", Model.Get().DatingMember.Id)  %>
+                        <input type="submit" value="No" />
+                    <% } %>
+                <% } else { %>
+                    Sorry there is noone to ask you about right now.<br />
+                <% } %>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 Newest Members in the university<br />
                 <% foreach (User myUser in Model.Get().NewestUsers) { %>
                     <%= NameHelper.FullName(myUser) %><br />

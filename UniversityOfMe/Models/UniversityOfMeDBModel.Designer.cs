@@ -82,6 +82,8 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Professors_Universities", "University", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.University), "Professor", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Professor), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Professors_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "Professor", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Professor), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ProfessorSuggestedPictures_Professors", "Professor", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Professor), "ProfessorSuggestedPhoto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ProfessorSuggestedPhoto), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_DatingLog_AskedUser", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "DatingLog", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.DatingLog), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_DatingLog_SourceUser", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "DatingLog", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.DatingLog), true)]
 
 #endregion
 
@@ -740,6 +742,22 @@ namespace UniversityOfMe.Models
             }
         }
         private ObjectSet<Professor> _Professors;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DatingLog> DatingLogs
+        {
+            get
+            {
+                if ((_DatingLogs == null))
+                {
+                    _DatingLogs = base.CreateObjectSet<DatingLog>("DatingLogs");
+                }
+                return _DatingLogs;
+            }
+        }
+        private ObjectSet<DatingLog> _DatingLogs;
 
         #endregion
         #region AddTo Methods
@@ -1046,6 +1064,14 @@ namespace UniversityOfMe.Models
         public void AddToProfessors(Professor professor)
         {
             base.AddObject("Professors", professor);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DatingLogs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDatingLogs(DatingLog datingLog)
+        {
+            base.AddObject("DatingLogs", datingLog);
         }
 
         #endregion
@@ -4469,6 +4495,270 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Club>("UniversityOfMeModel.FK_Clubs_ClubTypes", "Club", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="DatingLog")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DatingLog : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DatingLog object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="sourceUserId">Initial value of the SourceUserId property.</param>
+        /// <param name="askedUserId">Initial value of the AskedUserId property.</param>
+        /// <param name="wantTo">Initial value of the WantTo property.</param>
+        /// <param name="sourceHasSeen">Initial value of the SourceHasSeen property.</param>
+        /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
+        public static DatingLog CreateDatingLog(global::System.Int32 id, global::System.Int32 sourceUserId, global::System.Int32 askedUserId, global::System.Boolean wantTo, global::System.Boolean sourceHasSeen, global::System.DateTime dateTimeStamp)
+        {
+            DatingLog datingLog = new DatingLog();
+            datingLog.Id = id;
+            datingLog.SourceUserId = sourceUserId;
+            datingLog.AskedUserId = askedUserId;
+            datingLog.WantTo = wantTo;
+            datingLog.SourceHasSeen = sourceHasSeen;
+            datingLog.DateTimeStamp = dateTimeStamp;
+            return datingLog;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 SourceUserId
+        {
+            get
+            {
+                return _SourceUserId;
+            }
+            set
+            {
+                OnSourceUserIdChanging(value);
+                ReportPropertyChanging("SourceUserId");
+                _SourceUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("SourceUserId");
+                OnSourceUserIdChanged();
+            }
+        }
+        private global::System.Int32 _SourceUserId;
+        partial void OnSourceUserIdChanging(global::System.Int32 value);
+        partial void OnSourceUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 AskedUserId
+        {
+            get
+            {
+                return _AskedUserId;
+            }
+            set
+            {
+                OnAskedUserIdChanging(value);
+                ReportPropertyChanging("AskedUserId");
+                _AskedUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AskedUserId");
+                OnAskedUserIdChanged();
+            }
+        }
+        private global::System.Int32 _AskedUserId;
+        partial void OnAskedUserIdChanging(global::System.Int32 value);
+        partial void OnAskedUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean WantTo
+        {
+            get
+            {
+                return _WantTo;
+            }
+            set
+            {
+                OnWantToChanging(value);
+                ReportPropertyChanging("WantTo");
+                _WantTo = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("WantTo");
+                OnWantToChanged();
+            }
+        }
+        private global::System.Boolean _WantTo;
+        partial void OnWantToChanging(global::System.Boolean value);
+        partial void OnWantToChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean SourceHasSeen
+        {
+            get
+            {
+                return _SourceHasSeen;
+            }
+            set
+            {
+                OnSourceHasSeenChanging(value);
+                ReportPropertyChanging("SourceHasSeen");
+                _SourceHasSeen = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("SourceHasSeen");
+                OnSourceHasSeenChanged();
+            }
+        }
+        private global::System.Boolean _SourceHasSeen;
+        partial void OnSourceHasSeenChanging(global::System.Boolean value);
+        partial void OnSourceHasSeenChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateTimeStamp
+        {
+            get
+            {
+                return _DateTimeStamp;
+            }
+            set
+            {
+                OnDateTimeStampChanging(value);
+                ReportPropertyChanging("DateTimeStamp");
+                _DateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateTimeStamp");
+                OnDateTimeStampChanged();
+            }
+        }
+        private global::System.DateTime _DateTimeStamp;
+        partial void OnDateTimeStampChanging(global::System.DateTime value);
+        partial void OnDateTimeStampChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_DatingLog_AskedUser", "User")]
+        public User AskedUser
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_DatingLog_AskedUser", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_DatingLog_AskedUser", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> AskedUserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_DatingLog_AskedUser", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_DatingLog_AskedUser", "User", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_DatingLog_SourceUser", "User")]
+        public User SourceUser
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_DatingLog_SourceUser", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_DatingLog_SourceUser", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> SourceUserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_DatingLog_SourceUser", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_DatingLog_SourceUser", "User", value);
                 }
             }
         }
@@ -11475,6 +11765,50 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Professor>("UniversityOfMeModel.FK_Professors_Users", "Professor", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_DatingLog_AskedUser", "DatingLog")]
+        public EntityCollection<DatingLog> AskedToDate
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DatingLog>("UniversityOfMeModel.FK_DatingLog_AskedUser", "DatingLog");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DatingLog>("UniversityOfMeModel.FK_DatingLog_AskedUser", "DatingLog", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_DatingLog_SourceUser", "DatingLog")]
+        public EntityCollection<DatingLog> SourceToDating
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DatingLog>("UniversityOfMeModel.FK_DatingLog_SourceUser", "DatingLog");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DatingLog>("UniversityOfMeModel.FK_DatingLog_SourceUser", "DatingLog", value);
                 }
             }
         }

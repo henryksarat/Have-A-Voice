@@ -6,7 +6,7 @@ using UniversityOfMe.Models;
 using UniversityOfMe.Models.Social;
 
 namespace UniversityOfMe.Repositories.UserRepos {
-    public class EntityUserRetrievalRepository : IUserRetrievalRepository<User> {
+    public class EntityUserRetrievalRepository : IUofMeUserRetrievalRepository {
         private UniversityOfMeEntities theEntities = new UniversityOfMeEntities();
 
         public AbstractUserModel<User> GetAbstractUser(string anEmail, string aPassword) {
@@ -44,6 +44,12 @@ namespace UniversityOfMe.Repositories.UserRepos {
                     || u.FirstName.Contains(aNamePortion)
                     || u.LastName.Contains(aNamePortion)
                     select u);
+        }
+
+        public IEnumerable<User> GetUsersWithGender(string aGender) {
+            return (from u in theEntities.Users
+                    where u.Gender == aGender
+                    select u).ToList<User>();
         }
     }
 }
