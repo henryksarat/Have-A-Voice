@@ -51,7 +51,7 @@ namespace UniversityOfMe.Services.Dating {
         }
 
         public void MarkDatingLogAsSeenBySourceUser(User aSourceUser, int aDatingLogId) {
-            throw new NotImplementedException();
+            theDatingRepository.MarkDatingLogAsSeenBySourceUser(aSourceUser, aDatingLogId);
         }
 
         public DatingLog UserDatingMatch(User anAskingUser) {
