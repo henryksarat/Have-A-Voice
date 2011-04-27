@@ -19,7 +19,7 @@ using Social.Validation;
 
 namespace HaveAVoice.Controllers.Issues {
     public class IssueController : HAVBaseController {
-        private const string GET_LATEST_ISSUES_ERROR = "Unable to get the latest myIssues.";
+        private const string GET_LATEST_ISSUES_ERROR = "Unable to get the latest Issues.";
         private const string NO_ISSUES = "There are no issues to display.";
         private const string ISSUE_REFRESHED = "The issue has been refreshed. Please filter it again.";
 

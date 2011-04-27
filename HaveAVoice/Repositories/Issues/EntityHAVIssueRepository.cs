@@ -50,7 +50,7 @@ namespace HaveAVoice.Repositories.Issues {
                     where i.Deleted == false
                     select new IssueWithDispositionModel() {
                         Issue = i,
-                        HasDisposition = (d == null && aUser != null ? false : true),
+                        HasDisposition = (d == null && myUserId != 0 ? false : true),
                         TotalAgrees = (from d2 in i.IssueDispositions
                                        where d2.Disposition == (int)Disposition.Like
                                        select d2).Count<IssueDisposition>(),
