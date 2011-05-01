@@ -11016,6 +11016,54 @@ namespace UniversityOfMe.Models
         private global::System.String _ShortUrl;
         partial void OnShortUrlChanging(global::System.String value);
         partial void OnShortUrlChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String NewEmail
+        {
+            get
+            {
+                return _NewEmail;
+            }
+            set
+            {
+                OnNewEmailChanging(value);
+                ReportPropertyChanging("NewEmail");
+                _NewEmail = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("NewEmail");
+                OnNewEmailChanged();
+            }
+        }
+        private global::System.String _NewEmail;
+        partial void OnNewEmailChanging(global::System.String value);
+        partial void OnNewEmailChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String NewEmailHash
+        {
+            get
+            {
+                return _NewEmailHash;
+            }
+            set
+            {
+                OnNewEmailHashChanging(value);
+                ReportPropertyChanging("NewEmailHash");
+                _NewEmailHash = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("NewEmailHash");
+                OnNewEmailHashChanged();
+            }
+        }
+        private global::System.String _NewEmailHash;
+        partial void OnNewEmailHashChanging(global::System.String value);
+        partial void OnNewEmailHashChanged();
 
         #endregion
     

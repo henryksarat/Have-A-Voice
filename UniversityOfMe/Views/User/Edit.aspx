@@ -125,12 +125,12 @@
 		</div>
 	    <div class="col-18 spacer-15">&nbsp;</div>
 	    <div class="col-6">
-	        <label>Email:</label>
+	        <label>New Email:</label>
 	    </div>
 	    <div class="push-1 col-6">
-	        <%= Html.TextBox("Email", Model.Get().Email) %>
+	        <%= Html.TextBox("NewEmail", Model.Get().NewEmail)%>
 	        <span class="req">
-	            <%= Html.ValidationMessage("Email", "*") %>
+	            <%= Html.ValidationMessage("NewEmail", "*") %>
 	        </span>
 	    </div>
 	    <div class="col-18 spacer-15">&nbsp;</div>

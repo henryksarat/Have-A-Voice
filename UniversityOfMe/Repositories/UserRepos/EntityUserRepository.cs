@@ -75,7 +75,7 @@ namespace UniversityOfMe.Repositories.UserRepos {
                     where ue.UniversityId == aUniversity
                     && u.Id != aRequestingUser.Id
                     select u).Take<User>(aLimit).ToList<User>();
-                    
+
         }
 
         public void RemoveUserFromRole(User myUser, Role myRole) {
@@ -96,20 +96,26 @@ namespace UniversityOfMe.Repositories.UserRepos {
 
         public void UpdateUser(User userToEdit) {
             User originalUser = GetUser(userToEdit.Id);
-
-            DeleteCurrentUserUniversities(userToEdit);
-            string myEmail = EmailHelper.ExtractEmailExtension(userToEdit.Email);
-            UserUniversity myUserUniversity = UserUniversity.CreateUserUniversity(0, userToEdit.Id, myEmail);
-            
-            theEntities.AddToUserUniversities(myUserUniversity);
             theEntities.ApplyCurrentValues(originalUser.EntityKey.EntitySetName, userToEdit);
+            theEntities.SaveChanges();
+        }
+
+        public void UpdateUserEmailAndUniversities(User aUser) {
+            User originalUser = GetUser(aUser.Id);
+
+            DeleteCurrentUserUniversities(aUser);
+            string myEmail = EmailHelper.ExtractEmailExtension(aUser.Email);
+            UserUniversity myUserUniversity = UserUniversity.CreateUserUniversity(0, aUser.Id, myEmail);
+
+            theEntities.AddToUserUniversities(myUserUniversity);
+            theEntities.ApplyCurrentValues(originalUser.EntityKey.EntitySetName, aUser);
 
             theEntities.SaveChanges();
         }
 
         private void DeleteCurrentUserUniversities(User aUser) {
             IEnumerable<UserUniversity> myUserUniversities = GetUserUniversities(aUser);
-            foreach(UserUniversity myUserUniversity in myUserUniversities) {
+            foreach (UserUniversity myUserUniversity in myUserUniversities) {
                 theEntities.DeleteObject(myUserUniversity);
             }
         }

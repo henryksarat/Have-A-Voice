@@ -21,6 +21,9 @@ namespace UniversityOfMe.Models.View {
         public string RetypedPassword { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string NewEmail { get; set; }
+
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string OriginalEmail { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]

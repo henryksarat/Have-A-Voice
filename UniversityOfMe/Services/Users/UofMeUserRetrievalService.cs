@@ -23,5 +23,9 @@ namespace UniversityOfMe.Services.Users {
         public IEnumerable<User> GetAllMaleUsers() {
             return theUserRetrievalRepository.GetUsersWithGender(Gender.MALE);
         }
+
+        public User GetUserByChangeEmailInformation(string anOldEmail, string aNewEmailHash) {
+            return theUserRetrievalRepository.GetUserByChangeEmailInformation(anOldEmail, aNewEmailHash);
+        }
     }
 }

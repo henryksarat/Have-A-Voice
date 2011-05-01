@@ -215,6 +215,7 @@
     <Content Include="Global.asax" />
     <Content Include="Photos\no_profile_picture.jpg" />
     <Content Include="Views\Admin\Index.aspx" />
+    <Content Include="Views\Authentication\ChangeEmail.aspx" />
     <Content Include="Views\Authentication\Login.aspx" />
     <Content Include="Views\Board\Details.aspx" />
     <Content Include="Views\Class\Create.aspx" />

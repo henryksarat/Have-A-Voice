@@ -38,6 +38,13 @@ namespace UniversityOfMe.Repositories.UserRepos {
                     select c).FirstOrDefault();
         }
 
+        public User GetUserByChangeEmailInformation(string anOldEmail, string aNewEmailHash) {
+            return (from u in theEntities.Users
+                    where u.Email == anOldEmail
+                    && u.NewEmailHash == aNewEmailHash
+                    select u).FirstOrDefault<User>();
+        }
+
         public IEnumerable<User> GetUsersByNameContains(string aNamePortion) {
             return (from u in theEntities.Users
                     where u.FirstName + " " + u.LastName == aNamePortion
@@ -46,10 +53,13 @@ namespace UniversityOfMe.Repositories.UserRepos {
                     select u);
         }
 
+
         public IEnumerable<User> GetUsersWithGender(string aGender) {
             return (from u in theEntities.Users
                     where u.Gender == aGender
                     select u).ToList<User>();
         }
+
+
     }
 }

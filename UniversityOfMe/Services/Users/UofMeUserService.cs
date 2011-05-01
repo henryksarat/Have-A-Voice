@@ -8,23 +8,57 @@ using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
 using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories.UserRepos;
+using Social.Generic.Helpers;
+using Social.Generic.Exceptions;
+using System;
 
 namespace UniversityOfMe.Services.Users {
     public class UofMeUserService : UserService<User, Role, UserRole>, IUofMeUserService {
         private const string INVALID_EMAIL = "That is not a valid email.";
+        private const string CHANGE_EMAIL_SUBJECT = "UniversityOf.Me | Email Change Confirmattion";
+        private const string CHANGE_EMAIL_BODY = "Hello!\nTo change your account email please click the following link and enter your old email address: ";
 
         private IValidationDictionary theValidationDictionary;
-        private IUserRetrievalService<User> theUserRetrievalService;
+        private IUofMeUserRetrievalService theUserRetrievalService;
         private IUofMeUserRepository theUserRepository;
 
         public UofMeUserService(IValidationDictionary aValidationDictionary)
-            : this(aValidationDictionary, new UserRetrievalService<User>(new EntityUserRetrievalRepository()), new EntityUserRepository(), new SocialEmail()) { }
+            : this(aValidationDictionary, new UofMeUserRetrievalService(), new EntityUserRepository(), new SocialEmail()) { }
 
-        public UofMeUserService(IValidationDictionary aValidationDictionary, IUserRetrievalService<User> aUserRetrievalService, IUofMeUserRepository aUserRepo, IEmail anEmail)
+        public UofMeUserService(IValidationDictionary aValidationDictionary, IUofMeUserRetrievalService aUserRetrievalService, IUofMeUserRepository aUserRepo, IEmail anEmail)
             : base(aValidationDictionary, aUserRepo, anEmail) {
             theValidationDictionary = aValidationDictionary;
             theUserRetrievalService = aUserRetrievalService;
             theUserRepository = aUserRepo;
+        }
+
+        public bool ChangeEmail(string anOldEmail, string aNewEmailHash) {
+            if (string.IsNullOrEmpty(anOldEmail)) {
+                theValidationDictionary.AddError("OldEmail", anOldEmail, "You must enter the old email you are changing from.");
+                return false;
+            }
+
+            User myUser = theUserRetrievalService.GetUserByChangeEmailInformation(anOldEmail, aNewEmailHash);
+            if (myUser == null) {
+                theValidationDictionary.AddError("OldEmail", anOldEmail, "We can't create a match between the link you clicked and the old email you entered. Please click the link again and try again or try changing your email again.");
+                return false;
+            }
+
+            User myPotentialNewEmailTakenByUser = theUserRetrievalService.GetUser(myUser.NewEmail);
+            if (myPotentialNewEmailTakenByUser != null) {
+                theValidationDictionary.AddError("NewEmail", myUser.NewEmail, "That email is already the active email of someone else. " +
+                                                                              "If this is incorrect please contact us by clicking \"Contact Us\" at " +
+                                                                              "the bottom of the page and describing the problem.");
+                return false;
+            }
+
+            myUser.Email = myUser.NewEmail;
+            myUser.NewEmail = null;
+            myUser.NewEmailHash = null;
+
+            theUserRepository.UpdateUserEmailAndUniversities(myUser);
+
+            return true;
         }
 
         public bool EditUser(EditUserModel aUser, string aHashedPassword) {
@@ -38,7 +72,7 @@ namespace UniversityOfMe.Services.Users {
             }
 
             User myOriginalUser = theUserRetrievalService.GetUser(aUser.Id);
-            myOriginalUser.Email = aUser.Email;
+            myOriginalUser.NewEmail = aUser.NewEmail;
             myOriginalUser.Password = aHashedPassword;
             myOriginalUser.FirstName = aUser.FirstName;
             myOriginalUser.LastName = aUser.LastName;
@@ -50,7 +84,22 @@ namespace UniversityOfMe.Services.Users {
             myOriginalUser.Gender = aUser.Gender;
             myOriginalUser.AboutMe = aUser.AboutMe;
 
+            if (!string.IsNullOrEmpty(aUser.NewEmail)) {
+                myOriginalUser.NewEmailHash = HashHelper.DoHash(aUser.NewEmail + myOriginalUser.Id);
+            }
+
             theUserRepository.UpdateUser(myOriginalUser);
+
+            if (!string.IsNullOrEmpty(aUser.NewEmail)) {
+                string myUrl = UOMConstants.BASE_URL + "/Authentication/ChangeEmail/" + myOriginalUser.NewEmailHash;
+                IEmail myEmail = new SocialEmail();
+                try {
+                    myEmail.SendEmail(aUser.NewEmail, CHANGE_EMAIL_SUBJECT, CHANGE_EMAIL_BODY + myUrl);
+                } catch (Exception myException) {
+                    throw new CustomException("An error occurred while trying to send out the email to confirm you changing your email. " +
+                                              "However, all your other changes have been saved. Please try changing your email again.", myException);
+                }
+            }
 
             return true;
         }
@@ -80,7 +129,7 @@ namespace UniversityOfMe.Services.Users {
         }
 
         private bool ValidateEditedUser(EditUserModel aUser, string aOriginalEmail) {
-            ValidEmail(aUser.Email, aOriginalEmail);
+            ValidEmail(aUser.NewEmail, aOriginalEmail);
             DateOfBirthValidation.ValidDateOfBirth(theValidationDictionary, aUser.DateOfBirth);
 
             if (aUser.Gender.Equals(Constants.SELECT)) {

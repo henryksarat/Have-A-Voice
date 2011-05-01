@@ -12,17 +12,52 @@ using UniversityOfMe.Models;
 using UniversityOfMe.Models.Social;
 using UniversityOfMe.Repositories;
 using UniversityOfMe.UserInformation;
+using UniversityOfMe.Services.Users;
+using Social.Validation;
+using System;
+using Social.Generic.ActionFilters;
 
 namespace UniversityOfMe.Controllers.Core {
     public class AuthenticationController : AbstractAuthenticationController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
         private const string ACCOUNT_ACTIVATED_BODY = "You may now login and access have a voice!";
+        private const string CHANGE_EMAIL_ERROR = "An error occurred while trying to change your email. Please try again.";
+        private const string CHANGE_EMAIL_SUCCESS = "Your email has been changed! You can now login with it.";
+
+        IUofMeUserService theUserService;
+        IValidationDictionary theValidationDictionary;
 
         public AuthenticationController()
             : base(new BaseService<User>(new EntityBaseRepository()),
                    UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())),
                    InstanceHelper.CreateAuthencationService(),
                    new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())) {
+            
             UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
+            theValidationDictionary = new ModelStateWrapper(this.ModelState);
+            theUserService = new UofMeUserService(theValidationDictionary);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
+        public ActionResult ChangeEmail(string id) {
+            LogOut();
+            return View("ChangeEmail", new StringModel(id));
+        }
+
+        [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
+        public ActionResult ChangeEmail(string oldEmail, string newEmailHash) {
+            try {
+                bool myResult = theUserService.ChangeEmail(oldEmail, newEmailHash);
+
+                if (myResult) {
+                    TempData["Message"] = CHANGE_EMAIL_SUCCESS;
+                    return RedirectToLogin();
+                }
+            } catch (Exception myException) {
+                LogError(myException, CHANGE_EMAIL_ERROR);
+                TempData["Message"] = CHANGE_EMAIL_ERROR;
+            }
+
+            return RedirectToAction("ChangeEmail", new { id = newEmailHash });
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

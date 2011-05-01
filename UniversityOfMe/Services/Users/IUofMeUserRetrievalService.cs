@@ -9,5 +9,6 @@ namespace UniversityOfMe.Services.Users {
     public interface IUofMeUserRetrievalService : IUserRetrievalService<User> {
         IEnumerable<User> GetAllFemaleUsers();
         IEnumerable<User> GetAllMaleUsers();
+        User GetUserByChangeEmailInformation(string anOldEmail, string aNewEmailHash);
     }
 }

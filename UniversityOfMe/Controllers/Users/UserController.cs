@@ -20,6 +20,7 @@ using UniversityOfMe.Repositories;
 using UniversityOfMe.Repositories.UserRepos;
 using UniversityOfMe.Services.Users;
 using UniversityOfMe.UserInformation;
+using Social.Generic.Exceptions;
 
 namespace UniversityOfMe.Controllers.Users {
     public class UserController : AbstractUserController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
@@ -71,7 +72,7 @@ namespace UniversityOfMe.Controllers.Users {
 
             return myActionResult;
         }
-
+        
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult Edit() {
             if (!IsLoggedIn()) {
@@ -104,10 +105,17 @@ namespace UniversityOfMe.Controllers.Users {
                 }
 
                 if (theUserService.EditUser(userToEdit, myPassword)) {
-                    TempData["Message"] = EDIT_SUCCESS;
+                    if (string.IsNullOrEmpty(userToEdit.NewEmail)) {
+                        TempData["Message"] = EDIT_SUCCESS;
+                    } else {
+                        TempData["Message"] = EDIT_SUCCESS + " To finalize the email change please click the link sent to the new email you entered to confirm you are teh owner.";
+                    }
                     RefreshUserInformation(userToEdit.Email, myPassword);
                     return RedirectToAction("Edit");
                 }
+            } catch(CustomException myException) {
+                LogError(myException, myException.Message);
+                TempData["Message"] = myException.Message;
             } catch (Exception exception) {
                 LogError(exception, "Error editing the user.");
                 TempData["Message"] = "An error has occurred please try your submission again later.";

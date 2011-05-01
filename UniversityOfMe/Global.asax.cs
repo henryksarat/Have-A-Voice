@@ -15,6 +15,12 @@ namespace UniversityOfMe {
             routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*/)?favicon.ico(/.*)?" });
 
             routes.MapRoute(
+                "DefaultAuthentication", // Route name
+                "Authentication/{action}/{id}", // URL with parameters
+                new { controller = "Authentication", action = "Login", id = UrlParameter.Optional } // Parameter defaults
+            );
+
+            routes.MapRoute(
                 "DefaultBoard", // Route name
                 "Board/{action}/{id}", // URL with parameters
                 new { controller = "Board", action = "Create", id = UrlParameter.Optional } // Parameter defaults
