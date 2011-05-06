@@ -4,6 +4,7 @@ using BaseWebsite.Controllers.Photos;
 using Social.Authentication;
 using Social.Authentication.Helpers;
 using Social.BaseWebsite.Models;
+using Social.Generic.ActionFilters;
 using Social.Generic.Models;
 using Social.Generic.Services;
 using Social.Users.Services;
@@ -13,21 +14,24 @@ using UniversityOfMe.Models;
 using UniversityOfMe.Models.Social;
 using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories;
-using UniversityOfMe.Repositories.Friends;
-using UniversityOfMe.Repositories.Photos;
+using UniversityOfMe.Services.Photos;
 using UniversityOfMe.UserInformation;
+using System;
 
 namespace UniversityOfMe.Controllers.Photos {
     public class PhotoController : AbstractPhotosController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline, PhotoAlbum, Photo, Friend> {
-        public PhotoController()
+        private IUofMePhotoService thePhotoService;
+        
+        public PhotoController() : this(new UofMePhotoService()) { }
+        
+        public PhotoController(IUofMePhotoService aPhotoService)
             : base(new BaseService<User>(new EntityBaseRepository()), 
                     UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())), 
                     InstanceHelper.CreateAuthencationService(), 
-                    new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), 
-                    new EntityPhotoAlbumRepository(),
-                    new EntityPhotoRepository(),
-                    new EntityFriendRepository()) {
+                    new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()),
+                    aPhotoService) {
             UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
+            thePhotoService = aPhotoService;
         }
         
         [AcceptVerbs(HttpVerbs.Post)]
@@ -35,9 +39,22 @@ namespace UniversityOfMe.Controllers.Photos {
             return base.Create(albumId, imageFile);
         }
 
-        [AcceptVerbs(HttpVerbs.Get)]
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         new public ActionResult Display(int id) {
-            return base.Display(id);
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            User myUser = GetUserInformaton();
+
+            ILoggedInModel<PhotoDisplayView> myModel = new LoggedInWrapperModel<PhotoDisplayView>(myUser);
+            try {
+                myModel.Set(thePhotoService.GetPhotoDisplayView(myUser, id));
+            } catch (Exception e) {
+                LogError(e, DISPLAY_ERROR);
+                return SendToErrorPage(DISPLAY_ERROR);
+            }
+
+            return View("Display", myModel);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

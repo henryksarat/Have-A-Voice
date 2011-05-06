@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using Social.Generic.Models;
-using Social.Photo.Repositories;
 using UniversityOfMe.Models;
 using UniversityOfMe.Models.Social;
 
 namespace UniversityOfMe.Repositories.Photos {
-    public class EntityPhotoRepository : IPhotoRepository<User, Photo> {
+    public class EntityPhotoRepository : IUofMePhotoRepository {
         private UniversityOfMeEntities theEntities = new UniversityOfMeEntities();
+
+        public void AddPhotoComment(User aCommentingUser, int aPhotoId, string aComment) {
+            PhotoComment myPhotoComment = PhotoComment.CreatePhotoComment(0, aCommentingUser.Id, aPhotoId, aComment, DateTime.UtcNow);
+            theEntities.AddToPhotoComments(myPhotoComment);
+            theEntities.SaveChanges();
+        }
 
         public Photo AddReferenceToImage(User aUser, int anAlbumId, string anImageName, bool aProfilePicture) {
             Photo myPhoto = Photo.CreatePhoto(0, aUser.Id, anAlbumId, anImageName, aProfilePicture, DateTime.UtcNow, false);
@@ -27,6 +32,12 @@ namespace UniversityOfMe.Repositories.Photos {
 
         public AbstractPhotoModel<Photo> GetAbstractPhoto(int aPhotoId) {
             return SocialPhotoModel.Create(GetPhoto(aPhotoId));
+        }
+
+        public IEnumerable<Photo> GetOtherPhotosInPhotosAlbum(Photo aPhoto) {
+            return (from p in theEntities.Photos
+                    where p.PhotoAlbumId == aPhoto.PhotoAlbumId
+                    select p).ToList<Photo>();
         }
 
         public IEnumerable<Photo> GetPhotos(int aUserId, int anAlbumId) {

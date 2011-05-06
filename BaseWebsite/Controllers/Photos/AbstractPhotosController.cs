@@ -32,7 +32,7 @@ namespace BaseWebsite.Controllers.Photos {
         private const string ALBUM_COVER_SET = "Album cover set!";
 
         private const string PROFILE_PICTURE_ERROR = "Error setting the profile picture. Please try again.";
-        private const string DISPLAY_ERROR = "Unable to display the photo. Please try again.";
+        protected const string DISPLAY_ERROR = "Unable to display the photo. Please try again.";
         private const string SELECT_ONE_ERROR = "Please select only ONE image.";
         private const string SELECT_ONE_OR_MORE_ERROR = "Please select AT LEAST one or more images.";
         private const string SET_PROFILE_PICTURE_ERRROR = "Error settings profile picture.";
@@ -48,6 +48,11 @@ namespace BaseWebsite.Controllers.Photos {
 
         private IPhotoService<T, A, B, C> thePhotoService;
 
+        public AbstractPhotosController(IBaseService<T> aBaseService, IUserInformation<T, Z> aUserInformation, IAuthenticationService<T, U, V, W, X, Y> anAuthService,
+                                IWhoIsOnlineService<T, Z> aWhoIsOnlineService, IPhotoService<T, A, B, C> aPhotoService)
+            : base(aBaseService, aUserInformation, anAuthService, aWhoIsOnlineService) {
+                thePhotoService = aPhotoService;
+        }
 
         public AbstractPhotosController(IBaseService<T> aBaseService, IUserInformation<T, Z> aUserInformation, IAuthenticationService<T, U, V, W, X, Y> anAuthService,
                                         IWhoIsOnlineService<T, Z> aWhoIsOnlineService, IPhotoAlbumRepository<T, A, B> aPhotoAlbumRepo, IPhotoRepository<T, B> aPhotoRepo, 

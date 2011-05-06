@@ -87,6 +87,7 @@
     <Compile Include="Controllers\Helpers\InstanceHelper.cs" />
     <Compile Include="Controllers\Messaging\MessageController.cs" />
     <Compile Include="Controllers\Photos\PhotoAlbumController.cs" />
+    <Compile Include="Controllers\Photos\PhotoCommentController.cs" />
     <Compile Include="Controllers\Photos\PhotoController.cs" />
     <Compile Include="Controllers\Professors\ProfessorReviewController.cs" />
     <Compile Include="Controllers\Professors\ProfessorController.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="Models\View\LoggedInListModel.cs" />
     <Compile Include="Models\View\LoggedInWrapperModel.cs" />
     <Compile Include="Models\View\NotificationModel.cs" />
+    <Compile Include="Models\View\PhotoDisplayView.cs" />
     <Compile Include="Models\View\UniversityView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AdminRepos\EntityPermissionRepository.cs" />
@@ -168,6 +170,7 @@
     <Compile Include="Repositories\Notifications\INotificationRepository.cs" />
     <Compile Include="Repositories\Photos\EntityPhotoAlbumRepository.cs" />
     <Compile Include="Repositories\Photos\EntityPhotoRepository.cs" />
+    <Compile Include="Repositories\Photos\IUofMePhotoRepository.cs" />
     <Compile Include="Repositories\Professors\EntityProfessorReviewRepository.cs" />
     <Compile Include="Repositories\Professors\IProfessorRepository.cs" />
     <Compile Include="Repositories\SendItems\EntitySendItemsRepository.cs" />
@@ -198,6 +201,10 @@
     <Compile Include="Services\IUniversityService.cs" />
     <Compile Include="Services\Notifications\INotificationService.cs" />
     <Compile Include="Services\Notifications\NotificationService.cs" />
+    <Compile Include="Services\Photos\IPhotoCommentService.cs" />
+    <Compile Include="Services\Photos\IUofMePhotoService.cs" />
+    <Compile Include="Services\Photos\PhotoCommentService.cs" />
+    <Compile Include="Services\Photos\UofMePhotoService.cs" />
     <Compile Include="Services\Professors\ProfessorReviewService.cs" />
     <Compile Include="Services\Professors\IProfessorReviewService.cs" />
     <Compile Include="Services\Professors\ProfessorService.cs" />
