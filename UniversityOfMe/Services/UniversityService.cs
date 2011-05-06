@@ -15,6 +15,7 @@ using UniversityOfMe.Services.Professors;
 using UniversityOfMe.Services.TextBooks;
 using UniversityOfMe.Services.Users;
 using UniversityOfMe.Services.Dating;
+using UniversityOfMe.Services.Notifications;
 
 namespace UniversityOfMe.Services {
     public class UniversityService : IUniversityService {
@@ -26,6 +27,7 @@ namespace UniversityOfMe.Services {
         private ITextBookService theTextBookService;
         private IClubService theClubService;
         private IGeneralPostingService theGeneralPostingService;
+        private INotificationService theNotificationService;
         private IUniversityRepository theUniversityRepository;
 
         public UniversityService(IValidationDictionary aValidationDictionary) 
@@ -37,6 +39,7 @@ namespace UniversityOfMe.Services {
                    new TextBookService(aValidationDictionary), 
                    new ClubService(aValidationDictionary), 
                    new GeneralPostingService(aValidationDictionary), 
+                   new NotificationService(),
                    new EntityUniversityRepository()) { }
 
         public UniversityService(IUofMeUserService aUserService,
@@ -47,6 +50,7 @@ namespace UniversityOfMe.Services {
                                  ITextBookService aTextBookService, 
                                  IClubService aClubService, 
                                  IGeneralPostingService aGeneralPostingService, 
+                                 INotificationService aNotificationService,
                                  IUniversityRepository aUniversityRepository) {
             theUserService = aUserService;
             theDatingService = aDatingService;
@@ -56,6 +60,7 @@ namespace UniversityOfMe.Services {
             theTextBookService = aTextBookService;
             theClubService = aClubService;
             theGeneralPostingService = aGeneralPostingService;
+            theNotificationService = aNotificationService;
             theUniversityRepository = aUniversityRepository;
         }
 
@@ -92,6 +97,9 @@ namespace UniversityOfMe.Services {
             IEnumerable<TextBook> myTextBooks = theTextBookService.GetTextBooksForUniversity(aUniversityId);
             IEnumerable<Club> myOrganizations = theClubService.GetClubs(aUniversityId);
             IEnumerable<GeneralPosting> myGeneralPostings = theGeneralPostingService.GetGeneralPostingsForUniversity(aUniversityId);
+            IEnumerable<SendItem> mySendItems = theNotificationService.GetSendItemsForUser(aUserInformation.Details);
+            IEnumerable<NotificationModel> myNotifications = ConvertToNotificationModel(mySendItems);
+
 
             return new UniversityView() {
                 University = myUniversity,
@@ -103,7 +111,8 @@ namespace UniversityOfMe.Services {
                 TextBooks = myTextBooks,
                 Organizations = myOrganizations,
                 GeneralPostings = myGeneralPostings,
-                NewestUsers = theUserService.GetNewestUsers(aUserInformation.Details, aUniversityId, 10)
+                NewestUsers = theUserService.GetNewestUsers(aUserInformation.Details, aUniversityId, 10),
+                Notifications = myNotifications
             };
         }
 
@@ -121,6 +130,20 @@ namespace UniversityOfMe.Services {
             string myEmailExtension = EmailHelper.ExtractEmailExtension(aUser.Email);
             IEnumerable<string> myUniversityEmails = theUniversityRepository.UniversityEmails(aUniversityId);
             return myUniversityEmails.Contains(myEmailExtension);
+        }
+
+        private IEnumerable<NotificationModel> ConvertToNotificationModel(IEnumerable<SendItem> aSendItems) {
+            List<NotificationModel> myNotificationModel = new List<NotificationModel>();
+
+            foreach (SendItem mySendItem in aSendItems) {
+                myNotificationModel.Add(new NotificationModel() {
+                    WhoSent = mySendItem.FromUser,
+                    Url = "whatever.com",
+                    DisplayText = "sent you a beer."
+                });
+            }
+
+            return myNotificationModel;
         }
     }
 }

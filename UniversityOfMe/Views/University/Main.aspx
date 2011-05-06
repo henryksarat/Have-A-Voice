@@ -32,6 +32,14 @@
     </table>
     <table>
         <tr>
+            <td></td>
+                Notifications: <br />
+                <% foreach (NotificationModel myNotification in Model.Get().Notifications) { %>
+                    <%= NameHelper.FullName(myNotification.WhoSent) + " " + myNotification.DisplayText %><br /> 
+                <% } %>
+            <td></td>
+        </tr>
+        <tr>
             <td>
                 <% if (Model.Get().HasDatingMatch()) { %>
                     There is a dating match, you said you would date this person and they said they would date you.<br />
@@ -71,7 +79,8 @@
             <td>
                 Newest Members in the university<br />
                 <% foreach (User myUser in Model.Get().NewestUsers) { %>
-                    <%= NameHelper.FullName(myUser) %><br />
+
+                    <a href="/<%= myUser.ShortUrl %>"><%= NameHelper.FullName(myUser) %></a><br />
                 <% } %>
             </td>
             <td>

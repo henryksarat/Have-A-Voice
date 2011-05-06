@@ -84,6 +84,8 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ProfessorSuggestedPictures_Professors", "Professor", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Professor), "ProfessorSuggestedPhoto", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ProfessorSuggestedPhoto), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_DatingLog_AskedUser", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "DatingLog", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.DatingLog), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_DatingLog_SourceUser", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "DatingLog", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.DatingLog), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_SendItems_User_FromUser", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "SendItem", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.SendItem), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_SendItems_Users_ToUser", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "SendItem", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.SendItem), true)]
 
 #endregion
 
@@ -758,6 +760,22 @@ namespace UniversityOfMe.Models
             }
         }
         private ObjectSet<DatingLog> _DatingLogs;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<SendItem> SendItems
+        {
+            get
+            {
+                if ((_SendItems == null))
+                {
+                    _SendItems = base.CreateObjectSet<SendItem>("SendItems");
+                }
+                return _SendItems;
+            }
+        }
+        private ObjectSet<SendItem> _SendItems;
 
         #endregion
         #region AddTo Methods
@@ -1072,6 +1090,14 @@ namespace UniversityOfMe.Models
         public void AddToDatingLogs(DatingLog datingLog)
         {
             base.AddObject("DatingLogs", datingLog);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the SendItems EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSendItems(SendItem sendItem)
+        {
+            base.AddObject("SendItems", sendItem);
         }
 
         #endregion
@@ -9477,6 +9503,244 @@ namespace UniversityOfMe.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="SendItem")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class SendItem : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new SendItem object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="toUserId">Initial value of the ToUserId property.</param>
+        /// <param name="fromUserId">Initial value of the FromUserId property.</param>
+        /// <param name="item">Initial value of the Item property.</param>
+        /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
+        public static SendItem CreateSendItem(global::System.Int32 id, global::System.Int32 toUserId, global::System.Int32 fromUserId, global::System.Int32 item, global::System.DateTime dateTimeStamp)
+        {
+            SendItem sendItem = new SendItem();
+            sendItem.Id = id;
+            sendItem.ToUserId = toUserId;
+            sendItem.FromUserId = fromUserId;
+            sendItem.Item = item;
+            sendItem.DateTimeStamp = dateTimeStamp;
+            return sendItem;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ToUserId
+        {
+            get
+            {
+                return _ToUserId;
+            }
+            set
+            {
+                OnToUserIdChanging(value);
+                ReportPropertyChanging("ToUserId");
+                _ToUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ToUserId");
+                OnToUserIdChanged();
+            }
+        }
+        private global::System.Int32 _ToUserId;
+        partial void OnToUserIdChanging(global::System.Int32 value);
+        partial void OnToUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 FromUserId
+        {
+            get
+            {
+                return _FromUserId;
+            }
+            set
+            {
+                OnFromUserIdChanging(value);
+                ReportPropertyChanging("FromUserId");
+                _FromUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FromUserId");
+                OnFromUserIdChanged();
+            }
+        }
+        private global::System.Int32 _FromUserId;
+        partial void OnFromUserIdChanging(global::System.Int32 value);
+        partial void OnFromUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Item
+        {
+            get
+            {
+                return _Item;
+            }
+            set
+            {
+                OnItemChanging(value);
+                ReportPropertyChanging("Item");
+                _Item = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Item");
+                OnItemChanged();
+            }
+        }
+        private global::System.Int32 _Item;
+        partial void OnItemChanging(global::System.Int32 value);
+        partial void OnItemChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateTimeStamp
+        {
+            get
+            {
+                return _DateTimeStamp;
+            }
+            set
+            {
+                OnDateTimeStampChanging(value);
+                ReportPropertyChanging("DateTimeStamp");
+                _DateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateTimeStamp");
+                OnDateTimeStampChanged();
+            }
+        }
+        private global::System.DateTime _DateTimeStamp;
+        partial void OnDateTimeStampChanging(global::System.DateTime value);
+        partial void OnDateTimeStampChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_SendItems_User_FromUser", "User")]
+        public User FromUser
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_SendItems_User_FromUser", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_SendItems_User_FromUser", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> FromUserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_SendItems_User_FromUser", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_SendItems_User_FromUser", "User", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_SendItems_Users_ToUser", "User")]
+        public User ToUser
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_SendItems_Users_ToUser", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_SendItems_Users_ToUser", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> ToUserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_SendItems_Users_ToUser", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_SendItems_Users_ToUser", "User", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="TextBook")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -11857,6 +12121,50 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DatingLog>("UniversityOfMeModel.FK_DatingLog_SourceUser", "DatingLog", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_SendItems_User_FromUser", "SendItem")]
+        public EntityCollection<SendItem> ItemsSent
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SendItem>("UniversityOfMeModel.FK_SendItems_User_FromUser", "SendItem");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SendItem>("UniversityOfMeModel.FK_SendItems_User_FromUser", "SendItem", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_SendItems_Users_ToUser", "SendItem")]
+        public EntityCollection<SendItem> ItemsReceived
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SendItem>("UniversityOfMeModel.FK_SendItems_Users_ToUser", "SendItem");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SendItem>("UniversityOfMeModel.FK_SendItems_Users_ToUser", "SendItem", value);
                 }
             }
         }

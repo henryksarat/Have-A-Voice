@@ -90,6 +90,7 @@
     <Compile Include="Controllers\Photos\PhotoController.cs" />
     <Compile Include="Controllers\Professors\ProfessorReviewController.cs" />
     <Compile Include="Controllers\Professors\ProfessorController.cs" />
+    <Compile Include="Controllers\SendItems\SendItemsController.cs" />
     <Compile Include="Controllers\Users\FriendController.cs" />
     <Compile Include="Controllers\Users\ProfileController.cs" />
     <Compile Include="Controllers\University\UniversityController.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Helpers\ProfilePictureStrategy.cs" />
     <Compile Include="Helpers\RegistrationStrategy.cs" />
     <Compile Include="Helpers\SelectionHelper.cs" />
+    <Compile Include="Helpers\SendItemOptions.cs" />
     <Compile Include="Helpers\SiteSection.cs" />
     <Compile Include="Helpers\TextShortener.cs" />
     <Compile Include="Helpers\UniversityHelper.cs" />
@@ -143,6 +145,7 @@
     <Compile Include="Models\View\CreateUserModel.cs" />
     <Compile Include="Models\View\LoggedInListModel.cs" />
     <Compile Include="Models\View\LoggedInWrapperModel.cs" />
+    <Compile Include="Models\View\NotificationModel.cs" />
     <Compile Include="Models\View\UniversityView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AdminRepos\EntityPermissionRepository.cs" />
@@ -161,10 +164,14 @@
     <Compile Include="Repositories\GeneralPostings\EntityGeneralPostingRepository.cs" />
     <Compile Include="Repositories\GeneralPostings\IGeneralPostingRepository.cs" />
     <Compile Include="Repositories\Messaging\EntityMessageRepository.cs" />
+    <Compile Include="Repositories\Notifications\EntityNotificationRepository.cs" />
+    <Compile Include="Repositories\Notifications\INotificationRepository.cs" />
     <Compile Include="Repositories\Photos\EntityPhotoAlbumRepository.cs" />
     <Compile Include="Repositories\Photos\EntityPhotoRepository.cs" />
     <Compile Include="Repositories\Professors\EntityProfessorReviewRepository.cs" />
     <Compile Include="Repositories\Professors\IProfessorRepository.cs" />
+    <Compile Include="Repositories\SendItems\EntitySendItemsRepository.cs" />
+    <Compile Include="Repositories\SendItems\ISendItemsRepository.cs" />
     <Compile Include="Repositories\TextBooks\ITextBookRepository.cs" />
     <Compile Include="Repositories\Professors\EntityProfessorRepository.cs" />
     <Compile Include="Repositories\Professors\IProfessorReviewRepository.cs" />
@@ -189,10 +196,14 @@
     <Compile Include="Services\GeneralPostings\GeneralPostingService.cs" />
     <Compile Include="Services\GeneralPostings\IGeneralPostingService.cs" />
     <Compile Include="Services\IUniversityService.cs" />
+    <Compile Include="Services\Notifications\INotificationService.cs" />
+    <Compile Include="Services\Notifications\NotificationService.cs" />
     <Compile Include="Services\Professors\ProfessorReviewService.cs" />
     <Compile Include="Services\Professors\IProfessorReviewService.cs" />
     <Compile Include="Services\Professors\ProfessorService.cs" />
     <Compile Include="Services\Professors\IProfessorService.cs" />
+    <Compile Include="Services\SendItems\ISendItemsService.cs" />
+    <Compile Include="Services\SendItems\SendItemsService.cs" />
     <Compile Include="Services\TextBooks\TextBookService.cs" />
     <Compile Include="Services\TextBooks\ITextBookService.cs" />
     <Compile Include="Services\UniversityService.cs" />

@@ -12,6 +12,8 @@ namespace UniversityOfMe.Models.View {
         public IEnumerable<Club> Organizations { get; set; }
         public IEnumerable<GeneralPosting> GeneralPostings { get; set; }
         public IEnumerable<User> NewestUsers { get; set; }
+        public IEnumerable<NotificationModel> Notifications { get; set; }
+
 
         public bool HasDatingMatch() {
             return DatingMatchMember != null;
