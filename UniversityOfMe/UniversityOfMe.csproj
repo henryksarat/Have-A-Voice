@@ -74,7 +74,9 @@
     <Compile Include="Controllers\Boards\BoardController.cs" />
     <Compile Include="Controllers\Boards\BoardReplyController.cs" />
     <Compile Include="Controllers\Classes\ClassController.cs" />
-    <Compile Include="Controllers\Classes\ClassReplyController.cs" />
+    <Compile Include="Controllers\Classes\ClassBoardController.cs" />
+    <Compile Include="Controllers\Classes\ClassReviewController.cs" />
+    <Compile Include="Controllers\Classes\ClassEnrollmentController.cs" />
     <Compile Include="Controllers\Clubs\ClubBoardController.cs" />
     <Compile Include="Controllers\Clubs\ClubController.cs" />
     <Compile Include="Controllers\Clubs\ClubMemberController.cs" />
@@ -102,6 +104,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ClassHelper.cs" />
     <Compile Include="Helpers\Constants\ClubConstants.cs" />
     <Compile Include="Helpers\Constants\ProfessorConstants.cs" />
     <Compile Include="Helpers\Constants\TextBookConstants.cs" />

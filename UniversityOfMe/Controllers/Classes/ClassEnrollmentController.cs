@@ -12,33 +12,48 @@ using UniversityOfMe.Services.Classes;
 using UniversityOfMe.UserInformation;
 
 namespace UniversityOfMe.Controllers.Classes {
-    public class ClassReplyController : UOFMeBaseController {
-        private const string REPLY_POSTED = "The reply to the class has been posted.";
+    public class ClassEnrollmentController : UOFMeBaseController {
+        private const string ENROLLED_SUCCESS = "You have added yourself to the class enrollment list.";
+        private const string ENROLLED_REMOVE_SUCCESS = "You have removed yourself from the class enrollment list.";
 
         IClassService theClassService;
         IValidationDictionary theValidationDictionary;
 
-        public ClassReplyController() {
+        public ClassEnrollmentController() {
             UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
             theClassService = new ClassService(theValidationDictionary);
         }
 
-        [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
-        public ActionResult Create(string universityId, int classId, string reply) {
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Create(int classId) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
             try {
-                bool myResult = theClassService.CreateClassReply(GetUserInformatonModel(), classId, reply);
+                theClassService.AddToClassEnrollment(GetUserInformatonModel(), classId);
 
-                if (myResult) {
-                    TempData["Message"] = REPLY_POSTED;
-                }
+                TempData["Message"] = ENROLLED_SUCCESS;
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
                 TempData["Message"] = ErrorKeys.ERROR_MESSAGE;
-                theValidationDictionary.ForceModleStateExport();
+            }
+
+            return RedirectToAction("DetailsWithClassId", "Class", new { classId = classId });
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Delete(int classId) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            try {
+                theClassService.RemoveFromClassEnrollment(GetUserInformatonModel(), classId);
+
+                TempData["Message"] = ENROLLED_REMOVE_SUCCESS;
+            } catch (Exception myException) {
+                LogError(myException, ErrorKeys.ERROR_MESSAGE);
+                TempData["Message"] = ErrorKeys.ERROR_MESSAGE;
             }
 
             return RedirectToAction("DetailsWithClassId", "Class", new { classId = classId });

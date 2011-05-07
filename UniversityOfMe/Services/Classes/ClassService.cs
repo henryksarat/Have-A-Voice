@@ -7,6 +7,7 @@ using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
 using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories.Classes;
+using System;
 
 namespace UniversityOfMe.Services.Classes {
     public class ClassService : IClassService {
@@ -21,6 +22,19 @@ namespace UniversityOfMe.Services.Classes {
             theClassRepository = aClassRepo;
         }
 
+        public bool AddToClassBoard(UserInformationModel<User> aPostedByUser, int aClassId, string aClassBoard) {
+            if (!ValidClass(aClassBoard)) {
+                return false;
+            }
+
+            theClassRepository.AddToClassBoard(aPostedByUser.Details, aClassId, aClassBoard);
+
+            return true;
+        }
+
+        public void AddToClassEnrollment(UserInformationModel<User> aStudentToEnroll, int aClassId) {
+            theClassRepository.AddToClassEnrollment(aStudentToEnroll.Details, aClassId);
+        }
 
         public Class CreateClass(UserInformationModel<User> aCreatedByUser, CreateClassModel aCreateClassModel) {
             if (!ValidClass(aCreateClassModel)) {
@@ -34,12 +48,12 @@ namespace UniversityOfMe.Services.Classes {
             return myClass;
         }
 
-        public bool CreateClassReply(UserInformationModel<User> aPostedByUser, int aClassId, string aReply) {
-            if (!ValidClass(aReply)) {
+        public bool CreateClassReview(UserInformationModel<User> aReviewingUser, int aClassId, string aRating, string aReview, bool anAnonymnous) {
+            if (!ValidClassReview(aReviewingUser.Details, aClassId, aRating, aReview)) {
                 return false;
             }
 
-            theClassRepository.CreateClassReply(aPostedByUser.Details, aClassId, aReply);
+            theClassRepository.CreateReview(aReviewingUser.Details, aClassId, int.Parse(aRating), aReview, anAnonymnous);
 
             return true;
         }
@@ -68,6 +82,10 @@ namespace UniversityOfMe.Services.Classes {
             return myClass == null ? false : true;
         }
 
+        public void RemoveFromClassEnrollment(UserInformationModel<User> aStudentToRemove, int aClassId) {
+            theClassRepository.RemoveFromClassEnrollment(aStudentToRemove.Details, aClassId);
+        }
+
         private bool ValidClass(CreateClassModel aCreateClassModel) {
             if (string.IsNullOrEmpty(aCreateClassModel.UniversityId) || aCreateClassModel.UniversityId.Equals(Constants.SELECT)) {
                 theValidationDictionary.AddError("UniversityId", aCreateClassModel.UniversityId, "A university is required.");
@@ -93,9 +111,27 @@ namespace UniversityOfMe.Services.Classes {
             return theValidationDictionary.isValid;
         }
 
+        private bool ValidClassReview(User aUser, int aClassId, string aRating, string aReview) {
+            int myParsedNumber;
+            int.TryParse(aRating, out myParsedNumber);
+            if (!RangeValidation.IsWithinRange(myParsedNumber, 0, 5)) {
+                theValidationDictionary.AddError("Rating", aRating.ToString(), "A rating between 0 and 5 is required.");
+            }
+
+            if (string.IsNullOrEmpty(aReview)) {
+                theValidationDictionary.AddError("Review", aReview, "A review is required.");
+            }
+
+            if (theClassRepository.GetClassReview(aUser, aClassId) != null) {
+                theValidationDictionary.AddError("Review", aReview, "You have already reviewed this class.");
+            }
+
+            return theValidationDictionary.isValid;
+        }
+
         private bool ValidClass(string aBody) {
             if (string.IsNullOrEmpty(aBody)) {
-                theValidationDictionary.AddError("Reply", aBody, "Text is required.");
+                theValidationDictionary.AddError("BoardMessage", aBody, "Text is required.");
             }
 
             return theValidationDictionary.isValid;
