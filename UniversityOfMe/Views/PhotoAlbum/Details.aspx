@@ -11,8 +11,9 @@
     <% Html.RenderPartial("Message"); %>
     <% Html.RenderPartial("Validation"); %>
 
-    Album info:
-
+    Album info:<br />
+    <%= Html.ActionLink("Edit", "Edit", "PhotoAlbum", new { id = Model.Get().Id }, null) %><br />
+    <%= Html.ActionLink("Delete", "Delete", "PhotoAlbum", new { id = Model.Get().Id }, null)%><br /><br />
     <a href="<%= URLHelper.PhotoAlbumDetailsUrl(Model.Get()) %>"><img src="<%= PhotoHelper.PhotoAlbumCover(Model.Get()) %>" /></a><br />
     Name: <%= Model.Get().Name %><br />
     Description: <%= Model.Get().Description %><br /><br />

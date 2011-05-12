@@ -90,7 +90,7 @@ namespace UniversityOfMe {
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "User", action = "Create", id = UrlParameter.Optional } // Parameter defaults
+                new { controller = "Por", action = "Que", id = UrlParameter.Optional } // Parameter defaults
             );
         }
 

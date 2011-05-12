@@ -53,6 +53,13 @@ namespace UniversityOfMe.Repositories.Photos {
             return SocialPhotoModel.Create(GetProfilePicture(aUserId));
         }
 
+        public bool HasAlbumCoverAlready(int anAlbumId) {
+            return (from p in theEntities.Photos
+                    where p.PhotoAlbumId == anAlbumId
+                    && p.AlbumCover == true
+                    select p).Count<Photo>() > 0 ? true : false;
+        }
+
         public void SetPhotoAsAlbumCover(int aPhotoId) {
             Photo myNewCover = GetPhoto(aPhotoId);
             myNewCover.AlbumCover = true;

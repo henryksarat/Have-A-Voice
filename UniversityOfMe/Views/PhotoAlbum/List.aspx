@@ -11,34 +11,16 @@
     <% Html.RenderPartial("Message"); %>
     <% Html.RenderPartial("Validation"); %>
 
+    <a href="/PhotoAlbum/Create">Create Photo Album</a><br /><br />
+
     Current albums:<br /><br />
 
     <% foreach(PhotoAlbum myPhotoAlbum in Model.Get()) { %>
         <a href="<%= URLHelper.PhotoAlbumDetailsUrl(myPhotoAlbum) %>"><img src="<%= PhotoHelper.PhotoAlbumCover(myPhotoAlbum) %>" /></a><br />
         Name: <%= myPhotoAlbum.Name %><br />
         Description: <%= myPhotoAlbum.Description %><br />
-        <%= Html.ActionLink("Edit", "Edit", "PhotoAlbum", new { id = myPhotoAlbum.Id }, null) %><br /><br />
+        <%= Html.ActionLink("Edit", "Edit", "PhotoAlbum", new { id = myPhotoAlbum.Id }, null) %><br />
+        <%= Html.ActionLink("Delete", "Delete", "PhotoAlbum", new { id = myPhotoAlbum.Id }, null) %><br /><br />
     <% } %>
 	
-    <% using (Html.BeginForm("Create", "PhotoAlbum",FormMethod.Post)) {%>
-        <div class="editor-label">
-            <%: Html.Label("Name") %>
-        </div>
-        <div class="editor-field">
-            <%: Html.TextBox("Name")%>
-            <%: Html.ValidationMessage("Name", "*")%>
-        </div>
-
-        <div class="editor-label">
-            <%: Html.Label("Description") %>
-        </div>
-        <div class="editor-field">
-            <%: Html.TextArea("Description", null, 10, 30, null)%>
-            <%: Html.ValidationMessage("Description", "*")%>
-        </div>
-
-        <p>
-            <input type="submit" value="Send" />
-        </p>
-    <% } %>
 </asp:Content>

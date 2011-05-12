@@ -22,6 +22,7 @@ namespace UniversityOfMe.Controllers.Classes {
         private const string GET_CLASS_ERROR = "Error getting the class list for the university. Please try again.";
         private const string NO_CLASSES = "There are no classes for the university created.";
         private const string CLASS_DOESNT_EXIST = "That class doesn't seem to exist. Go ahead and create it so people can post to it.";
+        private const string VIEW_ALL_MEMBERS_ERROR = "Unable to retrieve the class enrollment list. Please try again.";
 
         IClassService theClassService;
         IUniversityService theUniversityService;
@@ -116,8 +117,10 @@ namespace UniversityOfMe.Controllers.Classes {
 
             try {
                 Class myClass = theClassService.GetClass(GetUserInformatonModel(), classId);
+                LoggedInWrapperModel<Class> myLoggedInModel = new LoggedInWrapperModel<Class>(GetUserInformatonModel().Details);
+                myLoggedInModel.Set(myClass);
 
-                return View("Details", myClass);
+                return View("Details", myLoggedInModel);
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
                 return SendToResultPage(ErrorKeys.ERROR_MESSAGE);
@@ -138,11 +141,38 @@ namespace UniversityOfMe.Controllers.Classes {
                 }
 
                 Class myClass = theClassService.GetClass(GetUserInformatonModel(), id);
-                
-                return View("Details", myClass);
+                LoggedInWrapperModel<Class> myLoggedInModel = new LoggedInWrapperModel<Class>(GetUserInformatonModel().Details);
+                myLoggedInModel.Set(myClass);
+
+                return View("Details", myLoggedInModel);
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
                 return SendToResultPage(ErrorKeys.ERROR_MESSAGE);
+            }
+        }
+
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
+        public ActionResult ViewAllMembers(string universityId, int id) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+
+            User myUser = GetUserInformatonModel().Details;
+
+            if (!UniversityHelper.IsFromUniversity(myUser, universityId)) {
+                return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
+            }
+
+            try {
+                IEnumerable<ClassEnrollment> myClassEnrollments = theClassService.GetEnrolledInClass(id);
+                LoggedInListModel<ClassEnrollment> myLogedInModel = new LoggedInListModel<ClassEnrollment>(myUser);
+                myLogedInModel.Set(myClassEnrollments);
+
+                return View("ViewAllMembers", myLogedInModel);
+            } catch (Exception myException) {
+                LogError(myException, ErrorKeys.ERROR_MESSAGE);
+                TempData["Message"] = VIEW_ALL_MEMBERS_ERROR;
+                return RedirectToAction("Details", new { id = id });
             }
         }
     }

@@ -11,6 +11,7 @@ namespace UniversityOfMe.Services.Classes {
         bool CreateClassReview(UserInformationModel<User> aReviewingUser, int aClassId, string aRating, string aReview, bool anAnonymnous);
         Class GetClass(UserInformationModel<User> aViewingUser, string aClassUrlString);
         Class GetClass(UserInformationModel<User> aViewingUser, int aClassId);
+        IEnumerable<ClassEnrollment> GetEnrolledInClass(int aClassId);
         IEnumerable<Class> GetClassesForUniversity(string aUniversityId);
         bool IsClassExists(string aClassUrlString);
         void RemoveFromClassEnrollment(UserInformationModel<User> aStudentToRemove, int aClassId);

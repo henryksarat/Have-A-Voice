@@ -94,13 +94,13 @@ namespace HaveAVoice.Services.UserFeatures {
             return default(V);
         }
 
-        public void UploadImageWithDatabaseReference(AbstractUserModel<T> aUserToUploadFor, int anAlbumId, HttpPostedFileBase aImageFile) {
+        public V UploadImageWithDatabaseReference(AbstractUserModel<T> aUserToUploadFor, int anAlbumId, HttpPostedFileBase aImageFile) {
             AbstractPhotoAlbumModel<U, V> myAlbum = thePhotoAlbumRepo.GetAbstractPhotoAlbum(anAlbumId);
             if (myAlbum.CreatedByUserId == aUserToUploadFor.Id) {
                 string myImageName = UploadImage(aUserToUploadFor, aImageFile);
-                thePhotoRepo.AddReferenceToImage(aUserToUploadFor.Model, anAlbumId, myImageName, false);
+                return thePhotoRepo.AddReferenceToImage(aUserToUploadFor.Model, anAlbumId, myImageName, false);
             } else {
-                new CustomException(UNAUTHORIZED_UPLOAD);
+                throw new CustomException(UNAUTHORIZED_UPLOAD);
             }
          }
 

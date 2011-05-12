@@ -14,6 +14,7 @@ namespace UniversityOfMe.Repositories.Classes {
         Class GetClass(string aClassCode, string anAcademicTermId, int aYear);
         IEnumerable<Class> GetClassesForUniversity(string aUniversityId);
         ClassReview GetClassReview(User aUser, int aClassId);
+        IEnumerable<ClassEnrollment> GetEnrolledInClass(int aClassId);
         void RemoveFromClassEnrollment(User aStudentToRemove, int aClassId);
     }
 }

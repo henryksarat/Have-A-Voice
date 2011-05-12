@@ -62,6 +62,12 @@ namespace UniversityOfMe.Repositories.Classes {
                     select cr).FirstOrDefault<ClassReview>();
         }
 
+        public IEnumerable<ClassEnrollment> GetEnrolledInClass(int aClassId) {
+            return (from ce in theEntities.ClassEnrollments
+                    where ce.ClassId == aClassId
+                    select ce).ToList<ClassEnrollment>();
+        }
+
         public void RemoveFromClassEnrollment(User aStudentToRemove, int aClassId) {
             ClassEnrollment myEnrollment = GetClassEnrollment(aStudentToRemove, aClassId);
             theEntities.DeleteObject(myEnrollment);

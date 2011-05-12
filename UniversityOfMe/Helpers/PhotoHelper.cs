@@ -49,7 +49,7 @@ namespace UniversityOfMe.Helpers {
             Photo myDefaultPhoto = (from p in myPhotoAlbum.Photos
                                     where p.AlbumCover == true
                                     select p).FirstOrDefault<Photo>();
-            string myPhotoAlbumCoverImageName = myDefaultPhoto != null ? myDefaultPhoto.ImageName : "whatever.jpb";
+            string myPhotoAlbumCoverImageName = myDefaultPhoto != null ? myDefaultPhoto.ImageName : "nophotos.jpg";
             return ConstructUrl(myPhotoAlbumCoverImageName);
         }
     }

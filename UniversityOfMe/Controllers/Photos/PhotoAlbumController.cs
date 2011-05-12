@@ -45,6 +45,11 @@ namespace UniversityOfMe.Controllers.Photos {
             return base.List(id);
         }
 
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
+        new public ActionResult Create() {
+            return View("Create");
+        }
+
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
         new public ActionResult Create(string name, string description) {
             return base.Create(name, description);

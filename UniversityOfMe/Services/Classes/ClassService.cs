@@ -71,6 +71,10 @@ namespace UniversityOfMe.Services.Classes {
             return theClassRepository.GetClassesForUniversity(aUniversityId);
         }
 
+        public IEnumerable<ClassEnrollment> GetEnrolledInClass(int aClassId) {
+            return theClassRepository.GetEnrolledInClass(aClassId);   
+        }
+
         public bool IsClassExists(string aClassUrlString) {
             string[] mySplitClass = URLHelper.FromUrlFriendly(aClassUrlString);
 
