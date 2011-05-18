@@ -9,7 +9,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Details</h2>
+    <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
 
     <% Html.RenderPartial("Message"); %>

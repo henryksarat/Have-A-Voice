@@ -152,6 +152,7 @@
     <Compile Include="Models\View\CreateUserModel.cs" />
     <Compile Include="Models\View\LeftNavigation.cs" />
     <Compile Include="Models\View\LoggedInListModel.cs" />
+    <Compile Include="Models\View\LoggedInModel.cs" />
     <Compile Include="Models\View\LoggedInWrapperModel.cs" />
     <Compile Include="Models\View\NotificationModel.cs" />
     <Compile Include="Models\View\PhotoDisplayView.cs" />
@@ -238,6 +239,34 @@
     <Content Include="App_Data\UniversityOfMe_log.ldf">
       <DependentUpon>UniversityOfMe.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\images\30-gray.png" />
+    <Content Include="Content\images\all.png" />
+    <Content Include="Content\images\arrow-down-gray.png" />
+    <Content Include="Content\images\arrow-down.png" />
+    <Content Include="Content\images\beer.png" />
+    <Content Include="Content\images\bg.png" />
+    <Content Include="Content\images\book.png" />
+    <Content Include="Content\images\bubble.png" />
+    <Content Include="Content\images\buy.png" />
+    <Content Include="Content\images\cancel.png" />
+    <Content Include="Content\images\case.png" />
+    <Content Include="Content\images\close.png" />
+    <Content Include="Content\images\eagle.png" />
+    <Content Include="Content\images\event.png" />
+    <Content Include="Content\images\friend.png" />
+    <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\mail.png" />
+    <Content Include="Content\images\organization.png" />
+    <Content Include="Content\images\paper.png" />
+    <Content Include="Content\images\person.png" />
+    <Content Include="Content\images\question.png" />
+    <Content Include="Content\images\search.png" />
+    <Content Include="Content\images\sell.png" />
+    <Content Include="Content\images\star-empty.png" />
+    <Content Include="Content\images\star-full.png" />
+    <Content Include="Content\images\star-green.png" />
+    <Content Include="Content\images\star-half.png" />
+    <Content Include="Content\images\star-red.png" />
     <Content Include="Content\jquery-1.4.2.min.js" />
     <Content Include="Content\jquery-ui-1.7.2.custom.css" />
     <Content Include="Content\jquery-ui-1.7.2.custom.min.js" />
@@ -304,7 +333,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />

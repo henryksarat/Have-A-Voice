@@ -23,6 +23,9 @@
 			</div> 
 		</li> 
 		<li> 
+			<a href="/PhotoAlbum/List">My Photos</a> 
+		</li> 
+		<li> 
 			<a href="#">Account</a> 
 		</li> 
 	</ul> 
