@@ -1,10 +1,11 @@
 ﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+<%@ Import Namespace="UniversityOfMe.UserInformation" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /></title>
-    <link href="../../Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/style.css" rel="stylesheet" type="text/css" />
 
     <link type="text/css" href="/Content/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
         	
@@ -12,34 +13,44 @@
 	<script type="text/javascript" src="/Content/jquery-ui-1.7.2.custom.min.js"></script>
 </head>
 
-<body>
-    <div class="page">
-
-        <div id="header">
-            <div id="title">
-                <h1>My MVC Application</h1>
-            </div>
-              
-            <div id="logindisplay">
-                <% Html.RenderPartial("LogOnUserControl"); %>
-            </div> 
-            
-            <div id="menucontainer">
-            
-                <ul id="menu">              
-                    <li><%: Html.ActionLink("Home", "Index", "Home")%></li>
-                    <li><%: Html.ActionLink("About", "About", "Home")%></li>
-                </ul>
-            
-            </div>
-        </div>
-
-        <div id="main">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
-
-            <div id="footer">
-            </div>
-        </div>
-    </div>
-</body>
+	<body> 
+		<div class="container"> 
+			<header> 
+				<div class="row"> 
+					<div class="six"> 
+						<a href="/"> 
+							<img src="/Content/images/logo.png" alt="universityof.me" title="universityof.me" /> 
+						</a> 
+					</div> 
+					<div class="six last"> 
+                        <% if (!UserInformationFactory.IsLoggedIn()) { %>
+    					    <% Html.RenderPartial("LogOnUserControl"); %>
+                        <% } else { %>
+                            <% Html.RenderPartial("NavigationUserControl"); %>
+                        <% } %>
+					</div> 
+				</div> 
+				<div class="clearfix"></div> 
+			</header> 
+			
+			<div class="row"> 
+                <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+			</div> 
+			
+			<div class="clearfix"></div> 
+			
+			<footer> 
+				<div class="row"> 
+					<div class="six"> 
+						Copyright 2011 Universityofme, Inc. All rights reserved.
+					</div> 
+					<div class="six last right"> 
+						<nav> 
+							<a href="#">Home</a> | <a href="#">About</a> | <a href="#">Terms &amp; Conditions</a> | <a href="#">Advertising</a> | <a href="#">Careers</a> | <a href="#">Privacy</a> | <a href="#">Help</a> 
+						</nav> 
+					</div> 
+				</div> 
+			</footer> 
+		</div> 
+	</body> 
 </html>

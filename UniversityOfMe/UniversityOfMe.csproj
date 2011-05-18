@@ -80,6 +80,7 @@
     <Compile Include="Controllers\Clubs\ClubBoardController.cs" />
     <Compile Include="Controllers\Clubs\ClubController.cs" />
     <Compile Include="Controllers\Clubs\ClubMemberController.cs" />
+    <Compile Include="Controllers\Site\SiteController.cs" />
     <Compile Include="Controllers\Core\AuthenticationController.cs" />
     <Compile Include="Controllers\Dating\DatingController.cs" />
     <Compile Include="Controllers\Events\EventBoardController.cs" />
@@ -108,10 +109,12 @@
     <Compile Include="Helpers\Constants\ClubConstants.cs" />
     <Compile Include="Helpers\Constants\ProfessorConstants.cs" />
     <Compile Include="Helpers\Constants\TextBookConstants.cs" />
+    <Compile Include="Helpers\DateHelper.cs" />
     <Compile Include="Helpers\EmailHelper.cs" />
     <Compile Include="Helpers\FriendHelper.cs" />
     <Compile Include="Helpers\Functionality\ClubHelper.cs" />
     <Compile Include="Helpers\NameHelper.cs" />
+    <Compile Include="Helpers\NavigationCountHelper.cs" />
     <Compile Include="Helpers\PhotoHelper.cs" />
     <Compile Include="Helpers\ProfilePictureStrategy.cs" />
     <Compile Include="Helpers\RegistrationStrategy.cs" />
@@ -147,6 +150,7 @@
     <Compile Include="Models\View\CreateClubModel.cs" />
     <Compile Include="Models\View\CreateProfessorReviewModel.cs" />
     <Compile Include="Models\View\CreateUserModel.cs" />
+    <Compile Include="Models\View\LeftNavigation.cs" />
     <Compile Include="Models\View\LoggedInListModel.cs" />
     <Compile Include="Models\View\LoggedInWrapperModel.cs" />
     <Compile Include="Models\View\NotificationModel.cs" />
@@ -182,6 +186,8 @@
     <Compile Include="Repositories\Professors\EntityProfessorRepository.cs" />
     <Compile Include="Repositories\Professors\IProfessorReviewRepository.cs" />
     <Compile Include="Repositories\TextBooks\EntityTextBookRepository.cs" />
+    <Compile Include="Repositories\UserRepos\EntityNavigationRepository.cs" />
+    <Compile Include="Repositories\UserRepos\INavigationRepository.cs" />
     <Compile Include="Repositories\UserRepos\IUofMeUserRetrievalRepository.cs" />
     <Compile Include="Repositories\UserRepos\EntityUserRepository.cs" />
     <Compile Include="Repositories\EntityWhoIsOnlineRepository.cs" />
@@ -218,6 +224,8 @@
     <Compile Include="Services\TextBooks\ITextBookService.cs" />
     <Compile Include="Services\UniversityService.cs" />
     <Compile Include="Services\Dating\IDatingService.cs" />
+    <Compile Include="Services\Users\NavigationService.cs" />
+    <Compile Include="Services\Users\INavigationService.cs" />
     <Compile Include="Services\Users\UofMeUserRetrievalService.cs" />
     <Compile Include="Services\Users\IUofMeUserRetrievalService.cs" />
     <Compile Include="Services\Users\IUofMeUserService.cs" />
@@ -233,6 +241,7 @@
     <Content Include="Content\jquery-1.4.2.min.js" />
     <Content Include="Content\jquery-ui-1.7.2.custom.css" />
     <Content Include="Content\jquery-ui-1.7.2.custom.min.js" />
+    <Content Include="Content\style.css" />
     <Content Include="Global.asax" />
     <Content Include="Photos\no_profile_picture.jpg" />
     <Content Include="Views\Admin\Index.aspx" />
@@ -277,8 +286,11 @@
     <Content Include="Views\Role\SwitchUserRoles.aspx" />
     <Content Include="Views\Shared\Error.aspx" />
     <Content Include="Views\Shared\Message.ascx" />
+    <Content Include="Views\Shared\NavigationUserControl.ascx" />
     <Content Include="Views\Shared\Result.aspx" />
+    <Content Include="Views\Shared\LeftNavigation.ascx" />
     <Content Include="Views\Shared\Validation.ascx" />
+    <Content Include="Views\Site\Main.aspx" />
     <Content Include="Views\TextBook\Create.aspx" />
     <Content Include="Views\TextBook\Details.aspx" />
     <Content Include="Views\TextBook\List.aspx" />

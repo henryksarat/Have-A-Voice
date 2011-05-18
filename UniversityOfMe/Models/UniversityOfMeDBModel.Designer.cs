@@ -50,8 +50,6 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Events_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "Event", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Event), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_EventBoard_Events", "Event", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Event), "EventBoard", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.EventBoard), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_EventBoard_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "EventBoard", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.EventBoard), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_GeneralPostingReplies_GeneralPostings", "GeneralPosting", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.GeneralPosting), "GeneralPostingReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.GeneralPostingReply), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_GeneralPostingReplies_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "GeneralPostingReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.GeneralPostingReply), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ProfessorReviews_AcademicTerm", "AcademicTerm", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.AcademicTerm), "ProfessorReview", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ProfessorReview), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ProfessorReviews_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ProfessorReview", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ProfessorReview), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_TextBooks_TextBookConditions", "TextBookCondition", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.TextBookCondition), "TextBook", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.TextBook), true)]
@@ -92,6 +90,8 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassEnrollments_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ClassEnrollment", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassEnrollment), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassReviews_Classes", "Class", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Class), "ClassReview", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassReview), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassReviews_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ClassReview", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassReview), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_GeneralPostingReplies_GeneralPostings", "GeneralPosting", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.GeneralPosting), "GeneralPostingReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.GeneralPostingReply), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_GeneralPostingReplies_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "GeneralPostingReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.GeneralPostingReply), true)]
 
 #endregion
 
@@ -514,22 +514,6 @@ namespace UniversityOfMe.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<GeneralPostingReply> GeneralPostingReplies
-        {
-            get
-            {
-                if ((_GeneralPostingReplies == null))
-                {
-                    _GeneralPostingReplies = base.CreateObjectSet<GeneralPostingReply>("GeneralPostingReplies");
-                }
-                return _GeneralPostingReplies;
-            }
-        }
-        private ObjectSet<GeneralPostingReply> _GeneralPostingReplies;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<ProfessorReview> ProfessorReviews
         {
             get
@@ -830,6 +814,22 @@ namespace UniversityOfMe.Models
             }
         }
         private ObjectSet<ClassReview> _ClassReviews;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<GeneralPostingReply> GeneralPostingReplies
+        {
+            get
+            {
+                if ((_GeneralPostingReplies == null))
+                {
+                    _GeneralPostingReplies = base.CreateObjectSet<GeneralPostingReply>("GeneralPostingReplies");
+                }
+                return _GeneralPostingReplies;
+            }
+        }
+        private ObjectSet<GeneralPostingReply> _GeneralPostingReplies;
 
         #endregion
         #region AddTo Methods
@@ -1019,14 +1019,6 @@ namespace UniversityOfMe.Models
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the GeneralPostingReplies EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToGeneralPostingReplies(GeneralPostingReply generalPostingReply)
-        {
-            base.AddObject("GeneralPostingReplies", generalPostingReply);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the ProfessorReviews EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToProfessorReviews(ProfessorReview professorReview)
@@ -1176,6 +1168,14 @@ namespace UniversityOfMe.Models
         public void AddToClassReviews(ClassReview classReview)
         {
             base.AddObject("ClassReviews", classReview);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the GeneralPostingReplies EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToGeneralPostingReplies(GeneralPostingReply generalPostingReply)
+        {
+            base.AddObject("GeneralPostingReplies", generalPostingReply);
         }
 
         #endregion
@@ -12597,28 +12597,6 @@ namespace UniversityOfMe.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_GeneralPostingReplies_Users", "GeneralPostingReply")]
-        public EntityCollection<GeneralPostingReply> GeneralPostingReplies
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<GeneralPostingReply>("UniversityOfMeModel.FK_GeneralPostingReplies_Users", "GeneralPostingReply");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<GeneralPostingReply>("UniversityOfMeModel.FK_GeneralPostingReplies_Users", "GeneralPostingReply", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ProfessorReviews_Users", "ProfessorReview")]
         public EntityCollection<ProfessorReview> ProfessorReviews
         {
@@ -13115,6 +13093,28 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClassReview>("UniversityOfMeModel.FK_ClassReviews_Users", "ClassReview", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_GeneralPostingReplies_Users", "GeneralPostingReply")]
+        public EntityCollection<GeneralPostingReply> GeneralPostingReplies
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<GeneralPostingReply>("UniversityOfMeModel.FK_GeneralPostingReplies_Users", "GeneralPostingReply");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<GeneralPostingReply>("UniversityOfMeModel.FK_GeneralPostingReplies_Users", "GeneralPostingReply", value);
                 }
             }
         }
