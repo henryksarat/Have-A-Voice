@@ -1,4 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<UniversityOfMe.Models.Event>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInListModel<Event>>" %>
+<%@ Import Namespace="UniversityOfMe.Models" %>
+<%@ Import Namespace="UniversityOfMe.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	List
@@ -6,7 +8,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>List</h2>
+    <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
     <% Html.RenderPartial("Message"); %>
     <% Html.RenderPartial("Validation"); %>
@@ -44,7 +46,7 @@
             </th>
         </tr>
 
-    <% foreach (var item in Model) { %>
+    <% foreach (var item in Model.Get()) { %>
     
         <tr>
             <td>

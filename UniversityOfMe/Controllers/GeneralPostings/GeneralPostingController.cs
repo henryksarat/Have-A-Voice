@@ -13,6 +13,7 @@ using Social.Validation;
 using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
 using UniversityOfMe.Models.Social;
+using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories;
 using UniversityOfMe.Services.GeneralPostings;
 using UniversityOfMe.UserInformation;
@@ -39,20 +40,21 @@ namespace UniversityOfMe.Controllers.GeneralPostings {
                 return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
             }
 
-            IEnumerable<GeneralPosting> myGeneralPostings = new List<GeneralPosting>();
-
             try {
-                myGeneralPostings = theGeneralPostingService.GetGeneralPostingsForUniversity(universityId);
+                LoggedInListModel<GeneralPosting> myLoggedInListModel = new LoggedInListModel<GeneralPosting>(GetUserInformatonModel().Details);
+                IEnumerable<GeneralPosting> myGeneralPostings = theGeneralPostingService.GetGeneralPostingsForUniversity(universityId);
+
+                myLoggedInListModel.Set(myGeneralPostings);
 
                 if (myGeneralPostings.Count<GeneralPosting>() == 0) {
                     ViewData["Message"] = NO_GENERAL_POSTING;
                 }
+
+                return View("List", myLoggedInListModel);
             } catch(Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                ViewData["Message"] = ErrorKeys.ERROR_MESSAGE;
+                return SendToErrorPage(ErrorKeys.ERROR_MESSAGE);
             }
-
-            return View("List", myGeneralPostings);
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
@@ -64,7 +66,13 @@ namespace UniversityOfMe.Controllers.GeneralPostings {
                 return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
             }
 
-            return View("Create");
+            try {
+                LoggedInWrapperModel<GeneralPosting> myLoggedInModel = new LoggedInWrapperModel<GeneralPosting>(GetUserInformatonModel().Details);
+                return View("Create", myLoggedInModel);
+            } catch (Exception myException) {
+                LogError(myException, ErrorKeys.ERROR_MESSAGE);
+                return SendToErrorPage(ErrorKeys.ERROR_MESSAGE);
+            }
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
@@ -93,9 +101,11 @@ namespace UniversityOfMe.Controllers.GeneralPostings {
                 return RedirectToLogin();
             }
             try {
+                LoggedInWrapperModel<GeneralPosting> myLoggedInModel = new LoggedInWrapperModel<GeneralPosting>(GetUserInformatonModel().Details);
                 GeneralPosting myGeneralPosting = theGeneralPostingService.GetGeneralPosting(id);
-                
-                return View("Details", myGeneralPosting);
+                myLoggedInModel.Set(myGeneralPosting);
+
+                return View("Details", myLoggedInModel);
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
                 return SendToResultPage(ErrorKeys.ERROR_MESSAGE);

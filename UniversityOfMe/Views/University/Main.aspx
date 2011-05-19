@@ -42,7 +42,7 @@
 					<div class="clearfix"></div> 
 				</li> 
 				<li class="class"> 
-					<span class="normal bold class">Latest Class Rating</span> 
+					<span class="normal bold class">Latest Class Rating</span> sd
 					<ul> 
                         <% foreach (Class myClass in Model.Get().Classes.Take<Class>(5)) { %>
                             <li>
@@ -123,7 +123,7 @@
 						    </li>
                         <% } %>
 					</ul> 
-					<%= Html.ActionLink("View All", "List", "GeneralPostings", null, new { @class="view-all" })%>
+					<%= Html.ActionLink("View All", "List", "GeneralPosting", null, new { @class="view-all" })%>
 					<div class="clearfix"></div> 
 				</li> 
 			</ul> 

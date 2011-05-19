@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<UniversityOfMe.Models.View.EventViewModel>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInWrapperModel<EventViewModel>>" %>
+<%@ Import Namespace="UniversityOfMe.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Edit
@@ -6,52 +7,52 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Edit</h2>
+    <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
-    <% using (Html.BeginForm()) {%>
-        <% Html.RenderPartial("Message"); %>
-        <% Html.RenderPartial("Validation"); %>
-        
+    <% Html.RenderPartial("Message"); %>
+    <% Html.RenderPartial("Validation"); %>
+
+    <% using (Html.BeginForm()) {%>        
         <fieldset>
             <legend>Fields</legend>
             <div class="editor-label">
                 <%: Html.Label("Event privacy option")%>
             </div>
             <div class="editor-field">
-                <%: Html.DropDownListFor(model => model.EventPrivacyOption, Model.EventPrivacyOptions)%>
-                <%: Html.ValidationMessageFor(model => model.EventPrivacyOption, "*")%>
+                <%: Html.DropDownListFor(model => model.Get().EventPrivacyOption, Model.Get().EventPrivacyOptions)%>
+                <%: Html.ValidationMessageFor(model => model.Get().EventPrivacyOption, "*")%>
             </div>
 
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.Title) %>
+                <%: Html.LabelFor(model => model.Get().Title)%>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Title)%>
-                <%: Html.ValidationMessageFor(model => model.Title)%>
+                <%: Html.TextBoxFor(model => model.Get().Title)%>
+                <%: Html.ValidationMessageFor(model => model.Get().Title)%>
             </div>
                         
             <div class="editor-label">
                 <%: Html.Label("Start Date") %>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.StartDate, String.Format("{0:g}", Model.StartDate))%>
-                <%: Html.ValidationMessageFor(model => model.StartDate)%>
+                <%: Html.TextBoxFor(model => model.Get().StartDate, String.Format("{0:g}", Model.Get().StartDate))%>
+                <%: Html.ValidationMessageFor(model => model.Get().StartDate)%>
             </div>
             
             <div class="editor-label">
                 <%: Html.Label("End Date") %>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.EndDate, String.Format("{0:g}", Model.EndDate))%>
-                <%: Html.ValidationMessageFor(model => model.EndDate)%>
+                <%: Html.TextBoxFor(model => model.Get().EndDate, String.Format("{0:g}", Model.Get().EndDate))%>
+                <%: Html.ValidationMessageFor(model => model.Get().EndDate)%>
             </div>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.Information) %>
+                <%: Html.LabelFor(model => model.Get().Information)%>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Information) %>
-                <%: Html.ValidationMessageFor(model => model.Information) %>
+                <%: Html.TextBoxFor(model => model.Get().Information)%>
+                <%: Html.ValidationMessageFor(model => model.Get().Information)%>
             </div>
             
             <p>

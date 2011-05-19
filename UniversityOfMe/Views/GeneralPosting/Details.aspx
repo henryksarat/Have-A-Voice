@@ -1,6 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<UniversityOfMe.Models.GeneralPosting>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInWrapperModel<GeneralPosting>>" %>
 <%@ Import Namespace="UniversityOfMe.Helpers" %>
 <%@ Import Namespace="UniversityOfMe.Models" %>
+<%@ Import Namespace="UniversityOfMe.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Details
@@ -8,19 +9,19 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Details</h2>
+    <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
 
     <% Html.RenderPartial("Message"); %>
     <% Html.RenderPartial("Validation"); %>
 
-    Title: <%= Model.Title %><br />
-    Body: <%= Model.Body %><br />
-    Date Time Stamp: <%= Model.DateTimeStamp %><br />
+    Title: <%= Model.Get().Title %><br />
+    Body: <%= Model.Get().Body %><br />
+    Date Time Stamp: <%= Model.Get().DateTimeStamp%><br />
 
     Replies
     <table>
-    <% foreach (GeneralPostingReply myReply in Model.GeneralPostingReplies.OrderByDescending(gpr => gpr.Id)) { %>
+    <% foreach (GeneralPostingReply myReply in Model.Get().GeneralPostingReplies.OrderByDescending(gpr => gpr.Id)) { %>
         <tr>
             User: <td><%= NameHelper.FullName(myReply.User)%></td>
             Reply: <td><%= myReply.Reply %></td>
@@ -30,7 +31,7 @@
     </table>
 
     <% using (Html.BeginForm("Create", "GeneralPostingReply")) {%>
-        <%= Html.Hidden("GeneralPostingId", Model.Id)%>
+        <%= Html.Hidden("GeneralPostingId", Model.Get().Id)%>
         <%= Html.ValidationMessage("Reply", "*")%>
         <%= Html.TextArea("Reply")%>
 

@@ -24,6 +24,9 @@ namespace UniversityOfMe.Controllers.Classes {
         private const string CLASS_DOESNT_EXIST = "That class doesn't seem to exist. Go ahead and create it so people can post to it.";
         private const string VIEW_ALL_MEMBERS_ERROR = "Unable to retrieve the class enrollment list. Please try again.";
 
+        private const string CREATE_CLASS_ERROR = "Unable to load the create class page. Please try again.";
+        private const string CLASS_DETAILS_ERROR = "Unable to load load the class details. Please try again.";
+
         IClassService theClassService;
         IUniversityService theUniversityService;
         IValidationDictionary theValidationDictionary;
@@ -39,25 +42,29 @@ namespace UniversityOfMe.Controllers.Classes {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-
-            if (!UniversityHelper.IsFromUniversity(GetUserInformatonModel().Details, universityId)) {
-                return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
-            }
-
-            IEnumerable<Class> myClasses = new List<Class>();
-
             try {
+                User myUser = GetUserInformatonModel().Details;
+
+                if (!UniversityHelper.IsFromUniversity(myUser, universityId)) {
+                    return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
+                }
+
+                IEnumerable<Class> myClasses = new List<Class>();
+            
                 myClasses = theClassService.GetClassesForUniversity(universityId);
 
                 if (myClasses.Count<Class>() == 0) {
                     ViewData["Message"] = NO_CLASSES;
                 }
+
+                LoggedInListModel<Class> myLoggedIn = new LoggedInListModel<Class>(myUser);
+                myLoggedIn.Set(myClasses);
+
+                return View("List", myLoggedIn);
             } catch(Exception myException) {
                 LogError(myException, GET_CLASS_ERROR);
-                ViewData["Message"] = GET_CLASS_ERROR;
+                return SendToErrorPage(GET_CLASS_ERROR);
             }
-
-            return View("List", myClasses);
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
@@ -65,24 +72,31 @@ namespace UniversityOfMe.Controllers.Classes {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-
-            if (!UniversityHelper.IsFromUniversity(GetUserInformatonModel().Details, universityId)) {
-                return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
-            }
-
-            IDictionary<string, string> myAcademicTerms = DictionaryHelper.DictionaryWithSelect();
-
             try {
-                myAcademicTerms = theUniversityService.CreateAcademicTermsDictionaryEntry();
-            } catch (Exception myExpcetion) {
-                LogError(myExpcetion, UOMErrorKeys.ACADEMIC_TERMS_GET_ERROR);
-                ViewData["Message"] = UOMErrorKeys.ACADEMIC_TERMS_GET_ERROR;
-            }
+                User myUser = GetUserInformatonModel().Details;
 
-            return View("Create", new CreateClassModel() {
-                AcademicTerms = new SelectList(myAcademicTerms, "Value", "Key"),
-                Years = new SelectList(UOMConstants.ACADEMIC_YEARS, DateTime.UtcNow.Year)
-            });
+                if (!UniversityHelper.IsFromUniversity(myUser, universityId)) {
+                    return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
+                }
+
+                IDictionary<string, string> myAcademicTerms = DictionaryHelper.DictionaryWithSelect();
+
+            
+                myAcademicTerms = theUniversityService.CreateAcademicTermsDictionaryEntry();
+
+                CreateClassModel myClassModel = new CreateClassModel() {
+                    AcademicTerms = new SelectList(myAcademicTerms, "Value", "Key"),
+                    Years = new SelectList(UOMConstants.ACADEMIC_YEARS, DateTime.UtcNow.Year)
+                };
+
+                LoggedInWrapperModel<CreateClassModel> myLoggedIn = new LoggedInWrapperModel<CreateClassModel>(myUser);
+                myLoggedIn.Set(myClassModel);
+
+                return View("Create", myLoggedIn);
+            } catch (Exception myExpcetion) {
+                LogError(myExpcetion, CREATE_CLASS_ERROR);
+                return SendToErrorPage(CREATE_CLASS_ERROR);
+            }
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
@@ -146,8 +160,8 @@ namespace UniversityOfMe.Controllers.Classes {
 
                 return View("Details", myLoggedInModel);
             } catch (Exception myException) {
-                LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                return SendToResultPage(ErrorKeys.ERROR_MESSAGE);
+                LogError(myException, CLASS_DETAILS_ERROR);
+                return SendToResultPage(CLASS_DETAILS_ERROR);
             }
         }
 

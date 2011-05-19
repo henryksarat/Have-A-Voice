@@ -1,12 +1,15 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<UniversityOfMe.Models.Club>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInListModel<Club>>" %>
+<%@ Import Namespace="UniversityOfMe.Models" %>
+<%@ Import Namespace="UniversityOfMe.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	List
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
-    <h2>List</h2>
+    
+    <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
+    
 
     <% Html.RenderPartial("Message"); %>
     <% Html.RenderPartial("Validation"); %>
@@ -14,7 +17,6 @@
 
     <table>
         <tr>
-            <th></th>
             <th>
                 Id
             </th>
@@ -41,14 +43,9 @@
             </th>
         </tr>
 
-    <% foreach (var item in Model) { %>
+    <% foreach (var item in Model.Get()) { %>
     
         <tr>
-            <td>
-                <%: Html.ActionLink("Edit", "Edit", new { id=item.Id }) %> |
-                <%: Html.ActionLink("Details", "Details", new { id=item.Id })%> |
-                <%: Html.ActionLink("Delete", "Delete", new { id=item.Id })%>
-            </td>
             <td>
                 <%: item.Id %>
             </td>

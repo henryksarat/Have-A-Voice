@@ -42,23 +42,30 @@ namespace UniversityOfMe.Controllers.Clubs {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-
-            if (!UniversityHelper.IsFromUniversity(GetUserInformatonModel().Details, universityId)) {
-                return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
-            }
-
-            IDictionary<string, string> myClubTypes = DictionaryHelper.DictionaryWithSelect();
-
             try {
+
+                User myUser = GetUserInformatonModel().Details;
+
+                if (!UniversityHelper.IsFromUniversity(myUser, universityId)) {
+                    return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
+                }
+
+                IDictionary<string, string> myClubTypes = DictionaryHelper.DictionaryWithSelect();
+
+                LoggedInWrapperModel<CreateClubModel> myLoggedIn = new LoggedInWrapperModel<CreateClubModel>(myUser);
                 myClubTypes = theClubService.CreateAllClubTypesDictionaryEntry();
+
+                CreateClubModel myClubModel = new CreateClubModel() {
+                    ClubTypes = new SelectList(myClubTypes, "Value", "Key")
+                };
+
+                myLoggedIn.Set(myClubModel);
+
+                return View("Create", myLoggedIn);
             } catch (Exception myExpcetion) {
                 LogError(myExpcetion, CLUB_TYPE_ERROR);
-                ViewData["Message"] = CLUB_TYPE_ERROR;
+                return SendToErrorPage(CLUB_TYPE_ERROR);
             }
-
-            return View("Create", new CreateClubModel() {
-                ClubTypes = new SelectList(myClubTypes, "Value", "Key")
-            });
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
@@ -92,13 +99,18 @@ namespace UniversityOfMe.Controllers.Clubs {
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult Details(int id) {
             try {
+                User myUser = GetUserInformatonModel().Details;
+
                 Club myClub = theClubService.GetClub(id);
 
-                if (!UniversityHelper.IsFromUniversity(GetUserInformatonModel().Details, myClub.UniversityId)) {
+                if (!UniversityHelper.IsFromUniversity(myUser, myClub.UniversityId)) {
                     return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
                 }
 
-                return View("Details", myClub);
+                LoggedInWrapperModel<Club> myLoggedIn = new LoggedInWrapperModel<Club>(myUser);
+                myLoggedIn.Set(myClub);
+
+                return View("Details", myLoggedIn);
             } catch (Exception myException) {
                 LogError(myException, GET_CLUB_ERROR);
                 return SendToResultPage(GET_CLUB_ERROR);
@@ -111,20 +123,24 @@ namespace UniversityOfMe.Controllers.Clubs {
                 return RedirectToLogin();
             }
 
-            if (!UniversityHelper.IsFromUniversity(GetUserInformatonModel().Details, universityId)) {
-                return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
-            }
-
-            IEnumerable<Club> myClubs = new List<Club>();
-
             try {
+
+                User myUser = GetUserInformatonModel().Details;
+
+                if (!UniversityHelper.IsFromUniversity(myUser, universityId)) {
+                    return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
+                }
+
+                IEnumerable<Club> myClubs = new List<Club>();
+
+                LoggedInListModel<Club> myLoggedIn = new LoggedInListModel<Club>(myUser);
                 myClubs = theClubService.GetClubs(universityId);
+                myLoggedIn.Set(myClubs);
+                return View("List", myLoggedIn);
             } catch (Exception myException) {
                 LogError(myException, CLUB_LIST_ERROR);
-                ViewData["Message"] = CLUB_LIST_ERROR;
+                return SendToErrorPage(CLUB_LIST_ERROR);
             }
-
-            return View("List", myClubs);
         }
     }
 }

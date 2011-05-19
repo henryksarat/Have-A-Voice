@@ -30,6 +30,8 @@ namespace UniversityOfMe.Controllers.Professors {
         private const string PROFESSOR_DOESNT_EXIST = "I'm sorry but that professor doesn't exist in the database. Please create the professor and then be the first to review them!";
 
         private const string PROFESSOR_SUGGESTED_ERROR = "An error occurred while trying to upload the suggested picture. Please try again.";
+        private const string PROFESSOR_LIST_ERROR = "Unable to load the list of professors. Please try again.";
+        private const string CREATE_PROFESSOR_ERROR = "Unable to load the create professor page. Please try again.";
 
         IValidationDictionary theValidationDictionary;
         IProfessorService theProfessorService;
@@ -44,14 +46,21 @@ namespace UniversityOfMe.Controllers.Professors {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            if (!UniversityHelper.IsFromUniversity(GetUserInformatonModel().Details, universityId)) {
-                return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
+            try {
+                User myUser = GetUserInformatonModel().Details;
+
+                if (!UniversityHelper.IsFromUniversity(myUser, universityId)) {
+                    return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
+                }
+
+                ILoggedInListModel<Professor> myLoggedInModel = new LoggedInListModel<Professor>(myUser);
+                myLoggedInModel.Set(theProfessorService.GetProfessorsForUniversity(universityId));
+
+                return View("List", myLoggedInModel);
+            } catch (Exception myException) {
+                LogError(myException, PROFESSOR_LIST_ERROR);
+                return SendToErrorPage(PROFESSOR_LIST_ERROR);
             }
-
-            ILoggedInListModel<Professor> myLoggedInModel = new LoggedInListModel<Professor>(GetUserInformatonModel().Details);
-            myLoggedInModel.Set(theProfessorService.GetProfessorsForUniversity(universityId));
-
-            return View("List", myLoggedInModel);
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
@@ -59,10 +68,20 @@ namespace UniversityOfMe.Controllers.Professors {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            if (!UniversityHelper.IsFromUniversity(GetUserInformatonModel().Details, universityId)) {
-                return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
+            try {
+                User myUser = GetUserInformatonModel().Details;
+
+                if (!UniversityHelper.IsFromUniversity(myUser, universityId)) {
+                    return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
+                }
+
+                LoggedInWrapperModel<Professor> myLoggedIn = new LoggedInWrapperModel<Professor>(myUser);
+
+                return View("Create", myLoggedIn);
+            } catch (Exception myException) {
+                LogError(myException, CREATE_PROFESSOR_ERROR);
+                return SendToErrorPage(CREATE_PROFESSOR_ERROR);
             }
-            return View("Create");
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
@@ -87,10 +106,12 @@ namespace UniversityOfMe.Controllers.Professors {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            if (!UniversityHelper.IsFromUniversity(GetUserInformatonModel().Details, universityId)) {
-                return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
-            }
             try {
+                User myUser = GetUserInformatonModel().Details;
+
+                if (!UniversityHelper.IsFromUniversity(myUser, universityId)) {
+                    return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
+                }
                 bool myExists = theProfessorService.IsProfessorExists(universityId, id);
 
                 if (!myExists) {
@@ -104,14 +125,17 @@ namespace UniversityOfMe.Controllers.Professors {
                     ViewData["Message"] = NO_PROFESSOR_REVIEWS;
                 }
 
-                return View("Details", myProfessor);
+                LoggedInWrapperModel<Professor> myLoggedIn = new LoggedInWrapperModel<Professor>(myUser);
+                myLoggedIn.Set(myProfessor);
+
+                return View("Details", myLoggedIn);
             } catch(CustomException myException) {
                 LogError(myException, myException.Message + ", name=" + id);
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
             }
 
-            return SendToResultPage(ErrorKeys.ERROR_MESSAGE);
+            return SendToErrorPage(ErrorKeys.ERROR_MESSAGE);
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]

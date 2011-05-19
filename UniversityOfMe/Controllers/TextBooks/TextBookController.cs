@@ -58,11 +58,18 @@ namespace UniversityOfMe.Controllers.Clubs {
                 ViewData["Message"] = GET_TEXTBOOK_CONDITIONS_ERROR;
             }
 
-            return View("Create", new CreateTextBookModel() {
-                UniversityId = universityId,
-                BuySellOptions = new SelectList(myBuySellTypes, "Value", "Key"),
-                TextBookConditions = new SelectList(myBookConditionTypes, "Value", "Key")
-            });
+            try {
+                LoggedInWrapperModel<CreateTextBookModel> myLoggedIn = new LoggedInWrapperModel<CreateTextBookModel>(GetUserInformatonModel().Details);
+                CreateTextBookModel myCreateTextbookModel = new CreateTextBookModel() {
+                    UniversityId = universityId,
+                    BuySellOptions = new SelectList(myBuySellTypes, "Value", "Key"),
+                    TextBookConditions = new SelectList(myBookConditionTypes, "Value", "Key")
+                };
+                return View("Create", myLoggedIn);
+            } catch(Exception myException) {
+                LogError(myException, ErrorKeys.ERROR_MESSAGE);
+                return SendToErrorPage(ErrorKeys.ERROR_MESSAGE);
+            }
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
@@ -96,12 +103,15 @@ namespace UniversityOfMe.Controllers.Clubs {
         public ActionResult Details(int id) {
             try {
                 TextBook myTextBook = theTextBookService.GetTextBook(id);
-
+                
                 if (!UniversityHelper.IsFromUniversity(GetUserInformatonModel().Details, myTextBook.UniversityId)) {
                     return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
                 }
 
-                return View("Details", myTextBook);
+                LoggedInWrapperModel<TextBook> myLoggedIn = new LoggedInWrapperModel<TextBook>(GetUserInformatonModel().Details);
+                myLoggedIn.Set(myTextBook);
+
+                return View("Details", myLoggedIn);
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
                 return SendToResultPage(ErrorKeys.ERROR_MESSAGE);
@@ -121,17 +131,19 @@ namespace UniversityOfMe.Controllers.Clubs {
             IEnumerable<TextBook> myTextBooks = new List<TextBook>();
 
             try {
+                LoggedInListModel<TextBook> myLoggedIn = new LoggedInListModel<TextBook>(GetUserInformatonModel().Details);
                 myTextBooks = theTextBookService.GetTextBooksForUniversity(universityId);
+                myLoggedIn.Set(myTextBooks);
 
                 if (myTextBooks.Count<TextBook>() == 0) {
                     ViewData["Message"] = NO_TEXTBOOKS;
                 }
+
+                return View("List", myLoggedIn);
             } catch (Exception myException) {
                 LogError(myException, TEXTBOOK_GET_ERROR);
-                ViewData["Message"] = TEXTBOOK_GET_ERROR;
+                return SendToErrorPage(TEXTBOOK_GET_ERROR);
             }
-
-            return View("List", myTextBooks);
         }
 
         [AcceptVerbs(HttpVerbs.Post), ImportModelStateFromTempData]

@@ -8,7 +8,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-<% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
+    <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
     <% Html.RenderPartial("Message"); %>
     <% Html.RenderPartial("Validation"); %>

@@ -1,4 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<dynamic>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInWrapperModel<GeneralPosting>>" %>
+<%@ Import Namespace="UniversityOfMe.Models" %>
+<%@ Import Namespace="UniversityOfMe.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Create
@@ -6,10 +8,11 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Create</h2>
+    <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
-        <% Html.RenderPartial("Message"); %>
-        <% Html.RenderPartial("Validation"); %>
+    <% Html.RenderPartial("Message"); %>
+    <% Html.RenderPartial("Validation"); %>
+
     <% using (Html.BeginForm()) {%>
         <fieldset>
             <div class="editor-label">
