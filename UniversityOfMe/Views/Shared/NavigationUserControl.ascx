@@ -7,7 +7,7 @@
 <div class="banner red"> 
 	<div class="profile"> 
 		<img src="<%= PhotoHelper.ProfilePicture(myUser) %>" alt="<%= NameHelper.FullName(myUser) %>" title="<%= NameHelper.FullName(myUser) %>" class="profile sm" /> 
-		Welcome <%= myUser.FirstName %>, <a href="#">Logout</a> 
+		Welcome <%= myUser.FirstName %>, <a href="/Authentication/LogOut">Logout</a> 
 	</div> 
 	<ul class="nav"> 
 		<li class="mail"> 

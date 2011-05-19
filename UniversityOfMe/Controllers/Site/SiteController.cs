@@ -24,7 +24,12 @@ namespace UniversityOfMe.Controllers.Clubs {
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult Main(string universityId) {
-            return View("Main");
+            if (IsLoggedIn()) {
+                return RedirectToProfile();
+            }
+            return View("Main", new CreateUserModel() {
+                Genders = new SelectList(Constants.GENDERS, Constants.SELECT)
+            });
         }
     }
 }

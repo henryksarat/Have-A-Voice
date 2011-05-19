@@ -16,86 +16,71 @@
 	        });
 	    });
 	</script>
-    <h2>Create</h2>
 
-    <% using (Html.BeginForm()) {%>
-        <% Html.RenderPartial("Message"); %>
-        <% Html.RenderPartial("Validation"); %>
+    <div class="twelve"> 
+	    <div class="banner black full small red-top"> 
+		    REGISTER
+	    </div> 
+	    <p class="p20"> 
+            <% Html.RenderPartial("Message"); %>
+            <% Html.RenderPartial("Validation"); %>
 
-        <fieldset>
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.Email) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Email) %>
-                <%: Html.ValidationMessageFor(model => model.Email, "*") %>
-            </div>
-            
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.Password) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.PasswordFor(model => model.Password) %>
-                <%: Html.ValidationMessageFor(model => model.Password, "*")%>
-            </div>
-            
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.FirstName) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.FirstName) %>
-                <%: Html.ValidationMessageFor(model => model.FirstName, "*")%>
-            </div>
-            
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.LastName) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.LastName) %>
-                <%: Html.ValidationMessageFor(model => model.LastName, "*")%>
-            </div>
-            
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.Gender) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.DropDownList("Gender", Model.Genders)%>
-                <%: Html.ValidationMessageFor(model => model.Gender, "*")%>
-            </div>
-            
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.DateOfBirth) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBox("DateOfBirth", Model.getDateOfBirthFormatted())%>
-                <%: Html.ValidationMessage("DateOfBirth", "*")%>
-            </div>
-            
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.ShortUrl) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.ShortUrl) %>
-                <%: Html.ValidationMessageFor(model => model.ShortUrl, "*")%>
-            </div>
+            <% using (Html.BeginForm("Create", "User", FormMethod.Post, new {@class="page"})) { %>
+		        <div class="input"> 
+			        <%= Html.Label("First Name:") %>
+                    <%= Html.TextBox("FirstName") %>
+                    <%= Html.ValidationMessage("FirstName", "*")%>
+		        </div> 
 
-			<div class="editor-label">
-				<%= Html.CheckBox("Agreement") %> I agree with the <a href="/Site/Terms" target="_blank">Terms of Use</a>.
-			</div>
-			<div class="editor-field">
-				<%= Html.ValidationMessage("Agreement", "*") %>
-			</div>
-            
-            <p>
-                <input type="submit" value="Create Account" />
-            </p>
-        </fieldset>
+		        <div class="input"> 
+			        <%= Html.Label("Last Name:") %>
+                    <%= Html.TextBox("LastName") %>
+                    <%= Html.ValidationMessage("LastName", "*")%>
+		        </div> 
+						
+		        <div class="input"> 
+			        <%= Html.Label("Email:") %>
+                    <%= Html.TextBox("Email") %>
+                    <%= Html.ValidationMessage("Email", "*")%>
+                    
+		        </div> 
+						
+		        <div class="input"> 
+			        <%= Html.Label("Password:") %>
+                    <%= Html.Password("Password")%>
+                    <%= Html.ValidationMessage("Password", "*")%>
+		        </div> 
+						
+		        <div class="input"> 
+			        <%= Html.Label("Date Of Birth:") %>
+                    <%= Html.TextBox("DateOfBirth", Model.getDateOfBirthFormatted())%>
+                    <%= Html.ValidationMessage("DateOfBirth", "*")%>
+		        </div> 
+						
+		        <div class="input"> 
+			        <%= Html.Label("Gender:") %>
+                    <%= Html.DropDownList("Gender", Model.Genders)%>
+                    <%= Html.ValidationMessage("Gender", "*")%>
+		        </div> 
 
-    <% } %>
+		        <div class="input"> 
+			        <%= Html.Label("UofMe Url:") %>
+			        univeristyof.me/ <input type="shorturl" name="ShortUrl" id="ShortUrl" /> 
+                    <%= Html.ValidationMessage("ShortUrl", "*")%>
+		        </div> 
 
-    <div>
-        <%: Html.ActionLink("Back to List", "Index") %>
-    </div>
+		        <div class="input"> 
+			        <%= Html.Label("Agreement:") %>
+                    <%= Html.CheckBox("Agreement") %>
+			        I agree with the <a href="/Site/Terms" target="_blank">Terms of Use</a>.
+                    <%= Html.ValidationMessage("Agreement", "*")%>
+		        </div> 
 
+			    <div class="input"> 
+				    <input type="submit" name="submit" class="btn" value="Register" /> 
+			    </div> 
+            <% } %>
+	    </p> 
+    </div> 
 </asp:Content>
 

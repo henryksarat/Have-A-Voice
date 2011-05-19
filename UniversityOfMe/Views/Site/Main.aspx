@@ -1,10 +1,22 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<dynamic>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<UniversityOfMe.Models.View.CreateUserModel>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Main
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+	<script type="text/javascript" language="javascript">
+	    $(function () {
+	        $('#DateOfBirth').datepicker({
+	            yearRange: '1900:2011',
+	            changeMonth: true,
+	            changeYear: true,
+	            dateFormat: "mm-dd-yy",
+	            yearRange: '1900:2011'
+	        });
+	    });
+	</script>
+
     <div class="six"> 
 	    <div class="banner red bold"> 
 		    University of Me helps connect University of Chicago students
@@ -22,44 +34,53 @@
 	    </p> 
     </div> 
     <div class="six last"> 
-	    <form class="form"> 
-		    <div class="big mb32 red">Create an account</div> 
-		    <div class="input"> 
-			    <label for="name">First Name:</label> 
-			    <input type="text" name="name" id="firstName" /> 
-		    </div> 
+            <% using (Html.BeginForm("Create", "User", FormMethod.Post, new {@class="form"})) { %>
+		        <div class="big mb32 red">Create an account</div> 
+		        <div class="input"> 
+			        <%= Html.Label("First Name:") %>
+                    <%= Html.TextBox("FirstName") %>
+		        </div> 
 
-		    <div class="input"> 
-			    <label for="name">Last Name:</label> 
-			    <input type="text" name="name" id="lastName" /> 
-		    </div> 
+		        <div class="input"> 
+			        <%= Html.Label("Last Name:") %>
+                    <%= Html.TextBox("LastName") %>
+		        </div> 
 						
-		    <div class="input"> 
-			    <label for="email">Email:</label> 
-			    <input type="email" name="email" id="email" /> 
-		    </div> 
+		        <div class="input"> 
+			        <%= Html.Label("Email:") %>
+                    <%= Html.TextBox("Email") %>
+                    
+		        </div> 
 						
-		    <div class="input"> 
-			    <label for="pass">Password:</label> 
-			    <input type="password" name="pass" id="pass" /> 
-		    </div> 
+		        <div class="input"> 
+			        <%= Html.Label("Password:") %>
+                    <%= Html.Password("Password")%>
+		        </div> 
 						
-		    <div class="input"> 
-			    <label for="confirm">Re-Password:</label> 
-			    <input type="password" name="confirm" id="confirm" /> 
-		    </div> 
+		        <div class="input"> 
+			        <%: Html.Label("Date Of Birth:") %>
+                    <%: Html.TextBox("DateOfBirth", Model.getDateOfBirthFormatted())%>
+		        </div> 
 						
-		    <div class="input"> 
-			    <label for="gender">Gender:</label> 
-			    <select name="gender" id="gender"> 
-				    <option>Select Sex</option> 
-				    <option value="M">Male</option> 
-				    <option value="F">Female</option> 
-			    </select> 
-		    </div> 
-			<div class="input"> 
-				<input type="submit" name="submit" class="btn" value="Register" /> 
-			</div> 
-	    </form> 
+		        <div class="input"> 
+			        <%= Html.Label("Gender:") %>
+                    <%= Html.DropDownList("Gender", Model.Genders)%>
+		        </div> 
+
+		        <div class="input"> 
+			        <%= Html.Label("UofMe Url:") %>
+			        univeristyof.me/ <input type="shorturl" name="ShortUrl" id="ShortUrl" /> 
+		        </div> 
+
+		        <div class="input"> 
+			        <%= Html.Label("Agreement:") %>
+                    <%= Html.CheckBox("Agreement") %>
+			        I agree with the <a href="/Site/Terms" target="_blank">Terms of Use</a>.
+		        </div> 
+
+			    <div class="input"> 
+				    <input type="submit" name="submit" class="btn" value="Register" /> 
+			    </div> 
+            <% } %>
     </div>
 </asp:Content>
