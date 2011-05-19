@@ -288,6 +288,8 @@
     <Content Include="Views\Event\Details.aspx" />
     <Content Include="Views\Event\Edit.aspx" />
     <Content Include="Views\Event\List.aspx" />
+    <Content Include="Views\Friend\Pending.aspx" />
+    <Content Include="Views\Friend\List.aspx" />
     <Content Include="Views\GeneralPosting\Create.aspx" />
     <Content Include="Views\GeneralPosting\Details.aspx" />
     <Content Include="Views\GeneralPosting\List.aspx" />
@@ -426,7 +428,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>19691</DevelopmentServerPort>
+          <DevelopmentServerPort>11584</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

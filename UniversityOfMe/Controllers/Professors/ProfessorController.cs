@@ -18,6 +18,8 @@ using UniversityOfMe.Repositories;
 using UniversityOfMe.Services.Professors;
 using UniversityOfMe.UserInformation;
 using Social.Photo.Exceptions;
+using Social.BaseWebsite.Models;
+using UniversityOfMe.Models.View;
 
 namespace UniversityOfMe.Controllers.Professors {
 
@@ -45,8 +47,11 @@ namespace UniversityOfMe.Controllers.Professors {
             if (!UniversityHelper.IsFromUniversity(GetUserInformatonModel().Details, universityId)) {
                 return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
             }
-            IEnumerable<Professor> myProfessors = theProfessorService.GetProfessorsForUniversity(universityId);
-            return View("List", myProfessors);
+
+            ILoggedInListModel<Professor> myLoggedInModel = new LoggedInListModel<Professor>(GetUserInformatonModel().Details);
+            myLoggedInModel.Set(theProfessorService.GetProfessorsForUniversity(universityId));
+
+            return View("List", myLoggedInModel);
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]

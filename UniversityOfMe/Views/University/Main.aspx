@@ -4,7 +4,7 @@
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Details
+	UniversityOfMe - <%= Model.Get().University.UniversityName %>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -38,7 +38,7 @@
                             </li>
                         <% } %>
 					</ul> 
-					<a href="#" class="view-all">View all &raquo;</a> 
+                    <%= Html.ActionLink("View All", "List", "Professor", null, new { @class="view-all" })%>
 					<div class="clearfix"></div> 
 				</li> 
 				<li class="class"> 
@@ -62,7 +62,7 @@
                             </li>
                         <% } %>
 					</ul> 
-					<a href="#" class="view-all">View all &raquo;</a> 
+					<%= Html.ActionLink("View All", "List", "Class", null, new { @class="view-all" })%>
 					<div class="clearfix"></div> 
 				</li> 
 				<li class="event"> 
@@ -77,7 +77,7 @@
 						    </li> 
                         <% } %>
 					</ul> 
-					<a href="#" class="view-all">View all &raquo;</a> 
+					<%= Html.ActionLink("View All", "List", "Event", null, new { @class="view-all" })%>
 					<div class="clearfix"></div> 
 				</li> 
 				<li class="book"> 
@@ -97,7 +97,7 @@
                             </li>
                         <% } %>
 					</ul> 
-					<a href="#" class="view-all">View all &raquo;</a> 
+					<%= Html.ActionLink("View All", "List", "TextBook", null, new { @class="view-all" })%>
 					<div class="clearfix"></div> 
 				</li> 
 				<li class="organization"> 
@@ -109,7 +109,7 @@
                             </li>                         
                         <% } %>
 					</ul> 
-					<a href="#" class="view-all">View all &raquo;</a> 
+					<%= Html.ActionLink("View All", "List", "Club", null, new { @class="view-all" })%>
 					<div class="clearfix"></div> 
 				</li> 
 				<li class="general"> 
@@ -123,7 +123,7 @@
 						    </li>
                         <% } %>
 					</ul> 
-					<a href="#" class="view-all">View all &raquo;</a> 
+					<%= Html.ActionLink("View All", "List", "GeneralPostings", null, new { @class="view-all" })%>
 					<div class="clearfix"></div> 
 				</li> 
 			</ul> 

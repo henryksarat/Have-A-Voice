@@ -11,15 +11,15 @@
 	</div> 
 	<ul class="nav"> 
 		<li class="mail"> 
-			<a href="#" class="mail">Mail</a> 
+			<a href="/Message/Inbox" class="mail">Mail</a> 
 			<span><%= NavigationCountHelper.NewMessageCount(myUser) %></span> 
 		</li> 
 		<li class="friend has-sub"> 
 			<a href="#">Friends</a> 
 			<span><%= NavigationCountHelper.PendingFriendCount(myUser) %></span> 
 			<div class="sub-nav"> 
-				<a href="#">All Friends</a> 
-				<a href="#">Pending Friend Requests</a> 
+				<a href="/Friend/List">All Friends</a> 
+				<a href="/Friend/Pending">Pending Friend Requests</a> 
 			</div> 
 		</li> 
 		<li> 

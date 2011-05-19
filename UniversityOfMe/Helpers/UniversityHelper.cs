@@ -24,9 +24,17 @@ namespace UniversityOfMe.Helpers {
             return myIsFromUniversity;
         }
 
-        public static string GetMainUniversity(User aUser) {
+        public static string GetMainUniversityId(User aUser) {
             foreach (UserUniversity myUserUniversity in aUser.UserUniversities) {
                 return myUserUniversity.UniversityEmail.UniversityId;
+            }
+
+            return null;
+        }
+
+        public static University GetMainUniversity(User aUser) {
+            foreach (UserUniversity myUserUniversity in aUser.UserUniversities) {
+                return myUserUniversity.UniversityEmail.University;
             }
 
             return null;

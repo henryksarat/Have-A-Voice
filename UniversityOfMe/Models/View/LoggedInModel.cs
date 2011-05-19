@@ -9,6 +9,7 @@ using UniversityOfMe.Services.Users;
 namespace UniversityOfMe.Models.View {
     public class LoggedInModel {
         public LeftNavigation LeftNavigation { get; set; }
+        public University University { get; set; }
 
         public LoggedInModel(User aUser) {
             INotificationService myNotificationService = new NotificationService();
@@ -16,7 +17,9 @@ namespace UniversityOfMe.Models.View {
             IDatingService myDatingService = new DatingService();
 
             IEnumerable<NotificationModel> myNotifications = ConvertToNotificationModel(myNotificationService.GetSendItemsForUser(aUser));
-            IEnumerable<User> myNewestUsers = myUserService.GetNewestUsers(aUser, UniversityHelper.GetMainUniversity(aUser), 10);
+            IEnumerable<User> myNewestUsers = myUserService.GetNewestUsers(aUser, UniversityHelper.GetMainUniversityId(aUser), 10);
+
+            University = UniversityHelper.GetMainUniversity(aUser);
 
             LeftNavigation = new LeftNavigation() {
                 NewestUsersInUniversity = myNewestUsers,
