@@ -21,40 +21,47 @@
 
                 <% foreach (var item in Model.Get()) { %>
 
-                    <div class="message new">
-                        <div class="col-1">
-                            <div class="p-a10">checkbox</div>
+                    <% string myIcon = item.Viewed == true ? "/Content/images/readmessage.png" : "/Content/images/unreadmessage.png"; %>
+
+                    <div class="message">
+                        <div class="col-1" style="width:5%">
+                            <div class="p-a10">
+                                <%= Html.CheckBox("something") %>
+                            </div>
                         </div>
-                        <div class="col-1">
+                        <div style="width:10%; float:left;">
+                            <div class="p-a10">                            
+                                <img src="<%= myIcon %>" />
+                            </div>
+                        </div>
+                        <div style="width:10%; float:left">
                             <div class="p-v10">
                                 <img src="<%= item.FromUserProfilePictureUrl %>" class="profile sm" />
                             </div>
-                            <div class="col-4 m-lft m-rgt">
-                                <div class="p-t10">
-                                    <%= item.FromUser %>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="p-b10 fnt-10">
-                                    <%= item.DateTimeStamp %>
-                                </div>
-                            </div>
                         </div>
-                        <div class="col-13 m-lft m-rgt">
+                        <div style="width:40%; float:left">
                             <div class="p-t10">
                                 <%= item.Subject %>
                             </div>
-                            <div class="clearfix"></div>
                             <div class="p-b10">
                                 <%= item.LastReply %>
                             </div>
                         </div>
-                        <div class="col-2 m-lft m-rgt p-v10 right">
-                           &nbsp;
+                        <div style="width:15%; float:left">
+                            <div class="p-t10" >
+                                <%= item.FromUser %>
+                            </div>
                         </div>
-                        <div class="clearfix"></div>
+                        <div  style="width:15%; float:left">
+                            <div class="p-b10">
+                                <%= DateHelper.ToLocalTime(item.DateTimeStamp) %>
+                            </div>
+                        </div>
                     </div>
                 <% } %>
 
+
+                <br />
 		        <input type="submit" value="Delete" />
             <%} %>
 

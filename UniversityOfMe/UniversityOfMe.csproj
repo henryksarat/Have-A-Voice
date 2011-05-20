@@ -260,6 +260,7 @@
     <Content Include="Content\images\paper.png" />
     <Content Include="Content\images\person.png" />
     <Content Include="Content\images\question.png" />
+    <Content Include="Content\images\readmessage.png" />
     <Content Include="Content\images\search.png" />
     <Content Include="Content\images\sell.png" />
     <Content Include="Content\images\star-empty.png" />
@@ -267,6 +268,7 @@
     <Content Include="Content\images\star-green.png" />
     <Content Include="Content\images\star-half.png" />
     <Content Include="Content\images\star-red.png" />
+    <Content Include="Content\images\unreadmessage.png" />
     <Content Include="Content\jquery-1.4.2.min.js" />
     <Content Include="Content\jquery-ui-1.7.2.custom.css" />
     <Content Include="Content\jquery-ui-1.7.2.custom.min.js" />
