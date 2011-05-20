@@ -17,7 +17,19 @@
 
     <% foreach (Friend myFriend in Model.Get()) { %>
         <img src="<%= PhotoHelper.ProfilePicture(myFriend.FriendedUser) %>" class="profile med" /> 
-        <%= NameHelper.FullName(myFriend.FriendedUser) %>
+        <%= NameHelper.FullName(myFriend.FriendedUser) %><br />
+        <%= UniversityHelper.GetMainUniversity(myFriend.FriendedUser).UniversityName %><br />
+            <% using (Html.BeginForm("Approve", "Friend", new { id = myFriend.Id }, FormMethod.Post, null)) { %>
+        			    <div class="input"> 
+				    <input type="submit" name="submit" class="btn" value="Approve" /> 
+			    </div> 
+            <% } %>
+
+            <% using (Html.BeginForm("Decline", "Friend", new { id = myFriend.Id }, FormMethod.Post, null)) { %>
+        			    <div class="input"> 
+				    <input type="submit" name="submit" class="btn" value="Decline" /> 
+			    </div> 
+            <% } %>
     <% } %>
 </asp:Content>
 

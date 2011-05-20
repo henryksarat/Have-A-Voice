@@ -16,6 +16,51 @@ blockquote, q { quotes: none; }
 blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
 table { border-collapse: collapse; border-spacing: 0; }
 
+/****************************************************************************/
+/********************************* MARGIN ***********************************/
+/****************************************************************************/
+.m-top5 { margin-top: 5px; }
+.m-top8 { margin-top: 8px; }
+.m-top10 { margin-top: 10px; }
+.m-top15 { margin-top: 15px; }
+.m-top20 { margin-top: 20px; }
+.m-top30 { margin-top: 30px; }
+
+.m-btm5 { margin-bottom: 5px; }
+.m-btm10 { margin-bottom: 10px; }
+.m-btm15 { margin-bottom: 15px; }
+.m-btm20 { margin-bottom: 20px; }
+.m-btm25 { margin-bottom: 25px; }
+.m-btm30 { margin-bottom: 30px; }
+
+.m-lft10 { margin-left: 10px; }
+
+.m-rgt5 { margin-right: 5px; }
+.m-rgt10 { margin-right: 10px; }
+
+.m-a10 { margin: 10px; }
+
+
+/****************************************************************************/
+/******************************** PADDING ***********************************/
+/****************************************************************************/
+.p-t5 { padding-top: 5px; }
+.p-t10 { padding-top: 10px; }
+
+.p-b5 { padding-bottom: 5px; }
+.p-b10 { padding-bottom: 10px; }
+
+.p-h5 { padding-left: 5px; padding-right: 5px; }
+.p-h10 { padding-left: 10px; padding-right: 10px; }
+
+.p-a5 { padding: 5px; }
+.p-a10 { padding: 10px; }
+
+.p-v5 { padding-top: 5px; padding-bottom: 5px; }
+.p-v10 { padding-top: 10px; padding-bottom: 10px; }
+.p-v15 { padding-top: 15px; padding-bottom: 15px; }
+
+
 /***** LESS FRAMEWORK *****/
 /*** Typography presets ***/
 .gigantic { font-size: 110px; line-height: 120px; letter-spacing: -2px; }
@@ -222,3 +267,9 @@ a.itemlinked:hover { text-decoration: underline; }
 
 a.view-all, a.view-all:link, a.view-all:visited { float: right; color: #838383; font-size: 12px; margin-right: 10%; }
 a.view-all:hover { text-decoration: underline; }
+
+/****************************************************************************/
+/******************************** MESSAGES **********************************/
+/****************************************************************************/
+.message { border-bottom: 1px solid #a2a2a2 }
+.message.new { background-color: #00bce0 }

@@ -16,7 +16,18 @@
     <% Html.RenderPartial("Validation"); %>
 
     <% foreach (Friend myFriend in Model.Get()) { %>
-        <%= NameHelper.FullName(myFriend.FriendedUser) %>
+        <img src="<%= PhotoHelper.ProfilePicture(myFriend.FriendedUser) %>" />
+        <a href="/<%= myFriend.FriendedUser.ShortUrl %>"><%= NameHelper.FullName(myFriend.FriendedUser) %></a><br />
+        <%= UniversityHelper.GetMainUniversity(myFriend.FriendedUser) %><br />
+        <% using (Html.BeginForm("Delete", "Friend", new { id = myFriend.FriendedUser.Id }, FormMethod.Post, null)) { %>
+        			<div class="input"> 
+				<input type="submit" name="submit" class="btn" value="UnFriend" /> 
+			</div> 
+        <% } %>
+
+        <%= Html.ActionLink("Send Message", "Create", "Message", new {id = myFriend.FriendedUser.Id}, null) %>
+
+        
     <% } %>
 </asp:Content>
 

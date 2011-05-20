@@ -10,14 +10,14 @@ namespace UniversityOfMe.Helpers {
         private const string OPENING_SPAN = "<span class=\"alert\">";
         private const string CLOSING_SPAN = "</span>";
 
-        public static string NewMessageCount(User aRequestingUser) {
+        public static int NewMessageCount(User aRequestingUser) {
             INavigationService myService = new NavigationService();
-            return myService.NewMessageCount(aRequestingUser).ToString();
+            return myService.NewMessageCount(aRequestingUser);
         }
 
-        public static string PendingFriendCount(User aRequestingUser) {
+        public static int PendingFriendCount(User aRequestingUser) {
             INavigationService myService = new NavigationService();
-            return myService.PendingFriendCount(aRequestingUser).ToString();
+            return myService.PendingFriendCount(aRequestingUser);
         }
     }
 }
