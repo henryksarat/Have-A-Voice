@@ -10,6 +10,7 @@ using UniversityOfMe.Models;
 using UniversityOfMe.Repositories;
 using UniversityOfMe.Services.Classes;
 using UniversityOfMe.UserInformation;
+using UniversityOfMe.Helpers;
 
 namespace UniversityOfMe.Controllers.Classes {
     public class ClassReviewController : UOFMeBaseController {
@@ -42,7 +43,7 @@ namespace UniversityOfMe.Controllers.Classes {
                 theValidationDictionary.ForceModleStateExport();
             }
 
-            return RedirectToAction("DetailsWithClassId", "Class", new { classId = classId });
+            return RedirectToAction("DetailsWithClassId", "Class", new { classId = classId, classViewType = ClassViewType.Review });
         }
     }
 }

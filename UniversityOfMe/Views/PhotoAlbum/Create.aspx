@@ -8,28 +8,28 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
+
     <% Html.RenderPartial("Message"); %>
     <% Html.RenderPartial("Validation"); %>
 
-    <% using (Html.BeginForm("Create", "PhotoAlbum", FormMethod.Post, new { enctype = "multipart/form-data" })) {%>
-        <div class="editor-label">
-            <%: Html.Label("Name") %>
-        </div>
-        <div class="editor-field">
-            <%: Html.TextBox("Name")%>
-            <%: Html.ValidationMessage("Name", "*")%>
-        </div>
-
-        <div class="editor-label">
-            <%: Html.Label("Description") %>
-        </div>
-        <div class="editor-field">
-            <%: Html.TextArea("Description", null, 10, 30, null)%>
-            <%: Html.ValidationMessage("Description", "*")%>
-        </div>
-
-        <p>
-            <input type="submit" value="Send" />
-        </p>
-    <% } %>
+	<div class="eight last"> 
+		<div class="create"> 
+			<div class="banner black full red-top small"> 
+				<span class="album">CREATE ALBUM</span> 
+			</div> 
+            <% using (Html.BeginForm("Create", "PhotoAlbum", FormMethod.Post)) {%>
+			    <label for="title">Title:</label> 
+			    <input type="text" class="half" name="title" id="title" /> 
+                <%= Html.ValidationMessage("Title", "*")%>
+			    <label for="desc" class="mt25">Description:</label> 
+			    <textarea name="desc" id="desc" class="full" rows="6"></textarea> 
+                <%= Html.ValidationMessage("Description", "*")%>
+			    <div class="right"> 
+				    <input type="submit" name="submit" class="btn teal mr14" value="Submit" /> 
+				    <input type="button" name="cancel" class="btn teal" value="Cancel" /> 
+			    </div> 
+            <% } %>
+		</div> 
+	</div> 
 </asp:Content>

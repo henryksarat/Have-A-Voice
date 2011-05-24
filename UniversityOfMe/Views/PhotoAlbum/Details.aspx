@@ -4,36 +4,34 @@
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Gallery
+	University Of Me - Album -  <%= Model.Get().Name %>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <% Html.RenderPartial("Message"); %>
-    <% Html.RenderPartial("Validation"); %>
+    <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
-    Album info:<br />
-    <%= Html.ActionLink("Edit", "Edit", "PhotoAlbum", new { id = Model.Get().Id }, null) %><br />
-    <%= Html.ActionLink("Delete", "Delete", "PhotoAlbum", new { id = Model.Get().Id }, null)%><br /><br />
-    <a href="<%= URLHelper.PhotoAlbumDetailsUrl(Model.Get()) %>"><img src="<%= PhotoHelper.PhotoAlbumCover(Model.Get()) %>" /></a><br />
-    Name: <%= Model.Get().Name %><br />
-    Description: <%= Model.Get().Description %><br /><br />
+	<div class="eight last"> 
+		<div class="banner black full red-top small"> 
+			<span class="album"><%= Model.Get().Name %> <span class="user">by <%= NameHelper.FullName(Model.Get().User) %></span></span> 
+			<div class="buttons"> 
+                <%= Html.ActionLink("Edit", "Edit", "PhotoAlbum", new { id = Model.Get().Id }, new { @class = "edit mr22" })%>                
+                <%= Html.ActionLink("Remove Album", "Delete", "PhotoAlbum", new { id = Model.Get().Id }, new { @class = "remove mr26" })%>
+                <%= Html.ActionLink("Add New Photos", "Delete", "PhotoAlbum", new { id = Model.Get().Id }, new { @class = "add" })%>				
+			</div> 
+		</div> 
+		<div class="center mb25"> 
+            <% using (Html.BeginForm("Create", "Photo", FormMethod.Post, new { enctype = "multipart/form-data" })) { %>
+                <%= Html.Hidden("AlbumId", Model.Get().Id) %>
+		        <input type="file" name="imagefile" id="iamgefile" class="w392 mr44" /> 
+		        <input type="button" name="upload" class="btn teal" value="Upload" /> 
+            <% } %>
+		</div> 
 
-    Upload new photo: <br />
 
-    <% using (Html.BeginForm("Create", "Photo", FormMethod.Post, new { enctype = "multipart/form-data" })) { %>
-            <%= Html.Hidden("AlbumId", Model.Get().Id) %>
-			<div class="col-4 push-6 center">
-				<input type="file" id="ImageFile" name="ImageFile" size="23" />
-			</div>
-                
-		<div class="col-4 push-8 center">
-			<input type="submit" value="Upload" />
-		</div>
-	<% } %>
-
-    Photos:<br />
-
-    <% foreach (Photo myPhoto in Model.Get().Photos) { %>
-        <a href="<%= URLHelper.PhotoDisplayUrl(myPhoto) %>"><img src="<%= PhotoHelper.ConstructUrl(myPhoto.ImageName) %>" /><br /></a>
-    <% } %>
+        <% foreach (Photo myPhoto in Model.Get().Photos) { %>
+		<div class="photo"> 
+			<a href="<%= URLHelper.PhotoDisplayUrl(myPhoto) %>"><img src="<%= PhotoHelper.ConstructUrl(myPhoto.ImageName) %>" alt="photo" /></a> 
+		</div> 
+        <% } %>
+	</div> 
 </asp:Content>

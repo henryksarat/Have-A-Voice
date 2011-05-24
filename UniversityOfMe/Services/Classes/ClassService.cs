@@ -118,8 +118,8 @@ namespace UniversityOfMe.Services.Classes {
         private bool ValidClassReview(User aUser, int aClassId, string aRating, string aReview) {
             int myParsedNumber;
             int.TryParse(aRating, out myParsedNumber);
-            if (!RangeValidation.IsWithinRange(myParsedNumber, 0, 5)) {
-                theValidationDictionary.AddError("Rating", aRating.ToString(), "A rating between 0 and 5 is required.");
+            if (!RangeValidation.IsWithinRange(myParsedNumber, 1, 5)) {
+                theValidationDictionary.AddError("Rating", myParsedNumber.ToString(), "A rating between 1 and 5 is required.");
             }
 
             if (string.IsNullOrEmpty(aReview)) {

@@ -27,6 +27,10 @@ namespace UniversityOfMe.Helpers {
             return myProfileUrl;
         }
 
+        public static string AnonymousProfilePicture() {
+            return Social.Generic.Constants.Constants.ANONYMOUS_PICTURE_URL;
+        }
+
         public static string ConstructUrl(string anImageName) {
             return Social.Photo.Helpers.SocialPhotoHelper.ConstructUrl(anImageName);
         }

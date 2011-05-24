@@ -14,8 +14,12 @@ namespace UniversityOfMe.Helpers {
             return aValue.Replace('_', ' ').Split(' ');
         }
 
-        public static string BuildClassUrl(Class aClass) {
-            return "/" + aClass.UniversityId + "/Class/Details/" + String.Join("_", aClass.ClassCode, aClass.AcademicTermId, aClass.Year);
+        public static string BuildClassReviewUrl(Class aClass) {
+            return "/" + aClass.UniversityId + "/Class/Details/" + String.Join("_", aClass.ClassCode, aClass.AcademicTermId, aClass.Year) + "?classViewType=" + ClassViewType.Review;
+        }
+
+        public static string BuildClassDiscussionUrl(Class aClass) {
+            return "/" + aClass.UniversityId + "/Class/Details/" + String.Join("_", aClass.ClassCode, aClass.AcademicTermId, aClass.Year) + "?classViewType=" + ClassViewType.Discussion;
         }
 
         public static string ProfileUrl(User aUser) {

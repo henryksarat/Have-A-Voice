@@ -7,5 +7,9 @@ namespace UniversityOfMe.Helpers {
         public static string FullName(User aUser) {
             return NameHelper<User>.FullName(SocialUserModel.Create(aUser));
         }
+
+        public static string Anonymous() {
+            return Social.Generic.Constants.Constants.ANONYMOUS;
+        }
     }
 }

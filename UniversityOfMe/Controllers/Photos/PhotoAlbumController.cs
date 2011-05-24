@@ -47,7 +47,8 @@ namespace UniversityOfMe.Controllers.Photos {
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         new public ActionResult Create() {
-            return View("Create");
+            LoggedInWrapperModel<PhotoAlbum> myLoggedIn = new LoggedInWrapperModel<PhotoAlbum>(GetUserInformatonModel().Details);
+            return View("Create", myLoggedIn);
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]

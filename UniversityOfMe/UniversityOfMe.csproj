@@ -106,6 +106,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ClassHelper.cs" />
+    <Compile Include="Helpers\ClassViewType.cs" />
     <Compile Include="Helpers\Constants\ClubConstants.cs" />
     <Compile Include="Helpers\Constants\ProfessorConstants.cs" />
     <Compile Include="Helpers\Constants\TextBookConstants.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Helpers\SelectionHelper.cs" />
     <Compile Include="Helpers\SendItemOptions.cs" />
     <Compile Include="Helpers\SiteSection.cs" />
+    <Compile Include="Helpers\StarHelper.cs" />
     <Compile Include="Helpers\TextShortener.cs" />
     <Compile Include="Helpers\UniversityHelper.cs" />
     <Compile Include="Helpers\UOMConstants.cs" />
@@ -272,6 +274,11 @@
     <Content Include="Content\jquery-1.4.2.min.js" />
     <Content Include="Content\jquery-ui-1.7.2.custom.css" />
     <Content Include="Content\jquery-ui-1.7.2.custom.min.js" />
+    <Content Include="Content\jquery.ui.stars.css" />
+    <Content Include="Content\jquery.ui.stars.gif" />
+    <Content Include="Content\jquery.ui.stars.js" />
+    <Content Include="Content\jquery.ui.stars.min.css" />
+    <Content Include="Content\jquery.ui.stars.min.js" />
     <Content Include="Content\style.css" />
     <Content Include="Global.asax" />
     <Content Include="Photos\no_profile_picture.jpg" />

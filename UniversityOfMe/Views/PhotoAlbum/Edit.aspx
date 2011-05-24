@@ -8,29 +8,32 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <% Html.RenderPartial("Message"); %>
-    <% Html.RenderPartial("Validation"); %>
+    <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
-    <% using (Html.BeginForm("Edit", "PhotoAlbum", FormMethod.Post)) { %>
-        <%= Html.Hidden("AlbumId", Model.Get().Id) %>
-        <div class="editor-label">
-            <%: Html.Label("Name") %>
-        </div>
-        <div class="editor-field">
-            <%: Html.TextBox("Name", Model.Get().Name)%>
-            <%: Html.ValidationMessage("Name", "*")%>
-        </div>
+	<div class="eight last"> 
+        <% Html.RenderPartial("Message"); %>
+        <% Html.RenderPartial("Validation"); %>
 
-        <div class="editor-label">
-            <%: Html.Label("Description") %>
-        </div>
-        <div class="editor-field">
-            <%: Html.TextArea("Description", Model.Get().Description, 10, 30, null)%>
-            <%: Html.ValidationMessage("Description", "*")%>
-        </div>
-
-        <p>
-            <input type="submit" value="Submit" />
-        </p>
-    <% } %>
+		<div class="create"> 
+			<div class="banner black full red-top small"> 
+				<span class="edit"><%=Model.Get().Name %></span> 
+				<div class="buttons"> 
+                    <%= Html.ActionLink("Remove Album", "Delete", "PhotoAlbum", new { id = Model.Get().Id }, new { @class = "remove" })%>
+				</div> 
+			</div> 
+            <% using (Html.BeginForm("Edit", "PhotoAlbum", FormMethod.Post)) { %>
+                <%= Html.Hidden("AlbumId", Model.Get().Id) %>
+			    <label for="name">Title:</label> 
+                <%: Html.TextBox("Name", Model.Get().Name, new { @class = "half" })%>
+                <%: Html.ValidationMessage("Name", "*")%>
+			    <label for="Description" class="mt25">Description:</label> 
+                <%= Html.TextArea("Description", Model.Get().Description, 6, 0, new { @class = "full" })%>
+                <%: Html.ValidationMessage("Description", "*")%>
+			    <div class="right"> 
+				    <input type="submit" name="submit" class="btn teal mr14" value="Submit" /> 
+				    <input type="button" name="cancel" class="btn teal" value="Cancel" /> 
+			    </div> 
+            <% } %>
+		</div> 
+	</div> 
 </asp:Content>

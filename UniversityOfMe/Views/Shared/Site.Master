@@ -6,15 +6,21 @@
 <head runat="server">
     <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /></title>
     <link href="/Content/style.css" rel="stylesheet" type="text/css" />
-
-    <link type="text/css" href="/Content/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
+    <link href="/Content/jquery.ui.stars.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/jquery.ui.stars.min.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/jquery.ui.stars.min.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/css/ui-lightness/jquery-ui-1.8.13.custom.css" rel="stylesheet" type="text/css" />
         	
-	<script type="text/javascript" src="/Content/jquery-1.4.2.min.js"></script>
-	<script type="text/javascript" src="/Content/jquery-ui-1.7.2.custom.min.js"></script>
+	<!-- <script type="text/javascript" src="/Content/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="/Content/jquery-ui-1.7.2.custom.min.js"></script> -->
+    <script type="text/javascript" src="/Content/js/jquery-1.5.1.min.js"></script>
+    <script type="text/javascript" src="/Content/js/jquery-ui-1.8.13.custom.min.js"></script>
+    <script type="text/javascript" src="/Content/jquery.ui.stars.js"></script>
+    <script type="text/javascript" src="/Content/jquery.ui.stars.min.js"></script>
 </head>
 
 	<body> 
-		<div class="container"> 
+	<div class="container"> 
 			<header> 
 				<div class="row"> 
 					<div class="six"> 

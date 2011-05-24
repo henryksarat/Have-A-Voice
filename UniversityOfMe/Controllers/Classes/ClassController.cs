@@ -121,7 +121,7 @@ namespace UniversityOfMe.Controllers.Classes {
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
-        public ActionResult DetailsWithClassId(string universityId, int classId) {
+        public ActionResult DetailsWithClassId(string universityId, int classId, ClassViewType classViewType) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
@@ -134,6 +134,7 @@ namespace UniversityOfMe.Controllers.Classes {
                 LoggedInWrapperModel<Class> myLoggedInModel = new LoggedInWrapperModel<Class>(GetUserInformatonModel().Details);
                 myLoggedInModel.Set(myClass);
 
+                ViewData["ClassViewType"] = classViewType;
                 return View("Details", myLoggedInModel);
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
@@ -142,7 +143,7 @@ namespace UniversityOfMe.Controllers.Classes {
         }
         
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
-        public ActionResult Details(string universityId, string id) {
+        public ActionResult Details(string universityId, string id, ClassViewType classViewType) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
@@ -158,6 +159,7 @@ namespace UniversityOfMe.Controllers.Classes {
                 LoggedInWrapperModel<Class> myLoggedInModel = new LoggedInWrapperModel<Class>(GetUserInformatonModel().Details);
                 myLoggedInModel.Set(myClass);
 
+                ViewData["ClassViewType"] = classViewType;
                 return View("Details", myLoggedInModel);
             } catch (Exception myException) {
                 LogError(myException, CLASS_DETAILS_ERROR);

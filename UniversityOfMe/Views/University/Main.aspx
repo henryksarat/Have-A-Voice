@@ -10,10 +10,6 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
-    <% Html.RenderPartial("Message"); %>
-    <% Html.RenderPartial("Validation"); %>
-
-
 	<div class="eight last"> 
 		<div class="form"> 
 			<ul class="full"> 
@@ -42,7 +38,7 @@
 					<div class="clearfix"></div> 
 				</li> 
 				<li class="class"> 
-					<span class="normal bold class">Latest Class Rating</span> sd
+					<span class="normal bold class">Latest Class Rating</span>
 					<ul> 
                         <% foreach (Class myClass in Model.Get().Classes.Take<Class>(5)) { %>
                             <li>
@@ -55,7 +51,7 @@
 								    <span class="gray tiny">(43 ratings)</span> 
 								    <p class="pt7 lightgray">Board Posts: 28</p> 
 							    </div> 
-							    <a class="itemlinked" href="<%= URLHelper.BuildClassUrl(myClass) %>"><%= myClass.ClassCode %></a><br /> 
+							    <a class="itemlinked" href="<%= URLHelper.BuildClassDiscussionUrl(myClass) %>"><%= myClass.ClassCode %></a><br /> 
 							    <span class="gray"><%= TextShortener.Shorten(myClass.ClassTitle, 20) %></span><br /> 
 							    <span class="gold"><%= myClass.AcademicTerm.DisplayName %> <%= myClass.Year %></span> 
                     

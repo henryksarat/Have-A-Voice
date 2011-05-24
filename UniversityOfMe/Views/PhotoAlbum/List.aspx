@@ -10,19 +10,21 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
-    <% Html.RenderPartial("Message"); %>
-    <% Html.RenderPartial("Validation"); %>
-
-    <a href="/PhotoAlbum/Create">Create Photo Album</a><br /><br />
-
-    Current albums:<br /><br />
-
-    <% foreach(PhotoAlbum myPhotoAlbum in Model.Get()) { %>
-        <a href="<%= URLHelper.PhotoAlbumDetailsUrl(myPhotoAlbum) %>"><img src="<%= PhotoHelper.PhotoAlbumCover(myPhotoAlbum) %>" /></a><br />
-        Name: <%= myPhotoAlbum.Name %><br />
-        Description: <%= myPhotoAlbum.Description %><br />
-        <%= Html.ActionLink("Edit", "Edit", "PhotoAlbum", new { id = myPhotoAlbum.Id }, null) %><br />
-        <%= Html.ActionLink("Delete", "Delete", "PhotoAlbum", new { id = myPhotoAlbum.Id }, null) %><br /><br />
-    <% } %>
-	
+	<div class="eight last"> 
+		<div class="banner black full red-top small"> 
+			<span class="mine"><%= NameHelper.FullName(Model.User) %> - ALBUMS</span> 
+			<div class="buttons"> 
+				<a href="/PhotoAlbum/Create" class="create">Create Album</a> 
+			</div> 
+		</div> 
+        <% foreach (PhotoAlbum myAlbum in Model.Get()) { %>
+		<div class="album"> 
+			<a href="<%= URLHelper.PhotoAlbumDetailsUrl(myAlbum) %>"> 
+				<img src="<%= PhotoHelper.PhotoAlbumCover(myAlbum) %>" alt="photo" /> 
+				<br /> 
+				<%= myAlbum.Name%>
+			</a> 
+		</div> 
+        <% } %>
+	</div> 	
 </asp:Content>
