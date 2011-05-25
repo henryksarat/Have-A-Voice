@@ -245,6 +245,8 @@
     <Content Include="Content\images\all.png" />
     <Content Include="Content\images\arrow-down-gray.png" />
     <Content Include="Content\images\arrow-down.png" />
+    <Content Include="Content\images\arrow-green.png" />
+    <Content Include="Content\images\arrow-red.png" />
     <Content Include="Content\images\beer.png" />
     <Content Include="Content\images\bg.png" />
     <Content Include="Content\images\book.png" />
@@ -261,9 +263,14 @@
     <Content Include="Content\images\organization.png" />
     <Content Include="Content\images\paper.png" />
     <Content Include="Content\images\person.png" />
+    <Content Include="Content\images\personwhite.png" />
+    <Content Include="Content\images\photo.png" />
+    <Content Include="Content\images\plus.png" />
     <Content Include="Content\images\question.png" />
     <Content Include="Content\images\readmessage.png" />
+    <Content Include="Content\images\remove.png" />
     <Content Include="Content\images\search.png" />
+    <Content Include="Content\images\self.png" />
     <Content Include="Content\images\sell.png" />
     <Content Include="Content\images\star-empty.png" />
     <Content Include="Content\images\star-full.png" />
@@ -271,6 +278,7 @@
     <Content Include="Content\images\star-half.png" />
     <Content Include="Content\images\star-red.png" />
     <Content Include="Content\images\unreadmessage.png" />
+    <Content Include="Content\images\wrench.png" />
     <Content Include="Content\jquery-1.4.2.min.js" />
     <Content Include="Content\jquery-ui-1.7.2.custom.css" />
     <Content Include="Content\jquery-ui-1.7.2.custom.min.js" />

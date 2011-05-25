@@ -80,8 +80,6 @@ namespace UniversityOfMe.Controllers.Classes {
                 }
 
                 IDictionary<string, string> myAcademicTerms = DictionaryHelper.DictionaryWithSelect();
-
-            
                 myAcademicTerms = theUniversityService.CreateAcademicTermsDictionaryEntry();
 
                 CreateClassModel myClassModel = new CreateClassModel() {

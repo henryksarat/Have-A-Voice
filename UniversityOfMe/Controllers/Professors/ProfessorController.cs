@@ -20,6 +20,8 @@ using UniversityOfMe.UserInformation;
 using Social.Photo.Exceptions;
 using Social.BaseWebsite.Models;
 using UniversityOfMe.Models.View;
+using Social.Generic.Helpers;
+using UniversityOfMe.Services;
 
 namespace UniversityOfMe.Controllers.Professors {
 
@@ -35,11 +37,13 @@ namespace UniversityOfMe.Controllers.Professors {
 
         IValidationDictionary theValidationDictionary;
         IProfessorService theProfessorService;
+        IUniversityService theUniversityService;
 
         public ProfessorController() {
             UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
             theProfessorService = new ProfessorService(theValidationDictionary);
+            theUniversityService = new UniversityService(theValidationDictionary);
         }
 
         public ActionResult List(string universityId) {
@@ -125,8 +129,18 @@ namespace UniversityOfMe.Controllers.Professors {
                     ViewData["Message"] = NO_PROFESSOR_REVIEWS;
                 }
 
-                LoggedInWrapperModel<Professor> myLoggedIn = new LoggedInWrapperModel<Professor>(myUser);
-                myLoggedIn.Set(myProfessor);
+                IDictionary<string, string> myAcademicTerms = DictionaryHelper.DictionaryWithSelect();
+                myAcademicTerms = theUniversityService.CreateAcademicTermsDictionaryEntry();
+
+                LoggedInWrapperModel<CreateProfessorReviewModel> myLoggedIn = new LoggedInWrapperModel<CreateProfessorReviewModel>(myUser);
+                CreateProfessorReviewModel myProfessorReview = new CreateProfessorReviewModel() {
+                    Professor = myProfessor,
+                    ProfessorName = myProfessor.FirstName + " " + myProfessor.LastName,
+                    AcademicTerms = new SelectList(myAcademicTerms, "Value", "Key"),
+                    Years = new SelectList(UOMConstants.ACADEMIC_YEARS, DateTime.UtcNow.Year)
+                };
+
+                myLoggedIn.Set(myProfessorReview);
 
                 return View("Details", myLoggedIn);
             } catch(CustomException myException) {

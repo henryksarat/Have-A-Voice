@@ -5,6 +5,8 @@ using System.Web.Mvc;
 
 namespace UniversityOfMe.Models.View {
     public class CreateProfessorReviewModel {
+        public Professor Professor { get; set; }
+
         public int ProfessorId { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]

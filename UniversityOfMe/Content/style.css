@@ -119,6 +119,10 @@ footer a:hover { text-decoration: underline; }
 .mr26 { margin-right: 26px; }
 .mr44 { margin-right: 44px; }
 
+.ml20 { margin-left: 20px; }
+.ml30 { margin-left: 30px; }
+.ml40 { margin-left: 40px; }
+
 .mb25 { margin-bottom: 25px; }
 .mb32 { margin-bottom: 32px; }
 .mb72 { margin-bottom: 72px; }
@@ -130,6 +134,11 @@ footer a:hover { text-decoration: underline; }
 .pt7 { padding-top: 7px; }
 .pt14 { padding-top: 14px; }
 .pt20 { padding-top: 20px; }
+
+.pb3 { padding-bottom: 3px; }
+.pb7 { padding-bottom: 7px; }
+.pb14 { padding-bottom: 14px; }
+.pb20 { padding-bottom: 20px; }
 
 /*** JUSTIFY ***/
 .flft { float: left; }
@@ -227,6 +236,7 @@ span.album span.user { color: #bcbcbc; text-transform: none; font-size: 11px; }
 span.edit { padding: 2px 0px 2px 28px; background:url(images/wrench.png) no-repeat center left; text-transform: uppercase; }
 span.mine { padding: 2px 0px 2px 28px; background:url(images/self.png) no-repeat center left; text-transform: uppercase; }
 span.class { padding: 2px 0px 2px 28px; background:url(images/case.png) no-repeat center left; text-transform: uppercase; }
+span.professor { padding: 2px 0px 2px 28px; background:url(images/person.png) no-repeat center left; text-transform: uppercase; }
 
 
 a.edit, a.edit:link, a.edit:visited { padding: 2px 0px 2px 26px; background:url(images/wrench.png) no-repeat center left; text-decoration: underline; color: #fff; }

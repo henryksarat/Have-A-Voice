@@ -35,8 +35,8 @@ namespace UniversityOfMe.Services.Professors {
                 theValidationDictionary.AddError("Class", aProfessorReview.Class, "The class in which you had this professor with is required.");
             }
 
-            if (!RangeValidation.IsWithinRange(aProfessorReview.Rating, 0, 5)) {
-                theValidationDictionary.AddError("Rating", aProfessorReview.Rating.ToString(), "Incorrect rating, it must be between 0 and 5.");
+            if (!RangeValidation.IsWithinRange(aProfessorReview.Rating, 1, 5)) {
+                theValidationDictionary.AddError("Rating", aProfessorReview.Rating.ToString(), "Incorrect rating, it must be between 1 and 5.");
             }
 
             if (!DropDownItemValidation.IsValid(aProfessorReview.Year.ToString())) {

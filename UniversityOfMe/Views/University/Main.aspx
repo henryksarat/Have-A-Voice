@@ -19,7 +19,8 @@
 
                         <% foreach (Professor myProfessor in Model.Get().Professors.Take<Professor>(5)) { %>
                             <li>
-                                <a class="itemlinked" href="/<%= myProfessor.UniversityId %>/Professor/Details/<%= myProfessor.FirstName + "_" +  myProfessor.LastName %>"><%= myProfessor.FirstName + " " +  myProfessor.LastName %></a>                         
+                                <% string myProfessorNameUrl = URLHelper.ToUrlFriendly(myProfessor.FirstName + " " + myProfessor.LastName); %>
+                                <a class="itemlinked" href="/<%= myProfessor.UniversityId %>/Professor/Details/<%= myProfessorNameUrl %>"><%= myProfessor.FirstName + " " +  myProfessor.LastName %></a>                         
                                 <% int myTotalReviews = 16; %>
                                 <% if (myTotalReviews > 0) { %>
 							        <div class="rating"> 

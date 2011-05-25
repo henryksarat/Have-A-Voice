@@ -102,6 +102,9 @@ namespace BaseWebsite.Controllers.Friends {
             ILoggedInListModel<A> myModel = CreateLoggedInListModel(myUser);
             try {
                 myModel.Set(theFriendService.FindFriendsForUser(UserId()));
+                if (myModel.Get().Count<A>() == 0) {
+                    TempData["Message"] = NormalMessage(NO_FRIENDS);
+                }
             } catch (Exception e) {
                 LogError(e, FRIENDS_ERROR);
                 ViewData[ERROR_MESSAGE_VIEWDATA] = ErrorMessage(FRIENDS_ERROR);

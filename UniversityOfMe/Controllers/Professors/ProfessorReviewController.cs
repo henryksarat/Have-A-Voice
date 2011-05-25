@@ -36,24 +36,6 @@ namespace UniversityOfMe.Controllers.Professors {
             theUniversityService = new UniversityService(theValidationDictionary);
         }
 
-        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
-        public ActionResult Create(int id) {
-            Professor myProfessor = theProfessorService.GetProfessor(id);
-
-            if (myProfessor == null) {
-                TempData["Message"] = PROFESSOR_DOESNT_EXIST;
-                return RedirectToAction("Create", "Professor");
-            }
-            CreateProfessorReviewModel myViewModel = new CreateProfessorReviewModel() {
-                ProfessorId = myProfessor.Id,
-                ProfessorName = myProfessor.FirstName + " " + myProfessor.LastName,
-                AcademicTerms = new SelectList(theUniversityService.CreateAcademicTermsDictionaryEntry(), "Value", "Key"),
-                AcademicTermId = Constants.SELECT,
-                Years = new SelectList(UOMConstants.ACADEMIC_YEARS, DateTime.UtcNow.Year)
-            };
-
-            return View("Create", myViewModel);
-        }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
         public ActionResult Create(CreateProfessorReviewModel professorReview) {
@@ -64,10 +46,9 @@ namespace UniversityOfMe.Controllers.Professors {
 
             if (myResult) {
                 TempData["Message"] = PROFESSOR_REVIEW;
-                return RedirectToAction("Details", "Professor", new { id = URLHelper.ToUrlFriendly(professorReview.ProfessorName) });
             }
 
-            return RedirectToAction("Create");
+            return RedirectToAction("Details", "Professor", new { id = URLHelper.ToUrlFriendly(professorReview.ProfessorName) });
         }
 
         protected override AbstractUserModel<User> GetSocialUserInformation() {

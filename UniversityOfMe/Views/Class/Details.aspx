@@ -20,7 +20,8 @@
 </script>
 
     <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
-
+    <% ClassViewType myViewType = (ClassViewType)ViewData["ClassViewType"]; %>
+    
     <div class="eight last"> 
         <% Html.RenderPartial("Message"); %>
         <% Html.RenderPartial("Validation"); %>
@@ -29,18 +30,15 @@
 		    <div class="buttons"> 
 			    <div class="flft mr26"> 
                     <% if(ClassHelper.IsEnrolled(UniversityOfMe.UserInformation.UserInformationFactory.GetUserInformation(), Model.Get())) { %>
-                        <a href="#" class="unroll">Remove me from this class</a> 
+                        <%= Html.ActionLink("Remove me from this class", "Delete", "ClassEnrollment", new { classId = Model.Get().Id, classViewType = myViewType }, new { @class = "unroll" })%>
                     <% } else { %>
-				        <a href="#" class="enroll">I'm enrolled in this class</a> 
+                        <%= Html.ActionLink("I'm enrolled in this class", "Create", "ClassEnrollment", new { classId = Model.Get().Id, classViewType = myViewType }, new { @class = "enroll" })%>
                     <% } %> 
 			    </div> 
 			    <div class="rating"> 
-				    <span class="star"></span> 
-				    <span class="star"></span> 
-				    <span class="half"></span> 
-				    <span class="empty"></span> 
-				    <span class="empty"></span> 
-				    (43 ratings)
+                    <% int myTotalRatings = Model.Get().ClassReviews.Count; %>
+				    <%= StarHelper.AveragedFiveStarImages(Model.Get().ClassReviews.Sum(r => r.Rating), Model.Get().ClassReviews.Count)  %>
+				    (<%= myTotalRatings %> ratings)
 			    </div> 
 		    </div> 
 	    </div> 
@@ -93,6 +91,9 @@
 	    </div> 
 	    <div class="box sm group"> 
 		    <ul class="members"> 
+                <% if (Model.Get().ClassEnrollments.Count == 0) { %>
+                    There are no students currently enrolled in this class
+                <% } %>
                 <% foreach (ClassEnrollment myEnrollment in Model.Get().ClassEnrollments) { %>
 			        <li> 
 				        <a href="/<%= Model.Get().User.ShortUrl %>"><img src="<%= PhotoHelper.ProfilePicture(myEnrollment.User) %>" class="profile med flft mr9" /></a>
@@ -107,7 +108,6 @@
 					
 	    <div class="tabs"> 
 		    <ul> 
-                <% ClassViewType myViewType = (ClassViewType)ViewData["ClassViewType"]; %>
 			    <li class="<%= myViewType == ClassViewType.Discussion ? "active" : ""  %>"> 
                     <a href="<%= URLHelper.BuildClassDiscussionUrl(Model.Get()) %>">Class Board</a> 
 			    </li> 

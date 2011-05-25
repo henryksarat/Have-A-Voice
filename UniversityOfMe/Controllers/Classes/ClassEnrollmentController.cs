@@ -10,6 +10,7 @@ using UniversityOfMe.Models;
 using UniversityOfMe.Repositories;
 using UniversityOfMe.Services.Classes;
 using UniversityOfMe.UserInformation;
+using UniversityOfMe.Helpers;
 
 namespace UniversityOfMe.Controllers.Classes {
     public class ClassEnrollmentController : UOFMeBaseController {
@@ -25,8 +26,8 @@ namespace UniversityOfMe.Controllers.Classes {
             theClassService = new ClassService(theValidationDictionary);
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Create(int classId) {
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult Create(int classId, ClassViewType classViewType) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
@@ -39,11 +40,11 @@ namespace UniversityOfMe.Controllers.Classes {
                 TempData["Message"] = ErrorKeys.ERROR_MESSAGE;
             }
 
-            return RedirectToAction("DetailsWithClassId", "Class", new { classId = classId });
+            return RedirectToAction("DetailsWithClassId", "Class", new { classId = classId, classViewType = classViewType });
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Delete(int classId) {
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult Delete(int classId, ClassViewType classViewType) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
@@ -56,7 +57,7 @@ namespace UniversityOfMe.Controllers.Classes {
                 TempData["Message"] = ErrorKeys.ERROR_MESSAGE;
             }
 
-            return RedirectToAction("DetailsWithClassId", "Class", new { classId = classId });
+            return RedirectToAction("DetailsWithClassId", "Class", new { classId = classId, classViewType = classViewType });
         }
     }
 }
