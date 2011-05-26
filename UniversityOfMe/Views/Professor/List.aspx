@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInListModel<Professor>>" %>
 <%@ Import Namespace="UniversityOfMe.Models" %>
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
+<%@ Import Namespace="UniversityOfMe.Helpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	List
@@ -8,69 +9,37 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-        <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
+    <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
-        <% Html.RenderPartial("Message"); %>
-        <% Html.RenderPartial("Validation"); %>
+    <% Html.RenderPartial("Message"); %>
+    <% Html.RenderPartial("Validation"); %>
 
-    <table>
-        <tr>
-            <th></th>
-            <th>
-                Id
-            </th>
-            <th>
-                UniversityId
-            </th>
-            <th>
-                FirstName
-            </th>
-            <th>
-                LastName
-            </th>
-            <th>
-                CreatedByUserId
-            </th>
-            <th>
-                DateTimeStamp
-            </th>
-        </tr>
-
-    <% foreach (var item in Model.Get()) { %>
-    
-        <tr>
-            <td>
-                <%: Html.ActionLink("Edit", "Edit", new { id=item.Id }) %> |
-                <%: Html.ActionLink("Details", "Details", new { id=item.Id })%> |
-                <%: Html.ActionLink("Delete", "Delete", new { id=item.Id })%>
-            </td>
-            <td>
-                <%: item.Id %>
-            </td>
-            <td>
-                <%: item.UniversityId %>
-            </td>
-            <td>
-                <%: item.FirstName %>
-            </td>
-            <td>
-                <%: item.LastName %>
-            </td>
-            <td>
-                <%: item.CreatedByUserId %>
-            </td>
-            <td>
-                <%: String.Format("{0:g}", item.DateTimeStamp) %>
-            </td>
-        </tr>
-    
-    <% } %>
-
-    </table>
-
-    <p>
-        <%: Html.ActionLink("Create New", "Create") %>
-    </p>
-
+ 	<div class="eight last"> 
+		<div class="banner black full red-top small"> 
+			<span class="professor">Professors</span> 
+		</div> 
+					
+		<table class="listing row"> 
+            <tr class="heading">
+		        <th>Professor Name</th>
+                <th>Number of Reviews</th>
+                <th>Average Score</th>
+            </tr>
+            <% bool mySwitch = false; %>
+            <% foreach (Professor myProfessor in Model.Get()) { %>
+                <% if (mySwitch) { %>
+                    <% mySwitch = false; %>
+                    <tr class="small center alternative">
+                <% } else { %>
+                    <% mySwitch = true; %>
+                    <tr class="small center">
+                <% } %>
+                    <td><a class="itemlinked" href="<%= URLHelper.BuildProfessorUrl(myProfessor) %>"><%= myProfessor.FirstName + " " + myProfessor.LastName%></a></td>
+                    <td><a class="itemlinked" href="<%= URLHelper.BuildProfessorUrl(myProfessor) %>"><%= myProfessor.ProfessorReviews.Count%></td>
+                    <td><a class="itemlinked" href="<%= URLHelper.BuildProfessorUrl(myProfessor) %>"><%= myProfessor.ProfessorReviews.Count == 0 ? "NA" : (myProfessor.ProfessorReviews.Sum(cr => cr.Rating) / myProfessor.ProfessorReviews.Count).ToString()%></td>
+                </tr>
+            <% } %>
+		</table> 		
+	</div> 
 </asp:Content>
 

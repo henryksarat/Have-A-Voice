@@ -22,6 +22,26 @@ namespace UniversityOfMe.Helpers {
             return "/" + aClass.UniversityId + "/Class/Details/" + String.Join("_", aClass.ClassCode, aClass.AcademicTermId, aClass.Year) + "?classViewType=" + ClassViewType.Discussion;
         }
 
+        public static string BuildProfessorUrl(Professor aProfessor) {
+            return "/" + aProfessor.UniversityId + "/Professor/Details/" + ToUrlFriendly(aProfessor.FirstName + " " + aProfessor.LastName);
+        }
+
+        public static string BuildTextbookUrl(TextBook aTextbook) {
+            return "/" + aTextbook.UniversityId + "/TextBook/Details/" + aTextbook.Id;
+        }
+
+        public static string BuildEventUrl(Event anEvent) {
+            return "/" + anEvent.UniversityId + "/Event/Details/" + anEvent.Id;
+        }
+
+        public static string BuildClubUrl(Club aClub) {
+            return "/" + aClub.UniversityId + "/Club/Details/" + aClub.Id;
+        }
+
+        public static string BuildGeneralPostingsUrl(GeneralPosting aGeneralPosting) {
+            return "/" + aGeneralPosting.UniversityId + "/GeneralPosting/Details/" + aGeneralPosting.Id;
+        }
+
         public static string ProfileUrl(User aUser) {
             return "/" + aUser.ShortUrl;
         }

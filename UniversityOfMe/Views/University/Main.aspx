@@ -20,7 +20,7 @@
                         <% foreach (Professor myProfessor in Model.Get().Professors.Take<Professor>(5)) { %>
                             <li>
                                 <% string myProfessorNameUrl = URLHelper.ToUrlFriendly(myProfessor.FirstName + " " + myProfessor.LastName); %>
-                                <a class="itemlinked" href="/<%= myProfessor.UniversityId %>/Professor/Details/<%= myProfessorNameUrl %>"><%= myProfessor.FirstName + " " +  myProfessor.LastName %></a>                         
+                                <a class="itemlinked" href="<%= URLHelper.BuildProfessorUrl(myProfessor) %>"><%= myProfessor.FirstName + " " +  myProfessor.LastName %></a>                         
                                 <% int myTotalReviews = 16; %>
                                 <% if (myTotalReviews > 0) { %>
 							        <div class="rating"> 
@@ -35,6 +35,10 @@
                             </li>
                         <% } %>
 					</ul> 
+                    <div class="flft mr9">
+                        <%= Html.ActionLink("+", "Create", "Professor", null, new { @class="add-new-cross" })%>
+                    </div>
+                    <%= Html.ActionLink("Create New", "Create", "Professor", null, new { @class="add-new" })%>
                     <%= Html.ActionLink("View All", "List", "Professor", null, new { @class="view-all" })%>
 					<div class="clearfix"></div> 
 				</li> 
@@ -59,6 +63,10 @@
                             </li>
                         <% } %>
 					</ul> 
+                    <div class="flft mr9">
+                        <%= Html.ActionLink("+", "Create", "Class", null, new { @class="add-new-cross" })%>
+                    </div>
+                    <%= Html.ActionLink("Create New", "Create", "Class", null, new { @class="add-new" })%>
 					<%= Html.ActionLink("View All", "List", "Class", null, new { @class="view-all" })%>
 					<div class="clearfix"></div> 
 				</li> 
@@ -67,13 +75,17 @@
 					<ul> 
                         <% foreach (Event myEvent in Model.Get().Events.Take<Event>(5)) { %>
 						    <li> 
-							    <a class="itemlinked" href="/<%= myEvent.UniversityId %>/Event/Details/<%= myEvent.Id %>"><%= myEvent.Title %></a>
+							    <a class="itemlinked" href="<%= URLHelper.BuildEventUrl(myEvent) %>"><%= myEvent.Title %></a>
 							    <div class="rating darkgray"> 
 								    <%= myEvent.StartDate%>
 							    </div> 
 						    </li> 
                         <% } %>
-					</ul> 
+					</ul>
+                    <div class="flft mr9">
+                        <%= Html.ActionLink("+", "Create", "Event", null, new { @class="add-new-cross" })%>
+                    </div>
+                    <%= Html.ActionLink("Create New", "Create", "Event", null, new { @class="add-new" })%>
 					<%= Html.ActionLink("View All", "List", "Event", null, new { @class="view-all" })%>
 					<div class="clearfix"></div> 
 				</li> 
@@ -86,14 +98,18 @@
 							    <span class="darkgray">( <%= myTextBook.ClassCode %>)</span> 
 							    <div class="rating"> 
                                     <% if (myTextBook.BuySell.Equals("Buy")) { %>
-                                        <a href="/<%= myTextBook.UniversityId %>/TextBook/Details/<%= myTextBook.Id %>" class="buy">"Buy"</a> 
+                                        <a href="<%= URLHelper.BuildTextbookUrl(myTextBook) %>" class="buy">"Buy"</a> 
                                     <% } else { %>
-                                        <a href="/<%= myTextBook.UniversityId %>/TextBook/Details/<%= myTextBook.Id %>" class="sell">"Sell"</a> 
+                                        <a href="<%= URLHelper.BuildTextbookUrl(myTextBook) %>" class="sell">"Sell"</a> 
                                     <% } %>
 							    </div> 
                             </li>
                         <% } %>
 					</ul> 
+                    <div class="flft mr9">
+                        <%= Html.ActionLink("+", "Create", "TextBook", null, new { @class="add-new-cross" })%>
+                    </div>
+                    <%= Html.ActionLink("Create New", "Create", "TextBook", null, new { @class="add-new" })%>
 					<%= Html.ActionLink("View All", "List", "TextBook", null, new { @class="view-all" })%>
 					<div class="clearfix"></div> 
 				</li> 
@@ -106,6 +122,10 @@
                             </li>                         
                         <% } %>
 					</ul> 
+                    <div class="flft mr9">
+                        <%= Html.ActionLink("+", "Create", "Club", null, new { @class="add-new-cross" })%>
+                    </div>
+                    <%= Html.ActionLink("Create New", "Create", "Club", null, new { @class = "add-new" })%>
 					<%= Html.ActionLink("View All", "List", "Club", null, new { @class="view-all" })%>
 					<div class="clearfix"></div> 
 				</li> 
@@ -120,6 +140,10 @@
 						    </li>
                         <% } %>
 					</ul> 
+                    <div class="flft mr9">
+                        <%= Html.ActionLink("+", "Create", "GeneralPosting", null, new { @class="add-new-cross" })%>
+                    </div>
+                    <%= Html.ActionLink("Create New", "Create", "GeneralPosting", null, new { @class="add-new" })%>
 					<%= Html.ActionLink("View All", "List", "GeneralPosting", null, new { @class="view-all" })%>
 					<div class="clearfix"></div> 
 				</li> 

@@ -106,6 +106,53 @@ namespace UniversityOfMe.Controllers.Professors {
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
+        public ActionResult Details2(string universityId, string id) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            try {
+                User myUser = GetUserInformatonModel().Details;
+
+                if (!UniversityHelper.IsFromUniversity(myUser, universityId)) {
+                    return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
+                }
+                bool myExists = theProfessorService.IsProfessorExists(universityId, id);
+
+                if (!myExists) {
+                    TempData["Message"] = PROFESSOR_DOESNT_EXIST;
+                    return RedirectToAction("Create", "Professor");
+                }
+
+                Professor myProfessor = theProfessorService.GetProfessor(GetUserInformatonModel(), universityId, id);
+
+                if (myProfessor.ProfessorReviews.Count() == 0) {
+                    ViewData["Message"] = NO_PROFESSOR_REVIEWS;
+                }
+
+                IDictionary<string, string> myAcademicTerms = DictionaryHelper.DictionaryWithSelect();
+                myAcademicTerms = theUniversityService.CreateAcademicTermsDictionaryEntry();
+
+                LoggedInWrapperModel<CreateProfessorReviewModel> myLoggedIn = new LoggedInWrapperModel<CreateProfessorReviewModel>(myUser);
+                CreateProfessorReviewModel myProfessorReview = new CreateProfessorReviewModel() {
+                    Professor = myProfessor,
+                    ProfessorName = myProfessor.FirstName + " " + myProfessor.LastName,
+                    AcademicTerms = new SelectList(myAcademicTerms, "Value", "Key"),
+                    Years = new SelectList(UOMConstants.ACADEMIC_YEARS, DateTime.UtcNow.Year)
+                };
+
+                myLoggedIn.Set(myProfessorReview);
+
+                return View("Details2", myLoggedIn);
+            } catch (CustomException myException) {
+                LogError(myException, myException.Message + ", name=" + id);
+            } catch (Exception myException) {
+                LogError(myException, ErrorKeys.ERROR_MESSAGE);
+            }
+
+            return SendToErrorPage(ErrorKeys.ERROR_MESSAGE);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult Details(string universityId, string id) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();

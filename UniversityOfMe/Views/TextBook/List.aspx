@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInListModel<TextBook>>" %>
 <%@ Import Namespace="UniversityOfMe.Models" %>
+<%@ Import Namespace="UniversityOfMe.Helpers" %>
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
@@ -13,107 +14,39 @@
     <% Html.RenderPartial("Message"); %>
     <% Html.RenderPartial("Validation"); %>
 
-
-    <table>
-        <tr>
-            <th></th>
-            <th>
-                Id
-            </th>
-            <th>
-                UserId
-            </th>
-            <th>
-                UniversityId
-            </th>
-            <th>
-                TextBookConditionId
-            </th>
-            <th>
-                BookTitle
-            </th>
-            <th>
-                BookPicture
-            </th>
-            <th>
-                ClassCode
-            </th>
-            <th>
-                BuySell
-            </th>
-            <th>
-                Edition
-            </th>
-            <th>
-                Price
-            </th>
-            <th>
-                Details
-            </th>
-            <th>
-                DateTimeStamp
-            </th>
-            <th>
-                Active
-            </th>
-        </tr>
-
-    <% foreach (var item in Model.Get()) { %>
-    
-        <tr>
-            <td>
-                <%: Html.ActionLink("Edit", "Edit", new { id=item.Id }) %> |
-                <%: Html.ActionLink("Details", "Details", new { id=item.Id })%> |
-                <%: Html.ActionLink("Delete", "Delete", new { id=item.Id })%>
-            </td>
-            <td>
-                <%: item.Id %>
-            </td>
-            <td>
-                <%: item.UserId %>
-            </td>
-            <td>
-                <%: item.UniversityId %>
-            </td>
-            <td>
-                <%: item.TextBookConditionId %>
-            </td>
-            <td>
-                <%: item.BookTitle %>
-            </td>
-            <td>
-                <%: item.BookPicture %>
-            </td>
-            <td>
-                <%: item.ClassCode %>
-            </td>
-            <td>
-                <%: item.BuySell %>
-            </td>
-            <td>
-                <%: item.Edition %>
-            </td>
-            <td>
-                <%: String.Format("{0:F}", item.Price) %>
-            </td>
-            <td>
-                <%: item.Details %>
-            </td>
-            <td>
-                <%: String.Format("{0:g}", item.DateTimeStamp) %>
-            </td>
-            <td>
-                <%: item.Active %>
-            </td>
-        </tr>
-    
-    <% } %>
-
-    </table>
-
-    <p>
-        <%: Html.ActionLink("Create New", "Create") %>
-    </p>
-
+ 	<div class="eight last"> 
+		<div class="banner black full red-top small"> 
+			<span class="book">Textbooks</span> 
+		</div> 
+					
+		<table class="listing row"> 
+            <tr class="heading">
+		        <th></th>
+                <th>Title</th>
+                <th>Class Code</th>
+                <th>Edition</th>
+                <th>Price</th>
+                <th>Posted</th>
+            </tr>
+            <% bool mySwitch = false; %>
+            <% foreach (TextBook myTextbook in Model.Get().OrderByDescending(t => t.DateTimeStamp)) { %>
+                <% if (mySwitch) { %>
+                    <% mySwitch = false; %>
+                    <tr class="small center alternative">
+                <% } else { %>
+                    <% mySwitch = true; %>
+                    <tr class="small center">
+                <% } %>
+                    <% string myBuySellCssClass = myTextbook.BuySell.Equals("B") ? "buy" : "sell"; %>
+                    <td><a class="<%= myBuySellCssClass %>" href="<%= URLHelper.BuildTextbookUrl(myTextbook) %>"></a></td>
+                    <td><a class="itemlinked" href="<%= URLHelper.BuildTextbookUrl(myTextbook) %>"><%= myTextbook.BookTitle %></td>
+                    <td><a class="itemlinked" href="<%= URLHelper.BuildTextbookUrl(myTextbook) %>"><%= myTextbook.ClassCode %></td>
+                    <td><a class="itemlinked" href="<%= URLHelper.BuildTextbookUrl(myTextbook) %>"><%= myTextbook.Edition %></td>
+                    <td><a class="itemlinked" href="<%= URLHelper.BuildTextbookUrl(myTextbook) %>"><%= myTextbook.Price %></td>
+                    <td><a class="itemlinked" href="<%= URLHelper.BuildTextbookUrl(myTextbook) %>"><%= DateHelper.ToLocalTime(myTextbook.DateTimeStamp) %></td>
+                </tr>
+            <% } %>
+		</table> 		
+	</div> 
 </asp:Content>
 

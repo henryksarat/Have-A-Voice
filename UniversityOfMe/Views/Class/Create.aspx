@@ -3,7 +3,7 @@
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Create
+	University Of Me - <%= Model.Get().UniversityId %> Create Class
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -13,47 +13,37 @@
     <% Html.RenderPartial("Message"); %>
     <% Html.RenderPartial("Validation"); %>
 
-    <% using (Html.BeginForm()) {%>
-        <fieldset>
-            <div class="editor-label">
-                <%: Html.Label("Please provide the academic term and year for the class:") %>
-            </div>
-            <div class="editor-field">
+
+	<div class="eight last"> 
+		<div class="create"> 
+			<div class="banner black full red-top small"> 
+				<span class="class">CREATE CLASS</span> 
+			</div> 
+            <% using (Html.BeginForm("Create", "Class", FormMethod.Post)) {%>
+			    <label for="ClassCode">Class Code:</label> 
+			    <input type="text" class="quarter" name="ClassCode" id="ClassCode" /> 
+                <%= Html.ValidationMessage("ClassCode", "*")%>
+
+			    <label for="ClassTitle" class="mt13">Class Title:</label> 
+			    <input type="text" class="half" name="ClassTitle" id="ClassTitle" /> 
+                <%= Html.ValidationMessage("ClassTitle", "*")%>
+
+                <label for="AcademicTerm" class="mt13">Academic term</label>
                 <%: Html.DropDownListFor(model => model.Get().AcademicTermId, Model.Get().AcademicTerms)%>
                 <%: Html.ValidationMessageFor(model => model.Get().AcademicTermId, "*")%>
 
+                <label for="Year" class="mt13">Year</label>
                 <%: Html.DropDownListFor(model => model.Get().Year, Model.Get().Years)%>
                 <%: Html.ValidationMessageFor(model => model.Get().Year, "*")%>
-            </div>
 
-            <div class="editor-label">
-                <%: Html.Label("Class Code") %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Get().ClassCode)%>
-                <%: Html.ValidationMessageFor(model => model.Get().ClassCode, "*")%>
-            </div>
-
-            <div class="editor-label">
-                <%: Html.Label("Class Title") %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Get().ClassTitle)%>
-                <%: Html.ValidationMessageFor(model => model.Get().ClassTitle, "*")%>
-            </div>
-
-            <div class="editor-label">
-                <%: Html.Label("Details") %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Get().Details)%>
-                <%: Html.ValidationMessageFor(model => model.Get().Details, "*")%>
-            </div>
-            
-            <p>
-                <input type="submit" value="Create" />
-            </p>
-        </fieldset>
-
-    <% } %>
+			    <label for="Details" class="mt13">Details:</label> 
+			    <textarea name="desc" id="Details" class="full" rows="6"></textarea> 
+                <%= Html.ValidationMessage("Details", "*")%>
+			    <div class="right"> 
+				    <input type="submit" name="submit" class="btn teal mr14" value="Submit" /> 
+				    <input type="button" name="cancel" class="btn teal" value="Cancel" /> 
+			    </div> 
+            <% } %>
+		</div> 
+	</div> 
 </asp:Content>

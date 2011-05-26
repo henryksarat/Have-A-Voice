@@ -65,6 +65,7 @@ namespace UniversityOfMe.Controllers.Clubs {
                     BuySellOptions = new SelectList(myBuySellTypes, "Value", "Key"),
                     TextBookConditions = new SelectList(myBookConditionTypes, "Value", "Key")
                 };
+                myLoggedIn.Set(myCreateTextbookModel);
                 return View("Create", myLoggedIn);
             } catch(Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);

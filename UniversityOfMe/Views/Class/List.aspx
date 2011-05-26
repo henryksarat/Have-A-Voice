@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInListModel<Class>>" %>
 <%@ Import Namespace="UniversityOfMe.Models" %>
+<%@ Import Namespace="UniversityOfMe.Helpers" %>
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
@@ -13,82 +14,40 @@
     <% Html.RenderPartial("Message"); %>
     <% Html.RenderPartial("Validation"); %>
 
-    <table>
-        <tr>
-            <th></th>
-            <th>
-                Id
-            </th>
-            <th>
-                UniversityId
-            </th>
-            <th>
-                CreatedByUserId
-            </th>
-            <th>
-                AcademicTermId
-            </th>
-            <th>
-                ClassCode
-            </th>
-            <th>
-                ClassTitle
-            </th>
-            <th>
-                Year
-            </th>
-            <th>
-                Details
-            </th>
-            <th>
-                DateTimeStamp
-            </th>
-        </tr>
-
-    <% foreach (var item in Model.Get()) { %>
-    
-        <tr>
-            <td>
-                <%: Html.ActionLink("Edit", "Edit", new { id=item.Id }) %> |
-                <%: Html.ActionLink("Details", "Details", new { id=item.Id })%> |
-                <%: Html.ActionLink("Delete", "Delete", new { id=item.Id })%>
-            </td>
-            <td>
-                <%: item.Id %>
-            </td>
-            <td>
-                <%: item.UniversityId %>
-            </td>
-            <td>
-                <%: item.CreatedByUserId %>
-            </td>
-            <td>
-                <%: item.AcademicTermId %>
-            </td>
-            <td>
-                <%: item.ClassCode %>
-            </td>
-            <td>
-                <%: item.ClassTitle %>
-            </td>
-            <td>
-                <%: item.Year %>
-            </td>
-            <td>
-                <%: item.Details %>
-            </td>
-            <td>
-                <%: String.Format("{0:g}", item.DateTimeStamp) %>
-            </td>
-        </tr>
-    
-    <% } %>
-
-    </table>
-
-    <p>
-        <%: Html.ActionLink("Create New", "Create") %>
-    </p>
-
+	<div class="eight last"> 
+		<div class="banner black full red-top small"> 
+			<span class="class">CLASSES</span> 
+		</div> 
+					
+		<table class="listing row"> 
+            <tr class="heading">
+		        <th>Class Code</th>
+                <th>Class Title</th>
+                <th>Academic Term</th>
+                <th>Year</th>
+                <th>Number of Board Posts</th>
+                <th>Number of Reviews</th>
+                <th>Average Review Score</th>
+            </tr>
+            <% bool mySwitch = false; %>
+            <% foreach (Class myClass in Model.Get()) { %>
+                <% if (mySwitch) { %>
+                    <% mySwitch = false; %>
+                    <tr class="small center alternative">
+                <% } else { %>
+                    <% mySwitch = true; %>
+                    <tr class="small center">
+                <% } %>
+                    <td><a class="itemlinked" href="<%= URLHelper.BuildClassDiscussionUrl(myClass) %>"><%= myClass.ClassCode %></a></td>
+                    <td><a class="itemlinked" href="<%= URLHelper.BuildClassDiscussionUrl(myClass) %>"><%= TextShortener.Shorten(myClass.ClassTitle, 20) %></td>
+                    <td><a class="itemlinked" href="<%= URLHelper.BuildClassDiscussionUrl(myClass) %>"><%= myClass.AcademicTerm.DisplayName %></td>
+                    <td><a class="itemlinked" href="<%= URLHelper.BuildClassDiscussionUrl(myClass) %>"><%= myClass.Year %></td>
+                    <td><a class="itemlinked" href="<%= URLHelper.BuildClassDiscussionUrl(myClass) %>"><%= myClass.ClassBoards.Count %></td>
+                    <td><a class="itemlinked" href="<%= URLHelper.BuildClassDiscussionUrl(myClass) %>"><%= myClass.ClassReviews.Count %></td>
+                    <td><a class="itemlinked" href="<%= URLHelper.BuildClassDiscussionUrl(myClass) %>"><%= myClass.ClassReviews.Count == 0 ? "NA" : (myClass.ClassReviews.Sum(cr=>cr.Rating) / myClass.ClassReviews.Count).ToString() %></td>
+                </tr>
+            <% } %>
+		</table> 		
+	</div> 
 </asp:Content>
 

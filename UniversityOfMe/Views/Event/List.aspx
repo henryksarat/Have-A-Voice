@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInListModel<Event>>" %>
 <%@ Import Namespace="UniversityOfMe.Models" %>
+<%@ Import Namespace="UniversityOfMe.Helpers" %>
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
@@ -14,72 +15,32 @@
     <% Html.RenderPartial("Validation"); %>
 
 
-    <table>
-        <tr>
-            <th></th>
-            <th>
-                Id
-            </th>
-            <th>
-                UniversityId
-            </th>
-            <th>
-                UserId
-            </th>
-            <th>
-                DateStart
-            </th>
-            <th>
-                DateEnd
-            </th>
-            <th>
-                Information
-            </th>
-            <th>
-                EntireSchool
-            </th>
-            <th>
-                Deleted
-            </th>
-            <th>
-                DeletedUserId
-            </th>
-        </tr>
-
-    <% foreach (var item in Model.Get()) { %>
-    
-        <tr>
-            <td>
-                <%: item.Id %>
-            </td>
-            <td>
-                <%: item.UniversityId %>
-            </td>
-            <td>
-                <%: item.UserId %>
-            </td>
-            <td>
-                <%: String.Format("{0:g}", item.StartDate)%>
-            </td>
-            <td>
-                <%: String.Format("{0:g}", item.EndDate) %>
-            </td>
-            <td>
-                <%: item.Information %>
-            </td>
-            <td>
-                <%: item.EntireSchool %>
-            </td>
-            <td>
-                <%: item.Deleted %>
-            </td>
-            <td>
-                <%: item.DeletedUserId %>
-            </td>
-        </tr>
-    
-    <% } %>
-
-    </table>
+ 	<div class="eight last"> 
+		<div class="banner black full red-top small"> 
+			<span class="event">Events</span> 
+		</div> 
+					
+		<table class="listing row"> 
+            <tr class="heading">
+		        <th>Title</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+            </tr>
+            <% bool mySwitch = false; %>
+            <% foreach (Event myEvent in Model.Get().OrderByDescending(t => t.StartDate)) { %>
+                <% if (mySwitch) { %>
+                    <% mySwitch = false; %>
+                    <tr class="small center alternative">
+                <% } else { %>
+                    <% mySwitch = true; %>
+                    <tr class="small center">
+                <% } %>
+                    <td><a class="itemlinked" href="<%= URLHelper.BuildEventUrl(myEvent) %>"><%= myEvent.Title %></td>
+                    <td><a class="itemlinked" href="<%= URLHelper.BuildEventUrl(myEvent) %>"><%= DateHelper.ToLocalTime(myEvent.StartDate) %></td>
+                    <td><a class="itemlinked" href="<%= URLHelper.BuildEventUrl(myEvent) %>"><%= DateHelper.ToLocalTime(myEvent.EndDate)%></td>
+                </tr>
+            <% } %>
+		</table> 		
+	</div> 
 </asp:Content>
 

@@ -87,7 +87,7 @@
                                                 <%= Html.TextBox("Class", string.Empty, new { @class = "flft" })%>
                                                 <%= Html.ValidationMessage("Class", "*", new { @class = "flft" })%>
                                             </div>
-                                            <div class="flft ml40"> 
+                                            <div class="flft ml60"> 
                                                 <label class="post" for="anon">Academic Term:</label>
                                                 <%= Html.DropDownList("AcademicTermId", Model.Get().AcademicTerms, new { @class = "flft" })%>
                                                 <%= Html.ValidationMessage("AcademicTermId", "*", new { @class = "flft" })%>

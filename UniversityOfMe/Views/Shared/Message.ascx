@@ -2,4 +2,3 @@
 
 <%= ViewData["Message"]%>
 <%= TempData["Message"]%>
-<div class="clear">&nbsp;</div>

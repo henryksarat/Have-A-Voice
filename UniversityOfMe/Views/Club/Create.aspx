@@ -3,7 +3,7 @@
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Create
+	University Of Me - <%= Model.University.Id %> Create an Organization
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -13,47 +13,33 @@
     <% Html.RenderPartial("Message"); %>
     <% Html.RenderPartial("Validation"); %>
 
-    <% using (Html.BeginForm("Create", "Club", FormMethod.Post, new { enctype = "multipart/form-data", @class = "create btint-6" })) {%>
-        <fieldset>
-            <legend>Fields</legend>
+	<div class="eight last"> 
+		<div class="create"> 
+			<div class="banner black full red-top small"> 
+				<span class="organization">CREATE ORGANIZATION</span> 
+			</div> 
+            <% using (Html.BeginForm("Create", "Club", FormMethod.Post, FormMethod.Post, new { enctype = "multipart/form-data", @class = "create btint-6" })) {%>
+			    <label for="Name">Name:</label> 
+			    <%= Html.TextBox("Name", Model.Get().Name, new { @class = "quarter" })%>
+                <%= Html.ValidationMessage("Name", "*")%>
 
-            <div class="editor-label">
-                <%: Html.Label("Club Image") %>
-            </div>
-            <div class="editor-field">
-                <input type="file" id="ClubImage" name="ClubImage" size="23" />
-                <%: Html.ValidationMessageFor(model => model.Get().ClubImage, "*")%>
-            </div>
-                        
-            <div class="editor-label">
-                <%: Html.Label("ClubType") %>
-            </div>
-            <div class="editor-field">
-                <%: Html.DropDownListFor(model => model.Get().ClubType, Model.Get().ClubTypes)%>
-                <%: Html.ValidationMessageFor(model => model.Get().ClubType, "*")%>
-            </div>
-            
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.Get().Name)%>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Get().Name)%>
-                <%: Html.ValidationMessageFor(model => model.Get().Name)%>
-            </div>
-            
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.Get().Description)%>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Get().Description)%>
-                <%: Html.ValidationMessageFor(model => model.Get().Description)%>
-            </div>
-            
-            <p>
-                <input type="submit" value="Create" />
-            </p>
-        </fieldset>
+			    <label for="ClubImage" class="mt13">Organization Image:</label> 
+			    <input type="file" id="ClubImage" name="ClubImage" size="23" />
 
-    <% } %>
+			    <label for="ClubType" class="mt13">Organization Type:</label> 
+                <%= Html.DropDownListFor(model => model.Get().ClubType, Model.Get().ClubTypes)%>
+                <%= Html.ValidationMessageFor(model => model.Get().ClubType, "*")%>
+
+			    <label for="Description" class="mt13">Description:</label> 
+                <%= Html.TextArea("Description", Model.Get().Description, 6, 0 ,new { @class = "full" }) %>
+                <%= Html.ValidationMessage("Description", "*")%>
+
+			    <div class="right"> 
+				    <input type="submit" name="submit" class="btn teal mr14" value="Submit" /> 
+				    <input type="button" name="cancel" class="btn teal" value="Cancel" /> 
+			    </div> 
+            <% } %>
+		</div> 
+	</div> 
 </asp:Content>
 

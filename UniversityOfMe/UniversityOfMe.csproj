@@ -241,6 +241,21 @@
     <Content Include="App_Data\UniversityOfMe_log.ldf">
       <DependentUpon>UniversityOfMe.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\css\ui-lightness\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="Content\css\ui-lightness\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="Content\css\ui-lightness\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="Content\css\ui-lightness\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="Content\css\ui-lightness\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="Content\css\ui-lightness\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\css\ui-lightness\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="Content\css\ui-lightness\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="Content\css\ui-lightness\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="Content\css\ui-lightness\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\css\ui-lightness\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="Content\css\ui-lightness\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="Content\css\ui-lightness\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="Content\css\ui-lightness\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\css\ui-lightness\jquery-ui-1.8.13.custom.css" />
     <Content Include="Content\images\30-gray.png" />
     <Content Include="Content\images\all.png" />
     <Content Include="Content\images\arrow-down-gray.png" />
@@ -287,6 +302,8 @@
     <Content Include="Content\jquery.ui.stars.js" />
     <Content Include="Content\jquery.ui.stars.min.css" />
     <Content Include="Content\jquery.ui.stars.min.js" />
+    <Content Include="Content\js\jquery-1.5.1.min.js" />
+    <Content Include="Content\js\jquery-ui-1.8.13.custom.min.js" />
     <Content Include="Content\style.css" />
     <Content Include="Global.asax" />
     <Content Include="Photos\no_profile_picture.jpg" />
@@ -323,6 +340,7 @@
     <Content Include="Views\PhotoAlbum\List.aspx" />
     <Content Include="Views\Photo\Display.aspx" />
     <Content Include="Views\ProfessorReview\Create.aspx" />
+    <Content Include="Views\Professor\Details2.aspx" />
     <Content Include="Views\Professor\Create.aspx" />
     <Content Include="Views\Professor\Details.aspx" />
     <Content Include="Views\Professor\List.aspx" />
