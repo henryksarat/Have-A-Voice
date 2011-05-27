@@ -15,29 +15,66 @@
     <% Html.RenderPartial("Message"); %>
     <% Html.RenderPartial("Validation"); %>
 
-    Title: <%= Model.Get().Title %><br />
-    Body: <%= Model.Get().Body %><br />
-    Date Time Stamp: <%= Model.Get().DateTimeStamp%><br />
 
-    Replies
-    <table>
-    <% foreach (GeneralPostingReply myReply in Model.Get().GeneralPostingReplies.OrderByDescending(gpr => gpr.Id)) { %>
-        <tr>
-            User: <td><%= NameHelper.FullName(myReply.User)%></td>
-            Reply: <td><%= myReply.Reply %></td>
-            Date Time Stamp: <td><%= myReply.DateTimeStamp %></td>
-        </tr>
-    <% } %>
-    </table>
-
-    <% using (Html.BeginForm("Create", "GeneralPostingReply")) {%>
-        <%= Html.Hidden("GeneralPostingId", Model.Get().Id)%>
-        <%= Html.ValidationMessage("Reply", "*")%>
-        <%= Html.TextArea("Reply")%>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    <% } %>
-
+    <div class="eight last"> 
+	    <div class="banner black full red-top small"> 
+		    <span class="post"> 
+			    GENERAL POSTING: <%= Model.Get().Title %>
+			    <span class="user">by <%= NameHelper.FullName(Model.Get().User) %></span> 
+		    </span> 
+		    <div class="buttons"> 
+			    <%= DateHelper.ToLocalTime(Model.Get().DateTimeStamp) %>
+		    </div> 
+	    </div> 
+					
+	    <h3><%= Model.Get().Title %></h3> 
+	    <p class="gray mt31 mb42"> 
+		    <%= Model.Get().Body %>
+	    </p> 
+ 
+	    <div class="banner full"> 
+		    COMMENTS
+	    </div> 
+					
+	    <div id="review"> 
+		    <div class="create"> 
+                <% using (Html.BeginForm("Create", "GeneralPostingReply")) {%>
+                    <%= Html.Hidden("GeneralPostingId", Model.Get().Id)%>
+			        <%= Html.TextArea("Reply", string.Empty, 6, 0, new { @class = "full" })%>
+                    <%= Html.ValidationMessage("Reply", "*")%>
+					
+                    <div class="frgt mt13"> 
+						<input type="submit" class="frgt btn site" name="post" value="Post" /> 
+					</div> 	
+			        <div class="clearfix"></div> 
+                <% } %>
+		    </div> 
+						
+		    <div class="clearfix"></div> 
+						
+		    <div class="review"> 
+			    <table border="0" cellpadding="0" cellspacing="0"> 
+                    <% foreach (GeneralPostingReply myReply in Model.Get().GeneralPostingReplies.OrderByDescending(r => r.DateTimeStamp)) { %>
+				        <tr> 
+					        <td class="avatar"> 
+						        <a href="/<%= myReply.User.ShortUrl %>"><img src="<%= PhotoHelper.ProfilePicture(myReply.User) %>" class="profile big mr22" /></a>
+					        </td> 
+					        <td> 
+						        <div class="red bld">
+                                    <%= NameHelper.FullName(Model.Get().User) %>
+								    <span class="gray small nrm"><%= DateHelper.ToLocalTime(myReply.DateTimeStamp) %></span> 
+						        </div> 
+						        <%= myReply.Reply %>
+					        </td> 
+				        </tr> 
+                    <% } %>
+			    </table> 
+			    <div class="flft mr22"> 
+								
+			    </div> 
+ 
+			    <div class="clearfix"></div> 
+		    </div> 
+	    </div> 
+    </div> 
 </asp:Content>

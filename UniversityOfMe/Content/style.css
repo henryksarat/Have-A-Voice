@@ -375,3 +375,13 @@ span.professor { padding: 2px 0px 2px 28px; background:url(images/person.png) no
 .ml40 { margin-left: 40px; }
 .ml50 { margin-left: 50px; }
 .ml60 { margin-left: 60px; }
+
+
+a.itemlinked, a.itemlinked:link, a.itemlinked:visited { color: Black; }
+a.itemlinked:hover { text-decoration: underline; }
+
+
+a.add-new-cross, a.add-new-cross:link, a.add-new-cross:visited { float: left; color: #4fac3c; font-size: 18px; margin-right: 10%; font-weight:bold }
+a.add-new-cross:hover { text-decoration: underline; }
+a.add-new, a.add-new:link, a.add-new:visited { float: left; color: #4fac3c; font-size: 12px; margin-right: 10%; }
+a.add-new:hover { text-decoration: underline; }
