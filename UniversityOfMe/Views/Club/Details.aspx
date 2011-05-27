@@ -53,7 +53,7 @@
 		</table> 
 					
 		<div class="banner title"> 
-			CURRENT MEMBERS JOINED WANZO
+			CURRENT MEMBERS JOINED <%= Model.Get().Name %>
 		</div> 
 		<div class="box sm group"> 
 			<ul class="members"> 
