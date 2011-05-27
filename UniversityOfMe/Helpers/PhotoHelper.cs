@@ -27,6 +27,16 @@ namespace UniversityOfMe.Helpers {
             return myProfileUrl;
         }
 
+        public static string ClubPhoto(Club aClub) {
+            string aPhoto = aClub.Picture;
+
+            if (string.IsNullOrEmpty(aPhoto)) {
+                aPhoto = "no_photo.png";
+            }
+
+            return "/ClubPhotos/" + aPhoto;
+        }
+
         public static string AnonymousProfilePicture() {
             return Social.Generic.Constants.Constants.ANONYMOUS_PICTURE_URL;
         }
