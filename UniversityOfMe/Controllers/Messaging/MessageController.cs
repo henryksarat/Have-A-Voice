@@ -101,11 +101,11 @@ namespace UniversityOfMe.Controllers.Messaging {
             return GetUserInformaton().Id == id;
         }
 
-        protected override ILoggedInListModel<InboxMessage> CreateLoggedInListModelForInbox(User aUser) {
-            return new LoggedInListModel<InboxMessage>(aUser);
+        protected override ILoggedInListModel<InboxMessage<User>> CreateLoggedInListModelForInbox(User aUser) {
+            return new LoggedInListModel<InboxMessage<User>>(aUser);
         }
 
-        protected override AbstractMessageModel<Message> CreateNewMessageSocialMessageModel(User aUser) {
+        protected override AbstractMessageModel<Message, User> CreateNewMessageSocialMessageModel(User aUser) {
             return new SocialMessageModel() {
                 ToUserId = aUser.Id,
                 ToUserFullName = NameHelper.FullName(aUser),

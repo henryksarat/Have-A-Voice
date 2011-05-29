@@ -40,7 +40,7 @@ namespace UniversityOfMe.Controllers.Dating {
             return RedirectToProfile();
         }
 
-        [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
+        [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
         public ActionResult MarkAsSeen(int datingLogId) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();

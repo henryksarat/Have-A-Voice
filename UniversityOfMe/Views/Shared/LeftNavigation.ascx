@@ -39,7 +39,7 @@
 				
     <% if(Model.HasDatingMatch()) { %>	
 	    <div class="match"> 
-		    <a href="#" class="close">Close</a> 
+            <%= Html.ActionLink("Close", "MarkAsSeen", "Dating", new { datingLogId = Model.DatingMatchMember.Id }, new { @class = "close" })%>
             <a href="/<%= Model.DatingMatchMember.AskedUser.ShortUrl %>"><img src="<%= PhotoHelper.ProfilePicture(Model.DatingMatchMember.AskedUser) %>" alt="<%= NameHelper.FullName(Model.DatingMatchMember.AskedUser) %>" title="<%= NameHelper.FullName(Model.DatingMatchMember.AskedUser) %>" class="profile med" /></a>
 		    You got a dating match with<br /> 
 		    <span class="normal mr14"><%= NameHelper.FullName(Model.DatingMatchMember.AskedUser) %></span> 
@@ -48,26 +48,29 @@
 		    <span class="arrow"></span> 
 	    </div> 
     <% } %>
- 
-	<div class="banner title"> 
-		UOFME RANDOM DATING
-		<div class="buttons"> 
-			<a href="#" class="question">What is this?</a> 
-			<a href="#" class="deny">No</a> 
-		</div> 
-	</div> 
-	<div class="box date"> 
-        <% if (Model.HasDatingMember()) { %>	
-            <a href="/<%= Model.DatingMember.ShortUrl %>"><img src="<%= PhotoHelper.ProfilePicture(Model.DatingMember) %>" alt="<%= NameHelper.FullName(Model.DatingMember) %>" title="<%= NameHelper.FullName(Model.DatingMember) %>" class="profile sm" /></a>
-		    Would you date <%= NameHelper.FullName(Model.DatingMember)%> ?
-		    <div class="mt6 center"> 
-			    <input type="button" name="yes" class="btn blue" value="Yes" /> 
-			    <input type="button" name="no" class="btn blue" value=" No" /> 
+
+    <% if(FeatureHelper.IsFeatureEnabled(Model.User, Features.DatingAsked)) { %> 
+	    <div class="banner title"> 
+		    UOFME RANDOM DATING
+		    <div class="buttons"> 
+			    <a href="#" class="question">What is this?</a> 
+			    <%= Html.ActionLink("Disable", "DisableFeature", "Profile", new { feature = Features.DatingAsked }, new { @class = "deny" })%>
 		    </div> 
-        <% } else { %>
-            There are currently no members to ask you about
-        <% } %>
-	</div> 
+	    </div> 
+
+	    <div class="box date"> 
+            <% if (Model.HasDatingMember()) { %>	
+                <a href="/<%= Model.DatingMember.ShortUrl %>"><img src="<%= PhotoHelper.ProfilePicture(Model.DatingMember) %>" alt="<%= NameHelper.FullName(Model.DatingMember) %>" title="<%= NameHelper.FullName(Model.DatingMember) %>" class="profile sm" /></a>
+		        Would you date <%= NameHelper.FullName(Model.DatingMember)%> ?
+		        <div class="mt6 center"> 
+			        <input type="button" name="yes" class="btn blue" value="Yes" /> 
+			        <input type="button" name="no" class="btn blue" value=" No" /> 
+		        </div> 
+            <% } else { %>
+                There are currently no members to ask you about
+            <% } %>
+	    </div> 
+    <% } %>
 					
 	<div class="banner title"> 
 		NEWEST MEMBERS

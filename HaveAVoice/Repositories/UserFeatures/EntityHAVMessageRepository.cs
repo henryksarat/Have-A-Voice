@@ -17,13 +17,13 @@ namespace HaveAVoice.Repositories.UserFeatures {
             return theEntities.Messages.ToList<Message>();
         }
 
-        public IEnumerable<AbstractMessageModel<Message>> GetAllMessagesAsAbstract() {
+        public IEnumerable<AbstractMessageModel<Message, User>> GetAllMessagesAsAbstract() {
             IEnumerable<Message> myMessages =  (from m in theEntities.Messages
                                                 select m).ToList();
 
-            IEnumerable<AbstractMessageModel<Message>> myAbstract = (from m in myMessages
+            IEnumerable<AbstractMessageModel<Message, User>> myAbstract = (from m in myMessages
                                                                      select SocialMessageModel.Create(m))
-                                                                     .ToList<AbstractMessageModel<Message>>();
+                                                                     .ToList<AbstractMessageModel<Message, User>>();
             return myAbstract;
 
         }
@@ -86,7 +86,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
             return myAbstracts;
         }
 
-        public AbstractMessageModel<Message> CreateReply(int messageId, User user, string body) {
+        public AbstractMessageModel<Message, User> CreateReply(int messageId, User user, string body) {
             Message message = GetMessage(messageId);
 
             Reply myReply = Reply.CreateReply(0, user.Id, messageId, body, DateTime.UtcNow);

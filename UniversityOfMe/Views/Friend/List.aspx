@@ -15,19 +15,31 @@
     <% Html.RenderPartial("Message"); %>
     <% Html.RenderPartial("Validation"); %>
 
-    <% foreach (Friend myFriend in Model.Get()) { %>
-        <img src="<%= PhotoHelper.ProfilePicture(myFriend.FriendedUser) %>" />
-        <a href="/<%= myFriend.FriendedUser.ShortUrl %>"><%= NameHelper.FullName(myFriend.FriendedUser) %></a><br />
-        <%= UniversityHelper.GetMainUniversity(myFriend.FriendedUser) %><br />
-        <% using (Html.BeginForm("Delete", "Friend", new { id = myFriend.FriendedUser.Id }, FormMethod.Post, null)) { %>
-        			<div class="input"> 
-				<input type="submit" name="submit" class="btn" value="UnFriend" /> 
+    <div class="eight last"> 
+		<div class="banner black full red-top"> 
+			FRIENDS
+			<div class="buttons"> 
+				<input type="text" name="filter" id="filter" value="Filter by name" /> 
+				<div class="clearfix"></div> 
 			</div> 
-        <% } %>
+		</div> 
+ 
+		<ul class="friend-list clearfix"> 
+            <% foreach (Friend myFriend in Model.Get()) { %>
+			    <li> 
+				    <div> 
+					    <a href="<%= URLHelper.ProfileUrl(myFriend.FriendedUser) %>"><img src="<%= PhotoHelper.ProfilePicture(myFriend.FriendedUser) %>" class="profile lrg flft mr9" /></a>
+					    <span class="name"><%= NameHelper.FullName(myFriend.FriendedUser) %></span>
+					    <%= UniversityHelper.GetMainUniversity(myFriend.FriendedUser).UniversityName %><br /> 
+					    <span class="red">&nbsp;</span> 
+					    <a href="/Message/Create/<%= myFriend.FriendedUser.Id %>" class="frgt mail">Mail</a> 
+				    </div> 
+			    </li> 
+            <% } %>
+		</ul> 
+	</div>
 
-        <%= Html.ActionLink("Send Message", "Create", "Message", new {id = myFriend.FriendedUser.Id}, null) %>
+    
 
-        
-    <% } %>
 </asp:Content>
 

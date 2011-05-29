@@ -385,3 +385,8 @@ a.add-new-cross, a.add-new-cross:link, a.add-new-cross:visited { float: left; co
 a.add-new-cross:hover { text-decoration: underline; }
 a.add-new, a.add-new:link, a.add-new:visited { float: left; color: #4fac3c; font-size: 12px; margin-right: 10%; }
 a.add-new:hover { text-decoration: underline; }
+
+a.name, a.name:link, a.name:visited { display: block; font-size: 14px; color: #262626; }
+a.name:hover { text-decoration: underline; }
+
+.imagebutton { border: 0; background: transparent; display: inline-block; text-decoration: none; outline: none }

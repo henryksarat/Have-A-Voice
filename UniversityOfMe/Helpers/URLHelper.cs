@@ -38,6 +38,10 @@ namespace UniversityOfMe.Helpers {
             return "/" + aClub.UniversityId + "/Club/Details/" + aClub.Id;
         }
 
+        public static string MessageUrl(int aMessageId) {
+            return "/Message/Details/" + aMessageId;
+        }
+
         public static string BuildGeneralPostingsUrl(GeneralPosting aGeneralPosting) {
             return "/" + aGeneralPosting.UniversityId + "/GeneralPosting/Details/" + aGeneralPosting.Id;
         }

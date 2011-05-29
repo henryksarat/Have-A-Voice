@@ -22,6 +22,7 @@ namespace UniversityOfMe.Models.View {
             University = UniversityHelper.GetMainUniversity(aUser);
 
             LeftNavigation = new LeftNavigation() {
+                User = aUser,
                 NewestUsersInUniversity = myNewestUsers,
                 Notifications = myNotifications,
                 DatingMember = myDatingService.GetDatingMember(aUser),

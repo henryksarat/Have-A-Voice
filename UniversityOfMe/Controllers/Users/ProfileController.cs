@@ -2,15 +2,18 @@
 using System.Web;
 using System.Web.Mvc;
 using Social.Authentication;
+using Social.Generic.ActionFilters;
 using Social.Generic.Models;
 using Social.User.Services;
 using Social.Users.Services;
+using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
 using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories;
 using UniversityOfMe.Repositories.UserRepos;
+using UniversityOfMe.Services.UserFeatures;
 using UniversityOfMe.UserInformation;
-using Social.Generic.ActionFilters;
+using Social.Generic.Constants;
 
 namespace UniversityOfMe.Controllers.Profile {
     public class ProfileController : UOFMeBaseController {
@@ -19,11 +22,15 @@ namespace UniversityOfMe.Controllers.Profile {
 
         private const string PROFILE_VIEW = "Show";
 
+        private const string FEATURE_UPDATED = "Your preferences have been updated!";
+
         private IUserRetrievalService<User> theUserRetrievalService;
+        private IFeatureService theFeatureService;
         
         public ProfileController() {
             UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
             theUserRetrievalService = new UserRetrievalService<User>(new EntityUserRetrievalRepository());
+            theFeatureService = new FeatureService();
         }
 
         [RequiredRouteValueAttribute.RequireRouteValues(new[] { "shortName" })]
@@ -65,6 +72,24 @@ namespace UniversityOfMe.Controllers.Profile {
                 LogError(e, USER_PAGE_ERROR);
                 return SendToErrorPage(USER_PAGE_ERROR);
             }
+        }
+
+        [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
+        public ActionResult DisableFeature(Features feature) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+
+            try {
+                theFeatureService.DisableFeature(GetUserInformatonModel().Details, feature);
+                RefreshUserInformation();
+                TempData["Message"] = FEATURE_UPDATED;
+            } catch (Exception e) {
+                LogError(e, ErrorKeys.ERROR_MESSAGE);
+                TempData["Message"] = ErrorKeys.ERROR_MESSAGE;
+            }
+
+            return RedirectToAction("Main", "University", new { universityId = UniversityHelper.GetMainUniversity(GetUserInformatonModel().Details).Id });
         }
     }
 }

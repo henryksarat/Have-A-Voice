@@ -56,21 +56,21 @@ namespace BaseWebsite.Controllers.Messaging {
             theUserRetrievalService = new UserRetrievalService<T>(aUserRetrievalRepo);
         }
 
-        protected abstract ILoggedInListModel<InboxMessage> CreateLoggedInListModelForInbox(T aUser);
+        protected abstract ILoggedInListModel<InboxMessage<T>> CreateLoggedInListModelForInbox(T aUser);
         protected abstract ILoggedInModel<A> CreatedLoggedInModelForViewingMessage(T aUser);
         protected abstract ILoggedInModel<T> CreatedLoggedInModelForCreatingAMessage(T aUser);
-        protected abstract AbstractMessageModel<A> CreateNewMessageSocialMessageModel(T aUser);
+        protected abstract AbstractMessageModel<A, T> CreateNewMessageSocialMessageModel(T aUser);
 
         protected ActionResult Inbox() {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
             T myUser = GetUserInformaton();
-            ILoggedInListModel<InboxMessage> myModel = CreateLoggedInListModelForInbox(myUser);
+            ILoggedInListModel<InboxMessage<T>> myModel = CreateLoggedInListModelForInbox(myUser);
             try {
                 AbstractUserModel<T> mySocialModel = CreateSocialUserModel(myUser);
-                myModel.Set(theService.GetMessagesForUser(mySocialModel).ToList<InboxMessage>());
-                if (myModel.Get().Count<InboxMessage>() == 0) {
+                myModel.Set(theService.GetMessagesForUser(mySocialModel).ToList<InboxMessage<T>>());
+                if (myModel.Get().Count<InboxMessage<T>>() == 0) {
                     ViewData[ERROR_MESSAGE_VIEWDATA] = NormalMessage(NO_MESSAGES);
                 }
             } catch (Exception e) {

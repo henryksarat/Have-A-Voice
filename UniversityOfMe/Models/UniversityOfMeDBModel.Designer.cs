@@ -92,6 +92,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassReviews_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ClassReview", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassReview), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_GeneralPostingReplies_GeneralPostings", "GeneralPosting", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.GeneralPosting), "GeneralPostingReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.GeneralPostingReply), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_GeneralPostingReplies_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "GeneralPostingReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.GeneralPostingReply), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_FeaturesEnabled_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "FeaturesEnabled", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.FeaturesEnabled), true)]
 
 #endregion
 
@@ -830,6 +831,22 @@ namespace UniversityOfMe.Models
             }
         }
         private ObjectSet<GeneralPostingReply> _GeneralPostingReplies;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<FeaturesEnabled> FeaturesEnableds
+        {
+            get
+            {
+                if ((_FeaturesEnableds == null))
+                {
+                    _FeaturesEnableds = base.CreateObjectSet<FeaturesEnabled>("FeaturesEnableds");
+                }
+                return _FeaturesEnableds;
+            }
+        }
+        private ObjectSet<FeaturesEnabled> _FeaturesEnableds;
 
         #endregion
         #region AddTo Methods
@@ -1176,6 +1193,14 @@ namespace UniversityOfMe.Models
         public void AddToGeneralPostingReplies(GeneralPostingReply generalPostingReply)
         {
             base.AddObject("GeneralPostingReplies", generalPostingReply);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the FeaturesEnableds EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToFeaturesEnableds(FeaturesEnabled featuresEnabled)
+        {
+            base.AddObject("FeaturesEnableds", featuresEnabled);
         }
 
         #endregion
@@ -6287,6 +6312,180 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_EventBoard_Users", "User", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="FeaturesEnabled")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class FeaturesEnabled : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new FeaturesEnabled object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="feature">Initial value of the Feature property.</param>
+        /// <param name="enabled">Initial value of the Enabled property.</param>
+        public static FeaturesEnabled CreateFeaturesEnabled(global::System.Int32 id, global::System.Int32 userId, global::System.String feature, global::System.Boolean enabled)
+        {
+            FeaturesEnabled featuresEnabled = new FeaturesEnabled();
+            featuresEnabled.Id = id;
+            featuresEnabled.UserId = userId;
+            featuresEnabled.Feature = feature;
+            featuresEnabled.Enabled = enabled;
+            return featuresEnabled;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
+            }
+        }
+        private global::System.Int32 _UserId;
+        partial void OnUserIdChanging(global::System.Int32 value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Feature
+        {
+            get
+            {
+                return _Feature;
+            }
+            set
+            {
+                OnFeatureChanging(value);
+                ReportPropertyChanging("Feature");
+                _Feature = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Feature");
+                OnFeatureChanged();
+            }
+        }
+        private global::System.String _Feature;
+        partial void OnFeatureChanging(global::System.String value);
+        partial void OnFeatureChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Enabled
+        {
+            get
+            {
+                return _Enabled;
+            }
+            set
+            {
+                OnEnabledChanging(value);
+                ReportPropertyChanging("Enabled");
+                _Enabled = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Enabled");
+                OnEnabledChanged();
+            }
+        }
+        private global::System.Boolean _Enabled;
+        partial void OnEnabledChanging(global::System.Boolean value);
+        partial void OnEnabledChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_FeaturesEnabled_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_FeaturesEnabled_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_FeaturesEnabled_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_FeaturesEnabled_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_FeaturesEnabled_Users", "User", value);
                 }
             }
         }
@@ -13115,6 +13314,28 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<GeneralPostingReply>("UniversityOfMeModel.FK_GeneralPostingReplies_Users", "GeneralPostingReply", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_FeaturesEnabled_Users", "FeaturesEnabled")]
+        public EntityCollection<FeaturesEnabled> FeaturesEnableds
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<FeaturesEnabled>("UniversityOfMeModel.FK_FeaturesEnabled_Users", "FeaturesEnabled");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FeaturesEnabled>("UniversityOfMeModel.FK_FeaturesEnabled_Users", "FeaturesEnabled", value);
                 }
             }
         }

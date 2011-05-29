@@ -15,7 +15,7 @@ namespace Social.Messaging.Services {
             theRepository = aRepository;
         }
 
-        public bool CreateMessage(int fromUserId, AbstractMessageModel<U> messageToCreate) {
+        public bool CreateMessage(int fromUserId, AbstractMessageModel<U, T> messageToCreate) {
             if (!ValidateMessage(messageToCreate)) {
                 return false;
             }
@@ -31,8 +31,8 @@ namespace Social.Messaging.Services {
             return true;
         }
 
-        public IEnumerable<InboxMessage> GetMessagesForUser(AbstractUserModel<T> toUser) {
-            IEnumerable<AbstractMessageModel<U>> myMessages = theRepository.GetAllMessagesAsAbstract();
+        public IEnumerable<InboxMessage<T>> GetMessagesForUser(AbstractUserModel<T> toUser) {
+            IEnumerable<AbstractMessageModel<U, T>> myMessages = theRepository.GetAllMessagesAsAbstract();
             IEnumerable<AbstractReplyModel<V>> myReplys = theRepository.GetAllReplysAsAbstract();
             
             return MessageHelper<T, U, V>.GenerateInbox(toUser, myMessages, myReplys);
@@ -53,7 +53,7 @@ namespace Social.Messaging.Services {
                 return false;
             }
 
-            AbstractMessageModel<U> message = theRepository.CreateReply(messageId, user, body);
+            AbstractMessageModel<U, T> message = theRepository.CreateReply(messageId, user, body);
             theRepository.ChangeMessageViewedStateForThem(message.Id, user, false);
 
             return true;
@@ -63,7 +63,7 @@ namespace Social.Messaging.Services {
             return theRepository.UserInvolvedInMessage(aUser, aMessageId);
         }
 
-        public bool ValidateMessage(AbstractMessageModel<U> message) {
+        public bool ValidateMessage(AbstractMessageModel<U, T> message) {
 
             if (message.Subject.Trim().Length == 0) {
                 theValidationDictionary.AddError("Subject", message.Subject.Trim(), "Subject is required.");

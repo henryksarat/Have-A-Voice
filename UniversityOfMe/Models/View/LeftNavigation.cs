@@ -2,6 +2,7 @@
 
 namespace UniversityOfMe.Models.View {
     public class LeftNavigation {
+        public User User { get; set; }
         public IEnumerable<NotificationModel> Notifications { get; set; }
         public IEnumerable<User> NewestUsersInUniversity { get; set; }
         public User DatingMember { get; set; }

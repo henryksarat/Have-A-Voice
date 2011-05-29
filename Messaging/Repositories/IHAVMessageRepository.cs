@@ -5,7 +5,7 @@ using Social.Generic.Models;
 namespace Social.Messaging.Repositories {
     public interface IMessageRepository<T, U, V> {
         IEnumerable<U> GetAllMessages();
-        IEnumerable<AbstractMessageModel<U>> GetAllMessagesAsAbstract();
+        IEnumerable<AbstractMessageModel<U, T>> GetAllMessagesAsAbstract();
         U CreateMessage(int fromUserId, U messageToCreate);
         U CreateMessage(int aFromUserId, int aToUserId, string aSubject, string aBody);
         void DeleteMessages(List<Int32> messagesToDelete, T user);
@@ -14,7 +14,7 @@ namespace Social.Messaging.Repositories {
 
         IEnumerable<V> GetAllReplys();
         IEnumerable<AbstractReplyModel<V>> GetAllReplysAsAbstract();
-        AbstractMessageModel<U> CreateReply(int messageId, T user, string body);
+        AbstractMessageModel<U, T> CreateReply(int messageId, T user, string body);
         U ChangeMessageViewedStateForMe(int messageId, T toUser, bool viewed);
         U ChangeMessageViewedStateForThem(int messageId, T toUser, bool viewed);
     }

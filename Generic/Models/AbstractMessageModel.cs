@@ -5,13 +5,16 @@ using System.Text;
 using System.ComponentModel.DataAnnotations;
 
 namespace Social.Generic.Models {
-    public abstract class AbstractMessageModel<T> : AbstractSocialModel<T> {
+    //T = Message
+    //U = User
+    public abstract class AbstractMessageModel<T, U> : AbstractSocialModel<T> {
         public int Id { get; set; }
         public int FromUserId { get; set; }
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string FromUserFullName { get; set; }
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string FromUserProfilePictureUrl { get; set; }
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
         public int ToUserId { get; set; }
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string ToUserFullName { get; set; }
@@ -27,6 +30,8 @@ namespace Social.Generic.Models {
         public bool ToDeleted { get; set; }
         public bool FromDeleted { get; set; }
         public bool RepliedTo { get; set; }
+
+        public U FromUser { get; set; }
 
         public abstract T FromModel();
     }

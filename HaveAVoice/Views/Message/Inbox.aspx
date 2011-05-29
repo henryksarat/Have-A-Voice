@@ -1,6 +1,9 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInListModel<InboxMessage>>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.LoggedInListModel<InboxMessage<User>>>" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
 <%@ Import Namespace="Social.Generic.Models" %>
+<%@ Import Namespace="HaveAVoice.Helpers" %>
+<%@ Import Namespace="HaveAVoice.Models" %>
+<%@ Import Namespace="HaveAVoice.Services.Helpers" %>
 <%@ Import Namespace="Social.ViewHelpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
@@ -27,7 +30,7 @@
 
 			<% if (Model != null) { %>
                 <% foreach (var item in Model.Models) { %>
-                    <%= MessageHelper.MessageList(item.FromUserId, item.FromUser, item.FromUserProfilePictureUrl, item.MessageId, item.Subject, item.LastReply, item.DateTimeStamp, item.Viewed) %>
+                    <%= MessageHelper.MessageList(item.FromUser.Id, NameHelper.FullName(item.FromUser), PhotoHelper.ProfilePicture(item.FromUser), item.MessageId, item.Subject, item.LastReply, item.DateTimeStamp, item.Viewed) %>
                 <% } %>
             <% } %>
         <% } %>
