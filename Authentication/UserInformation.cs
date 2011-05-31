@@ -24,6 +24,7 @@ namespace Social.Authentication {
             if (theHttpContext.Session == null) {
                 return null;
             }
+            
             UserInformationModel<T> myUserInformationModel = (UserInformationModel<T>)theHttpContext.Session["UserInformation"];
             theHttpContext.Session["UserInformation"] = myUserInformationModel;
             string myIpAddress = theHttpContext.Request.UserHostAddress;

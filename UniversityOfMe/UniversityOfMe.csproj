@@ -14,6 +14,7 @@
     <AssemblyName>UniversityOfMe</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -112,6 +113,8 @@
     <Compile Include="Helpers\Constants\TextBookConstants.cs" />
     <Compile Include="Helpers\DateHelper.cs" />
     <Compile Include="Helpers\EmailHelper.cs" />
+    <Compile Include="Helpers\FeatureHelper.cs" />
+    <Compile Include="Helpers\Features.cs" />
     <Compile Include="Helpers\FriendHelper.cs" />
     <Compile Include="Helpers\Functionality\ClubHelper.cs" />
     <Compile Include="Helpers\NameHelper.cs" />
@@ -189,6 +192,8 @@
     <Compile Include="Repositories\Professors\EntityProfessorRepository.cs" />
     <Compile Include="Repositories\Professors\IProfessorReviewRepository.cs" />
     <Compile Include="Repositories\TextBooks\EntityTextBookRepository.cs" />
+    <Compile Include="Repositories\UserRepos\EntityFeatureRepository.cs" />
+    <Compile Include="Repositories\UserRepos\IFeatureRepository.cs" />
     <Compile Include="Repositories\UserRepos\EntityNavigationRepository.cs" />
     <Compile Include="Repositories\UserRepos\INavigationRepository.cs" />
     <Compile Include="Repositories\UserRepos\IUofMeUserRetrievalRepository.cs" />
@@ -227,6 +232,8 @@
     <Compile Include="Services\TextBooks\ITextBookService.cs" />
     <Compile Include="Services\UniversityService.cs" />
     <Compile Include="Services\Dating\IDatingService.cs" />
+    <Compile Include="Services\Users\IFeatureService.cs" />
+    <Compile Include="Services\Users\FeatureService.cs" />
     <Compile Include="Services\Users\NavigationService.cs" />
     <Compile Include="Services\Users\INavigationService.cs" />
     <Compile Include="Services\Users\UofMeUserRetrievalService.cs" />
@@ -241,6 +248,8 @@
     <Content Include="App_Data\UniversityOfMe_log.ldf">
       <DependentUpon>UniversityOfMe.mdf</DependentUpon>
     </Content>
+    <Content Include="ClubPhotos\chessteam_1017192034.jpg" />
+    <Content Include="ClubPhotos\no_photo.png" />
     <Content Include="Content\css\ui-lightness\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
     <Content Include="Content\css\ui-lightness\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
     <Content Include="Content\css\ui-lightness\images\ui-bg_flat_10_000000_40x100.png" />
@@ -387,7 +396,6 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ClubPhotos\" />
     <Folder Include="Models\Wrappers\" />
     <Folder Include="ProfessorPhotos\" />
     <Folder Include="TextBookPhotos\" />
@@ -463,7 +471,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>11584</DevelopmentServerPort>
+          <DevelopmentServerPort>33217</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

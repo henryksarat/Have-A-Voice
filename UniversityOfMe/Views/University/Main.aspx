@@ -21,17 +21,15 @@
                             <li>
                                 <% string myProfessorNameUrl = URLHelper.ToUrlFriendly(myProfessor.FirstName + " " + myProfessor.LastName); %>
                                 <a class="itemlinked" href="<%= URLHelper.BuildProfessorUrl(myProfessor) %>"><%= myProfessor.FirstName + " " +  myProfessor.LastName %></a>                         
-                                <% int myTotalReviews = 16; %>
+                                <% int myTotalReviews = myProfessor.ProfessorReviews.Count; %>
+							    <div class="rating"> 
                                 <% if (myTotalReviews > 0) { %>
-							        <div class="rating"> 
-								        <span class="star"></span> 
-								        <span class="star"></span> 
-								        <span class="half"></span> 
-								        <span class="empty"></span> 
-								        <span class="empty"></span> 
-								        <span class="gray tiny">(<%= myTotalReviews %> ratings)</span> 
-							        </div>    
+                                    <%= StarHelper.AveragedFiveStarImages(myProfessor.ProfessorReviews.Sum(r => r.Rating), myTotalReviews) %>
+								    <span class="gray tiny">(<%= myTotalReviews%> ratings)</span> 
+                                <% } else { %>
+								    <span class="gray tiny">No reviews yet</span> 
                                 <% } %>
+                                </div>
                             </li>
                         <% } %>
 					</ul> 
@@ -47,15 +45,16 @@
 					<ul> 
                         <% foreach (Class myClass in Model.Get().Classes.Take<Class>(5)) { %>
                             <li>
-							    <div class="rating"> 
-								    <span class="star"></span> 
-								    <span class="star"></span> 
-								    <span class="half"></span> 
-								    <span class="empty"></span> 
-								    <span class="empty"></span> 
-								    <span class="gray tiny">(43 ratings)</span> 
-								    <p class="pt7 lightgray">Board Posts: 28</p> 
-							    </div> 
+                                <% int myTotalReviews = myClass.ClassReviews.Count; %>
+							    <div class="rating">
+                                    <% if (myTotalReviews > 0) { %>
+								        <%= StarHelper.AveragedFiveStarImages(myClass.ClassReviews.Sum(r => r.Rating), myTotalReviews) %>
+								        <span class="gray tiny">(<%= myTotalReviews %> ratings)</span> 
+                                    <% } else { %>
+                                        There are no reviews yet    
+                                    <% } %>
+								    <p class="pt7 lightgray">Board Posts: <%= myClass.ClassBoards.Count %></p> 
+                                </div> 
 							    <a class="itemlinked" href="<%= URLHelper.BuildClassDiscussionUrl(myClass) %>"><%= myClass.ClassCode %></a><br /> 
 							    <span class="gray"><%= TextShortener.Shorten(myClass.ClassTitle, 20) %></span><br /> 
 							    <span class="gold"><%= myClass.AcademicTerm.DisplayName %> <%= myClass.Year %></span> 

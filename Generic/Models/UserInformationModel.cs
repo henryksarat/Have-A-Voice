@@ -7,12 +7,12 @@ using Social.Generic.Models;
 using Social.Generic.Helpers;
 
 namespace Social.Generic.Models {
+    [Serializable]
     public class UserInformationModel<T> {
         public int UserId { get; set; }
         public T Details { get; set; }
         public IEnumerable<SocialPermission> Permissions { get; set; }
         public IEnumerable<SocialPrivacySetting> PrivacySettings { get; set; }
-        public Hashtable PermissionToRestriction { get; set; }
         public string ProfilePictureUrl { get; set; }
         public string FullName { get; set; }
 
@@ -21,7 +21,6 @@ namespace Social.Generic.Models {
             UserId = aUserId;
             PrivacySettings = new List<SocialPrivacySetting>();
             Permissions = new List<SocialPermission>();
-            PermissionToRestriction = new Hashtable();
         }
     }
 }

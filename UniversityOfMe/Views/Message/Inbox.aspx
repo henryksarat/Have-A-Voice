@@ -65,7 +65,6 @@
 								<%= DateHelper.ToLocalTime(item.DateTimeStamp) %>
 							</div> 
 							<div class="clearfix"></div> 
-                            <input type="submit" name="post" value="Post Review" /> 
 						</div> 
 					</li> 
                 <% } %>

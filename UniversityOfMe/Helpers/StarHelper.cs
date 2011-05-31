@@ -43,7 +43,7 @@ namespace UniversityOfMe.Helpers {
                     mySpan.MergeAttribute("class", "empty");
                 }                
 
-                myOutputHtml += mySpan.ToString();
+                myOutputHtml += mySpan.ToString() + "\n";
             }
 
             return myOutputHtml;
