@@ -4,11 +4,6 @@ C:\Users\Henryk\documents\visual studio 2010\Projects\HaveAVoice\HaveAVoice\bin\
 C:\Users\Henryk\documents\visual studio 2010\Projects\HaveAVoice\HaveAVoice\bin\Recaptcha.dll
 C:\Users\Henryk\documents\visual studio 2010\Projects\HaveAVoice\HaveAVoice\obj\Debug\HaveAVoice.dll
 C:\Users\Henryk\documents\visual studio 2010\Projects\HaveAVoice\HaveAVoice\obj\Debug\HaveAVoice.pdb
-C:\Users\Henryk\Desktop\HaveAVoice\HaveAVoice\bin\HaveAVoice.dll
-C:\Users\Henryk\Desktop\HaveAVoice\HaveAVoice\bin\HaveAVoice.pdb
-C:\Users\Henryk\Desktop\HaveAVoice\HaveAVoice\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\Henryk\Desktop\HaveAVoice\HaveAVoice\obj\Debug\HaveAVoice.dll
-C:\Users\Henryk\Desktop\HaveAVoice\HaveAVoice\obj\Debug\HaveAVoice.pdb
 F:\HaveAVoice\HaveAVoice\bin\HaveAVoice.dll
 F:\HaveAVoice\HaveAVoice\bin\HaveAVoice.pdb
 F:\HaveAVoice\HaveAVoice\obj\Debug\ResolveAssemblyReference.cache
@@ -19,3 +14,37 @@ G:\HaveAVoice\HaveAVoice\bin\HaveAVoice.pdb
 G:\HaveAVoice\HaveAVoice\obj\Debug\ResolveAssemblyReference.cache
 G:\HaveAVoice\HaveAVoice\obj\Debug\HaveAVoice.dll
 G:\HaveAVoice\HaveAVoice\obj\Debug\HaveAVoice.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\HaveAVoice.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\HaveAVoice.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\Admin.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\Authentication.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\BaseWebsite.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\Board.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\Email.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\Error.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\Friend.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\Generic.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\Messaging.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\Photo.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\Site.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\User.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\Validation.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\ViewHelpers.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\Recaptcha.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\Admin.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\Authentication.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\BaseWebsite.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\Board.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\Email.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\Error.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\Friend.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\Generic.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\Messaging.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\Photo.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\Site.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\User.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\Validation.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\bin\ViewHelpers.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\obj\Debug\HaveAVoice.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice\obj\Debug\HaveAVoice.pdb

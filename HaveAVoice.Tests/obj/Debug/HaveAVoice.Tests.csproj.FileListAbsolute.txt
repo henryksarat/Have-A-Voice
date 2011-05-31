@@ -8,15 +8,6 @@ c:\users\henryk\documents\visual studio 2010\Projects\HaveAVoice\HaveAVoice.Test
 c:\users\henryk\documents\visual studio 2010\Projects\HaveAVoice\HaveAVoice.Tests\obj\Debug\HaveAVoice.Tests.pdb
 C:\Users\Henryk\documents\visual studio 2010\Projects\HaveAVoice\HaveAVoice.Tests\bin\Debug\Recaptcha.dll
 C:\Users\Henryk\documents\visual studio 2010\Projects\HaveAVoice\HaveAVoice.Tests\bin\Debug\Moq.dll
-C:\Users\Henryk\Desktop\HaveAVoice\HaveAVoice.Tests\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\Henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.Tests.dll.config
-C:\Users\Henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.Tests.dll
-C:\Users\Henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.Tests.pdb
-C:\Users\Henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.dll
-C:\Users\Henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\Recaptcha.dll
-C:\Users\Henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.pdb
-C:\Users\Henryk\Desktop\HaveAVoice\HaveAVoice.Tests\obj\Debug\HaveAVoice.Tests.dll
-C:\Users\Henryk\Desktop\HaveAVoice\HaveAVoice.Tests\obj\Debug\HaveAVoice.Tests.pdb
 F:\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.Tests.dll.config
 F:\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.Tests.dll
 F:\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.Tests.pdb
@@ -35,3 +26,38 @@ G:\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.pdb
 G:\HaveAVoice\HaveAVoice.Tests\obj\Debug\ResolveAssemblyReference.cache
 G:\HaveAVoice\HaveAVoice.Tests\obj\Debug\HaveAVoice.Tests.dll
 G:\HaveAVoice\HaveAVoice.Tests\obj\Debug\HaveAVoice.Tests.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.Tests.dll.config
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.Tests.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.Tests.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\Generic.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\BaseWebsite.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\Admin.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\Authentication.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\User.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\Error.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\Messaging.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\Board.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\Site.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\Friend.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\Photo.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\Validation.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\Email.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\Recaptcha.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\HaveAVoice.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\Generic.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\BaseWebsite.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\Admin.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\Authentication.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\User.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\Error.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\Messaging.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\Board.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\Site.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\Friend.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\Photo.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\Validation.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\bin\Debug\Email.pdb
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\obj\Debug\HaveAVoice.Tests.dll
+C:\Users\henryk\Desktop\HaveAVoice\HaveAVoice.Tests\obj\Debug\HaveAVoice.Tests.pdb

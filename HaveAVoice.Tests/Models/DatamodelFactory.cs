@@ -23,22 +23,5 @@ namespace HaveAVoice.Tests.Models {
         public static DateTime LAST_LOGIN = new DateTime(2010, 10, 08);
         public static DateTime REGISTRATION_DATE = new DateTime(2010, 10, 07);
         public static string UTC_OFFSET = "-6:00";
-
-        public static CreateUserModelBuilder createUserModelBuilder() {
-            return new CreateUserModelBuilder() {
-                Email = EMAIL,
-                Password = PASSWORD,
-                City = CITY,
-                FirstName = FIRST_NAME,
-                LastName = LAST_NAME,
-                DateOfBirth = BIRTHDAY,
-                State = STATE,
-                Agreement = AGREEMENT
-            };
-        }
-
-        public static User createUser(int anId) {
-            return User.CreateUser(anId, EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, CITY, STATE, BIRTHDAY, LAST_LOGIN, REGISTRATION_DATE, IP_ADDRESS, UTC_OFFSET, "M");
-        }
     }
 }

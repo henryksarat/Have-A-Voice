@@ -1,610 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="HaveAVoiceModelsStoreContainer" CdmEntityContainer="HaveAVoiceEntities">
-    <EntitySetMapping Name="ProfilePictures">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.ProfilePicture">
-        <MappingFragment StoreEntitySet="ProfilePictures">
-          <ScalarProperty Name="DefaultPicture" ColumnName="DefaultPicture" />
-          <ScalarProperty Name="URL" ColumnName="URL" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="RolePermissions">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.RolePermission">
-        <MappingFragment StoreEntitySet="RolePermissions">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Roles">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.Role">
-        <MappingFragment StoreEntitySet="Roles">
-          <ScalarProperty Name="DeletedByUserId" ColumnName="DeletedByUserId" />
-          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-          <ScalarProperty Name="DefaultRole" ColumnName="DefaultRole" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="sysdiagrams">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.sysdiagram">
-        <MappingFragment StoreEntitySet="sysdiagrams">
-          <ScalarProperty Name="definition" ColumnName="definition" />
-          <ScalarProperty Name="version" ColumnName="version" />
-          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-          <ScalarProperty Name="name" ColumnName="name" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="UserRoles">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.UserRole">
-        <MappingFragment StoreEntitySet="UserRoles">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Users">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.User">
-        <MappingFragment StoreEntitySet="Users">
-          <ScalarProperty Name="AboutMe" ColumnName="AboutMe" />
-          <ScalarProperty Name="Website" ColumnName="Website" />
-          <ScalarProperty Name="ForgotPasswordHashDateTimeStamp" ColumnName="ForgotPasswordHashDateTimeStamp" />
-          <ScalarProperty Name="ForgotPasswordHash" ColumnName="ForgotPasswordHash" />
-          <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
-          <ScalarProperty Name="CookieCreationDate" ColumnName="CookieCreationDate" />
-          <ScalarProperty Name="CookieHash" ColumnName="CookieHash" />
-          <ScalarProperty Name="UTCOffset" ColumnName="UTCOffset" />
-          <ScalarProperty Name="Newsletter" ColumnName="Newsletter" />
-          <ScalarProperty Name="RegistrationIp" ColumnName="RegistrationIp" />
-          <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
-          <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
-          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-          <ScalarProperty Name="State" ColumnName="State" />
-          <ScalarProperty Name="City" ColumnName="City" />
-          <ScalarProperty Name="LastName" ColumnName="LastName" />
-          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
-          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Username" ColumnName="Username" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="ErrorLogs">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.ErrorLog">
-        <MappingFragment StoreEntitySet="ErrorLog">
-          <ScalarProperty Name="Details" ColumnName="Details" />
-          <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
-          <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
-          <ScalarProperty Name="InnerException" ColumnName="InnerException" />
-          <ScalarProperty Name="Exception" ColumnName="Exception" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="IssueReplys">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.IssueReply">
-        <MappingFragment StoreEntitySet="IssueReplys">
-          <ScalarProperty Name="UpdatedDateTimeStamp" ColumnName="UpdatedDateTimeStamp" />
-          <ScalarProperty Name="UpdatedUserId" ColumnName="UpdatedUserId" />
-          <ScalarProperty Name="DeletedByUserId" ColumnName="DeletedByUserId" />
-          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-          <ScalarProperty Name="Disposition" ColumnName="Disposition" />
-          <ScalarProperty Name="Anonymous" ColumnName="Anonymous" />
-          <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
-          <ScalarProperty Name="Reply" ColumnName="Reply" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Issues">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.Issue">
-        <MappingFragment StoreEntitySet="Issues">
-          <ScalarProperty Name="DeletedByUserId" ColumnName="DeletedByUserId" />
+    <EntitySetMapping Name="AuditBoards">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.AuditBoard">
+        <MappingFragment StoreEntitySet="AuditBoard">
           <ScalarProperty Name="UpdatedByUserId" ColumnName="UpdatedByUserId" />
-          <ScalarProperty Name="UpdatedDateTimeStamp" ColumnName="UpdatedDateTimeStamp" />
-          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
           <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="BoardId" ColumnName="BoardId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Messages">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.Message">
-        <MappingFragment StoreEntitySet="Messages">
-          <ScalarProperty Name="RepliedTo" ColumnName="RepliedTo" />
-          <ScalarProperty Name="FromDeleted" ColumnName="FromDeleted" />
-          <ScalarProperty Name="ToDeleted" ColumnName="ToDeleted" />
-          <ScalarProperty Name="FromViewed" ColumnName="FromViewed" />
-          <ScalarProperty Name="ToViewed" ColumnName="ToViewed" />
+    <EntitySetMapping Name="AuditBoardReplies">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.AuditBoardReply">
+        <MappingFragment StoreEntitySet="AuditBoardReplies">
+          <ScalarProperty Name="UpdatedByUserId" ColumnName="UpdatedByUserId" />
           <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
-          <ScalarProperty Name="Body" ColumnName="Body" />
-          <ScalarProperty Name="Subject" ColumnName="Subject" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Timezones">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.Timezone">
-        <MappingFragment StoreEntitySet="Timezones">
-          <ScalarProperty Name="UTCOffset" ColumnName="UTCOffset" />
-          <ScalarProperty Name="Region" ColumnName="Region" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="UserPictures">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.UserPicture">
-        <MappingFragment StoreEntitySet="UserPictures">
-          <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
-          <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
-          <ScalarProperty Name="ImageName" ColumnName="ImageName" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <AssociationSetMapping Name="FK_ProfilePictures_Users" TypeName="HaveAVoice.Models.FK_ProfilePictures_Users" StoreEntitySet="ProfilePictures">
-      <EndProperty Name="ProfilePicture">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="Id" ColumnName="UserId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="FK_RolePermissions_Roles" TypeName="HaveAVoice.Models.FK_RolePermissions_Roles" StoreEntitySet="RolePermissions">
-      <EndProperty Name="RolePermission">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="Role">
-        <ScalarProperty Name="Id" ColumnName="RoleId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="FK_UserRoles_Roles" TypeName="HaveAVoice.Models.FK_UserRoles_Roles" StoreEntitySet="UserRoles">
-      <EndProperty Name="UserRole">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="Role">
-        <ScalarProperty Name="Id" ColumnName="RoleId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="FK_UserRoles_Users" TypeName="HaveAVoice.Models.FK_UserRoles_Users" StoreEntitySet="UserRoles">
-      <EndProperty Name="UserRole">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="Id" ColumnName="UserId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="FK_ErrorLog_Users" TypeName="HaveAVoice.Models.FK_ErrorLog_Users" StoreEntitySet="ErrorLog">
-      <EndProperty Name="ErrorLog">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="Id" ColumnName="UserId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="FK_IssueReplys_Users" TypeName="HaveAVoice.Models.FK_IssueReplys_Users" StoreEntitySet="IssueReplys">
-      <EndProperty Name="IssueReply">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="Id" ColumnName="UserId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="FK_Issues_Users" TypeName="HaveAVoice.Models.FK_Issues_Users" StoreEntitySet="Issues">
-      <EndProperty Name="Issue">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="Id" ColumnName="StartedByUserId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="FK_Message_Users_FromUserId" TypeName="HaveAVoice.Models.FK_Message_Users_FromUserId" StoreEntitySet="Messages">
-      <EndProperty Name="Message">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="Id" ColumnName="FromUserId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="FK_Message_Users_ToUserId" TypeName="HaveAVoice.Models.FK_Message_Users_ToUserId" StoreEntitySet="Messages">
-      <EndProperty Name="Message">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="Id" ColumnName="ToUserId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="FK_UserPictures_Users" TypeName="HaveAVoice.Models.FK_UserPictures_Users" StoreEntitySet="UserPictures">
-      <EndProperty Name="UserPicture">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="Id" ColumnName="UserId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="FK_IssueReplys_Issues" TypeName="HaveAVoice.Models.FK_IssueReplys_Issues" StoreEntitySet="IssueReplys">
-      <EndProperty Name="IssueReply">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="Issue">
-        <ScalarProperty Name="Id" ColumnName="IssueId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <EntitySetMapping Name="Replys">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.Reply">
-        <MappingFragment StoreEntitySet="Replys">
-          <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
-          <ScalarProperty Name="Body" ColumnName="Body" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <AssociationSetMapping Name="FK_Replys_User" TypeName="HaveAVoice.Models.FK_Replys_User" StoreEntitySet="Replys">
-      <EndProperty Name="Reply">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="Id" ColumnName="ReplyUserId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="FK_Replys_Messages" TypeName="HaveAVoice.Models.FK_Replys_Messages" StoreEntitySet="Replys">
-      <EndProperty Name="Reply">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="Message">
-        <ScalarProperty Name="Id" ColumnName="MessageId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <EntitySetMapping Name="Restrictions">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.Restriction">
-        <MappingFragment StoreEntitySet="Restrictions">
-          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-          <ScalarProperty Name="EditedByUserId" ColumnName="EditedByUserId" />
-          <ScalarProperty Name="DeletedDateTimeStamp" ColumnName="DeletedDateTimeStamp" />
-          <ScalarProperty Name="DeletedByUserId" ColumnName="DeletedByUserId" />
-          <ScalarProperty Name="EditedDateTimeStamp" ColumnName="EditedDateTimeStamp" />
-          <ScalarProperty Name="IssueReportsBeforeLockout" ColumnName="IssueReportsBeforeLockout" />
-          <ScalarProperty Name="MergeIssueRequestWaitTimeBeforePostSeconds" ColumnName="MergeIssueRequestWaitTimeBeforePostSeconds" />
-          <ScalarProperty Name="MergeIssueRequestTimeLimit" ColumnName="MergeIssueRequestTimeLimit" />
-          <ScalarProperty Name="MergeIssueRequestWithinTimeLimit" ColumnName="MergeIssueRequestWithinTimeLimit" />
-          <ScalarProperty Name="IssueReplyCommentPostsWaitTimeBeforePostSeconds" ColumnName="IssueReplyCommentPostsWaitTimeBeforePostSeconds" />
-          <ScalarProperty Name="IssueReplyCommentPostsTimeLimit" ColumnName="IssueReplyCommentPostsTimeLimit" />
-          <ScalarProperty Name="IssueReplyCommentPostsWithinTimeLimit" ColumnName="IssueReplyCommentPostsWithinTimeLimit" />
-          <ScalarProperty Name="IssueReplyPostsWaitTimeBeforePostSeconds" ColumnName="IssueReplyPostsWaitTimeBeforePostSeconds" />
-          <ScalarProperty Name="IssueReplyPostsTimeLimit" ColumnName="IssueReplyPostsTimeLimit" />
-          <ScalarProperty Name="IssueReplyPostsWithinTimeLimit" ColumnName="IssueReplyPostsWithinTimeLimit" />
-          <ScalarProperty Name="IssuePostsWaitTimeBeforePostSeconds" ColumnName="IssuePostsWaitTimeBeforePostSeconds" />
-          <ScalarProperty Name="IssuePostsTimeLimit" ColumnName="IssuePostsTimeLimit" />
-          <ScalarProperty Name="IssuePostsWithinTimeLimit" ColumnName="IssuePostsWithinTimeLimit" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <AssociationSetMapping Name="FK_Restrictions_Users_CreatedByUserId" TypeName="HaveAVoice.Models.FK_Restrictions_Users_CreatedByUserId" StoreEntitySet="Restrictions">
-      <EndProperty Name="Restriction">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="Id" ColumnName="CreatedByUserId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="FK_Roles_Restrictions" TypeName="HaveAVoice.Models.FK_Roles_Restrictions" StoreEntitySet="Roles">
-      <EndProperty Name="Role">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="Restriction">
-        <ScalarProperty Name="Id" ColumnName="RestrictionId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="FK_Roles_Users" TypeName="HaveAVoice.Models.FK_Roles_Users" StoreEntitySet="Roles">
-      <EndProperty Name="Role">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="Id" ColumnName="EditedByUserId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <EntitySetMapping Name="WhoIsOnline">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.WhoIsOnline">
-        <MappingFragment StoreEntitySet="WhoIsOnline">
-          <ScalarProperty Name="ForceLogOut" ColumnName="ForceLogOut" />
-          <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
-          <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <AssociationSetMapping Name="FK_WhoIsOnline_Users" TypeName="HaveAVoice.Models.FK_WhoIsOnline_Users" StoreEntitySet="WhoIsOnline">
-      <EndProperty Name="WhoIsOnline">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="Id" ColumnName="UserId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <EntitySetMapping Name="IssueComplaints">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.IssueComplaint">
-        <MappingFragment StoreEntitySet="IssueComplaints">
-          <ScalarProperty Name="Complaint" ColumnName="Complaint" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="IssueReplyComplaints">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.IssueReplyComplaint">
-        <MappingFragment StoreEntitySet="IssueReplyComplaints">
-          <ScalarProperty Name="Complaint" ColumnName="Complaint" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="MergeComplaints">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.MergeComplaint">
-        <MappingFragment StoreEntitySet="MergeComplaints">
-          <ScalarProperty Name="Complaint" ColumnName="Complaint" />
-          <ScalarProperty Name="MergeRequestId" ColumnName="MergeRequestId" />
-          <ScalarProperty Name="FiledByUserId" ColumnName="FiledByUserId" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="UserPictureComplaints">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.UserPictureComplaint">
-        <MappingFragment StoreEntitySet="UserPictureComplaints">
-          <ScalarProperty Name="Complaint" ColumnName="Complaint" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <AssociationSetMapping Name="FK_IssueComplaints_FiledByUserId_Users" TypeName="HaveAVoice.Models.FK_IssueComplaints_FiledByUserId_Users" StoreEntitySet="IssueComplaints">
-      <EndProperty Name="IssueComplaint">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="Id" ColumnName="FiledByUserId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="FK_IssueReplyComplaints_FiledByUserId_Users" TypeName="HaveAVoice.Models.FK_IssueReplyComplaints_FiledByUserId_Users" StoreEntitySet="IssueReplyComplaints">
-      <EndProperty Name="IssueReplyComplaint">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="Id" ColumnName="FiledByUserId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="FK_UserPictureComplaints_FiledByUserId_Users" TypeName="HaveAVoice.Models.FK_UserPictureComplaints_FiledByUserId_Users" StoreEntitySet="UserPictureComplaints">
-      <EndProperty Name="UserPictureComplaint">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="Id" ColumnName="FiledByUserId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="FK_IssueComplaints_Issues" TypeName="HaveAVoice.Models.FK_IssueComplaints_Issues" StoreEntitySet="IssueComplaints">
-      <EndProperty Name="IssueComplaint">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="Issue">
-        <ScalarProperty Name="Id" ColumnName="IssueId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="FK_IssueReplyComplaints_IssueReplys" TypeName="HaveAVoice.Models.FK_IssueReplyComplaints_IssueReplys" StoreEntitySet="IssueReplyComplaints">
-      <EndProperty Name="IssueReplyComplaint">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="IssueReply">
-        <ScalarProperty Name="Id" ColumnName="IssueReplyId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="FK_UserPictureComplaints_UserPictures" TypeName="HaveAVoice.Models.FK_UserPictureComplaints_UserPictures" StoreEntitySet="UserPictureComplaints">
-      <EndProperty Name="UserPictureComplaint">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="UserPicture">
-        <ScalarProperty Name="Id" ColumnName="UserPictureId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <EntitySetMapping Name="ProfileComplaints">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.ProfileComplaint">
-        <MappingFragment StoreEntitySet="ProfileComplaints">
-          <ScalarProperty Name="Complaint" ColumnName="Complaint" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <AssociationSetMapping Name="FK_ProfileComplaints_FiledByUserId_Users" TypeName="HaveAVoice.Models.FK_ProfileComplaints_FiledByUserId_Users" StoreEntitySet="ProfileComplaints">
-      <EndProperty Name="ProfileComplaint">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="Id" ColumnName="FiledByUserId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="FK_ProfileComplaints_TowardUserId_Users" TypeName="HaveAVoice.Models.FK_ProfileComplaints_TowardUserId_Users" StoreEntitySet="ProfileComplaints">
-      <EndProperty Name="ProfileComplaint">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="Id" ColumnName="TowardUserId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <EntitySetMapping Name="IssueDispositions">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.IssueDisposition">
-        <MappingFragment StoreEntitySet="IssueDisposition">
-          <ScalarProperty Name="Disposition" ColumnName="Disposition" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <AssociationSetMapping Name="FK_IssueDisposition_Users" TypeName="HaveAVoice.Models.FK_IssueDisposition_Users" StoreEntitySet="IssueDisposition">
-      <EndProperty Name="IssueDisposition">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="Id" ColumnName="UserId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="FK_IssueDisposition_Issues" TypeName="HaveAVoice.Models.FK_IssueDisposition_Issues" StoreEntitySet="IssueDisposition">
-      <EndProperty Name="IssueDisposition">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="Issue">
-        <ScalarProperty Name="Id" ColumnName="IssueId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <EntitySetMapping Name="UserPrivacySettings">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.UserPrivacySetting">
-        <MappingFragment StoreEntitySet="UserPrivacySettings">
-          <ScalarProperty Name="DisplayProfileToFriends" ColumnName="DisplayProfileToFriends" />
-          <ScalarProperty Name="DisplayProfileToLoggedInUsers" ColumnName="DisplayProfileToLoggedInUsers" />
-          <ScalarProperty Name="DisplayProfileToNonLoggedIn" ColumnName="DisplayProfileToNonLoggedIn" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <AssociationSetMapping Name="FK_UserPrivacySettings_Users" TypeName="HaveAVoice.Models.FK_UserPrivacySettings_Users" StoreEntitySet="UserPrivacySettings">
-      <EndProperty Name="UserPrivacySetting">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="Id" ColumnName="UserId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <EntitySetMapping Name="IssueReplyDispositions">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.IssueReplyDisposition">
-        <MappingFragment StoreEntitySet="IssueReplyDisposition">
-          <ScalarProperty Name="Disposition" ColumnName="Disposition" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <AssociationSetMapping Name="FK_IssueReplyDisposition_Users" TypeName="HaveAVoice.Models.FK_IssueReplyDisposition_Users" StoreEntitySet="IssueReplyDisposition">
-      <EndProperty Name="IssueReplyDisposition">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="Id" ColumnName="UserId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="FK_IssueReplyDisposition_IssueReplys" TypeName="HaveAVoice.Models.FK_IssueReplyDisposition_IssueReplys" StoreEntitySet="IssueReplyDisposition">
-      <EndProperty Name="IssueReplyDisposition">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="IssueReply">
-        <ScalarProperty Name="Id" ColumnName="IssueReplyId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <EntitySetMapping Name="Fans">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.Fan">
-        <MappingFragment StoreEntitySet="Fans">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <AssociationSetMapping Name="FK_Fans_FanUserId_Users" TypeName="HaveAVoice.Models.FK_Fans_FanUserId_Users" StoreEntitySet="Fans">
-      <EndProperty Name="Fan">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="Id" ColumnName="FanUserId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="FK_Fans_SourceUserId_Users" TypeName="HaveAVoice.Models.FK_Fans_SourceUserId_Users" StoreEntitySet="Fans">
-      <EndProperty Name="Fan">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="Id" ColumnName="SourceUserId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <EntitySetMapping Name="FilteredCityStates">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.FilteredCityState">
-        <MappingFragment StoreEntitySet="FilteredCityState">
-          <ScalarProperty Name="State" ColumnName="State" />
-          <ScalarProperty Name="City" ColumnName="City" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="FilteredZipCodes">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.FilteredZipCode">
-        <MappingFragment StoreEntitySet="FilteredZipCode">
-          <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <AssociationSetMapping Name="FK_FilteredCityState_Users" TypeName="HaveAVoice.Models.FK_FilteredCityState_Users" StoreEntitySet="FilteredCityState">
-      <EndProperty Name="FilteredCityState">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="Id" ColumnName="UserId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="FK_FilteredZipCode_Users" TypeName="HaveAVoice.Models.FK_FilteredZipCode_Users" StoreEntitySet="FilteredZipCode">
-      <EndProperty Name="FilteredZipCode">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="Id" ColumnName="UserId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <EntitySetMapping Name="Events">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.Event">
-        <MappingFragment StoreEntitySet="Events">
-          <ScalarProperty Name="DeletedUserId" ColumnName="DeletedUserId" />
-          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-          <ScalarProperty Name="Information" ColumnName="Information" />
-          <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <AssociationSetMapping Name="FK_Events_Users" TypeName="HaveAVoice.Models.FK_Events_Users" StoreEntitySet="Events">
-      <EndProperty Name="Event">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="Id" ColumnName="UserId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <EntitySetMapping Name="Permissions">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.Permission">
-        <MappingFragment StoreEntitySet="Permissions">
-          <ScalarProperty Name="DeletedByUserId" ColumnName="DeletedByUserId" />
-          <ScalarProperty Name="EditByUserId" ColumnName="EditByUserId" />
-          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <AssociationSetMapping Name="FK_RolePermissions_Permissions" TypeName="HaveAVoice.Models.FK_RolePermissions_Permissions" StoreEntitySet="RolePermissions">
-      <EndProperty Name="RolePermission">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-      <EndProperty Name="Permission">
-        <ScalarProperty Name="Id" ColumnName="PermissionId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <EntitySetMapping Name="Feedbacks">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.Feedback">
-        <MappingFragment StoreEntitySet="Feedback">
-          <ScalarProperty Name="Text" ColumnName="Text" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="BoardReplyId" ColumnName="BoardReplyId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -644,53 +58,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="IssueReplyComments">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.IssueReplyComment">
-        <MappingFragment StoreEntitySet="IssueReplyComments">
-          <ScalarProperty Name="DeletedByUserId" ColumnName="DeletedByUserId" />
-          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-          <ScalarProperty Name="UpdatedDateTimeStamp" ColumnName="UpdatedDateTimeStamp" />
-          <ScalarProperty Name="UpdatedByUserId" ColumnName="UpdatedByUserId" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
-          <ScalarProperty Name="Comment" ColumnName="Comment" />
-          <ScalarProperty Name="IssueReplyId" ColumnName="IssueReplyId" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="IssueReplyCommentComplaints">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.IssueReplyCommentComplaint">
-        <MappingFragment StoreEntitySet="IssueReplyCommentComplaints">
-          <ScalarProperty Name="Complaint" ColumnName="Complaint" />
-          <ScalarProperty Name="IssueReplyCommentId" ColumnName="IssueReplyCommentId" />
-          <ScalarProperty Name="FiledByUserId" ColumnName="FiledByUserId" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="AuditBoards">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.AuditBoard">
-        <MappingFragment StoreEntitySet="AuditBoard">
-          <ScalarProperty Name="UpdatedByUserId" ColumnName="UpdatedByUserId" />
-          <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
-          <ScalarProperty Name="Message" ColumnName="Message" />
-          <ScalarProperty Name="BoardId" ColumnName="BoardId" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="AuditBoardReplies">
-      <EntityTypeMapping TypeName="HaveAVoice.Models.AuditBoardReply">
-        <MappingFragment StoreEntitySet="AuditBoardReplies">
-          <ScalarProperty Name="UpdatedByUserId" ColumnName="UpdatedByUserId" />
-          <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
-          <ScalarProperty Name="Message" ColumnName="Message" />
-          <ScalarProperty Name="BoardReplyId" ColumnName="BoardReplyId" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Boards">
       <EntityTypeMapping TypeName="HaveAVoice.Models.Board">
         <MappingFragment StoreEntitySet="Board">
@@ -698,7 +65,6 @@
           <ScalarProperty Name="Deleted" ColumnName="Deleted" />
           <ScalarProperty Name="UpdatedDateTimeStamp" ColumnName="UpdatedDateTimeStamp" />
           <ScalarProperty Name="UpdatedByUserId" ColumnName="UpdatedByUserId" />
-          <ScalarProperty Name="Viewed" ColumnName="Viewed" />
           <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
           <ScalarProperty Name="Message" ColumnName="Message" />
           <ScalarProperty Name="PostedUserId" ColumnName="PostedUserId" />
@@ -717,6 +83,427 @@
           <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
           <ScalarProperty Name="Message" ColumnName="Message" />
           <ScalarProperty Name="BoardId" ColumnName="BoardId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ErrorLogs">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.ErrorLog">
+        <MappingFragment StoreEntitySet="ErrorLog">
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
+          <ScalarProperty Name="InnerException" ColumnName="InnerException" />
+          <ScalarProperty Name="Exception" ColumnName="Exception" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Events">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.Event">
+        <MappingFragment StoreEntitySet="Events">
+          <ScalarProperty Name="DeletedUserId" ColumnName="DeletedUserId" />
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="Information" ColumnName="Information" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Feedbacks">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.Feedback">
+        <MappingFragment StoreEntitySet="Feedback">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IssueComplaints">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.IssueComplaint">
+        <MappingFragment StoreEntitySet="IssueComplaints">
+          <ScalarProperty Name="Complaint" ColumnName="Complaint" />
+          <ScalarProperty Name="IssueId" ColumnName="IssueId" />
+          <ScalarProperty Name="FiledByUserId" ColumnName="FiledByUserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IssueDispositions">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.IssueDisposition">
+        <MappingFragment StoreEntitySet="IssueDisposition">
+          <ScalarProperty Name="Disposition" ColumnName="Disposition" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="IssueId" ColumnName="IssueId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IssueReplyCommentComplaints">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.IssueReplyCommentComplaint">
+        <MappingFragment StoreEntitySet="IssueReplyCommentComplaints">
+          <ScalarProperty Name="Complaint" ColumnName="Complaint" />
+          <ScalarProperty Name="IssueReplyCommentId" ColumnName="IssueReplyCommentId" />
+          <ScalarProperty Name="FiledByUserId" ColumnName="FiledByUserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IssueReplyComments">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.IssueReplyComment">
+        <MappingFragment StoreEntitySet="IssueReplyComments">
+          <ScalarProperty Name="DeletedByUserId" ColumnName="DeletedByUserId" />
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="UpdatedDateTimeStamp" ColumnName="UpdatedDateTimeStamp" />
+          <ScalarProperty Name="UpdatedByUserId" ColumnName="UpdatedByUserId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="IssueReplyId" ColumnName="IssueReplyId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IssueReplyComplaints">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.IssueReplyComplaint">
+        <MappingFragment StoreEntitySet="IssueReplyComplaints">
+          <ScalarProperty Name="Complaint" ColumnName="Complaint" />
+          <ScalarProperty Name="IssueReplyId" ColumnName="IssueReplyId" />
+          <ScalarProperty Name="FiledByUserId" ColumnName="FiledByUserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IssueReplyDispositions">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.IssueReplyDisposition">
+        <MappingFragment StoreEntitySet="IssueReplyDisposition">
+          <ScalarProperty Name="Disposition" ColumnName="Disposition" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="IssueReplyId" ColumnName="IssueReplyId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Messages">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.Message">
+        <MappingFragment StoreEntitySet="Messages">
+          <ScalarProperty Name="RepliedTo" ColumnName="RepliedTo" />
+          <ScalarProperty Name="FromDeleted" ColumnName="FromDeleted" />
+          <ScalarProperty Name="ToDeleted" ColumnName="ToDeleted" />
+          <ScalarProperty Name="FromViewed" ColumnName="FromViewed" />
+          <ScalarProperty Name="ToViewed" ColumnName="ToViewed" />
+          <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
+          <ScalarProperty Name="Body" ColumnName="Body" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="FromUserId" ColumnName="FromUserId" />
+          <ScalarProperty Name="ToUserId" ColumnName="ToUserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Permissions">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.Permission">
+        <MappingFragment StoreEntitySet="Permissions">
+          <ScalarProperty Name="DeletedByUserId" ColumnName="DeletedByUserId" />
+          <ScalarProperty Name="EditByUserId" ColumnName="EditByUserId" />
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProfileComplaints">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.ProfileComplaint">
+        <MappingFragment StoreEntitySet="ProfileComplaints">
+          <ScalarProperty Name="Complaint" ColumnName="Complaint" />
+          <ScalarProperty Name="TowardUserId" ColumnName="TowardUserId" />
+          <ScalarProperty Name="FiledByUserId" ColumnName="FiledByUserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Replys">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.Reply">
+        <MappingFragment StoreEntitySet="Replys">
+          <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
+          <ScalarProperty Name="Body" ColumnName="Body" />
+          <ScalarProperty Name="MessageId" ColumnName="MessageId" />
+          <ScalarProperty Name="ReplyUserId" ColumnName="ReplyUserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RolePermissions">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.RolePermission">
+        <MappingFragment StoreEntitySet="RolePermissions">
+          <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.Role">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="DeletedByUserId" ColumnName="DeletedByUserId" />
+          <ScalarProperty Name="EditedByUserId" ColumnName="EditedByUserId" />
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="DefaultRole" ColumnName="DefaultRole" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRoles">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.UserRole">
+        <MappingFragment StoreEntitySet="UserRoles">
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserPositionId" ColumnName="UserPositionId" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="ShortUrl" ColumnName="ShortUrl" />
+          <ScalarProperty Name="Zip" ColumnName="Zip" />
+          <ScalarProperty Name="ForgotPasswordHashDateTimeStamp" ColumnName="ForgotPasswordHashDateTimeStamp" />
+          <ScalarProperty Name="ForgotPasswordHash" ColumnName="ForgotPasswordHash" />
+          <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
+          <ScalarProperty Name="CookieCreationDate" ColumnName="CookieCreationDate" />
+          <ScalarProperty Name="CookieHash" ColumnName="CookieHash" />
+          <ScalarProperty Name="AboutMe" ColumnName="AboutMe" />
+          <ScalarProperty Name="Website" ColumnName="Website" />
+          <ScalarProperty Name="RegistrationIp" ColumnName="RegistrationIp" />
+          <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+          <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WhoIsOnlines">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.WhoIsOnline">
+        <MappingFragment StoreEntitySet="WhoIsOnline">
+          <ScalarProperty Name="ForceLogOut" ColumnName="ForceLogOut" />
+          <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+          <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Friends">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.Friend">
+        <MappingFragment StoreEntitySet="Friends">
+          <ScalarProperty Name="Approved" ColumnName="Approved" />
+          <ScalarProperty Name="SourceUserId" ColumnName="SourceUserId" />
+          <ScalarProperty Name="FriendUserId" ColumnName="FriendUserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PhotoAlbums">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.PhotoAlbum">
+        <MappingFragment StoreEntitySet="PhotoAlbum">
+          <ScalarProperty Name="CreatedByUserId" ColumnName="CreatedByUserId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Photos">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.Photo">
+        <MappingFragment StoreEntitySet="Photos">
+          <ScalarProperty Name="AlbumCover" ColumnName="AlbumCover" />
+          <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
+          <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+          <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+          <ScalarProperty Name="PhotoAlbumId" ColumnName="PhotoAlbumId" />
+          <ScalarProperty Name="UploadedByUserId" ColumnName="UploadedByUserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PhotoComplaints">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.PhotoComplaint">
+        <MappingFragment StoreEntitySet="PhotoComplaints">
+          <ScalarProperty Name="Complaint" ColumnName="Complaint" />
+          <ScalarProperty Name="PhotoId" ColumnName="PhotoId" />
+          <ScalarProperty Name="FiledByUserId" ColumnName="FiledByUserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Fans">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.Fan">
+        <MappingFragment StoreEntitySet="Fans">
+          <ScalarProperty Name="FanUserId" ColumnName="FanUserId" />
+          <ScalarProperty Name="SourceUserId" ColumnName="SourceUserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PrivacySettings">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.PrivacySetting">
+        <MappingFragment StoreEntitySet="PrivacySettings">
+          <ScalarProperty Name="ListOrder" ColumnName="ListOrder" />
+          <ScalarProperty Name="PrivacyGroup" ColumnName="PrivacyGroup" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+          <ScalarProperty Name="CreatedByUserId" ColumnName="CreatedByUserId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserPrivacySettings">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.UserPrivacySetting">
+        <MappingFragment StoreEntitySet="UserPrivacySettings">
+          <ScalarProperty Name="PrivacySettingName" ColumnName="PrivacySettingName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AuthorityVerifications">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.AuthorityVerification">
+        <MappingFragment StoreEntitySet="AuthorityVerification">
+          <ScalarProperty Name="UserPositionId" ColumnName="UserPositionId" />
+          <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
+          <ScalarProperty Name="Verified" ColumnName="Verified" />
+          <ScalarProperty Name="Token" ColumnName="Token" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="CreatedByUserId" ColumnName="CreatedByUserId" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContactUs">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.ContactU">
+        <MappingFragment StoreEntitySet="ContactUs">
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
+          <ScalarProperty Name="Inquiry" ColumnName="Inquiry" />
+          <ScalarProperty Name="InquiryType" ColumnName="InquiryType" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IssueViewedStates">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.IssueViewedState">
+        <MappingFragment StoreEntitySet="IssueViewedStates">
+          <ScalarProperty Name="LastUpdated" ColumnName="LastUpdated" />
+          <ScalarProperty Name="Viewed" ColumnName="Viewed" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="IssueId" ColumnName="IssueId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BoardViewedStates">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.BoardViewedState">
+        <MappingFragment StoreEntitySet="BoardViewedStates">
+          <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
+          <ScalarProperty Name="Viewed" ColumnName="Viewed" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="BoardId" ColumnName="BoardId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IssueReplyViewedStates">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.IssueReplyViewedState">
+        <MappingFragment StoreEntitySet="IssueReplyViewedStates">
+          <ScalarProperty Name="LastUpdated" ColumnName="LastUpdated" />
+          <ScalarProperty Name="Viewed" ColumnName="Viewed" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="IssueReplyId" ColumnName="IssueReplyId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserPositions">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.UserPosition">
+        <MappingFragment StoreEntitySet="UserPositions">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Display" ColumnName="Display" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IssueHits">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.IssueHit">
+        <MappingFragment StoreEntitySet="IssueHits">
+          <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
+          <ScalarProperty Name="HitCount" ColumnName="HitCount" />
+          <ScalarProperty Name="IsssueId" ColumnName="IsssueId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IssueReplys">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.IssueReply">
+        <MappingFragment StoreEntitySet="IssueReplys">
+          <ScalarProperty Name="DeletedByUserId" ColumnName="DeletedByUserId" />
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="UpdatedDateTimeStamp" ColumnName="UpdatedDateTimeStamp" />
+          <ScalarProperty Name="UpdatedUserId" ColumnName="UpdatedUserId" />
+          <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Anonymous" ColumnName="Anonymous" />
+          <ScalarProperty Name="Disposition" ColumnName="Disposition" />
+          <ScalarProperty Name="Zip" ColumnName="Zip" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Reply" ColumnName="Reply" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="IssueId" ColumnName="IssueId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Issues">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.Issue">
+        <MappingFragment StoreEntitySet="Issues">
+          <ScalarProperty Name="DeletedByUserId" ColumnName="DeletedByUserId" />
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="UpdatedDateTimeStamp" ColumnName="UpdatedDateTimeStamp" />
+          <ScalarProperty Name="UpdatedByUserId" ColumnName="UpdatedByUserId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
+          <ScalarProperty Name="Zip" ColumnName="Zip" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AuthorityViewableZipCodes">
+      <EntityTypeMapping TypeName="HaveAVoice.Models.AuthorityViewableZipCode">
+        <MappingFragment StoreEntitySet="AuthorityViewableZipCodes">
+          <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
+          <ScalarProperty Name="AddedByUserId" ColumnName="AddedByUserId" />
+          <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>

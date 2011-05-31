@@ -3,7 +3,7 @@ using HaveAVoice.Services.Helpers;
 using Social.Generic.Models;
 
 namespace HaveAVoice.Models.SocialWrappers {
-    public class SocialMessageModel : AbstractMessageModel<Message> {
+    public class SocialMessageModel : AbstractMessageModel<Message, User> {
         public static SocialMessageModel Create(Message anExternal) {
             return new SocialMessageModel(anExternal);
         }
@@ -30,6 +30,7 @@ namespace HaveAVoice.Models.SocialWrappers {
             if (anExternal.FromUser != null) {
                 FromUserFullName = NameHelper.FullName(anExternal.FromUser);
                 FromUserProfilePictureUrl = PhotoHelper.ProfilePicture(anExternal.FromUser);
+                FromUser = anExternal.FromUser;
             }
             if (anExternal.ToUser != null) {
                 ToUserFullName = NameHelper.FullName(anExternal.ToUser);
