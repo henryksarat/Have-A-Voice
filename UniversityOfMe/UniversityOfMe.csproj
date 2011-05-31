@@ -284,6 +284,7 @@
     <Content Include="Content\images\friend.png" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\mail.png" />
+    <Content Include="Content\images\new-mail.png" />
     <Content Include="Content\images\organization.png" />
     <Content Include="Content\images\paper.png" />
     <Content Include="Content\images\person.png" />
@@ -291,6 +292,8 @@
     <Content Include="Content\images\photo.png" />
     <Content Include="Content\images\plus.png" />
     <Content Include="Content\images\question.png" />
+    <Content Include="Content\images\read-mail.png" />
+    <Content Include="Content\images\read.png" />
     <Content Include="Content\images\readmessage.png" />
     <Content Include="Content\images\remove.png" />
     <Content Include="Content\images\search.png" />
@@ -301,6 +304,7 @@
     <Content Include="Content\images\star-green.png" />
     <Content Include="Content\images\star-half.png" />
     <Content Include="Content\images\star-red.png" />
+    <Content Include="Content\images\trash.png" />
     <Content Include="Content\images\unreadmessage.png" />
     <Content Include="Content\images\wrench.png" />
     <Content Include="Content\jquery-1.4.2.min.js" />
