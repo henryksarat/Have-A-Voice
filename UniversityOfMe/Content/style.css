@@ -390,3 +390,13 @@ a.name, a.name:link, a.name:visited { display: block; font-size: 14px; color: #2
 a.name:hover { text-decoration: underline; }
 
 .imagebutton { border: 0; background: transparent; display: inline-block; text-decoration: none; outline: none }
+
+.tooltip {
+	display:none;
+	background:transparent url(images/tooltip/black_arrow.png);
+	font-size:10px;
+	height:70px;
+	width:160px;
+	padding:20px;
+	color:#fff;	
+}

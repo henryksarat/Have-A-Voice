@@ -31,5 +31,9 @@ namespace UniversityOfMe.Controllers.Clubs {
                 Genders = new SelectList(Constants.GENDERS, Constants.SELECT)
             });
         }
+
+        public ActionResult About() {
+            return View("About");
+        }
     }
 }

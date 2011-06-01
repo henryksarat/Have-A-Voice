@@ -317,6 +317,7 @@
     <Content Include="Content\jquery.ui.stars.min.js" />
     <Content Include="Content\js\jquery-1.5.1.min.js" />
     <Content Include="Content\js\jquery-ui-1.8.13.custom.min.js" />
+    <Content Include="Content\js\jquery.tools.min.js" />
     <Content Include="Content\style.css" />
     <Content Include="Global.asax" />
     <Content Include="Photos\no_profile_picture.jpg" />
@@ -369,6 +370,7 @@
     <Content Include="Views\Shared\Result.aspx" />
     <Content Include="Views\Shared\LeftNavigation.ascx" />
     <Content Include="Views\Shared\Validation.ascx" />
+    <Content Include="Views\Site\About.aspx" />
     <Content Include="Views\Site\Main.aspx" />
     <Content Include="Views\TextBook\Create.aspx" />
     <Content Include="Views\TextBook\Details.aspx" />

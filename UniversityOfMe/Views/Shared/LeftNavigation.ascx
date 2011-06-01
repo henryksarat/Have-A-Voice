@@ -3,6 +3,12 @@
 <%@ Import Namespace="UniversityOfMe.Models" %>
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
 
+<script>
+    $(document).ready(function () {
+        $("#datingtooltip a[title]").tooltip();
+    });
+</script> 
+
 <div class="four"> 
 	<div class="banner full mb72"> 
 		<input type="search" name="search" id="search" /> 
@@ -52,8 +58,8 @@
     <% if(FeatureHelper.IsFeatureEnabled(Model.User, Features.DatingAsked)) { %> 
 	    <div class="banner title"> 
 		    UOFME RANDOM DATING
-		    <div class="buttons"> 
-			    <a href="#" class="question">What is this?</a> 
+		    <div id="datingtooltip" class="buttons"> 
+			        <a href="#" class="question" title="A dating match is made only if the person says yes too, if they say no they never know.">What is this?</a> 
 			    <%= Html.ActionLink("Disable", "DisableFeature", "Profile", new { feature = Features.DatingAsked }, new { @class = "deny" })%>
 		    </div> 
 	    </div> 
@@ -63,8 +69,11 @@
                 <a href="/<%= Model.DatingMember.ShortUrl %>"><img src="<%= PhotoHelper.ProfilePicture(Model.DatingMember) %>" alt="<%= NameHelper.FullName(Model.DatingMember) %>" title="<%= NameHelper.FullName(Model.DatingMember) %>" class="profile sm" /></a>
 		        Would you date <%= NameHelper.FullName(Model.DatingMember)%> ?
 		        <div class="mt6 center"> 
-			        <input type="button" name="yes" class="btn blue" value="Yes" /> 
-			        <input type="button" name="no" class="btn blue" value=" No" /> 
+                    <% using (Html.BeginForm("Create", "Dating", FormMethod.Post)) {%>
+                        <%= Html.Hidden("SourceUserId", Model.DatingMember.Id) %>
+			            <button name="response" class="btn blue" value="true">yes</input>
+			            <button name="response" class="btn blue" value="false">no</input>
+                    <% } %>
 		        </div> 
             <% } else { %>
                 There are currently no members to ask you about
