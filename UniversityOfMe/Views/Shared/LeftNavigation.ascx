@@ -49,8 +49,9 @@
             <a href="/<%= Model.DatingMatchMember.AskedUser.ShortUrl %>"><img src="<%= PhotoHelper.ProfilePicture(Model.DatingMatchMember.AskedUser) %>" alt="<%= NameHelper.FullName(Model.DatingMatchMember.AskedUser) %>" title="<%= NameHelper.FullName(Model.DatingMatchMember.AskedUser) %>" class="profile med" /></a>
 		    You got a dating match with<br /> 
 		    <span class="normal mr14"><%= NameHelper.FullName(Model.DatingMatchMember.AskedUser) %></span> 
-		    <a href="#" class="mail mr9">Mail</a> 
-		    <a href="#" class="beer">Beer</a> 
+            
+            <%= Html.ActionLink("Message", "Create", "Message", new { id = Model.DatingMatchMember.AskedUserId }, new { @class = "mail mr9" })%>
+            <%= Html.ActionLink("Send beer", "SendItem", "SendItems", new { id = Model.DatingMatchMember.AskedUserId, sendItem = SendItemOptions.BEER }, new { @class = "beer" })%>
 		    <span class="arrow"></span> 
 	    </div> 
     <% } %>
@@ -71,8 +72,8 @@
 		        <div class="mt6 center"> 
                     <% using (Html.BeginForm("Create", "Dating", FormMethod.Post)) {%>
                         <%= Html.Hidden("SourceUserId", Model.DatingMember.Id) %>
-			            <button name="response" class="btn blue" value="true">yes</input>
-			            <button name="response" class="btn blue" value="false">no</input>
+			            <button name="response" class="btn blue" value="true">Yes</input>
+			            <button name="response" class="btn blue" value="false">No</input>
                     <% } %>
 		        </div> 
             <% } else { %>

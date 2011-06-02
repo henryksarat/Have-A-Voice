@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\CookieHelper.cs" />
+    <Compile Include="Helpers\IGetUserStrategy.cs" />
     <Compile Include="Helpers\IProfilePictureStrategy.cs" />
     <Compile Include="Helpers\IUserActivationStrategy.cs" />
     <Compile Include="IUserInformation.cs" />

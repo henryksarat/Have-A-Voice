@@ -29,7 +29,7 @@ namespace UniversityOfMe.Controllers.Professors {
         private IUniversityService theUniversityService;
 
         public ProfessorReviewController() {
-            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
+            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()));
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
             theProfessorReviewService = new ProfessorReviewService(theValidationDictionary);
             theProfessorService = new ProfessorService(theValidationDictionary);

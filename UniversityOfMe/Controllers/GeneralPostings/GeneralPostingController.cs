@@ -26,7 +26,7 @@ namespace UniversityOfMe.Controllers.GeneralPostings {
         IValidationDictionary theValidationDictionary;
 
         public GeneralPostingController() {
-            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
+            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()));
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
             theGeneralPostingService = new GeneralPostingService(theValidationDictionary);
         }

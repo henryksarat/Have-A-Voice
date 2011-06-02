@@ -27,12 +27,20 @@ namespace UniversityOfMe.Controllers.Clubs {
             if (IsLoggedIn()) {
                 return RedirectToProfile();
             }
+
+           
             return View("Main", new CreateUserModel() {
                 Genders = new SelectList(Constants.GENDERS, Constants.SELECT)
             });
         }
 
         public ActionResult About() {
+            if (IsLoggedIn()) {
+
+            }
+
+            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
+            
             return View("About");
         }
     }

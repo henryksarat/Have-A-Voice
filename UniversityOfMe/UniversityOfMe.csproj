@@ -69,6 +69,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomAuthentication\AdminMemberProvider .cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CustomAuthentication\AdminRoleProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\Admin\AdminController.cs" />
     <Compile Include="Controllers\Admin\PermissionController.cs" />
     <Compile Include="Controllers\Admin\RoleController.cs" />
@@ -117,6 +123,7 @@
     <Compile Include="Helpers\Features.cs" />
     <Compile Include="Helpers\FriendHelper.cs" />
     <Compile Include="Helpers\Functionality\ClubHelper.cs" />
+    <Compile Include="Helpers\GetUserStrategy.cs" />
     <Compile Include="Helpers\NameHelper.cs" />
     <Compile Include="Helpers\NavigationCountHelper.cs" />
     <Compile Include="Helpers\PhotoHelper.cs" />
@@ -304,6 +311,14 @@
     <Content Include="Content\images\star-green.png" />
     <Content Include="Content\images\star-half.png" />
     <Content Include="Content\images\star-red.png" />
+    <Content Include="Content\images\tooltip\black.png" />
+    <Content Include="Content\images\tooltip\black_arrow.png" />
+    <Content Include="Content\images\tooltip\black_arrow_big.png" />
+    <Content Include="Content\images\tooltip\black_big.png" />
+    <Content Include="Content\images\tooltip\white.png" />
+    <Content Include="Content\images\tooltip\white_arrow.png" />
+    <Content Include="Content\images\tooltip\white_arrow_big.png" />
+    <Content Include="Content\images\tooltip\white_big.png" />
     <Content Include="Content\images\trash.png" />
     <Content Include="Content\images\unreadmessage.png" />
     <Content Include="Content\images\wrench.png" />
@@ -320,6 +335,11 @@
     <Content Include="Content\js\jquery.tools.min.js" />
     <Content Include="Content\style.css" />
     <Content Include="Global.asax" />
+    <Content Include="Photos\19_-1428259864.jpg" />
+    <Content Include="Photos\19_-76090981-profile.jpg" />
+    <Content Include="Photos\19_1499287313.jpg" />
+    <Content Include="Photos\19_2031699393.jpg" />
+    <Content Include="Photos\nophotos.jpg" />
     <Content Include="Photos\no_profile_picture.jpg" />
     <Content Include="Views\Admin\Index.aspx" />
     <Content Include="Views\Authentication\ChangeEmail.aspx" />
@@ -477,7 +497,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>33217</DevelopmentServerPort>
+          <DevelopmentServerPort>10827</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

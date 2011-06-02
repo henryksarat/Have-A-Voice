@@ -33,5 +33,9 @@ namespace Social.User.Services {
         public AbstractUserModel<T> GetAbstractUser(string anEmail, string aPassword) {
             return theUserRetrievalRepo.GetAbstractUser(anEmail, aPassword);
         }
+
+        public AbstractUserModel<T> GetAbstractUser(int aUserId) {
+            return theUserRetrievalRepo.GetAbstractUser(aUserId);
+        }
     }
 }

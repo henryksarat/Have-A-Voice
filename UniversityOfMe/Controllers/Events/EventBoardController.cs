@@ -10,6 +10,7 @@ using UniversityOfMe.Models;
 using UniversityOfMe.Repositories;
 using UniversityOfMe.Services.Events;
 using UniversityOfMe.UserInformation;
+using UniversityOfMe.Helpers;
 
 namespace UniversityOfMe.Controllers.Events {
     public class EventBoardController : UOFMeBaseController {
@@ -20,7 +21,7 @@ namespace UniversityOfMe.Controllers.Events {
         IEventService theEventService;
 
         public EventBoardController() {
-            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
+            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()));
             IValidationDictionary myModelState = new ModelStateWrapper(this.ModelState);
             theEventService = new EventService(myModelState);
         }

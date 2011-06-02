@@ -33,7 +33,7 @@ namespace UniversityOfMe.Controllers.Clubs {
         ITextBookService theTextBookService;
 
         public TextBookController() {
-            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
+            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()));
             theValidation = new ModelStateWrapper(this.ModelState);
             theTextBookService = new TextBookService(theValidation);
         }

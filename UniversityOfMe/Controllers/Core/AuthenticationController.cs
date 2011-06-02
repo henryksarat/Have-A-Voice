@@ -28,11 +28,11 @@ namespace UniversityOfMe.Controllers.Core {
 
         public AuthenticationController()
             : base(new BaseService<User>(new EntityBaseRepository()),
-                   UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())),
+                   UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()),
                    InstanceHelper.CreateAuthencationService(),
                    new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())) {
-            
-            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
+
+            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()));
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
             theUserService = new UofMeUserService(theValidationDictionary);
         }
@@ -117,6 +117,10 @@ namespace UniversityOfMe.Controllers.Core {
         }
 
         protected override ActionResult RedirectToProfile() {
+            return RedirectToAction("IntermediateRedirectToProfile");
+        }
+
+        public ActionResult IntermediateRedirectToProfile() {
             return RedirectToAction(UOMConstants.UNVIERSITY_MAIN_VIEW, UOMConstants.UNVIERSITY_MAIN_CONTROLLER, new { universityId = UniversityHelper.GetMainUniversityId(GetUserInformaton()) });
         }
     }

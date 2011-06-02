@@ -18,11 +18,11 @@ using UniversityOfMe.UserInformation;
 namespace UniversityOfMe.Controllers.Admin {
     public class PermissionController : AbstractPermissionController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
         public PermissionController()
-            : base(new BaseService<User>(new EntityBaseRepository()), 
-            UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())),
+            : base(new BaseService<User>(new EntityBaseRepository()),
+            UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()),
             InstanceHelper.CreateAuthencationService(), 
             new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new EntityPermissionRepository()) {
-            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
+            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()));
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

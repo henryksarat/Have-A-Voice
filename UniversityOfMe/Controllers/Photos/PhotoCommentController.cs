@@ -9,6 +9,7 @@ using UniversityOfMe.Models;
 using UniversityOfMe.Services.Photos;
 using UniversityOfMe.UserInformation;
 using UniversityOfMe.Repositories;
+using UniversityOfMe.Helpers;
 
 namespace UniversityOfMe.Controllers.Photos {
     public class PhotoCommentController : UOFMeBaseController {
@@ -19,7 +20,7 @@ namespace UniversityOfMe.Controllers.Photos {
         private IPhotoCommentService thePhotoCommentService;
 
         public PhotoCommentController() {
-            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
+            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()));
             theValidation = new ModelStateWrapper(this.ModelState);
             thePhotoCommentService = new PhotoCommentService(theValidation);
         }

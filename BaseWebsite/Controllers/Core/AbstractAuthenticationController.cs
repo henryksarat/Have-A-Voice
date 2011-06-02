@@ -11,6 +11,7 @@ using Social.Generic.Services;
 using Social.User.Exceptions;
 using Social.Users.Services;
 using Social.Validation;
+using System.Web.Security;
 
 namespace BaseWebsite.Controllers.Core {
     //T = User
@@ -34,9 +35,13 @@ namespace BaseWebsite.Controllers.Core {
             theWhoIsOnlineService = aWhoIsOnlineService;
         }
 
+        protected IAuthenticationService<T, U, V, W, X, Y> GetAuthService() {
+            return theAuthService;
+        }
+
         protected ActionResult Login() {
             if (IsLoggedIn()) {
-                return RedirectToProfile();
+                
             }
             return View("Login");
         }
@@ -91,18 +96,33 @@ namespace BaseWebsite.Controllers.Core {
         }
 
         protected ActionResult LogOut() {
-            if (!IsLoggedIn()) {
-                return RedirectToHomePage();
+            UserInformationModel<T> myUserInformation = GetUserInformatonModel();
+            if (myUserInformation != null) {
+                theWhoIsOnlineService.RemoveFromWhoIsOnline(myUserInformation.Details, HttpContext.Request.UserHostAddress);
             }
-            theWhoIsOnlineService.RemoveFromWhoIsOnline(GetUserInformaton(), HttpContext.Request.UserHostAddress);
-            Session.Clear();
-            CookieHelper.ClearCookies();
+
+            FormsAuthentication.SignOut();
+            Session.Abandon();
+
+            // clear authentication cookie
+            HttpCookie cookie1 = new HttpCookie(FormsAuthentication.FormsCookieName, "");
+            cookie1.Expires = DateTime.Now.AddYears(-1);
+            Response.Cookies.Add(cookie1);
+
+            // clear session cookie (not necessary for your current problem but i would recommend you do it anyway)
+            HttpCookie cookie2 = new HttpCookie("ASP.NET_SessionId", "");
+            cookie2.Expires = DateTime.Now.AddYears(-1);
+            Response.Cookies.Add(cookie2);
+
             TempData["Message"] = SuccessMessage(AuthenticationKeys.LOGGED_OUT);
+
+            FormsAuthentication.RedirectToLoginPage();
+
             return RedirectToAction("Login");
         }
 
         private void CreateUserInformationSession(UserInformationModel<T> aUserModel) {
-            Session["UserInformation"] = aUserModel;
+            FormsAuthentication.SetAuthCookie(aUserModel.UserId.ToString(), false);
         }
     }
 }

@@ -4,6 +4,7 @@ using Social.Generic.Models;
 using Social.Users.Services;
 using UniversityOfMe.Models;
 using UniversityOfMe.Repositories;
+using UniversityOfMe.Helpers;
 
 namespace UniversityOfMe.UserInformation {
     public class UserInformationFactory {
@@ -17,7 +18,8 @@ namespace UniversityOfMe.UserInformation {
         }
 
         public static bool IsLoggedIn() {
-            return GetUserInformation() != null;
+            SetDefaultInstance();
+            return theFactory.IsLoggedIn();
         }
 
         public static void SetInstance(IUserInformation<User, WhoIsOnline> userInformation) {
@@ -26,7 +28,7 @@ namespace UniversityOfMe.UserInformation {
 
         private static void SetDefaultInstance() {
             if (theFactory == null) {
-                theFactory = UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()));
+                theFactory = UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy());
             }
         }
     }

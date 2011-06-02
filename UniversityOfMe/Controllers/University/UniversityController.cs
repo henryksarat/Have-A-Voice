@@ -21,7 +21,7 @@ namespace UniversityOfMe.Controllers.Clubs {
         private IUniversityService theUniversityService;
 
         public UniversityController() {
-            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
+            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()));
             theValidation = new ModelStateWrapper(this.ModelState);
             theUniversityService = new UniversityService(theValidation);
         }

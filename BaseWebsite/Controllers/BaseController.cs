@@ -6,6 +6,7 @@ using Social.Authentication;
 using Social.Generic.Models;
 using System;
 using Social.Authentication.Helpers;
+using System.Web.Security;
 
 namespace BaseWebsite.Controllers {
     //T = User
@@ -56,6 +57,10 @@ namespace BaseWebsite.Controllers {
             return myUserInformation != null ? myUserInformation.Details : default(T);
         }
 
+        protected void ForceUserInformationRefresh() {
+            theUserInformation.ForceUserInformationClear();
+        }
+
         protected UserInformationModel<T> GetUserInformatonModel() {
             return theUserInformation.GetUserInformaton();
         }
@@ -72,7 +77,7 @@ namespace BaseWebsite.Controllers {
         }
         
         protected bool IsLoggedIn() {
-            if (!theUserInformation.IsLoggedIn()) {
+            if (!HttpContext.User.Identity.IsAuthenticated) {
 
                 T myUser = default(T);
 
@@ -95,7 +100,7 @@ namespace BaseWebsite.Controllers {
                         try {
                             theWhoIsOnlineService.AddToWhoIsOnline(userModel.Details, HttpContext.Request.UserHostAddress);
 
-                            CreateUserInformationSession(userModel);
+                            FormsAuthentication.SetAuthCookie(userModel.UserId.ToString(), false);
                             theAuthService.CreateRememberMeCredentials(CreateSocialUserModel(userModel.Details));
                         } catch (Exception e) {
                             LogError(e, AFTER_AUTHENTICATION_ERROR);
@@ -104,7 +109,7 @@ namespace BaseWebsite.Controllers {
                 }
             }
 
-            return theUserInformation.IsLoggedIn();
+            return HttpContext.User.Identity.IsAuthenticated;
         }
         
         protected ActionResult SendToErrorPage(string error) {
@@ -152,10 +157,6 @@ namespace BaseWebsite.Controllers {
 
         private void AddErrorToSession(string error) {
             Session["ErrorMessage"] = new StringModel(error);
-        }
-
-        private void CreateUserInformationSession(UserInformationModel<T> aUserModel) {
-            Session["UserInformation"] = aUserModel;
         }
     }
 }

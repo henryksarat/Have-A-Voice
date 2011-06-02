@@ -20,8 +20,8 @@ namespace HaveAVoice.Controllers.Core {
         private const string ACCOUNT_ACTIVATED_BODY = "You may now login and access have a voice!";
 
         public AuthenticationController()
-            : base(new BaseService<User>(new HAVBaseRepository()), 
-                   UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository())),
+            : base(new BaseService<User>(new HAVBaseRepository()),
+                   UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()), new GetUserStrategy()),
               new HAVAuthenticationService(), 
               new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository())) {
             HAVUserInformationFactory.SetInstance(GetUserInformationInstance());

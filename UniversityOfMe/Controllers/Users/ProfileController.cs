@@ -28,7 +28,7 @@ namespace UniversityOfMe.Controllers.Profile {
         private IFeatureService theFeatureService;
         
         public ProfileController() {
-            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
+            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()));
             theUserRetrievalService = new UserRetrievalService<User>(new EntityUserRetrievalRepository());
             theFeatureService = new FeatureService();
         }

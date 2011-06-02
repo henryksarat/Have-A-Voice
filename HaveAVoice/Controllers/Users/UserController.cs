@@ -34,8 +34,8 @@ namespace HaveAVoice.Controllers.Users {
         private IValidationDictionary theValidationDictionary;
 
         public UserController()
-            : base(new BaseService<User>(new HAVBaseRepository()), 
-            UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()))
+            : base(new BaseService<User>(new HAVBaseRepository()),
+            UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()), new GetUserStrategy())
             , new HAVAuthenticationService(), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()),
             new EntityHAVUserRepository()) {
             HAVUserInformationFactory.SetInstance(GetUserInformationInstance());
@@ -141,7 +141,7 @@ namespace HaveAVoice.Controllers.Users {
 
                 if (theService.EditUser(userToEdit, myPassword)) {
                     TempData["Message"] = MessageHelper.SuccessMessage(EDIT_SUCCESS);
-                    RefreshUserInformation(myPassword);
+                    ForceUserInformationRefresh();
                     return RedirectToAction("Edit");
                 }
             } catch (Exception exception) {
@@ -187,17 +187,6 @@ namespace HaveAVoice.Controllers.Users {
 
         protected override string SuccessMessage(string aMessage) {
             return MessageHelper.SuccessMessage(aMessage);
-        }
-
-        private void RefreshUserInformation(string aHashedPassword) {
-            UserInformationModel<User> myUserInformationModel = GetUserInformatonModel();
-            try {
-                myUserInformationModel =
-                    GetAuthenticationService().RefreshUserInformationModel(UserEmail(), aHashedPassword, ProfilePictureStrategy());
-            } catch (Exception myException) {
-                LogError(myException, String.Format("Big problem! Was unable to refresh the user information model for userid={0}", UserId()));
-            }
-            Session["UserInformation"] = myUserInformationModel;
         }
 
         private void AddStatesAndGenders(CreateUserModel aUserModel, string aState) {

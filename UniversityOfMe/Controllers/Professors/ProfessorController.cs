@@ -40,7 +40,7 @@ namespace UniversityOfMe.Controllers.Professors {
         IUniversityService theUniversityService;
 
         public ProfessorController() {
-            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
+            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()));
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
             theProfessorService = new ProfessorService(theValidationDictionary);
             theUniversityService = new UniversityService(theValidationDictionary);

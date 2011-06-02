@@ -11,6 +11,7 @@ using UniversityOfMe.Repositories;
 using UniversityOfMe.Services;
 using UniversityOfMe.Services.Professors;
 using UniversityOfMe.UserInformation;
+using UniversityOfMe.Helpers;
 
 namespace UniversityOfMe.Controllers.Clubs {
     public class ClubMemberController : UOFMeBaseController {
@@ -22,7 +23,7 @@ namespace UniversityOfMe.Controllers.Clubs {
         IUniversityService theUniversityService;
 
         public ClubMemberController() {
-            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
+            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()));
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
             theClubService = new ClubService(theValidationDictionary);
             theUniversityService = new UniversityService(theValidationDictionary);

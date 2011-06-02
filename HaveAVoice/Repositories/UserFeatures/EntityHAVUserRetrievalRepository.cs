@@ -13,6 +13,10 @@ namespace HaveAVoice.Repositories.UserFeatures {
             return SocialUserModel.Create(GetUser(anEmail, aPassword));
         }
 
+        public AbstractUserModel<User> GetAbstractUser(int aUserId) {
+            return SocialUserModel.Create(GetUser(aUserId));
+        }
+
         public User GetUser(int id) {
             return (from c in theEntities.Users
                     where c.Id == id

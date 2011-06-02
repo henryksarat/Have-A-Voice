@@ -49,5 +49,15 @@ namespace UniversityOfMe.Repositories.AdminRepos {
                     where p.Name == aName
                     select p).Count() > 0;
         }
+
+        public IEnumerable<Permission> GetPermissionsForUserId(int aUserId) {
+            return (from ur in theEntities.UserRoles
+                    join r in theEntities.Roles on ur.RoleId equals r.Id
+                    join rp in theEntities.RolePermissions on r.Id equals rp.RoleId
+                    join p in theEntities.Permissions on rp.PermissionId equals p.Id
+                    where ur.UserId == aUserId
+                    select p).ToList<Permission>();
+
+        }
     }
 }

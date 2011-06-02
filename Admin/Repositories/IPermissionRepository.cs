@@ -11,5 +11,6 @@ namespace Social.Admin {
         U FindPermission(int id);
         IEnumerable<U> GetAllPermissions();
         bool nameExists(String aName);
+        IEnumerable<U> GetPermissionsForUserId(int aUserId);
     }
 }

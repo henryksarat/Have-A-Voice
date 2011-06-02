@@ -23,8 +23,8 @@ using Social.Users.Services;
 namespace HaveAVoice.Controllers.Admin {
     public class RoleController : AbstractRoleController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
         public RoleController()
-            : base(new BaseService<User>(new HAVBaseRepository()), 
-            UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()))
+            : base(new BaseService<User>(new HAVBaseRepository()),
+            UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()), new GetUserStrategy())
             , new HAVAuthenticationService(), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()), new EntityHAVRoleRepository(), new EntityHAVPermissionRepository()) {
             HAVUserInformationFactory.SetInstance(GetUserInformationInstance());
         }

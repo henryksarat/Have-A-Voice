@@ -7,6 +7,7 @@ namespace Social.Authentication.Services {
         void ActivateNewUser(string activationCode);
         UserInformationModel<T> RefreshUserInformationModel(string anEmail, string aPassword, IProfilePictureStrategy<T> aProfilePictureStrategy);
         UserInformationModel<T> AuthenticateUser(string anEmail, string aPassword, IProfilePictureStrategy<T> aProfilePictureStrategy);
+        UserInformationModel<T> AuthenticateUser(int anId, IProfilePictureStrategy<T> aProfilePictureStrategy);
         UserInformationModel<T> CreateUserInformationModel(AbstractUserModel<T> aUser, IProfilePictureStrategy<T> aProfilePictureStrategy);
         void CreateRememberMeCredentials(AbstractUserModel<T> aUserModel);
         T ReadRememberMeCredentials();

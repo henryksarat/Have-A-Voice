@@ -37,6 +37,11 @@ namespace Social.Authentication.Services {
             return AuthenticateUserWithHashedPassword(anEmail, aPassword, aProfilePictureStrategy);
         }
 
+        public UserInformationModel<T> AuthenticateUser(int anId, IProfilePictureStrategy<T> aProfilePictureStrategy) {
+            AbstractUserModel<T> myAbstractUser = theUserRetrievalService.GetAbstractUser(anId);
+            return CreateUserInformationModel(myAbstractUser, aProfilePictureStrategy);
+        }
+
         public UserInformationModel<T> AuthenticateUser(string anEmail, string aPassword, IProfilePictureStrategy<T> aProfilePictureStrategy) {
             aPassword = HashHelper.DoHash(aPassword);
             return AuthenticateUserWithHashedPassword(anEmail, aPassword, aProfilePictureStrategy);

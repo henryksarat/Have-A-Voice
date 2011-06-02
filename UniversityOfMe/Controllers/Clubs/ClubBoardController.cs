@@ -7,6 +7,7 @@ using Social.Generic.ActionFilters;
 using Social.Generic.Models;
 using Social.Users.Services;
 using Social.Validation;
+using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
 using UniversityOfMe.Repositories;
 using UniversityOfMe.Services.Professors;
@@ -21,7 +22,7 @@ namespace UniversityOfMe.Controllers.Clubs {
         IClubService theClubService;
 
         public ClubBoardController() {
-            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
+            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()));
             IValidationDictionary myModelState = new ModelStateWrapper(this.ModelState);
             theClubService = new ClubService(myModelState);
         }

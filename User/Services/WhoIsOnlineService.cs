@@ -19,6 +19,11 @@ namespace Social.Users.Services {
 
         public bool IsOnline(T aCurrentUser, string aCurrentIpAddress) {
             AbstractWhoIsOnlineModel<U> myOnlineUser = theRepository.GetAbstractWhoIsOnlineEntry(aCurrentUser, aCurrentIpAddress);
+            if (myOnlineUser == null) {
+                AddToWhoIsOnline(aCurrentUser, aCurrentIpAddress);
+                myOnlineUser = theRepository.GetAbstractWhoIsOnlineEntry(aCurrentUser, aCurrentIpAddress);
+            }
+
             DateTime expiryTime = DateTime.UtcNow.AddSeconds(-1 * Constants.SECONDS_BEFORE_USER_TIMEOUT);
 
             bool isOnline = true;

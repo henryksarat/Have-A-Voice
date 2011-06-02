@@ -17,7 +17,8 @@ namespace HaveAVoice.Helpers.UserInformation {
         }
 
         public static bool IsLoggedIn() {
-            return GetUserInformation() != null;
+            SetDefaultInstance();
+            return theFactory.IsLoggedIn();
         }
 
         public static void SetInstance(IUserInformation<User, WhoIsOnline> userInformation) {
@@ -31,7 +32,7 @@ namespace HaveAVoice.Helpers.UserInformation {
 
         private static void SetDefaultInstance() {
             if (theFactory == null) {
-                theFactory = UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()));
+                theFactory = UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()), new GetUserStrategy());
             }
         }
     }

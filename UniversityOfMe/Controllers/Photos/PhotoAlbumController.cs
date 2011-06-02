@@ -22,15 +22,15 @@ using UniversityOfMe.UserInformation;
 namespace UniversityOfMe.Controllers.Photos {
     public class PhotoAlbumController : AbstractPhotoAlbumController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline, PhotoAlbum, Photo, Friend> {
         public PhotoAlbumController()
-            : base(new BaseService<User>(new EntityBaseRepository()), 
-                    UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())), 
+            : base(new BaseService<User>(new EntityBaseRepository()),
+                    UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()), 
                     InstanceHelper.CreateAuthencationService(), 
                     new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), 
                     new EntityPhotoAlbumRepository(),
                     new EntityPhotoRepository(),
                     new EntityFriendRepository(),
                     new EntityUserRetrievalRepository()) {
-            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
+            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()));
         }
         
         [RequiredRouteValueAttribute.RequireRouteValues(new string[] { })]

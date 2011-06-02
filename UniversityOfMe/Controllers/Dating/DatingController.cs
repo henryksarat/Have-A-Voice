@@ -9,6 +9,7 @@ using UniversityOfMe.Models;
 using UniversityOfMe.Repositories;
 using UniversityOfMe.Services.Dating;
 using UniversityOfMe.UserInformation;
+using UniversityOfMe.Helpers;
 
 namespace UniversityOfMe.Controllers.Dating {
     public class DatingController : UOFMeBaseController {
@@ -19,7 +20,7 @@ namespace UniversityOfMe.Controllers.Dating {
         IDatingService theDatingService;
 
         public DatingController() {
-            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())));
+            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()));
             theDatingService = new DatingService();
         }
 

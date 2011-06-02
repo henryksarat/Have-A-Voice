@@ -50,5 +50,10 @@ namespace HaveAVoice.Repositories.AdminFeatures {
                     where p.Name == aName
                     select p).Count() > 0;
         }
+
+
+        public IEnumerable<Permission> GetPermissionsForUserId(int aUserId) {
+            throw new NotImplementedException();
+        }
     }
 }
