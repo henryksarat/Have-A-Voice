@@ -31,6 +31,7 @@
 			    <% using (Html.BeginForm("Create", "Issue", FormMethod.Post, new { @class = "create" })) { %>
 	                <%= Html.Hidden("City", HAVUserInformationFactory.GetUserInformation().Details.City) %>
 	                <%= Html.Hidden("State", HAVUserInformationFactory.GetUserInformation().Details.State) %>
+                    <%= Html.Hidden("ZipCode", HAVUserInformationFactory.GetUserInformation().Details.Zip) %>
 
 	                <div class="col-4 m-rgt right">
 	                	<label for="Title">Title:</label>
