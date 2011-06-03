@@ -6,6 +6,7 @@ using HaveAVoice.Models;
 using Social.Admin.Helpers;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
+using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Services.Helpers {
     public class PrivacyHelper {
@@ -16,7 +17,7 @@ namespace HaveAVoice.Services.Helpers {
 
         public static bool IsAllowed(User aPrivacyUser, PrivacyAction aPrivacyAction, UserInformationModel<User> aViewingUser) {
             bool myIsAllowed = true;
-            if (aViewingUser != null && (aViewingUser.Details.Id == aPrivacyUser.Id)) {
+            if ((aViewingUser != null && (aViewingUser.Details.Id == aPrivacyUser.Id)) || (aPrivacyUser.Id == HAVConstants.PRIVATE_USER_ID)) {
                 return true;
             }
 

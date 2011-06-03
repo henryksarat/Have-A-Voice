@@ -16,11 +16,17 @@
 		<div class="m-lft col-14 comment">
 			<span class="speak-lft">&nbsp;</span>
 			<div class="p-a10">
-				<span class="fnt-14 teal">Regarding <a href="<%= LinkHelper.IssueUrl(Model.Issue.Title) %>" class="issue"><%= Model.Issue.Title %></a></span><br />
-				<a href="/Profile/Show/<%= Model.UserId %>" class="name"><%= Model.DisplayName %></a> 
+				<span class="fnt-14 teal">Regarding <a href="<%= LinkHelper.IssueUrl(Model.Issue.Title) %>" class="issueregarding"><%= Model.Issue.Title %></a></span><br />
+				<% if(Model.UserId == HAVConstants.PRIVATE_USER_ID) { %>
+                    <a href="#" class="name"><%= Model.DisplayName %> (unregistered)</a> 
+                <% } else { %>
+                    <a href="/Profile/Show/<%= Model.UserId %>" class="name"><%= Model.DisplayName %></a> 
+                <% } %>
                 <a href="<%= LinkHelper.IssueReplyUrl(Model.Id) %>" class="reply">says: </a>
 				<%= Model.Reply %> 
-                <a href="<%= LinkHelper.IssueReplyUrl(Model.Id) %>" class="read-more"> &raquo;&raquo;</a>
+                <% if (Model.UserId != HAVConstants.PRIVATE_USER_ID) { %>
+                    <a href="<%= LinkHelper.IssueReplyUrl(Model.Id) %>" class="read-more"> &raquo;&raquo;</a>
+                <% } %>
 				<br />
 				<span class="loc"><%= Model.Issue.City %>, <%= Model.Issue.State %></span> <span class="<%= Model.IconType %>" title="<%= Model.IconType %>">&nbsp;</span>
 				<div class="clear">&nbsp;</div>
@@ -33,16 +39,20 @@
 							<div class="clear">&nbsp;</div>
 						</div>
 						<div class="col-3 center">
-							<% if (Model.TotalComments == 0) { %>
-								&nbsp;
-								<a href="<%= LinkHelper.IssueReplyUrl(Model.Id) %>" class="comment">
-									Comment
-								</a>
-							<% } else { %>
-								<span class="comment"><%= Model.TotalComments%> 
-									Comment<% if (Model.TotalComments > 1) { %>s<% } %>
-								</span>
-							<% } %>
+                            <% if (Model.UserId != HAVConstants.PRIVATE_USER_ID) { %>
+							    <% if (Model.TotalComments == 0) { %>
+								    &nbsp;
+								    <a href="<%= LinkHelper.IssueReplyUrl(Model.Id) %>" class="comment">
+									    Comment
+								    </a>
+							    <% } else { %>
+								    <span class="comment"><%= Model.TotalComments%> 
+									    Comment<% if (Model.TotalComments > 1) { %>s<% } %>
+								    </span>
+							    <% } %>
+                            <% } else { %>
+                                &nbsp;
+                            <% } %> 
 						</div>
 						<div class="col-3 center">
 							<% if (Model.HasDisposition) { %>

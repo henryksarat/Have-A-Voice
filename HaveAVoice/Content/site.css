@@ -358,6 +358,7 @@ form.create input[type=button]:hover { color: #115f71; background: #fff; }
 a.name, a.name:link, a.name:visited { font-style: normal; font-weight: bold; text-decoration: none; color: #20a9c9; }
 a.name-2, a.name-2:link, a.name-2:visited { color: #fff; font-size: 12px; font-style: normal; font-weight: bold; text-decoration: none; }
 a.issue, a.issue:link, a.issue:visited { text-decoration: none; font-weight: bold; color: #fff; }
+a.issueregarding, a.issueregarding:link, a.issueregarding:visited { text-decoration: underline; background-color:#C0D8DE; color: #fff; font-size: 12px; font-style: normal; }
 a.iss-fnt, a.iss-fnt:link, a.iss-fnt:visited { text-decoration: none; color: #20a9c9; }
 a.read-more, a.read-more:link, a.read-more:visited { font-weight: bold; color: #2070c9; font-size: 10px; text-decoration: none; }
 span.loc { font-style: italic; font-size: 10px; text-transform: uppercase; }

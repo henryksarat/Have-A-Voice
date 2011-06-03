@@ -3,7 +3,7 @@
 <html>
 <body bgcolor="#01b1da">
     <span style="margin-left:25%; margin-right:75%; background-color:#01b1da">
-        <img src="/Content/images/down_splash.jpg" />
+        Excuse me you are at the wrong site... please go to www.haveavoice.com.
     </span>
     <span style="margin-left:75%; margin-right:25%">
 		<a href="http://www.facebook.com/pages/Have-a-Voice/131191370283424" target="_blank">
