@@ -92,7 +92,7 @@ namespace BaseWebsite.Controllers.Messaging {
                     TempData["Message"] = NormalMessage(NO_MESSAGES_TO_DELETE);
                 } else {
                     theService.DeleteMessages(selectedMessages, myUser);
-                    RefreshUserInformation();
+                    ForceUserInformationRefresh();
                     TempData["Message"] = SuccessMessage(MESSAGES_DELETED);
                 }
             } catch (Exception e) {

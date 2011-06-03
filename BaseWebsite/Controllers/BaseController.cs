@@ -65,17 +65,6 @@ namespace BaseWebsite.Controllers {
             return theUserInformation.GetUserInformaton();
         }
         
-        protected void RefreshUserInformation() {
-            UserInformationModel<T> myUserInformationModel = GetUserInformatonModel();
-            try {
-                myUserInformationModel =
-                    theAuthService.RefreshUserInformationModel(UserEmail(), UserPassword(), ProfilePictureStrategy());
-            } catch (Exception myException) {
-                LogError(myException, String.Format("Big problem! Was unable to refresg the user information model for userid={0}", UserId()));
-            }
-            Session["UserInformation"] = myUserInformationModel;
-        }
-        
         protected bool IsLoggedIn() {
             if (!HttpContext.User.Identity.IsAuthenticated) {
 

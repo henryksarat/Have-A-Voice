@@ -39,7 +39,7 @@ namespace HaveAVoice.Controllers.Users {
             try {
                 if (!theFanService.IsFan(myUser, id)) {
                     theFanService.Add(myUser, id);
-                    RefreshUserInformation();
+                    ForceUserInformationRefresh();
                     TempData["Message"] = MessageHelper.SuccessMessage(FAN_SUCCESS);
                 } else {
                     TempData["Message"] = MessageHelper.NormalMessage(ALREADY_FAN);
@@ -62,7 +62,7 @@ namespace HaveAVoice.Controllers.Users {
             try {
                 if (theFanService.IsFan(myUser, id)) {
                     theFanService.Remove(myUser, id);
-                    RefreshUserInformation();
+                    ForceUserInformationRefresh();
                     TempData["Message"] = MessageHelper.SuccessMessage(FAN_REMOVE_SUCCESS);
                 } else {
                     TempData["Message"] = MessageHelper.NormalMessage(NOT_FAN);

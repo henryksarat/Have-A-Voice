@@ -124,7 +124,7 @@ namespace BaseWebsite.Controllers.Friends {
                 if (myModel.Get().Count<A>() == 0) {
                     TempData["Message"] = NormalMessage(NO_FRIEND_REQUESTS);
                 }
-                RefreshUserInformation();
+                ForceUserInformationRefresh();
             } catch (Exception e) {
                 LogError(e, ErrorKeys.ERROR_MESSAGE);
                 ViewData[ERROR_MESSAGE_VIEWDATA] = ErrorMessage(ErrorKeys.ERROR_MESSAGE);
@@ -140,7 +140,7 @@ namespace BaseWebsite.Controllers.Friends {
             try {
                 theFriendService.ApproveFriend(id);
                 TempData[ERROR_MESSAGE_VIEWDATA] = SuccessMessage(APPROVED);
-                RefreshUserInformation();
+                ForceUserInformationRefresh();
             } catch (Exception e) {
                 LogError(e, ErrorKeys.ERROR_MESSAGE);
                 TempData[ERROR_MESSAGE_VIEWDATA] = ErrorMessage(ErrorKeys.ERROR_MESSAGE);
@@ -156,7 +156,7 @@ namespace BaseWebsite.Controllers.Friends {
             try {
                 theFriendService.DeclineFriend(id);
                 TempData[ERROR_MESSAGE_VIEWDATA] = SuccessMessage(DECLINED);
-                RefreshUserInformation();
+                ForceUserInformationRefresh();
             } catch (Exception e) {
                 LogError(e, ErrorKeys.ERROR_MESSAGE);
                 TempData[ERROR_MESSAGE_VIEWDATA] = ErrorMessage(ErrorKeys.ERROR_MESSAGE);

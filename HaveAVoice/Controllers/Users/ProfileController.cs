@@ -119,7 +119,7 @@ namespace HaveAVoice.Controllers.Users {
                 ViewData["Message"] = USER_PAGE_ERROR;
             }
 
-            RefreshUserInformation();
+            ForceUserInformationRefresh();
 
             return View("Show", myModel);
         }

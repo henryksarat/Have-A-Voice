@@ -240,6 +240,10 @@ namespace HaveAVoice.Services.UserFeatures {
                     TotalComments = myIssueReply.IssueReplyComments.Count
                 };
 
+                if (myUser.Id == HAVConstants.PRIVATE_USER_ID) {
+                    myFeedModel.DisplayName = myIssueReply.FirstName + " " + myIssueReply.LastName;
+                }
+
                 myFeedModels.Add(myFeedModel);
             }
 

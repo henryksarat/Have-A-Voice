@@ -82,7 +82,7 @@ namespace UniversityOfMe.Controllers.Profile {
 
             try {
                 theFeatureService.DisableFeature(GetUserInformatonModel().Details, feature);
-                RefreshUserInformation();
+                ForceUserInformationRefresh();
                 TempData["Message"] = FEATURE_UPDATED;
             } catch (Exception e) {
                 LogError(e, ErrorKeys.ERROR_MESSAGE);
