@@ -473,3 +473,5 @@ a.name:hover { text-decoration: underline; }
 	padding:20px;
 	color:#fff;	
 }
+
+.imagedisplay { width:100%; text-align:center }

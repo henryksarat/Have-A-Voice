@@ -10,39 +10,73 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    Photo details: <br />
-    <% Html.RenderPartial("Message"); %>
-    <% Html.RenderPartial("Validation"); %>    
-	    <% UserInformationModel<User> myUserInformationModel = UserInformationFactory.GetUserInformation(); %>
-	    <% if (myUserInformationModel.Details.Id == Model.Get().Photo.UploadedByUserId) { %>
-	        <%= Html.ActionLink("Set as profile picture", "SetProfilePicture", "Photo", new { id = Model.Get().Photo.Id }, null)%>
-            <%= Html.ActionLink("Set as album cover", "SetAlbumCover", "Photo", new { id = Model.Get().Photo.Id }, null)%>
-            <%= Html.ActionLink("Delete", "Delete", "Photo", new { id = Model.Get().Photo.Id, albumId = Model.Get().Photo.PhotoAlbumId }, null)%>
-	    <% } %>
-        <br />
+    <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
-        <% if (Model.Get().PreviousPhoto != null) { %>
-            <a href="/Photo/Display/<%= Model.Get().PreviousPhoto.Id %>">Previous</a>
-        <% } %>
-        <img src="<%= PhotoHelper.ConstructUrl(Model.Get().Photo.ImageName) %>" />
-        <% if (Model.Get().NextPhoto != null) { %>
-            <a href="/Photo/Display/<%= Model.Get().NextPhoto.Id %>">Next</a>
-        <% } %><br /><br />
-    Write comment:<br />
-    <% using (Html.BeginForm("Create", "PhotoComment", new { id = Model.Get().Photo.Id }, FormMethod.Post, null)) { %>
-        <div class="editor-field">
-            <%: Html.TextArea("Comment", null, 10, 30, null)%>
-            <%: Html.ValidationMessage("Comment", "*")%>
-        </div>
-
-		<input type="submit" value="Comment" />
-	<% } %><br /><br />
-
-    Comments: <br />
-    <% foreach (PhotoComment myComment in Model.Get().Photo.PhotoComments) { %>
-        <%= NameHelper.FullName(myComment.User) %><br />
-        <%= myComment.DateTimeStamp %><br />
-        <%= myComment.Comment %><br />
-        -----------------<br />
-    <% } %>
+	<div class="eight last">
+        <% Html.RenderPartial("Validation"); %>
+        <% Html.RenderPartial("Message"); %>
+		<div class="banner black full red-top small">
+			<span class="album">SAMPLE ALBUM <span class="user">by Anca Foster</span></span>
+			<div class="buttons">
+                <%= Html.ActionLink("Delete", "Delete", "Photo", new { id = Model.Get().Photo.Id, albumId = Model.Get().Photo.PhotoAlbumId }, new { @class = "remove mr17" })%>
+	            <%= Html.ActionLink("Set as Profile Picture", "SetProfilePicture", "Photo", new { id = Model.Get().Photo.Id }, new { @class = "profile mr22" })%>
+                <%= Html.ActionLink("Set as Album Cover", "SetAlbumCover", "Photo", new { id = Model.Get().Photo.Id }, new { @class = "create" })%>
+			</div>
+		</div>
+		<div class="image">
+            <% if (Model.Get().PreviousPhoto != null) { %>
+                <a href="/Photo/Display/<%= Model.Get().PreviousPhoto.Id %>" class="nav-btn flft clearfix">&lt; Previous</a>
+            <% } %>
+			
+            <% if (Model.Get().NextPhoto != null) { %>
+                <a href="/Photo/Display/<%= Model.Get().NextPhoto.Id %>" class="nav-btn frgt clearfix">Next &gt;</a>
+            <% } %>
+            <div class="imagedisplay">
+                <img src="<%= PhotoHelper.ConstructUrl(Model.Get().Photo.ImageName) %>" alt="photo" />
+            </div>
+		</div>
+					
+		<div class="banner full">
+			COMMENTS
+		</div>
+							
+		<div id="review">
+			<div class="create">
+                <% using (Html.BeginForm("Create", "PhotoComment", new { id = Model.Get().Photo.Id }, FormMethod.Post, null)) { %>
+				    <%= Html.TextArea("Comment", string.Empty, 6, 0, new { @class = "full" })%>
+                    <%= Html.ValidationMessage("Comment", "*")%>
+									
+				    <div class="frgt mt13">
+					    <input type="submit" class="frgt btn site" name="post" value="Post Comment" />
+				    </div>
+				    <div class="clearfix"></div>
+                <% } %>
+			</div>
+								
+			<div class="clearfix"></div>
+							
+            <% foreach (PhotoComment myComment in Model.Get().Photo.PhotoComments) { %>	
+			    <div class="review">
+				    <table border="0" cellpadding="0" cellspacing="0">
+					    <tr>
+						    <td class="avatar">
+							    <img src="<%= PhotoHelper.ProfilePicture(myComment.User) %>" class="profile big mr22" />
+						    </td>
+						    <td>
+							    <div class="red bld"><%= NameHelper.FullName(myComment.User) %>
+								    <div class="frgt">
+									    <span class="gray small nrm"><%= DateHelper.ToLocalTime(myComment.DateTimeStamp) %></span>
+								    </div>
+							    </div>
+							    <%= myComment.Comment %>
+						    </td>
+					    </tr>
+				    </table>
+		
+				    <div class="clearfix"></div>
+			    </div>
+            <% } %>
+		</div>
+					
+	</div>
 </asp:Content>
