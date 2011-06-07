@@ -11,11 +11,10 @@
     
     <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
-    <% Html.RenderPartial("Message"); %>
-    <% Html.RenderPartial("Validation"); %>
-
-
 	<div class="eight last">
+        <% Html.RenderPartial("Message"); %>
+        <% Html.RenderPartial("Validation"); %>
+
 		<div class="banner title black full red-top small">
 			<span><%= Model.Get().Subject %></span>
 			<div class="buttons">

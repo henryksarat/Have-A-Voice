@@ -124,6 +124,7 @@
     <Compile Include="Helpers\FriendHelper.cs" />
     <Compile Include="Helpers\Functionality\ClubHelper.cs" />
     <Compile Include="Helpers\GetUserStrategy.cs" />
+    <Compile Include="Helpers\MessageHelper.cs" />
     <Compile Include="Helpers\NameHelper.cs" />
     <Compile Include="Helpers\NavigationCountHelper.cs" />
     <Compile Include="Helpers\PhotoHelper.cs" />
