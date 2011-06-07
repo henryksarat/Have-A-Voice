@@ -37,6 +37,16 @@ namespace UniversityOfMe.Helpers {
             return "/ClubPhotos/" + aPhoto;
         }
 
+        public static string ProfessorPhoto(Professor aProfessor) {
+            string aPhoto = aProfessor.ProfessorImage;
+
+            if (string.IsNullOrEmpty(aPhoto)) {
+                aPhoto = "no_professor_photo.jpg";
+            }
+
+            return "/ProfessorPhotos/" + aPhoto;
+        }
+
         public static string AnonymousProfilePicture() {
             return Social.Generic.Constants.Constants.ANONYMOUS_PICTURE_URL;
         }

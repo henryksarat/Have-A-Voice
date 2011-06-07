@@ -33,7 +33,7 @@
 		</div>
 					
 		<div class="flft max-w207 mr21 center clearfix">
-			<img src="http://www.cs.auckland.ac.nz/webdav/site/cs/shared/news/images/NewHOD.jpg" alt="Prof. Martha Nussabaum" />
+			<img src="<%= PhotoHelper.ProfessorPhoto(Model.Get().Professor) %>" alt="Prof. <%= Model.Get().ProfessorName %>" />
 			<input type="button" class="btn" value="Suggest a photo" />
 		</div>
 		<div class="flft max-w590 wp69 clearfix">
@@ -115,6 +115,18 @@
                 <% } %>
 			</div>
 					
+            <% if (Model.Get().Professor.ProfessorReviews.Count == 0) { %>
+			    <div class="review">
+				    <table border="0" cellpadding="0" cellspacing="0">
+					    <tr>
+						    <td>
+                                There are no reviews
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            <% } %>
+
             <% foreach (ProfessorReview myReview in Model.Get().Professor.ProfessorReviews.OrderByDescending(b => b.Id)) { %>
 			    <div class="review">
 				    <table border="0" cellpadding="0" cellspacing="0">
