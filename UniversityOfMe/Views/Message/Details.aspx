@@ -14,31 +14,63 @@
     <% Html.RenderPartial("Message"); %>
     <% Html.RenderPartial("Validation"); %>
 
-    <a href="<%= URLHelper.ProfileUrl(Model.Get().FromUser)  %>"><img src="<%= PhotoHelper.ProfilePicture(Model.Get().FromUser) %>" /></a>
-    <%= NameHelper.FullName(Model.Get().FromUser)  %><br />
-    Subject: <%= Model.Get().Subject %><br />
-    Body: <%= Model.Get().Body %><br /><br />
 
-    <% foreach (MessageReply myReply in Model.Get().MessageReplies) { %>    
-        <a href="<%= URLHelper.ProfileUrl(myReply.User)  %>"><img src="<%= PhotoHelper.ProfilePicture(myReply.User) %>" /></a>
-        <%= NameHelper.FullName(myReply.User)  %><br />
-        <%= myReply.DateTimeStamp %><br />
-        <%= myReply.Body %><br />
-    <% } %>
+	<div class="eight last">
+		<div class="banner title black full red-top small">
+			<span><%= Model.Get().Subject %></span>
+			<div class="buttons">
+                <% using (Html.BeginForm("Delete", "Message")) {%>
+                    <%= Html.Hidden("MessageId", Model.Get().Id) %>
+			        <button type="submit" class="imagebutton">
+                        <img src="/Content/Images/trash.PNG" alt="submit" />
+                    </button>
+                <% } %>
+			</div>
+		</div>
+		<div class="box table wp100">
+			<div class="cell w60">
+				<img src="<%= PhotoHelper.ProfilePicture(Model.Get().FromUser) %>" class="profile big" />
+			</div>
+			<div class="cell pl23">
+				<label for="from">From:</label>
+				<%= NameHelper.FullName(Model.Get().FromUser) %>
+			</div>
+			<div class="cell right">
+				<%= DateHelper.ToLocalTime(Model.Get().DateTimeStamp) %>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<p class="pt18 plr13">
+			<%= Model.Get().Body %>
+		</p>
 
-    <% using (Html.BeginForm("CreateReply", "Message")) {%>
-        <%= Html.Hidden("MessageId", Model.Get().Id) %>
+        <% foreach(MessageReply myReply in Model.Get().MessageReplies.OrderByDescending(m => m.DateTimeStamp)) { %>
+		    <div class="review clearfix">
+			    <div class="flft w60 mr22">
+				    <img src="<%= PhotoHelper.ProfilePicture(myReply.User) %>" class="profile big" />
+			    </div>
+			    <div class="flft wp80">
+				    <div class="msg-gray bld"><%= Model.User.Id == myReply.ReplyUserId ? "You said" : "They said" %>
+					    <div class="frgt nrm small">
+						    <%= DateHelper.ToLocalTime(myReply.DateTimeStamp) %>
+					    </div>
+				    </div>
+				    <%= myReply.Body %>
+			    </div>
+		    </div>
+        <% } %>
 
-        <div class="editor-label">
-            <%= Html.Label("Reply")%>
-        </div>
-        <div class="editor-field">
-            <%= Html.TextArea("Reply", null, 10, 30, null)%>
-            <%= Html.ValidationMessage("Reply", "*")%>
-        </div>
+		<div class="create">
+			<span class="reply">Reply</span>
+            <% using (Html.BeginForm("CreateReply", "Message")) {%>
+                <%= Html.Hidden("MessageId", Model.Get().Id) %>
+                <%= Html.TextArea("Reply", string.Empty, 6, 0, new { @class = "full" } ) %>
+			    <div class="right">
+				    <input type="submit" class="btn" value="Reply" name="submit" id="submit" />
+			    </div>
+            <% } %>
+            <%= Html.ActionLink("Back to messages", "Inbox", "Message", new { @class = "back" })%>
+		</div>
+	</div>
 
-        <p>
-            <input type="submit" value="Send" />
-        </p>
-    <% } %>
 </asp:Content>

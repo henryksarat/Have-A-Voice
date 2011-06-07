@@ -38,7 +38,14 @@ namespace UniversityOfMe.Controllers.Messaging {
 
         [AcceptVerbs(HttpVerbs.Post)]
         new public ActionResult Inbox(List<Int32> selectedMessages) {
-            return base.Inbox(selectedMessages);
+            return base.DeleteMessages(selectedMessages);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Delete(int messageId) {
+            List<Int32> myDeleted = new List<Int32>();
+            myDeleted.Add(messageId);
+            return base.DeleteMessages(myDeleted);
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]

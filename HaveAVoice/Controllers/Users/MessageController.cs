@@ -42,7 +42,7 @@ namespace HaveAVoice.Controllers.Users {
 
         [AcceptVerbs(HttpVerbs.Post)]
         new public ActionResult Inbox(List<Int32> selectedMessages) {
-            return base.Inbox(selectedMessages);
+            return base.DeleteMessages(selectedMessages);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
