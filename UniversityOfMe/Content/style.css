@@ -236,9 +236,9 @@ ul.members {}
 ul.members li { width: 166px; margin: 4px; background: #f3f3f0; color: #6d6d6d; font-size: 12px; float: left; padding: 4px; }
 
 ul.friend-list {}
-ul.friend-list li { max-width: 259px; width: 30%; float: left; margin-bottom: 5%; }
+ul.friend-list li { max-width: 259px; width: 30%; float: left; margin-bottom: 5%; margin-left: 1%; margin-right: 1%; }
 ul.friend-list li div { padding: 9px 14px; background: #f3f3f0; color: #6d6d6d; font-size: 12px; }
-ul.friend-list li:nth-child(3n+2) { margin-left: 5%; margin-right: 5%; }
+ul.friend-list li:nth-child(3n+2) { margin-left: 1%; margin-right: 1%; }
 
 
 /*** BANNER BUTTONS ***/

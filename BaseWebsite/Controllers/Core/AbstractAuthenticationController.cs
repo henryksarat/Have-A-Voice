@@ -116,6 +116,8 @@ namespace BaseWebsite.Controllers.Core {
 
             TempData["Message"] = SuccessMessage(AuthenticationKeys.LOGGED_OUT);
 
+            ForceUserInformationRefresh();
+
             FormsAuthentication.RedirectToLoginPage();
 
             return RedirectToAction("Login");
