@@ -9,12 +9,13 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <% Html.RenderPartial("Message"); %>
-    <% Html.RenderPartial("Validation"); %>
     <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
     <% using (Html.BeginForm("Inbox", "Message", FormMethod.Post)) { %>
 
 	    <div class="eight last"> 
+            <% Html.RenderPartial("Message"); %>
+            <% Html.RenderPartial("Validation"); %>
+
 		    <div class="banner title black full red-top small"> 
 			    <span>MESSAGE INBOX</span> 
 			    <div class="buttons"> 

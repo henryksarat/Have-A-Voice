@@ -14,12 +14,10 @@
 
     <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
-    <% Html.RenderPartial("Message"); %>
-    <% Html.RenderPartial("Validation"); %>
-
-
-
 	<div class="eight last"> 
+        <% Html.RenderPartial("Message"); %>
+        <% Html.RenderPartial("Validation"); %>
+
 		<div class="banner black full red-top small"> 
 			<span class="event">EVENT: <%=Model.Get().Title %></span> 
 		</div> 

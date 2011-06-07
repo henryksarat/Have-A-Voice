@@ -11,6 +11,9 @@
     <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
 	<div class="eight last"> 
+        <% Html.RenderPartial("Message"); %>
+        <% Html.RenderPartial("Validation"); %>
+
 		<div class="banner black full red-top small"> 
 			<span class="mine"><%= NameHelper.FullName(Model.User) %> - ALBUMS</span> 
 			<div class="buttons"> 

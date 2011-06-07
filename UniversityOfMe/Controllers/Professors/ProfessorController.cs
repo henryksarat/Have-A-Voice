@@ -99,57 +99,10 @@ namespace UniversityOfMe.Controllers.Professors {
             bool myResult = theProfessorService.CreateProfessor(GetUserInformatonModel(), universityId, firstName, lastName, professorImage);
 
             if (myResult) {
-                return SendToResultPage(PROFESSOR_CREATED);
+                return RedirectToAction("Details", new { universityId = universityId, id = URLHelper.ToUrlFriendly(firstName + " " + lastName) });
             }
 
             return RedirectToAction("Create");
-        }
-
-        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
-        public ActionResult Details2(string universityId, string id) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            try {
-                User myUser = GetUserInformatonModel().Details;
-
-                if (!UniversityHelper.IsFromUniversity(myUser, universityId)) {
-                    return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
-                }
-                bool myExists = theProfessorService.IsProfessorExists(universityId, id);
-
-                if (!myExists) {
-                    TempData["Message"] = PROFESSOR_DOESNT_EXIST;
-                    return RedirectToAction("Create", "Professor");
-                }
-
-                Professor myProfessor = theProfessorService.GetProfessor(GetUserInformatonModel(), universityId, id);
-
-                if (myProfessor.ProfessorReviews.Count() == 0) {
-                    ViewData["Message"] = NO_PROFESSOR_REVIEWS;
-                }
-
-                IDictionary<string, string> myAcademicTerms = DictionaryHelper.DictionaryWithSelect();
-                myAcademicTerms = theUniversityService.CreateAcademicTermsDictionaryEntry();
-
-                LoggedInWrapperModel<CreateProfessorReviewModel> myLoggedIn = new LoggedInWrapperModel<CreateProfessorReviewModel>(myUser);
-                CreateProfessorReviewModel myProfessorReview = new CreateProfessorReviewModel() {
-                    Professor = myProfessor,
-                    ProfessorName = myProfessor.FirstName + " " + myProfessor.LastName,
-                    AcademicTerms = new SelectList(myAcademicTerms, "Value", "Key"),
-                    Years = new SelectList(UOMConstants.ACADEMIC_YEARS, DateTime.UtcNow.Year)
-                };
-
-                myLoggedIn.Set(myProfessorReview);
-
-                return View("Details2", myLoggedIn);
-            } catch (CustomException myException) {
-                LogError(myException, myException.Message + ", name=" + id);
-            } catch (Exception myException) {
-                LogError(myException, ErrorKeys.ERROR_MESSAGE);
-            }
-
-            return SendToErrorPage(ErrorKeys.ERROR_MESSAGE);
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
@@ -166,14 +119,14 @@ namespace UniversityOfMe.Controllers.Professors {
                 bool myExists = theProfessorService.IsProfessorExists(universityId, id);
 
                 if (!myExists) {
-                    TempData["Message"] = PROFESSOR_DOESNT_EXIST;
+                    TempData["Message"] = NormalMessage(PROFESSOR_DOESNT_EXIST);
                     return RedirectToAction("Create", "Professor");
                 }
 
                 Professor myProfessor = theProfessorService.GetProfessor(GetUserInformatonModel(), universityId, id);
 
                 if (myProfessor.ProfessorReviews.Count() == 0) {
-                    ViewData["Message"] = NO_PROFESSOR_REVIEWS;
+                    ViewData["Message"] = NormalMessage(NO_PROFESSOR_REVIEWS);
                 }
 
                 IDictionary<string, string> myAcademicTerms = DictionaryHelper.DictionaryWithSelect();
@@ -225,42 +178,6 @@ namespace UniversityOfMe.Controllers.Professors {
             }
 
             return RedirectToAction("Details", new { id = URLHelper.ToUrlFriendly(firstName + " " + lastName) });
-        }
-
-        protected override AbstractUserModel<User> GetSocialUserInformation() {
-            return SocialUserModel.Create(GetUserInformaton());
-        }
-
-        protected override AbstractUserModel<User> CreateSocialUserModel(User aUser) {
-            return SocialUserModel.Create(aUser);
-        }
-
-        protected override IProfilePictureStrategy<User> ProfilePictureStrategy() {
-            return new ProfilePictureStrategy();
-        }
-
-        protected override string UserEmail() {
-            return GetUserInformaton().Email;
-        }
-
-        protected override string UserPassword() {
-            return GetUserInformaton().Password;
-        }
-
-        protected override int UserId() {
-            return GetUserInformaton().Id;
-        }
-
-        protected override string ErrorMessage(string aMessage) {
-            return aMessage;
-        }
-
-        protected override string NormalMessage(string aMessage) {
-            return aMessage;
-        }
-
-        protected override string SuccessMessage(string aMessage) {
-            return aMessage;
         }
     }
 }

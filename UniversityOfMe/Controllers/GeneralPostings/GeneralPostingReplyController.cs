@@ -48,41 +48,5 @@ namespace UniversityOfMe.Controllers.Classes {
 
             return RedirectToAction("Details", "GeneralPosting", new { id = generalPostingId });
         }
-        
-        protected override AbstractUserModel<User> GetSocialUserInformation() {
-            return SocialUserModel.Create(GetUserInformaton());
-        }
-
-        protected override AbstractUserModel<User> CreateSocialUserModel(User aUser) {
-            return SocialUserModel.Create(aUser);
-        }
-
-        protected override IProfilePictureStrategy<User> ProfilePictureStrategy() {
-            return new ProfilePictureStrategy();
-        }
-
-        protected override string UserEmail() {
-            return GetUserInformaton().Email;
-        }
-
-        protected override string UserPassword() {
-            return GetUserInformaton().Password;
-        }
-
-        protected override int UserId() {
-            return GetUserInformaton().Id;
-        }
-
-        protected override string ErrorMessage(string aMessage) {
-            return aMessage;
-        }
-
-        protected override string NormalMessage(string aMessage) {
-            return aMessage;
-        }
-
-        protected override string SuccessMessage(string aMessage) {
-            return aMessage;
-        }
     }
 }

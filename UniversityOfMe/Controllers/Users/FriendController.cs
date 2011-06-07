@@ -83,15 +83,15 @@ namespace UniversityOfMe.Controllers.Users {
         }
 
         protected override string ErrorMessage(string aMessage) {
-            return aMessage;
+            return MessageHelper.ErrorMessage(aMessage);
         }
 
         protected override string NormalMessage(string aMessage) {
-            return aMessage;
+            return MessageHelper.NormalMessage(aMessage);
         }
 
         protected override string SuccessMessage(string aMessage) {
-            return aMessage;
+            return MessageHelper.SuccessMessage(aMessage);
         }
 
         protected override ILoggedInListModel<Friend> CreateLoggedInListModel(User aUser) {

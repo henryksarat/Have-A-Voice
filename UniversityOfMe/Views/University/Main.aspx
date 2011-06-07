@@ -11,6 +11,9 @@
     <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
 	<div class="eight last"> 
+        <% Html.RenderPartial("Message"); %>
+        <% Html.RenderPartial("Validation"); %>
+
 		<div class="form"> 
 			<ul class="full"> 
 				<li class="professor"> 

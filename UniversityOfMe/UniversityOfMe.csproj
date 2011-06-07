@@ -375,7 +375,6 @@
     <Content Include="Views\PhotoAlbum\List.aspx" />
     <Content Include="Views\Photo\Display.aspx" />
     <Content Include="Views\ProfessorReview\Create.aspx" />
-    <Content Include="Views\Professor\Details2.aspx" />
     <Content Include="Views\Professor\Create.aspx" />
     <Content Include="Views\Professor\Details.aspx" />
     <Content Include="Views\Professor\List.aspx" />
@@ -498,7 +497,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>10827</DevelopmentServerPort>
+          <DevelopmentServerPort>4050</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
