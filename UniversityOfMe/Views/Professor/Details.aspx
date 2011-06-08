@@ -99,11 +99,11 @@
                 <% using (Html.BeginForm("Create", "ProfessorReview")) {%>
                     <%= Html.Hidden("ProfessorId", Model.Get().Professor.Id)%>
                     <%= Html.Hidden("ProfessorName", Model.Get().ProfessorName)%>
-				    <label for="class">Class Title:</label>
+				    <label for="class">Class Code:</label>
 				    <%= Html.TextBox("Class", string.Empty)%>
                     <%= Html.ValidationMessage("Class", "*")%>
 							
-				    <label for="AcademicTermId">Academic Term:</label>
+				    <label for="AcademicTermId">Term:</label>
                     <%= Html.DropDownList("AcademicTermId", Model.Get().AcademicTerms)%>
                     <%= Html.ValidationMessage("AcademicTermId", "*")%>
 							
