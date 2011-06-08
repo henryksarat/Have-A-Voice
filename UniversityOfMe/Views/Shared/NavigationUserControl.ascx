@@ -31,8 +31,12 @@
 		<li> 
 			<a href="/PhotoAlbum/List">My Photos</a> 
 		</li> 
-		<li> 
+		<li class="has-sub-account"> 
 			<a href="#">Account</a> 
+			<div class="sub-nav"> 
+				<a href="/User/Edit">Account Settings</a> 
+				<a href="/Friend/Pending">Privacy Settings</a> 
+			</div> 
 		</li> 
 	</ul> 
 	<div class="clearfix"></div> 

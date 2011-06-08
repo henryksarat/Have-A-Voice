@@ -17,8 +17,6 @@
                 $("#requestToSubmit").hide();
             });
         });
-
-        function request_click() { alert("Save"); }
     </script>
     <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 

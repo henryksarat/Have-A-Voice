@@ -19,11 +19,11 @@
 				<span class="album">CREATE ALBUM</span> 
 			</div> 
             <% using (Html.BeginForm("Create", "PhotoAlbum", FormMethod.Post)) {%>
-			    <label for="title">Title:</label> 
-			    <input type="text" class="half" name="title" id="title" /> 
-                <%= Html.ValidationMessage("Title", "*")%>
+			    <label for="name">Title:</label> 
+                <%= Html.TextBox("Name", string.Empty, new { @class = "half" }) %>
+                <%= Html.ValidationMessage("Name", "*")%>
 			    <label for="desc" class="mt25">Description:</label> 
-			    <textarea name="desc" id="desc" class="full" rows="6"></textarea> 
+			    <%= Html.TextArea("Description", string.Empty, 6, 0, new { @class = "full" })%>
                 <%= Html.ValidationMessage("Description", "*")%>
 			    <div class="right"> 
 				    <input type="submit" name="submit" class="btn teal mr14" value="Submit" /> 

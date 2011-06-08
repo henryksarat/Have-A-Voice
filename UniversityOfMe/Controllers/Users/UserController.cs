@@ -106,19 +106,19 @@ namespace UniversityOfMe.Controllers.Users {
 
                 if (theUserService.EditUser(userToEdit, myPassword)) {
                     if (string.IsNullOrEmpty(userToEdit.NewEmail)) {
-                        TempData["Message"] = EDIT_SUCCESS;
+                        TempData["Message"] = SuccessMessage(EDIT_SUCCESS);
                     } else {
-                        TempData["Message"] = EDIT_SUCCESS + " To finalize the email change please click the link sent to the new email you entered to confirm you are teh owner.";
+                        TempData["Message"] = SuccessMessage(EDIT_SUCCESS + " To finalize the email change please click the link sent to the new email you entered to confirm you are teh owner.");
                     }
                     RefreshUserInformation(userToEdit.Email, myPassword);
                     return RedirectToAction("Edit");
                 }
             } catch(CustomException myException) {
                 LogError(myException, myException.Message);
-                TempData["Message"] = myException.Message;
+                TempData["Message"] = ErrorMessage(myException.Message);
             } catch (Exception exception) {
                 LogError(exception, "Error editing the user.");
-                TempData["Message"] = "An error has occurred please try your submission again later.";
+                TempData["Message"] = ErrorMessage("An error has occurred please try your submission again later.");
                 theValidationDictionary.ForceModleStateExport();
             }
 

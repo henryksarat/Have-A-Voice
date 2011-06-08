@@ -11,6 +11,7 @@ using UniversityOfMe.Models.Social;
 using System.Collections;
 using System.Collections.Generic;
 using System.Web;
+using System.Linq;
 
 namespace UniversityOfMe.Services.Photos {
     public class UofMePhotoService : PhotoService<User, PhotoAlbum, Photo, Friend>, IUofMePhotoService {
@@ -40,7 +41,7 @@ namespace UniversityOfMe.Services.Photos {
             Photo myNextPhoto = null;
             bool myIsCurrentPhoto = false;
 
-            foreach (Photo myOtherPhoto in myOtherPhotos) {
+            foreach (Photo myOtherPhoto in myOtherPhotos.Where(p => !p.ProfilePicture)) {
                 if (!myIsCurrentPhoto && myOtherPhoto.Id != myPhoto.Id) {
                     myPreviousPhoto = myOtherPhoto;
                 } else if (myOtherPhoto.Id == myPhoto.Id) {

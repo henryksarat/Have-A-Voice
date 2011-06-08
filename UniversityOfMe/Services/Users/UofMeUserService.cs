@@ -140,12 +140,12 @@ namespace UniversityOfMe.Services.Users {
         }
 
         private bool ValidEmail(string anEmail, string anOriginalEmail) {
-            if (!EmailValidation.IsValidEmail(anEmail)) {
+            if (!String.IsNullOrEmpty(anEmail) && !EmailValidation.IsValidEmail(anEmail)) {
                 theValidationDictionary.AddError("Email", anEmail.Trim(), INVALID_EMAIL);
             } else if (anOriginalEmail != null && (anOriginalEmail != anEmail)
                 && (theUserRepository.EmailRegistered(anEmail))) {
                 theValidationDictionary.AddError("Email", anEmail, "Someone already registered with that email. Please try another one.");
-            } else {
+            } else if (!String.IsNullOrEmpty(anEmail)) {
                 UniversityHelper.IsValidUniversityEmail(anEmail, theValidationDictionary);
             }
 

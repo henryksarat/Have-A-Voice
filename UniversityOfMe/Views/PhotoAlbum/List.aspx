@@ -21,13 +21,13 @@
 			</div> 
 		</div> 
         <% foreach (PhotoAlbum myAlbum in Model.Get()) { %>
-		<div class="album"> 
-			<a href="<%= URLHelper.PhotoAlbumDetailsUrl(myAlbum) %>"> 
-				<img src="<%= PhotoHelper.PhotoAlbumCover(myAlbum) %>" alt="photo" /> 
-				<br /> 
-				<%= myAlbum.Name%>
-			</a> 
-		</div> 
+		    <div class="album"> 
+			    <a href="<%= URLHelper.PhotoAlbumDetailsUrl(myAlbum) %>"> 
+				    <img src="<%= PhotoHelper.PhotoAlbumCover(myAlbum) %>" alt="photo" /> 
+				    <br /> 
+				    <%= myAlbum.Name%>
+			    </a> 
+		    </div> 
         <% } %>
 	</div> 	
 </asp:Content>
