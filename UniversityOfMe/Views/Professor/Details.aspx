@@ -10,8 +10,15 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <script type="text/javascript" language="javascript">
         $(document).ready(function () {
+            $("#submitPhoto").hide();
             $("#stars-wrapper1").stars();
+            $('#request').click(function () {
+                $("#submitPhoto").show();
+                $("#requestToSubmit").hide();
+            });
         });
+
+        function request_click() { alert("Save"); }
     </script>
     <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
@@ -31,10 +38,23 @@
 				</div>
 			</div>
 		</div>
-					
+
 		<div class="flft max-w207 mr21 center clearfix">
 			<img src="<%= PhotoHelper.ProfessorPhoto(Model.Get().Professor) %>" alt="Prof. <%= Model.Get().ProfessorName %>" />
-			<input type="button" class="btn" value="Suggest a photo" />
+
+		    <div id="submitPhoto">
+			    <% using (Html.BeginForm("SuggestProfessorPicture", "Professor", FormMethod.Post, FormMethod.Post, new { enctype = "multipart/form-data", @class = "create btint-6" })) {%>
+                    <%= Html.Hidden("ProfessorId", Model.Get().Professor.Id)%>
+                    <%= Html.Hidden("FirstName", Model.Get().Professor.FirstName)%>
+                    <%= Html.Hidden("LastName", Model.Get().Professor.LastName)%>
+			        <input type="file" id="ProfessorImage" name="ProfessorImage" size="23" /><br />
+                
+                    <input type="submit" class="btn" value="Submit Suggestion" />
+                <% } %>
+            </div>
+		    <div id="requestToSubmit">
+                <input id="request" type="submit" class="btn" value="Suggest a photo" />
+            </div>
 		</div>
 		<div class="flft max-w590 wp69 clearfix">
 					

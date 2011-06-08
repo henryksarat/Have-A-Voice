@@ -2,6 +2,6 @@
     public class ProfessorConstants {
         public const string PROFESSOR_PHOTO_PATH = "/ProfessorPhotos/";
         public const string NO_PROFESOR_IMAGE = "no_professor_photo.jpg";
-        public const int PROFESSOR_MAX_SIZE = 120;
+        public const int PROFESSOR_MAX_SIZE = 207;
     }
 }

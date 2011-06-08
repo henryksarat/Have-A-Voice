@@ -40,6 +40,10 @@ namespace UniversityOfMe.Helpers {
         public static string ProfessorPhoto(Professor aProfessor) {
             string aPhoto = aProfessor.ProfessorImage;
 
+            if (aProfessor.ProfessorSuggestedPhotoId != null) {
+                aPhoto = aProfessor.ProfessorSuggestedPhoto.ImageName;
+            }
+
             if (string.IsNullOrEmpty(aPhoto)) {
                 aPhoto = "no_professor_photo.jpg";
             }
