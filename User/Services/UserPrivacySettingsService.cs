@@ -45,7 +45,7 @@ namespace Social.User.Services {
                 });
             }
 
-            myPairedPrivacySettings = myPairedPrivacySettings.OrderByDescending(p => p.First.ListOrder).ToList();
+            myPairedPrivacySettings = myPairedPrivacySettings.OrderBy(p => p.First.ListOrder).ToList();
 
             IEnumerable<string> myGroups = (from p in myAllPrivacySettings
                                             select p.PrivacyGroup).Distinct<string>().ToList<string>();

@@ -80,10 +80,12 @@
     <Compile Include="Controllers\Users\AbstractUserController.cs" />
     <Compile Include="Controllers\Messaging\AbstractMessageController.cs" />
     <Compile Include="Controllers\Friends\AbstractFriendController.cs" />
+    <Compile Include="Controllers\Users\AbstractUserPrivacySettingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\SiteSection.cs" />
+    <Compile Include="Models\DisplayPrivacySettingsModel.cs" />
     <Compile Include="Models\ILoggedInListModel.cs" />
     <Compile Include="Models\ILoggedInModel.cs" />
     <Compile Include="Models\SwitchUserRoles.cs" />
@@ -104,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\Binders\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Admin\Admin.csproj">
@@ -166,7 +169,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>33206</DevelopmentServerPort>
+          <DevelopmentServerPort>23183</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

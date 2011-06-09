@@ -82,13 +82,14 @@ namespace BaseWebsite.Controllers.Photos {
                 bool myResult = thePhotoAlbumService.CreatePhotoAlbum(myUser, name, description);
                 if (myResult) {
                     TempData["Message"] = SuccessMessage(CREATED_SUCCESS);
+                    return RedirectToAction(LIST_VIEW);
                 }
             } catch (Exception myException) {
                 TempData["Message"] = ErrorMessage(CREATED_FAIL);
                 LogError(myException, CREATED_FAIL);
             }
 
-            return RedirectToAction(LIST_VIEW);
+            return RedirectToAction("Create");
         }
 
         protected ActionResult Delete(int id) {
@@ -182,7 +183,7 @@ namespace BaseWebsite.Controllers.Photos {
             try {
                 myModel.Set(thePhotoAlbumService.GetPhotoAlbumsForUser(CreateSocialUserModel(aRequestingUser), aUserIdOfAlbum));
                 if (myModel.Get().Count<A>() == 0) {
-                    TempData["Message"] = NO_ALBUMS;
+                    TempData["Message"] = NormalMessage(NO_ALBUMS);
                 }
             } catch (NotFriendException e) {
                 return SendToErrorPage(ErrorKeys.NOT_FRIEND);

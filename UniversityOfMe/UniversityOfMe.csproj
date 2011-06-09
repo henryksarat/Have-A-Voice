@@ -69,6 +69,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Users\UserPrivacySettingController.cs" />
     <Compile Include="CustomAuthentication\AdminMemberProvider .cs">
       <SubType>Code</SubType>
     </Compile>
@@ -139,6 +140,7 @@
     <Compile Include="Helpers\UOMConstants.cs" />
     <Compile Include="Helpers\UOMErrorKeys.cs" />
     <Compile Include="Helpers\URLHelper.cs" />
+    <Compile Include="Models\Binders\UpdatePrivacySettingsModelBinder.cs" />
     <Compile Include="Models\Social\SocialBoardModel.cs" />
     <Compile Include="Models\Social\SocialBoardReplyModel.cs" />
     <Compile Include="Models\Social\SocialMessageModel.cs" />
@@ -252,10 +254,6 @@
     <Compile Include="Models\View\RoleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\UniversityOfMe.mdf" />
-    <Content Include="App_Data\UniversityOfMe_log.ldf">
-      <DependentUpon>UniversityOfMe.mdf</DependentUpon>
-    </Content>
     <Content Include="ClubPhotos\chessteam_1017192034.jpg" />
     <Content Include="ClubPhotos\no_photo.png" />
     <Content Include="Content\css\ui-lightness\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
@@ -336,10 +334,6 @@
     <Content Include="Content\js\jquery.tools.min.js" />
     <Content Include="Content\style.css" />
     <Content Include="Global.asax" />
-    <Content Include="Photos\19_-1428259864.jpg" />
-    <Content Include="Photos\19_-76090981-profile.jpg" />
-    <Content Include="Photos\19_1499287313.jpg" />
-    <Content Include="Photos\19_2031699393.jpg" />
     <Content Include="Photos\nophotos.jpg" />
     <Content Include="Photos\no_profile_picture.jpg" />
     <Content Include="Views\Admin\Index.aspx" />
@@ -396,6 +390,7 @@
     <Content Include="Views\TextBook\Details.aspx" />
     <Content Include="Views\TextBook\List.aspx" />
     <Content Include="Views\University\Main.aspx" />
+    <Content Include="Views\UserPrivacySetting\Edit.aspx" />
     <Content Include="Views\User\Create.aspx" />
     <Content Include="Views\User\Edit.aspx" />
     <Content Include="Web.config" />
@@ -422,6 +417,7 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Models\Wrappers\" />
     <Folder Include="ProfessorPhotos\" />
     <Folder Include="TextBookPhotos\" />
@@ -497,7 +493,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>4050</DevelopmentServerPort>
+          <DevelopmentServerPort>23173</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

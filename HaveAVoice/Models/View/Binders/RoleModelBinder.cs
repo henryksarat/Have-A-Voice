@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using Social.Generic.Helpers;
 
 namespace HaveAVoice.Models.View {
     public class RoleModelBinder : IModelBinder {

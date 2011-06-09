@@ -479,3 +479,5 @@ a.name:hover { text-decoration: underline; }
 
 .imagedisplay { width:100%; text-align:center }
 
+.underline-heading { border-bottom: 1px solid #e5e5e5; }
+

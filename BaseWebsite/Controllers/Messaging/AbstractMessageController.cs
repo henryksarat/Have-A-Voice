@@ -81,7 +81,7 @@ namespace BaseWebsite.Controllers.Messaging {
             return View(INBOX_VIEW, myModel);
         }
 
-        protected ActionResult Inbox(List<Int32> selectedMessages) {
+        protected ActionResult DeleteMessages(List<Int32> selectedMessages) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }

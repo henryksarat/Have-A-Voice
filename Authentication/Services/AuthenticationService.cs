@@ -93,6 +93,7 @@ namespace Social.Authentication.Services {
         private IEnumerable<SocialPrivacySetting> ConvertPrivacySettingsToEnums(IEnumerable<AbstractPrivacySettingModel<X>> aPrivacySettings) {
             IEnumerable<SocialPrivacySetting> myPrivacySettings =
                 (from p in aPrivacySettings
+                 where Enum.IsDefined(typeof(SocialPrivacySetting), p.Name)
                  select (SocialPrivacySetting)Enum.Parse(typeof(SocialPrivacySetting), p.Name))
                 .ToList<SocialPrivacySetting>();
             return myPrivacySettings;

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
+using Social.User.Models;
+using UniversityOfMe.Models;
+using UniversityOfMe.Models.Binders;
 
 namespace UniversityOfMe {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
@@ -13,6 +12,9 @@ namespace UniversityOfMe {
         public static void RegisterRoutes(RouteCollection routes) {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*/)?favicon.ico(/.*)?" });
+
+            ModelBinders.Binders.Remove(typeof(UpdatePrivacySettingsModel<PrivacySetting>));
+            ModelBinders.Binders.Add(typeof(UpdatePrivacySettingsModel<PrivacySetting>), new UpdatePrivacySettingsModelBinder());
 
             routes.MapRoute(
                 "DefaultAuthentication", // Route name

@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using HaveAVoice.Helpers.UserInformation;
-using HaveAVoice.Services.UserFeatures;
-using HaveAVoice.Repositories.UserFeatures;
-using Social.Friend.Services;
-using Social.Photo.Services;
 using HaveAVoice.Models.SocialWrappers;
+using HaveAVoice.Repositories.UserFeatures;
+using HaveAVoice.Services.UserFeatures;
+using Social.Friend.Services;
+using Social.Generic.Helpers;
+using Social.Photo.Services;
 
 namespace HaveAVoice.Models.View {
     public class PhotosModelBinder : IModelBinder {
