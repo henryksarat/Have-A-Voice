@@ -32,10 +32,10 @@ namespace UniversityOfMe.Controllers.Dating {
 
             try {
                 theDatingService.AddDatingResult(sourceUserId, GetUserInformatonModel().Details.Id, response);
-                TempData["Message"] = SuccessMessage(DATING_RESPONSE_CREATED);
+                TempData["Message"] = MessageHelper.SuccessMessage(DATING_RESPONSE_CREATED);
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                TempData["Message"] = ErrorMessage(ErrorKeys.ERROR_MESSAGE);
+                TempData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
             }
 
             return RedirectToProfile();
@@ -49,10 +49,10 @@ namespace UniversityOfMe.Controllers.Dating {
 
             try {
                 theDatingService.MarkDatingLogAsSeenBySourceUser(GetUserInformatonModel().Details, datingLogId);
-                TempData["Message"] = SuccessMessage(DATING_MATCH_SEEN);
+                TempData["Message"] = MessageHelper.SuccessMessage(DATING_MATCH_SEEN);
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                TempData["Message"] = ErrorMessage(ErrorKeys.ERROR_MESSAGE);
+                TempData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
             }
 
             return RedirectToProfile();

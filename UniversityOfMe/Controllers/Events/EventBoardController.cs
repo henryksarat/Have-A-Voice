@@ -37,11 +37,11 @@ namespace UniversityOfMe.Controllers.Events {
             try {
                 bool myResult = theEventService.PostToEventBoard(myUserInformation, eventId, boardMessage);
                 if (myResult) {
-                    TempData["Message"] = POSTED_TO_BOARD;
+                    TempData["Message"] = MessageHelper.SuccessMessage(POSTED_TO_BOARD);
                 }
             } catch (Exception myException) {
                 LogError(myException, POSTING_TO_BOARD_ERROR);
-                TempData["Message"] = POSTING_TO_BOARD_ERROR;
+                TempData["Message"] = MessageHelper.ErrorMessage(POSTING_TO_BOARD_ERROR);
             }
 
             return RedirectToAction("Details", "Event", new { id = eventId });

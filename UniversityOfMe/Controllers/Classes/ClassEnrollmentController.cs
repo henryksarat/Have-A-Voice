@@ -34,10 +34,10 @@ namespace UniversityOfMe.Controllers.Classes {
             try {
                 theClassService.AddToClassEnrollment(GetUserInformatonModel(), classId);
 
-                TempData["Message"] = ENROLLED_SUCCESS;
+                TempData["Message"] = MessageHelper.SuccessMessage(ENROLLED_SUCCESS);
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                TempData["Message"] = ErrorKeys.ERROR_MESSAGE;
+                TempData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
             }
 
             return RedirectToAction("DetailsWithClassId", "Class", new { classId = classId, classViewType = classViewType });
@@ -51,10 +51,10 @@ namespace UniversityOfMe.Controllers.Classes {
             try {
                 theClassService.RemoveFromClassEnrollment(GetUserInformatonModel(), classId);
 
-                TempData["Message"] = ENROLLED_REMOVE_SUCCESS;
+                TempData["Message"] = MessageHelper.SuccessMessage(ENROLLED_REMOVE_SUCCESS);
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                TempData["Message"] = ErrorKeys.ERROR_MESSAGE;
+                TempData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
             }
 
             return RedirectToAction("DetailsWithClassId", "Class", new { classId = classId, classViewType = classViewType });

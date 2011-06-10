@@ -83,10 +83,10 @@ namespace UniversityOfMe.Controllers.Profile {
             try {
                 theFeatureService.DisableFeature(GetUserInformatonModel().Details, feature);
                 ForceUserInformationRefresh();
-                TempData["Message"] = FEATURE_UPDATED;
+                TempData["Message"] = MessageHelper.SuccessMessage(FEATURE_UPDATED);
             } catch (Exception e) {
                 LogError(e, ErrorKeys.ERROR_MESSAGE);
-                TempData["Message"] = ErrorKeys.ERROR_MESSAGE;
+                TempData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
             }
 
             return RedirectToAction("Main", "University", new { universityId = UniversityHelper.GetMainUniversity(GetUserInformatonModel().Details).Id });

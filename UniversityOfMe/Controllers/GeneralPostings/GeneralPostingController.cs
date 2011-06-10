@@ -47,7 +47,7 @@ namespace UniversityOfMe.Controllers.GeneralPostings {
                 myLoggedInListModel.Set(myGeneralPostings);
 
                 if (myGeneralPostings.Count<GeneralPosting>() == 0) {
-                    ViewData["Message"] = NO_GENERAL_POSTING;
+                    ViewData["Message"] = MessageHelper.NormalMessage(NO_GENERAL_POSTING);
                 }
 
                 return View("List", myLoggedInListModel);
@@ -88,7 +88,7 @@ namespace UniversityOfMe.Controllers.GeneralPostings {
                 }
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                TempData["Message"] = ErrorKeys.ERROR_MESSAGE;
+                TempData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
                 theValidationDictionary.ForceModleStateExport();
             }
 

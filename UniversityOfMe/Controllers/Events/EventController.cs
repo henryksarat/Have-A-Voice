@@ -24,6 +24,7 @@ namespace UniversityOfMe.Controllers.Events {
         private const string GET_EVENTS_ERROR = "Unable to get the events. Please try again.";
         private const string NO_EVENTS = "There are currently no events. Please create an event university wide.";
         private const string DELETE_ERROR = "Error deleting the event. Please try again.";
+        private const string DELETE = "The event has been deleted.";
         private const string NO_EVENT = "No event exists with that id.";
 
         IEventService theEventService;
@@ -79,12 +80,12 @@ namespace UniversityOfMe.Controllers.Events {
                 Event myResult = theEventService.CreateEvent(myUserInformation, anEvent);
 
                 if (myResult != null) {
-                    TempData["Message"] = EVENT_CREATED;
+                    TempData["Message"] = MessageHelper.SuccessMessage(EVENT_CREATED);
                     return RedirectToAction("Details", new { id = myResult.Id });
                 }
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                ViewData["Message"] = ErrorKeys.ERROR_MESSAGE;
+                ViewData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
                 theValidationDictionary.ForceModleStateExport();
             }
 
@@ -103,7 +104,7 @@ namespace UniversityOfMe.Controllers.Events {
                 Event myEvent = theEventService.GetEvent(universityId, id);
 
                 if (myEvent == null) {
-                    TempData["Message"] = NO_EVENT;
+                    TempData["Message"] = MessageHelper.WarningMessage(NO_EVENT);
                     return RedirectToAction("List");
                 }
 
@@ -125,12 +126,12 @@ namespace UniversityOfMe.Controllers.Events {
                 }
 
                 theEventService.DeleteEvent(GetUserInformatonModel(), universityId, id);
-                TempData["Message"] = DELETE_ERROR;
+                TempData["Message"] = MessageHelper.SuccessMessage(DELETE);
 
                 return RedirectToAction("List");
             } catch (Exception myException) {
                 LogError(myException, DELETE_ERROR);
-                TempData["Message"] = DELETE_ERROR;
+                TempData["Message"] = MessageHelper.ErrorMessage(DELETE_ERROR);
                 return RedirectToAction("Details", new { id = id });
             }
         }
@@ -179,12 +180,12 @@ namespace UniversityOfMe.Controllers.Events {
                 bool myResult = theEventService.EditEvent(myUserInformation, anEvent);
 
                 if (myResult) {
-                    TempData["Message"] = EVENT_EDITED;
+                    TempData["Message"] = MessageHelper.SuccessMessage(EVENT_EDITED);
                     return RedirectToAction("Details", new { id = anEvent.Id });
                 }
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                ViewData["Message"] = ErrorKeys.ERROR_MESSAGE;
+                ViewData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
                 theValidationDictionary.ForceModleStateExport();
             }
 
@@ -209,7 +210,7 @@ namespace UniversityOfMe.Controllers.Events {
                 myEvents = theEventService.GetEventsForUniversity(myUser, universityId);
 
                 if (myEvents.Count<Event>() == 0) {
-                    TempData["Message"] = NO_EVENTS;
+                    TempData["Message"] = MessageHelper.NormalMessage(NO_EVENTS);
                 }
 
                 LoggedInListModel<Event> myLoggedIn = new LoggedInListModel<Event>(myUser);

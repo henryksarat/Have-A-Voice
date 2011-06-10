@@ -55,7 +55,7 @@ namespace UniversityOfMe.Controllers.Clubs {
                 myBookConditionTypes = theTextBookService.CreateTextBookConditionsDictionaryEntry();
             } catch (Exception myException) {
                 LogError(myException, GET_TEXTBOOK_CONDITIONS_ERROR);
-                ViewData["Message"] = GET_TEXTBOOK_CONDITIONS_ERROR;
+                ViewData["Message"] = MessageHelper.ErrorMessage(GET_TEXTBOOK_CONDITIONS_ERROR);
             }
 
             try {
@@ -85,16 +85,16 @@ namespace UniversityOfMe.Controllers.Clubs {
                 bool myResult = theTextBookService.CreateTextBook(myUserInformation, textbook);
 
                 if (myResult) {
-                    TempData["Message"] = TEXTBOOK_ADDED;
+                    TempData["Message"] = MessageHelper.SuccessMessage(TEXTBOOK_ADDED);
                     return RedirectToAction("List");
                 }
             } catch(PhotoException myException) {
                 LogError(myException, TEXTBOOK_IMAGE_UPLOAD_ERROR);
-                TempData["Message"] = TEXTBOOK_IMAGE_UPLOAD_ERROR;
+                TempData["Message"] = MessageHelper.ErrorMessage(TEXTBOOK_IMAGE_UPLOAD_ERROR);
                 theValidation.ForceModleStateExport();
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                TempData["Message"] = ErrorKeys.ERROR_MESSAGE;
+                TempData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
             }
 
             return RedirectToAction("Create");
@@ -137,7 +137,7 @@ namespace UniversityOfMe.Controllers.Clubs {
                 myLoggedIn.Set(myTextBooks);
 
                 if (myTextBooks.Count<TextBook>() == 0) {
-                    ViewData["Message"] = NO_TEXTBOOKS;
+                    ViewData["Message"] = MessageHelper.NormalMessage(NO_TEXTBOOKS);
                 }
 
                 return View("List", myLoggedIn);
@@ -153,13 +153,13 @@ namespace UniversityOfMe.Controllers.Clubs {
                 bool myResult = theTextBookService.MarkAsNotActive(GetUserInformatonModel(), id);
 
                 if(myResult) {
-                    TempData["Message"] = MARKED_NON_ACTIVE;
+                    TempData["Message"] = MessageHelper.SuccessMessage(MARKED_NON_ACTIVE);
                 }
 
                 return RedirectToAction("List");
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                TempData["Message"] = ErrorKeys.ERROR_MESSAGE;
+                TempData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
                 return RedirectToAction("Details", new { id = id });
             }
         }

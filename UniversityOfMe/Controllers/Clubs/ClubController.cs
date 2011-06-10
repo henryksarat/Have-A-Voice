@@ -85,12 +85,12 @@ namespace UniversityOfMe.Controllers.Clubs {
                 bool myResult = theClubService.CreateClub(myUserInformation, club);
 
                 if (myResult) {
-                    TempData["Message"] = CLUB_CREATED;
+                    TempData["Message"] = MessageHelper.SuccessMessage(CLUB_CREATED);
                     return RedirectToAction("List");
                 }
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                ViewData["Message"] = ErrorKeys.ERROR_MESSAGE;
+                ViewData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
             }
 
             return RedirectToAction("Create");
@@ -124,7 +124,6 @@ namespace UniversityOfMe.Controllers.Clubs {
             }
 
             try {
-
                 User myUser = GetUserInformatonModel().Details;
 
                 if (!UniversityHelper.IsFromUniversity(myUser, universityId)) {

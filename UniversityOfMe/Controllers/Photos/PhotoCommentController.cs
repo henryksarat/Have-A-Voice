@@ -35,11 +35,11 @@ namespace UniversityOfMe.Controllers.Photos {
             try {
                 bool myResult = thePhotoCommentService.AddCommentToPhoto(myUser, id, comment);
                 if (myResult) {
-                    TempData["Message"] = COMMENT_POSTED;
+                    TempData["Message"] = MessageHelper.SuccessMessage(COMMENT_POSTED);
                 }
             } catch (Exception myException) {
                 LogError(myException, COMMENT_ERROR);
-                TempData["Message"] = COMMENT_ERROR;
+                TempData["Message"] = MessageHelper.ErrorMessage(COMMENT_ERROR);
             }
 
             return RedirectToAction("Display", "Photo", new { id = id });

@@ -54,7 +54,7 @@ namespace UniversityOfMe.Controllers.Classes {
                 myClasses = theClassService.GetClassesForUniversity(universityId);
 
                 if (myClasses.Count<Class>() == 0) {
-                    ViewData["Message"] = NO_CLASSES;
+                    ViewData["Message"] = MessageHelper.NormalMessage(NO_CLASSES);
                 }
 
                 LoggedInListModel<Class> myLoggedIn = new LoggedInListModel<Class>(myUser);
@@ -149,7 +149,7 @@ namespace UniversityOfMe.Controllers.Classes {
                 bool myExists = theClassService.IsClassExists(id);
 
                 if (!myExists) {
-                    TempData["Message"] = CLASS_DOESNT_EXIST;
+                    TempData["Message"] = MessageHelper.WarningMessage(CLASS_DOESNT_EXIST);
                     return RedirectToAction("Create", "Class");
                 }
 
@@ -185,7 +185,7 @@ namespace UniversityOfMe.Controllers.Classes {
                 return View("ViewAllMembers", myLogedInModel);
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                TempData["Message"] = VIEW_ALL_MEMBERS_ERROR;
+                TempData["Message"] = MessageHelper.ErrorMessage(VIEW_ALL_MEMBERS_ERROR);
                 return RedirectToAction("Details", new { id = id });
             }
         }

@@ -1,16 +1,11 @@
-﻿using System;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using Social.Authentication;
-using Social.Authentication.Helpers;
 using Social.Generic.ActionFilters;
-using Social.Generic.Constants;
-using Social.Generic.Models;
 using Social.Users.Services;
 using Social.Validation;
 using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
-using UniversityOfMe.Models.Social;
 using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories;
 using UniversityOfMe.Services;
@@ -45,7 +40,7 @@ namespace UniversityOfMe.Controllers.Professors {
             bool myResult = theProfessorReviewService.CreateProfessorReview(GetUserInformatonModel(), professorReview.ToModel());
 
             if (myResult) {
-                TempData["Message"] = PROFESSOR_REVIEW;
+                TempData["Message"] = MessageHelper.SuccessMessage(PROFESSOR_REVIEW);
             }
 
             return RedirectToAction("Details", "Professor", new { id = URLHelper.ToUrlFriendly(professorReview.ProfessorName) });

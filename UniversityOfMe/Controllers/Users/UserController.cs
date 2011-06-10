@@ -106,19 +106,20 @@ namespace UniversityOfMe.Controllers.Users {
 
                 if (theUserService.EditUser(userToEdit, myPassword)) {
                     if (string.IsNullOrEmpty(userToEdit.NewEmail)) {
-                        TempData["Message"] = SuccessMessage(EDIT_SUCCESS);
+                        TempData["Message"] = MessageHelper.SuccessMessage(EDIT_SUCCESS);
                     } else {
-                        TempData["Message"] = SuccessMessage(EDIT_SUCCESS + " To finalize the email change please click the link sent to the new email you entered to confirm you are teh owner.");
+                        TempData["Message"] = MessageHelper.SuccessMessage(EDIT_SUCCESS + " To finalize the email change please click the link sent to the new email you entered to confirm you are teh owner.");
                     }
-                    RefreshUserInformation(userToEdit.Email, myPassword);
+
+                    ForceUserInformationRefresh();
                     return RedirectToAction("Edit");
                 }
             } catch(CustomException myException) {
                 LogError(myException, myException.Message);
-                TempData["Message"] = ErrorMessage(myException.Message);
+                TempData["Message"] = MessageHelper.ErrorMessage(myException.Message);
             } catch (Exception exception) {
                 LogError(exception, "Error editing the user.");
-                TempData["Message"] = ErrorMessage("An error has occurred please try your submission again later.");
+                TempData["Message"] = MessageHelper.ErrorMessage("An error has occurred please try your submission again later.");
                 theValidationDictionary.ForceModleStateExport();
             }
 
@@ -167,17 +168,6 @@ namespace UniversityOfMe.Controllers.Users {
 
         protected override ActionResult RedirectToProfile() {
             return RedirectToAction(UOMConstants.UNVIERSITY_MAIN_VIEW, UOMConstants.UNVIERSITY_MAIN_CONTROLLER, new { universityId = UniversityHelper.GetMainUniversityId(GetUserInformaton()) });
-        }
-
-        private void RefreshUserInformation(string anEmail, string aHashedPassword) {
-            UserInformationModel<User> myUserInformationModel = GetUserInformatonModel();
-            try {
-                myUserInformationModel =
-                    GetAuthenticationService().RefreshUserInformationModel(anEmail, aHashedPassword, ProfilePictureStrategy());
-            } catch (Exception myException) {
-                LogError(myException, String.Format("Big problem! Was unable to refresh the user information model for userid={0}", UserId()));
-            }
-            Session["UserInformation"] = myUserInformationModel;
         }
     }
 }

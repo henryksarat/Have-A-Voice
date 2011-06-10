@@ -4,24 +4,22 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Social.Authentication;
-using Social.Authentication.Helpers;
+using Social.BaseWebsite.Models;
 using Social.Generic.ActionFilters;
 using Social.Generic.Constants;
 using Social.Generic.Exceptions;
+using Social.Generic.Helpers;
 using Social.Generic.Models;
+using Social.Photo.Exceptions;
 using Social.Users.Services;
 using Social.Validation;
 using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
-using UniversityOfMe.Models.Social;
+using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories;
+using UniversityOfMe.Services;
 using UniversityOfMe.Services.Professors;
 using UniversityOfMe.UserInformation;
-using Social.Photo.Exceptions;
-using Social.BaseWebsite.Models;
-using UniversityOfMe.Models.View;
-using Social.Generic.Helpers;
-using UniversityOfMe.Services;
 
 namespace UniversityOfMe.Controllers.Professors {
 
@@ -119,14 +117,14 @@ namespace UniversityOfMe.Controllers.Professors {
                 bool myExists = theProfessorService.IsProfessorExists(universityId, id);
 
                 if (!myExists) {
-                    TempData["Message"] = NormalMessage(PROFESSOR_DOESNT_EXIST);
+                    TempData["Message"] = MessageHelper.WarningMessage(PROFESSOR_DOESNT_EXIST);
                     return RedirectToAction("Create", "Professor");
                 }
 
                 Professor myProfessor = theProfessorService.GetProfessor(GetUserInformatonModel(), universityId, id);
 
                 if (myProfessor.ProfessorReviews.Count() == 0) {
-                    ViewData["Message"] = NormalMessage(NO_PROFESSOR_REVIEWS);
+                    ViewData["Message"] = MessageHelper.NormalMessage(NO_PROFESSOR_REVIEWS);
                 }
 
                 IDictionary<string, string> myAcademicTerms = DictionaryHelper.DictionaryWithSelect();
@@ -167,15 +165,14 @@ namespace UniversityOfMe.Controllers.Professors {
                 bool myResult = theProfessorService.CreateProfessorImageSuggestion(myUserInformation, professorId, professorImage);
 
                 if (myResult) {
-                    TempData["Message"] = SuccessMessage(PROFESSOR_PICTURE_SUGGESTION_SUCCESS);
+                    TempData["Message"] = MessageHelper.SuccessMessage(PROFESSOR_PICTURE_SUGGESTION_SUCCESS);
                 }
             } catch(PhotoException myException) {
                 LogError(myException, PROFESSOR_SUGGESTED_ERROR);
-                TempData["Message"] = ErrorMessage(PROFESSOR_SUGGESTED_ERROR);
+                TempData["Message"] = MessageHelper.ErrorMessage(PROFESSOR_SUGGESTED_ERROR);
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                TempData["Message"] = ErrorKeys.ERROR_MESSAGE;
-                TempData["Message"] = ErrorMessage(ErrorKeys.ERROR_MESSAGE);
+                TempData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
             }
 
             return RedirectToAction("Details", new { id = URLHelper.ToUrlFriendly(firstName + " " + lastName) });

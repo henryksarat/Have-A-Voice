@@ -4,12 +4,9 @@ using System.Web.Mvc;
 using Social.Authentication;
 using Social.Generic.ActionFilters;
 using Social.Users.Services;
-using Social.Validation;
 using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
-using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories;
-using UniversityOfMe.Services;
 using UniversityOfMe.Services.SendItems;
 using UniversityOfMe.UserInformation;
 
@@ -33,10 +30,10 @@ namespace UniversityOfMe.Controllers.SendItems {
 
             try {
                 theSendItemsService.SendItemToUser(id, GetUserInformatonModel().Details, sendItem);
-                TempData["Message"] = SENT_ITEM_SUCCESS + sendItem.ToString().ToLower() + ".";
+                TempData["Message"] = MessageHelper.SuccessMessage(SENT_ITEM_SUCCESS + sendItem.ToString().ToLower() + ".");
             } catch (Exception myException) {
                 LogError(myException, SEND_ITEM_ERROR);
-                TempData["Message"] = SEND_ITEM_ERROR;
+                TempData["Message"] = MessageHelper.ErrorMessage(SEND_ITEM_ERROR);
             }
 
             return RedirectToAction("Show", "Profile", new { id = id });

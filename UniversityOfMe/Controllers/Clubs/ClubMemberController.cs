@@ -39,11 +39,11 @@ namespace UniversityOfMe.Controllers.Clubs {
                 bool myResult = theClubService.RemoveClubMember(GetUserInformatonModel(), userId, clubId);
 
                 if (myResult) {
-                    TempData["Message"] = USER_REMVOED;
+                    TempData["Message"] = MessageHelper.SuccessMessage(USER_REMVOED);
                 }
             } catch (Exception myException) {
                 LogError(myException, REMOVE_ERROR);
-                TempData["Message"] = REMOVE_ERROR;
+                TempData["Message"] = MessageHelper.ErrorMessage(REMOVE_ERROR);
             }
 
             return RedirectToAction("Details", "Club", new { id = clubId });

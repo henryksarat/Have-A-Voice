@@ -2,15 +2,12 @@
 using System.Web;
 using System.Web.Mvc;
 using Social.Authentication;
-using Social.Authentication.Helpers;
 using Social.Generic.ActionFilters;
 using Social.Generic.Constants;
-using Social.Generic.Models;
 using Social.Users.Services;
 using Social.Validation;
 using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
-using UniversityOfMe.Models.Social;
 using UniversityOfMe.Repositories;
 using UniversityOfMe.Services.GeneralPostings;
 using UniversityOfMe.UserInformation;
@@ -38,11 +35,11 @@ namespace UniversityOfMe.Controllers.Classes {
                 bool myResult = theGeneralPostingService.CreateGeneralPostingReply(GetUserInformatonModel(), generalPostingId, reply);
 
                 if (myResult) {
-                    TempData["Message"] = REPLY_POSTED;
+                    TempData["Message"] = MessageHelper.SuccessMessage(REPLY_POSTED);
                 }
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                TempData["Message"] = ErrorKeys.ERROR_MESSAGE;
+                TempData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
                 theValidationDictionary.ForceModleStateExport();
             }
 
