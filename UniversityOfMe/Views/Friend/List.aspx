@@ -21,9 +21,11 @@
             function listFilter(header, list) { // header is any element, list is an unordered list
                 // create and add the filter form to the header
                 var form = $("<form>").attr({ "class": "filterform", "action": "#" }),
-                input = $("<input>").attr({ "class": "filterinput", "type": "text", "value" : "Filter by name" });
+                input = $("<input>").attr({ "class": "filterinput", "type": "text", "value": "Filter by name" });
                 $(form).append(input).appendTo(header);
-
+                $(input).click(function () {
+                    input.val("");
+                })
                 $(input).change(function () {
                     var filter = $(this).val();
                     if (filter) {

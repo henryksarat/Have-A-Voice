@@ -12,24 +12,29 @@
 
     <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
-    <% Html.RenderPartial("Message"); %>
-    <% Html.RenderPartial("Validation"); %>
+	<div class="eight last"> 
+        <% Html.RenderPartial("Message"); %>
+        <% Html.RenderPartial("Validation"); %>
+		<div class="banner title black full red-top small"> 
+			<span>Pending Friend Requests</span> 
+		</div> 
 
-    <% foreach (Friend myFriend in Model.Get()) { %>
-        <img src="<%= PhotoHelper.ProfilePicture(myFriend.FriendedUser) %>" class="profile med" /> 
-        <%= NameHelper.FullName(myFriend.FriendedUser) %><br />
-        <%= UniversityHelper.GetMainUniversity(myFriend.FriendedUser).UniversityName %><br />
-            <% using (Html.BeginForm("Approve", "Friend", new { id = myFriend.Id }, FormMethod.Post, null)) { %>
-        			    <div class="input"> 
-				    <input type="submit" name="submit" class="btn" value="Approve" /> 
-			    </div> 
-            <% } %>
+            <% foreach (Friend myFriend in Model.Get()) { %>
+                <img src="<%= PhotoHelper.ProfilePicture(myFriend.FriendedUser) %>" class="profile med" /> 
+                <%= NameHelper.FullName(myFriend.FriendedUser) %><br />
+                <%= UniversityHelper.GetMainUniversity(myFriend.FriendedUser).UniversityName %><br />
+                    <% using (Html.BeginForm("Approve", "Friend", new { id = myFriend.Id }, FormMethod.Post, null)) { %>
+        			            <div class="input"> 
+				            <input type="submit" name="submit" class="btn" value="Approve" /> 
+			            </div> 
+                    <% } %>
 
-            <% using (Html.BeginForm("Decline", "Friend", new { id = myFriend.Id }, FormMethod.Post, null)) { %>
-        			    <div class="input"> 
-				    <input type="submit" name="submit" class="btn" value="Decline" /> 
-			    </div> 
+                    <% using (Html.BeginForm("Decline", "Friend", new { id = myFriend.Id }, FormMethod.Post, null)) { %>
+        			            <div class="input"> 
+				            <input type="submit" name="submit" class="btn" value="Decline" /> 
+			            </div> 
+                    <% } %>
             <% } %>
-    <% } %>
+        </div>
 </asp:Content>
 

@@ -72,8 +72,9 @@
 		        <div class="mt6 center"> 
                     <% using (Html.BeginForm("Create", "Dating", FormMethod.Post)) {%>
                         <%= Html.Hidden("SourceUserId", Model.DatingMember.Id) %>
-			            <button name="response" class="btn blue" value="true">Yes</input>
-			            <button name="response" class="btn blue" value="false">No</input>
+			            <span><button name="response" class="btn blue" value="true">Yes</button></span>
+          
+			            <span class="ml10"><button name="response" class="btn blue" value="false">No</button></span>
                     <% } %>
 		        </div> 
             <% } else { %>
