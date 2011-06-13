@@ -2,27 +2,54 @@
 using System.Linq;
 using UniversityOfMe.Models;
 using System.Collections.Generic;
+using UniversityOfMe.Helpers;
 
 namespace UniversityOfMe.Repositories.Clubs {
     public class EntityClubRepository : IClubRepository {
         private UniversityOfMeEntities theEntities = new UniversityOfMeEntities();
 
+        public void ApproveClubMember(User anAdminUser, int aClubMemberId, string aTitle, bool anAdministrator) {
+            ClubMember myClubMember = GetClubMember(aClubMemberId);
+            myClubMember.Administrator = anAdministrator;
+            myClubMember.Title = aTitle;
+            myClubMember.Approved = UOMConstants.APPROVED;
+            myClubMember.ApprovedByUserId = anAdminUser.Id;
+            myClubMember.ApprovedDateTimeStamp = DateTime.UtcNow;
+            theEntities.SaveChanges();
+        }
+
         public void AddMemberToClub(User anAdminUser, int aNewMemberUserId, int aClubId, string aTitle, bool anAdministrator) {
-            ClubMember myClubMember = ClubMember.CreateClubMember(0, anAdminUser.Id, aNewMemberUserId, aClubId, aTitle, anAdministrator, DateTime.UtcNow, false);
+            ClubMember myClubMember = ClubMember.CreateClubMember(0, aNewMemberUserId, aClubId, aTitle, anAdministrator, UOMConstants.APPROVED, DateTime.UtcNow, false);
+            myClubMember.ApprovedByUserId = anAdminUser.Id;
+
             theEntities.AddToClubMembers(myClubMember);
             theEntities.SaveChanges();
         }
 
         public Club CreateClub(User aUser, string aUniversityId, string aClubType, string aName, string aDescription) {
-            Club myClub = Club.CreateClub(0, aUniversityId, aClubType, aUser.Id, aName, aDescription, DateTime.UtcNow);
+            Club myClub = Club.CreateClub(0, aUniversityId, aClubType, aUser.Id, aName, aDescription, DateTime.UtcNow, true);
             theEntities.AddToClubs(myClub);
             theEntities.SaveChanges();
             return myClub;
         }
 
+        public void DeactivateClub(User aUser, int aClubId) {
+            Club myClub = GetClub(aClubId);
+            myClub.DeactivatedByUserId = aUser.Id;
+            myClub.DeativatedDateTimeStamp = DateTime.UtcNow;
+            myClub.Active = false;
+            theEntities.SaveChanges();
+        }
+
         public void DeleteClub(int aClubId) {
             Club myClub = GetClub(aClubId);
             theEntities.DeleteObject(myClub);
+            theEntities.SaveChanges();
+        }
+
+        public void DeleteRequestToJoinClub(User aUser, int aClubId) {
+            ClubMember myClubMember = GetClubMember(aUser.Id, aClubId);
+            theEntities.DeleteObject(myClubMember);
             theEntities.SaveChanges();
         }
 
@@ -32,6 +59,14 @@ namespace UniversityOfMe.Repositories.Clubs {
             myClubMember.DeletedByDateTimeStamp = DateTime.UtcNow;
             myClubMember.Deleted = true;
             theEntities.ApplyCurrentValues(myClubMember.EntityKey.EntitySetName, myClubMember);
+            theEntities.SaveChanges();
+        }
+
+        public void DenyClubMember(User anAdminUser, int aClubMemberId) {
+            ClubMember myClubMember = GetClubMember(aClubMemberId);
+            myClubMember.Approved = UOMConstants.DENIED;
+            myClubMember.DeniedByUserId = anAdminUser.Id;
+            myClubMember.DeniedByDateTimeStamp = DateTime.UtcNow;
             theEntities.SaveChanges();
         }
 
@@ -53,6 +88,12 @@ namespace UniversityOfMe.Repositories.Clubs {
                     select cm).ToList<ClubMember>();
         }
 
+        public ClubMember GetClubMember(int aClubMemberId) {
+            return (from cm in theEntities.ClubMembers
+                    where cm.Id == aClubMemberId
+                    select cm).FirstOrDefault<ClubMember>();
+        }
+
         public ClubMember GetClubMember(int aUserId, int aClubId) {
             return (from cm in theEntities.ClubMembers
                     where cm.ClubMemberUserId == aUserId
@@ -64,12 +105,19 @@ namespace UniversityOfMe.Repositories.Clubs {
         public IEnumerable<Club> GetClubs(string aUniversityId) {
             return (from c in theEntities.Clubs
                     where c.UniversityId == aUniversityId
+                    && c.Active == true
                     select c).ToList<Club>();
         }
 
         public IEnumerable<ClubType> GetClubTypes() {
             return (from ct in theEntities.ClubTypes
                     select ct).ToList<ClubType>();
+        }
+
+        public void MemberRequestToJoinClub(User aRequestingUser, int aClubId, string aTitle) {
+            ClubMember myClubMember = ClubMember.CreateClubMember(0, aRequestingUser.Id, aClubId, aTitle, false, UOMConstants.PENDING, DateTime.UtcNow, false);
+            theEntities.AddToClubMembers(myClubMember);
+            theEntities.SaveChanges();
         }
 
         public void PostToClubBoard(User aPostingUser, int aClubId, string aMessage) {

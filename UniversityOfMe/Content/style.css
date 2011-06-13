@@ -256,6 +256,7 @@ ul.notification li { padding-left: 25px; }
 ul.notification li.friend { background:url(images/friend.png) no-repeat left center; }
 ul.notification li.post { background:url(images/bubble.png) no-repeat left center; }
 ul.notification li.beer { background:url(images/beer.png) no-repeat left center; }
+ul.notification li.organization { background:url(images/organization.png) no-repeat left center; }
 
 ul.notification li a, ul.notification li a:link, ul.notification li a:visited { color: #3e7c97; }
 ul.notification li a:visited { text-decoration: underline; }
@@ -443,6 +444,7 @@ div.review table .avatar { width:5% }
 
 span.professor { padding: 2px 0px 2px 28px; background:url(images/person.png) no-repeat center left; text-transform: uppercase; }
 
+.ml20 { margin-left: 10px; }
 .ml20 { margin-left: 20px; }
 .ml30 { margin-left: 30px; }
 .ml40 { margin-left: 40px; }
@@ -481,3 +483,7 @@ a.name:hover { text-decoration: underline; }
 
 .underline-heading { border-bottom: 1px solid #e5e5e5; }
 
+.valign-top { vertical-align:top; }
+
+a.hide-this, a.hide-this:link, a.hide-this:visited { text-decoration: underline; color: #fff; }
+span.feed-time { color: #a4a4a4; font-size: 10px; margin-top: -14px; }

@@ -22,6 +22,10 @@
 			    <%= Html.TextBox("Name", Model.Get().Name, new { @class = "quarter" })%>
                 <%= Html.ValidationMessage("Name", "*")%>
 
+			    <label for="Name" class="mt13">Your title:</label> 
+			    <%= Html.TextBox("Title", Model.Get().Title, new { @class = "quarter" })%>
+                <%= Html.ValidationMessage("Title", "*")%>
+
 			    <label for="ClubImage" class="mt13">Organization Image:</label> 
 			    <input type="file" id="ClubImage" name="ClubImage" size="23" />
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
-using HaveAVoice.Services.Clubs;
 using Social.Authentication;
 using Social.Generic.ActionFilters;
 using Social.Generic.Models;
@@ -10,6 +9,7 @@ using Social.Validation;
 using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
 using UniversityOfMe.Repositories;
+using UniversityOfMe.Services.Clubs;
 using UniversityOfMe.Services.Professors;
 using UniversityOfMe.UserInformation;
 

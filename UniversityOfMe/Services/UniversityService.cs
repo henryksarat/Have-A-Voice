@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using HaveAVoice.Services.Clubs;
 using Social.Generic.Constants;
 using Social.Generic.Models;
 using Social.Validation;
@@ -9,6 +8,7 @@ using UniversityOfMe.Models;
 using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories;
 using UniversityOfMe.Services.Classes;
+using UniversityOfMe.Services.Clubs;
 using UniversityOfMe.Services.Events;
 using UniversityOfMe.Services.GeneralPostings;
 using UniversityOfMe.Services.Notifications;

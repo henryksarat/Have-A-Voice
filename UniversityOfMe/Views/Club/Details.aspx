@@ -10,6 +10,13 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#close-admin").click(function () {
+                $("#admin").hide();
+            });
+        });
+    </script> 
 
     <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
@@ -19,55 +26,108 @@
 
 		<div class="banner black full red-top small"> 
 			<span class="club"><%= Model.Get().Name %></span> 
+		    <div class="buttons"> 
+			    <div class="flft mr26"> 
+                    <% User myUser = UserInformationFactory.GetUserInformation().Details; %>
+                    <% if (ClubHelper.IsAdmin(myUser, Model.Get().Id)) { %>
+                        <%= Html.ActionLink("Set club as inactive", "Deactivate", "Club", new { clubId = Model.Get().Id }, new { @class = "enroll" })%>
+                    <% } else if (ClubHelper.IsPending(myUser, Model.Get().Id)) { %>
+                        <%= Html.ActionLink("Cancel my request to join", "Cancel", "ClubMember", new { clubId = Model.Get().Id }, new { @class = "enroll" })%>
+                    <% } else if (ClubHelper.IsMember(myUser, Model.Get().Id)) { %>
+                        <%= Html.ActionLink("Quit organization", "Remove", "ClubMember", null, new { @class = "enroll" })%>
+                    <% } else { %>
+                        <%= Html.ActionLink("Request to join organization", "RequestToJoin", "ClubMember", new { clubId = Model.Get().Id }, new { @class = "enroll" })%>
+                    <% } %>
+			    </div> 
+            </div>
 		</div> 
 					
 		<table border="0" cellpadding="0" cellspacing="0" class="listing mb32"> 
 			<tr> 
-				<td rowspan="4"> 
+				<td rowspan="4" class="valign-top"> 
 					<img src="<%= PhotoHelper.ClubPhoto(Model.Get()) %>" class="club" /> 
 				</td> 
 				<td> 
 					<label for="memcount">Num. of Members:</label> 
 				</td> 
 				<td> 
-					<%= Model.Get().ClubMembers.Count %>
+					<%= Model.Get().ClubMembers.Where(cm => cm.Approved == UOMConstants.APPROVED).Count<ClubMember>()%>
 				</td> 
 			</tr> 
 			<tr> 
-				<td> 
+				<td style="vertical-align:top;"> 
 					<label for="desc">CLUB TYPE:</label> 
 				</td> 
-				<td> 
+				<td style="vertical-align:top;"> 
 					<%= Model.Get().ClubTypeDetails.DisplayName %>
 				</td> 
 			</tr> 
 			<tr> 
-				<td> 
+				<td style="vertical-align:top;"> 
 					<label for="desc">DESCRIPTION:</label> 
 				</td> 
-				<td> 
+				<td style="vertical-align:top;"> 
 					<%= Model.Get().Description %>
 				</td> 
 			</tr> 
 		</table> 
-					
+        <% if(ClubHelper.IsAdmin(myUser, Model.Get().Id)) { %>				
+            <div id="admin">
+                <div class="banner title">
+                    Club Admin Feed
+                    <div style="float:right"><a id="close-admin" class="hide-this" href="#">Hide this</a></div>
+                </div>
+                <div>
+                    <ul class="notification">
+
+                        <% foreach (ClubAdminFeed myFeed in ClubHelper.GetAdminFeed(Model.Get(), 5)) { %>
+                            <% if (myFeed.Status == Status.Pending) { %>
+                                <li>
+                                    <a href="<%= URLHelper.ProfileUrl(myFeed.MemberUser) %>"><%= NameHelper.FullName(myFeed.MemberUser)%></a> 
+                                    wants to join this organization. 
+                                    <%= Html.ActionLink("Approve/Deny", "Details", "ClubMember", new { clubId = myFeed.ClubId, clubMemberId = myFeed.ClubMemberId }, null)%>
+                                    <span class="feed-time"><%= DateHelper.ToLocalTime((DateTime)myFeed.DateTimeStamp) %></span> 
+                                </li>
+                            <% } else if(myFeed.Status == Status.Denied) { %>
+                                <li>
+                                    <a href="<%= URLHelper.ProfileUrl(myFeed.AdminUser) %>"><%= NameHelper.FullName(myFeed.AdminUser) %></a> 
+                                    has denied 
+                                    <a href="<%= URLHelper.ProfileUrl(myFeed.MemberUser) %>"><%= NameHelper.FullName(myFeed.MemberUser) %></a> 
+                                    to join the organization.
+                                    <span class="feed-time"><%= DateHelper.ToLocalTime((DateTime)myFeed.DateTimeStamp) %></span> 
+                                </li>
+                            <% } else if (myFeed.Status == Status.Approved) { %>
+                                <li>
+                                    <a href="<%= URLHelper.ProfileUrl(myFeed.AdminUser) %>"><%= NameHelper.FullName(myFeed.AdminUser) %></a> 
+                                    has approved 
+                                    <a href="<%= URLHelper.ProfileUrl(myFeed.MemberUser) %>"><%= NameHelper.FullName(myFeed.MemberUser) %></a> 
+                                    to join the organization.
+                                    <span class="feed-time"><%= DateHelper.ToLocalTime((DateTime)myFeed.DateTimeStamp) %></span> 
+                                </li>
+                            <%} %>
+                            <br />
+                        <% } %>
+                    </ul>
+                </div>
+            </div>	
+        <% } %>
 		<div class="banner title"> 
 			CURRENT MEMBERS JOINED <%= Model.Get().Name %>
 		</div> 
 		<div class="box sm group"> 
 			<ul class="members"> 
-                <% if (Model.Get().ClubMembers.Count == 0) { %>
+                <% if (Model.Get().ClubMembers.Where(cm => cm.Approved == UOMConstants.APPROVED).Count<ClubMember>() == 0) { %>
                     There are no members apart of this club
                 <% } %>
-                <% foreach (ClubMember myMember in Model.Get().ClubMembers) { %>
+                <% foreach (ClubMember myMember in Model.Get().ClubMembers.Where(cm => cm.Approved == UOMConstants.APPROVED)) { %>
 			        <li> 
 				        <a href="/<%= myMember.ClubMemberUser.ShortUrl %>"><img src="<%= PhotoHelper.ProfilePicture(myMember.ClubMemberUser) %>" class="profile med flft mr9" /></a>
-				        <span class="name"><%= NameHelper.FullName(myMember.ClubMemberUser)%></span> 
-				        Student
+				        <span class="name"><a class="itemlinked" href="<%= URLHelper.ProfileUrl(myMember.ClubMemberUser) %>"><%= NameHelper.FullName(myMember.ClubMemberUser)%></a></span> 
+				        <%= myMember.Title %>
 			        </li>
                 <% } %> 
 			</ul> 
-			<a href="#" class="viewall">View all members</a> 
+            <%= Html.ActionLink("View all members", "List", "ClubMember", new { id = Model.Get().Id }, new { @class = "viewall" })%>
 			<div class="clearfix"></div> 
 		</div> 
 					

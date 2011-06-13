@@ -19,5 +19,9 @@ namespace UniversityOfMe.Services.Notifications {
         public IEnumerable<SendItem> GetSendItemsForUser(User aUser) {
             return theNotificationRepository.GetSendItemsForUser(aUser);
         }
+
+        public IEnumerable<ClubMember> GetPendingClubMembersOfAdminedClubs(User aUser) {
+            return theNotificationRepository.GetPendingClubMembersOfAdminedClubs(aUser);
+        }
     }
 }

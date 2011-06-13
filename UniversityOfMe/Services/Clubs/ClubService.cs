@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Web;
 using Social.Generic.Exceptions;
+using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Photo.Exceptions;
 using Social.Photo.Helpers;
@@ -14,10 +15,10 @@ using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories.Clubs;
 using UniversityOfMe.Repositories.UserRepos;
 using UniversityOfMe.Services.Professors;
-using Social.Generic.Constants;
-using Social.Generic.Helpers;
+using UniversityOfMe.Helpers;
+using System.Linq;
 
-namespace HaveAVoice.Services.Clubs {
+namespace UniversityOfMe.Services.Clubs {
     public class ClubService : IClubService {
         private const string CLUB_DOESNT_EXIST = "That club doesn't exist.";
         private const string MEMBER_DOESNT_EXIST = "That user doesn't exist.";
@@ -36,16 +37,18 @@ namespace HaveAVoice.Services.Clubs {
             theUserRetrievalService = new UserRetrievalService<User>(aUserRetrievalRepo);
         }
 
-        public bool AddMemberToClub(UserInformationModel<User> anAdminUserAdding, int aClubMemberUserId, int aClubId, string aTitle, bool anAdministrator) {
-            if (!ValidMemberRequestToClub(anAdminUserAdding.Details, aClubId, aClubMemberUserId)) {
+        public bool ApproveClubMember(UserInformationModel<User> aUser, int aClubMemberId, string aTitle, bool anAdministrator) {
+            if (!ValidTitle(aTitle)) {
                 return false;
             }
 
-            string myTitle = string.IsNullOrEmpty(aTitle) ? ClubConstants.DEFAULT_NEW_MEMBER_TITLE : aTitle;
-
-            theClubRepository.AddMemberToClub(anAdminUserAdding.Details, aClubMemberUserId, aClubId, myTitle, anAdministrator);
+            theClubRepository.ApproveClubMember(aUser.Details, aClubMemberId, aTitle, anAdministrator);
 
             return true;
+        }
+
+        public void CancelRequestToJoin(UserInformationModel<User> aUser, int aClubId) {
+            theClubRepository.DeleteRequestToJoinClub(aUser.Details, aClubId);
         }
 
         public bool CreateClub(UserInformationModel<User> aUser, CreateClubModel aCreateClubModel) {
@@ -56,7 +59,7 @@ namespace HaveAVoice.Services.Clubs {
             Club myClub = theClubRepository.CreateClub(aUser.Details, aCreateClubModel.UniversityId, aCreateClubModel.ClubType, aCreateClubModel.Name, aCreateClubModel.Description);
 
             try {
-                theClubRepository.AddMemberToClub(aUser.Details, aUser.Details.Id, myClub.Id, ClubConstants.DEFAULT_CLUB_LEADER_TITLE, true);
+                theClubRepository.AddMemberToClub(aUser.Details, aUser.Details.Id, myClub.Id, aCreateClubModel.Title, true);
             } catch (Exception myException) {
                 theClubRepository.DeleteClub(myClub.Id);
                 throw new Exception("Error adding the creating member of the club as a club member.", myException);
@@ -78,6 +81,21 @@ namespace HaveAVoice.Services.Clubs {
             return myDictionary;
         }
 
+        public bool DeactivateClub(UserInformationModel<User> aUser, int aClubId) {
+            if (!IsAdmin(aUser.Details, aClubId)) {
+                theValidationDictionary.AddError("ClubMemberAdmin", string.Empty, "You are not an admin of the club.");
+                return false;
+            }
+
+            theClubRepository.DeactivateClub(aUser.Details, aClubId);
+
+            return true;
+        }
+
+        public void DenyClubMember(UserInformationModel<User> aUser, int aClubMemberId) {
+            theClubRepository.DenyClubMember(aUser.Details, aClubMemberId);
+        }
+
         public Club GetClub(int aClubId) {
             return theClubRepository.GetClub(aClubId);
         }
@@ -86,8 +104,19 @@ namespace HaveAVoice.Services.Clubs {
             return theClubRepository.GetClubBoardPostings(aClubId);
         }
 
-        public IEnumerable<ClubMember> GetClubMembers(int aClubId) {
-            return theClubRepository.GetClubMembers(aClubId);
+        public ClubMember GetClubMember(UserInformationModel<User> aUser, int aClubMemberId) {
+            ClubMember myClubMember = theClubRepository.GetClubMember(aClubMemberId);
+            if (myClubMember != null) {
+                bool myIsAdmin = IsAdmin(aUser.Details, myClubMember.ClubId);
+                if (!myIsAdmin) {
+                    myClubMember = null;
+                }
+            }
+            return myClubMember;
+        }
+
+        public IEnumerable<ClubMember> GetActiveClubMembers(int aClubId) {
+            return theClubRepository.GetClubMembers(aClubId).Where(cm => cm.Approved == UOMConstants.APPROVED);
         }
 
         public IEnumerable<Club> GetClubs(string aUniversityId) {
@@ -97,6 +126,16 @@ namespace HaveAVoice.Services.Clubs {
         public bool IsAdmin(User aUser, int aClubId) {
             ClubMember myClubMember = theClubRepository.GetClubMember(aUser.Id, aClubId);
             return myClubMember != null && myClubMember.Administrator;
+        }
+
+        public bool IsApartOfClub(int aUserId, int aClubId) {
+            ClubMember myClubMember = theClubRepository.GetClubMember(aUserId, aClubId);
+            return myClubMember != null && !myClubMember.Deleted && myClubMember.Approved == UOMConstants.APPROVED;
+        }
+
+        public bool IsPendingApproval(int aUserId, int aClubId) {
+            ClubMember myClubMember = theClubRepository.GetClubMember(aUserId, aClubId);
+            return myClubMember != null && !myClubMember.Deleted && myClubMember.Approved == UOMConstants.PENDING;
         }
 
         public bool PostToClubBoard(UserInformationModel<User> aPostingUser, int aClubId, string aMessage) {
@@ -119,6 +158,10 @@ namespace HaveAVoice.Services.Clubs {
             return true;
         }
 
+        public void RequestToJoinClub(UserInformationModel<User> aRequestingMember, int aClubId) {
+            theClubRepository.MemberRequestToJoinClub(aRequestingMember.Details, aClubId, ClubConstants.DEFAULT_NEW_MEMBER_TITLE);
+        }
+
         private bool ValidateRemovingClubMember(User aUserDoingRemoving, int aCurrentUserId, int aClubId) {
             ValidateClubExists(aClubId);
             ClubMember myClubMember = theClubRepository.GetClubMember(aCurrentUserId, aClubId);
@@ -126,9 +169,11 @@ namespace HaveAVoice.Services.Clubs {
                 theValidationDictionary.AddError("ClubMember", string.Empty, "That club member doesn't exist.");
             }
             ClubMember myClubMemberDoingRemoving = theClubRepository.GetClubMember(aUserDoingRemoving.Id, aClubId);
-            if (!myClubMemberDoingRemoving.Administrator) {
-                theValidationDictionary.AddError("ClubMemberAdmin", string.Empty, NOT_ADMINISTRATOR);
-            }
+            if (aUserDoingRemoving.Id != aCurrentUserId) {
+                if (!myClubMemberDoingRemoving.Administrator) {
+                    theValidationDictionary.AddError("ClubMemberAdmin", string.Empty, NOT_ADMINISTRATOR);
+                }
+            } 
 
             return theValidationDictionary.isValid;
         }
@@ -194,6 +239,8 @@ namespace HaveAVoice.Services.Clubs {
         }
         
         private bool ValidClub(CreateClubModel aCreateClubModel) {
+            ValidTitle(aCreateClubModel.Title);
+
             if (string.IsNullOrEmpty(aCreateClubModel.Name)) {
                 theValidationDictionary.AddError("Name", aCreateClubModel.Name, "A club name is required.");
             }
@@ -212,6 +259,14 @@ namespace HaveAVoice.Services.Clubs {
 
             if (aCreateClubModel.ClubImage != null && !PhotoValidation.IsValidImageFile(aCreateClubModel.ClubImage.FileName)) {
                 theValidationDictionary.AddError("ClubImage", aCreateClubModel.ClubImage.FileName, "Please specify a proper image file that ends in .gif, .jpg, or .jpeg.");
+            }
+
+            return theValidationDictionary.isValid;
+        }
+
+        private bool ValidTitle(string aTitle) {
+            if (string.IsNullOrEmpty(aTitle)) {
+                theValidationDictionary.AddError("Title", aTitle, "You must give yourself a title for the club. You can use the default title if you'd like: " + ClubConstants.DEFAULT_CLUB_LEADER_TITLE);
             }
 
             return theValidationDictionary.isValid;

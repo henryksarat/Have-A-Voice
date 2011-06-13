@@ -30,5 +30,9 @@ namespace UniversityOfMe.Helpers {
 
         public const string UNVIERSITY_MAIN_CONTROLLER = "University";
         public const string UNVIERSITY_MAIN_VIEW = "Main";
+
+        public const int APPROVED = 1;
+        public const int DENIED = 0;
+        public const int PENDING = 2;
     }
 }

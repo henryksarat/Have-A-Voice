@@ -138,7 +138,11 @@
             <End Role="Clubs" EntitySet="Clubs" />
             <End Role="ClubMembers" EntitySet="ClubMembers" />
           </AssociationSet>
-          <AssociationSet Name="FK_ClubMembers_Users_AddedByUser" Association="UniversityOfMeModel.Store.FK_ClubMembers_Users_AddedByUser">
+          <AssociationSet Name="FK_ClubMembers_DeniedByUser" Association="UniversityOfMeModel.Store.FK_ClubMembers_DeniedByUser">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ClubMembers" EntitySet="ClubMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClubMembers_Users_ApprovedByUser" Association="UniversityOfMeModel.Store.FK_ClubMembers_Users_ApprovedByUser">
             <End Role="Users" EntitySet="Users" />
             <End Role="ClubMembers" EntitySet="ClubMembers" />
           </AssociationSet>
@@ -152,6 +156,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Clubs_ClubTypes" Association="UniversityOfMeModel.Store.FK_Clubs_ClubTypes">
             <End Role="ClubTypes" EntitySet="ClubTypes" />
+            <End Role="Clubs" EntitySet="Clubs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clubs_DeactivatedByUser" Association="UniversityOfMeModel.Store.FK_Clubs_DeactivatedByUser">
+            <End Role="Users" EntitySet="Users" />
             <End Role="Clubs" EntitySet="Clubs" />
           </AssociationSet>
           <AssociationSet Name="FK_Clubs_Universities" Association="UniversityOfMeModel.Store.FK_Clubs_Universities">
@@ -476,15 +484,19 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="AddedByUserId" Type="int" Nullable="false" />
           <Property Name="ClubMemberUserId" Type="int" Nullable="false" />
           <Property Name="ClubId" Type="int" Nullable="false" />
           <Property Name="Title" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="Administrator" Type="bit" Nullable="false" />
+          <Property Name="Approved" Type="int" Nullable="false" />
           <Property Name="DateTimeStamp" Type="smalldatetime" Nullable="false" />
           <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="ApprovedByUserId" Type="int" />
+          <Property Name="ApprovedDateTimeStamp" Type="smalldatetime" />
           <Property Name="DeletedByUserId" Type="int" />
           <Property Name="DeletedByDateTimeStamp" Type="smalldatetime" />
+          <Property Name="DeniedByUserId" Type="int" />
+          <Property Name="DeniedByDateTimeStamp" Type="smalldatetime" />
         </EntityType>
         <EntityType Name="Clubs">
           <Key>
@@ -498,6 +510,9 @@
           <Property Name="Picture" Type="varchar" MaxLength="100" />
           <Property Name="Description" Type="text" Nullable="false" />
           <Property Name="DateTimeStamp" Type="smalldatetime" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="DeactivatedByUserId" Type="int" />
+          <Property Name="DeativatedDateTimeStamp" Type="smalldatetime" />
         </EntityType>
         <EntityType Name="ClubTypes">
           <Key>
@@ -1130,15 +1145,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ClubMembers_Users_AddedByUser">
-          <End Role="Users" Type="UniversityOfMeModel.Store.Users" Multiplicity="1" />
+        <Association Name="FK_ClubMembers_DeniedByUser">
+          <End Role="Users" Type="UniversityOfMeModel.Store.Users" Multiplicity="0..1" />
           <End Role="ClubMembers" Type="UniversityOfMeModel.Store.ClubMembers" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ClubMembers">
-              <PropertyRef Name="AddedByUserId" />
+              <PropertyRef Name="DeniedByUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClubMembers_Users_ApprovedByUser">
+          <End Role="Users" Type="UniversityOfMeModel.Store.Users" Multiplicity="0..1" />
+          <End Role="ClubMembers" Type="UniversityOfMeModel.Store.ClubMembers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClubMembers">
+              <PropertyRef Name="ApprovedByUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1177,6 +1204,18 @@
             </Principal>
             <Dependent Role="Clubs">
               <PropertyRef Name="ClubType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clubs_DeactivatedByUser">
+          <End Role="Users" Type="UniversityOfMeModel.Store.Users" Multiplicity="0..1" />
+          <End Role="Clubs" Type="UniversityOfMeModel.Store.Clubs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Clubs">
+              <PropertyRef Name="DeactivatedByUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1909,23 +1948,6 @@
             <End Role="User" EntitySet="Users" />
             <End Role="ClubBoard" EntitySet="ClubBoards" />
           </AssociationSet>
-          <EntitySet Name="ClubMembers" EntityType="UniversityOfMeModel.ClubMember" />
-          <AssociationSet Name="FK_ClubMembers_Clubs" Association="UniversityOfMeModel.FK_ClubMembers_Clubs">
-            <End Role="Club" EntitySet="Clubs" />
-            <End Role="ClubMember" EntitySet="ClubMembers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ClubMembers_Users_AddedByUser" Association="UniversityOfMeModel.FK_ClubMembers_Users_AddedByUser">
-            <End Role="User" EntitySet="Users" />
-            <End Role="ClubMember" EntitySet="ClubMembers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ClubMembers_Users_ClubMemeber" Association="UniversityOfMeModel.FK_ClubMembers_Users_ClubMemeber">
-            <End Role="User" EntitySet="Users" />
-            <End Role="ClubMember" EntitySet="ClubMembers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ClubMembers_Users_DeletedByUser" Association="UniversityOfMeModel.FK_ClubMembers_Users_DeletedByUser">
-            <End Role="User" EntitySet="Users" />
-            <End Role="ClubMember" EntitySet="ClubMembers" />
-          </AssociationSet>
           <EntitySet Name="TextBookConditions" EntityType="UniversityOfMeModel.TextBookCondition" />
           <EntitySet Name="Classes" EntityType="UniversityOfMeModel.Class" />
           <AssociationSet Name="FK_Classes_AcademicTerm" Association="UniversityOfMeModel.FK_Classes_AcademicTerm">
@@ -2169,6 +2191,31 @@
             <End Role="User" EntitySet="Users" />
             <End Role="FeaturesEnabled" EntitySet="FeaturesEnableds" />
           </AssociationSet>
+          <AssociationSet Name="FK_Clubs_DeactivatedByUser" Association="UniversityOfMeModel.FK_Clubs_DeactivatedByUser">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Club" EntitySet="Clubs" />
+          </AssociationSet>
+          <EntitySet Name="ClubMembers" EntityType="UniversityOfMeModel.ClubMember" />
+          <AssociationSet Name="FK_ClubMembers_Clubs" Association="UniversityOfMeModel.FK_ClubMembers_Clubs">
+            <End Role="Club" EntitySet="Clubs" />
+            <End Role="ClubMember" EntitySet="ClubMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClubMembers_DeniedByUser" Association="UniversityOfMeModel.FK_ClubMembers_DeniedByUser">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ClubMember" EntitySet="ClubMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClubMembers_Users_ApprovedByUser" Association="UniversityOfMeModel.FK_ClubMembers_Users_ApprovedByUser">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ClubMember" EntitySet="ClubMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClubMembers_Users_ClubMemeber" Association="UniversityOfMeModel.FK_ClubMembers_Users_ClubMemeber">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ClubMember" EntitySet="ClubMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClubMembers_Users_DeletedByUser" Association="UniversityOfMeModel.FK_ClubMembers_Users_DeletedByUser">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ClubMember" EntitySet="ClubMembers" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="RolePermission">
           <Key>
@@ -2276,9 +2323,6 @@
           <NavigationProperty Name="UserUniversities" Relationship="UniversityOfMeModel.FK_UserUniversity_Users" FromRole="User" ToRole="UserUniversity" />
           <NavigationProperty Name="Clubs" Relationship="UniversityOfMeModel.FK_Clubs_Users" FromRole="User" ToRole="Club" />
           <NavigationProperty Name="ClubBoards" Relationship="UniversityOfMeModel.FK_ClubBoard_Users" FromRole="User" ToRole="ClubBoard" />
-          <NavigationProperty Name="ClubMembersAdded" Relationship="UniversityOfMeModel.FK_ClubMembers_Users_AddedByUser" FromRole="User" ToRole="ClubMember" />
-          <NavigationProperty Name="ClubMemberAt" Relationship="UniversityOfMeModel.FK_ClubMembers_Users_ClubMemeber" FromRole="User" ToRole="ClubMember" />
-          <NavigationProperty Name="ClubMembersDeleted" Relationship="UniversityOfMeModel.FK_ClubMembers_Users_DeletedByUser" FromRole="User" ToRole="ClubMember" />
           <NavigationProperty Name="Classes" Relationship="UniversityOfMeModel.FK_Classes_Users" FromRole="User" ToRole="Class" />
           <NavigationProperty Name="GeneralPostings" Relationship="UniversityOfMeModel.FK_GeneralPostings_Users" FromRole="User" ToRole="GeneralPosting" />
           <NavigationProperty Name="Friends" Relationship="UniversityOfMeModel.FK_Friends_FriendUserId_Users" FromRole="User" ToRole="Friend" />
@@ -2312,6 +2356,11 @@
           <NavigationProperty Name="ClassReviews" Relationship="UniversityOfMeModel.FK_ClassReviews_Users" FromRole="User" ToRole="ClassReview" />
           <NavigationProperty Name="GeneralPostingReplies" Relationship="UniversityOfMeModel.FK_GeneralPostingReplies_Users" FromRole="User" ToRole="GeneralPostingReply" />
           <NavigationProperty Name="FeaturesEnableds" Relationship="UniversityOfMeModel.FK_FeaturesEnabled_Users" FromRole="User" ToRole="FeaturesEnabled" />
+          <NavigationProperty Name="Clubs_1" Relationship="UniversityOfMeModel.FK_Clubs_DeactivatedByUser" FromRole="User" ToRole="Club" />
+          <NavigationProperty Name="ClubMembers" Relationship="UniversityOfMeModel.FK_ClubMembers_DeniedByUser" FromRole="User" ToRole="ClubMember" />
+          <NavigationProperty Name="ClubMembers1" Relationship="UniversityOfMeModel.FK_ClubMembers_Users_ApprovedByUser" FromRole="User" ToRole="ClubMember" />
+          <NavigationProperty Name="ClubMembers2" Relationship="UniversityOfMeModel.FK_ClubMembers_Users_ClubMemeber" FromRole="User" ToRole="ClubMember" />
+          <NavigationProperty Name="ClubMembers3" Relationship="UniversityOfMeModel.FK_ClubMembers_Users_DeletedByUser" FromRole="User" ToRole="ClubMember" />
           </EntityType>
         <Association Name="FK_UserPrivacySettings_Users">
           <End Type="UniversityOfMeModel.User" Role="User" Multiplicity="1" />
@@ -2548,6 +2597,10 @@
           <NavigationProperty Name="University" Relationship="UniversityOfMeModel.FK_Clubs_Universities" FromRole="Club" ToRole="University" />
           <NavigationProperty Name="User" Relationship="UniversityOfMeModel.FK_Clubs_Users" FromRole="Club" ToRole="User" />
           <NavigationProperty Name="ClubBoards" Relationship="UniversityOfMeModel.FK_ClubBoard_Clubs" FromRole="Club" ToRole="ClubBoard" />
+          <Property Type="Boolean" Name="Active" Nullable="false" />
+          <Property Type="Int32" Name="DeactivatedByUserId" />
+          <Property Type="DateTime" Name="DeativatedDateTimeStamp" />
+          <NavigationProperty Name="DeactivatedByUser" Relationship="UniversityOfMeModel.FK_Clubs_DeactivatedByUser" FromRole="Club" ToRole="User" />
           <NavigationProperty Name="ClubMembers" Relationship="UniversityOfMeModel.FK_ClubMembers_Clubs" FromRole="Club" ToRole="ClubMember" />
         </EntityType>
         <Association Name="FK_Clubs_ClubTypes">
@@ -2619,73 +2672,6 @@
             </Principal>
             <Dependent Role="ClubBoard">
               <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="ClubMember">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="AddedByUserId" Nullable="false" />
-          <Property Type="Int32" Name="ClubMemberUserId" Nullable="false" />
-          <Property Type="Int32" Name="ClubId" Nullable="false" />
-          <Property Type="String" Name="Title" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Boolean" Name="Administrator" Nullable="false" />
-          <Property Type="DateTime" Name="DateTimeStamp" Nullable="false" />
-          <Property Type="Boolean" Name="Deleted" Nullable="false" />
-          <Property Type="Int32" Name="DeletedByUserId" />
-          <Property Type="DateTime" Name="DeletedByDateTimeStamp" />
-          <NavigationProperty Name="Club" Relationship="UniversityOfMeModel.FK_ClubMembers_Clubs" FromRole="ClubMember" ToRole="Club" />
-          <NavigationProperty Name="AddedByUser" Relationship="UniversityOfMeModel.FK_ClubMembers_Users_AddedByUser" FromRole="ClubMember" ToRole="User" />
-          <NavigationProperty Name="ClubMemberUser" Relationship="UniversityOfMeModel.FK_ClubMembers_Users_ClubMemeber" FromRole="ClubMember" ToRole="User" />
-          <NavigationProperty Name="DeletedByUser" Relationship="UniversityOfMeModel.FK_ClubMembers_Users_DeletedByUser" FromRole="ClubMember" ToRole="User" />
-        </EntityType>
-        <Association Name="FK_ClubMembers_Clubs">
-          <End Type="UniversityOfMeModel.Club" Role="Club" Multiplicity="1" />
-          <End Type="UniversityOfMeModel.ClubMember" Role="ClubMember" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Club">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ClubMember">
-              <PropertyRef Name="ClubId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ClubMembers_Users_AddedByUser">
-          <End Type="UniversityOfMeModel.User" Role="User" Multiplicity="1" />
-          <End Type="UniversityOfMeModel.ClubMember" Role="ClubMember" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ClubMember">
-              <PropertyRef Name="AddedByUserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ClubMembers_Users_ClubMemeber">
-          <End Type="UniversityOfMeModel.User" Role="User" Multiplicity="1" />
-          <End Type="UniversityOfMeModel.ClubMember" Role="ClubMember" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ClubMember">
-              <PropertyRef Name="ClubMemberUserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ClubMembers_Users_DeletedByUser">
-          <End Type="UniversityOfMeModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="UniversityOfMeModel.ClubMember" Role="ClubMember" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ClubMember">
-              <PropertyRef Name="DeletedByUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3715,6 +3701,102 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Clubs_DeactivatedByUser">
+          <End Type="UniversityOfMeModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="UniversityOfMeModel.Club" Role="Club" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Club">
+              <PropertyRef Name="DeactivatedByUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ClubMember">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="ClubMemberUserId" Nullable="false" />
+          <Property Type="Int32" Name="ClubId" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="Administrator" Nullable="false" />
+          <Property Type="Int32" Name="Approved" Nullable="false" />
+          <Property Type="DateTime" Name="DateTimeStamp" Nullable="false" />
+          <Property Type="Boolean" Name="Deleted" Nullable="false" />
+          <Property Type="Int32" Name="ApprovedByUserId" />
+          <Property Type="DateTime" Name="ApprovedDateTimeStamp" />
+          <Property Type="Int32" Name="DeletedByUserId" />
+          <Property Type="DateTime" Name="DeletedByDateTimeStamp" />
+          <Property Type="Int32" Name="DeniedByUserId" />
+          <Property Type="DateTime" Name="DeniedByDateTimeStamp" />
+          <NavigationProperty Name="Club" Relationship="UniversityOfMeModel.FK_ClubMembers_Clubs" FromRole="ClubMember" ToRole="Club" />
+          <NavigationProperty Name="DeniedByUser" Relationship="UniversityOfMeModel.FK_ClubMembers_DeniedByUser" FromRole="ClubMember" ToRole="User" />
+          <NavigationProperty Name="ApprovedByUser" Relationship="UniversityOfMeModel.FK_ClubMembers_Users_ApprovedByUser" FromRole="ClubMember" ToRole="User" />
+          <NavigationProperty Name="ClubMemberUser" Relationship="UniversityOfMeModel.FK_ClubMembers_Users_ClubMemeber" FromRole="ClubMember" ToRole="User" />
+          <NavigationProperty Name="DeletedByUser" Relationship="UniversityOfMeModel.FK_ClubMembers_Users_DeletedByUser" FromRole="ClubMember" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_ClubMembers_Clubs">
+          <End Type="UniversityOfMeModel.Club" Role="Club" Multiplicity="1" />
+          <End Type="UniversityOfMeModel.ClubMember" Role="ClubMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Club">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClubMember">
+              <PropertyRef Name="ClubId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClubMembers_DeniedByUser">
+          <End Type="UniversityOfMeModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="UniversityOfMeModel.ClubMember" Role="ClubMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClubMember">
+              <PropertyRef Name="DeniedByUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClubMembers_Users_ApprovedByUser">
+          <End Type="UniversityOfMeModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="UniversityOfMeModel.ClubMember" Role="ClubMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClubMember">
+              <PropertyRef Name="ApprovedByUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClubMembers_Users_ClubMemeber">
+          <End Type="UniversityOfMeModel.User" Role="User" Multiplicity="1" />
+          <End Type="UniversityOfMeModel.ClubMember" Role="ClubMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClubMember">
+              <PropertyRef Name="ClubMemberUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClubMembers_Users_DeletedByUser">
+          <End Type="UniversityOfMeModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="UniversityOfMeModel.ClubMember" Role="ClubMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClubMember">
+              <PropertyRef Name="DeletedByUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3867,6 +3949,9 @@
           <EntitySetMapping Name="Clubs">
             <EntityTypeMapping TypeName="UniversityOfMeModel.Club">
               <MappingFragment StoreEntitySet="Clubs">
+                <ScalarProperty Name="DeativatedDateTimeStamp" ColumnName="DeativatedDateTimeStamp" />
+                <ScalarProperty Name="DeactivatedByUserId" ColumnName="DeactivatedByUserId" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Picture" ColumnName="Picture" />
@@ -3885,22 +3970,6 @@
                 <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="ClubId" ColumnName="ClubId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ClubMembers">
-            <EntityTypeMapping TypeName="UniversityOfMeModel.ClubMember">
-              <MappingFragment StoreEntitySet="ClubMembers">
-                <ScalarProperty Name="DeletedByDateTimeStamp" ColumnName="DeletedByDateTimeStamp" />
-                <ScalarProperty Name="DeletedByUserId" ColumnName="DeletedByUserId" />
-                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-                <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
-                <ScalarProperty Name="Administrator" ColumnName="Administrator" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="ClubId" ColumnName="ClubId" />
-                <ScalarProperty Name="ClubMemberUserId" ColumnName="ClubMemberUserId" />
-                <ScalarProperty Name="AddedByUserId" ColumnName="AddedByUserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -4240,6 +4309,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ClubMembers">
+            <EntityTypeMapping TypeName="UniversityOfMeModel.ClubMember">
+              <MappingFragment StoreEntitySet="ClubMembers">
+                <ScalarProperty Name="DeniedByDateTimeStamp" ColumnName="DeniedByDateTimeStamp" />
+                <ScalarProperty Name="DeniedByUserId" ColumnName="DeniedByUserId" />
+                <ScalarProperty Name="DeletedByDateTimeStamp" ColumnName="DeletedByDateTimeStamp" />
+                <ScalarProperty Name="DeletedByUserId" ColumnName="DeletedByUserId" />
+                <ScalarProperty Name="ApprovedDateTimeStamp" ColumnName="ApprovedDateTimeStamp" />
+                <ScalarProperty Name="ApprovedByUserId" ColumnName="ApprovedByUserId" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="Administrator" ColumnName="Administrator" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ClubId" ColumnName="ClubId" />
+                <ScalarProperty Name="ClubMemberUserId" ColumnName="ClubMemberUserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -4260,83 +4349,79 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="UniversityOfMeDBModel" ZoomLevel="52">
+      <Diagram Name="UniversityOfMeDBModel" ZoomLevel="65">
         <EntityTypeShape EntityType="UniversityOfMeModel.RolePermission" Width="1.5" PointX="5.25" PointY="9.75" Height="1.7879850260416674" IsExpanded="true" />
         <EntityTypeShape EntityType="UniversityOfMeModel.Role" Width="1.5" PointX="3" PointY="9.25" Height="2.7494921874999996" IsExpanded="true" />
         <EntityTypeShape EntityType="UniversityOfMeModel.UserPrivacySetting" Width="1.5" PointX="5.25" PointY="3.875" Height="1.7879850260416657" IsExpanded="true" />
         <EntityTypeShape EntityType="UniversityOfMeModel.UserRole" Width="1.5" PointX="5.25" PointY="0.75" Height="1.9802864583333317" IsExpanded="true" />
         <AssociationConnector Association="UniversityOfMeModel.FK_RolePermissions_Roles" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="11.6646702545118" />
-          <ConnectorPoint PointX="4.697916666666667" PointY="11.664670254511798" />
-          <ConnectorPoint PointX="5.098958333333333" PointY="11.6646702545118" />
-          <ConnectorPoint PointX="5.25" PointY="11.6646702545118" />
+          <ConnectorPoint PointX="4.5" PointY="10.429246514296343" />
+          <ConnectorPoint PointX="4.635416666666667" PointY="10.429246514296342" />
+          <ConnectorPoint PointX="5.130208333333333" PointY="10.429246514296343" />
+          <ConnectorPoint PointX="5.25" PointY="10.429246514296343" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_UserRoles_Roles" ManuallyRouted="false">
           <ConnectorPoint PointX="4.5" PointY="9.2511528461538468" />
-          <ConnectorPoint PointX="4.7223244349011209" PointY="9.0288284112527251" />
+          <ConnectorPoint PointX="4.65982443490112" PointY="9.0913284112527251" />
           <ConnectorPoint PointX="4.8401755650988791" PointY="8.9109772810549686" />
           <ConnectorPoint PointX="4.875" PointY="8.8761528461538468" />
-          <ConnectorPoint PointX="4.875" PointY="1.4186177948551029" />
-          <ConnectorPoint PointX="5.25" PointY="1.4186177948551029" />
+          <ConnectorPoint PointX="4.875" PointY="1.9532390231143386" />
+          <ConnectorPoint PointX="4.885416666666667" PointY="1.953239023114338" />
+          <ConnectorPoint PointX="5.098958333333333" PointY="1.9532390231143386" />
+          <ConnectorPoint PointX="5.25" PointY="1.9532390231143386" />
         </AssociationConnector>
         <EntityTypeShape EntityType="UniversityOfMeModel.User" Width="1.5" PointX="3" PointY="1.75" Height="12.364563802083334" />
         <AssociationConnector Association="UniversityOfMeModel.FK_UserPrivacySettings_Users" >
-          <ConnectorPoint PointX="4.5" PointY="4.7699500757890192" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="4.7699500757890174" />
-          <ConnectorPoint PointX="5.098958333333333" PointY="4.7699500757890192" />
-          <ConnectorPoint PointX="5.25" PointY="4.7699500757890192" />
+          <ConnectorPoint PointX="4.5" PointY="4.5830429715215484" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="4.5830429715215466" />
+          <ConnectorPoint PointX="5.098958333333333" PointY="4.5830429715215484" />
+          <ConnectorPoint PointX="5.25" PointY="4.5830429715215484" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_UserRoles_Users" >
-          <ConnectorPoint PointX="4.5" PointY="1.9920814389319876" />
-          <ConnectorPoint PointX="4.697916666666667" PointY="1.9920814389319863" />
-          <ConnectorPoint PointX="5.083333333333333" PointY="1.9920814389319876" />
-          <ConnectorPoint PointX="5.25" PointY="1.9920814389319876" />
+          <ConnectorPoint PointX="4.5" PointY="2.277299319771021" />
+          <ConnectorPoint PointX="4.697916666666667" PointY="2.2772993197710196" />
+          <ConnectorPoint PointX="5.098958333333333" PointY="2.277299319771021" />
+          <ConnectorPoint PointX="5.25" PointY="2.277299319771021" />
         </AssociationConnector>
         <EntityTypeShape EntityType="UniversityOfMeModel.WhoIsOnline" Width="1.5" PointX="5.25" PointY="6.75" Height="2.1725878906249996" />
         <AssociationConnector Association="UniversityOfMeModel.FK_WhoIsOnline_Users" >
-          <ConnectorPoint PointX="4.5" PointY="7.9052588252080938" />
-          <ConnectorPoint PointX="4.697916666666667" PointY="7.905258825208092" />
-          <ConnectorPoint PointX="5.098958333333333" PointY="7.9052588252080938" />
-          <ConnectorPoint PointX="5.25" PointY="7.9052588252080938" />
+          <ConnectorPoint PointX="4.5" PointY="8.1015565286454567" />
+          <ConnectorPoint PointX="4.635416666666667" PointY="8.1015565286454549" />
+          <ConnectorPoint PointX="5.098958333333333" PointY="8.1015565286454567" />
+          <ConnectorPoint PointX="5.25" PointY="8.1015565286454567" />
         </AssociationConnector>
         <EntityTypeShape EntityType="UniversityOfMeModel.ErrorLog" Width="1.5" PointX="5.25" PointY="12.625" Height="2.5571907552083317" />
         <AssociationConnector Association="UniversityOfMeModel.FK_ErrorLog_Users" >
-          <ConnectorPoint PointX="4.5" PointY="13.747731983722877" />
-          <ConnectorPoint PointX="4.7395833333333339" PointY="13.747731983722876" />
-          <ConnectorPoint PointX="5.0989583333333339" PointY="13.747731983722877" />
-          <ConnectorPoint PointX="5.25" PointY="13.747731983722877" />
+          <ConnectorPoint PointX="4.5" PointY="13.339316181276095" />
+          <ConnectorPoint PointX="4.635416666666667" PointY="13.339316181276093" />
+          <ConnectorPoint PointX="5.130208333333333" PointY="13.339316181276095" />
+          <ConnectorPoint PointX="5.25" PointY="13.339316181276095" />
         </AssociationConnector>
         <EntityTypeShape EntityType="UniversityOfMeModel.Permission" Width="1.5" PointX="7.375" PointY="1" Height="2.3648893229166674" />
         <EntityTypeShape EntityType="UniversityOfMeModel.PrivacySetting" Width="1.5" PointX="5.25" PointY="16.75" Height="2.5571907552083317" />
         <AssociationConnector Association="UniversityOfMeModel.FK_RolePermissions_Permissions" >
           <ConnectorPoint PointX="8.125" PointY="3.3648893229166674" />
-          <ConnectorPoint PointX="7.25" PointY="4.375" />
+          <ConnectorPoint PointX="8.125" PointY="3.875" />
           <ConnectorPoint PointX="7.25" PointY="3.875" />
-          <ConnectorPoint PointX="7.25" PointY="10.740143229166666" />
-          <ConnectorPoint PointX="7.208333333333333" PointY="10.740143229166666" />
-          <ConnectorPoint PointX="6.979166666666667" PointY="10.740143229166666" />
-          <ConnectorPoint PointX="6.75" PointY="10.740143229166666" />
+          <ConnectorPoint PointX="7.25" PointY="10.322965476785464" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="10.322965476785463" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="10.322965476785464" />
+          <ConnectorPoint PointX="6.75" PointY="10.322965476785464" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_PrivacySettings_Users" >
-          <ConnectorPoint PointX="3.1571462637326229" PointY="15.460673828125" />
-          <ConnectorPoint PointX="3.1571462637326229" PointY="18.487167174479168" />
-          <ConnectorPoint PointX="3.2310188243940803" PointY="18.487167174479168" />
-          <ConnectorPoint PointX="3.6685928984330958" PointY="18.487167174479168" />
-          <ConnectorPoint PointX="3.7221507992032179" PointY="18.487167174479168" />
-          <ConnectorPoint PointX="4.1839562234439471" PointY="18.487167174479168" />
-          <ConnectorPoint PointX="4.2184487475700232" PointY="18.487167174479168" />
-          <ConnectorPoint PointX="4.54137791423669" PointY="18.487167174479168" />
-          <ConnectorPoint PointX="5.25" PointY="18.487167174479168" />
+          <ConnectorPoint PointX="3.2216910708450772" PointY="15.845276692708332" />
+          <ConnectorPoint PointX="3.2216910708450772" PointY="18.309181722005206" />
+          <ConnectorPoint PointX="3.4069656050632435" PointY="18.309181722005203" />
+          <ConnectorPoint PointX="4.5327523563187455" PointY="18.309181722005206" />
+          <ConnectorPoint PointX="5.25" PointY="18.309181722005206" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_UserPrivacySettings_PrivacySettings" >
-          <ConnectorPoint PointX="4.90625" PointY="16.873943307692308" />
-          <ConnectorPoint PointX="4.90625" PointY="6.6990364583333317" />
-          <ConnectorPoint PointX="4.90625" PointY="6.3552864583333326" />
-          <ConnectorPoint PointX="4.9410744349011217" PointY="6.3901108932344535" />
-          <ConnectorPoint PointX="5.0745505650988791" PointY="6.5235870234322118" />
-          <ConnectorPoint PointX="5.1285744349011217" PointY="6.5776108932344526" />
-          <ConnectorPoint PointX="5.2464255650988791" PointY="6.6954620234322109" />
-          <ConnectorPoint PointX="5.25" PointY="6.6990364583333317" />
+          <ConnectorPoint PointX="5.2823066923076922" PointY="16.75" />
+          <ConnectorPoint PointX="4.90625" PointY="16.373943307692308" />
+          <ConnectorPoint PointX="4.90625" PointY="6.1990364583333317" />
+          <ConnectorPoint PointX="4.90982443490112" PointY="6.1954620234322091" />
+          <ConnectorPoint PointX="5.2464255650988791" PointY="5.8588608932344526" />
+          <ConnectorPoint PointX="5.25" PointY="5.8552864583333326" />
         </AssociationConnector>
         <EntityTypeShape EntityType="UniversityOfMeModel.University" Width="1.5" PointX="0.625" PointY="9.5" Height="1.5956835937500031" />
         <EntityTypeShape EntityType="UniversityOfMeModel.UniversityEmail" Width="1.5" PointX="0.625" PointY="6.875" Height="1.7879850260416674" />
@@ -4359,259 +4444,180 @@
         <EntityTypeShape EntityType="UniversityOfMeModel.ClubType" Width="1.5" PointX="12.75" PointY="9.625" Height="1.5956835937500031" />
         <EntityTypeShape EntityType="UniversityOfMeModel.Club" Width="1.5" PointX="10.75" PointY="5.75" Height="3.5186979166666674" />
         <AssociationConnector Association="UniversityOfMeModel.FK_Clubs_ClubTypes" >
-          <ConnectorPoint PointX="12.75" PointY="9.625" />
-          <ConnectorPoint PointX="12.59911505538015" PointY="9.5174787597766226" />
-          <ConnectorPoint PointX="12.463384944619852" PointY="9.4207569173067078" />
-          <ConnectorPoint PointX="12.25" PointY="9.2686979166666656" />
+          <ConnectorPoint PointX="12.75" PointY="9.8314518229166659" />
+          <ConnectorPoint PointX="12.645833333333334" PointY="9.8314518229166641" />
+          <ConnectorPoint PointX="12.291666666666666" PointY="9.8314518229166659" />
+          <ConnectorPoint PointX="12.25" PointY="9.8314518229166659" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_Clubs_Universities" ManuallyRouted="true" >
-          <ConnectorPoint PointX="2.0016336914226658" PointY="12.2494921875" />
-          <ConnectorPoint PointX="2.5287210792468491" PointY="13.09487986681971" />
-          <ConnectorPoint PointX="2.5287210792468491" PointY="13.251334896158376" />
-          <ConnectorPoint PointX="2.6499916186310504" PointY="13.581639089016178" />
-          <ConnectorPoint PointX="2.6499916186310504" PointY="14.419474349501655" />
-          <ConnectorPoint PointX="2.7916666666666665" PointY="14.672262369791667" />
-          <ConnectorPoint PointX="2.7916666666666665" PointY="14.172262369791667" />
-          <ConnectorPoint PointX="2.7916666666666665" PointY="14.172262369791667" />
-          <ConnectorPoint PointX="2.9583333333333335" PointY="14.172262369791667" />
-          <ConnectorPoint PointX="4.7395833333333339" PointY="14.172262369791667" />
-          <ConnectorPoint PointX="4.90625" PointY="14.172262369791667" />
-          <ConnectorPoint PointX="4.9794800346235233" PointY="14.172262369791667" />
-          <ConnectorPoint PointX="4.9794800346235233" PointY="9.1557068645012354" />
-          <ConnectorPoint PointX="5.0426171827083017" PointY="9.1653254335023853" />
-          <ConnectorPoint PointX="5.2073828172916983" PointY="9.19042649798396" />
-          <ConnectorPoint PointX="6.9801171827083017" PointY="9.4604920351788664" />
-          <ConnectorPoint PointX="7.3323828172916992" PointY="9.514157609500101" />
-          <ConnectorPoint PointX="10.292617182708302" PointY="9.96513170901285" />
-          <ConnectorPoint PointX="10.519882817291698" PointY="9.9997542767743113" />
-          <ConnectorPoint PointX="10.541666666666666" PointY="10.003072916666667" />
-          <ConnectorPoint PointX="10.541666666666666" PointY="10.003072916666667" />
-          <ConnectorPoint PointX="11.468748" PointY="9.7686979166666674" />
-          <ConnectorPoint PointX="11.468748" PointY="10.003072916666667" />
+          <ConnectorPoint PointX="2.125" PointY="10.888778383146171" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="10.888778383146171" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="10.888778383146171" />
+          <ConnectorPoint PointX="2.9375" PointY="10.888778383146171" />
+          <ConnectorPoint PointX="2.9375" PointY="15.907776692708332" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="15.90777669270833" />
+          <ConnectorPoint PointX="4.989583333333333" PointY="15.907776692708332" />
+          <ConnectorPoint PointX="6.8229141666666671" PointY="15.90777669270833" />
+          <ConnectorPoint PointX="7.2083333333333321" PointY="15.907776692708332" />
+          <ConnectorPoint PointX="8.0625" PointY="15.907776692708332" />
+          <ConnectorPoint PointX="8.0625" PointY="9.3125" />
+          <ConnectorPoint PointX="10.041666666666666" PointY="9.3124999999999982" />
+          <ConnectorPoint PointX="10.583333333333334" PointY="9.3125" />
+          <ConnectorPoint PointX="10.6875" PointY="9.3125" />
+          <ConnectorPoint PointX="10.6875" PointY="10.131653645833334" />
+          <ConnectorPoint PointX="11.5" PointY="10.131653645833334" />
+          <ConnectorPoint PointX="11.5" PointY="10.037903645833334" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_Clubs_Users" >
-          <ConnectorPoint PointX="3.9121484786868614" PointY="1.75" />
-          <ConnectorPoint PointX="3.9121484786868614" PointY="1.5" />
-          <ConnectorPoint PointX="4.0713159307702522" PointY="1.4999999999999993" />
-          <ConnectorPoint PointX="4.2379825974369183" PointY="1.5" />
-          <ConnectorPoint PointX="4.96875" PointY="1.5" />
-          <ConnectorPoint PointX="4.96875" PointY="6.5" />
-          <ConnectorPoint PointX="6.854166666666667" PointY="6.4999999999999991" />
-          <ConnectorPoint PointX="7.145833333333333" PointY="6.5" />
-          <ConnectorPoint PointX="7.1875" PointY="6.5" />
-          <ConnectorPoint PointX="7.1875" PointY="7.9093229166666674" />
-          <ConnectorPoint PointX="7.7604146666666667" PointY="7.9093229166666665" />
-          <ConnectorPoint PointX="7.9270813333333328" PointY="7.9093229166666674" />
-          <ConnectorPoint PointX="8.1666666666666661" PointY="7.9093229166666665" />
-          <ConnectorPoint PointX="8.3333333333333339" PointY="7.9093229166666674" />
-          <ConnectorPoint PointX="8.4791666666666661" PointY="7.9093229166666665" />
-          <ConnectorPoint PointX="8.6458333333333339" PointY="7.9093229166666674" />
-          <ConnectorPoint PointX="10.375" PointY="7.9093229166666674" />
-          <ConnectorPoint PointX="10.375" PointY="7.0093489583333337" />
-          <ConnectorPoint PointX="10.416666666666666" PointY="7.0093489583333328" />
-          <ConnectorPoint PointX="10.583333333333334" PointY="7.0093489583333337" />
-          <ConnectorPoint PointX="10.75" PointY="7.0093489583333337" />
+          <ConnectorPoint PointX="4.2276382395705667" PointY="1.75" />
+          <ConnectorPoint PointX="4.2276382395705667" PointY="1.5" />
+          <ConnectorPoint PointX="5.015625" PointY="1.5" />
+          <ConnectorPoint PointX="5.015625" PointY="9.09375" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="9.09375" />
+          <ConnectorPoint PointX="7.083333333333333" PointY="9.09375" />
+          <ConnectorPoint PointX="7.166666666666667" PointY="9.09375" />
+          <ConnectorPoint PointX="7.333333333333333" PointY="9.09375" />
+          <ConnectorPoint PointX="8.4791666666666661" PointY="9.09375" />
+          <ConnectorPoint PointX="8.6458333333333339" PointY="9.09375" />
+          <ConnectorPoint PointX="10.25" PointY="9.09375" />
+          <ConnectorPoint PointX="10.25" PointY="6.8218494583333342" />
+          <ConnectorPoint PointX="10.354166666666666" PointY="6.8218494583333333" />
+          <ConnectorPoint PointX="10.583333333333334" PointY="6.8218494583333342" />
+          <ConnectorPoint PointX="10.75" PointY="6.8218494583333342" />
         </AssociationConnector>
         <EntityTypeShape EntityType="UniversityOfMeModel.ClubBoard" Width="1.5" PointX="13" PointY="4.5" Height="2.3648893229166674" />
         <AssociationConnector Association="UniversityOfMeModel.FK_ClubBoard_Clubs" >
           <ConnectorPoint PointX="12.25" PointY="6.3074446614583337" />
-          <ConnectorPoint PointX="12.604166666666666" PointY="6.3074446614583328" />
+          <ConnectorPoint PointX="12.541666666666666" PointY="6.3074446614583328" />
           <ConnectorPoint PointX="12.833333333333334" PointY="6.3074446614583337" />
           <ConnectorPoint PointX="13" PointY="6.3074446614583337" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_ClubBoard_Users" >
-          <ConnectorPoint PointX="4.5" PointY="8.53075691260404" />
-          <ConnectorPoint PointX="4.84375" PointY="8.53075691260404" />
-          <ConnectorPoint PointX="4.84375" PointY="6.50390625" />
-          <ConnectorPoint PointX="4.916666666666667" PointY="6.5039062499999991" />
-          <ConnectorPoint PointX="5.1382031250000013" PointY="6.50390625" />
-          <ConnectorPoint PointX="6.8125" PointY="6.50390625" />
-          <ConnectorPoint PointX="6.8125" PointY="7.8936979166666674" />
-          <ConnectorPoint PointX="6.979166666666667" PointY="7.8936979166666665" />
-          <ConnectorPoint PointX="7.145833333333333" PointY="7.8936979166666674" />
-          <ConnectorPoint PointX="7.166666666666667" PointY="7.8936979166666665" />
-          <ConnectorPoint PointX="7.333333333333333" PointY="7.8936979166666674" />
-          <ConnectorPoint PointX="7.7604146666666667" PointY="7.8936979166666665" />
-          <ConnectorPoint PointX="7.9270813333333328" PointY="7.8936979166666674" />
+          <ConnectorPoint PointX="4.5" PointY="5.2993006861848855" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="5.2993006861848837" />
+          <ConnectorPoint PointX="5.098958333333333" PointY="5.2993006861848855" />
+          <ConnectorPoint PointX="5.125" PointY="5.2993006861848855" />
+          <ConnectorPoint PointX="5.125" PointY="6.4375" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="6.4374999999999991" />
+          <ConnectorPoint PointX="7.083333333333333" PointY="6.4375" />
+          <ConnectorPoint PointX="7.1875" PointY="6.4375" />
+          <ConnectorPoint PointX="7.1875" PointY="7.8936979166666674" />
           <ConnectorPoint PointX="8.1666666666666661" PointY="7.8936979166666665" />
           <ConnectorPoint PointX="8.3333333333333339" PointY="7.8936979166666674" />
           <ConnectorPoint PointX="8.4791666666666661" PointY="7.8936979166666665" />
-          <ConnectorPoint PointX="8.6458333333333339" PointY="7.8936979166666674" />
+          <ConnectorPoint PointX="8.739585333333336" PointY="7.8936979166666674" />
+          <ConnectorPoint PointX="10.166666666666666" PointY="7.8936979166666665" />
+          <ConnectorPoint PointX="10.333333333333334" PointY="7.8936979166666674" />
           <ConnectorPoint PointX="10.5" PointY="7.8936979166666674" />
           <ConnectorPoint PointX="10.5" PointY="5.5" />
+          <ConnectorPoint PointX="12.541666666666666" PointY="5.4999999999999991" />
+          <ConnectorPoint PointX="12.708333333333334" PointY="5.5" />
           <ConnectorPoint PointX="12.75" PointY="5.5" />
           <ConnectorPoint PointX="12.75" PointY="7.1148893229166674" />
           <ConnectorPoint PointX="13.75" PointY="7.1148893229166674" />
           <ConnectorPoint PointX="13.75" PointY="6.8648893229166674" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="UniversityOfMeModel.ClubMember" Width="1.5" PointX="16" PointY="3.75" Height="3.7109993489583317" />
-        <AssociationConnector Association="UniversityOfMeModel.FK_ClubMembers_Clubs" >
-          <ConnectorPoint PointX="12.25" PointY="7.1941943359375" />
-          <ConnectorPoint PointX="12.604166666666666" PointY="7.1941943359374987" />
-          <ConnectorPoint PointX="12.770833333333334" PointY="7.1941943359375" />
-          <ConnectorPoint PointX="16" PointY="7.1941943359375" />
-        </AssociationConnector>
-        <AssociationConnector Association="UniversityOfMeModel.FK_ClubMembers_Users_AddedByUser" >
-          <ConnectorPoint PointX="4.5" PointY="4.1480698686236828" />
-          <ConnectorPoint PointX="4.8125" PointY="4.1480698686236828" />
-          <ConnectorPoint PointX="4.8125" PointY="6.5078125" />
-          <ConnectorPoint PointX="4.916666666666667" PointY="6.5078124999999991" />
-          <ConnectorPoint PointX="5.1421093750000013" PointY="6.5078125" />
-          <ConnectorPoint PointX="7" PointY="6.5078125" />
-          <ConnectorPoint PointX="7" PointY="7.9249479166666674" />
-          <ConnectorPoint PointX="7.166666666666667" PointY="7.9249479166666665" />
-          <ConnectorPoint PointX="7.333333333333333" PointY="7.9249479166666674" />
-          <ConnectorPoint PointX="7.7604146666666667" PointY="7.9249479166666665" />
-          <ConnectorPoint PointX="7.9270813333333328" PointY="7.9249479166666674" />
-          <ConnectorPoint PointX="8.1666666666666661" PointY="7.9249479166666665" />
-          <ConnectorPoint PointX="8.3333333333333339" PointY="7.9249479166666674" />
-          <ConnectorPoint PointX="8.4791666666666661" PointY="7.9249479166666665" />
-          <ConnectorPoint PointX="8.6458333333333339" PointY="7.9249479166666674" />
-          <ConnectorPoint PointX="10.25" PointY="7.9249479166666674" />
-          <ConnectorPoint PointX="10.25" PointY="9.5186979166666674" />
-          <ConnectorPoint PointX="10.291666666666666" PointY="9.5186979166666674" />
-          <ConnectorPoint PointX="10.520833333333334" PointY="9.5186979166666674" />
-          <ConnectorPoint PointX="12.5" PointY="9.5186979166666674" />
-          <ConnectorPoint PointX="12.5" PointY="8.75" />
-          <ConnectorPoint PointX="16.953125999999997" PointY="8.75" />
-          <ConnectorPoint PointX="16.953125999999997" PointY="7.4609993489583317" />
-        </AssociationConnector>
-        <AssociationConnector Association="UniversityOfMeModel.FK_ClubMembers_Users_ClubMemeber" >
-          <ConnectorPoint PointX="4.5" PointY="2.8350842814816364" />
-          <ConnectorPoint PointX="4.75" PointY="2.8350842814816364" />
-          <ConnectorPoint PointX="4.75" PointY="6.51171875" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="6.5117187499999991" />
-          <ConnectorPoint PointX="5.1460156250000013" PointY="6.51171875" />
-          <ConnectorPoint PointX="6.854166666666667" PointY="6.5117187499999991" />
-          <ConnectorPoint PointX="7.020833333333333" PointY="6.51171875" />
-          <ConnectorPoint PointX="7.125" PointY="6.51171875" />
-          <ConnectorPoint PointX="7.125" PointY="7.9405729166666674" />
-          <ConnectorPoint PointX="7.166666666666667" PointY="7.9405729166666665" />
-          <ConnectorPoint PointX="7.333333333333333" PointY="7.9405729166666674" />
-          <ConnectorPoint PointX="7.7604146666666667" PointY="7.9405729166666665" />
-          <ConnectorPoint PointX="7.9270813333333328" PointY="7.9405729166666674" />
-          <ConnectorPoint PointX="8.1666666666666661" PointY="7.9405729166666665" />
-          <ConnectorPoint PointX="8.3333333333333339" PointY="7.9405729166666674" />
-          <ConnectorPoint PointX="8.4791666666666661" PointY="7.9405729166666665" />
-          <ConnectorPoint PointX="8.6458333333333339" PointY="7.9405729166666674" />
-          <ConnectorPoint PointX="10.125" PointY="7.9405729166666674" />
-          <ConnectorPoint PointX="10.125" PointY="9.5343229166666674" />
-          <ConnectorPoint PointX="10.291666666666666" PointY="9.5343229166666674" />
-          <ConnectorPoint PointX="10.520833333333334" PointY="9.5343229166666674" />
-          <ConnectorPoint PointX="12.5625" PointY="9.5343229166666674" />
-          <ConnectorPoint PointX="12.5625" PointY="8.375" />
-          <ConnectorPoint PointX="16.445310999999997" PointY="8.375" />
-          <ConnectorPoint PointX="16.445310999999997" PointY="7.4609993489583317" />
-        </AssociationConnector>
-        <AssociationConnector Association="UniversityOfMeModel.FK_ClubMembers_Users_DeletedByUser" >
-          <ConnectorPoint PointX="4.5" PointY="5.7385330124702447" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="5.7385330124702429" />
-          <ConnectorPoint PointX="5.098958333333333" PointY="5.7385330124702447" />
-          <ConnectorPoint PointX="5.125" PointY="5.7385330124702447" />
-          <ConnectorPoint PointX="5.125" PointY="6.515625" />
-          <ConnectorPoint PointX="6.854166666666667" PointY="6.5156249999999991" />
-          <ConnectorPoint PointX="7.145833333333333" PointY="6.515625" />
-          <ConnectorPoint PointX="7.28125" PointY="6.515625" />
-          <ConnectorPoint PointX="7.28125" PointY="7.9561979166666674" />
-          <ConnectorPoint PointX="7.7604146666666667" PointY="7.9561979166666665" />
-          <ConnectorPoint PointX="7.9270813333333328" PointY="7.9561979166666674" />
-          <ConnectorPoint PointX="8.1666666666666661" PointY="7.9561979166666665" />
-          <ConnectorPoint PointX="8.3333333333333339" PointY="7.9561979166666674" />
-          <ConnectorPoint PointX="8.4791666666666661" PointY="7.9561979166666665" />
-          <ConnectorPoint PointX="8.6458333333333339" PointY="7.9561979166666674" />
-          <ConnectorPoint PointX="10.5625" PointY="7.9561979166666674" />
-          <ConnectorPoint PointX="10.5625" PointY="9.5811979166666674" />
-          <ConnectorPoint PointX="12.53125" PointY="9.5811979166666674" />
-          <ConnectorPoint PointX="12.53125" PointY="8.25" />
-          <ConnectorPoint PointX="16.361977666666665" PointY="8.25" />
-          <ConnectorPoint PointX="16.528644333333329" PointY="8.25" />
-          <ConnectorPoint PointX="16.869792666666665" PointY="8.25" />
-          <ConnectorPoint PointX="17.03645933333333" PointY="8.25" />
-          <ConnectorPoint PointX="17.257815" PointY="8.25" />
-          <ConnectorPoint PointX="17.257815" PointY="7.4609993489583317" />
-        </AssociationConnector>
         <EntityTypeShape EntityType="UniversityOfMeModel.TextBookCondition" Width="1.5" PointX="8.75" PointY="14.375" Height="1.5956835937500031" />
         <EntityTypeShape EntityType="UniversityOfMeModel.Class" Width="1.5" PointX="11.125" PointY="12.375" Height="3.5186979166666674" />
         <AssociationConnector Association="UniversityOfMeModel.FK_Classes_AcademicTerm" >
-          <ConnectorPoint PointX="7.16894703125" PointY="16.680400048828133" />
-          <ConnectorPoint PointX="7.16894703125" PointY="16.680400048828133" />
-          <ConnectorPoint PointX="9.0416666666666661" PointY="16.680400048828133" />
-          <ConnectorPoint PointX="9.2083333333333339" PointY="16.680400048828133" />
-          <ConnectorPoint PointX="11.125" PointY="16.680400048828133" />
+          <ConnectorPoint PointX="7.0625" PointY="20.625" />
+          <ConnectorPoint PointX="7.0625" PointY="16.184306611328132" />
+          <ConnectorPoint PointX="11.125" PointY="16.184306611328132" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_Classes_Universities" >
-          <ConnectorPoint PointX="1.3286806597909577" PointY="12.2494921875" />
-          <ConnectorPoint PointX="1.3286806597909577" PointY="15.518372395833332" />
-          <ConnectorPoint PointX="4.822916666666667" PointY="15.51837239583333" />
-          <ConnectorPoint PointX="5.098958333333333" PointY="15.518372395833332" />
-          <ConnectorPoint PointX="6.8761376822916676" PointY="15.51837239583333" />
-          <ConnectorPoint PointX="7.208333333333333" PointY="15.518372395833332" />
-          <ConnectorPoint PointX="8.5" PointY="15.518372395833332" />
+          <ConnectorPoint PointX="1.4301151948495847" PointY="12.2494921875" />
+          <ConnectorPoint PointX="1.4301151948495847" PointY="15.557190755208332" />
+          <ConnectorPoint PointX="2.8541666666666665" PointY="15.557190755208332" />
+          <ConnectorPoint PointX="3.0208333333333335" PointY="15.557190755208332" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="15.55719075520833" />
+          <ConnectorPoint PointX="4.989583333333333" PointY="15.557190755208332" />
+          <ConnectorPoint PointX="6.8229141666666671" PointY="15.55719075520833" />
+          <ConnectorPoint PointX="7.2083333333333321" PointY="15.557190755208332" />
+          <ConnectorPoint PointX="7.979166666666667" PointY="15.557190755208332" />
+          <ConnectorPoint PointX="8.1458333333333339" PointY="15.557190755208332" />
+          <ConnectorPoint PointX="8.5" PointY="15.557190755208332" />
           <ConnectorPoint PointX="8.5" PointY="14.125" />
           <ConnectorPoint PointX="10.75" PointY="14.125" />
-          <ConnectorPoint PointX="10.75" PointY="14.22875015820313" />
-          <ConnectorPoint PointX="10.791666666666666" PointY="14.22875015820313" />
-          <ConnectorPoint PointX="10.958333333333334" PointY="14.22875015820313" />
-          <ConnectorPoint PointX="11.125" PointY="14.22875015820313" />
+          <ConnectorPoint PointX="10.75" PointY="13.773921398437501" />
+          <ConnectorPoint PointX="10.791666666666666" PointY="13.773921398437501" />
+          <ConnectorPoint PointX="10.958333333333334" PointY="13.773921398437501" />
+          <ConnectorPoint PointX="11.125" PointY="13.773921398437501" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_Classes_Users" >
-          <ConnectorPoint PointX="3.6989610784773213" PointY="15.460673828125" />
-          <ConnectorPoint PointX="3.6989610784773213" PointY="16.180400048828133" />
-          <ConnectorPoint PointX="3.7221507992032179" PointY="16.18040004882813" />
-          <ConnectorPoint PointX="4.5413779142366888" PointY="16.180400048828133" />
-          <ConnectorPoint PointX="4.822916666666667" PointY="16.180400048828133" />
-          <ConnectorPoint PointX="4.989583333333333" PointY="16.180400048828133" />
-          <ConnectorPoint PointX="6.8761376822916676" PointY="16.180400048828133" />
-          <ConnectorPoint PointX="7.208333333333333" PointY="16.180400048828133" />
-          <ConnectorPoint PointX="11.125" PointY="16.180400048828133" />
+          <ConnectorPoint PointX="3.3931455263555685" PointY="15.845276692708332" />
+          <ConnectorPoint PointX="3.3931455263555685" PointY="16.077492602539074" />
+          <ConnectorPoint PointX="3.4069656050632435" PointY="16.077492602539071" />
+          <ConnectorPoint PointX="4.5327523563187455" PointY="16.077492602539074" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="16.077492602539074" />
+          <ConnectorPoint PointX="4.989583333333333" PointY="16.077492602539074" />
+          <ConnectorPoint PointX="6.8229141666666671" PointY="16.077492602539074" />
+          <ConnectorPoint PointX="7.2083333333333321" PointY="16.077492602539074" />
+          <ConnectorPoint PointX="11.125" PointY="16.077492602539074" />
         </AssociationConnector>
         <EntityTypeShape EntityType="UniversityOfMeModel.GeneralPosting" Width="1.5" PointX="10.25" PointY="1.5" Height="2.7494921875000102" />
         <AssociationConnector Association="UniversityOfMeModel.FK_GeneralPostings_Universities" >
-          <ConnectorPoint PointX="1.7812519999999998" PointY="9.4129850260416674" />
-          <ConnectorPoint PointX="1.7812519999999998" PointY="9.4129850260416674" />
+          <ConnectorPoint PointX="1.7812519999999998" PointY="9.5" />
+          <ConnectorPoint PointX="1.7812519999999998" PointY="8.9129850260416674" />
           <ConnectorPoint PointX="2.375" PointY="8.9129850260416674" />
           <ConnectorPoint PointX="2.375" PointY="0.5" />
           <ConnectorPoint PointX="2.4166666666666665" PointY="0.49999999999999944" />
           <ConnectorPoint PointX="2.5833333333333335" PointY="0.5" />
+          <ConnectorPoint PointX="10.947918666666666" PointY="0.49999999999999944" />
+          <ConnectorPoint PointX="11.114585333333334" PointY="0.5" />
           <ConnectorPoint PointX="12.125" PointY="0.5" />
-          <ConnectorPoint PointX="11.75" PointY="3.475644438151047" />
-          <ConnectorPoint PointX="12.125" PointY="3.475644438151047" />
+          <ConnectorPoint PointX="12.125" PointY="2.5886946614583266" />
+          <ConnectorPoint PointX="11.75" PointY="2.5886946614583266" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_GeneralPostings_Users" >
-          <ConnectorPoint PointX="4.5" PointY="3.6602709960937503" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="3.660270996093749" />
-          <ConnectorPoint PointX="5.083333333333333" PointY="3.6602709960937503" />
-          <ConnectorPoint PointX="8.0416666666666661" PointY="3.66027099609375" />
-          <ConnectorPoint PointX="8.2083333333333339" PointY="3.6602709960937503" />
-          <ConnectorPoint PointX="10.25" PointY="3.6602709960937503" />
+          <ConnectorPoint PointX="4.5" PointY="8.613280764322722" />
+          <ConnectorPoint PointX="4.635416666666667" PointY="8.613280764322722" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="8.613280764322722" />
+          <ConnectorPoint PointX="4.84375" PointY="8.613280764322722" />
+          <ConnectorPoint PointX="4.84375" PointY="6.625" />
+          <ConnectorPoint PointX="4.885416666666667" PointY="6.6249999999999991" />
+          <ConnectorPoint PointX="5.098958333333333" PointY="6.625" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="6.6249999999999991" />
+          <ConnectorPoint PointX="7.083333333333333" PointY="6.625" />
+          <ConnectorPoint PointX="7.125" PointY="6.625" />
+          <ConnectorPoint PointX="7.125" PointY="3.875" />
+          <ConnectorPoint PointX="9.89" PointY="3.875" />
+          <ConnectorPoint PointX="9.89" PointY="5.375" />
+          <ConnectorPoint PointX="9.9166666666666661" PointY="5.3749999999999991" />
+          <ConnectorPoint PointX="10.083333333333334" PointY="5.375" />
+          <ConnectorPoint PointX="10.354166666666666" PointY="5.3749999999999991" />
+          <ConnectorPoint PointX="10.520833333333334" PointY="5.375" />
+          <ConnectorPoint PointX="11" PointY="5.375" />
+          <ConnectorPoint PointX="11" PointY="4.24949218750001" />
         </AssociationConnector>
         <EntityTypeShape EntityType="UniversityOfMeModel.Friend" Width="1.5" PointX="1.25" PointY="16" Height="2.1725878906250102" />
         <AssociationConnector Association="UniversityOfMeModel.FK_Friends_FriendUserId_Users" >
-          <ConnectorPoint PointX="3" PointY="15.460673828125" />
-          <ConnectorPoint PointX="2.7499999999999991" PointY="16" />
+          <ConnectorPoint PointX="3" PointY="15.845276692708332" />
+          <ConnectorPoint PointX="2.75" PointY="16" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_Friends_SourceUserId_Users" >
-          <ConnectorPoint PointX="3" PointY="15.460673828125" />
-          <ConnectorPoint PointX="2.7499999999999991" PointY="16" />
+          <ConnectorPoint PointX="3" PointY="15.845276692708332" />
+          <ConnectorPoint PointX="2.75" PointY="16" />
         </AssociationConnector>
         <EntityTypeShape EntityType="UniversityOfMeModel.Event" Width="1.5" PointX="10.25" PointY="0.75" Height="3.3263964843750102" />
         <AssociationConnector Association="UniversityOfMeModel.FK_Events_Universities" >
-          <ConnectorPoint PointX="0.96874799999999994" PointY="9.4286100260416674" />
+          <ConnectorPoint PointX="0.96874799999999994" PointY="9.5" />
           <ConnectorPoint PointX="0.96874799999999994" PointY="8.9286100260416674" />
+          <ConnectorPoint PointX="1.2916666666666667" PointY="8.9286100260416674" />
+          <ConnectorPoint PointX="1.4583333333333333" PointY="8.9286100260416674" />
           <ConnectorPoint PointX="2.5" PointY="8.9286100260416674" />
           <ConnectorPoint PointX="2.5" PointY="0.25" />
+          <ConnectorPoint PointX="11.031252" PointY="0.25" />
           <ConnectorPoint PointX="11.031252" PointY="0.75" />
-          <ConnectorPoint PointX="11.031252" PointY="1.25" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_Events_Users" >
-          <ConnectorPoint PointX="4.5" PointY="3.4813301595052089" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="3.4813301595052075" />
-          <ConnectorPoint PointX="5.083333333333333" PointY="3.4813301595052089" />
-          <ConnectorPoint PointX="5.916666666666667" PointY="3.4813301595052084" />
-          <ConnectorPoint PointX="6.083333333333333" PointY="3.4813301595052089" />
-          <ConnectorPoint PointX="8.0416666666666661" PointY="3.4813301595052084" />
-          <ConnectorPoint PointX="8.2083333333333339" PointY="3.4813301595052089" />
-          <ConnectorPoint PointX="10.25" PointY="3.4813301595052089" />
+          <ConnectorPoint PointX="4.5" PointY="3.4898893229166674" />
+          <ConnectorPoint PointX="4.697916666666667" PointY="3.4898893229166661" />
+          <ConnectorPoint PointX="5.098958333333333" PointY="3.4898893229166674" />
+          <ConnectorPoint PointX="5.916666666666667" PointY="3.489889322916667" />
+          <ConnectorPoint PointX="6.083333333333333" PointY="3.4898893229166674" />
+          <ConnectorPoint PointX="8.0416666666666661" PointY="3.489889322916667" />
+          <ConnectorPoint PointX="8.2083333333333339" PointY="3.4898893229166674" />
+          <ConnectorPoint PointX="10.25" PointY="3.4898893229166674" />
         </AssociationConnector>
         <EntityTypeShape EntityType="UniversityOfMeModel.EventBoard" Width="1.5" PointX="13.375" PointY="0.5" Height="2.3648893229166674" />
         <AssociationConnector Association="UniversityOfMeModel.FK_EventBoard_Events" >
@@ -4621,8 +4627,10 @@
           <ConnectorPoint PointX="13.375" PointY="1.7017976888020832" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_EventBoard_Users" >
-          <ConnectorPoint PointX="4.1546492641035853" PointY="1.75" />
-          <ConnectorPoint PointX="4.1546492641035853" PointY="0.59375" />
+          <ConnectorPoint PointX="3.5233646673983108" PointY="1.75" />
+          <ConnectorPoint PointX="3.5233646673983108" PointY="0.59375" />
+          <ConnectorPoint PointX="10.947918666666666" PointY="0.59374999999999944" />
+          <ConnectorPoint PointX="11.114585333333334" PointY="0.59375" />
           <ConnectorPoint PointX="12.041666666666666" PointY="0.59374999999999944" />
           <ConnectorPoint PointX="12.208333333333334" PointY="0.59375" />
           <ConnectorPoint PointX="13.375" PointY="0.59375" />
@@ -4630,21 +4638,19 @@
         <EntityTypeShape EntityType="UniversityOfMeModel.ProfessorReview" Width="1.5" PointX="8.125" PointY="9.375" Height="3.5186979166666674" />
         <EntityTypeShape EntityType="UniversityOfMeModel.TextBook" Width="1.5" PointX="15" PointY="8.875" Height="4.0956022135416674" />
         <AssociationConnector Association="UniversityOfMeModel.FK_ProfessorReviews_AcademicTerm" >
-          <ConnectorPoint PointX="6.9594710156250006" PointY="20.625" />
-          <ConnectorPoint PointX="6.9594710156250006" PointY="12.583893229166666" />
-          <ConnectorPoint PointX="6.979166666666667" PointY="12.583893229166666" />
-          <ConnectorPoint PointX="7.208333333333333" PointY="12.583893229166666" />
-          <ConnectorPoint PointX="7.729166666666667" PointY="12.583893229166666" />
-          <ConnectorPoint PointX="7.958333333333333" PointY="12.583893229166666" />
-          <ConnectorPoint PointX="8.125" PointY="12.583893229166666" />
+          <ConnectorPoint PointX="6.9062475" PointY="20.625" />
+          <ConnectorPoint PointX="6.9062475" PointY="12.083898229166653" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="12.083898229166652" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="12.083898229166653" />
+          <ConnectorPoint PointX="8.125" PointY="12.083898229166653" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_ProfessorReviews_Users" >
-          <ConnectorPoint PointX="4.5" PointY="12.021393229166666" />
-          <ConnectorPoint PointX="4.697916666666667" PointY="12.021393229166664" />
-          <ConnectorPoint PointX="5.098958333333333" PointY="12.021393229166666" />
-          <ConnectorPoint PointX="6.979166666666667" PointY="12.021393229166666" />
-          <ConnectorPoint PointX="7.208333333333333" PointY="12.021393229166666" />
-          <ConnectorPoint PointX="8.125" PointY="12.021393229166666" />
+          <ConnectorPoint PointX="4.5" PointY="11.875842343749993" />
+          <ConnectorPoint PointX="4.635416666666667" PointY="11.875842343749991" />
+          <ConnectorPoint PointX="5.130208333333333" PointY="11.875842343749993" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="11.875842343749991" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="11.875842343749993" />
+          <ConnectorPoint PointX="8.125" PointY="11.875842343749993" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_TextBooks_TextBookConditions" >
           <ConnectorPoint PointX="10.25" PointY="15.172841796875002" />
@@ -4660,22 +4666,21 @@
           <ConnectorPoint PointX="15.343748" PointY="12.970602213541667" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_TextBooks_Universities" ManuallyRouted="true" >
-          <ConnectorPoint PointX="1.1388755280463929" PointY="12.2494921875" />
-          <ConnectorPoint PointX="1.2638495011213207" PointY="12.350421949639836" />
-          <ConnectorPoint PointX="1.3935118184605952" PointY="12.455138047924612" />
-          <ConnectorPoint PointX="2.2979964925703227" PointY="13.185605526639488" />
-          <ConnectorPoint PointX="2.4276588099095973" PointY="13.290321624924264" />
-          <ConnectorPoint PointX="2.5268333148745321" PointY="13.370415575289798" />
-          <ConnectorPoint PointX="2.6898311586696373" PointY="13.502053653193292" />
+          <ConnectorPoint PointX="2.125" PointY="12.215061766292342" />
+          <ConnectorPoint PointX="2.5864324918867649" PointY="13.098880579347664" />
+          <ConnectorPoint PointX="2.6635675081132355" PointY="13.246623487974507" />
           <ConnectorPoint PointX="2.875" PointY="13.651597167345459" />
           <ConnectorPoint PointX="2.875" PointY="15.050692971292325" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="15.050692971292325" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="15.050692971292325" />
           <ConnectorPoint PointX="4.963541666666667" PointY="15.050692971292325" />
-          <ConnectorPoint PointX="4.963541666666667" PointY="12.375" />
-          <ConnectorPoint PointX="6.8761376822916676" PointY="12.374999999999998" />
-          <ConnectorPoint PointX="7.208333333333333" PointY="12.375" />
-          <ConnectorPoint PointX="7.875" PointY="12.375" />
-          <ConnectorPoint PointX="7.875" PointY="13.143697916666667" />
-          <ConnectorPoint PointX="10.5" PointY="13.143697916666667" />
+          <ConnectorPoint PointX="4.963541666666667" PointY="12.375009999999975" />
+          <ConnectorPoint PointX="6.8229141666666671" PointY="12.375009999999973" />
+          <ConnectorPoint PointX="7.2083333333333321" PointY="12.375009999999975" />
+          <ConnectorPoint PointX="7.875" PointY="12.375009999999975" />
+          <ConnectorPoint PointX="7.875" PointY="13.143707916666642" />
+          <ConnectorPoint PointX="7.98747044931998" PointY="13.089349002593" />
+          <ConnectorPoint PointX="8.13752955068002" PointY="13.016822842645052" />
           <ConnectorPoint PointX="10.5" PointY="11.875" />
           <ConnectorPoint PointX="13.072916166666667" PointY="11.875" />
           <ConnectorPoint PointX="13.239582833333335" PointY="11.875" />
@@ -4685,27 +4690,23 @@
           <ConnectorPoint PointX="15.75" PointY="12.970602213541667" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_TextBooks_Users" >
-          <ConnectorPoint PointX="3.511426618989673" PointY="1.75" />
-          <ConnectorPoint PointX="3.511426618989673" PointY="1.5" />
-          <ConnectorPoint PointX="4.0713159307702522" PointY="1.4999999999999993" />
-          <ConnectorPoint PointX="4.2379825974369183" PointY="1.5" />
-          <ConnectorPoint PointX="5" PointY="1.5" />
-          <ConnectorPoint PointX="5" PointY="9.109375" />
-          <ConnectorPoint PointX="6.979166666666667" PointY="9.109375" />
-          <ConnectorPoint PointX="7.145833333333333" PointY="9.109375" />
+          <ConnectorPoint PointX="3.770573573269723" PointY="1.75" />
+          <ConnectorPoint PointX="3.770573573269723" PointY="1.453125" />
+          <ConnectorPoint PointX="4.96875" PointY="1.453125" />
+          <ConnectorPoint PointX="4.96875" PointY="9.109375" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="9.109375" />
+          <ConnectorPoint PointX="7.083333333333333" PointY="9.109375" />
           <ConnectorPoint PointX="7.166666666666667" PointY="9.109375" />
           <ConnectorPoint PointX="7.333333333333333" PointY="9.109375" />
-          <ConnectorPoint PointX="7.7604146666666667" PointY="9.109375" />
-          <ConnectorPoint PointX="7.9270813333333328" PointY="9.109375" />
           <ConnectorPoint PointX="8.4791666666666661" PointY="9.109375" />
           <ConnectorPoint PointX="8.6458333333333339" PointY="9.109375" />
-          <ConnectorPoint PointX="10.041666666666666" PointY="9.1093749999999982" />
-          <ConnectorPoint PointX="10.333333333333334" PointY="9.109375" />
-          <ConnectorPoint PointX="10.375" PointY="9.109375" />
-          <ConnectorPoint PointX="10.375" PointY="11.470683593750003" />
+          <ConnectorPoint PointX="10.104166666666666" PointY="9.1093749999999982" />
+          <ConnectorPoint PointX="10.395833333333334" PointY="9.109375" />
+          <ConnectorPoint PointX="10.5" PointY="9.109375" />
+          <ConnectorPoint PointX="10.5" PointY="11.470683593750003" />
           <ConnectorPoint PointX="14.625" PointY="11.470683593750003" />
-          <ConnectorPoint PointX="14.625" PointY="10.454999999999998" />
-          <ConnectorPoint PointX="15" PointY="10.454999999999998" />
+          <ConnectorPoint PointX="14.625" PointY="10.375000499999999" />
+          <ConnectorPoint PointX="15" PointY="10.375000499999999" />
         </AssociationConnector>
         <EntityTypeShape EntityType="UniversityOfMeModel.MessageReply" Width="1.5" PointX="12.25" PointY="22.875" Height="2.3648893229166674" />
         <EntityTypeShape EntityType="UniversityOfMeModel.Message" Width="1.5" PointX="9.125" PointY="21" Height="3.7109993489583246" />
@@ -4714,16 +4715,17 @@
           <ConnectorPoint PointX="11.916666666666666" PointY="23.792999674479162" />
           <ConnectorPoint PointX="12.239583333333334" PointY="23.792999674479162" />
           <ConnectorPoint PointX="12.25" PointY="23.792999674479162" />
+          <ConnectorPoint PointX="12.25" PointY="25.239889322916667" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_Replys_User" >
-          <ConnectorPoint PointX="3.9120071865957819" PointY="15.460673828125" />
-          <ConnectorPoint PointX="3.9120071865957819" PointY="23.25" />
-          <ConnectorPoint PointX="4.2497012475700231" PointY="23.25" />
-          <ConnectorPoint PointX="4.5413779142366888" PointY="23.25" />
+          <ConnectorPoint PointX="3.587452350437585" PointY="15.845276692708332" />
+          <ConnectorPoint PointX="3.587452350437585" PointY="23.25" />
+          <ConnectorPoint PointX="3.6212888455937366" PointY="23.25" />
+          <ConnectorPoint PointX="3.7879555122604036" PointY="23.25" />
+          <ConnectorPoint PointX="3.9890319720461442" PointY="23.249999999999996" />
+          <ConnectorPoint PointX="4.5327523563187446" PointY="23.25" />
           <ConnectorPoint PointX="5.916666666666667" PointY="23.25" />
           <ConnectorPoint PointX="6.083333333333333" PointY="23.25" />
-          <ConnectorPoint PointX="7.1722531220946069" PointY="23.25" />
-          <ConnectorPoint PointX="7.3389197887612729" PointY="23.25" />
           <ConnectorPoint PointX="7.791666666666667" PointY="23.25" />
           <ConnectorPoint PointX="7.958333333333333" PointY="23.25" />
           <ConnectorPoint PointX="8.875" PointY="23.25" />
@@ -4735,71 +4737,55 @@
           <ConnectorPoint PointX="12.25" PointY="24.043000174479161" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_Message_Users_FromUserId" >
-          <ConnectorPoint PointX="3.4715580517222042" PointY="15.460673828125" />
-          <ConnectorPoint PointX="3.4715580517222042" PointY="22.891259259238552" />
-          <ConnectorPoint PointX="3.5019262317664293" PointY="22.891259259238552" />
-          <ConnectorPoint PointX="3.6685928984330962" PointY="22.891259259238552" />
-          <ConnectorPoint PointX="3.7221507992032179" PointY="22.891259259238552" />
-          <ConnectorPoint PointX="3.9953405199291159" PointY="22.891259259238552" />
-          <ConnectorPoint PointX="4.0172895567772811" PointY="22.891259259238552" />
-          <ConnectorPoint PointX="4.1839562234439471" PointY="22.891259259238552" />
-          <ConnectorPoint PointX="4.2497012475700231" PointY="22.891259259238552" />
-          <ConnectorPoint PointX="4.5413779142366888" PointY="22.891259259238552" />
-          <ConnectorPoint PointX="5.916666666666667" PointY="22.891259259238552" />
-          <ConnectorPoint PointX="6.083333333333333" PointY="22.891259259238552" />
-          <ConnectorPoint PointX="7.185062255576101" PointY="22.891259259238552" />
-          <ConnectorPoint PointX="7.3517289222427671" PointY="22.891259259238552" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="22.891259259238552" />
-          <ConnectorPoint PointX="7.958333333333333" PointY="22.891259259238552" />
-          <ConnectorPoint PointX="9.125" PointY="22.891259259238552" />
+          <ConnectorPoint PointX="3.9691935111636214" PointY="15.845276692708332" />
+          <ConnectorPoint PointX="3.9691935111636214" PointY="22.86021484375" />
+          <ConnectorPoint PointX="3.9890319720461442" PointY="22.860214843749997" />
+          <ConnectorPoint PointX="4.5327523563187446" PointY="22.86021484375" />
+          <ConnectorPoint PointX="5.916666666666667" PointY="22.86021484375" />
+          <ConnectorPoint PointX="6.083333333333333" PointY="22.86021484375" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="22.86021484375" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="22.86021484375" />
+          <ConnectorPoint PointX="9.125" PointY="22.86021484375" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_Message_Users_ToUserId" >
-          <ConnectorPoint PointX="3.3143521577274138" PointY="15.460673828125" />
-          <ConnectorPoint PointX="3.3143521577274138" PointY="22.652119642640116" />
-          <ConnectorPoint PointX="3.3257197183888709" PointY="22.652119642640116" />
-          <ConnectorPoint PointX="3.6685928984330958" PointY="22.652119642640116" />
-          <ConnectorPoint PointX="3.7221507992032179" PointY="22.652119642640116" />
-          <ConnectorPoint PointX="3.9953405199291159" PointY="22.652119642640116" />
-          <ConnectorPoint PointX="4.0172895567772811" PointY="22.652119642640116" />
-          <ConnectorPoint PointX="4.1839562234439471" PointY="22.652119642640116" />
-          <ConnectorPoint PointX="4.2497012475700231" PointY="22.652119642640116" />
-          <ConnectorPoint PointX="4.5413779142366888" PointY="22.652119642640116" />
-          <ConnectorPoint PointX="7.1936009324579659" PointY="22.652119642640116" />
-          <ConnectorPoint PointX="7.360267599124632" PointY="22.652119642640116" />
-          <ConnectorPoint PointX="7.541666666666667" PointY="22.652119642640116" />
-          <ConnectorPoint PointX="7.708333333333333" PointY="22.652119642640116" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="22.652119642640116" />
-          <ConnectorPoint PointX="7.958333333333333" PointY="22.652119642640116" />
-          <ConnectorPoint PointX="9.125" PointY="22.652119642640116" />
+          <ConnectorPoint PointX="4.3322221479854122" PointY="15.845276692708332" />
+          <ConnectorPoint PointX="4.3322221479854122" PointY="23.153722330729167" />
+          <ConnectorPoint PointX="4.3348331896520786" PointY="23.153722330729167" />
+          <ConnectorPoint PointX="4.5327523563187437" PointY="23.153722330729167" />
+          <ConnectorPoint PointX="5.916666666666667" PointY="23.153722330729167" />
+          <ConnectorPoint PointX="6.083333333333333" PointY="23.153722330729167" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="23.153722330729167" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="23.153722330729167" />
+          <ConnectorPoint PointX="8.7291666666666661" PointY="23.153722330729167" />
+          <ConnectorPoint PointX="8.8958333333333339" PointY="23.153722330729167" />
+          <ConnectorPoint PointX="9.125" PointY="23.153722330729167" />
         </AssociationConnector>
         <EntityTypeShape EntityType="UniversityOfMeModel.PhotoAlbum" Width="1.5" PointX="7.375" PointY="16.5" Height="2.1725878906250102" />
         <EntityTypeShape EntityType="UniversityOfMeModel.Photo" Width="1.5" PointX="9.875" PointY="17.625" Height="2.7494921875000102" />
         <AssociationConnector Association="UniversityOfMeModel.FK_PhotoAlbum_Users" >
-          <ConnectorPoint PointX="4.2012024855069852" PointY="15.460673828125" />
-          <ConnectorPoint PointX="4.2012024855069852" PointY="16.590200024414067" />
-          <ConnectorPoint PointX="4.2184487475700232" PointY="16.590200024414067" />
-          <ConnectorPoint PointX="4.54137791423669" PointY="16.590200024414067" />
-          <ConnectorPoint PointX="4.822916666666667" PointY="16.590200024414067" />
-          <ConnectorPoint PointX="4.989583333333333" PointY="16.590200024414067" />
-          <ConnectorPoint PointX="6.8761376822916676" PointY="16.590200024414067" />
-          <ConnectorPoint PointX="7.208333333333333" PointY="16.590200024414067" />
-          <ConnectorPoint PointX="7.375" PointY="16.590200024414067" />
+          <ConnectorPoint PointX="4.1348703053794775" PointY="15.845276692708332" />
+          <ConnectorPoint PointX="4.1348703053794775" PointY="16.59375" />
+          <ConnectorPoint PointX="4.1551313146520794" PointY="16.59375" />
+          <ConnectorPoint PointX="4.5327523563187437" PointY="16.59375" />
+          <ConnectorPoint PointX="5.0427233589743592" PointY="16.59375" />
+          <ConnectorPoint PointX="5.2093900256410253" PointY="16.59375" />
+          <ConnectorPoint PointX="6.8229141666666671" PointY="16.59375" />
+          <ConnectorPoint PointX="7.2083333333333321" PointY="16.59375" />
+          <ConnectorPoint PointX="7.375" PointY="16.59375" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_Photos_PhotoAlbum" >
-          <ConnectorPoint PointX="8.875" PointY="18.648793945312505" />
-          <ConnectorPoint PointX="9.5416666666666661" PointY="18.648793945312505" />
-          <ConnectorPoint PointX="9.7083333333333339" PointY="18.648793945312505" />
-          <ConnectorPoint PointX="9.875" PointY="18.648793945312505" />
+          <ConnectorPoint PointX="8.875" PointY="18.148793945312505" />
+          <ConnectorPoint PointX="9.5416666666666661" PointY="18.148793945312505" />
+          <ConnectorPoint PointX="9.7083333333333339" PointY="18.148793945312505" />
+          <ConnectorPoint PointX="9.875" PointY="18.148793945312505" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_Photos_Users" >
-          <ConnectorPoint PointX="4.0185302406550125" PointY="15.460673828125" />
-          <ConnectorPoint PointX="4.0185302406550125" PointY="20.091095377604166" />
-          <ConnectorPoint PointX="4.2497012475700231" PointY="20.091095377604166" />
-          <ConnectorPoint PointX="4.5413779142366888" PointY="20.091095377604166" />
-          <ConnectorPoint PointX="6.8761376822916676" PointY="20.091095377604166" />
-          <ConnectorPoint PointX="7.252280364583334" PointY="20.091095377604166" />
-          <ConnectorPoint PointX="7.2850444121992464" PointY="20.091095377604166" />
-          <ConnectorPoint PointX="7.4517110788659124" PointY="20.091095377604166" />
+          <ConnectorPoint PointX="3.8217920074165548" PointY="15.845276692708332" />
+          <ConnectorPoint PointX="3.8217920074165548" PointY="20.091095377604166" />
+          <ConnectorPoint PointX="3.8858601778302879" PointY="20.091095377604162" />
+          <ConnectorPoint PointX="4.5327523563187455" PointY="20.091095377604166" />
+          <ConnectorPoint PointX="6.8229141666666671" PointY="20.091095377604166" />
+          <ConnectorPoint PointX="7.2083333333333321" PointY="20.091095377604166" />
           <ConnectorPoint PointX="7.541666666666667" PointY="20.091095377604166" />
           <ConnectorPoint PointX="7.708333333333333" PointY="20.091095377604166" />
           <ConnectorPoint PointX="9.875" PointY="20.091095377604166" />
@@ -4811,27 +4797,25 @@
         <EntityTypeShape EntityType="UniversityOfMeModel.BoardViewedState" Width="1.5" PointX="15.5" PointY="21.875" Height="2.3648893229166674" />
         <AssociationConnector Association="UniversityOfMeModel.FK_AuditBoard_Board" >
           <ConnectorPoint PointX="6.75" PointY="28.657827428936294" />
-          <ConnectorPoint PointX="12.15625" PointY="22.489889322916667" />
-          <ConnectorPoint PointX="12.15625" PointY="29.157827428936294" />
+          <ConnectorPoint PointX="12.15625" PointY="28.657827428936294" />
+          <ConnectorPoint PointX="12.15625" PointY="21.989889322916667" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_AuditBoard_Users" >
-          <ConnectorPoint PointX="4.5" PointY="13.061363491861446" />
-          <ConnectorPoint PointX="4.875" PointY="13.061363491861446" />
+          <ConnectorPoint PointX="4.5" PointY="11.152544429023175" />
+          <ConnectorPoint PointX="4.635416666666667" PointY="11.152544429023175" />
+          <ConnectorPoint PointX="4.864583333333333" PointY="11.152544429023175" />
+          <ConnectorPoint PointX="4.875" PointY="11.152544429023175" />
           <ConnectorPoint PointX="4.875" PointY="9.172587890625" />
-          <ConnectorPoint PointX="4.932291666666667" PointY="9.1725878906249978" />
-          <ConnectorPoint PointX="5.2628917640343476" PointY="9.172587890625" />
-          <ConnectorPoint PointX="6.979166666666667" PointY="9.172587890625" />
-          <ConnectorPoint PointX="7.145833333333333" PointY="9.172587890625" />
-          <ConnectorPoint PointX="7.166666666666667" PointY="9.172587890625" />
+          <ConnectorPoint PointX="4.947916666666667" PointY="9.172587890625" />
+          <ConnectorPoint PointX="5.130208333333333" PointY="9.172587890625" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="9.1725878906249978" />
           <ConnectorPoint PointX="7.333333333333333" PointY="9.172587890625" />
-          <ConnectorPoint PointX="7.7604146666666667" PointY="9.172587890625" />
-          <ConnectorPoint PointX="7.9270813333333328" PointY="9.172587890625" />
           <ConnectorPoint PointX="8.4791666666666661" PointY="9.172587890625" />
           <ConnectorPoint PointX="8.6458333333333339" PointY="9.172587890625" />
-          <ConnectorPoint PointX="10.041666666666666" PointY="9.1725878906249978" />
-          <ConnectorPoint PointX="10.333333333333334" PointY="9.172587890625" />
-          <ConnectorPoint PointX="10.4375" PointY="9.172587890625" />
-          <ConnectorPoint PointX="10.4375" PointY="11.595683593750003" />
+          <ConnectorPoint PointX="10.041666666666666" PointY="9.172587890625" />
+          <ConnectorPoint PointX="10.270833333333334" PointY="9.172587890625" />
+          <ConnectorPoint PointX="10.375" PointY="9.172587890625" />
+          <ConnectorPoint PointX="10.375" PointY="11.595683593750003" />
           <ConnectorPoint PointX="13.156249500000001" PointY="11.595683593750003" />
           <ConnectorPoint PointX="13.156249500000001" PointY="19.625" />
         </AssociationConnector>
@@ -4848,42 +4832,52 @@
           <ConnectorPoint PointX="9.125" PointY="17.359375" />
           <ConnectorPoint PointX="9.125" PointY="16.25" />
           <ConnectorPoint PointX="7.208333333333333" PointY="16.25" />
-          <ConnectorPoint PointX="6.8761376822916676" PointY="16.25" />
-          <ConnectorPoint PointX="5.015625" PointY="16.25" />
-          <ConnectorPoint PointX="5.015625" PointY="4.2398893229166674" />
-          <ConnectorPoint PointX="6" PointY="3.7398893229166674" />
+          <ConnectorPoint PointX="6.8229141666666662" PointY="16.25" />
+          <ConnectorPoint PointX="4.989583333333333" PointY="16.25" />
+          <ConnectorPoint PointX="4.822916666666667" PointY="16.25" />
+          <ConnectorPoint PointX="4.75" PointY="16.25" />
+          <ConnectorPoint PointX="4.75" PointY="3.6773893229166674" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="3.6773893229166665" />
+          <ConnectorPoint PointX="5.098958333333333" PointY="3.6773893229166674" />
+          <ConnectorPoint PointX="6" PointY="3.6773893229166674" />
           <ConnectorPoint PointX="6" PointY="3.1148893229166674" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_AuditBoardReplies_Users" >
-          <ConnectorPoint PointX="4.5" PointY="2.4135828602068119" />
-          <ConnectorPoint PointX="4.697916666666667" PointY="2.4135828602068106" />
-          <ConnectorPoint PointX="5.083333333333333" PointY="2.4135828602068119" />
-          <ConnectorPoint PointX="5.25" PointY="2.4135828602068119" />
+          <ConnectorPoint PointX="4.5" PointY="2.7585943213438444" />
+          <ConnectorPoint PointX="4.697916666666667" PointY="2.7585943213438431" />
+          <ConnectorPoint PointX="5.098958333333333" PointY="2.7585943213438444" />
+          <ConnectorPoint PointX="5.25" PointY="2.7585943213438444" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_Board_OwnerUserId_Users" >
-          <ConnectorPoint PointX="3.5852595650997627" PointY="15.460673828125" />
-          <ConnectorPoint PointX="3.5852595650997627" PointY="29.744834565972223" />
-          <ConnectorPoint PointX="4.2497012475700231" PointY="29.744834565972223" />
-          <ConnectorPoint PointX="4.5413779142366888" PointY="29.744834565972223" />
+          <ConnectorPoint PointX="3.1108455354225386" PointY="15.845276692708332" />
+          <ConnectorPoint PointX="3.1108455354225386" PointY="29.744834565972223" />
+          <ConnectorPoint PointX="3.6212888455937366" PointY="29.744834565972223" />
+          <ConnectorPoint PointX="3.7879555122604036" PointY="29.744834565972223" />
+          <ConnectorPoint PointX="3.9890319720461442" PointY="29.744834565972223" />
+          <ConnectorPoint PointX="4.3530504813187454" PointY="29.744834565972223" />
+          <ConnectorPoint PointX="4.3660856896520785" PointY="29.744834565972223" />
+          <ConnectorPoint PointX="4.5327523563187446" PointY="29.744834565972223" />
           <ConnectorPoint PointX="5.25" PointY="29.744834565972223" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_Board_PostedUserId_Users" >
-          <ConnectorPoint PointX="3.8054841325365514" PointY="15.460673828125" />
-          <ConnectorPoint PointX="3.8054841325365514" PointY="28.46616478298612" />
-          <ConnectorPoint PointX="4.2497012475700231" PointY="28.46616478298612" />
-          <ConnectorPoint PointX="4.5413779142366888" PointY="28.46616478298612" />
+          <ConnectorPoint PointX="3.490298938396577" PointY="15.845276692708332" />
+          <ConnectorPoint PointX="3.490298938396577" PointY="28.46616478298612" />
+          <ConnectorPoint PointX="3.6212888455937366" PointY="28.46616478298612" />
+          <ConnectorPoint PointX="3.7879555122604036" PointY="28.46616478298612" />
+          <ConnectorPoint PointX="3.9890319720461442" PointY="28.46616478298612" />
+          <ConnectorPoint PointX="4.3530504813187454" PointY="28.46616478298612" />
+          <ConnectorPoint PointX="4.3660856896520785" PointY="28.46616478298612" />
+          <ConnectorPoint PointX="4.5327523563187446" PointY="28.46616478298612" />
           <ConnectorPoint PointX="5.25" PointY="28.46616478298612" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_BoardReply_Board" >
           <ConnectorPoint PointX="6.75" PointY="27.251152846153843" />
           <ConnectorPoint PointX="7.1261528461538433" PointY="26.875" />
-          <ConnectorPoint PointX="7.3761528461538433" PointY="19.873340963506092" />
-          <ConnectorPoint PointX="7.3761528461538433" PointY="19.373340963506092" />
-          <ConnectorPoint PointX="9.5416925184040071" PointY="19.427294224152934" />
-          <ConnectorPoint PointX="9.7083074815959929" PointY="19.431445346689248" />
-          <ConnectorPoint PointX="13.072942018404008" PointY="19.515273413416441" />
-          <ConnectorPoint PointX="13.239556981595994" PointY="19.519424535952755" />
-          <ConnectorPoint PointX="15.5" PointY="19.5757422626202" />
+          <ConnectorPoint PointX="12.072916666666666" PointY="26.875" />
+          <ConnectorPoint PointX="12.239583333333334" PointY="26.875" />
+          <ConnectorPoint PointX="15.1875" PointY="26.875" />
+          <ConnectorPoint PointX="15.1875" PointY="20.701406484374985" />
+          <ConnectorPoint PointX="15.5" PointY="21.013906484374985" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_BoardViewedState_Board" >
           <ConnectorPoint PointX="6.75" PointY="30.064502011718748" />
@@ -4891,14 +4885,12 @@
           <ConnectorPoint PointX="16.25" PointY="24.239889322916667" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_BoardReply_Users" >
-          <ConnectorPoint PointX="4.3017820809033562" PointY="15.460673828125" />
-          <ConnectorPoint PointX="4.3017820809033562" PointY="19.557190755208332" />
-          <ConnectorPoint PointX="4.3122062475700229" PointY="19.557190755208332" />
-          <ConnectorPoint PointX="4.5413779142366888" PointY="19.557190755208332" />
-          <ConnectorPoint PointX="6.8761376822916676" PointY="19.557190755208332" />
-          <ConnectorPoint PointX="7.252280364583334" PointY="19.557190755208332" />
-          <ConnectorPoint PointX="7.29281951282051" PointY="19.557190755208332" />
-          <ConnectorPoint PointX="7.4594861794871763" PointY="19.557190755208332" />
+          <ConnectorPoint PointX="4.3009696479854123" PointY="15.845276692708332" />
+          <ConnectorPoint PointX="4.3009696479854123" PointY="19.557190755208332" />
+          <ConnectorPoint PointX="4.3348331896520786" PointY="19.557190755208332" />
+          <ConnectorPoint PointX="4.5327523563187437" PointY="19.557190755208332" />
+          <ConnectorPoint PointX="6.8229141666666671" PointY="19.557190755208332" />
+          <ConnectorPoint PointX="7.2083333333333321" PointY="19.557190755208332" />
           <ConnectorPoint PointX="9.625" PointY="19.557190755208332" />
           <ConnectorPoint PointX="9.625" PointY="17.375" />
           <ConnectorPoint PointX="10.510416666666666" PointY="17.375" />
@@ -4910,14 +4902,12 @@
           <ConnectorPoint PointX="15.5" PointY="19.6163254921875" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_BoardViewedState_Users" >
-          <ConnectorPoint PointX="4.1006228901106141" PointY="15.460673828125" />
-          <ConnectorPoint PointX="4.1006228901106141" PointY="23.057444661458334" />
-          <ConnectorPoint PointX="4.2497012475700231" PointY="23.057444661458334" />
-          <ConnectorPoint PointX="4.5413779142366888" PointY="23.057444661458334" />
+          <ConnectorPoint PointX="4.1036178053794776" PointY="15.845276692708332" />
+          <ConnectorPoint PointX="4.1036178053794776" PointY="23.057444661458334" />
+          <ConnectorPoint PointX="4.1551313146520794" PointY="23.057444661458334" />
+          <ConnectorPoint PointX="4.5327523563187437" PointY="23.057444661458334" />
           <ConnectorPoint PointX="5.916666666666667" PointY="23.057444661458334" />
           <ConnectorPoint PointX="6.083333333333333" PointY="23.057444661458334" />
-          <ConnectorPoint PointX="7.179128468978039" PointY="23.057444661458334" />
-          <ConnectorPoint PointX="7.3457951356447051" PointY="23.057444661458334" />
           <ConnectorPoint PointX="7.791666666666667" PointY="23.057444661458334" />
           <ConnectorPoint PointX="7.958333333333333" PointY="23.057444661458334" />
           <ConnectorPoint PointX="8.8125" PointY="23.057444661458334" />
@@ -4926,20 +4916,16 @@
           <ConnectorPoint PointX="12" PointY="22.625" />
           <ConnectorPoint PointX="12.072916666666666" PointY="22.625" />
           <ConnectorPoint PointX="12.239583333333334" PointY="22.625" />
-          <ConnectorPoint PointX="15.125" PointY="22.625" />
-          <ConnectorPoint PointX="15.125" PointY="23.057444661458334" />
+          <ConnectorPoint PointX="15" PointY="22.625" />
+          <ConnectorPoint PointX="15" PointY="23.057444661458334" />
+          <ConnectorPoint PointX="15.104166666666666" PointY="23.057444661458334" />
+          <ConnectorPoint PointX="15.270833333333334" PointY="23.057444661458334" />
           <ConnectorPoint PointX="15.5" PointY="23.057444661458334" />
         </AssociationConnector>
         <EntityTypeShape EntityType="UniversityOfMeModel.ProfessorSuggestedPhoto" Width="1.5" PointX="5.25" PointY="23.5" Height="2.172587890624996" />
         <AssociationConnector Association="UniversityOfMeModel.FK_ProfessorSuggestedPictures_Users" >
-          <ConnectorPoint PointX="3.4403055517222043" PointY="15.460673828125" />
-          <ConnectorPoint PointX="3.4403055517222043" PointY="24.778595377604169" />
-          <ConnectorPoint PointX="3.5019262317664293" PointY="24.778595377604169" />
-          <ConnectorPoint PointX="3.6685928984330962" PointY="24.778595377604169" />
-          <ConnectorPoint PointX="3.7221507992032179" PointY="24.778595377604169" />
-          <ConnectorPoint PointX="3.8888174658698849" PointY="24.778595377604169" />
-          <ConnectorPoint PointX="4.2497012475700231" PointY="24.778595377604169" />
-          <ConnectorPoint PointX="4.5413779142366888" PointY="24.778595377604169" />
+          <ConnectorPoint PointX="4.4181665229854117" PointY="15.845276692708332" />
+          <ConnectorPoint PointX="4.4181665229854117" PointY="24.778595377604169" />
           <ConnectorPoint PointX="5.25" PointY="24.778595377604169" />
         </AssociationConnector>
         <EntityTypeShape EntityType="UniversityOfMeModel.Professor" Width="1.5" PointX="7.5" PointY="4.125" Height="3.5186979166666674" />
@@ -4949,96 +4935,89 @@
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_Professors_ProfessorSuggestedPictures" >
           <ConnectorPoint PointX="6" PointY="23.5" />
-          <ConnectorPoint PointX="6" PointY="23.287985026041667" />
-          <ConnectorPoint PointX="7.1885144700623442" PointY="22.922288266022484" />
-          <ConnectorPoint PointX="7.3478109715160027" PointY="22.873273957882898" />
-          <ConnectorPoint PointX="7.625" PointY="22.787985026041667" />
+          <ConnectorPoint PointX="6" PointY="22.662985026041667" />
+          <ConnectorPoint PointX="7.625" PointY="22.662985026041667" />
           <ConnectorPoint PointX="7.625" PointY="19.807190755208332" />
-          <ConnectorPoint PointX="7.2522803645833331" PointY="19.807190755208332" />
-          <ConnectorPoint PointX="7.0856136979166671" PointY="19.807190755208332" />
-          <ConnectorPoint PointX="7.0625" PointY="19.807190755208332" />
-          <ConnectorPoint PointX="7.0625" PointY="5.1151437291666664" />
-          <ConnectorPoint PointX="7.166666666666667" PointY="5.1151437291666655" />
-          <ConnectorPoint PointX="7.333333333333333" PointY="5.1151437291666664" />
-          <ConnectorPoint PointX="7.5" PointY="5.1151437291666664" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="19.807190755208332" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="19.807190755208332" />
+          <ConnectorPoint PointX="7" PointY="19.807190755208332" />
+          <ConnectorPoint PointX="7" PointY="5.3125005000000005" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="5.3125005" />
+          <ConnectorPoint PointX="7.333333333333333" PointY="5.3125005000000005" />
+          <ConnectorPoint PointX="7.5" PointY="5.3125005000000005" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_Professors_Universities" ManuallyRouted="true" >
-          <ConnectorPoint PointX="2.125" PointY="12.693811148027262" />
+          <ConnectorPoint PointX="0.67272638969916976" PointY="12.2494921875" />
+          <ConnectorPoint PointX="1.3573278438425422" PointY="12.631133732980159" />
+          <ConnectorPoint PointX="1.5029025458566274" PointY="12.712286575883461" />
           <ConnectorPoint PointX="2.625" PointY="13.3378169541595" />
-          <ConnectorPoint PointX="2.625" PointY="14.214743138822634" />
-          <ConnectorPoint PointX="4.7452577686575719" PointY="9.7871692030964645" />
-          <ConnectorPoint PointX="4.8172422313424281" PointY="9.6368494941100842" />
+          <ConnectorPoint PointX="2.625" PointY="9.625" />
+          <ConnectorPoint PointX="4.635416666666667" PointY="9.625" />
+          <ConnectorPoint PointX="4.802083333333333" PointY="9.625" />
           <ConnectorPoint PointX="4.822916666666667" PointY="9.625" />
-          <ConnectorPoint PointX="4.822916666666667" PointY="9.125" />
-          <ConnectorPoint PointX="4.932291666666667" PointY="9.125" />
-          <ConnectorPoint PointX="5.098958333333333" PointY="9.125" />
-          <ConnectorPoint PointX="6.979166666666667" PointY="9.125" />
-          <ConnectorPoint PointX="7.145833333333333" PointY="9.125" />
+          <ConnectorPoint PointX="4.822916666666667" PointY="9.21858824470568" />
+          <ConnectorPoint PointX="4.975924875117542" PointY="9.21858824470568" />
+          <ConnectorPoint PointX="4.991549875117542" PointY="9.2474251295523224" />
+          <ConnectorPoint PointX="5.0865751248824589" PointY="9.4227999893919581" />
+          <ConnectorPoint PointX="5.098958333333333" PointY="9.4456539513842657" />
+          <ConnectorPoint PointX="5.098958333333333" PointY="9.625" />
+          <ConnectorPoint PointX="6.9169724301618754" PointY="9.46883152418949" />
+          <ConnectorPoint PointX="7.0830275698381246" PointY="9.4545672904253077" />
+          <ConnectorPoint PointX="7.0888523138347361" PointY="9.454066941504184" />
+          <ConnectorPoint PointX="7.0888523138347361" PointY="9.29594305849579" />
+          <ConnectorPoint PointX="7.166666666666667" PointY="9.29594305849579" />
           <ConnectorPoint PointX="7.166666666666667" PointY="9.125" />
-          <ConnectorPoint PointX="7.333333333333333" PointY="9.125" />
-          <ConnectorPoint PointX="7.7604146666666667" PointY="9.125" />
-          <ConnectorPoint PointX="7.9270813333333328" PointY="9.125" />
           <ConnectorPoint PointX="8.25" PointY="9.125" />
           <ConnectorPoint PointX="8.25" PointY="7.6436979166666674" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_Professors_Users" >
-          <ConnectorPoint PointX="4.5" PointY="6.0838932291666659" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="6.0838932291666641" />
-          <ConnectorPoint PointX="5.208333333333333" PointY="6.0838932291666659" />
-          <ConnectorPoint PointX="6.791666666666667" PointY="6.083893229166665" />
-          <ConnectorPoint PointX="6.958333333333333" PointY="6.0838932291666659" />
-          <ConnectorPoint PointX="6.979166666666667" PointY="6.083893229166665" />
-          <ConnectorPoint PointX="7.145833333333333" PointY="6.0838932291666659" />
-          <ConnectorPoint PointX="7.166666666666667" PointY="6.083893229166665" />
-          <ConnectorPoint PointX="7.333333333333333" PointY="6.0838932291666659" />
-          <ConnectorPoint PointX="7.5" PointY="6.0838932291666659" />
+          <ConnectorPoint PointX="4.5" PointY="6.2713932291666659" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="6.2713932291666641" />
+          <ConnectorPoint PointX="5.270833333333333" PointY="6.2713932291666659" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="6.2713932291666641" />
+          <ConnectorPoint PointX="7.333333333333333" PointY="6.2713932291666659" />
+          <ConnectorPoint PointX="7.5" PointY="6.2713932291666659" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_ProfessorSuggestedPictures_Professors" >
-          <ConnectorPoint PointX="7.843748" PointY="7.6436979166666674" />
-          <ConnectorPoint PointX="7.843748" PointY="9.375" />
-          <ConnectorPoint PointX="7.661933735387124" PointY="9.375" />
-          <ConnectorPoint PointX="7.4952670687204579" PointY="9.375" />
-          <ConnectorPoint PointX="7.333333333333333" PointY="9.375" />
-          <ConnectorPoint PointX="7.166666666666667" PointY="9.375" />
-          <ConnectorPoint PointX="7.125" PointY="9.375" />
+          <ConnectorPoint PointX="8.656252" PointY="7.6436979166666674" />
+          <ConnectorPoint PointX="8.656252" PointY="9.078125" />
+          <ConnectorPoint PointX="8.6458333333333339" PointY="9.078125" />
+          <ConnectorPoint PointX="8.4791666666666661" PointY="9.078125" />
+          <ConnectorPoint PointX="7.333333333333333" PointY="9.078125" />
+          <ConnectorPoint PointX="7.166666666666667" PointY="9.078125" />
+          <ConnectorPoint PointX="7.125" PointY="9.078125" />
           <ConnectorPoint PointX="7.125" PointY="20.375" />
-          <ConnectorPoint PointX="7.2834802258526237" PointY="20.480653483901747" />
-          <ConnectorPoint PointX="7.42215527490893" PointY="20.573103516605954" />
-          <ConnectorPoint PointX="7.5556624754718467" PointY="20.662108316981229" />
-          <ConnectorPoint PointX="7.6943375245281533" PointY="20.754558349685436" />
-          <ConnectorPoint PointX="7.875" PointY="20.875" />
+          <ConnectorPoint PointX="7.541666666666667" PointY="20.375" />
+          <ConnectorPoint PointX="7.708333333333333" PointY="20.375" />
+          <ConnectorPoint PointX="7.875" PointY="20.375" />
           <ConnectorPoint PointX="7.875" PointY="24.778595377604169" />
-          <ConnectorPoint PointX="7.2843400323907872" PointY="24.778595377604169" />
-          <ConnectorPoint PointX="7.1176733657241211" PointY="24.778595377604169" />
           <ConnectorPoint PointX="6.75" PointY="24.778595377604169" />
         </AssociationConnector>
         <EntityTypeShape EntityType="UniversityOfMeModel.DatingLog" Width="1.5" PointX="5.25" PointY="32.5" Height="2.5571907552083388" />
         <AssociationConnector Association="UniversityOfMeModel.FK_DatingLog_AskedUser" >
-          <ConnectorPoint PointX="4.3330345809033561" PointY="15.460673828125" />
-          <ConnectorPoint PointX="4.3330345809033561" PointY="34.22562883680515" />
-          <ConnectorPoint PointX="4.3747112475700227" PointY="34.22562883680515" />
-          <ConnectorPoint PointX="4.5413779142366888" PointY="34.22562883680515" />
-          <ConnectorPoint PointX="5.25" PointY="34.22562883680515" />
+          <ConnectorPoint PointX="4.4494190229854116" PointY="15.845276692708332" />
+          <ConnectorPoint PointX="4.4494190229854116" PointY="34.225628836805555" />
+          <ConnectorPoint PointX="5.25" PointY="34.225628836805555" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_DatingLog_SourceUser" >
-          <ConnectorPoint PointX="4.364287080903356" PointY="15.460673828125" />
-          <ConnectorPoint PointX="4.364287080903356" PointY="33.331561918402585" />
-          <ConnectorPoint PointX="4.3747112475700227" PointY="33.331561918402585" />
-          <ConnectorPoint PointX="4.5413779142366888" PointY="33.331561918402585" />
-          <ConnectorPoint PointX="5.25" PointY="33.331561918402585" />
+          <ConnectorPoint PointX="4.0723653053794777" PointY="15.845276692708332" />
+          <ConnectorPoint PointX="4.0723653053794777" PointY="33.331561918402784" />
+          <ConnectorPoint PointX="4.1551313146520794" PointY="33.331561918402784" />
+          <ConnectorPoint PointX="4.3530504813187445" PointY="33.331561918402784" />
+          <ConnectorPoint PointX="4.3660856896520785" PointY="33.331561918402784" />
+          <ConnectorPoint PointX="4.5327523563187446" PointY="33.331561918402784" />
+          <ConnectorPoint PointX="5.25" PointY="33.331561918402784" />
         </AssociationConnector>
         <EntityTypeShape EntityType="UniversityOfMeModel.SendItem" Width="1.5" PointX="5.25" PointY="36.125" Height="2.1725878906250102" />
         <AssociationConnector Association="UniversityOfMeModel.FK_SendItems_User_FromUser" >
-          <ConnectorPoint PointX="3.4090530517222044" PointY="15.460673828125" />
-          <ConnectorPoint PointX="3.4090530517222044" PointY="37.71449073008111" />
-          <ConnectorPoint PointX="4.3747112475700227" PointY="37.71449073008111" />
-          <ConnectorPoint PointX="4.5413779142366888" PointY="37.71449073008111" />
-          <ConnectorPoint PointX="5.25" PointY="37.71449073008111" />
+          <ConnectorPoint PointX="4.2697171479854124" PointY="15.845276692708332" />
+          <ConnectorPoint PointX="4.2697171479854124" PointY="37.72230532496144" />
+          <ConnectorPoint PointX="5.25" PointY="37.72230532496144" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_SendItems_Users_ToUser" >
-          <ConnectorPoint PointX="4.3955395809033559" PointY="15.460673828125" />
-          <ConnectorPoint PointX="4.3955395809033559" PointY="36.888492865040561" />
-          <ConnectorPoint PointX="5.25" PointY="36.888492865040561" />
+          <ConnectorPoint PointX="4.2384646479854124" PointY="15.845276692708332" />
+          <ConnectorPoint PointX="4.2384646479854124" PointY="36.892400162480726" />
+          <ConnectorPoint PointX="5.25" PointY="36.892400162480726" />
         </AssociationConnector>
         <EntityTypeShape EntityType="UniversityOfMeModel.PhotoComment" Width="1.5" PointX="14.125" PointY="14.5" Height="2.3648893229166674" />
         <AssociationConnector Association="UniversityOfMeModel.FK_PhotoComments_Photos" >
@@ -5049,12 +5028,12 @@
           <ConnectorPoint PointX="14.125" PointY="16.65827235677083" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_PhotoComments_Users" >
-          <ConnectorPoint PointX="4.4267920809033559" PointY="15.460673828125" />
-          <ConnectorPoint PointX="4.4267920809033559" PointY="16.389150390625" />
-          <ConnectorPoint PointX="4.822916666666667" PointY="16.389150390625" />
-          <ConnectorPoint PointX="4.989583333333333" PointY="16.389150390625" />
-          <ConnectorPoint PointX="6.8761376822916676" PointY="16.389150390625" />
-          <ConnectorPoint PointX="7.208333333333333" PointY="16.389150390625" />
+          <ConnectorPoint PointX="3.9379410111636215" PointY="15.845276692708332" />
+          <ConnectorPoint PointX="3.9379410111636215" PointY="16.389150390625" />
+          <ConnectorPoint PointX="3.9890319720461442" PointY="16.389150390624998" />
+          <ConnectorPoint PointX="4.5327523563187446" PointY="16.389150390625" />
+          <ConnectorPoint PointX="6.8229141666666671" PointY="16.389150390625" />
+          <ConnectorPoint PointX="7.2083333333333321" PointY="16.389150390625" />
           <ConnectorPoint PointX="9.0416666666666661" PointY="16.389150390625" />
           <ConnectorPoint PointX="9.2083333333333339" PointY="16.389150390625" />
           <ConnectorPoint PointX="13.072916166666667" PointY="16.389150390625" />
@@ -5064,62 +5043,68 @@
         <EntityTypeShape EntityType="UniversityOfMeModel.ClassBoard" Width="1.5" PointX="17.375" PointY="8.875" Height="2.3648893229166674" />
         <EntityTypeShape EntityType="UniversityOfMeModel.ClassEnrollment" Width="1.5" PointX="17.375" PointY="12" Height="1.9802864583333246" />
         <AssociationConnector Association="UniversityOfMeModel.FK_ClassBoards_Classes" >
-          <ConnectorPoint PointX="12.625" PointY="14.552124618829005" />
-          <ConnectorPoint PointX="13.073425855443867" PointY="14.502299523779687" />
-          <ConnectorPoint PointX="13.239073144556135" PointY="14.483894269433879" />
-          <ConnectorPoint PointX="17.125" PointY="14.052124618829005" />
+          <ConnectorPoint PointX="12.625" PointY="13.985509696228885" />
+          <ConnectorPoint PointX="13.072916166666667" PointY="13.985509696228885" />
+          <ConnectorPoint PointX="13.239582833333335" PointY="13.985509696228885" />
+          <ConnectorPoint PointX="17.125" PointY="13.985509696228885" />
           <ConnectorPoint PointX="17.125" PointY="11.75" />
           <ConnectorPoint PointX="18.125" PointY="11.75" />
           <ConnectorPoint PointX="18.125" PointY="11.239889322916667" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_ClassBoards_Users" >
-          <ConnectorPoint PointX="4.5" PointY="9.83080898670487" />
-          <ConnectorPoint PointX="4.697916666666667" PointY="9.8308089867048682" />
-          <ConnectorPoint PointX="5.098958333333333" PointY="9.83080898670487" />
-          <ConnectorPoint PointX="5.125" PointY="9.83080898670487" />
-          <ConnectorPoint PointX="5.125" PointY="9.09375" />
-          <ConnectorPoint PointX="6.979166666666667" PointY="9.09375" />
-          <ConnectorPoint PointX="7.145833333333333" PointY="9.09375" />
-          <ConnectorPoint PointX="7.166666666666667" PointY="9.09375" />
-          <ConnectorPoint PointX="7.333333333333333" PointY="9.09375" />
-          <ConnectorPoint PointX="7.7604146666666667" PointY="9.09375" />
-          <ConnectorPoint PointX="7.9270813333333328" PointY="9.09375" />
-          <ConnectorPoint PointX="8.4791666666666661" PointY="9.09375" />
-          <ConnectorPoint PointX="8.6458333333333339" PointY="9.09375" />
-          <ConnectorPoint PointX="10.041666666666666" PointY="9.0937499999999982" />
-          <ConnectorPoint PointX="10.333333333333334" PointY="9.09375" />
-          <ConnectorPoint PointX="10.5" PointY="9.09375" />
-          <ConnectorPoint PointX="10.5" PointY="9.5499479166666674" />
-          <ConnectorPoint PointX="12.625" PointY="9.5499479166666674" />
-          <ConnectorPoint PointX="12.625" PointY="8.6875" />
-          <ConnectorPoint PointX="18.125" PointY="8.6875" />
+          <ConnectorPoint PointX="4.5" PointY="7.3320257643227347" />
+          <ConnectorPoint PointX="4.635416666666667" PointY="7.3320257643227338" />
+          <ConnectorPoint PointX="4.927083333333333" PointY="7.3320257643227347" />
+          <ConnectorPoint PointX="4.9375" PointY="7.3320257643227347" />
+          <ConnectorPoint PointX="4.9375" PointY="9.0625" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="9.0625" />
+          <ConnectorPoint PointX="7.083333333333333" PointY="9.0625" />
+          <ConnectorPoint PointX="7.166666666666667" PointY="9.0625" />
+          <ConnectorPoint PointX="7.333333333333333" PointY="9.0625" />
+          <ConnectorPoint PointX="8.4791666666666661" PointY="9.0625" />
+          <ConnectorPoint PointX="8.6458333333333339" PointY="9.0625" />
+          <ConnectorPoint PointX="10.125" PointY="9.0625" />
+          <ConnectorPoint PointX="10.125" PointY="10.287903645833334" />
+          <ConnectorPoint PointX="10.229166666666666" PointY="10.287903645833332" />
+          <ConnectorPoint PointX="10.583333333333334" PointY="10.287903645833334" />
+          <ConnectorPoint PointX="12.291666666666666" PointY="10.287903645833334" />
+          <ConnectorPoint PointX="12.458333333333334" PointY="10.287903645833334" />
+          <ConnectorPoint PointX="12.5" PointY="10.287903645833334" />
+          <ConnectorPoint PointX="12.5" PointY="8.625" />
+          <ConnectorPoint PointX="16.260414666666666" PointY="8.625" />
+          <ConnectorPoint PointX="16.42708133333333" PointY="8.625" />
+          <ConnectorPoint PointX="18.125" PointY="8.625" />
           <ConnectorPoint PointX="18.125" PointY="8.875" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_ClassEnrollments_Classes" >
-          <ConnectorPoint PointX="12.625" PointY="13.761363416185336" />
-          <ConnectorPoint PointX="13.072916166666667" PointY="13.761363416185336" />
-          <ConnectorPoint PointX="13.239582833333335" PointY="13.761363416185336" />
-          <ConnectorPoint PointX="17.041666666666668" PointY="13.761363416185336" />
-          <ConnectorPoint PointX="17.208333333333332" PointY="13.761363416185336" />
-          <ConnectorPoint PointX="17.375" PointY="13.761363416185336" />
+          <ConnectorPoint PointX="12.625" PointY="13.603055954885276" />
+          <ConnectorPoint PointX="13.072916166666667" PointY="13.603055954885276" />
+          <ConnectorPoint PointX="13.239582833333335" PointY="13.603055954885276" />
+          <ConnectorPoint PointX="14.666666666666666" PointY="13.603055954885276" />
+          <ConnectorPoint PointX="14.833333333333334" PointY="13.603055954885276" />
+          <ConnectorPoint PointX="15.401759183979449" PointY="13.603055954885276" />
+          <ConnectorPoint PointX="15.568425850646117" PointY="13.603055954885276" />
+          <ConnectorPoint PointX="17.041666666666668" PointY="13.603055954885276" />
+          <ConnectorPoint PointX="17.208333333333332" PointY="13.603055954885276" />
+          <ConnectorPoint PointX="17.375" PointY="13.603055954885276" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_ClassEnrollments_Users" >
-          <ConnectorPoint PointX="3.2244613094948367" PointY="1.75" />
-          <ConnectorPoint PointX="3.2244613094948367" PointY="1.5" />
-          <ConnectorPoint PointX="4.0713159307702522" PointY="1.4999999999999993" />
-          <ConnectorPoint PointX="4.2379825974369183" PointY="1.5" />
-          <ConnectorPoint PointX="4.78125" PointY="1.5" />
+          <ConnectorPoint PointX="3.9991059064201444" PointY="1.75" />
+          <ConnectorPoint PointX="3.9991059064201444" PointY="1.484375" />
+          <ConnectorPoint PointX="4.78125" PointY="1.484375" />
           <ConnectorPoint PointX="4.78125" PointY="12.4375" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="12.437499999999998" />
-          <ConnectorPoint PointX="5.098958333333333" PointY="12.4375" />
-          <ConnectorPoint PointX="6.8761376822916676" PointY="12.437499999999998" />
-          <ConnectorPoint PointX="7.208333333333333" PointY="12.4375" />
+          <ConnectorPoint PointX="4.822916666666667" PointY="12.437499999999998" />
+          <ConnectorPoint PointX="5.130208333333333" PointY="12.4375" />
+          <ConnectorPoint PointX="6.8229141666666671" PointY="12.437499999999998" />
+          <ConnectorPoint PointX="7.2083333333333321" PointY="12.4375" />
           <ConnectorPoint PointX="7.8125" PointY="12.4375" />
-          <ConnectorPoint PointX="7.8125" PointY="13.393697916666667" />
-          <ConnectorPoint PointX="10.791666666666666" PointY="13.393697916666667" />
-          <ConnectorPoint PointX="10.958333333333334" PointY="13.393697916666667" />
-          <ConnectorPoint PointX="11" PointY="13.393697916666667" />
-          <ConnectorPoint PointX="11" PointY="12.25" />
+          <ConnectorPoint PointX="7.8125" PointY="13.143697916666667" />
+          <ConnectorPoint PointX="7.979166666666667" PointY="13.143697916666667" />
+          <ConnectorPoint PointX="8.1458333333333339" PointY="13.143697916666667" />
+          <ConnectorPoint PointX="10.625" PointY="13.143697916666667" />
+          <ConnectorPoint PointX="10.625" PointY="12.25" />
+          <ConnectorPoint PointX="10.791666666666666" PointY="12.25" />
+          <ConnectorPoint PointX="10.958333333333334" PointY="12.25" />
           <ConnectorPoint PointX="13.072916166666667" PointY="12.25" />
           <ConnectorPoint PointX="13.239582833333335" PointY="12.25" />
           <ConnectorPoint PointX="14.416666666666666" PointY="12.25" />
@@ -5131,10 +5116,10 @@
           <ConnectorPoint PointX="15.666666666666666" PointY="13.236227213541667" />
           <ConnectorPoint PointX="15.833333333333334" PointY="13.236227213541667" />
           <ConnectorPoint PointX="17" PointY="13.236227213541667" />
-          <ConnectorPoint PointX="17" PointY="12.849429708092675" />
-          <ConnectorPoint PointX="17.041666666666668" PointY="12.849429708092675" />
-          <ConnectorPoint PointX="17.208333333333332" PointY="12.849429708092675" />
-          <ConnectorPoint PointX="17.375" PointY="12.849429708092675" />
+          <ConnectorPoint PointX="17" PointY="12.770275977442644" />
+          <ConnectorPoint PointX="17.041666666666668" PointY="12.770275977442644" />
+          <ConnectorPoint PointX="17.208333333333332" PointY="12.770275977442644" />
+          <ConnectorPoint PointX="17.375" PointY="12.770275977442644" />
         </AssociationConnector>
         <EntityTypeShape EntityType="UniversityOfMeModel.ClassReview" Width="1.5" PointX="18.375" PointY="4.625" Height="2.7494921875000102" />
         <AssociationConnector Association="UniversityOfMeModel.FK_ClassReviews_Classes" >
@@ -5145,71 +5130,197 @@
           <ConnectorPoint PointX="19.40625" PointY="7.37449218750001" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_ClassReviews_Users" >
-          <ConnectorPoint PointX="4.3585766320517925" PointY="1.75" />
-          <ConnectorPoint PointX="4.3585766320517925" PointY="1.5" />
-          <ConnectorPoint PointX="4.9375" PointY="1.5" />
-          <ConnectorPoint PointX="4.9375" PointY="6.1052864583333326" />
-          <ConnectorPoint PointX="5.041666666666667" PointY="6.1052864583333317" />
-          <ConnectorPoint PointX="5.208333333333333" PointY="6.1052864583333326" />
-          <ConnectorPoint PointX="6.9375" PointY="6.1052864583333326" />
-          <ConnectorPoint PointX="6.9375" PointY="7.8936979166666674" />
-          <ConnectorPoint PointX="6.979166666666667" PointY="7.8936979166666665" />
-          <ConnectorPoint PointX="7.145833333333333" PointY="7.8936979166666674" />
-          <ConnectorPoint PointX="7.166666666666667" PointY="7.8936979166666665" />
-          <ConnectorPoint PointX="7.333333333333333" PointY="7.8936979166666674" />
-          <ConnectorPoint PointX="7.7604146666666667" PointY="7.8936979166666665" />
-          <ConnectorPoint PointX="7.9270813333333328" PointY="7.8936979166666674" />
-          <ConnectorPoint PointX="8.1666666666666661" PointY="7.8936979166666665" />
-          <ConnectorPoint PointX="8.3333333333333339" PointY="7.8936979166666674" />
-          <ConnectorPoint PointX="8.4791666666666661" PointY="7.8936979166666665" />
-          <ConnectorPoint PointX="8.6458333333333339" PointY="7.8936979166666674" />
-          <ConnectorPoint PointX="10.4375" PointY="7.8936979166666674" />
+          <ConnectorPoint PointX="4.5" PointY="5.7853469576757757" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="5.7853469576757739" />
+          <ConnectorPoint PointX="5.098958333333333" PointY="5.7853469576757757" />
+          <ConnectorPoint PointX="5.1875" PointY="5.7853469576757757" />
+          <ConnectorPoint PointX="5.1875" PointY="6.6875" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="6.6874999999999991" />
+          <ConnectorPoint PointX="7.083333333333333" PointY="6.6875" />
+          <ConnectorPoint PointX="7.104166666666667" PointY="6.6874999999999991" />
+          <ConnectorPoint PointX="7.333333333333333" PointY="6.6875" />
+          <ConnectorPoint PointX="7.375" PointY="6.6875" />
+          <ConnectorPoint PointX="7.375" PointY="7.9093229166666674" />
+          <ConnectorPoint PointX="8.1666666666666661" PointY="7.9093229166666665" />
+          <ConnectorPoint PointX="8.3333333333333339" PointY="7.9093229166666674" />
+          <ConnectorPoint PointX="8.4791666666666661" PointY="7.9093229166666665" />
+          <ConnectorPoint PointX="8.739585333333336" PointY="7.9093229166666674" />
+          <ConnectorPoint PointX="10.166666666666666" PointY="7.9093229166666665" />
+          <ConnectorPoint PointX="10.333333333333334" PointY="7.9093229166666674" />
+          <ConnectorPoint PointX="10.4375" PointY="7.9093229166666674" />
           <ConnectorPoint PointX="10.4375" PointY="5.25" />
+          <ConnectorPoint PointX="10.916666666666666" PointY="5.2499999999999991" />
+          <ConnectorPoint PointX="11.083333333333334" PointY="5.25" />
           <ConnectorPoint PointX="12.6875" PointY="5.25" />
-          <ConnectorPoint PointX="12.6875" PointY="7.7109993489583317" />
-          <ConnectorPoint PointX="16.361977666666665" PointY="7.7109993489583308" />
-          <ConnectorPoint PointX="16.528644333333329" PointY="7.7109993489583317" />
-          <ConnectorPoint PointX="16.869792666666665" PointY="7.7109993489583308" />
-          <ConnectorPoint PointX="17.03645933333333" PointY="7.7109993489583317" />
-          <ConnectorPoint PointX="17.174481666666669" PointY="7.7109993489583308" />
-          <ConnectorPoint PointX="17.341148333333333" PointY="7.7109993489583317" />
-          <ConnectorPoint PointX="18" PointY="7.7109993489583317" />
-          <ConnectorPoint PointX="18" PointY="5.9997460937500051" />
-          <ConnectorPoint PointX="18.375" PointY="5.9997460937500051" />
+          <ConnectorPoint PointX="12.6875" PointY="8.4225065104166674" />
+          <ConnectorPoint PointX="16.260414666666666" PointY="8.4225065104166674" />
+          <ConnectorPoint PointX="16.42708133333333" PointY="8.4225065104166674" />
+          <ConnectorPoint PointX="16.666666666666668" PointY="8.4225065104166674" />
+          <ConnectorPoint PointX="16.833333333333332" PointY="8.4225065104166674" />
+          <ConnectorPoint PointX="17.07291866666667" PointY="8.4225065104166674" />
+          <ConnectorPoint PointX="17.239585333333334" PointY="8.4225065104166674" />
+          <ConnectorPoint PointX="18.859372999999998" PointY="8.4225065104166674" />
+          <ConnectorPoint PointX="18.859372999999998" PointY="7.37449218750001" />
         </AssociationConnector>
         <EntityTypeShape EntityType="UniversityOfMeModel.GeneralPostingReply" Width="1.5" PointX="18.5" PointY="1.25" Height="2.364889322916639" />
         <AssociationConnector Association="UniversityOfMeModel.FK_GeneralPostingReplies_GeneralPostings" >
-          <ConnectorPoint PointX="11.75" PointY="3.857766880533843" />
-          <ConnectorPoint PointX="12.791666666666666" PointY="3.8577668805338425" />
-          <ConnectorPoint PointX="12.958333333333334" PointY="3.857766880533843" />
-          <ConnectorPoint PointX="18.5" PointY="3.857766880533843" />
+          <ConnectorPoint PointX="11.75" PointY="3.1824446614583337" />
+          <ConnectorPoint PointX="12.791666666666666" PointY="3.1824446614583333" />
+          <ConnectorPoint PointX="12.958333333333334" PointY="3.1824446614583337" />
+          <ConnectorPoint PointX="18.166666666666668" PointY="3.1824446614583333" />
+          <ConnectorPoint PointX="18.333333333333332" PointY="3.1824446614583337" />
+          <ConnectorPoint PointX="18.5" PointY="3.1824446614583337" />
         </AssociationConnector>
         <AssociationConnector Association="UniversityOfMeModel.FK_GeneralPostingReplies_Users" >
-          <ConnectorPoint PointX="4.5" PointY="7.1772362876040532" />
-          <ConnectorPoint PointX="4.697916666666667" PointY="7.1772362876040514" />
-          <ConnectorPoint PointX="5.098958333333333" PointY="7.1772362876040532" />
-          <ConnectorPoint PointX="5.1875" PointY="7.1772362876040532" />
-          <ConnectorPoint PointX="5.1875" PointY="6.51953125" />
-          <ConnectorPoint PointX="6.875" PointY="6.51953125" />
-          <ConnectorPoint PointX="6.875" PointY="3.875" />
-          <ConnectorPoint PointX="10" PointY="3.875" />
+          <ConnectorPoint PointX="4.5" PointY="14.226257076284202" />
+          <ConnectorPoint PointX="4.71875" PointY="14.226257076284202" />
+          <ConnectorPoint PointX="4.71875" PointY="6.5" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="6.4999999999999991" />
+          <ConnectorPoint PointX="5.098958333333333" PointY="6.5" />
+          <ConnectorPoint PointX="5.104166666666667" PointY="6.4999999999999991" />
+          <ConnectorPoint PointX="5.270833333333333" PointY="6.5" />
+          <ConnectorPoint PointX="7.0625" PointY="6.5" />
+          <ConnectorPoint PointX="7.0625" PointY="3.9375" />
+          <ConnectorPoint PointX="10" PointY="3.9375" />
           <ConnectorPoint PointX="10" PointY="5.625" />
           <ConnectorPoint PointX="10.354166666666666" PointY="5.6249999999999991" />
           <ConnectorPoint PointX="10.583333333333334" PointY="5.625" />
-          <ConnectorPoint PointX="12.604166666666666" PointY="5.6249999999999991" />
+          <ConnectorPoint PointX="12.541666666666666" PointY="5.6249999999999991" />
           <ConnectorPoint PointX="12.833333333333334" PointY="5.625" />
           <ConnectorPoint PointX="12.875" PointY="5.625" />
-          <ConnectorPoint PointX="12.875" PointY="3.5" />
-          <ConnectorPoint PointX="18.25" PointY="3.5" />
-          <ConnectorPoint PointX="18.25" PointY="3.880514322916639" />
-          <ConnectorPoint PointX="19.25" PointY="3.880514322916639" />
+          <ConnectorPoint PointX="12.875" PointY="3" />
+          <ConnectorPoint PointX="18.25" PointY="3" />
+          <ConnectorPoint PointX="18.25" PointY="3.864889322916639" />
+          <ConnectorPoint PointX="19.25" PointY="3.864889322916639" />
           <ConnectorPoint PointX="19.25" PointY="3.614889322916639" />
         </AssociationConnector>
         <EntityTypeShape EntityType="UniversityOfMeModel.FeaturesEnabled" Width="1.5" PointX="5.25" PointY="40.125" Height="1.9802864583333246" />
         <AssociationConnector Association="UniversityOfMeModel.FK_FeaturesEnabled_Users" >
-          <ConnectorPoint PointX="4.4580445809033558" PointY="15.460673828125" />
-          <ConnectorPoint PointX="4.4580445809033558" PointY="41.115143229166662" />
+          <ConnectorPoint PointX="3.70462217892707" PointY="15.845276692708332" />
+          <ConnectorPoint PointX="3.70462217892707" PointY="41.115143229166662" />
           <ConnectorPoint PointX="5.25" PointY="41.115143229166662" />
+        </AssociationConnector>
+        <AssociationConnector Association="UniversityOfMeModel.FK_Clubs_DeactivatedByUser" >
+          <ConnectorPoint PointX="3.2304303336991556" PointY="1.75" />
+          <ConnectorPoint PointX="3.2304303336991556" PointY="1.46875" />
+          <ConnectorPoint PointX="3.4400313340649773" PointY="1.4687499999999993" />
+          <ConnectorPoint PointX="3.6066980007316443" PointY="1.46875" />
+          <ConnectorPoint PointX="5" PointY="1.46875" />
+          <ConnectorPoint PointX="5" PointY="9.046875" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="9.046875" />
+          <ConnectorPoint PointX="7.083333333333333" PointY="9.046875" />
+          <ConnectorPoint PointX="7.166666666666667" PointY="9.046875" />
+          <ConnectorPoint PointX="7.333333333333333" PointY="9.046875" />
+          <ConnectorPoint PointX="8.4791666666666661" PointY="9.046875" />
+          <ConnectorPoint PointX="8.6458333333333339" PointY="9.046875" />
+          <ConnectorPoint PointX="10" PointY="9.046875" />
+          <ConnectorPoint PointX="10" PointY="8.5093489583333337" />
+          <ConnectorPoint PointX="10.166666666666666" PointY="8.5093489583333337" />
+          <ConnectorPoint PointX="10.333333333333334" PointY="8.5093489583333337" />
+          <ConnectorPoint PointX="10.75" PointY="8.5093489583333337" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="UniversityOfMeModel.ClubMember" Width="1.5" PointX="16" PointY="3.5" Height="4.6725065104166674" />
+        <AssociationConnector Association="UniversityOfMeModel.FK_ClubMembers_Clubs" >
+          <ConnectorPoint PointX="12.25" PointY="7.7061979166666674" />
+          <ConnectorPoint PointX="12.604166666666666" PointY="7.7061979166666665" />
+          <ConnectorPoint PointX="12.770833333333334" PointY="7.7061979166666674" />
+          <ConnectorPoint PointX="16" PointY="7.7061979166666674" />
+        </AssociationConnector>
+        <AssociationConnector Association="UniversityOfMeModel.FK_ClubMembers_DeniedByUser" >
+          <ConnectorPoint PointX="4.5" PointY="4.0989636472191142" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="4.0989636472191133" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="4.0989636472191142" />
+          <ConnectorPoint PointX="4.984375" PointY="4.0989636472191142" />
+          <ConnectorPoint PointX="4.984375" PointY="9.03125" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="9.03125" />
+          <ConnectorPoint PointX="7.083333333333333" PointY="9.03125" />
+          <ConnectorPoint PointX="7.166666666666667" PointY="9.03125" />
+          <ConnectorPoint PointX="7.333333333333333" PointY="9.03125" />
+          <ConnectorPoint PointX="8.1666666666666661" PointY="9.03125" />
+          <ConnectorPoint PointX="8.3333333333333339" PointY="9.03125" />
+          <ConnectorPoint PointX="8.4791666666666661" PointY="9.03125" />
+          <ConnectorPoint PointX="8.6458333333333339" PointY="9.03125" />
+          <ConnectorPoint PointX="10.4375" PointY="9.03125" />
+          <ConnectorPoint PointX="10.4375" PointY="10.412903645833334" />
+          <ConnectorPoint PointX="12.375" PointY="10.412903645833334" />
+          <ConnectorPoint PointX="12.375" PointY="8.625" />
+          <ConnectorPoint PointX="16.260414666666666" PointY="8.625" />
+          <ConnectorPoint PointX="16.42708133333333" PointY="8.625" />
+          <ConnectorPoint PointX="16.75" PointY="8.625" />
+          <ConnectorPoint PointX="16.75" PointY="8.1725065104166674" />
+        </AssociationConnector>
+        <AssociationConnector Association="UniversityOfMeModel.FK_ClubMembers_Users_ApprovedByUser" >
+          <ConnectorPoint PointX="4.5" PointY="12.857155590638055" />
+          <ConnectorPoint PointX="4.635416666666667" PointY="12.857155590638053" />
+          <ConnectorPoint PointX="4.989583333333333" PointY="12.857155590638055" />
+          <ConnectorPoint PointX="5.03125" PointY="12.857155590638055" />
+          <ConnectorPoint PointX="5.03125" PointY="9.015625" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="9.015625" />
+          <ConnectorPoint PointX="7.083333333333333" PointY="9.015625" />
+          <ConnectorPoint PointX="7.166666666666667" PointY="9.015625" />
+          <ConnectorPoint PointX="7.333333333333333" PointY="9.015625" />
+          <ConnectorPoint PointX="8.1666666666666661" PointY="9.015625" />
+          <ConnectorPoint PointX="8.3333333333333339" PointY="9.015625" />
+          <ConnectorPoint PointX="8.4791666666666661" PointY="9.015625" />
+          <ConnectorPoint PointX="8.6458333333333339" PointY="9.015625" />
+          <ConnectorPoint PointX="10.3125" PointY="9.015625" />
+          <ConnectorPoint PointX="10.3125" PointY="10.537903645833334" />
+          <ConnectorPoint PointX="10.416666666666666" PointY="10.537903645833334" />
+          <ConnectorPoint PointX="10.583333333333334" PointY="10.537903645833334" />
+          <ConnectorPoint PointX="12.354166666666666" PointY="10.537903645833334" />
+          <ConnectorPoint PointX="12.520833333333334" PointY="10.537903645833334" />
+          <ConnectorPoint PointX="12.5625" PointY="10.537903645833334" />
+          <ConnectorPoint PointX="12.5625" PointY="8.75" />
+          <ConnectorPoint PointX="16.343747999999998" PointY="8.75" />
+          <ConnectorPoint PointX="16.343747999999998" PointY="8.1725065104166674" />
+        </AssociationConnector>
+        <AssociationConnector Association="UniversityOfMeModel.FK_ClubMembers_Users_ClubMemeber" >
+          <ConnectorPoint PointX="4.5" PointY="13.782786628780148" />
+          <ConnectorPoint PointX="4.635416666666667" PointY="13.782786628780146" />
+          <ConnectorPoint PointX="4.989583333333333" PointY="13.782786628780148" />
+          <ConnectorPoint PointX="5.046875" PointY="13.782786628780148" />
+          <ConnectorPoint PointX="5.046875" PointY="9" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="9" />
+          <ConnectorPoint PointX="7.083333333333333" PointY="9" />
+          <ConnectorPoint PointX="7.166666666666667" PointY="9" />
+          <ConnectorPoint PointX="7.333333333333333" PointY="9" />
+          <ConnectorPoint PointX="8.1666666666666661" PointY="9" />
+          <ConnectorPoint PointX="8.3333333333333339" PointY="9" />
+          <ConnectorPoint PointX="8.4791666666666661" PointY="9" />
+          <ConnectorPoint PointX="8.6458333333333339" PointY="9" />
+          <ConnectorPoint PointX="10.1875" PointY="9" />
+          <ConnectorPoint PointX="10.1875" PointY="10.662903645833334" />
+          <ConnectorPoint PointX="10.291666666666666" PointY="10.662903645833332" />
+          <ConnectorPoint PointX="10.583333333333334" PointY="10.662903645833334" />
+          <ConnectorPoint PointX="12.4375" PointY="10.662903645833334" />
+          <ConnectorPoint PointX="12.4375" PointY="8.625" />
+          <ConnectorPoint PointX="16.260414666666666" PointY="8.625" />
+          <ConnectorPoint PointX="16.42708133333333" PointY="8.625" />
+          <ConnectorPoint PointX="17.156252000000002" PointY="8.625" />
+          <ConnectorPoint PointX="17.156252000000002" PointY="8.1725065104166674" />
+        </AssociationConnector>
+        <AssociationConnector Association="UniversityOfMeModel.FK_ClubMembers_Users_DeletedByUser" >
+          <ConnectorPoint PointX="4.3950711197852836" PointY="1.75" />
+          <ConnectorPoint PointX="4.3950711197852836" PointY="1.4375" />
+          <ConnectorPoint PointX="4.9375" PointY="1.4375" />
+          <ConnectorPoint PointX="4.9375" PointY="6.1052864583333326" />
+          <ConnectorPoint PointX="5.041666666666667" PointY="6.1052864583333317" />
+          <ConnectorPoint PointX="5.270833333333333" PointY="6.1052864583333326" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="6.1052864583333317" />
+          <ConnectorPoint PointX="7.145833333333333" PointY="6.1052864583333326" />
+          <ConnectorPoint PointX="7.1875" PointY="6.1052864583333326" />
+          <ConnectorPoint PointX="7.1875" PointY="4" />
+          <ConnectorPoint PointX="9.8125" PointY="4" />
+          <ConnectorPoint PointX="9.8125" PointY="5.125" />
+          <ConnectorPoint PointX="9.9166666666666661" PointY="5.1249999999999991" />
+          <ConnectorPoint PointX="10.083333333333334" PointY="5.125" />
+          <ConnectorPoint PointX="10.916666666666666" PointY="5.1249999999999991" />
+          <ConnectorPoint PointX="11.083333333333334" PointY="5.125" />
+          <ConnectorPoint PointX="12.625" PointY="5.125" />
+          <ConnectorPoint PointX="12.625" PointY="7.1305143229166674" />
+          <ConnectorPoint PointX="15.625" PointY="7.1305143229166674" />
+          <ConnectorPoint PointX="15.625" PointY="5.5718469583333405" />
+          <ConnectorPoint PointX="16" PointY="5.5718469583333405" />
         </AssociationConnector>
         </Diagram>
     </Diagrams>

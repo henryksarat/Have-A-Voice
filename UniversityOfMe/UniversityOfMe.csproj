@@ -128,6 +128,7 @@
     <Compile Include="Helpers\MessageHelper.cs" />
     <Compile Include="Helpers\NameHelper.cs" />
     <Compile Include="Helpers\NavigationCountHelper.cs" />
+    <Compile Include="Helpers\NotificationType.cs" />
     <Compile Include="Helpers\PhotoHelper.cs" />
     <Compile Include="Helpers\ProfilePictureStrategy.cs" />
     <Compile Include="Helpers\RegistrationStrategy.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="Helpers\SendItemOptions.cs" />
     <Compile Include="Helpers\SiteSection.cs" />
     <Compile Include="Helpers\StarHelper.cs" />
+    <Compile Include="Helpers\Status.cs" />
     <Compile Include="Helpers\TextShortener.cs" />
     <Compile Include="Helpers\UniversityHelper.cs" />
     <Compile Include="Helpers\UOMConstants.cs" />
@@ -158,6 +160,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UniversityOfMeDBModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\View\ClubAdminFeed.cs" />
     <Compile Include="Models\View\EditUserModel.cs" />
     <Compile Include="Models\View\EventViewModel.cs" />
     <Compile Include="Models\View\CreateClassModel.cs" />
@@ -348,6 +351,8 @@
     <Content Include="Views\Class\Create.aspx" />
     <Content Include="Views\Class\Details.aspx" />
     <Content Include="Views\Class\List.aspx" />
+    <Content Include="Views\ClubMember\Details.aspx" />
+    <Content Include="Views\ClubMember\List.aspx" />
     <Content Include="Views\Club\Create.aspx" />
     <Content Include="Views\Club\Details.aspx" />
     <Content Include="Views\Club\List.aspx" />

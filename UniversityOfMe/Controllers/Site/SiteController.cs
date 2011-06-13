@@ -20,7 +20,8 @@ using UniversityOfMe.UserInformation;
 
 namespace UniversityOfMe.Controllers.Clubs {
     public class SiteController : UOFMeBaseController {
-        public SiteController() { }
+        public SiteController() {
+        }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult Main(string universityId) {

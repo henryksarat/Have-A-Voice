@@ -11,6 +11,7 @@ using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
 using UniversityOfMe.Models.Social;
 using UniversityOfMe.Repositories;
+using UniversityOfMe.UserInformation;
 
 namespace UniversityOfMe.Controllers {
     public class UOFMeBaseController : BaseController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
@@ -18,7 +19,9 @@ namespace UniversityOfMe.Controllers {
             : base(new BaseService<User>(new EntityBaseRepository()),
                    UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()),
                    InstanceHelper.CreateAuthencationService(),
-                   new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())) { }
+                   new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository())) {
+            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()));
+        }
 
         protected override AbstractUserModel<User> GetSocialUserInformation() {
             return SocialUserModel.Create(GetUserInformaton());

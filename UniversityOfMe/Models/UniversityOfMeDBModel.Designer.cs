@@ -35,10 +35,6 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Clubs_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "Club", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Club), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClubBoard_Clubs", "Club", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Club), "ClubBoard", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClubBoard), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClubBoard_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ClubBoard", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClubBoard), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClubMembers_Clubs", "Club", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Club), "ClubMember", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClubMember), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClubMembers_Users_AddedByUser", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ClubMember", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClubMember), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClubMembers_Users_ClubMemeber", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ClubMember", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClubMember), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClubMembers_Users_DeletedByUser", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(UniversityOfMe.Models.User), "ClubMember", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClubMember), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Classes_AcademicTerm", "AcademicTerm", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.AcademicTerm), "Class", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Class), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Classes_Universities", "University", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.University), "Class", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Class), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Classes_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "Class", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Class), true)]
@@ -93,6 +89,12 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_GeneralPostingReplies_GeneralPostings", "GeneralPosting", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.GeneralPosting), "GeneralPostingReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.GeneralPostingReply), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_GeneralPostingReplies_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "GeneralPostingReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.GeneralPostingReply), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_FeaturesEnabled_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "FeaturesEnabled", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.FeaturesEnabled), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Clubs_DeactivatedByUser", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(UniversityOfMe.Models.User), "Club", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Club), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClubMembers_Clubs", "Club", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Club), "ClubMember", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClubMember), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClubMembers_DeniedByUser", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(UniversityOfMe.Models.User), "ClubMember", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClubMember), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClubMembers_Users_ApprovedByUser", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(UniversityOfMe.Models.User), "ClubMember", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClubMember), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClubMembers_Users_ClubMemeber", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ClubMember", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClubMember), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClubMembers_Users_DeletedByUser", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(UniversityOfMe.Models.User), "ClubMember", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClubMember), true)]
 
 #endregion
 
@@ -399,22 +401,6 @@ namespace UniversityOfMe.Models
             }
         }
         private ObjectSet<ClubBoard> _ClubBoards;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<ClubMember> ClubMembers
-        {
-            get
-            {
-                if ((_ClubMembers == null))
-                {
-                    _ClubMembers = base.CreateObjectSet<ClubMember>("ClubMembers");
-                }
-                return _ClubMembers;
-            }
-        }
-        private ObjectSet<ClubMember> _ClubMembers;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -847,6 +833,22 @@ namespace UniversityOfMe.Models
             }
         }
         private ObjectSet<FeaturesEnabled> _FeaturesEnableds;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ClubMember> ClubMembers
+        {
+            get
+            {
+                if ((_ClubMembers == null))
+                {
+                    _ClubMembers = base.CreateObjectSet<ClubMember>("ClubMembers");
+                }
+                return _ClubMembers;
+            }
+        }
+        private ObjectSet<ClubMember> _ClubMembers;
 
         #endregion
         #region AddTo Methods
@@ -977,14 +979,6 @@ namespace UniversityOfMe.Models
         public void AddToClubBoards(ClubBoard clubBoard)
         {
             base.AddObject("ClubBoards", clubBoard);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the ClubMembers EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToClubMembers(ClubMember clubMember)
-        {
-            base.AddObject("ClubMembers", clubMember);
         }
     
         /// <summary>
@@ -1201,6 +1195,14 @@ namespace UniversityOfMe.Models
         public void AddToFeaturesEnableds(FeaturesEnabled featuresEnabled)
         {
             base.AddObject("FeaturesEnableds", featuresEnabled);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ClubMembers EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToClubMembers(ClubMember clubMember)
+        {
+            base.AddObject("ClubMembers", clubMember);
         }
 
         #endregion
@@ -4017,7 +4019,8 @@ namespace UniversityOfMe.Models
         /// <param name="name">Initial value of the Name property.</param>
         /// <param name="description">Initial value of the Description property.</param>
         /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
-        public static Club CreateClub(global::System.Int32 id, global::System.String universityId, global::System.String clubType, global::System.Int32 createdByUserId, global::System.String name, global::System.String description, global::System.DateTime dateTimeStamp)
+        /// <param name="active">Initial value of the Active property.</param>
+        public static Club CreateClub(global::System.Int32 id, global::System.String universityId, global::System.String clubType, global::System.Int32 createdByUserId, global::System.String name, global::System.String description, global::System.DateTime dateTimeStamp, global::System.Boolean active)
         {
             Club club = new Club();
             club.Id = id;
@@ -4027,6 +4030,7 @@ namespace UniversityOfMe.Models
             club.Name = name;
             club.Description = description;
             club.DateTimeStamp = dateTimeStamp;
+            club.Active = active;
             return club;
         }
 
@@ -4227,6 +4231,78 @@ namespace UniversityOfMe.Models
         private global::System.DateTime _DateTimeStamp;
         partial void OnDateTimeStampChanging(global::System.DateTime value);
         partial void OnDateTimeStampChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Active
+        {
+            get
+            {
+                return _Active;
+            }
+            set
+            {
+                OnActiveChanging(value);
+                ReportPropertyChanging("Active");
+                _Active = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Active");
+                OnActiveChanged();
+            }
+        }
+        private global::System.Boolean _Active;
+        partial void OnActiveChanging(global::System.Boolean value);
+        partial void OnActiveChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> DeactivatedByUserId
+        {
+            get
+            {
+                return _DeactivatedByUserId;
+            }
+            set
+            {
+                OnDeactivatedByUserIdChanging(value);
+                ReportPropertyChanging("DeactivatedByUserId");
+                _DeactivatedByUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DeactivatedByUserId");
+                OnDeactivatedByUserIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _DeactivatedByUserId;
+        partial void OnDeactivatedByUserIdChanging(Nullable<global::System.Int32> value);
+        partial void OnDeactivatedByUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> DeativatedDateTimeStamp
+        {
+            get
+            {
+                return _DeativatedDateTimeStamp;
+            }
+            set
+            {
+                OnDeativatedDateTimeStampChanging(value);
+                ReportPropertyChanging("DeativatedDateTimeStamp");
+                _DeativatedDateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DeativatedDateTimeStamp");
+                OnDeativatedDateTimeStampChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _DeativatedDateTimeStamp;
+        partial void OnDeativatedDateTimeStampChanging(Nullable<global::System.DateTime> value);
+        partial void OnDeativatedDateTimeStampChanged();
 
         #endregion
     
@@ -4364,6 +4440,44 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClubBoard>("UniversityOfMeModel.FK_ClubBoard_Clubs", "ClubBoard", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Clubs_DeactivatedByUser", "User")]
+        public User DeactivatedByUser
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_Clubs_DeactivatedByUser", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_Clubs_DeactivatedByUser", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> DeactivatedByUserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_Clubs_DeactivatedByUser", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_Clubs_DeactivatedByUser", "User", value);
                 }
             }
         }
@@ -4645,22 +4759,22 @@ namespace UniversityOfMe.Models
         /// Create a new ClubMember object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="addedByUserId">Initial value of the AddedByUserId property.</param>
         /// <param name="clubMemberUserId">Initial value of the ClubMemberUserId property.</param>
         /// <param name="clubId">Initial value of the ClubId property.</param>
         /// <param name="title">Initial value of the Title property.</param>
         /// <param name="administrator">Initial value of the Administrator property.</param>
+        /// <param name="approved">Initial value of the Approved property.</param>
         /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
         /// <param name="deleted">Initial value of the Deleted property.</param>
-        public static ClubMember CreateClubMember(global::System.Int32 id, global::System.Int32 addedByUserId, global::System.Int32 clubMemberUserId, global::System.Int32 clubId, global::System.String title, global::System.Boolean administrator, global::System.DateTime dateTimeStamp, global::System.Boolean deleted)
+        public static ClubMember CreateClubMember(global::System.Int32 id, global::System.Int32 clubMemberUserId, global::System.Int32 clubId, global::System.String title, global::System.Boolean administrator, global::System.Int32 approved, global::System.DateTime dateTimeStamp, global::System.Boolean deleted)
         {
             ClubMember clubMember = new ClubMember();
             clubMember.Id = id;
-            clubMember.AddedByUserId = addedByUserId;
             clubMember.ClubMemberUserId = clubMemberUserId;
             clubMember.ClubId = clubId;
             clubMember.Title = title;
             clubMember.Administrator = administrator;
+            clubMember.Approved = approved;
             clubMember.DateTimeStamp = dateTimeStamp;
             clubMember.Deleted = deleted;
             return clubMember;
@@ -4695,30 +4809,6 @@ namespace UniversityOfMe.Models
         private global::System.Int32 _Id;
         partial void OnIdChanging(global::System.Int32 value);
         partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 AddedByUserId
-        {
-            get
-            {
-                return _AddedByUserId;
-            }
-            set
-            {
-                OnAddedByUserIdChanging(value);
-                ReportPropertyChanging("AddedByUserId");
-                _AddedByUserId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("AddedByUserId");
-                OnAddedByUserIdChanged();
-            }
-        }
-        private global::System.Int32 _AddedByUserId;
-        partial void OnAddedByUserIdChanging(global::System.Int32 value);
-        partial void OnAddedByUserIdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -4821,6 +4911,30 @@ namespace UniversityOfMe.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        public global::System.Int32 Approved
+        {
+            get
+            {
+                return _Approved;
+            }
+            set
+            {
+                OnApprovedChanging(value);
+                ReportPropertyChanging("Approved");
+                _Approved = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Approved");
+                OnApprovedChanged();
+            }
+        }
+        private global::System.Int32 _Approved;
+        partial void OnApprovedChanging(global::System.Int32 value);
+        partial void OnApprovedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
         public global::System.DateTime DateTimeStamp
         {
             get
@@ -4869,6 +4983,54 @@ namespace UniversityOfMe.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ApprovedByUserId
+        {
+            get
+            {
+                return _ApprovedByUserId;
+            }
+            set
+            {
+                OnApprovedByUserIdChanging(value);
+                ReportPropertyChanging("ApprovedByUserId");
+                _ApprovedByUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ApprovedByUserId");
+                OnApprovedByUserIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ApprovedByUserId;
+        partial void OnApprovedByUserIdChanging(Nullable<global::System.Int32> value);
+        partial void OnApprovedByUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> ApprovedDateTimeStamp
+        {
+            get
+            {
+                return _ApprovedDateTimeStamp;
+            }
+            set
+            {
+                OnApprovedDateTimeStampChanging(value);
+                ReportPropertyChanging("ApprovedDateTimeStamp");
+                _ApprovedDateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ApprovedDateTimeStamp");
+                OnApprovedDateTimeStampChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _ApprovedDateTimeStamp;
+        partial void OnApprovedDateTimeStampChanging(Nullable<global::System.DateTime> value);
+        partial void OnApprovedDateTimeStampChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
         public Nullable<global::System.Int32> DeletedByUserId
         {
             get
@@ -4911,6 +5073,54 @@ namespace UniversityOfMe.Models
         private Nullable<global::System.DateTime> _DeletedByDateTimeStamp;
         partial void OnDeletedByDateTimeStampChanging(Nullable<global::System.DateTime> value);
         partial void OnDeletedByDateTimeStampChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> DeniedByUserId
+        {
+            get
+            {
+                return _DeniedByUserId;
+            }
+            set
+            {
+                OnDeniedByUserIdChanging(value);
+                ReportPropertyChanging("DeniedByUserId");
+                _DeniedByUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DeniedByUserId");
+                OnDeniedByUserIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _DeniedByUserId;
+        partial void OnDeniedByUserIdChanging(Nullable<global::System.Int32> value);
+        partial void OnDeniedByUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> DeniedByDateTimeStamp
+        {
+            get
+            {
+                return _DeniedByDateTimeStamp;
+            }
+            set
+            {
+                OnDeniedByDateTimeStampChanging(value);
+                ReportPropertyChanging("DeniedByDateTimeStamp");
+                _DeniedByDateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DeniedByDateTimeStamp");
+                OnDeniedByDateTimeStampChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _DeniedByDateTimeStamp;
+        partial void OnDeniedByDateTimeStampChanging(Nullable<global::System.DateTime> value);
+        partial void OnDeniedByDateTimeStampChanged();
 
         #endregion
     
@@ -4960,16 +5170,16 @@ namespace UniversityOfMe.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClubMembers_Users_AddedByUser", "User")]
-        public User AddedByUser
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClubMembers_DeniedByUser", "User")]
+        public User DeniedByUser
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_ClubMembers_Users_AddedByUser", "User").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_ClubMembers_DeniedByUser", "User").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_ClubMembers_Users_AddedByUser", "User").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_ClubMembers_DeniedByUser", "User").Value = value;
             }
         }
         /// <summary>
@@ -4977,17 +5187,55 @@ namespace UniversityOfMe.Models
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<User> AddedByUserReference
+        public EntityReference<User> DeniedByUserReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_ClubMembers_Users_AddedByUser", "User");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_ClubMembers_DeniedByUser", "User");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_ClubMembers_Users_AddedByUser", "User", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_ClubMembers_DeniedByUser", "User", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClubMembers_Users_ApprovedByUser", "User")]
+        public User ApprovedByUser
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_ClubMembers_Users_ApprovedByUser", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_ClubMembers_Users_ApprovedByUser", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> ApprovedByUserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_ClubMembers_Users_ApprovedByUser", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_ClubMembers_Users_ApprovedByUser", "User", value);
                 }
             }
         }
@@ -12598,72 +12846,6 @@ namespace UniversityOfMe.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClubMembers_Users_AddedByUser", "ClubMember")]
-        public EntityCollection<ClubMember> ClubMembersAdded
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ClubMember>("UniversityOfMeModel.FK_ClubMembers_Users_AddedByUser", "ClubMember");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClubMember>("UniversityOfMeModel.FK_ClubMembers_Users_AddedByUser", "ClubMember", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClubMembers_Users_ClubMemeber", "ClubMember")]
-        public EntityCollection<ClubMember> ClubMemberAt
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ClubMember>("UniversityOfMeModel.FK_ClubMembers_Users_ClubMemeber", "ClubMember");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClubMember>("UniversityOfMeModel.FK_ClubMembers_Users_ClubMemeber", "ClubMember", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClubMembers_Users_DeletedByUser", "ClubMember")]
-        public EntityCollection<ClubMember> ClubMembersDeleted
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ClubMember>("UniversityOfMeModel.FK_ClubMembers_Users_DeletedByUser", "ClubMember");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClubMember>("UniversityOfMeModel.FK_ClubMembers_Users_DeletedByUser", "ClubMember", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Classes_Users", "Class")]
         public EntityCollection<Class> Classes
         {
@@ -13336,6 +13518,116 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FeaturesEnabled>("UniversityOfMeModel.FK_FeaturesEnabled_Users", "FeaturesEnabled", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Clubs_DeactivatedByUser", "Club")]
+        public EntityCollection<Club> Clubs_1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Club>("UniversityOfMeModel.FK_Clubs_DeactivatedByUser", "Club");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Club>("UniversityOfMeModel.FK_Clubs_DeactivatedByUser", "Club", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClubMembers_DeniedByUser", "ClubMember")]
+        public EntityCollection<ClubMember> ClubMembers
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ClubMember>("UniversityOfMeModel.FK_ClubMembers_DeniedByUser", "ClubMember");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClubMember>("UniversityOfMeModel.FK_ClubMembers_DeniedByUser", "ClubMember", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClubMembers_Users_ApprovedByUser", "ClubMember")]
+        public EntityCollection<ClubMember> ClubMembers1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ClubMember>("UniversityOfMeModel.FK_ClubMembers_Users_ApprovedByUser", "ClubMember");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClubMember>("UniversityOfMeModel.FK_ClubMembers_Users_ApprovedByUser", "ClubMember", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClubMembers_Users_ClubMemeber", "ClubMember")]
+        public EntityCollection<ClubMember> ClubMembers2
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ClubMember>("UniversityOfMeModel.FK_ClubMembers_Users_ClubMemeber", "ClubMember");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClubMember>("UniversityOfMeModel.FK_ClubMembers_Users_ClubMemeber", "ClubMember", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClubMembers_Users_DeletedByUser", "ClubMember")]
+        public EntityCollection<ClubMember> ClubMembers3
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ClubMember>("UniversityOfMeModel.FK_ClubMembers_Users_DeletedByUser", "ClubMember");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClubMember>("UniversityOfMeModel.FK_ClubMembers_Users_DeletedByUser", "ClubMember", value);
                 }
             }
         }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
-using HaveAVoice.Services.Clubs;
 using Social.Authentication;
 using Social.Generic.ActionFilters;
 using Social.Generic.Constants;
@@ -11,20 +10,25 @@ using Social.Generic.Models;
 using Social.Users.Services;
 using Social.Validation;
 using UniversityOfMe.Helpers;
+using UniversityOfMe.Helpers.Constants;
 using UniversityOfMe.Models;
 using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories;
 using UniversityOfMe.Services;
+using UniversityOfMe.Services.Clubs;
 using UniversityOfMe.Services.Professors;
 using UniversityOfMe.UserInformation;
 
 namespace UniversityOfMe.Controllers.Clubs {
 
     public class ClubController : UOFMeBaseController {
-        public const string CLUB_CREATED = "Club created successfully!";
-        public const string CLUB_LIST_ERROR = "Error getting club list. Please try again.";
-        public const string CLUB_TYPE_ERROR = "Error getting club types. Please try again.";
-        public const string GET_CLUB_ERROR = "An error has occurred while retrieving the club. Please try again.";
+        private const string CLUB_CREATED = "Club created successfully!";
+        private const string CLUB_DEACTIVATED = "The club has been deactivated! You can always activate it again through your profile page under the clubs you were listed as admin for.";
+
+        private const string CLUB_LIST_ERROR = "Error getting club list. Please try again.";
+        private const string CLUB_TYPE_ERROR = "Error getting club types. Please try again.";
+        private const string GET_CLUB_ERROR = "An error has occurred while retrieving the club. Please try again.";
+        private const string CLUB_DEACTIVATED_ERROR = "An error has occurred while deactivating the club.";
 
         IValidationDictionary theValidationDictionary;
         IClubService theClubService;
@@ -56,7 +60,8 @@ namespace UniversityOfMe.Controllers.Clubs {
                 myClubTypes = theClubService.CreateAllClubTypesDictionaryEntry();
 
                 CreateClubModel myClubModel = new CreateClubModel() {
-                    ClubTypes = new SelectList(myClubTypes, "Value", "Key")
+                    ClubTypes = new SelectList(myClubTypes, "Value", "Key"),
+                    Title = ClubConstants.DEFAULT_CLUB_LEADER_TITLE
                 };
 
                 myLoggedIn.Set(myClubModel);
@@ -140,6 +145,26 @@ namespace UniversityOfMe.Controllers.Clubs {
                 LogError(myException, CLUB_LIST_ERROR);
                 return SendToErrorPage(CLUB_LIST_ERROR);
             }
+        }
+
+        [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
+        public ActionResult Deactivate(int clubId) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+
+            try {
+                bool myResult = theClubService.DeactivateClub(GetUserInformatonModel(), clubId);
+
+                if (myResult) {
+                    TempData["Message"] = MessageHelper.SuccessMessage(CLUB_DEACTIVATED);
+                }
+            } catch (Exception myException) {
+                LogError(myException, CLUB_DEACTIVATED_ERROR);
+                TempData["Message"] = MessageHelper.ErrorMessage(CLUB_DEACTIVATED_ERROR);
+            }
+
+            return RedirectToAction("List", "Club");
         }
     }
 }
