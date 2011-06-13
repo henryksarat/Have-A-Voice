@@ -30,11 +30,11 @@
 			    <div class="flft mr26"> 
                     <% User myUser = UserInformationFactory.GetUserInformation().Details; %>
                     <% if (ClubHelper.IsAdmin(myUser, Model.Get().Id)) { %>
-                        <%= Html.ActionLink("Set club as inactive", "Deactivate", "Club", new { clubId = Model.Get().Id }, new { @class = "enroll" })%>
+                        <%= Html.ActionLink("Set club as inactive", "Deactivate", "Club", new { clubId = Model.Get().Id }, new { @class = "unroll" })%>
                     <% } else if (ClubHelper.IsPending(myUser, Model.Get().Id)) { %>
-                        <%= Html.ActionLink("Cancel my request to join", "Cancel", "ClubMember", new { clubId = Model.Get().Id }, new { @class = "enroll" })%>
+                        <%= Html.ActionLink("Cancel my request to join", "Cancel", "ClubMember", new { clubId = Model.Get().Id }, new { @class = "unroll" })%>
                     <% } else if (ClubHelper.IsMember(myUser, Model.Get().Id)) { %>
-                        <%= Html.ActionLink("Quit organization", "Remove", "ClubMember", null, new { @class = "enroll" })%>
+                        <%= Html.ActionLink("Quit organization", "Remove", "ClubMember", null, new { @class = "unroll" })%>
                     <% } else { %>
                         <%= Html.ActionLink("Request to join organization", "RequestToJoin", "ClubMember", new { clubId = Model.Get().Id }, new { @class = "enroll" })%>
                     <% } %>
@@ -136,43 +136,57 @@
 		</div> 
 					
 		<div id="review"> 
-			<div class="create"> 
-                <% using (Html.BeginForm("Create", "ClubBoard")) {%>
-                    <%= Html.Hidden("ClubId", Model.Get().Id)%>
-                    <%= Html.TextArea("BoardMessage", string.Empty, 6, 0, new { @class = "full" })%>
-                    <%= Html.ValidationMessage("BoardMessage", "*")%>
+            <% if (ClubHelper.IsMember(myUser, Model.Get().Id)) { %>
+			    <div class="create"> 
+                    <% using (Html.BeginForm("Create", "ClubBoard")) {%>
+                        <%= Html.Hidden("ClubId", Model.Get().Id)%>
+                        <%= Html.TextArea("BoardMessage", string.Empty, 6, 0, new { @class = "full" })%>
+                        <%= Html.ValidationMessage("BoardMessage", "*")%>
 						
-					<div class="frgt mt13"> 
-						<input type="submit" class="frgt btn site" name="post" value="Post to Club Board" /> 
-					</div> 
-					<div class="clearfix"></div> 
-                <% } %>
-			</div> 
+					    <div class="frgt mt13"> 
+						    <input type="submit" class="frgt btn site" name="post" value="Post to Club Board" /> 
+					    </div> 
+					    <div class="clearfix"></div> 
+                    <% } %>
+			    </div> 
+            <% } %>
 						
 			<div class="clearfix"></div> 
+			<% if(Model.Get().ClubBoards.Count == 0) { %>
+		        <div class="review"> 
+			        <table border="0" cellpadding="0" cellspacing="0"> 
+                            <tr> 
+						        <td class="avatar">
+							      There are no club board posts
+						        </td> 
+					        </tr> 
+			        </table>  
+			        <div class="clearfix"></div> 
+		        </div> 
+            <% } %>
 						
-			<div class="review"> 
-				<table border="0" cellpadding="0" cellspacing="0"> 
-					<% foreach (ClubBoard myClubBoard in Model.Get().ClubBoards.OrderByDescending(b => b.DateTimeStamp)) { %>
-                        <tr> 
-							<td class="avatar">
-								<a href="/<%= myClubBoard.User.ShortUrl %>"><img src="<%= PhotoHelper.ProfilePicture(myClubBoard.User) %>" class="profile big mr22" /></a>
-							</td> 
-							<td> 
-								<div class="red bld"><%= NameHelper.FullName(myClubBoard.User) %>
-									<span class="gray small nrm"><%= DateHelper.ToLocalTime(myClubBoard.DateTimeStamp) %></span> 
-								</div> 
-								<%= myClubBoard.Message %>
-							</td> 
-						</tr> 
-                    <% } %>
-				</table> 
-				<div class="flft mr22"> 
+			<% foreach (ClubBoard myClubBoard in Model.Get().ClubBoards.OrderByDescending(b => b.DateTimeStamp)) { %>
+		        <div class="review"> 
+			        <table border="0" cellpadding="0" cellspacing="0"> 
+                            <tr> 
+						        <td class="avatar">
+							        <a href="/<%= myClubBoard.User.ShortUrl %>"><img src="<%= PhotoHelper.ProfilePicture(myClubBoard.User) %>" class="profile big mr22" /></a>
+						        </td> 
+						        <td> 
+							        <div class="red bld"><%= NameHelper.FullName(myClubBoard.User) %>
+								        <span class="gray small nrm"><%= DateHelper.ToLocalTime(myClubBoard.DateTimeStamp) %></span> 
+							        </div> 
+							        <%= myClubBoard.Message %>
+						        </td> 
+					        </tr> 
+			        </table> 
+			        <div class="flft mr22"> 
 								
-				</div> 
+			        </div> 
  
-				<div class="clearfix"></div> 
-			</div> 
+			        <div class="clearfix"></div> 
+		        </div> 
+            <% } %>
 		</div> 
 	</div> 
 </asp:Content>
