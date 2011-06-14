@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using UniversityOfMe.Models;
 using Social.Generic.Models;
+using UniversityOfMe.Models.View;
 
 namespace UniversityOfMe.Services.Notifications {
     public interface INotificationService {
-        IEnumerable<SendItem> GetSendItemsForUser(User aUser);
-        IEnumerable<ClubMember> GetPendingClubMembersOfAdminedClubs(User aUser);
+        IEnumerable<NotificationModel> GetNotificationsForUser(User aUser, int aLimit);
     }
 }

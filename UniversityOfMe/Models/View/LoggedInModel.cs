@@ -17,17 +17,10 @@ namespace UniversityOfMe.Models.View {
             IUofMeUserService myUserService = new UofMeUserService(new ModelStateWrapper(null));
             IDatingService myDatingService = new DatingService();
 
-            IEnumerable<SendItem> mySentItems = myNotificationService.GetSendItemsForUser(aUser);
-            IEnumerable<ClubMember> myPendingClubMembers = myNotificationService.GetPendingClubMembersOfAdminedClubs(aUser);
-
-            List<NotificationModel> myNotifications = ConvertToNotificationModel(mySentItems);
-            myNotifications.AddRange(ConvertToNotificationModel(myPendingClubMembers));
-
+            IEnumerable<NotificationModel> myNotifications = myNotificationService.GetNotificationsForUser(aUser, 5);
             IEnumerable<User> myNewestUsers = myUserService.GetNewestUsers(aUser, UniversityHelper.GetMainUniversityId(aUser), 10);
 
             University = UniversityHelper.GetMainUniversity(aUser);
-
-            myNotifications = myNotifications.OrderByDescending(n => n.DateTimeSent).ToList<NotificationModel>(); ;
 
             LeftNavigation = new LeftNavigation() {
                 User = aUser,
@@ -38,36 +31,6 @@ namespace UniversityOfMe.Models.View {
             };
         }
 
-        private List<NotificationModel> ConvertToNotificationModel(IEnumerable<SendItem> aSendItems) {
-            List<NotificationModel> myNotificationModel = new List<NotificationModel>();
-            TimeZone localZone = TimeZone.CurrentTimeZone;
 
-            foreach (SendItem mySendItem in aSendItems) {
-                myNotificationModel.Add(new NotificationModel() {
-                    NotificationType = NotificationType.SentItems,
-                    SendItem = SendItemOptions.BEER,
-                    WhoSent = mySendItem.FromUser,
-                    DateTimeSent = mySendItem.DateTimeStamp
-                });
-            }
-
-            return myNotificationModel;
-        }
-
-        private List<NotificationModel> ConvertToNotificationModel(IEnumerable<ClubMember> aClubMembers) {
-            List<NotificationModel> myNotificationModel = new List<NotificationModel>();
-            TimeZone localZone = TimeZone.CurrentTimeZone;
-
-            foreach (ClubMember myClubMember in aClubMembers) {
-                myNotificationModel.Add(new NotificationModel() {
-                    NotificationType = NotificationType.Club,
-                    Club = myClubMember.Club,
-                    ClubMemberUser = myClubMember.ClubMemberUser,
-                    DateTimeSent = myClubMember.DateTimeStamp
-                });
-            }
-
-            return myNotificationModel;
-        }
     }
 }

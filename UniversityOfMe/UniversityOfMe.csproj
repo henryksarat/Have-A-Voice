@@ -69,6 +69,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Notification\NotificationController.cs" />
     <Compile Include="Controllers\Users\UserPrivacySettingController.cs" />
     <Compile Include="CustomAuthentication\AdminMemberProvider .cs">
       <SubType>Code</SubType>
@@ -368,6 +369,7 @@
     <Content Include="Views\Message\Create.aspx" />
     <Content Include="Views\Message\Details.aspx" />
     <Content Include="Views\Message\Inbox.aspx" />
+    <Content Include="Views\Notification\List.aspx" />
     <Content Include="Views\Permission\Create.aspx" />
     <Content Include="Views\Permission\Delete.aspx" />
     <Content Include="Views\Permission\Edit.aspx" />
@@ -387,6 +389,7 @@
     <Content Include="Views\Role\Edit.aspx" />
     <Content Include="Views\Role\Index.aspx" />
     <Content Include="Views\Role\SwitchUserRoles.aspx" />
+    <Content Include="Views\Shared\Notifications.ascx" />
     <Content Include="Views\Shared\Error.aspx" />
     <Content Include="Views\Shared\Message.ascx" />
     <Content Include="Views\Shared\NavigationUserControl.ascx" />

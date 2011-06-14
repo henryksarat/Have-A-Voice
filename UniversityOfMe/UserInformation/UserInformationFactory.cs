@@ -12,6 +12,10 @@ namespace UniversityOfMe.UserInformation {
 
         private UserInformationFactory() { }
 
+        public static IUserInformation<User, WhoIsOnline> GetUserInformationInstance() {
+            return theFactory;
+        }
+
         public static UserInformationModel<User> GetUserInformation() {
             SetDefaultInstance();
             return theFactory.GetUserInformaton();
