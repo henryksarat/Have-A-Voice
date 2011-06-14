@@ -112,12 +112,12 @@ namespace BaseWebsite.Controllers.Messaging {
                 return RedirectToAction(INBOX_VIEW);
             }
 
-            T myUser = theUserRetrievalService.GetUser(id);
-
-            ILoggedInModel<T> myModel = CreatedLoggedInModelForCreatingAMessage(myUser);
+            T myUserSendingMessageTo = theUserRetrievalService.GetUser(id);
+            T myLoggedInUser = GetUserInformatonModel().Details;
+            ILoggedInModel<T> myModel = CreatedLoggedInModelForCreatingAMessage(myLoggedInUser);
 
             try {
-                myModel.Set(myUser);
+                myModel.Set(myUserSendingMessageTo);
                 return View(CREATE_VIEW, myModel);
             } catch (Exception e) {
                 LogError(e, USER_RETRIEVAL_ERROR);

@@ -138,7 +138,7 @@ namespace BaseWebsite.Controllers.Friends {
                 return RedirectToLogin();
             }
             try {
-                theFriendService.ApproveFriend(id);
+                theFriendService.ApproveFriend(id, GetUserInformatonModel().UserId);
                 TempData[ERROR_MESSAGE_VIEWDATA] = SuccessMessage(APPROVED);
                 ForceUserInformationRefresh();
             } catch (Exception e) {
@@ -154,7 +154,7 @@ namespace BaseWebsite.Controllers.Friends {
                 return RedirectToLogin();
             }
             try {
-                theFriendService.DeclineFriend(id);
+                theFriendService.DeclineFriend(id, GetUserInformatonModel().UserId);
                 TempData[ERROR_MESSAGE_VIEWDATA] = SuccessMessage(DECLINED);
                 ForceUserInformationRefresh();
             } catch (Exception e) {

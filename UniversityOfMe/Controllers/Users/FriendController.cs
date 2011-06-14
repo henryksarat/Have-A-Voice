@@ -33,7 +33,7 @@ namespace UniversityOfMe.Controllers.Users {
             return base.Add(id);
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [AcceptVerbs(HttpVerbs.Get)]
         new public ActionResult Delete(int id) {
             return base.Delete(id);
         }
@@ -48,12 +48,12 @@ namespace UniversityOfMe.Controllers.Users {
             return base.Pending();
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [AcceptVerbs(HttpVerbs.Get)]
         new public ActionResult Approve(int id) {
             return base.Approve(id);
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [AcceptVerbs(HttpVerbs.Get)]
         new public ActionResult Decline(int id) {
             return base.Decline(id);
         }

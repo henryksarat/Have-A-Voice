@@ -14,12 +14,12 @@ namespace Social.Friend.Services {
             theFriendRepo.AddFriend(aUser.Model, aSourceUserId);
         }
 
-        public void ApproveFriend(int aFriendId) {
-            theFriendRepo.ApproveFriend(aFriendId);
+        public void ApproveFriend(int aFriendId, int aSourceUserId) {
+            theFriendRepo.ApproveFriend(aFriendId, aSourceUserId);
         }
 
-        public void DeclineFriend(int aFriendId) {
-            theFriendRepo.DeleteFriend(aFriendId);
+        public void DeclineFriend(int aFriendId, int aSourceUserId) {
+            theFriendRepo.DenyFriend(aFriendId, aSourceUserId);
         }
 
         public IEnumerable<U> FindFriendsForUser(int aUserId) {

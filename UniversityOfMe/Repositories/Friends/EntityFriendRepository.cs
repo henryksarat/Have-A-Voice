@@ -13,14 +13,20 @@ namespace UniversityOfMe.Repositories.Friends {
             theEntities.SaveChanges();
         }
 
-        public void ApproveFriend(int aFriendId) {
-            Friend myFriend = FindFriend(aFriendId);
+        public void ApproveFriend(int aFriendId, int aSourceUserId) {
+            Friend myFriend = FindFriend(aFriendId, aSourceUserId);
             myFriend.Approved = true;
 
             Friend myInverseFriendEntry = Friend.CreateFriend(0, myFriend.SourceUserId, myFriend.FriendUserId, true);
 
             theEntities.AddToFriends(myInverseFriendEntry);
             theEntities.ApplyCurrentValues(myFriend.EntityKey.EntitySetName, myFriend);
+            theEntities.SaveChanges();
+        }
+
+        public void DenyFriend(int aFriendId, int aSourceUserId) {
+            Friend myFriend = FindFriend(aFriendId, aSourceUserId);
+            theEntities.DeleteObject(myFriend);
             theEntities.SaveChanges();
         }
 
@@ -85,6 +91,13 @@ namespace UniversityOfMe.Repositories.Friends {
         private Friend FindFriend(int aFriendId) {
             return (from f in theEntities.Friends
                     where f.Id == aFriendId
+                    select f).FirstOrDefault<Friend>();
+        }
+
+        private Friend FindFriend(int aFriendId, int aSourceUserId) {
+            return (from f in theEntities.Friends
+                    where f.Id == aFriendId
+                    && f.SourceUserId == aSourceUserId
                     select f).FirstOrDefault<Friend>();
         }
     }

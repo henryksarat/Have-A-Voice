@@ -24,6 +24,8 @@
     <% } %><br /><br />
     <% if (!FriendHelper.IsFriend(Model.Get(), myLoggedInUser.Details)) { %>
         <%= Html.ActionLink("Add as friend", "Add", "Friend", new { id = Model.Get().Id }, null)%>
+    <% } else { %>
+        <%= Html.ActionLink("Remove as friend", "Delete", "Friend", new { id = Model.Get().Id }, null)%>
     <% } %><br />
     <%= Html.ActionLink("Message user", "Create", "Message", new { id = Model.Get().Id }, null)%>
     <%= Html.ActionLink("Send beer", "SendItem", "SendItems", new { id = Model.Get().Id, sendItem = SendItemOptions.BEER }, null)%>

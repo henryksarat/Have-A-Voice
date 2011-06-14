@@ -489,3 +489,6 @@ a.name:hover { text-decoration: underline; }
 a.hide-this, a.hide-this:link, a.hide-this:visited { text-decoration: underline; color: #fff; }
 span.feed-time { color: #a4a4a4; font-size: 10px; margin-top: -14px; }
 .mt50 { margin-top: 50px; }
+
+a.approve, a.approve:link, a.approve:visited { width: 18px; height: 17px; background:url(images/plus.png) no-repeat center bottom; text-indent: -9999px; outline: none; display: inline-block; }
+a.deny, a.deny:link, a.deny:visited { width: 18px; height: 17px; background:url(images/remove.png) no-repeat center bottom; text-indent: -9999px; outline: none; display: inline-block; }

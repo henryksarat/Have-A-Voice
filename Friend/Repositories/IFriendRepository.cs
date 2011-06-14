@@ -6,7 +6,8 @@ using System.Web;
 namespace Social.Friend.Repositories {
     public interface IFriendRepository<T, U> {
         void AddFriend(T aUser, int aSourceUserId);
-        void ApproveFriend(int aFriendId);
+        void ApproveFriend(int aFriendId, int aSourceUserId);
+        void DenyFriend(int aFriendId, int aSourceUserId);
         void DeleteFriend(int aFriendId);
         void DeleteFriend(T aUser, int aSourceUserId);
         IEnumerable<U> FindFriendsForUser(int aUserId);
