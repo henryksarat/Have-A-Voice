@@ -450,6 +450,7 @@ span.professor { padding: 2px 0px 2px 28px; background:url(images/person.png) no
 .ml40 { margin-left: 40px; }
 .ml50 { margin-left: 50px; }
 .ml60 { margin-left: 60px; }
+.ml160 { margin-left: 160px; }
 
 .pl50 { padding-left: 50px; }
 .pr150 { padding-right: 150px; }
@@ -487,3 +488,4 @@ a.name:hover { text-decoration: underline; }
 
 a.hide-this, a.hide-this:link, a.hide-this:visited { text-decoration: underline; color: #fff; }
 span.feed-time { color: #a4a4a4; font-size: 10px; margin-top: -14px; }
+.mt50 { margin-top: 50px; }
