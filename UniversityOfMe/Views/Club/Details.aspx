@@ -29,8 +29,10 @@
 		    <div class="buttons"> 
 			    <div class="flft mr26"> 
                     <% User myUser = UserInformationFactory.GetUserInformation().Details; %>
-                    <% if (ClubHelper.IsAdmin(myUser, Model.Get().Id)) { %>
+                    <% if (ClubHelper.IsAdmin(myUser, Model.Get().Id) && Model.Get().Active) { %>
                         <%= Html.ActionLink("Set club as inactive", "Deactivate", "Club", new { clubId = Model.Get().Id }, new { @class = "unroll" })%>
+                    <% } else if (ClubHelper.IsAdmin(myUser, Model.Get().Id) && !Model.Get().Active) { %>
+                        <%= Html.ActionLink("Set club as active", "Activate", "Club", new { clubId = Model.Get().Id }, new { @class = "enroll" })%>
                     <% } else if (ClubHelper.IsPending(myUser, Model.Get().Id)) { %>
                         <%= Html.ActionLink("Cancel my request to join", "Cancel", "ClubMember", new { clubId = Model.Get().Id }, new { @class = "unroll" })%>
                     <% } else if (ClubHelper.IsMember(myUser, Model.Get().Id)) { %>

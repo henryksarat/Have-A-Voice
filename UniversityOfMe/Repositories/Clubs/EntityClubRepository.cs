@@ -8,6 +8,14 @@ namespace UniversityOfMe.Repositories.Clubs {
     public class EntityClubRepository : IClubRepository {
         private UniversityOfMeEntities theEntities = new UniversityOfMeEntities();
 
+        public void ActivateClub(User aUser, int aClubId) {
+            Club myClub = GetClub(aClubId);
+            myClub.DeactivatedByUserId = null;
+            myClub.DeativatedDateTimeStamp = null;
+            myClub.Active = true;
+            theEntities.SaveChanges();
+        }
+
         public void ApproveClubMember(User anAdminUser, int aClubMemberId, string aTitle, bool anAdministrator) {
             ClubMember myClubMember = GetClubMember(aClubMemberId);
             myClubMember.Administrator = anAdministrator;
@@ -70,9 +78,11 @@ namespace UniversityOfMe.Repositories.Clubs {
             theEntities.SaveChanges();
         }
 
-        public Club GetClub(int aClubId) {
+        public Club GetClub(User aUser, int aClubId) {
             return (from c in theEntities.Clubs
+                    join cm in theEntities.ClubMembers on c.Id equals cm.ClubId
                     where c.Id == aClubId
+                    && (c.Active || (cm.ClubMemberUserId == aUser.Id && cm.Administrator))
                     select c).FirstOrDefault<Club>();
         }
 
@@ -102,10 +112,15 @@ namespace UniversityOfMe.Repositories.Clubs {
                     select cm).FirstOrDefault<ClubMember>();
         }
 
-        public IEnumerable<Club> GetClubs(string aUniversityId) {
+        public IEnumerable<Club> GetClubs(User aUser, string aUniversityId) {
+            IEnumerable<int> myAdminOfClubs = (from cm in theEntities.ClubMembers
+                                               where cm.ClubMemberUserId == aUser.Id
+                                               && cm.Administrator
+                                               select cm.ClubId);
+
             return (from c in theEntities.Clubs
                     where c.UniversityId == aUniversityId
-                    && c.Active == true
+                    && (c.Active || myAdminOfClubs.Contains(c.Id))
                     select c).ToList<Club>();
         }
 
@@ -129,6 +144,12 @@ namespace UniversityOfMe.Repositories.Clubs {
         public void UpdateClub(Club aClub) {
             theEntities.ApplyCurrentValues(aClub.EntityKey.EntitySetName, aClub);
             theEntities.SaveChanges();
+        }
+
+        private Club GetClub(int aClubId) {
+            return (from c in theEntities.Clubs
+                    where c.Id == aClubId
+                    select c).FirstOrDefault<Club>();
         }
     }
 }

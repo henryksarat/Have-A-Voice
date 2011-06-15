@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using Social.Generic.Exceptions;
 using Social.Generic.Helpers;
@@ -9,14 +10,13 @@ using Social.Photo.Helpers;
 using Social.User.Repositories;
 using Social.User.Services;
 using Social.Validation;
+using UniversityOfMe.Helpers;
 using UniversityOfMe.Helpers.Constants;
 using UniversityOfMe.Models;
 using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories.Clubs;
 using UniversityOfMe.Repositories.UserRepos;
 using UniversityOfMe.Services.Professors;
-using UniversityOfMe.Helpers;
-using System.Linq;
 
 namespace UniversityOfMe.Services.Clubs {
     public class ClubService : IClubService {
@@ -35,6 +35,16 @@ namespace UniversityOfMe.Services.Clubs {
             theValidationDictionary = aValidationDictionary;
             theClubRepository = aProfessorRepo;
             theUserRetrievalService = new UserRetrievalService<User>(aUserRetrievalRepo);
+        }
+
+        public bool ActivateClub(UserInformationModel<User> aUser, int aClubId) {
+            if (!ValidateAdmin(aUser.Details, aClubId)) {
+                return false;
+            }
+
+            theClubRepository.ActivateClub(aUser.Details, aClubId);
+
+            return true;
         }
 
         public bool ApproveClubMember(UserInformationModel<User> aUser, int aClubMemberId, string aTitle, bool anAdministrator) {
@@ -82,8 +92,7 @@ namespace UniversityOfMe.Services.Clubs {
         }
 
         public bool DeactivateClub(UserInformationModel<User> aUser, int aClubId) {
-            if (!IsAdmin(aUser.Details, aClubId)) {
-                theValidationDictionary.AddError("ClubMemberAdmin", string.Empty, "You are not an admin of the club.");
+            if (!ValidateAdmin(aUser.Details, aClubId)) {
                 return false;
             }
 
@@ -96,8 +105,8 @@ namespace UniversityOfMe.Services.Clubs {
             theClubRepository.DenyClubMember(aUser.Details, aClubMemberId);
         }
 
-        public Club GetClub(int aClubId) {
-            return theClubRepository.GetClub(aClubId);
+        public Club GetClub(UserInformationModel<User> aUser, int aClubId) {
+            return theClubRepository.GetClub(aUser.Details, aClubId);
         }
 
         public IEnumerable<ClubBoard> GetClubBoardPostings(int aClubId) {
@@ -119,8 +128,8 @@ namespace UniversityOfMe.Services.Clubs {
             return theClubRepository.GetClubMembers(aClubId).Where(cm => cm.Approved == UOMConstants.APPROVED);
         }
 
-        public IEnumerable<Club> GetClubs(string aUniversityId) {
-            return theClubRepository.GetClubs(aUniversityId);
+        public IEnumerable<Club> GetClubs(UserInformationModel<User> aUser, string aUniversityId) {
+            return theClubRepository.GetClubs(aUser.Details, aUniversityId);
         }
 
         public bool IsAdmin(User aUser, int aClubId) {
@@ -162,8 +171,17 @@ namespace UniversityOfMe.Services.Clubs {
             theClubRepository.MemberRequestToJoinClub(aRequestingMember.Details, aClubId, ClubConstants.DEFAULT_NEW_MEMBER_TITLE);
         }
 
+        private bool ValidateAdmin(User aUser, int aClubId) {
+            if (!IsAdmin(aUser, aClubId)) {
+                theValidationDictionary.AddError("ClubMemberAdmin", string.Empty, "You are not an admin of the club.");
+                return false;
+            }
+
+            return true;
+        }
+
         private bool ValidateRemovingClubMember(User aUserDoingRemoving, int aCurrentUserId, int aClubId) {
-            ValidateClubExists(aClubId);
+            ValidateClubExists(aUserDoingRemoving, aClubId);
             ClubMember myClubMember = theClubRepository.GetClubMember(aCurrentUserId, aClubId);
             if (myClubMember == null) {
                 theValidationDictionary.AddError("ClubMember", string.Empty, "That club member doesn't exist.");
@@ -179,7 +197,7 @@ namespace UniversityOfMe.Services.Clubs {
         }
 
         private bool ValidatePostToBoard(User aPostingUser, int aClubId, string aMessage) {
-            ValidateClubExists(aClubId);
+            ValidateClubExists(aPostingUser, aClubId);
             
             ClubMember myPostingUserClubMember = theClubRepository.GetClubMember(aPostingUser.Id, aClubId);
 
@@ -195,7 +213,7 @@ namespace UniversityOfMe.Services.Clubs {
         }
 
         private bool ValidMemberRequestToClub(User aUserAddingNewMemeber, int aClubId, int aClubMemberUserId) {
-            ValidateClubExists(aClubId);
+            ValidateClubExists(aUserAddingNewMemeber, aClubId);
             ValidateUserExists(aClubMemberUserId);
 
             ClubMember myAdminClubMember = theClubRepository.GetClubMember(aUserAddingNewMemeber.Id, aClubId);
@@ -214,8 +232,8 @@ namespace UniversityOfMe.Services.Clubs {
             }
         }
 
-        private void ValidateClubExists(int aClubId) {
-            Club myClub = theClubRepository.GetClub(aClubId);
+        private void ValidateClubExists(User aUser, int aClubId) {
+            Club myClub = theClubRepository.GetClub(aUser, aClubId);
             if (myClub == null) {
                 theValidationDictionary.AddError("Club", aClubId.ToString(), CLUB_DOESNT_EXIST);
             }

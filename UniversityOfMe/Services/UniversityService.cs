@@ -85,7 +85,7 @@ namespace UniversityOfMe.Services {
             IEnumerable<Class> myClasses = theClassService.GetClassesForUniversity(aUniversityId);
             IEnumerable<Event> myEvents = theEventService.GetEventsForUniversity(aUserInformation.Details, aUniversityId);
             IEnumerable<TextBook> myTextBooks = theTextBookService.GetTextBooksForUniversity(aUniversityId);
-            IEnumerable<Club> myOrganizations = theClubService.GetClubs(aUniversityId);
+            IEnumerable<Club> myOrganizations = theClubService.GetClubs(aUserInformation, aUniversityId);
             IEnumerable<GeneralPosting> myGeneralPostings = theGeneralPostingService.GetGeneralPostingsForUniversity(aUniversityId);
 
             return new UniversityView() {
