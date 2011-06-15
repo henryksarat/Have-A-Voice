@@ -28,6 +28,10 @@ namespace UniversityOfMe.Services.Notifications {
             List<NotificationModel> myNotifications = ConvertToNotificationModel(mySentItems);
             myNotifications.AddRange(ConvertToNotificationModel(myPendingClubMembers));
 
+            if (myNotifications.Count == 0) {
+                myNotifications.Add(NoNotifications());
+            }
+
             return myNotifications.OrderByDescending(n => n.DateTimeSent).Take<NotificationModel>(aLimit);
         }
 
@@ -37,6 +41,12 @@ namespace UniversityOfMe.Services.Notifications {
 
         private IEnumerable<ClubMember> GetPendingClubMembersOfAdminedClubs(User aUser) {
             return theNotificationRepository.GetPendingClubMembersOfAdminedClubs(aUser);
+        }
+
+        private NotificationModel NoNotifications() {
+            return new NotificationModel() {
+                NotificationType = NotificationType.None
+            };
         }
 
         private List<NotificationModel> ConvertToNotificationModel(IEnumerable<SendItem> aSendItems) {

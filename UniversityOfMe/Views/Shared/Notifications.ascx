@@ -28,6 +28,10 @@
 				<a href="<%= URLHelper.ProfileUrl(myNotificationModel.ClubMemberUser) %>"><%= NameHelper.FullName(myNotificationModel.ClubMemberUser) %></a> wants to join <a href="<%= URLHelper.BuildClubUrl(myNotificationModel.Club) %>"><%= myNotificationModel.Club.Name %> </a> 
 				<span class="time">6:35 pm</span> 
 			</li> 
+        <% } else if (myNotificationModel.NotificationType == NotificationType.None) { %>
+			<li class="minilogo"> 
+                You have no notifications.
+			</li>             
         <% } %>
     <% } %>
 </ul> 

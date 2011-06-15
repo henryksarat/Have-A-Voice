@@ -257,6 +257,7 @@ ul.notification li.friend { background:url(images/friend.png) no-repeat left cen
 ul.notification li.post { background:url(images/bubble.png) no-repeat left center; }
 ul.notification li.beer { background:url(images/beer.png) no-repeat left center; }
 ul.notification li.organization { background:url(images/organization.png) no-repeat left center; }
+ul.notification li.minilogo { background:url(images/minilogo.png) no-repeat left center; }
 
 ul.notification li a, ul.notification li a:link, ul.notification li a:visited { color: #3e7c97; }
 ul.notification li a:visited { text-decoration: underline; }

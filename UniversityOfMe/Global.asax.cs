@@ -3,6 +3,7 @@ using System.Web.Routing;
 using Social.User.Models;
 using UniversityOfMe.Models;
 using UniversityOfMe.Models.Binders;
+using UniversityOfMe.Models.View;
 
 namespace UniversityOfMe {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
@@ -15,6 +16,9 @@ namespace UniversityOfMe {
 
             ModelBinders.Binders.Remove(typeof(UpdatePrivacySettingsModel<PrivacySetting>));
             ModelBinders.Binders.Add(typeof(UpdatePrivacySettingsModel<PrivacySetting>), new UpdatePrivacySettingsModelBinder());
+
+            ModelBinders.Binders.Remove(typeof(UpdateFeaturesModel));
+            ModelBinders.Binders.Add(typeof(UpdateFeaturesModel), new UpdateFeaturesModelBinder());
 
             routes.MapRoute(
                 "DefaultAuthentication", // Route name
@@ -68,6 +72,12 @@ namespace UniversityOfMe {
                 "DefaultFriend", // Route name
                 "Friend/{action}/{id}", // URL with parameters
                 new { controller = "Friend", action = "List", id = UrlParameter.Optional } // Parameter defaults
+            );
+
+            routes.MapRoute(
+                "DefaultFeature", // Route name
+                "Feature/{action}/{id}", // URL with parameters
+                new { controller = "Feature", action = "List", id = UrlParameter.Optional } // Parameter defaults
             );
 
             routes.MapRoute(

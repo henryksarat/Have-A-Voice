@@ -6,7 +6,7 @@ namespace UniversityOfMe.Helpers {
             bool myIsEnabled = true;
 
             foreach (FeaturesEnabled myFeaturesEnabled in aUser.FeaturesEnableds) {
-                if(myFeaturesEnabled.Feature.Equals(aFeature.ToString())) {
+                if(myFeaturesEnabled.FeatureName.Equals(aFeature.ToString())) {
                     if(!myFeaturesEnabled.Enabled) {
                         myIsEnabled = false;
                         break;

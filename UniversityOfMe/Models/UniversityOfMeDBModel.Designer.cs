@@ -88,13 +88,14 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassReviews_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ClassReview", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassReview), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_GeneralPostingReplies_GeneralPostings", "GeneralPosting", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.GeneralPosting), "GeneralPostingReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.GeneralPostingReply), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_GeneralPostingReplies_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "GeneralPostingReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.GeneralPostingReply), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_FeaturesEnabled_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "FeaturesEnabled", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.FeaturesEnabled), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Clubs_DeactivatedByUser", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(UniversityOfMe.Models.User), "Club", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Club), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClubMembers_Clubs", "Club", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Club), "ClubMember", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClubMember), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClubMembers_DeniedByUser", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(UniversityOfMe.Models.User), "ClubMember", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClubMember), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClubMembers_Users_ApprovedByUser", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(UniversityOfMe.Models.User), "ClubMember", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClubMember), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClubMembers_Users_ClubMemeber", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ClubMember", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClubMember), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClubMembers_Users_DeletedByUser", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(UniversityOfMe.Models.User), "ClubMember", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClubMember), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_FeaturesEnabled_Features", "Feature", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Feature), "FeaturesEnabled", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.FeaturesEnabled), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_FeaturesEnabled_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "FeaturesEnabled", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.FeaturesEnabled), true)]
 
 #endregion
 
@@ -821,22 +822,6 @@ namespace UniversityOfMe.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<FeaturesEnabled> FeaturesEnableds
-        {
-            get
-            {
-                if ((_FeaturesEnableds == null))
-                {
-                    _FeaturesEnableds = base.CreateObjectSet<FeaturesEnabled>("FeaturesEnableds");
-                }
-                return _FeaturesEnableds;
-            }
-        }
-        private ObjectSet<FeaturesEnabled> _FeaturesEnableds;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<ClubMember> ClubMembers
         {
             get
@@ -849,6 +834,38 @@ namespace UniversityOfMe.Models
             }
         }
         private ObjectSet<ClubMember> _ClubMembers;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Feature> Features
+        {
+            get
+            {
+                if ((_Features == null))
+                {
+                    _Features = base.CreateObjectSet<Feature>("Features");
+                }
+                return _Features;
+            }
+        }
+        private ObjectSet<Feature> _Features;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<FeaturesEnabled> FeaturesEnableds
+        {
+            get
+            {
+                if ((_FeaturesEnableds == null))
+                {
+                    _FeaturesEnableds = base.CreateObjectSet<FeaturesEnabled>("FeaturesEnableds");
+                }
+                return _FeaturesEnableds;
+            }
+        }
+        private ObjectSet<FeaturesEnabled> _FeaturesEnableds;
 
         #endregion
         #region AddTo Methods
@@ -1190,19 +1207,27 @@ namespace UniversityOfMe.Models
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the FeaturesEnableds EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToFeaturesEnableds(FeaturesEnabled featuresEnabled)
-        {
-            base.AddObject("FeaturesEnableds", featuresEnabled);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the ClubMembers EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToClubMembers(ClubMember clubMember)
         {
             base.AddObject("ClubMembers", clubMember);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Features EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToFeatures(Feature feature)
+        {
+            base.AddObject("Features", feature);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the FeaturesEnableds EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToFeaturesEnableds(FeaturesEnabled featuresEnabled)
+        {
+            base.AddObject("FeaturesEnableds", featuresEnabled);
         }
 
         #endregion
@@ -6570,6 +6595,164 @@ namespace UniversityOfMe.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="Feature")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Feature : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Feature object.
+        /// </summary>
+        /// <param name="name">Initial value of the Name property.</param>
+        /// <param name="displayName">Initial value of the DisplayName property.</param>
+        /// <param name="description">Initial value of the Description property.</param>
+        /// <param name="listOrder">Initial value of the ListOrder property.</param>
+        public static Feature CreateFeature(global::System.String name, global::System.String displayName, global::System.String description, global::System.Int32 listOrder)
+        {
+            Feature feature = new Feature();
+            feature.Name = name;
+            feature.DisplayName = displayName;
+            feature.Description = description;
+            feature.ListOrder = listOrder;
+            return feature;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                if (_Name != value)
+                {
+                    OnNameChanging(value);
+                    ReportPropertyChanging("Name");
+                    _Name = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("Name");
+                    OnNameChanged();
+                }
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String DisplayName
+        {
+            get
+            {
+                return _DisplayName;
+            }
+            set
+            {
+                OnDisplayNameChanging(value);
+                ReportPropertyChanging("DisplayName");
+                _DisplayName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("DisplayName");
+                OnDisplayNameChanged();
+            }
+        }
+        private global::System.String _DisplayName;
+        partial void OnDisplayNameChanging(global::System.String value);
+        partial void OnDisplayNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Description
+        {
+            get
+            {
+                return _Description;
+            }
+            set
+            {
+                OnDescriptionChanging(value);
+                ReportPropertyChanging("Description");
+                _Description = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Description");
+                OnDescriptionChanged();
+            }
+        }
+        private global::System.String _Description;
+        partial void OnDescriptionChanging(global::System.String value);
+        partial void OnDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ListOrder
+        {
+            get
+            {
+                return _ListOrder;
+            }
+            set
+            {
+                OnListOrderChanging(value);
+                ReportPropertyChanging("ListOrder");
+                _ListOrder = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ListOrder");
+                OnListOrderChanged();
+            }
+        }
+        private global::System.Int32 _ListOrder;
+        partial void OnListOrderChanging(global::System.Int32 value);
+        partial void OnListOrderChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_FeaturesEnabled_Features", "FeaturesEnabled")]
+        public EntityCollection<FeaturesEnabled> FeaturesEnableds
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<FeaturesEnabled>("UniversityOfMeModel.FK_FeaturesEnabled_Features", "FeaturesEnabled");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FeaturesEnabled>("UniversityOfMeModel.FK_FeaturesEnabled_Features", "FeaturesEnabled", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="FeaturesEnabled")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -6582,14 +6765,14 @@ namespace UniversityOfMe.Models
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="userId">Initial value of the UserId property.</param>
-        /// <param name="feature">Initial value of the Feature property.</param>
+        /// <param name="featureName">Initial value of the FeatureName property.</param>
         /// <param name="enabled">Initial value of the Enabled property.</param>
-        public static FeaturesEnabled CreateFeaturesEnabled(global::System.Int32 id, global::System.Int32 userId, global::System.String feature, global::System.Boolean enabled)
+        public static FeaturesEnabled CreateFeaturesEnabled(global::System.Int32 id, global::System.Int32 userId, global::System.String featureName, global::System.Boolean enabled)
         {
             FeaturesEnabled featuresEnabled = new FeaturesEnabled();
             featuresEnabled.Id = id;
             featuresEnabled.UserId = userId;
-            featuresEnabled.Feature = feature;
+            featuresEnabled.FeatureName = featureName;
             featuresEnabled.Enabled = enabled;
             return featuresEnabled;
         }
@@ -6653,24 +6836,24 @@ namespace UniversityOfMe.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String Feature
+        public global::System.String FeatureName
         {
             get
             {
-                return _Feature;
+                return _FeatureName;
             }
             set
             {
-                OnFeatureChanging(value);
-                ReportPropertyChanging("Feature");
-                _Feature = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Feature");
-                OnFeatureChanged();
+                OnFeatureNameChanging(value);
+                ReportPropertyChanging("FeatureName");
+                _FeatureName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("FeatureName");
+                OnFeatureNameChanged();
             }
         }
-        private global::System.String _Feature;
-        partial void OnFeatureChanging(global::System.String value);
-        partial void OnFeatureChanged();
+        private global::System.String _FeatureName;
+        partial void OnFeatureNameChanging(global::System.String value);
+        partial void OnFeatureNameChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -6699,6 +6882,44 @@ namespace UniversityOfMe.Models
         #endregion
     
         #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_FeaturesEnabled_Features", "Feature")]
+        public Feature Feature
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Feature>("UniversityOfMeModel.FK_FeaturesEnabled_Features", "Feature").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Feature>("UniversityOfMeModel.FK_FeaturesEnabled_Features", "Feature").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Feature> FeatureReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Feature>("UniversityOfMeModel.FK_FeaturesEnabled_Features", "Feature");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Feature>("UniversityOfMeModel.FK_FeaturesEnabled_Features", "Feature", value);
+                }
+            }
+        }
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -13506,28 +13727,6 @@ namespace UniversityOfMe.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_FeaturesEnabled_Users", "FeaturesEnabled")]
-        public EntityCollection<FeaturesEnabled> FeaturesEnableds
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<FeaturesEnabled>("UniversityOfMeModel.FK_FeaturesEnabled_Users", "FeaturesEnabled");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FeaturesEnabled>("UniversityOfMeModel.FK_FeaturesEnabled_Users", "FeaturesEnabled", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Clubs_DeactivatedByUser", "Club")]
         public EntityCollection<Club> Clubs_1
         {
@@ -13628,6 +13827,28 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClubMember>("UniversityOfMeModel.FK_ClubMembers_Users_DeletedByUser", "ClubMember", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_FeaturesEnabled_Users", "FeaturesEnabled")]
+        public EntityCollection<FeaturesEnabled> FeaturesEnableds
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<FeaturesEnabled>("UniversityOfMeModel.FK_FeaturesEnabled_Users", "FeaturesEnabled");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FeaturesEnabled>("UniversityOfMeModel.FK_FeaturesEnabled_Users", "FeaturesEnabled", value);
                 }
             }
         }

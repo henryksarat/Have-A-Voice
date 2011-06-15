@@ -69,7 +69,10 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Site\FeatureController.cs" />
     <Compile Include="Controllers\Notification\NotificationController.cs" />
+    <Compile Include="Controllers\Site\SiteController.cs" />
+    <Compile Include="Controllers\Users\ProfileController.cs" />
     <Compile Include="Controllers\Users\UserPrivacySettingController.cs" />
     <Compile Include="CustomAuthentication\AdminMemberProvider .cs">
       <SubType>Code</SubType>
@@ -89,7 +92,6 @@
     <Compile Include="Controllers\Clubs\ClubBoardController.cs" />
     <Compile Include="Controllers\Clubs\ClubController.cs" />
     <Compile Include="Controllers\Clubs\ClubMemberController.cs" />
-    <Compile Include="Controllers\Site\SiteController.cs" />
     <Compile Include="Controllers\Core\AuthenticationController.cs" />
     <Compile Include="Controllers\Dating\DatingController.cs" />
     <Compile Include="Controllers\Events\EventBoardController.cs" />
@@ -105,7 +107,6 @@
     <Compile Include="Controllers\Professors\ProfessorController.cs" />
     <Compile Include="Controllers\SendItems\SendItemsController.cs" />
     <Compile Include="Controllers\Users\FriendController.cs" />
-    <Compile Include="Controllers\Users\ProfileController.cs" />
     <Compile Include="Controllers\University\UniversityController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\TextBooks\TextBookController.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="Helpers\UOMConstants.cs" />
     <Compile Include="Helpers\UOMErrorKeys.cs" />
     <Compile Include="Helpers\URLHelper.cs" />
+    <Compile Include="Models\Binders\UpdateFeaturesModelBinder.cs" />
     <Compile Include="Models\Binders\UpdatePrivacySettingsModelBinder.cs" />
     <Compile Include="Models\Social\SocialBoardModel.cs" />
     <Compile Include="Models\Social\SocialBoardReplyModel.cs" />
@@ -176,6 +178,7 @@
     <Compile Include="Models\View\NotificationModel.cs" />
     <Compile Include="Models\View\PhotoDisplayView.cs" />
     <Compile Include="Models\View\UniversityView.cs" />
+    <Compile Include="Models\View\UpdateFeaturesModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AdminRepos\EntityPermissionRepository.cs" />
     <Compile Include="Repositories\AdminRepos\EntityRoleRepository.cs" />
@@ -361,6 +364,7 @@
     <Content Include="Views\Event\Details.aspx" />
     <Content Include="Views\Event\Edit.aspx" />
     <Content Include="Views\Event\List.aspx" />
+    <Content Include="Views\Feature\Edit.aspx" />
     <Content Include="Views\Friend\Pending.aspx" />
     <Content Include="Views\Friend\List.aspx" />
     <Content Include="Views\GeneralPosting\Create.aspx" />

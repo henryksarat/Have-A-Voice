@@ -36,6 +36,7 @@
 			<div class="sub-nav"> 
 				<a href="/User/Edit">Account Settings</a> 
 				<a href="/UserPrivacySetting/Edit">Privacy Settings</a> 
+                <a href="/Feature/Edit">Site Feature Settings</a> 
 			</div> 
 		</li> 
 	</ul> 
