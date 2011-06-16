@@ -140,6 +140,7 @@
     <Compile Include="Helpers\SiteSection.cs" />
     <Compile Include="Helpers\StarHelper.cs" />
     <Compile Include="Helpers\Status.cs" />
+    <Compile Include="Helpers\Textbook\TextbookSearch.cs" />
     <Compile Include="Helpers\TextShortener.cs" />
     <Compile Include="Helpers\UniversityHelper.cs" />
     <Compile Include="Helpers\UOMConstants.cs" />
@@ -178,6 +179,7 @@
     <Compile Include="Models\View\LoggedInWrapperModel.cs" />
     <Compile Include="Models\View\NotificationModel.cs" />
     <Compile Include="Models\View\PhotoDisplayView.cs" />
+    <Compile Include="Models\View\TextbookListModel.cs" />
     <Compile Include="Models\View\UniversityView.cs" />
     <Compile Include="Models\View\UpdateFeaturesModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

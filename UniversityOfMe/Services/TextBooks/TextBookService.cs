@@ -10,6 +10,8 @@ using UniversityOfMe.Models;
 using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories.Textbooks;
 using UniversityOfMe.Repositories.TextBooks;
+using System.Linq;
+using UniversityOfMe.Helpers.Textbook;
 
 namespace UniversityOfMe.Services.TextBooks {
     public class TextBookService : ITextBookService {
@@ -79,7 +81,7 @@ namespace UniversityOfMe.Services.TextBooks {
         }
 
         public IEnumerable<TextBook> GetTextBooksForUniversity(string aUniversityId) {
-            return theTextBookRepo.GetTextBooksForUniversity(aUniversityId);
+            return theTextBookRepo.GetTextBooksForUniversity(aUniversityId).OrderByDescending(t => t.DateTimeStamp);
         }
 
         public bool MarkAsNotActive(UserInformationModel<User> aMarkingUser, int aTextBookId) {
@@ -91,6 +93,30 @@ namespace UniversityOfMe.Services.TextBooks {
 
             theValidationDictionary.AddError("User", aMarkingUser.UserId.ToString(), "You are not the person that created this textbook entry, you cannot mark is non-active.");
             return false;
+        }
+
+        public IEnumerable<TextBook> SearchTextBooksWithinUniversity(string aUniversityId, string aSeachOption, string aSearchString, string anOrderByOption) {
+            IEnumerable<TextBook> myTextBooks = GetTextBooksForUniversity(aUniversityId);
+
+            if (aSeachOption.Equals(TextbookSearch.TITLE)) {
+                myTextBooks = (from t in myTextBooks
+                               where t.BookTitle.Contains(aSearchString)
+                               select t);
+            } else if (aSeachOption.Equals(TextbookSearch.CLASS_CODE)) {
+                myTextBooks = (from t in myTextBooks
+                               where t.ClassCode.Contains(aSearchString)
+                               select t);
+            }
+
+            if (anOrderByOption.Equals(TextbookSearch.LOWEST_PRICE)) {
+                myTextBooks = myTextBooks.OrderBy(t => t.Price);
+            } else if (anOrderByOption.Equals(TextbookSearch.HIGHEST_PRICE)) {
+                myTextBooks = myTextBooks.OrderByDescending(t => t.Price);
+            } else if (anOrderByOption.Equals(TextbookSearch.DATE)) {
+                myTextBooks = myTextBooks.OrderBy(t => t.DateTimeStamp);
+            }
+
+            return myTextBooks;
         }
 
         private bool ValidTextBook(CreateTextBookModel aCreateTextBoook) {

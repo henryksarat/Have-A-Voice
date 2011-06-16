@@ -1,10 +1,10 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInListModel<TextBook>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInWrapperModel<TextbookListModel>>" %>
 <%@ Import Namespace="UniversityOfMe.Models" %>
 <%@ Import Namespace="UniversityOfMe.Helpers" %>
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	List
+	<%= UOMConstants.TITLE %> - All Textbooks
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -17,8 +17,24 @@
 
 		<div class="banner black full red-top small"> 
 			<span class="book">Textbooks</span> 
-		</div> 
-					
+		</div>
+        <div class="small center mb25">
+            <% using (Html.BeginForm("Search", "TextBook", FormMethod.Post)) {%>
+                <div style="display:inline">
+                    Search
+                    <%= Html.TextBox("SearchString", string.Empty) %>
+
+                    <%= Html.DropDownListFor(model => model.Get().SearchOption, Model.Get().SearchOptions)%>
+                </div>
+                <div class="ml20" style="display:inline">
+                    Order By
+                    <%= Html.DropDownListFor(model => model.Get().OrderByOption, Model.Get().OrderByOptions)%>
+
+                    <input type="submit" name="submit" class="btn site" value="Search" /> 
+                </div>
+            <% } %>
+		</div> 		
+
 		<table class="listing row"> 
             <tr class="heading">
 		        <th></th>
@@ -29,7 +45,7 @@
                 <th>Posted</th>
             </tr>
             <% bool mySwitch = false; %>
-            <% foreach (TextBook myTextbook in Model.Get().OrderByDescending(t => t.DateTimeStamp)) { %>
+            <% foreach (TextBook myTextbook in Model.Get().Textbooks) { %>
                 <% if (mySwitch) { %>
                     <% mySwitch = false; %>
                     <tr class="small center alternative">

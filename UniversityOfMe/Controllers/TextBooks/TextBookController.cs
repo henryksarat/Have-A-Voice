@@ -17,12 +17,14 @@ using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories;
 using UniversityOfMe.Services.TextBooks;
 using UniversityOfMe.UserInformation;
+using UniversityOfMe.Helpers.Textbook;
 
 namespace UniversityOfMe.Controllers.Clubs {
  
     public class TextBookController : UOFMeBaseController {
         private const string TEXTBOOK_ADDED = "Textbook posted successfully!";
         private const string NO_TEXTBOOKS = "There are no textbooks currently being sold and there is no one looking for textbooks currently.";
+        private const string NO_TEXTBOOKS_SEARCH = "Your search came back with nothing.";
         private const string MARKED_NON_ACTIVE = "The textbook entry has been marked as being non-active.";
 
         private const string TEXTBOOK_GET_ERROR = "Error getting the textbooks for your unviersity. Please try again.";
@@ -132,9 +134,12 @@ namespace UniversityOfMe.Controllers.Clubs {
             IEnumerable<TextBook> myTextBooks = new List<TextBook>();
 
             try {
-                LoggedInListModel<TextBook> myLoggedIn = new LoggedInListModel<TextBook>(GetUserInformatonModel().Details);
+                LoggedInWrapperModel<TextbookListModel> myLoggedIn = new LoggedInWrapperModel<TextbookListModel>(GetUserInformatonModel().Details);
                 myTextBooks = theTextBookService.GetTextBooksForUniversity(universityId);
-                myLoggedIn.Set(myTextBooks);
+                
+                TextbookListModel myTextbookListModel = CreateTextBookListModel(myTextBooks, Constants.SELECT, Constants.SELECT);
+
+                myLoggedIn.Set(myTextbookListModel);
 
                 if (myTextBooks.Count<TextBook>() == 0) {
                     ViewData["Message"] = MessageHelper.NormalMessage(NO_TEXTBOOKS);
@@ -162,6 +167,55 @@ namespace UniversityOfMe.Controllers.Clubs {
                 TempData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
                 return RedirectToAction("Details", new { id = id });
             }
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Search(string universityId, string searchOption, string searchString, string orderByOption) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+
+            if (!UniversityHelper.IsFromUniversity(GetUserInformatonModel().Details, universityId)) {
+                return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
+            }
+
+            IEnumerable<TextBook> myTextBooks = new List<TextBook>();
+
+            try {
+                LoggedInWrapperModel<TextbookListModel> myLoggedIn = new LoggedInWrapperModel<TextbookListModel>(GetUserInformatonModel().Details);
+                myTextBooks = theTextBookService.SearchTextBooksWithinUniversity(universityId, searchOption, searchString, orderByOption);
+
+                TextbookListModel myTextbookListModel = CreateTextBookListModel(myTextBooks, searchOption, orderByOption);
+
+                myLoggedIn.Set(myTextbookListModel);
+
+                if (myTextBooks.Count<TextBook>() == 0) {
+                    ViewData["Message"] = MessageHelper.NormalMessage(NO_TEXTBOOKS_SEARCH);
+                }
+
+                return View("List", myLoggedIn);
+            } catch (Exception myException) {
+                LogError(myException, TEXTBOOK_GET_ERROR);
+                return SendToErrorPage(TEXTBOOK_GET_ERROR);
+            }
+        }
+
+        private TextbookListModel CreateTextBookListModel(IEnumerable<TextBook> aTextBooks, string aSearchOptionSelected, string anOrderByOptionSelected) {
+            IDictionary<string, string> myOrderByOptionsDictionary = DictionaryHelper.DictionaryWithSelect();
+            myOrderByOptionsDictionary.Add("Lowest Price", "LowestPrice");
+            myOrderByOptionsDictionary.Add("Highest Price", "HighestPrice");
+            myOrderByOptionsDictionary.Add("Most Recent Posting", "Date");
+
+            IDictionary<string, string> mySearchOptionDictionary = DictionaryHelper.DictionaryWithSelect();
+            mySearchOptionDictionary.Add("Book Title", "Title");
+            mySearchOptionDictionary.Add("Class Code", "ClassCode");
+
+
+            return new TextbookListModel() {
+                OrderByOptions = new SelectList(myOrderByOptionsDictionary, "Value", "Key", anOrderByOptionSelected),
+                SearchOptions = new SelectList(mySearchOptionDictionary, "Value", "Key", aSearchOptionSelected),
+                Textbooks = aTextBooks
+            };
         }
     }
 }

@@ -12,5 +12,6 @@ namespace UniversityOfMe.Services.TextBooks {
         TextBook GetTextBook(int aTextBookId);
         IEnumerable<TextBook> GetTextBooksForUniversity(string aUniversityId);
         bool MarkAsNotActive(UserInformationModel<User> aMarkingUser, int aTextBookId);
+        IEnumerable<TextBook> SearchTextBooksWithinUniversity(string aUniversityId, string aSeachOption, string aSearchString, string aOrderByOption);
     }
 }
