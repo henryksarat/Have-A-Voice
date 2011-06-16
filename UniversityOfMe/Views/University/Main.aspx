@@ -79,7 +79,7 @@
 						    <li> 
 							    <a class="itemlinked" href="<%= URLHelper.BuildEventUrl(myEvent) %>"><%= myEvent.Title %></a>
 							    <div class="rating darkgray"> 
-								    <%= myEvent.StartDate%>
+								    <%= DateHelper.ToLocalTime(myEvent.StartDate) %>
 							    </div> 
 						    </li> 
                         <% } %>

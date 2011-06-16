@@ -38,8 +38,8 @@
                 <%= Html.ValidationMessage("Description", "*")%>
 
 			    <div class="right"> 
-				    <input type="submit" name="submit" class="btn teal mr14" value="Submit" /> 
-				    <input type="button" name="cancel" class="btn teal" value="Cancel" /> 
+				    <input type="submit" name="submit" class="btn site mr14" value="Submit" /> 
+				    <input type="button" name="cancel" class="btn site" value="Cancel" /> 
 			    </div> 
             <% } %>
 		</div> 

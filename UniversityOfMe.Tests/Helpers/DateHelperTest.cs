@@ -54,5 +54,14 @@ namespace UniversityOfMe.Tests.Helpers {
 
             Assert.AreEqual(myExpected, DateHelper.ToLocalTime(myPostedDateTimeInUtc, TODAYS_DATE_TIME_IN_UTC));
         }
+
+        [TestMethod]
+        public void FutureDateIsInCorrectFormat() {
+            DateTime myPostedDateTimeInUtc = new DateTime(2011, 6, 11, UTC_HOUR, 3, 3);
+
+            string myExpected = "06/11/2011 " + EXPECTED_HOUR + ":03 AM";
+
+            Assert.AreEqual(myExpected, DateHelper.ToLocalTime(myPostedDateTimeInUtc, TODAYS_DATE_TIME_IN_UTC));
+        }
     }
 }

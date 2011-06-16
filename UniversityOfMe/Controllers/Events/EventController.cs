@@ -51,7 +51,11 @@ namespace UniversityOfMe.Controllers.Events {
 
                 IDictionary<string, string> myPrivacyOptions = theEventService.CreateAllPrivacyOptionsEntry();
                 EventViewModel myEventViewModel = new EventViewModel() {
-                    EventPrivacyOptions = new SelectList(myPrivacyOptions, "Value", "Key")
+                    EventPrivacyOptions = new SelectList(myPrivacyOptions, "Value", "Key"),
+                    StartDate = DateTime.Today.Date.ToString("MM-dd-yyyy"),
+                    EndDate = DateTime.Today.Date.ToString("MM-dd-yyyy"),
+                    StartTimes = new SelectList(Constants.GetTimes(), "Value", "Key"),
+                    EndTimes = new SelectList(Constants.GetTimes(), "Value", "Key")
                 };
 
                 LoggedInWrapperModel<EventViewModel> myLoggedIn = new LoggedInWrapperModel<EventViewModel>(myUser);

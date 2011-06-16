@@ -37,6 +37,7 @@ namespace UniversityOfMe.Controllers.Clubs {
             }
 
             try {
+                ForceUserInformationRefresh();
                 LoggedInWrapperModel<UniversityView> myLoggedInModel = new LoggedInWrapperModel<UniversityView>(GetUserInformatonModel().Details);
                 UniversityView myUniveristyView = theUniversityService.GetUniversityProfile(GetUserInformatonModel(), universityId);
                 myLoggedInModel.Set(myUniveristyView);

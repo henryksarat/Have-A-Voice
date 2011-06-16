@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using System.Globalization;
 
 namespace UniversityOfMe.Models.View {
     public class EventViewModel {
@@ -11,16 +12,26 @@ namespace UniversityOfMe.Models.View {
         public string UniversityId { get; set; }
 
         public IEnumerable<SelectListItem> EventPrivacyOptions { get; set; }
-        
+
+        public IEnumerable<SelectListItem> StartTimes { get; set; }
+
+        public IEnumerable<SelectListItem> EndTimes { get; set; }
+
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string EventPrivacyOption { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string StartTime { get; set; }
+
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string EndTime { get; set; }
+
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Title { get; set; }
 
-        public DateTime StartDate { get; set; }
+        public string StartDate { get; set; }
         
-        public DateTime EndDate { get; set; }
+        public string EndDate { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Information { get; set; }
@@ -32,9 +43,19 @@ namespace UniversityOfMe.Models.View {
             UniversityId = anExternal.UniversityId;
             EventPrivacyOption = anExternal.EntireSchool.ToString();
             Title = anExternal.Title;
-            StartDate = anExternal.StartDate;
-            EndDate = anExternal.EndDate;
+            StartDate = anExternal.StartDate.ToString("MM-dd-yyyy");
+            StartTime = anExternal.StartDate.ToString("hh:mm tt");
+            EndDate = anExternal.EndDate.ToString("MM-dd-yyyy");
+            EndTime = anExternal.EndDate.ToString("hh:mm tt");
             Information = anExternal.Information;
+        }
+
+        public DateTime GetStartDate() {
+            return Convert.ToDateTime(StartDate + " " + StartTime);
+        }
+
+        public DateTime GetEndDate() {
+            return Convert.ToDateTime(EndDate + " " + EndTime);
         }
     }
 }

@@ -4,7 +4,7 @@
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	List
+	<%= UOMConstants.TITLE %> - Events
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -30,7 +30,7 @@
                 <th>End Date</th>
             </tr>
             <% bool mySwitch = false; %>
-            <% foreach (Event myEvent in Model.Get().OrderByDescending(t => t.StartDate)) { %>
+            <% foreach (Event myEvent in Model.Get()) { %>
                 <% if (mySwitch) { %>
                     <% mySwitch = false; %>
                     <tr class="small center alternative">

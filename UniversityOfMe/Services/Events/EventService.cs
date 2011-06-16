@@ -38,8 +38,11 @@ namespace UniversityOfMe.Services.Events {
                 return null;
             }
 
-            return theEventRepository.CreateEvent(aStartingUser.Details, aCreateEventModel.UniversityId, aCreateEventModel.Title, aCreateEventModel.StartDate, 
-                                                  aCreateEventModel.EndDate, aCreateEventModel.Information, Boolean.Parse(aCreateEventModel.EventPrivacyOption));
+            DateTime myStartDateUtc = TimeZoneInfo.ConvertTimeToUtc(aCreateEventModel.GetStartDate());
+            DateTime myEndDateUtc = TimeZoneInfo.ConvertTimeToUtc(aCreateEventModel.GetEndDate());
+
+            return theEventRepository.CreateEvent(aStartingUser.Details, aCreateEventModel.UniversityId, aCreateEventModel.Title, myStartDateUtc,
+                                                  myEndDateUtc, aCreateEventModel.Information, Boolean.Parse(aCreateEventModel.EventPrivacyOption));
         }
 
         public bool PostToEventBoard(UserInformationModel<User> aPostingUser, int anEventId, string aMessage) {
@@ -71,9 +74,10 @@ namespace UniversityOfMe.Services.Events {
         public IEnumerable<Event> GetEventsForUniversity(User aUser, string aUniversityId) {
             IEnumerable<Event> myEvents = theEventRepository.GetEventsForUniversity(aUniversityId);
             myEvents = (from e in myEvents
-                        where e.EntireSchool == true
-                        || (!e.EntireSchool && FriendHelper.IsFriend(aUser, e.User))
-                        select e).ToList<Event>();
+                        where (e.EntireSchool == true
+                        || (!e.EntireSchool && FriendHelper.IsFriend(aUser, e.User)))
+                        && e.StartDate > DateTime.UtcNow
+                        select e).OrderBy(e => e.StartDate);
             return myEvents;
         }
 
@@ -90,8 +94,8 @@ namespace UniversityOfMe.Services.Events {
             }
 
             myEvent.Title = anEditViewModel.Title;
-            myEvent.StartDate = anEditViewModel.StartDate;
-            myEvent.EndDate = anEditViewModel.EndDate;
+            myEvent.StartDate = anEditViewModel.GetStartDate();
+            myEvent.EndDate = anEditViewModel.GetEndDate();
             myEvent.Information = anEditViewModel.Information;
             myEvent.EntireSchool = Boolean.Parse(anEditViewModel.EventPrivacyOption);
 
@@ -109,6 +113,9 @@ namespace UniversityOfMe.Services.Events {
         }
 
         private bool ValidEvent(EventViewModel aCreateEventModel) {
+            DateTime myStartTimeUtc = TimeZoneInfo.ConvertTimeToUtc(aCreateEventModel.GetStartDate());
+            DateTime myEndTimeUtc = TimeZoneInfo.ConvertTimeToUtc(aCreateEventModel.GetEndDate());
+
             if (string.IsNullOrEmpty(aCreateEventModel.Title)) {
                 theValidationDictionary.AddError("Title", aCreateEventModel.Title, "A title for the event is required.");
             }
@@ -123,13 +130,13 @@ namespace UniversityOfMe.Services.Events {
 
             if (aCreateEventModel.StartDate == null) {
                 theValidationDictionary.AddError("StartDate", aCreateEventModel.StartDate.ToString(), "Invalid date.");
-            } else if (aCreateEventModel.StartDate <= DateTime.UtcNow) {
+            } else if (myStartTimeUtc <= DateTime.UtcNow) {
                 theValidationDictionary.AddError("StartDate", aCreateEventModel.StartDate.ToString(), "The start date must be later than now.");
             }
 
             if (aCreateEventModel.EndDate == null) {
                 theValidationDictionary.AddError("EndDate", aCreateEventModel.EndDate.ToString(), "Invalid date.");
-            } else if (aCreateEventModel.EndDate <= aCreateEventModel.StartDate) {
+            } else if (myEndTimeUtc <= myStartTimeUtc) {
                 theValidationDictionary.AddError("EndDate", aCreateEventModel.EndDate.ToString(), "The end date must be later than the start date.");
             }
 

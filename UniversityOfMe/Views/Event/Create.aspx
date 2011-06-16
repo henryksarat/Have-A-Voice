@@ -7,6 +7,23 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+	<script type="text/javascript" language="javascript">
+	    $(function () {
+	        $('#StartDate').datepicker({
+	            changeMonth: true,
+	            changeYear: true,
+	            dateFormat: "mm-dd-yy",
+	            yearRange: '2011:2012'
+	        });
+
+	        $('#EndDate').datepicker({
+	            changeMonth: true,
+	            changeYear: true,
+	            dateFormat: "mm-dd-yy",
+	            yearRange: '2011:2012'
+	        });
+	    });
+	</script>
 
     <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
@@ -29,10 +46,12 @@
 
 			    <label for="StartDate" class="mt13">Start Date:</label> 
                 <%= Html.TextBox("StartDate", Model.Get().StartDate, new { @class = "quarter" })%>
+                <%= Html.DropDownListFor(model => Model.Get().StartTime, Model.Get().StartTimes) %>
                 <%= Html.ValidationMessage("StartDate", "*")%>
 
 			    <label for="EndDate" class="mt13">End Date:</label> 
 			    <%= Html.TextBox("EndDate", Model.Get().EndDate, new { @class = "quarter" })%>
+                <%= Html.DropDownListFor(model => Model.Get().EndTime, Model.Get().EndTimes) %>
                 <%= Html.ValidationMessage("EndDate", "*")%>
 
 			    <label for="Information" class="mt13">Information:</label> 
@@ -40,8 +59,8 @@
                 <%= Html.ValidationMessage("Information", "*")%>
 
 			    <div class="right"> 
-				    <input type="submit" name="submit" class="btn teal mr14" value="Submit" /> 
-				    <input type="button" name="cancel" class="btn teal" value="Cancel" /> 
+				    <input type="submit" name="submit" class="btn site mr14" value="Submit" /> 
+				    <input type="button" name="cancel" class="btn site" value="Cancel" /> 
 			    </div> 
             <% } %>
 		</div> 

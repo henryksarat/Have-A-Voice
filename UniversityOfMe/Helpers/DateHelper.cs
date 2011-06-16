@@ -20,10 +20,12 @@ namespace UniversityOfMe.Helpers {
             TimeZone myLocalZone = TimeZone.CurrentTimeZone;
             DateTime myLocalDateTime = myLocalZone.ToLocalTime(aDateTime);
             DateTime myLocalCurrentTime = myLocalZone.ToLocalTime(aCurrentUtcTime);
-
+            
             string myFormattedDate = string.Empty;
 
-            if (myLocalCurrentTime.Date.Equals(myLocalDateTime.Date)) {
+            if (myLocalDateTime.Date > myLocalCurrentTime.Date) {
+                myFormattedDate = string.Format(AFTER_THIS_WEEK_FORMAT, myLocalZone.ToLocalTime(aDateTime)).Trim();
+            }  else if (myLocalCurrentTime.Date.Equals(myLocalDateTime.Date)) {
                 myFormattedDate = string.Format(TODAY_FORMAT, myLocalZone.ToLocalTime(aDateTime)).Trim();
             } else if (myLocalCurrentTime.Subtract(TimeSpan.FromDays(1.0)).Date.Equals(myLocalDateTime.Date)) {
                 myFormattedDate = "Yesterday " + string.Format(YESTERDAYS_FORMAT, myLocalZone.ToLocalTime(aDateTime)).Trim();
