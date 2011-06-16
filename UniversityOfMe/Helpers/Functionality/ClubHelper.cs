@@ -36,7 +36,8 @@ namespace UniversityOfMe.Helpers.Functionality {
                                 MemberUser = cm.ClubMemberUser,
                                 DateTimeStamp = cm.DateTimeStamp,
                                 HasDetails = true,
-                                Status = Status.Pending
+                                Status = Status.Pending,
+                                FeedType = FeedType.Member
                             });
             myFeed.AddRange(from cm in myClubMembers.Where(cm => cm.Approved == UOMConstants.DENIED)
                             select new ClubAdminFeed() {
@@ -45,7 +46,8 @@ namespace UniversityOfMe.Helpers.Functionality {
                                 MemberUser = cm.ClubMemberUser,
                                 AdminUser = cm.DeniedByUser,
                                 DateTimeStamp = cm.DeniedByDateTimeStamp,
-                                Status = Status.Denied
+                                Status = Status.Denied,
+                                FeedType = FeedType.Member
                             });
             myFeed.AddRange(from cm in myClubMembers.Where(cm => cm.Approved == UOMConstants.APPROVED && cm.ApprovedByUserId != cm.ClubMemberUserId)
                             select new ClubAdminFeed() {
@@ -54,8 +56,24 @@ namespace UniversityOfMe.Helpers.Functionality {
                                 MemberUser = cm.ClubMemberUser,
                                 AdminUser = cm.ApprovedByUser,
                                 DateTimeStamp = cm.ApprovedDateTimeStamp,
-                                Status = Status.Approved
+                                Status = Status.Approved,
+                                FeedType = FeedType.Member
                             });
+            if (aClub.LastEditedByUser != null) {
+                myFeed.Add(new ClubAdminFeed() {
+                    AdminUser = aClub.LastEditedByUser,
+                    DateTimeStamp = aClub.LastEditedByDateTimeStamp,
+                    FeedType = FeedType.Edited
+                });
+            }
+
+            if (aClub.DeactivatedByUser != null) {
+                myFeed.Add(new ClubAdminFeed() {
+                    AdminUser = aClub.DeactivatedByUser,
+                    DateTimeStamp = aClub.DeativatedDateTimeStamp,
+                    FeedType = FeedType.Deactivated
+                });
+            }
 
             return myFeed.OrderByDescending(f => f.DateTimeStamp).Take<ClubAdminFeed>(aLimit);
         }

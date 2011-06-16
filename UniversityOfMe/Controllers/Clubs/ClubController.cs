@@ -18,16 +18,19 @@ using UniversityOfMe.Services;
 using UniversityOfMe.Services.Clubs;
 using UniversityOfMe.Services.Professors;
 using UniversityOfMe.UserInformation;
+using Social.Admin.Exceptions;
 
 namespace UniversityOfMe.Controllers.Clubs {
 
     public class ClubController : UOFMeBaseController {
         private const string CLUB_CREATED = "Club created successfully!";
+        private const string CLUB_EDITED = "Club edited successfully!";
         private const string CLUB_DEACTIVATED = "The club has been deactivated! You can always activate it again by going on the club page and activating it.";
         private const string CLUB_ACTIVATED = "The club has been activated again!";
 
         private const string CLUB_LIST_ERROR = "Error getting club list. Please try again.";
         private const string CLUB_TYPE_ERROR = "Error getting club types. Please try again.";
+        private const string CLUB_GET_FOR_EDIT_ERROR = "Error getting the club for an edit. Please try again.";
         private const string GET_CLUB_ERROR = "An error has occurred while retrieving the club. Please try again.";
         private const string CLUB_DEACTIVATED_ERROR = "An error has occurred while deactivating the club.";
         private const string CLUB_ACTIVATED_ERROR = "An error has occurred while activating the club again.";
@@ -78,10 +81,10 @@ namespace UniversityOfMe.Controllers.Clubs {
 
                 IDictionary<string, string> myClubTypes = DictionaryHelper.DictionaryWithSelect();
 
-                LoggedInWrapperModel<CreateClubModel> myLoggedIn = new LoggedInWrapperModel<CreateClubModel>(myUser);
+                LoggedInWrapperModel<ClubViewModel> myLoggedIn = new LoggedInWrapperModel<ClubViewModel>(myUser);
                 myClubTypes = theClubService.CreateAllClubTypesDictionaryEntry();
 
-                CreateClubModel myClubModel = new CreateClubModel() {
+                ClubViewModel myClubModel = new ClubViewModel() {
                     ClubTypes = new SelectList(myClubTypes, "Value", "Key"),
                     Title = ClubConstants.DEFAULT_CLUB_LEADER_TITLE
                 };
@@ -96,7 +99,7 @@ namespace UniversityOfMe.Controllers.Clubs {
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
-        public ActionResult Create(CreateClubModel club) {
+        public ActionResult Create(ClubViewModel club) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
@@ -162,6 +165,62 @@ namespace UniversityOfMe.Controllers.Clubs {
                 LogError(myException, GET_CLUB_ERROR);
                 return SendToResultPage(GET_CLUB_ERROR);
             }
+        }
+
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
+        public ActionResult Edit(string universityId, int id) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            try {
+
+                UserInformationModel<User> myUser = GetUserInformatonModel();
+
+                IDictionary<string, string> myClubTypes = DictionaryHelper.DictionaryWithSelect();
+
+                LoggedInWrapperModel<ClubViewModel> myLoggedIn = new LoggedInWrapperModel<ClubViewModel>(myUser.Details);
+                myClubTypes = theClubService.CreateAllClubTypesDictionaryEntry();
+
+                Club myClub = theClubService.GetClubForEdit(myUser, id);
+
+                ClubViewModel myClubModel = new ClubViewModel(myClub) {
+                    ClubTypes = new SelectList(myClubTypes, "Value", "Key", myClub.ClubType)
+                };
+
+                myLoggedIn.Set(myClubModel);
+
+                return View("Edit", myLoggedIn);
+            } catch(PermissionDenied myException) {
+                TempData["Message"] = MessageHelper.WarningMessage(myException.Message);
+            } catch (Exception myExpcetion) {
+                LogError(myExpcetion, CLUB_GET_FOR_EDIT_ERROR);
+                TempData["Message"] = MessageHelper.ErrorMessage(CLUB_GET_FOR_EDIT_ERROR);
+            }
+
+            return RedirectToAction("Details", new { id = id });
+        }
+
+        [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
+        public ActionResult Edit(ClubViewModel club) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+
+            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
+
+            try {
+                bool myResult = theClubService.EditClub(myUserInformation, club);
+
+                if (myResult) {
+                    TempData["Message"] = MessageHelper.SuccessMessage(CLUB_EDITED);
+                    return RedirectToAction("Details", new { id = club.ClubId });
+                }
+            } catch (Exception myException) {
+                LogError(myException, ErrorKeys.ERROR_MESSAGE);
+                TempData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
+            }
+
+            return RedirectToAction("Edit", new { id = club.ClubId });
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

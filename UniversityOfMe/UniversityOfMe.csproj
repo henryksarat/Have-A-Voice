@@ -120,6 +120,7 @@
     <Compile Include="Helpers\Constants\ClubConstants.cs" />
     <Compile Include="Helpers\Constants\ProfessorConstants.cs" />
     <Compile Include="Helpers\Constants\TextBookConstants.cs" />
+    <Compile Include="Helpers\FeedType.cs" />
     <Compile Include="Helpers\DateHelper.cs" />
     <Compile Include="Helpers\EmailHelper.cs" />
     <Compile Include="Helpers\FeatureHelper.cs" />
@@ -168,7 +169,7 @@
     <Compile Include="Models\View\EventViewModel.cs" />
     <Compile Include="Models\View\CreateClassModel.cs" />
     <Compile Include="Models\View\CreateTextBookModel.cs" />
-    <Compile Include="Models\View\CreateClubModel.cs" />
+    <Compile Include="Models\View\ClubViewModel.cs" />
     <Compile Include="Models\View\CreateProfessorReviewModel.cs" />
     <Compile Include="Models\View\CreateUserModel.cs" />
     <Compile Include="Models\View\LeftNavigation.cs" />
@@ -357,6 +358,7 @@
     <Content Include="Views\Class\List.aspx" />
     <Content Include="Views\ClubMember\Details.aspx" />
     <Content Include="Views\ClubMember\List.aspx" />
+    <Content Include="Views\Club\Edit.aspx" />
     <Content Include="Views\Club\Create.aspx" />
     <Content Include="Views\Club\Details.aspx" />
     <Content Include="Views\Club\List.aspx" />

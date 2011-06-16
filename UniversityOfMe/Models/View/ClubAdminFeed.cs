@@ -13,5 +13,6 @@ namespace UniversityOfMe.Models.View {
         public DateTime? DateTimeStamp { get; set; }
         public bool HasDetails { get; set; }
         public Status Status { get; set; }
+        public FeedType FeedType { get; set; }
     }
 }

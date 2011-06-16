@@ -96,6 +96,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClubMembers_Users_DeletedByUser", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(UniversityOfMe.Models.User), "ClubMember", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClubMember), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_FeaturesEnabled_Features", "Feature", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Feature), "FeaturesEnabled", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.FeaturesEnabled), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_FeaturesEnabled_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "FeaturesEnabled", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.FeaturesEnabled), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Clubs_LastEditedByUser", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(UniversityOfMe.Models.User), "Club", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Club), true)]
 
 #endregion
 
@@ -4328,6 +4329,54 @@ namespace UniversityOfMe.Models
         private Nullable<global::System.DateTime> _DeativatedDateTimeStamp;
         partial void OnDeativatedDateTimeStampChanging(Nullable<global::System.DateTime> value);
         partial void OnDeativatedDateTimeStampChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> LastEditedByUserId
+        {
+            get
+            {
+                return _LastEditedByUserId;
+            }
+            set
+            {
+                OnLastEditedByUserIdChanging(value);
+                ReportPropertyChanging("LastEditedByUserId");
+                _LastEditedByUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LastEditedByUserId");
+                OnLastEditedByUserIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _LastEditedByUserId;
+        partial void OnLastEditedByUserIdChanging(Nullable<global::System.Int32> value);
+        partial void OnLastEditedByUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> LastEditedByDateTimeStamp
+        {
+            get
+            {
+                return _LastEditedByDateTimeStamp;
+            }
+            set
+            {
+                OnLastEditedByDateTimeStampChanging(value);
+                ReportPropertyChanging("LastEditedByDateTimeStamp");
+                _LastEditedByDateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LastEditedByDateTimeStamp");
+                OnLastEditedByDateTimeStampChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _LastEditedByDateTimeStamp;
+        partial void OnLastEditedByDateTimeStampChanging(Nullable<global::System.DateTime> value);
+        partial void OnLastEditedByDateTimeStampChanged();
 
         #endregion
     
@@ -4525,6 +4574,44 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClubMember>("UniversityOfMeModel.FK_ClubMembers_Clubs", "ClubMember", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Clubs_LastEditedByUser", "User")]
+        public User LastEditedByUser
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_Clubs_LastEditedByUser", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_Clubs_LastEditedByUser", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> LastEditedByUserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_Clubs_LastEditedByUser", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_Clubs_LastEditedByUser", "User", value);
                 }
             }
         }
@@ -13849,6 +13936,28 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FeaturesEnabled>("UniversityOfMeModel.FK_FeaturesEnabled_Users", "FeaturesEnabled", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Clubs_LastEditedByUser", "Club")]
+        public EntityCollection<Club> Clubs1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Club>("UniversityOfMeModel.FK_Clubs_LastEditedByUser", "Club");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Club>("UniversityOfMeModel.FK_Clubs_LastEditedByUser", "Club", value);
                 }
             }
         }

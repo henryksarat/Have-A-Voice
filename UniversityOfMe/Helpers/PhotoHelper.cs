@@ -27,6 +27,10 @@ namespace UniversityOfMe.Helpers {
             return myProfileUrl;
         }
 
+        public static string ClubPhoto(string aClubImageName) {
+            return "/ClubPhotos/" + aClubImageName;
+        }
+
         public static string ClubPhoto(Club aClub) {
             string aPhoto = aClub.Picture;
 
@@ -34,7 +38,7 @@ namespace UniversityOfMe.Helpers {
                 aPhoto = "no_photo.png";
             }
 
-            return "/ClubPhotos/" + aPhoto;
+            return ClubPhoto(aPhoto);
         }
 
         public static string ProfessorPhoto(Professor aProfessor) {

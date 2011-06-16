@@ -30,15 +30,16 @@
 			    <div class="flft mr26"> 
                     <% User myUser = UserInformationFactory.GetUserInformation().Details; %>
                     <% if (ClubHelper.IsAdmin(myUser, Model.Get().Id) && Model.Get().Active) { %>
-                        <%= Html.ActionLink("Set club as inactive", "Deactivate", "Club", new { clubId = Model.Get().Id }, new { @class = "unroll" })%>
+                        <%= Html.ActionLink("Edit", "Edit", "Club", new { id = Model.Get().Id }, new { @class = "edit mr22" })%>                
+                        <%= Html.ActionLink("Set club as inactive", "Deactivate", "Club", new { clubId = Model.Get().Id }, new { @class = "remove" })%>
                     <% } else if (ClubHelper.IsAdmin(myUser, Model.Get().Id) && !Model.Get().Active) { %>
-                        <%= Html.ActionLink("Set club as active", "Activate", "Club", new { clubId = Model.Get().Id }, new { @class = "enroll" })%>
+                        <%= Html.ActionLink("Set club as active", "Activate", "Club", new { clubId = Model.Get().Id }, new { @class = "add" })%>
                     <% } else if (ClubHelper.IsPending(myUser, Model.Get().Id)) { %>
-                        <%= Html.ActionLink("Cancel my request to join", "Cancel", "ClubMember", new { clubId = Model.Get().Id }, new { @class = "unroll" })%>
+                        <%= Html.ActionLink("Cancel my request to join", "Cancel", "ClubMember", new { clubId = Model.Get().Id }, new { @class = "remove" })%>
                     <% } else if (ClubHelper.IsMember(myUser, Model.Get().Id)) { %>
-                        <%= Html.ActionLink("Quit organization", "Remove", "ClubMember", null, new { @class = "unroll" })%>
+                        <%= Html.ActionLink("Quit organization", "Remove", "ClubMember", null, new { @class = "remove" })%>
                     <% } else { %>
-                        <%= Html.ActionLink("Request to join organization", "RequestToJoin", "ClubMember", new { clubId = Model.Get().Id }, new { @class = "enroll" })%>
+                        <%= Html.ActionLink("Request to join organization", "RequestToJoin", "ClubMember", new { clubId = Model.Get().Id }, new { @class = "add" })%>
                     <% } %>
 			    </div> 
             </div>
@@ -83,30 +84,44 @@
                     <ul class="notification">
 
                         <% foreach (ClubAdminFeed myFeed in ClubHelper.GetAdminFeed(Model.Get(), 5)) { %>
-                            <% if (myFeed.Status == Status.Pending) { %>
-                                <li>
-                                    <a href="<%= URLHelper.ProfileUrl(myFeed.MemberUser) %>"><%= NameHelper.FullName(myFeed.MemberUser)%></a> 
-                                    wants to join this organization. 
-                                    <%= Html.ActionLink("Approve/Deny", "Details", "ClubMember", new { clubId = myFeed.ClubId, clubMemberId = myFeed.ClubMemberId }, null)%>
-                                    <span class="feed-time"><%= DateHelper.ToLocalTime((DateTime)myFeed.DateTimeStamp) %></span> 
-                                </li>
-                            <% } else if(myFeed.Status == Status.Denied) { %>
-                                <li>
-                                    <a href="<%= URLHelper.ProfileUrl(myFeed.AdminUser) %>"><%= NameHelper.FullName(myFeed.AdminUser) %></a> 
-                                    has denied 
-                                    <a href="<%= URLHelper.ProfileUrl(myFeed.MemberUser) %>"><%= NameHelper.FullName(myFeed.MemberUser) %></a> 
-                                    to join the organization.
-                                    <span class="feed-time"><%= DateHelper.ToLocalTime((DateTime)myFeed.DateTimeStamp) %></span> 
-                                </li>
-                            <% } else if (myFeed.Status == Status.Approved) { %>
-                                <li>
-                                    <a href="<%= URLHelper.ProfileUrl(myFeed.AdminUser) %>"><%= NameHelper.FullName(myFeed.AdminUser) %></a> 
-                                    has approved 
-                                    <a href="<%= URLHelper.ProfileUrl(myFeed.MemberUser) %>"><%= NameHelper.FullName(myFeed.MemberUser) %></a> 
-                                    to join the organization.
-                                    <span class="feed-time"><%= DateHelper.ToLocalTime((DateTime)myFeed.DateTimeStamp) %></span> 
-                                </li>
-                            <%} %>
+                            <% if (myFeed.FeedType == FeedType.Member) { %>
+                                <% if (myFeed.Status == Status.Pending) { %>
+                                    <li>
+                                        <a href="<%= URLHelper.ProfileUrl(myFeed.MemberUser) %>"><%= NameHelper.FullName(myFeed.MemberUser)%></a> 
+                                        wants to join this organization. 
+                                        <%= Html.ActionLink("Approve/Deny", "Details", "ClubMember", new { clubId = myFeed.ClubId, clubMemberId = myFeed.ClubMemberId }, null)%>
+                                        <span class="feed-time"><%= DateHelper.ToLocalTime((DateTime)myFeed.DateTimeStamp) %></span> 
+                                    </li>
+                                <% } else if(myFeed.Status == Status.Denied) { %>
+                                    <li>
+                                        <a href="<%= URLHelper.ProfileUrl(myFeed.AdminUser) %>"><%= NameHelper.FullName(myFeed.AdminUser) %></a> 
+                                        has denied 
+                                        <a href="<%= URLHelper.ProfileUrl(myFeed.MemberUser) %>"><%= NameHelper.FullName(myFeed.MemberUser) %></a> 
+                                        to join the organization.
+                                        <span class="feed-time"><%= DateHelper.ToLocalTime((DateTime)myFeed.DateTimeStamp) %></span> 
+                                    </li>
+                                <% } else if (myFeed.Status == Status.Approved) { %>
+                                    <li>
+                                        <a href="<%= URLHelper.ProfileUrl(myFeed.AdminUser) %>"><%= NameHelper.FullName(myFeed.AdminUser)%></a> 
+                                        has approved 
+                                        <a href="<%= URLHelper.ProfileUrl(myFeed.MemberUser) %>"><%= NameHelper.FullName(myFeed.MemberUser)%></a> 
+                                        to join the organization.
+                                        <span class="feed-time"><%= DateHelper.ToLocalTime((DateTime)myFeed.DateTimeStamp)%></span> 
+                                    </li>
+                                <% } %>
+                            <% } else if(myFeed.FeedType == FeedType.Edited) { %>
+                                    <li>
+                                        <a href="<%= URLHelper.ProfileUrl(myFeed.AdminUser) %>"><%= NameHelper.FullName(myFeed.AdminUser) %></a> 
+                                        has updated the club details. 
+                                        <span class="feed-time"><%= DateHelper.ToLocalTime((DateTime)myFeed.DateTimeStamp) %></span> 
+                                    </li>
+                            <% } else if(myFeed.FeedType == FeedType.Deactivated) { %>
+                                    <li>
+                                        <a href="<%= URLHelper.ProfileUrl(myFeed.AdminUser) %>"><%= NameHelper.FullName(myFeed.AdminUser) %></a> 
+                                        has deactivated the club.
+                                        <span class="feed-time"><%= DateHelper.ToLocalTime((DateTime)myFeed.DateTimeStamp) %></span> 
+                                    </li>
+                            <% } %>
                             <br />
                         <% } %>
                     </ul>

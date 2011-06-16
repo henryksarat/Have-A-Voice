@@ -17,6 +17,9 @@ using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories.Clubs;
 using UniversityOfMe.Repositories.UserRepos;
 using UniversityOfMe.Services.Professors;
+using Social.Admin.Helpers;
+using Social.Admin.Exceptions;
+using Social.Generic.Constants;
 
 namespace UniversityOfMe.Services.Clubs {
     public class ClubService : IClubService {
@@ -61,8 +64,8 @@ namespace UniversityOfMe.Services.Clubs {
             theClubRepository.DeleteRequestToJoinClub(aUser.Details, aClubId);
         }
 
-        public bool CreateClub(UserInformationModel<User> aUser, CreateClubModel aCreateClubModel) {
-            if (!ValidClub(aCreateClubModel)) {
+        public bool CreateClub(UserInformationModel<User> aUser, ClubViewModel aCreateClubModel) {
+            if (!ValidClub(aCreateClubModel, true)) {
                 return false;
             }
 
@@ -106,6 +109,42 @@ namespace UniversityOfMe.Services.Clubs {
         }
 
         public Club GetClub(UserInformationModel<User> aUser, int aClubId) {
+            return theClubRepository.GetClub(aUser.Details, aClubId);
+        }
+
+        public bool EditClub(UserInformationModel<User> aUserEditing, ClubViewModel aClubViewModel) {
+            if (!ValidClub(aClubViewModel, false)) {
+                return false;
+            }
+
+            Club myClub = GetClub(aUserEditing, aClubViewModel.ClubId);
+
+            myClub.Name = aClubViewModel.Name;
+            myClub.Description = aClubViewModel.Description;
+            myClub.ClubType = aClubViewModel.ClubType;
+            myClub.LastEditedByUserId = aUserEditing.UserId;
+            myClub.LastEditedByDateTimeStamp = DateTime.UtcNow;
+
+            theClubRepository.UpdateClub(myClub);
+
+            if (aClubViewModel.ClubImage != null) {
+                string myOldClubImage = myClub.Picture;
+
+                UpdateClubPhoto(aClubViewModel.Name, aClubViewModel.ClubImage, myClub);
+                if (myOldClubImage != null) {
+                    SocialPhotoHelper.PhysicallyDeletePhoto(HttpContext.Current.Server.MapPath(PhotoHelper.ClubPhoto(myOldClubImage)));
+                }
+            }
+
+            return true;
+        }
+
+        public Club GetClubForEdit(UserInformationModel<User> aUser, int aClubId) {
+            if (!IsAdmin(aUser.Details, aClubId)) {
+                if (!PermissionHelper<User>.AllowedToPerformAction(theValidationDictionary, aUser, SocialPermission.Edit_Any_Club)) {
+                    throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
+                }
+            }
             return theClubRepository.GetClub(aUser.Details, aClubId);
         }
 
@@ -256,8 +295,10 @@ namespace UniversityOfMe.Services.Clubs {
             }
         }
         
-        private bool ValidClub(CreateClubModel aCreateClubModel) {
-            ValidTitle(aCreateClubModel.Title);
+        private bool ValidClub(ClubViewModel aCreateClubModel, bool aIsCreating) {
+            if (aIsCreating) {
+                ValidTitle(aCreateClubModel.Title);
+            }
 
             if (string.IsNullOrEmpty(aCreateClubModel.Name)) {
                 theValidationDictionary.AddError("Name", aCreateClubModel.Name, "A club name is required.");

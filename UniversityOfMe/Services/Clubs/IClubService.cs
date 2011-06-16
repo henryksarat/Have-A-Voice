@@ -9,11 +9,13 @@ namespace UniversityOfMe.Services.Professors {
         bool ActivateClub(UserInformationModel<User> aUser, int aClubId);
         bool ApproveClubMember(UserInformationModel<User> aUser, int aClubMemberId, string aTitle, bool anAdministrator);
         void CancelRequestToJoin(UserInformationModel<User> aUser, int aClubId);
-        bool CreateClub(UserInformationModel<User> aUser, CreateClubModel aCreateClubModel);
+        bool CreateClub(UserInformationModel<User> aUser, ClubViewModel aCreateClubModel);
         IDictionary<string, string> CreateAllClubTypesDictionaryEntry();
         void DenyClubMember(UserInformationModel<User> aUser, int aClubMemberId);
         bool DeactivateClub(UserInformationModel<User> aUser, int aClubId);
+        bool EditClub(UserInformationModel<User> aUserEditing, ClubViewModel myClubViewModel);
         Club GetClub(UserInformationModel<User> aUser, int aClubId);
+        Club GetClubForEdit(UserInformationModel<User> aUser, int aClubId);
         IEnumerable<ClubBoard> GetClubBoardPostings(int aClubId);
         ClubMember GetClubMember(UserInformationModel<User> aUser, int aClubMemberId);
         IEnumerable<ClubMember> GetActiveClubMembers(int aClubId);
