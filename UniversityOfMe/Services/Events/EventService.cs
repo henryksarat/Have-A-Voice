@@ -71,6 +71,17 @@ namespace UniversityOfMe.Services.Events {
             return theEventRepository.GetEvent(aUniversityId, anEventId);
         }
 
+        public Event GetEventForEdit(UserInformationModel<User> aUser, string aUniversityId, int anEventId) {
+            Event myEvent = theEventRepository.GetEvent(aUniversityId, anEventId);
+
+            if (myEvent.UserId != aUser.Details.Id) {
+                if (!PermissionHelper<User>.AllowedToPerformAction(theValidationDictionary, aUser, SocialPermission.Edit_Any_Event)) {
+                    throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
+                }
+            }
+            return myEvent;
+        }
+
         public IEnumerable<Event> GetEventsForUniversity(User aUser, string aUniversityId) {
             IEnumerable<Event> myEvents = theEventRepository.GetEventsForUniversity(aUniversityId);
             myEvents = (from e in myEvents
@@ -93,9 +104,12 @@ namespace UniversityOfMe.Services.Events {
                 return false;
             }
 
+            DateTime myStartDateUtc = TimeZoneInfo.ConvertTimeToUtc(anEditViewModel.GetStartDate());
+            DateTime myEndDateUtc = TimeZoneInfo.ConvertTimeToUtc(anEditViewModel.GetEndDate());
+
             myEvent.Title = anEditViewModel.Title;
-            myEvent.StartDate = anEditViewModel.GetStartDate();
-            myEvent.EndDate = anEditViewModel.GetEndDate();
+            myEvent.StartDate = myStartDateUtc;
+            myEvent.EndDate = myEndDateUtc;
             myEvent.Information = anEditViewModel.Information;
             myEvent.EntireSchool = Boolean.Parse(anEditViewModel.EventPrivacyOption);
 

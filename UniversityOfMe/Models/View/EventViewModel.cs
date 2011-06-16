@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using System.Globalization;
+using Social.Generic.Constants;
 
 namespace UniversityOfMe.Models.View {
     public class EventViewModel {
@@ -36,18 +37,31 @@ namespace UniversityOfMe.Models.View {
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Information { get; set; }
 
-        public EventViewModel() { }
+        public EventViewModel() {
+            StartDate = DateTime.Today.Date.ToString("MM-dd-yyyy");
+            EndDate = DateTime.Today.Date.ToString("MM-dd-yyyy");
+            StartTimes = new SelectList(Constants.GetTimes(), "Value", "Key");
+            EndTimes = new SelectList(Constants.GetTimes(), "Value", "Key");
+        }
 
         public EventViewModel(Event anExternal) {
             Id = anExternal.Id;
             UniversityId = anExternal.UniversityId;
             EventPrivacyOption = anExternal.EntireSchool.ToString();
             Title = anExternal.Title;
-            StartDate = anExternal.StartDate.ToString("MM-dd-yyyy");
-            StartTime = anExternal.StartDate.ToString("hh:mm tt");
-            EndDate = anExternal.EndDate.ToString("MM-dd-yyyy");
-            EndTime = anExternal.EndDate.ToString("hh:mm tt");
+
+            TimeZone myLocalZone = TimeZone.CurrentTimeZone;
+            DateTime myStartDateLocal = myLocalZone.ToLocalTime(anExternal.StartDate);
+            DateTime myEndDateLocal = myLocalZone.ToLocalTime(anExternal.EndDate);
+
+            StartDate = myStartDateLocal.ToString("MM-dd-yyyy");
+            StartTime = myStartDateLocal.ToString("hh:mm tt");
+            EndDate = myEndDateLocal.ToString("MM-dd-yyyy");
+            EndTime = myEndDateLocal.ToString("hh:mm tt");
             Information = anExternal.Information;
+
+            StartTimes = new SelectList(Constants.GetTimes(), "Value", "Key", StartTime);
+            EndTimes = new SelectList(Constants.GetTimes(), "Value", "Key", EndTime);
         }
 
         public DateTime GetStartDate() {

@@ -20,6 +20,12 @@
 
 		<div class="banner black full red-top small"> 
 			<span class="event">EVENT: <%=Model.Get().Title %></span> 
+            <% if (Model.Get().UserId == UserInformationFactory.GetUserInformation().Details.Id) { %>
+                <div class="buttons"> 
+                    <%= Html.ActionLink("Edit", "Edit", "Event", new { id = Model.Get().Id }, new { @class = "edit mr22" })%>                
+                    <%= Html.ActionLink("Delete", "Delete", "Event", new { id = Model.Get().Id }, new { @class = "remove mr26" })%>
+			    </div> 
+            <% } %>
 		</div> 
 					
 		<table border="0" cellpadding="0" cellspacing="0" class="listing mb32"> 
@@ -36,7 +42,7 @@
 					<label for="startdate">START DATE:</label> 
 				</td> 
 				<td> 
-					<%= Model.Get().StartDate %>
+					<%= DateHelper.ToLocalTime(Model.Get().StartDate) %>
 				</td> 
 			</tr> 
 			<tr> 
@@ -44,7 +50,7 @@
 					<label for="endate">END DATE:</label> 
 				</td> 
 				<td> 
-					<%= Model.Get().EndDate %>
+					<%= DateHelper.ToLocalTime(Model.Get().EndDate) %>
 				</td> 
 			</tr> 
 			<tr> 

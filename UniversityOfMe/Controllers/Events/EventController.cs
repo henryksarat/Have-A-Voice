@@ -15,6 +15,7 @@ using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories;
 using UniversityOfMe.Services.Events;
 using UniversityOfMe.UserInformation;
+using Social.Admin.Exceptions;
 
 namespace UniversityOfMe.Controllers.Events {
     public class EventController : UOFMeBaseController {
@@ -51,11 +52,7 @@ namespace UniversityOfMe.Controllers.Events {
 
                 IDictionary<string, string> myPrivacyOptions = theEventService.CreateAllPrivacyOptionsEntry();
                 EventViewModel myEventViewModel = new EventViewModel() {
-                    EventPrivacyOptions = new SelectList(myPrivacyOptions, "Value", "Key"),
-                    StartDate = DateTime.Today.Date.ToString("MM-dd-yyyy"),
-                    EndDate = DateTime.Today.Date.ToString("MM-dd-yyyy"),
-                    StartTimes = new SelectList(Constants.GetTimes(), "Value", "Key"),
-                    EndTimes = new SelectList(Constants.GetTimes(), "Value", "Key")
+                    EventPrivacyOptions = new SelectList(myPrivacyOptions, "Value", "Key")
                 };
 
                 LoggedInWrapperModel<EventViewModel> myLoggedIn = new LoggedInWrapperModel<EventViewModel>(myUser);
@@ -122,7 +119,7 @@ namespace UniversityOfMe.Controllers.Events {
             }
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Delete(string universityId, int id) {
             try {
                 if (!UniversityHelper.IsFromUniversity(GetUserInformatonModel().Details, universityId)) {
@@ -133,11 +130,14 @@ namespace UniversityOfMe.Controllers.Events {
                 TempData["Message"] = MessageHelper.SuccessMessage(DELETE);
 
                 return RedirectToAction("List");
+            } catch(PermissionDenied) {
+                TempData["Message"] = MessageHelper.WarningMessage(ErrorKeys.PERMISSION_DENIED);
             } catch (Exception myException) {
                 LogError(myException, DELETE_ERROR);
                 TempData["Message"] = MessageHelper.ErrorMessage(DELETE_ERROR);
-                return RedirectToAction("Details", new { id = id });
             }
+
+            return RedirectToAction("Details", new { id = id });
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
@@ -146,27 +146,31 @@ namespace UniversityOfMe.Controllers.Events {
                 return RedirectToLogin();
             }
             try {
-                User myUser = GetUserInformatonModel().Details;
+                UserInformationModel<User> myUser = GetUserInformatonModel();
 
-                if (!UniversityHelper.IsFromUniversity(myUser, universityId)) {
+                if (!UniversityHelper.IsFromUniversity(myUser.Details, universityId)) {
                     return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
                 }
 
-                Event myEvent = theEventService.GetEvent(universityId, id);
+                Event myEvent = theEventService.GetEventForEdit(myUser, universityId, id);
                 IDictionary<string, string> myPrivacyOptions = theEventService.CreateAllPrivacyOptionsEntry();
 
                 EventViewModel myEventView = new EventViewModel(myEvent) {
-                    EventPrivacyOptions = new SelectList(myPrivacyOptions, "Value", "Key")
+                    EventPrivacyOptions = new SelectList(myPrivacyOptions, "Value", "Key", myEvent.EntireSchool)
                 };
 
-                LoggedInWrapperModel<EventViewModel> myLoggedIn = new LoggedInWrapperModel<EventViewModel>(myUser);
+                LoggedInWrapperModel<EventViewModel> myLoggedIn = new LoggedInWrapperModel<EventViewModel>(myUser.Details);
                 myLoggedIn.Set(myEventView);
 
                 return View("Edit", myLoggedIn);
+            } catch (PermissionDenied) {
+                TempData["Message"] = MessageHelper.WarningMessage(ErrorKeys.PERMISSION_DENIED);
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                return SendToErrorPage(ErrorKeys.ERROR_MESSAGE);
+                TempData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
             }
+
+            return RedirectToAction("Details", new { id = id });
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
