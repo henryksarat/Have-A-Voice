@@ -37,7 +37,7 @@
                 <% } %>
 		    <% } %>
 		    <div class="right"> 
-				<input type="submit" class="btn teal" value="Save" />
+				<input type="submit" class="btn site" value="Save" />
 		    </div>
 		<% } %>
 		<div class="clear">&nbsp;</div>

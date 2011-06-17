@@ -7,25 +7,25 @@ using UniversityOfMe.Models.Social;
 using UniversityOfMe.UserInformation;
 using UniversityOfMe.Helpers;
 using Social.Generic.Helpers;
-using UniversityOfMe.Models.View;
 
 namespace UniversityOfMe.Models.Binders {
-    public class UpdateFeaturesModelBinder : IModelBinder {
+    public class UpdatePrivacySettingsModelBinder : IModelBinder {
+
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext) {
             User myUser = UserInformationFactory.GetUserInformation().Details;
-            UpdateFeaturesModel myModel = new UpdateFeaturesModel();
-            List<Pair<Feature, bool>> myAllPairs = new List<Pair<Feature, bool>>();
-            foreach (Features myFeature in Enum.GetValues(typeof(Features))) {
-                bool mySelected = BinderHelper.GetABoolean(bindingContext, myFeature.ToString());
-                Feature myFeatureModel = Feature.CreateFeature(myFeature.ToString(),string.Empty, string.Empty, 0);
-                Pair<Feature, bool> myPair = new Pair<Feature, bool>() {
-                    First = myFeatureModel,
+            UpdatePrivacySettingsModel<PrivacySetting> myModel = new UpdatePrivacySettingsModel<PrivacySetting>();
+            List<Pair<AbstractPrivacySettingModel<PrivacySetting>, bool>> myAllPairs = new List<Pair<AbstractPrivacySettingModel<PrivacySetting>, bool>>();
+            foreach (SocialPrivacySetting mySetting in Enum.GetValues(typeof(SocialPrivacySetting))) {
+                bool mySelected = BinderHelper.GetABoolean(bindingContext, mySetting.ToString());
+                PrivacySetting myPrivacySetting = PrivacySetting.CreatePrivacySetting(mySetting.ToString(), 0, string.Empty, string.Empty, string.Empty, 0);
+                Pair<AbstractPrivacySettingModel<PrivacySetting>, bool> myPair = new Pair<AbstractPrivacySettingModel<PrivacySetting>, bool>() {
+                    First = SocialPrivacySettingModel.Create(myPrivacySetting),
                     Second = mySelected
                 };
                 myAllPairs.Add(myPair);
             }
 
-            myModel.Features = myAllPairs;
+            myModel.PrivacySettings = myAllPairs;
 
             return myModel;      
         }

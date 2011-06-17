@@ -133,6 +133,7 @@
     <Compile Include="Helpers\NavigationCountHelper.cs" />
     <Compile Include="Helpers\NotificationType.cs" />
     <Compile Include="Helpers\PhotoHelper.cs" />
+    <Compile Include="Helpers\PrivacyHelper.cs" />
     <Compile Include="Helpers\ProfilePictureStrategy.cs" />
     <Compile Include="Helpers\RegistrationStrategy.cs" />
     <Compile Include="Helpers\SelectionHelper.cs" />
@@ -146,8 +147,8 @@
     <Compile Include="Helpers\UOMConstants.cs" />
     <Compile Include="Helpers\UOMErrorKeys.cs" />
     <Compile Include="Helpers\URLHelper.cs" />
-    <Compile Include="Models\Binders\UpdateFeaturesModelBinder.cs" />
     <Compile Include="Models\Binders\UpdatePrivacySettingsModelBinder.cs" />
+    <Compile Include="Models\Binders\UpdateFeaturesModelBinder.cs" />
     <Compile Include="Models\Social\SocialBoardModel.cs" />
     <Compile Include="Models\Social\SocialBoardReplyModel.cs" />
     <Compile Include="Models\Social\SocialMessageModel.cs" />
@@ -304,6 +305,11 @@
     <Content Include="Content\images\friend.png" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\mail.png" />
+    <Content Include="Content\images\minilogo.png" />
+    <Content Include="Content\images\msg-icon-err.png" />
+    <Content Include="Content\images\msg-icon-nrm.png" />
+    <Content Include="Content\images\msg-icon-sccss.png" />
+    <Content Include="Content\images\msg-icon-warn.png" />
     <Content Include="Content\images\new-mail.png" />
     <Content Include="Content\images\organization.png" />
     <Content Include="Content\images\paper.png" />
@@ -354,6 +360,7 @@
     <Content Include="Views\Authentication\ChangeEmail.aspx" />
     <Content Include="Views\Authentication\Login.aspx" />
     <Content Include="Views\Board\Details.aspx" />
+    <Content Include="Views\ClassEnrollment\List.aspx" />
     <Content Include="Views\Class\ViewAllMembers.aspx" />
     <Content Include="Views\Class\Create.aspx" />
     <Content Include="Views\Class\Details.aspx" />

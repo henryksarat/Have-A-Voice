@@ -8,6 +8,8 @@ using UniversityOfMe.Models;
 using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories.Classes;
 using System;
+using System.Linq;
+using Social.Generic.Helpers;
 
 namespace UniversityOfMe.Services.Classes {
     public class ClassService : IClassService {
@@ -72,7 +74,8 @@ namespace UniversityOfMe.Services.Classes {
         }
 
         public IEnumerable<ClassEnrollment> GetEnrolledInClass(int aClassId) {
-            return theClassRepository.GetEnrolledInClass(aClassId);   
+            return theClassRepository.GetEnrolledInClass(aClassId)
+                .Where(ce => PrivacyHelper.PrivacyAllows(ce.User, SocialPrivacySetting.Display_Class_Enrollment));  
         }
 
         public bool IsClassExists(string aClassUrlString) {

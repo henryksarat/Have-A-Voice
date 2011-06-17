@@ -150,7 +150,7 @@ namespace UniversityOfMe.Controllers.Clubs {
                 return View("List", myLoggedInModel);
             } catch (Exception myException) {
                 LogError(myException, CLUB_MEMBER_LIST);
-                TempData["Message"] = CLUB_MEMBER_LIST;
+                TempData["Message"] = MessageHelper.ErrorMessage(CLUB_MEMBER_LIST);
                 return RedirectToAction("List", "Club", new { id = id });
             }
         }

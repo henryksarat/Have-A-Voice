@@ -112,7 +112,7 @@
 		            <%= Html.ValidationMessage("AboutMe", "*") %>
 	        </div>
             <div class="right"> 
-                <input type="submit" value="Save" class="btn teal" />
+                <input type="submit" value="Save" class="btn site" />
             </div>
 
                 <% } %>

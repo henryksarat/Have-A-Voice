@@ -2,6 +2,7 @@
 <%@ Import Namespace="UniversityOfMe.Helpers" %>
 <%@ Import Namespace="UniversityOfMe.Models" %>
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
+<%@ Import Namespace="UniversityOfMe.UserInformation" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Details
@@ -90,19 +91,25 @@
 		    CURRENT MEMBERS ENROLLED
 	    </div> 
 	    <div class="box sm group"> 
+            <% bool myAtLeastOneStudent = false; %>
 		    <ul class="members"> 
-                <% if (Model.Get().ClassEnrollments.Count == 0) { %>
+                <% foreach (ClassEnrollment myEnrollment in Model.Get().ClassEnrollments) { %>
+			        <% if (PrivacyHelper.PrivacyAllows(myEnrollment.User, Social.Generic.Helpers.SocialPrivacySetting.Display_Class_Enrollment)) { %>
+                        <% myAtLeastOneStudent = true; %>
+                        <li> 
+				            <a href="/<%= Model.Get().User.ShortUrl %>"><img src="<%= PhotoHelper.ProfilePicture(myEnrollment.User) %>" class="profile med flft mr9" /></a>
+				            <span class="name"><%= NameHelper.FullName(myEnrollment.User)%></span> 
+				            Student
+			            </li>
+                    <% } %>
+                <% } %>
+                <% if (!myAtLeastOneStudent) { %>
                     There are no students currently enrolled in this class
                 <% } %>
-                <% foreach (ClassEnrollment myEnrollment in Model.Get().ClassEnrollments) { %>
-			        <li> 
-				        <a href="/<%= Model.Get().User.ShortUrl %>"><img src="<%= PhotoHelper.ProfilePicture(myEnrollment.User) %>" class="profile med flft mr9" /></a>
-				        <span class="name"><%= NameHelper.FullName(myEnrollment.User) %></span> 
-				        Student
-			        </li>
-                <% } %>
  		    </ul> 
-		    <a href="#" class="viewall">View all members</a> 
+            <% if (myAtLeastOneStudent) { %>
+		        <%= Html.ActionLink("View all members", "List", "ClassEnrollment", new { id = Model.Get().Id }, new { @class = "viewall" })%>
+            <% } %>
 		    <div class="clearfix"></div> 
 	    </div> 
 					
@@ -148,16 +155,20 @@
 		            </div> 
                 <% } %>
             <% } else if (myViewType == ClassViewType.Discussion) { %>
-                <% using (Html.BeginForm("Create", "ClassBoard")) {%>
-                    <%= Html.Hidden("ClassId", Model.Get().Id) %>
-		            <div class="create"> 
-                        <%= Html.TextArea("BoardMessage", string.Empty, 6, 0, new { @class = "full" })%>
-                        <%= Html.ValidationMessage("BoardMessage", "*")%>
-			            <div class="frgt mt13"> 
-				            <input type="submit" class="frgt btn site" name="post" value="Post To Discussion" /> 
-                        </div>
-                        <div class="clearfix"></div> 
-		            </div> 
+                <% if(ClassHelper.IsEnrolled(UserInformationFactory.GetUserInformation(), Model.Get())) { %>
+                    <% using (Html.BeginForm("Create", "ClassBoard")) {%>
+                        <%= Html.Hidden("ClassId", Model.Get().Id) %>
+		                <div class="create"> 
+                            <%= Html.TextArea("BoardMessage", string.Empty, 6, 0, new { @class = "full" })%>
+                            <%= Html.ValidationMessage("BoardMessage", "*")%>
+			                <div class="frgt mt13"> 
+				                <input type="submit" class="frgt btn site" name="post" value="Post To Discussion" /> 
+                            </div>
+                            <div class="clearfix"></div> 
+		                </div> 
+                    <% } %>
+                <% } else { %>
+                    To post to the class board you must enroll in the class.
                 <% } %>
             <% } %>
 						
