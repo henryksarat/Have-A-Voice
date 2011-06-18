@@ -52,10 +52,10 @@ namespace UniversityOfMe.Services.TextBooks {
                 aCreateTextBookModel.BookTitle, 
                 myBookImageName, 
                 aCreateTextBookModel.ClassCode, 
-                aCreateTextBookModel.BuySell, 
-                int.Parse(aCreateTextBookModel.Edition), 
+                aCreateTextBookModel.BuySell,
+                aCreateTextBookModel.Edition == null ? 0 : int.Parse(aCreateTextBookModel.Edition),
                 double.Parse(aCreateTextBookModel.Price),
-                aCreateTextBookModel.Details);
+                string.IsNullOrEmpty(aCreateTextBookModel.Details) ? null : aCreateTextBookModel.Details);
 
             return true;
         }

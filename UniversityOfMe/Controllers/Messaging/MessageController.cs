@@ -53,6 +53,11 @@ namespace UniversityOfMe.Controllers.Messaging {
             return base.Create(id);
         }
 
+        [AcceptVerbs(HttpVerbs.Post), ImportModelStateFromTempData]
+        public ActionResult CreateByButtonClick(int id) {
+            return base.Create(id);
+        }
+
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
         new public ActionResult Create(int toUserId, string subject, string body) {
             return base.Create(toUserId, subject, body);

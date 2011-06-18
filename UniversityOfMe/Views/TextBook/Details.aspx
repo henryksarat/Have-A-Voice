@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInWrapperModel<TextBook>>" %>
 <%@ Import Namespace="UniversityOfMe.UserInformation" %>
 <%@ Import Namespace="UniversityOfMe.Models" %>
+<%@ Import Namespace="UniversityOfMe.Helpers" %>
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
@@ -11,55 +12,87 @@
 
     <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
-    <% Html.RenderPartial("Message"); %>
-    <% Html.RenderPartial("Validation"); %>
+	<div class="eight last">
+        <% Html.RenderPartial("Message"); %>
+        <% Html.RenderPartial("Validation"); %>
 
-        
-        <div class="display-label">Id</div>
-        <div class="display-field"><%: Model.Get().Id %></div>
-        
-        <div class="display-label">UserId</div>
-        <div class="display-field"><%: Model.Get().UserId%></div>
-        
-        <div class="display-label">UniversityId</div>
-        <div class="display-field"><%: Model.Get().UniversityId%></div>
-        
-        <div class="display-label">TextBookConditionId</div>
-        <div class="display-field"><%: Model.Get().TextBookConditionId%></div>
-        
-        <div class="display-label">BookTitle</div>
-        <div class="display-field"><%: Model.Get().BookTitle%></div>
-        
-        <div class="display-label">BookPicture</div>
-        <div class="display-field"><%: Model.Get().BookPicture%></div>
-        
-        <div class="display-label">ClassCode</div>
-        <div class="display-field"><%: Model.Get().ClassCode%></div>
-        
-        <div class="display-label">BuySell</div>
-        <div class="display-field"><%: Model.Get().BuySell%></div>
-        
-        <div class="display-label">Edition</div>
-        <div class="display-field"><%: Model.Get().Edition%></div>
-        
-        <div class="display-label">Price</div>
-        <div class="display-field"><%: String.Format("{0:F}", Model.Get().Price)%></div>
-        
-        <div class="display-label">Details</div>
-        <div class="display-field"><%: Model.Get().Details%></div>
-        
-        <div class="display-label">DateTimeStamp</div>
-        <div class="display-field"><%: String.Format("{0:g}", Model.Get().DateTimeStamp)%></div>
-        
-        <div class="display-label">Active</div>
-        <div class="display-field"><%: Model.Get().Active%></div>
+		<div class="banner black full red-top small">
+			<span class="book"><%= Model.Get().BookTitle %></span>
+			<div class="buttons">
+                <% if (UserInformationFactory.GetUserInformation().Details.Id == Model.Get().UserId) { %>
+				    <%= Html.ActionLink("Edit", "Edit", "TextBook", new { id = Model.Get().Id }, new { @class = "edit mr5" })%>
+                    <%= Html.ActionLink("Mark as sold", "MarkAsNonActive", "TextBook", new { id = Model.Get().Id }, new { @class = "check sm" })%>
+                <% } %>
+			</div>
+		</div>
+					
+		<div class="flft max-w207 mr21 center clearfix">
+			<img src="<%= PhotoHelper.TextBookPhoto(Model.Get()) %>" alt="Textbook Cover" />
+		</div>
+		<div class="flft max-w590 wp69 clearfix">
+					
+			<div class="listing mb40">
+				<div class="col">
+					<label for="title">Title:</label>
+				</div>
+				<div class="col">
+					<%= Model.Get().BookTitle%>
+				</div>
+	
+				<div class="clearfix"></div>
+							
+				<div class="col">
+					<label for="condition">Condition:</label>
+				</div>
+				<div class="col">
+					<%= Model.Get().TextBookCondition.Display %>
+				</div>
+							
+				<div class="clearfix"></div>
+							
+				<div class="col">
+					<label for="class">Class Used For:</label>
+				</div>
+				<div class="col">
+					<%= Model.Get().ClassCode %>
+				</div>
+							
+				<div class="clearfix"></div>
+							
+				<div class="col">
+					<label for="edition">Edition:</label>
+				</div>
+				<div class="col">
+					<%= Model.Get().Edition %>
+				</div>
+							
+				<div class="clearfix"></div>
+							
+				<div class="col">
+					<label for="price">Asking Price:</label>
+				</div>
+				<div class="col">
+					<%= String.Format("{0:C}", Model.Get().Price) %>
+				</div>
+							
+				<div class="clearfix"></div>
+							
+				<div class="col">
+					<label for="detail">Details:</label>
+				</div>
+				<div class="col">
+					<%= string.IsNullOrEmpty(Model.Get().Details) ? "None" : Model.Get().Details %>
+				</div>
+							
+				<div class="clearfix"></div>
+				<div class="col">
+                    <% using (Html.BeginForm("CreateByButtonClick", "Message", new { id = Model.Get().UserId })) {%>
+					    <input type="submit" class="ml200 mt34 btn mail" value="Contact The Poster" />
+                    <% } %>
+				</div>
+			</div>
 
-        <% if (UserInformationFactory.GetUserInformation().Details.Id == Model.Get().UserId) { %>
-            <% using (Html.BeginForm("MarkAsNonActive", "TextBook", new { id = Model.Get().Id })) {%>
-                <p>
-                    <input type="submit" value="Delete Textbook Entry" />
-                </p>
-            <% } %>
-        <% } %>
+		</div>					
+	</div>
 </asp:Content>
 

@@ -98,7 +98,7 @@
 						    <a class="itemlinked" href="/<%= myTextBook.UniversityId %>/TextBook/Details/<%= myTextBook.Id %>"><%= myTextBook.BookTitle %></a>
 							<span class="darkgray">( <%= myTextBook.ClassCode %>)</span> 
 							<div class="rating"> 
-                                <% if (myTextBook.BuySell.Equals("Buy")) { %>
+                                <% if (myTextBook.BuySell.Equals("B")) { %>
                                     <a href="<%= URLHelper.BuildTextbookUrl(myTextBook) %>" class="buy">"Buy"</a> 
                                 <% } else { %>
                                     <a href="<%= URLHelper.BuildTextbookUrl(myTextBook) %>" class="sell">"Sell"</a> 

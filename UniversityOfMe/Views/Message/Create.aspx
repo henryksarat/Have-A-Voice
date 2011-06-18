@@ -12,13 +12,13 @@
         <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 	    
         <div class="eight last"> 
+            <% Html.RenderPartial("Message"); %>
+            <% Html.RenderPartial("Validation"); %>
+
 		    <div class="banner title black full red-top small"> 
 			    <span>Compose Message</span> 
 		    </div> 
 	    </div> 
-
-        <% Html.RenderPartial("Message"); %>
-        <% Html.RenderPartial("Validation"); %>
 
         <div class="mt50">
             <% using (Html.BeginForm()) {%>

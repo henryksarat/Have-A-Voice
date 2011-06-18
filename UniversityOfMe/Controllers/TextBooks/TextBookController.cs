@@ -97,6 +97,7 @@ namespace UniversityOfMe.Controllers.Clubs {
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
                 TempData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
+                theValidation.ForceModleStateExport();
             }
 
             return RedirectToAction("Create");
@@ -152,7 +153,7 @@ namespace UniversityOfMe.Controllers.Clubs {
             }
         }
 
-        [AcceptVerbs(HttpVerbs.Post), ImportModelStateFromTempData]
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult MarkAsNonActive(int id) {
             try {
                 bool myResult = theTextBookService.MarkAsNotActive(GetUserInformatonModel(), id);

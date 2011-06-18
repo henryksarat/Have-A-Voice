@@ -62,6 +62,16 @@ namespace UniversityOfMe.Helpers {
         public static string ConstructUrl(string anImageName) {
             return Social.Photo.Helpers.SocialPhotoHelper.ConstructUrl(anImageName);
         }
+
+        public static string TextBookPhoto(TextBook aTextBook) {
+            string aPhoto = aTextBook.BookPicture;
+
+            if (string.IsNullOrEmpty(aPhoto)) {
+                aPhoto = "no_textbook_image.jpg";
+            }
+
+            return "/TextBookPhotos/" + aPhoto;
+        }
         
         public static string ConstructProfessorUrl(Professor aProfessor) {
             string myProfessorImage = ConstructProfessorUrl(ProfessorConstants.NO_PROFESOR_IMAGE);

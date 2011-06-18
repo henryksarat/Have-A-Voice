@@ -566,3 +566,5 @@ a.deny, a.deny:link, a.deny:visited { width: 18px; height: 17px; background:url(
 header ul.nav li.has-sub-account { background:url(images/arrow-down.png) no-repeat 50px 12px; }
 ul.notification li.organization { background:url(images/organization.png) no-repeat left center; }
 ul.notification li.minilogo { background:url(images/minilogo.png) no-repeat left center; }
+
+a.check, a.check:link, a.check:visited { padding: 2px 0px 2px 26px; background:url(images/check.png) no-repeat center left; text-decoration: underline; color: #fff; }
