@@ -12,6 +12,12 @@ using UniversityOfMe.Repositories.Textbooks;
 using UniversityOfMe.Repositories.TextBooks;
 using System.Linq;
 using UniversityOfMe.Helpers.Textbook;
+using Social.Admin.Helpers;
+using Social.Admin.Exceptions;
+using Social.Generic.Constants;
+using System.Web;
+using Social.Generic.Exceptions;
+using UniversityOfMe.Helpers;
 
 namespace UniversityOfMe.Services.TextBooks {
     public class TextBookService : ITextBookService {
@@ -27,7 +33,7 @@ namespace UniversityOfMe.Services.TextBooks {
         }
 
 
-        public bool CreateTextBook(UserInformationModel<User> aCreatingUser, CreateTextBookModel aCreateTextBookModel) {
+        public bool CreateTextBook(UserInformationModel<User> aCreatingUser, TextBookViewModel aCreateTextBookModel) {
             if (!ValidTextBook(aCreateTextBookModel)) {
                 return false;
             }
@@ -76,8 +82,64 @@ namespace UniversityOfMe.Services.TextBooks {
             return myDictionary;
         }
 
+        public void DeleteTextBook(UserInformationModel<User> aDeletingUser, int aTextBookId) {
+            TextBook myTextBook = theTextBookRepo.GetTextBook(aTextBookId);
+
+            if (aDeletingUser.Details.Id != myTextBook.UserId) {
+                if (!PermissionHelper<User>.AllowedToPerformAction(theValidationDictionary, aDeletingUser, SocialPermission.Delete_Any_Textbook)) {
+                    throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
+                }
+            }
+
+            if (!string.IsNullOrEmpty(myTextBook.BookPicture)) {
+                SocialPhotoHelper.PhysicallyDeletePhoto(HttpContext.Current.Server.MapPath(PhotoHelper.TextBookPhoto(myTextBook.BookPicture)));
+            }
+
+            theTextBookRepo.DeleteTextBook(myTextBook.Id);
+        }
+
+        public bool EditTextBook(UserInformationModel<User> aUserInfo, TextBookViewModel aTextBookViewModel) {
+            if (!ValidTextBook(aTextBookViewModel)) {
+                return false;
+            }
+
+            TextBook myTextBook = GetTextBook(aTextBookViewModel.TextBookId);
+            myTextBook.BookTitle = aTextBookViewModel.BookTitle;
+            myTextBook.BuySell = aTextBookViewModel.BuySell;
+            myTextBook.Edition = aTextBookViewModel.Edition == null ? 0 : int.Parse(aTextBookViewModel.Edition);
+            myTextBook.TextBookConditionId = aTextBookViewModel.TextBookCondition;
+            myTextBook.Details = aTextBookViewModel.Details;
+            myTextBook.Price = double.Parse(aTextBookViewModel.Price);
+            myTextBook.ClassCode = aTextBookViewModel.ClassCode;
+
+            theTextBookRepo.UpdateTextBook(myTextBook);
+
+            if (aTextBookViewModel.BookImage != null) {
+                string myOldTextBookImage = myTextBook.BookPicture;
+
+                UpdateTextBookPhoto(aTextBookViewModel.TextBookId.ToString(), aTextBookViewModel.BookImage, myTextBook);
+
+                if (!string.IsNullOrEmpty(myOldTextBookImage)) {
+                    SocialPhotoHelper.PhysicallyDeletePhoto(HttpContext.Current.Server.MapPath(PhotoHelper.TextBookPhoto(myOldTextBookImage)));
+                }
+            }
+
+            return true;
+        }
+
         public TextBook GetTextBook(int aTextBookId) {
             return theTextBookRepo.GetTextBook(aTextBookId);
+        }
+
+        public TextBook GetTextBookForEdit(UserInformationModel<User> aUser, int aTextBookId) {
+            TextBook myTextbook = theTextBookRepo.GetTextBook(aTextBookId);
+
+            if (aUser.Details.Id != myTextbook.UserId) {
+                if (!PermissionHelper<User>.AllowedToPerformAction(theValidationDictionary, aUser, SocialPermission.Edit_Any_Textbook)) {
+                    throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
+                }
+            }
+            return myTextbook;
         }
 
         public IEnumerable<TextBook> GetTextBooksForUniversity(string aUniversityId) {
@@ -119,7 +181,7 @@ namespace UniversityOfMe.Services.TextBooks {
             return myTextBooks;
         }
 
-        private bool ValidTextBook(CreateTextBookModel aCreateTextBoook) {
+        private bool ValidTextBook(TextBookViewModel aCreateTextBoook) {
             if (string.IsNullOrEmpty(aCreateTextBoook.UniversityId)) {
                 theValidationDictionary.AddError("UniversityId", aCreateTextBoook.UniversityId, "A university must be present.");
             }
@@ -155,6 +217,23 @@ namespace UniversityOfMe.Services.TextBooks {
             }
 
             return theValidationDictionary.isValid;
+        }
+
+        private void UpdateTextBookPhoto(string aName, HttpPostedFileBase aClubImage, TextBook aTextBook) {
+            string myImageName = string.Empty;
+
+            try {
+                myImageName = SocialPhotoHelper.TakeImageAndResizeAndUpload(TextBookConstants.TEXTBOOK_PHOTO_PATH, aName.Replace(" ", ""), aClubImage, TextBookConstants.BOOK_MAX_SIZE);
+            } catch (Exception myException) {
+                throw new PhotoException("Error while resizing and uploading the textbook photo. ", myException);
+            }
+            try {
+                aTextBook.BookPicture = myImageName;
+                theTextBookRepo.UpdateTextBook(aTextBook);
+            } catch (Exception myException) {
+                SocialPhotoHelper.PhysicallyDeletePhoto(HttpContext.Current.Server.MapPath(TextBookConstants.TEXTBOOK_PHOTO_PATH + myImageName));
+                throw new CustomException("Error while updating the textbook to the new textbook photo.", myException);
+            }
         }
     }
 }

@@ -19,6 +19,8 @@ using UniversityOfMe.Services.Clubs;
 using UniversityOfMe.Services.Professors;
 using UniversityOfMe.UserInformation;
 using Social.Admin.Exceptions;
+using Social.Photo.Exceptions;
+using Social.Generic.Exceptions;
 
 namespace UniversityOfMe.Controllers.Clubs {
 
@@ -34,6 +36,7 @@ namespace UniversityOfMe.Controllers.Clubs {
         private const string GET_CLUB_ERROR = "An error has occurred while retrieving the club. Please try again.";
         private const string CLUB_DEACTIVATED_ERROR = "An error has occurred while deactivating the club.";
         private const string CLUB_ACTIVATED_ERROR = "An error has occurred while activating the club again.";
+        private const string CLUB_PHOTO_UPLOAD_ERROR = "An error occurred while uploading the club photo. Everything else was saved but try uploading the club photo again.";
 
         IValidationDictionary theValidationDictionary;
         IClubService theClubService;
@@ -215,6 +218,12 @@ namespace UniversityOfMe.Controllers.Clubs {
                     TempData["Message"] = MessageHelper.SuccessMessage(CLUB_EDITED);
                     return RedirectToAction("Details", new { id = club.ClubId });
                 }
+            } catch (PhotoException anException) {
+                LogError(anException, anException.Message);
+                TempData["Message"] = MessageHelper.ErrorMessage(CLUB_PHOTO_UPLOAD_ERROR);
+            } catch (CustomException anException) {
+                LogError(anException, anException.Message);
+                TempData["Message"] = MessageHelper.ErrorMessage(CLUB_PHOTO_UPLOAD_ERROR);
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
                 TempData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);

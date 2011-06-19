@@ -170,7 +170,7 @@
     <Compile Include="Models\View\EditUserModel.cs" />
     <Compile Include="Models\View\EventViewModel.cs" />
     <Compile Include="Models\View\CreateClassModel.cs" />
-    <Compile Include="Models\View\CreateTextBookModel.cs" />
+    <Compile Include="Models\View\TextBookViewModel.cs" />
     <Compile Include="Models\View\ClubViewModel.cs" />
     <Compile Include="Models\View\CreateProfessorReviewModel.cs" />
     <Compile Include="Models\View\CreateUserModel.cs" />
@@ -413,6 +413,7 @@
     <Content Include="Views\Shared\Validation.ascx" />
     <Content Include="Views\Site\About.aspx" />
     <Content Include="Views\Site\Main.aspx" />
+    <Content Include="Views\TextBook\Edit.aspx" />
     <Content Include="Views\TextBook\Create.aspx" />
     <Content Include="Views\TextBook\Details.aspx" />
     <Content Include="Views\TextBook\List.aspx" />

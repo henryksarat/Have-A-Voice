@@ -568,3 +568,4 @@ ul.notification li.organization { background:url(images/organization.png) no-rep
 ul.notification li.minilogo { background:url(images/minilogo.png) no-repeat left center; }
 
 a.check, a.check:link, a.check:visited { padding: 2px 0px 2px 26px; background:url(images/check.png) no-repeat center left; text-decoration: underline; color: #fff; }
+a.trash-delete, a.trash-delete:link, a.trash-delete:visited { padding: 2px 0px 2px 26px; background:url(images/trash.png) no-repeat center left; text-decoration: underline; color: #fff; }

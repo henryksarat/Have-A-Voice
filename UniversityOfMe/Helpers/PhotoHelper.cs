@@ -70,7 +70,11 @@ namespace UniversityOfMe.Helpers {
                 aPhoto = "no_textbook_image.jpg";
             }
 
-            return "/TextBookPhotos/" + aPhoto;
+            return TextBookPhoto(aPhoto);
+        }
+
+        public static string TextBookPhoto(string aTextBookPhoto) {
+            return "/TextBookPhotos/" + aTextBookPhoto;
         }
         
         public static string ConstructProfessorUrl(Professor aProfessor) {

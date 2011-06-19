@@ -18,6 +18,12 @@ namespace UniversityOfMe.Repositories.TextBooks {
             theEntities.SaveChanges();
         }
 
+        public void DeleteTextBook(int aTextBookId) {
+            TextBook myTextBook = GetTextBook(aTextBookId);
+            theEntities.DeleteObject(myTextBook);
+            theEntities.SaveChanges();
+        }
+
         public TextBook GetTextBook(int aTextBookId) {
             return (from t in theEntities.TextBooks
                     where t.Id == aTextBookId
@@ -40,6 +46,11 @@ namespace UniversityOfMe.Repositories.TextBooks {
             TextBook myTextBook = GetTextBook(aTextBookId);
             myTextBook.Active = false;
             theEntities.ApplyCurrentValues(myTextBook.EntityKey.EntitySetName, myTextBook);
+            theEntities.SaveChanges();
+        }
+
+        public void UpdateTextBook(TextBook aTextBook) {
+            theEntities.ApplyCurrentValues(aTextBook.EntityKey.EntitySetName, aTextBook);
             theEntities.SaveChanges();
         }
     }
