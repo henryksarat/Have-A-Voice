@@ -19,6 +19,8 @@ namespace UniversityOfMe {
 
             ModelBinders.Binders.Remove(typeof(UpdateFeaturesModel));
             ModelBinders.Binders.Add(typeof(UpdateFeaturesModel), new UpdateFeaturesModelBinder());
+            ModelBinders.Binders.Remove(typeof(RoleViewModel));
+            ModelBinders.Binders.Add(typeof(RoleViewModel), new RoleModelBinder());
 
             routes.MapRoute(
                 "DefaultAuthentication", // Route name
@@ -78,6 +80,18 @@ namespace UniversityOfMe {
                 "DefaultFeature", // Route name
                 "Feature/{action}/{id}", // URL with parameters
                 new { controller = "Feature", action = "List", id = UrlParameter.Optional } // Parameter defaults
+            );
+
+            routes.MapRoute(
+                "DefaultRole", // Route name
+                "Role/{action}/{id}", // URL with parameters
+                new { controller = "Role", action = "List", id = UrlParameter.Optional } // Parameter defaults
+            );
+
+            routes.MapRoute(
+                "DefaultPermission", // Route name
+                "Permission/{action}/{id}", // URL with parameters
+                new { controller = "Permission", action = "List", id = UrlParameter.Optional } // Parameter defaults
             );
 
             routes.MapRoute(
