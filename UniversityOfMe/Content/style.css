@@ -470,7 +470,7 @@ div.msg.err div.cnt a.close, div.msg.err div.cnt a.close:link, div.msg.err div.c
 
 
 /*** PROFILE PAGE ***/
-div.prfl { margin-bottom: 40px; }
+div.prfl { margin-bottom: 5px; }
 div.prfl.reply { margin-left: 82px; margin-bottom: 20px; }
 div.prfl .pCol { float: left; width: 60px; margin-right: 22px; }
 div.prfl .cCol { float: left; width: 85%; }
@@ -569,3 +569,6 @@ ul.notification li.minilogo { background:url(images/minilogo.png) no-repeat left
 
 a.check, a.check:link, a.check:visited { padding: 2px 0px 2px 26px; background:url(images/check.png) no-repeat center left; text-decoration: underline; color: #fff; }
 a.trash-delete, a.trash-delete:link, a.trash-delete:visited { padding: 2px 0px 2px 26px; background:url(images/trash.png) no-repeat center left; text-decoration: underline; color: #fff; }
+div.board { border-bottom: 1px solid #e5e5e5; padding-bottom: 5px; margin-top: 5px; color: #939393; }
+div.prfl { margin-bottom: 5px; }
+div.prof-info ul li span.buy { color: #2673ff; }

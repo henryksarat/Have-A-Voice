@@ -92,6 +92,10 @@
 		            <%= Html.ValidationMessage("State", "*") %>
 	        </div>
             <div>
+                    <label for="State">Relationship Status:</label>
+	                <%= Html.DropDownList("RelationshipStatus", Model.Get().RelationshipStatu) %>
+	        </div>
+            <div>
                     <label for="Website">Website:</label>
 	                <%= Html.TextBox("Website", Model.Get().Website)%>
 		            <%= Html.ValidationMessage("Website", "*") %>

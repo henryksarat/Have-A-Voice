@@ -5,6 +5,7 @@ using System;
 namespace UniversityOfMe.Tests.Helpers {
     [TestClass]
     public class DateHelperTest {
+        private const string AFTER_THIS_WEEK_FORMAT = "{0: MM/dd/yyyy hh:mm tt }";
         private static int UTC_HOUR = 6;
         private static DateTime TODAYS_DATE_TIME_IN_UTC = new DateTime(2011, 5, 18, 10, 3, 3);
         private static int UTC_OFFSET = TimeZone.CurrentTimeZone.GetUtcOffset(TODAYS_DATE_TIME_IN_UTC).Hours;
@@ -16,7 +17,7 @@ namespace UniversityOfMe.Tests.Helpers {
 
             string myExpected = EXPECTED_HOUR + ":03 AM";
 
-            Assert.AreEqual(myExpected, DateHelper.ToLocalTime(myPostedDateTimeInUtc, TODAYS_DATE_TIME_IN_UTC));
+            Assert.AreEqual(myExpected, DateHelper.ToLocalTime(myPostedDateTimeInUtc, TODAYS_DATE_TIME_IN_UTC, AFTER_THIS_WEEK_FORMAT));
         }
 
         [TestMethod]
@@ -25,7 +26,7 @@ namespace UniversityOfMe.Tests.Helpers {
 
             string myExpected = "Yesterday " + EXPECTED_HOUR + ":03 AM";
 
-            Assert.AreEqual(myExpected, DateHelper.ToLocalTime(myPostedDateTimeInUtc, TODAYS_DATE_TIME_IN_UTC));
+            Assert.AreEqual(myExpected, DateHelper.ToLocalTime(myPostedDateTimeInUtc, TODAYS_DATE_TIME_IN_UTC, AFTER_THIS_WEEK_FORMAT));
         }
 
         [TestMethod]
@@ -34,7 +35,7 @@ namespace UniversityOfMe.Tests.Helpers {
 
             string myExpected = "Thursday " + EXPECTED_HOUR + ":03 AM";
 
-            Assert.AreEqual(myExpected, DateHelper.ToLocalTime(myPostedDateTimeInUtc, TODAYS_DATE_TIME_IN_UTC));
+            Assert.AreEqual(myExpected, DateHelper.ToLocalTime(myPostedDateTimeInUtc, TODAYS_DATE_TIME_IN_UTC, AFTER_THIS_WEEK_FORMAT));
         }
 
         [TestMethod]
@@ -43,7 +44,7 @@ namespace UniversityOfMe.Tests.Helpers {
 
             string myExpected = "05/11/2011 " + EXPECTED_HOUR + ":03 AM";
 
-            Assert.AreEqual(myExpected, DateHelper.ToLocalTime(myPostedDateTimeInUtc, TODAYS_DATE_TIME_IN_UTC));
+            Assert.AreEqual(myExpected, DateHelper.ToLocalTime(myPostedDateTimeInUtc, TODAYS_DATE_TIME_IN_UTC, AFTER_THIS_WEEK_FORMAT));
         }
 
         [TestMethod]
@@ -52,7 +53,7 @@ namespace UniversityOfMe.Tests.Helpers {
 
             string myExpected = "05/10/2011 " + EXPECTED_HOUR + ":03 AM";
 
-            Assert.AreEqual(myExpected, DateHelper.ToLocalTime(myPostedDateTimeInUtc, TODAYS_DATE_TIME_IN_UTC));
+            Assert.AreEqual(myExpected, DateHelper.ToLocalTime(myPostedDateTimeInUtc, TODAYS_DATE_TIME_IN_UTC, AFTER_THIS_WEEK_FORMAT));
         }
 
         [TestMethod]
@@ -61,7 +62,7 @@ namespace UniversityOfMe.Tests.Helpers {
 
             string myExpected = "06/11/2011 " + EXPECTED_HOUR + ":03 AM";
 
-            Assert.AreEqual(myExpected, DateHelper.ToLocalTime(myPostedDateTimeInUtc, TODAYS_DATE_TIME_IN_UTC));
+            Assert.AreEqual(myExpected, DateHelper.ToLocalTime(myPostedDateTimeInUtc, TODAYS_DATE_TIME_IN_UTC, AFTER_THIS_WEEK_FORMAT));
         }
     }
 }

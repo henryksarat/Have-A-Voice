@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Social.Generic.Helpers;
 
 namespace Social.Generic.Constants {
     public class Constants {
@@ -27,5 +28,30 @@ namespace Social.Generic.Constants {
             Gender.MALE,
             Gender.FEMALE
         };
+
+        public static IDictionary<string, string> GetTimes() {
+            IDictionary<string, string> myDictionary = new Dictionary<string, string>();
+            myDictionary.Add("12:00 AM", "12:00 AM");
+
+            for(int myCounter = 1 ; myCounter < 12 ; myCounter++) {
+                string myTime = myCounter + ":00 AM";
+                if (myCounter < 10) {
+                    myTime = "0" + myCounter + ":00 AM";
+                }
+                myDictionary.Add(myTime, myTime);
+            }
+
+            myDictionary.Add("12:00 PM", "12:00 PM");
+
+            for (int myCounter = 1; myCounter < 12; myCounter++) {
+                string myTime = myCounter + ":00 PM";
+                if (myCounter < 10) {
+                    myTime = "0" + myCounter + ":00 PM";
+                }
+                myDictionary.Add(myTime, myTime);
+            }
+
+            return myDictionary;
+        }
     }
 }

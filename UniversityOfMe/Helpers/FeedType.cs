@@ -7,6 +7,9 @@ namespace UniversityOfMe.Helpers {
     public enum FeedType {
         Member,
         Edited,
-        Deactivated
+        Deactivated,
+        Textbook,
+        Club,
+        ClassEnrollment
     }
 }

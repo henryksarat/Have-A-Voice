@@ -4,6 +4,7 @@ using Social.Generic.Models;
 namespace Social.Photo.Repositories {
     public interface IPhotoRepository<T, U> {
         U AddReferenceToImage(T aUser, int anAlbumId, string anImageName, bool aProfilePicture);
+        U AddReferenceToImage(T aUser, int anAlbumId, string anImageName, bool aProfilePicture, int anOriginalPhotoIdLink);
         void DeletePhoto(int aPhotoId);
         AbstractPhotoModel<U> GetAbstractPhoto(int aPhotoId);
         IEnumerable<U> GetPhotos(int aUserId, int anAlbumId);

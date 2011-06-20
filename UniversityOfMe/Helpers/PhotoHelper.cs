@@ -27,6 +27,19 @@ namespace UniversityOfMe.Helpers {
             return myProfileUrl;
         }
 
+        public static string OriginalProfilePicture(User aUser) {
+            Photo myProfilePicture = (from u in aUser.Photos where u.ProfilePicture == true select u).FirstOrDefault<Photo>();
+
+            if (myProfilePicture != null) {
+                string myOriginalImageName = (from p in aUser.Photos
+                                              where p.Id == myProfilePicture.OriginalPhotoId
+                                              select p.ImageName).FirstOrDefault<string>();
+                return Social.Generic.Constants.Constants.PHOTO_LOCATION_FROM_VIEW + myOriginalImageName;
+            } else {
+                return Social.Generic.Constants.Constants.NO_PROFILE_PICTURE_URL;
+            }
+        }
+
         public static string ClubPhoto(string aClubImageName) {
             return "/ClubPhotos/" + aClubImageName;
         }

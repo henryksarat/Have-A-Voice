@@ -74,7 +74,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 string[] myNewProfileSplit = myNewProfilePhoto.ImageName.Split('.');
                 string myNewProfilePictureImageName = myNewProfileSplit[0] + "-profile." + myNewProfileSplit[1];
                 SocialPhotoHelper.ResizeImageAndUpload(Constants.PHOTO_LOCATION_FROM_VIEW, myNewProfilePhoto.ImageName, myNewProfilePictureImageName, 120);
-                thePhotoRepo.AddReferenceToImage(aUser.Model, myNewProfilePhoto.PhotoAlbumId, myNewProfilePictureImageName, true);
+                thePhotoRepo.AddReferenceToImage(aUser.Model, myNewProfilePhoto.PhotoAlbumId, myNewProfilePictureImageName, true, aPhotoId);
             } else {
                 throw new CustomException(ErrorKeys.PERMISSION_DENIED);
             }

@@ -43,10 +43,7 @@ namespace UniversityOfMe.Controllers.Profile {
                     return SendToErrorPage(INVALID_SHORT_URL);
                 }
 
-                LoggedInWrapperModel<User> myModel = new LoggedInWrapperModel<User>(myViewingUser.Details);
-                myModel.Set(myProfile);
-
-                return View(PROFILE_VIEW, myModel);
+                return View(PROFILE_VIEW, myProfile);
             } catch (Exception e) {
                 LogError(e, USER_PAGE_ERROR);
                 return SendToErrorPage(USER_PAGE_ERROR);
@@ -64,10 +61,8 @@ namespace UniversityOfMe.Controllers.Profile {
                 UserInformationModel<User> myViewingUser = GetUserInformatonModel();
                 
                 User myUser = theUserRetrievalService.GetUser(id);
-                LoggedInWrapperModel<User> myModel = new LoggedInWrapperModel<User>(myViewingUser.Details);
-                myModel.Set(myUser);
 
-                return View(PROFILE_VIEW, myModel);
+                return View(PROFILE_VIEW, myUser);
             } catch (Exception e) {
                 LogError(e, USER_PAGE_ERROR);
                 return SendToErrorPage(USER_PAGE_ERROR);

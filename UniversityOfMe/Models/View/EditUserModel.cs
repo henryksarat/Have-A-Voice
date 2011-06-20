@@ -34,6 +34,11 @@ namespace UniversityOfMe.Models.View {
 
         public IEnumerable<SelectListItem> States { get; set; }
 
+        public IEnumerable<SelectListItem> RelationshipStatu { get; set; }
+        
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string RelationshipStatus { get; set; }
+        
         public EditUserModel() { }
 
         public EditUserModel(User aUser) : base(aUser) {

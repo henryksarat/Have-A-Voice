@@ -83,6 +83,7 @@ namespace UniversityOfMe.Services.Users {
             myOriginalUser.Website = aUser.Website;
             myOriginalUser.Gender = aUser.Gender;
             myOriginalUser.AboutMe = aUser.AboutMe;
+            myOriginalUser.RelationshipStatus = (aUser.RelationshipStatus == Constants.SELECT ? null :aUser.RelationshipStatus);
 
             if (!string.IsNullOrEmpty(aUser.NewEmail)) {
                 myOriginalUser.NewEmailHash = HashHelper.DoHash(aUser.NewEmail + myOriginalUser.Id);
@@ -116,6 +117,17 @@ namespace UniversityOfMe.Services.Users {
             IEnumerable<SelectListItem> myGenders =
                 new SelectList(Constants.GENDERS, myUser.Gender);
 
+            IEnumerable<RelationshipStatu> myAllRelationships = theUserRepository.GetAllRelationshipStatus();
+            IDictionary<string, string> myRelationshipsDictionary = DictionaryHelper.DictionaryWithSelect();
+            foreach (RelationshipStatu myRelationship in myAllRelationships) {
+                myRelationshipsDictionary.Add(myRelationship.DisplayName, myRelationship.Name);
+            }
+
+            string mySelectedRelationship = string.IsNullOrEmpty(myUser.RelationshipStatus) ? Constants.SELECT : myUser.RelationshipStatus;
+
+            IEnumerable<SelectListItem> myRelationships =
+                new SelectList(myRelationshipsDictionary, "Value", "Key", mySelectedRelationship);
+
             return new EditUserModel(myUser) {
                 OriginalEmail = myUser.Email,
                 OriginalFullName = NameHelper.FullName(myUser),
@@ -124,6 +136,7 @@ namespace UniversityOfMe.Services.Users {
                 OriginalWebsite = myUser.Website,
                 States = myStates,
                 Genders = myGenders,
+                RelationshipStatu = myRelationships,
                 ProfilePictureURL = PhotoHelper.ProfilePicture(myUser)
             };
         }

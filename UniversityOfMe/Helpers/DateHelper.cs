@@ -13,10 +13,14 @@ namespace UniversityOfMe.Helpers {
         }
 
         public static string ToLocalTime(DateTime aDateTime) {
-            return ToLocalTime(aDateTime, DateTime.UtcNow);
+            return ToLocalTime(aDateTime, DateTime.UtcNow, AFTER_THIS_WEEK_FORMAT);
         }
 
-        public static string ToLocalTime(DateTime aDateTime, DateTime aCurrentUtcTime) {
+        public static string ToLocalTime(DateTime aDateTime, string aFormat) {
+            return ToLocalTime(aDateTime, DateTime.UtcNow, aFormat);
+        }
+
+        public static string ToLocalTime(DateTime aDateTime, DateTime aCurrentUtcTime, string aFormat) {
             TimeZone myLocalZone = TimeZone.CurrentTimeZone;
             DateTime myLocalDateTime = myLocalZone.ToLocalTime(aDateTime);
             DateTime myLocalCurrentTime = myLocalZone.ToLocalTime(aCurrentUtcTime);
@@ -24,7 +28,7 @@ namespace UniversityOfMe.Helpers {
             string myFormattedDate = string.Empty;
 
             if (myLocalDateTime.Date > myLocalCurrentTime.Date) {
-                myFormattedDate = string.Format(AFTER_THIS_WEEK_FORMAT, myLocalZone.ToLocalTime(aDateTime)).Trim();
+                myFormattedDate = string.Format(aFormat, myLocalZone.ToLocalTime(aDateTime)).Trim();
             }  else if (myLocalCurrentTime.Date.Equals(myLocalDateTime.Date)) {
                 myFormattedDate = string.Format(TODAY_FORMAT, myLocalZone.ToLocalTime(aDateTime)).Trim();
             } else if (myLocalCurrentTime.Subtract(TimeSpan.FromDays(1.0)).Date.Equals(myLocalDateTime.Date)) {
@@ -32,7 +36,7 @@ namespace UniversityOfMe.Helpers {
             } else if (myLocalCurrentTime.Subtract(TimeSpan.FromDays(7.0)).Date < myLocalDateTime.Date) {
                 myFormattedDate = string.Format(THIS_WEEK_FORMAT, myLocalZone.ToLocalTime(aDateTime)).Trim();
             } else {
-                myFormattedDate = string.Format(AFTER_THIS_WEEK_FORMAT, myLocalZone.ToLocalTime(aDateTime)).Trim();
+                myFormattedDate = string.Format(aFormat, myLocalZone.ToLocalTime(aDateTime)).Trim();
             }
 
             return myFormattedDate;

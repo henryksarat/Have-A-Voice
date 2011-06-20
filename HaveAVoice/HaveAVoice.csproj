@@ -224,7 +224,6 @@
     <Compile Include="Services\UserFeatures\HAVFeedbackService.cs" />
     <Compile Include="Services\UserFeatures\IHAVAuthenticationService.cs" />
     <Compile Include="Services\UserFeatures\IHAVFeedbackService.cs" />
-    <Compile Include="Models\View\Binders\BinderHelper.cs" />
     <Compile Include="Helpers\UI\IssueReplyHelper.cs" />
     <Compile Include="Helpers\CloneHelper.cs" />
     <Compile Include="Helpers\Enums\RestrictionList.cs" />
@@ -532,7 +531,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>10832</DevelopmentServerPort>
+          <DevelopmentServerPort>7270</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

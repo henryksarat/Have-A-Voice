@@ -24,6 +24,16 @@ namespace UniversityOfMe.Repositories.Photos {
             return myPhoto;
         }
 
+        public Photo AddReferenceToImage(User aUser, int anAlbumId, string anImageName, bool aProfilePicture, int anOriginalPhotoIdLink) {
+            Photo myPhoto = Photo.CreatePhoto(0, aUser.Id, anAlbumId, anImageName, aProfilePicture, DateTime.UtcNow, false);
+            myPhoto.OriginalPhotoId = anOriginalPhotoIdLink;
+
+            theEntities.AddToPhotos(myPhoto);
+            theEntities.SaveChanges();
+
+            return myPhoto;
+        }
+
         public void DeletePhoto(int aPhotoId) {
             Photo myPhoto = GetPhoto(aPhotoId);
             theEntities.DeleteObject(myPhoto);

@@ -68,6 +68,13 @@ namespace Social.Generic.Helpers {
         Confirmed_Political_Candidate,
         //Site
         View_Feedback,
-        View_ErrorLog
+        View_ErrorLog,
+
+        //UOfMeOnly
+        //Club
+        Edit_Any_Club,
+        //textbook
+        Edit_Any_Textbook,
+        Delete_Any_Textbook
     }
 }

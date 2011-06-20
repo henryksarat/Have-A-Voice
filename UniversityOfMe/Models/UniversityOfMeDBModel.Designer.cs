@@ -97,6 +97,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_FeaturesEnabled_Features", "Feature", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Feature), "FeaturesEnabled", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.FeaturesEnabled), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_FeaturesEnabled_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "FeaturesEnabled", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.FeaturesEnabled), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Clubs_LastEditedByUser", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(UniversityOfMe.Models.User), "Club", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Club), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Users_RelationshipStatus", "RelationshipStatu", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(UniversityOfMe.Models.RelationshipStatu), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.User), true)]
 
 #endregion
 
@@ -867,6 +868,22 @@ namespace UniversityOfMe.Models
             }
         }
         private ObjectSet<FeaturesEnabled> _FeaturesEnableds;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<RelationshipStatu> RelationshipStatus
+        {
+            get
+            {
+                if ((_RelationshipStatus == null))
+                {
+                    _RelationshipStatus = base.CreateObjectSet<RelationshipStatu>("RelationshipStatus");
+                }
+                return _RelationshipStatus;
+            }
+        }
+        private ObjectSet<RelationshipStatu> _RelationshipStatus;
 
         #endregion
         #region AddTo Methods
@@ -1229,6 +1246,14 @@ namespace UniversityOfMe.Models
         public void AddToFeaturesEnableds(FeaturesEnabled featuresEnabled)
         {
             base.AddObject("FeaturesEnableds", featuresEnabled);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the RelationshipStatus EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToRelationshipStatus(RelationshipStatu relationshipStatu)
+        {
+            base.AddObject("RelationshipStatus", relationshipStatu);
         }
 
         #endregion
@@ -8851,6 +8876,30 @@ namespace UniversityOfMe.Models
         private global::System.Boolean _AlbumCover;
         partial void OnAlbumCoverChanging(global::System.Boolean value);
         partial void OnAlbumCoverChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> OriginalPhotoId
+        {
+            get
+            {
+                return _OriginalPhotoId;
+            }
+            set
+            {
+                OnOriginalPhotoIdChanging(value);
+                ReportPropertyChanging("OriginalPhotoId");
+                _OriginalPhotoId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("OriginalPhotoId");
+                OnOriginalPhotoIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _OriginalPhotoId;
+        partial void OnOriginalPhotoIdChanging(Nullable<global::System.Int32> value);
+        partial void OnOriginalPhotoIdChanged();
 
         #endregion
     
@@ -10692,6 +10741,112 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Professor>("UniversityOfMeModel.FK_ProfessorSuggestedPictures_Professors", "Professor", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="RelationshipStatu")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class RelationshipStatu : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new RelationshipStatu object.
+        /// </summary>
+        /// <param name="name">Initial value of the Name property.</param>
+        /// <param name="displayName">Initial value of the DisplayName property.</param>
+        public static RelationshipStatu CreateRelationshipStatu(global::System.String name, global::System.String displayName)
+        {
+            RelationshipStatu relationshipStatu = new RelationshipStatu();
+            relationshipStatu.Name = name;
+            relationshipStatu.DisplayName = displayName;
+            return relationshipStatu;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                if (_Name != value)
+                {
+                    OnNameChanging(value);
+                    ReportPropertyChanging("Name");
+                    _Name = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("Name");
+                    OnNameChanged();
+                }
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String DisplayName
+        {
+            get
+            {
+                return _DisplayName;
+            }
+            set
+            {
+                OnDisplayNameChanging(value);
+                ReportPropertyChanging("DisplayName");
+                _DisplayName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("DisplayName");
+                OnDisplayNameChanged();
+            }
+        }
+        private global::System.String _DisplayName;
+        partial void OnDisplayNameChanging(global::System.String value);
+        partial void OnDisplayNameChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Users_RelationshipStatus", "User")]
+        public EntityCollection<User> Users
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<User>("UniversityOfMeModel.FK_Users_RelationshipStatus", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<User>("UniversityOfMeModel.FK_Users_RelationshipStatus", "User", value);
                 }
             }
         }
@@ -12967,6 +13122,30 @@ namespace UniversityOfMe.Models
         private global::System.String _NewEmailHash;
         partial void OnNewEmailHashChanging(global::System.String value);
         partial void OnNewEmailHashChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String RelationshipStatus
+        {
+            get
+            {
+                return _RelationshipStatus;
+            }
+            set
+            {
+                OnRelationshipStatusChanging(value);
+                ReportPropertyChanging("RelationshipStatus");
+                _RelationshipStatus = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("RelationshipStatus");
+                OnRelationshipStatusChanged();
+            }
+        }
+        private global::System.String _RelationshipStatus;
+        partial void OnRelationshipStatusChanging(global::System.String value);
+        partial void OnRelationshipStatusChanged();
 
         #endregion
     
@@ -13958,6 +14137,44 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Club>("UniversityOfMeModel.FK_Clubs_LastEditedByUser", "Club", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Users_RelationshipStatus", "RelationshipStatu")]
+        public RelationshipStatu RelationshipStatu
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<RelationshipStatu>("UniversityOfMeModel.FK_Users_RelationshipStatus", "RelationshipStatu").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<RelationshipStatu>("UniversityOfMeModel.FK_Users_RelationshipStatus", "RelationshipStatu").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<RelationshipStatu> RelationshipStatuReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<RelationshipStatu>("UniversityOfMeModel.FK_Users_RelationshipStatus", "RelationshipStatu");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<RelationshipStatu>("UniversityOfMeModel.FK_Users_RelationshipStatus", "RelationshipStatu", value);
                 }
             }
         }

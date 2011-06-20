@@ -11,6 +11,10 @@ namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVPhotoRepository : IPhotoRepository<User, Photo> {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
+        public Photo AddReferenceToImage(User aUser, int anAlbumId, string anImageName, bool aProfilePicture, int anOriginalPhotoIdLink) {
+            return AddReferenceToImage(aUser, anAlbumId, anImageName, aProfilePicture);
+        }
+
         public Photo AddReferenceToImage(User aUser, int anAlbumId, string anImageName, bool aProfilePicture) {
             Photo myPhoto = Photo.CreatePhoto(0, aUser.Id, anAlbumId, anImageName, aProfilePicture, DateTime.UtcNow, false);
 

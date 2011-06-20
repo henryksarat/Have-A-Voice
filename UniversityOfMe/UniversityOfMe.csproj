@@ -127,6 +127,7 @@
     <Compile Include="Helpers\Features.cs" />
     <Compile Include="Helpers\FriendHelper.cs" />
     <Compile Include="Helpers\Functionality\ClubHelper.cs" />
+    <Compile Include="Helpers\Functionality\UserFeed.cs" />
     <Compile Include="Helpers\GetUserStrategy.cs" />
     <Compile Include="Helpers\MessageHelper.cs" />
     <Compile Include="Helpers\NameHelper.cs" />
@@ -167,6 +168,7 @@
       <DependentUpon>UniversityOfMeDBModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\View\ClubAdminFeed.cs" />
+    <Compile Include="Models\View\UserFeedModel.cs" />
     <Compile Include="Models\View\EditUserModel.cs" />
     <Compile Include="Models\View\EventViewModel.cs" />
     <Compile Include="Models\View\CreateClassModel.cs" />

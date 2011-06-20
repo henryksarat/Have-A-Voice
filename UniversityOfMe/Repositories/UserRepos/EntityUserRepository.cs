@@ -68,6 +68,11 @@ namespace UniversityOfMe.Repositories.UserRepos {
                     select c).Count() != 0 ? true : false;
         }
 
+        public IEnumerable<RelationshipStatu> GetAllRelationshipStatus() {
+            return (from r in theEntities.RelationshipStatus
+                    select r);
+        }
+
         public IEnumerable<User> GetNewestUsersFromUniversity(User aRequestingUser, string aUniversity, int aLimit) {
             return (from u in theEntities.Users
                     join uu in theEntities.UserUniversities on u.Id equals uu.UserId
