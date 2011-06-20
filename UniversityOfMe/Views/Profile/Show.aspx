@@ -30,11 +30,9 @@
 			<p><label>University:</label><%= UniversityHelper.GetMainUniversity(Model).UniversityName %></p> 
 			<ul> 
                 <% foreach (UserFeedModel myFeedModel in UserFeed.GetUserFeed(Model, 10)) { %>
-                    <% if(myFeedModel.FeedType == FeedType.Textbook) { %>
-				        <li class="<%= myFeedModel.CssClass %>"> 
-					        <%= myFeedModel.FeedString %>
-				        </li> 
-                    <% } %>
+				    <li class="<%= myFeedModel.CssClass %>"> 
+					    <%= myFeedModel.FeedString %>
+				    </li> 
                 <% } %>
 			</ul> 
 		</div> 

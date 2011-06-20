@@ -131,7 +131,7 @@ namespace UniversityOfMe.Services.Clubs {
                 string myOldClubImage = myClub.Picture;
 
                 UpdateClubPhoto(aClubViewModel.Name, aClubViewModel.ClubImage, myClub);
-                if (myOldClubImage != null) {
+                if (!string.IsNullOrEmpty(myOldClubImage)) {
                     SocialPhotoHelper.PhysicallyDeletePhoto(HttpContext.Current.Server.MapPath(PhotoHelper.ClubPhoto(myOldClubImage)));
                 }
             }

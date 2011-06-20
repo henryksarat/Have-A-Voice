@@ -107,7 +107,7 @@ namespace UniversityOfMe.Controllers.Classes {
 
                 if (myResult != null) {
                     string[] myUrlPieces = new string[]{ myResult.ClassCode, myResult.AcademicTermId, myResult.Year.ToString() };
-                    return RedirectToAction("Details", new { id = URLHelper.ToUrlFriendly(string.Join(" ", myUrlPieces)) });
+                    return RedirectToAction("Details", new { id = URLHelper.ToUrlFriendly(string.Join(" ", myUrlPieces)), classViewType = ClassViewType.Discussion });
                 }
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
