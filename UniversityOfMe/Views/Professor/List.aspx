@@ -4,7 +4,7 @@
 <%@ Import Namespace="UniversityOfMe.Helpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	List
+	<%= UOMConstants.TITLE %> - All Professors
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">

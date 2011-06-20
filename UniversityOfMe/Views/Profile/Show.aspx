@@ -79,7 +79,7 @@
 		    <div class="board"> 
 			    <div class="prfl clearfix"> 
 				    <div class="pCol"> 
-					    <img src="<%= PhotoHelper.ProfilePicture(Model) %>" class="profile big" /> 
+					    <img src="<%= PhotoHelper.ProfilePicture(myBoard.PostedByUser) %>" class="profile big" /> 
 				    </div> 
 				    <div class="cCol"> 
 					    <div class="red bld"> 

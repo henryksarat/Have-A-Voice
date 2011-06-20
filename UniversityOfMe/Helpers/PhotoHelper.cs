@@ -41,7 +41,7 @@ namespace UniversityOfMe.Helpers {
         }
 
         public static string ClubPhoto(string aClubImageName) {
-            return "/ClubPhotos/" + aClubImageName;
+            return ClubConstants.CLUB_PHOTO_PATH + aClubImageName;
         }
 
         public static string ClubPhoto(Club aClub) {
@@ -65,7 +65,7 @@ namespace UniversityOfMe.Helpers {
                 aPhoto = "no_professor_photo.jpg";
             }
 
-            return "/ProfessorPhotos/" + aPhoto;
+            return ProfessorConstants.PROFESSOR_PHOTO_PATH + aPhoto;
         }
 
         public static string AnonymousProfilePicture() {
@@ -87,7 +87,7 @@ namespace UniversityOfMe.Helpers {
         }
 
         public static string TextBookPhoto(string aTextBookPhoto) {
-            return "/TextBookPhotos/" + aTextBookPhoto;
+            return TextBookConstants.TEXTBOOK_PHOTO_PATH + aTextBookPhoto;
         }
         
         public static string ConstructProfessorUrl(Professor aProfessor) {
