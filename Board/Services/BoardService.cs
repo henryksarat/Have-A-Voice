@@ -6,6 +6,7 @@ using Social.Generic.Constants;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Validation;
+using Social.Admin.Exceptions;
 
 namespace Social.Board.Services {
     public class BoardService<T, U, V> : IBoardService<T, U, V> {
@@ -19,7 +20,7 @@ namespace Social.Board.Services {
 
         public U GetBoard(UserInformationModel<T> aUser, int aBoardId) {
             if (!AllowedToPerformAction(aUser, SocialPermission.View_Board)) {
-                return default(U);
+                throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
             }
 
             theRepository.MarkBoardAsViewed(aUser.Details, aBoardId);

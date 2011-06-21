@@ -96,5 +96,9 @@ namespace UniversityOfMe.Controllers.Users {
         protected override ILoggedInModel<DisplayPrivacySettingsModel<PrivacySetting>> CreatedLoggedInModel(User aUser) {
             return new LoggedInWrapperModel<DisplayPrivacySettingsModel<PrivacySetting>>(aUser);
         }
+
+        protected override string WarningMessage(string aMessage) {
+            return MessageHelper.WarningMessage(aMessage);
+        }
     }
 }

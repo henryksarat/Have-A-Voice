@@ -23,10 +23,12 @@ namespace UniversityOfMe.Services.Notifications {
         public IEnumerable<NotificationModel> GetNotificationsForUser(User aUser, int aLimit) {
             IEnumerable<SendItem> mySentItems = GetSendItemsForUser(aUser);
             IEnumerable<ClubMember> myPendingClubMembers = GetPendingClubMembersOfAdminedClubs(aUser);
+            IEnumerable<BoardViewedState> myBoardViewedStates = theNotificationRepository.GetBoardViewedStates(aUser);
 
 
             List<NotificationModel> myNotifications = ConvertToNotificationModel(mySentItems);
             myNotifications.AddRange(ConvertToNotificationModel(myPendingClubMembers));
+            myNotifications.AddRange(ConvertToNotificationModel(aUser, myBoardViewedStates));
 
             if (myNotifications.Count == 0) {
                 myNotifications.Add(NoNotifications());
@@ -75,6 +77,24 @@ namespace UniversityOfMe.Services.Notifications {
                     Club = myClubMember.Club,
                     ClubMemberUser = myClubMember.ClubMemberUser,
                     DateTimeSent = myClubMember.DateTimeStamp
+                });
+            }
+
+            return myNotificationModel;
+        }
+
+        private List<NotificationModel> ConvertToNotificationModel(User anOwnerUser, IEnumerable<BoardViewedState> aBoardViewedStates) {
+            List<NotificationModel> myNotificationModel = new List<NotificationModel>();
+            TimeZone localZone = TimeZone.CurrentTimeZone;
+
+            foreach (BoardViewedState myBoardViewedState in aBoardViewedStates) {
+                Board myBoard = myBoardViewedState.Board;
+
+                myNotificationModel.Add(new NotificationModel() {
+                    NotificationType = NotificationType.Board,
+                    Board = myBoardViewedState.Board,
+                    IsMyBoard = myBoard.OwnerUserId == anOwnerUser.Id,
+                    DateTimeSent = myBoardViewedState.DateTimeStamp
                 });
             }
 

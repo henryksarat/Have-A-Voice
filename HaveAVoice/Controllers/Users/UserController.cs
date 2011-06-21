@@ -189,6 +189,10 @@ namespace HaveAVoice.Controllers.Users {
             return MessageHelper.SuccessMessage(aMessage);
         }
 
+        protected override string WarningMessage(string aMessage) {
+            return MessageHelper.ErrorMessage(aMessage);
+        }
+
         private void AddStatesAndGenders(CreateUserModel aUserModel, string aState) {
             aUserModel.Genders = new SelectList(Constants.GENDERS, aUserModel.Gender);
             aUserModel.States = new SelectList(UnitedStates.STATES, aState);

@@ -101,6 +101,10 @@ namespace HaveAVoice.Controllers.Users {
             return MessageHelper.SuccessMessage(aMessage);
         }
 
+        protected override string WarningMessage(string aMessage) {
+            return MessageHelper.ErrorMessage(aMessage);
+        }
+
         private bool isSelf(int id) {
             return GetUserInformaton().Id == id;
         }

@@ -32,6 +32,18 @@
 			<li class="minilogo"> 
                 You have no notifications.
 			</li>             
+        <% } else if (myNotificationModel.NotificationType == NotificationType.Board) { %>
+			<li class="board"> 
+                <% if (myNotificationModel.IsMyBoard) { %>
+				    <a href="<%= URLHelper.ProfileUrl(myNotificationModel.Board.PostedByUser) %>">
+                        <%= NameHelper.FullName(myNotificationModel.Board.PostedByUser) %>
+                    </a>
+                    posted a new <a href="<%= URLHelper.BoardDetailsUrl(myNotificationModel.Board) %>">board message</a>.
+                <% } else { %>
+                    New post to the board <a href="<%= URLHelper.BoardDetailsUrl(myNotificationModel.Board) %>"><%= TextShortener.Shorten(myNotificationModel.Board.Message, 20)%></a>
+                <% } %>
+				<span class="time"><%= DateHelper.ToLocalTime(myNotificationModel.DateTimeSent) %></span> 
+			</li> 
         <% } %>
     <% } %>
 </ul> 

@@ -108,6 +108,10 @@ namespace UniversityOfMe.Controllers.Photos {
             return MessageHelper.SuccessMessage(aMessage);
         }
 
+        protected override string WarningMessage(string aMessage) {
+            return MessageHelper.WarningMessage(aMessage);
+        }
+
         protected override ILoggedInModel<Photo> CreateLoggedInWrapperModel(User aUser) {
             return new LoggedInWrapperModel<Photo>(aUser);
         }

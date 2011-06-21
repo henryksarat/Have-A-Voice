@@ -2,6 +2,7 @@
     public enum NotificationType {
         None,
         SentItems,
-        Club
+        Club,
+        Board
     }
 }

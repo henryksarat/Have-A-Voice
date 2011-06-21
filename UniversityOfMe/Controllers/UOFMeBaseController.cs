@@ -59,6 +59,10 @@ namespace UniversityOfMe.Controllers {
             return MessageHelper.SuccessMessage(aMessage);
         }
 
+        protected override string WarningMessage(string aMessage) {
+            return MessageHelper.WarningMessage(aMessage);
+        }
+
         protected override ActionResult RedirectToProfile() {
             return RedirectToAction(UOMConstants.UNVIERSITY_MAIN_VIEW, UOMConstants.UNVIERSITY_MAIN_CONTROLLER, new { universityId = UniversityHelper.GetMainUniversityId(GetUserInformaton()) });
         }

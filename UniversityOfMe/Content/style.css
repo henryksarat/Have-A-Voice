@@ -566,9 +566,11 @@ a.deny, a.deny:link, a.deny:visited { width: 18px; height: 17px; background:url(
 header ul.nav li.has-sub-account { background:url(images/arrow-down.png) no-repeat 50px 12px; }
 ul.notification li.organization { background:url(images/organization.png) no-repeat left center; }
 ul.notification li.minilogo { background:url(images/minilogo.png) no-repeat left center; }
+ul.notification li.board { background:url(images/board.png) no-repeat left center; }
 
 a.check, a.check:link, a.check:visited { padding: 2px 0px 2px 26px; background:url(images/check.png) no-repeat center left; text-decoration: underline; color: #fff; }
 a.trash-delete, a.trash-delete:link, a.trash-delete:visited { padding: 2px 0px 2px 26px; background:url(images/trash.png) no-repeat center left; text-decoration: underline; color: #fff; }
 div.board { border-bottom: 1px solid #e5e5e5; padding-bottom: 5px; margin-top: 5px; color: #939393; }
 div.prfl { margin-bottom: 5px; }
 div.prof-info ul li span.buy { color: #2673ff; }
+span.board { padding: 2px 0px 2px 28px; background:url(images/board.png) no-repeat center left; text-transform: uppercase; }

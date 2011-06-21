@@ -45,6 +45,7 @@ namespace BaseWebsite.Controllers {
         protected abstract string ErrorMessage(string aMessage);
         protected abstract string NormalMessage(string aMessage);
         protected abstract string SuccessMessage(string aMessage);
+        protected abstract string WarningMessage(string aMessage);
 
         protected abstract ActionResult RedirectToProfile();
 

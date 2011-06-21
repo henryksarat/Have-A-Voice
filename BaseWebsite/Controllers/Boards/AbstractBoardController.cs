@@ -13,6 +13,7 @@ using Social.Generic.Models;
 using Social.Generic.Services;
 using Social.Users.Services;
 using Social.Validation;
+using Social.Admin.Exceptions;
 
 namespace BaseWebsite.Controllers.Boards {
     public abstract class AbstractBoardController<T, U, V, W, X, Y, Z, A, B> : BaseController<T, U, V, W, X, Y, Z> {
@@ -45,6 +46,9 @@ namespace BaseWebsite.Controllers.Boards {
             try {
                 A myBoard = theService.GetBoard(GetUserInformatonModel(), id);
                 myModel.Set(myBoard);
+            } catch(PermissionDenied anException) {
+                TempData["Message"] = WarningMessage(anException.Message);
+                return RedirectToHomePage();
             } catch (Exception myException) {
                 LogError(myException, VIEW_BOARD_ERROR);
                 return SendToErrorPage(VIEW_BOARD_ERROR);

@@ -109,6 +109,10 @@ namespace UniversityOfMe.Controllers.Messaging {
             return MessageHelper.SuccessMessage(aMessage);
         }
 
+        protected override string WarningMessage(string aMessage) {
+            return MessageHelper.WarningMessage(aMessage);
+        }
+
         private bool isSelf(int id) {
             return GetUserInformaton().Id == id;
         }

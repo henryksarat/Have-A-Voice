@@ -94,6 +94,10 @@ namespace UniversityOfMe.Controllers.Admin {
             return MessageHelper.SuccessMessage(aMessage);
         }
 
+        protected override string WarningMessage(string aMessage) {
+            return MessageHelper.WarningMessage(aMessage);
+        }
+
         protected override Role CreateEmptyRole() {
             return Role.CreateRole(0, string.Empty, string.Empty, false, false);
         }

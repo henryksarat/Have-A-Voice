@@ -54,6 +54,10 @@ namespace UniversityOfMe.Helpers {
             return "/PhotoAlbum/Details/" + aPhotoAlbum.Id;
         }
 
+        public static string BoardDetailsUrl(Board aBoard) {
+            return "/Board/Details/" + aBoard.Id;
+        }
+
         public static string PhotoDisplayUrl(Photo aPhoto) {
             return "/Photo/Display/" + aPhoto.Id;
         }

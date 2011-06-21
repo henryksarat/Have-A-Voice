@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="Controllers\Site\FeatureController.cs" />
     <Compile Include="Controllers\Notification\NotificationController.cs" />
+    <Compile Include="Controllers\Site\HomeController.cs" />
     <Compile Include="Controllers\Site\SiteController.cs" />
     <Compile Include="Controllers\Users\ProfileController.cs" />
     <Compile Include="Controllers\Users\UserPrivacySettingController.cs" />
@@ -523,7 +524,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>7265</DevelopmentServerPort>
+          <DevelopmentServerPort>8537</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

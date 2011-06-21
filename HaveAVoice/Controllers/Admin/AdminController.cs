@@ -66,6 +66,10 @@ namespace HaveAVoice.Controllers.Admin {
             return MessageHelper.SuccessMessage(aMessage);
         }
 
+        protected override string WarningMessage(string aMessage) {
+            return MessageHelper.ErrorMessage(aMessage);
+        }
+
         protected override ActionResult RedirectToProfile() {
             return RedirectToAction("Show", "Profile");
         }

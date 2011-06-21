@@ -105,6 +105,10 @@ namespace HaveAVoice.Controllers.Users.Photos {
             return MessageHelper.SuccessMessage(aMessage);
         }
 
+        protected override string WarningMessage(string aMessage) {
+            return MessageHelper.ErrorMessage(aMessage);
+        }
+
         protected override ILoggedInModel<PhotoAlbum> CreateLoggedInWrapperModel(User aUser) {
             return new LoggedInWrapperModel<PhotoAlbum>(aUser, SiteSection.Photos);
         }

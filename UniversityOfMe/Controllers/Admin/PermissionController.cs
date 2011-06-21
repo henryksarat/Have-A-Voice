@@ -96,6 +96,10 @@ namespace UniversityOfMe.Controllers.Admin {
             return MessageHelper.SuccessMessage(aMessage);
         }
 
+        protected override string WarningMessage(string aMessage) {
+            return MessageHelper.WarningMessage(aMessage);
+        }
+
         protected override AbstractPermissionModel<Permission> CreateSocialPermissionModel(Permission aPermission) {
             return SocialPermissionModel.Create(aPermission);
         }

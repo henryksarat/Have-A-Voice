@@ -85,6 +85,10 @@ namespace UniversityOfMe.Controllers.Boards {
             return MessageHelper.SuccessMessage(aMessage);
         }
 
+        protected override string WarningMessage(string aMessage) {
+            return MessageHelper.WarningMessage(aMessage);
+        }
+
         protected override int GetBoardReplyUserId(BoardReply aBoardReply) {
             return aBoardReply.UserId;
         }

@@ -7,6 +7,13 @@ namespace UniversityOfMe.Repositories.Notifications {
     public class EntityNotificationRepository : INotificationRepository {
         private UniversityOfMeEntities theEntities = new UniversityOfMeEntities();
 
+        public IEnumerable<BoardViewedState> GetBoardViewedStates(User aUser) {
+            return (from bvs in theEntities.BoardViewedStates
+                    where bvs.UserId == aUser.Id
+                    && !bvs.Viewed
+                    select bvs);
+        }
+
         public IEnumerable<SendItem> GetSendItemsForUser(User aUser) {
             return (from s in theEntities.SendItems
                     where s.ToUserId == aUser.Id

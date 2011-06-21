@@ -95,6 +95,10 @@ namespace HaveAVoice.Controllers.Users {
             return MessageHelper.SuccessMessage(aMessage);
         }
 
+        protected override string WarningMessage(string aMessage) {
+            return MessageHelper.ErrorMessage(aMessage);
+        }
+
         protected override ILoggedInListModel<Friend> CreateLoggedInListModel(User aUser) {
             return new LoggedInListModel<Friend>(aUser, SiteSection.Friend);
         }

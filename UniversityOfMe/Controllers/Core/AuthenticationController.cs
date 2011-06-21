@@ -116,6 +116,10 @@ namespace UniversityOfMe.Controllers.Core {
             return MessageHelper.SuccessMessage(aMessage);
         }
 
+        protected override string WarningMessage(string aMessage) {
+            return MessageHelper.WarningMessage(aMessage);
+        }
+
         protected override ActionResult RedirectToProfile() {
             return RedirectToAction("IntermediateRedirectToProfile");
         }
