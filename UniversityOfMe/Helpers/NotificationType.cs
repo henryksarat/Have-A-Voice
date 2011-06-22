@@ -3,6 +3,8 @@
         None,
         SentItems,
         Club,
-        Board
+        Board,
+        ClubBoard,
+        ClassBoard
     }
 }

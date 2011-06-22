@@ -128,7 +128,7 @@ namespace UniversityOfMe.Controllers.Classes {
             }
 
             try {
-                Class myClass = theClassService.GetClass(GetUserInformatonModel(), classId);
+                Class myClass = theClassService.GetClass(GetUserInformatonModel(), classId, classViewType);
                 LoggedInWrapperModel<Class> myLoggedInModel = new LoggedInWrapperModel<Class>(GetUserInformatonModel().Details);
                 myLoggedInModel.Set(myClass);
 
@@ -153,7 +153,7 @@ namespace UniversityOfMe.Controllers.Classes {
                     return RedirectToAction("Create", "Class");
                 }
 
-                Class myClass = theClassService.GetClass(GetUserInformatonModel(), id);
+                Class myClass = theClassService.GetClass(GetUserInformatonModel(), id, classViewType);
                 LoggedInWrapperModel<Class> myLoggedInModel = new LoggedInWrapperModel<Class>(GetUserInformatonModel().Details);
                 myLoggedInModel.Set(myClass);
 

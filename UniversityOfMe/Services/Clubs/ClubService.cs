@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Social.Admin.Exceptions;
+using Social.Admin.Helpers;
+using Social.Generic.Constants;
 using Social.Generic.Exceptions;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
@@ -17,9 +20,6 @@ using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories.Clubs;
 using UniversityOfMe.Repositories.UserRepos;
 using UniversityOfMe.Services.Professors;
-using Social.Admin.Helpers;
-using Social.Admin.Exceptions;
-using Social.Generic.Constants;
 
 namespace UniversityOfMe.Services.Clubs {
     public class ClubService : IClubService {
@@ -109,6 +109,7 @@ namespace UniversityOfMe.Services.Clubs {
         }
 
         public Club GetClub(UserInformationModel<User> aUser, int aClubId) {
+            theClubRepository.MarkClubBoardAsViewed(aUser.Details, aClubId);
             return theClubRepository.GetClub(aUser.Details, aClubId);
         }
 
@@ -117,7 +118,7 @@ namespace UniversityOfMe.Services.Clubs {
                 return false;
             }
 
-            Club myClub = GetClub(aUserEditing, aClubViewModel.ClubId);
+            Club myClub = theClubRepository.GetClub(aUserEditing.Details, aClubViewModel.ClubId);
 
             myClub.Name = aClubViewModel.Name;
             myClub.Description = aClubViewModel.Description;

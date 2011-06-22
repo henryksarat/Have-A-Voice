@@ -17,7 +17,7 @@
 			    </li> 
 			    <li class="post"> 
 				    <a href="#">Anca Foster</a> replied to <a href="#">your post</a> 
-				    <span class="time">6:35 pm</span> 
+				    <span class="time"><%= DateHelper.ToLocalTime(myNotificationModel.DateTimeSent) %></span> 
 			    </li> 
 			    <li class="post"> 
 				    <a href="#">Anca Foster</a> replied to <a href="#">your post</a> 
@@ -26,7 +26,17 @@
         <% } else if(myNotificationModel.NotificationType == NotificationType.Club) { %>
 			<li class="organization"> 
 				<a href="<%= URLHelper.ProfileUrl(myNotificationModel.ClubMemberUser) %>"><%= NameHelper.FullName(myNotificationModel.ClubMemberUser) %></a> wants to join <a href="<%= URLHelper.BuildClubUrl(myNotificationModel.Club) %>"><%= myNotificationModel.Club.Name %> </a> 
-				<span class="time">6:35 pm</span> 
+				<span class="time"><%= DateHelper.ToLocalTime(myNotificationModel.DateTimeSent) %></span> 
+			</li> 
+        <% } else if(myNotificationModel.NotificationType == NotificationType.ClubBoard) { %>
+			<li class="organization"> 
+				New club board post in the <a href="<%= URLHelper.BuildClubUrl(myNotificationModel.Club) %>"><%= myNotificationModel.Club.Name %> </a> .
+				<span class="time"><%= DateHelper.ToLocalTime(myNotificationModel.DateTimeSent) %></span> 
+			</li> 
+        <% } else if(myNotificationModel.NotificationType == NotificationType.ClassBoard) { %>
+			<li class="class"> 
+				New post in your enrolled class <a href="<%= URLHelper.BuildClassDiscussionUrl(myNotificationModel.Class) %>"><%= myNotificationModel.Class.ClassCode%> </a> 
+				<span class="time"><%= DateHelper.ToLocalTime(myNotificationModel.DateTimeSent) %></span> 
 			</li> 
         <% } else if (myNotificationModel.NotificationType == NotificationType.None) { %>
 			<li class="minilogo"> 

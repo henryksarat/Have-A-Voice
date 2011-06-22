@@ -456,6 +456,8 @@
           <Property Name="ClassId" Type="int" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="DateTimeStamp" Type="smalldatetime" Nullable="false" />
+          <Property Name="BoardViewed" Type="bit" Nullable="false" />
+          <Property Name="LastBoardPost" Type="smalldatetime" />
         </EntityType>
         <EntityType Name="Classes">
           <Key>
@@ -511,6 +513,8 @@
           <Property Name="DeletedByDateTimeStamp" Type="smalldatetime" />
           <Property Name="DeniedByUserId" Type="int" />
           <Property Name="DeniedByDateTimeStamp" Type="smalldatetime" />
+          <Property Name="BoardViewed" Type="bit" Nullable="false" />
+          <Property Name="LastBoardPost" Type="smalldatetime" />
         </EntityType>
         <EntityType Name="Clubs">
           <Key>
@@ -3649,6 +3653,8 @@
           <NavigationProperty Name="Class" Relationship="UniversityOfMeModel.FK_ClassEnrollments_Classes" FromRole="ClassEnrollment" ToRole="Class" />
           <NavigationProperty Name="User" Relationship="UniversityOfMeModel.FK_ClassEnrollments_Users" FromRole="ClassEnrollment" ToRole="User" />
           <Property Type="DateTime" Name="DateTimeStamp" Nullable="false" />
+          <Property Type="Boolean" Name="BoardViewed" Nullable="false" />
+          <Property Type="DateTime" Name="LastBoardPost" />
         </EntityType>
         <Association Name="FK_ClassBoards_Classes">
           <End Type="UniversityOfMeModel.Class" Role="Class" Multiplicity="1" />
@@ -3807,6 +3813,8 @@
           <NavigationProperty Name="ApprovedByUser" Relationship="UniversityOfMeModel.FK_ClubMembers_Users_ApprovedByUser" FromRole="ClubMember" ToRole="User" />
           <NavigationProperty Name="ClubMemberUser" Relationship="UniversityOfMeModel.FK_ClubMembers_Users_ClubMemeber" FromRole="ClubMember" ToRole="User" />
           <NavigationProperty Name="DeletedByUser" Relationship="UniversityOfMeModel.FK_ClubMembers_Users_DeletedByUser" FromRole="ClubMember" ToRole="User" />
+          <Property Type="Boolean" Name="BoardViewed" Nullable="false" />
+          <Property Type="DateTime" Name="LastBoardPost" />
         </EntityType>
         <Association Name="FK_ClubMembers_Clubs">
           <End Type="UniversityOfMeModel.Club" Role="Club" Multiplicity="1" />
@@ -4420,6 +4428,8 @@
           <EntitySetMapping Name="ClassEnrollments">
             <EntityTypeMapping TypeName="UniversityOfMeModel.ClassEnrollment">
               <MappingFragment StoreEntitySet="ClassEnrollments">
+                <ScalarProperty Name="LastBoardPost" ColumnName="LastBoardPost" />
+                <ScalarProperty Name="BoardViewed" ColumnName="BoardViewed" />
                 <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="ClassId" ColumnName="ClassId" />
@@ -4454,6 +4464,8 @@
           <EntitySetMapping Name="ClubMembers">
             <EntityTypeMapping TypeName="UniversityOfMeModel.ClubMember">
               <MappingFragment StoreEntitySet="ClubMembers">
+                <ScalarProperty Name="LastBoardPost" ColumnName="LastBoardPost" />
+                <ScalarProperty Name="BoardViewed" ColumnName="BoardViewed" />
                 <ScalarProperty Name="DeniedByDateTimeStamp" ColumnName="DeniedByDateTimeStamp" />
                 <ScalarProperty Name="DeniedByUserId" ColumnName="DeniedByUserId" />
                 <ScalarProperty Name="DeletedByDateTimeStamp" ColumnName="DeletedByDateTimeStamp" />

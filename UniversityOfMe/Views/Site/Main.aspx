@@ -73,7 +73,7 @@
 		        </div> 
 
 		        <div class="input"> 
-			        <%= Html.Label("Agreement:") %>
+			        <span class="empty-indent">&nbsp;</span>
                     <%= Html.CheckBox("Agreement") %>
 			        I agree with the <a href="/Site/Terms" target="_blank">Terms of Use</a>.
 		        </div> 

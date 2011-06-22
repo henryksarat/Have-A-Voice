@@ -24,11 +24,15 @@ namespace UniversityOfMe.Services.Notifications {
             IEnumerable<SendItem> mySentItems = GetSendItemsForUser(aUser);
             IEnumerable<ClubMember> myPendingClubMembers = GetPendingClubMembersOfAdminedClubs(aUser);
             IEnumerable<BoardViewedState> myBoardViewedStates = theNotificationRepository.GetBoardViewedStates(aUser);
+            IEnumerable<ClubMember> myClubMembersNotViewedBoard = theNotificationRepository.GetClubMembersNotViewedBoared(aUser);
+            IEnumerable<ClassEnrollment> myClassEnrollmentsNotViewedBoard = theNotificationRepository.GetClassEnrollmentsNotViewedBoard(aUser);
 
 
             List<NotificationModel> myNotifications = ConvertToNotificationModel(mySentItems);
             myNotifications.AddRange(ConvertToNotificationModel(myPendingClubMembers));
             myNotifications.AddRange(ConvertToNotificationModel(aUser, myBoardViewedStates));
+            myNotifications.AddRange(ConvertToNotificationModelForNotViewedBoard(myClubMembersNotViewedBoard));
+            myNotifications.AddRange(ConvertToNotificationModel(myClassEnrollmentsNotViewedBoard));
 
             if (myNotifications.Count == 0) {
                 myNotifications.Add(NoNotifications());
@@ -53,7 +57,6 @@ namespace UniversityOfMe.Services.Notifications {
 
         private List<NotificationModel> ConvertToNotificationModel(IEnumerable<SendItem> aSendItems) {
             List<NotificationModel> myNotificationModel = new List<NotificationModel>();
-            TimeZone localZone = TimeZone.CurrentTimeZone;
 
             foreach (SendItem mySendItem in aSendItems) {
                 myNotificationModel.Add(new NotificationModel() {
@@ -69,7 +72,6 @@ namespace UniversityOfMe.Services.Notifications {
 
         private List<NotificationModel> ConvertToNotificationModel(IEnumerable<ClubMember> aClubMembers) {
             List<NotificationModel> myNotificationModel = new List<NotificationModel>();
-            TimeZone localZone = TimeZone.CurrentTimeZone;
 
             foreach (ClubMember myClubMember in aClubMembers) {
                 myNotificationModel.Add(new NotificationModel() {
@@ -85,7 +87,6 @@ namespace UniversityOfMe.Services.Notifications {
 
         private List<NotificationModel> ConvertToNotificationModel(User anOwnerUser, IEnumerable<BoardViewedState> aBoardViewedStates) {
             List<NotificationModel> myNotificationModel = new List<NotificationModel>();
-            TimeZone localZone = TimeZone.CurrentTimeZone;
 
             foreach (BoardViewedState myBoardViewedState in aBoardViewedStates) {
                 Board myBoard = myBoardViewedState.Board;
@@ -95,6 +96,34 @@ namespace UniversityOfMe.Services.Notifications {
                     Board = myBoardViewedState.Board,
                     IsMyBoard = myBoard.OwnerUserId == anOwnerUser.Id,
                     DateTimeSent = myBoardViewedState.DateTimeStamp
+                });
+            }
+
+            return myNotificationModel;
+        }
+
+        private List<NotificationModel> ConvertToNotificationModel(IEnumerable<ClassEnrollment> aClassEnrollments) {
+            List<NotificationModel> myNotificationModel = new List<NotificationModel>();
+
+            foreach (ClassEnrollment myClassEnrollment in aClassEnrollments) {
+                myNotificationModel.Add(new NotificationModel() {
+                    NotificationType = NotificationType.ClassBoard,
+                    Class = myClassEnrollment.Class,
+                    DateTimeSent = myClassEnrollment.DateTimeStamp
+                });
+            }
+
+            return myNotificationModel;
+        }
+
+        private List<NotificationModel> ConvertToNotificationModelForNotViewedBoard(IEnumerable<ClubMember> aClubMembers) {
+            List<NotificationModel> myNotificationModel = new List<NotificationModel>();
+
+            foreach (ClubMember myClubMember in aClubMembers) {
+                myNotificationModel.Add(new NotificationModel() {
+                    NotificationType = NotificationType.ClubBoard,
+                    Club = myClubMember.Club,
+                    DateTimeSent = (DateTime)myClubMember.LastBoardPost
                 });
             }
 

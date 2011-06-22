@@ -27,7 +27,15 @@ namespace UniversityOfMe.Repositories.Clubs {
         }
 
         public void AddMemberToClub(User anAdminUser, int aNewMemberUserId, int aClubId, string aTitle, bool anAdministrator) {
-            ClubMember myClubMember = ClubMember.CreateClubMember(0, aNewMemberUserId, aClubId, aTitle, anAdministrator, UOMConstants.APPROVED, DateTime.UtcNow, false);
+            IEnumerable<ClubBoard> myClubBoards = GetClubBoards(aClubId);
+
+            bool myViewed = true;
+
+            if(myClubBoards.Count<ClubBoard>() > 0) {
+                myViewed = false;
+            }
+
+            ClubMember myClubMember = ClubMember.CreateClubMember(0, aNewMemberUserId, aClubId, aTitle, anAdministrator, UOMConstants.APPROVED, DateTime.UtcNow, false, myViewed);
             myClubMember.ApprovedByUserId = anAdminUser.Id;
 
             theEntities.AddToClubMembers(myClubMember);
@@ -95,6 +103,7 @@ namespace UniversityOfMe.Repositories.Clubs {
         public IEnumerable<ClubMember> GetClubMembers(int aClubId) {
             return (from cm in theEntities.ClubMembers
                     where cm.ClubId == aClubId
+                    && cm.Approved == UOMConstants.APPROVED
                     select cm).ToList<ClubMember>();
         }
 
@@ -129,8 +138,16 @@ namespace UniversityOfMe.Repositories.Clubs {
                     select ct).ToList<ClubType>();
         }
 
+        public void MarkClubBoardAsViewed(User aUser, int aClubId) {
+            ClubMember myClubMember = GetClubMember(aUser.Id, aClubId);
+            if (myClubMember != null) {
+                myClubMember.BoardViewed = true;
+                theEntities.SaveChanges();
+            }
+        }
+
         public void MemberRequestToJoinClub(User aRequestingUser, int aClubId, string aTitle) {
-            ClubMember myClubMember = ClubMember.CreateClubMember(0, aRequestingUser.Id, aClubId, aTitle, false, UOMConstants.PENDING, DateTime.UtcNow, false);
+            ClubMember myClubMember = ClubMember.CreateClubMember(0, aRequestingUser.Id, aClubId, aTitle, false, UOMConstants.PENDING, DateTime.UtcNow, false, true);
             theEntities.AddToClubMembers(myClubMember);
             theEntities.SaveChanges();
         }
@@ -138,6 +155,20 @@ namespace UniversityOfMe.Repositories.Clubs {
         public void PostToClubBoard(User aPostingUser, int aClubId, string aMessage) {
             ClubBoard myClubBoard = ClubBoard.CreateClubBoard(0, aPostingUser.Id, aClubId, aMessage, DateTime.UtcNow);
             theEntities.AddToClubBoards(myClubBoard);
+
+            IEnumerable<ClubMember> myClubMembers = GetClubMembers(aClubId);
+
+            DateTime myCurrentTime = DateTime.UtcNow;
+
+            foreach (ClubMember myClubMember in myClubMembers) {
+                if (myClubMember.ClubMemberUserId == aPostingUser.Id) {
+                    myClubMember.BoardViewed = true;
+                } else {
+                    myClubMember.BoardViewed = false;
+                    myClubMember.LastBoardPost = myCurrentTime;
+                }
+            }
+
             theEntities.SaveChanges();
         }
 
@@ -150,6 +181,12 @@ namespace UniversityOfMe.Repositories.Clubs {
             return (from c in theEntities.Clubs
                     where c.Id == aClubId
                     select c).FirstOrDefault<Club>();
+        }
+
+        private IEnumerable<ClubBoard> GetClubBoards(int aClubId) {
+            return (from cb in theEntities.ClubBoards
+                    where cb.ClubId == aClubId
+                    select cb);
         }
     }
 }

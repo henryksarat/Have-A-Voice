@@ -60,13 +60,21 @@ namespace UniversityOfMe.Services.Classes {
             return true;
         }
 
-        public Class GetClass(UserInformationModel<User> aViewingUser, int aClassId) {
+        public Class GetClass(UserInformationModel<User> aViewingUser, int aClassId, ClassViewType aClassViewType) {
+            if (aClassViewType == ClassViewType.Discussion) {
+                theClassRepository.MarkClassBoardAsViewed(aViewingUser.Details, aClassId);
+            }
             return theClassRepository.GetClass(aClassId);
         }
 
-        public Class GetClass(UserInformationModel<User> aViewingUser, string aClassUrlString) {
+        public Class GetClass(UserInformationModel<User> aViewingUser, string aClassUrlString, ClassViewType aClassViewType) {
             string[] mySplitClass = URLHelper.FromUrlFriendly(aClassUrlString);
-            return theClassRepository.GetClass(mySplitClass[0], mySplitClass[1], int.Parse(mySplitClass[2]));
+
+            Class myClass = theClassRepository.GetClass(mySplitClass[0], mySplitClass[1], int.Parse(mySplitClass[2]));
+            if (aClassViewType == ClassViewType.Discussion) {
+                theClassRepository.MarkClassBoardAsViewed(aViewingUser.Details, myClass.Id);
+            }
+            return myClass;
         }
 
         public IEnumerable<Class> GetClassesForUniversity(string aUniversityId) {

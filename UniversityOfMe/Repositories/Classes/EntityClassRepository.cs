@@ -10,13 +10,28 @@ namespace UniversityOfMe.Repositories.Classes {
         public void AddToClassBoard(User aPostedByUser, int aClassId, string aReply) {
             ClassBoard myBoard = ClassBoard.CreateClassBoard(0, aClassId, aPostedByUser.Id, aReply, DateTime.UtcNow);
             theEntities.AddToClassBoards(myBoard);
+
+            IEnumerable<ClassEnrollment> myEnrollments = GetClassEnrollments(aClassId);
+            DateTime myCurrentDateTime = DateTime.UtcNow;
+
+            foreach (ClassEnrollment myClassEnrollment in myEnrollments) {
+                if (aPostedByUser.Id == myClassEnrollment.UserId) {
+                    myClassEnrollment.BoardViewed = true;
+                } else {
+                    myClassEnrollment.BoardViewed = false;
+                    myClassEnrollment.LastBoardPost = myCurrentDateTime;
+                }
+            }
+
             theEntities.SaveChanges();
         }
 
         public void AddToClassEnrollment(User aStudentToEnroll, int aClassId) {
             ClassEnrollment myCurrentEnrollment = GetClassEnrollment(aStudentToEnroll, aClassId);
             if (myCurrentEnrollment == null) {
-                ClassEnrollment myEnrollment = ClassEnrollment.CreateClassEnrollment(0, aClassId, aStudentToEnroll.Id, DateTime.UtcNow);
+                int myClassBoardCount = GetClassBoardCount(aClassId);
+                bool myViewedBoard = myClassBoardCount == 0 ? true : false;
+                ClassEnrollment myEnrollment = ClassEnrollment.CreateClassEnrollment(0, aClassId, aStudentToEnroll.Id, DateTime.UtcNow, myViewedBoard);
                 theEntities.AddToClassEnrollments(myEnrollment);
                 theEntities.SaveChanges();
             }
@@ -68,6 +83,14 @@ namespace UniversityOfMe.Repositories.Classes {
                     select ce).ToList<ClassEnrollment>();
         }
 
+        public void MarkClassBoardAsViewed(User aUser, int aClassId) {
+            ClassEnrollment myEnrollment = GetClassEnrollment(aUser, aClassId);
+            if (myEnrollment != null) {
+                myEnrollment.BoardViewed = true;
+                theEntities.SaveChanges();
+            }
+        }
+
         public void RemoveFromClassEnrollment(User aStudentToRemove, int aClassId) {
             ClassEnrollment myEnrollment = GetClassEnrollment(aStudentToRemove, aClassId);
             theEntities.DeleteObject(myEnrollment);
@@ -78,6 +101,18 @@ namespace UniversityOfMe.Repositories.Classes {
             return (from c in theEntities.ClassEnrollments
                     where c.UserId == aUser.Id && c.ClassId == aClassId
                     select c).FirstOrDefault<ClassEnrollment>();
+        }
+
+        private IEnumerable<ClassEnrollment> GetClassEnrollments(int aClassId) {
+            return (from ce in theEntities.ClassEnrollments
+                    where ce.ClassId == aClassId
+                    select ce);
+        }
+
+        private int GetClassBoardCount(int aClassId) {
+            return (from cb in theEntities.ClassBoards
+                    where cb.ClassId == aClassId
+                    select cb).Count<ClassBoard>();
         }
     }
 }

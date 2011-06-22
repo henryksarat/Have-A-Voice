@@ -40,7 +40,7 @@
                 <% using (Html.BeginForm("Create", "Photo", FormMethod.Post, new { enctype = "multipart/form-data" })) { %>
                     <%= Html.Hidden("AlbumId", Model.Get().Id) %>
 		            <input type="file" name="imagefile" id="iamgefile" class="w392 mr44" /> 
-		            <input type="submit" name="upload" class="btn teal" value="Upload" /> 
+		            <input type="submit" name="upload" class="btn site" value="Upload" /> 
                 <% } %>
 		    </div> 
         </div>

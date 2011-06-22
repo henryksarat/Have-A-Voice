@@ -134,7 +134,7 @@ namespace Social.Board.Services {
                 return false;
             }
             if (!AllowedToPerformAction(aPostingUser, SocialPermission.Post_Reply_To_Board)) {
-                return false;
+                throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
             }
             theRepository.AddReplyToBoard(aPostingUser.Details, aBoardId, aReply);
 

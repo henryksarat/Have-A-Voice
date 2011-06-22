@@ -3565,13 +3565,15 @@ namespace UniversityOfMe.Models
         /// <param name="classId">Initial value of the ClassId property.</param>
         /// <param name="userId">Initial value of the UserId property.</param>
         /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
-        public static ClassEnrollment CreateClassEnrollment(global::System.Int32 id, global::System.Int32 classId, global::System.Int32 userId, global::System.DateTime dateTimeStamp)
+        /// <param name="boardViewed">Initial value of the BoardViewed property.</param>
+        public static ClassEnrollment CreateClassEnrollment(global::System.Int32 id, global::System.Int32 classId, global::System.Int32 userId, global::System.DateTime dateTimeStamp, global::System.Boolean boardViewed)
         {
             ClassEnrollment classEnrollment = new ClassEnrollment();
             classEnrollment.Id = id;
             classEnrollment.ClassId = classId;
             classEnrollment.UserId = userId;
             classEnrollment.DateTimeStamp = dateTimeStamp;
+            classEnrollment.BoardViewed = boardViewed;
             return classEnrollment;
         }
 
@@ -3676,6 +3678,54 @@ namespace UniversityOfMe.Models
         private global::System.DateTime _DateTimeStamp;
         partial void OnDateTimeStampChanging(global::System.DateTime value);
         partial void OnDateTimeStampChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean BoardViewed
+        {
+            get
+            {
+                return _BoardViewed;
+            }
+            set
+            {
+                OnBoardViewedChanging(value);
+                ReportPropertyChanging("BoardViewed");
+                _BoardViewed = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("BoardViewed");
+                OnBoardViewedChanged();
+            }
+        }
+        private global::System.Boolean _BoardViewed;
+        partial void OnBoardViewedChanging(global::System.Boolean value);
+        partial void OnBoardViewedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> LastBoardPost
+        {
+            get
+            {
+                return _LastBoardPost;
+            }
+            set
+            {
+                OnLastBoardPostChanging(value);
+                ReportPropertyChanging("LastBoardPost");
+                _LastBoardPost = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LastBoardPost");
+                OnLastBoardPostChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _LastBoardPost;
+        partial void OnLastBoardPostChanging(Nullable<global::System.DateTime> value);
+        partial void OnLastBoardPostChanged();
 
         #endregion
     
@@ -4903,7 +4953,8 @@ namespace UniversityOfMe.Models
         /// <param name="approved">Initial value of the Approved property.</param>
         /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
         /// <param name="deleted">Initial value of the Deleted property.</param>
-        public static ClubMember CreateClubMember(global::System.Int32 id, global::System.Int32 clubMemberUserId, global::System.Int32 clubId, global::System.String title, global::System.Boolean administrator, global::System.Int32 approved, global::System.DateTime dateTimeStamp, global::System.Boolean deleted)
+        /// <param name="boardViewed">Initial value of the BoardViewed property.</param>
+        public static ClubMember CreateClubMember(global::System.Int32 id, global::System.Int32 clubMemberUserId, global::System.Int32 clubId, global::System.String title, global::System.Boolean administrator, global::System.Int32 approved, global::System.DateTime dateTimeStamp, global::System.Boolean deleted, global::System.Boolean boardViewed)
         {
             ClubMember clubMember = new ClubMember();
             clubMember.Id = id;
@@ -4914,6 +4965,7 @@ namespace UniversityOfMe.Models
             clubMember.Approved = approved;
             clubMember.DateTimeStamp = dateTimeStamp;
             clubMember.Deleted = deleted;
+            clubMember.BoardViewed = boardViewed;
             return clubMember;
         }
 
@@ -5258,6 +5310,54 @@ namespace UniversityOfMe.Models
         private Nullable<global::System.DateTime> _DeniedByDateTimeStamp;
         partial void OnDeniedByDateTimeStampChanging(Nullable<global::System.DateTime> value);
         partial void OnDeniedByDateTimeStampChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean BoardViewed
+        {
+            get
+            {
+                return _BoardViewed;
+            }
+            set
+            {
+                OnBoardViewedChanging(value);
+                ReportPropertyChanging("BoardViewed");
+                _BoardViewed = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("BoardViewed");
+                OnBoardViewedChanged();
+            }
+        }
+        private global::System.Boolean _BoardViewed;
+        partial void OnBoardViewedChanging(global::System.Boolean value);
+        partial void OnBoardViewedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> LastBoardPost
+        {
+            get
+            {
+                return _LastBoardPost;
+            }
+            set
+            {
+                OnLastBoardPostChanging(value);
+                ReportPropertyChanging("LastBoardPost");
+                _LastBoardPost = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LastBoardPost");
+                OnLastBoardPostChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _LastBoardPost;
+        partial void OnLastBoardPostChanging(Nullable<global::System.DateTime> value);
+        partial void OnLastBoardPostChanged();
 
         #endregion
     

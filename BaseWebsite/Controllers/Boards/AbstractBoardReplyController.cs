@@ -13,6 +13,7 @@ using Social.Generic.Models;
 using Social.Generic.Services;
 using Social.Users.Services;
 using Social.Validation;
+using Social.Admin.Exceptions;
 
 namespace BaseWebsite.Controllers.Boards {
     public abstract class AbstractBoardReplyController<T, U, V, W, X, Y, Z, A, B> : BaseController<T, U, V, W, X, Y, Z> {
@@ -42,6 +43,8 @@ namespace BaseWebsite.Controllers.Boards {
                 if (theService.PostReplyToBoard(GetUserInformatonModel(), boardId, boardReply)) {
                     TempData["Message"] = SuccessMessage(POST_REPLY_SUCCESS);
                 }
+            } catch(PermissionDenied) {
+                TempData["Message"] = WarningMessage(ErrorKeys.PERMISSION_DENIED);
             } catch (Exception myException) {
                 LogError(myException, POST_REPLY_ERROR);
                 TempData["Message"] = ErrorMessage(POST_REPLY_ERROR);

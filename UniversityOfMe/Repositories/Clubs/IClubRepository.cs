@@ -22,6 +22,7 @@ namespace UniversityOfMe.Repositories.Clubs {
         IEnumerable<ClubMember> GetClubMembers(int aClubId);
         IEnumerable<Club> GetClubs(User aUser, string aUniversityId);
         Club CreateClub(User aUser, string aUniversityId, string aClubType, string aName, string aDescription);
+        void MarkClubBoardAsViewed(User aUser, int aClubId);
         void MemberRequestToJoinClub(User aRequestingUser, int aClubId, string aTitle);
         void PostToClubBoard(User aPostingUser, int aClubId, string aMessage);
         void UpdateClub(Club aClub);

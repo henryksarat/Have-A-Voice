@@ -14,6 +14,20 @@ namespace UniversityOfMe.Repositories.Notifications {
                     select bvs);
         }
 
+        public IEnumerable<ClassEnrollment> GetClassEnrollmentsNotViewedBoard(User aUser) {
+            return (from ce in theEntities.ClassEnrollments
+                    where ce.UserId == aUser.Id
+                    && !ce.BoardViewed
+                    select ce);
+        }
+
+        public IEnumerable<ClubMember> GetClubMembersNotViewedBoared(User aUser) {
+            return (from cm in theEntities.ClubMembers
+                    where cm.ClubMemberUserId == aUser.Id
+                    && !cm.BoardViewed
+                    select cm);
+        }
+
         public IEnumerable<SendItem> GetSendItemsForUser(User aUser) {
             return (from s in theEntities.SendItems
                     where s.ToUserId == aUser.Id

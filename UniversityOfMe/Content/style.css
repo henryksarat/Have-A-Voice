@@ -370,6 +370,7 @@ div.prof-info ul li span.sell { color: #ff8c00; }
 
 /*** FORM ***/
 .form { border-top: 6px solid #971e21; background: url("images/30-gray.png") repeat; /* #dfdfd8; */ padding: 25px 28px 34px 29px; color: #676767; }
+.form-normal { padding: 25px 28px 34px 29px; color: #676767; }
 .form label { color: #000; font-size: 12px; float: left; width: 116px; cursor: pointer; }
 .form input[type=text], .form input[type=password], .form input[type=email] { border: 1px solid #971e21; background: #fff; height: 28px; min-width: 160px; max-width: 274px; outline: none; width: 100%; }
 .form select { border: 1px solid #971e21; background: #fff; height: 28px; outline: none; }
@@ -566,6 +567,7 @@ a.deny, a.deny:link, a.deny:visited { width: 18px; height: 17px; background:url(
 header ul.nav li.has-sub-account { background:url(images/arrow-down.png) no-repeat 50px 12px; }
 ul.notification li.organization { background:url(images/organization.png) no-repeat left center; }
 ul.notification li.minilogo { background:url(images/minilogo.png) no-repeat left center; }
+ul.notification li.class { background:url(images/case.png) no-repeat left center; }
 ul.notification li.board { background:url(images/board.png) no-repeat left center; }
 
 a.check, a.check:link, a.check:visited { padding: 2px 0px 2px 26px; background:url(images/check.png) no-repeat center left; text-decoration: underline; color: #fff; }
@@ -574,3 +576,11 @@ div.board { border-bottom: 1px solid #e5e5e5; padding-bottom: 5px; margin-top: 5
 div.prfl { margin-bottom: 5px; }
 div.prof-info ul li span.buy { color: #2673ff; }
 span.board { padding: 2px 0px 2px 28px; background:url(images/board.png) no-repeat center left; text-transform: uppercase; }
+
+.form span.empty-indent { color: #000; font-size: 12px; float: left; width: 116px; cursor: pointer; }
+.form-normal { padding: 25px 30% 34px 30%; color: #676767; }
+.form-normal label { color: #000; font-size: 12px; float: left; width: 116px; cursor: pointer; }
+.form-normal span.empty-indent { color: #000; font-size: 12px; float: left; width: 116px; cursor: pointer; }
+.form-normal input[type=text], .form-normal input[type=password], .form-normal input[type=email] { border: 1px solid #971e21; background: #fff; height: 28px; min-width: 160px; max-width: 274px; outline: none; width: 100%; }
+.form-normal select { border: 1px solid #971e21; background: #fff; height: 28px; outline: none; }
+.form-normal div.input { margin-bottom: 23px; }

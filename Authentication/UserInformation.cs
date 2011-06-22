@@ -3,6 +3,7 @@ using Social.Authentication.Helpers;
 using Social.Generic.Models;
 using Social.Users.Services;
 using System;
+using System.Web.Security;
 
 namespace Social.Authentication {
     public class UserInformation<T, U> : IUserInformation<T, U> {
@@ -32,11 +33,12 @@ namespace Social.Authentication {
             if (theUserInformationModel == null) {
                  theUserInformationModel = theGetUserStrategy.GetUserInformationModel(myResult);
             }
+            /*
             string myIpAddress = theHttpContext.Request.UserHostAddress;
             if (theUserInformationModel != null && !theAlreadyLoggedTime) {
                 theUserInformationModel = UpdateUserOnlineStatus(theUserInformationModel, myIpAddress);
                 theAlreadyLoggedTime = true;
-            }
+            }*/
             return theUserInformationModel;
         }
 
@@ -44,7 +46,8 @@ namespace Social.Authentication {
             try {
                 if (!theWhoIsOnlineService.IsOnline(myUserInformationModel.Details, ipAddress)) {
                     theHttpContext.Session.Clear();
-                    myUserInformationModel = null;
+                    //myUserInformationModel = null;
+                    FormsAuthentication.SignOut();
                 }
             } catch {
                 myUserInformationModel = null;

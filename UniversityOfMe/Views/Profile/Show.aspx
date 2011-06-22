@@ -21,8 +21,9 @@
 			<input type="search" name="search" id="search" /> 
 			<span class="corner"></span> 
 		</div> 
- 
-		<img src="<%= PhotoHelper.OriginalProfilePicture(Model) %>" class="mt34 mb15" alt="Anca Foster" /> 
+        <div class="imagedisplay">
+    		<img src="<%= PhotoHelper.OriginalProfilePicture(Model) %>" class="mt34 mb15" alt="Anca Foster" /> 
+        </div>  
 		<div class="prof-info"> 
 			<p><label>Name:</label><%=NameHelper.FullName(Model) %></p> 
 			<p><label>Birthdate:</label><%= String.Format("{0:dd MMM yyyy}", Model.DateOfBirth) %></p> 
@@ -88,7 +89,7 @@
 								    <%= DateHelper.ToLocalTime(myBoard.DateTimeStamp, "{0:MMMM dd, yyyy h:mm tt}")%>
 							    </span> 
 						    </div> 
-						    <%= NameHelper.FullName(Model) %>
+						    <%= NameHelper.FullName(myBoard.PostedByUser)%>
 					    </div> 
 					    <%= myBoard.Message %>
 					    <div class="create clearfix"> 
