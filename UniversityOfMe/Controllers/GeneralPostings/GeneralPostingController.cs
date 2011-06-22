@@ -21,6 +21,10 @@ using UniversityOfMe.UserInformation;
 namespace UniversityOfMe.Controllers.GeneralPostings {
     public class GeneralPostingController : UOFMeBaseController {
         private const string NO_GENERAL_POSTING = "There are no general postings yet.";
+        private const string SUBSCRIBED = "You have been subscribed to the general posting! You will now receive notifications when there are new replies.";
+        private const string UNSUBSCRIBED = "You have been unsubscribed from the general posting and won't receive anymore notifications.";
+        private const string UNSUBSCRIBED_ERROR = "An error occurred while unsubscribing you. Please try again.";
+        private const string SUBSCRIBED_ERROR = "An error occurred while subscribing you. Please try again.";
         
         IGeneralPostingService theGeneralPostingService;
         IValidationDictionary theValidationDictionary;
@@ -101,8 +105,9 @@ namespace UniversityOfMe.Controllers.GeneralPostings {
                 return RedirectToLogin();
             }
             try {
-                LoggedInWrapperModel<GeneralPosting> myLoggedInModel = new LoggedInWrapperModel<GeneralPosting>(GetUserInformatonModel().Details);
-                GeneralPosting myGeneralPosting = theGeneralPostingService.GetGeneralPosting(id);
+                UserInformationModel<User> myGeneralInformation = GetUserInformatonModel();
+                LoggedInWrapperModel<GeneralPosting> myLoggedInModel = new LoggedInWrapperModel<GeneralPosting>(myGeneralInformation.Details);
+                GeneralPosting myGeneralPosting = theGeneralPostingService.GetGeneralPosting(myGeneralInformation, id);
                 myLoggedInModel.Set(myGeneralPosting);
 
                 return View("Details", myLoggedInModel);
@@ -110,6 +115,42 @@ namespace UniversityOfMe.Controllers.GeneralPostings {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
                 return SendToResultPage(ErrorKeys.ERROR_MESSAGE);
             }
+        }
+
+        [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
+        public ActionResult Unsubscribe(int id) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            try {
+                theGeneralPostingService.Unsubscribe(GetUserInformatonModel(), id);
+
+                TempData["Message"] = MessageHelper.SuccessMessage(UNSUBSCRIBED);
+
+            } catch (Exception myException) {
+                LogError(myException, UNSUBSCRIBED_ERROR);
+                TempData["Message"] = MessageHelper.ErrorMessage(UNSUBSCRIBED_ERROR);
+            }
+
+            return RedirectToAction("Details", new { id = id });
+        }
+
+        [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
+        public ActionResult Subscribe(int id) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            try {
+                theGeneralPostingService.Subscribe(GetUserInformatonModel(), id);
+
+                TempData["Message"] = MessageHelper.SuccessMessage(SUBSCRIBED);
+
+            } catch (Exception myException) {
+                LogError(myException, UNSUBSCRIBED_ERROR);
+                TempData["Message"] = MessageHelper.ErrorMessage(SUBSCRIBED_ERROR);
+            }
+
+            return RedirectToAction("Details", new { id = id });
         }
     }
 }

@@ -137,7 +137,7 @@
 						<li> 
 							<a class="itemlinked" href="/<%= myGeneralPosting.UniversityId %>/GeneralPosting/Details/<%= myGeneralPosting.Id %>"><%= TextShortener.Shorten(myGeneralPosting.Title, 20) %></a><br />
 							<span class="tiny darkgray">Posts: <%= myGeneralPosting.GeneralPostingReplies.Count %></span><br /> 
-							<span class="tiny darkgray">Last post: <%= DateHelper.ToLocalTime(myGeneralPosting.GeneralPostingReplies.OrderByDescending(gp => gp.DateTimeStamp).First().DateTimeStamp) %></span> 
+							<span class="tiny darkgray">Last post: <%= myGeneralPosting.GeneralPostingReplies.Count != 0 ? DateHelper.ToLocalTime(myGeneralPosting.GeneralPostingReplies.OrderByDescending(gp => gp.DateTimeStamp).First().DateTimeStamp) : DateHelper.ToLocalTime(myGeneralPosting.DateTimeStamp) %></span> 
 						</li>
                     <% } %>
 				</ul> 

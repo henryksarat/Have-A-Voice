@@ -26,13 +26,14 @@ namespace UniversityOfMe.Services.Notifications {
             IEnumerable<BoardViewedState> myBoardViewedStates = theNotificationRepository.GetBoardViewedStates(aUser);
             IEnumerable<ClubMember> myClubMembersNotViewedBoard = theNotificationRepository.GetClubMembersNotViewedBoared(aUser);
             IEnumerable<ClassEnrollment> myClassEnrollmentsNotViewedBoard = theNotificationRepository.GetClassEnrollmentsNotViewedBoard(aUser);
-
+            IEnumerable<GeneralPostingViewState> myGeneralPostingViewStates = theNotificationRepository.GetGeneralPostingsNotViewed(aUser);
 
             List<NotificationModel> myNotifications = ConvertToNotificationModel(mySentItems);
             myNotifications.AddRange(ConvertToNotificationModel(myPendingClubMembers));
             myNotifications.AddRange(ConvertToNotificationModel(aUser, myBoardViewedStates));
             myNotifications.AddRange(ConvertToNotificationModelForNotViewedBoard(myClubMembersNotViewedBoard));
             myNotifications.AddRange(ConvertToNotificationModel(myClassEnrollmentsNotViewedBoard));
+            myNotifications.AddRange(ConvertToNotificationModel(myGeneralPostingViewStates));
 
             if (myNotifications.Count == 0) {
                 myNotifications.Add(NoNotifications());
@@ -94,7 +95,7 @@ namespace UniversityOfMe.Services.Notifications {
                 myNotificationModel.Add(new NotificationModel() {
                     NotificationType = NotificationType.Board,
                     Board = myBoardViewedState.Board,
-                    IsMyBoard = myBoard.OwnerUserId == anOwnerUser.Id,
+                    IsMine = myBoard.OwnerUserId == anOwnerUser.Id,
                     DateTimeSent = myBoardViewedState.DateTimeStamp
                 });
             }
@@ -110,6 +111,21 @@ namespace UniversityOfMe.Services.Notifications {
                     NotificationType = NotificationType.ClassBoard,
                     Class = myClassEnrollment.Class,
                     DateTimeSent = myClassEnrollment.DateTimeStamp
+                });
+            }
+
+            return myNotificationModel;
+        }
+
+        private List<NotificationModel> ConvertToNotificationModel(IEnumerable<GeneralPostingViewState> aViewStates) {
+            List<NotificationModel> myNotificationModel = new List<NotificationModel>();
+
+            foreach (GeneralPostingViewState myViewState in aViewStates) {
+                myNotificationModel.Add(new NotificationModel() {
+                    NotificationType = NotificationType.GeneralPosting,
+                    GeneralPosting = myViewState.GeneralPosting,
+                    IsMine = myViewState.GeneralPosting.UserId == myViewState.UserId,
+                    DateTimeSent = myViewState.DateTimeStamp
                 });
             }
 

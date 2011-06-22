@@ -567,6 +567,7 @@ a.deny, a.deny:link, a.deny:visited { width: 18px; height: 17px; background:url(
 header ul.nav li.has-sub-account { background:url(images/arrow-down.png) no-repeat 50px 12px; }
 ul.notification li.organization { background:url(images/organization.png) no-repeat left center; }
 ul.notification li.minilogo { background:url(images/minilogo.png) no-repeat left center; }
+ul.notification li.posting { background:url(images/paper.png) no-repeat left center; }
 ul.notification li.class { background:url(images/case.png) no-repeat left center; }
 ul.notification li.board { background:url(images/board.png) no-repeat left center; }
 

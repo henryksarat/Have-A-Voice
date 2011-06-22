@@ -23,7 +23,6 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserPrivacySettings_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "UserPrivacySetting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserPrivacySetting), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserRoles_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "UserRole", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserRole), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_WhoIsOnline_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "WhoIsOnline", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.WhoIsOnline), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ErrorLog_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ErrorLog", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ErrorLog), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_RolePermissions_Permissions", "Permission", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Permission), "RolePermission", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.RolePermission), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_PrivacySettings_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "PrivacySetting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.PrivacySetting), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserPrivacySettings_PrivacySettings", "PrivacySetting", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.PrivacySetting), "UserPrivacySetting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserPrivacySetting), true)]
@@ -98,6 +97,9 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_FeaturesEnabled_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "FeaturesEnabled", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.FeaturesEnabled), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Clubs_LastEditedByUser", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(UniversityOfMe.Models.User), "Club", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Club), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Users_RelationshipStatus", "RelationshipStatu", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(UniversityOfMe.Models.RelationshipStatu), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.User), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_GeneralPostingViewStates_GeneralPostings", "GeneralPosting", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.GeneralPosting), "GeneralPostingViewState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.GeneralPostingViewState), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_GeneralPostingViewStates_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "GeneralPostingViewState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.GeneralPostingViewState), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ErrorLog_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(UniversityOfMe.Models.User), "ErrorLog", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ErrorLog), true)]
 
 #endregion
 
@@ -244,22 +246,6 @@ namespace UniversityOfMe.Models
             }
         }
         private ObjectSet<WhoIsOnline> _WhoIsOnlines;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<ErrorLog> ErrorLogs
-        {
-            get
-            {
-                if ((_ErrorLogs == null))
-                {
-                    _ErrorLogs = base.CreateObjectSet<ErrorLog>("ErrorLogs");
-                }
-                return _ErrorLogs;
-            }
-        }
-        private ObjectSet<ErrorLog> _ErrorLogs;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -884,6 +870,38 @@ namespace UniversityOfMe.Models
             }
         }
         private ObjectSet<RelationshipStatu> _RelationshipStatus;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<GeneralPostingViewState> GeneralPostingViewStates
+        {
+            get
+            {
+                if ((_GeneralPostingViewStates == null))
+                {
+                    _GeneralPostingViewStates = base.CreateObjectSet<GeneralPostingViewState>("GeneralPostingViewStates");
+                }
+                return _GeneralPostingViewStates;
+            }
+        }
+        private ObjectSet<GeneralPostingViewState> _GeneralPostingViewStates;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ErrorLog> ErrorLogs
+        {
+            get
+            {
+                if ((_ErrorLogs == null))
+                {
+                    _ErrorLogs = base.CreateObjectSet<ErrorLog>("ErrorLogs");
+                }
+                return _ErrorLogs;
+            }
+        }
+        private ObjectSet<ErrorLog> _ErrorLogs;
 
         #endregion
         #region AddTo Methods
@@ -934,14 +952,6 @@ namespace UniversityOfMe.Models
         public void AddToWhoIsOnlines(WhoIsOnline whoIsOnline)
         {
             base.AddObject("WhoIsOnlines", whoIsOnline);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the ErrorLogs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToErrorLogs(ErrorLog errorLog)
-        {
-            base.AddObject("ErrorLogs", errorLog);
         }
     
         /// <summary>
@@ -1254,6 +1264,22 @@ namespace UniversityOfMe.Models
         public void AddToRelationshipStatus(RelationshipStatu relationshipStatu)
         {
             base.AddObject("RelationshipStatus", relationshipStatu);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the GeneralPostingViewStates EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToGeneralPostingViewStates(GeneralPostingViewState generalPostingViewState)
+        {
+            base.AddObject("GeneralPostingViewStates", generalPostingViewState);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ErrorLogs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToErrorLogs(ErrorLog errorLog)
+        {
+            base.AddObject("ErrorLogs", errorLog);
         }
 
         #endregion
@@ -5943,17 +5969,15 @@ namespace UniversityOfMe.Models
         /// <param name="exception">Initial value of the Exception property.</param>
         /// <param name="innerException">Initial value of the InnerException property.</param>
         /// <param name="stackTrace">Initial value of the StackTrace property.</param>
-        /// <param name="userId">Initial value of the UserId property.</param>
         /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
         /// <param name="details">Initial value of the Details property.</param>
-        public static ErrorLog CreateErrorLog(global::System.Int32 id, global::System.String exception, global::System.String innerException, global::System.String stackTrace, global::System.Int32 userId, global::System.DateTime dateTimeStamp, global::System.String details)
+        public static ErrorLog CreateErrorLog(global::System.Int32 id, global::System.String exception, global::System.String innerException, global::System.String stackTrace, global::System.DateTime dateTimeStamp, global::System.String details)
         {
             ErrorLog errorLog = new ErrorLog();
             errorLog.Id = id;
             errorLog.Exception = exception;
             errorLog.InnerException = innerException;
             errorLog.StackTrace = stackTrace;
-            errorLog.UserId = userId;
             errorLog.DateTimeStamp = dateTimeStamp;
             errorLog.Details = details;
             return errorLog;
@@ -6064,9 +6088,9 @@ namespace UniversityOfMe.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Int32 UserId
+        public Nullable<global::System.Int32> UserId
         {
             get
             {
@@ -6081,8 +6105,8 @@ namespace UniversityOfMe.Models
                 OnUserIdChanged();
             }
         }
-        private global::System.Int32 _UserId;
-        partial void OnUserIdChanging(global::System.Int32 value);
+        private Nullable<global::System.Int32> _UserId;
+        partial void OnUserIdChanging(Nullable<global::System.Int32> value);
         partial void OnUserIdChanged();
     
         /// <summary>
@@ -7668,6 +7692,28 @@ namespace UniversityOfMe.Models
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_GeneralPostingViewStates_GeneralPostings", "GeneralPostingViewState")]
+        public EntityCollection<GeneralPostingViewState> GeneralPostingViewStates
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<GeneralPostingViewState>("UniversityOfMeModel.FK_GeneralPostingViewStates_GeneralPostings", "GeneralPostingViewState");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<GeneralPostingViewState>("UniversityOfMeModel.FK_GeneralPostingViewStates_GeneralPostings", "GeneralPostingViewState", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -7903,6 +7949,270 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_GeneralPostingReplies_Users", "User", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="GeneralPostingViewState")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class GeneralPostingViewState : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new GeneralPostingViewState object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="generalPostingId">Initial value of the GeneralPostingId property.</param>
+        /// <param name="viewed">Initial value of the Viewed property.</param>
+        /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
+        /// <param name="unsubscribe">Initial value of the Unsubscribe property.</param>
+        public static GeneralPostingViewState CreateGeneralPostingViewState(global::System.Int32 id, global::System.Int32 userId, global::System.Int32 generalPostingId, global::System.Boolean viewed, global::System.DateTime dateTimeStamp, global::System.Boolean unsubscribe)
+        {
+            GeneralPostingViewState generalPostingViewState = new GeneralPostingViewState();
+            generalPostingViewState.Id = id;
+            generalPostingViewState.UserId = userId;
+            generalPostingViewState.GeneralPostingId = generalPostingId;
+            generalPostingViewState.Viewed = viewed;
+            generalPostingViewState.DateTimeStamp = dateTimeStamp;
+            generalPostingViewState.Unsubscribe = unsubscribe;
+            return generalPostingViewState;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
+            }
+        }
+        private global::System.Int32 _UserId;
+        partial void OnUserIdChanging(global::System.Int32 value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 GeneralPostingId
+        {
+            get
+            {
+                return _GeneralPostingId;
+            }
+            set
+            {
+                OnGeneralPostingIdChanging(value);
+                ReportPropertyChanging("GeneralPostingId");
+                _GeneralPostingId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("GeneralPostingId");
+                OnGeneralPostingIdChanged();
+            }
+        }
+        private global::System.Int32 _GeneralPostingId;
+        partial void OnGeneralPostingIdChanging(global::System.Int32 value);
+        partial void OnGeneralPostingIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Viewed
+        {
+            get
+            {
+                return _Viewed;
+            }
+            set
+            {
+                OnViewedChanging(value);
+                ReportPropertyChanging("Viewed");
+                _Viewed = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Viewed");
+                OnViewedChanged();
+            }
+        }
+        private global::System.Boolean _Viewed;
+        partial void OnViewedChanging(global::System.Boolean value);
+        partial void OnViewedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateTimeStamp
+        {
+            get
+            {
+                return _DateTimeStamp;
+            }
+            set
+            {
+                OnDateTimeStampChanging(value);
+                ReportPropertyChanging("DateTimeStamp");
+                _DateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateTimeStamp");
+                OnDateTimeStampChanged();
+            }
+        }
+        private global::System.DateTime _DateTimeStamp;
+        partial void OnDateTimeStampChanging(global::System.DateTime value);
+        partial void OnDateTimeStampChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Unsubscribe
+        {
+            get
+            {
+                return _Unsubscribe;
+            }
+            set
+            {
+                OnUnsubscribeChanging(value);
+                ReportPropertyChanging("Unsubscribe");
+                _Unsubscribe = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Unsubscribe");
+                OnUnsubscribeChanged();
+            }
+        }
+        private global::System.Boolean _Unsubscribe;
+        partial void OnUnsubscribeChanging(global::System.Boolean value);
+        partial void OnUnsubscribeChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_GeneralPostingViewStates_GeneralPostings", "GeneralPosting")]
+        public GeneralPosting GeneralPosting
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<GeneralPosting>("UniversityOfMeModel.FK_GeneralPostingViewStates_GeneralPostings", "GeneralPosting").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<GeneralPosting>("UniversityOfMeModel.FK_GeneralPostingViewStates_GeneralPostings", "GeneralPosting").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<GeneralPosting> GeneralPostingReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<GeneralPosting>("UniversityOfMeModel.FK_GeneralPostingViewStates_GeneralPostings", "GeneralPosting");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<GeneralPosting>("UniversityOfMeModel.FK_GeneralPostingViewStates_GeneralPostings", "GeneralPosting", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_GeneralPostingViewStates_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_GeneralPostingViewStates_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_GeneralPostingViewStates_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_GeneralPostingViewStates_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_GeneralPostingViewStates_Users", "User", value);
                 }
             }
         }
@@ -13323,28 +13633,6 @@ namespace UniversityOfMe.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ErrorLog_Users", "ErrorLog")]
-        public EntityCollection<ErrorLog> ErrorLogs
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ErrorLog>("UniversityOfMeModel.FK_ErrorLog_Users", "ErrorLog");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ErrorLog>("UniversityOfMeModel.FK_ErrorLog_Users", "ErrorLog", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_PrivacySettings_Users", "PrivacySetting")]
         public EntityCollection<PrivacySetting> PrivacySettings
         {
@@ -14275,6 +14563,50 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<RelationshipStatu>("UniversityOfMeModel.FK_Users_RelationshipStatus", "RelationshipStatu", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_GeneralPostingViewStates_Users", "GeneralPostingViewState")]
+        public EntityCollection<GeneralPostingViewState> GeneralPostingViewStates
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<GeneralPostingViewState>("UniversityOfMeModel.FK_GeneralPostingViewStates_Users", "GeneralPostingViewState");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<GeneralPostingViewState>("UniversityOfMeModel.FK_GeneralPostingViewStates_Users", "GeneralPostingViewState", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ErrorLog_Users", "ErrorLog")]
+        public EntityCollection<ErrorLog> ErrorLogs
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ErrorLog>("UniversityOfMeModel.FK_ErrorLog_Users", "ErrorLog");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ErrorLog>("UniversityOfMeModel.FK_ErrorLog_Users", "ErrorLog", value);
                 }
             }
         }

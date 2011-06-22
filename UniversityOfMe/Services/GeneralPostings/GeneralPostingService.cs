@@ -37,12 +37,21 @@ namespace UniversityOfMe.Services.GeneralPostings {
             return true;
         }
 
-        public GeneralPosting GetGeneralPosting(int aGeneralPostingId) {
+        public GeneralPosting GetGeneralPosting(UserInformationModel<User> aUserInformationModel, int aGeneralPostingId) {
+            theGeneralPostingRepository.MarkGeneralPostingAsView(aUserInformationModel.Details, aGeneralPostingId);
             return theGeneralPostingRepository.GetGeneralPosting(aGeneralPostingId);
         }
 
         public IEnumerable<GeneralPosting> GetGeneralPostingsForUniversity(string aUniversityId) {
             return theGeneralPostingRepository.GetGeneralPostingsForUniversity(aUniversityId);
+        }
+
+        public void Subscribe(UserInformationModel<User> aUser, int aGeneralPostingId) {
+            theGeneralPostingRepository.Subscribe(aUser.Details, aGeneralPostingId);
+        }
+
+        public void Unsubscribe(UserInformationModel<User> aUser, int aGeneralPostingId) {
+            theGeneralPostingRepository.Unsubscribe(aUser.Details, aGeneralPostingId);
         }
 
         private bool ValidGeneralPosting(string aUniversity, string aTitle, string aBody) {

@@ -59,7 +59,7 @@ namespace Social.User.Services {
                     theUserRepo.DeleteUser(aUserToCreate.Model);
                     throw myException;
                 }
-                throw new EmailException("Couldn't send aEmail.", myEmailException);
+                throw new EmailException(myEmailException.InnerException.Message, myEmailException);
             }
 
             return true;
@@ -88,7 +88,7 @@ namespace Social.User.Services {
             try {
                 theEmailService.SendEmail(aUser.Email, anActivationSubject, anActivationBody + myUrl);
             } catch (Exception e) {
-                throw new EmailException("Couldn't send aEmail.", e);
+                throw new EmailException(e.InnerException.Message, e);
             }
         }
 

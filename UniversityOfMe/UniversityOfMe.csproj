@@ -128,6 +128,7 @@
     <Compile Include="Helpers\Features.cs" />
     <Compile Include="Helpers\FriendHelper.cs" />
     <Compile Include="Helpers\Functionality\ClubHelper.cs" />
+    <Compile Include="Helpers\Functionality\GeneralPostingHelper.cs" />
     <Compile Include="Helpers\Functionality\UserFeed.cs" />
     <Compile Include="Helpers\GetUserStrategy.cs" />
     <Compile Include="Helpers\MessageHelper.cs" />

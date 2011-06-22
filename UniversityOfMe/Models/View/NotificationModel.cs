@@ -10,7 +10,8 @@ namespace UniversityOfMe.Models.View {
         public Class Class { get; set; }
         public Club Club { get; set; }
         public Board Board { get; set; }
-        public bool IsMyBoard { get; set; }
+        public GeneralPosting GeneralPosting { get; set; }
+        public bool IsMine { get; set; }
         public User ClubMemberUser { get; set; }
         public SendItemOptions SendItem { get; set; }
         public User WhoSent { get; set; }

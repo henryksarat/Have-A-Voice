@@ -12,12 +12,36 @@ namespace UniversityOfMe.Repositories.Classes {
             GeneralPosting myGeneralPosting = GeneralPosting.CreateGeneralPosting(0, aCreatedByUser.Id, aUniversityId, aTitle, aBody, DateTime.UtcNow);
             theEntities.AddToGeneralPostings(myGeneralPosting);
             theEntities.SaveChanges();
+
+            GeneralPostingViewState myViewState = GeneralPostingViewState.CreateGeneralPostingViewState(0, aCreatedByUser.Id, myGeneralPosting.Id, true, DateTime.UtcNow, false);
+            theEntities.AddToGeneralPostingViewStates(myViewState);
+            theEntities.SaveChanges();
+
             return myGeneralPosting;
         }
 
         public void CreateGeneralPostingReply(User aPostedByUser, int aGeneralPostingId, string aReply) {
-            GeneralPostingReply myGeneralPosting = GeneralPostingReply.CreateGeneralPostingReply(0, aGeneralPostingId, aPostedByUser.Id, aReply, DateTime.UtcNow);
+            DateTime myDateTime = DateTime.UtcNow;
+
+            GeneralPostingReply myGeneralPosting = GeneralPostingReply.CreateGeneralPostingReply(0, aGeneralPostingId, aPostedByUser.Id, aReply, myDateTime);
             theEntities.AddToGeneralPostingReplies(myGeneralPosting);
+
+            GeneralPostingViewState myViewState = GetGeneralPostingViewState(aPostedByUser.Id, aGeneralPostingId);
+            if (myViewState == null) {
+                myViewState = GeneralPostingViewState.CreateGeneralPostingViewState(0, aPostedByUser.Id, aGeneralPostingId, true, myDateTime, false);
+                theEntities.AddToGeneralPostingViewStates(myViewState);
+            } else {
+                myViewState.Viewed = true;
+                myViewState.DateTimeStamp = myDateTime;
+            }
+
+            IEnumerable<GeneralPostingViewState> myViewStates = GetViewStatesExceptForPostingUser(aPostedByUser, aGeneralPostingId);
+
+            foreach (GeneralPostingViewState myLocalViewState in myViewStates) {
+                myLocalViewState.Viewed = false;
+                myLocalViewState.DateTimeStamp = myDateTime;
+            }
+
             theEntities.SaveChanges();
         }
 
@@ -31,6 +55,48 @@ namespace UniversityOfMe.Repositories.Classes {
             return (from g in theEntities.GeneralPostings
                     where g.UniversityId == aUniversityId
                     select g).ToList<GeneralPosting>();
+        }
+
+        public void MarkGeneralPostingAsView(User aUser, int aGeneralPostingId) {
+            GeneralPostingViewState myViewState = GetGeneralPostingViewState(aUser.Id, aGeneralPostingId);
+            if (myViewState != null) {
+                myViewState.Viewed = true;
+                theEntities.SaveChanges();
+            }
+        }
+
+        public void Subscribe(User aUser, int aGeneralPostingId) {
+            GeneralPostingViewState myViewState = GetGeneralPostingViewState(aUser.Id, aGeneralPostingId);
+            if (myViewState == null) {
+                myViewState = GeneralPostingViewState.CreateGeneralPostingViewState(0, aUser.Id, aGeneralPostingId, true, DateTime.UtcNow, false);
+                theEntities.AddToGeneralPostingViewStates(myViewState);
+            } else {
+                myViewState.Unsubscribe = false;
+            }
+
+            theEntities.SaveChanges();
+        }
+
+        public void Unsubscribe(User aUser, int aGeneralPostingId) {
+            GeneralPostingViewState myViewState = GetGeneralPostingViewState(aUser.Id, aGeneralPostingId);
+            myViewState.Unsubscribe = true;
+            theEntities.SaveChanges();
+        }
+
+        private GeneralPostingViewState GetGeneralPostingViewState(int aUserId, int aGeneralPostingId) {
+            return (from v in theEntities.GeneralPostingViewStates
+                    where v.UserId == aUserId
+                    && v.GeneralPostingId == aGeneralPostingId
+                    && !v.Unsubscribe
+                    select v).FirstOrDefault<GeneralPostingViewState>();
+        }
+
+        private IEnumerable<GeneralPostingViewState> GetViewStatesExceptForPostingUser(User aPostingUser, int aGeneralPostingId) {
+            return (from v in theEntities.GeneralPostingViewStates
+                    where v.UserId != aPostingUser.Id
+                    && v.GeneralPostingId == aGeneralPostingId
+                    && !v.Unsubscribe
+                    select v);
         }
     }
 }

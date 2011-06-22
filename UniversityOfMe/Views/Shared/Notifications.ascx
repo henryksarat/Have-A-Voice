@@ -44,13 +44,22 @@
 			</li>             
         <% } else if (myNotificationModel.NotificationType == NotificationType.Board) { %>
 			<li class="board"> 
-                <% if (myNotificationModel.IsMyBoard) { %>
+                <% if (myNotificationModel.IsMine) { %>
 				    <a href="<%= URLHelper.ProfileUrl(myNotificationModel.Board.PostedByUser) %>">
                         <%= NameHelper.FullName(myNotificationModel.Board.PostedByUser) %>
                     </a>
                     posted a new <a href="<%= URLHelper.BoardDetailsUrl(myNotificationModel.Board) %>">board message</a>.
                 <% } else { %>
                     New post to the board <a href="<%= URLHelper.BoardDetailsUrl(myNotificationModel.Board) %>"><%= TextShortener.Shorten(myNotificationModel.Board.Message, 20)%></a>
+                <% } %>
+				<span class="time"><%= DateHelper.ToLocalTime(myNotificationModel.DateTimeSent) %></span> 
+			</li> 
+        <% } else if (myNotificationModel.NotificationType == NotificationType.GeneralPosting) { %>
+			<li class="posting"> 
+                <% if (myNotificationModel.IsMine) { %>
+                    There is a new reply to your <a href="<%= URLHelper.BuildGeneralPostingsUrl(myNotificationModel.GeneralPosting) %>">general posting</a>.
+                <% } else { %>
+                    New reply to a <a href="<%= URLHelper.BuildGeneralPostingsUrl(myNotificationModel.GeneralPosting) %>">general posting</a> you are participating in.
                 <% } %>
 				<span class="time"><%= DateHelper.ToLocalTime(myNotificationModel.DateTimeSent) %></span> 
 			</li> 

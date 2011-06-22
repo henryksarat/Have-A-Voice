@@ -1,7 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInWrapperModel<GeneralPosting>>" %>
 <%@ Import Namespace="UniversityOfMe.Helpers" %>
+<%@ Import Namespace="UniversityOfMe.Helpers.Functionality" %>
 <%@ Import Namespace="UniversityOfMe.Models" %>
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
+<%@ Import Namespace="UniversityOfMe.UserInformation" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Details
@@ -18,10 +20,16 @@
 	    <div class="banner black full red-top small"> 
 		    <span class="post"> 
 			    GENERAL POSTING: <%= Model.Get().Title %>
-			    <span class="user">by <%= NameHelper.FullName(Model.Get().User) %></span> 
+			    <span class="user">by <%= NameHelper.FullName(Model.Get().User) %> on <%= DateHelper.ToLocalTime(Model.Get().DateTimeStamp) %></span> 
 		    </span> 
 		    <div class="buttons"> 
-			    <%= DateHelper.ToLocalTime(Model.Get().DateTimeStamp) %>
+                <div class="flft mr13"> 
+                    <% if(GeneralPostingHelper.IsSubscribed(UserInformationFactory.GetUserInformation().Details, Model.Get())) { %>
+                        <%= Html.ActionLink("Unsubscribe", "Unsubscribe", "GeneralPosting", new { id = Model.Get().Id }, new { @class = "remove" })%>
+                    <% } else { %>
+                        <%= Html.ActionLink("Subscribe", "Subscribe", "GeneralPosting", new { id = Model.Get().Id }, new { @class = "add" })%>
+                    <% } %>
+                </div>
 		    </div> 
 	    </div> 
 					
@@ -59,7 +67,7 @@
 					        </td> 
 					        <td> 
 						        <div class="red bld">
-                                    <%= NameHelper.FullName(Model.Get().User) %>
+                                    <%= NameHelper.FullName(myReply.User)%>
 								    <span class="gray small nrm"><%= DateHelper.ToLocalTime(myReply.DateTimeStamp) %></span> 
 						        </div> 
 						        <%= myReply.Reply %>

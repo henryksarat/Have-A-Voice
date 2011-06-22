@@ -5,6 +5,7 @@
         Club,
         Board,
         ClubBoard,
-        ClassBoard
+        ClassBoard,
+        GeneralPosting
     }
 }
