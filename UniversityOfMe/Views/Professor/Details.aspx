@@ -160,7 +160,7 @@
 							    <div class="red bld">
 								    <div class="rating">
 									    <%= StarHelper.AveragedFiveStarImages(myReview.Rating, 1)  %>
-									    <span class="gray small nrm"><%= DateHelper.ToLocalTime(myReview.DateTimeStamp) %></span>
+									    <span class="gray small nrm"><%= LocalDateHelper.ToLocalTime(myReview.DateTimeStamp)%></span>
 								    </div>
 								    <% if (!myReview.Anonymous) { %>
                                         <%= NameHelper.FullName(myReview.User) %>

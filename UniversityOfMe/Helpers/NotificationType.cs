@@ -6,6 +6,7 @@
         Board,
         ClubBoard,
         ClassBoard,
-        GeneralPosting
+        GeneralPosting,
+        Event
     }
 }

@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<BaseWebsite.Models.SwitchUserRoles<User, Role>>"  %>
-<%@ Import Namespace="HaveAVoice.Helpers" %>
-<%@ Import Namespace="HaveAVoice.Helpers.UI" %>
-<%@ Import Namespace="HaveAVoice.Models" %>
+<%@ Import Namespace="UniversityOfMe.Helpers" %>
+<%@ Import Namespace="UniversityOfMe.Models" %>
+<%@ Import Namespace="Social.ViewHelpers" %>
 <%@ Import Namespace="Social.Generic" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">

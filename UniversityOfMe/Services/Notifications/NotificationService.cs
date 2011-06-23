@@ -27,6 +27,7 @@ namespace UniversityOfMe.Services.Notifications {
             IEnumerable<ClubMember> myClubMembersNotViewedBoard = theNotificationRepository.GetClubMembersNotViewedBoared(aUser);
             IEnumerable<ClassEnrollment> myClassEnrollmentsNotViewedBoard = theNotificationRepository.GetClassEnrollmentsNotViewedBoard(aUser);
             IEnumerable<GeneralPostingViewState> myGeneralPostingViewStates = theNotificationRepository.GetGeneralPostingsNotViewed(aUser);
+            IEnumerable<EventAttendence> myEventAttendences = theNotificationRepository.GetEventsWithNewBoardPosts(aUser);
 
             List<NotificationModel> myNotifications = ConvertToNotificationModel(mySentItems);
             myNotifications.AddRange(ConvertToNotificationModel(myPendingClubMembers));
@@ -34,6 +35,7 @@ namespace UniversityOfMe.Services.Notifications {
             myNotifications.AddRange(ConvertToNotificationModelForNotViewedBoard(myClubMembersNotViewedBoard));
             myNotifications.AddRange(ConvertToNotificationModel(myClassEnrollmentsNotViewedBoard));
             myNotifications.AddRange(ConvertToNotificationModel(myGeneralPostingViewStates));
+            myNotifications.AddRange(ConvertToNotificationModel(myEventAttendences));
 
             if (myNotifications.Count == 0) {
                 myNotifications.Add(NoNotifications());
@@ -126,6 +128,20 @@ namespace UniversityOfMe.Services.Notifications {
                     GeneralPosting = myViewState.GeneralPosting,
                     IsMine = myViewState.GeneralPosting.UserId == myViewState.UserId,
                     DateTimeSent = myViewState.DateTimeStamp
+                });
+            }
+
+            return myNotificationModel;
+        }
+
+        private List<NotificationModel> ConvertToNotificationModel(IEnumerable<EventAttendence> aEventAttendences) {
+            List<NotificationModel> myNotificationModel = new List<NotificationModel>();
+
+            foreach (EventAttendence myEventAttendence in aEventAttendences) {
+                myNotificationModel.Add(new NotificationModel() {
+                    NotificationType = NotificationType.Event,
+                    Event = myEventAttendence.Event,
+                    DateTimeSent = (DateTime)myEventAttendence.LastBoardPost
                 });
             }
 

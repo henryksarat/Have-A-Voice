@@ -70,7 +70,7 @@
 								    <a href="<%= URLHelper.ProfileUrl(item.FromUser) %>" class="red"><%= NameHelper.FullName(item.FromUser) %></a> 
 							    </div> 
 							    <div class="flft wp20"> 
-								    <%= DateHelper.ToLocalTime(item.DateTimeStamp) %>
+								    <%= LocalDateHelper.ToLocalTime(item.DateTimeStamp)%>
 							    </div> 
 							    <div class="clearfix"></div> 
 						    </div> 

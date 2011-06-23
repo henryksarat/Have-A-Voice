@@ -35,7 +35,7 @@
 				<%= NameHelper.FullName(Model.Get().FromUser) %>
 			</div>
 			<div class="cell right">
-				<%= DateHelper.ToLocalTime(Model.Get().DateTimeStamp) %>
+				<%= LocalDateHelper.ToLocalTime(Model.Get().DateTimeStamp)%>
 			</div>
 			<div class="clearfix"></div>
 		</div>
@@ -51,7 +51,7 @@
 			    <div class="flft wp80">
 				    <div class="msg-gray bld"><%= Model.User.Id == myReply.ReplyUserId ? "You said" : "They said" %>
 					    <div class="frgt nrm small">
-						    <%= DateHelper.ToLocalTime(myReply.DateTimeStamp) %>
+						    <%= LocalDateHelper.ToLocalTime(myReply.DateTimeStamp)%>
 					    </div>
 				    </div>
 				    <%= myReply.Body %>

@@ -9,7 +9,7 @@
 			<% if (myNotificationModel.SendItem == SendItemOptions.BEER) { %>
                 <li class="beer"> 
 				    <a href="/<%= myNotificationModel.WhoSent.ShortUrl %>"><%= NameHelper.FullName(myNotificationModel.WhoSent) %></a> sent you a beer
-				    <span class="time"><%= DateHelper.ToLocalTime(myNotificationModel.DateTimeSent) %></span> 
+				    <span class="time"><%= LocalDateHelper.ToLocalTime(myNotificationModel.DateTimeSent)%></span> 
 			    </li> 
             <% } else { %>
 			    <li class="friend"> 
@@ -17,7 +17,7 @@
 			    </li> 
 			    <li class="post"> 
 				    <a href="#">Anca Foster</a> replied to <a href="#">your post</a> 
-				    <span class="time"><%= DateHelper.ToLocalTime(myNotificationModel.DateTimeSent) %></span> 
+				    <span class="time"><%= LocalDateHelper.ToLocalTime(myNotificationModel.DateTimeSent) %></span> 
 			    </li> 
 			    <li class="post"> 
 				    <a href="#">Anca Foster</a> replied to <a href="#">your post</a> 
@@ -26,17 +26,17 @@
         <% } else if(myNotificationModel.NotificationType == NotificationType.Club) { %>
 			<li class="organization"> 
 				<a href="<%= URLHelper.ProfileUrl(myNotificationModel.ClubMemberUser) %>"><%= NameHelper.FullName(myNotificationModel.ClubMemberUser) %></a> wants to join <a href="<%= URLHelper.BuildClubUrl(myNotificationModel.Club) %>"><%= myNotificationModel.Club.Name %> </a> 
-				<span class="time"><%= DateHelper.ToLocalTime(myNotificationModel.DateTimeSent) %></span> 
+				<span class="time"><%= LocalDateHelper.ToLocalTime(myNotificationModel.DateTimeSent)%></span> 
 			</li> 
         <% } else if(myNotificationModel.NotificationType == NotificationType.ClubBoard) { %>
 			<li class="organization"> 
 				New club board post in the <a href="<%= URLHelper.BuildClubUrl(myNotificationModel.Club) %>"><%= myNotificationModel.Club.Name %> </a> .
-				<span class="time"><%= DateHelper.ToLocalTime(myNotificationModel.DateTimeSent) %></span> 
+				<span class="time"><%= LocalDateHelper.ToLocalTime(myNotificationModel.DateTimeSent)%></span> 
 			</li> 
         <% } else if(myNotificationModel.NotificationType == NotificationType.ClassBoard) { %>
 			<li class="class"> 
 				New post in your enrolled class <a href="<%= URLHelper.BuildClassDiscussionUrl(myNotificationModel.Class) %>"><%= myNotificationModel.Class.ClassCode%> </a> 
-				<span class="time"><%= DateHelper.ToLocalTime(myNotificationModel.DateTimeSent) %></span> 
+				<span class="time"><%= LocalDateHelper.ToLocalTime(myNotificationModel.DateTimeSent)%></span> 
 			</li> 
         <% } else if (myNotificationModel.NotificationType == NotificationType.None) { %>
 			<li class="minilogo"> 
@@ -52,7 +52,12 @@
                 <% } else { %>
                     New post to the board <a href="<%= URLHelper.BoardDetailsUrl(myNotificationModel.Board) %>"><%= TextShortener.Shorten(myNotificationModel.Board.Message, 20)%></a>
                 <% } %>
-				<span class="time"><%= DateHelper.ToLocalTime(myNotificationModel.DateTimeSent) %></span> 
+				<span class="time"><%= LocalDateHelper.ToLocalTime(myNotificationModel.DateTimeSent)%></span> 
+			</li> 
+        <% } else if(myNotificationModel.NotificationType == NotificationType.Event) { %>
+			<li class="event"> 
+				New post in the event <a href="<%= URLHelper.BuildEventUrl(myNotificationModel.Event) %>"><%= TextShortener.Shorten(myNotificationModel.Event.Title, 20) %> </a> 
+				<span class="time"><%= LocalDateHelper.ToLocalTime(myNotificationModel.DateTimeSent)%></span> 
 			</li> 
         <% } else if (myNotificationModel.NotificationType == NotificationType.GeneralPosting) { %>
 			<li class="posting"> 
@@ -61,7 +66,7 @@
                 <% } else { %>
                     New reply to a <a href="<%= URLHelper.BuildGeneralPostingsUrl(myNotificationModel.GeneralPosting) %>">general posting</a> you are participating in.
                 <% } %>
-				<span class="time"><%= DateHelper.ToLocalTime(myNotificationModel.DateTimeSent) %></span> 
+				<span class="time"><%= LocalDateHelper.ToLocalTime(myNotificationModel.DateTimeSent)%></span> 
 			</li> 
         <% } %>
     <% } %>

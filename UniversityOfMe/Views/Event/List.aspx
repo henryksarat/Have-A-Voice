@@ -39,8 +39,8 @@
                     <tr class="small center">
                 <% } %>
                     <td><a class="itemlinked" href="<%= URLHelper.BuildEventUrl(myEvent) %>"><%= myEvent.Title %></td>
-                    <td><a class="itemlinked" href="<%= URLHelper.BuildEventUrl(myEvent) %>"><%= DateHelper.ToLocalTime(myEvent.StartDate) %></td>
-                    <td><a class="itemlinked" href="<%= URLHelper.BuildEventUrl(myEvent) %>"><%= DateHelper.ToLocalTime(myEvent.EndDate)%></td>
+                    <td><a class="itemlinked" href="<%= URLHelper.BuildEventUrl(myEvent) %>"><%= LocalDateHelper.ToLocalTime(myEvent.StartDate)%></td>
+                    <td><a class="itemlinked" href="<%= URLHelper.BuildEventUrl(myEvent) %>"><%= LocalDateHelper.ToLocalTime(myEvent.EndDate)%></td>
                 </tr>
             <% } %>
 		</table> 		

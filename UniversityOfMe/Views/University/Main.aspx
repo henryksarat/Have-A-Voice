@@ -79,7 +79,7 @@
 						<li> 
 							<a class="itemlinked" href="<%= URLHelper.BuildEventUrl(myEvent) %>"><%= myEvent.Title %></a>
 							<div class="rating darkgray"> 
-								<%= DateHelper.ToLocalTime(myEvent.StartDate) %>
+								<%= LocalDateHelper.ToLocalTime(myEvent.StartDate) %>
 							</div> 
 						</li> 
                     <% } %>
@@ -137,7 +137,7 @@
 						<li> 
 							<a class="itemlinked" href="/<%= myGeneralPosting.UniversityId %>/GeneralPosting/Details/<%= myGeneralPosting.Id %>"><%= TextShortener.Shorten(myGeneralPosting.Title, 20) %></a><br />
 							<span class="tiny darkgray">Posts: <%= myGeneralPosting.GeneralPostingReplies.Count %></span><br /> 
-							<span class="tiny darkgray">Last post: <%= myGeneralPosting.GeneralPostingReplies.Count != 0 ? DateHelper.ToLocalTime(myGeneralPosting.GeneralPostingReplies.OrderByDescending(gp => gp.DateTimeStamp).First().DateTimeStamp) : DateHelper.ToLocalTime(myGeneralPosting.DateTimeStamp) %></span> 
+							<span class="tiny darkgray">Last post: <%= myGeneralPosting.GeneralPostingReplies.Count != 0 ? LocalDateHelper.ToLocalTime(myGeneralPosting.GeneralPostingReplies.OrderByDescending(gp => gp.DateTimeStamp).First().DateTimeStamp) : LocalDateHelper.ToLocalTime(myGeneralPosting.DateTimeStamp)%></span> 
 						</li>
                     <% } %>
 				</ul> 

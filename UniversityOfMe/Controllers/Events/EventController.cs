@@ -27,6 +27,10 @@ namespace UniversityOfMe.Controllers.Events {
         private const string DELETE_ERROR = "Error deleting the event. Please try again.";
         private const string DELETE = "The event has been deleted.";
         private const string NO_EVENT = "No event exists with that id.";
+        private const string ATTENDING = "You've been added to the guest list.";
+        private const string UNATTENDING = "You've been removed from the the guest list.";
+        private const string UNATTENDING_ERROR = "An error occurred while adding you to the guest list. Please try again.";
+        private const string ATTENDING_ERROR = "An error occurred while removing you from the guest list. Please try again.";
 
         IEventService theEventService;
         IValidationDictionary theValidationDictionary;
@@ -96,20 +100,20 @@ namespace UniversityOfMe.Controllers.Events {
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult Details(string universityId, int id) {
             try {
-                User myUser = GetUserInformatonModel().Details;
+                UserInformationModel<User> myUser = GetUserInformatonModel();
 
-                if (!UniversityHelper.IsFromUniversity(myUser, universityId)) {
+                if (!UniversityHelper.IsFromUniversity(myUser.Details, universityId)) {
                     return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
                 }
 
-                Event myEvent = theEventService.GetEvent(universityId, id);
+                Event myEvent = theEventService.GetEvent(myUser, universityId, id);
 
                 if (myEvent == null) {
                     TempData["Message"] = MessageHelper.WarningMessage(NO_EVENT);
                     return RedirectToAction("List");
                 }
 
-                LoggedInWrapperModel<Event> myLoggedIn = new LoggedInWrapperModel<Event>(myUser);
+                LoggedInWrapperModel<Event> myLoggedIn = new LoggedInWrapperModel<Event>(myUser.Details);
                 myLoggedIn.Set(myEvent);
 
                 return View("Details", myLoggedIn);
@@ -229,6 +233,55 @@ namespace UniversityOfMe.Controllers.Events {
                 LogError(myException, GET_EVENTS_ERROR);
                 return SendToErrorPage(GET_EVENTS_ERROR);
             }
+        }
+
+        [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
+        public ActionResult Attend(string universityId, int id) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            try {
+                User myUser = GetUserInformatonModel().Details;
+
+                if (!UniversityHelper.IsFromUniversity(myUser, universityId)) {
+                    return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
+                }
+
+                theEventService.Attend(GetUserInformatonModel(), id);
+
+                TempData["Message"] = MessageHelper.SuccessMessage(ATTENDING);
+
+            } catch (Exception myException) {
+                LogError(myException, ATTENDING_ERROR);
+                TempData["Message"] = MessageHelper.ErrorMessage(ATTENDING_ERROR);
+            }
+
+            return RedirectToAction("Details", new { id = id });
+        }
+
+
+        [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
+        public ActionResult Unattend(string universityId, int id) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            try {
+                User myUser = GetUserInformatonModel().Details;
+
+                if (!UniversityHelper.IsFromUniversity(myUser, universityId)) {
+                    return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
+                }
+
+                theEventService.Unattend(GetUserInformatonModel(), id);
+
+                TempData["Message"] = MessageHelper.SuccessMessage(UNATTENDING);
+
+            } catch (Exception myException) {
+                LogError(myException, UNATTENDING_ERROR);
+                TempData["Message"] = MessageHelper.ErrorMessage(UNATTENDING_ERROR);
+            }
+
+            return RedirectToAction("Details", new { id = id });
         }
     }
 }

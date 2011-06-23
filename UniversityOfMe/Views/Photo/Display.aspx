@@ -65,7 +65,7 @@
 						    <td>
 							    <div class="red bld"><%= NameHelper.FullName(myComment.User) %>
 								    <div class="frgt">
-									    <span class="gray small nrm"><%= DateHelper.ToLocalTime(myComment.DateTimeStamp) %></span>
+									    <span class="gray small nrm"><%= LocalDateHelper.ToLocalTime(myComment.DateTimeStamp)%></span>
 								    </div>
 							    </div>
 							    <%= myComment.Comment %>

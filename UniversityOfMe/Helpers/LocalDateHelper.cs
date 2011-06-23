@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace UniversityOfMe.Helpers {
-    public static class DateHelper {
+    public static class LocalDateHelper {
         private const string TODAY_FORMAT = "{0: hh:mm tt }";
         private const string YESTERDAYS_FORMAT = "{0: hh:mm tt }";
         private const string THIS_WEEK_FORMAT = "{0: dddd hh:mm tt }";

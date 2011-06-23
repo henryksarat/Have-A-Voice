@@ -39,7 +39,7 @@
                     <td><a class="itemlinked" href="<%= URLHelper.BuildClubUrl(myClub) %>"><%= myClub.Name %></td>
                     <td><a class="itemlinked" href="<%= URLHelper.BuildClubUrl(myClub) %>"><%= myClub.ClubMembers.Count %></td>
                     <td><a class="itemlinked" href="<%= URLHelper.BuildClubUrl(myClub) %>"><%= myLastClubBoard == null ? "NA" : TextShortener.Shorten(myLastClubBoard.Message, 20) %></td>
-                    <td><a class="itemlinked" href="<%= URLHelper.BuildClubUrl(myClub) %>"><%= myLastClubBoard == null ? "NA" : DateHelper.ToLocalTime(myLastClubBoard.DateTimeStamp)%></td>
+                    <td><a class="itemlinked" href="<%= URLHelper.BuildClubUrl(myClub) %>"><%= myLastClubBoard == null ? "NA" : LocalDateHelper.ToLocalTime(myLastClubBoard.DateTimeStamp)%></td>
                 </tr>
             <% } %>
 		</table> 		

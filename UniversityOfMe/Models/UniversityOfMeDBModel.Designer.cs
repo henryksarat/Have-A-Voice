@@ -100,6 +100,8 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_GeneralPostingViewStates_GeneralPostings", "GeneralPosting", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.GeneralPosting), "GeneralPostingViewState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.GeneralPostingViewState), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_GeneralPostingViewStates_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "GeneralPostingViewState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.GeneralPostingViewState), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ErrorLog_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(UniversityOfMe.Models.User), "ErrorLog", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ErrorLog), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_EventAttendences_Events", "Event", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Event), "EventAttendence", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.EventAttendence), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_EventAttendences_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "EventAttendence", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.EventAttendence), true)]
 
 #endregion
 
@@ -902,6 +904,22 @@ namespace UniversityOfMe.Models
             }
         }
         private ObjectSet<ErrorLog> _ErrorLogs;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<EventAttendence> EventAttendences
+        {
+            get
+            {
+                if ((_EventAttendences == null))
+                {
+                    _EventAttendences = base.CreateObjectSet<EventAttendence>("EventAttendences");
+                }
+                return _EventAttendences;
+            }
+        }
+        private ObjectSet<EventAttendence> _EventAttendences;
 
         #endregion
         #region AddTo Methods
@@ -1280,6 +1298,14 @@ namespace UniversityOfMe.Models
         public void AddToErrorLogs(ErrorLog errorLog)
         {
             base.AddObject("ErrorLogs", errorLog);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the EventAttendences EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToEventAttendences(EventAttendence eventAttendence)
+        {
+            base.AddObject("EventAttendences", eventAttendence);
         }
 
         #endregion
@@ -6583,6 +6609,264 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EventBoard>("UniversityOfMeModel.FK_EventBoard_Events", "EventBoard", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_EventAttendences_Events", "EventAttendence")]
+        public EntityCollection<EventAttendence> EventAttendences
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<EventAttendence>("UniversityOfMeModel.FK_EventAttendences_Events", "EventAttendence");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EventAttendence>("UniversityOfMeModel.FK_EventAttendences_Events", "EventAttendence", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="EventAttendence")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class EventAttendence : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new EventAttendence object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="eventId">Initial value of the EventId property.</param>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="boardViewed">Initial value of the BoardViewed property.</param>
+        public static EventAttendence CreateEventAttendence(global::System.Int32 id, global::System.Int32 eventId, global::System.Int32 userId, global::System.Boolean boardViewed)
+        {
+            EventAttendence eventAttendence = new EventAttendence();
+            eventAttendence.Id = id;
+            eventAttendence.EventId = eventId;
+            eventAttendence.UserId = userId;
+            eventAttendence.BoardViewed = boardViewed;
+            return eventAttendence;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 EventId
+        {
+            get
+            {
+                return _EventId;
+            }
+            set
+            {
+                OnEventIdChanging(value);
+                ReportPropertyChanging("EventId");
+                _EventId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("EventId");
+                OnEventIdChanged();
+            }
+        }
+        private global::System.Int32 _EventId;
+        partial void OnEventIdChanging(global::System.Int32 value);
+        partial void OnEventIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
+            }
+        }
+        private global::System.Int32 _UserId;
+        partial void OnUserIdChanging(global::System.Int32 value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean BoardViewed
+        {
+            get
+            {
+                return _BoardViewed;
+            }
+            set
+            {
+                OnBoardViewedChanging(value);
+                ReportPropertyChanging("BoardViewed");
+                _BoardViewed = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("BoardViewed");
+                OnBoardViewedChanged();
+            }
+        }
+        private global::System.Boolean _BoardViewed;
+        partial void OnBoardViewedChanging(global::System.Boolean value);
+        partial void OnBoardViewedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> LastBoardPost
+        {
+            get
+            {
+                return _LastBoardPost;
+            }
+            set
+            {
+                OnLastBoardPostChanging(value);
+                ReportPropertyChanging("LastBoardPost");
+                _LastBoardPost = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LastBoardPost");
+                OnLastBoardPostChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _LastBoardPost;
+        partial void OnLastBoardPostChanging(Nullable<global::System.DateTime> value);
+        partial void OnLastBoardPostChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_EventAttendences_Events", "Event")]
+        public Event Event
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Event>("UniversityOfMeModel.FK_EventAttendences_Events", "Event").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Event>("UniversityOfMeModel.FK_EventAttendences_Events", "Event").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Event> EventReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Event>("UniversityOfMeModel.FK_EventAttendences_Events", "Event");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Event>("UniversityOfMeModel.FK_EventAttendences_Events", "Event", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_EventAttendences_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_EventAttendences_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_EventAttendences_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_EventAttendences_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_EventAttendences_Users", "User", value);
                 }
             }
         }
@@ -14607,6 +14891,28 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ErrorLog>("UniversityOfMeModel.FK_ErrorLog_Users", "ErrorLog", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_EventAttendences_Users", "EventAttendence")]
+        public EntityCollection<EventAttendence> EventAttendences
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<EventAttendence>("UniversityOfMeModel.FK_EventAttendences_Users", "EventAttendence");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EventAttendence>("UniversityOfMeModel.FK_EventAttendences_Users", "EventAttendence", value);
                 }
             }
         }

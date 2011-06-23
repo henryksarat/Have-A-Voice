@@ -1,6 +1,6 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<UniversityOfMe.Models.View.RoleViewModel>" %>
 <%@ Import Namespace="UniversityOfMe.Models" %>
-<%@ Import Namespace="HaveAVoice.Helpers.UI" %>
+<%@ Import Namespace="UniversityOfMe.Helpers" %>
 <%@ Import Namespace="Social.Generic" %>
 <%@ Import Namespace="Social.ViewHelpers" %>
 

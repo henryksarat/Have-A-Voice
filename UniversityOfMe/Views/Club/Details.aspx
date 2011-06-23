@@ -90,7 +90,7 @@
                                         <a href="<%= URLHelper.ProfileUrl(myFeed.MemberUser) %>"><%= NameHelper.FullName(myFeed.MemberUser)%></a> 
                                         wants to join this organization. 
                                         <%= Html.ActionLink("Approve/Deny", "Details", "ClubMember", new { clubId = myFeed.ClubId, clubMemberId = myFeed.ClubMemberId }, null)%>
-                                        <span class="feed-time"><%= DateHelper.ToLocalTime((DateTime)myFeed.DateTimeStamp) %></span> 
+                                        <span class="feed-time"><%= LocalDateHelper.ToLocalTime((DateTime)myFeed.DateTimeStamp)%></span> 
                                     </li>
                                 <% } else if(myFeed.Status == Status.Denied) { %>
                                     <li>
@@ -98,7 +98,7 @@
                                         has denied 
                                         <a href="<%= URLHelper.ProfileUrl(myFeed.MemberUser) %>"><%= NameHelper.FullName(myFeed.MemberUser) %></a> 
                                         to join the organization.
-                                        <span class="feed-time"><%= DateHelper.ToLocalTime((DateTime)myFeed.DateTimeStamp) %></span> 
+                                        <span class="feed-time"><%= LocalDateHelper.ToLocalTime((DateTime)myFeed.DateTimeStamp)%></span> 
                                     </li>
                                 <% } else if (myFeed.Status == Status.Approved) { %>
                                     <li>
@@ -106,20 +106,20 @@
                                         has approved 
                                         <a href="<%= URLHelper.ProfileUrl(myFeed.MemberUser) %>"><%= NameHelper.FullName(myFeed.MemberUser)%></a> 
                                         to join the organization.
-                                        <span class="feed-time"><%= DateHelper.ToLocalTime((DateTime)myFeed.DateTimeStamp)%></span> 
+                                        <span class="feed-time"><%= LocalDateHelper.ToLocalTime((DateTime)myFeed.DateTimeStamp)%></span> 
                                     </li>
                                 <% } %>
                             <% } else if(myFeed.FeedType == FeedType.Edited) { %>
                                     <li>
                                         <a href="<%= URLHelper.ProfileUrl(myFeed.AdminUser) %>"><%= NameHelper.FullName(myFeed.AdminUser) %></a> 
                                         has updated the club details. 
-                                        <span class="feed-time"><%= DateHelper.ToLocalTime((DateTime)myFeed.DateTimeStamp) %></span> 
+                                        <span class="feed-time"><%= LocalDateHelper.ToLocalTime((DateTime)myFeed.DateTimeStamp)%></span> 
                                     </li>
                             <% } else if(myFeed.FeedType == FeedType.Deactivated) { %>
                                     <li>
                                         <a href="<%= URLHelper.ProfileUrl(myFeed.AdminUser) %>"><%= NameHelper.FullName(myFeed.AdminUser) %></a> 
                                         has deactivated the club.
-                                        <span class="feed-time"><%= DateHelper.ToLocalTime((DateTime)myFeed.DateTimeStamp) %></span> 
+                                        <span class="feed-time"><%= LocalDateHelper.ToLocalTime((DateTime)myFeed.DateTimeStamp)%></span> 
                                     </li>
                             <% } %>
                             <br />
@@ -191,7 +191,7 @@
 						        </td> 
 						        <td> 
 							        <div class="red bld"><%= NameHelper.FullName(myClubBoard.User) %>
-								        <span class="gray small nrm"><%= DateHelper.ToLocalTime(myClubBoard.DateTimeStamp) %></span> 
+								        <span class="gray small nrm"><%= LocalDateHelper.ToLocalTime(myClubBoard.DateTimeStamp)%></span> 
 							        </div> 
 							        <%= myClubBoard.Message %>
 						        </td> 

@@ -39,7 +39,7 @@
                     <td><a class="itemlinked" href="<%= URLHelper.BuildGeneralPostingsUrl(myGeneralPosting) %>"><%= myGeneralPosting.Title%></td>
                     <td><a class="itemlinked" href="<%= URLHelper.BuildGeneralPostingsUrl(myGeneralPosting) %>"><%= myGeneralPosting.GeneralPostingReplies.Count %></td>
                     <td><a class="itemlinked" href="<%= URLHelper.BuildGeneralPostingsUrl(myGeneralPosting) %>"><%= TextShortener.Shorten(myLastReply.Reply, 20) %></td>
-                    <td><a class="itemlinked" href="<%= URLHelper.BuildGeneralPostingsUrl(myGeneralPosting) %>"><%= DateHelper.ToLocalTime(myLastReply.DateTimeStamp) %></td>
+                    <td><a class="itemlinked" href="<%= URLHelper.BuildGeneralPostingsUrl(myGeneralPosting) %>"><%= LocalDateHelper.ToLocalTime(myLastReply.DateTimeStamp)%></td>
                 </tr>
             <% } %>
 		</table> 		

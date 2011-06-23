@@ -59,7 +59,7 @@
                     <td><a class="itemlinked" href="<%= URLHelper.BuildTextbookUrl(myTextbook) %>"><%= myTextbook.ClassCode %></td>
                     <td><a class="itemlinked" href="<%= URLHelper.BuildTextbookUrl(myTextbook) %>"><%= myTextbook.Edition %></td>
                     <td><a class="itemlinked" href="<%= URLHelper.BuildTextbookUrl(myTextbook) %>"><%= myTextbook.Price %></td>
-                    <td><a class="itemlinked" href="<%= URLHelper.BuildTextbookUrl(myTextbook) %>"><%= DateHelper.ToLocalTime(myTextbook.DateTimeStamp) %></td>
+                    <td><a class="itemlinked" href="<%= URLHelper.BuildTextbookUrl(myTextbook) %>"><%= LocalDateHelper.ToLocalTime(myTextbook.DateTimeStamp) %></td>
                 </tr>
             <% } %>
 		</table> 		

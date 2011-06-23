@@ -42,6 +42,14 @@ namespace UniversityOfMe.Repositories.Classes {
                 myLocalViewState.DateTimeStamp = myDateTime;
             }
 
+            //Just in case the founder wasn't added for some reason
+            GeneralPosting myOriginalGeneralPosting = GetGeneralPosting(aGeneralPostingId);
+            GeneralPostingViewState myFounderViewState = GetGeneralPostingViewState(myGeneralPosting.UserId, myGeneralPosting.Id);
+            if (myOriginalGeneralPosting == null) {
+                myFounderViewState = GeneralPostingViewState.CreateGeneralPostingViewState(0, myGeneralPosting.UserId, myGeneralPosting.Id, false, myDateTime, false);
+                theEntities.AddToGeneralPostingViewStates(myFounderViewState);
+            }
+
             theEntities.SaveChanges();
         }
 

@@ -3,14 +3,17 @@
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
 <%@ Import Namespace="UniversityOfMe.UserInformation" %>
 <%@ Import Namespace="Social.Generic.Models" %>
+<%@ Import Namespace="Social.Generic.Helpers" %>
 <%@ Import Namespace="Social.Admin.Helpers" %>
 <%@ Import Namespace="UniversityOfMe.Helpers" %>
+<%@ Import Namespace="UniversityOfMe.Helpers.Functionality" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	University of Me - <%= Model.Get().Title %> at <%= Model.University.UniversityName %>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <% UserInformationModel<User> myUser = UserInformationFactory.GetUserInformation(); %>
 
     <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
@@ -20,12 +23,21 @@
 
 		<div class="banner black full red-top small"> 
 			<span class="event">EVENT: <%=Model.Get().Title %></span> 
-            <% if (Model.Get().UserId == UserInformationFactory.GetUserInformation().Details.Id) { %>
-                <div class="buttons"> 
+        <div class="buttons"> 
+                <% if(myUser.UserId != Model.Get().UserId) { %>
+                    <% if (EventHelper.IsAttending(myUser.Details, Model.Get())) { %>
+                        <%= Html.ActionLink("Unattend", "Unattend", "Event", new { id = Model.Get().Id }, new { @class = "remove" })%>
+                    <% } else { %>
+                        <%= Html.ActionLink("Attend", "Attend", "Event", new { id = Model.Get().Id }, new { @class = "add" })%>
+                    <% } %>
+                <% } %>
+                <% if (Model.Get().UserId == myUser.Details.Id || PermissionHelper<User>.HasPermission(myUser, SocialPermission.Edit_Any_Event)) { %>
                     <%= Html.ActionLink("Edit", "Edit", "Event", new { id = Model.Get().Id }, new { @class = "edit mr22" })%>                
+                <% } %>
+                <% if (Model.Get().UserId == myUser.Details.Id || PermissionHelper<User>.HasPermission(myUser, SocialPermission.Edit_Any_Event)) { %>
                     <%= Html.ActionLink("Delete", "Delete", "Event", new { id = Model.Get().Id }, new { @class = "remove mr26" })%>
-			    </div> 
-            <% } %>
+                <% } %>
+			</div> 
 		</div> 
 					
 		<table border="0" cellpadding="0" cellspacing="0" class="listing mb32"> 
@@ -42,7 +54,7 @@
 					<label for="startdate">START DATE:</label> 
 				</td> 
 				<td> 
-					<%= DateHelper.ToLocalTime(Model.Get().StartDate) %>
+					<%= LocalDateHelper.ToLocalTime(Model.Get().StartDate)%>
 				</td> 
 			</tr> 
 			<tr> 
@@ -50,7 +62,7 @@
 					<label for="endate">END DATE:</label> 
 				</td> 
 				<td> 
-					<%= DateHelper.ToLocalTime(Model.Get().EndDate) %>
+					<%= LocalDateHelper.ToLocalTime(Model.Get().EndDate)%>
 				</td> 
 			</tr> 
 			<tr> 
@@ -76,17 +88,23 @@
 		</div> 
 										
 		<div id="review"> 
-			<div class="create"> 
-                <% using (Html.BeginForm("Create", "EventBoard")) {%>
-				    <%= Html.TextArea("BoardMessage", string.Empty, 6, 0, new { @class = "full" })%>
-                    <%= Html.Hidden("EventId", Model.Get().Id)%>
+
+			    <div class="create"> 
+                    <% if (EventHelper.IsAttending(myUser.Details, Model.Get())) { %>
+                        <% using (Html.BeginForm("Create", "EventBoard")) {%>
+				            <%= Html.TextArea("BoardMessage", string.Empty, 6, 0, new { @class = "full" })%>
+                            <%= Html.Hidden("EventId", Model.Get().Id)%>
 							
-				    <div class="right mt13"> 
-					    <input type="submit" class="btn site" name="post" value="Post" /> 
-				    </div> 
-				    <div class="clearfix"></div> 
-                <% } %>
-			</div> 
+				            <div class="right mt13"> 
+					            <input type="submit" class="btn site" name="post" value="Post" /> 
+				            </div> 
+				            <div class="clearfix"></div> 
+                        <% } %>
+
+                    <% } else { %>   
+                        You must attend the event to post on the board.
+                    <% } %>
+			    </div> 
 						
 			<div class="clearfix"></div> 
 						
@@ -104,7 +122,7 @@
 							    <div class="red bld"> 
 								    <%= NameHelper.FullName(myEventBoard.User)%>
 								    <div class="frgt"> 
-									    <span class="gray small nrm"><%= DateHelper.ToLocalTime(myEventBoard.DateTimeStamp) %></span> 
+									    <span class="gray small nrm"><%= LocalDateHelper.ToLocalTime(myEventBoard.DateTimeStamp)%></span> 
 								    </div> 
 							    </div> 
 							    <%= myEventBoard.Message %>

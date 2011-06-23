@@ -7,6 +7,7 @@ namespace UniversityOfMe.Helpers.Functionality {
             return (from g in aGeneralPosting.GeneralPostingViewStates
                     where g.UserId == aUser.Id
                     && !g.Unsubscribe
+                    && g.GeneralPostingId == aGeneralPosting.Id
                     select g).Count<GeneralPostingViewState>() > 0 ? true : false;
         }
     }

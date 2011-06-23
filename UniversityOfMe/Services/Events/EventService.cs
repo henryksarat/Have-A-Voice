@@ -11,7 +11,6 @@ using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
 using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories.Events;
-using UniversityOfMe.Services.Events;
 
 namespace UniversityOfMe.Services.Events {
     public class EventService : IEventService {
@@ -56,7 +55,7 @@ namespace UniversityOfMe.Services.Events {
         }
 
         public void DeleteEvent(UserInformationModel<User> aDeletingUser, string aUniversityId, int anEventId) {
-            Event myEvent = GetEvent(aUniversityId, anEventId);
+            Event myEvent = GetEvent(aDeletingUser, aUniversityId, anEventId);
 
             if (myEvent.UserId != aDeletingUser.UserId) {
                 if (!PermissionHelper<User>.AllowedToPerformAction(theValidationDictionary, aDeletingUser, SocialPermission.Delete_Any_Event)) {
@@ -67,7 +66,8 @@ namespace UniversityOfMe.Services.Events {
             theEventRepository.DeleteEvent(aDeletingUser.Details, aUniversityId, anEventId);
         }
 
-        public Event GetEvent(string aUniversityId, int anEventId) {
+        public Event GetEvent(UserInformationModel<User> aUser, string aUniversityId, int anEventId) {
+            theEventRepository.MarkBoardAsView(aUser.Details, anEventId);
             return theEventRepository.GetEvent(aUniversityId, anEventId);
         }
 
@@ -116,6 +116,14 @@ namespace UniversityOfMe.Services.Events {
             theEventRepository.UpdateEvent(myEvent);
 
             return true;
+        }
+
+        public void Attend(UserInformationModel<User> aUser, int anEventId) {
+            theEventRepository.AttendEvent(aUser.Details, anEventId);
+        }
+
+        public void Unattend(UserInformationModel<User> aUser, int anEventId) {
+            theEventRepository.UnattendEvent(aUser.Details, anEventId);
         }
 
         private bool ValidBoardMessage(string aMessage) {

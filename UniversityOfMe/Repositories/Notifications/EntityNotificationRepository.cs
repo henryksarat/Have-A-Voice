@@ -28,6 +28,13 @@ namespace UniversityOfMe.Repositories.Notifications {
                     select cm);
         }
 
+        public IEnumerable<EventAttendence> GetEventsWithNewBoardPosts(User aUser) {
+            return (from ea in theEntities.EventAttendences
+                    where !ea.BoardViewed
+                    && ea.UserId == aUser.Id
+                    select ea);
+        }
+
         public IEnumerable<GeneralPostingViewState> GetGeneralPostingsNotViewed(User aUser) {
             return (from v in theEntities.GeneralPostingViewStates
                     where v.UserId == aUser.Id

@@ -11,6 +11,7 @@ namespace UniversityOfMe.Models.View {
         public Club Club { get; set; }
         public Board Board { get; set; }
         public GeneralPosting GeneralPosting { get; set; }
+        public Event Event { get; set; }
         public bool IsMine { get; set; }
         public User ClubMemberUser { get; set; }
         public SendItemOptions SendItem { get; set; }

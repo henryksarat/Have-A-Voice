@@ -86,7 +86,7 @@
 					    <div class="red bld"> 
 						    <div class="frgt"> 
 							    <span class="gray small nrm"> 
-								    <%= DateHelper.ToLocalTime(myBoard.DateTimeStamp, "{0:MMMM dd, yyyy h:mm tt}")%>
+								    <%= LocalDateHelper.ToLocalTime(myBoard.DateTimeStamp, "{0:MMMM dd, yyyy h:mm tt}")%>
 							    </span> 
 						    </div> 
 						    <%= NameHelper.FullName(myBoard.PostedByUser)%>
@@ -121,7 +121,7 @@
 								    <!-- <a href="#" class="">Edit</a> 
 								    |
 								    <a href="#" class="mr20">Remove</a> -->
-								    <%= DateHelper.ToLocalTime(myReply.DateTimeStamp, "{0:MMMM dd, yyyy h:mm tt}")%>
+								    <%= LocalDateHelper.ToLocalTime(myReply.DateTimeStamp, "{0:MMMM dd, yyyy h:mm tt}")%>
 							    </span> 
 						    </div> 
 						    <%= NameHelper.FullName(myReply.User) %>

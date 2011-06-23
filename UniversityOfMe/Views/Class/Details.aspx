@@ -195,7 +195,7 @@
 	                                        <div id="Div<%= myReview.Id %>" class="stars">
                                                 <%= StarHelper.FiveStarReadOnly(myReview.Id, myReview.Rating)  %>
 	                                        </div>
-								            <span class="gray small nrm"><%= DateHelper.ToLocalTime(myReview.DateTimeStamp)%></span> 
+								            <span class="gray small nrm"><%= LocalDateHelper.ToLocalTime(myReview.DateTimeStamp)%></span> 
 							            </div> 
 						            </div> 
 						            <%= myReview.Review%>
@@ -214,7 +214,7 @@
 					            <td> 
 						            <div class="red bld"><%= NameHelper.FullName(myBoard.User) %>
 							            <div class="rating"> 
-								            <span class="gray small nrm"><%= DateHelper.ToLocalTime(myBoard.DateTimeStamp)%></span> 
+								            <span class="gray small nrm"><%= LocalDateHelper.ToLocalTime(myBoard.DateTimeStamp)%></span> 
 							            </div> 
 						            </div> 
 						            <%= myBoard.Reply %>

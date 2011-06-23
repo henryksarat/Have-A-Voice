@@ -122,12 +122,13 @@
     <Compile Include="Helpers\Constants\ProfessorConstants.cs" />
     <Compile Include="Helpers\Constants\TextBookConstants.cs" />
     <Compile Include="Helpers\FeedType.cs" />
-    <Compile Include="Helpers\DateHelper.cs" />
+    <Compile Include="Helpers\LocalDateHelper.cs" />
     <Compile Include="Helpers\EmailHelper.cs" />
     <Compile Include="Helpers\FeatureHelper.cs" />
     <Compile Include="Helpers\Features.cs" />
     <Compile Include="Helpers\FriendHelper.cs" />
     <Compile Include="Helpers\Functionality\ClubHelper.cs" />
+    <Compile Include="Helpers\Functionality\EventHelper.cs" />
     <Compile Include="Helpers\Functionality\GeneralPostingHelper.cs" />
     <Compile Include="Helpers\Functionality\UserFeed.cs" />
     <Compile Include="Helpers\GetUserStrategy.cs" />

@@ -20,7 +20,7 @@
 	    <div class="banner black full red-top small"> 
 		    <span class="post"> 
 			    GENERAL POSTING: <%= Model.Get().Title %>
-			    <span class="user">by <%= NameHelper.FullName(Model.Get().User) %> on <%= DateHelper.ToLocalTime(Model.Get().DateTimeStamp) %></span> 
+			    <span class="user">by <%= NameHelper.FullName(Model.Get().User) %> on <%= LocalDateHelper.ToLocalTime(Model.Get().DateTimeStamp)%></span> 
 		    </span> 
 		    <div class="buttons"> 
                 <div class="flft mr13"> 
@@ -68,7 +68,7 @@
 					        <td> 
 						        <div class="red bld">
                                     <%= NameHelper.FullName(myReply.User)%>
-								    <span class="gray small nrm"><%= DateHelper.ToLocalTime(myReply.DateTimeStamp) %></span> 
+								    <span class="gray small nrm"><%= LocalDateHelper.ToLocalTime(myReply.DateTimeStamp)%></span> 
 						        </div> 
 						        <%= myReply.Reply %>
 					        </td> 
