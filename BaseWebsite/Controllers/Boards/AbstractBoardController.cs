@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using Social.Admin.Exceptions;
 using Social.Admin.Helpers;
 using Social.Authentication;
 using Social.Authentication.Services;
@@ -13,7 +14,6 @@ using Social.Generic.Models;
 using Social.Generic.Services;
 using Social.Users.Services;
 using Social.Validation;
-using Social.Admin.Exceptions;
 
 namespace BaseWebsite.Controllers.Boards {
     public abstract class AbstractBoardController<T, U, V, W, X, Y, Z, A, B> : BaseController<T, U, V, W, X, Y, Z> {
@@ -70,6 +70,8 @@ namespace BaseWebsite.Controllers.Boards {
                     TempData["Message"] = ErrorMessage(POST_BOARD_ERROR);
                     TempData["BoardMessage"] = boardMessage;
                 }
+            } catch(PermissionDenied) {
+                TempData["Message"] = WarningMessage(ErrorKeys.PERMISSION_DENIED);
             } catch (Exception myException) {
                 LogError(myException, POST_BOARD_ERROR);
                 TempData["Message"] = ErrorMessage(POST_BOARD_ERROR);
@@ -104,6 +106,8 @@ namespace BaseWebsite.Controllers.Boards {
                 if (myBoardResult) {
                     TempData["Message"] = SuccessMessage(EDIT_BOARD_SUCCES);
                 }
+            } catch (PermissionDenied) {
+                TempData["Message"] = WarningMessage(ErrorKeys.PERMISSION_DENIED);
             } catch (Exception myException) {
                 LogError(myException, POST_BOARD_ERROR);
                 TempData["Message"] = ErrorMessage(EDIT_BOARD_ERROR);
@@ -112,24 +116,27 @@ namespace BaseWebsite.Controllers.Boards {
             return RedirectToAction("Edit", new { id = aBoard.Id });
         }
 
-        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
-        public ActionResult Delete(int profileUserId, int boardId) {
+        protected ActionResult Delete(int sourceId, int boardId, string controller, string action) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel<T> myUserInfo = GetUserInformatonModel();
-            if (!PermissionHelper<T>.AllowedToPerformAction(myUserInfo, SocialPermission.Delete_Board_Message, SocialPermission.Delete_Any_Board_Message)) {
-                return SendToErrorPage(ErrorKeys.PERMISSION_DENIED);
-            }
+
             try {
-                theService.DeleteBoardMessage(myUserInfo, boardId);
-                TempData["Message"] = SuccessMessage(DELETE_BOARD_SUCCESS);
+                UserInformationModel<T> myUserInfo = GetUserInformatonModel();
+                if (!PermissionHelper<T>.AllowedToPerformAction(myUserInfo, SocialPermission.Delete_Board_Message, SocialPermission.Delete_Any_Board_Message)) {
+                    TempData["Message"] = WarningMessage(ErrorKeys.PERMISSION_DENIED);
+                } else {
+                    theService.DeleteBoardMessage(myUserInfo, boardId);
+                    TempData["Message"] = SuccessMessage(DELETE_BOARD_SUCCESS);
+                }
+            } catch(PermissionDenied) {
+                TempData["Message"] = WarningMessage(ErrorKeys.PERMISSION_DENIED);
             } catch (Exception myException) {
                 LogError(myException, DELETE_BOARD_ERROR);
                 TempData["Message"] = ErrorMessage(DELETE_BOARD_ERROR);
             }
 
-            return RedirectToAction("Show", "Profile", new { id = profileUserId });
+            return RedirectToAction(action, controller, new { id = sourceId });
         }
     }
 }

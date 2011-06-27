@@ -49,6 +49,7 @@ namespace UniversityOfMe.Repositories.Boards {
         public Board FindBoardByBoardId(int aBoardId) {
             return (from b in theEntities.Boards
                     where b.Id == aBoardId
+                    && !b.Deleted
                     select b).FirstOrDefault<Board>();
         }
 

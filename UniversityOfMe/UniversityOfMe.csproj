@@ -122,6 +122,8 @@
     <Compile Include="Helpers\Constants\ProfessorConstants.cs" />
     <Compile Include="Helpers\Constants\TextBookConstants.cs" />
     <Compile Include="Helpers\FeedType.cs" />
+    <Compile Include="Helpers\Functionality\BoardHelper.cs" />
+    <Compile Include="Helpers\Functionality\BoardReplyHelper.cs" />
     <Compile Include="Helpers\LocalDateHelper.cs" />
     <Compile Include="Helpers\EmailHelper.cs" />
     <Compile Include="Helpers\FeatureHelper.cs" />

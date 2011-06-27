@@ -61,11 +61,8 @@
 			</li> 
         <% } else if (myNotificationModel.NotificationType == NotificationType.GeneralPosting) { %>
 			<li class="posting"> 
-                <% if (myNotificationModel.IsMine) { %>
-                    There is a new reply to your <a href="<%= URLHelper.BuildGeneralPostingsUrl(myNotificationModel.GeneralPosting) %>">general posting</a>.
-                <% } else { %>
-                    New reply to a <a href="<%= URLHelper.BuildGeneralPostingsUrl(myNotificationModel.GeneralPosting) %>">general posting</a> you are participating in.
-                <% } %>
+                New reply in the general posting <a href="<%= URLHelper.BuildGeneralPostingsUrl(myNotificationModel.GeneralPosting) %>"><%= TextShortener.Shorten(myNotificationModel.GeneralPosting.Title, 20) %></a>.
+
 				<span class="time"><%= LocalDateHelper.ToLocalTime(myNotificationModel.DateTimeSent)%></span> 
 			</li> 
         <% } %>

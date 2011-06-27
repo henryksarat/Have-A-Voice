@@ -46,13 +46,14 @@ namespace UniversityOfMe.Controllers.Clubs {
         }
 
         [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
-        public ActionResult Remove(int userId, int clubId) {
+        public ActionResult Remove(int clubId) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
 
             try {
-                bool myResult = theClubService.RemoveClubMember(GetUserInformatonModel(), userId, clubId);
+                UserInformationModel<User> myUser = GetUserInformatonModel();
+                bool myResult = theClubService.RemoveClubMember(GetUserInformatonModel(), myUser.UserId, clubId);
 
                 if (myResult) {
                     TempData["Message"] = MessageHelper.SuccessMessage(USER_REMVOED);

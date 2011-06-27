@@ -51,7 +51,7 @@ namespace HaveAVoice.Controllers.Users {
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         new public ActionResult Delete(int profileUserId, int boardId) {
-            return base.Delete(profileUserId, boardId);
+            return base.Delete(profileUserId, boardId, "Profile", "Show");
         }
 
         protected override AbstractUserModel<User> GetSocialUserInformation() {

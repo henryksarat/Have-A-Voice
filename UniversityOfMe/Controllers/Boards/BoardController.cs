@@ -50,8 +50,8 @@ namespace UniversityOfMe.Controllers.Boards {
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
-        new public ActionResult Delete(int profileUserId, int boardId) {
-            return base.Delete(profileUserId, boardId);
+        new public ActionResult Delete(int sourceId, int boardId, string sourceController, string sourceAction) {
+            return base.Delete(sourceId, boardId, sourceController, sourceAction);
         }
 
         protected override AbstractUserModel<User> GetSocialUserInformation() {

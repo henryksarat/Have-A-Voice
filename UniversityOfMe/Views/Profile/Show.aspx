@@ -76,7 +76,7 @@
             <% } %>
 		</div> 
  
-        <% foreach (Board myBoard in Model.Boards.OrderByDescending(b => b.DateTimeStamp)) { %>
+        <% foreach (Board myBoard in Model.Boards.Where(b => !b.Deleted).OrderByDescending(b => b.DateTimeStamp)) { %>
 		    <div class="board"> 
 			    <div class="prfl clearfix"> 
 				    <div class="pCol"> 
@@ -85,11 +85,14 @@
 				    <div class="cCol"> 
 					    <div class="red bld"> 
 						    <div class="frgt"> 
-							    <span class="gray small nrm"> 
+							    <span class="gray delete nrm"> 
 								    <%= LocalDateHelper.ToLocalTime(myBoard.DateTimeStamp, "{0:MMMM dd, yyyy h:mm tt}")%>
 							    </span> 
 						    </div> 
-						    <%= NameHelper.FullName(myBoard.PostedByUser)%>
+						    <%= NameHelper.FullName(myBoard.PostedByUser)%> 
+                            <% if(BoardHelper.IsAllowedToDelete(myLoggedInUser, myBoard)) {  %>
+                                <%= Html.ActionLink("Delete", "Delete", "Board", new { sourceId = Model.Id, boardId = myBoard.Id, sourceController = "Profile", sourceAction = "Show" }, new { @class = "small nrm" })%>
+                            <% } %>
 					    </div> 
 					    <%= myBoard.Message %>
 					    <div class="create clearfix"> 
@@ -109,7 +112,7 @@
 				    </div>							
 			    </div> 
                 
-                <% foreach (BoardReply myReply in myBoard.BoardReplies.OrderByDescending(br => br.DateTimeStamp)) { %>						
+                <% foreach (BoardReply myReply in myBoard.BoardReplies.Where(br => !br.Deleted).OrderByDescending(br => br.DateTimeStamp)) { %>						
 			    <div class="prfl reply clearfix"> 
 				    <div class="pCol"> 
 					    <img src="<%= PhotoHelper.ProfilePicture(myReply.User) %>" class="profile med" /> 
@@ -125,6 +128,9 @@
 							    </span> 
 						    </div> 
 						    <%= NameHelper.FullName(myReply.User) %>
+                            <% if (BoardReplyHelper.IsAllowedToDelete(myLoggedInUser, myReply)) {  %>
+                                <%= Html.ActionLink("Delete", "Delete", "BoardReply", new { sourceId = Model.Id, boardReplyId = myReply.Id, sourceController = "Profile", sourceAction = "Show" }, new { @class = "small nrm" })%>
+                            <% } %>
 					    </div> 
 					    <%= myReply.Message %>
 				    </div> 

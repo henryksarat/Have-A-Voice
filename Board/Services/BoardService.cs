@@ -29,7 +29,7 @@ namespace Social.Board.Services {
 
         public bool DeleteBoardMessage(UserInformationModel<T> aDeletingUser, int aBoardId) {
             if (!AllowedToPerformAction(aDeletingUser, SocialPermission.Delete_Board_Message, SocialPermission.Delete_Any_Board_Message)) {
-                return false;
+                throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
             }
             bool myOverride = PermissionHelper<T>.AllowedToPerformAction(aDeletingUser, SocialPermission.Delete_Any_Board_Message);
 
@@ -38,12 +38,11 @@ namespace Social.Board.Services {
             if (myOriginalBoard.PostedUserId == aDeletingUser.UserId
                 || myOriginalBoard.OwnerUserId == aDeletingUser.UserId
                 || myOverride) {
-                theRepository.DeleteBoardMessage(aDeletingUser.Details, myOriginalBoard.FromModel());
+                theRepository.DeleteBoardMessage(aDeletingUser.Details, myOriginalBoard.Model);
                 return true;
             }
 
-            AddPermissionDeniedToValidationDictionary();
-            return false;
+            throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
         }
 
         public bool EditBoardMessage(UserInformationModel<T> anEditBy, AbstractBoardModel<U> aNewBoard) {
@@ -52,7 +51,7 @@ namespace Social.Board.Services {
             }
 
             if (!AllowedToPerformAction(anEditBy, SocialPermission.Edit_Board_Message, SocialPermission.Edit_Any_Board_Message)) {
-                return false;
+                throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
             }
 
             bool myOverride = PermissionHelper<T>.AllowedToPerformAction(anEditBy, SocialPermission.Edit_Any_Board_Message);
@@ -72,7 +71,7 @@ namespace Social.Board.Services {
                 return false;
             }
             if (!AllowedToPerformAction(aPostingUser, SocialPermission.Post_To_Board)) {
-                return false;
+                throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
             }
             U myBoard = theRepository.AddToBoard(aPostingUser.Details, aSourceUserId, aMessage);
 
@@ -84,7 +83,7 @@ namespace Social.Board.Services {
 
         public bool DeleteBoardReply(UserInformationModel<T> aDeletingUser, int aBoardReplyId) {
             if (!AllowedToPerformAction(aDeletingUser, SocialPermission.Delete_Board_Reply, SocialPermission.Delete_Any_Board_Reply)) {
-                return false;
+                throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
             }
             bool myOverrideDelete = PermissionHelper<T>.AllowedToPerformAction(aDeletingUser, SocialPermission.Delete_Any_Board_Reply);
 
@@ -94,10 +93,10 @@ namespace Social.Board.Services {
             if (myOriginalReply.UserId == aDeletingUser.UserId
                 || myBoard.OwnerUserId == aDeletingUser.UserId
                 || myOverrideDelete) {
-                theRepository.DeleteBoardReply(aDeletingUser.Details, myOriginalReply.FromModel());
+                theRepository.DeleteBoardReply(aDeletingUser.Details, myOriginalReply.Model);
                 return true;
             }
-            return false;
+            throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
         }
 
         public bool EditBoardReply(UserInformationModel<T> anEditedBy, AbstractBoardReplyModel<V> aBoardReply) {

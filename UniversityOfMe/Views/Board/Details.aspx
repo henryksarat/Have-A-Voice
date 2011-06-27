@@ -3,12 +3,17 @@
 <%@ Import Namespace="UniversityOfMe.Helpers" %>
 <%@ Import Namespace="UniversityOfMe.UserInformation" %>
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
+<%@ Import Namespace="UniversityOfMe.Helpers.Functionality" %>
+<%@ Import Namespace="UniversityOfMe.UserInformation" %>
+<%@ Import Namespace="Social.Generic.Models" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	UniversityOf.Me - <%=NameHelper.FullName(Model.User) %>'s Profile
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <% UserInformationModel<User> myLoggedInUser = UserInformationFactory.GetUserInformation(); %>
+
     <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
 	<div class="eight last"> 
@@ -33,6 +38,9 @@
 							    </span> 
 						    </div> 
 						    <%= NameHelper.FullName(Model.Get().PostedByUser) %>
+                            <% if(BoardHelper.IsAllowedToDelete(myLoggedInUser, Model.Get())) {  %>
+                                <%= Html.ActionLink("Delete", "Delete", "Board", new { sourceId = Model.Get().Id, boardId = Model.Get().Id, sourceController = "Board", sourceAction = "Details" }, new { @class = "small nrm" })%>
+                            <% } %>
 					    </div> 
 					    <%= Model.Get().Message %>
 					    <div class="create clearfix"> 
@@ -52,7 +60,7 @@
 				    </div>							
 			    </div> 
 
-                <% foreach (BoardReply myReply in Model.Get().BoardReplies.OrderByDescending(br => br.DateTimeStamp)) { %>						
+                <% foreach (BoardReply myReply in Model.Get().BoardReplies.Where(br => !br.Deleted).OrderByDescending(br => br.DateTimeStamp)) { %>						
 			    <div class="prfl reply clearfix"> 
 				    <div class="pCol"> 
 					    <img src="<%= PhotoHelper.ProfilePicture(myReply.User) %>" class="profile med" /> 
@@ -68,6 +76,9 @@
 							    </span> 
 						    </div> 
 						    <%= NameHelper.FullName(myReply.User) %>
+                            <% if (BoardReplyHelper.IsAllowedToDelete(myLoggedInUser, myReply)) {  %>
+                                <%= Html.ActionLink("Delete", "Delete", "BoardReply", new { sourceId = Model.Get().Id, boardReplyId = myReply.Id, sourceController = "Board", sourceAction = "Details" }, new { @class = "small nrm" })%>
+                            <% } %>
 					    </div> 
 					    <%= myReply.Message %>
 				    </div> 

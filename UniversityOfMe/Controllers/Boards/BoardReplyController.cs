@@ -45,8 +45,8 @@ namespace UniversityOfMe.Controllers.Boards {
         }
 
         [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
-        new public ActionResult Delete(int boardId, int boardReplyId) {
-            return base.Delete(boardId, boardReplyId);
+        new public ActionResult Delete(int sourceId, int boardReplyId, string sourceController, string sourceAction) {
+            return base.Delete(sourceId, boardReplyId, sourceController, sourceAction);
         }
 
         protected override AbstractUserModel<User> GetSocialUserInformation() {

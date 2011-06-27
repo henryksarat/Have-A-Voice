@@ -37,7 +37,7 @@
                     <% } else if (ClubHelper.IsPending(myUser, Model.Get().Id)) { %>
                         <%= Html.ActionLink("Cancel my request to join", "Cancel", "ClubMember", new { clubId = Model.Get().Id }, new { @class = "remove" })%>
                     <% } else if (ClubHelper.IsMember(myUser, Model.Get().Id)) { %>
-                        <%= Html.ActionLink("Quit organization", "Remove", "ClubMember", null, new { @class = "remove" })%>
+                        <%= Html.ActionLink("Quit organization", "Remove", "ClubMember", new { clubId = Model.Get().Id }, new { @class = "remove" })%>
                     <% } else { %>
                         <%= Html.ActionLink("Request to join organization", "RequestToJoin", "ClubMember", new { clubId = Model.Get().Id }, new { @class = "add" })%>
                     <% } %>

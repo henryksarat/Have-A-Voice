@@ -89,24 +89,27 @@ namespace BaseWebsite.Controllers.Boards {
             return RedirectToAction("Edit", new { id = aBoardReply.Id });
         }
 
-        [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
-        public ActionResult Delete(int boardId, int boardReplyId) {
+        protected ActionResult Delete(int sourceId, int boardReplyId, string controller, string action) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            UserInformationModel<T> myUserInfo = GetUserInformatonModel();
-            if (!PermissionHelper<T>.AllowedToPerformAction(myUserInfo, SocialPermission.Delete_Board_Reply, SocialPermission.Delete_Any_Board_Reply)) {
-                return SendToErrorPage(ErrorKeys.PERMISSION_DENIED);
-            }
+
             try {
-                theService.DeleteBoardReply(GetUserInformatonModel(), boardReplyId);
-                TempData["Message"] = SuccessMessage(DELETE_REPLY_SUCCESS);
+                UserInformationModel<T> myUserInfo = GetUserInformatonModel();
+                if (!PermissionHelper<T>.AllowedToPerformAction(myUserInfo, SocialPermission.Delete_Board_Reply, SocialPermission.Delete_Any_Board_Reply)) {
+                    TempData["Message"] = WarningMessage(ErrorKeys.PERMISSION_DENIED);
+                } else {
+                    theService.DeleteBoardReply(GetUserInformatonModel(), boardReplyId);
+                    TempData["Message"] = SuccessMessage(DELETE_REPLY_SUCCESS);
+                }
+            } catch(PermissionDenied) {
+                TempData["Message"] = WarningMessage(ErrorKeys.PERMISSION_DENIED);
             } catch (Exception myException) {
                 LogError(myException, DELETE_REPLY_ERROR);
                 TempData["Message"] = ErrorMessage(DELETE_REPLY_ERROR);
             }
 
-            return RedirectToAction("View", "Board", new { id = boardId });
+            return RedirectToAction(action, controller, new { id = sourceId });
         }
     }
 }

@@ -9,8 +9,10 @@ namespace UniversityOfMe.Repositories.Notifications {
 
         public IEnumerable<BoardViewedState> GetBoardViewedStates(User aUser) {
             return (from bvs in theEntities.BoardViewedStates
+                    join b in theEntities.Boards on bvs.BoardId equals b.Id
                     where bvs.UserId == aUser.Id
                     && !bvs.Viewed
+                    && !b.Deleted
                     select bvs);
         }
 
