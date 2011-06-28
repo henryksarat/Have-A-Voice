@@ -27,7 +27,7 @@
                 <th>Last Board Post Date</th>
             </tr>
             <% bool mySwitch = false; %>
-            <% foreach (Club myClub in Model.Get().OrderByDescending(c => c.ClubBoards.OrderByDescending(b => b.DateTimeStamp))) { %>
+            <% foreach (Club myClub in Model.Get()) { %>
                 <% if (mySwitch) { %>
                     <% mySwitch = false; %>
                     <tr class="small center alternative">
