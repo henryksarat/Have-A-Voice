@@ -10,6 +10,8 @@ using UniversityOfMe.Repositories.Classes;
 using System;
 using System.Linq;
 using Social.Generic.Helpers;
+using Social.Admin.Helpers;
+using Social.Admin.Exceptions;
 
 namespace UniversityOfMe.Services.Classes {
     public class ClassService : IClassService {
@@ -25,11 +27,21 @@ namespace UniversityOfMe.Services.Classes {
         }
 
         public bool AddToClassBoard(UserInformationModel<User> aPostedByUser, int aClassId, string aClassBoard) {
-            if (!ValidClass(aClassBoard)) {
+            if (!ValidBoardMessage(aClassBoard)) {
                 return false;
             }
 
             theClassRepository.AddToClassBoard(aPostedByUser.Details, aClassId, aClassBoard);
+
+            return true;
+        }
+
+        public bool AddReplyToClassBoard(UserInformationModel<User> aPostedByUser, int aClassBoardId, string aReply) {
+            if (!ValidBoardMessage(aReply)) {
+                return false;
+            }
+
+            theClassRepository.AddReplyToClassBoard(aPostedByUser.Details, aClassBoardId, aReply);
 
             return true;
         }
@@ -60,6 +72,30 @@ namespace UniversityOfMe.Services.Classes {
             return true;
         }
 
+        public void DeleteClassBoard(UserInformationModel<User> aDeletingUser, int aBoardId) {
+            ClassBoard myClassBoard = theClassRepository.GetClassBoard(aBoardId);
+            if (myClassBoard != null) {
+                if (myClassBoard.UserId == aDeletingUser.UserId
+                    || PermissionHelper<User>.AllowedToPerformAction(aDeletingUser, SocialPermission.Delete_Any_Class_Board)) {
+                    theClassRepository.DeleteClassBoard(aDeletingUser.Details, aBoardId);
+                } else {
+                    throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
+                }
+            }
+        }
+
+        public void DeleteClassBoardReply(UserInformationModel<User> aDeletingUser, int aBoardReplyId) {
+            ClassBoardReply myClassBoardReply = theClassRepository.GetClassBoardReply(aBoardReplyId);
+            if (myClassBoardReply != null) {
+                if (myClassBoardReply.UserId == aDeletingUser.UserId
+                    || PermissionHelper<User>.AllowedToPerformAction(aDeletingUser, SocialPermission.Delete_Any_Class_Board)) {
+                        theClassRepository.DeleteClassBoardReply(aDeletingUser.Details, aBoardReplyId);
+                } else {
+                    throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
+                }
+            }
+        }
+
         public Class GetClass(UserInformationModel<User> aViewingUser, int aClassId, ClassViewType aClassViewType) {
             if (aClassViewType == ClassViewType.Discussion) {
                 theClassRepository.MarkClassBoardAsViewed(aViewingUser.Details, aClassId);
@@ -75,6 +111,17 @@ namespace UniversityOfMe.Services.Classes {
                 theClassRepository.MarkClassBoardAsViewed(aViewingUser.Details, myClass.Id);
             }
             return myClass;
+        }
+
+        public ClassBoard GetClassBoard(UserInformationModel<User> aViewingUser, int aClassBoardId) {
+            ClassBoard myClassBoard = theClassRepository.GetClassBoard(aClassBoardId);
+            ClassEnrollment myClassEnrollment = theClassRepository.GetClassEnrollment(aViewingUser.Details, myClassBoard.ClassId);
+
+            if (myClassEnrollment == null) {
+                throw new PermissionDenied("You must be enrolled in the class to view this class discussion message.");
+            }
+
+            return myClassBoard;
         }
 
         public IEnumerable<Class> GetClassesForUniversity(string aUniversityId) {
@@ -144,7 +191,7 @@ namespace UniversityOfMe.Services.Classes {
             return theValidationDictionary.isValid;
         }
 
-        private bool ValidClass(string aBody) {
+        private bool ValidBoardMessage(string aBody) {
             if (string.IsNullOrEmpty(aBody)) {
                 theValidationDictionary.AddError("BoardMessage", aBody, "Text is required.");
             }

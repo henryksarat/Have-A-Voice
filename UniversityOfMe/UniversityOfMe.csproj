@@ -69,6 +69,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Classes\ClassBoardReplyController.cs" />
     <Compile Include="Controllers\Site\FeatureController.cs" />
     <Compile Include="Controllers\Notification\NotificationController.cs" />
     <Compile Include="Controllers\Site\HomeController.cs" />
@@ -124,6 +125,8 @@
     <Compile Include="Helpers\FeedType.cs" />
     <Compile Include="Helpers\Functionality\BoardHelper.cs" />
     <Compile Include="Helpers\Functionality\BoardReplyHelper.cs" />
+    <Compile Include="Helpers\Functionality\ClassBoardHelper.cs" />
+    <Compile Include="Helpers\Functionality\ClassBoardReplyHelper.cs" />
     <Compile Include="Helpers\LocalDateHelper.cs" />
     <Compile Include="Helpers\EmailHelper.cs" />
     <Compile Include="Helpers\FeatureHelper.cs" />
@@ -368,6 +371,7 @@
     <Content Include="Views\Authentication\ChangeEmail.aspx" />
     <Content Include="Views\Authentication\Login.aspx" />
     <Content Include="Views\Board\Details.aspx" />
+    <Content Include="Views\ClassBoard\Details.aspx" />
     <Content Include="Views\ClassEnrollment\List.aspx" />
     <Content Include="Views\Class\ViewAllMembers.aspx" />
     <Content Include="Views\Class\Create.aspx" />

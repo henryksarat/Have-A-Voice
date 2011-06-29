@@ -203,16 +203,19 @@
 				            </tr> 
                         <% } %>
                     <% } else if (myViewType == ClassViewType.Discussion) { %>
-                        <% if (Model.Get().ClassBoards.Count == 0) { %>
+                        <% if (Model.Get().ClassBoards.Where(b => !b.Deleted).Count<ClassBoard>() == 0) { %>
                             There are no postings made to the board
                         <% } %>
-                        <% foreach (ClassBoard myBoard in Model.Get().ClassBoards.OrderByDescending(b => b.Id)) { %>
+                        <% foreach (ClassBoard myBoard in Model.Get().ClassBoards.Where(b => !b.Deleted).OrderByDescending(b => b.Id)) { %>
             	            <tr> 
 					            <td class="avatar"> 
-						            <a href="/<%= myBoard.User.ShortUrl %>"><img src="<%= PhotoHelper.ProfilePicture(myBoard.User) %>" class="profile big mr22" /></a>
+						            <a href="/<%= myBoard.PostedByUser.ShortUrl %>"><img src="<%= PhotoHelper.ProfilePicture(myBoard.PostedByUser) %>" class="profile big mr22" /></a>
 					            </td> 
 					            <td> 
-						            <div class="red bld"><%= NameHelper.FullName(myBoard.User) %>
+						            <div class="red bld"><%= NameHelper.FullName(myBoard.PostedByUser)%> 
+                                        <%= Html.ActionLink("View Details (" + myBoard.ClassBoardReplies.Count + " replies)", "Details", "ClassBoard", new { classId = Model.Get().Id, classBoardId = myBoard.Id }, new { @class = "edit-item" })%> 
+                                        <span class="nrm small gray">|</span>
+                                        <%= Html.ActionLink("Delete", "Delete", "ClassBoard", new { classId = Model.Get().Id, classBoardId = myBoard.Id, source = SiteSection.Class }, new { @class = "edit-item" })%> 
 							            <div class="rating"> 
 								            <span class="gray small nrm"><%= LocalDateHelper.ToLocalTime(myBoard.DateTimeStamp)%></span> 
 							            </div> 

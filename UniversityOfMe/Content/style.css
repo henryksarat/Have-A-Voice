@@ -530,6 +530,8 @@ span.professor { padding: 2px 0px 2px 28px; background:url(images/person.png) no
 a.itemlinked, a.itemlinked:link, a.itemlinked:visited { color: Black; }
 a.itemlinked:hover { text-decoration: underline; }
 
+a.edit-item, a.edit-item:link, a.edit-item:visited { color: Gray; font-size: 13px; line-height: 18px; font-weight: normal; }
+a.edit-item:hover { text-decoration: underline; }
 
 a.add-new-cross, a.add-new-cross:link, a.add-new-cross:visited { float: left; color: #4fac3c; font-size: 18px; margin-right: 10%; font-weight:bold }
 a.add-new-cross:hover { text-decoration: underline; }

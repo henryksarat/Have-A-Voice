@@ -75,6 +75,9 @@ namespace Social.Generic.Helpers {
         Edit_Any_Club,
         //textbook
         Edit_Any_Textbook,
-        Delete_Any_Textbook
+        Delete_Any_Textbook,
+        //Classes
+        Delete_Any_Class_Board,
+        Delete_Any_Class_Board_Reply
     }
 }

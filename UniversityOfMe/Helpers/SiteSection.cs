@@ -6,6 +6,8 @@ using System.Web;
 namespace UniversityOfMe.Helpers {
     public enum SiteSection {
         Profile,
-        Board
+        Board,
+        Class,
+        ClassBoard
     }
 }
