@@ -22,7 +22,7 @@
 
 		<div class="create"> 
 			<div class="banner black full red-top small"> 
-				<span class="board">Class Discussion Post in <%= Model.Get().Class.ClassTitle %> ( <%= Model.Get().Class.ClassCode %> )</span> 
+				<span class="board">Class Discussion Post in <%= Model.Get().Class.ClassTitle %> ( <a class="header-linked" href="<%= URLHelper.BuildClassDiscussionUrl(Model.Get().Class) %>"><%= Model.Get().Class.ClassCode %></a> )</span> 
 			</div> 
 
 		    <div class="board"> 
@@ -39,7 +39,7 @@
 						    </div> 
 						    <%= NameHelper.FullName(Model.Get().PostedByUser) %>
                             <% if(ClassBoardHelper.IsAllowedToDelete(myLoggedInUser, Model.Get())) {  %>
-                                <%= Html.ActionLink("Delete", "Delete", "ClassBoard", new { classId = Model.Get().ClassId, classBoardId = Model.Get().Id, source = SiteSection.ClassBoard }, new { @class = "small nrm" })%>
+                                <%= Html.ActionLink("Delete", "Delete", "ClassBoard", new { classId = Model.Get().ClassId, classBoardId = Model.Get().Id, source = SiteSection.ClassBoard }, new { @class = "edit-item" })%>
                             <% } %>
 					    </div> 
 					    <%= Model.Get().Reply %>
@@ -76,7 +76,7 @@
 						    </div> 
 						    <%= NameHelper.FullName(myReply.PostedByUser) %>
                             <% if (ClassBoardReplyHelper.IsAllowedToDelete(myLoggedInUser, myReply)) {  %>
-                                <%= Html.ActionLink("Delete", "Delete", "ClassBoardReply", new { classId = Model.Get().ClassId, classBoardId = Model.Get().Id, classBoardReplyId = myReply.Id }, new { @class = "small nrm" })%>
+                                <%= Html.ActionLink("Delete", "Delete", "ClassBoardReply", new { classId = Model.Get().ClassId, classBoardId = Model.Get().Id, classBoardReplyId = myReply.Id }, new { @class = "edit-item" })%>
                             <% } %>
 					    </div> 
 					    <%= myReply.Reply %>

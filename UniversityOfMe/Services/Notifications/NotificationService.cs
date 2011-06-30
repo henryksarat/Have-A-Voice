@@ -28,6 +28,7 @@ namespace UniversityOfMe.Services.Notifications {
             IEnumerable<ClassEnrollment> myClassEnrollmentsNotViewedBoard = theNotificationRepository.GetClassEnrollmentsNotViewedBoard(aUser);
             IEnumerable<GeneralPostingViewState> myGeneralPostingViewStates = theNotificationRepository.GetGeneralPostingsNotViewed(aUser);
             IEnumerable<EventAttendence> myEventAttendences = theNotificationRepository.GetEventsWithNewBoardPosts(aUser);
+            IEnumerable<ClassBoardViewState> myClassBoardViewStates = theNotificationRepository.GetClassBoardsWithNewReplies(aUser);
 
             List<NotificationModel> myNotifications = ConvertToNotificationModel(mySentItems);
             myNotifications.AddRange(ConvertToNotificationModel(myPendingClubMembers));
@@ -36,6 +37,7 @@ namespace UniversityOfMe.Services.Notifications {
             myNotifications.AddRange(ConvertToNotificationModel(myClassEnrollmentsNotViewedBoard));
             myNotifications.AddRange(ConvertToNotificationModel(myGeneralPostingViewStates));
             myNotifications.AddRange(ConvertToNotificationModel(myEventAttendences));
+            myNotifications.AddRange(ConvertToNotificationModel(aUser, myClassBoardViewStates));
 
             if (myNotifications.Count == 0) {
                 myNotifications.Add(NoNotifications());
@@ -142,6 +144,23 @@ namespace UniversityOfMe.Services.Notifications {
                     NotificationType = NotificationType.Event,
                     Event = myEventAttendence.Event,
                     DateTimeSent = (DateTime)myEventAttendence.LastBoardPost
+                });
+            }
+
+            return myNotificationModel;
+        }
+
+        private List<NotificationModel> ConvertToNotificationModel(User aUser, IEnumerable<ClassBoardViewState> aClassBoardViewState) {
+            List<NotificationModel> myNotificationModel = new List<NotificationModel>();
+
+            foreach (ClassBoardViewState myViewState in aClassBoardViewState) {
+                ClassBoard myClassBoard = myViewState.ClassBoard;
+
+                myNotificationModel.Add(new NotificationModel() {
+                    NotificationType = NotificationType.ClassBoardReply,
+                    ClassBoard = myClassBoard,
+                    IsMine = myClassBoard.UserId == aUser.Id,
+                    DateTimeSent = (DateTime)myViewState.DateTimeStamp
                 });
             }
 

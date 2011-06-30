@@ -79,8 +79,6 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_SendItems_Users_ToUser", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "SendItem", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.SendItem), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_PhotoComments_Photos", "Photo", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Photo), "PhotoComment", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.PhotoComment), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_PhotoComments_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "PhotoComment", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.PhotoComment), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassEnrollments_Classes", "Class", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Class), "ClassEnrollment", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassEnrollment), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassEnrollments_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ClassEnrollment", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassEnrollment), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassReviews_Classes", "Class", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Class), "ClassReview", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassReview), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassReviews_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ClassReview", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassReview), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_GeneralPostingReplies_GeneralPostings", "GeneralPosting", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.GeneralPosting), "GeneralPostingReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.GeneralPostingReply), true)]
@@ -106,6 +104,11 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassBoards_Classes", "Class", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Class), "ClassBoard", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassBoard), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassBoards_DeletedByUser", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(UniversityOfMe.Models.User), "ClassBoard", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassBoard), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassBoards_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ClassBoard", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassBoard), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassEnrollments_ClassBoards", "ClassBoard", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(UniversityOfMe.Models.ClassBoard), "ClassEnrollment", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassEnrollment), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassEnrollments_Classes", "Class", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Class), "ClassEnrollment", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassEnrollment), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassEnrollments_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ClassEnrollment", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassEnrollment), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassBoardViewStates_ClassBoards", "ClassBoard", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.ClassBoard), "ClassBoardViewState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassBoardViewState), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassBoardViewStates_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ClassBoardViewState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassBoardViewState), true)]
 
 #endregion
 
@@ -752,22 +755,6 @@ namespace UniversityOfMe.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<ClassEnrollment> ClassEnrollments
-        {
-            get
-            {
-                if ((_ClassEnrollments == null))
-                {
-                    _ClassEnrollments = base.CreateObjectSet<ClassEnrollment>("ClassEnrollments");
-                }
-                return _ClassEnrollments;
-            }
-        }
-        private ObjectSet<ClassEnrollment> _ClassEnrollments;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<ClassReview> ClassReviews
         {
             get
@@ -940,6 +927,38 @@ namespace UniversityOfMe.Models
             }
         }
         private ObjectSet<ClassBoard> _ClassBoards;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ClassEnrollment> ClassEnrollments
+        {
+            get
+            {
+                if ((_ClassEnrollments == null))
+                {
+                    _ClassEnrollments = base.CreateObjectSet<ClassEnrollment>("ClassEnrollments");
+                }
+                return _ClassEnrollments;
+            }
+        }
+        private ObjectSet<ClassEnrollment> _ClassEnrollments;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ClassBoardViewState> ClassBoardViewStates
+        {
+            get
+            {
+                if ((_ClassBoardViewStates == null))
+                {
+                    _ClassBoardViewStates = base.CreateObjectSet<ClassBoardViewState>("ClassBoardViewStates");
+                }
+                return _ClassBoardViewStates;
+            }
+        }
+        private ObjectSet<ClassBoardViewState> _ClassBoardViewStates;
 
         #endregion
         #region AddTo Methods
@@ -1241,14 +1260,6 @@ namespace UniversityOfMe.Models
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the ClassEnrollments EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToClassEnrollments(ClassEnrollment classEnrollment)
-        {
-            base.AddObject("ClassEnrollments", classEnrollment);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the ClassReviews EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToClassReviews(ClassReview classReview)
@@ -1334,6 +1345,22 @@ namespace UniversityOfMe.Models
         public void AddToClassBoards(ClassBoard classBoard)
         {
             base.AddObject("ClassBoards", classBoard);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ClassEnrollments EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToClassEnrollments(ClassEnrollment classEnrollment)
+        {
+            base.AddObject("ClassEnrollments", classEnrollment);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ClassBoardViewStates EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToClassBoardViewStates(ClassBoardViewState classBoardViewState)
+        {
+            base.AddObject("ClassBoardViewStates", classBoardViewState);
         }
 
         #endregion
@@ -3327,28 +3354,6 @@ namespace UniversityOfMe.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClassEnrollments_Classes", "ClassEnrollment")]
-        public EntityCollection<ClassEnrollment> ClassEnrollments
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ClassEnrollment>("UniversityOfMeModel.FK_ClassEnrollments_Classes", "ClassEnrollment");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClassEnrollment>("UniversityOfMeModel.FK_ClassEnrollments_Classes", "ClassEnrollment", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClassReviews_Classes", "ClassReview")]
         public EntityCollection<ClassReview> ClassReviews
         {
@@ -3383,6 +3388,28 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClassBoard>("UniversityOfMeModel.FK_ClassBoards_Classes", "ClassBoard", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClassEnrollments_Classes", "ClassEnrollment")]
+        public EntityCollection<ClassEnrollment> ClassEnrollments
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ClassEnrollment>("UniversityOfMeModel.FK_ClassEnrollments_Classes", "ClassEnrollment");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClassEnrollment>("UniversityOfMeModel.FK_ClassEnrollments_Classes", "ClassEnrollment", value);
                 }
             }
         }
@@ -3758,6 +3785,50 @@ namespace UniversityOfMe.Models
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClassEnrollments_ClassBoards", "ClassEnrollment")]
+        public EntityCollection<ClassEnrollment> ClassEnrollments
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ClassEnrollment>("UniversityOfMeModel.FK_ClassEnrollments_ClassBoards", "ClassEnrollment");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClassEnrollment>("UniversityOfMeModel.FK_ClassEnrollments_ClassBoards", "ClassEnrollment", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClassBoardViewStates_ClassBoards", "ClassBoardViewState")]
+        public EntityCollection<ClassBoardViewState> ClassBoardViewStates
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ClassBoardViewState>("UniversityOfMeModel.FK_ClassBoardViewStates_ClassBoards", "ClassBoardViewState");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClassBoardViewState>("UniversityOfMeModel.FK_ClassBoardViewStates_ClassBoards", "ClassBoardViewState", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -4115,6 +4186,244 @@ namespace UniversityOfMe.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="ClassBoardViewState")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ClassBoardViewState : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new ClassBoardViewState object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="classBoardId">Initial value of the ClassBoardId property.</param>
+        /// <param name="viewed">Initial value of the Viewed property.</param>
+        /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
+        public static ClassBoardViewState CreateClassBoardViewState(global::System.Int32 id, global::System.Int32 userId, global::System.Int32 classBoardId, global::System.Boolean viewed, global::System.DateTime dateTimeStamp)
+        {
+            ClassBoardViewState classBoardViewState = new ClassBoardViewState();
+            classBoardViewState.Id = id;
+            classBoardViewState.UserId = userId;
+            classBoardViewState.ClassBoardId = classBoardId;
+            classBoardViewState.Viewed = viewed;
+            classBoardViewState.DateTimeStamp = dateTimeStamp;
+            return classBoardViewState;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
+            }
+        }
+        private global::System.Int32 _UserId;
+        partial void OnUserIdChanging(global::System.Int32 value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ClassBoardId
+        {
+            get
+            {
+                return _ClassBoardId;
+            }
+            set
+            {
+                OnClassBoardIdChanging(value);
+                ReportPropertyChanging("ClassBoardId");
+                _ClassBoardId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ClassBoardId");
+                OnClassBoardIdChanged();
+            }
+        }
+        private global::System.Int32 _ClassBoardId;
+        partial void OnClassBoardIdChanging(global::System.Int32 value);
+        partial void OnClassBoardIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Viewed
+        {
+            get
+            {
+                return _Viewed;
+            }
+            set
+            {
+                OnViewedChanging(value);
+                ReportPropertyChanging("Viewed");
+                _Viewed = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Viewed");
+                OnViewedChanged();
+            }
+        }
+        private global::System.Boolean _Viewed;
+        partial void OnViewedChanging(global::System.Boolean value);
+        partial void OnViewedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateTimeStamp
+        {
+            get
+            {
+                return _DateTimeStamp;
+            }
+            set
+            {
+                OnDateTimeStampChanging(value);
+                ReportPropertyChanging("DateTimeStamp");
+                _DateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateTimeStamp");
+                OnDateTimeStampChanged();
+            }
+        }
+        private global::System.DateTime _DateTimeStamp;
+        partial void OnDateTimeStampChanging(global::System.DateTime value);
+        partial void OnDateTimeStampChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClassBoardViewStates_ClassBoards", "ClassBoard")]
+        public ClassBoard ClassBoard
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ClassBoard>("UniversityOfMeModel.FK_ClassBoardViewStates_ClassBoards", "ClassBoard").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ClassBoard>("UniversityOfMeModel.FK_ClassBoardViewStates_ClassBoards", "ClassBoard").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<ClassBoard> ClassBoardReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ClassBoard>("UniversityOfMeModel.FK_ClassBoardViewStates_ClassBoards", "ClassBoard");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ClassBoard>("UniversityOfMeModel.FK_ClassBoardViewStates_ClassBoards", "ClassBoard", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClassBoardViewStates_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_ClassBoardViewStates_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_ClassBoardViewStates_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_ClassBoardViewStates_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_ClassBoardViewStates_Users", "User", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="ClassEnrollment")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -4290,10 +4599,72 @@ namespace UniversityOfMe.Models
         private Nullable<global::System.DateTime> _LastBoardPost;
         partial void OnLastBoardPostChanging(Nullable<global::System.DateTime> value);
         partial void OnLastBoardPostChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> LastClassBoardId
+        {
+            get
+            {
+                return _LastClassBoardId;
+            }
+            set
+            {
+                OnLastClassBoardIdChanging(value);
+                ReportPropertyChanging("LastClassBoardId");
+                _LastClassBoardId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LastClassBoardId");
+                OnLastClassBoardIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _LastClassBoardId;
+        partial void OnLastClassBoardIdChanging(Nullable<global::System.Int32> value);
+        partial void OnLastClassBoardIdChanged();
 
         #endregion
     
         #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClassEnrollments_ClassBoards", "ClassBoard")]
+        public ClassBoard ClassBoard
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ClassBoard>("UniversityOfMeModel.FK_ClassEnrollments_ClassBoards", "ClassBoard").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ClassBoard>("UniversityOfMeModel.FK_ClassEnrollments_ClassBoards", "ClassBoard").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<ClassBoard> ClassBoardReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ClassBoard>("UniversityOfMeModel.FK_ClassEnrollments_ClassBoards", "ClassBoard");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ClassBoard>("UniversityOfMeModel.FK_ClassEnrollments_ClassBoards", "ClassBoard", value);
+                }
+            }
+        }
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -15089,28 +15460,6 @@ namespace UniversityOfMe.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClassEnrollments_Users", "ClassEnrollment")]
-        public EntityCollection<ClassEnrollment> ClassEnrollments
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ClassEnrollment>("UniversityOfMeModel.FK_ClassEnrollments_Users", "ClassEnrollment");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClassEnrollment>("UniversityOfMeModel.FK_ClassEnrollments_Users", "ClassEnrollment", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClassReviews_Users", "ClassReview")]
         public EntityCollection<ClassReview> ClassReviews
         {
@@ -15491,6 +15840,50 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClassBoard>("UniversityOfMeModel.FK_ClassBoards_Users", "ClassBoard", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClassEnrollments_Users", "ClassEnrollment")]
+        public EntityCollection<ClassEnrollment> ClassEnrollments
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ClassEnrollment>("UniversityOfMeModel.FK_ClassEnrollments_Users", "ClassEnrollment");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClassEnrollment>("UniversityOfMeModel.FK_ClassEnrollments_Users", "ClassEnrollment", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClassBoardViewStates_Users", "ClassBoardViewState")]
+        public EntityCollection<ClassBoardViewState> ClassBoardViewStates
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ClassBoardViewState>("UniversityOfMeModel.FK_ClassBoardViewStates_Users", "ClassBoardViewState");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClassBoardViewState>("UniversityOfMeModel.FK_ClassBoardViewStates_Users", "ClassBoardViewState", value);
                 }
             }
         }

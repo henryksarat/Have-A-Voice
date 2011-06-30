@@ -7,6 +7,7 @@
         ClubBoard,
         ClassBoard,
         GeneralPosting,
-        Event
+        Event,
+        ClassBoardReply
     }
 }

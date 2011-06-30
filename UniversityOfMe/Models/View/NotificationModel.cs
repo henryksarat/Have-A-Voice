@@ -8,6 +8,7 @@ namespace UniversityOfMe.Models.View {
     public class NotificationModel {
         public NotificationType NotificationType { get; set; }
         public Class Class { get; set; }
+        public ClassBoard ClassBoard { get; set; }
         public Club Club { get; set; }
         public Board Board { get; set; }
         public GeneralPosting GeneralPosting { get; set; }

@@ -18,6 +18,10 @@ namespace UniversityOfMe.Helpers {
             return "/" + aClass.UniversityId + "/Class/Details/" + String.Join("_", aClass.ClassCode, aClass.AcademicTermId, aClass.Year) + "?classViewType=" + ClassViewType.Review;
         }
 
+        public static string BuildClassBoardUrl(ClassBoard aClassBoard) {
+            return "/" + aClassBoard.Class.UniversityId + "/ClassBoard/Details?classId=" + aClassBoard.ClassId + "&classBoardId=" + aClassBoard.Id;
+        }
+
         public static string BuildClassDiscussionUrl(Class aClass) {
             return "/" + aClass.UniversityId + "/Class/Details/" + String.Join("_", aClass.ClassCode, aClass.AcademicTermId, aClass.Year) + "?classViewType=" + ClassViewType.Discussion;
         }

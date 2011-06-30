@@ -121,6 +121,8 @@ namespace UniversityOfMe.Services.Classes {
                 throw new PermissionDenied("You must be enrolled in the class to view this class discussion message.");
             }
 
+            theClassRepository.MarkClassBoardReplyAsViewed(aViewingUser.Details, aClassBoardId);
+
             return myClassBoard;
         }
 

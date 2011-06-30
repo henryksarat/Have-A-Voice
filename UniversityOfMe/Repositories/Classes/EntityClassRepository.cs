@@ -11,17 +11,12 @@ namespace UniversityOfMe.Repositories.Classes {
             ClassBoard myBoard = ClassBoard.CreateClassBoard(0, aClassId, aPostedByUser.Id, aReply, DateTime.UtcNow, false);
             theEntities.AddToClassBoards(myBoard);
 
-            IEnumerable<ClassEnrollment> myEnrollments = GetClassEnrollments(aClassId);
-            DateTime myCurrentDateTime = DateTime.UtcNow;
+            theEntities.SaveChanges();
 
-            foreach (ClassEnrollment myClassEnrollment in myEnrollments) {
-                if (aPostedByUser.Id == myClassEnrollment.UserId) {
-                    myClassEnrollment.BoardViewed = true;
-                } else {
-                    myClassEnrollment.BoardViewed = false;
-                    myClassEnrollment.LastBoardPost = myCurrentDateTime;
-                }
-            }
+            UpdateClassEnrollmentsForNewBoardPostWithoutSave(aPostedByUser, aClassId, myBoard);
+
+            ClassBoardViewState myViewState = ClassBoardViewState.CreateClassBoardViewState(0, aPostedByUser.Id, myBoard.Id, true, DateTime.UtcNow);
+            theEntities.AddToClassBoardViewStates(myViewState);
 
             theEntities.SaveChanges();
         }
@@ -40,6 +35,15 @@ namespace UniversityOfMe.Repositories.Classes {
         public void AddReplyToClassBoard(User aPostedByUser, int aClassBoardId, string aReply) {
             ClassBoardReply myClassBoardReply = ClassBoardReply.CreateClassBoardReply(0, aPostedByUser.Id, aClassBoardId, aReply, DateTime.UtcNow, false);
             theEntities.AddToClassBoardReplies(myClassBoardReply);
+
+            ClassBoard myBoard = GetClassBoard(aClassBoardId);
+
+            DateTime myDateTime = DateTime.UtcNow;
+
+            UpdateBoardViewedStateWithoutSave(aPostedByUser, aClassBoardId, myDateTime);
+
+            VerifyAuthorOfBoardHasViewStateWithoutSave(aPostedByUser, aClassBoardId, myBoard, myDateTime);
+
             theEntities.SaveChanges();
         }
 
@@ -62,6 +66,14 @@ namespace UniversityOfMe.Repositories.Classes {
             myClassBoard.Deleted = true;
             myClassBoard.DeletedByUserId = aDeletingUser.Id;
             myClassBoard.DeletedByDateTimeStamp = DateTime.UtcNow;
+
+            IEnumerable<ClassBoardViewState> myViewStates = GetClassBoardViewStates(aBoardId);
+            foreach (ClassBoardViewState myViewState in myViewStates) {
+                theEntities.DeleteObject(myViewState);
+            }
+
+            UpdateClassEnrollmentsToNotReferToDeletedBoardWithoutSave(myClassBoard);
+
             theEntities.SaveChanges();
         }
 
@@ -70,6 +82,14 @@ namespace UniversityOfMe.Repositories.Classes {
             myReply.Deleted = true;
             myReply.DeletedByUserId = aDeletingUser.Id;
             myReply.DeletedDateTimeStamp = DateTime.UtcNow;
+
+            IEnumerable<ClassBoardReply> myClassBoardReplies = GetClassBoardRepliesForUser(aDeletingUser, myReply.ClassBoardId);
+            //Didn't save the one we are deleting right now
+            if (myClassBoardReplies.Count<ClassBoardReply>() == 1) {
+                ClassBoardViewState myViewState = GetClassBoardViewState(aDeletingUser, myReply.ClassBoardId);
+                theEntities.DeleteObject(myViewState);
+            }
+
             theEntities.SaveChanges();
         }
 
@@ -133,6 +153,15 @@ namespace UniversityOfMe.Repositories.Classes {
             }
         }
 
+        public void MarkClassBoardReplyAsViewed(User aUser, int aClassBoardId) {
+            ClassBoardViewState myViewState = GetClassBoardViewState(aUser, aClassBoardId);
+            if (myViewState != null) {
+                myViewState.Viewed = true;
+                myViewState.DateTimeStamp = DateTime.UtcNow;
+                theEntities.SaveChanges();
+            }
+        }
+
         public void RemoveFromClassEnrollment(User aStudentToRemove, int aClassId) {
             ClassEnrollment myEnrollment = GetClassEnrollment(aStudentToRemove, aClassId);
             theEntities.DeleteObject(myEnrollment);
@@ -149,6 +178,82 @@ namespace UniversityOfMe.Repositories.Classes {
             return (from cb in theEntities.ClassBoards
                     where cb.ClassId == aClassId
                     select cb).Count<ClassBoard>();
+        }
+
+        private ClassBoardViewState GetClassBoardViewState(User aUser, int aClassBoardId) {
+            return (from v in theEntities.ClassBoardViewStates
+                    where v.ClassBoardId == aClassBoardId
+                    && v.UserId == aUser.Id
+                    select v).FirstOrDefault<ClassBoardViewState>();
+        }
+
+        private IEnumerable<ClassBoardViewState> GetClassBoardViewStates(int aClassBoardId) {
+            return (from v in theEntities.ClassBoardViewStates
+                    where v.ClassBoardId == aClassBoardId
+                    select v);
+        }
+
+        private IEnumerable<ClassBoardReply> GetClassBoardRepliesForUser(User aUser, int aClassBoardId) {
+            return (from r in theEntities.ClassBoardReplies
+                    where r.UserId == aUser.Id
+                    && r.ClassBoardId == aClassBoardId
+                    && !r.Deleted
+                    select r);
+        }
+
+        private void UpdateBoardViewedStateWithoutSave(User aPostedByUser, int aClassBoardId, DateTime myDateTime) {
+            IEnumerable<ClassBoardViewState> myViewStates = GetClassBoardViewStates(aClassBoardId);
+            bool myHasBoardViewedState = false;
+
+            foreach (ClassBoardViewState myViewState in myViewStates) {
+                if (aPostedByUser.Id == myViewState.UserId) {
+                    myViewState.Viewed = true;
+                    myHasBoardViewedState = true;
+                } else {
+                    myViewState.Viewed = false;
+                }
+
+                myViewState.DateTimeStamp = myDateTime;
+            }
+
+            if (!myHasBoardViewedState) {
+                ClassBoardViewState myViewState = ClassBoardViewState.CreateClassBoardViewState(0, aPostedByUser.Id, aClassBoardId, true, myDateTime);
+                theEntities.AddToClassBoardViewStates(myViewState);
+            }
+        }
+
+        private void UpdateClassEnrollmentsForNewBoardPostWithoutSave(User aPostedByUser, int aClassId, ClassBoard myBoard) {
+            IEnumerable<ClassEnrollment> myEnrollments = GetClassEnrollments(aClassId);
+            DateTime myCurrentDateTime = DateTime.UtcNow;
+
+            foreach (ClassEnrollment myClassEnrollment in myEnrollments) {
+                if (aPostedByUser.Id == myClassEnrollment.UserId) {
+                    myClassEnrollment.BoardViewed = true;
+                } else {
+                    myClassEnrollment.BoardViewed = false;
+                }
+                myClassEnrollment.LastBoardPost = myCurrentDateTime;
+                myClassEnrollment.LastClassBoardId = myBoard.Id;
+            }
+        }
+
+        private void UpdateClassEnrollmentsToNotReferToDeletedBoardWithoutSave(ClassBoard myClassBoard) {
+            IEnumerable<ClassEnrollment> myEnrollments = GetClassEnrollments(myClassBoard.ClassId);
+            foreach (ClassEnrollment myClassEnrollment in myEnrollments) {
+                if (myClassEnrollment.LastClassBoardId == myClassBoard.Id) {
+                    myClassEnrollment.BoardViewed = true;
+                    myClassEnrollment.LastBoardPost = null;
+                    myClassEnrollment.LastClassBoardId = null;
+                }
+            }
+        }
+
+        private void VerifyAuthorOfBoardHasViewStateWithoutSave(User aPostedByUser, int aClassBoardId, ClassBoard myBoard, DateTime myDateTime) {
+            ClassBoardViewState myAuthorViewState = GetClassBoardViewState(aPostedByUser, aClassBoardId);
+            if (myAuthorViewState == null) {
+                myAuthorViewState = ClassBoardViewState.CreateClassBoardViewState(0, myBoard.UserId, aClassBoardId, false, myDateTime);
+                theEntities.AddToClassBoardViewStates(myAuthorViewState);
+            }
         }
     }
 }

@@ -16,10 +16,18 @@ namespace UniversityOfMe.Repositories.Notifications {
                     select bvs);
         }
 
+        public IEnumerable<ClassBoardViewState> GetClassBoardsWithNewReplies(User aUser) {
+            return (from v in theEntities.ClassBoardViewStates
+                    where !v.Viewed
+                    && v.UserId == aUser.Id
+                    select v);
+        }
+
         public IEnumerable<ClassEnrollment> GetClassEnrollmentsNotViewedBoard(User aUser) {
             return (from ce in theEntities.ClassEnrollments
                     where ce.UserId == aUser.Id
                     && !ce.BoardViewed
+                    && ce.LastClassBoardId != null
                     select ce);
         }
 

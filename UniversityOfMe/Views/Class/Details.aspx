@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInWrapperModel<Class>>" %>
 <%@ Import Namespace="UniversityOfMe.Helpers" %>
+<%@ Import Namespace="Social.Generic.Models" %>
+<%@ Import Namespace="UniversityOfMe.Helpers.Functionality" %>
 <%@ Import Namespace="UniversityOfMe.Models" %>
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
 <%@ Import Namespace="UniversityOfMe.UserInformation" %>
@@ -20,6 +22,7 @@
     });
 </script>
 
+    <% UserInformationModel<User> myUserInfo = UserInformationFactory.GetUserInformation(); %>
     <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
     <% ClassViewType myViewType = (ClassViewType)ViewData["ClassViewType"]; %>
     
@@ -213,9 +216,11 @@
 					            </td> 
 					            <td> 
 						            <div class="red bld"><%= NameHelper.FullName(myBoard.PostedByUser)%> 
-                                        <%= Html.ActionLink("View Details (" + myBoard.ClassBoardReplies.Count + " replies)", "Details", "ClassBoard", new { classId = Model.Get().Id, classBoardId = myBoard.Id }, new { @class = "edit-item" })%> 
-                                        <span class="nrm small gray">|</span>
-                                        <%= Html.ActionLink("Delete", "Delete", "ClassBoard", new { classId = Model.Get().Id, classBoardId = myBoard.Id, source = SiteSection.Class }, new { @class = "edit-item" })%> 
+                                        <a class="edit-item" href="<%= URLHelper.BuildClassBoardUrl(myBoard) %>"><%= "View Details (" + myBoard.ClassBoardReplies.Where(r => !r.Deleted).Count<ClassBoardReply>() + " replies)" %></a>
+                                        <% if(ClassBoardHelper.IsAllowedToDelete(myUserInfo, myBoard)) { %>
+                                            <span class="nrm small gray">|</span>
+                                            <%= Html.ActionLink("Delete", "Delete", "ClassBoard", new { classId = Model.Get().Id, classBoardId = myBoard.Id, source = SiteSection.Class }, new { @class = "edit-item" })%> 
+                                        <% } %>
 							            <div class="rating"> 
 								            <span class="gray small nrm"><%= LocalDateHelper.ToLocalTime(myBoard.DateTimeStamp)%></span> 
 							            </div> 
