@@ -6,12 +6,89 @@
 <script>
     $(document).ready(function () {
         $("#datingtooltip a[title]").tooltip();
+        $("#search").bind("keydown", function (event) {
+            // track enter key
+            var keycode = (event.keyCode ? event.keyCode : (event.which ? event.which : event.charCode));
+            if (keycode == 13) { // keycode for enter key
+                var myType = $('.active').attr('id');
+                var mySearch = $('#search').val();
+                $.post("/Search/DoSearch", { searchType: myType, searchString: mySearch });
+                return false;
+            } else {
+                return true;
+            }
+        });
+        $("#search").click(function () {
+            $("#search").val("");
+        });
+    });
+
+    var isShown = false;
+
+    $(function () {
+        $("a.search").click(function () {
+            if ($("ul.options").is(":visible")) {
+                $("div.select").css({ borderColor: "transparent", borderWidth: "0px", borderStyle: "none", top: "9px", right: "16px" });
+                $("ul.options").slideUp("fast");
+                isShown = false;
+            } else {
+                $("div.select").css({ borderColor: "#cdcdcd", borderWidth: "1px", borderStyle: "solid", top: "8px", right: "15px" });
+                $("ul.options").slideDown("fast");
+                isShown = true;
+            }
+            return false;
+        });
+        $("ul.options a").click(function () {
+            $("ul.options li").removeClass("active");
+            $(this).parent("li").addClass("active");
+
+            return false;
+        });
+        $("body").click(function () {
+            if (isShown) {
+                $("div.select").css({ borderColor: "transparent", borderWidth: "0px", borderStyle: "none", top: "9px", right: "16px" });
+                $("ul.options").slideUp("fast");
+                isShown = false;
+            }
+        })
     });
 </script> 
 
 <div class="four"> 
 	<div class="banner full mb72"> 
-		<input type="search" name="search" id="search" /> 
+
+		<div class="search clearfix"> 
+			<input id="search" type="text" class="inpt" value="type in your query and hit enter" /> 
+			<div class="select"> 
+				<a href="#" class="search">Search</a> 
+				<ul class="options"> 
+					<li id="<%= SearchType.All %>" class="active"> 
+						<a href="#" class="all">All</a> 
+					</li> 
+					<li id="<%= SearchType.People %>"> 
+						<a href="#" class="people">People</a> 
+					</li> 
+					<li id="<%= SearchType.Professors %>"> 
+						<a href="#" class="professor">Professors</a> 
+					</li> 
+					<li id="<%= SearchType.Classes %>"> 
+						<a href="#" class="case">Classes</a> 
+					</li> 
+					<li  id="<%= SearchType.Events %>"> 
+						<a href="#" class="cal">Events</a> 
+					</li> 
+					<li id="<%= SearchType.Textbooks %>"> 
+						<a href="#" class="text">Book</a> 
+					</li> 
+					<li id="<%= SearchType.GeneralPostings %>"> 
+						<a href="#" class="paper">Paper</a> 
+					</li> 
+					<li id="<%= SearchType.Organizations %>"> 
+						<a href="#" class="org">Organizations</a> 
+					</li> 
+				</ul> 
+			</div>
+		</div> 
 		<span class="corner"></span> 
 	</div> 
  

@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\Classes\ClassBoardReplyController.cs" />
+    <Compile Include="Controllers\Search\SearchController.cs" />
     <Compile Include="Controllers\Site\FeatureController.cs" />
     <Compile Include="Controllers\Notification\NotificationController.cs" />
     <Compile Include="Controllers\Site\HomeController.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="Helpers\PrivacyHelper.cs" />
     <Compile Include="Helpers\ProfilePictureStrategy.cs" />
     <Compile Include="Helpers\RegistrationStrategy.cs" />
+    <Compile Include="Helpers\SearchType.cs" />
     <Compile Include="Helpers\SelectionHelper.cs" />
     <Compile Include="Helpers\SendItemOptions.cs" />
     <Compile Include="Helpers\SiteSection.cs" />
@@ -177,6 +179,8 @@
       <DependentUpon>UniversityOfMeDBModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\View\ClubAdminFeed.cs" />
+    <Compile Include="Models\View\Search\ClassSearchResult.cs" />
+    <Compile Include="Models\View\Search\ISearchResult.cs" />
     <Compile Include="Models\View\UserFeedModel.cs" />
     <Compile Include="Models\View\EditUserModel.cs" />
     <Compile Include="Models\View\EventViewModel.cs" />
@@ -218,6 +222,8 @@
     <Compile Include="Repositories\Photos\IUofMePhotoRepository.cs" />
     <Compile Include="Repositories\Professors\EntityProfessorReviewRepository.cs" />
     <Compile Include="Repositories\Professors\IProfessorRepository.cs" />
+    <Compile Include="Repositories\Search\EntitySearchRepository.cs" />
+    <Compile Include="Repositories\Search\ISearchRepository.cs" />
     <Compile Include="Repositories\SendItems\EntitySendItemsRepository.cs" />
     <Compile Include="Repositories\SendItems\ISendItemsRepository.cs" />
     <Compile Include="Repositories\TextBooks\ITextBookRepository.cs" />
@@ -258,6 +264,8 @@
     <Compile Include="Services\Professors\IProfessorReviewService.cs" />
     <Compile Include="Services\Professors\ProfessorService.cs" />
     <Compile Include="Services\Professors\IProfessorService.cs" />
+    <Compile Include="Services\Search\ISearchService.cs" />
+    <Compile Include="Services\Search\SearchService.cs" />
     <Compile Include="Services\SendItems\ISendItemsService.cs" />
     <Compile Include="Services\SendItems\SendItemsService.cs" />
     <Compile Include="Services\TextBooks\TextBookService.cs" />
@@ -416,6 +424,7 @@
     <Content Include="Views\Role\Edit.aspx" />
     <Content Include="Views\Role\Index.aspx" />
     <Content Include="Views\Role\SwitchUserRoles.aspx" />
+    <Content Include="Views\Search\All.aspx" />
     <Content Include="Views\Shared\Notifications.ascx" />
     <Content Include="Views\Shared\Error.aspx" />
     <Content Include="Views\Shared\Message.ascx" />
