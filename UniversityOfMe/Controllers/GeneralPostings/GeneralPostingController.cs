@@ -12,7 +12,7 @@ using Social.Users.Services;
 using Social.Validation;
 using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
-using UniversityOfMe.Models.Social;
+using UniversityOfMe.Models.SocialModels;
 using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories;
 using UniversityOfMe.Services.GeneralPostings;
@@ -36,29 +36,7 @@ namespace UniversityOfMe.Controllers.GeneralPostings {
         }
 
         public ActionResult List(string universityId) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-
-            if (!UniversityHelper.IsFromUniversity(GetUserInformatonModel().Details, universityId)) {
-                return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
-            }
-
-            try {
-                LoggedInListModel<GeneralPosting> myLoggedInListModel = new LoggedInListModel<GeneralPosting>(GetUserInformatonModel().Details);
-                IEnumerable<GeneralPosting> myGeneralPostings = theGeneralPostingService.GetGeneralPostingsForUniversity(universityId);
-
-                myLoggedInListModel.Set(myGeneralPostings);
-
-                if (myGeneralPostings.Count<GeneralPosting>() == 0) {
-                    ViewData["Message"] = MessageHelper.NormalMessage(NO_GENERAL_POSTING);
-                }
-
-                return View("List", myLoggedInListModel);
-            } catch(Exception myException) {
-                LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                return SendToErrorPage(ErrorKeys.ERROR_MESSAGE);
-            }
+            return RedirectToAction("GeneralPosting", "Search", new { searchString = string.Empty, page = 1 });
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]

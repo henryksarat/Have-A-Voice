@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Social.Generic.Models;
 using UniversityOfMe.Models;
-using UniversityOfMe.Models.Social;
+using UniversityOfMe.Models.SocialModels;
 
 namespace UniversityOfMe.Repositories.Photos {
     public class EntityPhotoRepository : IUofMePhotoRepository {

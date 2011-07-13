@@ -87,7 +87,6 @@ namespace UniversityOfMe.Services.Events {
             myEvents = (from e in myEvents
                         where (e.EntireSchool == true
                         || (!e.EntireSchool && FriendHelper.IsFriend(aUser, e.User)))
-                        && e.StartDate > DateTime.UtcNow
                         select e).OrderBy(e => e.StartDate);
             return myEvents;
         }

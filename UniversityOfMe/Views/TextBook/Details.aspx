@@ -2,6 +2,7 @@
 <%@ Import Namespace="UniversityOfMe.UserInformation" %>
 <%@ Import Namespace="UniversityOfMe.Models" %>
 <%@ Import Namespace="UniversityOfMe.Helpers" %>
+<%@ Import Namespace="UniversityOfMe.Helpers.Format" %>
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
@@ -73,7 +74,7 @@
 					<label for="price">Asking Price:</label>
 				</div>
 				<div class="col">
-					<%= String.Format("{0:C}", Model.Get().Price) %>
+					<%= MoneyFormatHelper.Format(Model.Get().Price) %>
 				</div>
 							
 				<div class="clearfix"></div>

@@ -3,7 +3,7 @@ using System.Linq;
 using Social.Generic.Models;
 using Social.Photo.Repositories;
 using UniversityOfMe.Models;
-using UniversityOfMe.Models.Social;
+using UniversityOfMe.Models.SocialModels;
 
 namespace UniversityOfMe.Repositories.Photos {
     public class EntityPhotoAlbumRepository : IPhotoAlbumRepository<User, PhotoAlbum, Photo> {

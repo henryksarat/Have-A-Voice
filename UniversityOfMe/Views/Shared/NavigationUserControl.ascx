@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl" %>
 <%@ Import Namespace="UniversityOfMe.Helpers" %>
+<%@ Import Namespace="UniversityOfMe.Helpers.Search" %>
 <%@ Import Namespace="UniversityOfMe.UserInformation" %>
 <%@ Import Namespace="UniversityOfMe.Models" %>
 

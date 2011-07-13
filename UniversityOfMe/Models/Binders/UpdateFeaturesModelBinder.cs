@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using Social.Generic;
 using Social.User.Models;
-using UniversityOfMe.Models.Social;
+using UniversityOfMe.Models.SocialModels;
 using UniversityOfMe.UserInformation;
 using UniversityOfMe.Helpers;
 using Social.Generic.Helpers;

@@ -3,7 +3,7 @@ using System.Linq;
 using Social.Generic.Models;
 using Social.User.Repositories;
 using UniversityOfMe.Models;
-using UniversityOfMe.Models.Social;
+using UniversityOfMe.Models.SocialModels;
 
 namespace UniversityOfMe.Repositories.UserRepos {
     public class EntityUserRetrievalRepository : IUofMeUserRetrievalRepository {

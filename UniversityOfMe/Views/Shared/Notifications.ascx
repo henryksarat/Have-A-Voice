@@ -65,7 +65,7 @@
 			</li> 
         <% } else if(myNotificationModel.NotificationType == NotificationType.Event) { %>
 			<li class="event"> 
-				New post in the event <a href="<%= URLHelper.BuildEventUrl(myNotificationModel.Event) %>"><%= TextShortener.Shorten(myNotificationModel.Event.Title, 20) %> </a> 
+				New post in the event <a href="<%= URLHelper.EventUrl(myNotificationModel.Event) %>"><%= TextShortener.Shorten(myNotificationModel.Event.Title, 20) %> </a> 
 				<span class="time"><%= LocalDateHelper.ToLocalTime(myNotificationModel.DateTimeSent)%></span> 
 			</li> 
         <% } else if (myNotificationModel.NotificationType == NotificationType.GeneralPosting) { %>

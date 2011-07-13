@@ -4,7 +4,7 @@ using System.Linq;
 using Social.User.Models;
 using Social.User.Repositories;
 using UniversityOfMe.Models;
-using UniversityOfMe.Models.Social;
+using UniversityOfMe.Models.SocialModels;
 using UniversityOfMe.Repositories.UserRepos;
 
 namespace UniversityOfMe.Repositories {

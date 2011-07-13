@@ -6,7 +6,7 @@ using Social.Generic.Helpers;
 
 namespace Social.Generic.Constants {
     public class Constants {
-        public const string PHOTO_LOCATION_FROM_VIEW = "/universityofmedev/Photos/";
+        public const string PHOTO_LOCATION_FROM_VIEW = "/Photos/";
         public const string NO_PROFILE_PICTURE_IMAGE = "no_profile_picture.jpg";
         public const string NO_PROFILE_PICTURE_URL = PHOTO_LOCATION_FROM_VIEW + NO_PROFILE_PICTURE_IMAGE;
         public const string ANONYMOUS_PICTURE_URL = NO_PROFILE_PICTURE_URL;

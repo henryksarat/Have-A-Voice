@@ -1,6 +1,6 @@
 ﻿using Social.User.Helpers;
 using UniversityOfMe.Models;
-using UniversityOfMe.Models.Social;
+using UniversityOfMe.Models.SocialModels;
 
 namespace UniversityOfMe.Helpers {
     public class NameHelper {

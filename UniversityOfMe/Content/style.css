@@ -223,7 +223,7 @@ div.search div.select a.search, div.search div.select a.search:link, div.search 
 
 div.search div.select ul.options { margin: 7px auto 0px auto; width: 24px; display: none; }
 div.search div.select ul.options li { margin-bottom: 10px; }
-div.search div.select ul.options li.active { background: #e5e5e5; }
+div.search div.select ul.options li.active-filter { background: #e5e5e5; }
 
 div.search div.select a.all, div.search div.select a.all:link, div.search div.select a.all:visited { display: inline-block; text-indent: -9999px; background:url(images/red-star.png) no-repeat center center; width: 24px; height: 20px; }
 div.search div.select a.people, div.search div.select a.people:link, div.search div.select a.people:visited { display: inline-block; text-indent: -9999px; background:url(images/all.png) no-repeat center center; width: 24px; height: 20px; }

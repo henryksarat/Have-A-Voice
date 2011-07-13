@@ -34,12 +34,40 @@ namespace UniversityOfMe.Helpers {
             return "/" + aTextbook.UniversityId + "/TextBook/Details/" + aTextbook.Id;
         }
 
-        public static string BuildEventUrl(Event anEvent) {
+        public static string EventUrl(Event anEvent) {
             return "/" + anEvent.UniversityId + "/Event/Details/" + anEvent.Id;
+        }
+
+        public static string BuildEventAttendUrl(Event anEvent) {
+            return "/Event/Attend/" + anEvent.Id;
+        }
+
+        public static string BuildEventUnAttendUrl(Event anEvent) {
+            return "/Event/Unattend/" + anEvent.Id;
         }
 
         public static string BuildClubUrl(Club aClub) {
             return "/" + aClub.UniversityId + "/Club/Details/" + aClub.Id;
+        }
+
+        public static string BuildOrganizationCancelRequestToJoin(Club aClub) {
+            return "/ClubMember/Cancel?clubId=" + aClub.Id;
+        }
+
+        public static string BuildOrganizationQuitOrganization(Club aClub) {
+            return "/ClubMember/Remove?clubId=" + aClub.Id;
+        }
+
+        public static string BuildOrganizationRequestToJoin(Club aClub) {
+            return "/ClubMember/RequestToJoin?clubId=" + aClub.Id;
+        }
+
+        public static string BuildOrganizationSetAsInactive(Club aClub) {
+            return "/Club/Deactivate?clubId=" + aClub.Id;
+        }
+
+        public static string BuildOrganizationSetAsActive(Club aClub) {
+            return "/Club/Activate?clubId=" + aClub.Id;
         }
 
         public static string MessageUrl(int aMessageId) {
@@ -64,6 +92,22 @@ namespace UniversityOfMe.Helpers {
 
         public static string PhotoDisplayUrl(Photo aPhoto) {
             return "/Photo/Display/" + aPhoto.Id;
+        }
+
+        public static string AddFriendUrl(User aUserToAdd) {
+            return "/Friend/Add/" + aUserToAdd.Id;
+        }
+
+        public static string RemoveFriendUrl(User aUserToRemove) {
+            return "/Friend/Delete/" + aUserToRemove.Id;
+        }
+
+        public static string SendMessageUrl(User aUser) {
+            return "/Message/Create/" + aUser.Id;
+        }
+
+        public static string SendItemUrl(User aUser, SendItemOptions anItem) {
+            return "/SendItems/SendItem/" + aUser.Id + "?sendItem=" + anItem;
         }
     }
 }

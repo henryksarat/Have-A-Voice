@@ -7,7 +7,7 @@ using UniversityOfMe.Repositories.Photos;
 using Social.Validation;
 using UniversityOfMe.Models.View;
 using Social.Generic.Models;
-using UniversityOfMe.Models.Social;
+using UniversityOfMe.Models.SocialModels;
 using System.Collections;
 using System.Collections.Generic;
 using System.Web;

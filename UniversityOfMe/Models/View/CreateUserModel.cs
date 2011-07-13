@@ -1,4 +1,4 @@
-﻿using UniversityOfMe.Models.Social;
+﻿using UniversityOfMe.Models.SocialModels;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System;

@@ -5,7 +5,7 @@ using Social.Admin.Repositories;
 using Social.Generic.Models;
 using Social.User.Exceptions;
 using UniversityOfMe.Models;
-using UniversityOfMe.Models.Social;
+using UniversityOfMe.Models.SocialModels;
 using UniversityOfMe.Repositories.AdminRepos;
 using UniversityOfMe.Helpers;
 

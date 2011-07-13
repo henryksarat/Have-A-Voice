@@ -39,32 +39,7 @@ namespace UniversityOfMe.Controllers.Classes {
         }
 
         public ActionResult List(string universityId) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            try {
-                User myUser = GetUserInformatonModel().Details;
-
-                if (!UniversityHelper.IsFromUniversity(myUser, universityId)) {
-                    return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
-                }
-
-                IEnumerable<Class> myClasses = new List<Class>();
-            
-                myClasses = theClassService.GetClassesForUniversity(universityId);
-
-                if (myClasses.Count<Class>() == 0) {
-                    ViewData["Message"] = MessageHelper.NormalMessage(NO_CLASSES);
-                }
-
-                LoggedInListModel<Class> myLoggedIn = new LoggedInListModel<Class>(myUser);
-                myLoggedIn.Set(myClasses);
-
-                return View("List", myLoggedIn);
-            } catch(Exception myException) {
-                LogError(myException, GET_CLASS_ERROR);
-                return SendToErrorPage(GET_CLASS_ERROR);
-            }
+            return RedirectToAction("Class", "Search", new { searchString = string.Empty, page = 1 });
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]

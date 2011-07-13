@@ -229,33 +229,7 @@ namespace UniversityOfMe.Controllers.Clubs {
 
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult List(string universityId) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-
-            if (!UniversityHelper.IsFromUniversity(GetUserInformatonModel().Details, universityId)) {
-                return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
-            }
-
-            IEnumerable<TextBook> myTextBooks = new List<TextBook>();
-
-            try {
-                LoggedInWrapperModel<TextbookListModel> myLoggedIn = new LoggedInWrapperModel<TextbookListModel>(GetUserInformatonModel().Details);
-                myTextBooks = theTextBookService.GetTextBooksForUniversity(universityId);
-                
-                TextbookListModel myTextbookListModel = CreateTextBookListModel(myTextBooks, Constants.SELECT, Constants.SELECT);
-
-                myLoggedIn.Set(myTextbookListModel);
-
-                if (myTextBooks.Count<TextBook>() == 0) {
-                    ViewData["Message"] = MessageHelper.NormalMessage(NO_TEXTBOOKS);
-                }
-
-                return View("List", myLoggedIn);
-            } catch (Exception myException) {
-                LogError(myException, TEXTBOOKS_GET_ERROR);
-                return SendToErrorPage(TEXTBOOKS_GET_ERROR);
-            }
+            return RedirectToAction("Textbook", "Search", new { searchString = string.Empty, page = 1 });
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]

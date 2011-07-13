@@ -4,7 +4,7 @@ using System.Linq;
 using Social.Generic.Models;
 using Social.Messaging.Repositories;
 using UniversityOfMe.Models;
-using UniversityOfMe.Models.Social;
+using UniversityOfMe.Models.SocialModels;
 using UniversityOfMe.Models.SocialWrappers;
 
 namespace UniversityOfMe.Repositories.Messaging {

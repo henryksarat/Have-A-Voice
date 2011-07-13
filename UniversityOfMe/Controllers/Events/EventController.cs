@@ -206,33 +206,7 @@ namespace UniversityOfMe.Controllers.Events {
 
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult List(string universityId) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            try {
-
-                User myUser = GetUserInformatonModel().Details;
-
-                if (!UniversityHelper.IsFromUniversity(myUser, universityId)) {
-                    return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
-                }
-
-                IEnumerable<Event> myEvents = new List<Event>();
-            
-                myEvents = theEventService.GetEventsForUniversity(myUser, universityId);
-
-                if (myEvents.Count<Event>() == 0) {
-                    TempData["Message"] = MessageHelper.NormalMessage(NO_EVENTS);
-                }
-
-                LoggedInListModel<Event> myLoggedIn = new LoggedInListModel<Event>(myUser);
-                myLoggedIn.Set(myEvents);
-
-                return View("List", myLoggedIn);
-            } catch (Exception myException) {
-                LogError(myException, GET_EVENTS_ERROR);
-                return SendToErrorPage(GET_EVENTS_ERROR);
-            }
+            return RedirectToAction("Event", "Search", new { searchString = string.Empty, page = 1 });
         }
 
         [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]

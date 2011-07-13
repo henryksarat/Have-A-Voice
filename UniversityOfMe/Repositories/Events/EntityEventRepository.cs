@@ -67,6 +67,7 @@ namespace UniversityOfMe.Repositories.Events {
                     where e.Id == anEventId
                     && e.UniversityId == aUniversityId
                     && e.Deleted == false
+                    && e.StartDate > DateTime.UtcNow
                     select e).FirstOrDefault<Event>();
         }
 
@@ -74,6 +75,7 @@ namespace UniversityOfMe.Repositories.Events {
             return (from e in theEntities.Events
                     where e.UniversityId == aUniversityId
                     && e.Deleted == false
+                    && e.StartDate > DateTime.UtcNow
                     select e).ToList<Event>();
         }
 

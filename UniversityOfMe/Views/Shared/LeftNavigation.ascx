@@ -1,5 +1,6 @@
 <%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<UniversityOfMe.Models.View.LeftNavigation>" %>
 <%@ Import Namespace="UniversityOfMe.Helpers" %>
+<%@ Import Namespace="UniversityOfMe.Helpers.Search" %>
 <%@ Import Namespace="UniversityOfMe.Models" %>
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
 
@@ -10,9 +11,9 @@
             // track enter key
             var keycode = (event.keyCode ? event.keyCode : (event.which ? event.which : event.charCode));
             if (keycode == 13) { // keycode for enter key
-                var myType = $('.active').attr('id');
+                var myType = $('.active-filter').attr('id');
                 var mySearch = $('#search').val();
-                $.post("/Search/DoSearch", { searchType: myType, searchString: mySearch });
+                $.post("/Search/DoSearch", { searchType: myType, searchString: mySearch, page: 1 });
                 return false;
             } else {
                 return true;
@@ -39,8 +40,8 @@
             return false;
         });
         $("ul.options a").click(function () {
-            $("ul.options li").removeClass("active");
-            $(this).parent("li").addClass("active");
+            $("ul.options li").removeClass("active-filter");
+            $(this).parent("li").addClass("active-filter");
 
             return false;
         });
@@ -62,29 +63,29 @@
 			<div class="select"> 
 				<a href="#" class="search">Search</a> 
 				<ul class="options"> 
-					<li id="<%= SearchType.All %>" class="active"> 
+					<li id="<%= SearchFilter.All %>" class="active-filter"> 
 						<a href="#" class="all">All</a> 
 					</li> 
-					<li id="<%= SearchType.People %>"> 
-						<a href="#" class="people">People</a> 
+					<li id="<%= SearchFilter.User %>"> 
+						<a href="#" class="people"><%= SearchFilter.User.ToString() %></a> 
 					</li> 
-					<li id="<%= SearchType.Professors %>"> 
-						<a href="#" class="professor">Professors</a> 
+					<li id="<%= SearchFilter.Professor %>"> 
+						<a href="#" class="professor"><%= SearchFilter.Professor.ToString() %></a> 
 					</li> 
-					<li id="<%= SearchType.Classes %>"> 
-						<a href="#" class="case">Classes</a> 
+					<li id="<%= SearchFilter.Class %>"> 
+						<a href="#" class="case"><%= SearchFilter.Class.ToString() %></a> 
 					</li> 
-					<li  id="<%= SearchType.Events %>"> 
-						<a href="#" class="cal">Events</a> 
+					<li  id="<%= SearchFilter.Event %>"> 
+						<a href="#" class="cal"><%= SearchFilter.Event.ToString() %></a> 
 					</li> 
-					<li id="<%= SearchType.Textbooks %>"> 
-						<a href="#" class="text">Book</a> 
+					<li id="<%= SearchFilter.Textbook %>"> 
+						<a href="#" class="text"><%= SearchFilter.Textbook.ToString() %></a> 
 					</li> 
-					<li id="<%= SearchType.GeneralPostings %>"> 
-						<a href="#" class="paper">Paper</a> 
+					<li id="<%= SearchFilter.GeneralPosting %>"> 
+						<a href="#" class="paper"><%= SearchFilter.GeneralPosting.ToString() %></a> 
 					</li> 
-					<li id="<%= SearchType.Organizations %>"> 
-						<a href="#" class="org">Organizations</a> 
+					<li id="<%= SearchFilter.Organization %>"> 
+						<a href="#" class="org"><%= SearchFilter.Organization.ToString() %></a> 
 					</li> 
 				</ul> 
 			</div>

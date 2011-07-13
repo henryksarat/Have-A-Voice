@@ -55,7 +55,7 @@
                                     <% } else { %>
                                         There are no reviews yet    
                                     <% } %>
-								    <p class="pt7 lightgray">Board Posts: <%= myClass.ClassBoards.Count %></p> 
+								    <p class="pt7 lightgray">Board Posts: <%= myClass.ClassBoards.Where(c => !c.Deleted).Count<ClassBoard>() %></p> 
                                 </div> 
 							    <a class="itemlinked" href="<%= URLHelper.BuildClassDiscussionUrl(myClass) %>"><%= myClass.ClassCode %></a><br /> 
 							    <span class="gray"><%= TextShortener.Shorten(myClass.ClassTitle, 20) %></span><br /> 
@@ -77,7 +77,7 @@
 				<ul> 
                     <% foreach (Event myEvent in Model.Get().Events.Take<Event>(5)) { %>
 						<li> 
-							<a class="itemlinked" href="<%= URLHelper.BuildEventUrl(myEvent) %>"><%= myEvent.Title %></a>
+							<a class="itemlinked" href="<%= URLHelper.EventUrl(myEvent) %>"><%= myEvent.Title %></a>
 							<div class="rating darkgray"> 
 								<%= LocalDateHelper.ToLocalTime(myEvent.StartDate) %>
 							</div> 

@@ -234,27 +234,7 @@ namespace UniversityOfMe.Controllers.Clubs {
 
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult List(string universityId) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-
-            try {
-                UserInformationModel<User> myUser = GetUserInformatonModel();
-
-                if (!UniversityHelper.IsFromUniversity(myUser.Details, universityId)) {
-                    return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
-                }
-
-                IEnumerable<Club> myClubs = new List<Club>();
-
-                LoggedInListModel<Club> myLoggedIn = new LoggedInListModel<Club>(myUser.Details);
-                myClubs = theClubService.GetClubs(myUser, universityId);
-                myLoggedIn.Set(myClubs);
-                return View("List", myLoggedIn);
-            } catch (Exception myException) {
-                LogError(myException, CLUB_LIST_ERROR);
-                return SendToErrorPage(CLUB_LIST_ERROR);
-            }
+            return RedirectToAction("Organization", "Search", new { searchString = string.Empty, page = 1 });
         }
     }
 }

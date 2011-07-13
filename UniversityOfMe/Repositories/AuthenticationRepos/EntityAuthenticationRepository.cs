@@ -5,7 +5,7 @@ using Social.Authentication.Repositories;
 using Social.Generic.Models;
 using Social.User.Repositories;
 using UniversityOfMe.Models;
-using UniversityOfMe.Models.Social;
+using UniversityOfMe.Models.SocialModels;
 using UniversityOfMe.Repositories.UserRepos;
 
 namespace UniversityOfMe.Repositories.AuthenticationRepos {

@@ -4,7 +4,7 @@ using Social.Generic.Helpers;
 using Social.User.Models;
 using Social.User.Repositories;
 using UniversityOfMe.Models;
-using UniversityOfMe.Models.Social;
+using UniversityOfMe.Models.SocialModels;
 
 namespace UniversityOfMe.Repositories.UserRepos {
     public class EntityUserPrivacySettingsRepository : IUserPrivacySettingsRepository<User, PrivacySetting> {

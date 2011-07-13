@@ -22,17 +22,28 @@ namespace UniversityOfMe.Models.View.Search {
             int mySumVotes = theClass.ClassReviews.Sum(r => r.Rating);
             int myTotalVotes = theClass.ClassReviews.Count;
 
-            myRatingDiv.InnerHtml += StarHelper.AveragedFiveStarImages(mySumVotes, myTotalVotes);
-            myRatingDiv.InnerHtml += "(" + myTotalVotes + " ratings";
+            if (myTotalVotes != 0) {
+                myRatingDiv.InnerHtml += StarHelper.AveragedFiveStarImages(mySumVotes, myTotalVotes);
+                if (myTotalVotes == 1) {
+                    myRatingDiv.InnerHtml += "(" + myTotalVotes + " rating)";
+                } else {
+                    myRatingDiv.InnerHtml += "(" + myTotalVotes + " ratings)";
+                }
+            } else {
+                myRatingDiv.InnerHtml += "no reviews yet";
+            }
+
+            int myDiscussionPostsCount = theClass.ClassBoards.Where(b => !b.Deleted).Count<ClassBoard>();
 
             var myDiscussionPosts = new TagBuilder("a");
-            myDiscussionPosts.MergeAttribute("href", "#");
-            myDiscussionPosts.InnerHtml += myTotalVotes + " Discussion Posts";
-
-            int myTotalEnrolled = theClass.ClassEnrollments.Count;
+            myDiscussionPosts.MergeAttribute("href", URLHelper.BuildClassDiscussionUrl(theClass));
+            myDiscussionPosts.InnerHtml += 
+                myDiscussionPostsCount == 1 ? myDiscussionPostsCount + " Discussion Post" : myDiscussionPostsCount + " Discussion Posts";
+            
+            int myTotalEnrolled = theClass.ClassEnrollments.Count<ClassEnrollment>(e => PrivacyHelper.PrivacyAllows(e.User, Social.Generic.Helpers.SocialPrivacySetting.Display_Class_Enrollment)) ;
 
             var myEnrolled = new TagBuilder("a");
-            myEnrolled.MergeAttribute("href", "#");
+            myEnrolled.MergeAttribute("href", URLHelper.BuildClassDiscussionUrl(theClass));
             myEnrolled.InnerHtml += myTotalEnrolled + " Enrolled";
 
             myActionsDiv.InnerHtml += myRatingDiv.ToString();
@@ -42,7 +53,13 @@ namespace UniversityOfMe.Models.View.Search {
 
             var myTitleSpan = new TagBuilder("span");
             myTitleSpan.AddCssClass("title");
-            myTitleSpan.InnerHtml += theClass.ClassCode;
+
+            var myNameLinked = new TagBuilder("a");
+            myNameLinked.AddCssClass("itemlinked");
+            myNameLinked.MergeAttribute("href", URLHelper.BuildClassDiscussionUrl(theClass));
+            myNameLinked.InnerHtml += theClass.ClassCode;
+
+            myTitleSpan.InnerHtml += myNameLinked.ToString();
 
             var myBreak = new TagBuilder("br");
 

@@ -45,24 +45,7 @@ namespace UniversityOfMe.Controllers.Professors {
         }
 
         public ActionResult List(string universityId) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            try {
-                User myUser = GetUserInformatonModel().Details;
-
-                if (!UniversityHelper.IsFromUniversity(myUser, universityId)) {
-                    return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
-                }
-
-                ILoggedInListModel<Professor> myLoggedInModel = new LoggedInListModel<Professor>(myUser);
-                myLoggedInModel.Set(theProfessorService.GetProfessorsForUniversity(universityId));
-
-                return View("List", myLoggedInModel);
-            } catch (Exception myException) {
-                LogError(myException, PROFESSOR_LIST_ERROR);
-                return SendToErrorPage(PROFESSOR_LIST_ERROR);
-            }
+            return RedirectToAction("Professor", "Search", new { searchString = string.Empty, page = 1 });
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
