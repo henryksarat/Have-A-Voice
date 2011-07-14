@@ -7,6 +7,7 @@ namespace HaveAVoice.Helpers.Enums {
     public enum IssueStanceFilter {
         All = 0,
         Agree = 1,
-        Disagree = 2
+        Disagree = 2,
+        Neutral = 3
     }
 }

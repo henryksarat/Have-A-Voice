@@ -60,7 +60,7 @@
 		</div>
 		<div class="clear">&nbsp;</div>
 		
-		<div class="push-7 col-9 m-btm10 fnt-12">
+		<div class="push-5 col-16 m-btm10 fnt-12">
 			<div class="m-lft col-3 m-rgt center">
                 <%= IssueHelper.IssueStanceFilterButton(IssueStanceFilter.All, myFilter, "filter", "filterSelected", Model.Issue.Id)%>
                 <div class="clear">&nbsp;</div>
@@ -71,6 +71,10 @@
 			</div>
 			<div class="m-lft col-3 m-rgt center">
                 <%= IssueHelper.IssueStanceFilterButton(IssueStanceFilter.Disagree, myFilter, "filter dislike", "filterSelected dislike", Model.Issue.Id)%>
+                <div class="clear">&nbsp;</div>
+			</div>
+			<div class="m-lft col-3 m-rgt center">
+                <%= IssueHelper.IssueStanceFilterButton(IssueStanceFilter.Neutral, myFilter, "filter dislike", "filterSelected dislike", Model.Issue.Id)%>
                 <div class="clear">&nbsp;</div>
 			</div>
 		</div>
