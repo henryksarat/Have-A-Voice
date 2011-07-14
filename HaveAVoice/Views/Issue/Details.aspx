@@ -249,6 +249,8 @@
 									<%= Html.RadioButton("Disposition", Disposition.Like, Model.Disposition == Disposition.Like ? true : false)%>
 									<label for="Dislike">Disagee</label>
 									<%= Html.RadioButton("Disposition", Disposition.Dislike, Model.Disposition == Disposition.Dislike ? true : false)%>
+									<label for="Neutral">Neutral</label>
+									<%= Html.RadioButton("Disposition", Disposition.None, Model.Disposition == Disposition.None ? true : false)%>
 									<span class="req">
 										<%= Html.ValidationMessage("Disposition", "*")%>
 									</span>

@@ -118,7 +118,7 @@ namespace HaveAVoice.Services.Issues {
             if (anIssueModel.Reply.Trim().Length == 0) {
                 theValidationDictionary.AddError("Reply", anIssueModel.Reply, "Reply is required.");
             }
-            if (anIssueModel.Disposition == (int)Disposition.None) {
+            if (anIssueModel.Disposition != Disposition.None && anIssueModel.Disposition != Disposition.Like && anIssueModel.Disposition != Disposition.Dislike) {
                 theValidationDictionary.AddError("Disposition", anIssueModel.Disposition.ToString(), "Disposition is required.");
             }
 
