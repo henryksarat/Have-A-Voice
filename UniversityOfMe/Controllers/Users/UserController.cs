@@ -106,9 +106,9 @@ namespace UniversityOfMe.Controllers.Users {
 
                 if (theUserService.EditUser(userToEdit, myPassword)) {
                     if (string.IsNullOrEmpty(userToEdit.NewEmail)) {
-                        TempData["Message"] = MessageHelper.SuccessMessage(EDIT_SUCCESS);
+                        TempData["Message"] += MessageHelper.SuccessMessage(EDIT_SUCCESS);
                     } else {
-                        TempData["Message"] = MessageHelper.SuccessMessage(EDIT_SUCCESS + " To finalize the email change please click the link sent to the new email you entered to confirm you are teh owner.");
+                        TempData["Message"] += MessageHelper.SuccessMessage(EDIT_SUCCESS + " To finalize the email change please click the link sent to the new email you entered to confirm you are teh owner.");
                     }
 
                     ForceUserInformationRefresh();
@@ -116,10 +116,10 @@ namespace UniversityOfMe.Controllers.Users {
                 }
             } catch(CustomException myException) {
                 LogError(myException, myException.Message);
-                TempData["Message"] = MessageHelper.ErrorMessage(myException.Message);
+                TempData["Message"] += MessageHelper.ErrorMessage(myException.Message);
             } catch (Exception exception) {
                 LogError(exception, "Error editing the user.");
-                TempData["Message"] = MessageHelper.ErrorMessage("An error has occurred please try your submission again later.");
+                TempData["Message"] += MessageHelper.ErrorMessage("An error has occurred please try your submission again later.");
                 theValidationDictionary.ForceModleStateExport();
             }
 

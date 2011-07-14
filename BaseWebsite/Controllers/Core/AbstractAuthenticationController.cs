@@ -114,7 +114,7 @@ namespace BaseWebsite.Controllers.Core {
             cookie2.Expires = DateTime.Now.AddYears(-1);
             Response.Cookies.Add(cookie2);
 
-            TempData["Message"] = SuccessMessage(AuthenticationKeys.LOGGED_OUT);
+            TempData["Message"] += SuccessMessage(AuthenticationKeys.LOGGED_OUT);
 
             ForceUserInformationRefresh();
 

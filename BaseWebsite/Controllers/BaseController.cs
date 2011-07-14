@@ -47,6 +47,7 @@ namespace BaseWebsite.Controllers {
         protected abstract string SuccessMessage(string aMessage);
         protected abstract string WarningMessage(string aMessage);
 
+
         protected abstract ActionResult RedirectToProfile();
 
         protected IUserInformation<T, Z> GetUserInformationInstance() {
@@ -122,7 +123,7 @@ namespace BaseWebsite.Controllers {
         }
 
         protected ActionResult RedirectToLogin() {
-            TempData["Message"] = NormalMessage("You must be logged in to do that.");
+            TempData["Message"] += NormalMessage("You must be logged in to do that.");
             return RedirectToAction("Login", "Authentication");
         }
 

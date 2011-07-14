@@ -35,11 +35,11 @@ namespace UniversityOfMe.Controllers.Classes {
                 bool myResult = theGeneralPostingService.CreateGeneralPostingReply(GetUserInformatonModel(), generalPostingId, reply);
 
                 if (myResult) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(REPLY_POSTED);
+                    TempData["Message"] += MessageHelper.SuccessMessage(REPLY_POSTED);
                 }
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                TempData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
+                TempData["Message"] += MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
                 theValidationDictionary.ForceModleStateExport();
             }
 

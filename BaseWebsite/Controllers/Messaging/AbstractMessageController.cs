@@ -89,11 +89,11 @@ namespace BaseWebsite.Controllers.Messaging {
             try {
                 T myUser = GetUserInformaton();
                 if (selectedMessages == null || selectedMessages.Count == 0) {
-                    TempData["Message"] = NormalMessage(NO_MESSAGES_TO_DELETE);
+                    TempData["Message"] += NormalMessage(NO_MESSAGES_TO_DELETE);
                 } else {
                     theService.DeleteMessages(selectedMessages, myUser);
                     ForceUserInformationRefresh();
-                    TempData["Message"] = SuccessMessage(MESSAGES_DELETED);
+                    TempData["Message"] += SuccessMessage(MESSAGES_DELETED);
                 }
             } catch (Exception e) {
                 LogError(e, ErrorKeys.ERROR_MESSAGE);
@@ -131,7 +131,7 @@ namespace BaseWebsite.Controllers.Messaging {
             }
             try {
                 if (theService.CreateMessage(UserId(), aToUserId, aSubject, aBody)) {
-                    TempData["Message"] = SuccessMessage(SEND_SUCCESS);
+                    TempData["Message"] += SuccessMessage(SEND_SUCCESS);
                     return RedirectToProfile(aToUserId);
                 }
             } catch (Exception e) {
@@ -178,7 +178,7 @@ namespace BaseWebsite.Controllers.Messaging {
             try {
                 T myUser = GetUserInformaton();
                 if (theService.CreateReply(aMessageId, myUser, aReply)) {
-                    TempData["Message"] = SuccessMessage(REPLY_SUCCESS);
+                    TempData["Message"] += SuccessMessage(REPLY_SUCCESS);
                 }
             } catch (Exception e) {
                 LogError(e, REPLY_ERROR);

@@ -54,20 +54,20 @@ namespace BaseWebsite.Controllers.Friends {
 
             try {
                 if (theFriendService.IsPending(id, myUser)) {
-                    TempData["Message"] = NormalMessage(PENDING_REQUEST);
+                    TempData["Message"] += NormalMessage(PENDING_REQUEST);
                 } else if (theFriendService.IsPendingForResponse(myUser, id)) {
-                    TempData["Message"] = NormalMessage(PENDING_RESPONSE);
+                    TempData["Message"] += NormalMessage(PENDING_RESPONSE);
                 } else if (theFriendService.IsFriend(id, myUser)) {
-                    TempData["Message"] = NormalMessage(ALREADY_FRIEND);
+                    TempData["Message"] += NormalMessage(ALREADY_FRIEND);
                 } else if (myUser.Id == id) {
-                    TempData["Message"] = NormalMessage(FRIEND_YOURSELF);
+                    TempData["Message"] += NormalMessage(FRIEND_YOURSELF);
                 } else {
                     theFriendService.AddFriend(myUser, id);
-                    TempData["Message"] = SuccessMessage(REQUEST_SENT);
+                    TempData["Message"] += SuccessMessage(REQUEST_SENT);
                 }
             } catch (Exception e) {
                 LogError(e, FRIEND_ERROR);
-                TempData["Message"] = ErrorMessage(FRIEND_REQUEST_ERROR);
+                TempData["Message"] += ErrorMessage(FRIEND_REQUEST_ERROR);
             }
 
             return RedirectToAction("Show", "Profile", new { id = id });
@@ -81,14 +81,14 @@ namespace BaseWebsite.Controllers.Friends {
 
             try {
                 if (!theFriendService.IsFriend(id, myUser)) {
-                    TempData["Message"] = NormalMessage(DELETE_NON_FRIEND);
+                    TempData["Message"] += WarningMessage(DELETE_NON_FRIEND);
                 } else {
                     theFriendService.RemoveFriend(myUser, id);
-                    TempData["Message"] = SuccessMessage(DELETE_SUCCESS);
+                    TempData["Message"] += SuccessMessage(DELETE_SUCCESS);
                 }
             } catch (Exception e) {
                 LogError(e, FRIEND_ERROR);
-                TempData["Message"] = ErrorMessage(FRIEND_DELETE_ERROR);
+                TempData["Message"] += ErrorMessage(FRIEND_DELETE_ERROR);
             }
 
             return RedirectToAction("List");
@@ -103,7 +103,7 @@ namespace BaseWebsite.Controllers.Friends {
             try {
                 myModel.Set(theFriendService.FindFriendsForUser(UserId()));
                 if (myModel.Get().Count<A>() == 0) {
-                    TempData["Message"] = NormalMessage(NO_FRIENDS);
+                    TempData["Message"] += NormalMessage(NO_FRIENDS);
                 }
             } catch (Exception e) {
                 LogError(e, FRIENDS_ERROR);
@@ -122,7 +122,7 @@ namespace BaseWebsite.Controllers.Friends {
             try {
                 myModel.Set(theFriendService.FindPendingFriendsForUser(UserId()));
                 if (myModel.Get().Count<A>() == 0) {
-                    TempData["Message"] = NormalMessage(NO_FRIEND_REQUESTS);
+                    TempData["Message"] += NormalMessage(NO_FRIEND_REQUESTS);
                 }
                 ForceUserInformationRefresh();
             } catch (Exception e) {

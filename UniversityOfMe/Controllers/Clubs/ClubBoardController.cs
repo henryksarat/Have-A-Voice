@@ -38,11 +38,11 @@ namespace UniversityOfMe.Controllers.Clubs {
             try {
                 bool myResult = theClubService.PostToClubBoard(myUserInformation, clubId, boardMessage);
                 if (myResult) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(POSTED_TO_BOARD);
+                    TempData["Message"] += MessageHelper.SuccessMessage(POSTED_TO_BOARD);
                 }
             } catch (Exception myException) {
                 LogError(myException, POSTING_TO_BOARD_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(POSTING_TO_BOARD_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(POSTING_TO_BOARD_ERROR);
             }
 
             return RedirectToAction("Details", "Club", new { id = clubId });

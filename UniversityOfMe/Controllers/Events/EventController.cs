@@ -85,7 +85,7 @@ namespace UniversityOfMe.Controllers.Events {
                 Event myResult = theEventService.CreateEvent(myUserInformation, anEvent);
 
                 if (myResult != null) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(EVENT_CREATED);
+                    TempData["Message"] += MessageHelper.SuccessMessage(EVENT_CREATED);
                     return RedirectToAction("Details", new { id = myResult.Id });
                 }
             } catch (Exception myException) {
@@ -109,7 +109,7 @@ namespace UniversityOfMe.Controllers.Events {
                 Event myEvent = theEventService.GetEvent(myUser, universityId, id);
 
                 if (myEvent == null) {
-                    TempData["Message"] = MessageHelper.WarningMessage(NO_EVENT);
+                    TempData["Message"] += MessageHelper.WarningMessage(NO_EVENT);
                     return RedirectToAction("List");
                 }
 
@@ -131,14 +131,14 @@ namespace UniversityOfMe.Controllers.Events {
                 }
 
                 theEventService.DeleteEvent(GetUserInformatonModel(), universityId, id);
-                TempData["Message"] = MessageHelper.SuccessMessage(DELETE);
+                TempData["Message"] += MessageHelper.SuccessMessage(DELETE);
 
                 return RedirectToAction("List");
             } catch(PermissionDenied) {
-                TempData["Message"] = MessageHelper.WarningMessage(ErrorKeys.PERMISSION_DENIED);
+                TempData["Message"] += MessageHelper.WarningMessage(ErrorKeys.PERMISSION_DENIED);
             } catch (Exception myException) {
                 LogError(myException, DELETE_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(DELETE_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(DELETE_ERROR);
             }
 
             return RedirectToAction("Details", new { id = id });
@@ -168,10 +168,10 @@ namespace UniversityOfMe.Controllers.Events {
 
                 return View("Edit", myLoggedIn);
             } catch (PermissionDenied) {
-                TempData["Message"] = MessageHelper.WarningMessage(ErrorKeys.PERMISSION_DENIED);
+                TempData["Message"] += MessageHelper.WarningMessage(ErrorKeys.PERMISSION_DENIED);
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                TempData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
+                TempData["Message"] += MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
             }
 
             return RedirectToAction("Details", new { id = id });
@@ -192,7 +192,7 @@ namespace UniversityOfMe.Controllers.Events {
                 bool myResult = theEventService.EditEvent(myUserInformation, anEvent);
 
                 if (myResult) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(EVENT_EDITED);
+                    TempData["Message"] += MessageHelper.SuccessMessage(EVENT_EDITED);
                     return RedirectToAction("Details", new { id = anEvent.Id });
                 }
             } catch (Exception myException) {
@@ -223,11 +223,11 @@ namespace UniversityOfMe.Controllers.Events {
 
                 theEventService.Attend(GetUserInformatonModel(), id);
 
-                TempData["Message"] = MessageHelper.SuccessMessage(ATTENDING);
+                TempData["Message"] += MessageHelper.SuccessMessage(ATTENDING);
 
             } catch (Exception myException) {
                 LogError(myException, ATTENDING_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(ATTENDING_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(ATTENDING_ERROR);
             }
 
             return RedirectToAction("Details", new { id = id });
@@ -248,11 +248,11 @@ namespace UniversityOfMe.Controllers.Events {
 
                 theEventService.Unattend(GetUserInformatonModel(), id);
 
-                TempData["Message"] = MessageHelper.SuccessMessage(UNATTENDING);
+                TempData["Message"] += MessageHelper.SuccessMessage(UNATTENDING);
 
             } catch (Exception myException) {
                 LogError(myException, UNATTENDING_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(UNATTENDING_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(UNATTENDING_ERROR);
             }
 
             return RedirectToAction("Details", new { id = id });

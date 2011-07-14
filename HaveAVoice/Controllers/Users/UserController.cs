@@ -140,13 +140,13 @@ namespace HaveAVoice.Controllers.Users {
                 }
 
                 if (theService.EditUser(userToEdit, myPassword)) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(EDIT_SUCCESS);
+                    TempData["Message"] += MessageHelper.SuccessMessage(EDIT_SUCCESS);
                     ForceUserInformationRefresh();
                     return RedirectToAction("Edit");
                 }
             } catch (Exception exception) {
                 LogError(exception, "Error editing the user.");
-                TempData["Message"] = MessageHelper.ErrorMessage("An error has occurred please try your submission again later.");
+                TempData["Message"] += MessageHelper.ErrorMessage("An error has occurred please try your submission again later.");
                 theValidationDictionary.ForceModleStateExport();
             }
 

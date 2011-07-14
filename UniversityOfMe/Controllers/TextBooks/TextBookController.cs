@@ -96,16 +96,16 @@ namespace UniversityOfMe.Controllers.Clubs {
                 bool myResult = theTextBookService.CreateTextBook(myUserInformation, textbook);
 
                 if (myResult) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(TEXTBOOK_ADDED);
+                    TempData["Message"] += MessageHelper.SuccessMessage(TEXTBOOK_ADDED);
                     return RedirectToAction("List");
                 }
             } catch(PhotoException myException) {
                 LogError(myException, TEXTBOOK_IMAGE_UPLOAD_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(TEXTBOOK_IMAGE_UPLOAD_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(TEXTBOOK_IMAGE_UPLOAD_ERROR);
                 theValidation.ForceModleStateExport();
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                TempData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
+                TempData["Message"] += MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
                 theValidation.ForceModleStateExport();
             }
 
@@ -121,14 +121,14 @@ namespace UniversityOfMe.Controllers.Clubs {
             try {
                 UserInformationModel<User> myUserInformation = GetUserInformatonModel();
                 theTextBookService.DeleteTextBook(myUserInformation, id);
-                TempData["Message"] = MessageHelper.SuccessMessage(TEXTBOOK_DELETED);
+                TempData["Message"] += MessageHelper.SuccessMessage(TEXTBOOK_DELETED);
                 return RedirectToAction("List");
             } catch (FileNotFoundException myException) {
                 LogError(myException, TEXTBOOK_DELETED_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(TEXTBOOK_DELETED_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(TEXTBOOK_DELETED_ERROR);
             } catch (Exception myException) {
                 LogError(myException, TEXTBOOK_DELETED_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(TEXTBOOK_DELETED_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(TEXTBOOK_DELETED_ERROR);
             }
 
             return RedirectToAction("Details", new { id = id });
@@ -188,10 +188,10 @@ namespace UniversityOfMe.Controllers.Clubs {
 
                 return View("Edit", myLoggedIn);
             } catch (PermissionDenied myException) {
-                TempData["Message"] = MessageHelper.WarningMessage(myException.Message);
+                TempData["Message"] += MessageHelper.WarningMessage(myException.Message);
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                TempData["Message"] = MessageHelper.ErrorMessage(TEXTBOOK_GET_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(TEXTBOOK_GET_ERROR);
             }
 
             return RedirectToAction("Details", new { id = id });
@@ -209,18 +209,18 @@ namespace UniversityOfMe.Controllers.Clubs {
                 bool myResult = theTextBookService.EditTextBook(myUserInfo, aViewModel);
 
                 if (myResult) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(TEXTBOOK_EDITED);
+                    TempData["Message"] += MessageHelper.SuccessMessage(TEXTBOOK_EDITED);
                     return RedirectToAction("Details", new { id = aViewModel.TextBookId });
                 }
             } catch (PhotoException anException) {
                 LogError(anException, anException.Message);
-                TempData["Message"] = MessageHelper.ErrorMessage(TEXTBOOK_PHOTO_UPLOAD_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(TEXTBOOK_PHOTO_UPLOAD_ERROR);
             } catch (CustomException anException) {
                 LogError(anException, anException.Message);
-                TempData["Message"] = MessageHelper.ErrorMessage(TEXTBOOK_PHOTO_UPLOAD_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(TEXTBOOK_PHOTO_UPLOAD_ERROR);
             } catch (Exception myException) {
                 LogError(myException, TEXTBOOK_EDIT_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(TEXTBOOK_EDIT_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(TEXTBOOK_EDIT_ERROR);
                 theValidation.ForceModleStateExport();
             }
 
@@ -238,13 +238,13 @@ namespace UniversityOfMe.Controllers.Clubs {
                 bool myResult = theTextBookService.MarkAsNotActive(GetUserInformatonModel(), id);
 
                 if(myResult) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(MARKED_NON_ACTIVE);
+                    TempData["Message"] += MessageHelper.SuccessMessage(MARKED_NON_ACTIVE);
                 }
 
                 return RedirectToAction("List");
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                TempData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
+                TempData["Message"] += MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
                 return RedirectToAction("Details", new { id = id });
             }
         }

@@ -64,10 +64,10 @@ namespace BaseWebsite.Controllers.Users {
             T myUser = GetUserInformaton();
             try {
                 thePrivacyService.UpdatePrivacySettings(myUser, aSettings);
-                TempData["Message"] = SuccessMessage(EDIT_SUCCESS);
+                TempData["Message"] += SuccessMessage(EDIT_SUCCESS);
             } catch (Exception e) {
                 LogError(e, EDIT_FAIL);
-                TempData["Message"] = ErrorMessage(EDIT_FAIL);
+                TempData["Message"] += ErrorMessage(EDIT_FAIL);
             }
             return RedirectToAction(EDIT_VIEW);
         }

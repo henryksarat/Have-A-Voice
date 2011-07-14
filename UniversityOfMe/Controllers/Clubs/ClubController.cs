@@ -59,11 +59,11 @@ namespace UniversityOfMe.Controllers.Clubs {
                 bool myResult = theClubService.ActivateClub(GetUserInformatonModel(), clubId);
 
                 if (myResult) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(CLUB_ACTIVATED);
+                    TempData["Message"] += MessageHelper.SuccessMessage(CLUB_ACTIVATED);
                 }
             } catch (Exception myException) {
                 LogError(myException, CLUB_DEACTIVATED_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(CLUB_ACTIVATED_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(CLUB_ACTIVATED_ERROR);
             }
 
             return RedirectToAction("Details", new { id = clubId });
@@ -118,7 +118,7 @@ namespace UniversityOfMe.Controllers.Clubs {
                 bool myResult = theClubService.CreateClub(myUserInformation, club);
 
                 if (myResult) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(CLUB_CREATED);
+                    TempData["Message"] += MessageHelper.SuccessMessage(CLUB_CREATED);
                     return RedirectToAction("List");
                 }
             } catch (Exception myException) {
@@ -139,11 +139,11 @@ namespace UniversityOfMe.Controllers.Clubs {
                 bool myResult = theClubService.DeactivateClub(GetUserInformatonModel(), clubId);
 
                 if (myResult) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(CLUB_DEACTIVATED);
+                    TempData["Message"] += MessageHelper.SuccessMessage(CLUB_DEACTIVATED);
                 }
             } catch (Exception myException) {
                 LogError(myException, CLUB_DEACTIVATED_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(CLUB_DEACTIVATED_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(CLUB_DEACTIVATED_ERROR);
             }
 
             return RedirectToAction("List", "Club");
@@ -194,10 +194,10 @@ namespace UniversityOfMe.Controllers.Clubs {
 
                 return View("Edit", myLoggedIn);
             } catch(PermissionDenied myException) {
-                TempData["Message"] = MessageHelper.WarningMessage(myException.Message);
+                TempData["Message"] += MessageHelper.WarningMessage(myException.Message);
             } catch (Exception myExpcetion) {
                 LogError(myExpcetion, CLUB_GET_FOR_EDIT_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(CLUB_GET_FOR_EDIT_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(CLUB_GET_FOR_EDIT_ERROR);
             }
 
             return RedirectToAction("Details", new { id = id });
@@ -215,18 +215,18 @@ namespace UniversityOfMe.Controllers.Clubs {
                 bool myResult = theClubService.EditClub(myUserInformation, club);
 
                 if (myResult) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(CLUB_EDITED);
+                    TempData["Message"] += MessageHelper.SuccessMessage(CLUB_EDITED);
                     return RedirectToAction("Details", new { id = club.ClubId });
                 }
             } catch (PhotoException anException) {
                 LogError(anException, anException.Message);
-                TempData["Message"] = MessageHelper.ErrorMessage(CLUB_PHOTO_UPLOAD_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(CLUB_PHOTO_UPLOAD_ERROR);
             } catch (CustomException anException) {
                 LogError(anException, anException.Message);
-                TempData["Message"] = MessageHelper.ErrorMessage(CLUB_PHOTO_UPLOAD_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(CLUB_PHOTO_UPLOAD_ERROR);
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                TempData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
+                TempData["Message"] += MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
             }
 
             return RedirectToAction("Edit", new { id = club.ClubId });

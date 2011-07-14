@@ -49,12 +49,12 @@ namespace UniversityOfMe.Controllers.Core {
                 bool myResult = theUserService.ChangeEmail(oldEmail, newEmailHash);
 
                 if (myResult) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(CHANGE_EMAIL_SUCCESS);
+                    TempData["Message"] += MessageHelper.SuccessMessage(CHANGE_EMAIL_SUCCESS);
                     return RedirectToLogin();
                 }
             } catch (Exception myException) {
                 LogError(myException, CHANGE_EMAIL_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(CHANGE_EMAIL_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(CHANGE_EMAIL_ERROR);
             }
 
             return RedirectToAction("ChangeEmail", new { id = newEmailHash });

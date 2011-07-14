@@ -40,7 +40,7 @@ namespace UniversityOfMe.Controllers.Dating {
                 return View("List", myLoggedInModel);
             } catch (Exception myException) {
                 LogError(myException, NOTIFICAITON_LOAD_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(NOTIFICAITON_LOAD_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(NOTIFICAITON_LOAD_ERROR);
                 return RedirectToProfile();
             }
         }

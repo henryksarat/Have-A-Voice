@@ -30,10 +30,10 @@ namespace UniversityOfMe.Controllers.SendItems {
 
             try {
                 theSendItemsService.SendItemToUser(id, GetUserInformatonModel().Details, sendItem);
-                TempData["Message"] = MessageHelper.SuccessMessage(SENT_ITEM_SUCCESS + sendItem.ToString().ToLower() + ".");
+                TempData["Message"] += MessageHelper.SuccessMessage(SENT_ITEM_SUCCESS + sendItem.ToString().ToLower() + ".");
             } catch (Exception myException) {
                 LogError(myException, SEND_ITEM_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(SEND_ITEM_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(SEND_ITEM_ERROR);
             }
 
             return RedirectToAction("Show", "Profile", new { id = id });

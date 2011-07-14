@@ -101,7 +101,7 @@ namespace HaveAVoice.Controllers.Issues {
             try {
 
                 if (theIssueService.CreateIssue(myUser, anIssueWrapper.ToModel())) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(POST_SUCCESS);
+                    TempData["Message"] += MessageHelper.SuccessMessage(POST_SUCCESS);
                     return RedirectToAction(DETAILS_VIEW, new { title = anIssueWrapper.Title.Replace(' ', '-') });
                 }
             } catch (Exception e) {
@@ -117,14 +117,14 @@ namespace HaveAVoice.Controllers.Issues {
             try {
                 myIssue = theIssueService.GetIssue(id, GetUserInformatonModel());
             } catch (Exception e) {
-                TempData["Message"] = MessageHelper.ErrorMessage(REDIRECT_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(REDIRECT_ERROR);
                 LogError(e, REDIRECT_ERROR);
                 return RedirectToProfile();
             }
             if (myIssue != null) {
                 return RedirectToAction(DETAILS_VIEW, new { title = IssueTitleHelper.ConvertForUrl(myIssue.Title) });
             } else {
-                TempData["Message"] = MessageHelper.ErrorMessage(REDIRECT_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(REDIRECT_ERROR);
                 return RedirectToProfile();
             }
         }
@@ -159,11 +159,11 @@ namespace HaveAVoice.Controllers.Issues {
         public ActionResult Details(IssueModel issueModel) {
             try {
                 if (theIssueReplyService.CreateIssueReply(issueModel)) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(REPLY_SUCCESS);
+                    TempData["Message"] += MessageHelper.SuccessMessage(REPLY_SUCCESS);
                 }
             } catch (Exception e) {
                 LogError(e, CREATING_COMMENT_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(CREATING_COMMENT_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(CREATING_COMMENT_ERROR);
                 theValidationDictionary.ForceModleStateExport();
             }
             return RedirectToAction(REDIRECT_TO_DETAILS_VIEW, new { id = issueModel.IssueId });
@@ -180,7 +180,7 @@ namespace HaveAVoice.Controllers.Issues {
                 if (!myResult) {
                     return SendToErrorPage("You can only provide a disposition towards an issue once.");
                 }
-                TempData["Message"] = MessageHelper.SuccessMessage(DISPOSITION_SUCCESS);
+                TempData["Message"] += MessageHelper.SuccessMessage(DISPOSITION_SUCCESS);
             } catch (Exception e) {
                 LogError(e, DISPOSITION_ERROR);
                 return SendToErrorPage(DISPOSITION_ERROR);
@@ -213,12 +213,12 @@ namespace HaveAVoice.Controllers.Issues {
             try {
                 bool myResult = theIssueService.DeleteIssue(myUserInfo, id);
                 if (myResult) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(DELETE_SUCCESS);
+                    TempData["Message"] += MessageHelper.SuccessMessage(DELETE_SUCCESS);
                     return RedirectToAction("Index", "Issue");
                 }
             } catch (Exception myException) {
                 LogError(myException, DELETE_ISSUE_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(DELETE_ISSUE_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(DELETE_ISSUE_ERROR);
             }
 
             return RedirectToAction(REDIRECT_TO_DETAILS_VIEW, new { id = id });
@@ -256,7 +256,7 @@ namespace HaveAVoice.Controllers.Issues {
             try {
                 bool myResult = theIssueService.EditIssue(GetUserInformatonModel(), anIssueWrapper.ToModel());
                 if (myResult) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(EDIT_SUCCESS);
+                    TempData["Message"] += MessageHelper.SuccessMessage(EDIT_SUCCESS);
                     return RedirectToAction(REDIRECT_TO_DETAILS_VIEW, new { id = anIssueWrapper.Id });
                 }
             } catch (Exception myException) {
@@ -280,7 +280,7 @@ namespace HaveAVoice.Controllers.Issues {
         private ActionResult FilterIssue(string aFilterType, string aFilterValue, int anId) {
             IssueModel myOriginalModel = GetOriginalIssue();
             if (myOriginalModel == null) {
-                TempData["Message"] = MessageHelper.NormalMessage(ISSUE_REFRESHED);
+                TempData["Message"] += MessageHelper.NormalMessage(ISSUE_REFRESHED);
                 return RedirectToAction(REDIRECT_TO_DETAILS_VIEW, new { id = anId });
             }
             Dictionary<string, string> myFilter = GetUpdatedFilter(aFilterType, aFilterValue);

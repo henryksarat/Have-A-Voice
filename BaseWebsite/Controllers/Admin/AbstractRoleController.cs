@@ -148,7 +148,7 @@ namespace BaseWebsite.Controllers.Admin {
             try {
                 AbstractRoleModel<U> mySocialModel = CreateSocialRoleModel(role.Role);
                 if (theRoleService.Edit(GetUserInformatonModel(), mySocialModel, role.SelectedPermissionsIds)) {
-                    TempData["Message"] = SuccessMessage(RoleKeys.EDIT_SUCCESS); 
+                    TempData["Message"] += SuccessMessage(RoleKeys.EDIT_SUCCESS); 
                     return RedirectToAction("Index");
                 }
             } catch (PermissionDenied anException) {
@@ -195,7 +195,7 @@ namespace BaseWebsite.Controllers.Admin {
 
             try {
                 theRoleService.Delete(GetUserInformatonModel(), roleToDelete);
-                TempData["Message"] = SuccessMessage(RoleKeys.DELETE_SUCCESS); 
+                TempData["Message"] += SuccessMessage(RoleKeys.DELETE_SUCCESS); 
                 return RedirectToAction("Index");
             } catch (PermissionDenied anException) {
                 return SendToErrorPage(anException.Message);

@@ -75,7 +75,7 @@ namespace HaveAVoice.Controllers.Users {
             User myUser = GetUserInformatonModel().Details;
             try {
                 if (theFeedbackService.AddFeedback(myUser, feedback)) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(FEEDBACK_SUCCESS);
+                    TempData["Message"] += MessageHelper.SuccessMessage(FEEDBACK_SUCCESS);
                     return RedirectToAction("Create");
                 }
             } catch (Exception e) {

@@ -42,7 +42,7 @@ namespace UniversityOfMe.Controllers.Site {
                 return View("Edit", myLoggedInModel);
             } catch (Exception myException) {
                 LogError(myException, FEATURE_RETRIEVAL_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(FEATURE_RETRIEVAL_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(FEATURE_RETRIEVAL_ERROR);
             }
 
             return RedirectToProfile();
@@ -57,11 +57,11 @@ namespace UniversityOfMe.Controllers.Site {
             try {
                 UserInformationModel<User> myUserInfo = GetUserInformatonModel();
                 theFeatureService.UpdateFeatureSettings(myUserInfo, aSettings);
-                TempData["Message"] = MessageHelper.SuccessMessage(FEATURES_UPDATED);
+                TempData["Message"] += MessageHelper.SuccessMessage(FEATURES_UPDATED);
                 ForceUserInformationRefresh();
             } catch (Exception myException) {
                 LogError(myException, FEATURE_RETRIEVAL_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(FEATURES_UPDATED_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(FEATURES_UPDATED_ERROR);
             }
 
             return RedirectToAction("Edit");

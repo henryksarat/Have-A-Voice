@@ -47,7 +47,7 @@ namespace BaseWebsite.Controllers.Boards {
                 A myBoard = theService.GetBoard(GetUserInformatonModel(), id);
                 myModel.Set(myBoard);
             } catch(PermissionDenied anException) {
-                TempData["Message"] = WarningMessage(anException.Message);
+                TempData["Message"] += WarningMessage(anException.Message);
                 return RedirectToHomePage();
             } catch (Exception myException) {
                 LogError(myException, VIEW_BOARD_ERROR);
@@ -65,16 +65,16 @@ namespace BaseWebsite.Controllers.Boards {
             try {
                 bool myBoardResult = theService.PostToBoard(myPostingUser, sourceUserId, boardMessage);
                 if (myBoardResult) {
-                    TempData["Message"] = SuccessMessage(POST_BOARD_SUCCESS);
+                    TempData["Message"] += SuccessMessage(POST_BOARD_SUCCESS);
                 } else {
-                    TempData["Message"] = ErrorMessage(POST_BOARD_ERROR);
+                    TempData["Message"] += ErrorMessage(POST_BOARD_ERROR);
                     TempData["BoardMessage"] = boardMessage;
                 }
             } catch(PermissionDenied) {
-                TempData["Message"] = WarningMessage(ErrorKeys.PERMISSION_DENIED);
+                TempData["Message"] += WarningMessage(ErrorKeys.PERMISSION_DENIED);
             } catch (Exception myException) {
                 LogError(myException, POST_BOARD_ERROR);
-                TempData["Message"] = ErrorMessage(POST_BOARD_ERROR);
+                TempData["Message"] += ErrorMessage(POST_BOARD_ERROR);
                 TempData["BoardMessage"] = boardMessage;
             }
 
@@ -104,13 +104,13 @@ namespace BaseWebsite.Controllers.Boards {
             try {
                 bool myBoardResult = theService.EditBoardMessage(GetUserInformatonModel(), aBoard);
                 if (myBoardResult) {
-                    TempData["Message"] = SuccessMessage(EDIT_BOARD_SUCCES);
+                    TempData["Message"] += SuccessMessage(EDIT_BOARD_SUCCES);
                 }
             } catch (PermissionDenied) {
-                TempData["Message"] = WarningMessage(ErrorKeys.PERMISSION_DENIED);
+                TempData["Message"] += WarningMessage(ErrorKeys.PERMISSION_DENIED);
             } catch (Exception myException) {
                 LogError(myException, POST_BOARD_ERROR);
-                TempData["Message"] = ErrorMessage(EDIT_BOARD_ERROR);
+                TempData["Message"] += ErrorMessage(EDIT_BOARD_ERROR);
             }
 
             return RedirectToAction("Edit", new { id = aBoard.Id });
@@ -124,16 +124,16 @@ namespace BaseWebsite.Controllers.Boards {
             try {
                 UserInformationModel<T> myUserInfo = GetUserInformatonModel();
                 if (!PermissionHelper<T>.AllowedToPerformAction(myUserInfo, SocialPermission.Delete_Board_Message, SocialPermission.Delete_Any_Board_Message)) {
-                    TempData["Message"] = WarningMessage(ErrorKeys.PERMISSION_DENIED);
+                    TempData["Message"] += WarningMessage(ErrorKeys.PERMISSION_DENIED);
                 } else {
                     theService.DeleteBoardMessage(myUserInfo, boardId);
-                    TempData["Message"] = SuccessMessage(DELETE_BOARD_SUCCESS);
+                    TempData["Message"] += SuccessMessage(DELETE_BOARD_SUCCESS);
                 }
             } catch(PermissionDenied) {
-                TempData["Message"] = WarningMessage(ErrorKeys.PERMISSION_DENIED);
+                TempData["Message"] += WarningMessage(ErrorKeys.PERMISSION_DENIED);
             } catch (Exception myException) {
                 LogError(myException, DELETE_BOARD_ERROR);
-                TempData["Message"] = ErrorMessage(DELETE_BOARD_ERROR);
+                TempData["Message"] += ErrorMessage(DELETE_BOARD_ERROR);
             }
 
             return RedirectToAction(action, controller, new { id = sourceId });

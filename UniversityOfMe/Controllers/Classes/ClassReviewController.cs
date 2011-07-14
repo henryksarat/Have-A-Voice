@@ -35,11 +35,11 @@ namespace UniversityOfMe.Controllers.Classes {
                 bool myResult = theClassService.CreateClassReview(GetUserInformatonModel(), classId, rating, review, anonymous);
 
                 if (myResult) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(REVIEW_POSTED);
+                    TempData["Message"] += MessageHelper.SuccessMessage(REVIEW_POSTED);
                 }
             } catch (Exception myException) {
                 LogError(myException, REVIEW_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(REVIEW_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(REVIEW_ERROR);
                 theValidationDictionary.ForceModleStateExport();
             }
 

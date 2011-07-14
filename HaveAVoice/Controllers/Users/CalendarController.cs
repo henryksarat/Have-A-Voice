@@ -92,11 +92,11 @@ namespace HaveAVoice.Controllers.Users {
             int myUserId = GetUserInformaton().Id;
             try {
                 if (theEventService.AddEvent(myUserId, date, information)) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(ADD_EVENT_SUCCESS);
+                    TempData["Message"] += MessageHelper.SuccessMessage(ADD_EVENT_SUCCESS);
                 }
             } catch (Exception e) {
                 LogError(e, ADD_EVENT_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(ADD_EVENT_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(ADD_EVENT_ERROR);
             }
 
             return RedirectToAction(LIST_VIEW);

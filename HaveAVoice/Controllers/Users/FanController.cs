@@ -40,13 +40,13 @@ namespace HaveAVoice.Controllers.Users {
                 if (!theFanService.IsFan(myUser, id)) {
                     theFanService.Add(myUser, id);
                     ForceUserInformationRefresh();
-                    TempData["Message"] = MessageHelper.SuccessMessage(FAN_SUCCESS);
+                    TempData["Message"] += MessageHelper.SuccessMessage(FAN_SUCCESS);
                 } else {
-                    TempData["Message"] = MessageHelper.NormalMessage(ALREADY_FAN);
+                    TempData["Message"] += MessageHelper.NormalMessage(ALREADY_FAN);
                 }
             } catch (Exception e) {
                 LogError(e, FAN_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(FAN_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(FAN_ERROR);
             }
 
             return RedirectToProfile(id);
@@ -63,13 +63,13 @@ namespace HaveAVoice.Controllers.Users {
                 if (theFanService.IsFan(myUser, id)) {
                     theFanService.Remove(myUser, id);
                     ForceUserInformationRefresh();
-                    TempData["Message"] = MessageHelper.SuccessMessage(FAN_REMOVE_SUCCESS);
+                    TempData["Message"] += MessageHelper.SuccessMessage(FAN_REMOVE_SUCCESS);
                 } else {
-                    TempData["Message"] = MessageHelper.NormalMessage(NOT_FAN);
+                    TempData["Message"] += MessageHelper.NormalMessage(NOT_FAN);
                 }
             } catch (Exception e) {
                 LogError(e, FAN_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(FAN_REMOVE_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(FAN_REMOVE_ERROR);
             }
 
             return RedirectToProfile(id);

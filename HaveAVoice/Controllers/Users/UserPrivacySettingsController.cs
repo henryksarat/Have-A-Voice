@@ -54,10 +54,10 @@ namespace HaveAVoice.Controllers.Users {
             User myUser = GetUserInformaton();
             try {
                 thePrivacyService.UpdatePrivacySettings(myUser, aSettings);
-                TempData["Message"] = MessageHelper.SuccessMessage(EDIT_SUCCESS);
+                TempData["Message"] += MessageHelper.SuccessMessage(EDIT_SUCCESS);
             } catch (Exception e) {
                 LogError(e, EDIT_FAIL);
-                TempData["Message"] = MessageHelper.ErrorMessage(EDIT_FAIL);
+                TempData["Message"] += MessageHelper.ErrorMessage(EDIT_FAIL);
             }
             return RedirectToAction(EDIT_VIEW);
         }

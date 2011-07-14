@@ -38,11 +38,11 @@ namespace UniversityOfMe.Controllers.Classes {
                 bool myResult = theClassService.AddToClassBoard(GetUserInformatonModel(), classId, boardMessage);
 
                 if (myResult) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(REPLY_POSTED);
+                    TempData["Message"] += MessageHelper.SuccessMessage(REPLY_POSTED);
                 }
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                TempData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
+                TempData["Message"] += MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
                 theValidationDictionary.ForceModleStateExport();
             }
 
@@ -61,10 +61,10 @@ namespace UniversityOfMe.Controllers.Classes {
                 myLoggedIn.Set(myBoard);
                 return View("Details", myLoggedIn);
             } catch(PermissionDenied myException) {
-                TempData["Message"] = MessageHelper.WarningMessage(myException.Message);
+                TempData["Message"] += MessageHelper.WarningMessage(myException.Message);
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                TempData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
+                TempData["Message"] += MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
             }
 
             return RedirectToAction("DetailsWithClassId", "Class", new { classId = classId, classViewType = ClassViewType.Discussion });
@@ -77,13 +77,13 @@ namespace UniversityOfMe.Controllers.Classes {
             }
             try {
                 theClassService.DeleteClassBoard(GetUserInformatonModel(), classBoardId);
-                TempData["Message"] = MessageHelper.SuccessMessage(BOARD_DELETED);
+                TempData["Message"] += MessageHelper.SuccessMessage(BOARD_DELETED);
                 return RedirectToAction("DetailsWithClassId", "Class", new { classId = classId, classViewType = ClassViewType.Discussion });
             } catch(PermissionDenied) {
-                TempData["Message"] = MessageHelper.WarningMessage(ErrorKeys.PERMISSION_DENIED);
+                TempData["Message"] += MessageHelper.WarningMessage(ErrorKeys.PERMISSION_DENIED);
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                TempData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
+                TempData["Message"] += MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
             }
 
             string myController = "Class";

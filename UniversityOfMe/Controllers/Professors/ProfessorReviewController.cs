@@ -40,7 +40,7 @@ namespace UniversityOfMe.Controllers.Professors {
             bool myResult = theProfessorReviewService.CreateProfessorReview(GetUserInformatonModel(), professorReview.ToModel());
 
             if (myResult) {
-                TempData["Message"] = MessageHelper.SuccessMessage(PROFESSOR_REVIEW);
+                TempData["Message"] += MessageHelper.SuccessMessage(PROFESSOR_REVIEW);
             }
 
             return RedirectToAction("Details", "Professor", new { id = URLHelper.ToUrlFriendly(professorReview.ProfessorName) });

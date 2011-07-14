@@ -70,7 +70,7 @@ namespace UniversityOfMe.Controllers.GeneralPostings {
                 }
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                TempData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
+                TempData["Message"] += MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
                 theValidationDictionary.ForceModleStateExport();
             }
 
@@ -103,11 +103,11 @@ namespace UniversityOfMe.Controllers.GeneralPostings {
             try {
                 theGeneralPostingService.Unsubscribe(GetUserInformatonModel(), id);
 
-                TempData["Message"] = MessageHelper.SuccessMessage(UNSUBSCRIBED);
+                TempData["Message"] += MessageHelper.SuccessMessage(UNSUBSCRIBED);
 
             } catch (Exception myException) {
                 LogError(myException, UNSUBSCRIBED_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(UNSUBSCRIBED_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(UNSUBSCRIBED_ERROR);
             }
 
             return RedirectToAction("Details", new { id = id });
@@ -121,11 +121,11 @@ namespace UniversityOfMe.Controllers.GeneralPostings {
             try {
                 theGeneralPostingService.Subscribe(GetUserInformatonModel(), id);
 
-                TempData["Message"] = MessageHelper.SuccessMessage(SUBSCRIBED);
+                TempData["Message"] += MessageHelper.SuccessMessage(SUBSCRIBED);
 
             } catch (Exception myException) {
                 LogError(myException, UNSUBSCRIBED_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(SUBSCRIBED_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(SUBSCRIBED_ERROR);
             }
 
             return RedirectToAction("Details", new { id = id });

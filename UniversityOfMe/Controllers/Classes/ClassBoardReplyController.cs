@@ -36,11 +36,11 @@ namespace UniversityOfMe.Controllers.Classes {
                 bool myResult = theClassService.AddReplyToClassBoard(GetUserInformatonModel(), classBoardId, boardMessage);
 
                 if (myResult) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(REPLY_POSTED);
+                    TempData["Message"] += MessageHelper.SuccessMessage(REPLY_POSTED);
                 }
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                TempData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
+                TempData["Message"] += MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
                 theValidationDictionary.ForceModleStateExport();
             }
 
@@ -54,12 +54,12 @@ namespace UniversityOfMe.Controllers.Classes {
             }
             try {
                 theClassService.DeleteClassBoardReply(GetUserInformatonModel(), classBoardReplyId);
-                TempData["Message"] = MessageHelper.SuccessMessage(REPLY_DELETED);
+                TempData["Message"] += MessageHelper.SuccessMessage(REPLY_DELETED);
             } catch(PermissionDenied) {
-                TempData["Message"] = MessageHelper.WarningMessage(ErrorKeys.PERMISSION_DENIED);
+                TempData["Message"] += MessageHelper.WarningMessage(ErrorKeys.PERMISSION_DENIED);
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                TempData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
+                TempData["Message"] += MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
             }
             
             return RedirectToAction("Details", "ClassBoard", new { classId = classId, classBoardId = classBoardId });

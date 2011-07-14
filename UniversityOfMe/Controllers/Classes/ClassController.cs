@@ -86,7 +86,7 @@ namespace UniversityOfMe.Controllers.Classes {
                 }
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                TempData["Message"] = ErrorKeys.ERROR_MESSAGE;
+                TempData["Message"] += ErrorKeys.ERROR_MESSAGE;
                 theValidationDictionary.ForceModleStateExport();
             }
 
@@ -124,7 +124,7 @@ namespace UniversityOfMe.Controllers.Classes {
                 bool myExists = theClassService.IsClassExists(id);
 
                 if (!myExists) {
-                    TempData["Message"] = MessageHelper.WarningMessage(CLASS_DOESNT_EXIST);
+                    TempData["Message"] += MessageHelper.WarningMessage(CLASS_DOESNT_EXIST);
                     return RedirectToAction("Create", "Class");
                 }
 
@@ -160,7 +160,7 @@ namespace UniversityOfMe.Controllers.Classes {
                 return View("ViewAllMembers", myLogedInModel);
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                TempData["Message"] = MessageHelper.ErrorMessage(VIEW_ALL_MEMBERS_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(VIEW_ALL_MEMBERS_ERROR);
                 return RedirectToAction("Details", new { id = id });
             }
         }

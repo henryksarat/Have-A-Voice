@@ -54,7 +54,7 @@ namespace HaveAVoice.Controllers.Issues {
 
             try {
                 if (theIssueReplyService.CreateIssueReply(myUserInformation, issueId, reply, disposition, anonymous)) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(REPLY_SUCCESS);
+                    TempData["Message"] += MessageHelper.SuccessMessage(REPLY_SUCCESS);
                     return RedirectToProfile();
                 }
             } catch (Exception e) {
@@ -76,10 +76,10 @@ namespace HaveAVoice.Controllers.Issues {
 
             try {
                 theIssueReplyService.DeleteIssueReply(GetUserInformatonModel(), id);
-                TempData["Message"] = MessageHelper.SuccessMessage(DELETE_SUCCESS);
+                TempData["Message"] += MessageHelper.SuccessMessage(DELETE_SUCCESS);
             } catch (Exception myException) {
                 LogError(myException, DELETE_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(DELETE_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(DELETE_ERROR);
             }
 
             return RedirectToAction("RedirectToDetails", "Issue", new { id = issueId });
@@ -117,7 +117,7 @@ namespace HaveAVoice.Controllers.Issues {
             try {
                 bool myResult = theIssueReplyService.EditIssueReply(GetUserInformatonModel(), aReplyWrapper.ToModel());
                 if (myResult) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(EDIT_SUCCESS);
+                    TempData["Message"] += MessageHelper.SuccessMessage(EDIT_SUCCESS);
                     return RedirectToAction("View", new { id = aReplyWrapper.Id });
                 }
             } catch (Exception myException) {
@@ -158,7 +158,7 @@ namespace HaveAVoice.Controllers.Issues {
             UserInformationModel<User> myUserInformation = GetUserInformatonModel();
             try {
                 if (theIssueReplyCommentService.CreateCommentToIssueReply(myUserInformation, issueReplyId, comment)) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(POST_COMMENT_SUCCESS);
+                    TempData["Message"] += MessageHelper.SuccessMessage(POST_COMMENT_SUCCESS);
                     return RedirectToAction("Details", new { id = issueReplyId });
                 }
             } catch (Exception e) {
@@ -180,10 +180,10 @@ namespace HaveAVoice.Controllers.Issues {
                 if (!myResult) {
                     return SendToErrorPage("You can only provide a disposition towards a person's reply to an issue once.");
                 }
-                TempData["Message"] = MessageHelper.SuccessMessage(DISPOSITION_SUCCESS);
+                TempData["Message"] += MessageHelper.SuccessMessage(DISPOSITION_SUCCESS);
             } catch (Exception e) {
                 LogError(e, DISPOSITION_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(DISPOSITION_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(DISPOSITION_ERROR);
                 return SendToErrorPage(DISPOSITION_ERROR);
             }
 

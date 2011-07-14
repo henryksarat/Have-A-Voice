@@ -100,7 +100,7 @@ namespace UniversityOfMe.Controllers.Professors {
                 bool myExists = theProfessorService.IsProfessorExists(universityId, id);
 
                 if (!myExists) {
-                    TempData["Message"] = MessageHelper.WarningMessage(PROFESSOR_DOESNT_EXIST);
+                    TempData["Message"] += MessageHelper.WarningMessage(PROFESSOR_DOESNT_EXIST);
                     return RedirectToAction("Create", "Professor");
                 }
 
@@ -148,14 +148,14 @@ namespace UniversityOfMe.Controllers.Professors {
                 bool myResult = theProfessorService.CreateProfessorImageSuggestion(myUserInformation, professorId, professorImage);
 
                 if (myResult) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(PROFESSOR_PICTURE_SUGGESTION_SUCCESS);
+                    TempData["Message"] += MessageHelper.SuccessMessage(PROFESSOR_PICTURE_SUGGESTION_SUCCESS);
                 }
             } catch(PhotoException myException) {
                 LogError(myException, PROFESSOR_SUGGESTED_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(PROFESSOR_SUGGESTED_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(PROFESSOR_SUGGESTED_ERROR);
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                TempData["Message"] = MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
+                TempData["Message"] += MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
             }
 
             return RedirectToAction("Details", new { id = URLHelper.ToUrlFriendly(firstName + " " + lastName) });

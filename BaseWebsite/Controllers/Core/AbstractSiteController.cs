@@ -33,10 +33,10 @@ namespace BaseWebsite.Controllers.Core {
                 bool myResult = theContactUsService.AddContactUsInquiry(anEmail, anInquiryType, aInquiry);
 
                 if (myResult) {
-                    TempData["Message"] = SuccessMessage("Inquiry processed. Thank you for the submission!");
+                    TempData["Message"] += SuccessMessage("Inquiry processed. Thank you for the submission!");
                 }
             } catch (Exception e) {
-                TempData["Message"] = ErrorMessage(SUBMISSION_ERROR);
+                TempData["Message"] += ErrorMessage(SUBMISSION_ERROR);
                 LogError(e, SUBMISSION_ERROR);
             }
 

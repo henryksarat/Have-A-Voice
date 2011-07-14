@@ -101,7 +101,7 @@ namespace HaveAVoice.Controllers.Users {
                 }
             } catch (Exception e) {
                 LogError(e, "Error logging report. Please try again.");
-                TempData["Message"] = MessageHelper.ErrorMessage("Error logging report. Please try again.");
+                TempData["Message"] += MessageHelper.ErrorMessage("Error logging report. Please try again.");
                 TempData["ComplaintBody"] = complaint;
             }
 

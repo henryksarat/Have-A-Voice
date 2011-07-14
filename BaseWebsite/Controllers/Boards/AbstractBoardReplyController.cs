@@ -41,13 +41,13 @@ namespace BaseWebsite.Controllers.Boards {
             }
             try {
                 if (theService.PostReplyToBoard(GetUserInformatonModel(), boardId, boardReply)) {
-                    TempData["Message"] = SuccessMessage(POST_REPLY_SUCCESS);
+                    TempData["Message"] += SuccessMessage(POST_REPLY_SUCCESS);
                 }
             } catch(PermissionDenied) {
-                TempData["Message"] = WarningMessage(ErrorKeys.PERMISSION_DENIED);
+                TempData["Message"] += WarningMessage(ErrorKeys.PERMISSION_DENIED);
             } catch (Exception myException) {
                 LogError(myException, POST_REPLY_ERROR);
-                TempData["Message"] = ErrorMessage(POST_REPLY_ERROR);
+                TempData["Message"] += ErrorMessage(POST_REPLY_ERROR);
             }
 
             if (source == BaseSiteSection.Profile) {
@@ -79,11 +79,11 @@ namespace BaseWebsite.Controllers.Boards {
             }
             try {
                 if (theService.EditBoardReply(GetUserInformatonModel(), aBoardReply)) {
-                    TempData["Message"] = SuccessMessage(EDIT_REPLY_SUCCES);
+                    TempData["Message"] += SuccessMessage(EDIT_REPLY_SUCCES);
                 }
             } catch (Exception myException) {
                 LogError(myException, POST_REPLY_ERROR);
-                TempData["Message"] = ErrorMessage(EDIT_REPLY_ERROR);
+                TempData["Message"] += ErrorMessage(EDIT_REPLY_ERROR);
             }
 
             return RedirectToAction("Edit", new { id = aBoardReply.Id });
@@ -97,16 +97,16 @@ namespace BaseWebsite.Controllers.Boards {
             try {
                 UserInformationModel<T> myUserInfo = GetUserInformatonModel();
                 if (!PermissionHelper<T>.AllowedToPerformAction(myUserInfo, SocialPermission.Delete_Board_Reply, SocialPermission.Delete_Any_Board_Reply)) {
-                    TempData["Message"] = WarningMessage(ErrorKeys.PERMISSION_DENIED);
+                    TempData["Message"] += WarningMessage(ErrorKeys.PERMISSION_DENIED);
                 } else {
                     theService.DeleteBoardReply(GetUserInformatonModel(), boardReplyId);
-                    TempData["Message"] = SuccessMessage(DELETE_REPLY_SUCCESS);
+                    TempData["Message"] += SuccessMessage(DELETE_REPLY_SUCCESS);
                 }
             } catch(PermissionDenied) {
-                TempData["Message"] = WarningMessage(ErrorKeys.PERMISSION_DENIED);
+                TempData["Message"] += WarningMessage(ErrorKeys.PERMISSION_DENIED);
             } catch (Exception myException) {
                 LogError(myException, DELETE_REPLY_ERROR);
-                TempData["Message"] = ErrorMessage(DELETE_REPLY_ERROR);
+                TempData["Message"] += ErrorMessage(DELETE_REPLY_ERROR);
             }
 
             return RedirectToAction(action, controller, new { id = sourceId });

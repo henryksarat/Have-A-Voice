@@ -80,7 +80,7 @@ namespace HaveAVoice.Controllers.Core {
                 return SendToErrorPage(e.Message);
             } catch (Exception e) {
                 LogError(e, TOKEN_CREATED_AND_SENT_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(TOKEN_CREATED_AND_SENT_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(TOKEN_CREATED_AND_SENT_ERROR);
             }
 
             return RedirectToAction(CREATE_VIEW);
@@ -106,10 +106,10 @@ namespace HaveAVoice.Controllers.Core {
                         authorityPosition = model.AuthorityPosition
                     });
                 }
-                TempData["Message"] = MessageHelper.NormalMessage(INVALID_TOKEN);
+                TempData["Message"] += MessageHelper.NormalMessage(INVALID_TOKEN);
             } catch (Exception e) {
                 LogError(e, TOKEN_VERIFICATION_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(TOKEN_VERIFICATION_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(TOKEN_VERIFICATION_ERROR);
             }
 
             return RedirectToAction(VERIFY_VIEW, new {

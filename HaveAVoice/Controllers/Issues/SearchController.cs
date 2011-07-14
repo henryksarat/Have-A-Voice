@@ -56,7 +56,7 @@ namespace HaveAVoice.Controllers.Issues {
                 } else if(myUsers.Count<User>() > 1) {
                     return View(USER_RESULTS, myUsers);
                 } else {
-                    TempData["Message"] = MessageHelper.NormalMessage(NO_MATCH);
+                    TempData["Message"] += MessageHelper.NormalMessage(NO_MATCH);
                     return View(USER_RESULTS, myUsers);
                 }
             } else {
@@ -67,7 +67,7 @@ namespace HaveAVoice.Controllers.Issues {
                 } else if (myIssues.Count<Issue>() > 1) {
                     return View(ISSUE_RESULTS, myIssues);
                 } else {
-                    TempData["Message"] = MessageHelper.NormalMessage(NO_MATCH);
+                    TempData["Message"] += MessageHelper.NormalMessage(NO_MATCH);
                     return View(ISSUE_RESULTS, myIssues);
                 }
             }       

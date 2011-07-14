@@ -81,11 +81,11 @@ namespace BaseWebsite.Controllers.Photos {
                 T myUser = GetUserInformatonModel().Details;
                 bool myResult = thePhotoAlbumService.CreatePhotoAlbum(myUser, name, description);
                 if (myResult) {
-                    TempData["Message"] = SuccessMessage(CREATED_SUCCESS);
+                    TempData["Message"] += SuccessMessage(CREATED_SUCCESS);
                     return RedirectToAction(LIST_VIEW);
                 }
             } catch (Exception myException) {
-                TempData["Message"] = ErrorMessage(CREATED_FAIL);
+                TempData["Message"] += ErrorMessage(CREATED_FAIL);
                 LogError(myException, CREATED_FAIL);
             }
 
@@ -99,11 +99,11 @@ namespace BaseWebsite.Controllers.Photos {
             UserInformationModel<T> myUser = GetUserInformatonModel();
             try {
                 thePhotoAlbumService.DeletePhotoAlbum(CreateSocialUserModel(myUser.Details), id);
-                TempData["Message"] = SuccessMessage(DELETE_SUCCESS);
+                TempData["Message"] += SuccessMessage(DELETE_SUCCESS);
             } catch (CustomException e) {
                 return SendToErrorPage(e.Message);
             } catch (Exception e) {
-                TempData["Message"] = ErrorMessage(DELETE_ERROR);
+                TempData["Message"] += ErrorMessage(DELETE_ERROR);
                 LogError(e, DELETE_ERROR);
             }
 
@@ -121,7 +121,7 @@ namespace BaseWebsite.Controllers.Photos {
             } catch (NotFriendException e) {
                 return SendToErrorPage(ErrorKeys.NOT_FRIEND);
             } catch (Exception myException) {
-                TempData["Message"] = ErrorMessage(GET_ALBUM_ERROR);
+                TempData["Message"] += ErrorMessage(GET_ALBUM_ERROR);
                 LogError(myException, GET_ALBUM_ERROR);
                 return RedirectToAction(LIST_VIEW);
             }
@@ -140,7 +140,7 @@ namespace BaseWebsite.Controllers.Photos {
             } catch (CustomException e) {
                 return SendToErrorPage(e.Message);
             } catch (Exception e) {
-                TempData["Message"] = ErrorMessage(GET_ALBUM_ERROR);
+                TempData["Message"] += ErrorMessage(GET_ALBUM_ERROR);
                 LogError(e, GET_ALBUM_ERROR);
                 return RedirectToAction(LIST_VIEW);
             }
@@ -156,13 +156,13 @@ namespace BaseWebsite.Controllers.Photos {
             try {
                 bool myResult = thePhotoAlbumService.EditPhotoAlbum(CreateSocialUserModel(myUser.Details), albumId, name, description);
                 if (myResult) {
-                    TempData["Message"] = SuccessMessage(EDIT_SUCCESS);
+                    TempData["Message"] += SuccessMessage(EDIT_SUCCESS);
                     return RedirectToAction(LIST_VIEW);
                 }
             } catch (CustomException e) {
                 return SendToErrorPage(e.Message);
             } catch (Exception e) {
-                TempData["Message"] = ErrorMessage(EDIT_ERROR);
+                TempData["Message"] += ErrorMessage(EDIT_ERROR);
                 LogError(e, EDIT_ERROR);
             }
 
@@ -183,7 +183,7 @@ namespace BaseWebsite.Controllers.Photos {
             try {
                 myModel.Set(thePhotoAlbumService.GetPhotoAlbumsForUser(CreateSocialUserModel(aRequestingUser), aUserIdOfAlbum));
                 if (myModel.Get().Count<A>() == 0) {
-                    TempData["Message"] = NormalMessage(NO_ALBUMS);
+                    TempData["Message"] += NormalMessage(NO_ALBUMS);
                 }
             } catch (NotFriendException e) {
                 return SendToErrorPage(ErrorKeys.NOT_FRIEND);

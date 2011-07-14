@@ -71,11 +71,11 @@ namespace BaseWebsite.Controllers.Photos {
 
             try {
                 thePhotoService.UploadImageWithDatabaseReference(CreateSocialUserModel(myUser.Details), albumId, imageFile);
-                TempData["Message"] = SuccessMessage(UPLOAD_SUCCESS);
+                TempData["Message"] += SuccessMessage(UPLOAD_SUCCESS);
             } catch (CustomException myException) {
-                TempData["Message"] = NormalMessage(myException.Message);
+                TempData["Message"] += NormalMessage(myException.Message);
             } catch (Exception myException) {
-                TempData["Message"] = ErrorMessage(UPLOAD_ERROR);
+                TempData["Message"] += ErrorMessage(UPLOAD_ERROR);
                 LogError(myException, UPLOAD_ERROR);
             }
             return RedirectToAction(PHOTO_ALBUM_DETAILS, PHOTO_ALBUM_CONTROLLER, new { id = albumId });
@@ -105,12 +105,12 @@ namespace BaseWebsite.Controllers.Photos {
             T myUser = GetUserInformaton();
             try {
                 thePhotoService.SetToProfilePicture(CreateSocialUserModel(GetUserInformaton()), id);
-                TempData["Message"] = SuccessMessage("Profile picture changed!");
+                TempData["Message"] += SuccessMessage("Profile picture changed!");
                 return RedirectToProfile();
             } catch (CustomException myException) {
                 return SendToErrorPage(myException.Message);
             } catch (Exception e) {
-                TempData["Message"] = ErrorMessage(SET_PROFILE_PICTURE_ERRROR);
+                TempData["Message"] += ErrorMessage(SET_PROFILE_PICTURE_ERRROR);
                 return RedirectToAction(DISPLAY_VIEW, new { id = id });
             }
         }
@@ -122,12 +122,12 @@ namespace BaseWebsite.Controllers.Photos {
             T myUser = GetUserInformaton();
             try {
                 thePhotoService.DeletePhoto(CreateSocialUserModel(myUser), id);
-                TempData["Message"] = SuccessMessage(DELETE_SUCCESS);
+                TempData["Message"] += SuccessMessage(DELETE_SUCCESS);
                 return RedirectToAction(PHOTO_ALBUM_DETAILS, PHOTO_ALBUM_CONTROLLER, new { id = anAlbumId });
             } catch(CustomException e) {
-                TempData["Message"] = NormalMessage(e.Message);
+                TempData["Message"] += NormalMessage(e.Message);
             } catch (Exception e) {
-                TempData["Message"] = ErrorMessage(DELETE_ERROR);
+                TempData["Message"] += ErrorMessage(DELETE_ERROR);
             }
 
             return RedirectToAction(DISPLAY_VIEW, new { id = id });
@@ -140,13 +140,13 @@ namespace BaseWebsite.Controllers.Photos {
             T myUser = GetUserInformaton();
             try {
                 thePhotoService.SetPhotoAsAlbumCover(CreateSocialUserModel(myUser), id);
-                TempData["Message"] = SuccessMessage(ALBUM_COVER_SET);
+                TempData["Message"] += SuccessMessage(ALBUM_COVER_SET);
                 return RedirectToAction(PHOTO_ALBUM_LIST, PHOTO_ALBUM_CONTROLLER);
             } catch (CustomException e) {
                 return SendToErrorPage(e.Message);
             } catch (Exception e) {
                 LogError(e, ALBUM_COVER_ERROR);
-                TempData["Message"] = ErrorMessage(ALBUM_COVER_ERROR);
+                TempData["Message"] += ErrorMessage(ALBUM_COVER_ERROR);
             }
 
             return RedirectToAction(DISPLAY_VIEW, new { id = id });

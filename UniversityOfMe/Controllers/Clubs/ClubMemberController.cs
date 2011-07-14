@@ -56,11 +56,11 @@ namespace UniversityOfMe.Controllers.Clubs {
                 bool myResult = theClubService.RemoveClubMember(GetUserInformatonModel(), myUser.UserId, clubId);
 
                 if (myResult) {
-                    TempData["Message"] = MessageHelper.SuccessMessage(USER_REMVOED);
+                    TempData["Message"] += MessageHelper.SuccessMessage(USER_REMVOED);
                 }
             } catch (Exception myException) {
                 LogError(myException, REMOVE_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(REMOVE_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(REMOVE_ERROR);
             }
 
             return RedirectToAction("Details", "Club", new { id = clubId });
@@ -80,16 +80,16 @@ namespace UniversityOfMe.Controllers.Clubs {
                 }
 
                 if (theClubService.IsPendingApproval(myUserInformation.Details.Id, clubId)) {
-                    TempData["Message"] = MessageHelper.NormalMessage(PENDING);
+                    TempData["Message"] += MessageHelper.NormalMessage(PENDING);
                 } else if (theClubService.IsApartOfClub(myUserInformation.Details.Id, clubId)) {
-                    TempData["Message"] = MessageHelper.NormalMessage(APPROVED);
+                    TempData["Message"] += MessageHelper.NormalMessage(APPROVED);
                 } else {
                     theClubService.RequestToJoinClub(myUserInformation, clubId);
-                    TempData["Message"] = MessageHelper.SuccessMessage(REQUEST_SUCCESS);
+                    TempData["Message"] += MessageHelper.SuccessMessage(REQUEST_SUCCESS);
                 }
             } catch (Exception myException) {
                 LogError(myException, REMOVE_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(REQUEST_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(REQUEST_ERROR);
             }
 
             return RedirectToAction("Details", "Club", new { id = clubId });
@@ -105,10 +105,10 @@ namespace UniversityOfMe.Controllers.Clubs {
                 UserInformationModel<User> myUserInformation = GetUserInformatonModel();
 
                 theClubService.CancelRequestToJoin(myUserInformation, clubId);
-                TempData["Message"] = MessageHelper.SuccessMessage(CANCEL_REQUEST);
+                TempData["Message"] += MessageHelper.SuccessMessage(CANCEL_REQUEST);
             } catch (Exception myException) {
                 LogError(myException, REMOVE_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(REMOVE_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(REMOVE_ERROR);
             }
 
             return RedirectToAction("Details", "Club", new { id = clubId });
@@ -128,10 +128,10 @@ namespace UniversityOfMe.Controllers.Clubs {
                     myLoggedIn.Set(myClubMember);
                     return View("Details", myLoggedIn);
                 }
-                TempData["Message"] = MessageHelper.WarningMessage(CLUB_MEMBER_ERROR);
+                TempData["Message"] += MessageHelper.WarningMessage(CLUB_MEMBER_ERROR);
             } catch (Exception myException) {
                 LogError(myException, CLUB_MEMBER_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(CLUB_MEMBER_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(CLUB_MEMBER_ERROR);
             }
 
             return RedirectToAction("Details", "Club", new { id = clubId });
@@ -151,7 +151,7 @@ namespace UniversityOfMe.Controllers.Clubs {
                 return View("List", myLoggedInModel);
             } catch (Exception myException) {
                 LogError(myException, CLUB_MEMBER_LIST);
-                TempData["Message"] = MessageHelper.ErrorMessage(CLUB_MEMBER_LIST);
+                TempData["Message"] += MessageHelper.ErrorMessage(CLUB_MEMBER_LIST);
                 return RedirectToAction("List", "Club", new { id = id });
             }
         }
@@ -168,12 +168,12 @@ namespace UniversityOfMe.Controllers.Clubs {
                 if (approved) {
                     myResult = theClubService.ApproveClubMember(myUserInformation, clubMemberId, title, administrator);
                     if(myResult) {
-                        TempData["Message"] = MessageHelper.NormalMessage(CLUB_MEMBER_APPROVED);
+                        TempData["Message"] += MessageHelper.NormalMessage(CLUB_MEMBER_APPROVED);
                     }
                 } else {
                     theClubService.DenyClubMember(myUserInformation, clubMemberId);
                     myResult = true;
-                    TempData["Message"] = MessageHelper.NormalMessage(CLUB_MEMBER_DENIED);
+                    TempData["Message"] += MessageHelper.NormalMessage(CLUB_MEMBER_DENIED);
                 }
 
                 if (myResult) {
@@ -181,7 +181,7 @@ namespace UniversityOfMe.Controllers.Clubs {
                 }
             } catch (Exception myException) {
                 LogError(myException, CLUB_MEMBER_ERROR);
-                TempData["Message"] = MessageHelper.ErrorMessage(CLUB_MEMBER_VERDICT_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(CLUB_MEMBER_VERDICT_ERROR);
             }
             
             //Force for radio button value export
