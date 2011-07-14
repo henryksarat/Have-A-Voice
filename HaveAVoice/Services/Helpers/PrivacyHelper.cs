@@ -28,21 +28,7 @@ namespace HaveAVoice.Services.Helpers {
 
             if (aPrivacyAction == PrivacyAction.DisplayProfile) {
                 if (aViewingUser == null || (aViewingUser != null && !FriendHelper.IsFriend(aPrivacyUser, aViewingUser.Details))) {
-                    if (HasPrivacySetting(myTargetUsersSettings, SocialPrivacySetting.Display_Profile_To_Not_Friend)) {
-                        myIsAllowed = true;
-                    } else {
-                        myIsAllowed = false;
-                    }
-                }
-                if (aViewingUser != null && PermissionHelper<User>.HasPermission(aViewingUser, SocialPermission.Confirmed_Politician)) {
-                    if (HasPrivacySetting(myTargetUsersSettings, SocialPrivacySetting.Display_Profile_To_Politician)) {
-                        myIsAllowed = true;
-                    } else {
-                        myIsAllowed = false;
-                    }
-                }
-                if (aViewingUser != null && PermissionHelper<User>.HasPermission(aViewingUser, SocialPermission.Confirmed_Political_Candidate)) {
-                    if (HasPrivacySetting(myTargetUsersSettings, SocialPrivacySetting.Display_Profile_To_Political_Candidate)) {
+                    if (HasPrivacySetting(myTargetUsersSettings, SocialPrivacySetting.Display_Profile_To_Everyone)) {
                         myIsAllowed = true;
                     } else {
                         myIsAllowed = false;
