@@ -7,9 +7,9 @@ namespace Social.Generic.Helpers {
              var captchaControl = new Recaptcha.RecaptchaControl  
                      {  
                          ID = "recaptcha",  
-                         Theme = "blackglass",  
-                         PublicKey = "6LeoSLoSAAAAAF177SrtbX0HIpkpG0RDFDdR_zT6",  
-                         PrivateKey = "6LeoSLoSAAAAAOdfYpGR-mRktL4IGSjcj4EdhBb_"  
+                         Theme = "blackglass",
+                         PublicKey = "6LcPJMYSAAAAAOJpX1mzOgwRGYAL7MabbzGm4DZ9",
+                         PrivateKey = "6LcPJMYSAAAAAN5fSA_9ZaCZu7Yjqj1j9_kzSIri "  
                       };  
            
              var htmlWriter = new HtmlTextWriter( new StringWriter() );  
