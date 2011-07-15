@@ -62,7 +62,7 @@ namespace HaveAVoice.Repositories.Issues {
                     select new IssueReplyModel {
                         Id = ir.Id,
                         Issue = ir.Issue,
-                        IssueStance = (ir.Disposition == 1) ? (int)IssueStanceFilter.Agree : (int)IssueStanceFilter.Disagree,
+                        IssueStance = ir.Disposition,
                         User = u,
                         Reply = ir.Reply,
                         FirstName = ir.FirstName,
@@ -92,7 +92,7 @@ namespace HaveAVoice.Repositories.Issues {
                     select new IssueReplyModel {
                         Id = ir.Id,
                         Issue = ir.Issue,
-                        IssueStance = (ir.Disposition == 1) ? (int)IssueStanceFilter.Agree : (int)IssueStanceFilter.Disagree,
+                        IssueStance = ir.Disposition,
                         User = u,
                         Reply = ir.Reply,
                         FirstName = ir.FirstName,

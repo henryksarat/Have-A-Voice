@@ -5,9 +5,9 @@ using System.Web;
 
 namespace HaveAVoice.Helpers.Enums {
     public enum IssueStanceFilter {
-        All = 0,
+        All = -1,
+        Neutral = 0,
         Agree = 1,
-        Disagree = 2,
-        Neutral = 3
+        Disagree = 2        
     }
 }
