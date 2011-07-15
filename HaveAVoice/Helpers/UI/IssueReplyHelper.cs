@@ -16,14 +16,17 @@ namespace HaveAVoice.Helpers.UI {
 
             if (anIssueReply.IssueStance == (int)IssueStanceFilter.Agree) {
                 myReplyDiv.AddCssClass("agree m-btm10");
-            } else {
+            } else if (anIssueReply.IssueStance == (int)IssueStanceFilter.Disagree) {
                 myReplyDiv.AddCssClass("disagree m-btm10");
+            } else {
+                myReplyDiv.AddCssClass("neutral m-btm10");
             }
 
             string myTimeStampDviCssClass = string.Empty;
             if (anIssueReply.IssueStance == (int)IssueStanceFilter.Disagree) {
                 myTimeStampDviCssClass = "col-3 date-tile pull-9 right";
             } else {
+                myTimeStampDviCssClass = "col-3 date-tile push-6";
                 myTimeStampDviCssClass = "col-3 date-tile push-6";
             }
 
@@ -57,10 +60,10 @@ namespace HaveAVoice.Helpers.UI {
             }
 
             string mySpeakSpan = string.Empty;
-            if (anIssueReply.IssueStance == (int)IssueStanceFilter.Agree) {
-                mySpeakSpan = SharedStyleHelper.InfoSpeakSpan("speak-lft");
-            } else {
+            if (anIssueReply.IssueStance == (int)IssueStanceFilter.Disagree) {
                 mySpeakSpan = SharedStyleHelper.InfoSpeakSpan("speak-rgt");
+            } else {
+                mySpeakSpan = SharedStyleHelper.InfoSpeakSpan("speak-lft");
             }
 
             myReplyCommentDiv.InnerHtml += mySpeakSpan.ToString();

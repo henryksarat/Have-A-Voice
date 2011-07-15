@@ -34,6 +34,9 @@ namespace HaveAVoice.Models.View {
                 } else if (value == (int)Disposition.Dislike) {
                     Disposition = Disposition.Dislike;
                     IssueStanceFilter = IssueStanceFilter.Disagree;
+                } else if (value == (int)Disposition.None) {
+                    Disposition = Disposition.None;
+                    IssueStanceFilter = IssueStanceFilter.Neutral;
                 } else {
                     Disposition = Disposition.None;
                     IssueStanceFilter = IssueStanceFilter.All;

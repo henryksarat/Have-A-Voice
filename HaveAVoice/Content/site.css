@@ -92,6 +92,7 @@ body { font-family: helvetica, arial, sans-serif; background: #20a9c9; }
 .m-btm30 { margin-bottom: 30px; }
 
 .m-lft10 { margin-left: 10px; }
+.m-lft25 { margin-left: 25px; }
 
 .m-rgt5 { margin-right: 5px; }
 .m-rgt10 { margin-right: 10px; }
@@ -385,10 +386,12 @@ a.filter, a.filter:link, a.filter:visited { color: #fff; text-decoration: none; 
 a.filter:hover { background: #20a9c9; font-weight: bold; }
 a.filter.like:hover { background: #2070c9; font-weight: bold; }
 a.filter.dislike:hover { background: #c94020; font-weight: bold; }
+a.filter.neutral:hover { background: #989898; font-weight: bold; }
 a.filterSelected, a.filterSelected:link, a.filterSelected:visited { color: #fff; text-decoration: none; background: #2070c9; padding: 5px; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; display: block; }
 a.filterSelected { background: #20a9c9; font-weight: bold; }
 a.filterSelected.like { background: #2070c9; font-weight: bold; }
 a.filterSelected.dislike { background: #c94020; font-weight: bold; }
+a.filterSelected.neutral { background: #989898; font-weight: bold; }
 .filterSelected-profile img.profile { max-height: 120px; max-width: 120px; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
 
 .comment { position: relative; background: #20a9c9; color: #fff; font-size: 13px; /* min-height: 120px; */ border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
@@ -403,6 +406,8 @@ a.filterSelected.dislike { background: #c94020; font-weight: bold; }
 .agree .comment .speak-lft { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #7BACE4 transparent transparent transparent; position: absolute; left: -10px; top: 10px; }
 .disagree .comment { color: #fff; position: relative; background: #F08080; /* min-height: 120px; */ border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
 .disagree .speak-rgt { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #F08080 transparent transparent transparent; position: absolute; right: -10px; top: 10px; }
+.neutral .comment { color: #fff; position: relative; background: #c1c1c1; /* min-height: 120px; */ border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+.neutral .speak-lft { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #c1c1c1 transparent transparent transparent; position: absolute; right: -10px; top: 10px; }
 
 .agree .comment a.name, .agree .comment a.name:link, .agree .comment a.name:visited, .disagree .comment a.name, .disagree .comment a.name:link, .disagree .comment a.name:visited { color: #fff; }
 
