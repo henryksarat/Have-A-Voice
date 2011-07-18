@@ -100,6 +100,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Groups_LastEditedByUsers", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(HaveAVoice.Models.User), "Group", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Group), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_GroupTags_Groups", "Group", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Group), "GroupTag", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.GroupTag), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_GroupZipCodeTags_Groups", "Group", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Group), "GroupZipCodeTag", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.GroupZipCodeTag), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_GroupMember_GroupMemberUsers", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "GroupMember", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.GroupMember), true)]
 
 #endregion
 
@@ -6878,6 +6879,44 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Group>("HaveAVoice.Models.FK_GroupMember_Groups", "Group", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_GroupMember_GroupMemberUsers", "User")]
+        public User MemberUser
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_GroupMember_GroupMemberUsers", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_GroupMember_GroupMemberUsers", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> MemberUserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_GroupMember_GroupMemberUsers", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_GroupMember_GroupMemberUsers", "User", value);
                 }
             }
         }
@@ -14774,6 +14813,28 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Group>("HaveAVoice.Models.FK_Groups_LastEditedByUsers", "Group", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_GroupMember_GroupMemberUsers", "GroupMember")]
+        public EntityCollection<GroupMember> GroupMembers3
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<GroupMember>("HaveAVoice.Models.FK_GroupMember_GroupMemberUsers", "GroupMember");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<GroupMember>("HaveAVoice.Models.FK_GroupMember_GroupMemberUsers", "GroupMember", value);
                 }
             }
         }

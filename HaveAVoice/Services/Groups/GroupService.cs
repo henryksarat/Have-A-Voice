@@ -12,9 +12,13 @@ using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Validation;
 using HaveAVoice.Models.View;
+using HaveAVoice.Helpers.Search;
+using Social.Generic.Exceptions;
 
 namespace HaveAVoice.Services.Groups {
     public class GroupService : IGroupService {
+        private const string REQUEST_SUCCESS = "Your request to join the group has been submitted! Now an admin of the group must approve you before you can join.";
+        private const string AUTOADD_SUCCESS = "You have joined the group!";
         private const string GROUP_DOESNT_EXIST = "That group doesn't exist.";
         private const string MEMBER_DOESNT_EXIST = "That user doesn't exist.";
         private const string NOT_ADMINISTRATOR = "You are not an administrator of this group.";
@@ -135,7 +139,7 @@ namespace HaveAVoice.Services.Groups {
             GroupCityStateTag myCityStateTag = theGroupRepository.GetGroupCityStateTag(anEditGroupModel.Id);
 
             if ((myCityStateTag == null && !string.IsNullOrEmpty(anEditGroupModel.CityTag) && !string.IsNullOrEmpty(anEditGroupModel.StateTag) && !anEditGroupModel.StateTag.Equals(Constants.SELECT)) 
-                && (!anEditGroupModel.CityTag.Equals(myCityStateTag.City) || !anEditGroupModel.StateTag.Equals(myCityStateTag.State))) {
+                || (myCityStateTag != null && (!anEditGroupModel.CityTag.Equals(myCityStateTag.City) || !anEditGroupModel.StateTag.Equals(myCityStateTag.State)))) {
                 myDeleteCityStateTag = true;
                 myAddNewCityStateTag = true;
             }
@@ -175,8 +179,45 @@ namespace HaveAVoice.Services.Groups {
             return theGroupRepository.GetGroupMembers(aGroupId).Where(cm => cm.Approved == HAVConstants.APPROVED);
         }
 
-        public IEnumerable<Group> GetGroups(UserInformationModel<User> aUser) {
-            return theGroupRepository.GetGroups(aUser.Details);
+        public IEnumerable<Group> GetGroups(UserInformationModel<User> aUser, string aSearchTerm, SearchBy aSearchBy, OrderBy orderBy) {
+            IEnumerable<Group> myGroups = new List<Group>();
+
+            if (aSearchBy == SearchBy.All) {
+                myGroups = theGroupRepository.GetGroupsByAll(aUser.Details);
+            } else if (aSearchBy == SearchBy.City) {
+                myGroups = theGroupRepository.GetGroupsByCity(aUser.Details, aSearchTerm);
+            } else if (aSearchBy == SearchBy.Name) {
+                myGroups = theGroupRepository.GetGroupsByName(aUser.Details, aSearchTerm);
+            } else if (aSearchBy == SearchBy.Tags) {
+                myGroups = theGroupRepository.GetGroupsByKeywordTags(aUser.Details, aSearchTerm);
+            } else if (aSearchBy == SearchBy.ZipCode) {
+                int myParsedZip;
+                bool myTryParsed = int.TryParse(aSearchTerm, out myParsedZip);
+                if (!myTryParsed) {
+                    throw new CustomException("The zip code must be 5 digits long.");
+                }
+                myGroups = theGroupRepository.GetGroupsByZipCode(aUser.Details, myParsedZip);
+            }
+
+            if (orderBy == OrderBy.City) {
+                myGroups = myGroups.OrderBy(g => g.GroupCityStateTags.OrderBy(gc => gc.City));
+            } else if (orderBy == OrderBy.Name) {
+                myGroups = myGroups.OrderBy(g => g.Name);
+            } else if (orderBy == OrderBy.State) {
+                myGroups = myGroups.OrderBy(g => g.GroupCityStateTags.OrderBy(gc => gc.State));
+            } else if (orderBy == OrderBy.ZipCode) {
+                myGroups = myGroups.OrderBy(g => 
+                    g.GroupZipCodeTags.Count > 0 ? 
+                    g.GroupZipCodeTags.Min(gz => gz.ZipCode) :
+                    0);
+            }
+
+
+            return myGroups;
+        }
+
+        public IEnumerable<Group> GetMyGroups(UserInformationModel<User> aUser) {
+            return theGroupRepository.GetMyGroups(aUser.Details);
         }
 
         public bool IsAdmin(User aUser, int aGroupId) {
@@ -214,13 +255,34 @@ namespace HaveAVoice.Services.Groups {
             return true;
         }
 
-        public void RequestToJoinGroup(UserInformationModel<User> aRequestingMember, int aGroupId) {
+        public void RequestToJoinGroup(UserInformationModel<User> aRequestingMember, int aGroupId, out string aMessage) {
             Group myGroup = GetGroup(aRequestingMember, aGroupId);
             if (myGroup.AutoAccept) {
+                aMessage = AUTOADD_SUCCESS;
                 theGroupRepository.AutoAcceptGroupMember(aRequestingMember.Details, aGroupId, GroupConstants.DEFAULT_NEW_MEMBER_TITLE);
             } else {
+                aMessage = REQUEST_SUCCESS;
                 theGroupRepository.MemberRequestToJoinGroup(aRequestingMember.Details, aGroupId, GroupConstants.DEFAULT_NEW_MEMBER_TITLE);
             }
+        }
+
+        public IDictionary<string, string> SearchByOptions() {
+            IDictionary<string, string> mySearchByOptionsDictionary = new Dictionary<string, string>();
+            mySearchByOptionsDictionary.Add("Show all groups", SearchBy.All.ToString());
+            mySearchByOptionsDictionary.Add(SearchBy.Name.ToString(), SearchBy.Name.ToString());
+            mySearchByOptionsDictionary.Add(SearchBy.Tags.ToString(), SearchBy.Tags.ToString());
+            mySearchByOptionsDictionary.Add("Zip Code", SearchBy.ZipCode.ToString());
+            mySearchByOptionsDictionary.Add(SearchBy.City.ToString(), SearchBy.City.ToString());
+            return mySearchByOptionsDictionary;
+        }
+
+        public IDictionary<string, string> OrderByOptions() {
+            IDictionary<string, string> myOrderByOptionsDictionary = new Dictionary<string, string>();
+            myOrderByOptionsDictionary.Add(OrderBy.Name.ToString(), OrderBy.Name.ToString());
+            myOrderByOptionsDictionary.Add("Zip Code", OrderBy.ZipCode.ToString());
+            myOrderByOptionsDictionary.Add(OrderBy.City.ToString(), OrderBy.City.ToString());
+            myOrderByOptionsDictionary.Add(OrderBy.State.ToString(), OrderBy.State.ToString());
+            return myOrderByOptionsDictionary;
         }
 
         private bool ValidateAdmin(User aUser, int aGroupId) {

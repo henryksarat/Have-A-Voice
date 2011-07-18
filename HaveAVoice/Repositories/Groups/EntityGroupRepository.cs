@@ -126,10 +126,11 @@ namespace HaveAVoice.Repositories.Groups {
         }
 
         public IEnumerable<GroupMember> GetGroupMembers(int aGroupId) {
-            return (from cm in theEntities.GroupMembers
-                    where cm.GroupId == aGroupId
-                    && cm.Approved == HAVConstants.APPROVED
-                    select cm).ToList<GroupMember>();
+            return (from gm in theEntities.GroupMembers
+                    where gm.GroupId == aGroupId
+                    && !gm.Deleted
+                    && gm.Approved == HAVConstants.APPROVED
+                    select gm).ToList<GroupMember>();
         }
 
         public GroupMember GetGroupMember(int aGroupMemberId) {
@@ -142,18 +143,66 @@ namespace HaveAVoice.Repositories.Groups {
             return (from cm in theEntities.GroupMembers
                     where cm.UserId == aUserId
                     && cm.GroupId == aGroupId
-                    && cm.Deleted == false
+                    && !cm.Deleted
                     select cm).FirstOrDefault<GroupMember>();
         }
 
-        public IEnumerable<Group> GetGroups(User aUser) {
-            IEnumerable<int> myAdminOfClubs = (from cm in theEntities.GroupMembers
-                                               where cm.UserId == aUser.Id
-                                               && cm.Administrator
-                                               select cm.GroupId);
+        public IEnumerable<Group> GetGroupsByAll(User aUser) {
+            IEnumerable<int> myAdminOfClubs = GetGroupsAdminOf(aUser);
 
             return (from c in theEntities.Groups
                     where (c.Active || myAdminOfClubs.Contains(c.Id))
+                    select c).ToList<Group>();
+        }
+
+        public IEnumerable<Group> GetGroupsByName(User aUser, string aSearchTerm) {
+            IEnumerable<int> myAdminOfClubs = GetGroupsAdminOf(aUser);
+
+            return (from c in theEntities.Groups
+                    where (c.Active || myAdminOfClubs.Contains(c.Id))
+                    && c.Name.Contains(aSearchTerm)
+                    select c).ToList<Group>();
+        }
+
+        public IEnumerable<Group> GetGroupsByKeywordTags(User aUser, string aSearchTerm) {
+            IEnumerable<int> myAdminOfClubs = GetGroupsAdminOf(aUser);
+
+            return (from g in theEntities.Groups
+                    join gt in theEntities.GroupTags on g.Id equals gt.GroupId 
+                    where (g.Active || myAdminOfClubs.Contains(g.Id))
+                    && gt.Tag.Contains(aSearchTerm)
+                    select g).ToList<Group>();
+        }
+
+        public IEnumerable<Group> GetGroupsByZipCode(User aUser, int aSearchTerm) {
+            IEnumerable<int> myAdminOfClubs = GetGroupsAdminOf(aUser);
+
+            return (from g in theEntities.Groups
+                    join gz in theEntities.GroupZipCodeTags on g.Id equals gz.GroupId
+                    where (g.Active || myAdminOfClubs.Contains(g.Id))
+                    && gz.ZipCode == aSearchTerm
+                    select g).ToList<Group>();
+        }
+
+        public IEnumerable<Group> GetGroupsByCity(User aUser, string aSearchTerm) {
+            IEnumerable<int> myAdminOfClubs = GetGroupsAdminOf(aUser);
+
+            return (from g in theEntities.Groups
+                    join gc in theEntities.GroupCityStateTags on g.Id equals gc.GroupId
+                    where (g.Active || myAdminOfClubs.Contains(g.Id))
+                    && gc.City.Contains(aSearchTerm)
+                    select g).ToList<Group>();
+        }
+
+        public IEnumerable<Group> GetMyGroups(User aUser) {
+            IEnumerable<int> myAdminOfClubs = GetGroupsAdminOf(aUser);
+
+            return (from c in theEntities.Groups
+                    join gm in theEntities.GroupMembers on c.Id equals gm.GroupId
+                    where (c.Active || myAdminOfClubs.Contains(c.Id)) 
+                    && gm.UserId == aUser.Id
+                    && gm.Deleted == false
+                    && gm.Approved == HAVConstants.APPROVED
                     select c).ToList<Group>();
         }
 
@@ -230,7 +279,9 @@ namespace HaveAVoice.Repositories.Groups {
 
             if (aDeleteCityStateTag) {
                 GroupCityStateTag myGroupCityStateTag = GetGroupCityStateTag(aGroupId);
-                theEntities.DeleteObject(myGroupCityStateTag);
+                if (myGroupCityStateTag != null) {
+                    theEntities.DeleteObject(myGroupCityStateTag);
+                }
             }
 
             if (aNewCityStatetag) {
@@ -252,6 +303,13 @@ namespace HaveAVoice.Repositories.Groups {
             return (from c in theEntities.GroupCityStateTags
                     where c.GroupId == aGroupId
                     select c).FirstOrDefault<GroupCityStateTag>();
+        }
+
+        private IEnumerable<int> GetGroupsAdminOf(User aUser) {
+            return (from cm in theEntities.GroupMembers
+                    where cm.UserId == aUser.Id
+                    && cm.Administrator
+                    select cm.GroupId);
         }
 
         private IEnumerable<GroupBoard> GetGroupBoards(int aGroupId) {

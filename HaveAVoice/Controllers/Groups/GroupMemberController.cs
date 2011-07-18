@@ -16,9 +16,9 @@ namespace HaveAVoice.Controllers.Groups {
     public class GroupMemberController : HAVBaseController {
         private const string PENDING = "You are already pending to join the group.";
         private const string APPROVED = "You are already apart of the group.";
-        
+
         private const string USER_REMVOED = "User removed successfully!";
-        private const string REQUEST_SUCCESS = "Your request to join the group has been submitted! Now an admin of the group must approve you before you can join.";
+        private const string USER_QUIT = "You have left the group successfull!";
         private const string CANCEL_REQUEST = "Your request to join the group has been cancelled.";
         private const string GROUP_MEMBER_APPROVED = "The group member has been approved to join the group!";
         private const string GROUP_MEMBER_DENIED = "The group member has been denied to join the group!";
@@ -39,53 +39,7 @@ namespace HaveAVoice.Controllers.Groups {
         }
 
         [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
-        public ActionResult Remove(int groupId) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-
-            try {
-                UserInformationModel<User> myUser = GetUserInformatonModel();
-                bool myResult = theGroupService.RemoveGroupMember(GetUserInformatonModel(), myUser.UserId, groupId);
-
-                if (myResult) {
-                    TempData["Message"] += MessageHelper.SuccessMessage(USER_REMVOED);
-                }
-            } catch (Exception myException) {
-                LogError(myException, REMOVE_ERROR);
-                TempData["Message"] += MessageHelper.ErrorMessage(REMOVE_ERROR);
-            }
-
-            return RedirectToAction("Details", "Group", new { id = groupId });
-        }
-
-        [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
-        public ActionResult RequestToJoin(int groupId) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-
-            try {
-                UserInformationModel<User> myUserInformation = GetUserInformatonModel();
-
-                if (theGroupService.IsPendingApproval(myUserInformation.Details.Id, groupId)) {
-                    TempData["Message"] += MessageHelper.NormalMessage(PENDING);
-                } else if (theGroupService.IsApartOfGroup(myUserInformation.Details.Id, groupId)) {
-                    TempData["Message"] += MessageHelper.NormalMessage(APPROVED);
-                } else {
-                    theGroupService.RequestToJoinGroup(myUserInformation, groupId);
-                    TempData["Message"] += MessageHelper.SuccessMessage(REQUEST_SUCCESS);
-                }
-            } catch (Exception myException) {
-                LogError(myException, REMOVE_ERROR);
-                TempData["Message"] += MessageHelper.ErrorMessage(REQUEST_ERROR);
-            }
-
-            return RedirectToAction("Details", "Group", new { id = groupId });
-        }
-
-        [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
-        public ActionResult Cancel(int groupId, string universityId) {
+        public ActionResult Cancel(int groupId) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
@@ -100,7 +54,7 @@ namespace HaveAVoice.Controllers.Groups {
                 TempData["Message"] += MessageHelper.ErrorMessage(REMOVE_ERROR);
             }
 
-            return RedirectToAction("Details", "Group", new { id = groupId, universityId = universityId });
+            return RedirectToAction("Details", "Group", new { id = groupId });
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
@@ -141,6 +95,42 @@ namespace HaveAVoice.Controllers.Groups {
             }
         }
 
+        [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
+        public ActionResult Quit(int groupId) {
+            return RemoveMember(groupId, USER_QUIT);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
+        public ActionResult Remove(int groupId) {
+            return RemoveMember(groupId, USER_REMVOED);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
+        public ActionResult RequestToJoin(int groupId) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+
+            try {
+                UserInformationModel<User> myUserInformation = GetUserInformatonModel();
+
+                if (theGroupService.IsPendingApproval(myUserInformation.Details.Id, groupId)) {
+                    TempData["Message"] += MessageHelper.NormalMessage(PENDING);
+                } else if (theGroupService.IsApartOfGroup(myUserInformation.Details.Id, groupId)) {
+                    TempData["Message"] += MessageHelper.NormalMessage(APPROVED);
+                } else {
+                    string myMessage;
+                    theGroupService.RequestToJoinGroup(myUserInformation, groupId, out myMessage);
+                    TempData["Message"] += MessageHelper.SuccessMessage(myMessage);
+                }
+            } catch (Exception myException) {
+                LogError(myException, REMOVE_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(REQUEST_ERROR);
+            }
+
+            return RedirectToAction("Details", "Group", new { id = groupId });
+        }
+
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
         public ActionResult Verdict(int groupMemberId, int groupId, bool approved, string title, bool administrator) {
             if (!IsLoggedIn()) {
@@ -173,6 +163,26 @@ namespace HaveAVoice.Controllers.Groups {
             theValidationDictionary.ForceModleStateExport();
             
             return RedirectToAction("Details", new { groupId = groupId, groupMemberId = groupMemberId });
+        }
+
+        private ActionResult RemoveMember(int aGroupId, string aMessage) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+
+            try {
+                UserInformationModel<User> myUser = GetUserInformatonModel();
+                bool myResult = theGroupService.RemoveGroupMember(GetUserInformatonModel(), myUser.UserId, aGroupId);
+
+                if (myResult) {
+                    TempData["Message"] += MessageHelper.SuccessMessage(aMessage);
+                }
+            } catch (Exception myException) {
+                LogError(myException, REMOVE_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(REMOVE_ERROR);
+            }
+
+            return RedirectToAction("Details", "Group", new { id = aGroupId });
         }
     }
 }

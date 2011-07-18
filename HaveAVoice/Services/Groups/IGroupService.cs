@@ -2,6 +2,7 @@
 using HaveAVoice.Models;
 using Social.Generic.Models;
 using HaveAVoice.Models.View;
+using HaveAVoice.Helpers.Search;
 
 namespace HaveAVoice.Services.Groups {
     public interface IGroupService {
@@ -16,12 +17,15 @@ namespace HaveAVoice.Services.Groups {
         EditGroupModel GetGroupForEdit(UserInformationModel<User> aUser, int aGroupId);
         GroupMember GetGroupMember(UserInformationModel<User> aUser, int aGroupMemberId);
         IEnumerable<GroupMember> GetActiveGroupMembers(int aGroupId);
-        IEnumerable<Group> GetGroups(UserInformationModel<User> aUser);
+        IEnumerable<Group> GetGroups(UserInformationModel<User> aUser, string aSearchTerm, SearchBy aSearchBy, OrderBy orderBy);
+        IEnumerable<Group> GetMyGroups(UserInformationModel<User> aUser);
         bool IsAdmin(User aUser, int aGroupId);
         bool IsApartOfGroup(int aUserId, int aGroupId);
         bool IsPendingApproval(int aUserId, int aGroupId);
+        IDictionary<string, string> OrderByOptions();
         bool PostToGroupBoard(UserInformationModel<User> aPostingUser, int aGroupId, string aMessage);
         bool RemoveGroupMember(UserInformationModel<User> aGroupAdmin, int aCurrentUserId, int aGroupId);
-        void RequestToJoinGroup(UserInformationModel<User> aRequestingMember, int aGroupId);
+        void RequestToJoinGroup(UserInformationModel<User> aRequestingMember, int aGroupId, out string aMessage);
+        IDictionary<string, string> SearchByOptions();
     }
 }

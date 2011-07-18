@@ -17,6 +17,7 @@ using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
 using System.Linq;
+using HaveAVoice.Helpers.Search;
 
 namespace HaveAVoice.Controllers.Groups {
     public class GroupController : HAVBaseController {
@@ -25,6 +26,7 @@ namespace HaveAVoice.Controllers.Groups {
         private const string GROUP_DEACTIVATED = "The group has been deactivated! You can always activate it again by going on the club page and activating it.";
         private const string GROUP_ACTIVATED = "The group has been activated again!";
         private const string NO_GROUPS = "There are no groups currently. Go ahead and create one!";
+        private const string NOT_IN_GROUPS = "You are not in any groups yet. Do a search and join some!";
 
         private const string GROUP_LIST_ERROR = "Error getting group list. Please try again.";
         private const string GROUP_GET_FOR_EDIT_ERROR = "Error getting the group for an edit. Please try again.";
@@ -41,13 +43,13 @@ namespace HaveAVoice.Controllers.Groups {
         }
 
         [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
-        public ActionResult Activate(int groupId) {
+        public ActionResult Activate(int id) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
 
             try {
-                bool myResult = theGroupService.ActivateGroup(GetUserInformatonModel(), groupId);
+                bool myResult = theGroupService.ActivateGroup(GetUserInformatonModel(), id);
 
                 if (myResult) {
                     TempData["Message"] += MessageHelper.SuccessMessage(GROUP_ACTIVATED);
@@ -57,7 +59,7 @@ namespace HaveAVoice.Controllers.Groups {
                 TempData["Message"] += MessageHelper.ErrorMessage(GROUP_ACTIVATED_ERROR);
             }
 
-            return RedirectToAction("Details", new { id = groupId });
+            return RedirectToAction("Details", new { id = id });
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
@@ -95,13 +97,13 @@ namespace HaveAVoice.Controllers.Groups {
         }
 
         [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
-        public ActionResult Deactivate(int clubId) {
+        public ActionResult Deactivate(int id) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
 
             try {
-                bool myResult = theGroupService.DeactivateGroup(GetUserInformatonModel(), clubId);
+                bool myResult = theGroupService.DeactivateGroup(GetUserInformatonModel(), id);
 
                 if (myResult) {
                     TempData["Message"] += MessageHelper.SuccessMessage(GROUP_DEACTIVATED);
@@ -185,17 +187,81 @@ namespace HaveAVoice.Controllers.Groups {
             try {
                 UserInformationModel<User> myUser = GetUserInformatonModel();
 
-                myGroups = theGroupService.GetGroups(myUser);
+                myGroups = theGroupService.GetGroups(myUser, string.Empty, SearchBy.All, OrderBy.Name);
 
                 if (myGroups.Count<Group>() == 0) {
                     ViewData["Message"] = MessageHelper.NormalMessage(NO_GROUPS);
+                }
+
+                GroupSearchModel myGroupSearchModel = new GroupSearchModel() {
+                    SearchResults = myGroups,
+                    SearchByOptions = new SelectList(theGroupService.SearchByOptions(), "Value", "Key"),
+                    OrderByOptions = new SelectList(theGroupService.OrderByOptions(), "Value", "Key")
+                };
+
+                return View("List", myGroupSearchModel);
+            } catch (Exception myException) {
+                LogError(myException, GROUP_LIST_ERROR);
+                return SendToErrorPage(GROUP_LIST_ERROR);
+            }
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult List(string searchTerm, SearchBy searchBy, OrderBy orderBy) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+
+            IEnumerable<Group> myGroups = new List<Group>();
+
+            GroupSearchModel myGroupSearchModel = new GroupSearchModel() {
+                SearchResults = myGroups,
+                SearchByOptions = new SelectList(theGroupService.SearchByOptions(), "Value", "Key", searchBy.ToString()),
+                OrderByOptions = new SelectList(theGroupService.OrderByOptions(), "Value", "Key", orderBy.ToString())
+            };
+
+            try {
+                UserInformationModel<User> myUser = GetUserInformatonModel();
+
+                myGroups = theGroupService.GetGroups(myUser, searchTerm, searchBy, orderBy);
+
+                if (myGroups.Count<Group>() == 0) {
+                    ViewData["Message"] = MessageHelper.NormalMessage(NO_GROUPS);
+                }
+
+                myGroupSearchModel.SearchResults = myGroups;
+            } catch(CustomException anException) {
+                ViewData["Message"] = MessageHelper.ErrorMessage(anException.Message);
+            } catch (Exception myException) {
+                LogError(myException, GROUP_LIST_ERROR);
+                ViewData["Message"] = GROUP_LIST_ERROR;
+            }
+
+            return View("List", myGroupSearchModel);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult MyGroups() {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+
+            IEnumerable<Group> myGroups = new List<Group>();
+
+            try {
+                UserInformationModel<User> myUser = GetUserInformatonModel();
+
+                myGroups = theGroupService.GetMyGroups(myUser);
+
+                if (myGroups.Count<Group>() == 0) {
+                    ViewData["Message"] = MessageHelper.NormalMessage(NOT_IN_GROUPS);
                 }
             } catch (Exception myException) {
                 LogError(myException, GROUP_LIST_ERROR);
                 ViewData["Message"] = GROUP_LIST_ERROR;
             }
 
-            return View("List", myGroups);
+            return View("MyGroups", myGroups);
         }
     }
 }

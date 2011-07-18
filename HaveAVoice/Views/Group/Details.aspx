@@ -17,6 +17,21 @@
 <% Html.RenderPartial("Message"); %>
 <% Html.RenderPartial("Validation"); %>
 
+<% if (GroupHelper.IsAdmin(myUserInfo.Details, Model.Id)) { %>
+    <%= Html.ActionLink("Edit", "Edit", "Group", new { id = Model.Id }, null)%>
+    <% if (Model.Active) { %>                
+        <%= Html.ActionLink("Set club as inactive", "Deactivate", "Group", new { id = Model.Id }, null)%>
+    <% } else { %>
+        <%= Html.ActionLink("Set club as active", "Activate", "Group", new { id = Model.Id }, null)%>
+    <% } %>    
+<% } else if (GroupHelper.IsPending(myUserInfo.Details, Model.Id)) { %>
+    <%= Html.ActionLink("Cancel my request to join", "Cancel", "GroupMember", new { groupId = Model.Id }, null)%>
+<% } else if (GroupHelper.IsMember(myUserInfo.Details, Model.Id)) { %>
+    <%= Html.ActionLink("Quit organization", "Remove", "GroupMember", new { groupId = Model.Id }, null)%>
+<% } else { %>
+    <%= Html.ActionLink("Request to join organization", "RequestToJoin", "GroupMember", new { groupId = Model.Id }, null)%>
+<% } %><br />
+
 Group Name: <%= Model.Name %><br />
 Group Description: <%= Model.Description %><br />
 Auto Accept: <%= Model.AutoAccept %><br />
@@ -40,5 +55,6 @@ City State Tag:<br />
     <a href="/Group/Edit/<%= Model.Id %>">Edit</a>
 <% } %>
 
+<a href="/GroupMember/List/<%= Model.Id %>">View all members</a>
 
 </asp:Content>

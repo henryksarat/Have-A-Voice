@@ -18,7 +18,12 @@ namespace HaveAVoice.Repositories.Groups {
         GroupMember GetGroupMember(int aGroupMemberId);
         GroupMember GetGroupMember(int aUserId, int aGroupId);
         IEnumerable<GroupMember> GetGroupMembers(int aGroupId);
-        IEnumerable<Group> GetGroups(User aUser);
+        IEnumerable<Group> GetGroupsByAll(User aUser);
+        IEnumerable<Group> GetGroupsByName(User aUser, string aSearchTerm);
+        IEnumerable<Group> GetGroupsByKeywordTags(User aUser, string aSearchTerm);
+        IEnumerable<Group> GetGroupsByZipCode(User aUser, int aSearchTerm);
+        IEnumerable<Group> GetGroupsByCity(User aUser, string aSearchTerm);
+        IEnumerable<Group> GetMyGroups(User aUser);
         Group CreateGroup(User aUser, string aName, string aDescription, bool anAutoAccept);
         void MarkGroupBoardAsViewed(User aUser, int aGroupId);
         void MemberRequestToJoinGroup(User aRequestingUser, int aGroupId, string aTitle);

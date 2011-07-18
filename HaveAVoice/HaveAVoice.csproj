@@ -111,6 +111,8 @@
     <Compile Include="Helpers\ProfileHelper.cs" />
     <Compile Include="Helpers\ProfilePictureStrategy.cs" />
     <Compile Include="Helpers\RegistrationStrategy.cs" />
+    <Compile Include="Helpers\Search\OrderBy.cs" />
+    <Compile Include="Helpers\Search\SearchBy.cs" />
     <Compile Include="Helpers\UI\BoardHelper.cs" />
     <Compile Include="Helpers\UI\IssueReplyCommentHelper.cs" />
     <Compile Include="Helpers\UI\SharedContentStyleHelper.cs" />
@@ -160,6 +162,7 @@
     <Compile Include="Models\View\BoardFeedModel.cs" />
     <Compile Include="Models\View\EditGroupModel.cs" />
     <Compile Include="Models\View\CreateUserModel.cs" />
+    <Compile Include="Models\View\GroupSearchModel.cs" />
     <Compile Include="Models\View\NavigationItemModel.cs" />
     <Compile Include="Models\View\NotificationModel.cs" />
     <Compile Include="Models\View\CreateUserModelBuilder.cs" />
@@ -367,6 +370,9 @@
     <Content Include="Views\BoardReply\Board\Details.aspx" />
     <Content Include="Views\Calendar\List.aspx" />
     <Content Include="Views\Complaint\Create.aspx" />
+    <Content Include="Views\GroupMember\Details.aspx" />
+    <Content Include="Views\GroupMember\List.aspx" />
+    <Content Include="Views\Group\MyGroups.aspx" />
     <Content Include="Views\Group\Edit.aspx" />
     <Content Include="Views\Group\Details.aspx" />
     <Content Include="Views\Group\List.aspx" />
@@ -462,7 +468,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\App_LocalResources\" />
     <Folder Include="obj\" />
-    <Folder Include="Views\GroupMember\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Site.Master" />
