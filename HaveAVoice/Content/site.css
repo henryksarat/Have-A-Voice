@@ -278,6 +278,12 @@ ul li.search div.pnl select { display: none; }
 #meter > div.okay { border-color: #dedede; background: #FFC; }
 #meter > div.good { border-color: #349534; background: #C9FFCA; }
 
+/****************************************************************************/
+/***************************** GROUPS *******************************/
+/****************************************************************************/
+form.search-group label { font-weight: bold; color: #a2a2a2; font-size: 14px; }
+form.search-group input[type=text], form.search-group input[type=password] { font-size: 14px; border: #20a9c9 solid 1px; width: 150px; }
+
 
 /****************************************************************************/
 /***************************** CREATE ACCOUNT *******************************/
