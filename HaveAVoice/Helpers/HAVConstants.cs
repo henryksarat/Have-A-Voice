@@ -15,7 +15,7 @@ namespace HaveAVoice.Helpers {
         public const string ACTIVATION_BODY = "Hello!\nTo finalize completion of your have a voice account, please click following link or copy and paste it into your browser: ";
         public const string ACTIVATION_SUBJECT = "have a voice | account activation";
 
-        public const string ANONYMOUS_PICTURE_URL = Constants.NO_PROFILE_PICTURE_URL;
+        public const string ANONYMOUS_PICTURE_URL = Social.Generic.Constants.Constants.NO_PROFILE_PICTURE_URL;
         public const string ANONYMOUS = "Anonymous";
 
         public const long SECONDS_BEFORE_USER_TIMEOUT = 60 * 30;

@@ -75,6 +75,9 @@
     <Compile Include="Controllers\Core\AuthorityVerificationController.cs" />
     <Compile Include="Controllers\Core\PasswordController.cs" />
     <Compile Include="Controllers\Core\SiteController.cs" />
+    <Compile Include="Controllers\Groups\GroupBoardController.cs" />
+    <Compile Include="Controllers\Groups\GroupController.cs" />
+    <Compile Include="Controllers\Groups\GroupMemberController.cs" />
     <Compile Include="Controllers\Helpers\ErrorHelper.cs" />
     <Compile Include="Controllers\Helpers\MessageHelper.cs" />
     <Compile Include="Controllers\Issues\IssueReplyCommentController.cs" />
@@ -94,6 +97,7 @@
     <Compile Include="Helpers\Authority\AuthorityClassification.cs" />
     <Compile Include="Helpers\Constants\GroupConstants.cs" />
     <Compile Include="Helpers\Enums\FeedItem.cs" />
+    <Compile Include="Helpers\Groups\GroupHelper.cs" />
     <Compile Include="Helpers\IssueTitleHelper.cs" />
     <Compile Include="Helpers\NameHelper.cs" />
     <Compile Include="Helpers\Enums\NotificationType.cs" />
@@ -154,6 +158,7 @@
     <Compile Include="Models\View\Binders\UpdatePrivacySettingsModelBinder.cs" />
     <Compile Include="Models\View\Binders\ImageBinder.cs" />
     <Compile Include="Models\View\BoardFeedModel.cs" />
+    <Compile Include="Models\View\EditGroupModel.cs" />
     <Compile Include="Models\View\CreateUserModel.cs" />
     <Compile Include="Models\View\NavigationItemModel.cs" />
     <Compile Include="Models\View\NotificationModel.cs" />
@@ -358,10 +363,14 @@
     <Content Include="Views\AuthorityVerification\Create.aspx" />
     <Content Include="Views\AuthorityVerification\Verify.aspx" />
     <Content Include="Views\BoardReply\Edit.aspx" />
-    <Content Include="Views\Board\Edit.aspx" />
-    <Content Include="Views\Board\Details.aspx" />
+    <Content Include="Views\BoardReply\Board\Edit.aspx" />
+    <Content Include="Views\BoardReply\Board\Details.aspx" />
     <Content Include="Views\Calendar\List.aspx" />
     <Content Include="Views\Complaint\Create.aspx" />
+    <Content Include="Views\Group\Edit.aspx" />
+    <Content Include="Views\Group\Details.aspx" />
+    <Content Include="Views\Group\List.aspx" />
+    <Content Include="Views\Group\Create.aspx" />
     <Content Include="Views\IssueReply\Details.aspx" />
     <Content Include="Views\Search\IssueResults.aspx" />
     <Content Include="Views\Search\UserResults.aspx" />
@@ -453,6 +462,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\App_LocalResources\" />
     <Folder Include="obj\" />
+    <Folder Include="Views\GroupMember\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Site.Master" />

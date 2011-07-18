@@ -15,8 +15,8 @@ namespace HaveAVoice.Repositories.Issues {
         public IssueReply CreateIssueReply(int aUserId, string aUserCity, string aUserState, int aUserZipCode, int anIssueId, string aReply, bool anAnonymous, int aDisposition, string aFirstName, string aLastName) {
             IssueReply myIssueReply = IssueReply.CreateIssueReply(0, anIssueId, aUserId, aReply, aUserCity, aUserState, aUserZipCode, aDisposition, anAnonymous, DateTime.UtcNow, false);
             if (aUserId == HAVConstants.PRIVATE_USER_ID) {
-                myIssueReply.FirstName = aFirstName;
-                myIssueReply.LastName = aLastName;
+                myIssueReply.TempFirstName = aFirstName;
+                myIssueReply.TempLastName = aLastName;
             }
 
             theEntities.AddToIssueReplys(myIssueReply);
@@ -65,8 +65,8 @@ namespace HaveAVoice.Repositories.Issues {
                         IssueStance = ir.Disposition,
                         User = u,
                         Reply = ir.Reply,
-                        FirstName = ir.FirstName,
-                        LastName = ir.LastName,
+                        FirstName = ir.TempFirstName,
+                        LastName = ir.TempLastName,
                         DateTimeStamp = ir.DateTimeStamp,
                         CommentCount = ir.IssueReplyComments.Where(cc => cc.Deleted == false).Count(),
                         Anonymous = ir.Anonymous,
@@ -95,8 +95,8 @@ namespace HaveAVoice.Repositories.Issues {
                         IssueStance = ir.Disposition,
                         User = u,
                         Reply = ir.Reply,
-                        FirstName = ir.FirstName,
-                        LastName = ir.LastName,
+                        FirstName = ir.TempFirstName,
+                        LastName = ir.TempLastName,
                         DateTimeStamp = ir.DateTimeStamp,
                         CommentCount = ir.IssueReplyComments.Where(cc => cc.Deleted == false).Count(),
                         Anonymous = ir.Anonymous,

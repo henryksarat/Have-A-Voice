@@ -53,7 +53,7 @@
             <p>
                 <input type="submit" value="Create" />
             </p>
-        </fieldset
+        </fieldset>
 
     <% } %>
 </asp:Content>

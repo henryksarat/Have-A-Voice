@@ -241,7 +241,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 };
 
                 if (myUser.Id == HAVConstants.PRIVATE_USER_ID) {
-                    myFeedModel.DisplayName = myIssueReply.FirstName + " " + myIssueReply.LastName;
+                    myFeedModel.DisplayName = myIssueReply.TempFirstName + " " + myIssueReply.TempLastName;
                 }
 
                 myFeedModels.Add(myFeedModel);

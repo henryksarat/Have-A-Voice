@@ -15,7 +15,7 @@ namespace HaveAVoice.Helpers.UI {
 
             if (anIsAnonymous) {
                 myImage.MergeAttribute("alt", "Anonymous");
-                myImage.MergeAttribute("src", PhotoHelper.ConstructUrl(Constants.NO_PROFILE_PICTURE_IMAGE));
+                myImage.MergeAttribute("src", PhotoHelper.ConstructUrl(Social.Generic.Constants.Constants.NO_PROFILE_PICTURE_IMAGE));
                 myProfilePictureDiv.InnerHtml = myImage.ToString();
             } else {
                 var myLink = new TagBuilder("a");

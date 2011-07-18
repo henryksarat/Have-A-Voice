@@ -21,7 +21,7 @@ namespace BaseWebsite.Controllers.Friends {
         private const string REQUEST_SENT = "Friend request sent!";
         private const string NO_FRIENDS = "You currently have no friends in your friend list.";
         private const string NO_FRIEND_REQUESTS = "You have no pending friend requests.";
-        private const string DELETE_NON_FRIEND = "Unable to delete someone that isn't your friend./";
+        private const string DELETE_NON_FRIEND = "Unable to delete someone that isn't your friend.";
         private const string DELETE_SUCCESS = "User has been deleted from your friend list successfully.";
         private const string FRIEND_YOURSELF = "You can't friend yourself.";
 

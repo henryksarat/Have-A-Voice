@@ -11,12 +11,13 @@ using Social.Generic.Constants;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Validation;
+using HaveAVoice.Models.View;
 
 namespace HaveAVoice.Services.Groups {
     public class GroupService : IGroupService {
-        private const string GROUP_DOESNT_EXIST = "That club doesn't exist.";
+        private const string GROUP_DOESNT_EXIST = "That group doesn't exist.";
         private const string MEMBER_DOESNT_EXIST = "That user doesn't exist.";
-        private const string NOT_ADMINISTRATOR = "You are not an administrator of this club.";
+        private const string NOT_ADMINISTRATOR = "You are not an administrator of this group.";
 
         private IValidationDictionary theValidationDictionary;
         private IGroupRepository theGroupRepository;
@@ -53,21 +54,27 @@ namespace HaveAVoice.Services.Groups {
             theGroupRepository.DeleteRequestToJoinGroup(aUser.Details, aGroupId);
         }
 
-        public bool CreateGroup(UserInformationModel<User> aUser, string aTitle, string aName, string aDescription, bool anAutoAccept) {
-            if (!ValidGroup(aName, aDescription, aTitle, true)) {
-                return false;
+        public Group CreateGroup(UserInformationModel<User> aUser, EditGroupModel aGroupModel) {
+            if (!ValidGroup(aGroupModel, true) 
+                | !ValidTags(aGroupModel.KeywordTags, aGroupModel.ZipCodeTags, aGroupModel.CityTag, aGroupModel.StateTag)) {
+                return null;
             }
 
-            Group myGroup = theGroupRepository.CreateGroup(aUser.Details, aName, aDescription, anAutoAccept);
+            Group myGroup = theGroupRepository.CreateGroup(aUser.Details, aGroupModel.Name, aGroupModel.Description, aGroupModel.AutoAccept);
 
             try {
-                theGroupRepository.AddMemberToGroup(aUser.Details, aUser.Details.Id, myGroup.Id, aTitle, true);
+                int myIntHolder;
+                List<int> myZipCodes = aGroupModel.ZipCodeTags.Split(',').Where(z => int.TryParse(z.Trim(), out myIntHolder)).Select(z => int.Parse(z)).ToList(); ;
+                List<string> myKeyWords = aGroupModel.KeywordTags.Split(',').Select(k => k.Trim()).Where(k => !string.IsNullOrEmpty(k)).ToList();
+                theGroupRepository.AddTagsForGroup(aUser.Details, myGroup.Id, myZipCodes, myKeyWords, aGroupModel.CityTag, aGroupModel.StateTag);
+                theGroupRepository.AddMemberToGroup(aUser.Details, aUser.Details.Id, myGroup.Id, aGroupModel.CreatorTitle, true);
             } catch (Exception myException) {
+                theGroupRepository.RefreshConnection();
                 theGroupRepository.DeleteGroup(myGroup.Id);
-                throw new Exception("Error adding the creating member of the group as a group member.", myException);
+                throw new Exception("Error adding the creating member of the group as a group member. So we deleted the group.", myException);
             }
 
-            return true;
+            return myGroup;
         }
 
         public bool DeactivateGroup(UserInformationModel<User> aUser, int aGroupId) {
@@ -89,34 +96,68 @@ namespace HaveAVoice.Services.Groups {
             return theGroupRepository.GetGroup(aUser.Details, aGroupId);
         }
 
-        public bool EditGroup(UserInformationModel<User> aUserEditing, int aGroupId, string aName, string aDescription) {
-            if (!ValidGroup(aName, aDescription, aName, false)) {
+        public bool EditGroup(UserInformationModel<User> aUserEditing, EditGroupModel anEditGroupModel) {
+            if (!ValidGroup(anEditGroupModel, false)
+                | !ValidTags(anEditGroupModel.KeywordTags, anEditGroupModel.ZipCodeTags, anEditGroupModel.CityTag, anEditGroupModel.StateTag)) {
                 return false;
             }
 
-            Group myGroup = theGroupRepository.GetGroup(aUserEditing.Details, aGroupId);
+            Group myGroup = theGroupRepository.GetGroup(aUserEditing.Details, anEditGroupModel.Id);
+            IEnumerable<int> myCurrentZipCodes = myGroup.GroupZipCodeTags.Select(z => z.ZipCode);
+            IEnumerable<string> myCurrentTags = myGroup.GroupTags.Select(t => t.Tag);
 
-            myGroup.Name = aName;
-            myGroup.Description = aDescription;
+            myGroup.Name = anEditGroupModel.Name;
+            myGroup.Description = anEditGroupModel.Description;
+            myGroup.AutoAccept = anEditGroupModel.AutoAccept;
             myGroup.LastEditedByUserId = aUserEditing.UserId;
             myGroup.LastEditedDateTimeStamp = DateTime.UtcNow;
+            myGroup.AutoAccept = true;
 
             theGroupRepository.UpdateGroup(myGroup);
+
+            int myIntHolder;
+            List<int> myEditedZipCodes = anEditGroupModel.ZipCodeTags.Split(',').Where(z => int.TryParse(z.Trim(), out myIntHolder)).Select(z => int.Parse(z)).ToList<int>();
+            List<string> myEditedKeyWords = anEditGroupModel.KeywordTags.Split(',').Select(k => k.Trim()).Where(k => !string.IsNullOrEmpty(k)).ToList<string>();
+
+            IEnumerable<int> myZipCodesToAdd = myEditedZipCodes.Except(myCurrentZipCodes);
+            IEnumerable<string> myKeywordsToAdd = myEditedKeyWords.Except(myCurrentTags);
+
+            List<int> myZipCodesToDelete = myCurrentZipCodes.Except(myEditedZipCodes).ToList<int>();
+            List<string> myKeywordsToDelete = myCurrentTags.Except(myEditedKeyWords).ToList<string>();
+
+            bool myDeleteCityStateTag = false;
+
+            if (string.IsNullOrEmpty(anEditGroupModel.CityTag) || anEditGroupModel.StateTag.Equals(Constants.SELECT)) {
+                myDeleteCityStateTag = true;
+            }
+
+            bool myAddNewCityStateTag = false;
+            GroupCityStateTag myCityStateTag = theGroupRepository.GetGroupCityStateTag(anEditGroupModel.Id);
+
+            if ((myCityStateTag == null && !string.IsNullOrEmpty(anEditGroupModel.CityTag) && !string.IsNullOrEmpty(anEditGroupModel.StateTag) && !anEditGroupModel.StateTag.Equals(Constants.SELECT)) 
+                && (!anEditGroupModel.CityTag.Equals(myCityStateTag.City) || !anEditGroupModel.StateTag.Equals(myCityStateTag.State))) {
+                myDeleteCityStateTag = true;
+                myAddNewCityStateTag = true;
+            }
+
+            theGroupRepository.UpdateTagsForGroup(aUserEditing.Details, anEditGroupModel.Id,
+                                                  myZipCodesToAdd, myZipCodesToDelete, myKeywordsToAdd,
+                                                  myKeywordsToDelete, myDeleteCityStateTag, myAddNewCityStateTag,
+                                                  anEditGroupModel.CityTag, anEditGroupModel.StateTag);
 
             return true;
         }
 
-        public Group GetGroupForEdit(UserInformationModel<User> aUser, int aGroupId) {
+        public EditGroupModel GetGroupForEdit(UserInformationModel<User> aUser, int aGroupId) {
             if (!IsAdmin(aUser.Details, aGroupId)) {
                 if (!PermissionHelper<User>.AllowedToPerformAction(theValidationDictionary, aUser, SocialPermission.Edit_Any_Group)) {
                     throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
                 }
             }
-            return theGroupRepository.GetGroup(aUser.Details, aGroupId);
-        }
 
-        public IEnumerable<GroupBoard> GetGroupBoardPostings(int aGroupId) {
-            return theGroupRepository.GetGroupBoardPostings(aGroupId);
+            Group myGroup = theGroupRepository.GetGroup(aUser.Details, aGroupId);
+            EditGroupModel myEditGroup = new EditGroupModel(myGroup);
+            return myEditGroup;
         }
 
         public GroupMember GetGroupMember(UserInformationModel<User> aUser, int aGroupMemberId) {
@@ -134,8 +175,8 @@ namespace HaveAVoice.Services.Groups {
             return theGroupRepository.GetGroupMembers(aGroupId).Where(cm => cm.Approved == HAVConstants.APPROVED);
         }
 
-        public IEnumerable<Group> GetGroups(UserInformationModel<User> aUser, string aUniversityId) {
-            return theGroupRepository.GetGroups(aUser.Details, aUniversityId);
+        public IEnumerable<Group> GetGroups(UserInformationModel<User> aUser) {
+            return theGroupRepository.GetGroups(aUser.Details);
         }
 
         public bool IsAdmin(User aUser, int aGroupId) {
@@ -174,12 +215,17 @@ namespace HaveAVoice.Services.Groups {
         }
 
         public void RequestToJoinGroup(UserInformationModel<User> aRequestingMember, int aGroupId) {
-            theGroupRepository.MemberRequestToJoinGroup(aRequestingMember.Details, aGroupId, GroupConstants.DEFAULT_NEW_MEMBER_TITLE);
+            Group myGroup = GetGroup(aRequestingMember, aGroupId);
+            if (myGroup.AutoAccept) {
+                theGroupRepository.AutoAcceptGroupMember(aRequestingMember.Details, aGroupId, GroupConstants.DEFAULT_NEW_MEMBER_TITLE);
+            } else {
+                theGroupRepository.MemberRequestToJoinGroup(aRequestingMember.Details, aGroupId, GroupConstants.DEFAULT_NEW_MEMBER_TITLE);
+            }
         }
 
         private bool ValidateAdmin(User aUser, int aGroupId) {
             if (!IsAdmin(aUser, aGroupId)) {
-                theValidationDictionary.AddError("GroupMemberAdmin", string.Empty, "You are not an admin of the club.");
+                theValidationDictionary.AddError("GroupMemberAdmin", string.Empty, "You are not an admin of the group.");
                 return false;
             }
 
@@ -208,7 +254,7 @@ namespace HaveAVoice.Services.Groups {
             GroupMember myPostingUserGroupMember = theGroupRepository.GetGroupMember(aPostingUser.Id, aGroupId);
 
             if (myPostingUserGroupMember == null) {
-                theValidationDictionary.AddError("GroupMember", string.Empty, "You are not part of the club so you can't post on the board.");
+                theValidationDictionary.AddError("GroupMember", string.Empty, "You are not part of the group so you can't post on the board.");
             }
 
             if (string.IsNullOrEmpty(aMessage)) {
@@ -225,18 +271,43 @@ namespace HaveAVoice.Services.Groups {
             }
         }
 
+        private bool ValidTags(string aKeywordTags, string aZipCodeTags, string aCityTag, string aStateTag) {
+            if (!string.IsNullOrEmpty(aZipCodeTags)) {
+                IEnumerable<string> myZipCodes = aZipCodeTags.Split(',').Select(z => z.Trim());
+                foreach (string myZipCode in myZipCodes) {
+                    int myParsedZipCode;
+                    bool myResult = int.TryParse(myZipCode, out myParsedZipCode);
+                    if (!myResult || myParsedZipCode.ToString().Length != 5 || myParsedZipCode < 0) {
+                        theValidationDictionary.AddError("ZipCodeTags", aZipCodeTags, "A zip code is entered incorrectly. Zip codes must be 5 digits long.");
+                        break;
+                    }
+                }
+            }
+
+            if (!string.IsNullOrEmpty(aCityTag) || DropDownItemValidation.IsValid(aStateTag)) {
+                if (string.IsNullOrEmpty(aCityTag)) {
+                    theValidationDictionary.AddError("CityTag", aCityTag, "You must enter a city.");
+                }
+
+                if (!DropDownItemValidation.IsValid(aStateTag)) {
+                    theValidationDictionary.AddError("StateTag", aCityTag, "You must enter a state.");
+                }
+            }
+            
+            return theValidationDictionary.isValid;
+        }
         
-        private bool ValidGroup(string aName, string aDescription, string aTitle, bool aIsCreating) {
+        private bool ValidGroup(EditGroupModel aGroupModel, bool aIsCreating) {
             if (aIsCreating) {
-                ValidTitle(aTitle);
+                ValidTitle(aGroupModel.CreatorTitle);
             }
 
-            if (string.IsNullOrEmpty(aName)) {
-                theValidationDictionary.AddError("Group", aName, "A group name is required.");
+            if (string.IsNullOrEmpty(aGroupModel.Name)) {
+                theValidationDictionary.AddError("Name", aGroupModel.Name, "A group name is required.");
             }
 
-            if (string.IsNullOrEmpty(aDescription)) {
-                theValidationDictionary.AddError("Description", aDescription, "Some description is required.");
+            if (string.IsNullOrEmpty(aGroupModel.Description)) {
+                theValidationDictionary.AddError("Description", aGroupModel.Description, "Some description is required.");
             }
 
             return theValidationDictionary.isValid;
@@ -244,7 +315,7 @@ namespace HaveAVoice.Services.Groups {
 
         private bool ValidTitle(string aTitle) {
             if (string.IsNullOrEmpty(aTitle)) {
-                theValidationDictionary.AddError("Title", aTitle, "You must give yourself a title for the group. You can use the default title if you'd like: " + GroupConstants.DEFAULT_GROUP_LEADER_TITLE);
+                theValidationDictionary.AddError("CreatorTitle", aTitle, "You must give yourself a title for the group. You can use the default title if you'd like: " + GroupConstants.DEFAULT_GROUP_LEADER_TITLE);
             }
 
             return theValidationDictionary.isValid;

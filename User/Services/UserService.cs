@@ -88,7 +88,7 @@ namespace Social.User.Services {
             try {
                 theEmailService.SendEmail(aUser.Email, anActivationSubject, anActivationBody + myUrl);
             } catch (Exception e) {
-                throw new EmailException(e.InnerException.Message, e);
+                throw new EmailException(e.Message, e);
             }
         }
 

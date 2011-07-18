@@ -70,6 +70,10 @@ namespace Social.Generic.Helpers {
         View_Feedback,
         View_ErrorLog,
 
+        //Have a Voice Only
+        //Group
+        Edit_Any_Group,
+
         //UOfMeOnly
         //Club
         Edit_Any_Club,

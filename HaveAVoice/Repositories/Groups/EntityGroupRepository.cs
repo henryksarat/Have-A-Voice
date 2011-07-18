@@ -9,7 +9,7 @@ namespace HaveAVoice.Repositories.Groups {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
         public void ActivateGroup(User aUser, int aGroupId) {
-            Group myClub = GetClub(aGroupId);
+            Group myClub = GetGroup(aGroupId);
             myClub.DeactivatedByUserId = null;
             myClub.DeactivatedDateTimeStamp = null;
             myClub.Active = true;
@@ -23,6 +23,12 @@ namespace HaveAVoice.Repositories.Groups {
             myGroupMember.Approved = HAVConstants.APPROVED;
             myGroupMember.ApprovedByUserId = anAdminUser.Id;
             myGroupMember.ApprovedDateTimeStamp = DateTime.UtcNow;
+            theEntities.SaveChanges();
+        }
+
+        public void AutoAcceptGroupMember(User aUser, int aGroupId, string aTitle) {
+            GroupMember myGroupMember = GroupMember.CreateGroupMember(0, aUser.Id, aGroupId, aTitle, false, HAVConstants.APPROVED, DateTime.UtcNow, false, false);
+            theEntities.AddToGroupMembers(myGroupMember);
             theEntities.SaveChanges();
         }
 
@@ -42,6 +48,25 @@ namespace HaveAVoice.Repositories.Groups {
             theEntities.SaveChanges();
         }
 
+        public void AddTagsForGroup(User aUser, int aGroupId, IEnumerable<int> aZipCodeTags, IEnumerable<string> aKeywordTags, string aCityTag, string aStateTag) {
+            foreach (int myZipCode in aZipCodeTags) {
+                GroupZipCodeTag myZipCodeTag = GroupZipCodeTag.CreateGroupZipCodeTag(0, aUser.Id, aGroupId, myZipCode);
+                theEntities.AddToGroupZipCodeTags(myZipCodeTag);
+            }
+
+            foreach (string myKeyword in aKeywordTags) {
+                GroupTag myTag = GroupTag.CreateGroupTag(0, aUser.Id, aGroupId, myKeyword);
+                theEntities.AddToGroupTags(myTag);
+            }
+
+            if (!string.IsNullOrEmpty(aCityTag) && !string.IsNullOrEmpty(aStateTag)) {
+                GroupCityStateTag myCityStateTag = GroupCityStateTag.CreateGroupCityStateTag(0, aUser.Id, aGroupId, aCityTag, aStateTag);
+                theEntities.AddToGroupCityStateTags(myCityStateTag);
+            }
+
+            theEntities.SaveChanges();
+        }
+
         public Group CreateGroup(User aUser, string aName, string aDescription, bool anAutoAccept) {
             Group myGroup = Group.CreateGroup(0, aUser.Id, aName, aDescription, DateTime.UtcNow, true, anAutoAccept);
             theEntities.AddToGroups(myGroup);
@@ -49,8 +74,8 @@ namespace HaveAVoice.Repositories.Groups {
             return myGroup;
         }
 
-        public void DeactivateClub(User aUser, int aClubId) {
-            Group myClub = GetClub(aClubId);
+        public void DeactivateGroup(User aUser, int aGroupId) {
+            Group myClub = GetGroup(aGroupId);
             myClub.DeactivatedByUserId = aUser.Id;
             myClub.DeactivatedDateTimeStamp = DateTime.UtcNow;
             myClub.Active = false;
@@ -58,8 +83,8 @@ namespace HaveAVoice.Repositories.Groups {
         }
 
         public void DeleteGroup(int aGroupId) {
-            Group myClub = GetClub(aGroupId);
-            theEntities.DeleteObject(myClub);
+            Group myGroup = GetGroup(aGroupId);
+            theEntities.DeleteObject(myGroup);
             theEntities.SaveChanges();
         }
 
@@ -78,8 +103,8 @@ namespace HaveAVoice.Repositories.Groups {
             theEntities.SaveChanges();
         }
 
-        public void DenyClubMember(User anAdminUser, int aClubMemberId) {
-            GroupMember myClubMember = GetGroupMember(aClubMemberId);
+        public void DenyGroupMember(User anAdminUser, int aGroupMemberId) {
+            GroupMember myClubMember = GetGroupMember(aGroupMemberId);
             myClubMember.Approved = HAVConstants.DENIED;
             myClubMember.DeniedByUserId = anAdminUser.Id;
             myClubMember.DeniedByDateTimeStamp = DateTime.UtcNow;
@@ -100,9 +125,9 @@ namespace HaveAVoice.Repositories.Groups {
                     select cb).ToList<GroupBoard>();
         }
 
-        public IEnumerable<GroupMember> GetClubMembers(int aClubId) {
+        public IEnumerable<GroupMember> GetGroupMembers(int aGroupId) {
             return (from cm in theEntities.GroupMembers
-                    where cm.GroupId == aClubId
+                    where cm.GroupId == aGroupId
                     && cm.Approved == HAVConstants.APPROVED
                     select cm).ToList<GroupMember>();
         }
@@ -121,7 +146,7 @@ namespace HaveAVoice.Repositories.Groups {
                     select cm).FirstOrDefault<GroupMember>();
         }
 
-        public IEnumerable<Group> GetClubs(User aUser) {
+        public IEnumerable<Group> GetGroups(User aUser) {
             IEnumerable<int> myAdminOfClubs = (from cm in theEntities.GroupMembers
                                                where cm.UserId == aUser.Id
                                                && cm.Administrator
@@ -140,7 +165,7 @@ namespace HaveAVoice.Repositories.Groups {
             }
         }
 
-        public void MemberRequestToJoinClub(User aRequestingUser, int aGroupId, string aTitle) {
+        public void MemberRequestToJoinGroup(User aRequestingUser, int aGroupId, string aTitle) {
             GroupMember myGroupMember = GroupMember.CreateGroupMember(0, aRequestingUser.Id, aGroupId, aTitle, false, HAVConstants.PENDING, DateTime.UtcNow, false, true);
             theEntities.AddToGroupMembers(myGroupMember);
             theEntities.SaveChanges();
@@ -150,7 +175,7 @@ namespace HaveAVoice.Repositories.Groups {
             GroupBoard myGroupBoard = GroupBoard.CreateGroupBoard(0, aPostingUser.Id, aGroupId, aMessage, DateTime.UtcNow);
             theEntities.AddToGroupBoards(myGroupBoard);
 
-            IEnumerable<GroupMember> myClubMembers = GetClubMembers(aGroupId);
+            IEnumerable<GroupMember> myClubMembers = GetGroupMembers(aGroupId);
 
             DateTime myCurrentTime = DateTime.UtcNow;
 
@@ -166,21 +191,87 @@ namespace HaveAVoice.Repositories.Groups {
             theEntities.SaveChanges();
         }
 
-        public void UpdateClub(Group aGroup) {
+        public void RefreshConnection() {
+            theEntities = new HaveAVoiceEntities();
+        }
+
+        public void UpdateGroup(Group aGroup) {
             theEntities.ApplyCurrentValues(aGroup.EntityKey.EntitySetName, aGroup);
             theEntities.SaveChanges();
         }
 
-        private Group GetClub(int aClubId) {
+        public void UpdateTagsForGroup(User aUser, int aGroupId, IEnumerable<int> aZipCodesToAdd, List<int> aZipCodesToDelete, 
+            IEnumerable<string> aKeywordsTagsToAdd, List<string> aKeywordsTagsToDelete, 
+            bool aDeleteCityStateTag, bool aNewCityStatetag, string aCityTag, string aStateTag) {
+
+            foreach (int myZipCode in aZipCodesToAdd) {
+                GroupZipCodeTag myZipCodeTag = GroupZipCodeTag.CreateGroupZipCodeTag(0, aUser.Id, aGroupId, myZipCode);
+                theEntities.AddToGroupZipCodeTags(myZipCodeTag);
+            }
+
+            foreach (int myZipCode in aZipCodesToDelete) {
+                GroupZipCodeTag myZipCodeTag = GetGroupZipCodeTag(aGroupId, myZipCode);
+                if (myZipCodeTag != null) {
+                    theEntities.DeleteObject(myZipCodeTag);
+                }
+            }
+
+            foreach (string myKeyword in aKeywordsTagsToAdd) {
+                GroupTag myKeywordTag = GroupTag.CreateGroupTag(0, aUser.Id, aGroupId, myKeyword);
+                theEntities.AddToGroupTags(myKeywordTag);
+            }
+
+            foreach (string myKeyword in aKeywordsTagsToDelete) {
+                GroupTag myKeywordTag = GetGroupKeywordTag(aGroupId, myKeyword);
+                if (myKeywordTag != null) {
+                    theEntities.DeleteObject(myKeywordTag);
+                }
+            }
+
+            if (aDeleteCityStateTag) {
+                GroupCityStateTag myGroupCityStateTag = GetGroupCityStateTag(aGroupId);
+                theEntities.DeleteObject(myGroupCityStateTag);
+            }
+
+            if (aNewCityStatetag) {
+                GroupCityStateTag myGroupCityStatetag = GroupCityStateTag.CreateGroupCityStateTag(0, aUser.Id, aGroupId, aCityTag, aStateTag);
+                theEntities.AddToGroupCityStateTags(myGroupCityStatetag);
+            }
+
+            theEntities.SaveChanges();
+
+        }
+
+        private Group GetGroup(int aGroupId) {
             return (from c in theEntities.Groups
-                    where c.Id == aClubId
+                    where c.Id == aGroupId
                     select c).FirstOrDefault<Group>();
+        }
+
+        public GroupCityStateTag GetGroupCityStateTag(int aGroupId) {
+            return (from c in theEntities.GroupCityStateTags
+                    where c.GroupId == aGroupId
+                    select c).FirstOrDefault<GroupCityStateTag>();
         }
 
         private IEnumerable<GroupBoard> GetGroupBoards(int aGroupId) {
             return (from cb in theEntities.GroupBoards
                     where cb.GroupId == aGroupId
                     select cb);
+        }
+
+        private GroupTag GetGroupKeywordTag(int aGroupId, string aKeyword) {
+            return (from k in theEntities.GroupTags
+                    where k.GroupId == aGroupId
+                    && k.Tag == aKeyword
+                    select k).FirstOrDefault<GroupTag>();
+        }
+
+        private GroupZipCodeTag GetGroupZipCodeTag(int aGroupId, int aZipCode) {
+            return (from z in theEntities.GroupZipCodeTags
+                    where z.GroupId == aGroupId
+                    && z.ZipCode == aZipCode
+                    select z).FirstOrDefault<GroupZipCodeTag>();
         }
     }
 }
