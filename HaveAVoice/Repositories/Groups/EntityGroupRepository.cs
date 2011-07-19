@@ -27,7 +27,7 @@ namespace HaveAVoice.Repositories.Groups {
         }
 
         public void AutoAcceptGroupMember(User aUser, int aGroupId, string aTitle) {
-            GroupMember myGroupMember = GroupMember.CreateGroupMember(0, aUser.Id, aGroupId, aTitle, false, HAVConstants.APPROVED, DateTime.UtcNow, false, false);
+            GroupMember myGroupMember = GroupMember.CreateGroupMember(0, aUser.Id, aGroupId, aTitle, false, HAVConstants.APPROVED, DateTime.UtcNow, false, false, true);
             theEntities.AddToGroupMembers(myGroupMember);
             theEntities.SaveChanges();
         }
@@ -41,7 +41,7 @@ namespace HaveAVoice.Repositories.Groups {
                 myViewed = false;
             }
 
-            GroupMember myGroupMember = GroupMember.CreateGroupMember(0, aNewMemberUserId, aGroupId, aTitle, anAdministrator, HAVConstants.APPROVED, DateTime.UtcNow, false, myViewed);
+            GroupMember myGroupMember = GroupMember.CreateGroupMember(0, aNewMemberUserId, aGroupId, aTitle, anAdministrator, HAVConstants.APPROVED, DateTime.UtcNow, false, myViewed, true);
             myGroupMember.ApprovedByUserId = anAdminUser.Id;
 
             theEntities.AddToGroupMembers(myGroupMember);
@@ -115,7 +115,7 @@ namespace HaveAVoice.Repositories.Groups {
             return (from c in theEntities.Groups
                     join cm in theEntities.GroupMembers on c.Id equals cm.GroupId
                     where c.Id == aClubId
-                    && (c.Active || (cm.UserId == aUser.Id && cm.Administrator))
+                    && (c.Active || (cm.MemberUserId == aUser.Id && cm.Administrator))
                     select c).FirstOrDefault<Group>();
         }
 
@@ -141,7 +141,7 @@ namespace HaveAVoice.Repositories.Groups {
 
         public GroupMember GetGroupMember(int aUserId, int aGroupId) {
             return (from cm in theEntities.GroupMembers
-                    where cm.UserId == aUserId
+                    where cm.MemberUserId == aUserId
                     && cm.GroupId == aGroupId
                     && !cm.Deleted
                     select cm).FirstOrDefault<GroupMember>();
@@ -199,8 +199,8 @@ namespace HaveAVoice.Repositories.Groups {
 
             return (from c in theEntities.Groups
                     join gm in theEntities.GroupMembers on c.Id equals gm.GroupId
-                    where (c.Active || myAdminOfClubs.Contains(c.Id)) 
-                    && gm.UserId == aUser.Id
+                    where (c.Active || myAdminOfClubs.Contains(c.Id))
+                    && gm.MemberUserId == aUser.Id
                     && gm.Deleted == false
                     && gm.Approved == HAVConstants.APPROVED
                     select c).ToList<Group>();
@@ -215,7 +215,7 @@ namespace HaveAVoice.Repositories.Groups {
         }
 
         public void MemberRequestToJoinGroup(User aRequestingUser, int aGroupId, string aTitle) {
-            GroupMember myGroupMember = GroupMember.CreateGroupMember(0, aRequestingUser.Id, aGroupId, aTitle, false, HAVConstants.PENDING, DateTime.UtcNow, false, true);
+            GroupMember myGroupMember = GroupMember.CreateGroupMember(0, aRequestingUser.Id, aGroupId, aTitle, false, HAVConstants.PENDING, DateTime.UtcNow, false, true, false);
             theEntities.AddToGroupMembers(myGroupMember);
             theEntities.SaveChanges();
         }
@@ -229,7 +229,7 @@ namespace HaveAVoice.Repositories.Groups {
             DateTime myCurrentTime = DateTime.UtcNow;
 
             foreach (GroupMember myClubMember in myClubMembers) {
-                if (myClubMember.UserId == aPostingUser.Id) {
+                if (myClubMember.MemberUserId == aPostingUser.Id) {
                     myClubMember.BoardViewed = true;
                 } else {
                     myClubMember.BoardViewed = false;
@@ -307,7 +307,7 @@ namespace HaveAVoice.Repositories.Groups {
 
         private IEnumerable<int> GetGroupsAdminOf(User aUser) {
             return (from cm in theEntities.GroupMembers
-                    where cm.UserId == aUser.Id
+                    where cm.MemberUserId == aUser.Id
                     && cm.Administrator
                     select cm.GroupId);
         }

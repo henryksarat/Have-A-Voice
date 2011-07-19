@@ -50,13 +50,10 @@
 		    <div class="push-3 col-19 m-lft issue m-rgt">
 		    	<div class="p-a5">
                     <div class="push-1 col-13">
-			    	    <h1><a href=""><%= myGroup.Name %></a></h1>
+			    	    <h1><a href="/Group/Details/<%= myGroup.Id %>"><%= myGroup.Name %></a></h1>
 					    <br />
                     
 			    	    <%= myGroup.Description %>
-			    	    <br />
-                        <% string myName = NameHelper.FullName(myGroup.CreatedByUserUser); %>
-                        <% string myIssueProfile = LinkHelper.Profile(myGroup.CreatedByUserUser); %>
                         <br />
 			    	    <div class="clear">&nbsp;</div>
                     </div>

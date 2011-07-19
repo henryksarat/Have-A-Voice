@@ -97,8 +97,10 @@
     <Compile Include="Helpers\Authority\AuthorityClassification.cs" />
     <Compile Include="Helpers\Constants\GroupConstants.cs" />
     <Compile Include="Helpers\Enums\FeedItem.cs" />
+    <Compile Include="Helpers\FeedType.cs" />
     <Compile Include="Helpers\Groups\GroupHelper.cs" />
     <Compile Include="Helpers\IssueTitleHelper.cs" />
+    <Compile Include="Helpers\LocalDateHelper.cs" />
     <Compile Include="Helpers\NameHelper.cs" />
     <Compile Include="Helpers\Enums\NotificationType.cs" />
     <Compile Include="Helpers\Enums\FriendStatus.cs" />
@@ -160,6 +162,7 @@
     <Compile Include="Models\View\Binders\UpdatePrivacySettingsModelBinder.cs" />
     <Compile Include="Models\View\Binders\ImageBinder.cs" />
     <Compile Include="Models\View\BoardFeedModel.cs" />
+    <Compile Include="Models\View\GroupAdminFeed.cs" />
     <Compile Include="Models\View\EditGroupModel.cs" />
     <Compile Include="Models\View\CreateUserModel.cs" />
     <Compile Include="Models\View\GroupSearchModel.cs" />
@@ -372,6 +375,7 @@
     <Content Include="Views\Complaint\Create.aspx" />
     <Content Include="Views\GroupMember\Details.aspx" />
     <Content Include="Views\GroupMember\List.aspx" />
+    <Content Include="Views\Group\GroupViewAction.ascx" />
     <Content Include="Views\Group\MyGroups.aspx" />
     <Content Include="Views\Group\Edit.aspx" />
     <Content Include="Views\Group\Details.aspx" />

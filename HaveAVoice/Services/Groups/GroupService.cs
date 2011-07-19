@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using HaveAVoice.Helpers;
 using HaveAVoice.Helpers.Constants;
+using HaveAVoice.Helpers.Search;
 using HaveAVoice.Models;
+using HaveAVoice.Models.View;
 using HaveAVoice.Repositories.Groups;
 using Social.Admin.Exceptions;
 using Social.Admin.Helpers;
 using Social.Generic.Constants;
+using Social.Generic.Exceptions;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Validation;
-using HaveAVoice.Models.View;
-using HaveAVoice.Helpers.Search;
-using Social.Generic.Exceptions;
 
 namespace HaveAVoice.Services.Groups {
     public class GroupService : IGroupService {
@@ -115,7 +115,6 @@ namespace HaveAVoice.Services.Groups {
             myGroup.AutoAccept = anEditGroupModel.AutoAccept;
             myGroup.LastEditedByUserId = aUserEditing.UserId;
             myGroup.LastEditedDateTimeStamp = DateTime.UtcNow;
-            myGroup.AutoAccept = true;
 
             theGroupRepository.UpdateGroup(myGroup);
 
@@ -160,7 +159,9 @@ namespace HaveAVoice.Services.Groups {
             }
 
             Group myGroup = theGroupRepository.GetGroup(aUser.Details, aGroupId);
-            EditGroupModel myEditGroup = new EditGroupModel(myGroup);
+            EditGroupModel myEditGroup = new EditGroupModel(myGroup) {
+                ViewAction = ViewAction.Edit
+            };
             return myEditGroup;
         }
 

@@ -1,23 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Web;
+using System.Linq;
 using System.Web.Mvc;
-using Social.Authentication;
-using Social.Generic.ActionFilters;
-using Social.Generic.Constants;
-using Social.Generic.Helpers;
-using Social.Generic.Models;
-using Social.Users.Services;
-using Social.Validation;
-using Social.Admin.Exceptions;
-using Social.Photo.Exceptions;
-using Social.Generic.Exceptions;
-using HaveAVoice.Services.Groups;
 using HaveAVoice.Controllers.Helpers;
+using HaveAVoice.Helpers.Search;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
-using System.Linq;
-using HaveAVoice.Helpers.Search;
+using HaveAVoice.Services.Groups;
+using Social.Admin.Exceptions;
+using Social.Generic.ActionFilters;
+using Social.Generic.Constants;
+using Social.Generic.Exceptions;
+using Social.Generic.Models;
+using Social.Validation;
+using Social.Generic.Helpers;
 
 namespace HaveAVoice.Controllers.Groups {
     public class GroupController : HAVBaseController {
@@ -68,6 +64,7 @@ namespace HaveAVoice.Controllers.Groups {
                 return RedirectToLogin();
             }
             return View("Create", new EditGroupModel() {
+                ViewAction = ViewAction.Create,
                 States = new SelectList(UnitedStates.STATES, Constants.SELECT)
             });
         }

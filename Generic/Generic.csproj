@@ -62,11 +62,13 @@
     <Compile Include="Constants\ValidationKeys.cs" />
     <Compile Include="Helpers\BinderHelper.cs" />
     <Compile Include="Helpers\CaptchaHelper.cs" />
+    <Compile Include="Helpers\ViewAction.cs" />
     <Compile Include="Helpers\DateHelper.cs" />
     <Compile Include="Helpers\DictionaryHelper.cs" />
     <Compile Include="Helpers\HashHelper.cs" />
     <Compile Include="Helpers\SocialPermission.cs" />
     <Compile Include="Helpers\SocialPrivacySetting.cs" />
+    <Compile Include="Helpers\Status.cs" />
     <Compile Include="Models\AbstractAuditedModel.cs" />
     <Compile Include="Models\AbstractBoardModel.cs" />
     <Compile Include="Models\AbstractMessageModel.cs" />

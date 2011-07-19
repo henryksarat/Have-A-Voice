@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
 using Social.Generic.Constants;
+using Social.Generic.Helpers;
 
 namespace HaveAVoice.Models.View {
     public class EditGroupModel {
@@ -34,6 +35,8 @@ namespace HaveAVoice.Models.View {
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string KeywordTags { get; set; }
+
+        public ViewAction ViewAction { get; set; }
 
         public EditGroupModel() { }
 
