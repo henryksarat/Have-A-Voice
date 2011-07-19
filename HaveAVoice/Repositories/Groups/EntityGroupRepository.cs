@@ -27,7 +27,7 @@ namespace HaveAVoice.Repositories.Groups {
         }
 
         public void AutoAcceptGroupMember(User aUser, int aGroupId, string aTitle) {
-            GroupMember myGroupMember = GroupMember.CreateGroupMember(0, aUser.Id, aGroupId, aTitle, false, HAVConstants.APPROVED, DateTime.UtcNow, false, false, true);
+            GroupMember myGroupMember = GroupMember.CreateGroupMember(0, aUser.Id, aGroupId, aTitle, false, HAVConstants.APPROVED, DateTime.UtcNow, false, false, true, false);
             theEntities.AddToGroupMembers(myGroupMember);
             theEntities.SaveChanges();
         }
@@ -41,7 +41,7 @@ namespace HaveAVoice.Repositories.Groups {
                 myViewed = false;
             }
 
-            GroupMember myGroupMember = GroupMember.CreateGroupMember(0, aNewMemberUserId, aGroupId, aTitle, anAdministrator, HAVConstants.APPROVED, DateTime.UtcNow, false, myViewed, true);
+            GroupMember myGroupMember = GroupMember.CreateGroupMember(0, aNewMemberUserId, aGroupId, aTitle, anAdministrator, HAVConstants.APPROVED, DateTime.UtcNow, false, myViewed, true, false);
             myGroupMember.ApprovedByUserId = anAdminUser.Id;
 
             theEntities.AddToGroupMembers(myGroupMember);
@@ -111,6 +111,32 @@ namespace HaveAVoice.Repositories.Groups {
             theEntities.SaveChanges();
         }
 
+        public void EditGroupMember(User aUser, int aGroupMemberId, string aTitle, bool anAdministrator) {
+            GroupMember myOldGroupMember = GetGroupMember(aGroupMemberId);
+
+            if (myOldGroupMember != null) {
+                //Copy the old record info into the new one
+                GroupMember myCopiedGroupMember = GroupMember.CreateGroupMember(0, myOldGroupMember.MemberUserId,
+                    myOldGroupMember.GroupId, aTitle, anAdministrator, 
+                    myOldGroupMember.Approved, myOldGroupMember.DateTimeStamp, myOldGroupMember.Deleted, 
+                    myOldGroupMember.BoardViewed, myOldGroupMember.AutoAccepted, false);
+                myCopiedGroupMember.ApprovedByUserId = myOldGroupMember.ApprovedByUserId;
+                myCopiedGroupMember.ApprovedDateTimeStamp = myOldGroupMember.ApprovedDateTimeStamp;
+                myCopiedGroupMember.DeletedByDateTimeStamp = myOldGroupMember.DeletedByDateTimeStamp;
+                myCopiedGroupMember.DeletedByUserId = myOldGroupMember.DeletedByUserId;
+                myCopiedGroupMember.LastBoardPost = myOldGroupMember.LastBoardPost;
+
+                //On the old record indicate its old and who edited it
+                myOldGroupMember.OldRecord = true;
+                myOldGroupMember.EditedDateTimeStamp = DateTime.UtcNow;
+                myOldGroupMember.EditedByUserId = aUser.Id;
+
+                theEntities.ApplyCurrentValues(myOldGroupMember.EntityKey.EntitySetName, myOldGroupMember);
+                theEntities.AddToGroupMembers(myCopiedGroupMember);
+                theEntities.SaveChanges();
+            }
+        }
+
         public Group GetGroup(User aUser, int aClubId) {
             return (from c in theEntities.Groups
                     join cm in theEntities.GroupMembers on c.Id equals cm.GroupId
@@ -130,21 +156,24 @@ namespace HaveAVoice.Repositories.Groups {
                     where gm.GroupId == aGroupId
                     && !gm.Deleted
                     && gm.Approved == HAVConstants.APPROVED
+                    && !gm.OldRecord
                     select gm).ToList<GroupMember>();
         }
 
         public GroupMember GetGroupMember(int aGroupMemberId) {
-            return (from cm in theEntities.GroupMembers
-                    where cm.Id == aGroupMemberId
-                    select cm).FirstOrDefault<GroupMember>();
+            return (from gm in theEntities.GroupMembers
+                    where gm.Id == aGroupMemberId
+                    && !gm.OldRecord
+                    select gm).FirstOrDefault<GroupMember>();
         }
 
         public GroupMember GetGroupMember(int aUserId, int aGroupId) {
-            return (from cm in theEntities.GroupMembers
-                    where cm.MemberUserId == aUserId
-                    && cm.GroupId == aGroupId
-                    && !cm.Deleted
-                    select cm).FirstOrDefault<GroupMember>();
+            return (from gm in theEntities.GroupMembers
+                    where gm.MemberUserId == aUserId
+                    && gm.GroupId == aGroupId
+                    && !gm.Deleted
+                    && !gm.OldRecord
+                    select gm).FirstOrDefault<GroupMember>();
         }
 
         public IEnumerable<Group> GetGroupsByAll(User aUser) {
@@ -203,6 +232,7 @@ namespace HaveAVoice.Repositories.Groups {
                     && gm.MemberUserId == aUser.Id
                     && gm.Deleted == false
                     && gm.Approved == HAVConstants.APPROVED
+                    && !gm.OldRecord
                     select c).ToList<Group>();
         }
 
@@ -215,7 +245,7 @@ namespace HaveAVoice.Repositories.Groups {
         }
 
         public void MemberRequestToJoinGroup(User aRequestingUser, int aGroupId, string aTitle) {
-            GroupMember myGroupMember = GroupMember.CreateGroupMember(0, aRequestingUser.Id, aGroupId, aTitle, false, HAVConstants.PENDING, DateTime.UtcNow, false, true, false);
+            GroupMember myGroupMember = GroupMember.CreateGroupMember(0, aRequestingUser.Id, aGroupId, aTitle, false, HAVConstants.PENDING, DateTime.UtcNow, false, true, false, false);
             theEntities.AddToGroupMembers(myGroupMember);
             theEntities.SaveChanges();
         }

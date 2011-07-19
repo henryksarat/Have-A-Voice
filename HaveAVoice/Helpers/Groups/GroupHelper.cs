@@ -55,7 +55,10 @@ namespace HaveAVoice.Helpers.Groups {
                                 Status = Status.Denied,
                                 FeedType = FeedType.Member
                             });
-            myFeed.AddRange(from gm in myGroupMembers.Where(gm2 => gm2.Approved == HAVConstants.APPROVED).Where(gm2 => !gm2.AutoAccepted)
+            myFeed.AddRange(from gm in myGroupMembers
+                                .Where(gm2 => gm2.Approved == HAVConstants.APPROVED)
+                                .Where(gm2 => !gm2.OldRecord)
+                                .Where(gm2 => !gm2.AutoAccepted)
                             select new GroupAdminFeed() {
                                 GroupMemberId = gm.Id,
                                 GroupId = gm.GroupId,
@@ -65,7 +68,10 @@ namespace HaveAVoice.Helpers.Groups {
                                 Status = Status.Approved,
                                 FeedType = FeedType.Member
                             });
-            myFeed.AddRange(from gm in myGroupMembers.Where(gm2 => gm2.Approved == HAVConstants.APPROVED).Where(gm2 => gm2.AutoAccepted)
+            myFeed.AddRange(from gm in myGroupMembers
+                                .Where(gm2 => gm2.Approved == HAVConstants.APPROVED)
+                                .Where(gm2 => !gm2.OldRecord)
+                                .Where(gm2 => gm2.AutoAccepted)
                             select new GroupAdminFeed() {
                                 GroupMemberId = gm.Id,
                                 GroupId = gm.GroupId,

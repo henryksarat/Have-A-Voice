@@ -13,6 +13,7 @@ namespace HaveAVoice.Repositories.Groups {
         void DeactivateGroup(User aUser, int aGroupId);
         void DeleteUserFromGroup(User aDeletingUser, int aFormerMemberUserId, int aGroupId);
         void DenyGroupMember(User anAdminUser, int aGroupMemberId);
+        void EditGroupMember(User aUser, int aGroupMemberId, string aTitle, bool anAdministrator);
         Group GetGroup(User aUser, int aGroupId);
         GroupCityStateTag GetGroupCityStateTag(int aGroupId);
         GroupMember GetGroupMember(int aGroupMemberId);

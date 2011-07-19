@@ -151,6 +151,16 @@ namespace HaveAVoice.Services.Groups {
             return true;
         }
 
+        public bool EditGroupMember(UserInformationModel<User> aUser, int aGroupId, int aGroupMemberId, string aTitle, bool anAdministrator) {
+            if (!ValidTitle(aTitle) | !ValidateAdmin(aUser.Details, aGroupId)) {
+                return false;
+            }
+
+            theGroupRepository.EditGroupMember(aUser.Details, aGroupMemberId, aTitle, anAdministrator);
+
+            return true;    
+        }
+
         public EditGroupModel GetGroupForEdit(UserInformationModel<User> aUser, int aGroupId) {
             if (!IsAdmin(aUser.Details, aGroupId)) {
                 if (!PermissionHelper<User>.AllowedToPerformAction(theValidationDictionary, aUser, SocialPermission.Edit_Any_Group)) {
@@ -289,10 +299,9 @@ namespace HaveAVoice.Services.Groups {
         private bool ValidateAdmin(User aUser, int aGroupId) {
             if (!IsAdmin(aUser, aGroupId)) {
                 theValidationDictionary.AddError("GroupMemberAdmin", string.Empty, "You are not an admin of the group.");
-                return false;
             }
 
-            return true;
+            return theValidationDictionary.isValid;
         }
 
         private bool ValidateRemovingGroupMember(User aUserDoingRemoving, int aCurrentUserId, int aGroupId) {

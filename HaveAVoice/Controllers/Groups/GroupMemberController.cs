@@ -11,6 +11,7 @@ using HaveAVoice.Controllers;
 using HaveAVoice.Services.Groups;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Models;
+using Social.Generic.Helpers;
 
 namespace HaveAVoice.Controllers.Groups {
     public class GroupMemberController : HAVBaseController {
@@ -22,6 +23,7 @@ namespace HaveAVoice.Controllers.Groups {
         private const string CANCEL_REQUEST = "Your request to join the group has been cancelled.";
         private const string GROUP_MEMBER_APPROVED = "The group member has been approved to join the group!";
         private const string GROUP_MEMBER_DENIED = "The group member has been denied to join the group!";
+        private const string GROUP_MEMBER_EDITED = "The group member has been edited!";
 
         private const string CANCEL_REQUEST_ERROR = "An error occurred while canceling your request to join the group. Please try again.";
         private const string REQUEST_ERROR = "An error occurred while submitted your request. Please try again.";
@@ -29,6 +31,7 @@ namespace HaveAVoice.Controllers.Groups {
         private const string GROUP_MEMBER_ERROR = "Unable to get the group member information. Please try again.";
         private const string GROUP_MEMBER_VERDICT_ERROR = "An error occurred while approving or denying the group member.";
         private const string GROUP_MEMBER_LIST = "An error occurred while getting the list of members for the group.";
+        private const string GROUP_MEMBER_EDITED_FAIL = "An error occurred while editing the group member!";
 
         IValidationDictionary theValidationDictionary;
         IGroupService theGroupService;
@@ -76,6 +79,27 @@ namespace HaveAVoice.Controllers.Groups {
             }
 
             return RedirectToAction("Details", "Group", new { id = groupId });
+        }
+
+        [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
+        public ActionResult Edit(int groupMemberId, int groupId, string title, bool administrator) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+
+            try {
+                UserInformationModel<User> myUserInformation = GetUserInformatonModel();
+                bool myResult = theGroupService.EditGroupMember(myUserInformation, groupId, groupMemberId, title, administrator);
+                if (myResult) {
+                    TempData["Message"] += MessageHelper.NormalMessage(GROUP_MEMBER_EDITED);
+                }
+                return RedirectToAction("Details", "Group", new { id = groupId });
+            } catch (Exception myException) {
+                LogError(myException, GROUP_MEMBER_EDITED_FAIL);
+                TempData["Message"] += MessageHelper.ErrorMessage(GROUP_MEMBER_EDITED_FAIL);
+                theValidationDictionary.ForceModleStateExport();
+                return RedirectToAction("Details", new { groupId = groupId, groupMemberId = groupMemberId });
+            }
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
@@ -132,7 +156,7 @@ namespace HaveAVoice.Controllers.Groups {
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
-        public ActionResult Verdict(int groupMemberId, int groupId, bool approved, string title, bool administrator) {
+        public ActionResult Verdict(int groupMemberId, int groupId, StatusAction approved, string title, bool administrator) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
@@ -140,9 +164,9 @@ namespace HaveAVoice.Controllers.Groups {
             try {
                 UserInformationModel<User> myUserInformation = GetUserInformatonModel();
                 bool myResult = false;
-                if (approved) {
+                if (approved == StatusAction.Approve) {
                     myResult = theGroupService.ApproveGroupMember(myUserInformation, groupMemberId, title, administrator);
-                    if(myResult) {
+                    if (myResult) {
                         TempData["Message"] += MessageHelper.NormalMessage(GROUP_MEMBER_APPROVED);
                     }
                 } else {
@@ -158,10 +182,10 @@ namespace HaveAVoice.Controllers.Groups {
                 LogError(myException, GROUP_MEMBER_ERROR);
                 TempData["Message"] += MessageHelper.ErrorMessage(GROUP_MEMBER_VERDICT_ERROR);
             }
-            
+
             //Force for radio button value export
             theValidationDictionary.ForceModleStateExport();
-            
+
             return RedirectToAction("Details", new { groupId = groupId, groupMemberId = groupMemberId });
         }
 

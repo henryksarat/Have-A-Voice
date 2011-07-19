@@ -13,6 +13,7 @@ namespace HaveAVoice.Services.Groups {
         void DenyGroupMember(UserInformationModel<User> aUser, int aGroupMemberId);
         bool DeactivateGroup(UserInformationModel<User> aUser, int aGroupId);
         bool EditGroup(UserInformationModel<User> aUserEditing, EditGroupModel aGroupModel);
+        bool EditGroupMember(UserInformationModel<User> aUser, int aGroupId, int aGroupMemberId, string aTitle, bool anAdministrator);
         Group GetGroup(UserInformationModel<User> aUser, int aGroupId);
         EditGroupModel GetGroupForEdit(UserInformationModel<User> aUser, int aGroupId);
         GroupMember GetGroupMember(UserInformationModel<User> aUser, int aGroupMemberId);

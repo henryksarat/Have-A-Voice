@@ -11,6 +11,6 @@
 <% Html.RenderPartial("Validation"); %>
 
 <% foreach (GroupMember myGroupMember in Model) { %>    
-    <a href="/Profile/Show/<%= myGroupMember.MemberUser.ShortUrl %>"><%= NameHelper.FullName(myGroupMember.MemberUser) %></a><br />
+    <a href="/Profile/Show/<%= myGroupMember.MemberUser.ShortUrl %>"><%= NameHelper.FullName(myGroupMember.MemberUser) %></a> - <a href="/GroupMember/Details?groupMemberId=<%= myGroupMember.Id %>&groupId=<%= myGroupMember.GroupId %>">Edit</a><br />
 <% } %>
 </asp:Content>

@@ -59,7 +59,7 @@
                     </div>
                     <div class="push-1 col-4 right">
                             <span class="color-1">
-                                <% int myGroupMembers = myGroup.GroupMembers.Where(gm => !gm.Deleted).Where(gm => gm.Approved == HAVConstants.APPROVED).Count<GroupMember>(); %>
+                                <% int myGroupMembers = myGroup.GroupMembers.Where(gm => !gm.Deleted).Where(gm => !gm.OldRecord).Where(gm => gm.Approved == HAVConstants.APPROVED).Count<GroupMember>(); %>
                                 Members: <%= myGroupMembers %><br />
                                 <% int myGroupBoardCount = myGroup.GroupBoards.Count; %>
                                 <% DateTime myDateTime = myGroup.GroupBoards.Count > 0 ? myGroup.GroupBoards.Max(gb => gb.DateTimeStamp) : DateTime.UtcNow; %>

@@ -62,6 +62,7 @@
     <Compile Include="Constants\ValidationKeys.cs" />
     <Compile Include="Helpers\BinderHelper.cs" />
     <Compile Include="Helpers\CaptchaHelper.cs" />
+    <Compile Include="Helpers\StatusAction.cs" />
     <Compile Include="Helpers\ViewAction.cs" />
     <Compile Include="Helpers\DateHelper.cs" />
     <Compile Include="Helpers\DictionaryHelper.cs" />
