@@ -1,9 +1,12 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<GroupSearchModel>" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
 <%@ Import Namespace="HaveAVoice.Helpers" %>
+<%@ Import Namespace="HaveAVoice.Helpers.Groups" %>
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
 <%@ Import Namespace="Social.Generic.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
+<%@ Import Namespace="Social.Generic.Models" %>
+<%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Find a Group
@@ -11,11 +14,14 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
+<% UserInformationModel<User> myUserInfo = HAVUserInformationFactory.GetUserInformation(); %>
+
 <div class="col-24">
     <div class="spacer-30">&nbsp;</div>
     <% Html.RenderPartial("Message"); %>
     <% Html.RenderPartial("Validation"); %>
-    <% using (Html.BeginForm("List", "Group", FormMethod.Post, new { @class = "search-group" })) { %>
+    <% using (Html.BeginForm("Search", "Group", FormMethod.Post, new { @class = "search-group" })) { %>
+        <%= Html.Hidden("showMyGroupsOnly", Model.MyGroups) %>
         <div class="col-24 center m-btm25">
 	        <%= Html.TextBox("SearchTerm")%>
             <label for="SearcyBy">Search By:</label>
@@ -30,7 +36,7 @@
     <div class="clear">&nbsp;</div>
     
     <div class="push-1 col-4 center p-t5 p-b5 t-tab b-wht">
-    	<span class="fnt-16 tint-6 bold">GROUPS</span>
+    	<span class="fnt-16 tint-6 bold">GROUPS <%= Model.MyGroups ? " I'M IN" : "" %></span>
     	<div class="clear">&nbsp;</div>
     </div>
     <div class="push-1 col-4 center p-t5 p-b5 t-tab btint-6">
@@ -63,8 +69,15 @@
                                 Members: <%= myGroupMembers %><br />
                                 <% int myGroupBoardCount = myGroup.GroupBoards.Count; %>
                                 <% DateTime myDateTime = myGroup.GroupBoards.Count > 0 ? myGroup.GroupBoards.Max(gb => gb.DateTimeStamp) : DateTime.UtcNow; %>
+                                <% if (GroupHelper.IsAdmin(myUserInfo.Details, myGroup.Id)) { %>
+                                    You are an admin<br />
+                                    <% if(!myGroup.Active) { %>
+                                        This group is NOT active
+                                    <% } %>
+                                <% } %>
                                 <% if (myGroupBoardCount > 0) { %>
-                                    Last Group Post: myDateTime
+                                    Posts to board: <%= myGroupBoardCount %><br />
+                                    Last Group Post: <%= LocalDateHelper.ToLocalTime(myDateTime) %>
                                 <% } %>
                             </span>
                     </div>

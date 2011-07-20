@@ -190,24 +190,24 @@ namespace HaveAVoice.Services.Groups {
             return theGroupRepository.GetGroupMembers(aGroupId).Where(cm => cm.Approved == HAVConstants.APPROVED);
         }
 
-        public IEnumerable<Group> GetGroups(UserInformationModel<User> aUser, string aSearchTerm, SearchBy aSearchBy, OrderBy orderBy) {
+        public IEnumerable<Group> GetGroups(UserInformationModel<User> aUser, string aSearchTerm, SearchBy aSearchBy, OrderBy orderBy, bool aMyGroups) {
             IEnumerable<Group> myGroups = new List<Group>();
 
             if (aSearchBy == SearchBy.All) {
-                myGroups = theGroupRepository.GetGroupsByAll(aUser.Details);
+                myGroups = theGroupRepository.GetGroupsByAll(aUser.Details, aMyGroups);
             } else if (aSearchBy == SearchBy.City) {
-                myGroups = theGroupRepository.GetGroupsByCity(aUser.Details, aSearchTerm);
+                myGroups = theGroupRepository.GetGroupsByCity(aUser.Details, aSearchTerm, aMyGroups);
             } else if (aSearchBy == SearchBy.Name) {
-                myGroups = theGroupRepository.GetGroupsByName(aUser.Details, aSearchTerm);
+                myGroups = theGroupRepository.GetGroupsByName(aUser.Details, aSearchTerm, aMyGroups);
             } else if (aSearchBy == SearchBy.Tags) {
-                myGroups = theGroupRepository.GetGroupsByKeywordTags(aUser.Details, aSearchTerm);
+                myGroups = theGroupRepository.GetGroupsByKeywordTags(aUser.Details, aSearchTerm, aMyGroups);
             } else if (aSearchBy == SearchBy.ZipCode) {
                 int myParsedZip;
                 bool myTryParsed = int.TryParse(aSearchTerm, out myParsedZip);
                 if (!myTryParsed) {
                     throw new CustomException("The zip code must be 5 digits long.");
                 }
-                myGroups = theGroupRepository.GetGroupsByZipCode(aUser.Details, myParsedZip);
+                myGroups = theGroupRepository.GetGroupsByZipCode(aUser.Details, myParsedZip, aMyGroups);
             }
 
             if (orderBy == OrderBy.City) {
@@ -225,10 +225,6 @@ namespace HaveAVoice.Services.Groups {
 
 
             return myGroups;
-        }
-
-        public IEnumerable<Group> GetMyGroups(UserInformationModel<User> aUser) {
-            return theGroupRepository.GetMyGroups(aUser.Details);
         }
 
         public bool IsAdmin(User aUser, int aGroupId) {

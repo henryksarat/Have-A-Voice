@@ -121,12 +121,20 @@ namespace HaveAVoice.Controllers.Groups {
 
         [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
         public ActionResult Quit(int groupId) {
-            return RemoveMember(groupId, USER_QUIT);
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            UserInformationModel<User> myUser = GetUserInformatonModel();
+            return RemoveMember(myUser, groupId, myUser.Details.Id, USER_QUIT);
         }
 
         [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
-        public ActionResult Remove(int groupId) {
-            return RemoveMember(groupId, USER_REMVOED);
+        public ActionResult Remove(int groupId, int userRemovingId) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            UserInformationModel<User> myUser = GetUserInformatonModel();
+            return RemoveMember(myUser, groupId, userRemovingId, USER_REMVOED);
         }
 
         [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
@@ -189,14 +197,9 @@ namespace HaveAVoice.Controllers.Groups {
             return RedirectToAction("Details", new { groupId = groupId, groupMemberId = groupMemberId });
         }
 
-        private ActionResult RemoveMember(int aGroupId, string aMessage) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-
+        private ActionResult RemoveMember(UserInformationModel<User> aUserInfo, int aGroupId, int aUserRemovingId, string aMessage) {
             try {
-                UserInformationModel<User> myUser = GetUserInformatonModel();
-                bool myResult = theGroupService.RemoveGroupMember(GetUserInformatonModel(), myUser.UserId, aGroupId);
+                bool myResult = theGroupService.RemoveGroupMember(aUserInfo, aUserRemovingId, aGroupId);
 
                 if (myResult) {
                     TempData["Message"] += MessageHelper.SuccessMessage(aMessage);

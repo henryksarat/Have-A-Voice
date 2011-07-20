@@ -176,64 +176,114 @@ namespace HaveAVoice.Repositories.Groups {
                     select gm).FirstOrDefault<GroupMember>();
         }
 
-        public IEnumerable<Group> GetGroupsByAll(User aUser) {
+        public IEnumerable<Group> GetGroupsByAll(User aUser, bool aMyGroups) {
             IEnumerable<int> myAdminOfClubs = GetGroupsAdminOf(aUser);
 
-            return (from c in theEntities.Groups
-                    where (c.Active || myAdminOfClubs.Contains(c.Id))
-                    select c).ToList<Group>();
+            if (!aMyGroups) {
+                return (from c in theEntities.Groups
+                        where (c.Active || myAdminOfClubs.Contains(c.Id))
+                        select c).ToList<Group>();
+            } else {
+                return (from g in theEntities.Groups
+                        join gm in theEntities.GroupMembers on g.Id equals gm.GroupId
+                        where (g.Active || myAdminOfClubs.Contains(g.Id))
+                        && gm.MemberUserId == aUser.Id
+                        && gm.Deleted == false
+                        && gm.Approved == HAVConstants.APPROVED
+                        && !gm.OldRecord
+                        select g).ToList<Group>();
+            }
         }
 
-        public IEnumerable<Group> GetGroupsByName(User aUser, string aSearchTerm) {
+        public IEnumerable<Group> GetGroupsByName(User aUser, string aSearchTerm, bool aMyGroups) {
             IEnumerable<int> myAdminOfClubs = GetGroupsAdminOf(aUser);
 
-            return (from c in theEntities.Groups
-                    where (c.Active || myAdminOfClubs.Contains(c.Id))
-                    && c.Name.Contains(aSearchTerm)
-                    select c).ToList<Group>();
+            if (!aMyGroups) {
+                return (from c in theEntities.Groups
+                        where (c.Active || myAdminOfClubs.Contains(c.Id))
+                        && c.Name.Contains(aSearchTerm)
+                        select c).ToList<Group>();
+            } else {
+                return (from g in theEntities.Groups
+                        join gm in theEntities.GroupMembers on g.Id equals gm.GroupId
+                        where (g.Active || myAdminOfClubs.Contains(g.Id))
+                        && g.Name.Contains(aSearchTerm)
+                        && gm.MemberUserId == aUser.Id
+                        && gm.Deleted == false
+                        && gm.Approved == HAVConstants.APPROVED
+                        && !gm.OldRecord
+                        select g).ToList<Group>();
+            }
         }
 
-        public IEnumerable<Group> GetGroupsByKeywordTags(User aUser, string aSearchTerm) {
+        public IEnumerable<Group> GetGroupsByKeywordTags(User aUser, string aSearchTerm, bool aMyGroups) {
             IEnumerable<int> myAdminOfClubs = GetGroupsAdminOf(aUser);
 
-            return (from g in theEntities.Groups
-                    join gt in theEntities.GroupTags on g.Id equals gt.GroupId 
-                    where (g.Active || myAdminOfClubs.Contains(g.Id))
-                    && gt.Tag.Contains(aSearchTerm)
-                    select g).ToList<Group>();
+            if (!aMyGroups) {
+                return (from g in theEntities.Groups
+                        join gt in theEntities.GroupTags on g.Id equals gt.GroupId 
+                        where (g.Active || myAdminOfClubs.Contains(g.Id))
+                        && gt.Tag.Contains(aSearchTerm)
+                        select g).ToList<Group>();
+            } else {
+                return (from g in theEntities.Groups
+                        join gm in theEntities.GroupMembers on g.Id equals gm.GroupId
+                        join gt in theEntities.GroupTags on g.Id equals gt.GroupId
+                        where (g.Active || myAdminOfClubs.Contains(g.Id))
+                        && gt.Tag.Contains(aSearchTerm)
+                        && g.Name.Contains(aSearchTerm)
+                        && gm.MemberUserId == aUser.Id
+                        && gm.Deleted == false
+                        && gm.Approved == HAVConstants.APPROVED
+                        && !gm.OldRecord
+                        select g).ToList<Group>();
+            }
         }
 
-        public IEnumerable<Group> GetGroupsByZipCode(User aUser, int aSearchTerm) {
+        public IEnumerable<Group> GetGroupsByZipCode(User aUser, int aSearchTerm, bool aMyGroups) {
             IEnumerable<int> myAdminOfClubs = GetGroupsAdminOf(aUser);
 
-            return (from g in theEntities.Groups
-                    join gz in theEntities.GroupZipCodeTags on g.Id equals gz.GroupId
-                    where (g.Active || myAdminOfClubs.Contains(g.Id))
-                    && gz.ZipCode == aSearchTerm
-                    select g).ToList<Group>();
+            if (!aMyGroups) {
+                return (from g in theEntities.Groups
+                        join gz in theEntities.GroupZipCodeTags on g.Id equals gz.GroupId
+                        where (g.Active || myAdminOfClubs.Contains(g.Id))
+                        && gz.ZipCode == aSearchTerm
+                        select g).ToList<Group>();
+            } else {
+                return (from g in theEntities.Groups
+                        join gm in theEntities.GroupMembers on g.Id equals gm.GroupId
+                        join gz in theEntities.GroupZipCodeTags on g.Id equals gz.GroupId
+                        where (g.Active || myAdminOfClubs.Contains(g.Id))
+                        && gz.ZipCode == aSearchTerm
+                        && gm.MemberUserId == aUser.Id
+                        && gm.Deleted == false
+                        && gm.Approved == HAVConstants.APPROVED
+                        && !gm.OldRecord
+                        select g).ToList<Group>();
+            }
         }
 
-        public IEnumerable<Group> GetGroupsByCity(User aUser, string aSearchTerm) {
+        public IEnumerable<Group> GetGroupsByCity(User aUser, string aSearchTerm, bool aMyGroups) {
             IEnumerable<int> myAdminOfClubs = GetGroupsAdminOf(aUser);
 
-            return (from g in theEntities.Groups
-                    join gc in theEntities.GroupCityStateTags on g.Id equals gc.GroupId
-                    where (g.Active || myAdminOfClubs.Contains(g.Id))
-                    && gc.City.Contains(aSearchTerm)
-                    select g).ToList<Group>();
-        }
-
-        public IEnumerable<Group> GetMyGroups(User aUser) {
-            IEnumerable<int> myAdminOfClubs = GetGroupsAdminOf(aUser);
-
-            return (from c in theEntities.Groups
-                    join gm in theEntities.GroupMembers on c.Id equals gm.GroupId
-                    where (c.Active || myAdminOfClubs.Contains(c.Id))
-                    && gm.MemberUserId == aUser.Id
-                    && gm.Deleted == false
-                    && gm.Approved == HAVConstants.APPROVED
-                    && !gm.OldRecord
-                    select c).ToList<Group>();
+            if (!aMyGroups) {
+                return (from g in theEntities.Groups
+                        join gc in theEntities.GroupCityStateTags on g.Id equals gc.GroupId
+                        where (g.Active || myAdminOfClubs.Contains(g.Id))
+                        && gc.City.Contains(aSearchTerm)
+                        select g).ToList<Group>();
+            } else {
+                return (from g in theEntities.Groups
+                        join gm in theEntities.GroupMembers on g.Id equals gm.GroupId
+                        join gc in theEntities.GroupCityStateTags on g.Id equals gc.GroupId
+                        where (g.Active || myAdminOfClubs.Contains(g.Id))
+                        && gc.City.Contains(aSearchTerm)
+                        && gm.MemberUserId == aUser.Id
+                        && gm.Deleted == false
+                        && gm.Approved == HAVConstants.APPROVED
+                        && !gm.OldRecord
+                        select g).ToList<Group>();
+            }
         }
 
         public void MarkGroupBoardAsViewed(User aUser, int aGroupId) {

@@ -18,8 +18,7 @@ namespace HaveAVoice.Services.Groups {
         EditGroupModel GetGroupForEdit(UserInformationModel<User> aUser, int aGroupId);
         GroupMember GetGroupMember(UserInformationModel<User> aUser, int aGroupMemberId);
         IEnumerable<GroupMember> GetActiveGroupMembers(int aGroupId);
-        IEnumerable<Group> GetGroups(UserInformationModel<User> aUser, string aSearchTerm, SearchBy aSearchBy, OrderBy orderBy);
-        IEnumerable<Group> GetMyGroups(UserInformationModel<User> aUser);
+        IEnumerable<Group> GetGroups(UserInformationModel<User> aUser, string aSearchTerm, SearchBy aSearchBy, OrderBy orderBy, bool aMyGroups);
         bool IsAdmin(User aUser, int aGroupId);
         bool IsApartOfGroup(int aUserId, int aGroupId);
         bool IsPendingApproval(int aUserId, int aGroupId);

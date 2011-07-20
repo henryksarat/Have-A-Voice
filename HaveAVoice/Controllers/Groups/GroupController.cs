@@ -175,36 +175,16 @@ namespace HaveAVoice.Controllers.Groups {
 
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult List() {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
+            return GetGroupSearchResults(false);
+        }
 
-            IEnumerable<Group> myGroups = new List<Group>();
-
-            try {
-                UserInformationModel<User> myUser = GetUserInformatonModel();
-
-                myGroups = theGroupService.GetGroups(myUser, string.Empty, SearchBy.All, OrderBy.Name);
-
-                if (myGroups.Count<Group>() == 0) {
-                    ViewData["Message"] = MessageHelper.NormalMessage(NO_GROUPS);
-                }
-
-                GroupSearchModel myGroupSearchModel = new GroupSearchModel() {
-                    SearchResults = myGroups,
-                    SearchByOptions = new SelectList(theGroupService.SearchByOptions(), "Value", "Key"),
-                    OrderByOptions = new SelectList(theGroupService.OrderByOptions(), "Value", "Key")
-                };
-
-                return View("List", myGroupSearchModel);
-            } catch (Exception myException) {
-                LogError(myException, GROUP_LIST_ERROR);
-                return SendToErrorPage(GROUP_LIST_ERROR);
-            }
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult MyGroups() {
+            return GetGroupSearchResults(true);
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult List(string searchTerm, SearchBy searchBy, OrderBy orderBy) {
+        public ActionResult Search(string searchTerm, SearchBy searchBy, OrderBy orderBy, bool showMyGroupsOnly) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
@@ -220,7 +200,7 @@ namespace HaveAVoice.Controllers.Groups {
             try {
                 UserInformationModel<User> myUser = GetUserInformatonModel();
 
-                myGroups = theGroupService.GetGroups(myUser, searchTerm, searchBy, orderBy);
+                myGroups = theGroupService.GetGroups(myUser, searchTerm, searchBy, orderBy, showMyGroupsOnly);
 
                 if (myGroups.Count<Group>() == 0) {
                     ViewData["Message"] = MessageHelper.NormalMessage(NO_GROUPS);
@@ -237,8 +217,7 @@ namespace HaveAVoice.Controllers.Groups {
             return View("List", myGroupSearchModel);
         }
 
-        [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult MyGroups() {
+        private ActionResult GetGroupSearchResults(bool aMyGroups) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
@@ -248,17 +227,24 @@ namespace HaveAVoice.Controllers.Groups {
             try {
                 UserInformationModel<User> myUser = GetUserInformatonModel();
 
-                myGroups = theGroupService.GetMyGroups(myUser);
+                myGroups = theGroupService.GetGroups(myUser, string.Empty, SearchBy.All, OrderBy.Name, aMyGroups);
 
                 if (myGroups.Count<Group>() == 0) {
-                    ViewData["Message"] = MessageHelper.NormalMessage(NOT_IN_GROUPS);
+                    ViewData["Message"] = MessageHelper.NormalMessage(NO_GROUPS);
                 }
+
+                GroupSearchModel myGroupSearchModel = new GroupSearchModel() {
+                    SearchResults = myGroups,
+                    SearchByOptions = new SelectList(theGroupService.SearchByOptions(), "Value", "Key"),
+                    OrderByOptions = new SelectList(theGroupService.OrderByOptions(), "Value", "Key"),
+                    MyGroups = aMyGroups
+                };
+
+                return View("List", myGroupSearchModel);
             } catch (Exception myException) {
                 LogError(myException, GROUP_LIST_ERROR);
-                ViewData["Message"] = GROUP_LIST_ERROR;
+                return SendToErrorPage(GROUP_LIST_ERROR);
             }
-
-            return View("MyGroups", myGroups);
         }
     }
 }

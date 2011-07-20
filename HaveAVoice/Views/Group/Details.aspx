@@ -13,11 +13,10 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+<% UserInformationModel<User> myUserInfo = HAVUserInformationFactory.GetUserInformation(); %>
 
 <div class="col-24 m-btm30">
-	<% UserInformationModel<User> myUserInfo = HAVUserInformationFactory.GetUserInformation(); %>
-
-    <div class="spacer-30">&nbsp;</div>
+	<div class="spacer-30">&nbsp;</div>
 
 	<% Html.RenderPartial("Message"); %>
 	<% Html.RenderPartial("Validation"); %>
@@ -97,16 +96,16 @@
                         <% if (GroupHelper.IsAdmin(myUserInfo.Details, Model.Id)) { %>
                             <%= Html.ActionLink("Edit", "Edit", "Group", new { id = Model.Id }, new { @class = "grouplink" })%><br />
                             <% if (Model.Active) { %>                
-                                <%= Html.ActionLink("Set club as inactive", "Deactivate", "Group", new { id = Model.Id }, new { @class = "grouplink" })%>
+                                <%= Html.ActionLink("Set group as inactive", "Deactivate", "Group", new { id = Model.Id }, new { @class = "grouplink" })%><br />
                             <% } else { %>
-                                <%= Html.ActionLink("Set club as active", "Activate", "Group", new { id = Model.Id }, new { @class = "grouplink" })%>
+                                <%= Html.ActionLink("Set group as active", "Activate", "Group", new { id = Model.Id }, new { @class = "grouplink" })%><br />
                             <% } %>    
                             <% } else if (GroupHelper.IsPending(myUserInfo.Details, Model.Id)) { %>
-                                <%= Html.ActionLink("Cancel my request to join", "Cancel", "GroupMember", new { groupId = Model.Id }, new { @class = "grouplink" })%>
+                                <%= Html.ActionLink("Cancel my request to join", "Cancel", "GroupMember", new { groupId = Model.Id }, new { @class = "grouplink" })%><br />
                             <% } else if (GroupHelper.IsMember(myUserInfo.Details, Model.Id)) { %>
-                                <%= Html.ActionLink("Quit organization", "Remove", "GroupMember", new { groupId = Model.Id }, new { @class = "grouplink" })%>
+                                <%= Html.ActionLink("Quit organization", "Remove", "GroupMember", new { groupId = Model.Id }, new { @class = "grouplink" })%><br />
                             <% } else { %>
-                                <%= Html.ActionLink("Request to join organization", "RequestToJoin", "GroupMember", new { groupId = Model.Id }, new { @class = "grouplink" })%>
+                                <%= Html.ActionLink("Request to join organization", "RequestToJoin", "GroupMember", new { groupId = Model.Id }, new { @class = "grouplink" })%><br />
                         <% } %>
                         <a class="grouplink" href="/GroupMember/List/<%= Model.Id %>">View all members</a>
                     </div>

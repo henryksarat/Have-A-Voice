@@ -376,7 +376,6 @@
     <Content Include="Views\GroupMember\Details.aspx" />
     <Content Include="Views\GroupMember\List.aspx" />
     <Content Include="Views\Group\GroupViewAction.ascx" />
-    <Content Include="Views\Group\MyGroups.aspx" />
     <Content Include="Views\Group\Edit.aspx" />
     <Content Include="Views\Group\Details.aspx" />
     <Content Include="Views\Group\List.aspx" />
