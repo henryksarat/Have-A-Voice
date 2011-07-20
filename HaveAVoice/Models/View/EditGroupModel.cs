@@ -6,9 +6,10 @@ using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
 using Social.Generic.Constants;
 using Social.Generic.Helpers;
+using Social.Generic.Models;
 
 namespace HaveAVoice.Models.View {
-    public class EditGroupModel {
+    public class EditGroupModel : BasicLocationModel {
         public int Id { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
@@ -24,8 +25,6 @@ namespace HaveAVoice.Models.View {
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string ZipCodeTags { get; set; }
-
-        public IEnumerable<SelectListItem> States { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string StateTag { get; set; }
@@ -53,8 +52,6 @@ namespace HaveAVoice.Models.View {
                 StateTag = myGroupCityStateTag.State;
                 break;
             }
-
-            States = new SelectList(UnitedStates.STATES);
         }
     }
 }

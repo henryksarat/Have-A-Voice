@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace HaveAVoice.Models.View {
@@ -9,5 +6,6 @@ namespace HaveAVoice.Models.View {
         public IEnumerable<Group> SearchResults { get; set; }
         public IEnumerable<SelectListItem> SearchByOptions { get; set; }
         public IEnumerable<SelectListItem> OrderByOptions { get; set; }
+        public bool MyGroups { get; set; }
     }
 }

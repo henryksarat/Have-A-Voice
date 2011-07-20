@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PhoneValidation.cs" />
     <Compile Include="DropDownItemValidation.cs" />
     <Compile Include="IValidationDictionary.cs" />
     <Compile Include="ModelStateWrapper.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="EmailValidation.cs" />
     <Compile Include="RangeValidation.cs" />
     <Compile Include="DateOfBirthValidation.cs" />
+    <Compile Include="ZipCodeValidation.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Generic\Generic.csproj">

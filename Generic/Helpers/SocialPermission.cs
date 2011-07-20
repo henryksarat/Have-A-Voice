@@ -73,6 +73,8 @@ namespace Social.Generic.Helpers {
         //Have a Voice Only
         //Group
         Edit_Any_Group,
+        //Petition
+        Deactivate_Any_Petition,
 
         //UOfMeOnly
         //Club

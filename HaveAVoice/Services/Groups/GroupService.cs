@@ -202,12 +202,10 @@ namespace HaveAVoice.Services.Groups {
             } else if (aSearchBy == SearchBy.Tags) {
                 myGroups = theGroupRepository.GetGroupsByKeywordTags(aUser.Details, aSearchTerm, aMyGroups);
             } else if (aSearchBy == SearchBy.ZipCode) {
-                int myParsedZip;
-                bool myTryParsed = int.TryParse(aSearchTerm, out myParsedZip);
-                if (!myTryParsed) {
+                if (!ZipCodeValidation.IsValid(aSearchTerm)) {
                     throw new CustomException("The zip code must be 5 digits long.");
                 }
-                myGroups = theGroupRepository.GetGroupsByZipCode(aUser.Details, myParsedZip, aMyGroups);
+                myGroups = theGroupRepository.GetGroupsByZipCode(aUser.Details, int.Parse(aSearchTerm), aMyGroups);
             }
 
             if (orderBy == OrderBy.City) {
