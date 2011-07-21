@@ -39,21 +39,20 @@ namespace HaveAVoice.Services.Petitions {
                 return false;
             }
 
-            theGroupRepository.AddSignatureToPetition(aUserInformation.Details, 
-                aCreatePetitionSignatureModel.Alias, 
-                aCreatePetitionSignatureModel.PetitionId, 
+            theGroupRepository.AddSignatureToPetition(aUserInformation.Details,  
+                aCreatePetitionSignatureModel.PetitionId,
                 aCreatePetitionSignatureModel.Comment, 
                 aCreatePetitionSignatureModel.Address, 
                 aCreatePetitionSignatureModel.City, 
                 aCreatePetitionSignatureModel.State, 
                 aCreatePetitionSignatureModel.ZipCode, 
-                aCreatePetitionSignatureModel.PhoneNumber.Replace('-', ' ').Replace('(', ' ').Replace(')', ' ').Trim());
+                aCreatePetitionSignatureModel.Email);
 
             return true;
         }
 
-        public void SetPetitionAsInactive(UserInformationModel<User> aUserInformation, int aPetitionId) {
-            Petition myPetition = GetPetition(aPetitionId);
+        public bool SetPetitionAsInactive(UserInformationModel<User> aUserInformation, int aPetitionId) {
+            Petition myPetition = GetPetition(aUserInformation, aPetitionId).Petition;
 
             if (myPetition.UserId != aUserInformation.UserId) {
                 if (!PermissionHelper<User>.AllowedToPerformAction(theValidationDictionary, aUserInformation, SocialPermission.Deactivate_Any_Petition)) {
@@ -62,14 +61,35 @@ namespace HaveAVoice.Services.Petitions {
             }
 
             theGroupRepository.SetPetitionAsInactive(aUserInformation.Details, aPetitionId);
+
+            return true;
         }
 
-        public IEnumerable<Petition> GetPetitions() {
-            return theGroupRepository.GetPetitions();
+        public IEnumerable<Petition> GetPetitions(UserInformationModel<User> aUser) {
+            return theGroupRepository.GetPetitions(aUser.Details);
         }
 
-        public Petition GetPetition(int aPetitionId) {
-            return theGroupRepository.GetPetition(aPetitionId);
+        public DisplayPetitionModel GetPetition(UserInformationModel<User> aUser, int aPetitionId) {
+            DisplayPetitionModel myDisplayPetitionModel = new DisplayPetitionModel();
+            Petition myPetition = theGroupRepository.GetPetition(aUser.Details, aPetitionId);
+            myDisplayPetitionModel.ViewSignatureDetails = CanView(aUser, myPetition);
+            myDisplayPetitionModel.Petition = myPetition;
+            return myDisplayPetitionModel;
+        }
+
+        public bool HasSignedPetition(UserInformationModel<User> aUser, int aPetitionId) {
+            PetitionSignature myPetitionSignature = theGroupRepository.GetPetitionSignature(aUser.Details, aPetitionId);
+            return myPetitionSignature != null;
+        }
+
+        public bool CanView(UserInformationModel<User> aUser, Petition aPetition) {
+            bool myIsAdmin = false;
+            if (aPetition.UserId == aUser.UserId
+                || PermissionHelper<User>.AllowedToPerformAction(aUser, SocialPermission.View_Any_Petition_Signature_Details)) {
+                myIsAdmin = true;
+            }
+
+            return myIsAdmin;
         }
 
         private bool ValidatePetition(CreatePetitionModel aPetitionModel) {
@@ -91,16 +111,8 @@ namespace HaveAVoice.Services.Petitions {
                 theValidationDictionary.AddError("Address", aPetitionSignatureModel.Address, "An address is required.");
             }
 
-            if (string.IsNullOrEmpty(aPetitionSignatureModel.Alias)) {
-                theValidationDictionary.AddError("Alias", aPetitionSignatureModel.Alias, "An alias is required.");
-            }
-
-            if (string.IsNullOrEmpty(aPetitionSignatureModel.Comment)) {
-                theValidationDictionary.AddError("Comment", aPetitionSignatureModel.Comment, "A comment is required.");
-            }
-
-            if (!string.IsNullOrEmpty(aPetitionSignatureModel.PhoneNumber) && !PhoneValidation.IsValid(aPetitionSignatureModel.PhoneNumber)) {
-                theValidationDictionary.AddError("PhoneNumber", aPetitionSignatureModel.PhoneNumber, "Phone number is not valid.");
+            if (!string.IsNullOrEmpty(aPetitionSignatureModel.Email) && !EmailValidation.IsValidEmail(aPetitionSignatureModel.Email)) {
+                theValidationDictionary.AddError("Email", aPetitionSignatureModel.Email, "Email not valid.");
             }
 
             ValidateBasicLocationInformation(aPetitionSignatureModel);

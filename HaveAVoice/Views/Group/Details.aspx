@@ -2,6 +2,7 @@
 <%@ Import Namespace="HaveAVoice.Models.View" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Helpers" %>
+<%@ Import Namespace="HaveAVoice.Services.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Helpers.Constants" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 <%@ Import Namespace="Social.Generic.Models" %>
@@ -62,8 +63,8 @@
 	    <div class="m-btm10">
             <div class="push-2 m-lft col-16 m-rgt comment">
                 <div class="p-a10">
-                    <h1><a href="/Issue/Details/test">test</a></h1>
-                    </br>ttttttt
+                    <h1><a href="/Issue/Details/test"><%= Model.Name %></a></h1>
+                    </br><%= Model.Description %>
                     <div class="clear">&nbsp;
                     </div>
                     <div class="col-15 p-v10">
@@ -215,13 +216,18 @@
         <% foreach (GroupBoard myGroupBoard in Model.GroupBoards.OrderByDescending(gb => gb.DateTimeStamp)) { %>
             <div class="group m-btm10">
                 <div class="push-6 col-2 center">
-                    <a href="/hsarat"><img alt="Jim Bob" class="profile" src="/Photos/no_profile_picture.jpg"></img></a>
+                    <a href="<%= LinkHelper.Profile(myGroupBoard.User) %>">
+                        <img alt="<%= NameHelper.FullName(myGroupBoard.User) %>" class="profile" src="<%= PhotoHelper.ProfilePicture(myGroupBoard.User) %>"/ >
+                    </a>
                     <div class="clear">&nbsp;</div>
                 </div>
                 <div class="push-6 m-lft col-12 m-rgt comment">
                     <span class="speak-lft">&nbsp;</span>
                     <div class="p-a10">
-                        <a class="name" href="/hsarat">Jim Bob</a>&nbsp;<%= myGroupBoard.Message %>
+                        <a class="name" href="<%= LinkHelper.Profile(myGroupBoard.User) %>">
+                            <%= NameHelper.FullName(myGroupBoard.User) %>
+                            </a>
+                            &nbsp;<%= myGroupBoard.Message %>
                         <div class="clear">&nbsp;</div>
                         <div class="col-11 options">
                             <div class="p-v10">
@@ -235,7 +241,7 @@
                 <div class="col-3 date-tile push-6">
                     <div class="p-a10">
                         <div class="">
-                            <span>JUL</span>&nbsp;18
+                            <span><%= LocalDateHelper.ToLocalTime(myGroupBoard.DateTimeStamp) %></span>
                         </div>
                     </div>
                     <div class="clear">&nbsp;</div>

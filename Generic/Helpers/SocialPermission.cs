@@ -75,6 +75,7 @@ namespace Social.Generic.Helpers {
         Edit_Any_Group,
         //Petition
         Deactivate_Any_Petition,
+        View_Any_Petition_Signature_Details,
 
         //UOfMeOnly
         //Club

@@ -292,6 +292,13 @@ a.grouplink, a.grouplink:link, a.grouplink:visited { text-decoration: underline;
 .group { color: #fff; font-size: 12px; font-style: normal; }
 
 /****************************************************************************/
+/***************************** PETITIONS *******************************/
+/****************************************************************************/
+.petition { color: #fff; font-size: 12px; font-style: normal; }
+.petition .header { color: #fff; position: relative; background: #000000; /* min-height: 120px; */  }
+a.petitionlink, a.petitionlink:link, a.petitionlink:visited { text-decoration: underline; color: #fff; font-size: 12px; font-style: normal; }
+
+/****************************************************************************/
 /***************************** CREATE ACCOUNT *******************************/
 /****************************************************************************/
 form.create label { font-weight: bold; color: #a2a2a2; font-size: 14px; }

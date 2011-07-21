@@ -7,10 +7,13 @@ namespace HaveAVoice.Repositories.Petitions {
     public class EntityPetitionRepository : IPetitionRepository {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
-        public void AddSignatureToPetition(User aUserSigning, int aPetitionId, string anAlias, string aComment, string anAddress, string aCity, string aState, string aZip, string aPhoneNumber) {
-            PetitionSignature myPetitionSignature = PetitionSignature.CreatePetitionSignature(0, aPetitionId, aUserSigning.Id, anAlias, aComment, anAddress, aCity, aState, aZip, DateTime.UtcNow);
-            if(string.IsNullOrEmpty(aPhoneNumber)) {
-                myPetitionSignature.PhoneNumber = aPhoneNumber;
+        public void AddSignatureToPetition(User aUserSigning, int aPetitionId, string aComment, string anAddress, string aCity, string aState, string aZip, string anEmail) {
+            PetitionSignature myPetitionSignature = PetitionSignature.CreatePetitionSignature(0, aPetitionId, aUserSigning.Id, anAddress, aCity, aState, aZip, DateTime.UtcNow);
+            if(!string.IsNullOrEmpty(anEmail)) {
+                myPetitionSignature.Email = anEmail;
+            }
+            if (!string.IsNullOrEmpty(aComment)) {
+                myPetitionSignature.Comment = aComment;
             }
             theEntities.AddToPetitionSignatures(myPetitionSignature);
             theEntities.SaveChanges();
@@ -23,24 +26,32 @@ namespace HaveAVoice.Repositories.Petitions {
             return myPetition;
         }
 
-        public IEnumerable<Petition> GetPetitions() {
+        public IEnumerable<Petition> GetPetitions(User aUser) {
             return (from p in theEntities.Petitions
-                    where p.Active
-                    select p);
+                    where p.Active || p.UserId == aUser.Id
+                    select p).OrderBy(p => p.Title);
         }
 
-        public Petition GetPetition(int aPetitionId) {
+        public Petition GetPetition(User aUser, int aPetitionId) {
             return (from p in theEntities.Petitions
-                    where p.Active
+                    where (p.Active || p.UserId == aUser.Id)
                     && p.Id == aPetitionId
                     select p).FirstOrDefault<Petition>();
         }
 
+        public PetitionSignature GetPetitionSignature(User aUser, int aPetitionId) {
+            return (from s in theEntities.PetitionSignatures
+                    where s.PetitionId == aPetitionId
+                    && s.UserId == aUser.Id
+                    select s).FirstOrDefault<PetitionSignature>();
+        }
+
         public void SetPetitionAsInactive(User aUser, int aPetitionId) {
-            Petition myPetition = GetPetition(aPetitionId);
+            Petition myPetition = GetPetition(aUser, aPetitionId);
             myPetition.Active = false;
             myPetition.DeactivatedByUserId = aUser.Id;
             myPetition.DeactivatedDateTimeStamp = DateTime.UtcNow;
+            theEntities.SaveChanges();
         }
     }
 }

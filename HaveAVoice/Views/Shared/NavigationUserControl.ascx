@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl" %>
+﻿<%@ Control Language=   "C#" Inherits="System.Web.Mvc.ViewUserControl" %>
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
@@ -16,7 +16,16 @@
 		</li>
 		<li><a href="/Message/Inbox">MAIL<%= NavigationCountHelper.NewMessageCount(myUser)%></a></li>
         <li><a href="/Notification/List">NOTIFICATIONS<%= NavigationCountHelper.NotificationCount(myUser)%></a></li>
-		<li><a href="/Issue/Index">ISSUES</a></li>
+		<li>ISSUES
+            <ul>
+                <li>
+                    <a href="/Issue/Create">Create Issue</a>
+                    <a href="/Issue/Index">Find Issues</a>
+                    <a href="/Petition/Create">Create Petition</a>
+                    <a href="/Petition/List">Find Petition</a>
+                </li>
+            </ul>
+        </li>
         <li>GROUPS
             <ul>
                 <li>

@@ -103,9 +103,9 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_GroupTags_Groups", "Group", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Group), "GroupTag", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.GroupTag), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_GroupZipCodeTags_Groups", "Group", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Group), "GroupZipCodeTag", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.GroupZipCodeTag), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_GroupMember_EditedByUsers", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(HaveAVoice.Models.User), "GroupMember", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.GroupMember), true)]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_PetitionSignUps_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "PetitionSignature", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.PetitionSignature), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Petitions_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Petition", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Petition), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_PetitionSignUps_Petitions", "Petition", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Petition), "PetitionSignature", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.PetitionSignature), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_PetitionSignUps_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "PetitionSignature", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.PetitionSignature), true)]
 
 #endregion
 
@@ -928,22 +928,6 @@ namespace HaveAVoice.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<PetitionSignature> PetitionSignatures
-        {
-            get
-            {
-                if ((_PetitionSignatures == null))
-                {
-                    _PetitionSignatures = base.CreateObjectSet<PetitionSignature>("PetitionSignatures");
-                }
-                return _PetitionSignatures;
-            }
-        }
-        private ObjectSet<PetitionSignature> _PetitionSignatures;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<Petition> Petitions
         {
             get
@@ -956,6 +940,22 @@ namespace HaveAVoice.Models
             }
         }
         private ObjectSet<Petition> _Petitions;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<PetitionSignature> PetitionSignatures
+        {
+            get
+            {
+                if ((_PetitionSignatures == null))
+                {
+                    _PetitionSignatures = base.CreateObjectSet<PetitionSignature>("PetitionSignatures");
+                }
+                return _PetitionSignatures;
+            }
+        }
+        private ObjectSet<PetitionSignature> _PetitionSignatures;
 
         #endregion
         #region AddTo Methods
@@ -1345,19 +1345,19 @@ namespace HaveAVoice.Models
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the PetitionSignatures EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToPetitionSignatures(PetitionSignature petitionSignature)
-        {
-            base.AddObject("PetitionSignatures", petitionSignature);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the Petitions EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToPetitions(Petition petition)
         {
             base.AddObject("Petitions", petition);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the PetitionSignatures EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPetitionSignatures(PetitionSignature petitionSignature)
+        {
+            base.AddObject("PetitionSignatures", petitionSignature);
         }
 
         #endregion
@@ -11811,21 +11811,17 @@ namespace HaveAVoice.Models
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="petitionId">Initial value of the PetitionId property.</param>
         /// <param name="userId">Initial value of the UserId property.</param>
-        /// <param name="alias">Initial value of the Alias property.</param>
-        /// <param name="comment">Initial value of the Comment property.</param>
         /// <param name="address">Initial value of the Address property.</param>
         /// <param name="city">Initial value of the City property.</param>
         /// <param name="state">Initial value of the State property.</param>
         /// <param name="zip">Initial value of the Zip property.</param>
         /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
-        public static PetitionSignature CreatePetitionSignature(global::System.Int32 id, global::System.Int32 petitionId, global::System.Int32 userId, global::System.String alias, global::System.String comment, global::System.String address, global::System.String city, global::System.String state, global::System.String zip, global::System.DateTime dateTimeStamp)
+        public static PetitionSignature CreatePetitionSignature(global::System.Int32 id, global::System.Int32 petitionId, global::System.Int32 userId, global::System.String address, global::System.String city, global::System.String state, global::System.String zip, global::System.DateTime dateTimeStamp)
         {
             PetitionSignature petitionSignature = new PetitionSignature();
             petitionSignature.Id = id;
             petitionSignature.PetitionId = petitionId;
             petitionSignature.UserId = userId;
-            petitionSignature.Alias = alias;
-            petitionSignature.Comment = comment;
             petitionSignature.Address = address;
             petitionSignature.City = city;
             petitionSignature.State = state;
@@ -11915,31 +11911,7 @@ namespace HaveAVoice.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String Alias
-        {
-            get
-            {
-                return _Alias;
-            }
-            set
-            {
-                OnAliasChanging(value);
-                ReportPropertyChanging("Alias");
-                _Alias = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Alias");
-                OnAliasChanged();
-            }
-        }
-        private global::System.String _Alias;
-        partial void OnAliasChanging(global::System.String value);
-        partial void OnAliasChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String Comment
         {
@@ -11951,7 +11923,7 @@ namespace HaveAVoice.Models
             {
                 OnCommentChanging(value);
                 ReportPropertyChanging("Comment");
-                _Comment = StructuralObject.SetValidValue(value, false);
+                _Comment = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("Comment");
                 OnCommentChanged();
             }
@@ -12085,66 +12057,28 @@ namespace HaveAVoice.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String PhoneNumber
+        public global::System.String Email
         {
             get
             {
-                return _PhoneNumber;
+                return _Email;
             }
             set
             {
-                OnPhoneNumberChanging(value);
-                ReportPropertyChanging("PhoneNumber");
-                _PhoneNumber = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("PhoneNumber");
-                OnPhoneNumberChanged();
+                OnEmailChanging(value);
+                ReportPropertyChanging("Email");
+                _Email = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Email");
+                OnEmailChanged();
             }
         }
-        private global::System.String _PhoneNumber;
-        partial void OnPhoneNumberChanging(global::System.String value);
-        partial void OnPhoneNumberChanged();
+        private global::System.String _Email;
+        partial void OnEmailChanging(global::System.String value);
+        partial void OnEmailChanged();
 
         #endregion
     
         #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_PetitionSignUps_Users", "User")]
-        public User User
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_PetitionSignUps_Users", "User").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_PetitionSignUps_Users", "User").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<User> UserReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_PetitionSignUps_Users", "User");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_PetitionSignUps_Users", "User", value);
-                }
-            }
-        }
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -12180,6 +12114,44 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Petition>("HaveAVoice.Models.FK_PetitionSignUps_Petitions", "Petition", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_PetitionSignUps_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_PetitionSignUps_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_PetitionSignUps_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_PetitionSignUps_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_PetitionSignUps_Users", "User", value);
                 }
             }
         }
@@ -15884,28 +15856,6 @@ namespace HaveAVoice.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_PetitionSignUps_Users", "PetitionSignature")]
-        public EntityCollection<PetitionSignature> PetitionSignatures
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PetitionSignature>("HaveAVoice.Models.FK_PetitionSignUps_Users", "PetitionSignature");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PetitionSignature>("HaveAVoice.Models.FK_PetitionSignUps_Users", "PetitionSignature", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Petitions_Users", "Petition")]
         public EntityCollection<Petition> Petitions
         {
@@ -15918,6 +15868,28 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Petition>("HaveAVoice.Models.FK_Petitions_Users", "Petition", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_PetitionSignUps_Users", "PetitionSignature")]
+        public EntityCollection<PetitionSignature> PetitionSignatures
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PetitionSignature>("HaveAVoice.Models.FK_PetitionSignUps_Users", "PetitionSignature");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PetitionSignature>("HaveAVoice.Models.FK_PetitionSignUps_Users", "PetitionSignature", value);
                 }
             }
         }

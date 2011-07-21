@@ -55,7 +55,7 @@
 	    <div class="issue-container m-btm10">            
 		    <div class="push-3 col-19 m-lft issue m-rgt">
 		    	<div class="p-a5">
-                    <div class="push-1 col-13">
+                    <div class="push-1 col-11">
 			    	    <h1><a href="/Group/Details/<%= myGroup.Id %>"><%= myGroup.Name %></a></h1>
 					    <br />
                     
@@ -63,7 +63,7 @@
                         <br />
 			    	    <div class="clear">&nbsp;</div>
                     </div>
-                    <div class="push-1 col-4 right">
+                    <div class="push-1 col-6 right">
                             <span class="color-1">
                                 <% int myGroupMembers = myGroup.GroupMembers.Where(gm => !gm.Deleted).Where(gm => !gm.OldRecord).Where(gm => gm.Approved == HAVConstants.APPROVED).Count<GroupMember>(); %>
                                 Members: <%= myGroupMembers %><br />

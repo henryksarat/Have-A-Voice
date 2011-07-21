@@ -81,6 +81,8 @@
     <Compile Include="Controllers\Helpers\ErrorHelper.cs" />
     <Compile Include="Controllers\Helpers\MessageHelper.cs" />
     <Compile Include="Controllers\Issues\IssueReplyCommentController.cs" />
+    <Compile Include="Controllers\Petitions\PetitionSignatureController.cs" />
+    <Compile Include="Controllers\Petitions\PetitionController.cs" />
     <Compile Include="Controllers\Photos\PhotoAlbumController.cs" />
     <Compile Include="Controllers\Users\BoardController.cs" />
     <Compile Include="Controllers\Users\BoardReplyController.cs" />
@@ -109,6 +111,7 @@
     <Compile Include="Helpers\Exceptions\CustomException.cs" />
     <Compile Include="Helpers\HAVPrivacyHelper.cs" />
     <Compile Include="Helpers\LinkHelper.cs" />
+    <Compile Include="Helpers\Petitions\PetitionHelper.cs" />
     <Compile Include="Helpers\PresentationHelper.cs" />
     <Compile Include="Helpers\ProfileHelper.cs" />
     <Compile Include="Helpers\ProfilePictureStrategy.cs" />
@@ -162,6 +165,9 @@
     <Compile Include="Models\View\Binders\UpdatePrivacySettingsModelBinder.cs" />
     <Compile Include="Models\View\Binders\ImageBinder.cs" />
     <Compile Include="Models\View\BoardFeedModel.cs" />
+    <Compile Include="Models\View\CreatePetitionModel.cs" />
+    <Compile Include="Models\View\CreatePetitionSignatureModel.cs" />
+    <Compile Include="Models\View\DisplayPetitionModel.cs" />
     <Compile Include="Models\View\GroupAdminFeed.cs" />
     <Compile Include="Models\View\EditGroupModel.cs" />
     <Compile Include="Models\View\CreateUserModel.cs" />
@@ -193,6 +199,8 @@
     <Compile Include="Repositories\Issues\Helpers\IssueReplyViewedHelper.cs" />
     <Compile Include="Repositories\Issues\IHAVIssueReplyCommentRepository.cs" />
     <Compile Include="Repositories\Issues\IHAVIssueReplyRepository.cs" />
+    <Compile Include="Repositories\Petitions\EntityPetitionRepository.cs" />
+    <Compile Include="Repositories\Petitions\IPetitionRepository.cs" />
     <Compile Include="Repositories\SiteFeatures\EntityHAVContactUsRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVFanRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVFanRepository.cs" />
@@ -228,6 +236,8 @@
     <Compile Include="Services\Issues\HAVIssueReplyService.cs" />
     <Compile Include="Services\Issues\IHAVIssueReplyCommentService.cs" />
     <Compile Include="Services\Issues\IHAVIssueReplyService.cs" />
+    <Compile Include="Services\Petitions\IPetitionService.cs" />
+    <Compile Include="Services\Petitions\PetitionService.cs" />
     <Compile Include="Services\UserFeatures\HAVFanService.cs" />
     <Compile Include="Services\UserFeatures\IHAVFanService.cs" />
     <Compile Include="Services\UserFeatures\HAVAuthorityVerificationService.cs" />
@@ -381,6 +391,9 @@
     <Content Include="Views\Group\List.aspx" />
     <Content Include="Views\Group\Create.aspx" />
     <Content Include="Views\IssueReply\Details.aspx" />
+    <Content Include="Views\Petition\Create.aspx" />
+    <Content Include="Views\Petition\Details.aspx" />
+    <Content Include="Views\Petition\List.aspx" />
     <Content Include="Views\Search\IssueResults.aspx" />
     <Content Include="Views\Search\UserResults.aspx" />
     <Content Include="Views\Shared\MainPageLoggedInPanel.ascx" />
