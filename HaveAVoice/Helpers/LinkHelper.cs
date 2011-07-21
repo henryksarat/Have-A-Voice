@@ -55,5 +55,13 @@ namespace HaveAVoice.Helpers {
         public static string Report(int aSourceId, ComplaintType aComplaintType) {
             return String.Format("/Complaint/Create?sourceId={0}&complaintType={1}", aSourceId, aComplaintType.ToString());
         }
+
+        public static string SendMessage(User aUser) {
+            return SendMessage(aUser, string.Empty);
+        }
+
+        public static string SendMessage(User aUser, string aSubject) {
+            return "/Message/Create/" + aUser.Id + "?subject=" + aSubject;
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace HaveAVoice.Services.Petitions {
         Petition CreatePetition(UserInformationModel<User> aUserInformation, CreatePetitionModel aCreatePetitionModel);
         bool SignPetition(UserInformationModel<User> aUserInformation, CreatePetitionSignatureModel aCreatePetitionSignatureModel);
         bool SetPetitionAsInactive(UserInformationModel<User> aUserInformation, int aPetitionId);
-        IEnumerable<Petition> GetPetitions(UserInformationModel<User> aUser);
+        IEnumerable<Petition> GetPetitions();
         DisplayPetitionModel GetPetition(UserInformationModel<User> aUser, int aPetitionId);
         bool HasSignedPetition(UserInformationModel<User> aUser, int aPetitionId);
     }

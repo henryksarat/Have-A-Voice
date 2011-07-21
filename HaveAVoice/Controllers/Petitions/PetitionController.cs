@@ -107,16 +107,10 @@ namespace HaveAVoice.Controllers.Petitions {
 
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult List() {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-
             IEnumerable<Petition> myPetitions = new List<Petition>();
 
             try {
-                UserInformationModel<User> myUser = GetUserInformatonModel();
-
-                myPetitions = thePetitionService.GetPetitions(myUser);
+                myPetitions = thePetitionService.GetPetitions();
 
                 if (myPetitions.Count<Petition>() == 0) {
                     ViewData["Message"] = MessageHelper.NormalMessage(NO_PETITIONS);

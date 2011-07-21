@@ -22,6 +22,7 @@ using Social.Generic.Services;
 using Social.Messaging.Services;
 using Social.User.Services;
 using Social.Users.Services;
+using Social.Messaging.Models;
 
 namespace HaveAVoice.Controllers.Users {
     public class MessageController : AbstractMessageController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline, Message, Reply> {
@@ -41,16 +42,16 @@ namespace HaveAVoice.Controllers.Users {
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        new public ActionResult Inbox(List<Int32> selectedMessages) {
+        public ActionResult Inbox(List<Int32> selectedMessages) {
             return base.DeleteMessages(selectedMessages);
         }
 
-        [AcceptVerbs(HttpVerbs.Get)]
-        new public ActionResult Create(int id) {
-            return base.Create(id);
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
+        new public ActionResult Create(int id, string subject) {
+            return base.Create(id, subject);
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
         new public ActionResult Create(int toUserId, string subject, string body) {
             return base.Create(toUserId, subject, body);
         }
@@ -129,8 +130,8 @@ namespace HaveAVoice.Controllers.Users {
             return RedirectToAction("Show", "Profile");
         }
 
-        protected override ILoggedInModel<User> CreatedLoggedInModelForCreatingAMessage(User aUser) {
-            return new LoggedInWrapperModel<User>(aUser, SiteSection.Message);
+        protected override ILoggedInModel<CreateMessageModel<User>> CreatedLoggedInModelForCreatingAMessage(User aUser) {
+            return new LoggedInWrapperModel<CreateMessageModel<User>>(aUser, SiteSection.Message);
         }
     }
 }

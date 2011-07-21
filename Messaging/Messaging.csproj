@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\MessageHelper.cs" />
+    <Compile Include="Models\CreateMessageModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IHAVMessageRepository.cs" />
     <Compile Include="Services\MessageService.cs" />

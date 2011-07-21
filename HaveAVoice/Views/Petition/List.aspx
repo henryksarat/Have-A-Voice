@@ -57,10 +57,8 @@
                                 Signatures: <%= mySignatures%><br />
                                 <% if (PetitionHelper.IsOwner(myUserInfo, myPetition)) { %>
                                     You are an admin<br />
-                                    <% if(!myPetition.Active) { %>
-                                        This group is NOT active
-                                    <% } %>
                                 <% } %>
+                                Active: <%= myPetition.Active ? "YES" : "NO" %> 
                             </span>
                     </div>
 		    	</div>

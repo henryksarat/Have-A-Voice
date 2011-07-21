@@ -42,14 +42,14 @@
 		<div class="clear">&nbsp;</div>
 	</div>
 		
-    <div class="push-19 alpha col-2 omega">
+    <div class="push-20 alpha col-2 omega">
 		<div class="p-a5">
             <a href="http://twitter.com/share" class="twitter-share-button" data-count="none" data-via="haveavoice_">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
         </div>
         <div class="clear">&nbsp;</div>
     </div>
 
-    <div class="push-19 alpha col-2">
+    <div class="push-20 alpha col-2">
 		<div class="p-a5">
             <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="#" layout="button_count" show_faces="false" width="90" font="arial"></fb:like>
         </div>
@@ -60,7 +60,7 @@
 	    <div class="clear">&nbsp;</div>
 	        
 	    <div class="m-btm10">
-            <div class="push-2 m-lft col-16 m-rgt comment">
+            <div class="push-1 m-lft col-16 m-rgt comment">
                 <div class="p-a10">
                     <h1><a href="/Petition/Details/<%= Model.Petition.Id %>"><%= Model.Petition.Title%></a></h1>
                     <br><%= Model.Petition.Description %>
@@ -69,12 +69,24 @@
                 </div>
             </div>
 
-            <div class="push-2 col-4 stats fnt-12 m-rgt">
+            <div class="push-1 col-6 stats fnt-12 m-rgt">
                 <div class="clear">&nbsp;</div>
                 <div class="p-a5">
                     <h4 class="m-btm5">Petition Information:</h4>
-                    <div class="bold">Created:</div>
-                    <div class="m-lft10 m-btm5"><%= LocalDateHelper.ToLocalTime(Model.Petition.DateTimeStamp)%></div>
+                    <div class="m-btm5"><span class="bold">Creation Date:</span> <%= LocalDateHelper.ToLocalTime(Model.Petition.DateTimeStamp)%></div>
+                    <div class="m-btm5">
+                        <span class="bold">Created By:</span> 
+                        <a class="petitionlink" href="<%= LinkHelper.Profile(Model.Petition.User) %>">
+                            <%= NameHelper.FullName(Model.Petition.User) %>
+                        </a>
+                    </div>
+                    <div class="m-lft10 m-btm5">
+                        <% if(myUserInfo == null || myUserInfo.UserId != Model.Petition.UserId) { %>
+                            <a class="petitionlink" href="<%= LinkHelper.SendMessage(Model.Petition.User, "Petition Question: " + Model.Petition.Title)%>">
+                                Ask a the creator a question
+                            </a>
+                        <% } %>
+                    </div>
                     <% int myPetitionSignatures = Model.Petition.PetitionSignatures.Count<PetitionSignature>(); %>
                     <div class="m-btm5"><span class="bold">Active: </span><%= Model.Petition.Active ? "YES" : "NO" %></div>
                     <div class="m-btm5"><span class="bold">City Origin: </span><%= Model.Petition.City %></div>
@@ -221,33 +233,35 @@
 
         <div class="clear">&nbsp;</div>
         <% foreach (PetitionSignature mySignature in Model.Petition.PetitionSignatures) { %>
-            <div class="group m-btm10 m-top10">
+            <div class="petition m-btm10 m-top10">
                 <div class="push-5 col-2 center">
                     <a href="<%= LinkHelper.Profile(mySignature.User) %>">
                         <img alt="<%= NameHelper.FullName(mySignature.User) %>" class="profile" src="<%= PhotoHelper.ProfilePicture(mySignature.User) %>"/ >
                     </a>
                     <div class="clear">&nbsp;</div>
                 </div>
-                <div class="push-6 m-lft col-12 m-rgt comment">
+                <div class="push-5 m-lft col-12 m-rgt comment">
                     <span class="speak-lft">&nbsp;</span>
                     <div class="p-a10">
-                        <a class="name" href="<%= LinkHelper.Profile(mySignature.User) %>">
+                        <a class="petition-name" href="<%= LinkHelper.Profile(mySignature.User) %>">
                             <%= NameHelper.FullName(mySignature.User) %>
                             </a>
                             <% bool myHasComment = !string.IsNullOrEmpty(mySignature.Comment); %>
                             &nbsp;<%= myHasComment ? mySignature.Comment : "No comment" %>
                         <div class="clear">&nbsp;</div>
-                        <div class="col-11 options">
-                            <div class="p-v10">
-                                <div class="col-6 center"><span class="bold">Address:</span> <%= mySignature.Address %> <%= mySignature.City %>, <%= mySignature.State %> </div>
-                                <% bool myHasEmail = !string.IsNullOrEmpty(mySignature.Email); %>
-                                <div class="col-5 center"><span class="bold">Email:</span> <%= myHasEmail ? mySignature.Email : "NA"%> </div>
-                                <div class="clear">&nbsp;</div>
+                        <% if(Model.ViewSignatureDetails) { %>
+                            <div class="col-11 options">
+                                <div class="p-v10">
+                                    <div class="col-6 center"><span class="bold">Address:</span> <%= mySignature.Address %> <%= mySignature.City %>, <%= mySignature.State %> </div>
+                                    <% bool myHasEmail = !string.IsNullOrEmpty(mySignature.Email); %>
+                                    <div class="col-5 center"><span class="bold">Email:</span> <%= myHasEmail ? mySignature.Email : "NA"%> </div>
+                                    <div class="clear">&nbsp;</div>
+                                </div>
                             </div>
-                        </div>
+                        <% } %>
                     </div>
                 </div>
-                <div class="col-3 date-tile push-6">
+                <div class="col-3 date-tile push-5">
                     <div class="p-a10">
                         <div class="">
                             <span><%= LocalDateHelper.ToLocalTime(mySignature.DateTimeStamp) %></span>

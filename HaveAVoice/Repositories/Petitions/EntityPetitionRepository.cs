@@ -26,16 +26,14 @@ namespace HaveAVoice.Repositories.Petitions {
             return myPetition;
         }
 
-        public IEnumerable<Petition> GetPetitions(User aUser) {
+        public IEnumerable<Petition> GetPetitions() {
             return (from p in theEntities.Petitions
-                    where p.Active || p.UserId == aUser.Id
                     select p).OrderBy(p => p.Title);
         }
 
-        public Petition GetPetition(User aUser, int aPetitionId) {
+        public Petition GetPetition(int aPetitionId) {
             return (from p in theEntities.Petitions
-                    where (p.Active || p.UserId == aUser.Id)
-                    && p.Id == aPetitionId
+                    where p.Id == aPetitionId
                     select p).FirstOrDefault<Petition>();
         }
 
@@ -47,7 +45,7 @@ namespace HaveAVoice.Repositories.Petitions {
         }
 
         public void SetPetitionAsInactive(User aUser, int aPetitionId) {
-            Petition myPetition = GetPetition(aUser, aPetitionId);
+            Petition myPetition = GetPetition(aPetitionId);
             myPetition.Active = false;
             myPetition.DeactivatedByUserId = aUser.Id;
             myPetition.DeactivatedDateTimeStamp = DateTime.UtcNow;

@@ -14,6 +14,7 @@ using Social.User.Repositories;
 using Social.User.Services;
 using Social.Users.Services;
 using Social.Validation;
+using Social.Messaging.Models;
 
 namespace BaseWebsite.Controllers.Messaging {
     //T = User
@@ -58,7 +59,7 @@ namespace BaseWebsite.Controllers.Messaging {
 
         protected abstract ILoggedInListModel<InboxMessage<T>> CreateLoggedInListModelForInbox(T aUser);
         protected abstract ILoggedInModel<A> CreatedLoggedInModelForViewingMessage(T aUser);
-        protected abstract ILoggedInModel<T> CreatedLoggedInModelForCreatingAMessage(T aUser);
+        protected abstract ILoggedInModel<CreateMessageModel<T>> CreatedLoggedInModelForCreatingAMessage(T aUser);
         protected abstract AbstractMessageModel<A, T> CreateNewMessageSocialMessageModel(T aUser);
 
         protected ActionResult Inbox() {
@@ -103,21 +104,26 @@ namespace BaseWebsite.Controllers.Messaging {
             return RedirectToAction(INBOX_VIEW);
         }
 
-        protected ActionResult Create(int id) {
+        protected ActionResult Create(int anId, string aSubject) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
 
-            if (isSelf(id)) {
+            if (isSelf(anId)) {
                 return RedirectToAction(INBOX_VIEW);
             }
 
-            T myUserSendingMessageTo = theUserRetrievalService.GetUser(id);
+            T myUserSendingMessageTo = theUserRetrievalService.GetUser(anId);
             T myLoggedInUser = GetUserInformatonModel().Details;
-            ILoggedInModel<T> myModel = CreatedLoggedInModelForCreatingAMessage(myLoggedInUser);
+            ILoggedInModel<CreateMessageModel<T>> myModel = CreatedLoggedInModelForCreatingAMessage(myLoggedInUser);
 
             try {
-                myModel.Set(myUserSendingMessageTo);
+                CreateMessageModel<T> myMessageModel = new CreateMessageModel<T>() {
+                    SendToUser = myUserSendingMessageTo,
+                    DefaultSubject = aSubject 
+
+                };
+                myModel.Set(myMessageModel);
                 return View(CREATE_VIEW, myModel);
             } catch (Exception e) {
                 LogError(e, USER_RETRIEVAL_ERROR);
@@ -140,7 +146,7 @@ namespace BaseWebsite.Controllers.Messaging {
                 theValidationDictionary.ForceModleStateExport();
             }
 
-            return RedirectToAction(CREATE_VIEW, CONTROLLER_NAME, new { id = aToUserId });
+            return RedirectToAction(CREATE_VIEW, CONTROLLER_NAME, new { id = aToUserId, subject = aSubject });
         }
 
         protected ActionResult Details(int id) {

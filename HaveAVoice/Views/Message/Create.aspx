@@ -1,8 +1,9 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInWrapperModel<User>>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInWrapperModel<CreateMessageModel<User>>>" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
 <%@ Import Namespace="HaveAVoice.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
+<%@ Import Namespace="Social.Messaging.Models" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Send a Message
@@ -21,19 +22,19 @@
 	    <div class="clear">&nbsp;</div>
 	    
 	    <div class="col-3">
-        <%= NameHelper.FullName(Model.Get()) %>
-	    	<img src="<%= PhotoHelper.ProfilePicture(Model.Get()) %>" alt="<%= NameHelper.FullName(Model.Get()) %>" class="profile" />
+        <%= NameHelper.FullName(Model.Get().SendToUser) %>
+	    	<img src="<%= PhotoHelper.ProfilePicture(Model.Get().SendToUser) %>" alt="<%= NameHelper.FullName(Model.Get().SendToUser) %>" class="profile" />
 	    	<div class="clear">&nbsp;</div>
 	    </div>
 	    <div class="col-18">
 	    	<div class="col-18">
-	    		<h4><%= Html.Encode("Message: " + NameHelper.FullName(Model.Get()))%></h4>
+	    		<h4><%= Html.Encode("Message: " + NameHelper.FullName(Model.Get().SendToUser))%></h4>
 				<div class="clear">&nbsp;</div>
 	    	</div>
 	    	<div class="clear">&nbsp;</div>
 	    	
 	        <% using (Html.BeginForm("Create", "Message", FormMethod.Post, new { @class = "create" })) { %>
-		        <%= Html.Hidden("ToUserId", Model.Get().Id)%>
+		        <%= Html.Hidden("ToUserId", Model.Get().SendToUser.Id)%>
 		        
 		        <div class="clear">&nbsp;</div>
 		        
@@ -43,7 +44,7 @@
 			    		<div class="clear">&nbsp;</div>
 			    	</div>
 			    	<div class="col-6">
-			    		<%= Html.TextBox("Subject", "") %>
+			    		<%= Html.TextBox("Subject", Model.Get().DefaultSubject) %>
 			    		<div class="clear">&nbsp;</div>
 			    	</div>
 			    	<div class="m-lft col-8">

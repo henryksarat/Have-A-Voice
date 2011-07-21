@@ -65,26 +65,31 @@ namespace HaveAVoice.Services.Petitions {
             return true;
         }
 
-        public IEnumerable<Petition> GetPetitions(UserInformationModel<User> aUser) {
-            return theGroupRepository.GetPetitions(aUser.Details);
+        public IEnumerable<Petition> GetPetitions() {
+            return theGroupRepository.GetPetitions();
         }
 
         public DisplayPetitionModel GetPetition(UserInformationModel<User> aUser, int aPetitionId) {
             DisplayPetitionModel myDisplayPetitionModel = new DisplayPetitionModel();
-            Petition myPetition = theGroupRepository.GetPetition(aUser.Details, aPetitionId);
+            Petition myPetition = theGroupRepository.GetPetition(aPetitionId);
             myDisplayPetitionModel.ViewSignatureDetails = CanView(aUser, myPetition);
             myDisplayPetitionModel.Petition = myPetition;
             return myDisplayPetitionModel;
         }
 
         public bool HasSignedPetition(UserInformationModel<User> aUser, int aPetitionId) {
-            PetitionSignature myPetitionSignature = theGroupRepository.GetPetitionSignature(aUser.Details, aPetitionId);
-            return myPetitionSignature != null;
+            bool myHasSigned = true;
+            //Must be logged in to sign
+            if (aUser != null) {
+                PetitionSignature myPetitionSignature = theGroupRepository.GetPetitionSignature(aUser.Details, aPetitionId);
+                myHasSigned = myPetitionSignature != null;
+            }
+            return myHasSigned;
         }
 
         public bool CanView(UserInformationModel<User> aUser, Petition aPetition) {
             bool myIsAdmin = false;
-            if (aPetition.UserId == aUser.UserId
+            if (aUser != null && aPetition.UserId == aUser.UserId
                 || PermissionHelper<User>.AllowedToPerformAction(aUser, SocialPermission.View_Any_Petition_Signature_Details)) {
                 myIsAdmin = true;
             }

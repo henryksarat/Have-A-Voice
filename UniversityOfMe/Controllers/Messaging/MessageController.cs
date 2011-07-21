@@ -19,6 +19,7 @@ using UniversityOfMe.Repositories;
 using UniversityOfMe.Repositories.Messaging;
 using UniversityOfMe.Repositories.UserRepos;
 using UniversityOfMe.UserInformation;
+using Social.Messaging.Models;
 
 namespace UniversityOfMe.Controllers.Messaging {
     public class MessageController : AbstractMessageController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline, Message, MessageReply> {
@@ -49,13 +50,13 @@ namespace UniversityOfMe.Controllers.Messaging {
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
-        new public ActionResult Create(int id) {
-            return base.Create(id);
+        new public ActionResult Create(int id, string subject) {
+            return base.Create(id, subject);
         }
 
         [AcceptVerbs(HttpVerbs.Post), ImportModelStateFromTempData]
-        public ActionResult CreateByButtonClick(int id) {
-            return base.Create(id);
+        public ActionResult CreateByButtonClick(int id, string subject) {
+            return base.Create(id, subject);
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
@@ -137,8 +138,8 @@ namespace UniversityOfMe.Controllers.Messaging {
             return RedirectToAction("Show", "Profile");
         }
 
-        protected override ILoggedInModel<User> CreatedLoggedInModelForCreatingAMessage(User aUser) {
-            return new LoggedInWrapperModel<User>(aUser);
+        protected override ILoggedInModel<CreateMessageModel<User>> CreatedLoggedInModelForCreatingAMessage(User aUser) {
+            return new LoggedInWrapperModel<CreateMessageModel<User>>(aUser);
         }
     }
 }

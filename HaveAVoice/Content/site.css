@@ -296,7 +296,8 @@ a.grouplink, a.grouplink:link, a.grouplink:visited { text-decoration: underline;
 /****************************************************************************/
 .petition { color: #fff; font-size: 12px; font-style: normal; }
 .petition .header { color: #fff; position: relative; background: #000000; /* min-height: 120px; */  }
-a.petitionlink, a.petitionlink:link, a.petitionlink:visited { text-decoration: underline; color: #fff; font-size: 12px; font-style: normal; }
+a.petitionlink, a.petitionlink:link, a.petitionlink:visited { text-decoration: underline; color: #8c8383; font-size: 12px; font-style: normal; }
+a.petition-name, a.petition-name:link, a.petition-name:visited { font-style: normal; font-weight: bold; text-decoration: none; color: #FFFFFF; }
 
 /****************************************************************************/
 /***************************** CREATE ACCOUNT *******************************/
