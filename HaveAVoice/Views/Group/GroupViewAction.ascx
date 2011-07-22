@@ -69,6 +69,18 @@
 	            <div class="clear">&nbsp;</div>
 	            <div class="spacer-10">&nbsp;</div>
 
+                <div class="col-4 m-rgt right">
+	                <label for="Name">Make Public:</label>
+	                <div class="clear">&nbsp;</div>
+	            </div>
+	            <div class="col-6">
+	                <%= Html.RadioButton("MakePublic", true, Model.MakePublic)%> Yes
+                    <%= Html.RadioButton("MakePublic", false, !Model.MakePublic)%> No
+	                <div class="clear">&nbsp;</div>
+	            </div>
+	            <div class="clear">&nbsp;</div>
+	            <div class="spacer-10">&nbsp;</div>
+
 	                
 	            <div class="col-4 m-rgt right">
     	            <label for="Description">Description:</label>

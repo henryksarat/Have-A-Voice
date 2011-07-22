@@ -23,6 +23,7 @@ namespace HaveAVoice.Controllers.Groups {
         private const string GROUP_ACTIVATED = "The group has been activated again!";
         private const string NO_GROUPS = "There are no groups currently. Go ahead and create one!";
         private const string NOT_IN_GROUPS = "You are not in any groups yet. Do a search and join some!";
+        private const string GROUP_DOESNT_EXIST = "That group is either closed or doesn't exist.";
 
         private const string GROUP_LIST_ERROR = "Error getting group list. Please try again.";
         private const string GROUP_GET_FOR_EDIT_ERROR = "Error getting the group for an edit. Please try again.";
@@ -119,8 +120,11 @@ namespace HaveAVoice.Controllers.Groups {
                 UserInformationModel<User> myUser = GetUserInformatonModel();
 
                 Group myGroup = theGroupService.GetGroup(myUser, id);
-
-                return View("Details", myGroup);
+                if (myGroup != null) {
+                    return View("Details", myGroup);
+                } else {
+                    return SendToResultPage(GROUP_DOESNT_EXIST);
+                }
             } catch (Exception myException) {
                 LogError(myException, GET_GROUP_ERROR);
                 return SendToResultPage(GET_GROUP_ERROR);
@@ -218,10 +222,6 @@ namespace HaveAVoice.Controllers.Groups {
         }
 
         private ActionResult GetGroupSearchResults(bool aMyGroups) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-
             IEnumerable<Group> myGroups = new List<Group>();
 
             try {

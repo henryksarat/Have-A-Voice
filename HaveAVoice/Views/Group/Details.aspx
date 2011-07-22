@@ -82,7 +82,7 @@
                 <div class="p-a5">
                     <h4 class="m-btm5">Group Stats</h4>
                     <div class="bold">Created:</div>
-                    <div class="m-lft10 m-btm5"><%= LocalDateHelper.ToLocalTime(Model.DateTimeStamp) %></div>
+                    <div class="m-lft10 m-btm5"><%= LocalDateHelper.ToLocalTime(Model.CreatedDateTimeStamp) %></div>
                     <% int myGroupMembers = Model.GroupMembers.Where(gm => !gm.Deleted).Where(gm => !gm.OldRecord).Where(gm => gm.Approved == HAVConstants.APPROVED).Count<GroupMember>(); %>
                     <div class="m-btm5"><span class="bold">Members: </span><%= myGroupMembers %></div>
                     <div class=""><span class="bold">Board Posts: </span><%= Model.GroupBoards.Count %></div>
@@ -94,16 +94,16 @@
                     <div class="clear">&nbsp;</div>
                     <div class="p-a5">
                         <h4 class="m-btm5">Group Options</h4>
-                        <% if (GroupHelper.IsAdmin(myUserInfo.Details, Model.Id)) { %>
+                        <% if (GroupHelper.IsAdmin(myUserInfo, Model.Id)) { %>
                             <%= Html.ActionLink("Edit", "Edit", "Group", new { id = Model.Id }, new { @class = "grouplink" })%><br />
                             <% if (Model.Active) { %>                
                                 <%= Html.ActionLink("Set group as inactive", "Deactivate", "Group", new { id = Model.Id }, new { @class = "grouplink" })%><br />
                             <% } else { %>
                                 <%= Html.ActionLink("Set group as active", "Activate", "Group", new { id = Model.Id }, new { @class = "grouplink" })%><br />
                             <% } %>    
-                            <% } else if (GroupHelper.IsPending(myUserInfo.Details, Model.Id)) { %>
+                            <% } else if (GroupHelper.IsPending(myUserInfo, Model.Id)) { %>
                                 <%= Html.ActionLink("Cancel my request to join", "Cancel", "GroupMember", new { groupId = Model.Id }, new { @class = "grouplink" })%><br />
-                            <% } else if (GroupHelper.IsMember(myUserInfo.Details, Model.Id)) { %>
+                            <% } else if (GroupHelper.IsMember(myUserInfo, Model.Id)) { %>
                                 <%= Html.ActionLink("Quit organization", "Remove", "GroupMember", new { groupId = Model.Id }, new { @class = "grouplink" })%><br />
                             <% } else { %>
                                 <%= Html.ActionLink("Request to join organization", "RequestToJoin", "GroupMember", new { groupId = Model.Id }, new { @class = "grouplink" })%><br />
@@ -116,7 +116,7 @@
 		</div>
 		<div class="clear">&nbsp;</div>
 
-        <% if(GroupHelper.IsAdmin(myUserInfo.Details, Model.Id)) { %>
+        <% if(GroupHelper.IsAdmin(myUserInfo, Model.Id)) { %>
             <div class="group">
                 <div class="push-6 m-lft col-14 m-rgt header">    
                     <div class="p-a10">
@@ -174,8 +174,8 @@
                 </div>
             </div>
         </div>
-        <% bool myIsMember = GroupHelper.IsMember(myUserInfo.Details, Model.Id); %>
-            <% if(myIsMember) { %>
+        <% bool myIsMember = GroupHelper.IsMember(myUserInfo, Model.Id); %>
+        <% if(myIsMember) { %>
 	        <div class="clear">&nbsp;</div>
             <%= Html.Hidden("GroupId", Model.Id) %>
             <% string myProfilePicture = Social.Generic.Constants.Constants.ANONYMOUS_PICTURE_URL; %>
@@ -213,18 +213,19 @@
         <% } %>
 
         <div class="clear">&nbsp;</div>
+        <% if(Model.MakePublic || !Model.MakePublic && GroupHelper.IsMember(myUserInfo, Model.Id)) %>
         <% foreach (GroupBoard myGroupBoard in Model.GroupBoards.OrderByDescending(gb => gb.DateTimeStamp)) { %>
-            <div class="group m-btm10">
-                <div class="push-6 col-2 center">
+            <div class="group m-btm10 m-top10">
+                <div class="push-5 col-2 center">
                     <a href="<%= LinkHelper.Profile(myGroupBoard.User) %>">
                         <img alt="<%= NameHelper.FullName(myGroupBoard.User) %>" class="profile" src="<%= PhotoHelper.ProfilePicture(myGroupBoard.User) %>"/ >
                     </a>
                     <div class="clear">&nbsp;</div>
                 </div>
-                <div class="push-6 m-lft col-12 m-rgt comment">
+                <div class="push-5 m-lft col-12 m-rgt comment">
                     <span class="speak-lft">&nbsp;</span>
                     <div class="p-a10">
-                        <a class="name" href="<%= LinkHelper.Profile(myGroupBoard.User) %>">
+                        <a class="group-name" href="<%= LinkHelper.Profile(myGroupBoard.User) %>">
                             <%= NameHelper.FullName(myGroupBoard.User) %>
                             </a>
                             &nbsp;<%= myGroupBoard.Message %>
@@ -238,7 +239,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3 date-tile push-6">
+                <div class="col-3 date-tile push-5">
                     <div class="p-a10">
                         <div class="">
                             <span><%= LocalDateHelper.ToLocalTime(myGroupBoard.DateTimeStamp) %></span>
@@ -250,6 +251,19 @@
             </div>
 
             <div class="clear">&nbsp;</div>
+        <% } else { %>
+            <div class="reply">
+			    <div class="row">
+				    <div class="col-14 comment push-6">
+					    <div class="msg-2">
+						    The privacy settings of the group allow only members of the group to view the postings on the board. Please request to join the group to see the board.
+					    </div>
+					    <div class="clear">&nbsp;</div>
+				    </div>
+                    <div class="clear">&nbsp;</div>
+			    </div>
+                <div class="clear">&nbsp;</div>
+		    </div>
         <% } %>
 	<% } %>
 </div>

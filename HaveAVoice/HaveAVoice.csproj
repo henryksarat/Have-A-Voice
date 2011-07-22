@@ -379,8 +379,8 @@
     <Content Include="Views\AuthorityVerification\Create.aspx" />
     <Content Include="Views\AuthorityVerification\Verify.aspx" />
     <Content Include="Views\BoardReply\Edit.aspx" />
-    <Content Include="Views\BoardReply\Board\Edit.aspx" />
-    <Content Include="Views\BoardReply\Board\Details.aspx" />
+    <Content Include="Views\Board\Edit.aspx" />
+    <Content Include="Views\Board\Details.aspx" />
     <Content Include="Views\Calendar\List.aspx" />
     <Content Include="Views\Complaint\Create.aspx" />
     <Content Include="Views\GroupMember\Details.aspx" />

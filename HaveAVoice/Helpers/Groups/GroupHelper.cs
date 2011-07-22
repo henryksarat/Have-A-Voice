@@ -16,19 +16,19 @@ namespace HaveAVoice.Helpers.Groups {
             return myAdminCount > 0 || PermissionHelper<User>.AllowedToPerformAction(myUserInfo, SocialPermission.Edit_Any_Group);
         }
 
-        public static bool IsAdmin(User aUser, int aClubId) {
+        public static bool IsAdmin(UserInformationModel<User> aUser, int aGroupId) {
             IGroupService myGroupService = new GroupService(new ModelStateWrapper(new ModelStateDictionary()));
-            return myGroupService.IsAdmin(aUser, aClubId);
+            return myGroupService.IsAdmin(aUser, aGroupId);
         }
 
-        public static bool IsMember(User aUser, int aClubId) {
+        public static bool IsMember(UserInformationModel<User> aUser, int aGroupId) {
             IGroupService myClubService = new GroupService(new ModelStateWrapper(new ModelStateDictionary()));
-            return myClubService.IsApartOfGroup(aUser.Id, aClubId);
+            return myClubService.IsApartOfGroup(aUser, aGroupId);
         }
 
-        public static bool IsPending(User aUser, int aClubId) {
+        public static bool IsPending(UserInformationModel<User> aUser, int aGroupId) {
             IGroupService myClubService = new GroupService(new ModelStateWrapper(new ModelStateDictionary()));
-            return myClubService.IsPendingApproval(aUser.Id, aClubId);
+            return myClubService.IsPendingApproval(aUser, aGroupId);
         }
 
         public static IEnumerable<GroupAdminFeed> GetAdminFeed(Group aGroup, int aLimit) {

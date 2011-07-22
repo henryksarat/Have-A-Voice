@@ -35,7 +35,7 @@ namespace HaveAVoice.Services.Groups {
         }
 
         public bool ActivateGroup(UserInformationModel<User> aUser, int aGroupId) {
-            if (!ValidateAdmin(aUser.Details, aGroupId)) {
+            if (!ValidateAdmin(aUser, aGroupId)) {
                 return false;
             }
 
@@ -64,7 +64,8 @@ namespace HaveAVoice.Services.Groups {
                 return null;
             }
 
-            Group myGroup = theGroupRepository.CreateGroup(aUser.Details, aGroupModel.Name, aGroupModel.Description, aGroupModel.AutoAccept);
+            Group myGroup = theGroupRepository.CreateGroup(aUser.Details, aGroupModel.Name, 
+                aGroupModel.Description, aGroupModel.AutoAccept, aGroupModel.MakePublic);
 
             try {
                 int myIntHolder;
@@ -82,7 +83,7 @@ namespace HaveAVoice.Services.Groups {
         }
 
         public bool DeactivateGroup(UserInformationModel<User> aUser, int aGroupId) {
-            if (!ValidateAdmin(aUser.Details, aGroupId)) {
+            if (!ValidateAdmin(aUser, aGroupId)) {
                 return false;
             }
 
@@ -96,8 +97,12 @@ namespace HaveAVoice.Services.Groups {
         }
 
         public Group GetGroup(UserInformationModel<User> aUser, int aGroupId) {
-            theGroupRepository.MarkGroupBoardAsViewed(aUser.Details, aGroupId);
-            return theGroupRepository.GetGroup(aUser.Details, aGroupId);
+            if (aUser != null) {
+                theGroupRepository.MarkGroupBoardAsViewed(aUser.Details, aGroupId);
+                return theGroupRepository.GetGroup(aUser.Details, aGroupId);
+            } else {
+                return theGroupRepository.GetActiveGroupOnly(aGroupId);
+            }
         }
 
         public bool EditGroup(UserInformationModel<User> aUserEditing, EditGroupModel anEditGroupModel) {
@@ -113,6 +118,7 @@ namespace HaveAVoice.Services.Groups {
             myGroup.Name = anEditGroupModel.Name;
             myGroup.Description = anEditGroupModel.Description;
             myGroup.AutoAccept = anEditGroupModel.AutoAccept;
+            myGroup.MakePublic = anEditGroupModel.MakePublic;
             myGroup.LastEditedByUserId = aUserEditing.UserId;
             myGroup.LastEditedDateTimeStamp = DateTime.UtcNow;
 
@@ -152,7 +158,7 @@ namespace HaveAVoice.Services.Groups {
         }
 
         public bool EditGroupMember(UserInformationModel<User> aUser, int aGroupId, int aGroupMemberId, string aTitle, bool anAdministrator) {
-            if (!ValidTitle(aTitle) | !ValidateAdmin(aUser.Details, aGroupId)) {
+            if (!ValidTitle(aTitle) | !ValidateAdmin(aUser, aGroupId)) {
                 return false;
             }
 
@@ -162,7 +168,7 @@ namespace HaveAVoice.Services.Groups {
         }
 
         public EditGroupModel GetGroupForEdit(UserInformationModel<User> aUser, int aGroupId) {
-            if (!IsAdmin(aUser.Details, aGroupId)) {
+            if (!IsAdmin(aUser, aGroupId)) {
                 if (!PermissionHelper<User>.AllowedToPerformAction(theValidationDictionary, aUser, SocialPermission.Edit_Any_Group)) {
                     throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
                 }
@@ -178,7 +184,7 @@ namespace HaveAVoice.Services.Groups {
         public GroupMember GetGroupMember(UserInformationModel<User> aUser, int aGroupMemberId) {
             GroupMember myGroupMember = theGroupRepository.GetGroupMember(aGroupMemberId);
             if (myGroupMember != null) {
-                bool myIsAdmin = IsAdmin(aUser.Details, myGroupMember.GroupId);
+                bool myIsAdmin = IsAdmin(aUser, myGroupMember.GroupId);
                 if (!myIsAdmin) {
                     myGroupMember = null;
                 }
@@ -193,19 +199,39 @@ namespace HaveAVoice.Services.Groups {
         public IEnumerable<Group> GetGroups(UserInformationModel<User> aUser, string aSearchTerm, SearchBy aSearchBy, OrderBy orderBy, bool aMyGroups) {
             IEnumerable<Group> myGroups = new List<Group>();
 
-            if (aSearchBy == SearchBy.All) {
-                myGroups = theGroupRepository.GetGroupsByAll(aUser.Details, aMyGroups);
-            } else if (aSearchBy == SearchBy.City) {
-                myGroups = theGroupRepository.GetGroupsByCity(aUser.Details, aSearchTerm, aMyGroups);
-            } else if (aSearchBy == SearchBy.Name) {
-                myGroups = theGroupRepository.GetGroupsByName(aUser.Details, aSearchTerm, aMyGroups);
-            } else if (aSearchBy == SearchBy.Tags) {
-                myGroups = theGroupRepository.GetGroupsByKeywordTags(aUser.Details, aSearchTerm, aMyGroups);
-            } else if (aSearchBy == SearchBy.ZipCode) {
-                if (!ZipCodeValidation.IsValid(aSearchTerm)) {
-                    throw new CustomException("The zip code must be 5 digits long.");
+            if (aMyGroups) {
+                if (aSearchBy == SearchBy.All) {
+                    myGroups = theGroupRepository.GetMyGroupsByAll(aUser.Details);
+                } else if (aSearchBy == SearchBy.City) {
+                    myGroups = theGroupRepository.GetMyGroupsByCity(aUser.Details, aSearchTerm);
+                } else if (aSearchBy == SearchBy.Name) {
+                    myGroups = theGroupRepository.GetMyGroupsByName(aUser.Details, aSearchTerm);
+                } else if (aSearchBy == SearchBy.Tags) {
+                    myGroups = theGroupRepository.GetMyGroupsByKeywordTags(aUser.Details, aSearchTerm);
+                } else if (aSearchBy == SearchBy.ZipCode) {
+                    if (!ZipCodeValidation.IsValid(aSearchTerm)) {
+                        throw new CustomException("The zip code must be 5 digits long.");
+                    }
+                    myGroups = theGroupRepository.GetMyGroupsByZipCode(aUser.Details, int.Parse(aSearchTerm));
                 }
-                myGroups = theGroupRepository.GetGroupsByZipCode(aUser.Details, int.Parse(aSearchTerm), aMyGroups);
+            } else {
+                User myUser = aUser != null ? aUser.Details : null;
+                bool myIncludeAdmin = aUser != null;
+
+                if (aSearchBy == SearchBy.All) {
+                    myGroups = theGroupRepository.GetGroupsByAll(myUser, myIncludeAdmin);
+                } else if (aSearchBy == SearchBy.City) {
+                    myGroups = theGroupRepository.GetGroupsByCity(myUser, aSearchTerm, myIncludeAdmin);
+                } else if (aSearchBy == SearchBy.Name) {
+                    myGroups = theGroupRepository.GetGroupsByName(myUser, aSearchTerm, myIncludeAdmin);
+                } else if (aSearchBy == SearchBy.Tags) {
+                    myGroups = theGroupRepository.GetGroupsByKeywordTags(myUser, aSearchTerm, myIncludeAdmin);
+                } else if (aSearchBy == SearchBy.ZipCode) {
+                    if (!ZipCodeValidation.IsValid(aSearchTerm)) {
+                        throw new CustomException("The zip code must be 5 digits long.");
+                    }
+                    myGroups = theGroupRepository.GetGroupsByZipCode(myUser, int.Parse(aSearchTerm), myIncludeAdmin);
+                }
             }
 
             if (orderBy == OrderBy.City) {
@@ -225,19 +251,32 @@ namespace HaveAVoice.Services.Groups {
             return myGroups;
         }
 
-        public bool IsAdmin(User aUser, int aGroupId) {
-            GroupMember myGroupMember = theGroupRepository.GetGroupMember(aUser.Id, aGroupId);
-            return myGroupMember != null && myGroupMember.Administrator;
+        public bool IsAdmin(UserInformationModel<User> aUser, int aGroupId) {
+            bool myIsAdmin = false;
+            if (aUser != null) {
+                GroupMember myGroupMember = theGroupRepository.GetGroupMember(aUser.Details.Id, aGroupId);
+                myIsAdmin = myGroupMember != null && myGroupMember.Administrator;
+            }
+
+            return myIsAdmin;
         }
 
-        public bool IsApartOfGroup(int aUserId, int aGroupId) {
-            GroupMember myGroupMember = theGroupRepository.GetGroupMember(aUserId, aGroupId);
-            return myGroupMember != null && !myGroupMember.Deleted && myGroupMember.Approved == HAVConstants.APPROVED;
+        public bool IsApartOfGroup(UserInformationModel<User> aUser, int aGroupId) {
+            bool myIsAllowed = false;
+            if (aUser != null) {
+                GroupMember myGroupMember = theGroupRepository.GetGroupMember(aUser.UserId, aGroupId);
+                return myGroupMember != null && !myGroupMember.Deleted && myGroupMember.Approved == HAVConstants.APPROVED;
+            }
+            return myIsAllowed;
         }
 
-        public bool IsPendingApproval(int aUserId, int aGroupId) {
-            GroupMember myGroupMember = theGroupRepository.GetGroupMember(aUserId, aGroupId);
-            return myGroupMember != null && !myGroupMember.Deleted && myGroupMember.Approved == HAVConstants.PENDING;
+        public bool IsPendingApproval(UserInformationModel<User> aUser, int aGroupId) {
+            bool myIsAllowed = false;
+            if (aUser != null) {
+                GroupMember myGroupMember = theGroupRepository.GetGroupMember(aUser.UserId, aGroupId);
+                return myGroupMember != null && !myGroupMember.Deleted && myGroupMember.Approved == HAVConstants.PENDING;
+            }
+            return myIsAllowed;
         }
 
         public bool PostToGroupBoard(UserInformationModel<User> aPostingUser, int aGroupId, string aMessage) {
@@ -290,7 +329,7 @@ namespace HaveAVoice.Services.Groups {
             return myOrderByOptionsDictionary;
         }
 
-        private bool ValidateAdmin(User aUser, int aGroupId) {
+        private bool ValidateAdmin(UserInformationModel<User> aUser, int aGroupId) {
             if (!IsAdmin(aUser, aGroupId)) {
                 theValidationDictionary.AddError("GroupMemberAdmin", string.Empty, "You are not an admin of the group.");
             }

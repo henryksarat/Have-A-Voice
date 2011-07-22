@@ -20,8 +20,10 @@ namespace HaveAVoice.Models.View {
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string CreatorTitle { get; set; }
-        
+
         public bool AutoAccept { get; set; }
+
+        public bool MakePublic { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string ZipCodeTags { get; set; }
@@ -37,13 +39,16 @@ namespace HaveAVoice.Models.View {
 
         public ViewAction ViewAction { get; set; }
 
-        public EditGroupModel() { }
+        public EditGroupModel() {
+            MakePublic = true;
+        }
 
         public EditGroupModel(Group aGroup) {
             Id = aGroup.Id;
             Name = aGroup.Name;
             Description = aGroup.Description;
             AutoAccept = aGroup.AutoAccept;
+            MakePublic = aGroup.MakePublic;
             ZipCodeTags = string.Join(",", aGroup.GroupZipCodeTags.Select(z => z.ZipCode));
             KeywordTags = string.Join(",", aGroup.GroupTags.Select(t => t.Tag));
             

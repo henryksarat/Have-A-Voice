@@ -146,9 +146,9 @@ namespace HaveAVoice.Controllers.Groups {
             try {
                 UserInformationModel<User> myUserInformation = GetUserInformatonModel();
 
-                if (theGroupService.IsPendingApproval(myUserInformation.Details.Id, groupId)) {
+                if (theGroupService.IsPendingApproval(myUserInformation, groupId)) {
                     TempData["Message"] += MessageHelper.NormalMessage(PENDING);
-                } else if (theGroupService.IsApartOfGroup(myUserInformation.Details.Id, groupId)) {
+                } else if (theGroupService.IsApartOfGroup(myUserInformation, groupId)) {
                     TempData["Message"] += MessageHelper.NormalMessage(APPROVED);
                 } else {
                     string myMessage;

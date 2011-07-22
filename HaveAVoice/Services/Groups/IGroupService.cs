@@ -19,9 +19,9 @@ namespace HaveAVoice.Services.Groups {
         GroupMember GetGroupMember(UserInformationModel<User> aUser, int aGroupMemberId);
         IEnumerable<GroupMember> GetActiveGroupMembers(int aGroupId);
         IEnumerable<Group> GetGroups(UserInformationModel<User> aUser, string aSearchTerm, SearchBy aSearchBy, OrderBy orderBy, bool aMyGroups);
-        bool IsAdmin(User aUser, int aGroupId);
-        bool IsApartOfGroup(int aUserId, int aGroupId);
-        bool IsPendingApproval(int aUserId, int aGroupId);
+        bool IsAdmin(UserInformationModel<User> aUser, int aGroupId);
+        bool IsApartOfGroup(UserInformationModel<User> aUser, int aGroupId);
+        bool IsPendingApproval(UserInformationModel<User> aUser, int aGroupId);
         IDictionary<string, string> OrderByOptions();
         bool PostToGroupBoard(UserInformationModel<User> aPostingUser, int aGroupId, string aMessage);
         bool RemoveGroupMember(UserInformationModel<User> aGroupAdmin, int aCurrentUserId, int aGroupId);

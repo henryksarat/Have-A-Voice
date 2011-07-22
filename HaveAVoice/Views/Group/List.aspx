@@ -69,7 +69,7 @@
                                 Members: <%= myGroupMembers %><br />
                                 <% int myGroupBoardCount = myGroup.GroupBoards.Count; %>
                                 <% DateTime myDateTime = myGroup.GroupBoards.Count > 0 ? myGroup.GroupBoards.Max(gb => gb.DateTimeStamp) : DateTime.UtcNow; %>
-                                <% if (GroupHelper.IsAdmin(myUserInfo.Details, myGroup.Id)) { %>
+                                <% if (GroupHelper.IsAdmin(myUserInfo, myGroup.Id)) { %>
                                     You are an admin<br />
                                     <% if(!myGroup.Active) { %>
                                         This group is NOT active
