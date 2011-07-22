@@ -50,5 +50,14 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     && ir.UserId != aUser.Id
                     select v).ToList<IssueReplyViewedState>();
         }
+
+        public IEnumerable<GroupMember> UnreadGroupBoardPosts(User aUser) {
+            return (from gm in theEntities.GroupMembers
+                    where gm.MemberUserId == aUser.Id
+                    && !gm.Deleted
+                    && !gm.OldRecord
+                    && !gm.BoardViewed
+                    select gm);
+        }
     }
 }

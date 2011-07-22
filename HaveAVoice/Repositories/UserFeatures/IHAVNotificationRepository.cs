@@ -13,5 +13,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
         
         IEnumerable<IssueReplyViewedState> UnreadIssueReplies(User aUser);
         IEnumerable<IssueReplyViewedState> UnreadParticipatingIssueReplies(User aUser);
+        IEnumerable<GroupMember> UnreadGroupBoardPosts(User aUser);
     }
 }

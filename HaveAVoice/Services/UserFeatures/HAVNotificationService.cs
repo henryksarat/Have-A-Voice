@@ -26,8 +26,11 @@ namespace HaveAVoice.Services.UserFeatures {
             int myUnreadIssues = theNotificationRepo.UnreadIssues(aUser).Count<IssueViewedState>();
             int myUnreadIssueReplies = theNotificationRepo.UnreadIssueReplies(aUser).Count<IssueReplyViewedState>();
             int myUnreadParticipatingIssueReplies = theNotificationRepo.UnreadParticipatingIssueReplies(aUser).Count<IssueReplyViewedState>();
+            int myUnreadGroupMemberBoardPostings = theNotificationRepo.UnreadGroupBoardPosts(aUser).Count<GroupMember>(); ;
 
-            return myUnreadBoards + myUnreadParticipatingBoards + myUnreadIssues + myUnreadIssueReplies + myUnreadParticipatingIssueReplies;
+            return myUnreadBoards + myUnreadParticipatingBoards 
+                + myUnreadIssues + myUnreadIssueReplies
+                + myUnreadParticipatingIssueReplies + myUnreadGroupMemberBoardPostings;
         }
 
         public IEnumerable<NotificationModel> GetNotifications(User aUser) {
@@ -36,13 +39,17 @@ namespace HaveAVoice.Services.UserFeatures {
             IEnumerable<IssueViewedState> myUnreadIssues = theNotificationRepo.UnreadIssues(aUser);
             IEnumerable<IssueReplyViewedState> myUnreadIssueReplies = theNotificationRepo.UnreadIssueReplies(aUser);
             IEnumerable<IssueReplyViewedState> myUnreadParticipatingIssueReplies = theNotificationRepo.UnreadParticipatingIssueReplies(aUser);
+            IEnumerable<GroupMember> myUnreadGroupMemberBoardPostings = theNotificationRepo.UnreadGroupBoardPosts(aUser);
 
-            return CreateModel(myUnreadBoards, myUnreadParticipatingBoards, myUnreadIssues, myUnreadIssueReplies, myUnreadParticipatingIssueReplies);
+            return CreateModel(myUnreadBoards, myUnreadParticipatingBoards, 
+                myUnreadIssues, myUnreadIssueReplies, 
+                myUnreadParticipatingIssueReplies, myUnreadGroupMemberBoardPostings);
         }
 
         private IEnumerable<NotificationModel> CreateModel(IEnumerable<Board> aBoards, IEnumerable<BoardViewedState> aParticipatingBoards, 
                                                            IEnumerable<IssueViewedState> anIssueStates, IEnumerable<IssueReplyViewedState> anIssueReplies, 
-                                                           IEnumerable<IssueReplyViewedState> aParticipatingIssueReplies) {
+                                                           IEnumerable<IssueReplyViewedState> aParticipatingIssueReplies,
+                                                           IEnumerable<GroupMember> aGroupMemberBoardPosts) {
             List<NotificationModel> myNotifications = new List<NotificationModel>();
             foreach (Board myBoard in aBoards) {
                 myNotifications.Add(new NotificationModel() {
@@ -87,6 +94,42 @@ namespace HaveAVoice.Services.UserFeatures {
                     Label = myViewState.IssueReply.Reply,
                     Id = myViewState.IssueReply.Id.ToString(),
                     DateTimeStamp = myViewState.LastUpdated
+                });
+            }
+
+            foreach (BoardViewedState myBoard in aParticipatingBoards) {
+                myNotifications.Add(new NotificationModel() {
+                    NotificationType = NotificationType.ParticipatingBoard,
+                    Label = myBoard.Board.Message,
+                    Id = myBoard.Board.Id.ToString(),
+                    DateTimeStamp = myBoard.DateTimeStamp
+                });
+            }
+
+            foreach (IssueViewedState myViewState in anIssueStates) {
+                myNotifications.Add(new NotificationModel() {
+                    NotificationType = NotificationType.Issue,
+                    Label = myViewState.Issue.Title,
+                    Id = IssueTitleHelper.ConvertForUrl(myViewState.Issue.Title),
+                    DateTimeStamp = myViewState.LastUpdated
+                });
+            }
+
+            foreach (IssueReplyViewedState myViewState in anIssueReplies) {
+                myNotifications.Add(new NotificationModel() {
+                    NotificationType = NotificationType.IssueReply,
+                    Label = myViewState.IssueReply.Reply,
+                    Id = myViewState.IssueReply.Id.ToString(),
+                    DateTimeStamp = myViewState.LastUpdated
+                });
+            }
+
+            foreach (GroupMember myViewState in aGroupMemberBoardPosts) {
+                myNotifications.Add(new NotificationModel() {
+                    NotificationType = NotificationType.GroupBoardPost,
+                    Label = myViewState.Group.Name,
+                    Id = myViewState.GroupId.ToString(),
+                    DateTimeStamp = (DateTime)myViewState.LastBoardPost
                 });
             }
 

@@ -113,8 +113,8 @@ namespace HaveAVoice.Controllers.Users.Photos {
             return new LoggedInWrapperModel<PhotoAlbum>(aUser, SiteSection.Photos);
         }
 
-        protected override ILoggedInListModel<PhotoAlbum> CreateLoggedInListModel(User myUserOfAlbum, User aRequestingUser) {
-            return new LoggedInListModel<PhotoAlbum>(myUserOfAlbum, aRequestingUser, SiteSection.Photos);
+        protected override ILoggedInListModel<PhotoAlbum> CreateLoggedInListModel(User aUserOfAlbum, User aRequestingUser) {
+            return new LoggedInListModel<PhotoAlbum>(aUserOfAlbum, aRequestingUser, SiteSection.Photos);
         }
 
         protected override ActionResult RedirectToProfile() {

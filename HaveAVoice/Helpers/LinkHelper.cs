@@ -9,7 +9,13 @@ using HaveAVoice.Models.View;
 namespace HaveAVoice.Helpers {
     public static class LinkHelper {
         public static string Profile(User aUser) {
-            return "/" + aUser.ShortUrl;
+            string myUrl = "/Profile/Show/" + aUser.Id;
+
+            if (!string.IsNullOrEmpty(aUser.ShortUrl)) {
+                myUrl = "/" + aUser.ShortUrl;
+            }
+
+            return myUrl;
         }
 
         public static string IssueUrl(string aTitle) {

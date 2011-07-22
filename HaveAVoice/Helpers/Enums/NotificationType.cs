@@ -9,6 +9,7 @@ namespace HaveAVoice.Helpers.Enums {
         ParticipatingBoard,
         Issue,
         IssueReply,
-        ParticipatingIssueReply
+        ParticipatingIssueReply,
+        GroupBoardPost
     }
 }

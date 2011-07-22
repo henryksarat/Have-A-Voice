@@ -198,7 +198,7 @@ namespace HaveAVoice.Controllers.Users {
                 return RedirectToLogin();
             }
             User myUser = GetUserInformaton();
-            LoggedInWrapperModel<UserProfileModel> myModel = new LoggedInWrapperModel<UserProfileModel>(myUser, SiteSection.MyIssueActivity);
+            LoggedInWrapperModel<UserProfileModel> myModel = new LoggedInWrapperModel<UserProfileModel>(myUser, SiteSection.IssueActivity);
 
             try {
                 myModel.Model = theService.UserIssueActivity(myUser.Id, myUser);

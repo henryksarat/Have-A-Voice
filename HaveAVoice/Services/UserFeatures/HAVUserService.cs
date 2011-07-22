@@ -99,7 +99,9 @@ namespace HaveAVoice.Services.UserFeatures {
             myOriginalUser.Website = aUser.Website;
             myOriginalUser.Gender = aUser.Gender;
             myOriginalUser.AboutMe = aUser.AboutMe;
-            myOriginalUser.ShortUrl = aUser.ShortUrl;
+            if (!string.IsNullOrEmpty(aUser.ShortUrl)) {
+                myOriginalUser.ShortUrl = aUser.ShortUrl;
+            }
 
             theUserRepo.UpdateUser(myOriginalUser);
 

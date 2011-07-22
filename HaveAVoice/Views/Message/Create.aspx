@@ -21,18 +21,16 @@
 	    <% Html.RenderPartial("Validation"); %>
 	    <div class="clear">&nbsp;</div>
 	    
-	    <div class="col-3">
-        <%= NameHelper.FullName(Model.Get().SendToUser) %>
-	    	<img src="<%= PhotoHelper.ProfilePicture(Model.Get().SendToUser) %>" alt="<%= NameHelper.FullName(Model.Get().SendToUser) %>" class="profile" />
+	    <div class="col-3 center">
+            <a class="name" href="<%= LinkHelper.Profile(Model.Get().SendToUser) %>">
+                <%= NameHelper.FullName(Model.Get().SendToUser) %>
+            </a>
+            <a href="<%= LinkHelper.Profile(Model.Get().SendToUser) %>">
+	    	    <img src="<%= PhotoHelper.ProfilePicture(Model.Get().SendToUser) %>" alt="<%= NameHelper.FullName(Model.Get().SendToUser) %>" class="profile" />
+            </a>
 	    	<div class="clear">&nbsp;</div>
 	    </div>
-	    <div class="col-18">
-	    	<div class="col-18">
-	    		<h4><%= Html.Encode("Message: " + NameHelper.FullName(Model.Get().SendToUser))%></h4>
-				<div class="clear">&nbsp;</div>
-	    	</div>
-	    	<div class="clear">&nbsp;</div>
-	    	
+	    <div class="col-18">	    	
 	        <% using (Html.BeginForm("Create", "Message", FormMethod.Post, new { @class = "create" })) { %>
 		        <%= Html.Hidden("ToUserId", Model.Get().SendToUser.Id)%>
 		        
@@ -43,7 +41,7 @@
 			    		<label>Subject:</label>
 			    		<div class="clear">&nbsp;</div>
 			    	</div>
-			    	<div class="col-6">
+			    	<div class="col-8">
 			    		<%= Html.TextBox("Subject", Model.Get().DefaultSubject) %>
 			    		<div class="clear">&nbsp;</div>
 			    	</div>
@@ -59,8 +57,8 @@
 						<label>Message:</label>
 						<div class="clear">&nbsp;</div>
 					</div>
-					<div class="col-6">
-						<%= Html.TextArea("Body", null, new { cols = "31", rows = "4", resize = "none", @class="fnt-12" })%>
+					<div class="col-8">
+						<%= Html.TextArea("Body", null, new { cols = "60", rows = "8", resize = "none", @class="fnt-12" })%>
 						<div class="clear">&nbsp;</div>
 					</div>
 					<div class="m-lft col-8">
@@ -71,9 +69,10 @@
 					</div>
 					<div class="clear">&nbsp;</div>
 				</div>
-				
+				<div class="push-2">
 				<input type="submit" class="create" value="Send" />
-				<%= Html.ActionLink("Cancel", "Index", null, new { @class = "cancel" }) %>
+				    <%= Html.ActionLink("Cancel", "Index", null, new { @class = "cancel" }) %>
+                </div>
 	    	<% } %>
 		    <div class="clear">&nbsp;</div>
 	    </div>

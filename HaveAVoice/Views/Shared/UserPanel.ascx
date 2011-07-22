@@ -102,9 +102,11 @@
 		<div class="clear">&nbsp;</div>
 
 		<div class="m-lft col-15 m-rgt user-control">
-			<h1>
-				<%= Model.FullName %>
-			</h1>
+			<div class="m-lft10">
+                <h1>
+				    <%= Model.FullName %>
+			    </h1>
+            </div>
             <% if (myUser != null) { %>
                 <% if (Model.SiteSection == SiteSection.Profile) { %>
                     <% if (!FriendHelper.IsFriend(Model.User, myUser.Details)) { %>

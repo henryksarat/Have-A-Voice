@@ -25,14 +25,17 @@ namespace HaveAVoice.Models.View {
                 return myLocation;
             }
         }
+        public bool IsMyOwnProfile { get; set; }
 
-        public NavigationModel(User aUser, SiteSection aSection) {
+        public NavigationModel(User aUser, SiteSection aSection, bool aMyOwnProfile) {
+            IsMyOwnProfile = aMyOwnProfile;
             User = aUser;
             ProfilePictureUrl = PhotoHelper.ProfilePicture(aUser);
             FullName = NameHelper.FullName(aUser);
             SiteSection = aSection;
 
-            UserNavigationMenuModel myHomeMenuItem = new UserNavigationMenuModel(SiteSection.Home, UserPanelNav.HOME_GREY_BUTTON);
+            SiteSection myHomeSiteSection = IsMyOwnProfile ? SiteSection.MyProfile : SiteSection.Home;
+            UserNavigationMenuModel myHomeMenuItem = new UserNavigationMenuModel(myHomeSiteSection, UserPanelNav.HOME_GREY_BUTTON);
             UserNavigationMenuModel myIssueActivityMenuItem = new UserNavigationMenuModel(SiteSection.IssueActivity, UserPanelNav.ISSUE_ACTIVITY_GREY_BUTTON);
             UserNavigationMenuModel myPhotoMenuItem = new UserNavigationMenuModel(SiteSection.Photos, UserPanelNav.PHOTO_GREY_BUTTON);
             UserNavigationMenuModel myEventMenuItem = new UserNavigationMenuModel(SiteSection.Calendar, UserPanelNav.CALENDAR_GREY_BUTTON);

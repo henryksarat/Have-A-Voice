@@ -31,6 +31,8 @@
                     New comments to a reply to an issue you are participating in: <%= Html.ActionLink(item.Label, "Details", "IssueReply", new { id = item.Id }, null)%> <div class="f-rgt"><%= item.DateTimeStamp.ToString("MMMM dd, yyyy") %></div>
                 <% } else if(item.NotificationType == NotificationType.IssueReply) { %>
                     Someone commented on your <%= Html.ActionLink("reply", "Details", "IssueReply", new { id = item.Id }, null) %> to an issue.
+                <% } else if(item.NotificationType == NotificationType.GroupBoardPost) { %>
+                    Someone posted to the board of the group <%= Html.ActionLink(item.Label, "Details", "Group", new { id = item.Id }, null) %>.
                 <% } %>
 	    		<div class="clear">&nbsp;</div>
 	    	</div>

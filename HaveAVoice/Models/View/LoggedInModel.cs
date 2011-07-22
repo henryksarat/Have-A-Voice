@@ -6,9 +6,12 @@ using HaveAVoice.Util;
 namespace HaveAVoice.Models.View {
     public class LoggedInModel {
         public NavigationModel NavigationModel { get; private set; }
+        private bool theIsMyProfile;
 
         public LoggedInModel(User aPanelForUser, User aLoggedInUser, SiteSection aSection) {
-            NavigationModel = new NavigationModel(aPanelForUser, aSection);
+            theIsMyProfile = aPanelForUser.Id == aLoggedInUser.Id;
+
+            NavigationModel = new NavigationModel(aPanelForUser, aSection, theIsMyProfile);
 
             if(PrivacyHelper.IsAllowed(aPanelForUser, Helpers.Enums.PrivacyAction.DisplayProfile)) {
                 BuildMenu(aPanelForUser, aLoggedInUser);
@@ -18,7 +21,7 @@ namespace HaveAVoice.Models.View {
         }
 
         private void BuildFanNavigationItem(User aPanelForUser, User aLoggedInUser, SiteSection aSection) {
-            if (aLoggedInUser != null && IsAProfilePage(aSection) && !MyOwnPage(aPanelForUser, aLoggedInUser)) {
+            if (aLoggedInUser != null && IsAProfilePage(aSection) && !theIsMyProfile) {
                 if (!FanHelper.IsFan(aPanelForUser.Id, aLoggedInUser)) {
                     NavigationModel.FanMetaData = new NavigationItemModel() {
                         AltText = "Fan this user",
@@ -44,7 +47,8 @@ namespace HaveAVoice.Models.View {
         }
 
         private void BuildMenu(User aPanelForUser, User aLoggedInUser) {
-            UserNavigationMenuModel myHomeMenuItem = new UserNavigationMenuModel(SiteSection.Home, UserPanelNav.HOME_BUTTON) {
+            SiteSection myHomeSection = theIsMyProfile ? SiteSection.MyProfile : SiteSection.Home;
+            UserNavigationMenuModel myHomeMenuItem = new UserNavigationMenuModel(myHomeSection, UserPanelNav.HOME_BUTTON) {
                 Url = "/Profile/Show"
             };
 
@@ -61,7 +65,7 @@ namespace HaveAVoice.Models.View {
             };
 
 
-            if (MyOwnPage(aPanelForUser, aLoggedInUser)) {
+            if (theIsMyProfile) {
                 myHomeMenuItem.AltText = "my homepage";
                 myIssueActivityMenuItem.AltText = "issues I'm participating in";
                 myPhotoMenuItem.AltText = "my photos";
@@ -80,10 +84,6 @@ namespace HaveAVoice.Models.View {
             myMenu.Add(myEventMenuItem);
 
             NavigationModel.UserMenuMetaData = myMenu;
-        }
-
-        private static bool MyOwnPage(User aPanelForUser, User aLoggedInUser) {
-            return aPanelForUser.Id == aLoggedInUser.Id;
         }
     }
 }
