@@ -35,8 +35,6 @@ namespace Social.Generic.Models {
         public DateTime? ForgotPasswordHashDateTimeStamp { get; set; }
         public int? Zip { get; set; }
         [DisplayFormat(ConvertEmptyStringToNull = false)]
-        public string ShortUrl { get; set; }
-        [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Gender { get; set; }
 
         public abstract T CreateNewModel();

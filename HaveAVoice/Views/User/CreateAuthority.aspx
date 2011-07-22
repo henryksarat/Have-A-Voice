@@ -224,25 +224,6 @@
 					<div class="clear">&nbsp;</div>
 					<div class="spacer-10">&nbsp;</div>
 										
-	    			<div class="col-4 m-rgt right">
-	    				<label for="FirstName">have a voice<sup>&trade;</sup> URL:</label>
-	    			</div>
-	    			<div class="col-8">
-	    				<div class="col-4 fnt-14 alpha omega">
-	    					www.haveavoice.com/
-	    				</div>
-	    				<div class="col-4">
-	    					<%= Html.TextBox("ShortUrl", Model.ShortUrl) %>
-	    				</div>
-	    			</div>
-	    			<div class="m-lft col-10">
-	    				<span class="req">
-		    				<%= Html.ValidationMessage("ShortUrl", "*") %>
-	    				</span>
-	    			</div>
-	    			<div class="clear">&nbsp;</div>
-	    			<div class="spacer-10">&nbsp;</div>
-
 					<div class="col-10">&nbsp;</div>
 					<div class="clear">&nbsp;</div>
 					<div class="col-4 m-rgt right">

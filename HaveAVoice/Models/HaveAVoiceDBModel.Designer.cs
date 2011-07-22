@@ -14088,9 +14088,8 @@ namespace HaveAVoice.Models
         /// <param name="registrationDate">Initial value of the RegistrationDate property.</param>
         /// <param name="registrationIp">Initial value of the RegistrationIp property.</param>
         /// <param name="zip">Initial value of the Zip property.</param>
-        /// <param name="shortUrl">Initial value of the ShortUrl property.</param>
         /// <param name="gender">Initial value of the Gender property.</param>
-        public static User CreateUser(global::System.Int32 id, global::System.String email, global::System.String password, global::System.String firstName, global::System.String lastName, global::System.String city, global::System.String state, global::System.DateTime dateOfBirth, global::System.DateTime lastLogin, global::System.DateTime registrationDate, global::System.String registrationIp, global::System.Int32 zip, global::System.String shortUrl, global::System.String gender)
+        public static User CreateUser(global::System.Int32 id, global::System.String email, global::System.String password, global::System.String firstName, global::System.String lastName, global::System.String city, global::System.String state, global::System.DateTime dateOfBirth, global::System.DateTime lastLogin, global::System.DateTime registrationDate, global::System.String registrationIp, global::System.Int32 zip, global::System.String gender)
         {
             User user = new User();
             user.Id = id;
@@ -14105,7 +14104,6 @@ namespace HaveAVoice.Models
             user.RegistrationDate = registrationDate;
             user.RegistrationIp = registrationIp;
             user.Zip = zip;
-            user.ShortUrl = shortUrl;
             user.Gender = gender;
             return user;
         }
@@ -14599,7 +14597,7 @@ namespace HaveAVoice.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String ShortUrl
         {
@@ -14611,7 +14609,7 @@ namespace HaveAVoice.Models
             {
                 OnShortUrlChanging(value);
                 ReportPropertyChanging("ShortUrl");
-                _ShortUrl = StructuralObject.SetValidValue(value, false);
+                _ShortUrl = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("ShortUrl");
                 OnShortUrlChanged();
             }

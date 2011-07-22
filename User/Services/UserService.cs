@@ -119,11 +119,6 @@ namespace Social.User.Services {
             } else if (theUserRepo.EmailRegistered(aUser.Email.Trim())) {
                 theValidationDictionary.AddError("Email", aUser.Email.Trim(), "Someone already registered with that email. Please try another one.");
             }
-            if (aUser.ShortUrl.Length == 0) {
-                theValidationDictionary.AddError("ShortUrl", aUser.ShortUrl, "You must give yourself a " + aBaseUrl + " url.");
-            } else if (theUserRepo.ShortUrlTaken(aUser.ShortUrl)) {
-                theValidationDictionary.AddError("ShortUrl", aUser.ShortUrl, "That " + aBaseUrl + " url is already taken by someone else.");
-            }
 
             return ValidateUser(aUser);
         }

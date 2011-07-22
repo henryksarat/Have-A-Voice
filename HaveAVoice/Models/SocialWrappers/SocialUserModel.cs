@@ -13,7 +13,7 @@ namespace HaveAVoice.Models.SocialWrappers {
         }
 
         public override User CreateNewModel() {
-            User myUser = User.CreateUser(Id, Email, Password, FirstName, LastName, City, State, DateOfBirth, LastLogin, RegistrationDate, RegistrationIp, int.Parse(Zip), ShortUrl, Gender);
+            User myUser = User.CreateUser(Id, Email, Password, FirstName, LastName, City, State, DateOfBirth, LastLogin, RegistrationDate, RegistrationIp, int.Parse(Zip), Gender);
             myUser.Website = Website;
             myUser.AboutMe = AboutMe;
             myUser.CookieHash = CookieHash;
@@ -38,7 +38,6 @@ namespace HaveAVoice.Models.SocialWrappers {
             LastLogin = anExternal.LastLogin;
             RegistrationDate = anExternal.RegistrationDate;
             RegistrationIp = anExternal.RegistrationIp;
-            ShortUrl = anExternal.ShortUrl;
             Gender = anExternal.Gender;
             Website = anExternal.Website;
             AboutMe = anExternal.AboutMe;
@@ -47,7 +46,6 @@ namespace HaveAVoice.Models.SocialWrappers {
             ActivationCode = anExternal.ActivationCode;
             ForgotPasswordHash = anExternal.ForgotPasswordHash;
             ForgotPasswordHashDateTimeStamp = anExternal.ForgotPasswordHashDateTimeStamp;
-            ShortUrl = anExternal.ShortUrl;
             Zip = anExternal.Zip.ToString();
         }
     }

@@ -9,6 +9,11 @@ namespace HaveAVoice.Models.View {
         public User UserInformation { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string ShortUrl { get; set; }
+
+        public bool HasShortUrl { get; set; }
+
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string OriginalFullName { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
@@ -41,6 +46,9 @@ namespace HaveAVoice.Models.View {
             ProfilePictureURL = Constants.NO_PROFILE_PICTURE_URL;
             States = new List<SelectListItem>();
             Genders = new List<SelectListItem>();
+            if (!string.IsNullOrEmpty(aUser.ShortUrl)) {
+                HasShortUrl = true;
+            }
         }
 
         public override User CreateNewModel() {

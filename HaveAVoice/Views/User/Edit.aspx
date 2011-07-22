@@ -54,7 +54,28 @@
 	            <%= Html.Hidden("OriginalPassword", Model.OriginalPassword) %>
 	            <%= Html.Hidden("UserId", Model.UserInformation.Id) %>
 	            <%= Html.Hidden("ProfilePictureURL", Model.ProfilePictureURL) %>
-	
+
+                <% if (!Model.HasShortUrl) { %>
+	    		    <div class="col-4 m-rgt right">
+	    			    <label for="FirstName">have a voice<sup>&trade;</sup> URL:</label>
+	    		    </div>
+	    		    <div class="col-8">
+	    			    <div class="col-4 fnt-14 alpha omega">
+	    				    www.haveavoice.com/
+	    			    </div>
+	    			    <div class="col-4">
+	    				    <%= Html.TextBox("ShortUrl", Model.ShortUrl)%>
+	    			    </div>
+	    		    </div>
+	    		    <div class="m-lft col-10">
+	    			    <span class="req">
+		    			    <%= Html.ValidationMessage("ShortUrl", "*")%>
+	    			    </span>
+	    		    </div>
+	    		    <div class="clear">&nbsp;</div>
+	    		    <div class="spacer-10">&nbsp;</div>
+                <% } %>
+
 	            <div class="col-6">
 					<label>Enter a new password:</label>
 	                If you wish to change your password,<br />
@@ -86,6 +107,7 @@
 		                <%= Html.ValidationMessage("FirstName", "*") %>
 	                </span>
 				</div>
+
 	            <div class="col-18 spacer-15">&nbsp;</div>
 	            <div class="col-6">
 	                <label>Last Name:</label>
@@ -96,6 +118,7 @@
 		                <%= Html.ValidationMessage("LastName", "*") %>
 	                </span>
 	            </div>
+
 				<div class="col-18 spacer-15">&nbsp;</div>
 	            <div class="col-6">
 	                <label>Date of Birth:</label>
@@ -107,6 +130,7 @@
 	                </span>
 	            </div>
 	            <div class="col-18 spacer-15">&nbsp;</div>
+
 				<div class="col-6">
 					<label>City:</label>
 				</div>

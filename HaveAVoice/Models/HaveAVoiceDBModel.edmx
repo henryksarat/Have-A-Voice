@@ -973,7 +973,7 @@
           <Property Name="ActivationCode" Type="varchar" MaxLength="100" />
           <Property Name="ForgotPasswordHash" Type="varchar" MaxLength="500" />
           <Property Name="ForgotPasswordHashDateTimeStamp" Type="datetime" />
-          <Property Name="ShortUrl" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="ShortUrl" Type="varchar" MaxLength="50" />
           <Property Name="UserPositionId" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="WhoIsOnline">
@@ -2894,7 +2894,7 @@
           <NavigationProperty Name="PhotoComplaints" Relationship="HaveAVoice.Models.FK_PhotoComplaints_Users" FromRole="User" ToRole="PhotoComplaint" />
           <NavigationProperty Name="FanOfPeople" Relationship="HaveAVoice.Models.FK_Fans_FanUserId_Users" FromRole="User" ToRole="Fan" />
           <NavigationProperty Name="FansOfMe" Relationship="HaveAVoice.Models.FK_Fans_SourceUserId_Users" FromRole="User" ToRole="Fan" />
-          <Property Type="String" Name="ShortUrl" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Type="String" Name="ShortUrl" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PrivacySettings" Relationship="HaveAVoice.Models.FK_PrivacySettings_Users" FromRole="User" ToRole="PrivacySetting" />
           <NavigationProperty Name="UserPrivacySettings" Relationship="HaveAVoice.Models.FK_UserPrivacySettings_Users" FromRole="User" ToRole="UserPrivacySetting" />
           <Property Name="Gender" Nullable="false" Type="String" />
@@ -5006,7 +5006,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="HaveAVoiceDBModel" ZoomLevel="75">
+      <Diagram Name="HaveAVoiceDBModel" ZoomLevel="53">
         <EntityTypeShape EntityType="HaveAVoice.Models.AuditBoard" Width="1.5" PointX="7.5" PointY="57.625" Height="2.3648893229166674" />
         <EntityTypeShape EntityType="HaveAVoice.Models.AuditBoardReply" Width="1.5" PointX="8.25" PointY="60.75" Height="2.3648893229166674" />
         <EntityTypeShape EntityType="HaveAVoice.Models.AuditIssueReplyComment" Width="1.5" PointX="8.25" PointY="53.75" Height="2.3648893229166674" />

@@ -101,6 +101,7 @@ namespace HaveAVoice.Services.UserFeatures {
             myOriginalUser.Website = aUser.Website;
             myOriginalUser.Gender = aUser.Gender;
             myOriginalUser.AboutMe = aUser.AboutMe;
+            myOriginalUser.ShortUrl = aUser.ShortUrl;
 
             theUserRepo.UpdateUser(myOriginalUser);
 
@@ -210,6 +211,9 @@ namespace HaveAVoice.Services.UserFeatures {
             }
             if (!EmailValidation.IsValidEmail(aUser.Email)) {
                 theValidationDictionary.AddError("Email", aUser.Email, INVALID_EMAIL);
+            }
+            if (!string.IsNullOrEmpty(aUser.ShortUrl) && theUserRepo.ShortUrlTaken(aUser.ShortUrl)) {
+                theValidationDictionary.AddError("ShortUrl", aUser.ShortUrl, "That have a voice URL is already taken by another member.");
             }
 
             return theValidationDictionary.isValid;
