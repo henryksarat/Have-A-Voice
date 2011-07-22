@@ -30,7 +30,7 @@
 	            <span class="blue">Email:</span> <%= Model.OriginalEmail %><br />
 			</div>
 
-	        <div class="col-6">
+	        <div class="col-6 details">
 			    <h4>About Me</h4>
 	            <%= Model.UserInformation.AboutMe %>
 	        </div>
@@ -38,14 +38,14 @@
 	
 		<div class="m-lft col-18 form">
 	        <% Html.RenderPartial("Message"); %>
-            <% Html.RenderPartial("Validation"); %>
 	
-	        <%= Html.ValidationSummary("Edit was unsuccessful. Please correct the errors and try again.") %>
 			<% Html.RenderPartial("PrivacyTabs", UserSettings.AccountSettings); %>
 					
+            <% Html.RenderPartial("Validation"); %>
+
 			<div class="clear">&nbsp;</div>
 
-			<% using(Html.BeginForm("Edit", "User", FormMethod.Post, new { enctype = "multipart/form-data" })) { %>
+			<% using(Html.BeginForm("Edit", "User", FormMethod.Post)) { %>
                 <%= Html.Hidden("Id", Model.UserInformation.Id) %>
 	            <%= Html.Hidden("OriginalEmail", Model.OriginalEmail) %>
                 <%= Html.Hidden("OriginalFullName", Model.OriginalFullName) %>
@@ -56,22 +56,28 @@
 	            <%= Html.Hidden("ProfilePictureURL", Model.ProfilePictureURL) %>
 
                 <% if (!Model.HasShortUrl) { %>
-	    		    <div class="col-4 m-rgt right">
-	    			    <label for="FirstName">have a voice<sup>&trade;</sup> URL:</label>
+	    		    <div class="col-18 center m-btm20">
+                        <div class="col-9 push-6 m-btm10">
+                            Let people access your profile easier with a have a voice <sup>&trade;</sup> URL. NOTE: Once you set this it can no longer be changed.
+                        </div>
+
+                        <div class="clear">&nbsp;</div>
+
+              		    <div class="col-8 push-6">
+	    			        <div class="col-4 fnt-14 alpha omega">
+	    				        www.haveavoice.com/
+	    			        </div>
+	    			        <div class="col-4">
+	    				        <%= Html.TextBox("ShortUrl", Model.ShortUrl)%>
+	    			        </div>
+	    		        </div>
+	    		        <div class="col-2 push-6">
+	    			        <span class="req">
+		    			        <%= Html.ValidationMessage("ShortUrl", "*")%>
+	    			        </span>
+	    		        </div>
 	    		    </div>
-	    		    <div class="col-8">
-	    			    <div class="col-4 fnt-14 alpha omega">
-	    				    www.haveavoice.com/
-	    			    </div>
-	    			    <div class="col-4">
-	    				    <%= Html.TextBox("ShortUrl", Model.ShortUrl)%>
-	    			    </div>
-	    		    </div>
-	    		    <div class="m-lft col-10">
-	    			    <span class="req">
-		    			    <%= Html.ValidationMessage("ShortUrl", "*")%>
-	    			    </span>
-	    		    </div>
+
 	    		    <div class="clear">&nbsp;</div>
 	    		    <div class="spacer-10">&nbsp;</div>
                 <% } %>

@@ -36,6 +36,8 @@ namespace Social.Generic.Models {
         public int? Zip { get; set; }
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Gender { get; set; }
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string ShortUrl { get; set; }
 
         public abstract T CreateNewModel();
     }

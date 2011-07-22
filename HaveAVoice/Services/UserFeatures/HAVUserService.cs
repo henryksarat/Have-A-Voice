@@ -81,11 +81,9 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public bool EditUser(EditUserModel aUser, string aHashedPassword) {
-            if (!ValidateEditedUser(aUser, aUser.OriginalEmail)) {
-                return false;
-            }
-
-            if (aUser.NewPassword != string.Empty && !PasswordValidation.ValidPassword(theValidationDictionary, aUser.NewPassword, aUser.RetypedPassword)) {
+            if (!ValidateEditedUser(aUser, aUser.OriginalEmail)
+                | ((aUser.NewPassword != string.Empty || aUser.RetypedPassword != string.Empty)
+                    && !PasswordValidation.ValidPassword(theValidationDictionary, aUser.NewPassword, aUser.RetypedPassword))) {
                 return false;
             } 
 
