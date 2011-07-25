@@ -87,6 +87,7 @@
     <Compile Include="Controllers\Users\BoardController.cs" />
     <Compile Include="Controllers\Users\BoardReplyController.cs" />
     <Compile Include="Controllers\Users\CalendarController.cs" />
+    <Compile Include="Controllers\Users\UserProfileQuestionsController.cs" />
     <Compile Include="Controllers\Users\FanController.cs" />
     <Compile Include="Controllers\Users\FriendController.cs" />
     <Compile Include="Controllers\Users\FeedbackController.cs" />
@@ -115,6 +116,9 @@
     <Compile Include="Helpers\PresentationHelper.cs" />
     <Compile Include="Helpers\ProfileHelper.cs" />
     <Compile Include="Helpers\ProfilePictureStrategy.cs" />
+    <Compile Include="Helpers\ProfileQuestions\PoliticalAffiliation.cs" />
+    <Compile Include="Helpers\ProfileQuestions\QuestionAnswer.cs" />
+    <Compile Include="Helpers\ProfileQuestions\ProfileQuestion.cs" />
     <Compile Include="Helpers\RegistrationStrategy.cs" />
     <Compile Include="Helpers\Search\OrderBy.cs" />
     <Compile Include="Helpers\Search\SearchBy.cs" />
@@ -161,6 +165,9 @@
     <Compile Include="Models\SocialWrappers\SocialRoleModel.cs" />
     <Compile Include="Models\SocialWrappers\SocialWhoIsOnlineModel.cs" />
     <Compile Include="Models\SocialWrappers\SocialUserModel.cs" />
+    <Compile Include="Models\UpdateUserProfileQuestionsModel.cs" />
+    <Compile Include="Models\View\Binders\UpdateUserProfileQuestionsModelBinder.cs" />
+    <Compile Include="Models\View\UserProfileQuestionsModel.cs" />
     <Compile Include="Models\View\AuthorityVerificationModel.cs" />
     <Compile Include="Models\View\Binders\UpdatePrivacySettingsModelBinder.cs" />
     <Compile Include="Models\View\Binders\ImageBinder.cs" />
@@ -201,6 +208,8 @@
     <Compile Include="Repositories\Issues\IHAVIssueReplyRepository.cs" />
     <Compile Include="Repositories\Petitions\EntityPetitionRepository.cs" />
     <Compile Include="Repositories\Petitions\IPetitionRepository.cs" />
+    <Compile Include="Repositories\Questions\EntityProfileQuestionsRepository.cs" />
+    <Compile Include="Repositories\Questions\IProfileQuestionsRepository.cs" />
     <Compile Include="Repositories\SiteFeatures\EntityHAVContactUsRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVFanRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVFanRepository.cs" />
@@ -218,6 +227,8 @@
     <Compile Include="Repositories\UserFeatures\EntityHAVUserRetrievalRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVWhoIsOnlineRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVAuthorityVerificationRepository.cs" />
+    <Compile Include="Services\Questions\IProfileQuestionService.cs" />
+    <Compile Include="Services\Questions\ProfileQuestionService.cs" />
     <Compile Include="Services\Groups\GroupService.cs" />
     <Compile Include="Services\Groups\IGroupService.cs" />
     <Compile Include="Services\Helpers\CookieHelper.cs" />
@@ -451,6 +462,7 @@
     <Content Include="Views\PhotoAlbum\List.aspx" />
     <Content Include="Views\UserPrivacySettings\Edit.aspx" />
     <Content Include="Views\Password\Process.aspx" />
+    <Content Include="Views\UserProfileQuestions\Edit.aspx" />
     <Content Include="Views\User\CreateAuthority.aspx" />
     <Content Include="Views\User\Create.aspx" />
     <Content Include="Views\User\Edit.aspx" />

@@ -6,7 +6,7 @@
 <%@ Import Namespace="Social.Generic" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Edit Privacy
+	Edit Privacy Settings
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -15,13 +15,13 @@
 	        <img src="<%= Model.NavigationModel.ProfilePictureUrl %>" alt="<%= Model.NavigationModel.FullName %>" class="profile" />
 	        <br />
 	        <div class="col-6 p-v10 details">
-				<span class="blue">Name:</span> <%= Model.NavigationModel.User.FirstName + " " + Model.NavigationModel.User.LastName%><br />
-				<span class="blue">Gender:</span> GENDER<br />
+				<span class="blue">Name:</span> <%= NameHelper.FullName(Model.NavigationModel.User)%><br />
+				<span class="blue">Gender:</span> <%= Model.NavigationModel.User.Gender %><br />
 				<span class="blue">Site:</span> <%= Model.NavigationModel.User.Website %><br />
 	            <span class="blue">Email:</span> <%= Model.NavigationModel.User.Email %><br />
 			</div>
 
-	        <div class="col-6">
+	        <div class="col-6 details">
 			    <h4>About Me</h4>
 	            <%= Model.NavigationModel.User.AboutMe %>
 	        </div>
@@ -45,8 +45,8 @@
                             <%= myPair.First.Description %>
 			            </div>
 			            <div class="push-1 col-6">
-			                Yes <%= Html.RadioButton(myPair.First.Name, true, myPair.Second)%>
-			                No <%= Html.RadioButton(myPair.First.Name, false, !myPair.Second)%>
+			                <%= Html.RadioButton(myPair.First.Name, true, myPair.Second)%> Yes
+			                <%= Html.RadioButton(myPair.First.Name, false, !myPair.Second)%> No
 			            </div>
 			            <div class="clear">&nbsp;</div>
 		            </div>

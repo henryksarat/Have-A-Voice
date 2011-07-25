@@ -4,7 +4,7 @@
 <%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Edit
+	Edit You Profile
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">

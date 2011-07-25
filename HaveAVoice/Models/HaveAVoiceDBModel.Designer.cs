@@ -106,6 +106,9 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Groups_LastEditedByUsers", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(HaveAVoice.Models.User), "Group", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Group), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_GroupTags_Groups", "Group", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Group), "GroupTag", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.GroupTag), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_GroupZipCodeTags_Groups", "Group", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Group), "GroupZipCodeTag", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.GroupZipCodeTag), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserProfileQuestions_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "UserProfileQuestion", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserProfileQuestion), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserProfileQuestionAnswers_UserProfileQuestions", "UserProfileQuestion", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.UserProfileQuestion), "UserProfileQuestionAnswer", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserProfileQuestionAnswer), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserProfileQuestionAnswers_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "UserProfileQuestionAnswer", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserProfileQuestionAnswer), true)]
 
 #endregion
 
@@ -956,6 +959,38 @@ namespace HaveAVoice.Models
             }
         }
         private ObjectSet<Group> _Groups;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<UserProfileQuestion> UserProfileQuestions
+        {
+            get
+            {
+                if ((_UserProfileQuestions == null))
+                {
+                    _UserProfileQuestions = base.CreateObjectSet<UserProfileQuestion>("UserProfileQuestions");
+                }
+                return _UserProfileQuestions;
+            }
+        }
+        private ObjectSet<UserProfileQuestion> _UserProfileQuestions;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<UserProfileQuestionAnswer> UserProfileQuestionAnswers
+        {
+            get
+            {
+                if ((_UserProfileQuestionAnswers == null))
+                {
+                    _UserProfileQuestionAnswers = base.CreateObjectSet<UserProfileQuestionAnswer>("UserProfileQuestionAnswers");
+                }
+                return _UserProfileQuestionAnswers;
+            }
+        }
+        private ObjectSet<UserProfileQuestionAnswer> _UserProfileQuestionAnswers;
 
         #endregion
         #region AddTo Methods
@@ -1358,6 +1393,22 @@ namespace HaveAVoice.Models
         public void AddToGroups(Group group)
         {
             base.AddObject("Groups", group);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the UserProfileQuestions EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToUserProfileQuestions(UserProfileQuestion userProfileQuestion)
+        {
+            base.AddObject("UserProfileQuestions", userProfileQuestion);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the UserProfileQuestionAnswers EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToUserProfileQuestionAnswers(UserProfileQuestionAnswer userProfileQuestionAnswer)
+        {
+            base.AddObject("UserProfileQuestionAnswers", userProfileQuestionAnswer);
         }
 
         #endregion
@@ -14665,6 +14716,30 @@ namespace HaveAVoice.Models
         private global::System.String _UserPositionId;
         partial void OnUserPositionIdChanging(global::System.String value);
         partial void OnUserPositionIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String PoliticalAffiliation
+        {
+            get
+            {
+                return _PoliticalAffiliation;
+            }
+            set
+            {
+                OnPoliticalAffiliationChanging(value);
+                ReportPropertyChanging("PoliticalAffiliation");
+                _PoliticalAffiliation = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("PoliticalAffiliation");
+                OnPoliticalAffiliationChanged();
+            }
+        }
+        private global::System.String _PoliticalAffiliation;
+        partial void OnPoliticalAffiliationChanging(global::System.String value);
+        partial void OnPoliticalAffiliationChanged();
 
         #endregion
     
@@ -15917,6 +15992,50 @@ namespace HaveAVoice.Models
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserProfileQuestions_Users", "UserProfileQuestion")]
+        public EntityCollection<UserProfileQuestion> UserProfileQuestions
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserProfileQuestion>("HaveAVoice.Models.FK_UserProfileQuestions_Users", "UserProfileQuestion");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserProfileQuestion>("HaveAVoice.Models.FK_UserProfileQuestions_Users", "UserProfileQuestion", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserProfileQuestionAnswers_Users", "UserProfileQuestionAnswer")]
+        public EntityCollection<UserProfileQuestionAnswer> UserProfileQuestionAnswers
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserProfileQuestionAnswer>("HaveAVoice.Models.FK_UserProfileQuestionAnswers_Users", "UserProfileQuestionAnswer");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserProfileQuestionAnswer>("HaveAVoice.Models.FK_UserProfileQuestionAnswers_Users", "UserProfileQuestionAnswer", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -16254,6 +16373,466 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_UserPrivacySettings_Users", "User", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="HaveAVoice.Models", Name="UserProfileQuestion")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class UserProfileQuestion : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new UserProfileQuestion object.
+        /// </summary>
+        /// <param name="name">Initial value of the Name property.</param>
+        /// <param name="createdByUserId">Initial value of the CreatedByUserId property.</param>
+        /// <param name="displayQuestion">Initial value of the DisplayQuestion property.</param>
+        /// <param name="description">Initial value of the Description property.</param>
+        /// <param name="questionGroup">Initial value of the QuestionGroup property.</param>
+        /// <param name="listOrder">Initial value of the ListOrder property.</param>
+        public static UserProfileQuestion CreateUserProfileQuestion(global::System.String name, global::System.Int32 createdByUserId, global::System.String displayQuestion, global::System.String description, global::System.String questionGroup, global::System.Int32 listOrder)
+        {
+            UserProfileQuestion userProfileQuestion = new UserProfileQuestion();
+            userProfileQuestion.Name = name;
+            userProfileQuestion.CreatedByUserId = createdByUserId;
+            userProfileQuestion.DisplayQuestion = displayQuestion;
+            userProfileQuestion.Description = description;
+            userProfileQuestion.QuestionGroup = questionGroup;
+            userProfileQuestion.ListOrder = listOrder;
+            return userProfileQuestion;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                if (_Name != value)
+                {
+                    OnNameChanging(value);
+                    ReportPropertyChanging("Name");
+                    _Name = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("Name");
+                    OnNameChanged();
+                }
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 CreatedByUserId
+        {
+            get
+            {
+                return _CreatedByUserId;
+            }
+            set
+            {
+                OnCreatedByUserIdChanging(value);
+                ReportPropertyChanging("CreatedByUserId");
+                _CreatedByUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CreatedByUserId");
+                OnCreatedByUserIdChanged();
+            }
+        }
+        private global::System.Int32 _CreatedByUserId;
+        partial void OnCreatedByUserIdChanging(global::System.Int32 value);
+        partial void OnCreatedByUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String DisplayQuestion
+        {
+            get
+            {
+                return _DisplayQuestion;
+            }
+            set
+            {
+                OnDisplayQuestionChanging(value);
+                ReportPropertyChanging("DisplayQuestion");
+                _DisplayQuestion = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("DisplayQuestion");
+                OnDisplayQuestionChanged();
+            }
+        }
+        private global::System.String _DisplayQuestion;
+        partial void OnDisplayQuestionChanging(global::System.String value);
+        partial void OnDisplayQuestionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Description
+        {
+            get
+            {
+                return _Description;
+            }
+            set
+            {
+                OnDescriptionChanging(value);
+                ReportPropertyChanging("Description");
+                _Description = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Description");
+                OnDescriptionChanged();
+            }
+        }
+        private global::System.String _Description;
+        partial void OnDescriptionChanging(global::System.String value);
+        partial void OnDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String QuestionGroup
+        {
+            get
+            {
+                return _QuestionGroup;
+            }
+            set
+            {
+                OnQuestionGroupChanging(value);
+                ReportPropertyChanging("QuestionGroup");
+                _QuestionGroup = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("QuestionGroup");
+                OnQuestionGroupChanged();
+            }
+        }
+        private global::System.String _QuestionGroup;
+        partial void OnQuestionGroupChanging(global::System.String value);
+        partial void OnQuestionGroupChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ListOrder
+        {
+            get
+            {
+                return _ListOrder;
+            }
+            set
+            {
+                OnListOrderChanging(value);
+                ReportPropertyChanging("ListOrder");
+                _ListOrder = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ListOrder");
+                OnListOrderChanged();
+            }
+        }
+        private global::System.Int32 _ListOrder;
+        partial void OnListOrderChanging(global::System.Int32 value);
+        partial void OnListOrderChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserProfileQuestions_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_UserProfileQuestions_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_UserProfileQuestions_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_UserProfileQuestions_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_UserProfileQuestions_Users", "User", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserProfileQuestionAnswers_UserProfileQuestions", "UserProfileQuestionAnswer")]
+        public EntityCollection<UserProfileQuestionAnswer> UserProfileQuestionAnswers
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserProfileQuestionAnswer>("HaveAVoice.Models.FK_UserProfileQuestionAnswers_UserProfileQuestions", "UserProfileQuestionAnswer");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserProfileQuestionAnswer>("HaveAVoice.Models.FK_UserProfileQuestionAnswers_UserProfileQuestions", "UserProfileQuestionAnswer", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="HaveAVoice.Models", Name="UserProfileQuestionAnswer")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class UserProfileQuestionAnswer : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new UserProfileQuestionAnswer object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="userProfileQuestionName">Initial value of the UserProfileQuestionName property.</param>
+        /// <param name="answer">Initial value of the Answer property.</param>
+        public static UserProfileQuestionAnswer CreateUserProfileQuestionAnswer(global::System.Int32 id, global::System.Int32 userId, global::System.String userProfileQuestionName, global::System.Int32 answer)
+        {
+            UserProfileQuestionAnswer userProfileQuestionAnswer = new UserProfileQuestionAnswer();
+            userProfileQuestionAnswer.Id = id;
+            userProfileQuestionAnswer.UserId = userId;
+            userProfileQuestionAnswer.UserProfileQuestionName = userProfileQuestionName;
+            userProfileQuestionAnswer.Answer = answer;
+            return userProfileQuestionAnswer;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
+            }
+        }
+        private global::System.Int32 _UserId;
+        partial void OnUserIdChanging(global::System.Int32 value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String UserProfileQuestionName
+        {
+            get
+            {
+                return _UserProfileQuestionName;
+            }
+            set
+            {
+                OnUserProfileQuestionNameChanging(value);
+                ReportPropertyChanging("UserProfileQuestionName");
+                _UserProfileQuestionName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("UserProfileQuestionName");
+                OnUserProfileQuestionNameChanged();
+            }
+        }
+        private global::System.String _UserProfileQuestionName;
+        partial void OnUserProfileQuestionNameChanging(global::System.String value);
+        partial void OnUserProfileQuestionNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Answer
+        {
+            get
+            {
+                return _Answer;
+            }
+            set
+            {
+                OnAnswerChanging(value);
+                ReportPropertyChanging("Answer");
+                _Answer = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Answer");
+                OnAnswerChanged();
+            }
+        }
+        private global::System.Int32 _Answer;
+        partial void OnAnswerChanging(global::System.Int32 value);
+        partial void OnAnswerChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserProfileQuestionAnswers_UserProfileQuestions", "UserProfileQuestion")]
+        public UserProfileQuestion UserProfileQuestion
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserProfileQuestion>("HaveAVoice.Models.FK_UserProfileQuestionAnswers_UserProfileQuestions", "UserProfileQuestion").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserProfileQuestion>("HaveAVoice.Models.FK_UserProfileQuestionAnswers_UserProfileQuestions", "UserProfileQuestion").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<UserProfileQuestion> UserProfileQuestionReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserProfileQuestion>("HaveAVoice.Models.FK_UserProfileQuestionAnswers_UserProfileQuestions", "UserProfileQuestion");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<UserProfileQuestion>("HaveAVoice.Models.FK_UserProfileQuestionAnswers_UserProfileQuestions", "UserProfileQuestion", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserProfileQuestionAnswers_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_UserProfileQuestionAnswers_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_UserProfileQuestionAnswers_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_UserProfileQuestionAnswers_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_UserProfileQuestionAnswers_Users", "User", value);
                 }
             }
         }
