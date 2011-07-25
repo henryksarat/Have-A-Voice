@@ -8,10 +8,11 @@
     <ul>
         <li><a href="/Profile/Show">HOME</a></li>
 		<li>
-			FRIENDS<%= NavigationCountHelper.PendingFriendCount(myUser)%>
+            <% string myFriendRequests = NavigationCountHelper.PendingFriendCount(myUser); %>
+			FRIENDS<%= myFriendRequests %>
 			<ul>
 				<li><a href="/Friend/List">Friends</a></li>
-				<li><a href="/Friend/Pending">Friend Requests</a></li>
+				<li><a href="/Friend/Pending">Friend Requests <%= myFriendRequests %></a></li>
                 <li><a href="/UserProfileQuestions/List">Friend Suggestions</a></li>
 			</ul>
 		</li>

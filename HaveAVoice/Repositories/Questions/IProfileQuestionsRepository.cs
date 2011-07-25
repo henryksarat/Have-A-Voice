@@ -5,6 +5,8 @@ using HaveAVoice.Models.View;
 namespace HaveAVoice.Repositories.Questions {
     public interface IProfileQuestionRepository {
         void AddAnswerToQuestion(User aUser, string aQuestion, int anAnswer);
+        void AddUserToIgnoreList(User aUser, int aUserIdToIgnore);
+        IEnumerable<int> GetIgnoringUsers(User aSourceUser);
         IEnumerable<UserProfileQuestionAnswer> GetProfileQuestionAnswersForUser(User aUser);
         UserProfileQuestion GetProfileQuestion(string aQuestionName);
         IEnumerable<UserProfileQuestion> GetProfileQuestions();

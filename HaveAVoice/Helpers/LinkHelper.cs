@@ -22,6 +22,10 @@ namespace HaveAVoice.Helpers {
             return "/Friend/AddViaGet/" + aUser.Id + "?controllerRedirect=" + aControllerSource + "&actionRedirect=" + anActionSource;
         }
 
+        public static string IgnoreFriendSuggestion(int aUserIdToIgnore) {
+            return "/UserProfileQuestions/IgnoreUser?userToIgnore=" + aUserIdToIgnore;
+        }
+
         public static string IssueUrl(string aTitle) {
             return "/Issue/Details/" + aTitle.Replace(' ', '-');
         }

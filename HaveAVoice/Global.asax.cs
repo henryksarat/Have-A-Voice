@@ -21,6 +21,8 @@ namespace HaveAVoice {
             ModelBinders.Binders.Add(typeof(PhotosModel), new PhotosModelBinder());
             ModelBinders.Binders.Remove(typeof(UpdatePrivacySettingsModel<PrivacySetting>));
             ModelBinders.Binders.Add(typeof(UpdatePrivacySettingsModel<PrivacySetting>), new UpdatePrivacySettingsModelBinder());
+            ModelBinders.Binders.Remove(typeof(UpdateUserProfileQuestionsModel));
+            ModelBinders.Binders.Add(typeof(UpdateUserProfileQuestionsModel), new UpdateUserProfileQuestionsModelBinder());
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
@@ -77,7 +79,13 @@ namespace HaveAVoice {
                 "Issue/{action}/{id}", // URL with parameters
                 new { controller = "Issue", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
-            
+            /*
+            routes.MapRoute(
+                "Default", // Route name
+                "{controller}/{action}/{id}", // URL with parameters
+                new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+            );
+            */
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters

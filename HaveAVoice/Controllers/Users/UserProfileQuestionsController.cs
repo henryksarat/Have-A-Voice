@@ -1,31 +1,29 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using HaveAVoice.Controllers.Helpers;
+using HaveAVoice.Helpers.ProfileQuestions;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
-using HaveAVoice.Repositories;
-using HaveAVoice.Repositories.UserFeatures;
-using HaveAVoice.Services;
-using Social.User.Models;
-using Social.User.Services;
-using Social.Generic.Services;
-using HaveAVoice.Services.Questions;
 using HaveAVoice.Repositories.Questions;
-using System.Collections.Generic;
-using Social.Generic;
-using HaveAVoice.Helpers.ProfileQuestions;
+using HaveAVoice.Services.Questions;
 using Social.BaseWebsite.Models;
+using Social.Generic;
 using Social.Generic.Models;
-using System.Linq;
+using Social.Generic.Services;
+using Social.Generic.ActionFilters;
 
 namespace HaveAVoice.Controllers.Users {
     public class UserProfileQuestionsController : HAVBaseController {
-        private static string EDIT_SUCCESS = "Your answers to the questions have been saved!";
-        private static string NO_SUGGESTIONS = "Currently there are no new friend suggestions for you. Make sure you answered the questionnaire under the settings menu.";
+        private const string EDIT_SUCCESS = "Your answers to the questions have been saved!";
+        private const string NO_SUGGESTIONS = "Currently there are no new friend suggestions for you. Make sure you answered the questionnaire under the settings menu.";
+        private const string IGNORE_SUCCESS = "You will no longer receive friend suggestions for that user.";
 
         private const string RETRIEVE_FAIL = "Error retreiving your answers to the profile questionaiire. Please try again.";
         private const string EDIT_FAIL = "Error updating your answers to the questions! Please try again.";
         private const string SUGGESTION_FAIL = "Error trying to find friend suggestions for you. Please try again.";
+        private const string IGNORE_FAIL = "An error occurred while trying to ignore that user. Please try again later.";
 
         private const string EDIT_VIEW = "Edit";
         private const string LIST_VIEW = "List";
@@ -40,7 +38,7 @@ namespace HaveAVoice.Controllers.Users {
             theProfileQuestionsService = aProfileQuestionService;
         }
 
-        [AcceptVerbs(HttpVerbs.Get)]
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult Edit() {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
@@ -62,7 +60,7 @@ namespace HaveAVoice.Controllers.Users {
             return View(EDIT_VIEW, myLoggedInWrapperModel);
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
         public ActionResult Edit(UpdateUserProfileQuestionsModel aSettings) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
@@ -79,7 +77,7 @@ namespace HaveAVoice.Controllers.Users {
             return RedirectToAction(EDIT_VIEW);
         }
 
-        [AcceptVerbs(HttpVerbs.Get)]
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult List(UpdateUserProfileQuestionsModel aSettings) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
@@ -93,7 +91,7 @@ namespace HaveAVoice.Controllers.Users {
                 myConnectionModel = theProfileQuestionsService.GetPossibleFriendConnections(myUser);
 
                 if (myConnectionModel.Count<FriendConnectionModel>() == 0) {
-                    TempData["Message"] = MessageHelper.NormalMessage(NO_SUGGESTIONS);
+                    TempData["Message"] += MessageHelper.NormalMessage(NO_SUGGESTIONS);
                 }
             } catch (Exception e) {
                 LogError(e, SUGGESTION_FAIL);
@@ -103,6 +101,24 @@ namespace HaveAVoice.Controllers.Users {
             myLoggedIn.Set(myConnectionModel);
 
             return View(LIST_VIEW, myLoggedIn);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
+        public ActionResult IgnoreUser(int userToIgnore) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+
+            try {
+                UserInformationModel<User> myUser = GetUserInformatonModel();
+                theProfileQuestionsService.IgnoreUserForFutureFriendSuggestions(myUser, userToIgnore);
+                TempData["Message"] += MessageHelper.SuccessMessage(IGNORE_SUCCESS);
+            } catch (Exception e) {
+                LogError(e, SUGGESTION_FAIL);
+                TempData["Message"] += MessageHelper.SuccessMessage(IGNORE_FAIL);
+            }
+
+            return RedirectToAction(LIST_VIEW);
         }
     }
 }

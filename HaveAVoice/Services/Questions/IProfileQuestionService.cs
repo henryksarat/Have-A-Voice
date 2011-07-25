@@ -7,6 +7,7 @@ using Social.Generic.Models;
 
 namespace HaveAVoice.Services.Questions {
     public interface IProfileQuestionService {
+        void IgnoreUserForFutureFriendSuggestions(UserInformationModel<User> aUser, int aUserToIgnore);
         IEnumerable<FriendConnectionModel> GetPossibleFriendConnections(UserInformationModel<User> aUserInfo);
         Dictionary<string, IEnumerable<Pair<UserProfileQuestion, QuestionAnswer>>> GetProfileQuestionsGrouped(User aUser);
         void UpdateProfileQuestions(UserInformationModel<User> aUserInfo, UpdateUserProfileQuestionsModel anUpdateUserProfileQuestionsModel);

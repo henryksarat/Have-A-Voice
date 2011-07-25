@@ -15,6 +15,15 @@ namespace HaveAVoice.Repositories.Questions {
             theEntities.SaveChanges();
         }
 
+        public void AddUserToIgnoreList(User aUser, int aUserIdToIgnore) {
+            FriendSuggestionIgnore myFriendSuggestion = GetFriendSuggestionIgnore(aUser, aUserIdToIgnore);
+            if (myFriendSuggestion == null) {
+                FriendSuggestionIgnore myIgnore = FriendSuggestionIgnore.CreateFriendSuggestionIgnore(0, aUser.Id, aUserIdToIgnore);
+                theEntities.AddToFriendSuggestionIgnores(myIgnore);
+                theEntities.SaveChanges();
+            }
+        }
+
         public IEnumerable<FriendConnectionModel> FindUsersBasedOnQuestion(User aUser, IEnumerable<string> aQuestionNames) {
             Dictionary<string, int> myQuestionToAnswers = new Dictionary<string, int>();
             foreach (string myQuestionName in aQuestionNames) {
@@ -46,6 +55,12 @@ namespace HaveAVoice.Repositories.Questions {
 
                 return myFriendConnections;
             }
+        }
+
+        public IEnumerable<int> GetIgnoringUsers(User aSourceUser) {
+            return (from i in theEntities.FriendSuggestionIgnores
+                    where i.SourceUserId == aSourceUser.Id
+                    select i.IgnoreUserId);
         }
 
         public IEnumerable<UserProfileQuestion> GetProfileQuestions() {
@@ -94,6 +109,13 @@ namespace HaveAVoice.Repositories.Questions {
                     theEntities.SaveChanges();
                 }
             }
+        }
+
+        private FriendSuggestionIgnore GetFriendSuggestionIgnore(User aUser, int aUserIdOfUserToIgnore) {
+            return (from f in theEntities.FriendSuggestionIgnores
+                    where f.SourceUserId == aUser.Id
+                    && f.IgnoreUserId == aUserIdOfUserToIgnore
+                    select f).FirstOrDefault<FriendSuggestionIgnore>();
         }
 
         private UserProfileQuestionAnswer GetProfileQuesitonAnswerForUser(User aUser, string aQuestionName) {

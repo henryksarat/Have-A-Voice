@@ -109,6 +109,8 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserProfileQuestions_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "UserProfileQuestion", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserProfileQuestion), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserProfileQuestionAnswers_UserProfileQuestions", "UserProfileQuestion", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.UserProfileQuestion), "UserProfileQuestionAnswer", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserProfileQuestionAnswer), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserProfileQuestionAnswers_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "UserProfileQuestionAnswer", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserProfileQuestionAnswer), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_FriendSuggestionIgnores_AsSourceUsers", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "FriendSuggestionIgnore", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.FriendSuggestionIgnore), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_FriendSuggestionIgnores_IgnoreUsers", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "FriendSuggestionIgnore", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.FriendSuggestionIgnore), true)]
 
 #endregion
 
@@ -991,6 +993,22 @@ namespace HaveAVoice.Models
             }
         }
         private ObjectSet<UserProfileQuestionAnswer> _UserProfileQuestionAnswers;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<FriendSuggestionIgnore> FriendSuggestionIgnores
+        {
+            get
+            {
+                if ((_FriendSuggestionIgnores == null))
+                {
+                    _FriendSuggestionIgnores = base.CreateObjectSet<FriendSuggestionIgnore>("FriendSuggestionIgnores");
+                }
+                return _FriendSuggestionIgnores;
+            }
+        }
+        private ObjectSet<FriendSuggestionIgnore> _FriendSuggestionIgnores;
 
         #endregion
         #region AddTo Methods
@@ -1409,6 +1427,14 @@ namespace HaveAVoice.Models
         public void AddToUserProfileQuestionAnswers(UserProfileQuestionAnswer userProfileQuestionAnswer)
         {
             base.AddObject("UserProfileQuestionAnswers", userProfileQuestionAnswer);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the FriendSuggestionIgnores EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToFriendSuggestionIgnores(FriendSuggestionIgnore friendSuggestionIgnore)
+        {
+            base.AddObject("FriendSuggestionIgnores", friendSuggestionIgnore);
         }
 
         #endregion
@@ -5425,6 +5451,192 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_Friends_SourceUserId_Users", "User", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="HaveAVoice.Models", Name="FriendSuggestionIgnore")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class FriendSuggestionIgnore : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new FriendSuggestionIgnore object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="sourceUserId">Initial value of the SourceUserId property.</param>
+        /// <param name="ignoreUserId">Initial value of the IgnoreUserId property.</param>
+        public static FriendSuggestionIgnore CreateFriendSuggestionIgnore(global::System.Int32 id, global::System.Int32 sourceUserId, global::System.Int32 ignoreUserId)
+        {
+            FriendSuggestionIgnore friendSuggestionIgnore = new FriendSuggestionIgnore();
+            friendSuggestionIgnore.Id = id;
+            friendSuggestionIgnore.SourceUserId = sourceUserId;
+            friendSuggestionIgnore.IgnoreUserId = ignoreUserId;
+            return friendSuggestionIgnore;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 SourceUserId
+        {
+            get
+            {
+                return _SourceUserId;
+            }
+            set
+            {
+                OnSourceUserIdChanging(value);
+                ReportPropertyChanging("SourceUserId");
+                _SourceUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("SourceUserId");
+                OnSourceUserIdChanged();
+            }
+        }
+        private global::System.Int32 _SourceUserId;
+        partial void OnSourceUserIdChanging(global::System.Int32 value);
+        partial void OnSourceUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 IgnoreUserId
+        {
+            get
+            {
+                return _IgnoreUserId;
+            }
+            set
+            {
+                OnIgnoreUserIdChanging(value);
+                ReportPropertyChanging("IgnoreUserId");
+                _IgnoreUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IgnoreUserId");
+                OnIgnoreUserIdChanged();
+            }
+        }
+        private global::System.Int32 _IgnoreUserId;
+        partial void OnIgnoreUserIdChanging(global::System.Int32 value);
+        partial void OnIgnoreUserIdChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_FriendSuggestionIgnores_AsSourceUsers", "User")]
+        public User SourceUser
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_FriendSuggestionIgnores_AsSourceUsers", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_FriendSuggestionIgnores_AsSourceUsers", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> SourceUserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_FriendSuggestionIgnores_AsSourceUsers", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_FriendSuggestionIgnores_AsSourceUsers", "User", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_FriendSuggestionIgnores_IgnoreUsers", "User")]
+        public User UserToIgnore
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_FriendSuggestionIgnores_IgnoreUsers", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_FriendSuggestionIgnores_IgnoreUsers", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserToIgnoreReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_FriendSuggestionIgnores_IgnoreUsers", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_FriendSuggestionIgnores_IgnoreUsers", "User", value);
                 }
             }
         }
@@ -16033,6 +16245,50 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserProfileQuestionAnswer>("HaveAVoice.Models.FK_UserProfileQuestionAnswers_Users", "UserProfileQuestionAnswer", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_FriendSuggestionIgnores_AsSourceUsers", "FriendSuggestionIgnore")]
+        public EntityCollection<FriendSuggestionIgnore> FriendSuggestionIgnores
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<FriendSuggestionIgnore>("HaveAVoice.Models.FK_FriendSuggestionIgnores_AsSourceUsers", "FriendSuggestionIgnore");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FriendSuggestionIgnore>("HaveAVoice.Models.FK_FriendSuggestionIgnores_AsSourceUsers", "FriendSuggestionIgnore", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_FriendSuggestionIgnores_IgnoreUsers", "FriendSuggestionIgnore")]
+        public EntityCollection<FriendSuggestionIgnore> FriendSuggestionIgnores1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<FriendSuggestionIgnore>("HaveAVoice.Models.FK_FriendSuggestionIgnores_IgnoreUsers", "FriendSuggestionIgnore");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FriendSuggestionIgnore>("HaveAVoice.Models.FK_FriendSuggestionIgnores_IgnoreUsers", "FriendSuggestionIgnore", value);
                 }
             }
         }
