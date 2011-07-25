@@ -24,6 +24,7 @@ namespace HaveAVoice.Controllers.Users {
         private const string EDIT_FAIL = "Error updating your answers to the questions! Please try again.";
 
         private const string EDIT_VIEW = "Edit";
+        private const string LIST_VIEW = "List";
 
         private IProfileQuestionService theProfileQuestionsService;
 
@@ -62,7 +63,7 @@ namespace HaveAVoice.Controllers.Users {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            
+
             try {
                 UserInformationModel<User> myUser = GetUserInformatonModel();
                 theProfileQuestionsService.UpdateProfileQuestions(myUser, aSettings);
@@ -72,6 +73,26 @@ namespace HaveAVoice.Controllers.Users {
                 TempData["Message"] += MessageHelper.ErrorMessage(EDIT_FAIL);
             }
             return RedirectToAction(EDIT_VIEW);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult List(UpdateUserProfileQuestionsModel aSettings) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+
+            IEnumerable<FriendConnectionModel> myConnectionModel = new List<FriendConnectionModel>();
+
+            try {
+                UserInformationModel<User> myUser = GetUserInformatonModel();
+                myConnectionModel = theProfileQuestionsService.GetPossibleFriendConnections(myUser);
+                TempData["Message"] += MessageHelper.SuccessMessage(EDIT_SUCCESS);
+            } catch (Exception e) {
+                LogError(e, EDIT_FAIL);
+                TempData["Message"] += MessageHelper.ErrorMessage(EDIT_FAIL);
+            }
+
+            return View(LIST_VIEW, myConnectionModel);
         }
     }
 }

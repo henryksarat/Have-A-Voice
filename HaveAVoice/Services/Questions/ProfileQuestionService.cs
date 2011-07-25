@@ -26,6 +26,24 @@ namespace HaveAVoice.Services.Questions {
             theProfileQuestionRepository = aPetitionRepo;
         }
 
+        public IEnumerable<FriendConnectionModel> GetPossibleFriendConnections(UserInformationModel<User> aUserInfo) {
+            IEnumerable<User> myQuestionMatches = theProfileQuestionRepository.FindUsersBasedOnQuestion(aUserInfo.Details, ProfileQuestion.POLITICAL_AFFILIATION.ToString()).ToList();
+
+            IEnumerable<int> myFriendRequestsAccepted = aUserInfo.Details.FriendedBy.Select(f => f.SourceUser).Select(f => f.Id).ToList();
+            IEnumerable<int> myFriendRequestsSent = aUserInfo.Details.Friends.Select(f => f.SourceUser).Select(f => f.Id).ToList();
+            IEnumerable<User> myFinalQuestionMatches = (from m in myQuestionMatches
+                                                 where !myFriendRequestsSent.Contains(m.Id) && !myFriendRequestsAccepted.Contains(m.Id)
+                                                 select m).ToList();
+            UserProfileQuestion myQuestion = theProfileQuestionRepository.GetProfileQuestion(ProfileQuestion.POLITICAL_AFFILIATION.ToString());
+
+            IEnumerable<FriendConnectionModel> myFriendConnectionModel = myFinalQuestionMatches.Select(m => new FriendConnectionModel() {
+                User = m,
+                QuestionConnectionMadeFrom = myQuestion
+            }).ToList();
+
+            return myFriendConnectionModel;
+        }
+
         public Dictionary<string, IEnumerable<Pair<UserProfileQuestion, QuestionAnswer>>> GetProfileQuestionsGrouped(User aUser) {
             Dictionary<string, IEnumerable<Pair<UserProfileQuestion, QuestionAnswer>>> myProfileQuestionSelection = new Dictionary<string, IEnumerable<Pair<UserProfileQuestion, QuestionAnswer>>>();
 
