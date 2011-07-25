@@ -167,7 +167,6 @@
     <Compile Include="Models\SocialWrappers\SocialUserModel.cs" />
     <Compile Include="Models\UpdateUserProfileQuestionsModel.cs" />
     <Compile Include="Models\View\Binders\UpdateUserProfileQuestionsModelBinder.cs" />
-    <Compile Include="Models\View\UserProfileQuestionsModel.cs" />
     <Compile Include="Models\View\AuthorityVerificationModel.cs" />
     <Compile Include="Models\View\Binders\UpdatePrivacySettingsModelBinder.cs" />
     <Compile Include="Models\View\Binders\ImageBinder.cs" />
