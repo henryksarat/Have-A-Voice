@@ -6,6 +6,8 @@ using System.Web;
 namespace HaveAVoice.Helpers.ProfileQuestions {
     public enum ProfileQuestion {
         POLITICAL_AFFILIATION,
-        GUNS_LAW
+        GUNS_LAW,
+        ABORTION,
+        DEATH_PENALTY
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HaveAVoice.Models;
 using HaveAVoice.Helpers.ProfileQuestions;
+using HaveAVoice.Models.View;
 
 namespace HaveAVoice.Repositories.Questions {
     public class EntityProfileQuestionRepository : IProfileQuestionRepository {
@@ -14,17 +15,36 @@ namespace HaveAVoice.Repositories.Questions {
             theEntities.SaveChanges();
         }
 
-        public IEnumerable<User> FindUsersBasedOnQuestion(User aUser, string aQuestionName) {
-            UserProfileQuestionAnswer myAnswer = GetProfileQuesitonAnswerForUser(aUser, aQuestionName);
+        public IEnumerable<FriendConnectionModel> FindUsersBasedOnQuestion(User aUser, IEnumerable<string> aQuestionNames) {
+            Dictionary<string, int> myQuestionToAnswers = new Dictionary<string, int>();
+            foreach (string myQuestionName in aQuestionNames) {
+                UserProfileQuestionAnswer myAnswer = GetProfileQuesitonAnswerForUser(aUser, myQuestionName);
+                if (myAnswer != null) {
+                    myQuestionToAnswers.Add(myQuestionName, myAnswer.Answer);
+                }
+            }
 
-            if (myAnswer == null) {
-                return new List<User>();
+            if (myQuestionToAnswers.Keys.Count == 0) {
+                return new List<FriendConnectionModel>();
             } else {
-                return (from a in theEntities.UserProfileQuestionAnswers
-                        where a.UserProfileQuestionName == aQuestionName
-                        && a.Answer == myAnswer.Answer
-                        && a.UserId != aUser.Id
-                        select a.User);
+                List<FriendConnectionModel> myFriendConnections = new List<FriendConnectionModel>();
+
+                foreach(string myQuestionName in aQuestionNames) {
+                    if (myQuestionToAnswers.Keys.Contains(myQuestionName)) {
+                        int myAnswer = myQuestionToAnswers[myQuestionName];
+                        IEnumerable<FriendConnectionModel> myResults = (from a in theEntities.UserProfileQuestionAnswers
+                                                                        where a.UserProfileQuestionName == myQuestionName
+                                                                        && a.Answer == myAnswer
+                                                                        && a.UserId != aUser.Id
+                                                                        select new FriendConnectionModel() {
+                                                                            User = a.User,
+                                                                            QuestionConnectionMadeFrom = a.UserProfileQuestion
+                                                                        });
+                        myFriendConnections.AddRange(myResults);
+                    }
+                }
+
+                return myFriendConnections;
             }
         }
 
@@ -45,10 +65,11 @@ namespace HaveAVoice.Repositories.Questions {
                     select a);
         }
 
-        public void UpdateAnswersToQuestions(User aUser, IEnumerable<string> aYesAnswers, IEnumerable<string> aNoAnswers, IEnumerable<string> aDontKnowAnswers) {
+        public void UpdateAnswersToQuestions(User aUser, IEnumerable<string> aYesAnswers, 
+            IEnumerable<string> aNoAnswers, IEnumerable<string> anAnswersToDeleteDueToNoAnswer) {
             UpdateProfileQuestionAnswersWithoutSave(aUser, aYesAnswers, QuestionAnswer.Yes);
             UpdateProfileQuestionAnswersWithoutSave(aUser, aNoAnswers, QuestionAnswer.No);
-            UpdateProfileQuestionAnswersWithoutSave(aUser, aDontKnowAnswers, QuestionAnswer.DontKnow);
+            DeleteProfileQuestionAnswersWithoutSave(aUser, anAnswersToDeleteDueToNoAnswer);
             theEntities.SaveChanges();
         }
 
@@ -61,6 +82,16 @@ namespace HaveAVoice.Repositories.Questions {
                 } else {
                     myUserProfileQuestion.Answer = (int)aQuestionAnswer;
                     theEntities.ApplyCurrentValues(myUserProfileQuestion.EntityKey.EntitySetName, myUserProfileQuestion);
+                }
+            }
+        }
+
+        private void DeleteProfileQuestionAnswersWithoutSave(User aUser, IEnumerable<string> aQuestions) {
+            foreach (string aQuestion in aQuestions) {
+                UserProfileQuestionAnswer myUserProfileQuestionAnswer = GetProfileQuesitonAnswerForUser(aUser, aQuestion);
+                if (myUserProfileQuestionAnswer != null) {
+                    theEntities.DeleteObject(myUserProfileQuestionAnswer);
+                    theEntities.SaveChanges();
                 }
             }
         }

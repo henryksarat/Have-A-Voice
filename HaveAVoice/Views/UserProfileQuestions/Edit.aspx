@@ -52,10 +52,14 @@
                                 <%= Html.RadioButton(myPair.First.Name, PoliticalAffiliation.Republican, (int)myPair.Second == (int)PoliticalAffiliation.Republican)%> Republican
                                 <%= Html.RadioButton(myPair.First.Name, PoliticalAffiliation.Indepedent, (int)myPair.Second == (int)PoliticalAffiliation.Indepedent)%> Independent
                                 <%= Html.RadioButton(myPair.First.Name, PoliticalAffiliation.NoAnswer, (int)myPair.Second == (int)PoliticalAffiliation.NoAnswer)%> No Answer
+                            <% } else if (myPair.First.Name == ProfileQuestion.ABORTION.ToString()) { %>
+			                    <%= Html.RadioButton(myPair.First.Name, AbortionAnswer.ProLife, (int)myPair.Second == (int)AbortionAnswer.ProLife)%> Pro-Life
+			                    <%= Html.RadioButton(myPair.First.Name, AbortionAnswer.ProChoice, (int)myPair.Second == (int)AbortionAnswer.ProChoice)%> Pro-Choice
+                                <%= Html.RadioButton(myPair.First.Name, QuestionAnswer.NoAnswer, (int)myPair.Second == (int)AbortionAnswer.NoAnswer)%> No Answer
                             <% } else { %>
 			                    <%= Html.RadioButton(myPair.First.Name, QuestionAnswer.Yes, myPair.Second == QuestionAnswer.Yes)%> Yes
 			                    <%= Html.RadioButton(myPair.First.Name, QuestionAnswer.No, myPair.Second == QuestionAnswer.No)%> No
-                                <%= Html.RadioButton(myPair.First.Name, QuestionAnswer.DontKnow, myPair.Second == QuestionAnswer.DontKnow)%> Don't Know
+                                <%= Html.RadioButton(myPair.First.Name, QuestionAnswer.NoAnswer, myPair.Second == QuestionAnswer.NoAnswer)%> No Answer
                             <% } %>
 			            </div>
 			            <div class="clear">&nbsp;</div>

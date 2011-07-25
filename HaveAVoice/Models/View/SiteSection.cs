@@ -15,6 +15,7 @@ namespace HaveAVoice.Models.View {
         Board,
         Message,
         Friend,
+        FriendSuggestion,
         Profile,
         MyProfile,
         Fan, 

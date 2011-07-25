@@ -16,12 +16,16 @@ using Social.Generic;
 using HaveAVoice.Helpers.ProfileQuestions;
 using Social.BaseWebsite.Models;
 using Social.Generic.Models;
+using System.Linq;
 
 namespace HaveAVoice.Controllers.Users {
     public class UserProfileQuestionsController : HAVBaseController {
         private static string EDIT_SUCCESS = "Your answers to the questions have been saved!";
+        private static string NO_SUGGESTIONS = "Currently there are no new friend suggestions for you. Make sure you answered the questionnaire under the settings menu.";
+
         private const string RETRIEVE_FAIL = "Error retreiving your answers to the profile questionaiire. Please try again.";
         private const string EDIT_FAIL = "Error updating your answers to the questions! Please try again.";
+        private const string SUGGESTION_FAIL = "Error trying to find friend suggestions for you. Please try again.";
 
         private const string EDIT_VIEW = "Edit";
         private const string LIST_VIEW = "List";
@@ -81,18 +85,24 @@ namespace HaveAVoice.Controllers.Users {
                 return RedirectToLogin();
             }
 
+            UserInformationModel<User> myUser = GetUserInformatonModel();
+            LoggedInListModel<FriendConnectionModel> myLoggedIn = new LoggedInListModel<FriendConnectionModel>(myUser.Details, SiteSection.FriendSuggestion);
             IEnumerable<FriendConnectionModel> myConnectionModel = new List<FriendConnectionModel>();
 
             try {
-                UserInformationModel<User> myUser = GetUserInformatonModel();
                 myConnectionModel = theProfileQuestionsService.GetPossibleFriendConnections(myUser);
-                TempData["Message"] += MessageHelper.SuccessMessage(EDIT_SUCCESS);
+
+                if (myConnectionModel.Count<FriendConnectionModel>() == 0) {
+                    TempData["Message"] = MessageHelper.NormalMessage(NO_SUGGESTIONS);
+                }
             } catch (Exception e) {
-                LogError(e, EDIT_FAIL);
-                TempData["Message"] += MessageHelper.ErrorMessage(EDIT_FAIL);
+                LogError(e, SUGGESTION_FAIL);
+                TempData["Message"] += MessageHelper.ErrorMessage(SUGGESTION_FAIL);
             }
 
-            return View(LIST_VIEW, myConnectionModel);
+            myLoggedIn.Set(myConnectionModel);
+
+            return View(LIST_VIEW, myLoggedIn);
         }
     }
 }

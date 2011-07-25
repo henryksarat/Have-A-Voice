@@ -17,12 +17,14 @@
     </div>
 
     <div class="col-21">
-        <% Html.RenderPartial("Message"); %>
         <div class="clear">&nbsp;</div>
         
         <div class="action-bar bold p-a10 m-btm20 color-4">
         	Pending Friend Requests
         </div>
+
+        <% Html.RenderPartial("Message"); %>
+
         <div class="clear">&nbsp;</div>
 	    <% foreach (var item in Model.Models) { %>
 	    	<div class="col-21 m-btm10">

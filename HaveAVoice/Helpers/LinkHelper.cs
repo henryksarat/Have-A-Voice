@@ -18,6 +18,10 @@ namespace HaveAVoice.Helpers {
             return myUrl;
         }
 
+        public static string AddFriend(User aUser, string aControllerSource, string anActionSource) {
+            return "/Friend/AddViaGet/" + aUser.Id + "?controllerRedirect=" + aControllerSource + "&actionRedirect=" + anActionSource;
+        }
+
         public static string IssueUrl(string aTitle) {
             return "/Issue/Details/" + aTitle.Replace(' ', '-');
         }

@@ -18,7 +18,7 @@ namespace HaveAVoice.Models.View {
 
             foreach (ProfileQuestion mySetting in Enum.GetValues(typeof(ProfileQuestion))) {
                 string myAnswer = BinderHelper.GetA(bindingContext, mySetting.ToString());
-                QuestionAnswer myQuestionAnswer = QuestionAnswer.None;
+                QuestionAnswer myQuestionAnswer = QuestionAnswer.NoAnswer;
                 
                 if (!string.IsNullOrEmpty(myAnswer)) {
                     //There is a special case if the question is about political affiliation, 
@@ -27,6 +27,9 @@ namespace HaveAVoice.Models.View {
                     if (mySetting.Equals(ProfileQuestion.POLITICAL_AFFILIATION)) {
                         PoliticalAffiliation myPoliticalAffiliation = (PoliticalAffiliation)Enum.Parse(typeof(PoliticalAffiliation), myAnswer);
                         myQuestionAnswer = (QuestionAnswer)(int)myPoliticalAffiliation;
+                    } else if (mySetting.Equals(ProfileQuestion.ABORTION)) {
+                        AbortionAnswer myAbortionAnswer = (AbortionAnswer)Enum.Parse(typeof(AbortionAnswer), myAnswer);
+                        myQuestionAnswer = (QuestionAnswer)(int)myAbortionAnswer;
                     } else {
                         myQuestionAnswer = (QuestionAnswer)Enum.Parse(typeof(QuestionAnswer), myAnswer);
                     }

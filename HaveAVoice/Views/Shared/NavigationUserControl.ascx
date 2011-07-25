@@ -12,6 +12,7 @@
 			<ul>
 				<li><a href="/Friend/List">Friends</a></li>
 				<li><a href="/Friend/Pending">Friend Requests</a></li>
+                <li><a href="/UserProfileQuestions/List">Friend Suggestions</a></li>
 			</ul>
 		</li>
 		<li><a href="/Message/Inbox">MAIL<%= NavigationCountHelper.NewMessageCount(myUser)%></a></li>
@@ -35,7 +36,16 @@
                 </li>
             </ul>
         </li>
-        <li><a href="/User/Edit">SETTINGS</a></li>
+        <li>SETTINGS
+            <ul>
+                <li>
+                    <a href="/User/Edit">Edit Account</a>
+                    <a href="/UserPrivacySettings/Edit">Edit Privacy a Group</a>
+                    <a href="/UserProfileQuestions/Edit">Edit Profile Questionnaire</a>
+                </li>
+            </ul>
+        
+        </li>
         <li><%= Html.ActionLink("LOGOUT", "LogOut", "Authentication")%></li>
     </ul>
 </div>

@@ -47,6 +47,10 @@ namespace BaseWebsite.Controllers.Friends {
         protected abstract ILoggedInListModel<A> CreateLoggedInListModel(T aUser);
 
         protected ActionResult Add(int id) {
+            return Add(id, RedirectToAction("Show", "Profile", new { id = id }));
+        }
+
+        protected ActionResult Add(int id, RedirectToRouteResult aReturn) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
@@ -65,12 +69,14 @@ namespace BaseWebsite.Controllers.Friends {
                     theFriendService.AddFriend(myUser, id);
                     TempData["Message"] += SuccessMessage(REQUEST_SENT);
                 }
+
+                ForceUserInformationRefresh();
             } catch (Exception e) {
                 LogError(e, FRIEND_ERROR);
                 TempData["Message"] += ErrorMessage(FRIEND_REQUEST_ERROR);
             }
 
-            return RedirectToAction("Show", "Profile", new { id = id });
+            return aReturn;
         }
 
         protected ActionResult Delete(int id) {

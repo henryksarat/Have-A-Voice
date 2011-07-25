@@ -29,6 +29,11 @@ namespace HaveAVoice.Controllers.Users {
             HAVUserInformationFactory.SetInstance(GetUserInformationInstance());
         }
 
+        [AcceptVerbs(HttpVerbs.Get)]
+        new public ActionResult AddViaGet(int id, string controllerRedirect, string actionRedirect) {
+            return base.Add(id, RedirectToAction(actionRedirect, controllerRedirect));
+        }
+
         [AcceptVerbs(HttpVerbs.Post)]
         new public ActionResult Add(int id) {
             return base.Add(id);

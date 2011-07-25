@@ -8,6 +8,6 @@ namespace HaveAVoice.Helpers.ProfileQuestions {
         Yes = 1,
         No = 2,
         DontKnow = 3,
-        None = -1
+        NoAnswer = -1
     }
 }

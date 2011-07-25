@@ -27,21 +27,21 @@ namespace HaveAVoice.Services.Questions {
         }
 
         public IEnumerable<FriendConnectionModel> GetPossibleFriendConnections(UserInformationModel<User> aUserInfo) {
-            IEnumerable<User> myQuestionMatches = theProfileQuestionRepository.FindUsersBasedOnQuestion(aUserInfo.Details, ProfileQuestion.POLITICAL_AFFILIATION.ToString()).ToList();
+            List<string> myQuestionNames = new List<string>();
+            myQuestionNames.Add(ProfileQuestion.ABORTION.ToString());
+            myQuestionNames.Add(ProfileQuestion.DEATH_PENALTY.ToString());
+            myQuestionNames.Add(ProfileQuestion.GUNS_LAW.ToString());
+            myQuestionNames.Add(ProfileQuestion.POLITICAL_AFFILIATION.ToString());
+
+            IEnumerable<FriendConnectionModel> myQuestionMatches =
+                theProfileQuestionRepository.FindUsersBasedOnQuestion(aUserInfo.Details, myQuestionNames);
 
             IEnumerable<int> myFriendRequestsAccepted = aUserInfo.Details.FriendedBy.Select(f => f.SourceUser).Select(f => f.Id).ToList();
             IEnumerable<int> myFriendRequestsSent = aUserInfo.Details.Friends.Select(f => f.SourceUser).Select(f => f.Id).ToList();
-            IEnumerable<User> myFinalQuestionMatches = (from m in myQuestionMatches
-                                                 where !myFriendRequestsSent.Contains(m.Id) && !myFriendRequestsAccepted.Contains(m.Id)
-                                                 select m).ToList();
-            UserProfileQuestion myQuestion = theProfileQuestionRepository.GetProfileQuestion(ProfileQuestion.POLITICAL_AFFILIATION.ToString());
-
-            IEnumerable<FriendConnectionModel> myFriendConnectionModel = myFinalQuestionMatches.Select(m => new FriendConnectionModel() {
-                User = m,
-                QuestionConnectionMadeFrom = myQuestion
-            }).ToList();
-
-            return myFriendConnectionModel;
+            IEnumerable<FriendConnectionModel> myFinalQuestionMatches = (from m in myQuestionMatches
+                                                                         where !myFriendRequestsSent.Contains(m.User.Id) && !myFriendRequestsAccepted.Contains(m.User.Id)
+                                                                         select m);
+            return myFinalQuestionMatches;
         }
 
         public Dictionary<string, IEnumerable<Pair<UserProfileQuestion, QuestionAnswer>>> GetProfileQuestionsGrouped(User aUser) {
@@ -64,7 +64,7 @@ namespace HaveAVoice.Services.Questions {
             foreach (UserProfileQuestion myQuestion in myExcludedPrivacySettings) {
                 myPairedQuestions.Add(new Pair<UserProfileQuestion, QuestionAnswer>() {
                     First = myQuestion,
-                    Second = QuestionAnswer.None
+                    Second = QuestionAnswer.NoAnswer
                 });
             }
 
@@ -92,9 +92,9 @@ namespace HaveAVoice.Services.Questions {
             IEnumerable<Pair<UserProfileQuestion, QuestionAnswer>> myQuestionAnswers = anUpdateUserProfileQuestionsModel.UserProfileQuestionsAnswered;
             IEnumerable<string> myQuestionNamesForYes = myQuestionAnswers.Where(qa => qa.Second == QuestionAnswer.Yes).Select(qa => qa.First.Name);
             IEnumerable<string> myQuestionNamesForNo = myQuestionAnswers.Where(qa => qa.Second == QuestionAnswer.No).Select(qa => qa.First.Name);
-            IEnumerable<string> myQuestionNamesForDontKnow = myQuestionAnswers.Where(qa => qa.Second == QuestionAnswer.DontKnow).Select(qa => qa.First.Name);
+            IEnumerable<string> myResponsesToDeleteSinceNoAnswer = myQuestionAnswers.Where(qa => qa.Second == QuestionAnswer.NoAnswer).Select(qa => qa.First.Name);
 
-            theProfileQuestionRepository.UpdateAnswersToQuestions(aUserInfo.Details, myQuestionNamesForYes, myQuestionNamesForNo, myQuestionNamesForDontKnow);
+            theProfileQuestionRepository.UpdateAnswersToQuestions(aUserInfo.Details, myQuestionNamesForYes, myQuestionNamesForNo, myResponsesToDeleteSinceNoAnswer);
         }
     }
 }

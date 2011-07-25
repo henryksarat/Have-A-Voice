@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using HaveAVoice.Models;
+using HaveAVoice.Models.View;
 
 namespace HaveAVoice.Repositories.Questions {
     public interface IProfileQuestionRepository {
@@ -7,7 +8,8 @@ namespace HaveAVoice.Repositories.Questions {
         IEnumerable<UserProfileQuestionAnswer> GetProfileQuestionAnswersForUser(User aUser);
         UserProfileQuestion GetProfileQuestion(string aQuestionName);
         IEnumerable<UserProfileQuestion> GetProfileQuestions();
-        void UpdateAnswersToQuestions(User aUser, IEnumerable<string> aYesAnswers, IEnumerable<string> aNoAnswers, IEnumerable<string> aDontKnowAnswers);
-        IEnumerable<User> FindUsersBasedOnQuestion(User aUser, string aQuestionName);
+        void UpdateAnswersToQuestions(User aUser, IEnumerable<string> aYesAnswers, 
+            IEnumerable<string> aNoAnswers, IEnumerable<string> anAnswersToDeleteDueToNoAnswer);
+        IEnumerable<FriendConnectionModel> FindUsersBasedOnQuestion(User aUser, IEnumerable<string> aQuestionNames);
     }
 }
