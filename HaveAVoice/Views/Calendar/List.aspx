@@ -102,8 +102,8 @@
 				<div class="col-6">
 					<div class="p-a5">
 						<div class="date-tile">
-							<span><%= item.Date.ToString("MMMM dd").ToUpper() %></span>
-							<%= item.Date.ToString("yyyy") %>
+							<span><%= item.StartDate.ToString("MMMM dd").ToUpper() %></span>
+							<%= item.StartDate.ToString("yyyy")%>
 						</div>
 					</div>
 				</div>

@@ -31,7 +31,6 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_BoardReply_Board", "Board", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Board), "BoardReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.BoardReply), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_BoardReply_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "BoardReply", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.BoardReply), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_ErrorLog_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "ErrorLog", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.ErrorLog), true)]
-[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Events_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Event", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Event), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Feedback_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Feedback", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Feedback), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueComplaints_FiledByUserId_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "IssueComplaint", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueComplaint), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_IssueDisposition_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "IssueDisposition", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.IssueDisposition), true)]
@@ -111,6 +110,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserProfileQuestionAnswers_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "UserProfileQuestionAnswer", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserProfileQuestionAnswer), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_FriendSuggestionIgnores_AsSourceUsers", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "FriendSuggestionIgnore", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.FriendSuggestionIgnore), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_FriendSuggestionIgnores_IgnoreUsers", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "FriendSuggestionIgnore", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.FriendSuggestionIgnore), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_Events_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "Event", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.Event), true)]
 
 #endregion
 
@@ -289,22 +289,6 @@ namespace HaveAVoice.Models
             }
         }
         private ObjectSet<ErrorLog> _ErrorLogs;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Event> Events
-        {
-            get
-            {
-                if ((_Events == null))
-                {
-                    _Events = base.CreateObjectSet<Event>("Events");
-                }
-                return _Events;
-            }
-        }
-        private ObjectSet<Event> _Events;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1009,6 +993,22 @@ namespace HaveAVoice.Models
             }
         }
         private ObjectSet<FriendSuggestionIgnore> _FriendSuggestionIgnores;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Event> Events
+        {
+            get
+            {
+                if ((_Events == null))
+                {
+                    _Events = base.CreateObjectSet<Event>("Events");
+                }
+                return _Events;
+            }
+        }
+        private ObjectSet<Event> _Events;
 
         #endregion
         #region AddTo Methods
@@ -1075,14 +1075,6 @@ namespace HaveAVoice.Models
         public void AddToErrorLogs(ErrorLog errorLog)
         {
             base.AddObject("ErrorLogs", errorLog);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Events EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToEvents(Event @event)
-        {
-            base.AddObject("Events", @event);
         }
     
         /// <summary>
@@ -1435,6 +1427,14 @@ namespace HaveAVoice.Models
         public void AddToFriendSuggestionIgnores(FriendSuggestionIgnore friendSuggestionIgnore)
         {
             base.AddObject("FriendSuggestionIgnores", friendSuggestionIgnore);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Events EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToEvents(Event @event)
+        {
+            base.AddObject("Events", @event);
         }
 
         #endregion
@@ -4677,15 +4677,17 @@ namespace HaveAVoice.Models
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="userId">Initial value of the UserId property.</param>
-        /// <param name="date">Initial value of the Date property.</param>
+        /// <param name="startDate">Initial value of the StartDate property.</param>
+        /// <param name="endDate">Initial value of the EndDate property.</param>
         /// <param name="information">Initial value of the Information property.</param>
         /// <param name="deleted">Initial value of the Deleted property.</param>
-        public static Event CreateEvent(global::System.Int32 id, global::System.Int32 userId, global::System.DateTime date, global::System.String information, global::System.Boolean deleted)
+        public static Event CreateEvent(global::System.Int32 id, global::System.Int32 userId, global::System.DateTime startDate, global::System.DateTime endDate, global::System.String information, global::System.Boolean deleted)
         {
             Event @event = new Event();
             @event.Id = id;
             @event.UserId = userId;
-            @event.Date = date;
+            @event.StartDate = startDate;
+            @event.EndDate = endDate;
             @event.Information = information;
             @event.Deleted = deleted;
             return @event;
@@ -4750,24 +4752,48 @@ namespace HaveAVoice.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.DateTime Date
+        public global::System.DateTime StartDate
         {
             get
             {
-                return _Date;
+                return _StartDate;
             }
             set
             {
-                OnDateChanging(value);
-                ReportPropertyChanging("Date");
-                _Date = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Date");
-                OnDateChanged();
+                OnStartDateChanging(value);
+                ReportPropertyChanging("StartDate");
+                _StartDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("StartDate");
+                OnStartDateChanged();
             }
         }
-        private global::System.DateTime _Date;
-        partial void OnDateChanging(global::System.DateTime value);
-        partial void OnDateChanged();
+        private global::System.DateTime _StartDate;
+        partial void OnStartDateChanging(global::System.DateTime value);
+        partial void OnStartDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime EndDate
+        {
+            get
+            {
+                return _EndDate;
+            }
+            set
+            {
+                OnEndDateChanging(value);
+                ReportPropertyChanging("EndDate");
+                _EndDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("EndDate");
+                OnEndDateChanged();
+            }
+        }
+        private global::System.DateTime _EndDate;
+        partial void OnEndDateChanging(global::System.DateTime value);
+        partial void OnEndDateChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -15161,28 +15187,6 @@ namespace HaveAVoice.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Events_Users", "Event")]
-        public EntityCollection<Event> Events
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Event>("HaveAVoice.Models.FK_Events_Users", "Event");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Event>("HaveAVoice.Models.FK_Events_Users", "Event", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Feedback_Users", "Feedback")]
         public EntityCollection<Feedback> Feedbacks
         {
@@ -16289,6 +16293,28 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FriendSuggestionIgnore>("HaveAVoice.Models.FK_FriendSuggestionIgnores_IgnoreUsers", "FriendSuggestionIgnore", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_Events_Users", "Event")]
+        public EntityCollection<Event> Events
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Event>("HaveAVoice.Models.FK_Events_Users", "Event");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Event>("HaveAVoice.Models.FK_Events_Users", "Event", value);
                 }
             }
         }

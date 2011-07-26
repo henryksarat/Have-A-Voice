@@ -172,6 +172,7 @@
     <Compile Include="Models\View\Binders\UpdatePrivacySettingsModelBinder.cs" />
     <Compile Include="Models\View\Binders\ImageBinder.cs" />
     <Compile Include="Models\View\BoardFeedModel.cs" />
+    <Compile Include="Models\View\EventViewModel.cs" />
     <Compile Include="Models\View\GroupSearchModel.cs" />
     <Compile Include="Models\View\CreatePetitionModel.cs" />
     <Compile Include="Models\View\CreatePetitionSignatureModel.cs" />

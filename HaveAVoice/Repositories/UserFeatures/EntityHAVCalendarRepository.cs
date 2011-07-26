@@ -8,9 +8,9 @@ namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVCalendarRepository : IHAVCalendarRepository {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
-        public void AddEvent(int aUserId, DateTime aDate, string anInformation) {
+        public void AddEvent(int aUserId, DateTime aStartDate, DateTime anEndDate, string anInformation) {
             IUserRepository<User, Role, UserRole> myUserRepo = new EntityHAVUserRepository();
-            Event myEvent = Event.CreateEvent(0, aUserId, aDate, anInformation, false);
+            Event myEvent = Event.CreateEvent(0, aUserId, aStartDate, anEndDate , anInformation, false);
             theEntities.AddToEvents(myEvent);
             theEntities.SaveChanges();
         }
@@ -25,8 +25,8 @@ namespace HaveAVoice.Repositories.UserFeatures {
             }
         }
 
-        public IEnumerable<Event> FindEvents(int aUserId, DateTime anAfterDateTime) {
-            List<Event> myEvents = FindEventsForUser(aUserId, anAfterDateTime).ToList<Event>();
+        public IEnumerable<Event> FindEvents(int aUserId) {
+            List<Event> myEvents = FindEventsForUser(aUserId).ToList<Event>();
             //IEnumerable<Event> myUsersFanOfEvents = FindEventsOfFannedUsers(aUserId);
             //myEvents.AddRange(myUsersFanOfEvents);
             return myEvents;
@@ -41,12 +41,13 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     select e).ToList<Event>();
         }
 
-        private IEnumerable<Event> FindEventsForUser(int aUserId, DateTime anAfterDateTime) {
+        private IEnumerable<Event> FindEventsForUser(int aUserId) {
             return (from e in theEntities.Events
                     where e.User.Id == aUserId
                     && e.Deleted == false
-                    && e.Date > anAfterDateTime
-                    select e).OrderBy(e2 => e2.Date).ToList<Event>();
+                    && e.StartDate > DateTime.UtcNow 
+                    && e.EndDate < DateTime.Now
+                    select e).OrderBy(e2 => e2.StartDate).ToList<Event>();
         }
 
         private Event GetEvent(int anEventId) {

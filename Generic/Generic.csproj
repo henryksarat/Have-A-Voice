@@ -82,6 +82,7 @@
     <Compile Include="Models\AbstractUserModel.cs" />
     <Compile Include="Models\AbstractPhotoModel.cs" />
     <Compile Include="Models\AbstractPhotoAlbumModel.cs" />
+    <Compile Include="Models\EventViewModel.cs" />
     <Compile Include="Models\InboxMessage.cs" />
     <Compile Include="Models\BasicLocationModel.cs" />
     <Compile Include="Models\MessageModel.cs" />

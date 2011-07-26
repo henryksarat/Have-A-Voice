@@ -51,7 +51,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 return false;
             }
 
-            theRepository.AddEvent(aUserId, aDate, anInformation);
+            theRepository.AddEvent(aUserId, aDate, aDate, anInformation);
             return true;
         }
 
@@ -64,7 +64,7 @@ namespace HaveAVoice.Services.UserFeatures {
             AbstractUserModel<User> myAbstractUser = SocialUserModel.Create(aViewingUser);
  
             if (aViewingUser.Id == aUserId || theFriendService.IsFriend(aUserId, myAbstractUser)) {
-                return theRepository.FindEvents(aUserId, DateTime.UtcNow);
+                return theRepository.FindEvents(aUserId);
             }
 
             throw new NotFriendException();

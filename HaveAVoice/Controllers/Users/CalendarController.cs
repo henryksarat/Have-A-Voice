@@ -59,31 +59,6 @@ namespace HaveAVoice.Controllers.Users {
             return GetEvents(myUser, id);
         }
 
-        public ActionResult GetEvents(User aViewingUser, int aUserIdOfCalendar) {
-            User myUserOfCalendar;
-            try {
-                myUserOfCalendar = theUserRetrievalService.GetUser(aUserIdOfCalendar);
-            } catch (Exception e) {
-                LogError(e, USER_RETRIEVAL_ERROR);
-                return SendToErrorPage(LOAD_EVENTS_ERROR);
-            }
-
-            LoggedInListModel<Event> myLoggedInModel = new LoggedInListModel<Event>(myUserOfCalendar, aViewingUser, SiteSection.Calendar);
-            try {
-                myLoggedInModel.Models = theEventService.GetEventsForUser(aViewingUser, aUserIdOfCalendar);
-                if (myLoggedInModel.Models.Count<Event>() == 0) {
-                    ViewData["Message"] = MessageHelper.NormalMessage(NO_EVENTS);
-                }
-            } catch(NotFriendException e) {
-                SendToErrorPage(HAVConstants.NOT_FRIEND);
-            } catch (Exception e) {
-                LogError(e, LOAD_EVENTS_ERROR);
-                ViewData["Message"] = MessageHelper.ErrorMessage(LOAD_EVENTS_ERROR);
-            }
-
-            return View(LIST_VIEW, myLoggedInModel);
-        }
-
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
         public ActionResult AddEvent(DateTime date, string information) {
             if (!IsLoggedIn()) {
@@ -116,6 +91,31 @@ namespace HaveAVoice.Controllers.Users {
             }
 
             return RedirectToAction("List");
+        }
+
+        private ActionResult GetEvents(User aViewingUser, int aUserIdOfCalendar) {
+            User myUserOfCalendar;
+            try {
+                myUserOfCalendar = theUserRetrievalService.GetUser(aUserIdOfCalendar);
+            } catch (Exception e) {
+                LogError(e, USER_RETRIEVAL_ERROR);
+                return SendToErrorPage(LOAD_EVENTS_ERROR);
+            }
+
+            LoggedInListModel<Event> myLoggedInModel = new LoggedInListModel<Event>(myUserOfCalendar, aViewingUser, SiteSection.Calendar);
+            try {
+                myLoggedInModel.Models = theEventService.GetEventsForUser(aViewingUser, aUserIdOfCalendar);
+                if (myLoggedInModel.Models.Count<Event>() == 0) {
+                    ViewData["Message"] = MessageHelper.NormalMessage(NO_EVENTS);
+                }
+            } catch (NotFriendException e) {
+                SendToErrorPage(HAVConstants.NOT_FRIEND);
+            } catch (Exception e) {
+                LogError(e, LOAD_EVENTS_ERROR);
+                ViewData["Message"] = MessageHelper.ErrorMessage(LOAD_EVENTS_ERROR);
+            }
+
+            return View(LIST_VIEW, myLoggedInModel);
         }
     }
 }
