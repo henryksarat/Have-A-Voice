@@ -9,6 +9,8 @@ namespace HaveAVoice.Helpers.Search {
         Name,
         ZipCode,
         Tags,
-        City
+        City,
+        Title,
+        Description
     }
 }

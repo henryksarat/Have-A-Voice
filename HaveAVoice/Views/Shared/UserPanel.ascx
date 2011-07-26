@@ -139,7 +139,6 @@
 			<% } %>
 		</div>
 	</div>
-
     <% bool myIsAllowed = PrivacyHelper.IsAllowed(Model.User, PrivacyAction.DisplayProfile); %>
     <% if (myIsAllowed) { %>
         <div class="col-6 round-3">

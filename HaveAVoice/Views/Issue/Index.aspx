@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<HaveAVoice.Models.View.IssueWithDispositionModel>>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<SearchModel<IssueWithDispositionModel>>" %>
 <%@ Import Namespace="HaveAVoice.Helpers.Enums" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Helpers" %>
@@ -15,13 +15,21 @@
     <div class="col-24">
         <div class="spacer-30">&nbsp;</div>
     
-    	<% Html.RenderPartial("Message"); %>
-    	<div class="clear">&nbsp;</div>
-    	
-    	<div class="col-24 m-btm10 right">
-    		<a href="/Issue/Create" class="button">Raise New Issue</a>
-    		<div class="clear">&nbsp;</div>
-    	</div>
+        <% Html.RenderPartial("Message"); %>
+        <% Html.RenderPartial("Validation"); %>
+        <% using (Html.BeginForm("Search", "Issue", FormMethod.Post, new { @class = "search-group" })) { %>
+            <div class="col-24 center m-btm25">
+	            <%= Html.TextBox("SearchTerm")%>
+                <label for="SearcyBy">Search By:</label>
+                <%= Html.DropDownList("SearchBy", Model.SearchByOptions)%>
+                <label for="OrderBy">Order By:</label>
+                <%= Html.DropDownList("OrderBy", Model.OrderByOptions)%>
+                <input type="submit" name="submit" value="Search" class="button" /> 
+	            <div class="clear">&nbsp;</div>
+	        </div>
+        <% } %>
+
+        <div class="clear">&nbsp;</div>
     
     	<div class="push-1 col-4 center p-t5 p-b5 t-tab b-wht">
     		<span class="fnt-16 tint-6 bold">ISSUES</span>
@@ -38,7 +46,7 @@
 			<div class="clear">&nbsp;</div>
 		</div>
 
-	    <% foreach (var item in Model) { %>
+	    <% foreach (var item in Model.SearchResults) { %>
 	    	<div class="issue-container m-btm10">
 		    	<div class="push-1 col-2">
 		    		<img src="<%= PhotoHelper.ProfilePicture(item.Issue.User) %>" alt="<%= NameHelper.FullName(item.Issue.User) %>" class="profile" />

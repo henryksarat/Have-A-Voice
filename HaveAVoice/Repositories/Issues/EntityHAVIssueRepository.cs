@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
-using HaveAVoice.Helpers.Enums;
-using HaveAVoice.Models.View;
 using System.Data.Objects;
+using System.Linq;
+using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Models;
+using HaveAVoice.Models.View;
 
 namespace HaveAVoice.Repositories.Issues {
     public class EntityHAVIssueRepository : IHAVIssueRepository {
@@ -60,15 +60,68 @@ namespace HaveAVoice.Repositories.Issues {
                     }).ToList<IssueWithDispositionModel>();
         }
 
+        public IEnumerable<IssueWithDispositionModel> GetIssuesByDescription(User aUser, string aSearchTerm) {
+            ObjectQuery<Issue> myIssues = theEntities.Issues;
+            ObjectQuery<IssueDisposition> myIssueDispositions = theEntities.IssueDispositions;
+            int myUserId = aUser == null ? 0 : aUser.Id;
+
+            return (from i in myIssues
+                    let d = myIssueDispositions.Where(d2 => d2.Issue.Id == i.Id)
+                    .Where(d2 => d2.User.Id == myUserId)
+                    .FirstOrDefault()
+                    where i.Deleted == false
+                    && i.Description.Contains(aSearchTerm)
+                    select new IssueWithDispositionModel() {
+                        Issue = i,
+                        HasDisposition = (d == null && myUserId != 0 ? false : true),
+                        TotalAgrees = (from d2 in i.IssueDispositions
+                                       where d2.Disposition == (int)Disposition.Like
+                                       select d2).Count<IssueDisposition>(),
+                        TotalDisagrees = (from d2 in i.IssueDispositions
+                                          where d2.Disposition == (int)Disposition.Dislike
+                                          select d2).Count<IssueDisposition>(),
+                    }).ToList<IssueWithDispositionModel>();
+        }
+
+        public IEnumerable<IssueWithDispositionModel> GetIssuesByTitle(User aUser, string aSearchTerm) {
+            ObjectQuery<Issue> myIssues = theEntities.Issues;
+            ObjectQuery<IssueDisposition> myIssueDispositions = theEntities.IssueDispositions;
+            int myUserId = aUser == null ? 0 : aUser.Id;
+
+            return (from i in myIssues
+                    let d = myIssueDispositions.Where(d2 => d2.Issue.Id == i.Id)
+                    .Where(d2 => d2.User.Id == myUserId)
+                    .FirstOrDefault()
+                    where i.Deleted == false
+                    && i.Title.Contains(aSearchTerm)
+                    select new IssueWithDispositionModel() {
+                        Issue = i,
+                        HasDisposition = (d == null && myUserId != 0 ? false : true),
+                        TotalAgrees = (from d2 in i.IssueDispositions
+                                       where d2.Disposition == (int)Disposition.Like
+                                       select d2).Count<IssueDisposition>(),
+                        TotalDisagrees = (from d2 in i.IssueDispositions
+                                          where d2.Disposition == (int)Disposition.Dislike
+                                          select d2).Count<IssueDisposition>(),
+                    }).ToList<IssueWithDispositionModel>();
+        }
+
         public Issue GetIssue(int anIssueId) {
             return (from i in theEntities.Issues
                     where i.Id == anIssueId
                     select i).FirstOrDefault();
         }
 
-        public Issue GetIssueByTitle(string aTitle) {
+        public Issue GetIssueByTitle(string aSearchTerm) {
             return (from i in theEntities.Issues
-                    where i.Title == aTitle
+                    where i.Title.Contains(aSearchTerm)
+                    && i.Deleted == false
+                    select i).FirstOrDefault();
+        }
+
+        public Issue GetIssueByDescription(string aSearchTerm) {
+            return (from i in theEntities.Issues
+                    where i.Description.Contains(aSearchTerm)
                     && i.Deleted == false
                     select i).FirstOrDefault();
         }
@@ -83,7 +136,7 @@ namespace HaveAVoice.Repositories.Issues {
             return GetIssueByTitle(aTitle) != null ? true : false;
         }
 
-        public IEnumerable<Issue> GetIssuesByTitleContains(string aTitlePortion) {
+        public IEnumerable<Issue> GetIssuesByTitle(string aTitlePortion) {
             return (from i in theEntities.Issues
                     where i.Title.Contains(aTitlePortion)
                     select i).ToList<Issue>();

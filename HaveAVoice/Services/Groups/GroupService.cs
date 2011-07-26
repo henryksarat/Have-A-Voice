@@ -279,6 +279,15 @@ namespace HaveAVoice.Services.Groups {
             return myIsAllowed;
         }
 
+        public IDictionary<string, string> OrderByOptions() {
+            IDictionary<string, string> myOrderByOptionsDictionary = new Dictionary<string, string>();
+            myOrderByOptionsDictionary.Add(OrderBy.Name.ToString(), OrderBy.Name.ToString());
+            myOrderByOptionsDictionary.Add("Zip Code", OrderBy.ZipCode.ToString());
+            myOrderByOptionsDictionary.Add(OrderBy.City.ToString(), OrderBy.City.ToString());
+            myOrderByOptionsDictionary.Add(OrderBy.State.ToString(), OrderBy.State.ToString());
+            return myOrderByOptionsDictionary;
+        }
+
         public bool PostToGroupBoard(UserInformationModel<User> aPostingUser, int aGroupId, string aMessage) {
             if(!ValidatePostToBoard(aPostingUser.Details, aGroupId, aMessage)) {
                 return false;
@@ -318,15 +327,6 @@ namespace HaveAVoice.Services.Groups {
             mySearchByOptionsDictionary.Add("Zip Code", SearchBy.ZipCode.ToString());
             mySearchByOptionsDictionary.Add(SearchBy.City.ToString(), SearchBy.City.ToString());
             return mySearchByOptionsDictionary;
-        }
-
-        public IDictionary<string, string> OrderByOptions() {
-            IDictionary<string, string> myOrderByOptionsDictionary = new Dictionary<string, string>();
-            myOrderByOptionsDictionary.Add(OrderBy.Name.ToString(), OrderBy.Name.ToString());
-            myOrderByOptionsDictionary.Add("Zip Code", OrderBy.ZipCode.ToString());
-            myOrderByOptionsDictionary.Add(OrderBy.City.ToString(), OrderBy.City.ToString());
-            myOrderByOptionsDictionary.Add(OrderBy.State.ToString(), OrderBy.State.ToString());
-            return myOrderByOptionsDictionary;
         }
 
         private bool ValidateAdmin(UserInformationModel<User> aUser, int aGroupId) {

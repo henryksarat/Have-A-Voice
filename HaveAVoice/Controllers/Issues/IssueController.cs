@@ -16,6 +16,7 @@ using Social.Generic.Constants;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Validation;
+using HaveAVoice.Helpers.Search;
 
 namespace HaveAVoice.Controllers.Issues {
     public class IssueController : HAVBaseController {
@@ -61,20 +62,14 @@ namespace HaveAVoice.Controllers.Issues {
             theIssueService = aService;
         }
 
+        [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Index() {
-            IEnumerable<IssueWithDispositionModel> myIssues;
-            try {
-                myIssues = theIssueService.GetIssues(GetUserInformaton()).OrderByDescending(i => i.Issue.DateTimeStamp);
-            } catch (Exception e) {
-                LogError(e, GET_LATEST_ISSUES_ERROR);
-                return SendToErrorPage(GET_LATEST_ISSUES_ERROR);
-            }
+            return Search(SearchBy.All, OrderBy.LastReplyDate, string.Empty);
+        }
 
-            if (myIssues.Count() == 0) {
-                ViewData["Message"] = MessageHelper.NormalMessage(NO_ISSUES);
-            }
-
-            return View("Index", myIssues);
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Search(SearchBy searchBy, OrderBy orderBy, string searchTerm) {
+            return SearchIssues(searchBy, orderBy, searchTerm);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
@@ -292,6 +287,28 @@ namespace HaveAVoice.Controllers.Issues {
 
             mynewModel.States = new SelectList(UnitedStates.STATES, Constants.SELECT);
             return View("Details", mynewModel);
+        }
+
+        private ActionResult SearchIssues(SearchBy aSearchBy, OrderBy anOrderBy, string aSearchTerm) {
+            IEnumerable<IssueWithDispositionModel> myIssues = new List<IssueWithDispositionModel>(); ;
+            try {
+                myIssues = theIssueService.GetIssues(GetUserInformaton(), aSearchBy, anOrderBy, aSearchTerm);
+            } catch (Exception e) {
+                LogError(e, GET_LATEST_ISSUES_ERROR);
+                return SendToErrorPage(GET_LATEST_ISSUES_ERROR);
+            }
+
+            if (myIssues.Count() == 0) {
+                ViewData["Message"] = MessageHelper.NormalMessage(NO_ISSUES);
+            }
+
+            SearchModel<IssueWithDispositionModel> mySearchModel = new SearchModel<IssueWithDispositionModel>() {
+                SearchResults = myIssues,
+                SearchByOptions = new SelectList(theIssueService.SearchByOptions(), "Value", "Key", aSearchBy),
+                OrderByOptions = new SelectList(theIssueService.OrderByOptions(), "Value", "Key", anOrderBy)
+            };
+
+            return View("Index", mySearchModel);
         }
 
         private void SaveIssueInformationToTempDataForFiltering(IssueModel aModel) {

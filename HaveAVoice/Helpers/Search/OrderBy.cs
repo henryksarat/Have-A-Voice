@@ -8,6 +8,9 @@ namespace HaveAVoice.Helpers.Search {
         Name,
         ZipCode,
         City,
-        State
+        State,
+        LastReplyDate,
+        LatestCreationDate,
+        Title
     }
 }

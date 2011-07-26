@@ -13,9 +13,13 @@ using Social.Generic.Models;
 using Social.Validation;
 using Social.Generic.Constants;
 using System.Web.Mvc;
+using HaveAVoice.Helpers.Search;
+using System;
 
 namespace HaveAVoice.Services.Issues {
     public class HAVIssueService : IHAVIssueService {
+        private static DateTime OLD_DATE = new DateTime(1987, 05, 03);
+
         private IValidationDictionary theValidationDictionary;
         private IHAVIssueRepository theIssueRepository;
         private IHAVIssueReplyRepository theIssueReplyRepository;
@@ -124,12 +128,40 @@ namespace HaveAVoice.Services.Issues {
             return theIssueRepository.GetLatestIssues();
         }
 
-        public IEnumerable<IssueWithDispositionModel> GetIssues(User aUser) {
-            return theIssueRepository.GetIssues(aUser);
+        public IEnumerable<IssueWithDispositionModel> GetIssues(User aUser, SearchBy aSearchBy, OrderBy anOrderBy, string aSearchTerm) {
+            IEnumerable<IssueWithDispositionModel> mySearchResults = new List<IssueWithDispositionModel>();
+
+            if (aSearchBy == SearchBy.All) {
+                mySearchResults = theIssueRepository.GetIssues(aUser);
+            } else if (aSearchBy == SearchBy.Title) {
+                mySearchResults = theIssueRepository.GetIssuesByTitle(aUser, aSearchTerm);
+            } else if (aSearchBy == SearchBy.Description) {
+                mySearchResults = theIssueRepository.GetIssuesByDescription(aUser, aSearchTerm);
+            }
+
+            if (anOrderBy == OrderBy.LastReplyDate) {
+                mySearchResults = mySearchResults.OrderByDescending(
+                    r => r.Issue.IssueReplys
+                        .Where(r2 => !r2.Deleted)
+                        .OrderByDescending(r2 => r2.DateTimeStamp)
+                        .FirstOrDefault<IssueReply>() != null ?
+                        r.Issue.IssueReplys
+                        .Where(r2 => !r2.Deleted)
+                        .OrderByDescending(r2 => r2.DateTimeStamp)
+                        .FirstOrDefault<IssueReply>().DateTimeStamp :
+                        OLD_DATE
+                );
+            } else if (anOrderBy == OrderBy.LatestCreationDate) {
+                mySearchResults = mySearchResults.OrderByDescending(i => i.Issue.DateTimeStamp);
+            } else if (anOrderBy == OrderBy.Title) {
+                mySearchResults = mySearchResults.OrderBy(i => i.Issue.Title);
+            }
+
+            return mySearchResults;
         }
 
         public IEnumerable<Issue> GetIssueByTitleSearch(string aTitlePortion) {
-            return theIssueRepository.GetIssuesByTitleContains(aTitlePortion);
+            return theIssueRepository.GetIssuesByTitle(aTitlePortion);
         }
 
         public IEnumerable<Issue> GetMostPopularIssuesByHitCount(int aLimit) {
@@ -139,6 +171,22 @@ namespace HaveAVoice.Services.Issues {
 
         public IEnumerable<Issue> GetNewestIssues(int aLimit) {
             return theIssueRepository.GetNewestIssues(aLimit);
+        }
+
+        public IDictionary<string, string> OrderByOptions() {
+            IDictionary<string, string> myOrderByOptionsDictionary = new Dictionary<string, string>();
+            myOrderByOptionsDictionary.Add("Last Reply Date", OrderBy.LastReplyDate.ToString());
+            myOrderByOptionsDictionary.Add("Latest Creation Date", OrderBy.LatestCreationDate.ToString());
+            myOrderByOptionsDictionary.Add(OrderBy.Title.ToString(), OrderBy.Title.ToString());
+            return myOrderByOptionsDictionary;
+        }
+
+        public IDictionary<string, string> SearchByOptions() {
+            IDictionary<string, string> mySearchByOptionsDictionary = new Dictionary<string, string>();
+            mySearchByOptionsDictionary.Add("Show all issues", SearchBy.All.ToString());
+            mySearchByOptionsDictionary.Add(SearchBy.Title.ToString(), SearchBy.Title.ToString());
+            mySearchByOptionsDictionary.Add(SearchBy.Description.ToString(), SearchBy.Description.ToString());
+            return mySearchByOptionsDictionary;
         }
 
         private bool ValidateIssue(Issue aIssueToValidate) {
