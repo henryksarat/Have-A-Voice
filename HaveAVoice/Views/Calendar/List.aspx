@@ -12,11 +12,19 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 	<script type="text/javascript" language="javascript">
 		$(function() {
-	        $('#Date').datepicker({
-	        	yearRange: '1900:2011',
-                changeMonth: true,
-                changeYear: true,
-                dateFormat: "mm-dd-yy"
+	        $('#StartDate').datepicker({
+	            changeMonth: true,
+	            changeYear: true,
+	            dateFormat: "mm-dd-yy",
+	            yearRange: '2011:2012'
+	        });
+
+	        $('#EndDate').datepicker({
+	            changeMonth: true,
+	            changeYear: true,
+	            dateFormat: "mm-dd-yy",
+	            yearRange: '2011:2012'
+	        });
             });
 		});
 	</script>

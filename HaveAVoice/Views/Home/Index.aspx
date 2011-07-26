@@ -5,14 +5,6 @@
     <span style="width:100%; margin-left:25%; margin-right:75%; background-color:#01b1da">
         <img src="/Content/images/splash.png" />
     </span>
-    <span style="margin-left:75%; margin-right:25%">
-		<a href="http://www.facebook.com/haveavoice" target="_blank">
-		    <img src="/Content/images/facebook.png" alt="Follow Have a Voice on Facebook!">
-		</a>		    	
-        <a href="http://twitter.com/haveavoice_" target="_blank">
-		    <img src="/Content/images/twitter.png" alt="Follow Have a Voice and it's development on Twitter!">
-		</a>
-    </span>
     <span>
 <table style="width:100%">
 <tr>
@@ -52,6 +44,14 @@
 </td>
 </tr>
 </table>
+    </span>
+    <span style="margin-left:75%; margin-right:25%">
+		<a href="http://www.facebook.com/haveavoice" target="_blank">
+		    <img src="/Content/images/facebook.png" alt="Follow Have a Voice on Facebook!">
+		</a>		    	
+        <a href="http://twitter.com/haveavoice_" target="_blank">
+		    <img src="/Content/images/twitter.png" alt="Follow Have a Voice and it's development on Twitter!">
+		</a>
     </span>
 </body>
 </html>

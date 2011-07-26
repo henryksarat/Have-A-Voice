@@ -33,7 +33,7 @@
 	    	<div class="clear">&nbsp;</div>
 	    </div>
 	    <div class="clear">&nbsp;</div>
-	    <div class="large-photo m-top10">
+	    <div class="large-photo m-top10 center">
 			<img src="<%= PhotoHelper.ConstructUrl(Model.Model.ImageName) %>" />
 		</div>
 		<div class="clear">&nbsp;</div>

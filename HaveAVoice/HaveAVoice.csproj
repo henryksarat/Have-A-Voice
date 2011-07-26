@@ -356,6 +356,7 @@
     <Content Include="Content\images\menu\message_grey.png" />
     <Content Include="Content\images\menu\photo.png" />
     <Content Include="Content\images\menu\photo_grey.png" />
+    <Content Include="Content\images\new-album.png" />
     <Content Include="Content\images\politician.png" />
     <Content Include="Content\images\popular.png" />
     <Content Include="Content\images\report.png" />

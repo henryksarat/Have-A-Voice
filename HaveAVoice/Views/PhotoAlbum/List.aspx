@@ -79,8 +79,12 @@
 		    <% foreach (var item in Model.Models) { %>
 		    	<li>
 		    		<a href="/PhotoAlbum/Details/<%= item.Id %>" class="album">
-			    		<img src="<%= PhotoHelper.RetrievePhotoAlbumCoverUrl(item) %>" alt="<%= item.Name %>" /><br />
-			    		<%= item.Name %>
+			    		<div class="m-top10">
+                            <img src="<%= PhotoHelper.RetrievePhotoAlbumCoverUrl(item) %>" alt="<%= item.Name %>" />
+                        </div>
+                        <div class="m-top10">
+			    		    <%= item.Name %>
+                        </div>
 			    	</a>
 			        <% if (myIsUser) { %>
 			            <%= Html.ActionLink("Edit", "Edit", "PhotoAlbum", new { id = item.Id }, new { @class = "edit" }) %>
