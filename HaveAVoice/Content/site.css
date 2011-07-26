@@ -83,6 +83,9 @@ body { font-family: helvetica, arial, sans-serif; background: #20a9c9; }
 .m-top15 { margin-top: 15px; }
 .m-top20 { margin-top: 20px; }
 .m-top30 { margin-top: 30px; }
+.m-top40 { margin-top: 40px; }
+.m-top45 { margin-top: 45px; }
+.m-top55 { margin-top: 55px; }
 
 .m-btm5 { margin-bottom: 5px; }
 .m-btm10 { margin-bottom: 10px; }
@@ -452,7 +455,7 @@ a.issue-report, a.issue-report:link, a.issue-report:visited { width: 16px; heigh
 .events a.delete, .events a.delete:link, .events a.delete:visited { color: #DC143C; text-decoration: none; font-weight: bold; font-size: 12px; font-style: normal; text-transform: uppercase; }
 
 .events div.create { border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; background-color: #20a9c9; padding: 5px 0px; }
-
+.create input.quarter, .create textarea.half { width: 1px; }
 
 /****************************************************************************/
 /******************************** MESSAGES **********************************/

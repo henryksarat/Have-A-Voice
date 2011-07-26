@@ -25,6 +25,9 @@ namespace Social.Generic.Models {
         public string EndDate { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string Title { get; set; }
+
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Information { get; set; }
 
         public AbstractEventViewModel() {

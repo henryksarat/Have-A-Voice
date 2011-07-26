@@ -10,6 +10,7 @@ using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Photo.Services;
 using Social.Validation;
+using HaveAVoice.Models.View;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVCalendarService : IHAVCalendarService {
@@ -45,14 +46,14 @@ namespace HaveAVoice.Services.UserFeatures {
             return theValidationDictionary.isValid;
         }
 
-       
-        public bool AddEvent(int aUserId, DateTime aDate, string anInformation) {
-            if (!ValidateEvent(aDate, anInformation)) {
-                return false;
+
+        public Event AddEvent(UserInformationModel<User> aUserInfo, EventViewModel anEventModel) {
+            if (!ValidEvent(anEventModel)) {
+                return null;
             }
 
-            theRepository.AddEvent(aUserId, aDate, aDate, anInformation);
-            return true;
+            return theRepository.AddEvent(aUserInfo.Details, anEventModel.GetStartDate(), 
+                anEventModel.GetEndDate(), anEventModel.Title, anEventModel.Information);
         }
 
         public void DeleteEvent(UserInformationModel<User> anUserInformation, int anEventId) {
@@ -68,6 +69,33 @@ namespace HaveAVoice.Services.UserFeatures {
             }
 
             throw new NotFriendException();
+        }
+
+        private bool ValidEvent(EventViewModel aCreateEventModel) {
+            DateTime myStartTimeUtc = TimeZoneInfo.ConvertTimeToUtc(aCreateEventModel.GetStartDate());
+            DateTime myEndTimeUtc = TimeZoneInfo.ConvertTimeToUtc(aCreateEventModel.GetEndDate());
+
+            if (string.IsNullOrEmpty(aCreateEventModel.Title)) {
+                theValidationDictionary.AddError("Title", aCreateEventModel.Title, "A title for the event is required.");
+            }
+
+            if (string.IsNullOrEmpty(aCreateEventModel.Information)) {
+                theValidationDictionary.AddError("Information", aCreateEventModel.Information, "Information for the event is required.");
+            }
+
+            if (aCreateEventModel.StartDate == null) {
+                theValidationDictionary.AddError("StartDate", aCreateEventModel.StartDate.ToString(), "Invalid date.");
+            } else if (myStartTimeUtc <= DateTime.UtcNow) {
+                theValidationDictionary.AddError("StartDate", aCreateEventModel.StartDate.ToString(), "The start date must be later than now.");
+            }
+
+            if (aCreateEventModel.EndDate == null) {
+                theValidationDictionary.AddError("EndDate", aCreateEventModel.EndDate.ToString(), "Invalid date.");
+            } else if (myEndTimeUtc <= myStartTimeUtc) {
+                theValidationDictionary.AddError("EndDate", aCreateEventModel.EndDate.ToString(), "The end date must be later than the start date.");
+            }
+
+            return theValidationDictionary.isValid;
         }
     }
 }

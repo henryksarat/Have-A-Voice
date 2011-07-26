@@ -7,7 +7,7 @@ using Social.Generic.Models;
 
 namespace HaveAVoice.Services.UserFeatures {
     public interface IHAVCalendarService {
-        bool AddEvent(int aUserId, DateTime aDate, string anInformation);
+        Event AddEvent(UserInformationModel<User> aUserInfo, EventViewModel anEventModel);
         void DeleteEvent(UserInformationModel<User> aUserInformation, int anEventId);
         IEnumerable<Event> GetEventsForUser(User aViewingUser, int aUserId);
     }

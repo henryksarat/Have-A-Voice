@@ -4679,15 +4679,17 @@ namespace HaveAVoice.Models
         /// <param name="userId">Initial value of the UserId property.</param>
         /// <param name="startDate">Initial value of the StartDate property.</param>
         /// <param name="endDate">Initial value of the EndDate property.</param>
+        /// <param name="title">Initial value of the Title property.</param>
         /// <param name="information">Initial value of the Information property.</param>
         /// <param name="deleted">Initial value of the Deleted property.</param>
-        public static Event CreateEvent(global::System.Int32 id, global::System.Int32 userId, global::System.DateTime startDate, global::System.DateTime endDate, global::System.String information, global::System.Boolean deleted)
+        public static Event CreateEvent(global::System.Int32 id, global::System.Int32 userId, global::System.DateTime startDate, global::System.DateTime endDate, global::System.String title, global::System.String information, global::System.Boolean deleted)
         {
             Event @event = new Event();
             @event.Id = id;
             @event.UserId = userId;
             @event.StartDate = startDate;
             @event.EndDate = endDate;
+            @event.Title = title;
             @event.Information = information;
             @event.Deleted = deleted;
             return @event;
@@ -4794,6 +4796,30 @@ namespace HaveAVoice.Models
         private global::System.DateTime _EndDate;
         partial void OnEndDateChanging(global::System.DateTime value);
         partial void OnEndDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Title
+        {
+            get
+            {
+                return _Title;
+            }
+            set
+            {
+                OnTitleChanging(value);
+                ReportPropertyChanging("Title");
+                _Title = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Title");
+                OnTitleChanged();
+            }
+        }
+        private global::System.String _Title;
+        partial void OnTitleChanging(global::System.String value);
+        partial void OnTitleChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

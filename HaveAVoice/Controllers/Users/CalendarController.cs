@@ -11,6 +11,7 @@ using Social.Friend.Exceptions;
 using Social.Generic.ActionFilters;
 using Social.User.Services;
 using Social.Validation;
+using Social.Generic.Models;
 
 namespace HaveAVoice.Controllers.Users {
     public class CalendarController : HAVBaseController {
@@ -25,12 +26,13 @@ namespace HaveAVoice.Controllers.Users {
 
         private static string LIST_VIEW = "List";
 
+        private IValidationDictionary theValidationDictionary;
         private IHAVCalendarService theEventService;
         private IUserRetrievalService<User> theUserRetrievalService;
 
         public CalendarController() {
-             ModelStateWrapper myModelWrapper = new ModelStateWrapper(this.ModelState);
-             theEventService = new HAVCalendarService(myModelWrapper);
+             theValidationDictionary = new ModelStateWrapper(this.ModelState);
+             theEventService = new HAVCalendarService(theValidationDictionary);
              theUserRetrievalService = new UserRetrievalService<User>(new EntityHAVUserRetrievalRepository());
         }
 
@@ -60,18 +62,21 @@ namespace HaveAVoice.Controllers.Users {
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
-        public ActionResult AddEvent(DateTime date, string information) {
+        public ActionResult AddEvent(EventViewModel anEvent) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            int myUserId = GetUserInformaton().Id;
+            
             try {
-                if (theEventService.AddEvent(myUserId, date, information)) {
+                UserInformationModel<User> myUser = GetUserInformatonModel();
+                Event myEvent = theEventService.AddEvent(myUser, anEvent);
+                if (myEvent != null) {
                     TempData["Message"] += MessageHelper.SuccessMessage(ADD_EVENT_SUCCESS);
                 }
             } catch (Exception e) {
                 LogError(e, ADD_EVENT_ERROR);
                 TempData["Message"] += MessageHelper.ErrorMessage(ADD_EVENT_ERROR);
+                theValidationDictionary.ForceModleStateExport();
             }
 
             return RedirectToAction(LIST_VIEW);
@@ -102,12 +107,15 @@ namespace HaveAVoice.Controllers.Users {
                 return SendToErrorPage(LOAD_EVENTS_ERROR);
             }
 
-            LoggedInListModel<Event> myLoggedInModel = new LoggedInListModel<Event>(myUserOfCalendar, aViewingUser, SiteSection.Calendar);
+            LoggedInWrapperModel<EventViewModel> myLoggedInModel = new LoggedInWrapperModel<EventViewModel>(myUserOfCalendar, aViewingUser, SiteSection.Calendar);
+            EventViewModel myModel = new EventViewModel();
             try {
-                myLoggedInModel.Models = theEventService.GetEventsForUser(aViewingUser, aUserIdOfCalendar);
-                if (myLoggedInModel.Models.Count<Event>() == 0) {
+                myModel.Results = theEventService.GetEventsForUser(aViewingUser, aUserIdOfCalendar);
+                if (myModel.Results.Count<Event>() == 0) {
                     ViewData["Message"] = MessageHelper.NormalMessage(NO_EVENTS);
                 }
+
+                myLoggedInModel.Set(myModel);
             } catch (NotFriendException e) {
                 SendToErrorPage(HAVConstants.NOT_FRIEND);
             } catch (Exception e) {

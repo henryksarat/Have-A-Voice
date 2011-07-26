@@ -8,11 +8,13 @@ namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVCalendarRepository : IHAVCalendarRepository {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
-        public void AddEvent(int aUserId, DateTime aStartDate, DateTime anEndDate, string anInformation) {
+        public Event AddEvent(User aUser, DateTime aStartDate, DateTime anEndDate, string aTitle, string anInformation) {
             IUserRepository<User, Role, UserRole> myUserRepo = new EntityHAVUserRepository();
-            Event myEvent = Event.CreateEvent(0, aUserId, aStartDate, anEndDate , anInformation, false);
+            Event myEvent = Event.CreateEvent(0, aUser.Id, aStartDate, anEndDate , aTitle, anInformation, false);
             theEntities.AddToEvents(myEvent);
             theEntities.SaveChanges();
+
+            return myEvent;
         }
 
         public void DeleteEvent(User aUser, int anEventId, bool anAdminDelete) {
