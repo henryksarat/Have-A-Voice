@@ -35,6 +35,11 @@
     </div>
     
     <div class="col-21 events">
+
+        <div class="action-bar bold p-a10 m-btm20 color-4">
+        	Calendar
+        </div>
+        
         <% Html.RenderPartial("Message"); %>
         <% Html.RenderPartial("Validation"); %>
 

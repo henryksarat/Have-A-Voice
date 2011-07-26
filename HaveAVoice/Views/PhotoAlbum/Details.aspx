@@ -18,6 +18,10 @@
     </div>
     
     <div class="col-21">
+        <div class="action-bar bold p-a10 m-btm20 color-4">
+        	Photo Album: <%= Model.Get().Name %>
+        </div>
+
        <% Html.RenderPartial("Message"); %>
         
         <h1 class="fnt-24 tint-6"><%= Model.Model.Name %></h1>

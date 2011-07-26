@@ -70,6 +70,9 @@
     </div>
 
 	<div class="col-21">
+        <div class="action-bar bold p-a10 m-btm20 color-4">
+        	Photo Albums
+        </div>
 	    <% UserInformationModel<User> myUserInformationModel = HAVUserInformationFactory.GetUserInformation(); %>
 	    <% bool myIsUser = myUserInformationModel.Details.Id == Model.NavigationModel.User.Id; %>
 	

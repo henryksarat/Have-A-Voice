@@ -17,6 +17,9 @@
     </div>
     
     <div class="col-21">
+        <div class="action-bar bold p-a10 m-btm20 color-4">
+        	Edit Photo Album: <%= Model.Get().Name %>
+        </div>
         <% Html.RenderPartial("Message"); %>
         <% Html.RenderPartial("Validation"); %>
         <div class="clear">&nbsp;</div>
@@ -55,9 +58,9 @@
 			<div class="spacer-10">&nbsp;</div>
 			<div class="clear">&nbsp;</div>
 
-			<div class="m-btm30">
+			<div class="col-6 m-btm30 push-6">
 				<input type="submit" value="Edit" class="create" />
-	            <%= Html.ActionLink("Cancel", "List", "", new { @class = "cancel" }) %>
+	            <%= Html.ActionLink("Cancel", "List", "PhotoAlbum", new { @class = "cancel" }) %>
 	            <div class="clear">&nbsp;</div>
 			</div>
         <% } %>

@@ -16,6 +16,10 @@
     </div>
 
     <div class="col-21">
+        <div class="action-bar bold p-a10 m-btm20 color-4">
+        	Issues Participating In
+        </div>
+
     <% Html.RenderPartial("Message"); %>
 
     <% FeedItem myNextFeedItem = Model.Model.GetNextItem(); %>
