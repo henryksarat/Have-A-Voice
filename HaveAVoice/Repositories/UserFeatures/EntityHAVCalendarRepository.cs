@@ -47,8 +47,8 @@ namespace HaveAVoice.Repositories.UserFeatures {
             return (from e in theEntities.Events
                     where e.User.Id == aUserId
                     && e.Deleted == false
-                    && e.StartDate > DateTime.UtcNow 
-                    && e.EndDate < DateTime.Now
+
+                    && (e.StartDate >= DateTime.UtcNow || e.EndDate >= DateTime.UtcNow)
                     select e).OrderBy(e2 => e2.StartDate).ToList<Event>();
         }
 

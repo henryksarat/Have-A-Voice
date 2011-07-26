@@ -105,7 +105,7 @@
                                 </div>
                                 <div class="col-1 center">
 						            <span class="req">
-						    	        <%= Html.ValidationMessage("Information", "*") %>
+						    	        <%= Html.ValidationMessage("Title", "*") %>
 						            </span>
                                 </div>
 						    	<div class="clear">&nbsp;</div>
@@ -148,18 +148,39 @@
 	    	<div class="<% if(cnt % 2 == 0) { %>row<% } else { %>alt<% } %>">
 				<div class="col-6">
 					<div class="p-a5">
-						<div class="date-tile">
-							<span><%= item.StartDate.ToString("MMMM dd").ToUpper() %></span>
-							<%= item.StartDate.ToString("yyyy")%>
+						<div class="date-tile col-6">
+                            <div class="col-1 right">
+                                Start:
+                            </div>
+							<div class="col-4 left m-lft10">
+                                <span><%= LocalDateHelper.ToLocalTime(item.StartDate) %></span>
+                            </div>
+						</div>
+					</div>
+        			<div class="p-a5">
+						<div class="date-tile col-6">
+                            <div class="col-1 right">
+                                End:
+                            </div>
+							<div class="col-4 left m-lft10">
+                                <span><%= LocalDateHelper.ToLocalTime(item.EndDate) %></span>
+                            </div>
 						</div>
 					</div>
 				</div>
-				<div class="col-13">
-					<div class="p-a5">
-						<%= PresentationHelper.ReplaceCarriageReturnWithBR(item.Information) %>
-					</div>
-				</div>
-				<div class="col-2 center">
+                <div class="col-12">
+        		    <div class="col-8">
+					    <div class="p-a5 bold">
+						    <%= item.Title %>
+					    </div>
+				    </div>
+				    <div class="col-12">
+					    <div class="p-a5">
+						    <%= PresentationHelper.ReplaceCarriageReturnWithBR(item.Information) %>
+					    </div>
+				    </div>
+                </div>
+				<div class="col-2 rigbt">
 					<div class="p-a5">
 						<%= Html.ActionLink("Delete", "DeleteEvent", new { id = item.Id }, new { @class = "delete" }) %>
 					</div>
@@ -173,3 +194,4 @@
 	    <% } %>
 	</div>
 </asp:Content>
+

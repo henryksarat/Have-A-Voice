@@ -88,11 +88,11 @@ namespace HaveAVoice.Controllers.Users {
             }
             try {
                 theEventService.DeleteEvent(GetUserInformatonModel(), id);
-                ViewData["Message"] = MessageHelper.SuccessMessage(DELETE_EVENT_SUCCESS);
+                TempData["Message"] += MessageHelper.SuccessMessage(DELETE_EVENT_SUCCESS);
 
             } catch (Exception e) {
                 LogError(e, DELETE_EVENT_ERROR);
-                ViewData["Message"] = MessageHelper.ErrorMessage(DELETE_EVENT_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(DELETE_EVENT_ERROR);
             }
 
             return RedirectToAction("List");
@@ -112,7 +112,7 @@ namespace HaveAVoice.Controllers.Users {
             try {
                 myModel.Results = theEventService.GetEventsForUser(aViewingUser, aUserIdOfCalendar);
                 if (myModel.Results.Count<Event>() == 0) {
-                    ViewData["Message"] = MessageHelper.NormalMessage(NO_EVENTS);
+                    TempData["Message"] += MessageHelper.NormalMessage(NO_EVENTS);
                 }
 
                 myLoggedInModel.Set(myModel);

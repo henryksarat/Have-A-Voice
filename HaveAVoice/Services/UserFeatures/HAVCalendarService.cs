@@ -52,8 +52,11 @@ namespace HaveAVoice.Services.UserFeatures {
                 return null;
             }
 
-            return theRepository.AddEvent(aUserInfo.Details, anEventModel.GetStartDate(), 
-                anEventModel.GetEndDate(), anEventModel.Title, anEventModel.Information);
+            DateTime myStartDateUtc = TimeZoneInfo.ConvertTimeToUtc(anEventModel.GetStartDate());
+            DateTime myEndDateUtc = TimeZoneInfo.ConvertTimeToUtc(anEventModel.GetEndDate());
+
+            return theRepository.AddEvent(aUserInfo.Details, myStartDateUtc,
+                myEndDateUtc, anEventModel.Title, anEventModel.Information);
         }
 
         public void DeleteEvent(UserInformationModel<User> anUserInformation, int anEventId) {
