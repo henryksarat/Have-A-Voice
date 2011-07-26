@@ -88,7 +88,7 @@ namespace HaveAVoice.Controllers.Users {
             IEnumerable<FriendConnectionModel> myConnectionModel = new List<FriendConnectionModel>();
 
             try {
-                myConnectionModel = theProfileQuestionsService.GetPossibleFriendConnections(myUser);
+                myConnectionModel = theProfileQuestionsService.GetPossibleFriendConnections(myUser, 3);
 
                 if (myConnectionModel.Count<FriendConnectionModel>() == 0) {
                     TempData["Message"] += MessageHelper.NormalMessage(NO_SUGGESTIONS);
@@ -104,7 +104,7 @@ namespace HaveAVoice.Controllers.Users {
         }
 
         [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
-        public ActionResult IgnoreUser(int userToIgnore) {
+        public ActionResult IgnoreUser(int userToIgnore, string controllerRedirect, string actionRedirect) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
@@ -118,7 +118,7 @@ namespace HaveAVoice.Controllers.Users {
                 TempData["Message"] += MessageHelper.SuccessMessage(IGNORE_FAIL);
             }
 
-            return RedirectToAction(LIST_VIEW);
+            return RedirectToAction(actionRedirect, controllerRedirect);
         }
     }
 }

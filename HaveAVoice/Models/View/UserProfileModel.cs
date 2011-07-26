@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using HaveAVoice.Helpers.Enums;
+using HaveAVoice.Helpers.Profile;
 
 namespace HaveAVoice.Models.View {
     public class UserProfileModel {
         public User User { get; set; }
         public Issue LocalIssue { get; set; }
+        public FriendConnectionModel FriendConnectionModel { get; set; }
+        public QuickNavigation QuickNavigation { get; set; }
+
         public string LocalIssueLocation { 
             get {
                 string myLocation = "Country";
@@ -63,6 +67,7 @@ namespace HaveAVoice.Models.View {
             IssueFeed = new List<IssueFeedModel>();
             IssueReplyFeed = new List<IssueReplyFeedModel>();
             PhotoAlbumFeed = new List<PhotoAlbumFeedModel>();
+            QuickNavigation = QuickNavigation.None;
         }
 
         public FeedItem GetNextItem() {

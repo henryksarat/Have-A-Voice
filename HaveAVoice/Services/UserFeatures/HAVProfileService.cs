@@ -16,6 +16,8 @@ using Social.Photo.Services;
 using Social.User.Services;
 using Social.Validation;
 using HaveAVoice.Helpers.Authority;
+using HaveAVoice.Helpers.Profile;
+using HaveAVoice.Services.Questions;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVProfileService : IHAVProfileService {
@@ -25,6 +27,7 @@ namespace HaveAVoice.Services.UserFeatures {
         private IHAVProfileRepository theRepository;
         private IValidationDictionary theValidationDictionary;
         private IBoardRepository<User, Board, BoardReply> theBoardRepository;
+        private IProfileQuestionService theProfileQuestionService;
 
         public HAVProfileService(IValidationDictionary validationDictionary)
             : this(validationDictionary,
@@ -35,20 +38,23 @@ namespace HaveAVoice.Services.UserFeatures {
                        new FriendService<User, Friend>(new EntityHAVFriendRepository()),
                        new EntityHAVPhotoAlbumRepository()),
                    new EntityHAVProfileRepository(),
-                   new EntityHAVBoardRepository()) { }
+                   new EntityHAVBoardRepository(),
+                   new ProfileQuestionService()) { }
 
         public HAVProfileService(IValidationDictionary aValidationDictionary, 
                                  IUserRetrievalService<User> aUserRetrievalService, 
                                  IFriendService<User, Friend> aFriendService, 
                                  IPhotoAlbumService<User, PhotoAlbum, Photo, Friend> aPhotoAlbumService, 
                                  IHAVProfileRepository aRepository,
-                                 IBoardRepository<User, Board, BoardReply> aBoardRepository) {
+                                 IBoardRepository<User, Board, BoardReply> aBoardRepository,
+                                 IProfileQuestionService aProfileQuestionService) {
             theValidationDictionary = aValidationDictionary;
             theUserRetrievalService = aUserRetrievalService;
             theFriendService = aFriendService;
             theRepository = aRepository;
             theBoardRepository = aBoardRepository;
             thePhotoAlbumService = aPhotoAlbumService;
+            theProfileQuestionService = aProfileQuestionService;
         }
 
         public UserProfileModel Profile(int aUserId, User myViewingUser) {
@@ -66,13 +72,15 @@ namespace HaveAVoice.Services.UserFeatures {
             return Profile(myUser, myViewingUser);
         }
 
-        public UserProfileModel MyProfile(User aUser) {
-            List<IssueFeedModel> myIssueFeed = CreateIssueFeed(theRepository.FriendIssueFeed(aUser), aUser, PersonFilter.People).ToList<IssueFeedModel>();
-            List<IssueReplyFeedModel> myIssueReplyFeed = CreateIssueReplyFeed(theRepository.FriendIssueReplyFeed(aUser), aUser, PersonFilter.People).ToList<IssueReplyFeedModel>();
-            IEnumerable<IssueFeedModel> myPoliticiansIssueFeed = CreateIssueFeed(theRepository.IssueFeedByRole(UserRoleHelper.PoliticianRoles()), aUser, PersonFilter.Politicians);
-            IEnumerable<IssueReplyFeedModel> myPoliticiansIssueReplyFeed = CreateIssueReplyFeed(theRepository.IssueReplyFeedByRole(UserRoleHelper.PoliticianRoles()), aUser, PersonFilter.Politicians);
-            IEnumerable<IssueFeedModel> myPoliticalCandidateIssueFeed = CreateIssueFeed(theRepository.IssueFeedByRole(UserRoleHelper.PoliticalCandidateRoles()), aUser, PersonFilter.PoliticalCandidates);
-            IEnumerable<IssueReplyFeedModel> myPoliticalCandidateIssueReplyFeed = CreateIssueReplyFeed(theRepository.IssueReplyFeedByRole(UserRoleHelper.PoliticalCandidateRoles()), aUser, PersonFilter.PoliticalCandidates);
+        public UserProfileModel MyProfile(UserInformationModel<User> aUserInfo) {
+            User myUser = aUserInfo.Details;
+
+            List<IssueFeedModel> myIssueFeed = CreateIssueFeed(theRepository.FriendIssueFeed(myUser), myUser, PersonFilter.People).ToList<IssueFeedModel>();
+            List<IssueReplyFeedModel> myIssueReplyFeed = CreateIssueReplyFeed(theRepository.FriendIssueReplyFeed(myUser), myUser, PersonFilter.People).ToList<IssueReplyFeedModel>();
+            IEnumerable<IssueFeedModel> myPoliticiansIssueFeed = CreateIssueFeed(theRepository.IssueFeedByRole(UserRoleHelper.PoliticianRoles()), myUser, PersonFilter.Politicians);
+            IEnumerable<IssueReplyFeedModel> myPoliticiansIssueReplyFeed = CreateIssueReplyFeed(theRepository.IssueReplyFeedByRole(UserRoleHelper.PoliticianRoles()), myUser, PersonFilter.Politicians);
+            IEnumerable<IssueFeedModel> myPoliticalCandidateIssueFeed = CreateIssueFeed(theRepository.IssueFeedByRole(UserRoleHelper.PoliticalCandidateRoles()), myUser, PersonFilter.PoliticalCandidates);
+            IEnumerable<IssueReplyFeedModel> myPoliticalCandidateIssueReplyFeed = CreateIssueReplyFeed(theRepository.IssueReplyFeedByRole(UserRoleHelper.PoliticalCandidateRoles()), myUser, PersonFilter.PoliticalCandidates);
 
             myIssueFeed.AddRange(myPoliticiansIssueFeed);
             myIssueFeed.AddRange(myPoliticalCandidateIssueFeed);
@@ -82,16 +90,46 @@ namespace HaveAVoice.Services.UserFeatures {
             myIssueReplyFeed.AddRange(myPoliticalCandidateIssueReplyFeed);
             myIssueReplyFeed = myIssueReplyFeed.OrderByDescending(ir => ir.DateTimeStamp).ToList<IssueReplyFeedModel>();
 
-            Issue myRandomLocalIssue = theRepository.RandomLocalIssue(aUser);
-
-            UserProfileModel myModel = new UserProfileModel(aUser) {
-                LocalIssue = myRandomLocalIssue,
+            UserProfileModel myModel = new UserProfileModel(myUser) {
                 IssueFeed = myIssueFeed,
                 IssueReplyFeed = myIssueReplyFeed,
                 //PhotoAlbumFeed = CreatePhotoAlbumFeed(theRepository.FriendPhotoAlbumFeed(aUser))
             };
 
+            Random myRandom = new Random();
+            if (!true) {
+                if(!SetForLocalIssue(myModel, myUser)) {
+                    SetForFriendSuggestion(myModel, aUserInfo);
+                }
+            } else {
+                if (!SetForFriendSuggestion(myModel, aUserInfo)) {
+                    SetForLocalIssue(myModel, myUser);
+                }
+            }
+
             return myModel;
+        }
+
+        private bool SetForLocalIssue(UserProfileModel aModel, User aUser) {
+            bool myDone = false;
+            Issue myRandomLocalIssue = theRepository.RandomLocalIssue(aUser);
+            if (myRandomLocalIssue != null) {
+                aModel.QuickNavigation = QuickNavigation.LocalIssue;
+                aModel.LocalIssue = myRandomLocalIssue;
+                myDone = true;
+            }
+            return myDone;
+        }
+
+        private bool SetForFriendSuggestion(UserProfileModel aModel, UserInformationModel<User> aUser) {
+            bool myDone = false;
+            IEnumerable<FriendConnectionModel> myConnectionModel = theProfileQuestionService.GetPossibleFriendConnections(aUser, 1);
+            if (myConnectionModel.Count<FriendConnectionModel>() > 0) {
+                aModel.QuickNavigation = QuickNavigation.SuggestedFriend;
+                aModel.FriendConnectionModel = myConnectionModel.FirstOrDefault<FriendConnectionModel>();
+                myDone = true;
+            }
+            return myDone;
         }
 
         public UserProfileModel UserIssueActivity(int aUserId, User aViewingUser) {

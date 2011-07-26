@@ -2,6 +2,7 @@
 using HaveAVoice.Helpers;
 using HaveAVoice.Services.Helpers;
 using HaveAVoice.Util;
+using HaveAVoice.Helpers.Profile;
 
 namespace HaveAVoice.Models.View {
     public class NavigationModel {
@@ -12,6 +13,9 @@ namespace HaveAVoice.Models.View {
         public string FullName { get; private set; }
         public SiteSection SiteSection { get; private set; }
         public Issue LocalIssue { get; set; }
+        public FriendConnectionModel FriendConnectionModel { get; set; }
+        public QuickNavigation QuickNavigation { get; set; }
+
         public string LocalIssueLocation {
             get {
                 string myLocation = "Country";

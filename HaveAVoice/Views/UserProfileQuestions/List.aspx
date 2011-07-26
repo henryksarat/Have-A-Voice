@@ -49,7 +49,7 @@
     			    <div class="clear">&nbsp;</div>
     		    </div>
     		    <div class="col-3 center">
-                    <a class="button" href="<%= LinkHelper.IgnoreFriendSuggestion(myFriendConnectionModel.User.Id) %>">Ignore</a>
+                    <a class="button" href="<%= LinkHelper.IgnoreFriendSuggestion(myFriendConnectionModel.User.Id, "UserProfileQuestions", "List") %>">Ignore</a>
     			    <div class="clear">&nbsp;</div>
     		    </div>
     		    <div class="clear">&nbsp;</div>

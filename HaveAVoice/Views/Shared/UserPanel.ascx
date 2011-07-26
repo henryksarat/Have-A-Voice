@@ -126,12 +126,37 @@
             <div class="clear">&nbsp;</div>
         	<% if(Model.SiteSection == SiteSection.MyProfile) { %>
 				<div class="m-btm5 m-top20 m-lft col-14 m-rgt local">
-                    <% if (Model.LocalIssue != null) { %>
+                    <% if (Model.QuickNavigation == HaveAVoice.Helpers.Profile.QuickNavigation.LocalIssue) { %>
 					    <div class="p-a5">
 						    <h4>Issues In Your <%= Model.LocalIssueLocation%></h4>
 						    <div class="clear">&nbsp;</div>
 						    Resident <a href="<%= LinkHelper.Profile(Model.LocalIssue.User) %>" class="name"><%= NameHelper.FullName(Model.LocalIssue.User)%></a> says, &quot;<%= Model.LocalIssue.Description%>&quot;<br />
                             In <%= Model.LocalIssue.User.Gender.ToUpper().Equals(Gender.MALE.ToUpper()) ? "his" : "her"%> issue: <b><a href="<%= LinkHelper.IssueUrl(Model.LocalIssue.Title) %>" class="issueregarding"><%= Model.LocalIssue.Title%></a></b>.
+			            </div>
+                    <% } else if(Model.QuickNavigation == HaveAVoice.Helpers.Profile.QuickNavigation.SuggestedFriend) { %>
+					    <div class="p-a5">
+						    <h4>Friend Suggestion</h4>
+						    <div class="clear">&nbsp;</div>
+                            <div class="col-13">
+                                <div class="col-10">
+                                    Why not friend <a class="name" href="<%= LinkHelper.Profile(Model.FriendConnectionModel.User) %>">
+                                        <%= NameHelper.FullName(Model.FriendConnectionModel.User) %>
+                                    </a>?<br />Suggestion based off the question 
+                                    <span class="italic">
+                                        <%= Model.FriendConnectionModel.QuestionConnectionMadeFrom.DisplayQuestion %>
+                                    </span>
+                                </div>
+                                <div class="col-3">
+    		                        <div class="col-2 center">
+                                        <a class="button" href="<%= LinkHelper.AddFriend(Model.FriendConnectionModel.User, "Profile", "Show") %>">Add Friend</a>
+    			                        <div class="clear">&nbsp;</div>
+    		                        </div>
+    		                        <div class="col-1 center">
+                                        <a class="button" href="<%= LinkHelper.IgnoreFriendSuggestion(Model.FriendConnectionModel.User.Id, "Profile", "Show") %>">Ignore</a>
+    			                        <div class="clear">&nbsp;</div>
+    		                        </div>
+                                </div>
+                            </div>
 			            </div>
                     <% } %>
 			        <div class="clear">&nbsp;</div>

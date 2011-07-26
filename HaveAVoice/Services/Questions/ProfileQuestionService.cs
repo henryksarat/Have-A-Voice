@@ -23,7 +23,7 @@ namespace HaveAVoice.Services.Questions {
             theProfileQuestionRepository.AddUserToIgnoreList(aUser.Details, aUserToIgnore);
         }
 
-        public IEnumerable<FriendConnectionModel> GetPossibleFriendConnections(UserInformationModel<User> aUserInfo) {
+        public IEnumerable<FriendConnectionModel> GetPossibleFriendConnections(UserInformationModel<User> aUserInfo, int aNumberOfConnections) {
             List<string> myQuestionNames = new List<string>();
             myQuestionNames.Add(ProfileQuestion.ABORTION.ToString());
             myQuestionNames.Add(ProfileQuestion.DEATH_PENALTY.ToString());
@@ -57,7 +57,7 @@ namespace HaveAVoice.Services.Questions {
             }
 
             Random myRandom = new Random();
-            myUniqueFriendConnectionMatches = myUniqueFriendConnectionMatches.OrderBy(u => myRandom.Next()).Take(5).ToList();
+            myUniqueFriendConnectionMatches = myUniqueFriendConnectionMatches.OrderBy(u => myRandom.Next()).Take(aNumberOfConnections).ToList();
             return myUniqueFriendConnectionMatches;
         }
 

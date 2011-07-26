@@ -105,9 +105,11 @@ namespace HaveAVoice.Controllers.Users {
                 if (PermissionHelper<User>.AllowedToPerformAction(myUser, SocialPermission.Authority_Feed)) {
                     myModel.Model = theService.AuthorityProfile(myUser);
                 } else {
-                    myModel.Model = theService.MyProfile(myUser.Details);
+                    myModel.Model = theService.MyProfile(myUser);
                 }
                 myModel.NavigationModel.LocalIssue = myModel.Model.LocalIssue;
+                myModel.NavigationModel.FriendConnectionModel = myModel.Model.FriendConnectionModel;
+                myModel.NavigationModel.QuickNavigation = myModel.Model.QuickNavigation;
 
                 SaveFeedInformationToTempDataForFiltering(myModel.Model, PersonFilter.All);
 
@@ -138,6 +140,8 @@ namespace HaveAVoice.Controllers.Users {
             if (filterValue != PersonFilter.All) {
                 myModel.Model = new UserProfileModel(myOriginalUserProfileModel.User) {
                     LocalIssue = myOriginalUserProfileModel.LocalIssue,
+                    FriendConnectionModel = myOriginalUserProfileModel.FriendConnectionModel,
+                    QuickNavigation = myOriginalUserProfileModel.QuickNavigation,
                     IssueFeed = (from i in myOriginalUserProfileModel.OriginalIssueFeed
                                  where i.PersonFilter.Equals(filterValue)
                                  select i).ToList<IssueFeedModel>(),
@@ -150,6 +154,9 @@ namespace HaveAVoice.Controllers.Users {
             }
 
             myModel.NavigationModel.LocalIssue = myOriginalUserProfileModel.LocalIssue;
+            myModel.NavigationModel.FriendConnectionModel = myOriginalUserProfileModel.FriendConnectionModel;
+            myModel.NavigationModel.QuickNavigation = myOriginalUserProfileModel.QuickNavigation;
+
             SaveFeedInformationToTempDataForFiltering(GetOriginalUserProfileModel(), filterValue);
 
             if (myModel.Model.IsEmpty()) {
