@@ -25,7 +25,6 @@ namespace HaveAVoice {
             ModelBinders.Binders.Add(typeof(UpdateUserProfileQuestionsModel), new UpdateUserProfileQuestionsModelBinder());
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
             routes.MapRoute(
                 "Admin/Role", // Route name
                 "Admin/Role/{action}/{id}",
@@ -89,7 +88,7 @@ namespace HaveAVoice {
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "Home", action = "Main", id = UrlParameter.Optional } // Parameter defaults
+                new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
         }
 
