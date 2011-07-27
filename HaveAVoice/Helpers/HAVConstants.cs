@@ -9,7 +9,7 @@ using Social.Generic.Constants;
 
 namespace HaveAVoice.Helpers {
     public class HAVConstants {
-        public const string BASE_URL = "http://www.haveavoice.com";
+        public const string BASE_URL = "http://www.haveavoice.us";
         public const string AUTHORITY_USER_ROLE = "Authority";
 
         public const string ACTIVATION_BODY = "Hello!\nTo finalize completion of your have a voice account, please click following link or copy and paste it into your browser: ";

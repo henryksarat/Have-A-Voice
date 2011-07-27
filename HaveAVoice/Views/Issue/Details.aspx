@@ -80,16 +80,33 @@
 		</div>
 		<div class="clear">&nbsp;</div>
 
-        <div class="push-21 alpha col-2 omega">
+        <div class="push-20 alpha col-2 omega">
 			<div class="p-a5">
                 <a href="http://twitter.com/share" class="twitter-share-button" data-count="none" data-via="haveavoice_">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
            </div>
            <div class="clear">&nbsp;</div>
         </div>
 
-        <div class="push-21 alpha col-2">
+        <div class="push-20 alpha col-2">
 			<div class="p-a5">
                 <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="<%= HAVConstants.BASE_URL + LinkHelper.IssueUrl(Model.Issue.Title) %>" layout="button_count" show_faces="false" width="90" font="arial"></fb:like>
+           </div>
+           <div class="clear">&nbsp;</div>
+        </div>
+
+        <div class="push-19 alpha col-2 m-lft10 center">
+			<div class="m-top8">
+            <!-- Place this tag where you want the +1 button to render -->
+            <g:plusone size="small" count="false"></g:plusone>
+
+            <!--  Place this tag after the last plusone tag -->
+            <script type="text/javascript">
+                (function () {
+                    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                    po.src = 'https://apis.google.com/js/plusone.js';
+                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                })();
+            </script>
            </div>
            <div class="clear">&nbsp;</div>
         </div>
