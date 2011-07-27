@@ -22,6 +22,10 @@ namespace HaveAVoice.Helpers {
             return "/Friend/AddViaGet/" + aUser.Id + "?controllerRedirect=" + aControllerSource + "&actionRedirect=" + anActionSource;
         }
 
+        public static string CreateIssue() {
+            return "/Issue/Create";
+        }
+
         public static string IgnoreFriendSuggestion(int aUserIdToIgnore, string aController, string anAction) {
             return "/UserProfileQuestions/IgnoreUser?userToIgnore=" + aUserIdToIgnore + "&controllerRedirect=" + aController + "&actionRedirect=" + anAction;
         }
@@ -76,6 +80,10 @@ namespace HaveAVoice.Helpers {
 
         public static string SendMessage(User aUser, string aSubject) {
             return "/Message/Create/" + aUser.Id + "?subject=" + aSubject;
+        }
+
+        public static string UserProfileQuestions() {
+            return "/UserProfileQuestions/Edit";
         }
     }
 }

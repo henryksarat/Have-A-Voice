@@ -97,7 +97,7 @@ namespace HaveAVoice.Services.UserFeatures {
             };
 
             Random myRandom = new Random();
-            if (!true) {
+            if (myRandom.Next() % 2 == 1) {
                 if(!SetForLocalIssue(myModel, myUser)) {
                     SetForFriendSuggestion(myModel, aUserInfo);
                 }
@@ -117,7 +117,11 @@ namespace HaveAVoice.Services.UserFeatures {
                 aModel.QuickNavigation = QuickNavigation.LocalIssue;
                 aModel.LocalIssue = myRandomLocalIssue;
                 myDone = true;
+            } else {
+                aModel.QuickNavigation = QuickNavigation.IssueTip;
+                myDone = true;
             }
+
             return myDone;
         }
 
@@ -127,6 +131,9 @@ namespace HaveAVoice.Services.UserFeatures {
             if (myConnectionModel.Count<FriendConnectionModel>() > 0) {
                 aModel.QuickNavigation = QuickNavigation.SuggestedFriend;
                 aModel.FriendConnectionModel = myConnectionModel.FirstOrDefault<FriendConnectionModel>();
+                myDone = true;
+            } else {
+                aModel.QuickNavigation = QuickNavigation.SuggestFriendTip;
                 myDone = true;
             }
             return myDone;

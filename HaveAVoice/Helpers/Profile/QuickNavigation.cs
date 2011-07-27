@@ -7,6 +7,8 @@ namespace HaveAVoice.Helpers.Profile {
     public enum QuickNavigation {
         LocalIssue,
         None,
-        SuggestedFriend
+        SuggestedFriend,
+        IssueTip,
+        SuggestFriendTip
     }
 }
