@@ -66,37 +66,27 @@
 		<div class="m-lft col-15 m-rgt">
           
             <%= NavigationHelper.UserNavigation(Model.SiteSection, Model.UserMenuMetaData, Model.User) %>
-            
-            <ul class="f-rgt fnt-12">
-            	<li class="search">
-            		<a href="#" class="search">Search</a>
-            		<div class="pnl">
-            			<% using (Html.BeginForm("DoSearch", "Search")) { %>
-	            			<a class="people selected" href="#" alt="Search users">Users</a>
-	            			<input type="text" name="SearchQuery" id="SearchQuery" />
-	            			<a class="issue" href="#" alt="Search issues">Issues</a>
-	            			<select id="SearchType" name="SearchType">
-	            				<option value="User" selected="selected">User</option>
-	            				<option value="Issues">Issues</option>
-	            			</select>
-							<div class="clear">&nbsp;</div>
-							<div class="right">
-								<input type="submit" class="button" value="Search" />
-							</div>
-	            		<% } %>
-            		</div>
-            	</li>
-            </ul>
- 
-            <% if (Model.FanMetaData.Display) {%>
-                <div class="f-rgt">
-            	    <div class="col-2 center">
-	            	    <a href="<%= Model.FanMetaData.Url %>" class="filter like" alt="<%= Model.FanMetaData.AltText %>">
-			                <%= Model.FanMetaData.DisplayText%>
-		                </a>
-		                <div class="clear">&nbsp;</div>
-	                </div>
-			    </div>
+            <% if (myUser != null && myUser.Details.Id == Model.User.Id) { %>
+                <ul class="f-rgt fnt-12">
+            	    <li class="search">
+            		    <a href="#" class="search">Search</a>
+            		    <div class="pnl">
+            			    <% using (Html.BeginForm("DoSearch", "Search")) { %>
+	            			    <a class="people selected" href="#" alt="Search users">Users</a>
+	            			    <input type="text" name="SearchQuery" id="SearchQuery" />
+	            			    <a class="issue" href="#" alt="Search issues">Issues</a>
+	            			    <select id="SearchType" name="SearchType">
+	            				    <option value="User" selected="selected">User</option>
+	            				    <option value="Issues">Issues</option>
+	            			    </select>
+							    <div class="clear">&nbsp;</div>
+							    <div class="right">
+								    <input type="submit" class="button" value="Search" />
+							    </div>
+	            		    <% } %>
+            		    </div>
+            	    </li>
+                </ul>
             <% } %>
             <div class="clear">&nbsp;</div>
 		</div>
@@ -228,21 +218,6 @@
                     <% } %>
 		            <div class="clear">&nbsp;</div>
 	            </div>
-	            <div class="clear">&nbsp;</div>
-	            <div class="spacer-5">&nbsp;</div>
-	            <div class="col-1 teal fnt-14">
-                    <% int myFans = Model.User.FansOfMe.Count; %>
-	        	    <%= myFans%>
-	        	    <div class="clear">&nbsp;</div>
-        	    </div>
-        	    <div class="col-1 c-white fnt-14">
-                    <% if (myFans == 1) { %>
-	        	        Fan
-                    <% } else { %>
-                        Fans
-                    <% } %>
-	        	    <div class="clear">&nbsp;</div>
-        	    </div>
         	    <div class="clear">&bnsp;</div>
 	        </div>
 	        <div class="clear">&nbsp;</div>

@@ -14980,30 +14980,6 @@ namespace HaveAVoice.Models
         private global::System.String _UserPositionId;
         partial void OnUserPositionIdChanging(global::System.String value);
         partial void OnUserPositionIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String PoliticalAffiliation
-        {
-            get
-            {
-                return _PoliticalAffiliation;
-            }
-            set
-            {
-                OnPoliticalAffiliationChanging(value);
-                ReportPropertyChanging("PoliticalAffiliation");
-                _PoliticalAffiliation = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("PoliticalAffiliation");
-                OnPoliticalAffiliationChanged();
-            }
-        }
-        private global::System.String _PoliticalAffiliation;
-        partial void OnPoliticalAffiliationChanging(global::System.String value);
-        partial void OnPoliticalAffiliationChanged();
 
         #endregion
     

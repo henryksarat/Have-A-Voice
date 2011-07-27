@@ -88,7 +88,6 @@
     <Compile Include="Controllers\Users\BoardReplyController.cs" />
     <Compile Include="Controllers\Users\CalendarController.cs" />
     <Compile Include="Controllers\Users\UserProfileQuestionsController.cs" />
-    <Compile Include="Controllers\Users\FanController.cs" />
     <Compile Include="Controllers\Users\FriendController.cs" />
     <Compile Include="Controllers\Users\FeedbackController.cs" />
     <Compile Include="Controllers\Issues\IssueReplyController.cs" />

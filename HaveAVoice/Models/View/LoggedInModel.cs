@@ -16,30 +16,6 @@ namespace HaveAVoice.Models.View {
             if(PrivacyHelper.IsAllowed(aPanelForUser, Helpers.Enums.PrivacyAction.DisplayProfile)) {
                 BuildMenu(aPanelForUser, aLoggedInUser);
             }
-
-            BuildFanNavigationItem(aPanelForUser, aLoggedInUser, aSection);
-        }
-
-        private void BuildFanNavigationItem(User aPanelForUser, User aLoggedInUser, SiteSection aSection) {
-            if (aLoggedInUser != null && IsAProfilePage(aSection) && !theIsMyProfile) {
-                if (!FanHelper.IsFan(aPanelForUser.Id, aLoggedInUser)) {
-                    NavigationModel.FanMetaData = new NavigationItemModel() {
-                        AltText = "Fan this user",
-                        Url = "/Fan/Add/" + aPanelForUser.Id,
-                        DisplayText = "Fan"
-                    };
-                } else {
-                    NavigationModel.FanMetaData = new NavigationItemModel() {
-                        AltText = "Unfan this user",
-                        Url = "/Fan/Remove/" + aPanelForUser.Id,
-                        DisplayText = "De-fan"
-                    };
-                }
-            } else {
-                NavigationModel.FanMetaData = new NavigationItemModel() {
-                    Display = false
-                };
-            }
         }
 
         private static bool IsAProfilePage(SiteSection aSection) {

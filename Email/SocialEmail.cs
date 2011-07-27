@@ -1,4 +1,5 @@
 ﻿using System.Net.Mail;
+using System.Net;
 
 namespace Social.Email {
     public class SocialEmail : IEmail{
@@ -12,6 +13,10 @@ namespace Social.Email {
             MailMessage myMailMessage = new MailMessage(FROM_EMAIL, aToEmail, aSubject, aBody);
             myMailMessage.IsBodyHtml = false;
             SmtpClient mySmtpClient = new SmtpClient(MAILSERVER, 25);
+            NetworkCredential basicCredential =
+                new NetworkCredential(FROM_EMAIL, PASSWORD);
+            mySmtpClient.Credentials = basicCredential;
+
             mySmtpClient.Send(myMailMessage);
         }
     }

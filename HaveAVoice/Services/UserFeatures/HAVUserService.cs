@@ -17,7 +17,7 @@ using Social.Validation;
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVUserService : IHAVUserService {
         private const string ACTIVATION_SUBJECT = "have a voice | account activation";
-        private const string ACTIVATION_BODY = "Hello!\nTo finalize completion of your have a voice account, please click following link or copy and paste it into your browser: ";
+        private const string ACTIVATION_BODY = "To finalize completion of your have a voice account, please click following link or copy and paste it into your browser: ";
         private const string INVALID_EMAIL = "That is not a valid email.";
 
         private IValidationDictionary theValidationDictionary;
