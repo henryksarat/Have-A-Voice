@@ -10,7 +10,7 @@
 <%@ Import Namespace="HaveAVoice.Helpers.Groups" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Groups
+	Group | <%= Model.Name %>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">

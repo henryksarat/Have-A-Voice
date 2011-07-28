@@ -10,7 +10,7 @@
 <%@ Import Namespace="Social.Generic.Helpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Petition - <%= Model.Petition.Title %>
+	Petition | <%= Model.Petition.Title %>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
