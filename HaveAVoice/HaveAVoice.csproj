@@ -125,6 +125,7 @@
     <Compile Include="Helpers\Search\SearchBy.cs" />
     <Compile Include="Helpers\UI\BoardHelper.cs" />
     <Compile Include="Helpers\UI\IssueReplyCommentHelper.cs" />
+    <Compile Include="Helpers\UI\MessageHelper.cs" />
     <Compile Include="Helpers\UI\SharedContentStyleHelper.cs" />
     <Compile Include="Helpers\UI\SharedStyleHelper.cs" />
     <Compile Include="Helpers\UserActivationStrategy.cs" />
@@ -605,7 +606,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>8165</DevelopmentServerPort>
+          <DevelopmentServerPort>22378</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

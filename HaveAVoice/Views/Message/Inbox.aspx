@@ -4,7 +4,7 @@
 <%@ Import Namespace="HaveAVoice.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
-<%@ Import Namespace="Social.ViewHelpers" %>
+<%@ Import Namespace="HaveAVoice.Helpers.UI" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Index
@@ -30,7 +30,7 @@
 
 			<% if (Model != null) { %>
                 <% foreach (var item in Model.Models) { %>
-                    <%= MessageHelper.MessageList(item.FromUser.Id, NameHelper.FullName(item.FromUser), PhotoHelper.ProfilePicture(item.FromUser), item.MessageId, item.Subject, item.LastReply, item.DateTimeStamp, item.Viewed) %>
+                    <%= MessageHelper.MessageList(item.FromUser.Id, item.FromUser, PhotoHelper.ProfilePicture(item.FromUser), item.MessageId, item.Subject, item.LastReply, item.DateTimeStamp, item.Viewed) %>
                 <% } %>
             <% } %>
         <% } %>

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Web.Mvc;
+using HaveAVoice.Models;
 
-namespace Social.ViewHelpers {
+namespace HaveAVoice.Helpers.UI {
     public class MessageHelper {
-        public static string MessageList(int aFromUserId, string aFromUser, string aFromUserProfilePictureUrl, int aMessageId, string aSubject, string aBody, DateTime aDateTimeStamp, bool aViewed) {
+        public static string MessageList(int aFromUserId, User aFromUser, string aFromUserProfilePictureUrl, int aMessageId, string aSubject, string aBody, DateTime aDateTimeStamp, bool aViewed) {
         	var wrprDiv = new TagBuilder("div");
         	if (!aViewed) {
         		wrprDiv.MergeAttribute("class", "mail new");
@@ -18,7 +19,7 @@ namespace Social.ViewHelpers {
         	wrprDiv.InnerHtml += chkDiv.ToString();
         	
         	var imgDiv = new TagBuilder("div");
-        	imgDiv.MergeAttribute("class", "col-1");
+        	imgDiv.MergeAttribute("class", "col-2");
             imgDiv.InnerHtml = UserInformationPortion(aFromUser, aFromUserProfilePictureUrl);
 
         	wrprDiv.InnerHtml += imgDiv.ToString();
@@ -27,8 +28,8 @@ namespace Social.ViewHelpers {
         	dtwrprDiv.MergeAttribute("class", "col-4 m-lft m-rgt");
         	
         	var userLinkDiv = new TagBuilder("div");
-        	userLinkDiv.MergeAttribute("class", "p-t10");
-            userLinkDiv.InnerHtml = String.Format("<a href=\"Details/{0}\">{1}</a>", aMessageId, aFromUser);
+        	userLinkDiv.MergeAttribute("class", "p-t10 name");
+            userLinkDiv.InnerHtml = String.Format("<a href=\"Details/{0}\">{1}</a>", aMessageId, NameHelper.FullName(aFromUser));
         	
         	var clrDiv = new TagBuilder("div");
         	clrDiv.MergeAttribute("class", "clear");
@@ -36,7 +37,7 @@ namespace Social.ViewHelpers {
         	
 			var dtDiv = new TagBuilder("div");
 			dtDiv.MergeAttribute("class", "p-b10 fnt-10");
-			dtDiv.InnerHtml = aDateTimeStamp.ToString("MMMM dd, yyyy");
+            dtDiv.InnerHtml = LocalDateHelper.ToLocalTime(aDateTimeStamp);
 			
 			dtwrprDiv.InnerHtml += userLinkDiv.ToString();
 			dtwrprDiv.InnerHtml += clrDiv.ToString();
@@ -85,15 +86,20 @@ namespace Social.ViewHelpers {
             return wrprDiv.ToString(TagRenderMode.Normal);
         }
 
-        private static string UserInformationPortion(string aFromUser, string aFromUserProfilePictureUrl) {
+        private static string UserInformationPortion(User aFromUser, string aFromUserProfilePictureUrl) {
         	var wrprDiv = new TagBuilder("div");
         	wrprDiv.MergeAttribute("class", "p-v10");
-        	
+
+            var link = new TagBuilder("a");
+            link.MergeAttribute("href", LinkHelper.Profile(aFromUser));
+
             var imageTag = new TagBuilder("img");
             imageTag.MergeAttribute("src", aFromUserProfilePictureUrl);
-            imageTag.MergeAttribute("class", "profile sm");
+            imageTag.MergeAttribute("class", "profile");
 
-			wrprDiv.InnerHtml += imageTag.ToString();
+            link.InnerHtml += imageTag.ToString();
+
+            wrprDiv.InnerHtml += link.ToString();
 
             return wrprDiv.ToString(TagRenderMode.Normal);
         }
@@ -127,29 +133,29 @@ namespace Social.ViewHelpers {
         }
 
 
-        public static string MessageItem(string aFromUser, string aFromUserProfilePictureUrl, string aSubject, string aBody, DateTime aDateTimeStamp) {
+        public static string MessageItem(User aFromUser, string aFromUserProfilePictureUrl, string aSubject, string aBody, DateTime aDateTimeStamp) {
         	var wrprDiv = new TagBuilder("div");
         	wrprDiv.MergeAttribute("class", "mail");
         	
         	var imgDiv = new TagBuilder("div");
-        	imgDiv.MergeAttribute("class", "col-1");
+        	imgDiv.MergeAttribute("class", "col-2");
             imgDiv.InnerHtml = UserInformationPortion(aFromUser, aFromUserProfilePictureUrl);
         	
         	wrprDiv.InnerHtml = imgDiv.ToString();
 
             var msgDiv = new TagBuilder("div");
-        	msgDiv.MergeAttribute("class", "col-20 m-lft p-t10");
+        	msgDiv.MergeAttribute("class", "col-18 m-lft p-t10");
         	
         	var nameDiv = new TagBuilder("div");
         	nameDiv.MergeAttribute("class", "m-btm5");
         	
         	var nameSpan = new TagBuilder("span");
         	nameSpan.MergeAttribute("class", "fnt-12 bold varient-4 m-rgt5");
-	       	nameSpan.InnerHtml = aFromUser;
+	       	nameSpan.InnerHtml = NameHelper.FullName(aFromUser);
         	
         	var dateSpan = new TagBuilder("span");
             dateSpan.MergeAttribute("class", "fnt-10");
-        	dateSpan.InnerHtml = aDateTimeStamp.ToString("MMMM dd, yyyy");
+            dateSpan.InnerHtml = LocalDateHelper.ToLocalTime(aDateTimeStamp);
         	
         	nameDiv.InnerHtml += nameSpan.ToString();
         	nameDiv.InnerHtml += dateSpan.ToString();
