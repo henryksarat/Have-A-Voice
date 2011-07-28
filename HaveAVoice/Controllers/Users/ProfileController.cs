@@ -91,7 +91,6 @@ namespace HaveAVoice.Controllers.Users {
             }
         }
 
-        [OutputCache(Duration=5, VaryByParam="none", Location=OutputCacheLocation.Client, NoStore=true)]
         [RequiredRouteValueAttribute.RequireRouteValues(new string[] { })]
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult Show() {

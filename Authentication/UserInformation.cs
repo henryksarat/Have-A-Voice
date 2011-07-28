@@ -63,5 +63,12 @@ namespace Social.Authentication {
         public void ForceUserInformationClear() {
             theUserInformationModel = null;
         }
+
+
+        public string GetIdentityName() {
+            int myResult;
+            int.TryParse(theHttpContext.User.Identity.Name, out myResult);
+            return myResult.ToString();
+        }
     }
 }

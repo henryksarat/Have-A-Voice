@@ -94,7 +94,7 @@
            <div class="clear">&nbsp;</div>
         </div>
 
-        <div class="push-19 alpha col-2 m-lft10 center">
+        <div class="push-19 alpha col-2 m-lft5 center">
 			<div class="m-top8">
             <!-- Place this tag where you want the +1 button to render -->
             <g:plusone size="small" count="false"></g:plusone>

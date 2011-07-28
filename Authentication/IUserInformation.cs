@@ -5,5 +5,6 @@ namespace Social.Authentication {
         bool IsLoggedIn();
         UserInformationModel<T> GetUserInformaton();
         void ForceUserInformationClear();
+        string GetIdentityName();
     }
 }

@@ -14,6 +14,7 @@ using Social.Authentication.Helpers;
 using Social.Generic.Models;
 using Social.Generic.Services;
 using Social.Users.Services;
+using Social.Generic.ActionFilters;
 
 namespace HaveAVoice.Controllers.Core {
     public class AuthenticationController : AbstractAuthenticationController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
@@ -27,12 +28,12 @@ namespace HaveAVoice.Controllers.Core {
             HAVUserInformationFactory.SetInstance(GetUserInformationInstance());
         }
 
-        [AcceptVerbs(HttpVerbs.Get)]
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         new public ActionResult Login() {
             return base.Login();
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
         new public ActionResult Login(string email, string password, bool rememberMe) {
             return base.Login(email, password, rememberMe);
         }
@@ -42,7 +43,7 @@ namespace HaveAVoice.Controllers.Core {
             return base.ActivateAccount(id, ACCOUNT_ACTIVATED_BODY);
         }
 
-        [AcceptVerbs(HttpVerbs.Get)]
+        [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
         new public ActionResult LogOut() {
             return base.LogOut();
         }

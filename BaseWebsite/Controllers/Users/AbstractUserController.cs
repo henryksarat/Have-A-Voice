@@ -22,7 +22,7 @@ namespace BaseWebsite.Controllers.Users {
     //Y = RolePermission
     //Z = WhoIsOnline
     public abstract class AbstractUserController<T, U, V, W, X, Y, Z> : BaseController<T, U, V, W, X, Y, Z> {
-        private const string CREATE_ACCOUNT_TITLE = "User account created!";
+        private const string CREATE_ACCOUNT_TITLE = "User account created...almost!";
         private const string CREATE_ACCOUNT_SUCCESS = "An email has been sent to the email you provided. Follow the instructions in the email activate your account so you can login and start using the site.";
         private const string EMAIL_ERROR = "Couldn't send activation e-mail so the User has been activated.";
         private const string CREATE_ACCOUNT_ERROR_MESSAGE = "An error has occurred. Please try again.";

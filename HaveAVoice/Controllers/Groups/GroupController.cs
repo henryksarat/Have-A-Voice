@@ -19,7 +19,7 @@ namespace HaveAVoice.Controllers.Groups {
     public class GroupController : HAVBaseController {
         private const string GROUP_CREATED = "Group created successfully!";
         private const string GROUP_EDITED = "Group edited successfully!";
-        private const string GROUP_DEACTIVATED = "The group has been deactivated! You can always activate it again by going on the club page and activating it.";
+        private const string GROUP_DEACTIVATED = "The group has been deactivated! You can always activate it again by going to all of the groups you are in and activating it again.";
         private const string GROUP_ACTIVATED = "The group has been activated again!";
         private const string NO_GROUPS = "There are no groups currently. Go ahead and create one!";
         private const string NOT_IN_GROUPS = "You are not in any groups yet. Do a search and join some!";

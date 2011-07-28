@@ -30,6 +30,10 @@ namespace HaveAVoice.Helpers.UserInformation {
             return theFactory;
         }
 
+        public static string GetIdentityName() {
+            return theFactory.GetIdentityName();
+        }
+
         private static void SetDefaultInstance() {
             if (theFactory == null) {
                 theFactory = UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()), new GetUserStrategy());

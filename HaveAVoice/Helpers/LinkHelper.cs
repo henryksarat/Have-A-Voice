@@ -34,6 +34,10 @@ namespace HaveAVoice.Helpers {
             return "/Issue/Details/" + aTitle.Replace(' ', '-');
         }
 
+        public static string GroupUrl(Group aGroup) {
+            return "/Group/Details/" + aGroup.Id;
+        }
+
         public static string EditIssue(Issue anIssue) {
             return "/Issue/Edit/" + anIssue.Id;
         }
@@ -48,6 +52,10 @@ namespace HaveAVoice.Helpers {
 
         public static string ReportIssue(Issue anIssue) {
             return "/Complaint/Complaint?sourceId=" + anIssue.Id + "&complaintType=Issue";
+        }
+
+        public static string PetitionUrl(Petition aPetition) {
+            return "/Petition/Details/" + aPetition.Id;
         }
 
         public static string AgreeIssueReply(int anIssueReplyId, int anIssueId, SiteSection aSection, int aSourceId) {

@@ -41,7 +41,7 @@
             <ul>
                 <li>
                     <a href="/User/Edit">Edit Account</a>
-                    <a href="/UserPrivacySettings/Edit">Edit Privacy a Group</a>
+                    <a href="/UserPrivacySettings/Edit">Edit Privacy</a>
                     <a href="/UserProfileQuestions/Edit">Edit Profile Questionnaire</a>
                 </li>
             </ul>

@@ -42,26 +42,43 @@
 		<div class="clear">&nbsp;</div>
 	</div>
 		
-    <div class="push-21 alpha col-2 omega">
-		<div class="p-a5">
-            <a href="http://twitter.com/share" class="twitter-share-button" data-count="none" data-via="haveavoice_">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+        <div class="push-20 alpha col-2 omega">
+			<div class="p-a5">
+                <a href="http://twitter.com/share" class="twitter-share-button" data-count="none" data-via="haveavoice_">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+           </div>
+           <div class="clear">&nbsp;</div>
         </div>
-        <div class="clear">&nbsp;</div>
-    </div>
 
-    <div class="push-21 alpha col-2">
-		<div class="p-a5">
-            <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="#" layout="button_count" show_faces="false" width="90" font="arial"></fb:like>
+        <div class="push-20 alpha col-2">
+			<div class="p-a5">
+                <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="<%= HAVConstants.BASE_URL + LinkHelper.GroupUrl(Model) %>" layout="button_count" show_faces="false" width="90" font="arial"></fb:like>
+           </div>
+           <div class="clear">&nbsp;</div>
+        </div>
+
+        <div class="push-19 alpha col-2 m-lft5 center">
+			<div class="m-top8">
+            <!-- Place this tag where you want the +1 button to render -->
+            <g:plusone size="small" count="false"></g:plusone>
+
+            <!--  Place this tag after the last plusone tag -->
+            <script type="text/javascript">
+                (function () {
+                    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                    po.src = 'https://apis.google.com/js/plusone.js';
+                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                })();
+            </script>
+           </div>
+           <div class="clear">&nbsp;</div>
         </div>
         <div class="clear">&nbsp;</div>
-    </div>
-    <div class="clear">&nbsp;</div>
 
 	<% using (Html.BeginForm("Create", "GroupBoard", FormMethod.Post, new { @class = "create" })) { %>
 	    <div class="clear">&nbsp;</div>
 	        
 	    <div class="m-btm10">
-            <div class="push-2 m-lft col-16 m-rgt comment">
+            <div class="push-1 m-lft col-16 m-rgt comment">
                 <div class="p-a10">
                     <h1><a href="/Issue/Details/test"><%= Model.Name %></a></h1>
                     </br><%= Model.Description %>
@@ -77,19 +94,25 @@
                 </div>
             </div>
 
-            <div class="push-2 col-3 stats fnt-12 m-rgt">
+            <div class="push-1 col-4 stats fnt-12 m-rgt">
                 <div class="clear">&nbsp;</div>
                 <div class="p-a5">
                     <h4 class="m-btm5">Group Stats</h4>
                     <div class="bold">Created:</div>
                     <div class="m-lft10 m-btm5"><%= LocalDateHelper.ToLocalTime(Model.CreatedDateTimeStamp) %></div>
                     <% int myGroupMembers = Model.GroupMembers.Where(gm => !gm.Deleted).Where(gm => !gm.OldRecord).Where(gm => gm.Approved == HAVConstants.APPROVED).Count<GroupMember>(); %>
+                    <div class="m-btm5">
+                        <span class="bold">Created By: </span> 
+                        <a class="petitionlink" href="<%= LinkHelper.Profile(Model.CreatedByUser) %>">
+                            <%= NameHelper.FullName(Model.CreatedByUser)%>
+                        </a>
+                    </div>
                     <div class="m-btm5"><span class="bold">Members: </span><%= myGroupMembers %></div>
                     <div class=""><span class="bold">Board Posts: </span><%= Model.GroupBoards.Count %></div>
                 </div>
             </div>
 
-            <div class="push-2 col-3 group fnt-12">
+            <div class="push-1 col-3 group fnt-12">
                 <div class="admin-feed">
                     <div class="clear">&nbsp;</div>
                     <div class="p-a5">
@@ -175,7 +198,7 @@
             </div>
         </div>
         <% bool myIsMember = GroupHelper.IsMember(myUserInfo, Model.Id); %>
-        <% if(myIsMember) { %>
+        <% if(myIsMember && Model.Active) { %>
 	        <div class="clear">&nbsp;</div>
             <%= Html.Hidden("GroupId", Model.Id) %>
             <% string myProfilePicture = Social.Generic.Constants.Constants.ANONYMOUS_PICTURE_URL; %>
