@@ -33,8 +33,8 @@ namespace HaveAVoice.Controllers.Core {
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        new public ActionResult Request(string email) {
-            return base.Request(email, HAVConstants.BASE_URL);
+        public ActionResult Request(string email) {
+            return base.Request(HAVConstants.BASE_URL, email);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

@@ -39,7 +39,7 @@
                         avatars: false,
                         behavior: 'all'
                     }
-                }).render().setUser('haveavoice_').start();
+                }).render().setUser('haveavoice').start();
             </script>
 </td>
 </tr>
@@ -49,7 +49,7 @@
 		<a href="http://www.facebook.com/haveavoice" target="_blank">
 		    <img src="/Content/images/facebook.png" alt="Follow Have a Voice on Facebook!">
 		</a>		    	
-        <a href="http://twitter.com/haveavoice_" target="_blank">
+        <a href="http://twitter.com/haveavoice" target="_blank">
 		    <img src="/Content/images/twitter.png" alt="Follow Have a Voice and it's development on Twitter!">
 		</a>
     </span>

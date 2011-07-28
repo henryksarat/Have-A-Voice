@@ -27,6 +27,7 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         public void ChangePassword(int aUserId, string aPassword) {
+            theEntities = new HaveAVoiceEntities();
             User myUser = FindUserByUserId(aUserId);
             myUser.Password = aPassword;
             myUser.ForgotPasswordHash = null;
@@ -36,13 +37,15 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         private User FindUserByEmail(string anEmail) {
-            IUserRetrievalRepository<User> myUserRepo = new EntityHAVUserRetrievalRepository();
-            return myUserRepo.GetUser(anEmail);
+            return (from u in theEntities.Users
+                    where u.Email == anEmail
+                    select u).FirstOrDefault();
         }
 
         private User FindUserByUserId(int aUserId) {
-            IUserRetrievalRepository<User> myUserRepo = new EntityHAVUserRetrievalRepository();
-            return myUserRepo.GetUser(aUserId);
+            return (from u in theEntities.Users
+                    where u.Id == aUserId
+                    select u).FirstOrDefault();
         }
     }
 }

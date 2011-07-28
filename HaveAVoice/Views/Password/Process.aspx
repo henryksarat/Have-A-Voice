@@ -14,8 +14,7 @@
     	<div class="clear">&nbsp;</div>
     	
     	<div class="b-wht">
-    		<div class="col-1">&nbsp;</div>
-    		<div class="col-22">
+    		<div class="push-1 col-22">
     			<div class="spacer-30">&nbsp;</div>
 
     			<% using (Html.BeginForm("Process", "Password", FormMethod.Post, new { @class = "create" })) { %>
@@ -84,7 +83,7 @@
 					<div class="clear">&nbsp;</div>
 					
 					<div class="col-8 right m-btm30 m-top10">
-	                    <input type="submit" value="Submit" />
+	                    <input type="submit" value="Submit" class="create" />
 	                    <div class="clear">&nbsp;</div>
                     </div>
 			    <% } %>

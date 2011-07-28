@@ -23,8 +23,7 @@
 				
 				<% using (Html.BeginForm("Request", "Password", FormMethod.Post, new { @class = "create" })) { %>
 					<div class="push-3 col-16 fnt-14 teal m-btm10">
-						Enter your have a voice&trade; email address.<br />
-						We will send you an email with instructions on how to change your password.
+						Enter your email address and we will send you an email with instructions on how to change your password.
 						<div class="clear">&nbsp;</div>
 					</div>
 					<div class="clear">&nbsp;</div>

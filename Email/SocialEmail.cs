@@ -11,7 +11,7 @@ namespace Social.Email {
        
         public void SendEmail(string aToEmail, string aSubject, string aBody) {
             MailMessage myMailMessage = new MailMessage(FROM_EMAIL, aToEmail, aSubject, aBody);
-            myMailMessage.IsBodyHtml = false;
+            myMailMessage.IsBodyHtml = true;
             SmtpClient mySmtpClient = new SmtpClient(MAILSERVER, 25);
             NetworkCredential basicCredential =
                 new NetworkCredential(FROM_EMAIL, PASSWORD);
