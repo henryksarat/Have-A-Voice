@@ -16,23 +16,27 @@
     </div>
     
     <div class="col-21">
+        <div class="action-bar bold p-a10 m-btm20 color-4">
+        	Notifications
+        </div>
+
         <% Html.RenderPartial("Message"); %>
         <div class="clear">&nbsp;</div>
 
 	    <% foreach (var item in Model.Models) { %>
-	    	<div class="notification m-btm10 p-v10">
+	    	<div class="notification m-btm10 p-v10 fnt-12">
                 <% if (item.NotificationType == NotificationType.Issue) { %>
-	    		    New replies in your issue: <%= Html.ActionLink(item.Label, "Details", "Issue", new { id = item.Id }, null)%> <div class="f-rgt"><%= item.DateTimeStamp.ToString("MMMM dd, yyyy") %></div>
+	    		    New replies in your issue: <%= Html.ActionLink(item.Label, "Details", "Issue", new { id = item.Id }, null)%> <div class="f-rgt"><%= LocalDateHelper.ToLocalTime(item.DateTimeStamp) %></div>
                 <% } else if (item.NotificationType == NotificationType.ParticipatingBoard) { %>
-                    New comments to a board message you are participating in: <%= Html.ActionLink(item.Label, "Details", "Board", new { id = item.Id }, null) %> <div class="f-rgt"><%= item.DateTimeStamp.ToString("MMMM dd, yyyy") %></div>
+                    New comments to a board message you are participating in: <%= Html.ActionLink(item.Label, "Details", "Board", new { id = item.Id }, null)%> <div class="f-rgt"><%= LocalDateHelper.ToLocalTime(item.DateTimeStamp)%></div>
                 <% } else if (item.NotificationType == NotificationType.Board) { %>
-                    <a href="<%= LinkHelper.Profile(item.TriggeredUser) %>"><%= NameHelper.FullName(item.TriggeredUser) %></a> posted a new <%= Html.ActionLink("message", "Details", "Board", new { id = item.Id }, null)%> on <a href="<%= LinkHelper.Profile(Model.NavigationModel.User) %>">your board</a>. <div class="f-rgt"><%= item.DateTimeStamp.ToString("MMMM dd, yyyy") %></div>
+                    <a href="<%= LinkHelper.Profile(item.TriggeredUser) %>"><%= NameHelper.FullName(item.TriggeredUser) %></a> posted a new <%= Html.ActionLink("message", "Details", "Board", new { id = item.Id }, null)%> on <a href="<%= LinkHelper.Profile(Model.NavigationModel.User) %>">your board</a>. <div class="f-rgt"><%= LocalDateHelper.ToLocalTime(item.DateTimeStamp)%></div>
                 <% } else if (item.NotificationType == NotificationType.ParticipatingIssueReply) { %>
-                    New comments to a reply to an issue you are participating in: <%= Html.ActionLink(item.Label, "Details", "IssueReply", new { id = item.Id }, null)%> <div class="f-rgt"><%= item.DateTimeStamp.ToString("MMMM dd, yyyy") %></div>
+                    New comments to a reply to an issue you are participating in: <%= Html.ActionLink(item.Label, "Details", "IssueReply", new { id = item.Id }, null)%> <div class="f-rgt"><%= LocalDateHelper.ToLocalTime(item.DateTimeStamp)%></div>
                 <% } else if(item.NotificationType == NotificationType.IssueReply) { %>
-                    Someone commented on your <%= Html.ActionLink("reply", "Details", "IssueReply", new { id = item.Id }, null) %> to an issue.
+                    Someone commented on your <%= Html.ActionLink("reply", "Details", "IssueReply", new { id = item.Id }, null)%> to an issue.
                 <% } else if(item.NotificationType == NotificationType.GroupBoardPost) { %>
-                    Someone posted to the board of the group <%= Html.ActionLink(item.Label, "Details", "Group", new { id = item.Id }, null) %>.
+                    Someone posted to the board of the group <%= Html.ActionLink(item.Label, "Details", "Group", new { id = item.Id }, null)%>.
                 <% } %>
 	    		<div class="clear">&nbsp;</div>
 	    	</div>

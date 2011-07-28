@@ -95,6 +95,9 @@
 		<div class="m-lft col-15 m-rgt user-control">
 			<div class="m-lft10">
                 <h1>
+                    <% if (myUser != null && myUser.Details.Id == Model.User.Id) { %>
+                        Hello,
+                    <% } %>
 				    <%= Model.FullName %>
 			    </h1>
             </div>

@@ -26,35 +26,42 @@
     </div>
         
     <div class="col-21">
+        <div class="action-bar bold p-a10 m-btm20 color-4">
+        	Friend List
+        </div>
+
         <% Html.RenderPartial("Message"); %>
 
-    	<% int cnt = 0; %>
+    	<% int cnt = 1; %>
     	<% string klass = "friend"; %>
 	    <% foreach (var item in Model.Models) { %>
 	    	<% if (cnt % 2 == 0) {
-	    		klass = "friend";
-	    	} else {
-	    		klass = "friend alt";
-	    	}%>
+                 klass = "friend";
+             } else {
+                 klass = "friend alt";
+             }%>
 	    	
-			<div class="col-4 center <%= klass %>">
-				<div class="p-a5">
-					<div class="profile">
-						<a href="/Friend/Delete/<%= item.FriendUserId %>" class="delete" title="Remove Friend">Remove Friend</a>
-						<img src ="<%= PhotoHelper.ProfilePicture(item.FriendUser) %>" alt="<%= NameHelper.FullName(item.FriendUser) %>" class="profile" />
-					</div>
-					<div class="p-a5">
-						<a href="<%= LinkHelper.Profile(item.FriendUser) %>" class="name"><%= NameHelper.FullName(item.FriendUser) %></a>
-					</div>
-				</div>
-				<div class="clear">&nbsp;</div>
-			</div>
+                <% string myLeftMargin = cnt % 5 == 1 ? "m-lft20" : string.Empty;  %>
+			    <div class="col-4 center <%= myLeftMargin %> <%= klass %>">
+				    <div class="p-a5">
+					    <div class="profile">
+						    <a href="/Friend/Delete/<%= item.FriendUserId %>" class="delete" title="Remove Friend">Remove Friend</a>
+						    <a href="<%= LinkHelper.Profile(item.FriendUser) %>">
+                                <img src ="<%= PhotoHelper.ProfilePicture(item.FriendUser) %>" alt="<%= NameHelper.FullName(item.FriendUser) %>" class="profile" />
+                            </a>
+					    </div>
+					    <div class="p-a5">
+						    <a href="<%= LinkHelper.Profile(item.FriendUser) %>" class="name"><%= NameHelper.FullName(item.FriendUser)%></a>
+					    </div>
+				    </div>
+				    <div class="clear">&nbsp;</div>
+			    </div>
 			
-			<% if (cnt % 4 == 0) { %>
-				<div class="clear">&nbsp;</div>
-			<% } %>
+			    <% if (cnt % 5 == 0) { %>
+				    <div class="clear">&nbsp;</div>
+			    <% } %>
 			
-	        <% cnt++; %>
+	            <% cnt++; %>
 	    <% } %>
 	</div>
 </asp:Content>

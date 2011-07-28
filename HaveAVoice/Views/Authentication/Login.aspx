@@ -21,59 +21,47 @@
 			    <% using (Html.BeginForm("Login", "Authentication", FormMethod.Post, new { @class = "create" })) { %>
 			    	
 					<% Html.RenderPartial("Message"); %>
-			
-					<div class="col-4 m-rgt right">
-						<label for="Email">Email:</label>
-					</div>
-					<div class="col-4">
-						<%= Html.TextBox("Email") %>
-					</div>
-					<div class="col-14 m-lft">
-						<span class="req">
-							<%= Html.ValidationMessage("Email", "*") %>
-						</span>
-					</div>
-			        <div class="clear">&nbsp;</div>
-			        <div class="spacer-10">&nbsp;</div>
+			        <div class="push-5">
+					    <div class="col-4 m-rgt right">
+						    <label for="Email">Email:</label>
+					    </div>
+					    <div class="col-5">
+						    <%= Html.TextBox("Email") %>
+					    </div>
+			            <div class="clear">&nbsp;</div>
+			            <div class="spacer-10">&nbsp;</div>
 			        
-			        <div class="col-4 m-rgt right">
-			            <label for="Password">Password:</label>
-			       </div>
-			       <div class="col-4">
-			            <%= Html.Password("Password") %>
-			        </div>
-			        <div class="col-14 m-lft">
-			        	<span class="req">
-				            <%= Html.ValidationMessage("Password", "*") %>
-			            </span>
-					</div>
+			            <div class="col-4 m-rgt right">
+			                <label for="Password">Password:</label>
+			           </div>
+			           <div class="col-5">
+			                <%= Html.Password("Password") %>
+			            </div>
 					
-					<div class="clear">&nbsp;</div>
-					<div class="spacer-10">&nbsp;</div>
-					<div class="clear">&nbsp;</div>
-					
-					<div class="col-4 m-rgt right">
-						<label for="RememberMe">Remember me:</label>
-					</div>
-					<div class="col-4">
-						<%= Html.CheckBox("RememberMe") %>
-						<div class="clear">&nbsp;</div>
-						<div class="spacer-10">&nbsp;</div>
-						<div class="clear">&nbsp;</div>
-						<%=Html.ActionLink("Forgot Password", "Request", "Password", null, new{ @class="forgot" }) %>   <%=Html.ActionLink("Create Account", "Create", "User", null, new{ @class="forgot" }) %>
-					</div>
-					<div class="col-14">
-						&nbsp;
-					</div>
+					    <div class="clear">&nbsp;</div>
+					    <div class="spacer-10">&nbsp;</div>
+					    <div class="clear">&nbsp;</div>
+  		                <div class="push-7 col-4">
+					        <span class="fnt-10 v-alignmid">Remember Me </span><%= Html.CheckBox("RememberMe") %>
+                        </div>
+                        <div class="clear">&nbsp;</div>
+					    <div class="push-3 col-8">
+						    <div class="spacer-10">&nbsp;</div>
+						    <div class="clear">&nbsp;</div>
+						    <%=Html.ActionLink("Forgot Password", "Request", "Password", null, new{ @class="forgot" }) %> | <%=Html.ActionLink("Create Account", "Create", "User", null, new{ @class="forgot" }) %>
+					    </div>
+					    <div class="col-14">
+						    &nbsp;
+					    </div>
 
-					<div class="clear">&nbsp;</div>
-					<div class="spacer-10">&nbsp;</div>
-					<div class="clear">&nbsp;</div>
+					    <div class="clear">&nbsp;</div>
+					    <div class="spacer-10">&nbsp;</div>
+					    <div class="clear">&nbsp;</div>
 					
-                	<div class="col-8 right">
-				        <input type="submit" class="create" value="Login" />
-				        <%= Html.ActionLink("Cancel", "NotLoggedIn", "Home", null, new { @class = "cancel" }) %>
-					</div>
+                	    <div class="push-7 col-4">
+				            <input type="submit" class="create" value="Login" />
+					    </div>
+                    </div>
 			    <% } %>
 			    
 			    <div class="clear">&nbsp;</div>

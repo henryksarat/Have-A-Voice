@@ -28,26 +28,28 @@
 					</div>
 					<div class="clear">&nbsp;</div>
 					
-					<div class="col-4 m-rgt right">
-						<label for="Email">Email:</label>
-						<div class="clear">&nbsp;</div>
-					</div>
-					<div class="col-4">
-						<%= Html.TextBox("Email") %>
-						<div class="clear">&nbsp;</div>
-					</div>
-					<div class="col-14 m-lft">
-						<span class="req">
-							<%= Html.ValidationMessage("Email", "*") %>
-						</span>
-						<div class="clear">&nbsp;</div>
-					</div>
-					<div class="clear">&nbsp;</div>
+                    <div class="push-4">
+					    <div class="col-4 m-rgt right">
+						    <label for="Email">Email:</label>
+						    <div class="clear">&nbsp;</div>
+					    </div>
+					    <div class="col-8">
+						    <%= Html.TextBox("Email") %>
+						    <div class="clear">&nbsp;</div>
+					    </div>
+					    <div class="col-1 m-lft">
+						    <span class="req">
+							    <%= Html.ValidationMessage("Email", "*") %>
+						    </span>
+						    <div class="clear">&nbsp;</div>
+					    </div>
+					    <div class="clear">&nbsp;</div>
 					
-					<div class="col-8 right m-btm30 m-top10">
-						<input type="submit" name="submit" class="create" value="Submit" />
-						<div class="clear">&nbsp;</div>
-					</div>
+					    <div class="push-4 col-8 right m-btm30 m-top10">
+						    <input type="submit" name="submit" class="create" value="Submit" />
+						    <div class="clear">&nbsp;</div>
+					    </div>
+                    </div>
 				<% } %>
 				<div class="clear">&nbsp;</div>
 			</div>

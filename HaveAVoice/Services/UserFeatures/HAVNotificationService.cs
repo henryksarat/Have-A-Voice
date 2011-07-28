@@ -97,15 +97,6 @@ namespace HaveAVoice.Services.UserFeatures {
                 });
             }
 
-            foreach (BoardViewedState myBoard in aParticipatingBoards) {
-                myNotifications.Add(new NotificationModel() {
-                    NotificationType = NotificationType.ParticipatingBoard,
-                    Label = myBoard.Board.Message,
-                    Id = myBoard.Board.Id.ToString(),
-                    DateTimeStamp = myBoard.DateTimeStamp
-                });
-            }
-
             foreach (IssueViewedState myViewState in anIssueStates) {
                 myNotifications.Add(new NotificationModel() {
                     NotificationType = NotificationType.Issue,

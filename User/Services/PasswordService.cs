@@ -50,11 +50,7 @@ namespace Social.User.Services {
 
             AbstractUserModel<T> myUser = thePasswordRepository.GetUserByEmailAndForgotPasswordHash(anEmail, aForgotPasswordHash);
 
-            if (!ValidPasswordHash(myUser, aForgotPasswordHash)) {
-                return false;
-            }
-
-            if (!ValidatePassword(aPassword, aRetypedPassword)) {
+            if (!ValidPasswordHashAndEmail(myUser, anEmail, aForgotPasswordHash) | !ValidatePassword(aPassword, aRetypedPassword)) {
                 return false;
             }
 
@@ -73,10 +69,10 @@ namespace Social.User.Services {
             return theValidationDictionary.isValid;
         }
 
-        private bool ValidPasswordHash(AbstractUserModel<T> aUser, string aForgotPasswordHash) {
+        private bool ValidPasswordHashAndEmail(AbstractUserModel<T> aUser, string anEmail, string aForgotPasswordHash) {
 
             if (aUser == null) {
-                theValidationDictionary.AddError("ForgotPasswordHash", aForgotPasswordHash, "The email does not match the link you clicked. Please re-enter your email or go through the forgot password process again.");
+                theValidationDictionary.AddError("Email", anEmail, "The email does not match the link you clicked. Please re-enter your email or go through the forgot password process again.");
                 return false;
             }
             DateTime myDateTime = (DateTime)aUser.ForgotPasswordHashDateTimeStamp;

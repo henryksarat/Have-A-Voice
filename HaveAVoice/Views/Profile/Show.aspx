@@ -99,7 +99,7 @@
                 <div class="clear">&nbsp;</div>
 		    </div>
 		    <div class="m-lft col-2 m-rgt f-rgt center">
-                <%= IssueHelper.PersonFilterButton(PersonFilter.People, myFilter, "People", "filter", "filterSelected") %>
+                <%= IssueHelper.PersonFilterButton(PersonFilter.People, myFilter, "Friends", "filter", "filterSelected") %>
                 <div class="clear">&nbsp;</div>
 		    </div>
 		    <div class="m-lft col-2 m-rgt f-rgt center">

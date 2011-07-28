@@ -14,6 +14,7 @@ using Social.Authentication.Helpers;
 using Social.Generic.Models;
 using Social.Generic.Services;
 using Social.Users.Services;
+using Social.Generic.ActionFilters;
 
 namespace HaveAVoice.Controllers.Core {
     public class PasswordController : AbstractPasswordController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
@@ -27,22 +28,22 @@ namespace HaveAVoice.Controllers.Core {
             HAVUserInformationFactory.SetInstance(GetUserInformationInstance());
         }
 
-        [AcceptVerbs(HttpVerbs.Get)]
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         new public ActionResult Request() {
             return base.Request();
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
         public ActionResult Request(string email) {
             return base.Request(HAVConstants.BASE_URL, email);
         }
 
-        [AcceptVerbs(HttpVerbs.Get)]
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         new public ActionResult Process(string id) {
             return base.Process(id);
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
         new public ActionResult Process(string email, string forgotPasswordHash, string password, string retypedPassword) {
             return base.Process(email, forgotPasswordHash, password, retypedPassword);
         }
