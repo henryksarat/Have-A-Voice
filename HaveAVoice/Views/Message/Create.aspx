@@ -25,6 +25,7 @@
             <a class="name" href="<%= LinkHelper.Profile(Model.Get().SendToUser) %>">
                 <%= NameHelper.FullName(Model.Get().SendToUser) %>
             </a>
+            <div class="clear">&nbsp;</div>
             <a href="<%= LinkHelper.Profile(Model.Get().SendToUser) %>">
 	    	    <img src="<%= PhotoHelper.ProfilePicture(Model.Get().SendToUser) %>" alt="<%= NameHelper.FullName(Model.Get().SendToUser) %>" class="profile" />
             </a>
@@ -37,38 +38,42 @@
 		        <div class="clear">&nbsp;</div>
 		        
 		        <div class="col-18 m-btm10">
-                    <div>
-			    	<div class="m-lft col-6 m-rgt">
-			    		<label for="subject">Subject:</label>
-			    		<%= Html.TextBox("Subject", Model.Model.DefaultSubject) %>
-			    		<div class="clear">&nbsp;</div>
-			    	</div>
+			    	<div class="m-lft col-13 m-rgt">
+                        <div class="col-2">
+			    		    <label for="subject">Subject:</label>
+                        </div>
+                        <div class="col-7">
+			    		    <%= Html.TextBox("Subject", Model.Model.DefaultSubject) %>
+			    		    <div class="clear">&nbsp;</div>
+                        </div>
+			    	    <div class="col-1 center">
+			    		    <span class="req">
+				    		    <%= Html.ValidationMessage("Subject", "*") %>
+			    		    </span>
+			    	    </div>
                     </div>
-			    	<div class="m-lft col-8">
-			    		<span class="req">
-				    		<%= Html.ValidationMessage("Subject", "*") %>
-			    		</span>
-			    	</div>
 			    	<div class="clear">&nbsp;</div>
 		        </div>
 				<div class="col-18 m-btm10">
-					<div class="m-lft col-2 m-rgt right">
-						<label>Message:</label>
-
-						<%= Html.TextArea("Body", null, new { cols = "60", rows = "8", resize = "none", @class="fnt-12" })%>
-						<div class="clear">&nbsp;</div>
+					<div class="m-lft col-13 m-rgt">
+                        <div class="col-2">
+						    <label>Message:</label>
+                        </div>
+                        <div class="col-7">
+						    <%= Html.TextArea("Body", null, new { cols = "60", rows = "8", resize = "none", @class="fnt-12" })%>
+						    <div class="clear">&nbsp;</div>
+                        </div>
 					</div>
-					<div class="m-lft col-8">
+					<div class="col-1 center">
 						<span class="req">
 							<%= Html.ValidationMessage("Body", "*") %>
 						</span>
-						<div class="clear">&nbsp;</div>
 					</div>
 					<div class="clear">&nbsp;</div>
 				</div>
-				<div>
-				<input type="submit" class="create" value="Send" />
-				    <%= Html.ActionLink("Cancel", "Index", null, new { @class = "cancel" }) %>
+				<div class="push-9">
+				    <input type="submit" class="create" value="Send" />
+				    <%= Html.ActionLink("Cancel", "Inbox", "Message", new { @class = "cancel" }) %>
                 </div>
 	    	<% } %>
 		    <div class="clear">&nbsp;</div>
