@@ -37,14 +37,13 @@
 		        <div class="clear">&nbsp;</div>
 		        
 		        <div class="col-18 m-btm10">
-			    	<div class="m-lft col-2 m-rgt right">
-			    		<label>Subject:</label>
+                    <div>
+			    	<div class="m-lft col-6 m-rgt">
+			    		<label for="subject">Subject:</label>
+			    		<%= Html.TextBox("Subject", Model.Model.DefaultSubject) %>
 			    		<div class="clear">&nbsp;</div>
 			    	</div>
-			    	<div class="col-8">
-			    		<%= Html.TextBox("Subject", Model.Get().DefaultSubject) %>
-			    		<div class="clear">&nbsp;</div>
-			    	</div>
+                    </div>
 			    	<div class="m-lft col-8">
 			    		<span class="req">
 				    		<%= Html.ValidationMessage("Subject", "*") %>
@@ -55,9 +54,7 @@
 				<div class="col-18 m-btm10">
 					<div class="m-lft col-2 m-rgt right">
 						<label>Message:</label>
-						<div class="clear">&nbsp;</div>
-					</div>
-					<div class="col-8">
+
 						<%= Html.TextArea("Body", null, new { cols = "60", rows = "8", resize = "none", @class="fnt-12" })%>
 						<div class="clear">&nbsp;</div>
 					</div>
@@ -69,7 +66,7 @@
 					</div>
 					<div class="clear">&nbsp;</div>
 				</div>
-				<div class="push-2">
+				<div>
 				<input type="submit" class="create" value="Send" />
 				    <%= Html.ActionLink("Cancel", "Index", null, new { @class = "cancel" }) %>
                 </div>
