@@ -1,12 +1,18 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<CreatePetitionModel>" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
+<%@ Import Namespace="HaveAVoice.Models" %>
+<%@ Import Namespace="HaveAVoice.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Helpers.Constants" %>
+<%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
+<%@ Import Namespace="Social.Generic.Models" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Create Petition
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+<% UserInformationModel<User> myUserInfo = HAVUserInformationFactory.GetUserInformation(); %>
+
 <div class="col-24">
     <div class="spacer-30">&nbsp;</div>
     <div class="clear">&nbsp;</div>
@@ -69,7 +75,7 @@
 	                <div class="clear">&nbsp;</div>
 	            </div>
 	            <div class="col-6">
-	                <%= Html.TextBox("ZipCode") %>
+	                <%= Html.TextBox("ZipCode", myUserInfo.Details.Zip)%>
 	                <div class="clear">&nbsp;</div>
 	            </div>
 	            <div class="col-12 m-lft">
@@ -85,7 +91,7 @@
 	                <div class="clear">&nbsp;</div>
 	            </div>
 	            <div class="col-6">
-	                <%= Html.TextBox("City") %>
+	                <%= Html.TextBox("City", myUserInfo.Details.City)%>
 	                <div class="clear">&nbsp;</div>
 	            </div>
 	            <div class="col-12 m-lft">

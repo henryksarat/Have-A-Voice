@@ -19,5 +19,9 @@ namespace Social.Generic.Models {
         public BasicLocationModel() {
             States = new SelectList(UnitedStates.STATES);
         }
+
+        public BasicLocationModel(string aState) {
+            States = new SelectList(UnitedStates.STATES, aState);
+        }
     }
 }

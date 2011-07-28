@@ -13,5 +13,9 @@ namespace HaveAVoice.Models.View {
         public DisplayPetitionModel() {
             States = new SelectList(UnitedStates.STATES);
         }
+
+        public DisplayPetitionModel(string aState) {
+            States = new SelectList(UnitedStates.STATES, aState);
+        }
     }
 }

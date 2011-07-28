@@ -120,7 +120,7 @@
 		<div class="clear">&nbsp;</div>
 
         <div class="petition m-top10 m-btm30">
-            <div class="push-6 m-lft col-14 m-rgt header">    
+            <div class="push-5 m-lft col-14 m-rgt header">    
                 <div class="p-a10">
                     Petition Signatures
                 </div>
@@ -135,7 +135,7 @@
                 <% bool myIsLoggedIn = HAVUserInformationFactory.IsLoggedIn();  %>
                 <div class="reply">
 					<div class="row">
-						<div class="col-14 comment push-6">
+						<div class="col-14 comment push-5">
 							<div class="msg-2">
 								To sign this petition you must provide your address. Only the petition creator and administrators of Have A Voice will be able to view your contact information.
 							</div>
@@ -147,11 +147,11 @@
 				</div>
 		        <div class="reply m-btm10 m-top10">
 			        <div class="row">
-				    <div class="push-5 col-2 center">
+				    <div class="push-4 col-2 center">
 					    <img src="<%= myProfilePicture %>" alt="<%= myFullName %>" class="profile" />
 					    <div class="clear">&nbsp;</div>
 				    </div>
-				    <div class="push-5 m-lft col-14 comment">
+				    <div class="push-4 m-lft col-14 comment">
 
 					    <span class="speak-lft">&nbsp;</span>
                         <% using (Html.BeginForm("Create", "PetitionSignature", FormMethod.Post)) { %>
@@ -176,7 +176,7 @@
 	    				                <label for="Alias">City</label>
 	    			                </div>
 	    			                <div class="col-4 m-rgt5">
-	    				                <%= Html.TextBox("City")%>
+	    				                <%= Html.TextBox("City", myUserInfo.Details.City)%>
 	    			                </div>
 	    			                <div class="col-1">
 	    				                <span class="req">
@@ -203,7 +203,7 @@
 	    				            <label for="Alias">Zip Code</label>
 	    			            </div>
 	    			            <div class="col-4 m-rgt5">
-	    				            <%= Html.TextBox("ZipCode")%>
+	    				            <%= Html.TextBox("ZipCode", myUserInfo.Details.Zip)%>
 	    			            </div>
 	    			            <div class="col-1">
 	    				            <span class="req">

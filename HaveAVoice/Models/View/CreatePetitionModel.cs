@@ -9,5 +9,8 @@ namespace HaveAVoice.Models.View {
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Description { get; set; }
 
+        public CreatePetitionModel() : base() { }
+
+        public CreatePetitionModel(string aState) : base(aState) { }
     }
 }

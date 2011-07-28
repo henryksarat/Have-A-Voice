@@ -70,7 +70,7 @@ namespace HaveAVoice.Services.Petitions {
         }
 
         public DisplayPetitionModel GetPetition(UserInformationModel<User> aUser, int aPetitionId) {
-            DisplayPetitionModel myDisplayPetitionModel = new DisplayPetitionModel();
+            DisplayPetitionModel myDisplayPetitionModel = new DisplayPetitionModel(aUser.Details.State);
             Petition myPetition = theGroupRepository.GetPetition(aPetitionId);
             myDisplayPetitionModel.ViewSignatureDetails = CanView(aUser, myPetition);
             myDisplayPetitionModel.Petition = myPetition;

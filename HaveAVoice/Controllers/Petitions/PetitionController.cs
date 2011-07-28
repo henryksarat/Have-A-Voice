@@ -38,7 +38,8 @@ namespace HaveAVoice.Controllers.Petitions {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
-            return View("Create", new CreatePetitionModel());
+            UserInformationModel<User> myUser = GetUserInformatonModel();
+            return View("Create", new CreatePetitionModel(myUser.Details.State));
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
