@@ -25,15 +25,32 @@
 
 				<div class="p-a10 m-a10">
 					<h4 class="fnt-14">Mission Statement</h4>
-					The mission of have a voice<sup>&trade;</sup> is to provide everyone with a way to voice their concerns to local and national politicians and political candidates easily and efficiently.
-					Likewise, we want to provide politicians and political candidates with an easy and efficient way to respond to their constituents concerns about their neighborhood, city, state, and country.
+					The mission of Have a Voice<sup>&trade;</sup> is to provide everyone with a way to voice their concerns to their elected officials and political candidates easily and efficiently.
+					Likewise, we want to provide elected officials and political candidates with an easy and efficient way to respond to their constituents concerns about their neighborhood, city, state, and country.
 				</div>
 				<br /><br />
-                    Have a voice (“HAV”) firmly believes that government elected officials, by the people and for the people, should listen to their constituents while campaigning and in office. 
-                    HAV provides a service that enables every United States citizen an outlet to let it be known what is being done in their community and provide a level of accountability for
-                    those we elect. Government Officials can respond to the people’s concerns to let them know what they are doing to better the community. This allows the resident 
-                    to decide if they should vote for that politician or another candidate come elecection time. Politicians are bound to what they say and have to work for the people.
-                    No one should vote for a political candidate that does respond to their needs, we elected these officials and we have the right to <b>have a voice</b><sup>&trade;</sup>.  <br /><br /><br /><br />
+                The idea of Have a Voice<sup>&trade;</sup> started when the CEO and Founder, Henryk Sarat, received two tickets for car 
+                tints in Chicago. There was confusion as to whether tints were legal or illegal in Chicago. Tints were legalized 
+                in Illinois and many of Henryk's friends and Chicago police officers he asked confirmed that he could have tints on his car. 
+                After a few weeks of having tints, Henryk was hit with two tickets within a few weeks for $250 each. One interesting thing to 
+                note is that once tints became legal in Illinois, Chicago raised the tint ticket fee 10 fold, from $25 to $250. Henryk tried to fight
+                the case in court but Chicago executed "Home Rule" which can overrule the tint law issued by the state.<br /><br />
+
+                Henryk wasn't sure who to contact, how to contact them, or if his query would even be taken seriously. He didn't even know who his
+                alderman was! So what if a central system existed where people are given a voice in what goes on in their community and then their elected 
+                officials can easily see what their constituents want done, in a transparent way? Have a Voice officially launched in February 2011. 
+                Now users can participate in issues within their neighborhood, create and join groups, and start petitions to take action.
+                Have a Voice was built with social media in mind and every issue, group, and petition can go viral by sharing them on 
+                Facebook, Twitter, and Google+ with one click.<br /><br />
+                
+                Joe Sesso came on baord as Co-Founder and Chief Marketing Officer in July 2011 and on August 1st, 2011 the next iteration of Have a Voice launched with
+                a new marketing plan. An ambitious 50/50 campaign was devised to interview and spread the word to all 50 alderman in 50 days in Chicago.
+                <br /><br />
+                ... to be continued.
+
+
+              
+                <br /><br /><br /><br />
 				<div class="clear">&nbsp;</div>
 			</div>
 			<div class="clear">&nbsp;</div>
