@@ -10,6 +10,7 @@ namespace HaveAVoice.Helpers.Enums {
         Issue,
         IssueReply,
         ParticipatingIssueReply,
-        GroupBoardPost
+        GroupBoardPost,
+        UnapprovedGroupMember
     }
 }

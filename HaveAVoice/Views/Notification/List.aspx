@@ -26,18 +26,36 @@
 	    <% foreach (var item in Model.Models) { %>
 	    	<div class="notification m-btm10 p-v10 fnt-12">
                 <% if (item.NotificationType == NotificationType.Issue) { %>
-	    		    New replies in your issue: <%= Html.ActionLink(item.Label, "Details", "Issue", new { id = item.Id }, null)%> <div class="f-rgt"><%= LocalDateHelper.ToLocalTime(item.DateTimeStamp) %></div>
+	    		    New replies in your issue: <%= Html.ActionLink(item.Label, "Details", "Issue", new { id = item.Id }, null)%> <div class="f-rgt">
                 <% } else if (item.NotificationType == NotificationType.ParticipatingBoard) { %>
-                    New comments to a board message you are participating in: <%= Html.ActionLink(item.Label, "Details", "Board", new { id = item.Id }, null)%> <div class="f-rgt"><%= LocalDateHelper.ToLocalTime(item.DateTimeStamp)%></div>
+                    New comments to a board message you are participating in: <%= Html.ActionLink(item.Label, "Details", "Board", new { id = item.Id }, null)%> <div class="f-rgt">
                 <% } else if (item.NotificationType == NotificationType.Board) { %>
-                    <a href="<%= LinkHelper.Profile(item.TriggeredUser) %>"><%= NameHelper.FullName(item.TriggeredUser) %></a> posted a new <%= Html.ActionLink("message", "Details", "Board", new { id = item.Id }, null)%> on <a href="<%= LinkHelper.Profile(Model.NavigationModel.User) %>">your board</a>. <div class="f-rgt"><%= LocalDateHelper.ToLocalTime(item.DateTimeStamp)%></div>
+                    <a href="<%= LinkHelper.Profile(item.TriggeredUser) %>">
+                        <%= NameHelper.FullName(item.TriggeredUser) %>
+                    </a> 
+                    posted a new 
+                    <%= Html.ActionLink("message", "Details", "Board", new { id = item.Id }, null)%> 
+                    on 
+                    <a href="<%= LinkHelper.Profile(Model.NavigationModel.User) %>">
+                        your board
+                    </a>.
                 <% } else if (item.NotificationType == NotificationType.ParticipatingIssueReply) { %>
-                    New comments to a reply to an issue you are participating in: <%= Html.ActionLink(item.Label, "Details", "IssueReply", new { id = item.Id }, null)%> <div class="f-rgt"><%= LocalDateHelper.ToLocalTime(item.DateTimeStamp)%></div>
+                    New comments to a reply to an issue you are participating in: 
+                    <%= Html.ActionLink(item.Label, "Details", "IssueReply", new { id = item.Id }, null)%> 
                 <% } else if(item.NotificationType == NotificationType.IssueReply) { %>
-                    Someone commented on your <%= Html.ActionLink("reply", "Details", "IssueReply", new { id = item.Id }, null)%> to an issue.
+                    Someone commented on your 
+                    <%= Html.ActionLink("reply", "Details", "IssueReply", new { id = item.Id }, null)%> to an issue.
                 <% } else if(item.NotificationType == NotificationType.GroupBoardPost) { %>
-                    Someone posted to the board of the group <%= Html.ActionLink(item.Label, "Details", "Group", new { id = item.Id }, null)%>.
+                    Someone posted to the board of the group 
+                    <%= Html.ActionLink(item.Label, "Details", "Group", new { id = item.Id }, null)%>.
+                <% } else if(item.NotificationType == NotificationType.UnapprovedGroupMember) { %>
+                    <%= Html.ActionLink(NameHelper.FullName(item.TriggeredUser), "Details", "GroupMember", new { groupId = item.SecondaryId, groupMemberId = item.Id }, null)%> 
+                    wants to join the group 
+                    <a href="<%= LinkHelper.GroupUrl(item.SecondaryId) %>"><%= item.Label %></a>.
+                    <%= Html.ActionLink("Approve/Deny", "Details", "GroupMember", new { groupId = item.SecondaryId, groupMemberId = item.Id }, null)%>
                 <% } %>
+
+                <div class="f-rgt"><%= LocalDateHelper.ToLocalTime(item.DateTimeStamp) %></div>
 	    		<div class="clear">&nbsp;</div>
 	    	</div>
 	    <% } %>

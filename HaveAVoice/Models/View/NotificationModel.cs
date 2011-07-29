@@ -9,6 +9,7 @@ namespace HaveAVoice.Models.View {
         public NotificationType NotificationType { get; set; }
         public string Label { get; set; }
         public string Id { get; set; }
+        public string SecondaryId { get; set; }
         public DateTime DateTimeStamp { get; set; }
         public User TriggeredUser { get; set; }
     }

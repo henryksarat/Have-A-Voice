@@ -38,6 +38,10 @@ namespace HaveAVoice.Helpers {
             return "/Group/Details/" + aGroup.Id;
         }
 
+        public static string GroupUrl(string anId) {
+            return "/Group/Details/" + anId;
+        }
+
         public static string EditIssue(Issue anIssue) {
             return "/Issue/Edit/" + anIssue.Id;
         }

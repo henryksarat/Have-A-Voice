@@ -3,10 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using HaveAVoice.Models;
+using HaveAVoice.Repositories.Groups;
+using HaveAVoice.Helpers;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVNotificationRepository : IHAVNotificationRepository {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
+
+        public IEnumerable<GroupMember> UnapprovedGroupMembers(User aUser) {
+            IEnumerable<int> myGroupsAdminOf = GetGroupsAdminOf(aUser);
+
+            return (from gm in theEntities.GroupMembers
+                    where !gm.OldRecord
+                    && gm.Approved == HAVConstants.PENDING
+                    && !gm.AutoAccepted
+                    && gm.DeniedByUser == null
+                    && gm.ApprovedByUser == null
+                    && myGroupsAdminOf.Contains(gm.GroupId)
+                    select gm);
+
+        }
 
         public IEnumerable<Board> UnreadBoardMessages(User aUser) {
             return (from b in theEntities.Boards
@@ -58,6 +74,13 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     && !gm.OldRecord
                     && !gm.BoardViewed
                     select gm);
+        }
+
+        private IEnumerable<int> GetGroupsAdminOf(User aUser) {
+            return (from cm in theEntities.GroupMembers
+                    where cm.MemberUserId == aUser.Id
+                    && cm.Administrator
+                    select cm.GroupId);
         }
     }
 }
