@@ -479,6 +479,7 @@
     <Content Include="Views\Shared\PrivacyTabs.ascx" />
     <Content Include="Views\Shared\UserPanel.ascx" />
     <Content Include="Views\Site\AboutUs.aspx" />
+    <Content Include="Views\Site\FounderBios.aspx" />
     <Content Include="Views\Site\Privacy.aspx" />
     <Content Include="Views\Site\Terms.aspx" />
     <Content Include="Views\Tabs\Network.aspx" />

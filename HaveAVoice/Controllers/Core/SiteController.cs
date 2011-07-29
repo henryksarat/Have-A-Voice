@@ -49,6 +49,11 @@ namespace HaveAVoice.Controllers.Core {
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
+        new public ActionResult FounderBios() {
+            return View("FounderBios");
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
         new public ActionResult Terms() {
             return View("Terms");
         }

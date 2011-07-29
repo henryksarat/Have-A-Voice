@@ -12,6 +12,10 @@
     	<div class="push-1 col-4 center p-t5 p-b5 t-tab b-wht">
     		<span class="fnt-16 tint-6 bold">About Us</span>
     	</div>
+        <div class="push-1 col-4 center p-t5 p-b5 t-tab btint-6">
+    	    <a class="issue-create" href="/Site/FounderBios">Founder Bios</a>
+    	    <div class="clear">&nbsp;</div>
+        </div>
     	<div class="clear">&nbsp;</div>
     	
     	<div class="b-wht">
