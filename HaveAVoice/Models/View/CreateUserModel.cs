@@ -15,7 +15,7 @@ namespace HaveAVoice.Models.View {
 
         public IEnumerable<SelectListItem> States { get; set; }
 
-        public int Zip { get; set; }
+        public string Zip { get; set; }
 
         public String getDateOfBirthFormatted() {
             return DateOfBirth.ToString("MM-dd-yyyy");
@@ -25,9 +25,11 @@ namespace HaveAVoice.Models.View {
             DateTime myTempDateFiller = DateTime.UtcNow;
             string myTempIp = "127.0.0.1";
 
+            int myParsedZip = 0;
+            int.TryParse(Zip, out myParsedZip);
             return User.CreateUser(0, Email, Password, FirstName, LastName, City,
                                    State, DateOfBirth, myTempDateFiller, myTempDateFiller,
-                                   myTempIp, Zip, Gender);
+                                   myTempIp, myParsedZip, Gender);
         }
     }
 }

@@ -20,15 +20,18 @@ namespace HaveAVoice.Models.View {
             Email = string.Empty;
             States = new List<SelectListItem>();
             State = string.Empty;
+            Zip = string.Empty;
         }
 
         public override User CreateNewModel() {
             DateTime myTempDateFiller = DateTime.UtcNow;
             string myTempIp = "127.0.0.1";
+            int myParsedZip = 0;
+            int.TryParse(Zip, out myParsedZip);
 
             return User.CreateUser(0, Email, Password, FirstName, LastName, City, 
                 State, DateOfBirth, myTempDateFiller, myTempDateFiller,
-                myTempIp, Zip, Gender);
+                myTempIp, myParsedZip, Gender);
         }
     }
 }

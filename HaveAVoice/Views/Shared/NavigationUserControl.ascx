@@ -4,7 +4,7 @@
 <%@ Import Namespace="HaveAVoice.Models" %>
 
 <% User myUser = HAVUserInformationFactory.GetUserInformation().Details; %>
-<div class="col-18 fnt-12">
+<div class="rcol-logged-in fnt-12">
     <ul>
         <li><a href="/Profile/Show">HOME</a></li>
 		<li>

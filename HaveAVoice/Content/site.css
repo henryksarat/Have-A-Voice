@@ -217,6 +217,33 @@ a.sitelink, a.sitelink:link, a.sitelink:visited { text-decoration: underline; co
 .header ul > li:hover > ul > li > a, .header ul > li:hover > ul > li > a:link, .header ul > li:hover > ul > li > a:visited { padding: 8px 0px 8px 10px; display: block; margin: 0px; color: #20a9c9; }
 .header ul > li:hover > ul > li > a:hover { background: #20a9c9; color: #fff; }
 
+
+
+
+
+
+
+
+.header2 ul.right { float: right; }
+.header2 ul.right > li { margin-left: 5px; margin-right: 0px; }
+.header2 ul > li { float: left; margin: 10px 5px; color: #fff; font-weight: bold; padding: 10px 15px; position: relative; }
+.header2 ul > li:hover, .header2 > ul > li:hover > a, .header2 > ul > li:hover > a:link, .header2 > ul > li:hover > a:visited { background: #fff; color: #20a9c9; cursor: pointer; }
+.header2 ul > li a, .header2 > ul > li > a:link, .header2 > ul > li > a:visited { text-decoration: none; color: #ffffff; /* padding: 10px 5px; */ font-weight: bold; position: relative; display: block; margin: -10px -15px; padding: 10px 15px; }
+.header2 ul > li > a:hover { background: #ffffff; color: #20a9c9; }
+
+.header2 ul > li span.alert { position: absolute; top: -8px; right: -4px; font-weight: normal; background: red; border: 2px solid #fff; border-radius: 20px; -moz-border-radius: 20px; -webkit-border-radius: 20px; z-index: 10; min-width: 10px; min-height: 10px; color: #fff; font-size: 11px; padding: 2px; text-align: center; }
+.header2 ul > li a span.alert { top: -8px; right: -4px; }
+
+.header2 ul > li > ul { display: none; }
+.header2 ul > li:hover > ul { display: block; z-index: 1000; position: absolute; border: 4px solid #fff; background: #fff; left: 0px; top: 32px; }
+.header2 ul > li:hover > ul > li { float: none; background: #fff; width: 128px; padding: 0px; display: block; }
+.header2 ul > li:hover > ul > li > a, .header2 ul > li:hover > ul > li > a:link, .header2 ul > li:hover > ul > li > a:visited { padding: 8px 0px 8px 10px; display: block; margin: 0px; color: #20a9c9; }
+.header2 ul > li:hover > ul > li > a:hover { background: #20a9c9; color: #fff; }
+
+
+
+
+
 .t-tab { -moz-border-radius-topleft: 5px; -moz-border-radius-topright: 5px; -webkit-border-top-left-radius: 5px; -webkit-border-top-right-radius: 5px; border-top-left-radius: 5px; border-top-right-radius: 5px; }
 
 
@@ -693,8 +720,8 @@ blockquote:before, blockquote:after, q:before, q:after { content: ''; content: n
 table { border-collapse: collapse; border-spacing: 0; }
 
 html { height: 100%; }
-body { background: #fff url("img/bg.png") repeat-x bottom left; height: 100%; color: #555; font-family: Arial, Helvetica, sans-serif; font-size: 12pt; }
-header { background: #34a8c3 url("img/hdr.png") no-repeat center center; border-bottom: 1px solid #f0f7f8; box-shadow: 0px 1px 0px #d9e9ed; -moz-box-shadow: 0px 1px 0px #d9e9ed; -webkit-box-shadow: 0px 1px 0px #d9e9ed; padding: 12px 0px 10px 0px; max-height: 72px; }
+body { background: #fff url("/Content/images/bg.png") repeat-x fixed bottom left; height: 100%; color: #555; font-family: Arial, Helvetica, sans-serif; font-size: 12pt; }
+header { background: #34a8c3 url("/Content/images/hdr.png") no-repeat center center; border-bottom: 1px solid #f0f7f8; box-shadow: 0px 1px 0px #d9e9ed; -moz-box-shadow: 0px 1px 0px #d9e9ed; -webkit-box-shadow: 0px 1px 0px #d9e9ed; padding: 12px 0px 10px 0px; max-height: 72px; }
 footer { color: #878787; font-size: 8pt; }
 footer a, footer a:link, footer a:visited { color: #878787; }
 footer a:hover { text-decoration: underline; }
@@ -728,7 +755,9 @@ h4 { color: #6ec4d7; font-size: 14pt; font-weight: bold; line-height: 1.05; text
 .wrpr { width: 960px; margin: 0px auto; }
 .col-wrpr:after { content: "."; display: block; height: 0px; clear: both; visibility: hidden; }
 .lcol { float: left; display: inline-block; width: 480px; }
+.lcol-logged-in { float: left; display: inline-block; width: 230px; }
 .rcol { float: left; display: inline-block; width: 480px; }
+.rcol-logged-in { float: left; display: inline-block; width: 730px; }
 
 .frm { float: right; }
 .frm .optn { width: 196px; display: inline-block; float: left; font-size: 8pt; margin-top: 5px; color: #d4ebf1; }
@@ -737,11 +766,11 @@ h4 { color: #6ec4d7; font-size: 14pt; font-weight: bold; line-height: 1.05; text
 
 .actn { font-size: 10pt; margin-top: 32px; margin-bottom: 40px; }
 .actn li { padding-left: 72px; margin-top: 16px; margin-bottom: 16px; line-height: 1.25; }
-.actn li.issue { background:url("img/issue.png") no-repeat top left; }
-.actn li.friend { background:url("img/friend.png") no-repeat top left; }
-.actn li.group { background:url("img/group.png") no-repeat top left; }
-.actn li.petition { background:url("img/petition.png") no-repeat top left; }
-.actn li.social { background:url("img/viral.png") no-repeat top left; }
+.actn li.issue-main { background:url("/Content/images/issue.png") no-repeat top left; }
+.actn li.friend-main { background:url("/Content/images/friend.png") no-repeat top left; }
+.actn li.group-main { background:url("/Content/images/group.png") no-repeat top left; }
+.actn li.petition-main { background:url("/Content/images/petition.png") no-repeat top left; }
+.actn li.social-main { background:url("/Content/images/viral.png") no-repeat top left; }
 
 .reg { padding-top: 21px; }
 .reg .inpt { margin-top: 6px; margin-bottom: 7px; }
@@ -757,5 +786,5 @@ h4 { color: #6ec4d7; font-size: 14pt; font-weight: bold; line-height: 1.05; text
 
 .ftwrpr { border-top: 1px solid #bed0d4; }
 
-.twitter { width: 16px; height: 16px; background: url("img/ico-t.png") no-repeat center center; display: inline-block; text-indent: -9999; outline: none; margin-left: 10px; font-size: 0px; position: relative; top: -12px; }
-.facebook { width: 16px; height: 16px; background: url("img/ico-f.png") no-repeat center center; display: inline-block; text-indent: -9999; outline: none; margin-left: 7px; font-size: 0px; position: relative; top: -12px; }
+.twitter { width: 16px; height: 16px; background: url("/Content/images/ico-t.png") no-repeat center center; display: inline-block; text-indent: -9999; outline: none; margin-left: 10px; font-size: 0px; position: relative; top: -12px; }
+.facebook { width: 16px; height: 16px; background: url("/Content/images/ico-f.png") no-repeat center center; display: inline-block; text-indent: -9999; outline: none; margin-left: 7px; font-size: 0px; position: relative; top: -12px; }

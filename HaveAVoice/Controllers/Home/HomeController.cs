@@ -7,6 +7,7 @@ using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services.UserFeatures;
 using Social.Users.Services;
 using Social.Validation;
+using Social.Generic.Constants;
 
 namespace HaveAVoice.Controllers.Home {
     public class HomeController : HAVBaseController {
@@ -38,17 +39,14 @@ namespace HaveAVoice.Controllers.Home {
             return View("Index");
         }
 
-        [OutputCache(Duration = 10, VaryByParam = "none")]
         public ActionResult Main() {
-            NotLoggedInModel myModel = new NotLoggedInModel();
-            try {
-                myModel = theService.NotLoggedIn();
-            } catch (Exception e) {
-                LogError(e, PAGE_LOAD_ERROR);
-                ViewData[VIEW_DATA_MESSAGE] = MessageHelper.ErrorMessage(PAGE_LOAD_ERROR);
+            if (IsLoggedIn()) {
+                return RedirectToProfile();
             }
-
-            return View(MAIN, myModel);
+            return View("Main", new CreateUserModelBuilder() {
+                States = new SelectList(UnitedStates.STATES, Constants.SELECT),
+                Genders = new SelectList(Constants.GENDERS, Constants.SELECT)
+            });
         }
     }
 }

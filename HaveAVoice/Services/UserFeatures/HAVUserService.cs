@@ -95,7 +95,7 @@ namespace HaveAVoice.Services.UserFeatures {
             myOriginalUser.DateOfBirth = aUser.DateOfBirth;
             myOriginalUser.City = aUser.City;
             myOriginalUser.State = aUser.State;
-            myOriginalUser.Zip = aUser.Zip;
+            myOriginalUser.Zip = int.Parse(aUser.Zip);
             myOriginalUser.Website = aUser.Website;
             myOriginalUser.Gender = aUser.Gender;
             myOriginalUser.AboutMe = aUser.AboutMe;
