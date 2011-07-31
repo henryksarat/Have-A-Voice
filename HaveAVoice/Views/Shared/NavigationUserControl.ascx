@@ -22,7 +22,7 @@
             <ul>
                 <li>
                     <a href="/Issue/Create">Create Issue</a>
-                    <a href="/Issue/Index">Find Issues</a>
+                    <a href="/Issue/List">Find Issues</a>
                     <a href="/Petition/Create">Create Petition</a>
                     <a href="/Petition/List">Find Petition</a>
                 </li>

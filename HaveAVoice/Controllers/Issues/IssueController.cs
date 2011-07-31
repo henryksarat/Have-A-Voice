@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Helpers;
 using HaveAVoice.Helpers.Enums;
+using HaveAVoice.Helpers.Search;
 using HaveAVoice.Models;
 using HaveAVoice.Models.View;
 using HaveAVoice.Models.Wrappers;
@@ -16,7 +17,6 @@ using Social.Generic.Constants;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Validation;
-using HaveAVoice.Helpers.Search;
 
 namespace HaveAVoice.Controllers.Issues {
     public class IssueController : HAVBaseController {
@@ -63,7 +63,7 @@ namespace HaveAVoice.Controllers.Issues {
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Index() {
+        public ActionResult List() {
             return Search(SearchBy.All, OrderBy.LastReplyDate, string.Empty);
         }
 
@@ -308,7 +308,7 @@ namespace HaveAVoice.Controllers.Issues {
                 OrderByOptions = new SelectList(theIssueService.OrderByOptions(), "Value", "Key", anOrderBy)
             };
 
-            return View("Index", mySearchModel);
+            return View("List", mySearchModel);
         }
 
         private void SaveIssueInformationToTempDataForFiltering(IssueModel aModel) {

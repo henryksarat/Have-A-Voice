@@ -352,6 +352,7 @@
     <Content Include="Content\css\start\jquery-ui-1.8.14.custom.css" />
     <Content Include="Content\framework.css" />
     <Content Include="Content\images\album.png" />
+    <Content Include="Content\images\bg.png" />
     <Content Include="Content\images\candidate.png" />
     <Content Include="Content\images\comment.png" />
     <Content Include="Content\images\create-album.png" />
@@ -362,6 +363,13 @@
     <Content Include="Content\images\edit.gif" />
     <Content Include="Content\images\facebook.png" />
     <Content Include="Content\images\find.png" />
+    <Content Include="Content\images\friend.png" />
+    <Content Include="Content\images\group.png" />
+    <Content Include="Content\images\hav.png" />
+    <Content Include="Content\images\hdr.png" />
+    <Content Include="Content\images\ico-f.png" />
+    <Content Include="Content\images\ico-t.png" />
+    <Content Include="Content\images\issue.png" />
     <Content Include="Content\images\like-sm.png" />
     <Content Include="Content\images\like.png" />
     <Content Include="Content\images\logo.png" />
@@ -376,6 +384,7 @@
     <Content Include="Content\images\menu\photo.png" />
     <Content Include="Content\images\menu\photo_grey.png" />
     <Content Include="Content\images\new-album.png" />
+    <Content Include="Content\images\petition.png" />
     <Content Include="Content\images\politician.png" />
     <Content Include="Content\images\popular.png" />
     <Content Include="Content\images\report.png" />
@@ -398,6 +407,7 @@
     <Content Include="Content\images\ui-icons_454545_256x240.png" />
     <Content Include="Content\images\ui-icons_888888_256x240.png" />
     <Content Include="Content\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\images\viral.png" />
     <Content Include="Content\jquery-1.4.2.min.js" />
     <Content Include="Content\jquery-ui-1.7.2.custom.css" />
     <Content Include="Content\jquery-ui-1.7.2.custom.min.js" />
@@ -445,7 +455,7 @@
     <Content Include="Views\IssueReply\Edit.aspx" />
     <Content Include="Views\Issue\Create.aspx" />
     <Content Include="Views\Issue\Edit.aspx" />
-    <Content Include="Views\Issue\Index.aspx" />
+    <Content Include="Views\Issue\List.aspx" />
     <Content Include="Views\Issue\Details.aspx" />
     <Content Include="Views\Message\Inbox.aspx" />
     <Content Include="Views\Message\Create.aspx" />
@@ -607,7 +617,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>22378</DevelopmentServerPort>
+          <DevelopmentServerPort>7834</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

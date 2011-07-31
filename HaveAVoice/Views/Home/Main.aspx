@@ -51,7 +51,7 @@
 					<h1>Giving you a voice in your community</h1>
 					<ul class="actn">
 						<li class="issue-main">
-							<h4>Issues</h4>
+							<h4><a class="main-page-header" href="/Issue/List">Issues</a></h4>
 							Discuss or post an issue important to you and get direct feedback from other users, politicians, and political candidates.
 						</li>
 						<li class="friend-main">
@@ -59,11 +59,11 @@
 							Connect with neighbors and find people nationwide who share similar political interests.
 						</li>
 						<li class="group-main">
-							<h4>Groups</h4>
+							<h4><a class="main-page-header" href="/Group/List">Groups</a></h4>
 							Create your own or join an existing group. Groups can range from a small neighborhood to a large national group.
 						</li>
 						<li class="petition-main">
-							<h4>Petitions</h4>
+							<h4><a class="main-page-header" href="/Petition/Index">Petitions</a></h4>
 							Get real change done in your neighborhood. Create an online petition for your neighbors to sign.
 						</li>
 						<li class="social-main">
