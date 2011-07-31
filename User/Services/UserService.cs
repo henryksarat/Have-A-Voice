@@ -118,6 +118,8 @@ namespace Social.User.Services {
                 theValidationDictionary.AddError("Email", aUser.Email.Trim(), "E-mail is required.");
             } else if (theUserRepo.EmailRegistered(aUser.Email.Trim())) {
                 theValidationDictionary.AddError("Email", aUser.Email.Trim(), "Someone already registered with that email. Please try another one.");
+            } else if (theUserRepo.EmailRegisteredButNotActiated(aUser.Email.Trim())) {
+                theUserRepo.DeleteUserWhoHasNotUsedActivationCode(aUser.Email.Trim());
             }
 
             return ValidateUser(aUser);

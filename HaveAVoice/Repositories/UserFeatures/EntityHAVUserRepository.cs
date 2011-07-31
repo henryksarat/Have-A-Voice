@@ -44,6 +44,10 @@ namespace HaveAVoice.Repositories.UserFeatures {
             theEntities.SaveChanges();
         }
 
+        public void DeleteUserWhoHasNotUsedActivationCode(string email) {
+
+        }
+
         public User DeleteUserFromRole(int userId, int roleId) {
             IRoleRepository<User, Role, RolePermission> roleRepository = new EntityHAVRoleRepository();
 
@@ -66,6 +70,14 @@ namespace HaveAVoice.Repositories.UserFeatures {
         public bool EmailRegistered(string email) {
             return (from c in theEntities.Users
                     where c.Email == email
+                    && c.ActivationCodeUsed == true
+                    select c).Count() != 0 ? true : false;
+        }
+
+        public bool EmailRegisteredButNotActiated(string email) {
+            return (from c in theEntities.Users
+                    where c.Email == email
+                    && (c.ActivationCodeUsed == null || c.ActivationCodeUsed == false)
                     select c).Count() != 0 ? true : false;
         }
 
@@ -127,6 +139,13 @@ namespace HaveAVoice.Repositories.UserFeatures {
         private User GetUser(int anId) {
             return (from c in theEntities.Users
                     where c.Id == anId
+                    select c).FirstOrDefault();
+        }
+
+        private User GetUserNotAuthenticated(int anId) {
+            return (from c in theEntities.Users
+                    where c.Id == anId
+                    && (c.ActivationCodeUsed == null || c.ActivationCodeUsed == false)
                     select c).FirstOrDefault();
         }
     }

@@ -160,5 +160,14 @@ namespace UniversityOfMe.Repositories.UserRepos {
                     where c.Id == anId
                     select c).FirstOrDefault();
         }
+
+
+        public void DeleteUserWhoHasNotUsedActivationCode(string email) {
+            throw new System.NotImplementedException();
+        }
+
+        public bool EmailRegisteredButNotActiated(string email) {
+            throw new System.NotImplementedException();
+        }
     }
 }

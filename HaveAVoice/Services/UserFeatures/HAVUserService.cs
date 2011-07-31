@@ -67,7 +67,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
             return true;
         }
-
+        
         private User CompleteAddingFieldsToUser(User aUserToCreate, string aIpAddress) {
             aUserToCreate.Password = HashHelper.DoHash(aUserToCreate.Password);
             aUserToCreate.RegistrationDate = DateTime.UtcNow;
