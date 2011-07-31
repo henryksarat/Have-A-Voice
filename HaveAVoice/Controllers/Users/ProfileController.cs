@@ -115,14 +115,14 @@ namespace HaveAVoice.Controllers.Users {
                 if (myModel.Model.IsEmpty()) {
                     ViewData["Message"] = MessageHelper.NormalMessage(EMPTY_FRIEND_FEED);
                 }
+
+                ForceUserInformationRefresh();
+
+                return View("Show", myModel);
             } catch (Exception e) {
                 LogError(e, USER_PAGE_ERROR);
-                ViewData["Message"] = USER_PAGE_ERROR;
+                return SendToErrorPage(USER_PAGE_ERROR);
             }
-
-            ForceUserInformationRefresh();
-
-            return View("Show", myModel);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

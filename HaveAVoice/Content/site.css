@@ -670,3 +670,92 @@ ul.bullet li { list-style: disc; padding-top: 5px; padding-bottom: 5px; }
 
 /* Advertisement */
 .iab-leaderboard { width: 728px; margin: 0px auto; }
+
+
+
+#FONT PAGEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+/***** RESET *****/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; }
+
+/***** UNDO HTML *****/
+:link, :visited { text-decoration: none; }
+ul, ol { list-style: none; }
+h1, h2, h3, h4, h5, h6, pre, code, p { font-size: 1em; }
+ul, ol, dl, li, dt, dd, h1, h2, h3, h4, h5, h6, pre, form, body, html, p, blockquote, fieldset, input { padding: 0; margin: 0; }
+a img, :link img, :visited img { border: none; }
+address { font-style: normal; }
+
+/***** HTML5 Display Role *****/
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
+body { line-height: 1; }
+blockquote, q { quotes: none; }
+blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
+table { border-collapse: collapse; border-spacing: 0; }
+
+html { height: 100%; }
+body { background: #fff url("img/bg.png") repeat-x bottom left; height: 100%; color: #555; font-family: Arial, Helvetica, sans-serif; font-size: 12pt; }
+header { background: #34a8c3 url("img/hdr.png") no-repeat center center; border-bottom: 1px solid #f0f7f8; box-shadow: 0px 1px 0px #d9e9ed; -moz-box-shadow: 0px 1px 0px #d9e9ed; -webkit-box-shadow: 0px 1px 0px #d9e9ed; padding: 12px 0px 10px 0px; max-height: 72px; }
+footer { color: #878787; font-size: 8pt; }
+footer a, footer a:link, footer a:visited { color: #878787; }
+footer a:hover { text-decoration: underline; }
+
+h1 { color: #35b7db; font-size: 24pt; font-weight: bold; line-height: 1.2; }
+h3 { color: #d78227; font-size: 16pt; font-weight: bold; line-height: 1.25; text-transform: uppercase;  border-bottom: 1px solid #cddadc; padding-bottom: 12px; }
+h4 { color: #6ec4d7; font-size: 14pt; font-weight: bold; line-height: 1.05; text-transform: uppercase; }
+
+.mt5 { margin-top: 5px; }
+.mt12 { margin-top: 12px; }
+.mt44 { margin-top: 44px; }
+.mr62 { margin-right: 62px; }
+.mb15 { margin-bottom: 15px; }
+.mb32 { margin-bottom: 32px; }
+
+.pt13 { padding-top: 13px; }
+
+.w425 { width: 425px; }
+.w475 { width: 475px; }
+
+.right { text-align: right; }
+
+.med { font-size: 10pt; }
+
+.txt { color: #989898; font-size: 8pt; border: 1px solid #1890ad; height: 29px; width: 180px; max-width: 190px; padding-left: 10px; outline: none; }
+
+.btn { border: 1px solid #1097af; color: #fff; font-weight: bold; font-size: 8pt; padding: 8px 16px; box-shadow: inset 0px 1px 0px #8ee1f6; -moz-box-shadow: inset 0px 1px 0px #8ee1f6; -webkit-box-shadow: inset 0px 1px 0px #8ee1f6; background: -moz-linear-gradient(top, #55d1f0 0%, #02a1ac); background: -webkit-gradient(linear, left top, left bottom, from(#55d1f0), to(#02a1ac)); text-shadow: 0px 1px 0px rgba(000,000,000,0.5); cursor: pointer; }
+.btn.orange { border: 1px solid #cd7516; box-shadow: inset 0px 1px 0px #f1c699; -moz-box-shadow: inset 0px 1px 0px #f1c699; -webkit-box-shadow: inset 0px 1px 0px #f1c699; text-shadow: none; background: #e28d31; background: -moz-linear-gradient(top, #e28d31 0%, #d07b20); background: -webkit-gradient(linear, left top, left bottom, from(#e28d31), to(#d07b20)); border-radius: 2px; -moz-border-radius: 2px; -webkit-border-radius: 2px; }
+.btn.long { padding-left: 41px; padding-right: 41px; }
+
+.wrpr { width: 960px; margin: 0px auto; }
+.col-wrpr:after { content: "."; display: block; height: 0px; clear: both; visibility: hidden; }
+.lcol { float: left; display: inline-block; width: 480px; }
+.rcol { float: left; display: inline-block; width: 480px; }
+
+.frm { float: right; }
+.frm .optn { width: 196px; display: inline-block; float: left; font-size: 8pt; margin-top: 5px; color: #d4ebf1; }
+.frm .optn a, .frm .optn a:link, .frm .optn a:visited { color: #d4ebf1; text-decoration: none; }
+.frm .optn a:hover { text-decoration: underline; }
+
+.actn { font-size: 10pt; margin-top: 32px; margin-bottom: 40px; }
+.actn li { padding-left: 72px; margin-top: 16px; margin-bottom: 16px; line-height: 1.25; }
+.actn li.issue { background:url("img/issue.png") no-repeat top left; }
+.actn li.friend { background:url("img/friend.png") no-repeat top left; }
+.actn li.group { background:url("img/group.png") no-repeat top left; }
+.actn li.petition { background:url("img/petition.png") no-repeat top left; }
+.actn li.social { background:url("img/viral.png") no-repeat top left; }
+
+.reg { padding-top: 21px; }
+.reg .inpt { margin-top: 6px; margin-bottom: 7px; }
+.reg .inpt label { color: #555555; font-size: 10pt; min-width: 104px; display: inline-block; text-align: right; margin-right: 15px; }
+.reg .inpt .txt { width: 100%; max-width: 277px; border: 1px solid #cbdbde; height: 32px; }
+.reg .inpt select { height: 32px; border: 1px solid #cbdbde; background: #fff; }
+.reg .multi-inpt {}
+.reg .multi-inpt .inpt { float: left; }
+.reg .multi-inpt .inpt .txt { max-width: 90px; }
+.reg .multi-inpt .inpt.sm label { min-width: 67px; max-width: 81px; }
+.reg .multi-inpt label { display: inline-block; height: 32px; }
+.reg .multi-inpt .txt {}
+
+.ftwrpr { border-top: 1px solid #bed0d4; }
+
+.twitter { width: 16px; height: 16px; background: url("img/ico-t.png") no-repeat center center; display: inline-block; text-indent: -9999; outline: none; margin-left: 10px; font-size: 0px; position: relative; top: -12px; }
+.facebook { width: 16px; height: 16px; background: url("img/ico-f.png") no-repeat center center; display: inline-block; text-indent: -9999; outline: none; margin-left: 7px; font-size: 0px; position: relative; top: -12px; }

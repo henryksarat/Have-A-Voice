@@ -94,8 +94,8 @@
                 <%= IssueHelper.PersonFilterButton(PersonFilter.PoliticalCandidates, myFilter, "Political Candidates", "filter", "filterSelected") %>
                 <div class="clear">&nbsp;</div>
 		    </div>
-		    <div class="m-lft col-2 m-rgt f-rgt center">
-                <%= IssueHelper.PersonFilterButton(PersonFilter.Politicians, myFilter, "Politicians", "filter", "filterSelected") %>
+		    <div class="m-lft col-3 m-rgt f-rgt center">
+                <%= IssueHelper.PersonFilterButton(PersonFilter.Politicians, myFilter, "Elected Officials", "filter", "filterSelected") %>
                 <div class="clear">&nbsp;</div>
 		    </div>
 		    <div class="m-lft col-2 m-rgt f-rgt center">
