@@ -51,6 +51,7 @@
     <Compile Include="EmailValidation.cs" />
     <Compile Include="RangeValidation.cs" />
     <Compile Include="DateOfBirthValidation.cs" />
+    <Compile Include="VarChar50Validation.cs" />
     <Compile Include="ZipCodeValidation.cs" />
   </ItemGroup>
   <ItemGroup>

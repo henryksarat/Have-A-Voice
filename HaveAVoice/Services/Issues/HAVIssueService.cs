@@ -192,6 +192,8 @@ namespace HaveAVoice.Services.Issues {
         private bool ValidateIssue(Issue aIssueToValidate) {
             if (aIssueToValidate.Title.Trim().Length == 0) {
                 theValidationDictionary.AddError("Title", aIssueToValidate.Title, "Title is required.");
+            } else if (!VarCharValidation.Valid100Length(aIssueToValidate.Title)) {
+                theValidationDictionary.AddError("Title", aIssueToValidate.Title, "The issue title is too long.");
             }
 
             if (aIssueToValidate.Description.Trim().Length == 0) {

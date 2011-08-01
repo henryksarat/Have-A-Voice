@@ -45,8 +45,8 @@
                 <%= IssueHelper.PersonFilterButton(PersonFilter.All, myFilter, "All", "filter", "filterSelected", Model.Issue.Id) %>
                 <div class="clear">&nbsp;</div>
 			</div>
-			<div class="m-lft col-3 m-rgt center">
-                <%= IssueHelper.PersonFilterButton(PersonFilter.Politicians, myFilter, "Politicians", "filter", "filterSelected", Model.Issue.Id)%>
+			<div class="m-lft col-4 m-rgt center">
+                <%= IssueHelper.PersonFilterButton(PersonFilter.Politicians, myFilter, "Elected Officials", "filter", "filterSelected", Model.Issue.Id)%>
                 <div class="clear">&nbsp;</div>
 			</div>
 			<div class="m-lft col-4 m-rgt center">
@@ -60,7 +60,7 @@
 		</div>
 		<div class="clear">&nbsp;</div>
 		
-		<div class="push-5 col-16 m-btm10 fnt-12 m-lft25">
+		<div class="push-5 col-16 m-btm10 fnt-12 m-lft55">
 			<div class="m-lft col-3 m-rgt center">
                 <%= IssueHelper.IssueStanceFilterButton(IssueStanceFilter.All, myFilter, "filter", "filterSelected", Model.Issue.Id)%>
                 <div class="clear">&nbsp;</div>

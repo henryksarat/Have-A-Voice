@@ -124,7 +124,7 @@ namespace BaseWebsite.Controllers.Core {
         }
 
         private void CreateUserInformationSession(UserInformationModel<T> aUserModel) {
-            FormsAuthentication.SetAuthCookie(aUserModel.UserId.ToString(), false);
+            FormsAuthentication.SetAuthCookie(aUserModel.UserId.ToString(), true);
         }
     }
 }

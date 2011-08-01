@@ -100,6 +100,8 @@ namespace HaveAVoice.Services.Petitions {
         private bool ValidatePetition(CreatePetitionModel aPetitionModel) {
             if (string.IsNullOrEmpty(aPetitionModel.Title)) {
                 theValidationDictionary.AddError("Title", aPetitionModel.Title, "A title for the petition is required.");
+            } else if (!VarCharValidation.Valid50Length(aPetitionModel.Title)) {
+                theValidationDictionary.AddError("Title", aPetitionModel.Title, "Your petition title is too long.");
             }
 
             if (string.IsNullOrEmpty(aPetitionModel.Description)) {

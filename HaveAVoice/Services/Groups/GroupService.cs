@@ -409,6 +409,8 @@ namespace HaveAVoice.Services.Groups {
 
             if (string.IsNullOrEmpty(aGroupModel.Name)) {
                 theValidationDictionary.AddError("Name", aGroupModel.Name, "A group name is required.");
+            } else if (!VarCharValidation.Valid50Length(aGroupModel.Name)) {
+                theValidationDictionary.AddError("Name", aGroupModel.Name, "Your group name is too long.");
             }
 
             if (string.IsNullOrEmpty(aGroupModel.Description)) {
