@@ -10,8 +10,7 @@ namespace Social.Authentication {
         private HttpContextBase theHttpContext;
         private IWhoIsOnlineService<T, U> theWhoIsOnlineService;
         private IGetUserStrategy<T> theGetUserStrategy;
-        private static UserInformationModel<T> theUserInformationModel;
-        private bool theAlreadyLoggedTime;
+        private UserInformationModel<T> theUserInformationModel;
 
         private UserInformation() {
         }
@@ -20,7 +19,6 @@ namespace Social.Authentication {
             theHttpContext = aHttpBaseContext;
             theWhoIsOnlineService = aWhoIsOnlineService;
             theGetUserStrategy = aGetUserStrategy;
-            theAlreadyLoggedTime = false;
         }
 
         public bool IsLoggedIn() {
