@@ -257,6 +257,18 @@ a.sitelink, a.sitelink:link, a.sitelink:visited { text-decoration: underline; co
 .sign-up h3 { color: #88bbc7; font-size: 22px; text-shadow: #fff 1px 1px 1px, #587980 -1px -1px 1px; }
 .sign-up input[type=button].create { color: #58aabf; cursor: pointer; font-size: 14px; font-weight: bold; text-align: center; padding: 6px 20px; border: 1px solid #d3e9ee;	border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; box-shadow: 0px 1px 2px rgba(0,0,0,.2); -moz-box-shadow: 0px 1px 2px rgba(0,0,0,.2); -webkit-box-shadow: 0px 1px 2px rgba(0,0,0,.2); text-shadow: #fff 1px 1px 1px, #329cbc -1px -1px 1px; background: #d5eaef; background: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgb(255,255,255)), color-stop(1, rgb(227,241,244))); background: -moz-linear-gradient(center top, rgb(255,255,255) 0%, rgb(227,241,244) 100%); }
 
+-/****************************************************************************/
+
+-/************************* BECOME A FAN *************************************/
+
+-/****************************************************************************/
+
+h4 { color: #82999f; font-size: 16px; font-weight: normal; margin-bottom: 4px; }
+h6 { color: #63a8b8; font-size: 16px; text-shadow: #4c8b9a -1px -1px 1px, #fff 1px 1px 1px; }
+.round-3 { border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; background: #c1dee5; }
+a.msg { width: 300px; color: #fff; display: block; background: #a6cdd7; text-align: center; text-decoration: none; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; }
+
+input[type=submit].fan { width: 100%; color: #63a8b8; cursor: pointer; font-size: 18px; font-weight: bold; border: 1px solid transparent; border-style: solid; border-size: 1px 1px 1px 1px; border-color: #fff transparent #abd3dd #fff; text-shadow: #4c8b9a -1px -1px 1px, #fff 1px 1px 1px; padding: 8px 16px 8px 50px; border-radius: 4px -moz-border-radius: 4px; -webkit-border-radius: 4px; background: url("images/star.png") no-repeat 20px 6px #d5eaef; background: url("images/star.png") no-repeat 20px 6px, -webkit-gradient(linear, left top, left bottom, color-stop(0, rgb(255,255,255)), color-stop(1, rgb(227,241,244))); background: url("images/star.png") no-repeat 20px 6px, -moz-linear-gradient(center top, rgb(255,255,255) 0%, rgb(227,241,244) 100%) url("images/star.png") no-repeat 20px 6px; }
 
 /****************************************************************************/
 /****************************** USER PANEL **********************************/
