@@ -353,6 +353,7 @@
     <Content Include="Content\framework.css" />
     <Content Include="Content\images\album.png" />
     <Content Include="Content\images\bg.png" />
+    <Content Include="Content\images\bubble.png" />
     <Content Include="Content\images\candidate.png" />
     <Content Include="Content\images\comment.png" />
     <Content Include="Content\images\create-album.png" />

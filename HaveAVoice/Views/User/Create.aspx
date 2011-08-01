@@ -214,22 +214,14 @@
 										
 					<div class="col-10">&nbsp;</div>
 					<div class="clear">&nbsp;</div>
-					<div class="col-4 m-rgt right">
-						<%= Html.CheckBox("Agreement") %>
-					</div>
-					<div class="col-6">
-						I agree with the <a href="/Site/Terms" target="_blank">Terms of Use</a>.
-					</div>
-					<div class="col-12 m-lft">
-						<span class="req">
-							<%= Html.ValidationMessage("Agreement", "*") %>
-						</span>
+					<div class="push-4 col-8">
+						By clicking Sign Up I accept the <a href="/Site/Terms" target="_blank">Terms of Use</a>.
 					</div>
 					<div class="clear">&nbsp;</div>
 					<div class="spacer-10">&nbsp;</div>
                 
                 	<div class="col-8 right">
-                		<input type="submit" class="create" value="Create" />
+                		<input type="submit" class="create" value="Sign Up" />
 						<%= Html.ActionLink("Cancel", "Index", "", new { @class = "cancel" }) %>
                 	</div>
                 	<div class="clear">&nbsp;</div>

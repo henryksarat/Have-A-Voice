@@ -122,14 +122,14 @@
 				<div class="m-btm5 m-top20 m-lft col-14 m-rgt local">
                     <% if (Model.QuickNavigation == QuickNavigation.LocalIssue) { %>
 					    <div class="p-a5">
-						    <h4>Issues In Your <%= Model.LocalIssueLocation%></h4>
+						    <h5>Issues In Your <%= Model.LocalIssueLocation%></h5>
 						    <div class="clear">&nbsp;</div>
 						    Resident <a href="<%= LinkHelper.Profile(Model.LocalIssue.User) %>" class="name"><%= NameHelper.FullName(Model.LocalIssue.User)%></a> says, &quot;<%= Model.LocalIssue.Description%>&quot;<br />
                             In <%= Model.LocalIssue.User.Gender.ToUpper().Equals(Gender.MALE.ToUpper()) ? "his" : "her"%> issue: <b><a href="<%= LinkHelper.IssueUrl(Model.LocalIssue.Title) %>" class="issueregarding"><%= Model.LocalIssue.Title%></a></b>.
 			            </div>
                     <% } else if(Model.QuickNavigation == QuickNavigation.SuggestedFriend) { %>
 					    <div class="p-a5">
-						    <h4>Friend Suggestion</h4>
+						    <h5>Friend Suggestion</h5>
 						    <div class="clear">&nbsp;</div>
                             <div class="col-13">
                                 <div class="col-10">
@@ -154,13 +154,13 @@
 			            </div>
                     <% } else if (Model.QuickNavigation == QuickNavigation.IssueTip) { %>
                         <div class="p-a5">
-                            <h4>Issue Tip</h4>
+                            <h5>Issue Tip</h5>
                             <div class="clear">&nbsp;</div>
                             There are no issues in your area. Why not <a class="name" href="<%= LinkHelper.CreateIssue() %>">raise a new issue</a>?
                         </div>
                     <% } else if (Model.QuickNavigation == QuickNavigation.SuggestFriendTip) { %>
                         <div class="p-a5">
-                            <h4>Friend Suggestion Tip</h4>
+                            <h5>Friend Suggestion Tip</h5>
                             <div class="clear">&nbsp;</div>
                             To find more people with similar interests, make sure to fill out your <a class="name" href="<%= LinkHelper.UserProfileQuestions() %>">profile questionnaire</a>.
                         </div>

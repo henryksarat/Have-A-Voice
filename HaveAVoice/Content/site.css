@@ -726,9 +726,10 @@ footer { color: #878787; font-size: 8pt; }
 footer a, footer a:link, footer a:visited { color: #878787; }
 footer a:hover { text-decoration: underline; }
 
-h1 { color: #35b7db; font-size: 24pt; font-weight: bold; line-height: 1.2; }
-h3 { color: #d78227; font-size: 16pt; font-weight: bold; line-height: 1.25; text-transform: uppercase;  border-bottom: 1px solid #cddadc; padding-bottom: 12px; }
-h4 { color: #6ec4d7; font-size: 14pt; font-weight: bold; line-height: 1.05; text-transform: uppercase; }
+.mainpage-slogan { color: #35b7db; font-size: 24pt; font-weight: bold; line-height: 1.2; }
+.mainpage-signup { color: #d78227; font-size: 16pt; font-weight: bold; line-height: 1.25; text-transform: uppercase;  border-bottom: 1px solid #cddadc; padding-bottom: 12px; }
+.mainpage-heading { color: #6ec4d7; font-size: 14pt; font-weight: bold; line-height: 1.05; text-transform: uppercase; }
+h5 { color: #6ec4d7; font-size: 12pt; font-weight: bold; line-height: 1.05; }
 
 .mt5 { margin-top: 5px; }
 .mt12 { margin-top: 12px; }

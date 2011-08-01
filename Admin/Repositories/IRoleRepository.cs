@@ -14,5 +14,6 @@ namespace Social.Admin.Repositories {
         IEnumerable<U> GetAllRoles();
         U GetRoleByName(string aName);
         void MoveUsersToRole(List<int> aUsers, int aFromRoleId, int aToRoleId);
+        void MoveUsersToRoleForActivation(List<int> aUsers, int aFromRoleId, int aToRoleId);
     }
 }

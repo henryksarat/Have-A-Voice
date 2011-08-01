@@ -25,7 +25,7 @@
 					<div class="clear">&nbsp;</div>
 								
 					<div class="push-1 col-16 fnt-14 teal m-btm10">
-						Please fill out the following form to get in contact with the have a voice staff. We will try to respond back within 24 hours.
+						Please fill out the following form to get in contact with the Have a Voice staff. We will try to respond back within 24 hours.
 						<div class="clear">&nbsp;</div>
 					</div>
 					<div class="clear">&nbsp;</div>

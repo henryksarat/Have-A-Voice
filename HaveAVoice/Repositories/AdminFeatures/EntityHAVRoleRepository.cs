@@ -104,6 +104,14 @@ namespace HaveAVoice.Repositories.AdminFeatures {
             theEntities.SaveChanges();
         }
 
+        public void MoveUsersToRoleForActivation(List<int> aUsers, int aFromRoleId, int aToRoleId) {
+            User myUser = GetUser(aUsers.First<int>());
+            myUser.ActivationCodeUsed = true;
+            theEntities.ApplyCurrentValues(myUser.EntityKey.EntitySetName, myUser);
+
+            MoveUsersToRole(aUsers, aFromRoleId, aToRoleId);
+        }
+
         private IEnumerable<RolePermission> GetRolePermissionsByRole(Role aRoleToGetPermissionsFor) {
             return (from c in theEntities.RolePermissions
                     where c.Role.Id == aRoleToGetPermissionsFor.Id
@@ -183,6 +191,12 @@ namespace HaveAVoice.Repositories.AdminFeatures {
         private void CreateRolePermissionWithoutSave(int aRoleId, int aPermissionId) {
             RolePermission myRolePermissionToAdd = RolePermission.CreateRolePermission(0, aRoleId, aPermissionId);
             theEntities.AddToRolePermissions(myRolePermissionToAdd);
+        }
+
+        private User GetUser(int anId) {
+            return (from u in theEntities.Users
+                    where u.Id == anId
+                    select u).FirstOrDefault<User>();
         }
     }
 }

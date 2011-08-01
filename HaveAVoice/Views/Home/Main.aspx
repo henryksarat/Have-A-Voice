@@ -48,27 +48,39 @@
 		<div class="col-wrpr mt44 mb32">
 			<div class="lcol">
 				<div class="w425">
-					<h1>Giving you a voice in your community</h1>
+					<div class="mainpage-slogan">
+                        Giving you a voice in your community
+                    </div>
 					<ul class="actn">
 						<li class="issue-main">
-							<h4><a class="main-page-header" href="/Issue/List">Issues</a></h4>
+							<div class="mainpage-heading">
+                                <a class="main-page-header" href="/Issue/List">Issues</a>
+                            </div>
 							Discuss or post an issue important to you and get direct feedback from other users, politicians, and political candidates.
 						</li>
 						<li class="friend-main">
-							<h4>Find Friends</h4>
+							<div class="mainpage-heading">
+                                Find Friends
+                            </div>
 							Connect with neighbors and find people nationwide who share similar political interests.
 						</li>
 						<li class="group-main">
-							<h4><a class="main-page-header" href="/Group/List">Groups</a></h4>
+							<div class="mainpage-heading">
+                                <a class="main-page-header" href="/Group/List">Groups</a>
+                            </div>
 							Create your own or join an existing group. Groups can range from a small neighborhood to a large national group.
 						</li>
 						<li class="petition-main">
-							<h4><a class="main-page-header" href="/Petition/Index">Petitions</a></h4>
+							<div class="mainpage-heading">
+                                <a class="main-page-header" href="/Petition/Index">Petitions</a>
+                            </div>
 							Get real change done in your neighborhood. Create an online petition for your neighbors to sign.
 						</li>
 						<li class="social-main">
-							<h4>Go Viral!</h4>
-							Every issue, group, and petition you start and participate in can easily be share on Facebook, Twitter, and Google+.
+							<div class="mainpage-heading">
+                                Go Viral!
+                            </div>
+							Every issue, group, and petition you start and participate in can easily be shared on Facebook, Twitter, and Google+.
 						</li>
 					</ul>
 						
@@ -109,7 +121,9 @@
 			<div class="rcol">
 				<div class="frm">
 					<div class="w475">
-						<h3>Sign Up Now!</h3>
+						<div class="mainpage-signup">
+                            Sign Up Now!
+                        </div>
 						<div class="reg">
                             <% using (Html.BeginForm("Create", "User", FormMethod.Post)) { %>
 							    <div class="inpt">
@@ -168,7 +182,7 @@
 		<div class="wrpr ftwrpr">
 			<div class="col-wrpr pt13">
 				<div class="lcol">
-					Copyright &copy; Have a Voice 2008-2011. All rights reserved.
+					Copyright &copy; Have a Voice 2011. All rights reserved.
 				</div>
 				<div class="rcol">
 					<div class="right">

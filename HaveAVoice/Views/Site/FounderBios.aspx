@@ -10,7 +10,7 @@
 		<div class="clear">&nbsp;</div>
 		
     	<div class="push-1 col-4 center p-t5 p-b5 t-tab btint-6">
-    		<a class="issue-create" href="/Site/Founder">About Us</a>
+    		<a class="issue-create" href="/Site/AboutUs">About Us</a>
     	</div>
         <div class="push-1 col-4 center p-t5 p-b5 t-tab b-wht">
     	    <span class="fnt-16 tint-6 bold">Founder Bios</span>
@@ -23,7 +23,7 @@
     			<div class="spacer-30">&nbsp;</div>
     			<div class="clear">&nbsp;</div>
 
-				<div class="p-a10 m-a10">
+				<div class="p-a10 m-a10 fnt-14">
 					<h4 class="fnt-16">Henryk Sarat</h4>
                     <h4 class="fnt-12">Founder and Chief Executive Officer</h4>
                     <h4 class="fnt-12">Follow henryk on twitter 
@@ -31,9 +31,11 @@
                             @henryksarat
                         </a>
                     </h4>
-                    While studying at the University of Chicago for his Master's in Computer Science, Henryk created a blog. Instead of using WordPress or Blogger he decided to create a system from scratch which includeded included social features such as friends and messaging.<br /><br />
-                    After graduating the blog project was retired and Henryk started working at a Dutch high-frequency trading firm named IMC. While at IMC Henryk received a ticket that he thoght was unfair and he didn't know hwo to effectively fight it, so the idea of Have A Voice was born.<br /><br />
-                    Henryk started working on Have a Voice part-time and finally launched it in February 2011. <br /><br />
+                    Henryk received his Master's in Computer Science from the University of Chicago. 
+                    After graduating, he worked for the Dutch high-frequency trading firm IMC as a software developer. 
+                    While working at the firm, Henryk was inspired(read <a class="sitelink" href="/Site/AboutUs">About Us</a> for the story) 
+                    to create Have a Voice and started developing it part-time. Henryk finally launched Have a Voice on 
+                    February 9th, 2011. <br /><br />
 
                     <h4 class="fnt-16">Joe Sesso</h4>
                     <h4 class="fnt-12">Co-Founder and Chief Marketing Officer</h4>

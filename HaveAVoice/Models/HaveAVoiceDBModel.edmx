@@ -1028,7 +1028,6 @@
           <Property Name="ForgotPasswordHashDateTimeStamp" Type="datetime" />
           <Property Name="ShortUrl" Type="varchar" MaxLength="50" />
           <Property Name="UserPositionId" Type="varchar" MaxLength="50" />
-          <Property Name="PoliticalAffiliation" Type="varchar" MaxLength="50" />
           <Property Name="ActivationCodeUsed" Type="bit" />
         </EntityType>
         <EntityType Name="WhoIsOnline">

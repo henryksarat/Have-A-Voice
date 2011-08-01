@@ -2,8 +2,8 @@
 
 <script type="text/javascript" language="javascript">
     $(function () {
-        $("#Email").click(function () {
-            $("#Email").val("");
+        $("#EmailLogin").click(function () {
+            $("#EmailLogin").val("");
         });
     });
 </script>
@@ -11,8 +11,8 @@
 <div class="rcol">
 	<div class="frm">
         <% using (Html.BeginForm("Login", "Authentication")) { %>
-        <%= Html.TextBox("Email", "Email", new { @class = "txt" })%>
-        <%= Html.Password("Password", string.Empty, new { @class = "txt" }) %>
+        <%= Html.TextBox("EmailLogin", "Email", new { @class = "txt" })%>
+        <%= Html.Password("PasswordLogin", string.Empty, new { @class = "txt" }) %>
 		<input type="submit" class="btn" value="Login" />
 		<br />
 		<div class="optn">

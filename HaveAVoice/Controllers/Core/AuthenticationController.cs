@@ -34,8 +34,8 @@ namespace HaveAVoice.Controllers.Core {
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
-        new public ActionResult Login(string email, string password, bool rememberMe) {
-            return base.Login(email, password, rememberMe);
+        new public ActionResult Login(string emailLogin, string passwordLogin, bool rememberMe) {
+            return base.Login(emailLogin, passwordLogin, rememberMe);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

@@ -62,7 +62,7 @@ namespace HaveAVoice.Controllers.Users {
         [CaptchaValidator]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Create(CreateUserModelBuilder aUserToCreate, bool captchaValid) {
-            ActionResult myActionResult = base.Create(SocialUserModel.Create(aUserToCreate.CreateNewModel()), captchaValid, aUserToCreate.Agreement, 
+            ActionResult myActionResult = base.Create(SocialUserModel.Create(aUserToCreate.CreateNewModel()), captchaValid, true, 
                                                       HAVConstants.BASE_URL, HAVConstants.ACTIVATION_SUBJECT, HAVConstants.ACTIVATION_BODY,
                                                       new RegistrationStrategy());
 

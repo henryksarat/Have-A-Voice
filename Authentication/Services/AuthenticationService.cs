@@ -140,10 +140,9 @@ namespace Social.Authentication.Services {
                 throw new NullRoleException("There is no \"Not confirmed\" role");
             }
 
-
             List<int> myUsers = new List<int>();
             myUsers.Add(myUser.Id);
-            theRoleRepo.MoveUsersToRole(myUsers, myNotConfirmedRole.Id, aRoleToMoveToId);
+            theRoleRepo.MoveUsersToRoleForActivation(myUsers, myNotConfirmedRole.Id, aRoleToMoveToId);
 
             aUseActivationStrategy.AddPrivacySettingsBasedOnRole(thePrivacySettingsService, myUser, aRoleToMoveToName);
             

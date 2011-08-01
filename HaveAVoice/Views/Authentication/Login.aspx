@@ -26,7 +26,7 @@
 						    <label for="Email">Email:</label>
 					    </div>
 					    <div class="col-5">
-						    <%= Html.TextBox("Email") %>
+						    <%= Html.TextBox("EmailLogin") %>
 					    </div>
 			            <div class="clear">&nbsp;</div>
 			            <div class="spacer-10">&nbsp;</div>
@@ -35,7 +35,7 @@
 			                <label for="Password">Password:</label>
 			           </div>
 			           <div class="col-5">
-			                <%= Html.Password("Password") %>
+			                <%= Html.Password("PasswordLogin") %>
 			            </div>
 					
 					    <div class="clear">&nbsp;</div>
