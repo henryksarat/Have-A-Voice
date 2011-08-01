@@ -95,8 +95,7 @@ namespace HaveAVoice.Controllers.Users {
                 return RedirectToProfile();
             }
             try {
-                bool myResult = theService.CreateUserAuthority(aBuilder.CreateNewModel(), aBuilder.Token, aBuilder.AuthorityType, 
-                                                               aBuilder.Agreement, HttpContext.Request.UserHostAddress);
+                bool myResult = theService.CreateUserAuthority(aBuilder.CreateNewModel(), aBuilder.Token, aBuilder.AuthorityType, HttpContext.Request.UserHostAddress);
                 if (myResult) {
                     return SendToResultPage(CREATE_ACCOUNT_TITLE, CREATE_AUTHORITY_ACCOUNT_SUCCESS);
                 }

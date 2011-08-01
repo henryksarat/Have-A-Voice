@@ -42,16 +42,12 @@ namespace HaveAVoice.Services.UserFeatures {
             theEmailService = aEmailService;
         }
 
-        public bool CreateUserAuthority(User aUserToCreate, string aToken, string anAuthorityType, bool anAgreement, string anIpAddress) {
+        public bool CreateUserAuthority(User aUserToCreate, string aToken, string anAuthorityType, string anIpAddress) {
             if (!ValidateNewUser(aUserToCreate)) {
                 return false;
             }
 
             if (!ValidateToken(aUserToCreate.Email, aToken, anAuthorityType, aUserToCreate.UserPositionId)) {
-                return false;
-            }
-
-            if (!ValidateAgreement(anAgreement)) {
                 return false;
             }
 
@@ -177,11 +173,6 @@ namespace HaveAVoice.Services.UserFeatures {
                 theValidationDictionary.AddError("Email", aUser.Email.Trim(), "E-mail is required.");
             } else if (theUserRepo.EmailRegistered(aUser.Email.Trim())) {
                 theValidationDictionary.AddError("Email", aUser.Email.Trim(), "Someone already registered with that email. Please try another one.");
-            }
-            if (aUser.ShortUrl.Length == 0) {
-                theValidationDictionary.AddError("ShortUrl", aUser.ShortUrl, "You must give yourself a www.haveavoice.com url.");
-            } else if (theUserRepo.ShortUrlTaken(aUser.ShortUrl)) {
-                theValidationDictionary.AddError("ShortUrl", aUser.ShortUrl, "That www.haveavoice.com url is already taken by someone else.");
             }
 
             return ValidateUser(aUser);
