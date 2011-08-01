@@ -19,7 +19,6 @@
 <% bool myIsLoggedin = HAVUserInformationFactory.IsLoggedIn(); %>
 <% string myLogoDivStyle = myIsLoggedin ? "lcol-logged-in" : "lcol";  %>
 <body>
-	<header>
         <div class="header2">
 		    <div class="wrpr">
                 <div class="col-wrpr">
@@ -34,7 +33,6 @@
 			    </div>
 		    </div>
         </div>
-	</header>
 
     <div class="clear">&nbsp;</div>
 
@@ -47,7 +45,7 @@
     </div>
     <div class="clear">&nbsp;</div>
   
-  	<footer>
+  	<div class="footer2">
 		<div class="wrpr ftwrpr">
 			<div class="col-wrpr pt13">
 				<div class="lcol">
@@ -68,7 +66,7 @@
 				</div>
 			</div>
 		</div>
-	</footer>  
+	</div>  
 
     <!--
     <div class="footer-wrpr">

@@ -1,5 +1,6 @@
 <%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.CreateUserModelBuilder>" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
+<%@ Import Namespace="HaveAVoice.Helpers" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -28,12 +29,13 @@
     <% bool myIsLoggedin = HAVUserInformationFactory.IsLoggedIn(); %>
     <% string myLogoDivStyle = myIsLoggedin ? "lcol-logged-in" : "lcol";  %>
 	<body>
-	<header>
         <div class="header2">
 		    <div class="wrpr">
                 <div class="col-wrpr">
 			        <div class="<%= myLogoDivStyle %>">
-				        <img src="/Content/images/hav.png" alt="have a voice" class="mt5 mb15" />
+				        <a href="<%= HAVConstants.BASE_URL %>">
+                            <img src="/Content/images/hav.png" alt="have a voice" class="mt5 mb15" />
+                        </a>
 			        </div>
                     <% if (!myIsLoggedin) { %>
                         <% Html.RenderPartial("LogOnUserControl"); %>
@@ -43,7 +45,6 @@
 			    </div>
 		    </div>
         </div>
-	</header>
 		<div class="wrpr">
 		<div class="col-wrpr mt44 mb32">
 			<div class="lcol">
@@ -178,7 +179,7 @@
 			</div>
 		</div>
 	</div>
-  	<footer>
+  	<div class="footer2">
 		<div class="wrpr ftwrpr">
 			<div class="col-wrpr pt13">
 				<div class="lcol">
@@ -199,7 +200,7 @@
 				</div>
 			</div>
 		</div>
-	</footer> 
+	</div> 
 	</body>
 
 </html>

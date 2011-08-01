@@ -723,10 +723,10 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 html { height: 100%; }
 body { background: #fff url("/Content/images/bg.png") repeat-x fixed bottom left; height: 100%; color: #555; font-family: Arial, Helvetica, sans-serif; font-size: 12pt; }
-header { background: #34a8c3 url("/Content/images/hdr.png") no-repeat center center; border-bottom: 1px solid #f0f7f8; box-shadow: 0px 1px 0px #d9e9ed; -moz-box-shadow: 0px 1px 0px #d9e9ed; -webkit-box-shadow: 0px 1px 0px #d9e9ed; padding: 12px 0px 10px 0px; max-height: 72px; }
-footer { color: #878787; font-size: 8pt; }
-footer a, footer a:link, footer a:visited { color: #878787; }
-footer a:hover { text-decoration: underline; }
+.header2 { background: #34a8c3 url("/Content/images/hdr.png") no-repeat center center; border-bottom: 1px solid #f0f7f8; box-shadow: 0px 1px 0px #d9e9ed; -moz-box-shadow: 0px 1px 0px #d9e9ed; -webkit-box-shadow: 0px 1px 0px #d9e9ed; padding: 12px 0px 10px 0px; max-height: 72px; }
+.footer2 { color: #878787; font-size: 8pt; }
+.footer2 a, footer a:link, footer a:visited { color: #878787; }
+.footer2 a:hover { text-decoration: underline; }
 
 .mainpage-slogan { color: #35b7db; font-size: 24pt; font-weight: bold; line-height: 1.2; }
 .mainpage-signup { color: #d78227; font-size: 16pt; font-weight: bold; line-height: 1.25; text-transform: uppercase;  border-bottom: 1px solid #cddadc; padding-bottom: 12px; }
