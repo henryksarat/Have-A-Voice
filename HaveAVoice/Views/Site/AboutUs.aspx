@@ -24,7 +24,7 @@
     			<div class="clear">&nbsp;</div>
 
 				<div class="p-a10 m-a10 fnt-14">
-					<h4 class="fnt-14">Mission Statement</h4>
+					<div class="site-heading">Mission Statement</div>
 					The mission of Have a Voice<sup>&trade;</sup> is to provide everyone with a way to voice their concerns to their elected officials and political candidates easily and efficiently.
 					Likewise, we want to provide elected officials and political candidates with an easy and efficient way to respond to their constituents concerns about their neighborhood, city, state, and country.
 				</div>

@@ -24,7 +24,7 @@
     			<div class="clear">&nbsp;</div>
 
 				<div class="p-a10 m-a10 fnt-14">
-					<h4 class="fnt-16">Henryk Sarat</h4>
+					<div class="site-heading">Henryk Sarat</div>
                     <h4 class="fnt-12">Founder and Chief Executive Officer</h4>
                     <h4 class="fnt-12">Follow henryk on twitter 
                         <a class="sitelink" href="http://www.twitter.com/henryksarat" target=”_blank”>
@@ -37,7 +37,7 @@
                     to create Have a Voice and started developing it part-time. Henryk finally launched Have a Voice on 
                     February 9th, 2011. <br /><br />
 
-                    <h4 class="fnt-16">Joe Sesso</h4>
+                    <div class="site-heading">Joe Sesso</div>
                     <h4 class="fnt-12">Co-Founder and Chief Marketing Officer</h4>
                     <h4 class="fnt-12">Follow joe on twitter 
                         <a class="sitelink" href="http://www.twitter.com/joesesso" target=”_blank”>
