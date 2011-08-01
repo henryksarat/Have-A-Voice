@@ -114,6 +114,11 @@ namespace BaseWebsite.Controllers.Core {
             cookie2.Expires = DateTime.Now.AddYears(-1);
             Response.Cookies.Add(cookie2);
 
+            // clear session cookie (not necessary for your current problem but i would recommend you do it anyway)
+            HttpCookie cookie3 = new HttpCookie(CookieHelper.REMEMBER_ME_COOKIE, "");
+            cookie3.Expires = DateTime.Now.AddYears(-1);
+            Response.Cookies.Add(cookie3);
+
             TempData["Message"] += SuccessMessage(AuthenticationKeys.LOGGED_OUT);
 
             ForceUserInformationRefresh();
@@ -124,7 +129,7 @@ namespace BaseWebsite.Controllers.Core {
         }
 
         private void CreateUserInformationSession(UserInformationModel<T> aUserModel) {
-            FormsAuthentication.SetAuthCookie(aUserModel.UserId.ToString(), true);
+            FormsAuthentication.SetAuthCookie(aUserModel.UserId.ToString(), false);
         }
     }
 }
