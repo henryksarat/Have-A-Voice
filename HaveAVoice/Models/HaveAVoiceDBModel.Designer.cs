@@ -15004,6 +15004,30 @@ namespace HaveAVoice.Models
         private Nullable<global::System.Boolean> _ActivationCodeUsed;
         partial void OnActivationCodeUsedChanging(Nullable<global::System.Boolean> value);
         partial void OnActivationCodeUsedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String UserPositionExtraInfo
+        {
+            get
+            {
+                return _UserPositionExtraInfo;
+            }
+            set
+            {
+                OnUserPositionExtraInfoChanging(value);
+                ReportPropertyChanging("UserPositionExtraInfo");
+                _UserPositionExtraInfo = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("UserPositionExtraInfo");
+                OnUserPositionExtraInfoChanged();
+            }
+        }
+        private global::System.String _UserPositionExtraInfo;
+        partial void OnUserPositionExtraInfoChanging(global::System.String value);
+        partial void OnUserPositionExtraInfoChanged();
 
         #endregion
     

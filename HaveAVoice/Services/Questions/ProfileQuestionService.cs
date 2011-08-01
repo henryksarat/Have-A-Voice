@@ -109,9 +109,10 @@ namespace HaveAVoice.Services.Questions {
             IEnumerable<Pair<UserProfileQuestion, QuestionAnswer>> myQuestionAnswers = anUpdateUserProfileQuestionsModel.UserProfileQuestionsAnswered;
             IEnumerable<string> myQuestionNamesForYes = myQuestionAnswers.Where(qa => qa.Second == QuestionAnswer.Yes).Select(qa => qa.First.Name);
             IEnumerable<string> myQuestionNamesForNo = myQuestionAnswers.Where(qa => qa.Second == QuestionAnswer.No).Select(qa => qa.First.Name);
+            IEnumerable<string> myQuestionNamesForDontKnowAkaThirdOption = myQuestionAnswers.Where(qa => qa.Second == QuestionAnswer.DontKnow).Select(qa => qa.First.Name);
             IEnumerable<string> myResponsesToDeleteSinceNoAnswer = myQuestionAnswers.Where(qa => qa.Second == QuestionAnswer.NoAnswer).Select(qa => qa.First.Name);
 
-            theProfileQuestionRepository.UpdateAnswersToQuestions(aUserInfo.Details, myQuestionNamesForYes, myQuestionNamesForNo, myResponsesToDeleteSinceNoAnswer);
+            theProfileQuestionRepository.UpdateAnswersToQuestions(aUserInfo.Details, myQuestionNamesForYes, myQuestionNamesForNo, myQuestionNamesForDontKnowAkaThirdOption, myResponsesToDeleteSinceNoAnswer);
         }
     }
 }

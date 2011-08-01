@@ -81,9 +81,10 @@ namespace HaveAVoice.Repositories.Questions {
         }
 
         public void UpdateAnswersToQuestions(User aUser, IEnumerable<string> aYesAnswers, 
-            IEnumerable<string> aNoAnswers, IEnumerable<string> anAnswersToDeleteDueToNoAnswer) {
+            IEnumerable<string> aNoAnswers, IEnumerable<string> aQuestionNamesForDontKnowAkaThirdOption, IEnumerable<string> anAnswersToDeleteDueToNoAnswer) {
             UpdateProfileQuestionAnswersWithoutSave(aUser, aYesAnswers, QuestionAnswer.Yes);
             UpdateProfileQuestionAnswersWithoutSave(aUser, aNoAnswers, QuestionAnswer.No);
+            UpdateProfileQuestionAnswersWithoutSave(aUser, aQuestionNamesForDontKnowAkaThirdOption, QuestionAnswer.DontKnow);
             DeleteProfileQuestionAnswersWithoutSave(aUser, anAnswersToDeleteDueToNoAnswer);
             theEntities.SaveChanges();
         }

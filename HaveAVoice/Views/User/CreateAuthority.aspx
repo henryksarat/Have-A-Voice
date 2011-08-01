@@ -74,6 +74,7 @@
                     <%= Html.Hidden("Token", Model.Token) %>
                     <%= Html.Hidden("AuthorityType", Model.AuthorityType)%>
                     <%= Html.Hidden("UserPosition", Model.UserPosition)%>
+                    <%= Html.Hidden("ExtraInfo", Model.ExtraInfo)%>
 	    			
                     <div class="col-4 m-rgt right">
 	    				<label for="FirstName">Email:</label>

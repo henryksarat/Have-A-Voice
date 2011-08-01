@@ -84,6 +84,7 @@ namespace HaveAVoice.Controllers.Users {
                 Token = model.Token,
                 AuthorityType = model.AuthorityType,
                 UserPosition = model.AuthorityPosition,
+                ExtraInfo = model.ExtraInfo,
                 States = new SelectList(UnitedStates.STATES, Constants.SELECT),
                 Genders = new SelectList(Constants.GENDERS, Constants.SELECT)
             });
@@ -95,7 +96,7 @@ namespace HaveAVoice.Controllers.Users {
                 return RedirectToProfile();
             }
             try {
-                bool myResult = theService.CreateUserAuthority(aBuilder.CreateNewModel(), aBuilder.Token, aBuilder.AuthorityType, HttpContext.Request.UserHostAddress);
+                bool myResult = theService.CreateUserAuthority(aBuilder.CreateNewModel(), aBuilder.ExtraInfo, aBuilder.Token, aBuilder.AuthorityType, HttpContext.Request.UserHostAddress);
                 if (myResult) {
                     return SendToResultPage(CREATE_ACCOUNT_TITLE, CREATE_AUTHORITY_ACCOUNT_SUCCESS);
                 }

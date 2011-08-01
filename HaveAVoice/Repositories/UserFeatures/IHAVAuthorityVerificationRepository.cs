@@ -12,5 +12,6 @@ namespace HaveAVoice.Repositories.UserFeatures {
         void SetEmailWithTokenToVerified(string anEmail, string aToken, string anAuthorityType, string anAuthorityPosition);
         void UpdateTokenForEmail(string anEmail, string aToken, string anAuthorityType, string anAuthorityPosition);
         IEnumerable<UserPosition> GetUserPositions();
+        void SetExtraInfoForAuthority(User aUser, string anExtraInfo);
     }
 }

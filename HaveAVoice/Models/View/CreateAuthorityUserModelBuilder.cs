@@ -18,6 +18,9 @@ namespace HaveAVoice.Models.View {
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string UserPosition { get; set; }
 
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string ExtraInfo { get; set; }
+
         public CreateAuthorityUserModelBuilder() {
             DateOfBirth = DateTime.UtcNow;
             States = new List<SelectListItem>();

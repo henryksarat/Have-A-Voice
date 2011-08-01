@@ -67,13 +67,13 @@ namespace HaveAVoice.Controllers.Core {
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
-        public ActionResult Create(string email, string authorityType, string authorityPosition) {
+        public ActionResult Create(string email, string extraInfo, string authorityType, string authorityPosition) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
             UserInformationModel<User> myUserInformation = GetUserInformatonModel();
             try {
-                if (theAuthService.RequestTokenForAuthority(myUserInformation, email, authorityType, authorityPosition)) {
+                if (theAuthService.RequestTokenForAuthority(myUserInformation, email, extraInfo, authorityType, authorityPosition)) {
                     return SendToResultPage("A token has been created and sent to the authority with the email " + email);
                 } 
             } catch (CustomException e) {
@@ -87,11 +87,12 @@ namespace HaveAVoice.Controllers.Core {
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Verify(string token, string authorityType, string authorityPosition) {
+        public ActionResult Verify(string extraInfo, string token, string authorityType, string authorityPosition) {
             return View(VERIFY_VIEW, new AuthorityVerificationModel() {
                Token = token,
                AuthorityType = authorityType,
-               AuthorityPosition = authorityPosition
+               AuthorityPosition = authorityPosition,
+               ExtraInfo = extraInfo
             });
         }
 
@@ -103,7 +104,8 @@ namespace HaveAVoice.Controllers.Core {
                         token = model.Token, 
                         email = email,
                         authorityType = model.AuthorityType,
-                        authorityPosition = model.AuthorityPosition
+                        authorityPosition = model.AuthorityPosition,
+                        extraInfo = model.ExtraInfo
                     });
                 }
                 TempData["Message"] += MessageHelper.NormalMessage(INVALID_TOKEN);

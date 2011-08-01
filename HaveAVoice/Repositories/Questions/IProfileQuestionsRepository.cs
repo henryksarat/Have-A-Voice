@@ -11,7 +11,7 @@ namespace HaveAVoice.Repositories.Questions {
         UserProfileQuestion GetProfileQuestion(string aQuestionName);
         IEnumerable<UserProfileQuestion> GetProfileQuestions();
         void UpdateAnswersToQuestions(User aUser, IEnumerable<string> aYesAnswers, 
-            IEnumerable<string> aNoAnswers, IEnumerable<string> anAnswersToDeleteDueToNoAnswer);
+            IEnumerable<string> aNoAnswers, IEnumerable<string> aQuestionNamesForDontKnowAkaThirdOption, IEnumerable<string> anAnswersToDeleteDueToNoAnswer);
         IEnumerable<FriendConnectionModel> FindUsersBasedOnQuestion(User aUser, IEnumerable<string> aQuestionNames);
     }
 }

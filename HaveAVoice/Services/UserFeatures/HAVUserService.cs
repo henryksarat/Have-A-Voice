@@ -42,7 +42,7 @@ namespace HaveAVoice.Services.UserFeatures {
             theEmailService = aEmailService;
         }
 
-        public bool CreateUserAuthority(User aUserToCreate, string aToken, string anAuthorityType, string anIpAddress) {
+        public bool CreateUserAuthority(User aUserToCreate, string anExtraInfo, string aToken, string anAuthorityType, string anIpAddress) {
             if (!ValidateNewUser(aUserToCreate)) {
                 return false;
             }
@@ -53,6 +53,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
             aUserToCreate = CompleteAddingFieldsToUser(aUserToCreate, anIpAddress);
             aUserToCreate = theUserRepo.CreateUser(aUserToCreate, Constants.NOT_CONFIRMED_USER_ROLE).Model;
+            theAuthorityVerificationService.AddExtraInfoToAuthority(aUserToCreate, anExtraInfo);
 
             try {
                 theAuthService.ActivateAuthority(aUserToCreate.ActivationCode, anAuthorityType);

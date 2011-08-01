@@ -15,7 +15,7 @@ using Social.Validation;
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVAuthorityVerificationService : IHAVAuthorityVerificationService {
         private const string TOKEN_SUBJECT = "have a voice | authority authentication";
-        private const string TOKEN_BODY = "Hello!\nYou are classified as an authority and therefore must sign up in a special way. Please follow this link: ";
+        private const string TOKEN_BODY = "Hello!<br/><br/>You are classified as an authority and therefore must sign up in a special way. Please click this link or copy and paste the URL into your browser: ";
         private const string INVALID_EMAIL = "That is not a valid email.";
 
         private IValidationDictionary theValidationDictionary;
@@ -31,7 +31,7 @@ namespace HaveAVoice.Services.UserFeatures {
             theEmailService = anEmailService;
         }
 
-        public bool RequestTokenForAuthority(UserInformationModel<User> aRequestingUser, string anEmail, string anAuthorityType, string anAuthorityPosition) {
+        public bool RequestTokenForAuthority(UserInformationModel<User> aRequestingUser, string anEmail, string anExtraInfo, string anAuthorityType, string anAuthorityPosition) {
             if (!PermissionHelper<User>.AllowedToPerformAction(aRequestingUser, SocialPermission.Create_Authority_Verification_Token)) {
                 throw new CustomException(HAVConstants.NOT_ALLOWED);
             }
@@ -52,7 +52,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 theAuthenticationRepo.CreateTokenForEmail(aRequestingUser.Details, anEmail, myHashedToken, anAuthorityType, anAuthorityPosition);
             }
 
-            SendTokenEmail(anEmail, myToken, anAuthorityType, anAuthorityPosition);
+            SendTokenEmail(anEmail, anExtraInfo, myToken, anAuthorityType, anAuthorityPosition);
 
             return true;
         }
@@ -81,7 +81,7 @@ namespace HaveAVoice.Services.UserFeatures {
             return theValidationDictionary.isValid;
         }
 
-        private void SendTokenEmail(string anEmail, string aToken, string anAuthorityType, string anAuthorityPosition) {
+        private void SendTokenEmail(string anEmail, string anExtraInfo, string aToken, string anAuthorityType, string anAuthorityPosition) {
             string myUrl = new StringBuilder()
                 .Append(HAVConstants.BASE_URL)
                 .Append("/AuthorityVerification/Verify")
@@ -91,7 +91,10 @@ namespace HaveAVoice.Services.UserFeatures {
                 .Append(anAuthorityType)
                 .Append("&authorityPosition=")
                 .Append(anAuthorityPosition)
+                .Append("&extraInfo=")
+                .Append(anExtraInfo)
                 .ToString();
+            myUrl = "<a href=\"" + myUrl + "\">" + myUrl + "</a>";
             try {
                 theEmailService.SendEmail(anEmail, TOKEN_SUBJECT, TOKEN_BODY + myUrl);
             } catch (Exception e) {
@@ -101,6 +104,11 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public IEnumerable<UserPosition> GetUserPositions() {
             return theAuthenticationRepo.GetUserPositions();
+        }
+
+
+        public void AddExtraInfoToAuthority(User aUser, string anExtraInfo) {
+            theAuthenticationRepo.SetExtraInfoForAuthority(aUser, anExtraInfo);
         }
     }
 }

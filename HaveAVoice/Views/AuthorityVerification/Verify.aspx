@@ -23,7 +23,8 @@
 				<% using (Html.BeginForm("Verify", "AuthorityVerification", FormMethod.Post, new { @class = "create" })) { %>
 					<%= Html.Hidden("Token", Model.Token)%>
                     <%= Html.Hidden("AuthorityType", Model.AuthorityType)%>
-                    <%= Html.Hidden("authorityPosition", Model.AuthorityPosition)%>
+                    <%= Html.Hidden("AuthorityPosition", Model.AuthorityPosition)%>
+                    <%= Html.Hidden("ExtraInfo", Model.ExtraInfo)%>
 					<div class="push-3 col-16 fnt-14 teal m-btm10">
 						Enter the email that this token was sent to.
 						<div class="clear">&nbsp;</div>

@@ -44,6 +44,20 @@
 	    			<div class="spacer-10">&nbsp;</div>
 
 	    			<div class="col-4 m-rgt right">
+	    				<label for="FirstName">ExtraInfo:</label>
+	    			</div>
+	    			<div class="col-4">
+	    				<%= Html.TextBox("ExtraInfo") %>
+	    			</div>
+	    			<div class="m-lft col-14">
+	    				<span class="req">
+		    				<%= Html.ValidationMessage("ExtraInfo", "*")%>
+	    				</span>
+	    			</div>
+	    			<div class="clear">&nbsp;</div>
+	    			<div class="spacer-10">&nbsp;</div>
+
+	    			<div class="col-4 m-rgt right">
 	    				<label for="FirstName">Authority Type:</label>
 	    			</div>
 	    			<div class="col-4">
