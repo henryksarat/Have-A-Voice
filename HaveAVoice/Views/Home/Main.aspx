@@ -1,5 +1,6 @@
 <%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.CreateUserModelBuilder>" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>have a voice | giving you a voice in your community</title>
@@ -13,7 +14,6 @@
         <script type="text/javascript" src="/Content/js/jquery-1.5.1.min.js"></script>
         <script type="text/javascript" src="/Content/js/jquery-ui-1.8.14.custom.min.js"></script>
 	</head>
-
     	<script type="text/javascript" language="javascript">
     	    $(function () {
     	        $('#DateOfBirth').datepicker({
@@ -199,6 +199,7 @@
 				</div>
 			</div>
 		</div>
-	</footer>  
+	</footer> 
 	</body>
+
 </html>

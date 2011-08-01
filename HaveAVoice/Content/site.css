@@ -104,6 +104,9 @@ body { font-family: helvetica, arial, sans-serif; background: #20a9c9; }
 .m-lft10 { margin-left: 10px; }
 .m-lft20 { margin-left: 20px; }
 .m-lft25 { margin-left: 25px; }
+.m-lft35 { margin-left: 35px; }
+.m-lft45 { margin-left: 45px; }
+.m-lft55 { margin-left: 55px; }
 
 .m-rgt5 { margin-right: 5px; }
 .m-rgt10 { margin-right: 10px; }
@@ -250,7 +253,7 @@ a.sitelink, a.sitelink:link, a.sitelink:visited { text-decoration: underline; co
 /****************************************************************************/
 /****************************** SIGNUP PANEL ********************************/
 /****************************************************************************/
-.sign-up { border-radius: 3px -moz-border-radius: 3px; -webkit-border-radius: 3px; background: #c1dee5; margin: 15px auto; padding: 20px 0px; }
+.sign-up { border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; background: #c1dee5; margin: 15px auto; padding: 20px 0px; }
 .sign-up h3 { color: #88bbc7; font-size: 22px; text-shadow: #fff 1px 1px 1px, #587980 -1px -1px 1px; }
 .sign-up input[type=button].create { color: #58aabf; cursor: pointer; font-size: 14px; font-weight: bold; text-align: center; padding: 6px 20px; border: 1px solid #d3e9ee;	border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; box-shadow: 0px 1px 2px rgba(0,0,0,.2); -moz-box-shadow: 0px 1px 2px rgba(0,0,0,.2); -webkit-box-shadow: 0px 1px 2px rgba(0,0,0,.2); text-shadow: #fff 1px 1px 1px, #329cbc -1px -1px 1px; background: #d5eaef; background: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgb(255,255,255)), color-stop(1, rgb(227,241,244))); background: -moz-linear-gradient(center top, rgb(255,255,255) 0%, rgb(227,241,244) 100%); }
 
@@ -613,19 +616,6 @@ ul.photo-album li a.create { width: 110px; height: 110px; text-indent: -9999px; 
 .issue .disagree .speak-rgt { width: 0px; height: 0px; border-width: 10px; border-style: solid; border-color: #e03108 transparent transparent transparent; position: absolute; right: -10px; top: 30px; }
 */
 
-
-/****************************************************************************/
-/************************* BECOME A FAN *************************************/
-/****************************************************************************/
-h4 { color: #82999f; font-size: 16px; font-weight: normal; margin-bottom: 4px; }
-h6 { color: #63a8b8; font-size: 16px; text-shadow: #4c8b9a -1px -1px 1px, #fff 1px 1px 1px; }
-
-.round-3 { border-radius: 3px -moz-border-radius: 3px; -webkit-border-radius: 3px; background: #c1dee5; }
-a.msg { width: 300px; color: #fff; display: block; background: #a6cdd7; text-align: center; text-decoration: none; border-radius: 3px; -moz-border-radius: 3px -webkit-border-radius: 3px; }
-
-input[type=submit].fan { width: 100%; color: #63a8b8; cursor: pointer; font-size: 18px; font-weight: bold; border: 1px solid transparent; border-style: solid; border-size: 1px 1px 1px 1px; border-color: #fff transparent #abd3dd #fff; text-shadow: #4c8b9a -1px -1px 1px, #fff 1px 1px 1px; padding: 8px 16px 8px 50px; border-radius: 4px -moz-border-radius: 4px; -webkit-border-radius: 4px; background: url("images/star.png") no-repeat 20px 6px #d5eaef; background: url("images/star.png") no-repeat 20px 6px, -webkit-gradient(linear, left top, left bottom, color-stop(0, rgb(255,255,255)), color-stop(1, rgb(227,241,244))); background: url("images/star.png") no-repeat 20px 6px, -moz-linear-gradient(center top, rgb(255,255,255) 0%, rgb(227,241,244) 100%) url("images/star.png") no-repeat 20px 6px; }
-
-
 /****************************************************************************/
 /******************************* USER EDIT **********************************/
 /****************************************************************************/
@@ -753,12 +743,12 @@ h5 { color: #6ec4d7; font-size: 12pt; font-weight: bold; line-height: 1.05; }
 .btn.orange { border: 1px solid #cd7516; box-shadow: inset 0px 1px 0px #f1c699; -moz-box-shadow: inset 0px 1px 0px #f1c699; -webkit-box-shadow: inset 0px 1px 0px #f1c699; text-shadow: none; background: #e28d31; background: -moz-linear-gradient(top, #e28d31 0%, #d07b20); background: -webkit-gradient(linear, left top, left bottom, from(#e28d31), to(#d07b20)); border-radius: 2px; -moz-border-radius: 2px; -webkit-border-radius: 2px; }
 .btn.long { padding-left: 41px; padding-right: 41px; }
 
-.wrpr { width: 960px; margin: 0px auto; }
+.wrpr { width: 970px; margin: 0px auto; }
 .col-wrpr:after { content: "."; display: block; height: 0px; clear: both; visibility: hidden; }
 .lcol { float: left; display: inline-block; width: 480px; }
 .lcol-logged-in { float: left; display: inline-block; width: 230px; }
 .rcol { float: left; display: inline-block; width: 480px; }
-.rcol-logged-in { float: left; display: inline-block; width: 730px; }
+.rcol-logged-in { float: left; display: inline-block; width: 740px; }
 
 .frm { float: right; }
 .frm .optn { width: 196px; display: inline-block; float: left; font-size: 8pt; margin-top: 5px; color: #d4ebf1; }
@@ -779,9 +769,11 @@ h5 { color: #6ec4d7; font-size: 12pt; font-weight: bold; line-height: 1.05; }
 .reg .inpt .txt { width: 100%; max-width: 277px; border: 1px solid #cbdbde; height: 32px; }
 .reg .inpt select { height: 32px; border: 1px solid #cbdbde; background: #fff; }
 .reg .multi-inpt {}
-.reg .multi-inpt .inpt { float: left; }
+.reg .multi-inpt:after { content: "."; display: block; height: 0px; clear: both; visibility: hidden; }
+.reg .multi-inpt .inpt { float: left; min-width: 50%; }
 .reg .multi-inpt .inpt .txt { max-width: 90px; }
 .reg .multi-inpt .inpt.sm label { min-width: 67px; max-width: 81px; }
+.reg .multi-inpt .inpt.sm .txt { max-width: 77px; }
 .reg .multi-inpt label { display: inline-block; height: 32px; }
 .reg .multi-inpt .txt {}
 
