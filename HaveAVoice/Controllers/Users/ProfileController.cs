@@ -101,10 +101,13 @@ namespace HaveAVoice.Controllers.Users {
             LoggedInWrapperModel<UserProfileModel> myModel = new LoggedInWrapperModel<UserProfileModel>(myUser.Details, SiteSection.MyProfile);
 
             try {
+                string myEmptyMessage = string.Empty;
                 if (PermissionHelper<User>.AllowedToPerformAction(myUser, SocialPermission.Authority_Feed)) {
                     myModel.Model = theService.AuthorityProfile(myUser);
+                    myEmptyMessage = "There is currently no one in your governing area using have a voice. Contact your constituents to use the service!";
                 } else {
                     myModel.Model = theService.MyProfile(myUser);
+                    myEmptyMessage = "Your feed is empty. Make some friends on Have a Voice and contact your elected officials to use Have a Voice.";
                 }
                 myModel.NavigationModel.LocalIssue = myModel.Model.LocalIssue;
                 myModel.NavigationModel.FriendConnectionModel = myModel.Model.FriendConnectionModel;
@@ -113,7 +116,7 @@ namespace HaveAVoice.Controllers.Users {
                 SaveFeedInformationToTempDataForFiltering(myModel.Model, PersonFilter.All);
 
                 if (myModel.Model.IsEmpty()) {
-                    ViewData["Message"] = MessageHelper.NormalMessage(EMPTY_FRIEND_FEED);
+                    ViewData["Message"] = MessageHelper.NormalMessage(myEmptyMessage);
                 }
 
                 ForceUserInformationRefresh();

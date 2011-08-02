@@ -81,6 +81,7 @@ namespace HaveAVoice.Controllers.Core {
             } catch (Exception e) {
                 LogError(e, TOKEN_CREATED_AND_SENT_ERROR);
                 TempData["Message"] += MessageHelper.ErrorMessage(TOKEN_CREATED_AND_SENT_ERROR);
+                theValidationDictionary.ForceModleStateExport();
             }
 
             return RedirectToAction(CREATE_VIEW);

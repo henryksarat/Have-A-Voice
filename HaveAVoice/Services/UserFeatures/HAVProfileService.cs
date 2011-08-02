@@ -191,10 +191,20 @@ namespace HaveAVoice.Services.UserFeatures {
             Issue myRandomLocalIssue = theRepository.RandomLocalIssue(myAuthorityUser);
 
             UserProfileModel myModel = new UserProfileModel(myAuthorityUser) {
-                LocalIssue = myRandomLocalIssue,
                 IssueFeed = myIssueFeed,
                 IssueReplyFeed = myIssueReplyFeed,
             };
+
+            Random myRandom = new Random();
+            if (myRandom.Next() % 2 == 1) {
+                if (!SetForLocalIssue(myModel, myAuthorityUser)) {
+                    SetForFriendSuggestion(myModel, anAuthorityUserInformation);
+                }
+            } else {
+                if (!SetForFriendSuggestion(myModel, anAuthorityUserInformation)) {
+                    SetForLocalIssue(myModel, myAuthorityUser);
+                }
+            }
 
             return myModel;
         }

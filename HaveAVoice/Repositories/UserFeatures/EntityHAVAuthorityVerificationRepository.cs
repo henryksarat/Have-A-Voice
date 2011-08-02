@@ -74,6 +74,9 @@ namespace HaveAVoice.Repositories.UserFeatures {
 
         private AuthorityVerification GetAuthorityVerification(string anEmail, string anAuthorityType, string anAuthorityPosition) {
             Role myRole = GetRoleByName(anAuthorityType);
+            if (myRole == null) {
+                throw new Exception("Role doesn't exist for " + anAuthorityType);
+            }
             return (from a in theEntities.AuthorityVerifications
                     where a.Email == anEmail
                     && a.RoleId == myRole.Id

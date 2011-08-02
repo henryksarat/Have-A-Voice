@@ -79,8 +79,11 @@ namespace BaseWebsite.Controllers {
                     LogError(myException, READ_ME_ERROR);
                 }
                 AbstractUserModel<T> mySocialUserModel = CreateSocialUserModel(myUser);
-
-                return theUserInformation.GetUserInformaton(mySocialUserModel.Id);
+                if (mySocialUserModel != null) {
+                    return theUserInformation.GetUserInformaton(mySocialUserModel.Id);
+                } else {
+                    return null;
+                }
             }
         }
         

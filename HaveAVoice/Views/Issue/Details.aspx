@@ -22,7 +22,7 @@
         <% TempData[HAVConstants.FILTER_TEMP_DATA] = myFilter; %>
 
     	<div class="push-1 col-4 center p-t5 p-b5 t-tab btint-6">
-            <a class="issue-create" href="/Issue/Index">ISSUES</a>
+            <a class="issue-create" href="/Issue/List">ISSUES</a>
     		<div class="clear">&nbsp;</div>
     	</div>
     	<div class="push-1 col-4 center p-t5 p-b5 t-tab btint-6">
