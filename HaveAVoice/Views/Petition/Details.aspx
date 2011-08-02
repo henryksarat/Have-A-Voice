@@ -44,7 +44,7 @@
 		
         <div class="push-19 alpha col-2 omega">
 			<div class="p-a5">
-                <a href="http://twitter.com/share" class="twitter-share-button" data-count="none" data-via="haveavoice_">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+                <a href="http://twitter.com/share" class="twitter-share-button" data-count="none" data-via="haveavoice">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
            </div>
            <div class="clear">&nbsp;</div>
         </div>
