@@ -153,9 +153,7 @@ namespace Social.Authentication.Services {
             string myTime = DateTime.Now.ToString();
             string myCookieHash =
                 System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(aUser.Id + DateTime.Now.ToString(), "SHA1");
-            aUser.CookieHash = myCookieHash;
-            aUser.CookieHashCreationDate = DateTime.Now;
-            theUserRepo.UpdateUser(aUser.CreateNewModel());
+            theUserRepo.UpdateUserCookieHash(aUser.CreateNewModel(), myCookieHash);
             return myCookieHash;
         }
 

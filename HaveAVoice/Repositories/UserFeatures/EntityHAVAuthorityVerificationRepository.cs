@@ -4,11 +4,27 @@ using System.Linq;
 using HaveAVoice.Models;
 using HaveAVoice.Repositories.AdminFeatures;
 using Social.Admin.Repositories;
-using System.Linq;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVAuthorityVerificationRepository : IHAVAuthorityVerificationRepository {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
+
+        public void AddZipCodesForUser(User anAdminUser, string anEmail, IEnumerable<int> aZipCodes) {
+            User myAuthority = GetUser(anEmail);
+
+            foreach(int myZipCode in aZipCodes) {
+                AuthorityViewableZipCode myAuthorityZipCode = AuthorityViewableZipCode.CreateAuthorityViewableZipCode(0, myAuthority.Id, myZipCode, anAdminUser.Id, DateTime.UtcNow);
+                theEntities.AddToAuthorityViewableZipCodes(myAuthorityZipCode);
+            }
+
+            theEntities.SaveChanges();
+        }
+
+        public IEnumerable<AuthorityViewableZipCode> GetAuthorityViewableZipCodes(string anEmail) {
+            return (from z in theEntities.AuthorityViewableZipCodes
+                    where z.AuthorityUser.Email == anEmail
+                    select z);
+        }
 
         public bool IsValidEmailWithToken(string anEmail, string aToken, string anAuthorityType, string anAuthorityPosition) {
             return GetAuthorityVerification(anEmail, aToken, anAuthorityType, anAuthorityPosition) != null ? true : false; 
@@ -82,6 +98,12 @@ namespace HaveAVoice.Repositories.UserFeatures {
         public User GetUser(int anId) {
             return (from u in theEntities.Users
                     where u.Id == anId
+                    select u).FirstOrDefault<User>();
+        }
+
+        public User GetUser(string anEmail) {
+            return (from u in theEntities.Users
+                    where u.Email == anEmail
                     select u).FirstOrDefault<User>();
         }
     }

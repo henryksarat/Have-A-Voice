@@ -61,7 +61,7 @@ namespace BaseWebsite.Controllers.Core {
             }
 
             if (userModel != null) {
-                theWhoIsOnlineService.AddToWhoIsOnline(userModel.Details, HttpContext.Request.UserHostAddress);
+                //theWhoIsOnlineService.AddToWhoIsOnline(userModel.Details, HttpContext.Request.UserHostAddress);
 
                 CreateUserInformationSession(userModel);
                 if (rememberMe) {

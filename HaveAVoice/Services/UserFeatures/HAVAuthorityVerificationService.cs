@@ -11,6 +11,9 @@ using Social.Email.Exceptions;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Validation;
+using Social.Generic.Constants;
+using Social.Admin.Exceptions;
+using System.Linq;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVAuthorityVerificationService : IHAVAuthorityVerificationService {
@@ -29,6 +32,30 @@ namespace HaveAVoice.Services.UserFeatures {
                 theValidationDictionary = aValidationDictionary;
             theAuthenticationRepo = anAuthorityService;
             theEmailService = anEmailService;
+        }
+
+        public bool AddZipCodesForUser(UserInformationModel<User> anAdminUser, string anEmail, string aZipCodes) {
+            if (!PermissionHelper<User>.AllowedToPerformAction(anAdminUser, SocialPermission.Create_Authority_Verification_Token)) {
+                throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
+            }
+
+            if (!IsValidZipCodes(anEmail, aZipCodes)) {
+                return false;
+            }
+
+            IEnumerable<int> myZipCodes = aZipCodes.Split(',').Select(z => int.Parse(z.Trim()));
+
+            theAuthenticationRepo.AddZipCodesForUser(anAdminUser.Details, anEmail, myZipCodes);
+
+            return true;            
+        }
+
+        public IEnumerable<AuthorityViewableZipCode> GetAuthorityViewableZipCodes(UserInformationModel<User> anAdminUser, string anEmail) {
+            if (!PermissionHelper<User>.AllowedToPerformAction(anAdminUser, SocialPermission.Create_Authority_Verification_Token)) {
+                throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
+            }
+
+            return theAuthenticationRepo.GetAuthorityViewableZipCodes(anEmail);
         }
 
         public bool RequestTokenForAuthority(UserInformationModel<User> aRequestingUser, string anEmail, string anExtraInfo, string anAuthorityType, string anAuthorityPosition) {
@@ -64,6 +91,26 @@ namespace HaveAVoice.Services.UserFeatures {
         public void VerifyAuthority(string anEmail, string aToken, string anAuthorityType, string anAuthorityPosition) {
             theAuthenticationRepo.SetEmailWithTokenToVerified(anEmail, aToken, anAuthorityType, anAuthorityPosition);
         }
+
+        private bool IsValidZipCodes(string anEmail, string aZipCodes) {
+            if (!EmailValidation.IsValidEmail(anEmail)) {
+                theValidationDictionary.AddError("Email", anEmail, INVALID_EMAIL);
+            }
+
+            foreach (string myZipCode in aZipCodes.Split(',').Select(z => z.Trim())) {
+                int myParsed;
+
+                if(!int.TryParse(myZipCode, out myParsed)) {
+                    if(myZipCode.Length != 5) {
+                        theValidationDictionary.AddError("ZipCodes", aZipCodes, "A zip code is incorrect. Zip Codes must be 5 integers long.");
+                    }
+                }
+
+            }
+
+            return theValidationDictionary.isValid;
+        }
+
 
         private bool IsValidAuthorityInformation(string anEmail, string anAuthorityType, string anAuthorityPosition) {
             if (!EmailValidation.IsValidEmail(anEmail)) {

@@ -15,5 +15,6 @@ namespace Social.User.Repositories {
         void RemoveUserFromRole(T aUser, U aRole);
         bool ShortUrlTaken(string aShortUrl);
         void UpdateUser(T userToEdit);
+        void UpdateUserCookieHash(T userToEdit, string aCookieHash);
     }
 }

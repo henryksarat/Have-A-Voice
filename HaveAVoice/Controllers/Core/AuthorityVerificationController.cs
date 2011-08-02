@@ -88,6 +88,9 @@ namespace HaveAVoice.Controllers.Core {
 
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Verify(string extraInfo, string token, string authorityType, string authorityPosition) {
+            if (IsLoggedIn()) {
+                return RedirectToProfile();
+            }
             return View(VERIFY_VIEW, new AuthorityVerificationModel() {
                Token = token,
                AuthorityType = authorityType,

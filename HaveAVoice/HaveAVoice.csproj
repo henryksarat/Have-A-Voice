@@ -73,6 +73,7 @@
     <Compile Include="Controllers\Admin\RoleController.cs" />
     <Compile Include="Controllers\Core\AuthenticationController.cs" />
     <Compile Include="Controllers\Core\AuthorityVerificationController.cs" />
+    <Compile Include="Controllers\Core\AuthorityZipCodesController.cs" />
     <Compile Include="Controllers\Core\PasswordController.cs" />
     <Compile Include="Controllers\Core\SiteController.cs" />
     <Compile Include="Controllers\Groups\GroupBoardController.cs" />
@@ -425,6 +426,8 @@
     <Content Include="Views\Authentication\Login.aspx" />
     <Content Include="Views\AuthorityVerification\Create.aspx" />
     <Content Include="Views\AuthorityVerification\Verify.aspx" />
+    <Content Include="Views\AuthorityZipCodes\List.aspx" />
+    <Content Include="Views\AuthorityZipCodes\Create.aspx" />
     <Content Include="Views\BoardReply\Edit.aspx" />
     <Content Include="Views\Board\Edit.aspx" />
     <Content Include="Views\Board\Details.aspx" />

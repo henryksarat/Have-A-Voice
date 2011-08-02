@@ -169,5 +169,10 @@ namespace UniversityOfMe.Repositories.UserRepos {
         public bool EmailRegisteredButNotActiated(string email) {
             throw new System.NotImplementedException();
         }
+
+
+        public void UpdateUserCookieHash(User userToEdit, string aCookieHash) {
+            throw new System.NotImplementedException();
+        }
     }
 }

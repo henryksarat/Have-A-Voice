@@ -9,6 +9,7 @@ using Social.Generic.Models;
 using Social.User.Repositories;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVUserRepository : IUserRepository<User, Role, UserRole> {
@@ -103,6 +104,12 @@ namespace HaveAVoice.Repositories.UserFeatures {
             theEntities.SaveChanges();
         }
 
+        public void UpdateUserCookieHash(User userToEdit, string aCookieHash) {
+            User originalUser = GetUser(userToEdit.Id);
+            originalUser.CookieHash = aCookieHash;
+            originalUser.CookieCreationDate = DateTime.UtcNow;
+            theEntities.SaveChanges();
+        }
 
         private UserRole GetUserRole(User user, Role role) {
             return (from c in theEntities.UserRoles

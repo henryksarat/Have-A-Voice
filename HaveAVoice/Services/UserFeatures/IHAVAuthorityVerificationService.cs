@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using HaveAVoice.Models;
-using HaveAVoice.Models.View;
 using Social.Generic.Models;
 
 namespace HaveAVoice.Services.UserFeatures {
     public interface IHAVAuthorityVerificationService {
+        bool AddZipCodesForUser(UserInformationModel<User> anAdminUser, string anEmail, string aZipCodes);
+        IEnumerable<AuthorityViewableZipCode> GetAuthorityViewableZipCodes(UserInformationModel<User> anAdminUser, string anEmail);
         bool RequestTokenForAuthority(UserInformationModel<User> aRequestingUser, string anEmail, string anExtraInfo, 
             string anAuthorityType, string anAuthorityPosition);
         bool IsValidToken(string anEmail, string aToken, string anAuthorityType, string anAuthorityPosition);

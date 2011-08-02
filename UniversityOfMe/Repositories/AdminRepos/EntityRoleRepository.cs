@@ -183,5 +183,10 @@ namespace UniversityOfMe.Repositories.AdminRepos {
             RolePermission myRolePermissionToAdd = RolePermission.CreateRolePermission(0, aRoleId, aPermissionId);
             theEntities.AddToRolePermissions(myRolePermissionToAdd);
         }
+
+
+        public void MoveUsersToRoleForActivation(List<int> aUsers, int aFromRoleId, int aToRoleId) {
+            throw new System.NotImplementedException();
+        }
     }
 }
