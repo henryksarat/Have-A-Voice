@@ -180,12 +180,12 @@ namespace HaveAVoice.Services.UserFeatures {
             IEnumerable<IssueFeedModel> myPoliticalCandidateIssueFeed = CreateIssueFeed(theRepository.IssueFeedByRole(UserRoleHelper.PoliticalCandidateRoles()), myAuthorityUser, PersonFilter.PoliticalCandidates);
             IEnumerable<IssueReplyFeedModel> myPoliticalCandidateIssueReplyFeed = CreateIssueReplyFeed(theRepository.IssueReplyFeedByRole(UserRoleHelper.PoliticalCandidateRoles()), myAuthorityUser, PersonFilter.PoliticalCandidates);
 
-            myIssueFeed.AddRange(myPoliticiansIssueFeed);
-            myIssueFeed.AddRange(myPoliticalCandidateIssueFeed);
+            //myIssueFeed.AddRange(myPoliticiansIssueFeed);
+            //myIssueFeed.AddRange(myPoliticalCandidateIssueFeed);
             myIssueFeed = myIssueFeed.OrderByDescending(i => i.DateTimeStamp).Take<IssueFeedModel>(10).ToList<IssueFeedModel>();
 
-            myIssueReplyFeed.AddRange(myPoliticiansIssueReplyFeed);
-            myIssueReplyFeed.AddRange(myPoliticalCandidateIssueReplyFeed);
+            //myIssueReplyFeed.AddRange(myPoliticiansIssueReplyFeed);
+            //myIssueReplyFeed.AddRange(myPoliticalCandidateIssueReplyFeed);
             myIssueReplyFeed = myIssueReplyFeed.OrderByDescending(ir => ir.DateTimeStamp).Take<IssueReplyFeedModel>(10).ToList<IssueReplyFeedModel>();
 
             Issue myRandomLocalIssue = theRepository.RandomLocalIssue(myAuthorityUser);
@@ -272,12 +272,8 @@ namespace HaveAVoice.Services.UserFeatures {
             foreach (IssueReply myIssueReply in anIssueReplys) {
                 IEnumerable<IssueReplyDisposition> myReplyDisposition = myIssueReply.IssueReplyDispositions;
 
-                bool myIsAllowed = PrivacyHelper.IsAllowed(myIssueReply.User, PrivacyAction.DisplayProfile, aViewingUser);
+                bool myIsAllowed = true;
                 User myUser = myIssueReply.User;
-
-                if (!myIsAllowed) {
-                    myUser = ProfileHelper.GetAnonymousProfile();
-                }
 
                 IssueReplyFeedModel myFeedModel = new IssueReplyFeedModel(myUser) {
                     IsAnonymous = !myIsAllowed,
