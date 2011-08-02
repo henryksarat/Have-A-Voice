@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Social.Admin.Exceptions;
 using Social.Authentication;
 using Social.Authentication.Helpers;
@@ -11,7 +12,6 @@ using Social.Generic.Services;
 using Social.User.Exceptions;
 using Social.Users.Services;
 using Social.Validation;
-using System.Web.Security;
 
 namespace BaseWebsite.Controllers.Core {
     //T = User
@@ -113,13 +113,13 @@ namespace BaseWebsite.Controllers.Core {
             HttpCookie cookie2 = new HttpCookie("ASP.NET_SessionId", "");
             cookie2.Expires = DateTime.Now.AddYears(-1);
             Response.Cookies.Add(cookie2);
-
+            
             // clear session cookie (not necessary for your current problem but i would recommend you do it anyway)
             HttpCookie cookie3 = new HttpCookie(CookieHelper.REMEMBER_ME_COOKIE, "");
             cookie3.Expires = DateTime.Now.AddYears(-1);
             Response.Cookies.Add(cookie3);
-
-            TempData["Message"] += SuccessMessage(AuthenticationKeys.LOGGED_OUT);
+            
+             TempData["Message"] += SuccessMessage(AuthenticationKeys.LOGGED_OUT);
 
             ForceUserInformationRefresh();
 
@@ -129,6 +129,25 @@ namespace BaseWebsite.Controllers.Core {
         }
 
         private void CreateUserInformationSession(UserInformationModel<T> aUserModel) {
+            //FormsAuthentication.SetAuthCookie(aUserModel.UserId.ToString(), true);
+            /*
+            FormsAuthenticationTicket myTicket = new FormsAuthenticationTicket(
+                1,
+                aUserModel.UserId.ToString(),
+                DateTime.Now,
+                DateTime.Now.AddHours(3),
+                true,
+                aUserModel.UserId.ToString());
+
+            string myEncryptedTicket = FormsAuthentication.Encrypt(myTicket);
+
+            HttpCookie myAuthCookie = new HttpCookie(FormsAuthentication.FormsCookieName, myEncryptedTicket);
+
+
+            myAuthCookie.Expires = myTicket.Expiration;
+
+            Response.Cookies.Add(myAuthCookie);*/
+
             FormsAuthentication.SetAuthCookie(aUserModel.UserId.ToString(), true);
         }
     }

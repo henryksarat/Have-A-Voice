@@ -7,6 +7,7 @@ using Social.Generic.Models;
 using System;
 using Social.Authentication.Helpers;
 using System.Web.Security;
+using System.Web;
 
 namespace BaseWebsite.Controllers {
     //T = User
@@ -64,7 +65,23 @@ namespace BaseWebsite.Controllers {
         }
 
         protected UserInformationModel<T> GetUserInformatonModel() {
-            return theUserInformation.GetUserInformaton();
+            if (HttpContext.User.Identity.IsAuthenticated) {
+                return theUserInformation.GetUserInformaton();
+            } else {
+                //HACK JOB OF THE YEAR:
+                //Since FormsAuth times out after 5 minutes for SOME reason I ALWAYS create a cookie on login
+                //then if we cant read forms auth I read the cookie AND then set the AUTH cookie in IsLoggedIn().. here I just read from the cookie and hit the database until
+                //next time when Forms Auth kicks in.
+                T myUser = default(T);
+                try {
+                    myUser = theAuthService.ReadRememberMeCredentials();
+                } catch (Exception myException) {
+                    LogError(myException, READ_ME_ERROR);
+                }
+                AbstractUserModel<T> mySocialUserModel = CreateSocialUserModel(myUser);
+
+                return theUserInformation.GetUserInformaton(mySocialUserModel.Id);
+            }
         }
         
         protected bool IsLoggedIn() {
@@ -89,10 +106,29 @@ namespace BaseWebsite.Controllers {
 
                     if (userModel != null) {
                         try {
+                            /*
                             theWhoIsOnlineService.AddToWhoIsOnline(userModel.Details, HttpContext.Request.UserHostAddress);
+                            
+                            FormsAuthenticationTicket myTicket = new FormsAuthenticationTicket(
+                                1,
+                                userModel.UserId.ToString(),
+                                DateTime.Now,
+                                DateTime.Now.AddHours(40),
+                                true,
+                                userModel.UserId.ToString());
+                            */
+                            //string myEncryptedTicket = FormsAuthentication.Encrypt(myTicket);
 
-                            FormsAuthentication.SetAuthCookie(userModel.UserId.ToString(), false);
-                            theAuthService.CreateRememberMeCredentials(CreateSocialUserModel(userModel.Details));
+                            //HttpCookie myAuthCookie = new HttpCookie(FormsAuthentication.FormsCookieName, myEncryptedTicket);
+
+                            FormsAuthentication.SetAuthCookie(userModel.UserId.ToString(), true);
+                            
+                            //myAuthCookie.Expires = myTicket.Expiration;
+
+                            
+                            //System.Web.HttpContext.Current.Response.Cookies.Add(myAuthCookie);
+                            //theAuthService.CreateRememberMeCredentials(CreateSocialUserModel(userModel.Details));
+                            return true;
                         } catch (Exception e) {
                             LogError(e, AFTER_AUTHENTICATION_ERROR);
                         }

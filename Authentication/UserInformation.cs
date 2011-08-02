@@ -40,6 +40,16 @@ namespace Social.Authentication {
             return theUserInformationModel;
         }
 
+        public UserInformationModel<T> GetUserInformaton(int anId) {
+            if (theUserInformationModel == null) {
+                theUserInformationModel = theGetUserStrategy.GetUserInformationModel(anId);
+            }
+
+            return theUserInformationModel;
+        }
+
+
+
         private UserInformationModel<T> UpdateUserOnlineStatus(UserInformationModel<T> myUserInformationModel, string ipAddress) {
             try {
                 if (!theWhoIsOnlineService.IsOnline(myUserInformationModel.Details, ipAddress)) {

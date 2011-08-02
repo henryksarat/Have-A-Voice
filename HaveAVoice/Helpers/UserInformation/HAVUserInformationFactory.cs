@@ -4,6 +4,7 @@ using HaveAVoice.Repositories.UserFeatures;
 using Social.Authentication;
 using Social.Generic.Models;
 using Social.Users.Services;
+using Social.Authentication.Helpers;
 
 namespace HaveAVoice.Helpers.UserInformation {
     public class HAVUserInformationFactory {
@@ -13,12 +14,24 @@ namespace HaveAVoice.Helpers.UserInformation {
 
         public static UserInformationModel<User> GetUserInformation() {
             SetDefaultInstance();
-            return theFactory.GetUserInformaton();
+            UserInformationModel<User> myUserInfo = theFactory.GetUserInformaton();
+
+            if (myUserInfo == null) {
+                int myUserId = CookieHelper.GetUserIdFromCookie();
+                myUserInfo = theFactory.GetUserInformaton(myUserId);
+            }
+
+            return myUserInfo;
         }
 
         public static bool IsLoggedIn() {
             SetDefaultInstance();
-            return theFactory.IsLoggedIn();
+            //HUGE FUCKIGN HACK.. DID THIS BECAUSE FORMS AUTH DIDN't LAST FOR MORE THAN 5 minutes
+            if (CookieHelper.GetUserIdFromCookie() == 0) {
+                return theFactory.IsLoggedIn();
+            } else {
+                return true;
+            }
         }
 
         public static void SetInstance(IUserInformation<User, WhoIsOnline> userInformation) {
@@ -33,6 +46,8 @@ namespace HaveAVoice.Helpers.UserInformation {
         public static string GetIdentityName() {
             return theFactory.GetIdentityName();
         }
+
+
 
         private static void SetDefaultInstance() {
             if (theFactory == null) {

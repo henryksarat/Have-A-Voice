@@ -7,7 +7,7 @@ namespace Social.Authentication.Helpers {
         public const string COOKIE_USER_ID = REMEMBER_ME_COOKIE + "UserId";
         public const string COOKIE_HASH = REMEMBER_ME_COOKIE + "CookieHash";
         public const string COOKIE_EXPIRATION = REMEMBER_ME_COOKIE + "Expiration";
-        public const int REMEMBER_ME_COOKIE_HOURS = 40;
+        public const int REMEMBER_ME_COOKIE_HOURS = 1;
 
         public static void ClearCookies() {
             HttpCookie myCookie = HttpContext.Current.Request.Cookies[REMEMBER_ME_COOKIE];
