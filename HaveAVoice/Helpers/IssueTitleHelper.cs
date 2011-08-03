@@ -6,11 +6,11 @@ using System.Web;
 namespace HaveAVoice.Helpers {
     public static class IssueTitleHelper {
         public static string ConvertForUrl(string aTitle) {
-            return aTitle.Replace(' ', '-');
+            return aTitle.Replace(' ', '_');
         }
 
         public static string ConvertFromUrl(string aUrl) {
-            return aUrl.Replace('-', ' ');
+            return aUrl.Replace('_', ' ');
         }
     }
 }

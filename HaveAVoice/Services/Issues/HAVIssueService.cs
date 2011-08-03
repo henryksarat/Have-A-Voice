@@ -15,6 +15,7 @@ using Social.Generic.Constants;
 using System.Web.Mvc;
 using HaveAVoice.Helpers.Search;
 using System;
+using System.Text.RegularExpressions;
 
 namespace HaveAVoice.Services.Issues {
     public class HAVIssueService : IHAVIssueService {
@@ -194,7 +195,14 @@ namespace HaveAVoice.Services.Issues {
                 theValidationDictionary.AddError("Title", aIssueToValidate.Title, "Title is required.");
             } else if (!VarCharValidation.Valid100Length(aIssueToValidate.Title)) {
                 theValidationDictionary.AddError("Title", aIssueToValidate.Title, "The issue title is too long.");
+            } else {
+                Regex myRegex = new Regex(RegexHelper.IssueTitleRegex(), RegexOptions.IgnoreCase);
+                Match myMatch = myRegex.Match(aIssueToValidate.Title);
+                if (!myMatch.Success || aIssueToValidate.Title.Contains('_') || aIssueToValidate.Title.Contains('?') || aIssueToValidate.Title.Contains('"')) {
+                    theValidationDictionary.AddError("Title", aIssueToValidate.Title, "The issue title can only be letters, numbers, and the following special characters: , - . ; !'");
+                }
             }
+
 
             if (aIssueToValidate.Description.Trim().Length == 0) {
                 theValidationDictionary.AddError("Description", aIssueToValidate.Description, "Description is required.");

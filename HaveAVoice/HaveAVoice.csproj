@@ -121,6 +121,7 @@
     <Compile Include="Helpers\ProfileQuestions\QuestionAnswer.cs" />
     <Compile Include="Helpers\ProfileQuestions\ProfileQuestion.cs" />
     <Compile Include="Helpers\Profile\QuickNavigation.cs" />
+    <Compile Include="Helpers\RegexHelper.cs" />
     <Compile Include="Helpers\RegistrationStrategy.cs" />
     <Compile Include="Helpers\Search\OrderBy.cs" />
     <Compile Include="Helpers\Search\SearchBy.cs" />

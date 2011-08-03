@@ -5,6 +5,7 @@ using HaveAVoice.Models;
 using HaveAVoice.Models.View;
 using Social.User.Models;
 using BaseWebsite.Models;
+using HaveAVoice.Helpers;
 
 namespace HaveAVoice {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
@@ -51,7 +52,7 @@ namespace HaveAVoice {
                 "IssueWithTitle",
                 "Issue/Details/{title}",
                 new { controller = "Issue", action = "Details" },
-                new { title = @"^[a-zA-Z]+(([\'\,\.\-][a-zA-Z])?[a-zA-Z]*)*$" }
+                new { title = RegexHelper.IssueTitleRegex() }
             );
 
             routes.MapRoute(

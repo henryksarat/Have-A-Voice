@@ -41,7 +41,7 @@
 	                	<%= Html.TextBox("Title") %>
 	                	<div class="clear">&nbsp;</div>
 	                </div>
-	                <div class="col-12 m-lft">
+	                <div class="col-1 center">
 	                	<span class="req">
 		                	<%= Html.ValidationMessage("Title", "*") %>
 		                </span>
@@ -53,11 +53,11 @@
 	                	<label for="Description">Description:</label>
 	                	<div class="clear">&nbsp;</div>
 	                </div>
-	                <div class="col-6">
+	                <div class="col-17">
 	                	<%= Html.TextArea("Description", null, new { cols = "80", rows = "8", resize = "none" }) %>
 	                	<div class="clear">&nbsp;</div>
 	                </div>
-	                <div class="col-12 m-lft">
+	                <div class="col-1">
 	                	<span class="req">
 		                	<%= Html.ValidationMessage("Description", "*") %>
 		                </span>

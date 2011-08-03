@@ -31,7 +31,7 @@ namespace HaveAVoice.Helpers {
         }
 
         public static string IssueUrl(string aTitle) {
-            return "/Issue/Details/" + aTitle.Replace(' ', '-');
+            return "/Issue/Details/" + IssueTitleHelper.ConvertForUrl(aTitle);
         }
 
         public static string GroupUrl(Group aGroup) {

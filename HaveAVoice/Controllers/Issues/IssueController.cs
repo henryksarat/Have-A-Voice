@@ -97,7 +97,7 @@ namespace HaveAVoice.Controllers.Issues {
 
                 if (theIssueService.CreateIssue(myUser, anIssueWrapper.ToModel())) {
                     TempData["Message"] += MessageHelper.SuccessMessage(POST_SUCCESS);
-                    return RedirectToAction(DETAILS_VIEW, new { title = anIssueWrapper.Title.Replace(' ', '-') });
+                    return RedirectToAction(DETAILS_VIEW, new { title = IssueTitleHelper.ConvertForUrl(anIssueWrapper.Title) });
                 }
             } catch (Exception e) {
                 LogError(e, CREATING_ISSUE_ERROR);
