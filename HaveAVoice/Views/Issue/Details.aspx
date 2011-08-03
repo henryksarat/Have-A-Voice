@@ -150,7 +150,7 @@
 					<div class="row">
 						<div class="m-lft col-20 comment push-4">
 							<div class="msg-2">
-								You are NOT logged in, but you may still post a reply. The name is requried for display purposes and the location will classify your reply in your region, this is so your political representatives can see what their constituents are thinking! You can always check the "Post reply as Anonymous" checkbox to have your information not display at all.
+								You are not logged in. To post a reply you must login with your Have A Voice account.
 							</div>
 							<div class="clear">&nbsp;</div>
 						</div>
@@ -168,7 +168,7 @@
                 <%= Html.Hidden("State", myUserInformationModel.Details.State)%>
                 <%= Html.Hidden("Zip", myUserInformationModel.Details.Zip)%>
                 <% myProfilePicture = myUserInformationModel.ProfilePictureUrl; %>
-			<% } %>
+
 
 				<div class="reply">
 					<div class="row">
@@ -181,88 +181,10 @@
 							<span class="speak-lft">&nbsp;</span>
 
 							<div class="p-a10">
-                                <% if (!myIsLoggedIn) { %>
-                                    <%= Html.Hidden("UserId", HAVConstants.PRIVATE_USER_ID) %>
-                                    <div class="col-8">
-	    			                    <div class="col-2">
-	    				                    <label for="FirstName">First Name: </label>
-	    			                    </div>
-	    			                    <div class="col-4 m-rgt5">
-	    				                    <%= Html.TextBox("FirstName")%>
-	    			                    </div>
-	    			                    <div class="col-1">
-	    				                    <span class="req">
-		    				                    <%= Html.ValidationMessage("FirstName", "*")%>
-	    				                    </span>
-	    			                    </div>
-                                    </div>
-                                    <div class="col-8">
-	    			                    <div class="col-2">
-	    				                    <label for="FirstName">Last Name: </label>
-	    			                    </div>
-	    			                    <div class="col-4 m-rgt5">
-	    				                    <%= Html.TextBox("LastName")%>
-	    			                    </div>
-	    			                    <div class="col-1">
-	    				                    <span class="req">
-		    				                    <%= Html.ValidationMessage("LastName", "*")%>
-	    				                    </span>
-	    			                    </div>
-                                    </div>
-
-                                    <div class="col-13">
-                                        <div class="col-7">
-	    			                        <div class="col-2">
-	    				                        <label for="City">City:</label>
-	    			                        </div>
-	    			                        <div class="col-3 m-rgt5">
-	    				                        <%= Html.TextBox("City")%>
-	    			                        </div>
-	    			                        <div class="col-1">
-	    				                        <span class="req">
-		    				                        <%= Html.ValidationMessage("City", "*")%>
-	    				                        </span>
-	    			                        </div>
-                                        </div>
-                                        <div class="col-5">
-                                            <div class="col-2">
-                                                <%: Html.Label("State:")%>
-                                            </div>
-                                            <div class="col-2">
-                                                <%: Html.DropDownListFor(model => model.State, Model.States)%>
-                                            </div>
-	    			                        <div class="col-1">
-	    				                        <span class="req">
-		    				                        <%= Html.ValidationMessage("State", "*")%>
-	    				                        </span>
-	    			                        </div>
-                                         </div>
-                                    </div>
-                                    <div class="col-8">
-	    			                    <div class="col-2">
-	    				                    <label for="Zip">Zip:</label>
-	    			                    </div>
-	    			                    <div class="col-2">
-	    				                    <%= Html.TextBox("Zip", string.Empty)%>
-	    			                    </div>
-	    			                    <div class="m-lft col-1">
-	    				                    <span class="req">
-		    				                    <%= Html.ValidationMessage("Zip", "*")%>
-	    				                    </span>
-	    			                    </div>
-                                    </div>
-                                <% } %>
-
-
 								<%= Html.TextArea("Reply", Model.Reply, 5, 63, new { resize = "none", @class = "comment" })%>
 								<span class="req">
 									<%= Html.ValidationMessage("Reply", "*")%>
 								</span>
-								<div class="clear">&nbsp;</div>
-								
-							    <% if (myUserInformationModel == null || PermissionHelper<User>.AllowedToPerformAction(myUserInformationModel, SocialPermission.Post_Anonymous_Issue_Reply)) { %>   
-							        <%= Html.CheckBox("Anonymous", Model.Anonymous)%> Post reply as Anonymous
-							    <% } %>
 								<div class="clear">&nbsp;</div>
 								<hr />
 								<div class="col-13">
@@ -289,6 +211,7 @@
 						<div</div> class="clear">&nbsp;</div>
 					</div>
 				<div class="clear">&nbsp;</div>
+			<% } %>
 	    <% } %>
     </div>
 </asp:Content>

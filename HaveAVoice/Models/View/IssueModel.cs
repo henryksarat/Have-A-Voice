@@ -18,7 +18,6 @@ namespace HaveAVoice.Models.View {
         public Disposition Disposition { get; set; }
         public int TotalAgrees { get; set; }
         public int TotalDisagrees { get; set; }
-        public IEnumerable<SelectListItem> States { get; set; }
         public int UserId { get; set; }
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string FirstName { get; set; }

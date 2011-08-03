@@ -86,7 +86,7 @@ namespace HaveAVoice.Helpers.UI {
             myReplyCommentPad.InnerHtml += "&nbsp;";
             myReplyCommentPad.InnerHtml += anIssueReply.Reply;
             if (!myIsTempAccount) {
-                myReplyCommentPad.InnerHtml += SharedStyleHelper.Link("read-more", LinkHelper.IssueReplyUrl(anIssueReply.Id), " &raquo;&raquo;");
+                myReplyCommentPad.InnerHtml += SharedStyleHelper.Link("read-more", LinkHelper.IssueReplyUrl(anIssueReply.Id), " &raquo;&raquo; Read more and particiapte");
             }
 
             myReplyCommentPad.InnerHtml += SharedStyleHelper.ClearDiv();

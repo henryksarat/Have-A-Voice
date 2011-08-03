@@ -285,7 +285,6 @@ namespace HaveAVoice.Controllers.Issues {
 
             SaveOriginalIssue(myOriginalModel);
 
-            mynewModel.States = new SelectList(UnitedStates.STATES, Constants.SELECT);
             return View("Details", mynewModel);
         }
 

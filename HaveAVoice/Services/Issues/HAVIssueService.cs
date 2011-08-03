@@ -254,9 +254,7 @@ namespace HaveAVoice.Services.Issues {
 
             myMerged = myMerged.OrderByDescending(i => i.DateTimeStamp).ToList<IssueReplyModel>();
 
-            return new IssueModel(anIssue, myMerged) {
-                States = new SelectList(UnitedStates.STATES, Constants.SELECT)
-            } ;
+            return new IssueModel(anIssue, myMerged);
         }
     }
 }
