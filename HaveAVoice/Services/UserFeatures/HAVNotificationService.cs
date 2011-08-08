@@ -104,15 +104,6 @@ namespace HaveAVoice.Services.UserFeatures {
                 });
             }
 
-            foreach (IssueViewedState myViewState in anIssueStates) {
-                myNotifications.Add(new NotificationModel() {
-                    NotificationType = NotificationType.Issue,
-                    Label = myViewState.Issue.Title,
-                    Id = IssueTitleHelper.ConvertForUrl(myViewState.Issue.Title),
-                    DateTimeStamp = myViewState.LastUpdated
-                });
-            }
-
             foreach (IssueReplyViewedState myViewState in anIssueReplies) {
                 myNotifications.Add(new NotificationModel() {
                     NotificationType = NotificationType.IssueReply,
