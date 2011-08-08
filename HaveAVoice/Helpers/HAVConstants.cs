@@ -52,5 +52,6 @@ namespace HaveAVoice.Helpers {
         public const int APPROVED = 1;
         public const int DENIED = 0;
         public const int PENDING = 2;
+        public const int OUT_DATED = -1;
     }
 }

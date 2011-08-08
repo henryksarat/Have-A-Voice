@@ -53,6 +53,13 @@
                     wants to join the group 
                     <a href="<%= LinkHelper.GroupUrl(item.SecondaryId) %>"><%= item.Label %></a>.
                     <%= Html.ActionLink("Approve/Deny", "Details", "GroupMember", new { groupId = item.SecondaryId, groupMemberId = item.Id }, null)%>
+                <% } else if(item.NotificationType == NotificationType.GroupInvitation) { %>
+                    <a href="<%= LinkHelper.Profile(item.TriggeredUser) %>"><%= NameHelper.FullName(item.TriggeredUser) %></a> 
+                    invited you to the group
+                    <a href="<%= LinkHelper.GroupUrl(item.SecondaryId) %>"><%= item.Label %></a>.
+                    <%= Html.ActionLink("Accept Invitation", "AcceptInvite", "GroupMember", new { groupId = item.SecondaryId, groupInvitationId = item.Id }, null)%>
+                    or
+                    <%= Html.ActionLink("Decline Invitation", "DeclineInvite", "GroupMember", new { groupId = item.SecondaryId, groupInvitationId = item.Id }, null)%>
                 <% } %>
 
                 <div class="f-rgt"><%= LocalDateHelper.ToLocalTime(item.DateTimeStamp) %></div>

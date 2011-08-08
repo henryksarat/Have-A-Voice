@@ -112,7 +112,7 @@
                 </div>
             </div>
 
-            <div class="push-1 col-3 group fnt-12">
+            <div class="push-1 col-3 group stats fnt-12">
                 <div class="admin-feed">
                     <div class="clear">&nbsp;</div>
                     <div class="p-a5">
@@ -131,7 +131,10 @@
                             <% } else { %>
                                 <%= Html.ActionLink("Request to join organization", "RequestToJoin", "GroupMember", new { groupId = Model.Id }, new { @class = "grouplink" })%><br />
                         <% } %>
-                        <a class="grouplink" href="/GroupMember/List/<%= Model.Id %>">View all members</a>
+                        <% if (GroupHelper.IsAdmin(myUserInfo, Model.Id)) { %>
+                            <%= Html.ActionLink("Invite friends", "Invite", "GroupMember", new { groupId = Model.Id }, new { @class = "grouplink" })%><br />
+                            <a class="grouplink" href="/GroupMember/List/<%= Model.Id %>">View all members</a>
+                        <% } %>
                     </div>
                 </div>
             </div>
@@ -197,6 +200,23 @@
                 </div>
             </div>
         </div>
+
+        <% if(Model.MakePublic || GroupHelper.IsMember(myUserInfo, Model.Id)) { %>
+            <% if(Model.GroupBoards.Count == 0) { %>
+                <div class="reply">
+			        <div class="row">
+				        <div class="col-14 comment push-6">
+					        <div class="msg-2">
+						        There are currently no board postings.
+					        </div>
+					        <div class="clear">&nbsp;</div>
+				        </div>
+                        <div class="clear">&nbsp;</div>
+			        </div>
+                    <div class="clear">&nbsp;</div>
+		        </div>
+            <% } %>
+        <% } %>
         <% bool myIsMember = GroupHelper.IsMember(myUserInfo, Model.Id); %>
         <% if(myIsMember && Model.Active) { %>
 	        <div class="clear">&nbsp;</div>

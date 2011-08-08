@@ -6,6 +6,7 @@ using HaveAVoice.Models;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public interface IHAVNotificationRepository {
+        IEnumerable<GroupInvitation> GroupInvitations(User aUser);
         IEnumerable<GroupMember> UnapprovedGroupMembers(User aUser);
         IEnumerable<Board> UnreadBoardMessages(User aUser);
         IEnumerable<BoardViewedState> UnreadParticipatingBoardMessages(User aUser);

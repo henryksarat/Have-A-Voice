@@ -184,6 +184,7 @@
     <Compile Include="Models\View\GroupAdminFeed.cs" />
     <Compile Include="Models\View\EditGroupModel.cs" />
     <Compile Include="Models\View\CreateUserModel.cs" />
+    <Compile Include="Models\View\GroupInviteModel.cs" />
     <Compile Include="Models\View\SearchModel.cs" />
     <Compile Include="Models\View\NavigationItemModel.cs" />
     <Compile Include="Models\View\NotificationModel.cs" />
@@ -434,6 +435,7 @@
     <Content Include="Views\Board\Details.aspx" />
     <Content Include="Views\Calendar\List.aspx" />
     <Content Include="Views\Complaint\Create.aspx" />
+    <Content Include="Views\GroupMember\Invite.aspx" />
     <Content Include="Views\GroupMember\Details.aspx" />
     <Content Include="Views\GroupMember\List.aspx" />
     <Content Include="Views\Group\GroupViewAction.ascx" />

@@ -28,11 +28,12 @@ namespace HaveAVoice.Services.UserFeatures {
             int myUnreadParticipatingIssueReplies = theNotificationRepo.UnreadParticipatingIssueReplies(aUser).Count<IssueReplyViewedState>();
             int myUnreadGroupMemberBoardPostings = theNotificationRepo.UnreadGroupBoardPosts(aUser).Count<GroupMember>();
             int myUnapprovedGroupMembers = theNotificationRepo.UnapprovedGroupMembers(aUser).Count<GroupMember>();
+            int myGroupInvitations = theNotificationRepo.GroupInvitations(aUser).Count<GroupInvitation>();
 
             return myUnreadBoards + myUnreadParticipatingBoards 
                 + myUnreadIssues + myUnreadIssueReplies
                 + myUnreadParticipatingIssueReplies + myUnreadGroupMemberBoardPostings
-                + myUnapprovedGroupMembers;
+                + myUnapprovedGroupMembers + myGroupInvitations;
         }
 
         public IEnumerable<NotificationModel> GetNotifications(User aUser) {
@@ -43,17 +44,19 @@ namespace HaveAVoice.Services.UserFeatures {
             IEnumerable<IssueReplyViewedState> myUnreadParticipatingIssueReplies = theNotificationRepo.UnreadParticipatingIssueReplies(aUser);
             IEnumerable<GroupMember> myUnreadGroupMemberBoardPostings = theNotificationRepo.UnreadGroupBoardPosts(aUser);
             IEnumerable<GroupMember> myUnapprovedGroupMembers = theNotificationRepo.UnapprovedGroupMembers(aUser);
+            IEnumerable<GroupInvitation> myGroupInvitations = theNotificationRepo.GroupInvitations(aUser);
 
             return CreateModel(myUnreadBoards, myUnreadParticipatingBoards, 
                 myUnreadIssues, myUnreadIssueReplies, 
                 myUnreadParticipatingIssueReplies, myUnreadGroupMemberBoardPostings,
-                myUnapprovedGroupMembers);
+                myUnapprovedGroupMembers, myGroupInvitations);
         }
 
         private IEnumerable<NotificationModel> CreateModel(IEnumerable<Board> aBoards, IEnumerable<BoardViewedState> aParticipatingBoards, 
                                                            IEnumerable<IssueViewedState> anIssueStates, IEnumerable<IssueReplyViewedState> anIssueReplies, 
                                                            IEnumerable<IssueReplyViewedState> aParticipatingIssueReplies,
-                                                           IEnumerable<GroupMember> aGroupMemberBoardPosts, IEnumerable<GroupMember> aGroupMembersNotApproved) {
+                                                           IEnumerable<GroupMember> aGroupMemberBoardPosts, IEnumerable<GroupMember> aGroupMembersNotApproved,
+                                                           IEnumerable<GroupInvitation> aGroupInvitations) {
             List<NotificationModel> myNotifications = new List<NotificationModel>();
             foreach (Board myBoard in aBoards) {
                 myNotifications.Add(new NotificationModel() {
@@ -136,6 +139,17 @@ namespace HaveAVoice.Services.UserFeatures {
                     SecondaryId = myViewState.GroupId.ToString(),
                     DateTimeStamp = (DateTime)myViewState.DateTimeStamp,
                     TriggeredUser = myViewState.MemberUser
+                });
+            }
+
+            foreach (GroupInvitation myViewState in aGroupInvitations) {
+                myNotifications.Add(new NotificationModel() {
+                    NotificationType = NotificationType.GroupInvitation,
+                    Label = myViewState.Group.Name,
+                    Id = myViewState.Id.ToString(),
+                    SecondaryId = myViewState.GroupId.ToString(),
+                    DateTimeStamp = (DateTime)myViewState.DateTimeStamp,
+                    TriggeredUser = myViewState.InvitedByUser
                 });
             }
 

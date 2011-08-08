@@ -3,10 +3,49 @@ using System.Collections.Generic;
 using System.Linq;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models;
+using HaveAVoice.Helpers.Constants;
 
 namespace HaveAVoice.Repositories.Groups {
     public class EntityGroupRepository : IGroupRepository {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
+
+        public void AcceptGroupInvitation(User aUserAccepting, int aGroupInvitationId, out string aMessage) {
+            GroupInvitation myGroupInvitation = GetGroupInvitation(aGroupInvitationId);
+            myGroupInvitation.Viewed = true;
+            myGroupInvitation.Accepted = HAVConstants.APPROVED;
+            theEntities.ApplyCurrentValues(myGroupInvitation.EntityKey.EntitySetName, myGroupInvitation);
+
+            Group myGroup = GetGroup(myGroupInvitation.GroupId);
+
+            bool myAutoAccepted = false;
+            int myGroupStatus = HAVConstants.PENDING;
+            aMessage = "You have accepted the group invitation. You must wait now until an administrator approves you.";
+
+            if (myGroup.AutoAccept) {
+                myAutoAccepted = true;
+                myGroupStatus = HAVConstants.APPROVED;
+                aMessage = "You accepted the group invitation and have been accepted!";
+            }
+
+            GroupMember myGroupMember =
+                GroupMember.CreateGroupMember(0, aUserAccepting.Id, myGroup.Id,
+                GroupConstants.DEFAULT_NEW_MEMBER_TITLE, false, myGroupStatus, 
+                DateTime.UtcNow, false, false, myAutoAccepted, false);
+
+            IEnumerable<GroupInvitation> myGroupInvitations = GetGroupAvailableGroupInvitations(aUserAccepting.Id, myGroup.Id);
+
+            foreach (GroupInvitation myInvitation in myGroupInvitations) {
+                if (aGroupInvitationId != myInvitation.Id) {
+                    myInvitation.Viewed = true;
+                    myInvitation.Accepted = HAVConstants.OUT_DATED;
+                    theEntities.ApplyCurrentValues(myInvitation.EntityKey.EntitySetName, myInvitation);
+                }
+            }
+
+            theEntities.AddToGroupMembers(myGroupMember);
+
+            theEntities.SaveChanges();
+        }
 
         public void ActivateGroup(User aUser, int aGroupId) {
             Group myClub = GetGroup(aGroupId);
@@ -74,11 +113,36 @@ namespace HaveAVoice.Repositories.Groups {
             return myGroup;
         }
 
+        public void CreateGroupInvitations(User anInvitingUser, int aGroupId, int[] aUsersToInvite) {
+            bool myNeedsSave = false;
+
+            foreach (int myUserId in aUsersToInvite) {
+                GroupInvitation myExistingGroupInvitation = GetGroupInvitation(myUserId, aGroupId);
+                if (myExistingGroupInvitation == null || myExistingGroupInvitation.Accepted != HAVConstants.PENDING) {
+                    GroupInvitation myInvitation = GroupInvitation.CreateGroupInvitation(0, myUserId, anInvitingUser.Id, aGroupId, DateTime.UtcNow, false, HAVConstants.PENDING);
+                    theEntities.AddToGroupInvitations(myInvitation);
+                    myNeedsSave = true;
+                }
+            }
+
+            if (myNeedsSave) {
+                theEntities.SaveChanges();
+            }
+        }
+
         public void DeactivateGroup(User aUser, int aGroupId) {
             Group myClub = GetGroup(aGroupId);
             myClub.DeactivatedByUserId = aUser.Id;
             myClub.DeactivatedDateTimeStamp = DateTime.UtcNow;
             myClub.Active = false;
+            theEntities.SaveChanges();
+        }
+
+        public void DeclineGroupInvitation(User aUserAccepting, int aGroupInvitationId) {
+            GroupInvitation myGroupInvitation = GetGroupInvitation(aGroupInvitationId);
+            myGroupInvitation.Viewed = true;
+            myGroupInvitation.Accepted = HAVConstants.DENIED;
+            theEntities.ApplyCurrentValues(myGroupInvitation.EntityKey.EntitySetName, myGroupInvitation);
             theEntities.SaveChanges();
         }
 
@@ -168,6 +232,15 @@ namespace HaveAVoice.Repositories.Groups {
                     select gm).ToList<GroupMember>();
         }
 
+        public IEnumerable<GroupMember> GetGroupMembersPending(int aGroupId) {
+            return (from gm in theEntities.GroupMembers
+                    where gm.GroupId == aGroupId
+                    && !gm.Deleted
+                    && gm.Approved == HAVConstants.PENDING
+                    && !gm.OldRecord
+                    select gm).ToList<GroupMember>();
+        }
+
         public GroupMember GetGroupMember(int aGroupMemberId) {
             return (from gm in theEntities.GroupMembers
                     where gm.Id == aGroupMemberId
@@ -246,6 +319,12 @@ namespace HaveAVoice.Repositories.Groups {
                     select g).ToList<Group>();
         }
 
+        public GroupInvitation GetGroupInvitation(int aGroupInvitationId) {
+            return (from i in theEntities.GroupInvitations
+                    where i.Id == aGroupInvitationId
+                    select i).FirstOrDefault<GroupInvitation>();
+        }
+
         public IEnumerable<Group> GetMyGroupsByAll(User aUser) {
             IEnumerable<int> myAdminOfClubs = GetGroupsAdminOf(aUser);
             return (from g in theEntities.Groups
@@ -318,6 +397,13 @@ namespace HaveAVoice.Repositories.Groups {
                     select g).ToList<Group>();
         }
 
+        public IEnumerable<GroupInvitation> GetPendingGroupInvites(int aGroupId) {
+            return (from i in theEntities.GroupInvitations
+                    where i.GroupId == aGroupId
+                    && i.Viewed == false
+                    && i.Accepted == HAVConstants.PENDING
+                    select i);
+        }
 
         public void MarkGroupBoardAsViewed(User aUser, int aGroupId) {
             GroupMember myClubMember = GetGroupMember(aUser.Id, aGroupId);
@@ -328,7 +414,7 @@ namespace HaveAVoice.Repositories.Groups {
         }
 
         public void MemberRequestToJoinGroup(User aRequestingUser, int aGroupId, string aTitle) {
-            GroupMember myGroupMember = GroupMember.CreateGroupMember(0, aRequestingUser.Id, aGroupId, aTitle, false, HAVConstants.PENDING, DateTime.UtcNow, false, true, false, false);
+            GroupMember myGroupMember = GroupMember.CreateGroupMember(0, aRequestingUser.Id, aGroupId, aTitle, false, HAVConstants.PENDING, DateTime.UtcNow, false, false, false, false);
             theEntities.AddToGroupMembers(myGroupMember);
             theEntities.SaveChanges();
         }
@@ -443,6 +529,22 @@ namespace HaveAVoice.Repositories.Groups {
                     where z.GroupId == aGroupId
                     && z.ZipCode == aZipCode
                     select z).FirstOrDefault<GroupZipCodeTag>();
+        }
+
+        private GroupInvitation GetGroupInvitation(int aUserId, int aGroupId) {
+            return (from i in theEntities.GroupInvitations
+                    where i.UserId == aUserId
+                    && i.GroupId == aGroupId
+                    select i).FirstOrDefault<GroupInvitation>();
+        }
+
+        private IEnumerable<GroupInvitation> GetGroupAvailableGroupInvitations(int aUserId, int aGroupId) {
+            return (from i in theEntities.GroupInvitations
+                    where i.UserId == aUserId
+                    && i.GroupId == aGroupId
+                    && i.Viewed == false
+                    && i.Accepted == HAVConstants.PENDING
+                    select i);
         }
     }
 }

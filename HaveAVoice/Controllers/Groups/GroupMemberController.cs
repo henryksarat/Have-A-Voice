@@ -12,6 +12,11 @@ using HaveAVoice.Services.Groups;
 using HaveAVoice.Controllers.Helpers;
 using HaveAVoice.Models;
 using Social.Generic.Helpers;
+using Social.Friend.Services;
+using HaveAVoice.Repositories.UserFeatures;
+using HaveAVoice.Models.View;
+using System.Linq;
+using Social.Admin.Exceptions;
 
 namespace HaveAVoice.Controllers.Groups {
     public class GroupMemberController : HAVBaseController {
@@ -24,6 +29,8 @@ namespace HaveAVoice.Controllers.Groups {
         private const string GROUP_MEMBER_APPROVED = "The group member has been approved to join the group!";
         private const string GROUP_MEMBER_DENIED = "The group member has been denied to join the group!";
         private const string GROUP_MEMBER_EDITED = "The group member has been edited!";
+        private const string GROUP_INVITATION_DECLINED = "Group invitation declined!";
+        private const string GROUP_INVITATION_PROCESSED = "The selected group members have been invited.";
 
         private const string CANCEL_REQUEST_ERROR = "An error occurred while canceling your request to join the group. Please try again.";
         private const string REQUEST_ERROR = "An error occurred while submitted your request. Please try again.";
@@ -32,13 +39,40 @@ namespace HaveAVoice.Controllers.Groups {
         private const string GROUP_MEMBER_VERDICT_ERROR = "An error occurred while approving or denying the group member.";
         private const string GROUP_MEMBER_LIST = "An error occurred while getting the list of members for the group.";
         private const string GROUP_MEMBER_EDITED_FAIL = "An error occurred while editing the group member!";
+        private const string GROUP_MEMBER_INVITE_LOAD_FAIL = "An error occurred while getting the list of people you can invite. Please try again.";
+        private const string GROUP_MEMBER_INVITE_SEND_FAIL = "An error occurred while inviting your friends. Please try again.";
+        private const string GROUP_INVITATION_ACCEPTED_FAIL = "An error occurred while accepting the group invitation. Please try again.";
+        private const string GROUP_INVITATION_DECLINED_FAIL = "An error occurred while declining the group invitation. Please try again.";
 
         IValidationDictionary theValidationDictionary;
         IGroupService theGroupService;
+        IFriendService<User, Friend> theFriendService;
 
         public GroupMemberController() {
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
             theGroupService = new GroupService(theValidationDictionary);
+            theFriendService = new FriendService<User, Friend>(new EntityHAVFriendRepository());
+        }
+
+        [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
+        public ActionResult AcceptInvite(int groupId, int groupInvitationId) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+
+            try {
+                UserInformationModel<User> myUserInformation = GetUserInformatonModel();
+                string aMessage;
+                theGroupService.AcceptGroupInvitation(myUserInformation, groupInvitationId, out aMessage);
+                TempData["Message"] += MessageHelper.SuccessMessage(aMessage);
+            } catch(PermissionDenied myException) {
+                TempData["Message"] += MessageHelper.ErrorMessage(myException.Message);
+            } catch (Exception myException) {
+                LogError(myException, REMOVE_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(GROUP_INVITATION_ACCEPTED_FAIL);
+            }
+
+            return RedirectToAction("Details", "Group", new { id = groupId });
         }
 
         [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
@@ -55,6 +89,27 @@ namespace HaveAVoice.Controllers.Groups {
             } catch (Exception myException) {
                 LogError(myException, REMOVE_ERROR);
                 TempData["Message"] += MessageHelper.ErrorMessage(REMOVE_ERROR);
+            }
+
+            return RedirectToAction("Details", "Group", new { id = groupId });
+        }
+
+        [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
+        public ActionResult DeclineInvite(int groupId, int groupInvitationId) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+
+            try {
+                UserInformationModel<User> myUserInformation = GetUserInformatonModel();
+
+                theGroupService.DeclineGroupInvitation(myUserInformation, groupInvitationId);
+                TempData["Message"] += MessageHelper.SuccessMessage(GROUP_INVITATION_DECLINED);
+            } catch (PermissionDenied myException) {
+                TempData["Message"] += MessageHelper.ErrorMessage(myException.Message);
+            } catch (Exception myException) {
+                LogError(myException, REMOVE_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(GROUP_INVITATION_DECLINED_FAIL);
             }
 
             return RedirectToAction("Details", "Group", new { id = groupId });
@@ -117,6 +172,60 @@ namespace HaveAVoice.Controllers.Groups {
                 TempData["Message"] += MessageHelper.ErrorMessage(GROUP_MEMBER_LIST);
                 return RedirectToAction("List", "Group", new { id = id });
             }
+        }
+
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
+        public ActionResult Invite(int groupId) {
+            return InviteWithSelectedUsers(groupId, new int[0]);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
+        public ActionResult InviteWithSelectedUsers(int groupId, int[] selectedUsers) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+
+            GroupInviteModel myGroupInviteModel = new GroupInviteModel();
+
+            try {
+                UserInformationModel<User> myUser = GetUserInformatonModel();
+
+                myGroupInviteModel = theGroupService.GetFriendsToInvite(myUser, groupId);
+
+                if (myGroupInviteModel.Users.Count<User>() == 0) {
+                    TempData["Message"] += 
+                        MessageHelper.NormalMessage("There are no more friends to invite. Either they are all apart of the group, have pending invites, or your friends list is empty.");
+                }
+
+                if (selectedUsers != null) {
+                    myGroupInviteModel.SelectedUsers = selectedUsers;
+                }
+            } catch (Exception myException) {
+                LogError(myException, GROUP_MEMBER_INVITE_LOAD_FAIL);
+                TempData["Message"] += MessageHelper.ErrorMessage(GROUP_MEMBER_INVITE_LOAD_FAIL);
+            }
+
+            return View("Invite", myGroupInviteModel);
+        }
+        
+        [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
+        public ActionResult SendInvite(int groupId, int[] selectedUsers) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            try {
+                UserInformationModel<User> myUser = GetUserInformatonModel();
+                theGroupService.InviteMembers(myUser, selectedUsers, groupId);
+                TempData["Message"] = MessageHelper.SuccessMessage(GROUP_INVITATION_PROCESSED);
+                return RedirectToAction("Details", "Group", new { id = groupId });
+                
+            } catch (Exception myException) {
+                LogError(myException, GROUP_MEMBER_INVITE_SEND_FAIL);
+                TempData["Message"] += MessageHelper.ErrorMessage(GROUP_MEMBER_INVITE_SEND_FAIL);
+
+            }
+
+            return InviteWithSelectedUsers(groupId, selectedUsers);
         }
 
         [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]

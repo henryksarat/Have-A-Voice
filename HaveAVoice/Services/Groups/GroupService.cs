@@ -14,6 +14,8 @@ using Social.Generic.Exceptions;
 using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.Validation;
+using Social.Friend.Repositories;
+using HaveAVoice.Repositories.UserFeatures;
 
 namespace HaveAVoice.Services.Groups {
     public class GroupService : IGroupService {
@@ -25,13 +27,21 @@ namespace HaveAVoice.Services.Groups {
 
         private IValidationDictionary theValidationDictionary;
         private IGroupRepository theGroupRepository;
+        private IFriendRepository<User, Friend> theFriendRepository; 
 
         public GroupService(IValidationDictionary aValidationDictionary)
-            : this(aValidationDictionary, new EntityGroupRepository()) { }
+            : this(aValidationDictionary, new EntityGroupRepository(), new EntityHAVFriendRepository()) { }
 
-        public GroupService(IValidationDictionary aValidationDictionary, IGroupRepository aProfessorRepo) {
+        public GroupService(IValidationDictionary aValidationDictionary, IGroupRepository aProfessorRepo, IFriendRepository<User, Friend> aFriendRepo) {
             theValidationDictionary = aValidationDictionary;
             theGroupRepository = aProfessorRepo;
+            theFriendRepository = aFriendRepo;
+        }
+
+        public void AcceptGroupInvitation(UserInformationModel<User> aUserInfo, int aGroupInvitationId, out string aMessage) {
+            CheckIfValidGroupInvitationAction(aUserInfo.Details, aGroupInvitationId);
+
+            theGroupRepository.AcceptGroupInvitation(aUserInfo.Details, aGroupInvitationId, out aMessage);
         }
 
         public bool ActivateGroup(UserInformationModel<User> aUser, int aGroupId) {
@@ -90,6 +100,11 @@ namespace HaveAVoice.Services.Groups {
             theGroupRepository.DeactivateGroup(aUser.Details, aGroupId);
 
             return true;
+        }
+
+        public void DeclineGroupInvitation(UserInformationModel<User> aUserInfo, int aGroupInvitationId) {
+            CheckIfValidGroupInvitationAction(aUserInfo.Details, aGroupInvitationId);
+            theGroupRepository.DeclineGroupInvitation(aUserInfo.Details, aGroupInvitationId);
         }
 
         public void DenyGroupMember(UserInformationModel<User> aUser, int aGroupMemberId) {
@@ -165,6 +180,31 @@ namespace HaveAVoice.Services.Groups {
             theGroupRepository.EditGroupMember(aUser.Details, aGroupMemberId, aTitle, anAdministrator);
 
             return true;    
+        }
+
+        public GroupInviteModel GetFriendsToInvite(UserInformationModel<User> aUser, int aGroupId) {
+            IEnumerable<Friend> myFriends = theFriendRepository.FindFriendsForUser(aUser.UserId);
+
+            IEnumerable<GroupMember> myAlreadyGroupMembers = theGroupRepository.GetGroupMembers(aGroupId);
+            IEnumerable<int> myAlreadyGroupMemberUsers = myAlreadyGroupMembers.Select(gm => gm.MemberUserId);
+
+            IEnumerable<GroupMember> myAlreadyGroupMembersPending = theGroupRepository.GetGroupMembersPending(aGroupId);
+            IEnumerable<int> myAlreadyGroupMemberPendingUsers = myAlreadyGroupMembersPending.Select(gm => gm.MemberUserId);
+
+            IEnumerable<GroupInvitation> myAlreadyGroupInvitations = theGroupRepository.GetPendingGroupInvites(aGroupId);
+            IEnumerable<int> myAlreadyGroupInvitationUsers = myAlreadyGroupInvitations.Select(i => i.UserId);
+
+            IEnumerable<User> myMembersToInvite = (from u in myFriends
+                                                   where !myAlreadyGroupMemberUsers.Contains(u.FriendUserId)
+                                                   && !myAlreadyGroupInvitationUsers.Contains(u.FriendUserId)
+                                                   && !myAlreadyGroupMemberPendingUsers.Contains(u.FriendUserId)
+                                                   select u.FriendUser);
+            Group myGroup = theGroupRepository.GetGroup(aUser.Details, aGroupId);
+
+            return new GroupInviteModel() {
+                Group = myGroup,
+                Users = myMembersToInvite
+            };
         }
 
         public EditGroupModel GetGroupForEdit(UserInformationModel<User> aUser, int aGroupId) {
@@ -251,6 +291,10 @@ namespace HaveAVoice.Services.Groups {
             return myGroups;
         }
 
+        public void InviteMembers(UserInformationModel<User> aUser, int[] aMembers, int aGroupId) {
+            theGroupRepository.CreateGroupInvitations(aUser.Details, aGroupId, aMembers);
+        }
+
         public bool IsAdmin(UserInformationModel<User> aUser, int aGroupId) {
             bool myIsAdmin = false;
             if (aUser != null) {
@@ -327,6 +371,14 @@ namespace HaveAVoice.Services.Groups {
             mySearchByOptionsDictionary.Add("Zip Code", SearchBy.ZipCode.ToString());
             mySearchByOptionsDictionary.Add(SearchBy.City.ToString(), SearchBy.City.ToString());
             return mySearchByOptionsDictionary;
+        }
+
+        private void CheckIfValidGroupInvitationAction(User aUser, int aGroupInvitationId) {
+            GroupInvitation myGroupInvitation = theGroupRepository.GetGroupInvitation(aGroupInvitationId);
+
+            if (myGroupInvitation == null || myGroupInvitation.UserId != aUser.Id) {
+                throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
+            }
         }
 
         private bool ValidateAdmin(UserInformationModel<User> aUser, int aGroupId) {

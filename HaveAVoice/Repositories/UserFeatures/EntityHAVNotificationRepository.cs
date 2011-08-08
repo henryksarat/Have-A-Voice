@@ -10,6 +10,14 @@ namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVNotificationRepository : IHAVNotificationRepository {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
+        public IEnumerable<GroupInvitation> GroupInvitations(User aUser) {
+            return (from i in theEntities.GroupInvitations
+                    where i.UserId == aUser.Id
+                    && i.Viewed == false
+                    && i.Accepted == HAVConstants.PENDING
+                    select i);
+        }
+
         public IEnumerable<GroupMember> UnapprovedGroupMembers(User aUser) {
             IEnumerable<int> myGroupsAdminOf = GetGroupsAdminOf(aUser);
 
