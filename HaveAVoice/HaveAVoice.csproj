@@ -222,6 +222,7 @@
     <Compile Include="Repositories\Questions\EntityProfileQuestionsRepository.cs" />
     <Compile Include="Repositories\Questions\IProfileQuestionsRepository.cs" />
     <Compile Include="Repositories\SiteFeatures\EntityHAVContactUsRepository.cs" />
+    <Compile Include="Repositories\UserFeatures\IHAVUserRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVFanRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVFanRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVPhotoAlbumRepository.cs" />

@@ -128,7 +128,7 @@
 	        <div class="clear">&nbsp;</div>
 	        
 	        <div class="m-btm10">
-                <%= SharedContentStyleHelper.ProfilePictureDiv(Model.Issue.User, false, "push-2 col-3 center issue-profile", "profile lg")%>
+                <%= SharedContentStyleHelper.ProfilePictureDiv(Model.Issue.User, "push-2 col-3 center issue-profile", "profile lg")%>
                 <%= IssueHelper.IssueInformationDiv(Model.Issue, false, "push-2 m-lft col-16 m-rgt comment", "col-15 p-v10 options", "col-3 center", "col-3 center", "col-3 center", "col-3 center", "col-3 center", "push-8 col-2 center", "push-8 col-2 center", true, SiteSection.Issue, Model.Issue.Id)%>
                 <%= IssueHelper.IssueStats(Model.Issue, "push-2 col-3 stats fnt-12", "p-a5", "h4", "m-btm5", "bold", "m-lft10 m-btm5", "m-btm5", string.Empty, "bold", "MMM dd, yyyy") %>
 				<div class="clear">&nbsp;</div>

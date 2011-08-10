@@ -15102,7 +15102,8 @@ namespace HaveAVoice.Models
         /// <param name="registrationIp">Initial value of the RegistrationIp property.</param>
         /// <param name="zip">Initial value of the Zip property.</param>
         /// <param name="gender">Initial value of the Gender property.</param>
-        public static User CreateUser(global::System.Int32 id, global::System.String email, global::System.String password, global::System.String firstName, global::System.String lastName, global::System.String city, global::System.String state, global::System.DateTime dateOfBirth, global::System.DateTime lastLogin, global::System.DateTime registrationDate, global::System.String registrationIp, global::System.Int32 zip, global::System.String gender)
+        /// <param name="useUsername">Initial value of the UseUsername property.</param>
+        public static User CreateUser(global::System.Int32 id, global::System.String email, global::System.String password, global::System.String firstName, global::System.String lastName, global::System.String city, global::System.String state, global::System.DateTime dateOfBirth, global::System.DateTime lastLogin, global::System.DateTime registrationDate, global::System.String registrationIp, global::System.Int32 zip, global::System.String gender, global::System.Boolean useUsername)
         {
             User user = new User();
             user.Id = id;
@@ -15118,6 +15119,7 @@ namespace HaveAVoice.Models
             user.RegistrationIp = registrationIp;
             user.Zip = zip;
             user.Gender = gender;
+            user.UseUsername = useUsername;
             return user;
         }
 
@@ -15726,6 +15728,54 @@ namespace HaveAVoice.Models
         private global::System.String _UserPositionExtraInfo;
         partial void OnUserPositionExtraInfoChanging(global::System.String value);
         partial void OnUserPositionExtraInfoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Username
+        {
+            get
+            {
+                return _Username;
+            }
+            set
+            {
+                OnUsernameChanging(value);
+                ReportPropertyChanging("Username");
+                _Username = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Username");
+                OnUsernameChanged();
+            }
+        }
+        private global::System.String _Username;
+        partial void OnUsernameChanging(global::System.String value);
+        partial void OnUsernameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean UseUsername
+        {
+            get
+            {
+                return _UseUsername;
+            }
+            set
+            {
+                OnUseUsernameChanging(value);
+                ReportPropertyChanging("UseUsername");
+                _UseUsername = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UseUsername");
+                OnUseUsernameChanged();
+            }
+        }
+        private global::System.Boolean _UseUsername;
+        partial void OnUseUsernameChanging(global::System.Boolean value);
+        partial void OnUseUsernameChanged();
 
         #endregion
     

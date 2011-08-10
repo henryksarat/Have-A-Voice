@@ -10,7 +10,7 @@
 <% SiteSection mySection = (SiteSection)ViewData["SiteSection"]; %>
 <% int mySourceId = (int)ViewData["SourceId"]; %>
 <div class="m-btm5">
-    <%= SharedContentStyleHelper.ProfilePictureDiv(Model.Issue.User, Model.IsAnonymous, "col-2 center", "profile")%>
+    <%= SharedContentStyleHelper.ProfilePictureDiv(Model.Issue.User, "col-2 center", "profile")%>
     <%= IssueHelper.IssueInformationDiv(Model.Issue, Model.IsAnonymous, "col-16 m-lft comment", "col-16 col-9 p-v10", "col-3 center", "col-3 center", "col-3 center", "col-3 center", "col-3 center", string.Empty, string.Empty, false, SiteSection.MyProfile, 0)%>
     <%= SharedContentStyleHelper.TimeStampDiv(Model.DateTimeStamp, "col-3", "p-a5", "date-tile", "MMM", "dd")  %>
 	<div class="clear">&nbsp;</div>

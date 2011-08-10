@@ -46,7 +46,7 @@ namespace HaveAVoice.Helpers.UI {
                 myDivCssClass = "push-6 col-2 center";
             }
 
-            return SharedContentStyleHelper.ProfilePictureDiv(anIssueReply.User, anIssueReply.Anonymous, myDivCssClass, "profile");
+            return SharedContentStyleHelper.ProfilePictureDiv(anIssueReply.User, myDivCssClass, "profile");
         }
 
         private static string ReplyInfoDiv(IssueReplyModel anIssueReply) {
@@ -72,14 +72,11 @@ namespace HaveAVoice.Helpers.UI {
             myReplyCommentPad.AddCssClass("p-a10");
 
             string myName = string.Empty;
-            if (anIssueReply.Anonymous) {
-                myName = SharedStyleHelper.Link("name", "#", HAVConstants.ANONYMOUS);
+
+            if (myIsTempAccount) {
+                myName = SharedStyleHelper.Link("name", "#", anIssueReply.FirstName + " " + anIssueReply.LastName + " (unregistered)");
             } else {
-                if (myIsTempAccount) {
-                    myName = SharedStyleHelper.Link("name", "#", anIssueReply.FirstName + " " + anIssueReply.LastName + " (unregistered)");
-                } else {
-                    myName = SharedStyleHelper.Link("name", LinkHelper.Profile(anIssueReply.User), NameHelper.FullName(anIssueReply.User));
-                }
+                myName = SharedStyleHelper.Link("name", LinkHelper.Profile(anIssueReply.User), NameHelper.FullName(anIssueReply.User));
             }
 
             myReplyCommentPad.InnerHtml += myName.ToString();
@@ -122,7 +119,7 @@ namespace HaveAVoice.Helpers.UI {
         public static string IssueReply(IssueReply anIssueReply) {
             var myReplyDiv = new TagBuilder("div");
             myReplyDiv.AddCssClass("m-btm10 alt");
-            myReplyDiv.InnerHtml += SharedContentStyleHelper.ProfilePictureDiv(anIssueReply.User, anIssueReply.Anonymous, "push-3 col-3 center issue-profile", "profile");
+            myReplyDiv.InnerHtml += SharedContentStyleHelper.ProfilePictureDiv(anIssueReply.User, "push-3 col-3 center issue-profile", "profile");
 
             var myReplyInfoDiv = new TagBuilder("div");
             myReplyInfoDiv.AddCssClass("push-3 m-lft col-15 m-rgt comment");

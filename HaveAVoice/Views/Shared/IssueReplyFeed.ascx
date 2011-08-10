@@ -11,7 +11,7 @@
 <% SiteSection mySection = (SiteSection)ViewData["SiteSection"]; %>
 <% int mySourceId = (int)ViewData["SourceId"]; %>
 <div class="<% if(myCount % 2 == 0) { %>row<% } else { %>alt<% } %> m-btm5">
-    <%= SharedContentStyleHelper.ProfilePictureDiv(Model.PostingUser, Model.IsAnonymous, "push-2 col-2 center", "profile")%>
+    <%= SharedContentStyleHelper.ProfilePictureDiv(Model.PostingUser, "push-2 col-2 center", "profile")%>
 	<div class="push-2 col-14">
 		<div class="m-lft col-14 comment">
 			<span class="speak-lft">&nbsp;</span>

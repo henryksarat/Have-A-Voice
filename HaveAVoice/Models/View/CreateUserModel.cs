@@ -29,7 +29,7 @@ namespace HaveAVoice.Models.View {
             int.TryParse(Zip, out myParsedZip);
             return User.CreateUser(0, Email, Password, FirstName, LastName, City,
                                    State, DateOfBirth, myTempDateFiller, myTempDateFiller,
-                                   myTempIp, myParsedZip, Gender);
+                                   myTempIp, myParsedZip, Gender, false);
         }
     }
 }

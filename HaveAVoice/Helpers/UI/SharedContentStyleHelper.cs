@@ -6,27 +6,21 @@ using Social.Generic.Constants;
 
 namespace HaveAVoice.Helpers.UI {
     public class SharedContentStyleHelper {
-        public static string ProfilePictureDiv(User aUser, bool anIsAnonymous, string aDivCssClass, string anImageCssClass) {
+        public static string ProfilePictureDiv(User aUser, string aDivCssClass, string anImageCssClass) {
             var myProfilePictureDiv = new TagBuilder("div");
             myProfilePictureDiv.AddCssClass(aDivCssClass);
             
             var myImage = new TagBuilder("img");
             myImage.AddCssClass(anImageCssClass);
 
-            if (anIsAnonymous) {
-                myImage.MergeAttribute("alt", "Anonymous");
-                myImage.MergeAttribute("src", PhotoHelper.ConstructUrl(Social.Generic.Constants.Constants.NO_PROFILE_PICTURE_IMAGE));
-                myProfilePictureDiv.InnerHtml = myImage.ToString();
-            } else {
-                var myLink = new TagBuilder("a");
-                myLink.MergeAttribute("href", LinkHelper.Profile(aUser));
+            var myLink = new TagBuilder("a");
+            myLink.MergeAttribute("href", LinkHelper.Profile(aUser));
 
-                myImage.MergeAttribute("src", PhotoHelper.ProfilePicture(aUser));
-                myImage.MergeAttribute("alt", NameHelper.FullName(aUser));
+            myImage.MergeAttribute("src", PhotoHelper.ProfilePicture(aUser));
+            myImage.MergeAttribute("alt", NameHelper.FullName(aUser));
 
-                myLink.InnerHtml = myImage.ToString();
-                myProfilePictureDiv.InnerHtml = myLink.ToString();
-            }
+            myLink.InnerHtml = myImage.ToString();
+            myProfilePictureDiv.InnerHtml = myLink.ToString();
 
             myProfilePictureDiv.InnerHtml += SharedStyleHelper.ClearDiv();
 

@@ -13,7 +13,7 @@ namespace HaveAVoice.Models.SocialWrappers {
         }
 
         public override User CreateNewModel() {
-            User myUser = User.CreateUser(Id, Email, Password, FirstName, LastName, City, State, DateOfBirth, LastLogin, RegistrationDate, RegistrationIp, int.Parse(Zip), Gender);
+            User myUser = User.CreateUser(Id, Email, Password, FirstName, LastName, City, State, DateOfBirth, LastLogin, RegistrationDate, RegistrationIp, int.Parse(Zip), Gender, false);
             myUser.Website = Website;
             myUser.AboutMe = AboutMe;
             myUser.CookieHash = CookieHash;

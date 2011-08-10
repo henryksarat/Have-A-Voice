@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System;
 
 namespace HaveAVoice.Repositories.UserFeatures {
-    public class EntityHAVUserRepository : IUserRepository<User, Role, UserRole> {
+    public class EntityHAVUserRepository : IHAVUserRepository {
         private HaveAVoiceEntities theEntities = new HaveAVoiceEntities();
 
         public UserRole AddUserToRole(User aUser, Role aRole) {
@@ -80,6 +80,12 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     where c.Email == email
                     && (c.ActivationCodeUsed == null || c.ActivationCodeUsed == false)
                     select c).Count() != 0 ? true : false;
+        }
+
+        public bool IsUserNameTaken(string aUsername) {
+            return (from u in theEntities.Users
+                    where u.Username == aUsername
+                    select u).Count<User>() > 0;
         }
 
         public void RemoveUserFromRole(User myUser, Role myRole) {

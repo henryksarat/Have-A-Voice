@@ -8,7 +8,7 @@
 
 <% int myCount = (int)ViewData["Count"]; %>
 <div class="board-<% if(myCount % 2 == 0) { %>row<% } else { %>alt<% } %> p-v10 m-btm5">
-    <%= SharedContentStyleHelper.ProfilePictureDiv(Model.PostingUser, false, "col-2 center", "profile sm") %>
+    <%= SharedContentStyleHelper.ProfilePictureDiv(Model.PostingUser, "col-2 center", "profile sm") %>
     <%= BoardHelper.BoardInformationDiv("col-16 m-btm10", "m-lft col-16", "p-h10", "name", Model.PostingUser, Model.Message) %>
     <%= SharedContentStyleHelper.TimeStampDiv(Model.DateTimeStamp, "col-3 right", "p-h5", "date-tile", "MMM", "dd")  %>
 	<div class="clear">&nbsp;</div>
@@ -18,7 +18,7 @@
 	<% int j = 0; %>
 	<% foreach (BoardReply myReply in Model.BoardReplys) { %>		
 	    <div class="board-<% if (j % 2 == 0) { %>row<% } else { %>alt<% } %> p-v10 push-3 col-15 m-btm5">
-            <%= SharedContentStyleHelper.ProfilePictureDiv(myReply.User, false, "col-1 center", "profile sm") %>
+            <%= SharedContentStyleHelper.ProfilePictureDiv(myReply.User, "col-1 center", "profile sm") %>
 		    <%= BoardHelper.BoardInformationDiv("m-lft col-11", "p-h10", string.Empty, "name", myReply.User, myReply.Message) %>
 		    <%= SharedContentStyleHelper.TimeStampDiv(myReply.DateTimeStamp, "col-3 right", "p-h5", "date-tile", "MMM", "dd") %>
 		    <div class="clear">&nbsp;</div>

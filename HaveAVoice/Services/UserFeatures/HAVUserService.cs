@@ -28,7 +28,7 @@ namespace HaveAVoice.Services.UserFeatures {
         private IUserRetrievalService<User> theUserRetrievalService;
         private IHAVAuthorityVerificationService theAuthorityVerificationService;
         private IHAVAuthenticationService theAuthService;
-        private IUserRepository<User, Role, UserRole> theUserRepo;
+        private IHAVUserRepository theUserRepo;
         private IEmail theEmailService;
 
         public HAVUserService(IValidationDictionary theValidationDictionary)
@@ -37,7 +37,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public HAVUserService(IValidationDictionary aValidationDictionary, IUserRetrievalService<User> aUserRetrievalService,
                                          IHAVAuthorityVerificationService anAuthorityVerificationService, IHAVAuthenticationService anAuthService,
-                                         IUserRepository<User, Role, UserRole> aUserRepo, IEmail aEmailService) {
+                                         IHAVUserRepository aUserRepo, IEmail aEmailService) {
             theValidationDictionary = aValidationDictionary;
             theUserRetrievalService = aUserRetrievalService;
             theAuthorityVerificationService = anAuthorityVerificationService;
@@ -89,19 +89,25 @@ namespace HaveAVoice.Services.UserFeatures {
             } 
 
             User myOriginalUser = theUserRetrievalService.GetUser(aUser.Id);
-            myOriginalUser.Email = aUser.Email;
+            myOriginalUser.Email = aUser.Email.Trim();
             myOriginalUser.Password = aHashedPassword;
-            myOriginalUser.FirstName = aUser.FirstName;
-            myOriginalUser.LastName = aUser.LastName;
+            myOriginalUser.FirstName = aUser.FirstName.Trim();
+            myOriginalUser.LastName = aUser.LastName.Trim();
             myOriginalUser.DateOfBirth = aUser.DateOfBirth;
-            myOriginalUser.City = aUser.City;
+            myOriginalUser.City = aUser.City.Trim();
             myOriginalUser.State = aUser.State;
             myOriginalUser.Zip = int.Parse(aUser.Zip);
-            myOriginalUser.Website = aUser.Website;
+            myOriginalUser.Website = aUser.Website.Trim();
             myOriginalUser.Gender = aUser.Gender;
-            myOriginalUser.AboutMe = aUser.AboutMe;
+            myOriginalUser.AboutMe = aUser.AboutMe.Trim();
+            myOriginalUser.UseUsername = aUser.UseUsername;
+
             if (!string.IsNullOrEmpty(aUser.ShortUrl)) {
-                myOriginalUser.ShortUrl = aUser.ShortUrl;
+                myOriginalUser.ShortUrl = aUser.ShortUrl.Trim();
+            }
+
+            if (!string.IsNullOrEmpty(aUser.Username)) {
+                myOriginalUser.Username = aUser.Username.Trim();
             }
 
             theUserRepo.UpdateUser(myOriginalUser);
@@ -258,6 +264,17 @@ namespace HaveAVoice.Services.UserFeatures {
             }
             if (!string.IsNullOrEmpty(aUser.ShortUrl) && theUserRepo.ShortUrlTaken(aUser.ShortUrl)) {
                 theValidationDictionary.AddError("ShortUrl", aUser.ShortUrl, "That have a voice URL is already taken by another member.");
+            }
+            if (!string.IsNullOrEmpty(aUser.Username) 
+                && !string.IsNullOrEmpty(aUser.OriginalUsername) 
+                && theUserRepo.IsUserNameTaken(aUser.Username)) {
+                theValidationDictionary.AddError("Username", aUser.Username, "That username is already taken. Please choose another.");
+            } else if (!string.IsNullOrEmpty(aUser.Username) && !VarCharValidation.Valid15Length(aUser.Username)) {
+                theValidationDictionary.AddError("Username", aUser.Username, "A username can only have a max of 15 characters..");
+            }
+
+            if (aUser.UseUsername && (string.IsNullOrEmpty(aUser.Username) && string.IsNullOrEmpty(aUser.OriginalUsername))) {
+                theValidationDictionary.AddError("UseUsername", aUser.UseUsername.ToString(), "To use a username you first have to specify one.");
             }
 
             return theValidationDictionary.isValid;

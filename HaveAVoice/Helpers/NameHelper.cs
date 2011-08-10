@@ -13,7 +13,11 @@ namespace HaveAVoice.Helpers {
         }
 
         public static string FullName(User aUser) {
-            return NameHelper<User>.FullName(SocialUserModel.Create(aUser));
+            if (aUser.UseUsername) {
+                return aUser.Username;
+            } else {
+                return NameHelper<User>.FullName(SocialUserModel.Create(aUser));
+            }
         }
     }
 }

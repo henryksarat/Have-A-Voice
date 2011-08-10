@@ -23,7 +23,7 @@
 		<div class="clear">&nbsp;</div>
 
         <div class="board-alt p-v10 m-btm5">
-            <%= SharedContentStyleHelper.ProfilePictureDiv(Model.Model.PostedByUser, false, "col-2 center", "profile") %>
+            <%= SharedContentStyleHelper.ProfilePictureDiv(Model.Model.PostedByUser, "col-2 center", "profile") %>
             <%= BoardHelper.BoardInformationDiv("col-16 m-btm10", "m-lft col-16", "p-h10", "name", Model.Model.PostedByUser, Model.Model.Message) %>
             <%= SharedContentStyleHelper.TimeStampDiv(Model.Model.DateTimeStamp, "col-3 right", "p-h5", "date-tile", "MMM", "dd")  %>
 	        <div class="clear">&nbsp;</div>
@@ -32,7 +32,7 @@
 	        <% int j = 0; %>
 	        <% foreach (BoardReply myReply in Model.Model.BoardReplies) { %>		
 	            <div class="board-<% if (j % 2 == 0) { %>row<% } else { %>alt<% } %> p-v10 push-3 col-18 m-btm5">
-                    <%= SharedContentStyleHelper.ProfilePictureDiv(myReply.User, false, "col-1 center", "profile sm") %>
+                    <%= SharedContentStyleHelper.ProfilePictureDiv(myReply.User, "col-1 center", "profile sm") %>
 		            <%= BoardHelper.BoardInformationDiv("m-lft col-14", "p-h10", string.Empty, "name", myReply.User, myReply.Message) %>
 		            <%= SharedContentStyleHelper.TimeStampDiv(myReply.DateTimeStamp, "col-3 right", "p-h5", "date-tile", "MMM", "dd") %>
 		            <div class="clear">&nbsp;</div>

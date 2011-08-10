@@ -38,6 +38,14 @@ namespace HaveAVoice.Models.View {
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string ProfilePictureURL { get; set; }
 
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string Username { get; set; }
+
+        public bool UseUsername { get; set; }
+
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string OriginalUsername { get; set; }
+
         public EditUserModel() { }
 
         public EditUserModel(User aUser) {

@@ -14,7 +14,6 @@ namespace HaveAVoice.Models.View {
         public string Reply { get; set; }
         public DateTime DateTimeStamp { get; set; }
         public int CommentCount { get; set; }
-        public bool Anonymous { get; set; }
         public bool HasDisposition { get; set; }
         public int IssueStance { get; set; }
         public Disposition Disposition { get; private set; }

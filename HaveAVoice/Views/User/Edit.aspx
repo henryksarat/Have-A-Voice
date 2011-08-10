@@ -87,6 +87,42 @@
 	    		<div class="clear">&nbsp;</div>
 	    		<div class="spacer-10">&nbsp;</div>
 
+                <div class="col-6">
+					<label>Username:</label>
+	                The username is an alias you can use if<br />
+					you don't want to use your real name. <br />
+                    This can only be set once.
+				</div>
+				<div class="push-1 col-6">
+                    <% if (string.IsNullOrEmpty(Model.UserInformation.Username)) { %>
+					    <%= Html.TextBox("Username")%>
+					    <span class="req">
+		                    <%= Html.ValidationMessage("Username", "*")%>
+	                    </span>
+                    <% } else { %>
+                        <span class="fnt-16">
+                            <%= Html.Hidden("OriginalUsername", Model.UserInformation.Username) %>
+                            <%= Model.UserInformation.Username %>
+                        </span>
+                    <% } %>
+				</div>
+				<div class="col-18 spacer-15">&nbsp;</div>
+
+
+                <div class="col-6">
+					<label>Use Username:</label>
+				</div>
+				<div class="push-1 col-6">
+                    <%= Html.RadioButton("UseUsername", true, Model.UserInformation.UseUsername)%> Yes
+                    <%= Html.RadioButton("UseUsername", false, !Model.UserInformation.UseUsername)%> No
+            	    <span class="req">
+		                <%= Html.ValidationMessage("UseUsername", "*")%>
+	                </span>
+				</div>
+				<div class="col-18 spacer-15">&nbsp;</div>
+
+
+
 	            <div class="col-6">
 					<label>Enter a new password:</label>
 	                If you wish to change your password,<br />
@@ -99,6 +135,8 @@
 	                </span>
 				</div>
 				<div class="col-18 spacer-15">&nbsp;</div>
+
+
 				<div class="col-6">
 					<label>Confirm new password:</label>
 	            </div>

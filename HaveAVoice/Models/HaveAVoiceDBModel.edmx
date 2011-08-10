@@ -1089,6 +1089,8 @@
           <Property Name="UserPositionId" Type="varchar" MaxLength="50" />
           <Property Name="UserPositionExtraInfo" Type="varchar" MaxLength="50" />
           <Property Name="ActivationCodeUsed" Type="bit" />
+          <Property Name="Username" Type="varchar" MaxLength="20" />
+          <Property Name="UseUsername" Type="bit" />
         </EntityType>
         <EntityType Name="WhoIsOnline">
           <Key>
@@ -3223,6 +3225,8 @@
           <NavigationProperty Name="GroupInvitations" Relationship="HaveAVoice.Models.FK_GroupInvitations_InvitedByUser" FromRole="User" ToRole="GroupInvitation" />
           <NavigationProperty Name="GroupInvitations1" Relationship="HaveAVoice.Models.FK_GroupInvitations_Users" FromRole="User" ToRole="GroupInvitation" />
           <NavigationProperty Name="UserRegionSpecifics" Relationship="HaveAVoice.Models.FK_UserRegionSpecifics_Users" FromRole="User" ToRole="UserRegionSpecific" />
+          <Property Type="String" Name="Username" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="UseUsername" Nullable="false" />
           </EntityType>
         <EntityType Name="WhoIsOnline">
           <Key>
@@ -5140,6 +5144,8 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="HaveAVoice.Models.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UseUsername" ColumnName="UseUsername" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="UserPositionExtraInfo" ColumnName="UserPositionExtraInfo" />
                 <ScalarProperty Name="ActivationCodeUsed" ColumnName="ActivationCodeUsed" />
                 <ScalarProperty Name="UserPositionId" ColumnName="UserPositionId" />
