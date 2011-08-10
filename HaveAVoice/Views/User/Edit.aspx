@@ -89,9 +89,9 @@
 
                 <div class="col-6">
 					<label>Username:</label>
-	                The username is an alias you can use if<br />
-					you don't want to use your real name. <br />
-                    This can only be set once.
+	                This will be the name that will be seen by
+                    the public when on Have a Voice.<br />
+                    <span class="bold">Warning:</span> The username can only be set once.
 				</div>
 				<div class="push-1 col-6">
                     <% if (string.IsNullOrEmpty(Model.UserInformation.Username)) { %>
@@ -111,6 +111,9 @@
 
                 <div class="col-6">
 					<label>Use Username:</label>
+                    Select if you want your username to identify you on Have a Voice.
+                    If not, your full name will be used.<br />
+                    This can be changed as often as you'd like
 				</div>
 				<div class="push-1 col-6">
                     <%= Html.RadioButton("UseUsername", true, Model.UserInformation.UseUsername)%> Yes
