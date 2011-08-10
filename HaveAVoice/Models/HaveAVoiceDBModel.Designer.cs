@@ -114,6 +114,9 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_GroupInvitations_Groups", "Group", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.Group), "GroupInvitation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.GroupInvitation), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_GroupInvitations_InvitedByUser", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "GroupInvitation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.GroupInvitation), true)]
 [assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_GroupInvitations_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "GroupInvitation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.GroupInvitation), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_RegionSpecifics_UserPositions", "UserPosition", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(HaveAVoice.Models.UserPosition), "RegionSpecific", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.RegionSpecific), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserRegionSpecifics_UserRegionSpecifics1", "RegionSpecific", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.RegionSpecific), "UserRegionSpecific", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserRegionSpecific), true)]
+[assembly: EdmRelationshipAttribute("HaveAVoice.Models", "FK_UserRegionSpecifics_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(HaveAVoice.Models.User), "UserRegionSpecific", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(HaveAVoice.Models.UserRegionSpecific), true)]
 
 #endregion
 
@@ -1028,6 +1031,38 @@ namespace HaveAVoice.Models
             }
         }
         private ObjectSet<GroupInvitation> _GroupInvitations;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<RegionSpecific> RegionSpecifics
+        {
+            get
+            {
+                if ((_RegionSpecifics == null))
+                {
+                    _RegionSpecifics = base.CreateObjectSet<RegionSpecific>("RegionSpecifics");
+                }
+                return _RegionSpecifics;
+            }
+        }
+        private ObjectSet<RegionSpecific> _RegionSpecifics;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<UserRegionSpecific> UserRegionSpecifics
+        {
+            get
+            {
+                if ((_UserRegionSpecifics == null))
+                {
+                    _UserRegionSpecifics = base.CreateObjectSet<UserRegionSpecific>("UserRegionSpecifics");
+                }
+                return _UserRegionSpecifics;
+            }
+        }
+        private ObjectSet<UserRegionSpecific> _UserRegionSpecifics;
 
         #endregion
         #region AddTo Methods
@@ -1462,6 +1497,22 @@ namespace HaveAVoice.Models
         public void AddToGroupInvitations(GroupInvitation groupInvitation)
         {
             base.AddObject("GroupInvitations", groupInvitation);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the RegionSpecifics EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToRegionSpecifics(RegionSpecific regionSpecific)
+        {
+            base.AddObject("RegionSpecifics", regionSpecific);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the UserRegionSpecifics EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToUserRegionSpecifics(UserRegionSpecific userRegionSpecific)
+        {
+            base.AddObject("UserRegionSpecifics", userRegionSpecific);
         }
 
         #endregion
@@ -14058,6 +14109,276 @@ namespace HaveAVoice.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="HaveAVoice.Models", Name="RegionSpecific")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class RegionSpecific : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new RegionSpecific object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="city">Initial value of the City property.</param>
+        /// <param name="state">Initial value of the State property.</param>
+        /// <param name="zipCode">Initial value of the ZipCode property.</param>
+        /// <param name="algorithmSpecificInformation">Initial value of the AlgorithmSpecificInformation property.</param>
+        public static RegionSpecific CreateRegionSpecific(global::System.Int32 id, global::System.String city, global::System.String state, global::System.Int32 zipCode, global::System.String algorithmSpecificInformation)
+        {
+            RegionSpecific regionSpecific = new RegionSpecific();
+            regionSpecific.Id = id;
+            regionSpecific.City = city;
+            regionSpecific.State = state;
+            regionSpecific.ZipCode = zipCode;
+            regionSpecific.AlgorithmSpecificInformation = algorithmSpecificInformation;
+            return regionSpecific;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String UserPositionId
+        {
+            get
+            {
+                return _UserPositionId;
+            }
+            set
+            {
+                OnUserPositionIdChanging(value);
+                ReportPropertyChanging("UserPositionId");
+                _UserPositionId = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("UserPositionId");
+                OnUserPositionIdChanged();
+            }
+        }
+        private global::System.String _UserPositionId;
+        partial void OnUserPositionIdChanging(global::System.String value);
+        partial void OnUserPositionIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String City
+        {
+            get
+            {
+                return _City;
+            }
+            set
+            {
+                OnCityChanging(value);
+                ReportPropertyChanging("City");
+                _City = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("City");
+                OnCityChanged();
+            }
+        }
+        private global::System.String _City;
+        partial void OnCityChanging(global::System.String value);
+        partial void OnCityChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String State
+        {
+            get
+            {
+                return _State;
+            }
+            set
+            {
+                OnStateChanging(value);
+                ReportPropertyChanging("State");
+                _State = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("State");
+                OnStateChanged();
+            }
+        }
+        private global::System.String _State;
+        partial void OnStateChanging(global::System.String value);
+        partial void OnStateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ZipCode
+        {
+            get
+            {
+                return _ZipCode;
+            }
+            set
+            {
+                OnZipCodeChanging(value);
+                ReportPropertyChanging("ZipCode");
+                _ZipCode = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ZipCode");
+                OnZipCodeChanged();
+            }
+        }
+        private global::System.Int32 _ZipCode;
+        partial void OnZipCodeChanging(global::System.Int32 value);
+        partial void OnZipCodeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String AlgorithmSpecificInformation
+        {
+            get
+            {
+                return _AlgorithmSpecificInformation;
+            }
+            set
+            {
+                OnAlgorithmSpecificInformationChanging(value);
+                ReportPropertyChanging("AlgorithmSpecificInformation");
+                _AlgorithmSpecificInformation = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("AlgorithmSpecificInformation");
+                OnAlgorithmSpecificInformationChanged();
+            }
+        }
+        private global::System.String _AlgorithmSpecificInformation;
+        partial void OnAlgorithmSpecificInformationChanging(global::System.String value);
+        partial void OnAlgorithmSpecificInformationChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String AlgorithmText
+        {
+            get
+            {
+                return _AlgorithmText;
+            }
+            set
+            {
+                OnAlgorithmTextChanging(value);
+                ReportPropertyChanging("AlgorithmText");
+                _AlgorithmText = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("AlgorithmText");
+                OnAlgorithmTextChanged();
+            }
+        }
+        private global::System.String _AlgorithmText;
+        partial void OnAlgorithmTextChanging(global::System.String value);
+        partial void OnAlgorithmTextChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_RegionSpecifics_UserPositions", "UserPosition")]
+        public UserPosition UserPosition
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserPosition>("HaveAVoice.Models.FK_RegionSpecifics_UserPositions", "UserPosition").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserPosition>("HaveAVoice.Models.FK_RegionSpecifics_UserPositions", "UserPosition").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<UserPosition> UserPositionReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserPosition>("HaveAVoice.Models.FK_RegionSpecifics_UserPositions", "UserPosition");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<UserPosition>("HaveAVoice.Models.FK_RegionSpecifics_UserPositions", "UserPosition", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserRegionSpecifics_UserRegionSpecifics1", "UserRegionSpecific")]
+        public EntityCollection<UserRegionSpecific> UserRegionSpecifics
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserRegionSpecific>("HaveAVoice.Models.FK_UserRegionSpecifics_UserRegionSpecifics1", "UserRegionSpecific");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserRegionSpecific>("HaveAVoice.Models.FK_UserRegionSpecifics_UserRegionSpecifics1", "UserRegionSpecific", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="HaveAVoice.Models", Name="Reply")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -16789,6 +17110,28 @@ namespace HaveAVoice.Models
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserRegionSpecifics_Users", "UserRegionSpecific")]
+        public EntityCollection<UserRegionSpecific> UserRegionSpecifics
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserRegionSpecific>("HaveAVoice.Models.FK_UserRegionSpecifics_Users", "UserRegionSpecific");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserRegionSpecific>("HaveAVoice.Models.FK_UserRegionSpecifics_Users", "UserRegionSpecific", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -16940,6 +17283,28 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AuthorityVerification>("HaveAVoice.Models.FK_AuthorityVerification_UserPositions", "AuthorityVerification", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_RegionSpecifics_UserPositions", "RegionSpecific")]
+        public EntityCollection<RegionSpecific> RegionSpecifics
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RegionSpecific>("HaveAVoice.Models.FK_RegionSpecifics_UserPositions", "RegionSpecific");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RegionSpecific>("HaveAVoice.Models.FK_RegionSpecifics_UserPositions", "RegionSpecific", value);
                 }
             }
         }
@@ -17586,6 +17951,192 @@ namespace HaveAVoice.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_UserProfileQuestionAnswers_Users", "User", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="HaveAVoice.Models", Name="UserRegionSpecific")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class UserRegionSpecific : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new UserRegionSpecific object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="regionSpecificId">Initial value of the RegionSpecificId property.</param>
+        public static UserRegionSpecific CreateUserRegionSpecific(global::System.Int32 id, global::System.Int32 userId, global::System.Int32 regionSpecificId)
+        {
+            UserRegionSpecific userRegionSpecific = new UserRegionSpecific();
+            userRegionSpecific.Id = id;
+            userRegionSpecific.UserId = userId;
+            userRegionSpecific.RegionSpecificId = regionSpecificId;
+            return userRegionSpecific;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
+            }
+        }
+        private global::System.Int32 _UserId;
+        partial void OnUserIdChanging(global::System.Int32 value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 RegionSpecificId
+        {
+            get
+            {
+                return _RegionSpecificId;
+            }
+            set
+            {
+                OnRegionSpecificIdChanging(value);
+                ReportPropertyChanging("RegionSpecificId");
+                _RegionSpecificId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("RegionSpecificId");
+                OnRegionSpecificIdChanged();
+            }
+        }
+        private global::System.Int32 _RegionSpecificId;
+        partial void OnRegionSpecificIdChanging(global::System.Int32 value);
+        partial void OnRegionSpecificIdChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserRegionSpecifics_UserRegionSpecifics1", "RegionSpecific")]
+        public RegionSpecific RegionSpecific
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<RegionSpecific>("HaveAVoice.Models.FK_UserRegionSpecifics_UserRegionSpecifics1", "RegionSpecific").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<RegionSpecific>("HaveAVoice.Models.FK_UserRegionSpecifics_UserRegionSpecifics1", "RegionSpecific").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<RegionSpecific> RegionSpecificReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<RegionSpecific>("HaveAVoice.Models.FK_UserRegionSpecifics_UserRegionSpecifics1", "RegionSpecific");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<RegionSpecific>("HaveAVoice.Models.FK_UserRegionSpecifics_UserRegionSpecifics1", "RegionSpecific", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("HaveAVoice.Models", "FK_UserRegionSpecifics_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_UserRegionSpecifics_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_UserRegionSpecifics_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("HaveAVoice.Models.FK_UserRegionSpecifics_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("HaveAVoice.Models.FK_UserRegionSpecifics_Users", "User", value);
                 }
             }
         }

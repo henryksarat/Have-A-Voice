@@ -1,7 +1,9 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HaveAVoice.Models.View.EditUserModel>" %>
 <%@ Import Namespace="HaveAVoice.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
+<%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UserInformation" %>
+<%@ Import Namespace="Social.Generic" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Edit You Profile
@@ -81,6 +83,9 @@
 	    		    <div class="clear">&nbsp;</div>
 	    		    <div class="spacer-10">&nbsp;</div>
                 <% } %>
+
+	    		<div class="clear">&nbsp;</div>
+	    		<div class="spacer-10">&nbsp;</div>
 
 	            <div class="col-6">
 					<label>Enter a new password:</label>

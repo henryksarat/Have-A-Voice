@@ -13,6 +13,10 @@ using Social.Generic.Helpers;
 using Social.User.Repositories;
 using Social.User.Services;
 using Social.Validation;
+using System.Linq;
+using Social.Generic;
+using Social.Generic.Models;
+using HaveAVoice.Helpers.Authority;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVUserService : IHAVUserService {
@@ -125,8 +129,55 @@ namespace HaveAVoice.Services.UserFeatures {
                 OriginalWebsite = myUser.Website,
                 States = myStates,
                 Genders = myGenders,
-                ProfilePictureURL= PhotoHelper.ProfilePicture(myUser)
+                ProfilePictureURL= PhotoHelper.ProfilePicture(myUser),
             };
+        }
+
+        public EditUserSpecificRegionModel GetUserSpecificRegionForEdit(User aUser) {
+            User myUser = theUserRetrievalService.GetUser(aUser.Id);
+
+            IEnumerable<RegionSpecific> myClashingRegions =
+                theAuthorityVerificationService.GetClashingRegions(myUser.City, myUser.State, myUser.Zip);
+            IEnumerable<UserPosition> myAuthorityPositionsWithClash = (from a in myClashingRegions
+                                                                       select a.UserPosition).Distinct();
+
+
+            List<Pair<UserPosition, SelectList>> myRegionClashes = new List<Pair<UserPosition, SelectList>>();
+            foreach (UserPosition myUserPosition in myAuthorityPositionsWithClash) {
+                IDictionary<string, string> myRegionSpecificDictionary = new Dictionary<string, string>();
+                myRegionSpecificDictionary.Add(Constants.SELECT, Constants.SELECT);
+
+                foreach (RegionSpecific myRegionSpecific in myClashingRegions) {
+                    myRegionSpecificDictionary.Add(myRegionSpecific.Id.ToString(), myRegionSpecific.AlgorithmSpecificInformation + " " + myRegionSpecific.AlgorithmText);
+                }
+
+                UserRegionSpecific myUserRegionSpecific = theAuthorityVerificationService.GetRegionSpecifcInformationForUser(aUser, myUserPosition);
+
+                SelectList mySelectList = new SelectList(myRegionSpecificDictionary, "Key", "Value");
+
+                if (myUserRegionSpecific != null) {
+                    mySelectList = new SelectList(myRegionSpecificDictionary, "Key", "Value", myUserRegionSpecific.RegionSpecificId);
+                }
+
+                Pair<UserPosition, SelectList> myPair = new Pair<UserPosition, SelectList>() {
+                    First = myUserPosition,
+                    Second = mySelectList
+                };
+
+
+                myRegionClashes.Add(myPair);
+            }
+
+            return new EditUserSpecificRegionModel() {
+                RegionClashes = myRegionClashes
+            };
+        }
+
+        public void EditUserSpecificRegions(UserInformationModel<User> aUserInfo, EditUserSpecificRegionModel aModel) {
+            IEnumerable<Pair<AuthorityPosition, int>> myToUpdateOrAdd = aModel.Responses.Where(r => r.Second != 0).Select(r => r);
+            IEnumerable<Pair<AuthorityPosition, int>> myToDelete = aModel.Responses.Where(r => r.Second == 0).Select(r => r);
+            
+            theAuthorityVerificationService.UpdateUserRegionSpecifics(aUserInfo, myToUpdateOrAdd, myToDelete);
         }
 
         private void SendActivationCode(User aUser) {

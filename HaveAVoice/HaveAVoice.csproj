@@ -88,6 +88,7 @@
     <Compile Include="Controllers\Users\BoardController.cs" />
     <Compile Include="Controllers\Users\BoardReplyController.cs" />
     <Compile Include="Controllers\Users\CalendarController.cs" />
+    <Compile Include="Controllers\Users\UserSpecificRegionsController.cs" />
     <Compile Include="Controllers\Users\UserProfileQuestionsController.cs" />
     <Compile Include="Controllers\Users\FriendController.cs" />
     <Compile Include="Controllers\Users\FeedbackController.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="CustomAuthentication\AdminMemberProvider .cs" />
     <Compile Include="CustomAuthentication\AdminRoleProvider.cs" />
     <Compile Include="Helpers\Authority\AuthorityClassification.cs" />
+    <Compile Include="Helpers\Authority\AuthorityPosition.cs" />
     <Compile Include="Helpers\Constants\GroupConstants.cs" />
     <Compile Include="Helpers\Enums\FeedItem.cs" />
     <Compile Include="Helpers\FeedType.cs" />
@@ -170,11 +172,13 @@
     <Compile Include="Models\SocialWrappers\SocialWhoIsOnlineModel.cs" />
     <Compile Include="Models\SocialWrappers\SocialUserModel.cs" />
     <Compile Include="Models\UpdateUserProfileQuestionsModel.cs" />
+    <Compile Include="Models\View\Binders\UpdateUserRegionSpecificsModelBinder.cs" />
     <Compile Include="Models\View\Binders\UpdateUserProfileQuestionsModelBinder.cs" />
     <Compile Include="Models\View\AuthorityVerificationModel.cs" />
     <Compile Include="Models\View\Binders\UpdatePrivacySettingsModelBinder.cs" />
     <Compile Include="Models\View\Binders\ImageBinder.cs" />
     <Compile Include="Models\View\BoardFeedModel.cs" />
+    <Compile Include="Models\View\EditUserSpecificRegionModel.cs" />
     <Compile Include="Models\View\EventViewModel.cs" />
     <Compile Include="Models\View\GroupSearchModel.cs" />
     <Compile Include="Models\View\CreatePetitionModel.cs" />
@@ -507,6 +511,7 @@
     <Content Include="Views\Password\Process.aspx" />
     <Content Include="Views\UserProfileQuestions\Edit.aspx" />
     <Content Include="Views\UserProfileQuestions\List.aspx" />
+    <Content Include="Views\UserSpecificRegions\Edit.aspx" />
     <Content Include="Views\User\CreateAuthority.aspx" />
     <Content Include="Views\User\Create.aspx" />
     <Content Include="Views\User\Edit.aspx" />

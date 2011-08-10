@@ -8,5 +8,6 @@ namespace HaveAVoice.Helpers.UserInformation {
         AccountSettings = 1,
         PrivacySettings = 2,
         ProfileQuestions = 3,
+        RegionSpecifics = 4
     }
 }

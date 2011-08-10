@@ -14,6 +14,9 @@ using Social.Validation;
 using Social.Generic.Constants;
 using Social.Admin.Exceptions;
 using System.Linq;
+using Social.Generic;
+using HaveAVoice.Helpers.Authority;
+using System.Collections;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVAuthorityVerificationService : IHAVAuthorityVerificationService {
@@ -56,6 +59,14 @@ namespace HaveAVoice.Services.UserFeatures {
             }
 
             return theAuthenticationRepo.GetAuthorityViewableZipCodes(anEmail);
+        }
+
+        public IEnumerable<RegionSpecific> GetClashingRegions(string aCity, string aState, int aZip) {
+            return theAuthenticationRepo.GetClashingRegions(aCity, aState, aZip);
+        }
+
+        public UserRegionSpecific GetRegionSpecifcInformationForUser(User aUser, UserPosition aUserPosition) {
+            return theAuthenticationRepo.GetRegionSpecifcInformationForUser(aUser, aUserPosition);
         }
 
         public bool RequestTokenForAuthority(UserInformationModel<User> aRequestingUser, string anEmail, string anExtraInfo, string anAuthorityType, string anAuthorityPosition) {
@@ -156,6 +167,11 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public void AddExtraInfoToAuthority(User aUser, string anExtraInfo) {
             theAuthenticationRepo.SetExtraInfoForAuthority(aUser, anExtraInfo);
+        }
+
+
+        public void UpdateUserRegionSpecifics(UserInformationModel<User> aUserInfo, IEnumerable<Pair<AuthorityPosition, int>> aToAddAndUpdate, IEnumerable<Pair<AuthorityPosition, int>> aToRemove) {
+            theAuthenticationRepo.UpdateUserRegionSpecifics(aUserInfo.Details, aToAddAndUpdate, aToRemove);
         }
     }
 }

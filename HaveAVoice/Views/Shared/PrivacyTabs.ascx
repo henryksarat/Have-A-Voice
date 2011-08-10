@@ -11,16 +11,25 @@
 		    <li><%= Html.ActionLink("Account Settings", "Edit", "User", null, new { @class = "active" }) %></li>
 		    <li><%= Html.ActionLink("Privacy Settings", "Edit", "UserPrivacySettings", null, null)%></li>
             <li><%= Html.ActionLink("Profile Questions", "Edit", "UserProfileQuestions", null, null) %></li>
+            <li><%= Html.ActionLink("Region Specifics", "Edit", "UserSpecificRegions", null, null)%></li>
         <% } %>
         <% if(Model.Equals(UserSettings.PrivacySettings)) { %>
 		    <li><%= Html.ActionLink("Account Settings", "Edit", "User", null, null) %></li>
 		    <li><%= Html.ActionLink("Privacy Settings", "Edit", "UserPrivacySettings", null, new { @class = "active" })%></li>
             <li><%= Html.ActionLink("Profile Questions", "Edit", "UserProfileQuestions", null, null) %></li>
+            <li><%= Html.ActionLink("Region Specifics", "Edit", "UserSpecificRegions", null, null)%></li>
         <% } %>
         <% if(Model.Equals(UserSettings.ProfileQuestions)) { %>
 		    <li><%= Html.ActionLink("Account Settings", "Edit", "User", null, null) %></li>
 		    <li><%= Html.ActionLink("Privacy Settings", "Edit", "UserPrivacySettings", null, null)%></li>
             <li><%= Html.ActionLink("Profile Questions", "Edit", "UserProfileQuestions", null, new { @class = "active" })%></li>
+            <li><%= Html.ActionLink("Region Specifics", "Edit", "UserSpecificRegions", null, null)%></li>
+        <% } %>
+        <% if(Model.Equals(UserSettings.RegionSpecifics)) { %>
+		    <li><%= Html.ActionLink("Account Settings", "Edit", "User", null, null) %></li>
+		    <li><%= Html.ActionLink("Privacy Settings", "Edit", "UserPrivacySettings", null, null)%></li>
+            <li><%= Html.ActionLink("Profile Questions", "Edit", "UserProfileQuestions", null, null)%></li>
+            <li><%= Html.ActionLink("Region Specifics", "Edit", "UserSpecificRegions", null, new { @class = "active" })%></li>
         <% } %>
 	</ul>
 	<div class="clear">&nbsp;</div>

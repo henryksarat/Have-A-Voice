@@ -24,6 +24,8 @@ namespace HaveAVoice {
             ModelBinders.Binders.Add(typeof(UpdatePrivacySettingsModel<PrivacySetting>), new UpdatePrivacySettingsModelBinder());
             ModelBinders.Binders.Remove(typeof(UpdateUserProfileQuestionsModel));
             ModelBinders.Binders.Add(typeof(UpdateUserProfileQuestionsModel), new UpdateUserProfileQuestionsModelBinder());
+            ModelBinders.Binders.Remove(typeof(EditUserSpecificRegionModel));
+            ModelBinders.Binders.Add(typeof(EditUserSpecificRegionModel), new UpdateUserRegionSpecificsModelBinder());
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(

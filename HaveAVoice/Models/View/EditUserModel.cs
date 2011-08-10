@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using Social.Generic.Constants;
+using Social.Generic;
 
 namespace HaveAVoice.Models.View {
     public class EditUserModel : CreateUserModel {

@@ -4,6 +4,8 @@ using System.Linq;
 using HaveAVoice.Models;
 using HaveAVoice.Repositories.AdminFeatures;
 using Social.Admin.Repositories;
+using HaveAVoice.Helpers.Authority;
+using Social.Generic;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVAuthorityVerificationRepository : IHAVAuthorityVerificationRepository {
@@ -24,6 +26,22 @@ namespace HaveAVoice.Repositories.UserFeatures {
             return (from z in theEntities.AuthorityViewableZipCodes
                     where z.AuthorityUser.Email == anEmail
                     select z);
+        }
+
+        public IEnumerable<RegionSpecific> GetClashingRegions(string aCity, string aState, int aZip) {
+            return (from r in theEntities.RegionSpecifics
+                    where r.City == aCity
+                    && r.State == aState
+                    && r.ZipCode == aZip
+                    select r);
+        }
+
+        public UserRegionSpecific GetRegionSpecifcInformationForUser(User aUser, UserPosition aUserPosition) {
+            return (from urs in theEntities.UserRegionSpecifics
+                    join rs in theEntities.RegionSpecifics on urs.RegionSpecificId equals rs.Id
+                    where urs.UserId == aUser.Id
+                    && rs.UserPositionId == aUserPosition.Position
+                    select urs).FirstOrDefault<UserRegionSpecific>();
         }
 
         public bool IsValidEmailWithToken(string anEmail, string aToken, string anAuthorityType, string anAuthorityPosition) {
@@ -109,5 +127,44 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     where u.Email == anEmail
                     select u).FirstOrDefault<User>();
         }
+
+
+        public void UpdateUserRegionSpecifics(User aUser, IEnumerable<Pair<AuthorityPosition, int>> aRegionSpecificsToAddAndUpdate, IEnumerable<Pair<AuthorityPosition, int>> aToRemove) {
+            bool myDoSave = false;
+            //We look up which UserRegionSpecific it is for the UserPosition(First Value) then we change it to the second value in the Pair
+            foreach (Pair<AuthorityPosition, int> myToAdd in aRegionSpecificsToAddAndUpdate) {
+                UserRegionSpecific myUserRegionSpecific = GetUserRegionSpecificForUserBasedOnUserPosition(aUser, myToAdd.First.ToString());
+                if(myUserRegionSpecific == null) {
+                    myUserRegionSpecific = UserRegionSpecific.CreateUserRegionSpecific(0, aUser.Id, myToAdd.Second);
+                    theEntities.AddToUserRegionSpecifics(myUserRegionSpecific);
+                } else {
+                    myUserRegionSpecific.RegionSpecificId = myToAdd.Second;
+                    theEntities.ApplyCurrentValues(myUserRegionSpecific.EntityKey.EntitySetName, myUserRegionSpecific);
+                }
+
+                myDoSave = true;
+            }
+
+            foreach (Pair<AuthorityPosition, int> myToRemove in aToRemove) {
+                UserRegionSpecific myUserRegionSpecific = GetUserRegionSpecificForUserBasedOnUserPosition(aUser, myToRemove.First.ToString());
+                if (myUserRegionSpecific != null) {
+                    theEntities.DeleteObject(myUserRegionSpecific);
+                    myDoSave = true;
+                }
+            }
+
+            if (myDoSave) {
+                theEntities.SaveChanges();
+            }
+        }
+
+        private UserRegionSpecific GetUserRegionSpecificForUserBasedOnUserPosition(User aUser, string aPosition) {
+            return (from u in theEntities.UserRegionSpecifics
+                    join rs in theEntities.RegionSpecifics on u.RegionSpecificId equals rs.Id
+                    where u.UserId == aUser.Id
+                    && rs.UserPositionId == aPosition
+                    select u).FirstOrDefault<UserRegionSpecific>();
+        }
+
     }
 }
