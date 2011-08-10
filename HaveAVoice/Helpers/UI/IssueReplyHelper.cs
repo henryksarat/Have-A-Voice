@@ -81,7 +81,7 @@ namespace HaveAVoice.Helpers.UI {
 
             myReplyCommentPad.InnerHtml += myName.ToString();
             myReplyCommentPad.InnerHtml += "&nbsp;";
-            myReplyCommentPad.InnerHtml += anIssueReply.Reply;
+            myReplyCommentPad.InnerHtml += PresentationHelper.ReplaceCarriageReturnWithBR(anIssueReply.Reply);
             if (!myIsTempAccount) {
                 myReplyCommentPad.InnerHtml += SharedStyleHelper.Link("read-more", LinkHelper.IssueReplyUrl(anIssueReply.Id), " &raquo;&raquo; Read more and particiapte");
             }
@@ -138,7 +138,7 @@ namespace HaveAVoice.Helpers.UI {
 
             myReplyInfoPadding.InnerHtml += myUserLink.ToString();
             myReplyInfoPadding.InnerHtml += "&nbsp;";
-            myReplyInfoPadding.InnerHtml += anIssueReply.Reply;
+            myReplyInfoPadding.InnerHtml += PresentationHelper.ReplaceCarriageReturnWithBR(anIssueReply.Reply);
             myReplyInfoPadding.InnerHtml += SharedStyleHelper.ClearDiv();
 
             UserInformationModel<User> myUserInformationModel = HAVUserInformationFactory.GetUserInformation();

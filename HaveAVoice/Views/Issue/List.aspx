@@ -56,7 +56,7 @@
 		    		<div class="p-a5">
 			    		<h1><a href="<%= LinkHelper.IssueUrl(item.Issue.Title) %>"><%= item.Issue.Title %></a></h1>
 						<br />
-			    		<%= item.Issue.Description %>
+			    		<%= PresentationHelper.ReplaceCarriageReturnWithBR(item.Issue.Description) %>
 			    		<br />
                         <% string myName = NameHelper.FullName(item.Issue.User); %>
                         <% string myIssueProfile = LinkHelper.Profile(item.Issue.User); %>

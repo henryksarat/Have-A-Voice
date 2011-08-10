@@ -42,7 +42,7 @@ namespace HaveAVoice.Helpers.UI {
 
             paddingDiv.InnerHtml += href.ToString();
             paddingDiv.InnerHtml += "&nbsp;";
-            paddingDiv.InnerHtml += aComment.Comment;
+            paddingDiv.InnerHtml += PresentationHelper.ReplaceCarriageReturnWithBR(aComment.Comment);
 
             var divOptions = new TagBuilder("div");
             divOptions.MergeAttribute("class", "options p-v10");

@@ -164,7 +164,7 @@ namespace HaveAVoice.Helpers.UI {
             myIssueInfoPadding.InnerHtml += "&nbsp;";
             myIssueInfoPadding.InnerHtml += myIconSpan.ToString();
             myIssueInfoPadding.InnerHtml += new TagBuilder("br").ToString();
-            myIssueInfoPadding.InnerHtml += anIssue.Description;
+            myIssueInfoPadding.InnerHtml += PresentationHelper.ReplaceCarriageReturnWithBR(anIssue.Description);
 
             myIssueInfoPadding.InnerHtml += SharedStyleHelper.ClearDiv();
 
