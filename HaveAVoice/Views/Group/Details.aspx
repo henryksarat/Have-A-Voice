@@ -85,7 +85,7 @@
                     <div class="clear">&nbsp;
                     </div>
                     <div class="col-15 p-v10">
-                        <div class="col-3">
+                        <div class="col-8">
                             Tags:<br /> 
                             <%= string.Join(",", Model.GroupTags.Select(t => t.Tag)) %>
                         </div>
