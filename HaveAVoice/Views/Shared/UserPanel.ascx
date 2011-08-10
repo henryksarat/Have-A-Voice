@@ -63,15 +63,16 @@
 		<a href="/<%= Model.User.ShortUrl %>"><img src="<%= Model.ProfilePictureUrl %>" alt="<%= Model.FullName %>" class="profile" /></a>
 	</div>
 	<div class="col-15">
+<!--
 		<div class="m-lft col-15 m-rgt">
           
-            <%= NavigationHelper.UserNavigation(Model.SiteSection, Model.UserMenuMetaData, Model.User) %>
-            <% if (myUser != null && myUser.Details.Id == Model.User.Id) { %>
+            <%// NavigationHelper.UserNavigation(Model.SiteSection, Model.UserMenuMetaData, Model.User) %>
+            <%// if (myUser != null && myUser.Details.Id == Model.User.Id) { %>
                 <ul class="f-rgt fnt-12">
             	    <li class="search">
             		    <a href="#" class="search">Search</a>
             		    <div class="pnl">
-            			    <% using (Html.BeginForm("DoSearch", "Search")) { %>
+            			    <% //using (Html.BeginForm("DoSearch", "Search")) { %>
 	            			    <a class="people selected" href="#" alt="Search users">Users</a>
 	            			    <input type="text" name="SearchQuery" id="SearchQuery" />
 	            			    <a class="issue" href="#" alt="Search issues">Issues</a>
@@ -83,13 +84,15 @@
 							    <div class="right">
 								    <input type="submit" class="button" value="Search" />
 							    </div>
-	            		    <% } %>
+	            		    <%// } %>
             		    </div>
             	    </li>
                 </ul>
-            <% } %>
+            <% //} %>
+
             <div class="clear">&nbsp;</div>
 		</div>
+-->
 		<div class="clear">&nbsp;</div>
 
 		<div class="m-lft col-15 m-rgt user-control">

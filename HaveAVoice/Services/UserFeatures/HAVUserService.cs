@@ -17,6 +17,7 @@ using System.Linq;
 using Social.Generic;
 using Social.Generic.Models;
 using HaveAVoice.Helpers.Authority;
+using System.Text.RegularExpressions;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVUserService : IHAVUserService {
@@ -82,8 +83,7 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         public bool EditUser(EditUserModel aUser, string aHashedPassword) {
-            if (!ValidateEditedUser(aUser, aUser.OriginalEmail)
-                | ((aUser.NewPassword != string.Empty || aUser.RetypedPassword != string.Empty)
+            if (!ValidateEditedUser(aUser, aUser.OriginalEmail) | ((aUser.NewPassword != string.Empty || aUser.RetypedPassword != string.Empty)
                     && !PasswordValidation.ValidPassword(theValidationDictionary, aUser.NewPassword, aUser.RetypedPassword))) {
                 return false;
             } 
@@ -262,12 +262,19 @@ namespace HaveAVoice.Services.UserFeatures {
             if (!EmailValidation.IsValidEmail(aUser.Email)) {
                 theValidationDictionary.AddError("Email", aUser.Email, INVALID_EMAIL);
             }
-            if (!string.IsNullOrEmpty(aUser.ShortUrl) && theUserRepo.ShortUrlTaken(aUser.ShortUrl)) {
-                theValidationDictionary.AddError("ShortUrl", aUser.ShortUrl, "That have a voice URL is already taken by another member.");
+            if (!string.IsNullOrEmpty(aUser.ShortUrl)) {
+                if (theUserRepo.ShortUrlTaken(aUser.ShortUrl)) {
+                    theValidationDictionary.AddError("ShortUrl", aUser.ShortUrl, "That have a voice URL is already taken by another member.");
+                } else {
+                    Regex myRegex = new Regex(RegexHelper.OnlyCharactersAndNumbers(), RegexOptions.IgnoreCase);
+                    Match myMatch = myRegex.Match(aUser.ShortUrl);
+                    if (!myMatch.Success) {
+                        theValidationDictionary.AddError("ShortUrl", aUser.ShortUrl, "That have a voice URL can only consist of letters, numbers, and periods.");
+                    }
+                }
             }
-            if (!string.IsNullOrEmpty(aUser.Username) 
-                && !string.IsNullOrEmpty(aUser.OriginalUsername) 
-                && theUserRepo.IsUserNameTaken(aUser.Username)) {
+
+            if (!string.IsNullOrEmpty(aUser.Username) && theUserRepo.IsUserNameTaken(aUser.Username.Trim())) {
                 theValidationDictionary.AddError("Username", aUser.Username, "That username is already taken. Please choose another.");
             } else if (!string.IsNullOrEmpty(aUser.Username) && !VarCharValidation.Valid15Length(aUser.Username)) {
                 theValidationDictionary.AddError("Username", aUser.Username, "A username can only have a max of 15 characters..");

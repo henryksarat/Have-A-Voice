@@ -8,5 +8,9 @@ namespace HaveAVoice.Helpers {
         public static string IssueTitleRegex() {
             return @"^[a-zA-Z0-9]+(([\'\,\.\.\! -a-zA-Z0-9])?[a-zA-Z0-9]*)*$";
         }
+
+        public static string OnlyCharactersAndNumbers() {
+            return @"^[a-zA-Z0-9\.]+$";
+        }
     }
 }
