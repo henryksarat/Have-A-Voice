@@ -192,9 +192,12 @@
 						<a href="/Site/Privacy">Privacy Policy</a>
 						|
 						<a href="/Site/ContactUs">Contact Us</a>
+                        |
+						<a href="http://www.haveavoiceblog.com">Blog</a>
 						|
 						<a href="/Site/AboutUs">About Have a Voice</a>
-						<a href="http://www.twitter.com/haveavoice" class="twitter">twitter</a>
+                        <a href="http://www.haveavoiceblog.com" class="wordpress">Wordpress</a>
+						<a href="http://www.twitter.com/haveavoice" class="twitter">Twitter</a>
 						<a href="http://www.facebook.com/haveavoice" class="facebook">Facebook</a>
 					</div>
 				</div>
