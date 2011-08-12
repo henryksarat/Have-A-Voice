@@ -35,6 +35,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\bin\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -76,6 +79,7 @@
     <Compile Include="Controllers\Core\AuthorityZipCodesController.cs" />
     <Compile Include="Controllers\Core\PasswordController.cs" />
     <Compile Include="Controllers\Core\SiteController.cs" />
+    <Compile Include="Controllers\Geographic\StreetCleaningController.cs" />
     <Compile Include="Controllers\Groups\GroupBoardController.cs" />
     <Compile Include="Controllers\Groups\GroupController.cs" />
     <Compile Include="Controllers\Groups\GroupMemberController.cs" />
@@ -440,6 +444,7 @@
     <Content Include="Views\Board\Details.aspx" />
     <Content Include="Views\Calendar\List.aspx" />
     <Content Include="Views\Complaint\Create.aspx" />
+    <Content Include="Views\StreetCleaning\Index.aspx" />
     <Content Include="Views\GroupMember\Invite.aspx" />
     <Content Include="Views\GroupMember\Details.aspx" />
     <Content Include="Views\GroupMember\List.aspx" />
