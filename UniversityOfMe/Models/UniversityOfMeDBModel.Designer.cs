@@ -109,9 +109,9 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassEnrollments_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ClassEnrollment", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassEnrollment), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassBoardViewStates_ClassBoards", "ClassBoard", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.ClassBoard), "ClassBoardViewState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassBoardViewState), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassBoardViewStates_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ClassBoardViewState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassBoardViewState), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserBadges_Badges", "Badge", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Badge), "UserBadge", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserBadge), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserActions_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "UserAction", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserAction), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserBadges_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "UserBadge", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserBadge), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserBadges_Badges", "Badge", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Badge), "UserBadge", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserBadge), true)]
 
 #endregion
 
@@ -966,22 +966,6 @@ namespace UniversityOfMe.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<Badge> Badges
-        {
-            get
-            {
-                if ((_Badges == null))
-                {
-                    _Badges = base.CreateObjectSet<Badge>("Badges");
-                }
-                return _Badges;
-            }
-        }
-        private ObjectSet<Badge> _Badges;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<UserAction> UserActions
         {
             get
@@ -1010,6 +994,22 @@ namespace UniversityOfMe.Models
             }
         }
         private ObjectSet<UserBadge> _UserBadges;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Badge> Badges
+        {
+            get
+            {
+                if ((_Badges == null))
+                {
+                    _Badges = base.CreateObjectSet<Badge>("Badges");
+                }
+                return _Badges;
+            }
+        }
+        private ObjectSet<Badge> _Badges;
 
         #endregion
         #region AddTo Methods
@@ -1415,14 +1415,6 @@ namespace UniversityOfMe.Models
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the Badges EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToBadges(Badge badge)
-        {
-            base.AddObject("Badges", badge);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the UserActions EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToUserActions(UserAction userAction)
@@ -1436,6 +1428,14 @@ namespace UniversityOfMe.Models
         public void AddToUserBadges(UserBadge userBadge)
         {
             base.AddObject("UserBadges", userBadge);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Badges EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToBadges(Badge badge)
+        {
+            base.AddObject("Badges", badge);
         }
 
         #endregion
@@ -2066,14 +2066,22 @@ namespace UniversityOfMe.Models
         /// <param name="name">Initial value of the Name property.</param>
         /// <param name="description">Initial value of the Description property.</param>
         /// <param name="image">Initial value of the Image property.</param>
-        /// <param name="points">Initial value of the Points property.</param>
-        public static Badge CreateBadge(global::System.String name, global::System.String description, global::System.String image, global::System.Int32 points)
+        /// <param name="oneHitPoints">Initial value of the OneHitPoints property.</param>
+        /// <param name="totalPoints">Initial value of the TotalPoints property.</param>
+        /// <param name="action">Initial value of the Action property.</param>
+        /// <param name="section">Initial value of the Section property.</param>
+        /// <param name="level">Initial value of the Level property.</param>
+        public static Badge CreateBadge(global::System.String name, global::System.String description, global::System.String image, global::System.Int32 oneHitPoints, global::System.Int32 totalPoints, global::System.String action, global::System.String section, global::System.Int32 level)
         {
             Badge badge = new Badge();
             badge.Name = name;
             badge.Description = description;
             badge.Image = image;
-            badge.Points = points;
+            badge.OneHitPoints = oneHitPoints;
+            badge.TotalPoints = totalPoints;
+            badge.Action = action;
+            badge.Section = section;
+            badge.Level = level;
             return badge;
         }
 
@@ -2160,24 +2168,120 @@ namespace UniversityOfMe.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 Points
+        public global::System.Int32 OneHitPoints
         {
             get
             {
-                return _Points;
+                return _OneHitPoints;
             }
             set
             {
-                OnPointsChanging(value);
-                ReportPropertyChanging("Points");
-                _Points = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Points");
-                OnPointsChanged();
+                OnOneHitPointsChanging(value);
+                ReportPropertyChanging("OneHitPoints");
+                _OneHitPoints = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("OneHitPoints");
+                OnOneHitPointsChanged();
             }
         }
-        private global::System.Int32 _Points;
-        partial void OnPointsChanging(global::System.Int32 value);
-        partial void OnPointsChanged();
+        private global::System.Int32 _OneHitPoints;
+        partial void OnOneHitPointsChanging(global::System.Int32 value);
+        partial void OnOneHitPointsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 TotalPoints
+        {
+            get
+            {
+                return _TotalPoints;
+            }
+            set
+            {
+                OnTotalPointsChanging(value);
+                ReportPropertyChanging("TotalPoints");
+                _TotalPoints = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TotalPoints");
+                OnTotalPointsChanged();
+            }
+        }
+        private global::System.Int32 _TotalPoints;
+        partial void OnTotalPointsChanging(global::System.Int32 value);
+        partial void OnTotalPointsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Action
+        {
+            get
+            {
+                return _Action;
+            }
+            set
+            {
+                OnActionChanging(value);
+                ReportPropertyChanging("Action");
+                _Action = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Action");
+                OnActionChanged();
+            }
+        }
+        private global::System.String _Action;
+        partial void OnActionChanging(global::System.String value);
+        partial void OnActionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Section
+        {
+            get
+            {
+                return _Section;
+            }
+            set
+            {
+                OnSectionChanging(value);
+                ReportPropertyChanging("Section");
+                _Section = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Section");
+                OnSectionChanged();
+            }
+        }
+        private global::System.String _Section;
+        partial void OnSectionChanging(global::System.String value);
+        partial void OnSectionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Level
+        {
+            get
+            {
+                return _Level;
+            }
+            set
+            {
+                OnLevelChanging(value);
+                ReportPropertyChanging("Level");
+                _Level = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Level");
+                OnLevelChanged();
+            }
+        }
+        private global::System.Int32 _Level;
+        partial void OnLevelChanging(global::System.Int32 value);
+        partial void OnLevelChanged();
 
         #endregion
     
@@ -16411,13 +16515,17 @@ namespace UniversityOfMe.Models
         /// <param name="userId">Initial value of the UserId property.</param>
         /// <param name="badgeName">Initial value of the BadgeName property.</param>
         /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
-        public static UserBadge CreateUserBadge(global::System.Int32 id, global::System.Int32 userId, global::System.String badgeName, global::System.DateTime dateTimeStamp)
+        /// <param name="currentPoints">Initial value of the CurrentPoints property.</param>
+        /// <param name="received">Initial value of the Received property.</param>
+        public static UserBadge CreateUserBadge(global::System.Int32 id, global::System.Int32 userId, global::System.String badgeName, global::System.DateTime dateTimeStamp, global::System.Int32 currentPoints, global::System.Boolean received)
         {
             UserBadge userBadge = new UserBadge();
             userBadge.Id = id;
             userBadge.UserId = userId;
             userBadge.BadgeName = badgeName;
             userBadge.DateTimeStamp = dateTimeStamp;
+            userBadge.CurrentPoints = currentPoints;
+            userBadge.Received = received;
             return userBadge;
         }
 
@@ -16522,48 +16630,58 @@ namespace UniversityOfMe.Models
         private global::System.DateTime _DateTimeStamp;
         partial void OnDateTimeStampChanging(global::System.DateTime value);
         partial void OnDateTimeStampChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 CurrentPoints
+        {
+            get
+            {
+                return _CurrentPoints;
+            }
+            set
+            {
+                OnCurrentPointsChanging(value);
+                ReportPropertyChanging("CurrentPoints");
+                _CurrentPoints = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CurrentPoints");
+                OnCurrentPointsChanged();
+            }
+        }
+        private global::System.Int32 _CurrentPoints;
+        partial void OnCurrentPointsChanging(global::System.Int32 value);
+        partial void OnCurrentPointsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Received
+        {
+            get
+            {
+                return _Received;
+            }
+            set
+            {
+                OnReceivedChanging(value);
+                ReportPropertyChanging("Received");
+                _Received = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Received");
+                OnReceivedChanged();
+            }
+        }
+        private global::System.Boolean _Received;
+        partial void OnReceivedChanging(global::System.Boolean value);
+        partial void OnReceivedChanged();
 
         #endregion
     
         #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_UserBadges_Badges", "Badge")]
-        public Badge Badge
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Badge>("UniversityOfMeModel.FK_UserBadges_Badges", "Badge").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Badge>("UniversityOfMeModel.FK_UserBadges_Badges", "Badge").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Badge> BadgeReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Badge>("UniversityOfMeModel.FK_UserBadges_Badges", "Badge");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Badge>("UniversityOfMeModel.FK_UserBadges_Badges", "Badge", value);
-                }
-            }
-        }
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -16599,6 +16717,44 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_UserBadges_Users", "User", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_UserBadges_Badges", "Badge")]
+        public Badge Badge
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Badge>("UniversityOfMeModel.FK_UserBadges_Badges", "Badge").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Badge>("UniversityOfMeModel.FK_UserBadges_Badges", "Badge").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Badge> BadgeReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Badge>("UniversityOfMeModel.FK_UserBadges_Badges", "Badge");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Badge>("UniversityOfMeModel.FK_UserBadges_Badges", "Badge", value);
                 }
             }
         }
