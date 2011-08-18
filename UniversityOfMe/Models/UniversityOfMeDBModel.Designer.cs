@@ -109,6 +109,9 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassEnrollments_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ClassEnrollment", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassEnrollment), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassBoardViewStates_ClassBoards", "ClassBoard", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.ClassBoard), "ClassBoardViewState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassBoardViewState), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassBoardViewStates_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "ClassBoardViewState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassBoardViewState), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserBadges_Badges", "Badge", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Badge), "UserBadge", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserBadge), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserActions_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "UserAction", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserAction), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserBadges_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "UserBadge", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserBadge), true)]
 
 #endregion
 
@@ -959,6 +962,54 @@ namespace UniversityOfMe.Models
             }
         }
         private ObjectSet<ClassBoardViewState> _ClassBoardViewStates;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Badge> Badges
+        {
+            get
+            {
+                if ((_Badges == null))
+                {
+                    _Badges = base.CreateObjectSet<Badge>("Badges");
+                }
+                return _Badges;
+            }
+        }
+        private ObjectSet<Badge> _Badges;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<UserAction> UserActions
+        {
+            get
+            {
+                if ((_UserActions == null))
+                {
+                    _UserActions = base.CreateObjectSet<UserAction>("UserActions");
+                }
+                return _UserActions;
+            }
+        }
+        private ObjectSet<UserAction> _UserActions;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<UserBadge> UserBadges
+        {
+            get
+            {
+                if ((_UserBadges == null))
+                {
+                    _UserBadges = base.CreateObjectSet<UserBadge>("UserBadges");
+                }
+                return _UserBadges;
+            }
+        }
+        private ObjectSet<UserBadge> _UserBadges;
 
         #endregion
         #region AddTo Methods
@@ -1361,6 +1412,30 @@ namespace UniversityOfMe.Models
         public void AddToClassBoardViewStates(ClassBoardViewState classBoardViewState)
         {
             base.AddObject("ClassBoardViewStates", classBoardViewState);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Badges EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToBadges(Badge badge)
+        {
+            base.AddObject("Badges", badge);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the UserActions EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToUserActions(UserAction userAction)
+        {
+            base.AddObject("UserActions", userAction);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the UserBadges EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToUserBadges(UserBadge userBadge)
+        {
+            base.AddObject("UserBadges", userBadge);
         }
 
         #endregion
@@ -1968,6 +2043,164 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_AuditBoardReplies_Users", "User", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="Badge")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Badge : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Badge object.
+        /// </summary>
+        /// <param name="name">Initial value of the Name property.</param>
+        /// <param name="description">Initial value of the Description property.</param>
+        /// <param name="image">Initial value of the Image property.</param>
+        /// <param name="points">Initial value of the Points property.</param>
+        public static Badge CreateBadge(global::System.String name, global::System.String description, global::System.String image, global::System.Int32 points)
+        {
+            Badge badge = new Badge();
+            badge.Name = name;
+            badge.Description = description;
+            badge.Image = image;
+            badge.Points = points;
+            return badge;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                if (_Name != value)
+                {
+                    OnNameChanging(value);
+                    ReportPropertyChanging("Name");
+                    _Name = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("Name");
+                    OnNameChanged();
+                }
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Description
+        {
+            get
+            {
+                return _Description;
+            }
+            set
+            {
+                OnDescriptionChanging(value);
+                ReportPropertyChanging("Description");
+                _Description = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Description");
+                OnDescriptionChanged();
+            }
+        }
+        private global::System.String _Description;
+        partial void OnDescriptionChanging(global::System.String value);
+        partial void OnDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Image
+        {
+            get
+            {
+                return _Image;
+            }
+            set
+            {
+                OnImageChanging(value);
+                ReportPropertyChanging("Image");
+                _Image = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Image");
+                OnImageChanged();
+            }
+        }
+        private global::System.String _Image;
+        partial void OnImageChanging(global::System.String value);
+        partial void OnImageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Points
+        {
+            get
+            {
+                return _Points;
+            }
+            set
+            {
+                OnPointsChanging(value);
+                ReportPropertyChanging("Points");
+                _Points = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Points");
+                OnPointsChanged();
+            }
+        }
+        private global::System.Int32 _Points;
+        partial void OnPointsChanging(global::System.Int32 value);
+        partial void OnPointsChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_UserBadges_Badges", "UserBadge")]
+        public EntityCollection<UserBadge> UserBadges
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserBadge>("UniversityOfMeModel.FK_UserBadges_Badges", "UserBadge");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserBadge>("UniversityOfMeModel.FK_UserBadges_Badges", "UserBadge", value);
                 }
             }
         }
@@ -15884,6 +16117,488 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClassBoardViewState>("UniversityOfMeModel.FK_ClassBoardViewStates_Users", "ClassBoardViewState", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_UserActions_Users", "UserAction")]
+        public EntityCollection<UserAction> UserActions
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserAction>("UniversityOfMeModel.FK_UserActions_Users", "UserAction");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserAction>("UniversityOfMeModel.FK_UserActions_Users", "UserAction", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_UserBadges_Users", "UserBadge")]
+        public EntityCollection<UserBadge> UserBadges
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserBadge>("UniversityOfMeModel.FK_UserBadges_Users", "UserBadge");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserBadge>("UniversityOfMeModel.FK_UserBadges_Users", "UserBadge", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="UserAction")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class UserAction : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new UserAction object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="actionName">Initial value of the ActionName property.</param>
+        /// <param name="sectionName">Initial value of the SectionName property.</param>
+        /// <param name="sectionId">Initial value of the SectionId property.</param>
+        /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
+        public static UserAction CreateUserAction(global::System.Int32 id, global::System.Int32 userId, global::System.String actionName, global::System.String sectionName, global::System.Int32 sectionId, global::System.DateTime dateTimeStamp)
+        {
+            UserAction userAction = new UserAction();
+            userAction.Id = id;
+            userAction.UserId = userId;
+            userAction.ActionName = actionName;
+            userAction.SectionName = sectionName;
+            userAction.SectionId = sectionId;
+            userAction.DateTimeStamp = dateTimeStamp;
+            return userAction;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
+            }
+        }
+        private global::System.Int32 _UserId;
+        partial void OnUserIdChanging(global::System.Int32 value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ActionName
+        {
+            get
+            {
+                return _ActionName;
+            }
+            set
+            {
+                OnActionNameChanging(value);
+                ReportPropertyChanging("ActionName");
+                _ActionName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ActionName");
+                OnActionNameChanged();
+            }
+        }
+        private global::System.String _ActionName;
+        partial void OnActionNameChanging(global::System.String value);
+        partial void OnActionNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String SectionName
+        {
+            get
+            {
+                return _SectionName;
+            }
+            set
+            {
+                OnSectionNameChanging(value);
+                ReportPropertyChanging("SectionName");
+                _SectionName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("SectionName");
+                OnSectionNameChanged();
+            }
+        }
+        private global::System.String _SectionName;
+        partial void OnSectionNameChanging(global::System.String value);
+        partial void OnSectionNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 SectionId
+        {
+            get
+            {
+                return _SectionId;
+            }
+            set
+            {
+                OnSectionIdChanging(value);
+                ReportPropertyChanging("SectionId");
+                _SectionId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("SectionId");
+                OnSectionIdChanged();
+            }
+        }
+        private global::System.Int32 _SectionId;
+        partial void OnSectionIdChanging(global::System.Int32 value);
+        partial void OnSectionIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateTimeStamp
+        {
+            get
+            {
+                return _DateTimeStamp;
+            }
+            set
+            {
+                OnDateTimeStampChanging(value);
+                ReportPropertyChanging("DateTimeStamp");
+                _DateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateTimeStamp");
+                OnDateTimeStampChanged();
+            }
+        }
+        private global::System.DateTime _DateTimeStamp;
+        partial void OnDateTimeStampChanging(global::System.DateTime value);
+        partial void OnDateTimeStampChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_UserActions_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_UserActions_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_UserActions_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_UserActions_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_UserActions_Users", "User", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="UserBadge")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class UserBadge : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new UserBadge object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="badgeName">Initial value of the BadgeName property.</param>
+        /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
+        public static UserBadge CreateUserBadge(global::System.Int32 id, global::System.Int32 userId, global::System.String badgeName, global::System.DateTime dateTimeStamp)
+        {
+            UserBadge userBadge = new UserBadge();
+            userBadge.Id = id;
+            userBadge.UserId = userId;
+            userBadge.BadgeName = badgeName;
+            userBadge.DateTimeStamp = dateTimeStamp;
+            return userBadge;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
+            }
+        }
+        private global::System.Int32 _UserId;
+        partial void OnUserIdChanging(global::System.Int32 value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String BadgeName
+        {
+            get
+            {
+                return _BadgeName;
+            }
+            set
+            {
+                OnBadgeNameChanging(value);
+                ReportPropertyChanging("BadgeName");
+                _BadgeName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("BadgeName");
+                OnBadgeNameChanged();
+            }
+        }
+        private global::System.String _BadgeName;
+        partial void OnBadgeNameChanging(global::System.String value);
+        partial void OnBadgeNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateTimeStamp
+        {
+            get
+            {
+                return _DateTimeStamp;
+            }
+            set
+            {
+                OnDateTimeStampChanging(value);
+                ReportPropertyChanging("DateTimeStamp");
+                _DateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateTimeStamp");
+                OnDateTimeStampChanged();
+            }
+        }
+        private global::System.DateTime _DateTimeStamp;
+        partial void OnDateTimeStampChanging(global::System.DateTime value);
+        partial void OnDateTimeStampChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_UserBadges_Badges", "Badge")]
+        public Badge Badge
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Badge>("UniversityOfMeModel.FK_UserBadges_Badges", "Badge").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Badge>("UniversityOfMeModel.FK_UserBadges_Badges", "Badge").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Badge> BadgeReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Badge>("UniversityOfMeModel.FK_UserBadges_Badges", "Badge");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Badge>("UniversityOfMeModel.FK_UserBadges_Badges", "Badge", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_UserBadges_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_UserBadges_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_UserBadges_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_UserBadges_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_UserBadges_Users", "User", value);
                 }
             }
         }

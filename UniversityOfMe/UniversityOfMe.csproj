@@ -118,6 +118,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Badges\BadgeAction.cs" />
+    <Compile Include="Helpers\Badges\BadgeSection.cs" />
     <Compile Include="Helpers\ClassHelper.cs" />
     <Compile Include="Helpers\ClassViewType.cs" />
     <Compile Include="Helpers\Constants\ClubConstants.cs" />
@@ -212,6 +214,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AdminRepos\EntityPermissionRepository.cs" />
     <Compile Include="Repositories\AdminRepos\EntityRoleRepository.cs" />
+    <Compile Include="Repositories\Badges\BadgeRepository.cs" />
+    <Compile Include="Repositories\Badges\IBadgeRepository.cs" />
     <Compile Include="Repositories\Boards\EntityBoardRepository.cs" />
     <Compile Include="Repositories\Boards\IBoardRepository.cs" />
     <Compile Include="Repositories\Classes\EntityClassRepository.cs" />
