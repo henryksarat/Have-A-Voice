@@ -92,7 +92,7 @@ namespace UniversityOfMe.Controllers.Clubs {
                 TempData["Message"] += MessageHelper.ErrorMessage(REQUEST_ERROR);
             }
 
-            return RedirectToAction("Details", "Club", new { id = clubId });
+            return RedirectToAction("Details", "Club", new { id = clubId, universityId = universityId });
         }
 
         [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
@@ -111,7 +111,7 @@ namespace UniversityOfMe.Controllers.Clubs {
                 TempData["Message"] += MessageHelper.ErrorMessage(REMOVE_ERROR);
             }
 
-            return RedirectToAction("Details", "Club", new { id = clubId });
+            return RedirectToAction("Details", "Club", new { id = clubId, universityId = universityId });
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]

@@ -200,17 +200,6 @@
 					</div>
 					<div class="clear">&nbsp;</div>
 					<div class="spacer-10">&nbsp;</div>
-
-					<!-- 
-					<div class="col-4 m-rgt right">
-						<label for="Captcha">Captcha:</label>
-					</div>
-					<div class="col-18">
-						<%= CaptchaHelper.GenerateCaptcha() %>
-					</div>
-					<div class="clear">&nbsp;</div>
-					<div class="spacer-10">&nbsp;</div>
-                    -->
 										
 					<div class="col-10">&nbsp;</div>
 					<div class="clear">&nbsp;</div>

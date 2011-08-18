@@ -5,7 +5,7 @@
 <%@ Import Namespace="Social.ViewHelpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Inbox
+	<%= UOMConstants.TITLE %> = Your Friends
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">

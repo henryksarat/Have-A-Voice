@@ -295,10 +295,6 @@
     <Compile Include="Models\View\RoleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\UniversityOfMe.mdf" />
-    <Content Include="App_Data\UniversityOfMe_log.ldf">
-      <DependentUpon>UniversityOfMe.mdf</DependentUpon>
-    </Content>
     <Content Include="ClubPhotos\chessteam_1017192034.jpg" />
     <Content Include="ClubPhotos\no_photo.png" />
     <Content Include="Content\css\ui-lightness\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
@@ -447,7 +443,9 @@
     <Content Include="Views\UserPrivacySetting\Edit.aspx" />
     <Content Include="Views\User\Create.aspx" />
     <Content Include="Views\User\Edit.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -471,6 +469,7 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Models\Wrappers\" />
     <Folder Include="ProfessorPhotos\" />
     <Folder Include="TextBookPhotos\" />

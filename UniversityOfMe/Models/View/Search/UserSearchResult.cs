@@ -24,16 +24,6 @@ namespace UniversityOfMe.Models.View.Search {
             mySendMessage.AddCssClass("pm");
             mySendMessage.InnerHtml += "Send a Message";
 
-            var myAddFriend = new TagBuilder("a");
-            myAddFriend.AddCssClass("addfriend");
-            myAddFriend.MergeAttribute("href", URLHelper.AddFriendUrl(theUser));
-            myAddFriend.InnerHtml += "Add as Friend";
-
-            var myRemoveFriend = new TagBuilder("a");
-            myRemoveFriend.AddCssClass("defriend");
-            myRemoveFriend.MergeAttribute("href", URLHelper.RemoveFriendUrl(theUser));
-            myRemoveFriend.InnerHtml += "Remove as Friend";
-
             var mySendBeer = new TagBuilder("a");
             mySendBeer.AddCssClass("beer");
             mySendBeer.MergeAttribute("href", URLHelper.SendItemUrl(theUser, SendItemOptions.BEER));
@@ -41,10 +31,21 @@ namespace UniversityOfMe.Models.View.Search {
 
             myActionsDiv.InnerHtml += mySendMessage.ToString();
             myActionsDiv.InnerHtml += "<br />";
-            if (!FriendHelper.IsFriend(UserInformationModel.Details, theUser)) {
+            if(FriendHelper.IsPendingFriendRequest(UserInformationModel.Details, theUser)) {
+                myActionsDiv.InnerHtml += "Pending Friend Request";
+                myActionsDiv.InnerHtml += "<br />";
+            } else if (!FriendHelper.IsFriend(UserInformationModel.Details, theUser)) {
+                var myAddFriend = new TagBuilder("a");
+                myAddFriend.AddCssClass("addfriend");
+                myAddFriend.MergeAttribute("href", URLHelper.AddFriendUrl(theUser));
+                myAddFriend.InnerHtml += "Add as Friend";
                 myActionsDiv.InnerHtml += myAddFriend.ToString();
                 myActionsDiv.InnerHtml += "<br />";
             } else {
+                var myRemoveFriend = new TagBuilder("a");
+                myRemoveFriend.AddCssClass("defriend");
+                myRemoveFriend.MergeAttribute("href", URLHelper.RemoveFriendUrl(theUser));
+                myRemoveFriend.InnerHtml += "Remove as Friend";
                 myActionsDiv.InnerHtml += myRemoveFriend.ToString();
                 myActionsDiv.InnerHtml += "<br />";
             }

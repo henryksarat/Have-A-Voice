@@ -51,15 +51,15 @@ namespace UniversityOfMe.Helpers {
         }
 
         public static string BuildOrganizationCancelRequestToJoin(Club aClub) {
-            return "/ClubMember/Cancel?clubId=" + aClub.Id;
+            return "/ClubMember/Cancel?clubId=" + aClub.Id + "&universityId=" + aClub.UniversityId;
         }
 
         public static string BuildOrganizationQuitOrganization(Club aClub) {
-            return "/ClubMember/Remove?clubId=" + aClub.Id;
+            return "/ClubMember/Remove?clubId=" + aClub.Id + "&universityId=" + aClub.UniversityId;
         }
 
         public static string BuildOrganizationRequestToJoin(Club aClub) {
-            return "/ClubMember/RequestToJoin?clubId=" + aClub.Id;
+            return "/ClubMember/RequestToJoin?clubId=" + aClub.Id +"&universityId=" + aClub.UniversityId;
         }
 
         public static string BuildOrganizationSetAsInactive(Club aClub) {

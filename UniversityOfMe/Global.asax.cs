@@ -116,7 +116,7 @@ namespace UniversityOfMe {
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "Por", action = "Que", id = UrlParameter.Optional } // Parameter defaults
+                new { controller = "Site", action = "Main", id = UrlParameter.Optional } // Parameter defaults
             );
         }
 

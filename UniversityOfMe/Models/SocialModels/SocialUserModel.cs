@@ -48,7 +48,6 @@ namespace UniversityOfMe.Models.SocialModels {
             ActivationCode = anExternal.ActivationCode;
             ForgotPasswordHash = anExternal.ForgotPasswordHash;
             ForgotPasswordHashDateTimeStamp = anExternal.ForgotPasswordHashDateTimeStamp;
-            ShortUrl = anExternal.ShortUrl;
             Zip = anExternal.Zip;
 
             Model = anExternal;

@@ -8,9 +8,6 @@ using Social.Generic.Models;
 namespace UniversityOfMe.Models.View {
     public class EventViewModel : AbstractEventViewModel {
         [DisplayFormat(ConvertEmptyStringToNull = false)]
-        public string Title { get; set; }
-
-        [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string UniversityId { get; set; }
 
         public IEnumerable<SelectListItem> EventPrivacyOptions { get; set; }

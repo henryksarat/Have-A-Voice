@@ -17,5 +17,27 @@ namespace UniversityOfMe.Helpers {
 
             return myIsFriend;
         }
+
+        public static bool IsPendingFriendRequest(User aSourceUser, User aTargetUserCheckingToSeeIfPendingFriendRequest) {
+            bool myIsPending = false;
+
+            if (aSourceUser.Id != aTargetUserCheckingToSeeIfPendingFriendRequest.Id) {
+                Friend myPossibleFriendRequest = (from f in aSourceUser.Friends
+                                                  where f.SourceUserId == aTargetUserCheckingToSeeIfPendingFriendRequest.Id
+                                                  select f).FirstOrDefault<Friend>();
+                if (myPossibleFriendRequest != null) {
+                    myIsPending = !myPossibleFriendRequest.Approved;
+                } else {
+                    myPossibleFriendRequest = (from f in aTargetUserCheckingToSeeIfPendingFriendRequest.Friends
+                                               where f.SourceUserId == aSourceUser.Id
+                                               select f).FirstOrDefault<Friend>();
+                    if (myPossibleFriendRequest != null) {
+                        myIsPending = !myPossibleFriendRequest.Approved;
+                    }
+                }
+            }
+
+            return myIsPending;
+        }
     }
 }
