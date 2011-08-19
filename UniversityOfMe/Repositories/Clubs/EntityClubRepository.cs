@@ -3,6 +3,8 @@ using System.Linq;
 using UniversityOfMe.Models;
 using System.Collections.Generic;
 using UniversityOfMe.Helpers;
+using UniversityOfMe.Repositories.Helpers;
+using UniversityOfMe.Helpers.Badges;
 
 namespace UniversityOfMe.Repositories.Clubs {
     public class EntityClubRepository : IClubRepository {
@@ -23,6 +25,9 @@ namespace UniversityOfMe.Repositories.Clubs {
             myClubMember.Approved = UOMConstants.APPROVED;
             myClubMember.ApprovedByUserId = anAdminUser.Id;
             myClubMember.ApprovedDateTimeStamp = DateTime.UtcNow;
+
+            BadgeHelper.AddNecessaryBadgesAndPoints(theEntities, myClubMember.ClubMemberUserId, BadgeAction.JOINED, BadgeSection.ORGANIZATION, aClubMemberId);
+
             theEntities.SaveChanges();
         }
 

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using UniversityOfMe.Models;
+using UniversityOfMe.Repositories.Helpers;
+using UniversityOfMe.Helpers.Badges;
 
 namespace UniversityOfMe.Repositories.Classes {
     public class EntityClassRepository : IClassRepository {
@@ -10,6 +12,8 @@ namespace UniversityOfMe.Repositories.Classes {
         public void AddToClassBoard(User aPostedByUser, int aClassId, string aReply) {
             ClassBoard myBoard = ClassBoard.CreateClassBoard(0, aClassId, aPostedByUser.Id, aReply, DateTime.UtcNow, false);
             theEntities.AddToClassBoards(myBoard);
+
+            BadgeHelper.AddNecessaryBadgesAndPoints(theEntities, aPostedByUser.Id, BadgeAction.ASK_QUESTION, BadgeSection.CLASS, aClassId);
 
             theEntities.SaveChanges();
 
@@ -44,6 +48,8 @@ namespace UniversityOfMe.Repositories.Classes {
 
             VerifyAuthorOfBoardHasViewStateWithoutSave(aPostedByUser, aClassBoardId, myBoard, myDateTime);
 
+            BadgeHelper.AddNecessaryBadgesAndPoints(theEntities, aPostedByUser.Id, BadgeAction.ANSWER_QUESTION, BadgeSection.CLASS, aClassBoardId);
+
             theEntities.SaveChanges();
         }
 
@@ -57,6 +63,9 @@ namespace UniversityOfMe.Repositories.Classes {
 
         public void CreateReview(User aReviewingUser, int aClassId, int aRating, string aReview, bool anAnonymnous) {
             ClassReview myReview = ClassReview.CreateClassReview(0, aClassId, aReviewingUser.Id, aRating, aReview, anAnonymnous, DateTime.UtcNow);
+
+            BadgeHelper.AddNecessaryBadgesAndPoints(theEntities, aReviewingUser.Id, BadgeAction.POSTED_REVIEW, BadgeSection.CLASS, aClassId);
+
             theEntities.AddToClassReviews(myReview);
             theEntities.SaveChanges();
         }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using UniversityOfMe.Models;
+using UniversityOfMe.Repositories.Helpers;
+using UniversityOfMe.Helpers.Badges;
 
 namespace UniversityOfMe.Repositories.Events {
     public class EntityEventRepository : IEventRepository {
@@ -10,6 +12,9 @@ namespace UniversityOfMe.Repositories.Events {
         public void AttendEvent(User aUser, int anEventId) {
             EventAttendence myEventAttendence = EventAttendence.CreateEventAttendence(0, anEventId, aUser.Id, true);
             theEntities.AddToEventAttendences(myEventAttendence);
+
+            BadgeHelper.AddNecessaryBadgesAndPoints(theEntities, aUser.Id, BadgeAction.ATTENDED, BadgeSection.EVENT, anEventId);
+
             theEntities.SaveChanges();
         }
 
@@ -18,8 +23,11 @@ namespace UniversityOfMe.Repositories.Events {
             theEntities.AddToEvents(myEvent);
             theEntities.SaveChanges();
 
+            BadgeHelper.AddNecessaryBadgesAndPoints(theEntities, aStartingUser.Id, BadgeAction.CREATED, BadgeSection.EVENT, myEvent.Id);
+
             EventAttendence myAttendence = EventAttendence.CreateEventAttendence(0, myEvent.Id, aStartingUser.Id, true);
             theEntities.AddToEventAttendences(myAttendence);
+
             theEntities.SaveChanges();
 
             return myEvent;
