@@ -14,7 +14,7 @@ namespace UniversityOfMe.Models.SocialModels {
 
         public override User CreateNewModel() {
             User myUser = User.CreateUser(Id, Email, Password, FirstName, LastName, 
-                Gender, DateOfBirth, LastLogin, RegistrationDate, RegistrationIp, ShortUrl);
+                Gender, DateOfBirth, LastLogin, RegistrationDate, RegistrationIp);
             myUser.City = City;
             myUser.State = State;
             myUser.Website = Website;

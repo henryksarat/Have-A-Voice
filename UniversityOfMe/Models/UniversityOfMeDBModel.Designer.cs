@@ -14437,8 +14437,7 @@ namespace UniversityOfMe.Models
         /// <param name="lastLogin">Initial value of the LastLogin property.</param>
         /// <param name="registrationDate">Initial value of the RegistrationDate property.</param>
         /// <param name="registrationIp">Initial value of the RegistrationIp property.</param>
-        /// <param name="shortUrl">Initial value of the ShortUrl property.</param>
-        public static User CreateUser(global::System.Int32 id, global::System.String email, global::System.String password, global::System.String firstName, global::System.String lastName, global::System.String gender, global::System.DateTime dateOfBirth, global::System.DateTime lastLogin, global::System.DateTime registrationDate, global::System.String registrationIp, global::System.String shortUrl)
+        public static User CreateUser(global::System.Int32 id, global::System.String email, global::System.String password, global::System.String firstName, global::System.String lastName, global::System.String gender, global::System.DateTime dateOfBirth, global::System.DateTime lastLogin, global::System.DateTime registrationDate, global::System.String registrationIp)
         {
             User user = new User();
             user.Id = id;
@@ -14451,7 +14450,6 @@ namespace UniversityOfMe.Models
             user.LastLogin = lastLogin;
             user.RegistrationDate = registrationDate;
             user.RegistrationIp = registrationIp;
-            user.ShortUrl = shortUrl;
             return user;
         }
 
@@ -14968,7 +14966,7 @@ namespace UniversityOfMe.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String ShortUrl
         {
@@ -14980,7 +14978,7 @@ namespace UniversityOfMe.Models
             {
                 OnShortUrlChanging(value);
                 ReportPropertyChanging("ShortUrl");
-                _ShortUrl = StructuralObject.SetValidValue(value, false);
+                _ShortUrl = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("ShortUrl");
                 OnShortUrlChanged();
             }
@@ -15060,6 +15058,30 @@ namespace UniversityOfMe.Models
         private global::System.String _RelationshipStatus;
         partial void OnRelationshipStatusChanging(global::System.String value);
         partial void OnRelationshipStatusChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> ActivationCodeUsed
+        {
+            get
+            {
+                return _ActivationCodeUsed;
+            }
+            set
+            {
+                OnActivationCodeUsedChanging(value);
+                ReportPropertyChanging("ActivationCodeUsed");
+                _ActivationCodeUsed = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ActivationCodeUsed");
+                OnActivationCodeUsedChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _ActivationCodeUsed;
+        partial void OnActivationCodeUsedChanging(Nullable<global::System.Boolean> value);
+        partial void OnActivationCodeUsedChanged();
 
         #endregion
     

@@ -8,6 +8,7 @@ using UniversityOfMe.Models;
 using UniversityOfMe.Models.SocialModels;
 using UniversityOfMe.Repositories.AdminRepos;
 using UniversityOfMe.Helpers;
+using System;
 
 namespace UniversityOfMe.Repositories.UserRepos {
     public class EntityUserRepository : IUofMeUserRepository {
@@ -62,9 +63,23 @@ namespace UniversityOfMe.Repositories.UserRepos {
             return user;
         }
 
+        public void DeleteUserWhoHasNotUsedActivationCode(string email) {
+            User myUser = GetUserNotAuthenticated(email);
+            theEntities.DeleteObject(myUser);
+            theEntities.SaveChanges();
+        }
+
         public bool EmailRegistered(string email) {
             return (from c in theEntities.Users
                     where c.Email == email
+                    && c.ActivationCodeUsed == true
+                    select c).Count() != 0 ? true : false;
+        }
+
+        public bool EmailRegisteredButNotActiated(string email) {
+            return (from c in theEntities.Users
+                    where c.Email == email
+                    && (c.ActivationCodeUsed == null || c.ActivationCodeUsed == false)
                     select c).Count() != 0 ? true : false;
         }
 
@@ -102,6 +117,13 @@ namespace UniversityOfMe.Repositories.UserRepos {
         public void UpdateUser(User userToEdit) {
             User originalUser = GetUser(userToEdit.Id);
             theEntities.ApplyCurrentValues(originalUser.EntityKey.EntitySetName, userToEdit);
+            theEntities.SaveChanges();
+        }
+
+        public void UpdateUserCookieHash(User userToEdit, string aCookieHash) {
+            User originalUser = GetUser(userToEdit.Id);
+            originalUser.CookieHash = aCookieHash;
+            originalUser.CookieCreationDate = DateTime.UtcNow;
             theEntities.SaveChanges();
         }
 
@@ -161,18 +183,11 @@ namespace UniversityOfMe.Repositories.UserRepos {
                     select c).FirstOrDefault();
         }
 
-
-        public void DeleteUserWhoHasNotUsedActivationCode(string email) {
-            throw new System.NotImplementedException();
-        }
-
-        public bool EmailRegisteredButNotActiated(string email) {
-            throw new System.NotImplementedException();
-        }
-
-
-        public void UpdateUserCookieHash(User userToEdit, string aCookieHash) {
-            throw new System.NotImplementedException();
+        private User GetUserNotAuthenticated(string anEmail) {
+            return (from c in theEntities.Users
+                    where c.Email == anEmail
+                    && (c.ActivationCodeUsed == null || c.ActivationCodeUsed == false)
+                    select c).FirstOrDefault();
         }
     }
 }

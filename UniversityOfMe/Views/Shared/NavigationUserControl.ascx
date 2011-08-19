@@ -30,12 +30,13 @@
 			</div> 
 		</li> 
 		<li> 
-			<a href="/PhotoAlbum/List">My Photos</a> 
+			<a href="/PhotoAlbum/List">Photos</a> 
 		</li> 
 		<li class="has-sub-account"> 
 			<a href="#">Account</a> 
 			<div class="sub-nav"> 
 				<a href="/User/Edit">Account Settings</a> 
+                <a href="/Badge/List">Badges</a> 
 				<a href="/UserPrivacySetting/Edit">Privacy Settings</a> 
                 <a href="/Feature/Edit">Site Feature Settings</a> 
 			</div> 

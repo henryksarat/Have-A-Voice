@@ -103,6 +103,14 @@ namespace UniversityOfMe.Repositories.AdminRepos {
             theEntities.SaveChanges();
         }
 
+        public void MoveUsersToRoleForActivation(List<int> aUsers, int aFromRoleId, int aToRoleId) {
+            User myUser = GetUser(aUsers.First<int>());
+            myUser.ActivationCodeUsed = true;
+            theEntities.ApplyCurrentValues(myUser.EntityKey.EntitySetName, myUser);
+
+            MoveUsersToRole(aUsers, aFromRoleId, aToRoleId);
+        }
+
         private IEnumerable<RolePermission> GetRolePermissionsByRole(Role aRoleToGetPermissionsFor) {
             return (from c in theEntities.RolePermissions
                     where c.Role.Id == aRoleToGetPermissionsFor.Id
@@ -184,9 +192,10 @@ namespace UniversityOfMe.Repositories.AdminRepos {
             theEntities.AddToRolePermissions(myRolePermissionToAdd);
         }
 
-
-        public void MoveUsersToRoleForActivation(List<int> aUsers, int aFromRoleId, int aToRoleId) {
-            throw new System.NotImplementedException();
+        private User GetUser(int anId) {
+            return (from u in theEntities.Users
+                    where u.Id == anId
+                    select u).FirstOrDefault<User>();
         }
     }
 }

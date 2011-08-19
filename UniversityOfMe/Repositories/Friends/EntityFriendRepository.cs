@@ -2,6 +2,9 @@
 using System.Linq;
 using Social.Friend.Repositories;
 using UniversityOfMe.Models;
+using UniversityOfMe.Repositories.Helpers;
+using UniversityOfMe.Helpers.Badges;
+using System;
 
 namespace UniversityOfMe.Repositories.Friends {
     public class EntityFriendRepository : IFriendRepository<User, Friend> {
@@ -21,6 +24,10 @@ namespace UniversityOfMe.Repositories.Friends {
 
             theEntities.AddToFriends(myInverseFriendEntry);
             theEntities.ApplyCurrentValues(myFriend.EntityKey.EntitySetName, myFriend);
+
+            BadgeHelper.AddNecessaryBadgesAndPoints(theEntities, myInverseFriendEntry.FriendUserId, BadgeAction.ADD_FRIEND, BadgeSection.FRIEND, myInverseFriendEntry.SourceUserId);
+            BadgeHelper.AddNecessaryBadgesAndPoints(theEntities, myInverseFriendEntry.SourceUserId, BadgeAction.ADD_FRIEND, BadgeSection.FRIEND, myInverseFriendEntry.FriendUserId);
+
             theEntities.SaveChanges();
         }
 
@@ -80,6 +87,7 @@ namespace UniversityOfMe.Repositories.Friends {
 
             theEntities.SaveChanges();
         }
+
 
         private IEnumerable<Friend> GetFriendRecords(User aUser, int aSourceUserId) {
             return (from f in theEntities.Friends
