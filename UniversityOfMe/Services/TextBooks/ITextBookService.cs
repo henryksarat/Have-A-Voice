@@ -7,7 +7,6 @@ using UniversityOfMe.Models.View;
 namespace UniversityOfMe.Services.TextBooks {
     public interface ITextBookService {
         bool CreateTextBook(UserInformationModel<User> aCreatingUser, TextBookViewModel aCreateTextBookModel);
-        IDictionary<string, string> CreateBuySellDictionaryEntry();
         IDictionary<string, string> CreateTextBookConditionsDictionaryEntry();
         void DeleteTextBook(UserInformationModel<User> aDeletingUser, int aTextBookId);
         bool EditTextBook(UserInformationModel<User> aUserInfo, TextBookViewModel aTextBookViewModel);

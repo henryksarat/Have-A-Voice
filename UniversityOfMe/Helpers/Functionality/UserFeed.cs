@@ -13,7 +13,7 @@ namespace UniversityOfMe.Helpers.Functionality {
             myFeed.AddRange(from t in aUser.TextBooks
                             where t.Active
                             select new UserFeedModel() {
-                                FeedString = myFullName + " is " + (t.BuySell.Equals("S") ? "<span class=\"sell\">Selling</span> " : " looking to <span class=\"buy\">Buy</span> ") + " \"" + t.BookTitle + "\" book",
+                                FeedString = myFullName + " is <span class=\"sell\">Selling</span> \"" + t.BookTitle + "\" book",
                                 CssClass = "book",
                                 FeedType = FeedType.Textbook,
                                 DateTimeStamp = t.DateTimeStamp

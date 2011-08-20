@@ -13465,12 +13465,11 @@ namespace UniversityOfMe.Models
         /// <param name="textBookConditionId">Initial value of the TextBookConditionId property.</param>
         /// <param name="bookTitle">Initial value of the BookTitle property.</param>
         /// <param name="classCode">Initial value of the ClassCode property.</param>
-        /// <param name="buySell">Initial value of the BuySell property.</param>
         /// <param name="edition">Initial value of the Edition property.</param>
         /// <param name="price">Initial value of the Price property.</param>
         /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
         /// <param name="active">Initial value of the Active property.</param>
-        public static TextBook CreateTextBook(global::System.Int32 id, global::System.Int32 userId, global::System.String universityId, global::System.String textBookConditionId, global::System.String bookTitle, global::System.String classCode, global::System.String buySell, global::System.Int32 edition, global::System.Double price, global::System.DateTime dateTimeStamp, global::System.Boolean active)
+        public static TextBook CreateTextBook(global::System.Int32 id, global::System.Int32 userId, global::System.String universityId, global::System.String textBookConditionId, global::System.String bookTitle, global::System.String classCode, global::System.Int32 edition, global::System.Double price, global::System.DateTime dateTimeStamp, global::System.Boolean active)
         {
             TextBook textBook = new TextBook();
             textBook.Id = id;
@@ -13479,7 +13478,6 @@ namespace UniversityOfMe.Models
             textBook.TextBookConditionId = textBookConditionId;
             textBook.BookTitle = bookTitle;
             textBook.ClassCode = classCode;
-            textBook.BuySell = buySell;
             textBook.Edition = edition;
             textBook.Price = price;
             textBook.DateTimeStamp = dateTimeStamp;
@@ -13660,30 +13658,6 @@ namespace UniversityOfMe.Models
         private global::System.String _ClassCode;
         partial void OnClassCodeChanging(global::System.String value);
         partial void OnClassCodeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String BuySell
-        {
-            get
-            {
-                return _BuySell;
-            }
-            set
-            {
-                OnBuySellChanging(value);
-                ReportPropertyChanging("BuySell");
-                _BuySell = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("BuySell");
-                OnBuySellChanged();
-            }
-        }
-        private global::System.String _BuySell;
-        partial void OnBuySellChanging(global::System.String value);
-        partial void OnBuySellChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

@@ -42,10 +42,6 @@
 			    <%= Html.TextBox("Edition", Model.Get().Edition.Equals("0") ? string.Empty : Model.Get().Edition, new { @class = "quarter" })%>
                 <%= Html.ValidationMessage("Edition", "*")%>
 
-			    <label for="BuySell" class="mt13">Buy/Sell:</label> 
-                <%= Html.DropDownListFor(model => model.Get().BuySell, Model.Get().BuySellOptions)%>
-                <%= Html.ValidationMessageFor(model => model.Get().BuySell, "*")%>
-
 			    <label for="Price" class="mt13">Price:</label> 
 			    <%= Html.TextBox("Price", Model.Get().Price, new { @class = "quarter" })%>
                 <%= Html.ValidationMessage("Price", "*")%>

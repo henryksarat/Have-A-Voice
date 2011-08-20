@@ -58,19 +58,11 @@ namespace UniversityOfMe.Services.TextBooks {
                 aCreateTextBookModel.BookTitle, 
                 myBookImageName, 
                 aCreateTextBookModel.ClassCode, 
-                aCreateTextBookModel.BuySell,
                 aCreateTextBookModel.Edition == null ? 0 : int.Parse(aCreateTextBookModel.Edition),
                 double.Parse(aCreateTextBookModel.Price),
                 string.IsNullOrEmpty(aCreateTextBookModel.Details) ? null : aCreateTextBookModel.Details);
 
             return true;
-        }
-
-        public IDictionary<string, string> CreateBuySellDictionaryEntry() {
-            IDictionary<string, string> myDictionary = DictionaryHelper.DictionaryWithSelect();
-            myDictionary.Add("Buy", "B");
-            myDictionary.Add("Sell", "S");
-            return myDictionary;
         }
 
         public IDictionary<string, string> CreateTextBookConditionsDictionaryEntry() {
@@ -105,7 +97,6 @@ namespace UniversityOfMe.Services.TextBooks {
 
             TextBook myTextBook = GetTextBook(aTextBookViewModel.TextBookId);
             myTextBook.BookTitle = aTextBookViewModel.BookTitle;
-            myTextBook.BuySell = aTextBookViewModel.BuySell;
             myTextBook.Edition = aTextBookViewModel.Edition == null ? 0 : int.Parse(aTextBookViewModel.Edition);
             myTextBook.TextBookConditionId = aTextBookViewModel.TextBookCondition;
             myTextBook.Details = aTextBookViewModel.Details;
@@ -202,10 +193,6 @@ namespace UniversityOfMe.Services.TextBooks {
             int myEdition;
             if (!string.IsNullOrEmpty(aCreateTextBoook.Edition) && (!int.TryParse(aCreateTextBoook.Edition, out myEdition) || myEdition < 0)) {
                 theValidationDictionary.AddError("Edition", aCreateTextBoook.Edition.ToString(), "If you specify an edition is must be non-zero and non-negative.");
-            }
-
-            if (!DropDownItemValidation.IsValid(aCreateTextBoook.BuySell)) {
-                theValidationDictionary.AddError("BuySell", aCreateTextBoook.BuySell, "You must specify if you want to buy or sell the textbook.");
             }
 
             if (!DropDownItemValidation.IsValid(aCreateTextBoook.TextBookCondition)) {

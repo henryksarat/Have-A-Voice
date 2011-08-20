@@ -59,7 +59,6 @@ namespace UniversityOfMe.Controllers.Clubs {
                 return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
             }
 
-            IDictionary<string, string> myBuySellTypes = theTextBookService.CreateBuySellDictionaryEntry();
             IDictionary<string, string> myBookConditionTypes = DictionaryHelper.DictionaryWithSelect();
 
             try {
@@ -73,7 +72,6 @@ namespace UniversityOfMe.Controllers.Clubs {
                 LoggedInWrapperModel<TextBookViewModel> myLoggedIn = new LoggedInWrapperModel<TextBookViewModel>(GetUserInformatonModel().Details);
                 TextBookViewModel myCreateTextbookModel = new TextBookViewModel() {
                     UniversityId = universityId,
-                    BuySellOptions = new SelectList(myBuySellTypes, "Value", "Key"),
                     TextBookConditions = new SelectList(myBookConditionTypes, "Value", "Key")
                 };
                 myLoggedIn.Set(myCreateTextbookModel);
@@ -163,7 +161,6 @@ namespace UniversityOfMe.Controllers.Clubs {
                 return RedirectToLogin();
             }
 
-            IDictionary<string, string> myBuySellTypes = theTextBookService.CreateBuySellDictionaryEntry();
             IDictionary<string, string> myBookConditionTypes = DictionaryHelper.DictionaryWithSelect();
 
             try {
@@ -181,7 +178,6 @@ namespace UniversityOfMe.Controllers.Clubs {
                 LoggedInWrapperModel<TextBookViewModel> myLoggedIn = new LoggedInWrapperModel<TextBookViewModel>(GetUserInformatonModel().Details);
                 TextBookViewModel myCreateTextbookModel = new TextBookViewModel(myTextBook) {
                     UniversityId = universityId,
-                    BuySellOptions = new SelectList(myBuySellTypes, "Value", "Key", myTextBook.BuySell),
                     TextBookConditions = new SelectList(myBookConditionTypes, "Value", "Key", myTextBook.TextBookConditionId)
                 };
                 myLoggedIn.Set(myCreateTextbookModel);

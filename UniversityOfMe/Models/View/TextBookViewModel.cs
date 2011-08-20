@@ -26,11 +26,6 @@ namespace UniversityOfMe.Models.View {
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string ClassCode { get; set; }
 
-        public IEnumerable<SelectListItem> BuySellOptions { get; set; }
-
-        [DisplayFormat(ConvertEmptyStringToNull = false)]
-        public string BuySell { get; set; }
-
         public string Edition { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
@@ -49,7 +44,6 @@ namespace UniversityOfMe.Models.View {
             TextBookId = aTextBook.Id;
             BookTitle = aTextBook.BookTitle;
             ClassCode = aTextBook.ClassCode;
-            BuySell = aTextBook.BuySell;
             Edition = aTextBook.Edition.ToString();
             Price = aTextBook.Price.ToString();
             Details = aTextBook.Details;
