@@ -150,7 +150,9 @@ footer a:hover { text-decoration: underline; }
 .mb50 { margin-bottom: 50px; }
 .mb72 { margin-bottom: 72px; }
 
+.ml10 { margin-left: 10px; }
 .ml116 { margin-left: 116px; }
+.ml190 { margin-left: 190px; }
 .ml200 { margin-left: 200px; }
 
 
@@ -171,6 +173,7 @@ footer a:hover { text-decoration: underline; }
 /*** JUSTIFY ***/
 .flft { float: left; }
 .frgt { float: right; }
+.left { text-align: left; }
 .right { text-align: right; }
 .center { text-align: center; }
 .bold { font-weight: bold; }
@@ -194,6 +197,7 @@ footer a:hover { text-decoration: underline; }
 /*** WIDTH ***/
 .w60 { width: 60px; }
 .w392 { width: 392px; }
+.w600 { width: 600px; }
 .wp5 { width: 5%; }
 .wp10 { width: 10%; }
 .wp15 { width: 15%; }
@@ -596,6 +600,8 @@ span.professor { padding: 2px 0px 2px 28px; background:url(images/person.png) no
 .ml60 { margin-left: 60px; }
 .ml160 { margin-left: 160px; }
 
+.mr50 { margin-right: 50px; }
+
 .pl50 { padding-left: 50px; }
 .pr150 { padding-right: 150px; }
 
@@ -667,3 +673,22 @@ span.board { padding: 2px 0px 2px 28px; background:url(images/board.png) no-repe
 
 a.disable-feature, a.disable-feature:link, a.disable-feature:visited { color:#999999; font-size: 9px; text-decoration: underline }
 a.disable-feature:hover { text-decoration: underline; }
+
+/****************************************************************************/
+/************************** ERROR MESSAGE ***********************************/
+/****************************************************************************/
+div.error { padding: 10px 0px; background: #f6cbca; color: #d02327; border: 1px solid #cb2026; text-align: center; width: 640px; margin: 0px auto 10px auto; font-weight: bold; font-size: 12px; }
+.req { color: red; font-style: italic; }
+
+/*** EDIT USER ***/
+.edit-user-form { border-top: 6px solid #971e21; background: url("images/30-gray.png") repeat; /* #dfdfd8; */ color: #676767; }
+.edit-user-form label { color: #000; font-size: 12px; float: left; width: 200px; cursor: pointer; }
+.edit-user-form .textarea { border: 1px solid #971e21; background: #fff; height: 150px; min-width: 160px; max-width: 274px; outline: none; width: 100%; }
+.edit-user-form input[type=text], .edit-user-form input[type=password], .edit-user-form input[type=email] { border: 1px solid #971e21; background: #fff; height: 28px; min-width: 160px; max-width: 274px; outline: none; width: 100%; }
+.edit-user-form select { border: 1px solid #971e21; background: #fff; height: 28px; outline: none; }
+.edit-user-form div.input { margin-bottom: 23px; }
+.edit-user-form div.field-holder { width: 500px; margin-bottom: 10px }
+
+div.twoColEditUser { margin-bottom: 42px; font-size: 13px; }
+div.twoColEditUser div.lCol { float: left; width: 25%; padding: 10px 10px 10px 10px }
+div.twoColEditUser div.rCol { float: left; width: 65%; padding: 10px 10px 10px 10px }

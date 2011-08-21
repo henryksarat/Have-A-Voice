@@ -11,6 +11,7 @@ using UniversityOfMe.Repositories.UserRepos;
 using Social.Generic.Helpers;
 using Social.Generic.Exceptions;
 using System;
+using System.Text.RegularExpressions;
 
 namespace UniversityOfMe.Services.Users {
     public class UofMeUserService : UserService<User, Role, UserRole>, IUofMeUserService {
@@ -85,6 +86,10 @@ namespace UniversityOfMe.Services.Users {
             myOriginalUser.AboutMe = aUser.AboutMe;
             myOriginalUser.RelationshipStatus = (aUser.RelationshipStatus == Constants.SELECT ? null :aUser.RelationshipStatus);
 
+            if (!string.IsNullOrEmpty(aUser.ShortUrl)) {
+                myOriginalUser.ShortUrl = aUser.ShortUrl;
+            }
+
             if (!string.IsNullOrEmpty(aUser.NewEmail)) {
                 myOriginalUser.NewEmailHash = HashHelper.DoHash(aUser.NewEmail + myOriginalUser.Id);
             }
@@ -145,8 +150,27 @@ namespace UniversityOfMe.Services.Users {
             ValidEmail(aUser.NewEmail, aOriginalEmail);
             DateOfBirthValidation.ValidDateOfBirth(theValidationDictionary, aUser.DateOfBirth);
 
+            if (aUser.FirstName.Trim().Length == 0) {
+                theValidationDictionary.AddError("FirstName", aUser.FirstName.Trim(), "First name is required.");
+            }
+            if (aUser.LastName.Trim().Length == 0) {
+                theValidationDictionary.AddError("LastName", aUser.LastName.Trim(), "Last name is required.");
+            }
+
             if (aUser.Gender.Equals(Constants.SELECT)) {
                 theValidationDictionary.AddError("Gender", Constants.SELECT, "Gender is required.");
+            }
+
+            if (!string.IsNullOrEmpty(aUser.ShortUrl)) {
+                if (theUserRepository.ShortUrlTaken(aUser.ShortUrl)) {
+                    theValidationDictionary.AddError("ShortUrl", aUser.ShortUrl, "That UniversityOf.Me URL is already taken by another member.");
+                } else {
+                    Regex myRegex = new Regex(RegexHelper.OnlyCharactersAndNumbersAndPeriods(), RegexOptions.IgnoreCase);
+                    Match myMatch = myRegex.Match(aUser.ShortUrl);
+                    if (!myMatch.Success) {
+                        theValidationDictionary.AddError("ShortUrl", aUser.ShortUrl, "The UniversityOf.Me URL can only consist of letters, numbers, and periods.");
+                    }
+                }
             }
 
             return theValidationDictionary.isValid;
