@@ -1,6 +1,12 @@
 ﻿
 namespace UniversityOfMe.Helpers {
     public enum Features {
-        DatingAsked
+        DatingAsked,
+        ProfessorWidget,
+        ClassWidget,
+        EventWidget,
+        TextbookWidget,
+        OrganizationWidget,
+        GeneralPostingsWidget
     }
 }

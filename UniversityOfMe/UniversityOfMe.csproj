@@ -449,7 +449,13 @@
     <Content Include="Views\TextBook\Edit.aspx" />
     <Content Include="Views\TextBook\Create.aspx" />
     <Content Include="Views\TextBook\Details.aspx" />
+    <Content Include="Views\University\Classes.ascx" />
+    <Content Include="Views\University\GeneralPostings.ascx" />
+    <Content Include="Views\University\Organizations.ascx" />
+    <Content Include="Views\University\Textbooks.ascx" />
+    <Content Include="Views\University\Events.ascx" />
     <Content Include="Views\University\Main.aspx" />
+    <Content Include="Views\University\Professors.ascx" />
     <Content Include="Views\UserPrivacySetting\Edit.aspx" />
     <Content Include="Views\User\Create.aspx" />
     <Content Include="Views\User\Edit.aspx" />

@@ -664,3 +664,6 @@ span.board { padding: 2px 0px 2px 28px; background:url(images/board.png) no-repe
 .form-normal input[type=text], .form-normal input[type=password], .form-normal input[type=email] { border: 1px solid #971e21; background: #fff; height: 28px; min-width: 160px; max-width: 274px; outline: none; width: 100%; }
 .form-normal select { border: 1px solid #971e21; background: #fff; height: 28px; outline: none; }
 .form-normal div.input { margin-bottom: 23px; }
+
+a.disable-feature, a.disable-feature:link, a.disable-feature:visited { color:#999999; font-size: 9px; text-decoration: underline }
+a.disable-feature:hover { text-decoration: underline; }
