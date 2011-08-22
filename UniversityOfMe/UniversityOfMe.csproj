@@ -189,6 +189,7 @@
       <DependentUpon>UniversityOfMeDBModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\View\ClubAdminFeed.cs" />
+    <Compile Include="Models\View\ProfileModel.cs" />
     <Compile Include="Models\View\Search\ClassSearchResult.cs" />
     <Compile Include="Models\View\Search\OrganizationSearchResult.cs" />
     <Compile Include="Models\View\Search\SearchResultsModel.cs" />
@@ -563,7 +564,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>16894</DevelopmentServerPort>
+          <DevelopmentServerPort>39464</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

@@ -14,6 +14,7 @@ using UniversityOfMe.Repositories.UserRepos;
 using UniversityOfMe.Services.UserFeatures;
 using UniversityOfMe.UserInformation;
 using Social.Generic.Constants;
+using UniversityOfMe.Services.Users;
 
 namespace UniversityOfMe.Controllers.Profile {
     public class ProfileController : UOFMeBaseController {
@@ -24,26 +25,26 @@ namespace UniversityOfMe.Controllers.Profile {
 
         private const string FEATURE_UPDATED = "Your preferences have been updated!";
 
-        private IUserRetrievalService<User> theUserRetrievalService;
+        private IUofMeUserRetrievalService theUserRetrievalService;
         private IFeatureService theFeatureService;
         
         public ProfileController() {
             UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()));
-            theUserRetrievalService = new UserRetrievalService<User>(new EntityUserRetrievalRepository());
+            theUserRetrievalService = new UofMeUserRetrievalService(new EntityUserRetrievalRepository());
             theFeatureService = new FeatureService();
         }
 
         [RequiredRouteValueAttribute.RequireRouteValues(new[] { "shortName" })]
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Show(string shortName) {
+        public ActionResult Show(string shortName, bool showAllBoards, bool showAllPhotoAlbums) {
             try {
-                UserInformationModel<User> myViewingUser = GetUserInformatonModel();
-                User myProfile = theUserRetrievalService.GetUserByShortUrl(shortName);
-                if (myProfile == null) {
+
+                ProfileModel myModel = theUserRetrievalService.GetProfileModelByShortUrl(shortName, showAllBoards, showAllPhotoAlbums);
+                if (myModel.User == null) {
                     return SendToErrorPage(INVALID_SHORT_URL);
                 }
 
-                return View(PROFILE_VIEW, myProfile);
+                return View(PROFILE_VIEW, myModel);
             } catch (Exception e) {
                 LogError(e, USER_PAGE_ERROR);
                 return SendToErrorPage(USER_PAGE_ERROR);
@@ -53,12 +54,15 @@ namespace UniversityOfMe.Controllers.Profile {
         [RequiredRouteValueAttribute.RequireRouteValues(new[] { "id" })]
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult Show(int id) {
-            try {
-                UserInformationModel<User> myViewingUser = GetUserInformatonModel();
-                
-                User myUser = theUserRetrievalService.GetUser(id);
+            return ShowDetailed(id, false, false);
+        }
 
-                return View(PROFILE_VIEW, myUser);
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
+        public ActionResult ShowDetailed(int id, bool showAllBoards, bool showAllPhotoAlbums) {
+            try {              
+                ProfileModel myModel = theUserRetrievalService.GetProfileModelByUserId(id, showAllBoards, showAllPhotoAlbums);
+
+                return View(PROFILE_VIEW, myModel);
             } catch (Exception e) {
                 LogError(e, USER_PAGE_ERROR);
                 return SendToErrorPage(USER_PAGE_ERROR);

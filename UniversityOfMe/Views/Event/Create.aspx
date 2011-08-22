@@ -28,41 +28,53 @@
     <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
 	<div class="eight last"> 
-        <% Html.RenderPartial("Message"); %>
-        <% Html.RenderPartial("Validation"); %>
-
-		<div class="create"> 
+		<div class="create create-feature-form"> 
 			<div class="banner black full red-top small"> 
 				<span class="event">CREATE EVENT</span> 
 			</div> 
-            <% using (Html.BeginForm("Create", "Event", FormMethod.Post)) {%>
-			    <label for="Title">Title:</label> 
-			    <%= Html.TextBox("Title", Model.Get().Title, new { @class = "quarter" })%>
-                <%= Html.ValidationMessage("Title", "*")%>
+            <% Html.RenderPartial("Message"); %>
+            <% Html.RenderPartial("Validation"); %>
+            <div class="padding-col">
+                <% using (Html.BeginForm("Create", "Event", FormMethod.Post)) {%>
+			        <div class="field-holder">
+                        <label for="Title">Title:</label> 
+			            <%= Html.TextBox("Title")%>
+                        <%= Html.ValidationMessage("Title", "*", new { @class = "req" })%>
+                    </div>
 
-			    <label for="EventPrivacyOption" class="mt13">Event Privacy Option:</label> 
-                <%= Html.DropDownListFor(model => model.Get().EventPrivacyOption, Model.Get().EventPrivacyOptions)%>
-                <%= Html.ValidationMessageFor(model => model.Get().EventPrivacyOption, "*")%>
+                    <div class="field-holder">
+			            <label for="EventPrivacyOption">Event Privacy Option:</label> 
+                        <%= Html.DropDownListFor(model => model.Get().EventPrivacyOption, Model.Get().EventPrivacyOptions)%>
+                        <%= Html.ValidationMessageFor(model => model.Get().EventPrivacyOption, "*", new { @class = "req" })%>
+                    </div>
 
-			    <label for="StartDate" class="mt13">Start Date:</label> 
-                <%= Html.TextBox("StartDate", Model.Get().StartDate, new { @class = "quarter" })%>
-                <%= Html.DropDownListFor(model => Model.Get().StartTime, Model.Get().StartTimes) %>
-                <%= Html.ValidationMessage("StartDate", "*")%>
+                    <div class="field-holder-extra">
+			            <label for="StartDate">Start Date:</label> 
+                        <%= Html.TextBox("StartDate", Model.Get().StartDate)%>
+                        <%= Html.DropDownListFor(model => Model.Get().StartTime, Model.Get().StartTimes, new { @class = "valign-top" })%>
+                        <%= Html.ValidationMessage("StartDate", "*", new { @class = "req" })%>
+                    </div>
+                    
+                    <div class="field-holder-extra">
+			            <label for="EndDate">End Date:</label> 
+			            <%= Html.TextBox("EndDate", Model.Get().EndDate)%>
+                        <%= Html.DropDownListFor(model => Model.Get().EndTime, Model.Get().EndTimes, new { @class = "valign-top" })%>
+                        <%= Html.ValidationMessage("EndDate", "*", new { @class = "req" })%>
+                    </div>
 
-			    <label for="EndDate" class="mt13">End Date:</label> 
-			    <%= Html.TextBox("EndDate", Model.Get().EndDate, new { @class = "quarter" })%>
-                <%= Html.DropDownListFor(model => Model.Get().EndTime, Model.Get().EndTimes) %>
-                <%= Html.ValidationMessage("EndDate", "*")%>
+                    <div class="field-holder" style="vertical-align:top">
+			            <label for="Information">Information:</label> 
+                        <%= Html.TextArea("Information", Model.Get().Information, 6, 0 ,new { @class = "textarea" }) %>
+                        <%= Html.ValidationMessage("Information", "*", new { @class = "req" })%>
+                    </div>
 
-			    <label for="Information" class="mt13">Information:</label> 
-                <%= Html.TextArea("Information", Model.Get().Information, 6, 0 ,new { @class = "full" }) %>
-                <%= Html.ValidationMessage("Information", "*")%>
-
-			    <div class="right"> 
-				    <input type="submit" name="submit" class="btn site mr14" value="Submit" /> 
-				    <input type="button" name="cancel" class="btn site" value="Cancel" /> 
-			    </div> 
-            <% } %>
+			        <div class="field-holder">
+                        <div class="right">
+				            <input type="submit" name="submit" class="btn site button-padding" value="Submit" /> 
+                        </div>
+			        </div> 
+                <% } %>
+            </div>
 		</div> 
 	</div> 
 </asp:Content>

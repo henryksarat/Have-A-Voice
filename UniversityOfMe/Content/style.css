@@ -678,7 +678,7 @@ a.disable-feature:hover { text-decoration: underline; }
 /************************** ERROR MESSAGE ***********************************/
 /****************************************************************************/
 div.error { padding: 10px 0px; background: #f6cbca; color: #d02327; border: 1px solid #cb2026; text-align: center; width: 640px; margin: 0px auto 10px auto; font-weight: bold; font-size: 12px; }
-.req { color: red; font-style: italic; }
+.req { color: red; font-style: italic; vertical-align: top; }
 
 /*** EDIT USER ***/
 .edit-user-form { border-top: 6px solid #971e21; background: url("images/30-gray.png") repeat; /* #dfdfd8; */ color: #676767; }
@@ -703,3 +703,16 @@ div.twoColEditUser div.rCol { float: left; width: 65%; padding: 10px 10px 10px 1
 div.twoColCreateMessage { margin-bottom: 42px; font-size: 13px; }
 div.twoColCreateMessage div.lCol { float: left; width: 25%; padding: 10px 10px 10px 10px }
 div.twoColCreateMessage div.rCol { float: left; width: 65%; padding: 10px 10px 10px 10px }
+
+/*** Feature Create ***/
+.create-feature-form { border-top: 6px solid #971e21; background: url("images/30-gray.png") repeat; /* #dfdfd8; */ color: #676767; }
+.create-feature-form label { color: #000; font-size: 12px; float: left; width: 150px; cursor: pointer; }
+.create-feature-form .textarea { border: 1px solid #971e21; background: #fff; height: 150px; min-width: 160px; max-width: 300px; outline: none; width: 100%; }
+.create-feature-form input[type=text], .create-feature-form input[type=file] { border: 1px solid #971e21; background: #fff; height: 28px; min-width: 160px; max-width: 300px; outline: none; width: 100%; }
+.create-feature-form select { border: 1px solid #971e21; background: #fff; height: 28px; outline: none; }
+.create-feature-form div.field-holder { width: 500px; margin-bottom: 10px }
+.create-feature-form div.field-holder-extra { vertical-align:top; width: 600px; margin-bottom: 10px }
+
+.create-feature-form div.padding-col { padding: 25px 25px 25px 25px; }
+.create-feature-form div.throw-right { text-align: right; }
+.create-feature-form .button-padding { margin-right:49px }

@@ -12,6 +12,7 @@ using Social.Generic.Helpers;
 using Social.Generic.Exceptions;
 using System;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace UniversityOfMe.Services.Users {
     public class UofMeUserService : UserService<User, Role, UserRole>, IUofMeUserService {

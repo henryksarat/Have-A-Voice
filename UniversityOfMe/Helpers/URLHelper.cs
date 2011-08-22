@@ -86,6 +86,14 @@ namespace UniversityOfMe.Helpers {
             }
         }
 
+        public static string ProfileUrlForAllBoards(User aUser, bool aShowAllPhotoAlbums) {
+            return "/Profile/ShowDetailed/" + aUser.Id + "?showAllBoards=true&showAllPhotoAlbums=" + aShowAllPhotoAlbums;
+        }
+
+        public static string ProfileUrlForAllPhotoAlbums(User aUser, bool aShowAllBoards) {
+            return "/Profile/ShowDetailed/" + aUser.Id + "?showAllPhotoAlbums=true&showAllBoards=" + aShowAllBoards;
+        }
+
         public static string PhotoAlbumDetailsUrl(PhotoAlbum aPhotoAlbum) {
             return "/PhotoAlbum/Details/" + aPhotoAlbum.Id;
         }
@@ -108,6 +116,10 @@ namespace UniversityOfMe.Helpers {
 
         public static string SendMessageUrl(User aUser) {
             return "/Message/Create/" + aUser.Id;
+        }
+
+        public static string SendMessageUrl(User aUser, string aSubject) {
+            return "/Message/Create/" + aUser.Id + "?subject=" + aSubject;
         }
 
         public static string SendItemUrl(User aUser, SendItemOptions anItem) {

@@ -11,27 +11,35 @@
     <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
 	<div class="eight last"> 
-        <% Html.RenderPartial("Message"); %>
-        <% Html.RenderPartial("Validation"); %>
-
-		<div class="create"> 
+		<div class="create create-feature-form"> 
 			<div class="banner black full red-top small"> 
 				<span class="organization">CREATE A GENERAL POSTING</span> 
 			</div> 
-            <% using (Html.BeginForm("Create", "GeneralPosting", FormMethod.Post)) {%>
-			    <label for="Title">Title:</label> 
-			    <%= Html.TextBox("Title", string.Empty, new { @class = "quarter" })%>
-                <%= Html.ValidationMessage("Title", "*")%>
 
-			    <label for="Body" class="mt13">Body:</label> 
-                <%= Html.TextArea("Body", string.Empty, 6, 0, new { @class = "full" })%>
-                <%= Html.ValidationMessage("Body", "*")%>
+            <% Html.RenderPartial("Message"); %>
+            <% Html.RenderPartial("Validation"); %>
 
-			    <div class="right"> 
-				    <input type="submit" name="submit" class="btn site mr14" value="Submit" /> 
-				    <input type="button" name="cancel" class="btn site" value="Cancel" /> 
-			    </div> 
-            <% } %>
+            <div class="padding-col">
+                <% using (Html.BeginForm("Create", "GeneralPosting", FormMethod.Post)) {%>
+                    <div class="field-holder">
+			            <label for="Title">Title:</label> 
+			            <%= Html.TextBox("Title")%>
+                        <%= Html.ValidationMessage("Title", "*", new { @class = "req" })%>
+                    </div>
+
+                    <div class="field-holder">
+			            <label for="Body">Body:</label> 
+                        <%= Html.TextArea("Body", new { @class = "textarea" })%>
+                        <%= Html.ValidationMessage("Body", "*", new { @class = "req" })%>
+                    </div>
+
+			        <div class="field-holder">
+                        <div class="right">
+				            <input type="submit" name="submit" class="btn site button-padding" value="Submit" /> 
+                        </div>
+			        </div>
+                <% } %>
+            </div>
 		</div> 
 	</div> 
 </asp:Content>

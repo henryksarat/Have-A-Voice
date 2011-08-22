@@ -149,7 +149,7 @@
 	</div> 
 	<div class="box member"> 
     <% foreach (User myNewestMember in Model.NewestUsersInUniversity) { %>
-        <a href="/<%= myNewestMember.ShortUrl %>"><img src="<%= PhotoHelper.ProfilePicture(myNewestMember) %>" title="<%= NameHelper.FullName(myNewestMember) %>" /></a>
+        <a href="<%= URLHelper.ProfileUrl(myNewestMember) %>"><img src="<%= PhotoHelper.ProfilePicture(myNewestMember) %>" title="<%= NameHelper.FullName(myNewestMember) %>" /></a>
     <% } %>
 	</div> 
 </div> 

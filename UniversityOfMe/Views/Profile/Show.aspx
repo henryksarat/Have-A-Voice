@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<User>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<ProfileModel>" %>
 <%@ Import Namespace="UniversityOfMe.Models" %>
 <%@ Import Namespace="UniversityOfMe.Helpers" %>
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
@@ -8,7 +8,7 @@
 <%@ Import Namespace="UniversityOfMe.Helpers.Search" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	UniversityOf.Me - <%=NameHelper.FullName(Model) %>'s Profile
+	UniversityOf.Me - <%=NameHelper.FullName(Model.User) %>'s Profile
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -67,9 +67,9 @@
 <% UserInformationModel<User> myLoggedInUser = UserInformationFactory.GetUserInformation(); %>
 <% bool myViewingOwn = true; %>
 <% if(myLoggedInUser != null) { %>
-    <% myViewingOwn = Model.Id == myLoggedInUser.UserId; %>
+    <% myViewingOwn = Model.User.Id == myLoggedInUser.UserId; %>
 <% } %>
-<% bool myAllowedToView = PrivacyHelper.IsAllowed(Model, PrivacyAction.DisplayProfile, myLoggedInUser); %> 
+<% bool myAllowedToView = PrivacyHelper.IsAllowed(Model.User, PrivacyAction.DisplayProfile, myLoggedInUser); %> 
 
 <div class="row"> 
 	<div class="four"> 
@@ -109,18 +109,18 @@
 		<span class="corner"></span> 
 		</div> 
         <div class="imagedisplay">
-    		<img src="<%= PhotoHelper.OriginalProfilePicture(Model) %>" class="mt34 mb15" alt="Anca Foster" /> 
+    		<img src="<%= PhotoHelper.OriginalProfilePicture(Model.User) %>" class="mt34 mb15" alt="Anca Foster" /> 
         </div>  
 		<div class="prof-info"> 
-			<p><label>Name:</label><%=NameHelper.FullName(Model) %></p> 
-			<p><label>University:</label><%= UniversityHelper.GetMainUniversity(Model).UniversityName %></p> 
+			<p><label>Name:</label><%=NameHelper.FullName(Model.User) %></p> 
+			<p><label>University:</label><%= UniversityHelper.GetMainUniversity(Model.User).UniversityName %></p> 
             <% if (myAllowedToView) { %>    
-                <p><label>Birthdate:</label><%= String.Format("{0:dd MMM yyyy}", Model.DateOfBirth) %></p> 
-			    <p><label>Relationship:</label><%= Model.RelationshipStatu != null ? Model.RelationshipStatu.DisplayName : "NA" %></p> 
+                <p><label>Birthdate:</label><%= String.Format("{0:dd MMM yyyy}", Model.User.DateOfBirth) %></p> 
+			    <p><label>Relationship:</label><%= Model.User.RelationshipStatu != null ? Model.User.RelationshipStatu.DisplayName : "NA" %></p> 
             <% } %>
 			
 			<ul> 
-                <% foreach (UserFeedModel myFeedModel in UserFeed.GetUserFeed(Model, 10)) { %>
+                <% foreach (UserFeedModel myFeedModel in UserFeed.GetUserFeed(Model.User, 10)) { %>
 				    <li class="<%= myFeedModel.CssClass %>"> 
 					    <%= myFeedModel.FeedString %>
 				    </li> 
@@ -133,16 +133,16 @@
         <% Html.RenderPartial("Message"); %>
         <% Html.RenderPartial("Validation"); %>
 		<div class="banner black full red-top small"> 
-			<span class="mine"><%=NameHelper.FullName(Model) %></span> 
+			<span class="mine"><%=NameHelper.FullName(Model.User) %></span> 
             <% if (!myViewingOwn) { %>
 			    <div class="buttons"> 
-                    <% if (FriendHelper.IsFriend(Model, myLoggedInUser.Details)) { %>
-                        <%= Html.ActionLink("Remove from friends", "Delete", "Friend", new { id = Model.Id }, new { @class = "defriend mr10" })%>
+                    <% if (FriendHelper.IsFriend(Model.User, myLoggedInUser.Details)) { %>
+                        <%= Html.ActionLink("Remove from friends", "Delete", "Friend", new { id = Model.User.Id }, new { @class = "defriend mr10" })%>
                     <% } %>
-                    <%= Html.ActionLink("Send beer", "SendItem", "SendItems", new { id = Model.Id, sendItem = SendItemOptions.BEER }, new { @class = "beer mr10" })%>
-                    <%= Html.ActionLink("Send PM", "Create", "Message", new { id = Model.Id }, new { @class = "pm mr10" })%>				
-                    <% if (!FriendHelper.IsFriend(Model, myLoggedInUser.Details)) { %>
-                        <%= Html.ActionLink("Add as friend", "Add", "Friend", new { id = Model.Id }, new { @class = "addfriend" })%>
+                    <%= Html.ActionLink("Send beer", "SendItem", "SendItems", new { id = Model.User.Id, sendItem = SendItemOptions.BEER }, new { @class = "beer mr10" })%>
+                    <%= Html.ActionLink("Send PM", "Create", "Message", new { id = Model.User.Id }, new { @class = "pm mr10" })%>				
+                    <% if (!FriendHelper.IsFriend(Model.User, myLoggedInUser.Details)) { %>
+                        <%= Html.ActionLink("Add as friend", "Add", "Friend", new { id = Model.User.Id }, new { @class = "addfriend" })%>
                     <% } %>
 			    </div> 
             <% } %>
@@ -155,7 +155,7 @@
 			</div> 
             <% if (!myViewingOwn) { %>
                 <% using (Html.BeginForm("Create", "Board", FormMethod.Post)) { %>
-                    <%= Html.Hidden("SourceUserId", Model.Id)%>
+                    <%= Html.Hidden("SourceUserId", Model.User.Id)%>
 
                     <%: Html.TextArea("BoardMessage", null, 3, 0, new { @class = "full" })%>
                     <%: Html.ValidationMessage("BoardMessage", "*")%>
@@ -167,7 +167,8 @@
             <% } %>
 		</div> 
         
-            <% foreach (Board myBoard in Model.Boards.Where(b => !b.Deleted).OrderByDescending(b => b.DateTimeStamp)) { %>
+            <% IEnumerable<Board> myAllBoards = Model.Boards.Where(b => !b.Deleted).OrderByDescending(b => b.DateTimeStamp);  %>
+            <% foreach (Board myBoard in myAllBoards.Take<Board>(5)) { %>
 		        <div class="board"> 
 			    <div class="prfl clearfix"> 
 				    <div class="pCol"> 
@@ -182,14 +183,14 @@
 						    </div> 
 						    <%= NameHelper.FullName(myBoard.PostedByUser)%> 
                             <% if (BoardHelper.IsAllowedToDelete(myLoggedInUser, myBoard)) {  %>
-                                <%= Html.ActionLink("Delete", "Delete", "Board", new { sourceId = Model.Id, boardId = myBoard.Id, sourceController = "Profile", sourceAction = "Show" }, new { @class = "small nrm" })%>
+                                <%= Html.ActionLink("Delete", "Delete", "Board", new { sourceId = Model.User.Id, boardId = myBoard.Id, sourceController = "Profile", sourceAction = "Show" }, new { @class = "small nrm" })%>
                             <% } %>
 					    </div> 
 					    <%= myBoard.Message%>
 					    <div class="create clearfix"> 
                             <% using (Html.BeginForm("Create", "BoardReply", FormMethod.Post)) { %>
                                     <%= Html.Hidden("BoardId", myBoard.Id)%>
-                                    <%= Html.Hidden("SourceId", Model.Id)%>
+                                    <%= Html.Hidden("SourceId", Model.User.Id)%>
                                     <%= Html.Hidden("SiteSection", SiteSection.Profile)%>
 
                                     <%= Html.TextArea("BoardReply", null, 2, 0, new { @class = "full" })%>
@@ -220,7 +221,7 @@
 						    </div> 
 						    <%= NameHelper.FullName(myReply.User)%>
                             <% if (BoardReplyHelper.IsAllowedToDelete(myLoggedInUser, myReply)) {  %>
-                                <%= Html.ActionLink("Delete", "Delete", "BoardReply", new { sourceId = Model.Id, boardReplyId = myReply.Id, sourceController = "Profile", sourceAction = "Show" }, new { @class = "small nrm" })%>
+                                <%= Html.ActionLink("Delete", "Delete", "BoardReply", new { sourceId = Model.User.Id, boardReplyId = myReply.Id, sourceController = "Profile", sourceAction = "Show" }, new { @class = "small nrm" })%>
                             <% } %>
 					    </div> 
 					    <%= myReply.Message%>
@@ -231,8 +232,10 @@
             <% } %>
 
 		    <div class="viewall mb50"> 
-			<a href="#">View All 23 Results</a> 
-		</div> 
+		        <% if(!Model.ShowAllBoards) { %>
+                    <a href="<%= URLHelper.ProfileUrlForAllBoards(Model.User, Model.ShowAllPhotoAlbums) %>">View entire board</a> 
+                <% } %>
+		    </div> 
 					
 		    <div class="banner full"> 
 			PHOTOS

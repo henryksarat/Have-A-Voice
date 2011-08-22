@@ -23,7 +23,7 @@ namespace UniversityOfMe.Models.View.Search {
             if (theTextBook.UserId != UserInformationModel.UserId) {
                 var myContactSeller = new TagBuilder("a");
                 myContactSeller.AddCssClass("pm");
-                myContactSeller.MergeAttribute("href", URLHelper.SendMessageUrl(theTextBook.User));
+                myContactSeller.MergeAttribute("href", URLHelper.SendMessageUrl(theTextBook.User, "Regarding Book: " + theTextBook.BookTitle));
                 myContactSeller.InnerHtml += "Contact Seller";
 
                 myActionsDiv.InnerHtml += myContactSeller.ToString();

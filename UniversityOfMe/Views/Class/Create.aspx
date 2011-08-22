@@ -12,37 +12,51 @@
     <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
 	<div class="eight last"> 
-        <% Html.RenderPartial("Message"); %>
-        <% Html.RenderPartial("Validation"); %>
-		<div class="create"> 
+		<div class="create create-feature-form"> 
 			<div class="banner black full red-top small"> 
 				<span class="class">CREATE CLASS</span> 
 			</div> 
-            <% using (Html.BeginForm("Create", "Class", FormMethod.Post)) {%>
-			    <label for="ClassCode">Class Code:</label> 
-			    <input type="text" class="quarter" name="ClassCode" id="ClassCode" /> 
-                <%= Html.ValidationMessage("ClassCode", "*")%>
+            <% Html.RenderPartial("Message"); %>
+            <% Html.RenderPartial("Validation"); %>
+            <div class="padding-col">
+                <% using (Html.BeginForm("Create", "Class", FormMethod.Post)) {%>
+			        <div class="field-holder">
+                        <label for="ClassCode">Class Code:</label> 
+                        <%= Html.TextBox("ClassCode", string.Empty)%>
+                        <%= Html.ValidationMessage("ClassCode", "*", new { @class = "req" })%>
+                    </div>
 
-			    <label for="ClassTitle" class="mt13">Class Title:</label> 
-			    <input type="text" class="half" name="ClassTitle" id="ClassTitle" /> 
-                <%= Html.ValidationMessage("ClassTitle", "*")%>
+                    <div class="field-holder">
+			            <label for="ClassTitle" class="mt13">Class Title:</label> 
+                        <%= Html.TextBox("ClassTitle", string.Empty)%>
+                        <%= Html.ValidationMessage("ClassTitle", "*", new { @class = "req" })%>
+                    </div>
 
-                <label for="AcademicTerm" class="mt13">Academic term</label>
-                <%: Html.DropDownListFor(model => model.Get().AcademicTermId, Model.Get().AcademicTerms)%>
-                <%: Html.ValidationMessageFor(model => model.Get().AcademicTermId, "*")%>
+                    <div class="field-holder">
+                        <label for="AcademicTerm" class="mt13">Academic term</label>
+                        <%= Html.DropDownListFor(model => model.Get().AcademicTermId, Model.Get().AcademicTerms)%>
+                        <%= Html.ValidationMessageFor(model => model.Get().AcademicTermId, "*", new { @class = "req" })%>
+                    </div>
 
-                <label for="Year" class="mt13">Year</label>
-                <%: Html.DropDownListFor(model => model.Get().Year, Model.Get().Years)%>
-                <%: Html.ValidationMessageFor(model => model.Get().Year, "*")%>
+                    <div class="field-holder">
+                        <label for="Year" class="mt13">Year</label>
+                        <%: Html.DropDownListFor(model => model.Get().Year, Model.Get().Years)%>
+                        <%: Html.ValidationMessageFor(model => model.Get().Year, "*", new { @class = "req" })%>
+                    </div>
 
-			    <label for="Details" class="mt13">Details:</label> 
-			    <textarea name="desc" id="Details" class="full" rows="6"></textarea> 
-                <%= Html.ValidationMessage("Details", "*")%>
-			    <div class="right"> 
-				    <input type="submit" name="submit" class="btn site mr14" value="Submit" /> 
-				    <input type="button" name="cancel" class="btn site" value="Cancel" /> 
-			    </div> 
-            <% } %>
+                    <div class="field-holder">
+			            <label for="Details">Details:</label> 
+                        <%= Html.TextArea("Details", Model.Get().Details, 6, 0, new { @class = "textarea" })%>
+                        <%= Html.ValidationMessage("Details", "*", new { @class = "req" })%>
+                    </div>
+
+			        <div class="field-holder">
+                        <div class="right">
+				            <input type="submit" name="submit" class="btn site button-padding" value="Submit" /> 
+                        </div>
+			        </div> 
+                <% } %>
+            </div>
 		</div> 
 	</div> 
 </asp:Content>

@@ -88,7 +88,7 @@
 							
 				<div class="clearfix"></div>
 				<div class="col">
-                    <% using (Html.BeginForm("CreateByButtonClick", "Message", new { id = Model.Get().UserId })) {%>
+                    <% using (Html.BeginForm("CreateByButtonClick", "Message", new { id = Model.Get().UserId, subject = "Regarding book: " + Model.Get().BookTitle })) {%>
 					    <input type="submit" class="ml200 mt34 btn mail" value="Contact The Poster" />
                     <% } %>
 				</div>
