@@ -149,6 +149,7 @@
     <Compile Include="Helpers\NavigationCountHelper.cs" />
     <Compile Include="Helpers\NotificationType.cs" />
     <Compile Include="Helpers\PhotoHelper.cs" />
+    <Compile Include="Helpers\PrivacyAction.cs" />
     <Compile Include="Helpers\PrivacyHelper.cs" />
     <Compile Include="Helpers\ProfilePictureStrategy.cs" />
     <Compile Include="Helpers\RegexHelper.cs" />

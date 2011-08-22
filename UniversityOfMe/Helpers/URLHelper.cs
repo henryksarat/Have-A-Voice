@@ -79,7 +79,11 @@ namespace UniversityOfMe.Helpers {
         }
 
         public static string ProfileUrl(User aUser) {
-            return "/" + aUser.ShortUrl;
+            if (!string.IsNullOrEmpty(aUser.ShortUrl)) {
+                return "/" + aUser.ShortUrl;
+            } else {
+                return "/Profile/Show/" + aUser.Id;
+            }
         }
 
         public static string PhotoAlbumDetailsUrl(PhotoAlbum aPhotoAlbum) {

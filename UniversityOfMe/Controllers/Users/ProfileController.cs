@@ -36,10 +36,6 @@ namespace UniversityOfMe.Controllers.Profile {
         [RequiredRouteValueAttribute.RequireRouteValues(new[] { "shortName" })]
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Show(string shortName) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-
             try {
                 UserInformationModel<User> myViewingUser = GetUserInformatonModel();
                 User myProfile = theUserRetrievalService.GetUserByShortUrl(shortName);
@@ -57,10 +53,6 @@ namespace UniversityOfMe.Controllers.Profile {
         [RequiredRouteValueAttribute.RequireRouteValues(new[] { "id" })]
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult Show(int id) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-
             try {
                 UserInformationModel<User> myViewingUser = GetUserInformatonModel();
                 
