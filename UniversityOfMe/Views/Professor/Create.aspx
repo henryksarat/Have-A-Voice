@@ -12,7 +12,7 @@
 
 	<div class="eight last"> 
 		<div class="create-feature-form create"> 
-			<div class="banner black full red-top small"> 
+			<div class="banner black full small"> 
 				<span class="professor">CREATE PROFESSOR</span> 
 			</div> 
             <% Html.RenderPartial("Message"); %>
@@ -20,19 +20,19 @@
             <div class="padding-col">
                 <% using (Html.BeginForm("Create", "Professor", FormMethod.Post)) {%>
                     <div class="field-holder">
-			            <label for="FirstName">First Name:</label> 
+			            <label for="FirstName">First Name</label> 
                         <%= Html.TextBox("FirstName")%>
                         <%= Html.ValidationMessage("FirstName", "*", new { @class = "req"})%>
                     </div>
 
                     <div class="field-holder">
-			            <label for="LastName">Last Name:</label> 
+			            <label for="LastName">Last Name</label> 
                         <%= Html.TextBox("LastName")%>
                         <%= Html.ValidationMessage("LastName", "*", new { @class = "req" })%>
                     </div>
 
                     <div class="field-holder">
-			            <label for="ProfessorImage">Professor Image:</label> 
+			            <label for="ProfessorImage">Professor Image</label> 
 			            <input type="file" id="ProfessorImage" name="ProfessorImage" size="23" />
                     </div>
 

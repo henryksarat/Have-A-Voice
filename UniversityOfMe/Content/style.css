@@ -366,7 +366,7 @@ div.photo { border: 1px solid #a5a5a5; padding: 2px; float: left; margin: 0px 8%
 div.photo:nth-child(6n) { margin-right: 0px; }
 div.photo img { border: 1px solid #dbd8d7; max-width: 128px; max-height: 128px; }
 
-div.album { font-size: 12px; float: left; width: 25%; min-width: 136px; margin-bottom: 30px; }
+div.album { font-size: 12px; display: inline; width: 25%; min-width: 136px; margin-bottom: 30px; text-align: center; padding: 25px 25px 25px 25px; }
 div.album a, div.album a:link, div.album a:visited { color: #03577c; display: inline-block; }
 div.album a:hover { }
 div.album a img { max-width: 128px; max-height: 128px; margin-bottom: -8px; border: 4px solid #8d8989; }
@@ -623,7 +623,7 @@ a.add-new:hover { text-decoration: underline; }
 a.name, a.name:link, a.name:visited { display: block; font-size: 14px; color: #262626; }
 a.name:hover { text-decoration: underline; }
 
-.imagebutton { border: 0; background: transparent; display: inline-block; text-decoration: none; outline: none }
+.imagebutton { border: 0; background: transparent; display: inline-block; text-decoration: none; outline: none; cursor: pointer; }
 
 .tooltip {
 	display:none;
@@ -709,7 +709,7 @@ div.twoColCreateMessage div.rCol { float: left; width: 65%; padding: 10px 10px 1
 .create-feature-form label { color: #000; font-size: 12px; float: left; width: 150px; cursor: pointer; }
 .create-feature-form .textarea { border: 1px solid #971e21; background: #fff; height: 150px; min-width: 160px; max-width: 300px; outline: none; width: 100%; }
 .create-feature-form input[type=text], .create-feature-form input[type=file] { border: 1px solid #971e21; background: #fff; height: 28px; min-width: 160px; max-width: 300px; outline: none; width: 100%; }
-.create-feature-form select { border: 1px solid #971e21; background: #fff; height: 28px; outline: none; }
+.create-feature-form select { border: 1px solid #971e21; background: #fff; height: 28px; outline: none; vertical-align: top; }
 .create-feature-form div.field-holder { width: 500px; margin-bottom: 10px }
 .create-feature-form div.field-holder-extra { vertical-align:top; width: 600px; margin-bottom: 10px }
 

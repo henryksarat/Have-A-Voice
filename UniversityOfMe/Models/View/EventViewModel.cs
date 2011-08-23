@@ -32,6 +32,13 @@ namespace UniversityOfMe.Models.View {
             EndDate = myEndDateLocal.ToString("MM-dd-yyyy");
             EndTime = myEndDateLocal.ToString("hh:mm tt");
             Information = anExternal.Information;
+
+            if(!string.IsNullOrEmpty(StartTime)) {
+                StartTimes = new SelectList(Social.Generic.Constants.Constants.GetTimes(), "Value", "Key", StartTime);
+            }
+            if (!string.IsNullOrEmpty(EndTime)) {
+                EndTimes = new SelectList(Social.Generic.Constants.Constants.GetTimes(), "Value", "Key", EndTime);
+            }
         }
     }
 }

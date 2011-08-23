@@ -26,7 +26,7 @@
         <% Html.RenderPartial("Validation"); %>
 
         <div class="edit-user-form">
-		<div class="banner title black full red-top small"> 
+		<div class="banner title black full small"> 
 			<span class="edit">EDIT YOUR ACCOUNT</span> 
         </div>
         <div class="twoColEditUser clearfix">
@@ -85,58 +85,58 @@
                 </div>
                 <% } %>
                 <div class="field-holder">
-			        <label for="NewPassword">New Password:</label>
+			        <label for="NewPassword">New Password</label>
 			        <%= Html.Password("NewPassword")%>
 		            <%= Html.ValidationMessage("NewPassword", "*", new { @class = "req" })%>
                 </div>
                 <div class="field-holder">
-			        <label for="RetypedPassword">Confirm New Password:</label>
+			        <label for="RetypedPassword">Confirm New Password</label>
 			        <%= Html.Password("RetypedPassword")%>
 		            <%= Html.ValidationMessage("RetypedPassword", "*")%>
                 </div>
                 <div class="field-holder">
-                    <label for="FirstName">First Name:</label>
+                    <label for="FirstName">First Name</label>
 			        <%= Html.TextBox("FirstName", Model.Get().FirstName) %>
 		            <%= Html.ValidationMessage("FirstName", "*", new { @class = "req" })%>
                 </div>
                 <div class="field-holder">
-                    <label for="LastName">Last Name:</label>
+                    <label for="LastName">Last Name</label>
                     <%= Html.TextBox("LastName", Model.Get().LastName)%>
 		            <%= Html.ValidationMessage("LastName", "*", new { @class = "req" })%>
 	            </div>
                 <div class="field-holder">
-                    <label for="DateOfBirth">Date of Birth:</label>
+                    <label for="DateOfBirth">Date of Birth</label>
 	                <%= Html.TextBox("DateOfBirth", String.Format("{0:g}", Model.Get().DateOfBirth)) %>
 		            <%= Html.ValidationMessage("DateOfBirth", "*", new { @class = "req" })%>
 	            </div>
                 <div class="field-holder">
-                    <label for="City">City:</label>
+                    <label for="City">City</label>
 	                <%= Html.TextBox("City", Model.Get().City) %>
 	            </div>
                 <div class="field-holder">
-                    <label for="State">State:</label>
+                    <label for="State">State</label>
 	                <%= Html.DropDownList("State", Model.Get().States) %>
 	            </div>
                 <div class="field-holder">
-                    <label for="State">Relationship Status:</label>
+                    <label for="State">Relationship Status</label>
 	                <%= Html.DropDownList("RelationshipStatus", Model.Get().RelationshipStatu)%>
 	            </div>
                 <div class="field-holder">
-                    <label for="Website">Website:</label>
+                    <label for="Website">Website</label>
 	                <%= Html.TextBox("Website", Model.Get().Website)%>
 	            </div>
                 <div class="field-holder">
-                    <label for="NewEmail">New Email:</label>
+                    <label for="NewEmail">New Email</label>
 	                <%= Html.TextBox("NewEmail", Model.Get().NewEmail)%>
 	                <%= Html.ValidationMessage("NewEmail", "*", new { @class = "req" })%>
 	            </div>
                 <div class="field-holder">
-                    <label for="Gender">Gender:</label>
+                    <label for="Gender">Gender</label>
 	                <%= Html.DropDownList("Gender", Model.Get().Genders) %>
 		            <%= Html.ValidationMessage("Gender", "*", new { @class = "req" })%>
 	            </div>
                 <div class="field-holder">
-                    <label for="AboutMe">About Me:</label>
+                    <label for="AboutMe">About Me</label>
 	                <%= Html.TextArea("AboutMe", Model.Get().AboutMe, 15, 35, new { @class ="textarea" })%>
 	            </div>
                 <div class="field-holder center ml190">

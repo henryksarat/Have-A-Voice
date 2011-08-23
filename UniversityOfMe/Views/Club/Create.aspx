@@ -12,7 +12,7 @@
 
 	<div class="eight last"> 
 		<div class="create create-feature-form"> 
-			<div class="banner black full red-top small"> 
+			<div class="banner black full small"> 
 				<span class="organization">CREATE ORGANIZATION</span> 
 			</div> 
             
@@ -22,30 +22,30 @@
             <div class="padding-col">
                 <% using (Html.BeginForm("Create", "Club", FormMethod.Post, FormMethod.Post, new { enctype = "multipart/form-data", @class = "create btint-6" })) {%>
 			        <div class="field-holder">
-                        <label for="Name">Name:</label> 
+                        <label for="Name">Name</label> 
 			            <%= Html.TextBox("Name")%>
                         <%= Html.ValidationMessage("Name", "*", new { @class = "req" })%>
                     </div>
 
                     <div class="field-holder">
-			            <label for="Name" class="mt13">Your title:</label> 
+			            <label for="Name">Your Title</label> 
 			            <%= Html.TextBox("Title", Model.Get().Title, new { @class = "quarter" })%>
                         <%= Html.ValidationMessage("Title", "*", new { @class = "req" })%>
                     </div>
 
                     <div class="field-holder">
-			            <label for="ClubImage" class="mt13">Organization Image:</label> 
+			            <label for="ClubImage">Organization Image</label> 
 			            <input type="file" id="ClubImage" name="ClubImage" size="23" />
                     </div>
 
                     <div class="field-holder">
-			            <label for="ClubType" class="mt13">Organization Type:</label> 
+			            <label for="ClubType">Organization Type</label> 
                         <%= Html.DropDownListFor(model => model.Get().ClubType, Model.Get().ClubTypes)%>
                         <%= Html.ValidationMessageFor(model => model.Get().ClubType, "*", new { @class = "req" })%>
                     </div>
 
                     <div class="field-holder">
-			            <label for="Description" class="mt13">Description:</label> 
+			            <label for="Description">Description</label> 
                         <%= Html.TextArea("Description", Model.Get().Description, 6, 0 ,new { @class = "textarea" }) %>
                         <%= Html.ValidationMessage("Description", "*", new { @class = "req" })%>
                     </div>

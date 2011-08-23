@@ -12,13 +12,17 @@
     <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
     <div class="eight last"> 
-        <% Html.RenderPartial("Message"); %>
-        <% Html.RenderPartial("Validation"); %>
+        <div class="create-feature-form">
+		    <div class="banner black full"> 
+			    Your Notifications
+		    </div> 
+            <div class="padding-col">
+                <% Html.RenderPartial("Message"); %>
+                <% Html.RenderPartial("Validation"); %>
 
-		<div class="banner black full red-top"> 
-			Your Notifications
-		</div> 
-		
-        <% Html.RenderPartial("Notifications", Model.Get()); %>
+
+                <% Html.RenderPartial("Notifications", Model.Get()); %>
+            </div>
+        </div>
 	</div>
 </asp:Content>

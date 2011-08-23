@@ -11,38 +11,53 @@
     <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
 	<div class="eight last"> 
-        <% Html.RenderPartial("Message"); %>
-        <% Html.RenderPartial("Validation"); %>
-		<div class="create"> 
-			<div class="banner black full red-top small"> 
-				<span class="organization">CREATE ORGANIZATION</span> 
+		<div class="create create-feature-form"> 
+			<div class="banner black full small"> 
+				<span class="organization">EDIT ORGANIZATION: <%= Model.Get().Title %></span> 
 			</div> 
-            <% using (Html.BeginForm("Edit", "Club", FormMethod.Post, FormMethod.Post, new { enctype = "multipart/form-data", @class = "create btint-6" })) {%>
-                <%= Html.Hidden("ClubId", Model.Get().ClubId) %>
-			    <label for="Name">Name:</label> 
-			    <%= Html.TextBox("Name", Model.Get().Name, new { @class = "quarter" })%>
-                <%= Html.ValidationMessage("Name", "*")%>
 
-                <label for="Name" class="mt13">Current Organization Image:</label> 
-                <img src="<%= Model.Get().ClubImageUrl %>" />
-        
+            <% Html.RenderPartial("Message"); %>
+            <% Html.RenderPartial("Validation"); %>
 
-			    <label for="ClubImage" class="mt13">New Organization Image:</label> 
-			    <input type="file" id="ClubImage" name="ClubImage" size="23" />
+            <div class="padding-col">
+                <% using (Html.BeginForm("Edit", "Club", FormMethod.Post, FormMethod.Post, new { enctype = "multipart/form-data", @class = "create btint-6" })) {%>
+                    <%= Html.Hidden("ClubId", Model.Get().ClubId) %>
+			    
+                    <div class="field-holder">
+                        <label for="Name">Name</label> 
+			            <%= Html.TextBox("Name", Model.Get().Name)%>
+                        <%= Html.ValidationMessage("Name", "*", new { @class = "req" })%>
+                    </div>
 
-			    <label for="ClubType" class="mt13">Organization Type:</label> 
-                <%= Html.DropDownListFor(model => model.Get().ClubType, Model.Get().ClubTypes)%>
-                <%= Html.ValidationMessageFor(model => model.Get().ClubType, "*")%>
+                    <div class="field-holder">
+                        <label for="Name">Current Image</label> 
+                        <img src="<%= Model.Get().ClubImageUrl %>" />
+                    </div>
 
-			    <label for="Description" class="mt13">Description:</label> 
-                <%= Html.TextArea("Description", Model.Get().Description, 6, 0 ,new { @class = "full" }) %>
-                <%= Html.ValidationMessage("Description", "*")%>
+                    <div class="field-holder">
+			            <label for="ClubImage">New Image</label> 
+			            <input type="file" id="ClubImage" name="ClubImage" size="23" />
+                    </div>
 
-			    <div class="right"> 
-				    <input type="submit" name="submit" class="btn site mr14" value="Submit" /> 
-				    <input type="button" name="cancel" class="btn site" value="Cancel" /> 
-			    </div> 
-            <% } %>
+                    <div class="field-holder">
+			            <label for="ClubType">Organization Type</label> 
+                        <%= Html.DropDownListFor(model => model.Get().ClubType, Model.Get().ClubTypes)%>
+                        <%= Html.ValidationMessageFor(model => model.Get().ClubType, "*", new { @class = "req" })%>
+                    </div>
+
+                    <div class="field-holder">
+			            <label for="Description">Description</label> 
+                        <%= Html.TextArea("Description", Model.Get().Description, new { @class = "textarea" }) %>
+                        <%= Html.ValidationMessage("Description", "*", new { @class = "req" })%>
+                    </div>
+
+			        <div class="field-holder">
+                        <div class="right">
+				            <input type="submit" name="submit" class="btn site button-padding" value="Submit" /> 
+                        </div>
+			        </div> 
+                <% } %>
+            </div>
 		</div> 
 	</div> 
 </asp:Content>

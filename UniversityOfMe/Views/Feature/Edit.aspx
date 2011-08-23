@@ -13,30 +13,34 @@
     <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
 	<div class="eight last"> 
-        <% Html.RenderPartial("Message"); %>
-        <% Html.RenderPartial("Validation"); %>
+        <div class="create-feature-form">
+		    <div class="banner title black full red-top small"> 
+			    <span class="edit">EDIT YOUR SITE SETTINGS</span> 
+            </div>
 
-		<div class="banner title black full red-top small"> 
-			<span class="edit">EDIT YOUR SITE SETTINGS</span> 
+            <% Html.RenderPartial("Message"); %>
+            <% Html.RenderPartial("Validation"); %>
+
+            <div class="padding-col">
+		        <% using (Html.BeginForm()) { %>
+                    <% foreach(Pair<Feature, bool> myPair in Model.Get()) { %>
+		            <div class="wp100 mt13" style="display:inline-block">		    		
+			            <div class="flft">
+			                <div class="bold"><%= myPair.First.DisplayName%></div>
+                            <div class="small mt-6"><%= myPair.First.Description %></div>
+			            </div>
+			            <div class="frgt mr26 small">
+			                Yes <%= Html.RadioButton(myPair.First.Name, true, myPair.Second)%>
+			                No <%= Html.RadioButton(myPair.First.Name, false, !myPair.Second)%>
+			            </div>
+		            </div>
+                    <% } %>
+		            <div class="right"> 
+				        <input type="submit" class="btn site mr26" value="Save" />
+		            </div>
+		        <% } %>
+            </div>
         </div>
-		<% using (Html.BeginForm()) { %>
-            <% foreach(Pair<Feature, bool> myPair in Model.Get()) { %>
-		    <div class="wp100 mt13" style="display:inline-block">		    		
-			    <div class="flft">
-			        <div><%= myPair.First.DisplayName%></div>
-                    <div class="small mt-6"><%= myPair.First.Description %></div>
-			    </div>
-			    <div class="frgt mr26 small">
-			        Yes <%= Html.RadioButton(myPair.First.Name, true, myPair.Second)%>
-			        No <%= Html.RadioButton(myPair.First.Name, false, !myPair.Second)%>
-			    </div>
-		    </div>
-            <% } %>
-		    <div class="right"> 
-				<input type="submit" class="btn site" value="Save" />
-		    </div>
-		<% } %>
-		<div class="clear">&nbsp;</div>
 	</div>
 	<div class="clear">&nbsp;</div>
 

@@ -11,50 +11,70 @@
     <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
 	<div class="eight last"> 
-        <% Html.RenderPartial("Message"); %>
-        <% Html.RenderPartial("Validation"); %>
-
-		<div class="create"> 
-			<div class="banner black full red-top small"> 
+		<div class="create-feature-form">
+			<div class="banner black full small"> 
 				<span class="book">EDIT TEXTBOOK - <%= Model.Get().BookTitle %></span> 
 			</div> 
-            <% using (Html.BeginForm("Edit", "TextBook", FormMethod.Post, FormMethod.Post, new { enctype = "multipart/form-data", @class = "create btint-6" })) {%>
-                <%= Html.Hidden("TextBookId", Model.Get().TextBookId) %>
-			    <label for="BookTitle">Book Title:</label> 
-			    <%= Html.TextBox("BookTitle", Model.Get().BookTitle, new { @class = "quarter" })%>
-                <%= Html.ValidationMessage("BookTitle", "*")%>
 
-			    <label for="TextBookCondition" class="mt13">Book Condition:</label> 
-                <%= Html.DropDownListFor(model => model.Get().TextBookCondition, Model.Get().TextBookConditions)%>
-                <%= Html.ValidationMessageFor(model => model.Get().TextBookCondition, "*")%>
+            <% Html.RenderPartial("Message"); %>
+            <% Html.RenderPartial("Validation"); %>
+            <div class="padding-col">
+                <% using (Html.BeginForm("Edit", "TextBook", FormMethod.Post, FormMethod.Post, new { enctype = "multipart/form-data", @class = "create btint-6" })) {%>
+                    <%= Html.Hidden("TextBookId", Model.Get().TextBookId) %>
+                    
+                    <div class="field-holder">
+			            <label for="BookTitle">Book Title</label> 
+			            <%= Html.TextBox("BookTitle", Model.Get().BookTitle, new { @class = "quarter" })%>
+                        <%= Html.ValidationMessage("BookTitle", "*", new { @class = "req" })%>
+                    </div>
 
-                <label for="Image" class="mt13">Current Textbook Image:</label> 
-                <img src="<%= Model.Get().TextBookImageUrl %>" />
+                    <div class="field-holder">
+			            <label for="TextBookCondition">Book Condition</label> 
+                        <%= Html.DropDownListFor(model => model.Get().TextBookCondition, Model.Get().TextBookConditions)%>
+                        <%= Html.ValidationMessageFor(model => model.Get().TextBookCondition, "*", new { @class = "req" })%>
+                    </div>
 
-			    <label for="BookImage" class="mt13">Book Image:</label> 
-			    <input type="file" id="BookImage" name="BookImage" size="23" />
+                    <div class="field-holder">
+                        <label for="Image">Current Image</label> 
+                        <img src="<%= Model.Get().TextBookImageUrl %>" />
+                    </div>
 
-			    <label for="BookTitle" class="mt13">Class Code:</label> 
-			    <%= Html.TextBox("ClassCode", Model.Get().ClassCode, new { @class = "quarter" })%>
-                <%= Html.ValidationMessage("ClassCode", "*")%>
+                    <div class="field-holder">
+			            <label for="BookImage">New Book Image</label> 
+			            <input type="file" id="BookImage" name="BookImage" size="23" />
+                    </div>
 
-			    <label for="BookTitle" class="mt13">Edition:</label> 
-			    <%= Html.TextBox("Edition", Model.Get().Edition.Equals("0") ? string.Empty : Model.Get().Edition, new { @class = "quarter" })%>
-                <%= Html.ValidationMessage("Edition", "*")%>
+                    <div class="field-holder">
+			            <label for="BookTitle" class="mt13">Class Code</label> 
+			            <%= Html.TextBox("ClassCode", Model.Get().ClassCode, new { @class = "quarter" })%>
+                        <%= Html.ValidationMessage("ClassCode", "*", new { @class = "req" })%>
+                    </div>
 
-			    <label for="Price" class="mt13">Price:</label> 
-			    <%= Html.TextBox("Price", Model.Get().Price, new { @class = "quarter" })%>
-                <%= Html.ValidationMessage("Price", "*")%>
+                    <div class="field-holder">
+			            <label for="BookTitle">Edition</label> 
+			            <%= Html.TextBox("Edition", Model.Get().Edition.Equals("0") ? string.Empty : Model.Get().Edition)%>
+                        <%= Html.ValidationMessage("Edition", "*", new { @class = "req" })%>
+                    </div>
 
-			    <label for="Details" class="mt13">Details:</label> 
-                <%= Html.TextArea("Information", Model.Get().Details, 6, 0 ,new { @class = "full" }) %>
-                <%= Html.ValidationMessage("Details", "*")%>
+                    <div class="field-holder">
+			            <label for="Price">Price</label> 
+			            <%= Html.TextBox("Price", Model.Get().Price)%>
+                        <%= Html.ValidationMessage("Price", "*", new { @class = "req" })%>
+                    </div>
 
-			    <div class="right"> 
-				    <input type="submit" name="submit" class="btn site mr14" value="Submit" /> 
-				    <input type="button" name="cancel" class="btn site" value="Cancel" /> 
-			    </div> 
-            <% } %>
+                    <div class="field-holder">
+			            <label for="Details">Details</label> 
+                        <%= Html.TextArea("Information", Model.Get().Details, new { @class = "textarea" }) %>
+                        <%= Html.ValidationMessage("Details", "*", new { @class = "req" })%>
+                    </div>
+
+			        <div class="field-holder">
+                        <div class="right">
+				            <input type="submit" name="submit" class="btn site button-padding" value="Submit" /> 
+                        </div>
+			        </div> 
+                <% } %>
+            </div>
 		</div> 
 	</div> 
 </asp:Content>

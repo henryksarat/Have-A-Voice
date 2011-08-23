@@ -12,7 +12,7 @@
 
 	<div class="eight last"> 
 		<div class="create create-feature-form"> 
-			<div class="banner black full red-top small"> 
+			<div class="banner black full small"> 
 				<span class="organization">CREATE A GENERAL POSTING</span> 
 			</div> 
 
@@ -22,13 +22,13 @@
             <div class="padding-col">
                 <% using (Html.BeginForm("Create", "GeneralPosting", FormMethod.Post)) {%>
                     <div class="field-holder">
-			            <label for="Title">Title:</label> 
+			            <label for="Title">Title</label> 
 			            <%= Html.TextBox("Title")%>
                         <%= Html.ValidationMessage("Title", "*", new { @class = "req" })%>
                     </div>
 
                     <div class="field-holder">
-			            <label for="Body">Body:</label> 
+			            <label for="Body">Body</label> 
                         <%= Html.TextArea("Body", new { @class = "textarea" })%>
                         <%= Html.ValidationMessage("Body", "*", new { @class = "req" })%>
                     </div>
