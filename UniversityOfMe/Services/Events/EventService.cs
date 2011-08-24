@@ -111,6 +111,7 @@ namespace UniversityOfMe.Services.Events {
             myEvent.EndDate = myEndDateUtc;
             myEvent.Information = anEditViewModel.Information;
             myEvent.EntireSchool = Boolean.Parse(anEditViewModel.EventPrivacyOption);
+            myEvent.EditedDateTimeStamp = DateTime.UtcNow;
 
             theEventRepository.UpdateEvent(myEvent);
 

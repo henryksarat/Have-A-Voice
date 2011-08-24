@@ -15,7 +15,6 @@
 
 	<div class="eight last">
         <% Html.RenderPartial("Message"); %>
-        <% Html.RenderPartial("Validation"); %>
 
 		<div class="banner black full red-top small">
 			<span class="book"><%= Model.Get().BookTitle %></span>
@@ -27,6 +26,8 @@
                 <% } %>
 			</div>
 		</div>
+
+        <% Html.RenderPartial("Validation"); %>
 					
 		<div class="flft max-w207 mr21 center clearfix">
 			<img src="<%= PhotoHelper.TextBookPhoto(Model.Get()) %>" alt="Textbook Cover" />
@@ -34,6 +35,13 @@
 		<div class="flft max-w590 wp69 clearfix">
 					
 			<div class="listing mb40">
+				<div class="col">
+					<label for="title">Sold By:</label>
+				</div>
+				<div class="col">
+                    <a class="listinglink" href="<%= URLHelper.ProfileUrl(Model.Get().User) %>"><%= NameHelper.FullName(Model.Get().User) %></a>
+				</div>
+
 				<div class="col">
 					<label for="title">Title:</label>
 				</div>

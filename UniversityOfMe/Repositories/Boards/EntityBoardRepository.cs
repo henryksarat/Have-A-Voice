@@ -116,11 +116,17 @@ namespace UniversityOfMe.Repositories.Boards {
             BoardReply myBoardReply = FindBoardReplyByBoardReplyId(aReplyId);
             return SocialBoardReplyModel.Create(myBoardReply);
         }
+
         public IEnumerable<BoardReply> FindBoardRepliesByBoard(int aBoardId) {
             return (from br in theEntities.BoardReplies
                     where br.Board.Id == aBoardId
                     && br.Deleted == false
                     select br).ToList<BoardReply>();
+        }
+
+        public User GetSourceUserForBoard(int aBoardId) {
+            int myUserId = FindAbstractBoardByBoardId(aBoardId).OwnerUserId;
+            return GetUser(myUserId);
         }
 
         private void UpdateCurrentBoardViewedStateAndAddIfNecessaryWithoutSave(User aPostingUser, int aBoardId) {
@@ -160,6 +166,12 @@ namespace UniversityOfMe.Repositories.Boards {
             return (from v in theEntities.BoardViewedStates
                     where v.BoardId == aBoardId
                     select v).ToList<BoardViewedState>();
+        }
+
+        private User GetUser(int aUserId) {
+            return (from u in theEntities.Users
+                    where u.Id == aUserId
+                    select u).FirstOrDefault<User>();
         }
     }
 }

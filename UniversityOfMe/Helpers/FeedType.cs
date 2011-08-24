@@ -10,6 +10,7 @@ namespace UniversityOfMe.Helpers {
         Deactivated,
         Textbook,
         Club,
-        ClassEnrollment
+        ClassEnrollment,
+        Event
     }
 }

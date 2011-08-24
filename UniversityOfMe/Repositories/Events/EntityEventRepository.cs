@@ -19,7 +19,7 @@ namespace UniversityOfMe.Repositories.Events {
         }
 
         public Event CreateEvent(User aStartingUser, string aUniversityId, string aTitle, DateTime aStartDate, DateTime aEndDate, string anInformation, bool anEntireSchool) {
-            Event myEvent = Event.CreateEvent(0, aUniversityId, aStartingUser.Id, aTitle, aStartDate, aEndDate, anInformation, anEntireSchool, false);
+            Event myEvent = Event.CreateEvent(0, aUniversityId, aStartingUser.Id, aTitle, aStartDate, aEndDate, anInformation, anEntireSchool, false, DateTime.UtcNow);
             theEntities.AddToEvents(myEvent);
             theEntities.SaveChanges();
 
@@ -75,7 +75,7 @@ namespace UniversityOfMe.Repositories.Events {
                     where e.Id == anEventId
                     && e.UniversityId == aUniversityId
                     && e.Deleted == false
-                    && e.StartDate > DateTime.UtcNow
+                    && e.EndDate >= DateTime.UtcNow
                     select e).FirstOrDefault<Event>();
         }
 
@@ -83,7 +83,7 @@ namespace UniversityOfMe.Repositories.Events {
             return (from e in theEntities.Events
                     where e.UniversityId == aUniversityId
                     && e.Deleted == false
-                    && e.StartDate > DateTime.UtcNow
+                    && e.EndDate >= DateTime.UtcNow
                     select e).ToList<Event>();
         }
 

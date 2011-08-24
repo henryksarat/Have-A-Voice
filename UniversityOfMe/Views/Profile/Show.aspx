@@ -6,6 +6,7 @@
 <%@ Import Namespace="Social.Generic.Models" %>
 <%@ Import Namespace="UniversityOfMe.Helpers.Functionality" %>
 <%@ Import Namespace="UniversityOfMe.Helpers.Search" %>
+<%@ Import Namespace="Social.Generic.Helpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	UniversityOf.Me - <%=NameHelper.FullName(Model.User) %>'s Profile
@@ -250,7 +251,7 @@
 		    </div> 
             <% } %>
         <% } else { %>
-            <div class="center small">
+            <div class="center small bold">
                 The user's privacy settings disallow you from viewing their profile.
             </div>
         <% } %>

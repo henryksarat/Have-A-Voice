@@ -36,10 +36,10 @@ namespace UniversityOfMe.Controllers.Profile {
 
         [RequiredRouteValueAttribute.RequireRouteValues(new[] { "shortName" })]
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Show(string shortName, bool showAllBoards, bool showAllPhotoAlbums) {
+        public ActionResult Show(string shortName) {
             try {
 
-                ProfileModel myModel = theUserRetrievalService.GetProfileModelByShortUrl(shortName, showAllBoards, showAllPhotoAlbums);
+                ProfileModel myModel = theUserRetrievalService.GetProfileModelByShortUrl(shortName, false, false);
                 if (myModel.User == null) {
                     return SendToErrorPage(INVALID_SHORT_URL);
                 }

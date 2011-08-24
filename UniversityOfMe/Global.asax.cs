@@ -99,7 +99,13 @@ namespace UniversityOfMe {
                 "SendItems/{action}/{id}", // URL with parameters
                 new { controller = "SendItems", action = "SendItem", id = UrlParameter.Optional } // Parameter defaults
             );
-            
+
+            routes.MapRoute(
+                "DefaultHome", // Route name
+                "Home/{action}/{id}", // URL with parameters
+                new { controller = "Home", action = "Main", id = UrlParameter.Optional } // Parameter defaults
+            );
+
             routes.MapRoute(
                 "UniversityDefault", // Route name
                 "{universityId}/{controller}/{action}/{id}",

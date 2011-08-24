@@ -7470,7 +7470,8 @@ namespace UniversityOfMe.Models
         /// <param name="information">Initial value of the Information property.</param>
         /// <param name="entireSchool">Initial value of the EntireSchool property.</param>
         /// <param name="deleted">Initial value of the Deleted property.</param>
-        public static Event CreateEvent(global::System.Int32 id, global::System.String universityId, global::System.Int32 userId, global::System.String title, global::System.DateTime startDate, global::System.DateTime endDate, global::System.String information, global::System.Boolean entireSchool, global::System.Boolean deleted)
+        /// <param name="createdDateTimeStamp">Initial value of the CreatedDateTimeStamp property.</param>
+        public static Event CreateEvent(global::System.Int32 id, global::System.String universityId, global::System.Int32 userId, global::System.String title, global::System.DateTime startDate, global::System.DateTime endDate, global::System.String information, global::System.Boolean entireSchool, global::System.Boolean deleted, global::System.DateTime createdDateTimeStamp)
         {
             Event @event = new Event();
             @event.Id = id;
@@ -7482,6 +7483,7 @@ namespace UniversityOfMe.Models
             @event.Information = information;
             @event.EntireSchool = entireSchool;
             @event.Deleted = deleted;
+            @event.CreatedDateTimeStamp = createdDateTimeStamp;
             return @event;
         }
 
@@ -7730,6 +7732,54 @@ namespace UniversityOfMe.Models
         private Nullable<global::System.Int32> _DeletedUserId;
         partial void OnDeletedUserIdChanging(Nullable<global::System.Int32> value);
         partial void OnDeletedUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime CreatedDateTimeStamp
+        {
+            get
+            {
+                return _CreatedDateTimeStamp;
+            }
+            set
+            {
+                OnCreatedDateTimeStampChanging(value);
+                ReportPropertyChanging("CreatedDateTimeStamp");
+                _CreatedDateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CreatedDateTimeStamp");
+                OnCreatedDateTimeStampChanged();
+            }
+        }
+        private global::System.DateTime _CreatedDateTimeStamp;
+        partial void OnCreatedDateTimeStampChanging(global::System.DateTime value);
+        partial void OnCreatedDateTimeStampChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> EditedDateTimeStamp
+        {
+            get
+            {
+                return _EditedDateTimeStamp;
+            }
+            set
+            {
+                OnEditedDateTimeStampChanging(value);
+                ReportPropertyChanging("EditedDateTimeStamp");
+                _EditedDateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("EditedDateTimeStamp");
+                OnEditedDateTimeStampChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _EditedDateTimeStamp;
+        partial void OnEditedDateTimeStampChanging(Nullable<global::System.DateTime> value);
+        partial void OnEditedDateTimeStampChanged();
 
         #endregion
     

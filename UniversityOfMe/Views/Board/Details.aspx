@@ -27,8 +27,10 @@
 
 		    <div class="board"> 
 			    <div class="prfl clearfix"> 
-				    <div class="pCol"> 
-					    <img src="<%= PhotoHelper.ProfilePicture(Model.Get().PostedByUser) %>" class="profile big" /> 
+				    <div class="pCol center"> 
+                        <a href="<%= URLHelper.ProfileUrl(Model.Get().PostedByUser) %>">
+                            <img src="<%= PhotoHelper.ProfilePicture(Model.Get().PostedByUser) %>" class="profile lrg" />
+                        </a>
 				    </div> 
 				    <div class="cCol"> 
 					    <div class="red bld"> 

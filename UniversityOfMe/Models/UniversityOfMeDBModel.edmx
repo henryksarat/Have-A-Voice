@@ -701,13 +701,15 @@
           <Property Name="EntireSchool" Type="bit" Nullable="false" />
           <Property Name="Deleted" Type="bit" Nullable="false" />
           <Property Name="DeletedUserId" Type="int" />
+          <Property Name="CreatedDateTimeStamp" Type="smalldatetime" Nullable="false" />
+          <Property Name="EditedDateTimeStamp" Type="smalldatetime" />
         </EntityType>
         <EntityType Name="Features">
           <Key>
             <PropertyRef Name="Name" />
           </Key>
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="20" />
-          <Property Name="DisplayName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="35" />
+          <Property Name="DisplayName" Type="varchar" Nullable="false" MaxLength="100" />
           <Property Name="Description" Type="text" Nullable="false" />
           <Property Name="ListOrder" Type="int" Nullable="false" />
         </EntityType>
@@ -717,7 +719,7 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="FeatureName" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="FeatureName" Type="varchar" Nullable="false" MaxLength="35" />
           <Property Name="Enabled" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Friends">
@@ -3300,6 +3302,8 @@
           <NavigationProperty Name="User" Relationship="UniversityOfMeModel.FK_Events_Users" FromRole="Event" ToRole="User" />
           <NavigationProperty Name="EventBoards" Relationship="UniversityOfMeModel.FK_EventBoard_Events" FromRole="Event" ToRole="EventBoard" />
           <NavigationProperty Name="EventAttendences" Relationship="UniversityOfMeModel.FK_EventAttendences_Events" FromRole="Event" ToRole="EventAttendence" />
+          <Property Type="DateTime" Name="CreatedDateTimeStamp" Nullable="false" />
+          <Property Type="DateTime" Name="EditedDateTimeStamp" />
         </EntityType>
         <Association Name="FK_Events_Universities">
           <End Type="UniversityOfMeModel.University" Role="University" Multiplicity="1" />
@@ -4837,6 +4841,8 @@
           <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="UniversityOfMeModel.Event">
               <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="EditedDateTimeStamp" ColumnName="EditedDateTimeStamp" />
+                <ScalarProperty Name="CreatedDateTimeStamp" ColumnName="CreatedDateTimeStamp" />
                 <ScalarProperty Name="DeletedUserId" ColumnName="DeletedUserId" />
                 <ScalarProperty Name="Deleted" ColumnName="Deleted" />
                 <ScalarProperty Name="EntireSchool" ColumnName="EntireSchool" />
@@ -5289,7 +5295,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="UniversityOfMeDBModel" ZoomLevel="100">
+      <Diagram Name="UniversityOfMeDBModel" ZoomLevel="33">
         <EntityTypeShape EntityType="UniversityOfMeModel.RolePermission" Width="1.5" PointX="5.25" PointY="10.75" Height="1.9802864583333335" IsExpanded="true" />
         <EntityTypeShape EntityType="UniversityOfMeModel.Role" Width="1.5" PointX="3" PointY="10.25" Height="2.7494921874999996" IsExpanded="true" />
         <EntityTypeShape EntityType="UniversityOfMeModel.UserPrivacySetting" Width="1.5" PointX="5.25" PointY="4.875" Height="1.9802864583333326" IsExpanded="true" />

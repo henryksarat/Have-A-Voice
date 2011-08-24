@@ -16,7 +16,7 @@
             <% Html.RenderPartial("Message"); %>
             <% Html.RenderPartial("Validation"); %>
             <div class="create-message-form">
-    		    <div class="banner title black full red-top small"> 
+    		    <div class="banner title black full small"> 
 			        <span>Compose Message</span> 
 		        </div> 
 	        <% using (Html.BeginForm()) {%>

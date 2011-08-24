@@ -16,6 +16,7 @@ using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories;
 using UniversityOfMe.Repositories.Boards;
 using UniversityOfMe.UserInformation;
+using UniversityOfMe.Helpers.Privacy;
 
 namespace UniversityOfMe.Controllers.Boards {
     public class BoardController : AbstractBoardController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline, Board, BoardReply> {
@@ -31,7 +32,7 @@ namespace UniversityOfMe.Controllers.Boards {
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         new public ActionResult Details(int id) {
-            return base.Details(id);
+            return base.Details(id, new PrivacyStrategyImpl());
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]

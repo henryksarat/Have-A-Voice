@@ -25,7 +25,6 @@
 
 
 	<div class="eight last">
-        <% Html.RenderPartial("Validation"); %>
         <% Html.RenderPartial("Message"); %>
 		<div class="banner black full red-top small">
 			<span class="prof">Prof. <%= Model.Get().ProfessorName %></span>
@@ -36,6 +35,8 @@
 				</div>
 			</div>
 		</div>
+
+        <% Html.RenderPartial("Validation"); %>
 
 		<div class="flft max-w207 mr21 center clearfix">
 			<img src="<%= PhotoHelper.ProfessorPhoto(Model.Get().Professor) %>" alt="Prof. <%= Model.Get().ProfessorName %>" />
@@ -93,44 +94,57 @@
 				REVIEWS
 			</div>
 						
-			<div class="search mt23 clearfix">
-                <% using (Html.BeginForm("Create", "ProfessorReview")) {%>
-                    <%= Html.Hidden("ProfessorId", Model.Get().Professor.Id)%>
-                    <%= Html.Hidden("ProfessorName", Model.Get().ProfessorName)%>
-				    <label for="class">Class Code:</label>
-				    <%= Html.TextBox("Class", string.Empty)%>
-                    <%= Html.ValidationMessage("Class", "*")%>
-							
-				    <label for="AcademicTermId">Term:</label>
-                    <%= Html.DropDownList("AcademicTermId", Model.Get().AcademicTerms)%>
-                    <%= Html.ValidationMessage("AcademicTermId", "*")%>
-							
-				    <br />
+			<div class="clearfix">
+                <div class="professor-review-form create">
+                    <div class="padding-col">
+                        <% using (Html.BeginForm("Create", "ProfessorReview")) {%>
+                            <%= Html.Hidden("ProfessorId", Model.Get().Professor.Id)%>
+                            <%= Html.Hidden("ProfessorName", Model.Get().ProfessorName)%>
+                            <div class="field-holder">
+				                <label for="class">Class Code:</label>
+				                <%= Html.TextBox("Class", string.Empty)%>
+                                <%= Html.ValidationMessage("Class", "*", new { @class = "req" })%>
+                            </div>
 
-				    <label for="year">Year:</label>
-                    <%= Html.DropDownList("Year", Model.Get().Years)%>
-                    <%= Html.ValidationMessage("Year", "*")%>
+                            <div class="field-holder">							
+				                <label for="AcademicTermId">Term:</label>
+                                <%= Html.DropDownList("AcademicTermId", Model.Get().AcademicTerms)%>
+                                <%= Html.ValidationMessage("AcademicTermId", "*", new { @class = "req" })%>
+                            </div>
 
-				    <label for="anonymous">Post as anonymous</label>							
-				    <%= Html.CheckBox("Anonymous")%>
-							
-				    <%= Html.TextArea("Review", string.Empty, 6, 0, new { @class = "full"}) %>
-							
-				    <div class="frgt mt13">
-					    <input type="submit" class="frgt btn site" name="post" value="Post Review" />
-					    <div class="rating mr17">
-	                        <div id="stars-wrapper1">
-		                        <input type="radio" name="rating" value="1" title="Very poor" />
-		                        <input type="radio" name="rating" value="2" title="Poor" />
-		                        <input type="radio" name="rating" value="3" title="Not that bad" />
-		                        <input type="radio" name="rating" value="4" title="Fair" />
-		                        <input type="radio" name="rating" value="5" title="Average" />
-	                        </div>
+                            <div class="field-holder">
+				                <label for="year">Year:</label>
+                                <%= Html.DropDownList("Year", Model.Get().Years)%>
+                                <%= Html.ValidationMessage("Year", "*", new { @class = "req" })%>
+                            </div>
 
-                        <%= Html.ValidationMessage("Rating", "*")%>
-					    </div>
-				    </div>
-                <% } %>
+                            <div class="field-holder">
+				                <label for="anonymous">Post as anonymous</label>							
+				                <%= Html.CheckBox("Anonymous")%>
+                            </div>
+
+                            <div class="field-holder">                        							
+                                <label for="Review">Review</label>							
+				                <%= Html.TextArea("Review", new { @class = "textarea" })%>
+                                <%= Html.ValidationMessage("Review", "*", new { @class = "req" })%>
+                            </div>
+							
+				            <div class="mt13" style="margin-left: 215px">
+					            <div class="mr17" style="width:100px">
+	                                <div id="stars-wrapper1">
+		                                <input type="radio" name="rating" value="1" title="Very poor" />
+		                                <input type="radio" name="rating" value="2" title="Poor" />
+		                                <input type="radio" name="rating" value="3" title="Not that bad" />
+		                                <input type="radio" name="rating" value="4" title="Fair" />
+		                                <input type="radio" name="rating" value="5" title="Average" />
+	                                </div>
+                                    <%= Html.ValidationMessage("Rating", "*", new { @class = "req" })%>
+					            </div>
+                                <input style="margin-left:20px" type="submit" class="btn site" name="post" value="Post Review" />
+				            </div>
+                        <% } %>
+                    </div>
+                </div>
 			</div>
 					
             <% if (Model.Get().Professor.ProfessorReviews.Count == 0) { %>

@@ -7,35 +7,37 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="twelve"> 
-	    <div class="banner black full small red-top"> 
-		    LOGIN
-	    </div> 
-	    <p class="p20">
-                <% Html.RenderPartial("Message"); %>
-                <% Html.RenderPartial("Validation"); %>
-		        <% using (Html.BeginForm("Login", "Authentication", FormMethod.Post, new { @class = "form-normal" })) { %>
-                    <div class="input">
-                        <%: Html.Label("Email") %>
-                        <%: Html.TextBox("Email")%>
-                        <%: Html.ValidationMessage("Email", "*")%>
-                    </div>
+        <div class="create-feature-form create">
+	        <div class="banner black full small red-top"> 
+		        LOGIN
+	        </div> 
+	        <p class="p20">
+                    <% Html.RenderPartial("Message"); %>
+                    <% Html.RenderPartial("Validation"); %>
+		            <% using (Html.BeginForm("Login", "Authentication", FormMethod.Post, new { @class = "form-normal" })) { %>
+                        <div class="input">
+                            <%: Html.Label("Email") %>
+                            <%: Html.TextBox("Email")%>
+                            <%: Html.ValidationMessage("Email", "*")%>
+                        </div>
             
-                    <div class="input">
-                        <%: Html.Label("Password") %>
-                        <%: Html.Password("Password") %>
-                        <%: Html.ValidationMessage("Password", "*")%>
-                    </div>
+                        <div class="input">
+                            <%: Html.Label("Password") %>
+                            <%: Html.Password("Password") %>
+                            <%: Html.ValidationMessage("Password", "*")%>
+                        </div>
 
-		            <div class="input">
-                        <span class="empty-indent">&nbsp;</span>
-			            <%= Html.CheckBox("RememberMe") %> Remember me
-		            </div>
+		                <div class="input">
+                            <span class="empty-label">&nbsp;</span>
+			                <%= Html.CheckBox("RememberMe") %> Remember me
+		                </div>
 
-			        <div> 
-                        <span class="empty-indent">&nbsp;</span>
-				        <input type="submit" name="submit" class="btn" value="Login" /> 
-			        </div> 
-                <% } %>
-	    </p> 
+			            <div> 
+                            <span class="empty-label">&nbsp;</span>
+				            <input type="submit" name="submit" class="btn" value="Login" /> 
+			            </div> 
+                    <% } %>
+	        </p> 
+        </div>
     </div> 
 </asp:Content>
