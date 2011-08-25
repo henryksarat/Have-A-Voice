@@ -608,6 +608,7 @@ span.professor { padding: 2px 0px 2px 28px; background:url(images/person.png) no
 
 .pl50 { padding-left: 50px; }
 .pr150 { padding-right: 150px; }
+.pr10 { padding-right: 10px; }
 
 
 a.itemlinked, a.itemlinked:link, a.itemlinked:visited { color: Black; text-decoration: underline; }
@@ -720,6 +721,7 @@ div.twoColCreateMessage div.rCol { float: left; width: 65%; padding: 10px 10px 1
 
 
 .create-feature-form div.padding-col { padding: 25px 25px 25px 25px; }
+.create-feature-form div.padding-status-col { padding: 0px 25px 15px 25px; }
 .create-feature-form div.throw-right { text-align: right; }
 .create-feature-form .button-padding { margin-right:49px }
 

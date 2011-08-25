@@ -193,7 +193,9 @@
 		                <div class="board"> 
 			            <div class="prfl clearfix"> 
 				            <div class="pCol"> 
-					            <img src="<%= PhotoHelper.ProfilePicture(myBoard.PostedByUser) %>" class="profile big" /> 
+                                <a href="<%= URLHelper.ProfileUrl(myBoard.PostedByUser) %>">
+					                <img src="<%= PhotoHelper.ProfilePicture(myBoard.PostedByUser) %>" class="profile big" /> 
+                                </a>
 				            </div> 
 				            <div class="cCol"> 
 					            <div class="red bld"> 
@@ -225,10 +227,29 @@
 				            </div>							
 			            </div> 
                 
+                        <% int myCurrentBoardReply = 0; %>
+                        <% bool myPostedLink = false; %>
                         <% foreach (BoardReply myReply in myBoard.BoardReplies.Where(br => !br.Deleted).OrderByDescending(br => br.DateTimeStamp)) { %>						
+                            <% if(myBoard.BoardReplies.Count > 2) { %>
+                                <% if(!myPostedLink) { %>
+            		                <div class="viewall left"> 
+                                        <a href="<%= URLHelper.BoardDetailsUrl(myBoard) %>">View all <%= myBoard.BoardReplies.Count %> replies</a> 
+                                        <% myPostedLink = true; %>
+		                            </div> 
+                                <% } %>
+                                <% if (myCurrentBoardReply <= 1) { %>
+                                    <% myCurrentBoardReply++; %>
+                                <% } else { %>
+                                    <% myPostedLink = false; %>
+                                    <% break; %>
+                                <% } %>
+                            <% } %>
+
 			            <div class="prfl reply clearfix"> 
 				            <div class="pCol"> 
-					            <img src="<%= PhotoHelper.ProfilePicture(myReply.User) %>" class="profile med" /> 
+                                <a href="<%= URLHelper.ProfileUrl(myReply.User) %>">
+					                <img src="<%= PhotoHelper.ProfilePicture(myReply.User) %>" class="profile med" /> 
+                                </a>
 				            </div> 
 				            <div class="cCol"> 
 					            <div class="red bld"> 

@@ -398,6 +398,7 @@
     <Content Include="Content\js\jquery.tools.min.js" />
     <Content Include="Content\style.css" />
     <Content Include="Global.asax" />
+    <Content Include="favicon.ico" />
     <Content Include="Photos\nophotos.jpg" />
     <Content Include="Photos\no_profile_picture.jpg" />
     <Content Include="Views\Admin\Index.aspx" />

@@ -18,6 +18,8 @@ using UniversityOfMe.Services.Users;
 using UniversityOfMe.Services.Status;
 using Social.Validation;
 using Social.Admin.Exceptions;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace UniversityOfMe.Controllers.Profile {
     public class UserStatusController : UOFMeBaseController {
@@ -26,6 +28,7 @@ namespace UniversityOfMe.Controllers.Profile {
 
         private const string CREATE_ERROR = "Error setting your status. Please try again.";
         private const string DELETE_ERROR = "Error deleting the status.";
+        private const string LIST_ERROR = "Error retrieving the most recent statuses for your university.";
 
 
         private IUserStatusService theUserStatusService;
@@ -65,7 +68,7 @@ namespace UniversityOfMe.Controllers.Profile {
                 theUserStatusService.DeleteUserStatus(myUserInfo, id);
 
                 TempData["Message"] += SuccessMessage(DELETE_SUCCESS);
-            } catch(PermissionDenied anException) {
+            } catch (PermissionDenied anException) {
                 TempData["Message"] += WarningMessage(anException.Message);
             } catch (Exception e) {
                 LogError(e, DELETE_ERROR);
@@ -73,6 +76,24 @@ namespace UniversityOfMe.Controllers.Profile {
             }
 
             return RedirectToAction(sourceAction, sourceController, new { id = sourceId });
+        }
+
+        [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
+        public ActionResult List() {
+            try {
+                UserInformationModel<User> myUserInfo = GetUserInformatonModel();
+                string myUniversity = UniversityHelper.GetMainUniversity(myUserInfo.Details).Id;
+                LoggedInListModel<UserStatus> myLoggedInModel = new LoggedInListModel<UserStatus>(myUserInfo.Details);
+                IEnumerable<UserStatus> myUserStatuses = theUserStatusService.GetLatestUserStatusesWithinUniversity(myUniversity, 30);
+                myLoggedInModel.Set(myUserStatuses);
+
+                return View("List", myLoggedInModel);
+            } catch (Exception e) {
+                LogError(e, LIST_ERROR);
+                TempData["Message"] += ErrorMessage(LIST_ERROR);
+            }
+
+            return RedirectToHomePage();
         }
     }
 }

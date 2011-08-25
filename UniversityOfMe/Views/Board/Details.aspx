@@ -20,12 +20,12 @@
         <% Html.RenderPartial("Message"); %>
         <% Html.RenderPartial("Validation"); %>
 
-		<div class="create"> 
+		<div class="create professor-review-form"> 
 			<div class="banner black full red-top small"> 
 				<span class="board">Board Post on <%= NameHelper.FullName(Model.Get().OwnerUser) %>'s Board</span> 
 			</div> 
 
-		    <div class="board"> 
+		    <div class="board padding-col"> 
 			    <div class="prfl clearfix"> 
 				    <div class="pCol center"> 
                         <a href="<%= URLHelper.ProfileUrl(Model.Get().PostedByUser) %>">
@@ -39,7 +39,7 @@
 								    <%= LocalDateHelper.ToLocalTime(Model.Get().DateTimeStamp, "{0:MMMM dd, yyyy h:mm tt}")%>
 							    </span> 
 						    </div> 
-						    <%= NameHelper.FullName(Model.Get().PostedByUser) %>
+                            <%= NameHelper.FullName(Model.Get().PostedByUser) %>
                             <% if(BoardHelper.IsAllowedToDelete(myLoggedInUser, Model.Get())) {  %>
                                 <%= Html.ActionLink("Delete", "Delete", "Board", new { sourceId = Model.Get().Id, boardId = Model.Get().Id, sourceController = "Board", sourceAction = "Details" }, new { @class = "small nrm" })%>
                             <% } %>
