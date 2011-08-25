@@ -64,7 +64,7 @@ namespace HaveAVoice.Controllers.Issues {
 
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult List() {
-            return Search(SearchBy.All, OrderBy.LastReplyDate, string.Empty);
+            return Search(SearchBy.All, OrderBy.LatestCreationDate, string.Empty);
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
