@@ -171,7 +171,7 @@ namespace BaseWebsite.Controllers {
         }
 
         protected ActionResult RedirectToHomePage() {
-            return RedirectToAction("Main", "Home");
+            return RedirectToAction("Main", "Home", new { });
         }
 
         protected IAuthenticationService<T, U, V, W, X, Y> GetAuthenticationService() {

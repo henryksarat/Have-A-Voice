@@ -266,7 +266,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 if (theUserRepo.ShortUrlTaken(aUser.ShortUrl)) {
                     theValidationDictionary.AddError("ShortUrl", aUser.ShortUrl, "That have a voice URL is already taken by another member.");
                 } else {
-                    Regex myRegex = new Regex(RegexHelper.OnlyCharactersAndNumbers(), RegexOptions.IgnoreCase);
+                    Regex myRegex = new Regex(RegexHelper.OnlyCharactersAndNumbersAndPeriods(), RegexOptions.IgnoreCase);
                     Match myMatch = myRegex.Match(aUser.ShortUrl);
                     if (!myMatch.Success) {
                         theValidationDictionary.AddError("ShortUrl", aUser.ShortUrl, "That have a voice URL can only consist of letters, numbers, and periods.");

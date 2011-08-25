@@ -9,6 +9,7 @@
 <%@ Import Namespace="Social.Generic.Models" %>
 <%@ Import Namespace="Social.Generic.Constants" %>
 <%@ Import Namespace="HaveAVoice.Helpers.Profile" %>
+<%@ Import Namespace="Social.Generic.Helpers" %>
 
 <link rel="stylesheet" type="text/css" href="/Content/jquery.autocomplete.css" />
 

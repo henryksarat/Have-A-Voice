@@ -2,6 +2,7 @@
 using HaveAVoice.Helpers;
 using HaveAVoice.Services.Helpers;
 using HaveAVoice.Util;
+using Social.Generic.Helpers;
 
 namespace HaveAVoice.Models.View {
     public class LoggedInModel {
@@ -13,7 +14,7 @@ namespace HaveAVoice.Models.View {
 
             NavigationModel = new NavigationModel(aPanelForUser, aSection, theIsMyProfile);
 
-            if(PrivacyHelper.IsAllowed(aPanelForUser, Helpers.Enums.PrivacyAction.DisplayProfile)) {
+            if(PrivacyHelper.IsAllowed(aPanelForUser, PrivacyAction.DisplayProfile)) {
                 BuildMenu(aPanelForUser, aLoggedInUser);
             }
         }

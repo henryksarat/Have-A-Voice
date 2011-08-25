@@ -27,6 +27,18 @@ namespace Social.Board.Services {
             return theRepository.FindBoardByBoardId(aBoardId);
         }
 
+        public U GetBoard(UserInformationModel<T> aUser, int boardId, IPrivacyStrategy<T> aPrivacyStrategy) {
+            T mySourceUser = theRepository.GetSourceUserForBoard(boardId);
+
+            bool myAllowed = aPrivacyStrategy.IsAllowed(mySourceUser, PrivacyAction.DisplayProfile, aUser);
+
+            if (!myAllowed) {
+                throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);
+            }
+
+            return GetBoard(aUser, boardId);
+        }
+
         public bool DeleteBoardMessage(UserInformationModel<T> aDeletingUser, int aBoardId) {
             if (!AllowedToPerformAction(aDeletingUser, SocialPermission.Delete_Board_Message, SocialPermission.Delete_Any_Board_Message)) {
                 throw new PermissionDenied(ErrorKeys.PERMISSION_DENIED);

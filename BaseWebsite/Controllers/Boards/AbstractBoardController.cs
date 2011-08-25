@@ -41,12 +41,33 @@ namespace BaseWebsite.Controllers.Boards {
                 return RedirectToLogin();
             }
             T myUser = GetUserInformatonModel().Details;
-            ILoggedInModel<A> myModel = CreateLoggedInWrapperModel(myUser); 
-            
+            ILoggedInModel<A> myModel = CreateLoggedInWrapperModel(myUser);
+
             try {
                 A myBoard = theService.GetBoard(GetUserInformatonModel(), id);
                 myModel.Set(myBoard);
-            } catch(PermissionDenied anException) {
+            } catch (PermissionDenied anException) {
+                TempData["Message"] += WarningMessage(anException.Message);
+                return RedirectToHomePage();
+            } catch (Exception myException) {
+                LogError(myException, VIEW_BOARD_ERROR);
+                return SendToErrorPage(VIEW_BOARD_ERROR);
+            }
+
+            return View("Details", myModel);
+        }
+
+        protected ActionResult Details(int id, IPrivacyStrategy<T> aPrivacyStrategy) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            T myUser = GetUserInformatonModel().Details;
+            ILoggedInModel<A> myModel = CreateLoggedInWrapperModel(myUser);
+
+            try {
+                A myBoard = theService.GetBoard(GetUserInformatonModel(), id, aPrivacyStrategy);
+                myModel.Set(myBoard);
+            } catch (PermissionDenied anException) {
                 TempData["Message"] += WarningMessage(anException.Message);
                 return RedirectToHomePage();
             } catch (Exception myException) {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
 
-namespace HaveAVoice.Helpers.Enums {
+namespace Social.Generic.Helpers {
     public enum PrivacyAction {
         DisplayProfile = 0
     }

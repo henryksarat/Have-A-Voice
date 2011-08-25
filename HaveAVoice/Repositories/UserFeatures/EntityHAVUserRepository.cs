@@ -46,7 +46,9 @@ namespace HaveAVoice.Repositories.UserFeatures {
         }
 
         public void DeleteUserWhoHasNotUsedActivationCode(string email) {
-
+            User myUser = GetUserNotAuthenticated(email);
+            theEntities.DeleteObject(myUser);
+            theEntities.SaveChanges();
         }
 
         public User DeleteUserFromRole(int userId, int roleId) {
@@ -158,6 +160,13 @@ namespace HaveAVoice.Repositories.UserFeatures {
         private User GetUserNotAuthenticated(int anId) {
             return (from c in theEntities.Users
                     where c.Id == anId
+                    && (c.ActivationCodeUsed == null || c.ActivationCodeUsed == false)
+                    select c).FirstOrDefault();
+        }
+
+        private User GetUserNotAuthenticated(string anEmail) {
+            return (from c in theEntities.Users
+                    where c.Email == anEmail
                     && (c.ActivationCodeUsed == null || c.ActivationCodeUsed == false)
                     select c).FirstOrDefault();
         }

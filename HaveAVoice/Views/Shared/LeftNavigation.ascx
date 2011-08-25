@@ -5,6 +5,7 @@
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Services.Helpers" %>
 <%@ Import Namespace="HaveAVoice.Helpers.Enums" %>
+<%@ Import Namespace="Social.Generic.Helpers" %>
 
 <% bool myIsAllowedToView = PrivacyHelper.IsAllowed(Model.User, PrivacyAction.DisplayProfile); %>
 <% if (!Model.IsMyOwnProfile && myIsAllowedToView) { %>

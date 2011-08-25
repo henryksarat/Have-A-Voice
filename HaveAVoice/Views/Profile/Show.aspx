@@ -7,6 +7,7 @@
 <%@ Import Namespace="HaveAVoice.Models" %>
 <%@ Import Namespace="HaveAVoice.Helpers.UI" %>
 <%@ Import Namespace="Social.Generic.Models" %>
+<%@ Import Namespace="Social.Generic.Helpers" %>
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">

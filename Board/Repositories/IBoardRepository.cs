@@ -8,6 +8,7 @@ namespace Social.Board.Repositories {
         void DeleteBoardMessage(T aDeletingUser, U aBoard);
         void EditBoardMessage(T anEditedBy, U anOriginalBoard, U aNewBoard);
         U FindBoardByBoardId(int aBoardId);
+        T GetSourceUserForBoard(int aBoardId);
         AbstractBoardModel<U> FindAbstractBoardByBoardId(int aBoardId);
         IEnumerable<U> FindBoardByUserId(int aUserId);
         void MarkBoardAsViewed(T aViewingUser, int aBoardId);

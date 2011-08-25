@@ -6,6 +6,7 @@
 <%@ Import Namespace="HaveAVoice.Models.View" %>
 <%@ Import Namespace="HaveAVoice.Helpers.Enums" %>
 <%@ Import Namespace="Social.Generic.Models" %>
+<%@ Import Namespace="Social.Generic.Helpers" %>
 
 <% int myCount = (int)ViewData["Count"]; %>
 <% SiteSection mySection = (SiteSection)ViewData["SiteSection"]; %>

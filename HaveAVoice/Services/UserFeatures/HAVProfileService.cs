@@ -18,6 +18,7 @@ using Social.Validation;
 using HaveAVoice.Helpers.Authority;
 using HaveAVoice.Helpers.Profile;
 using HaveAVoice.Services.Questions;
+using Social.Generic.Helpers;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVProfileService : IHAVProfileService {

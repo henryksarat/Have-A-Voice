@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using Social.Generic.Models;
+using Social.Generic.Helpers;
 
 namespace Social.Board.Services {
     public interface IBoardService<T, U, V> {
         U GetBoard(UserInformationModel<T> aUser, int boardId);
+        U GetBoard(UserInformationModel<T> aUser, int boardId, IPrivacyStrategy<T> aPrivacyStrategy);
         bool DeleteBoardMessage(UserInformationModel<T> aDeletingUser, int aBoardId);
         bool EditBoardMessage(UserInformationModel<T> anEditBy, AbstractBoardModel<U> aBoard);
         bool PostToBoard(UserInformationModel<T> aPostingUser, int aSourceUserId, string aMessage);

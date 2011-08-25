@@ -9,7 +9,7 @@ namespace HaveAVoice.Helpers {
             return @"^[a-zA-Z0-9]+(([\'\,\.\.\! -a-zA-Z0-9])?[a-zA-Z0-9]*)*$";
         }
 
-        public static string OnlyCharactersAndNumbers() {
+        public static string OnlyCharactersAndNumbersAndPeriods() {
             return @"^[a-zA-Z0-9\.]+$";
         }
     }

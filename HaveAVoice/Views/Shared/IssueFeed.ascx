@@ -5,6 +5,7 @@
 <%@ Import Namespace="HaveAVoice.Helpers.UI" %>
 <%@ Import Namespace="HaveAVoice.Models.View" %>
 <%@ Import Namespace="Social.Generic.Models" %>
+<%@ Import Namespace="Social.Generic.Helpers" %>
 
 <% int myCount = (int)ViewData["Count"]; %>
 <% SiteSection mySection = (SiteSection)ViewData["SiteSection"]; %>
@@ -25,7 +26,7 @@
 		    <div class="col-1 center">
                 <% UserInformationModel<User> myUserInformation = HaveAVoice.Helpers.UserInformation.HAVUserInformationFactory.GetUserInformation(); %>
                 <% bool myIsAllowedToView = true; %>
-                <% if (item.Anonymous || !PrivacyHelper.IsAllowed(item.User, HaveAVoice.Helpers.Enums.PrivacyAction.DisplayProfile, myUserInformation)) { %>
+                <% if (item.Anonymous || !PrivacyHelper.IsAllowed(item.User, PrivacyAction.DisplayProfile, myUserInformation)) { %>
                     <% myIsAllowedToView = false; %>
                     <img src="<%= HAVConstants.ANONYMOUS_PICTURE_URL %>" alt="Anonymous" class="profile sm" />
                 <% } else { %>

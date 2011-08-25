@@ -156,7 +156,6 @@
     <Compile Include="Helpers\UI\NavigationHelper.cs" />
     <Compile Include="Helpers\UserInformation\UserSettings.cs" />
     <Compile Include="Helpers\Enums\ForgotPasswordPhase.cs" />
-    <Compile Include="Helpers\Enums\PrivacyAction.cs" />
     <Compile Include="Helpers\Enums\Roles.cs" />
     <Compile Include="Helpers\Exceptions\NullUserException.cs" />
     <Compile Include="Global.asax.cs">
@@ -616,7 +615,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>7834</DevelopmentServerPort>
+          <DevelopmentServerPort>39467</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

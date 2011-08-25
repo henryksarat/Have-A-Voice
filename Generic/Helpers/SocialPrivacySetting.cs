@@ -10,10 +10,6 @@ namespace Social.Generic.Helpers {
         Display_Profile_To_Everyone,
         
         //U of Me only
-        Display_Class_Enrollment,
-        Privacy1,
-        Privacy2,
-        Privacy3,
-        Privacy4,
+        Display_Class_Enrollment
     }
 }

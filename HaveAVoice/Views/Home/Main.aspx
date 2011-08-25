@@ -73,7 +73,7 @@
 						</li>
 						<li class="petition-main">
 							<div class="mainpage-heading">
-                                <a class="main-page-header" href="/Petition/Index">Petitions</a>
+                                <a class="main-page-header" href="/Petition/List">Petitions</a>
                             </div>
 							Get real change done in your neighborhood. Create an online petition for your neighbors to sign.
 						</li>
@@ -179,6 +179,7 @@
 			</div>
 		</div>
 	</div>
+
   	<div class="footer2">
 		<div class="wrpr ftwrpr">
 			<div class="col-wrpr pt13">

@@ -71,9 +71,6 @@ namespace BaseWebsite.Controllers.Messaging {
             try {
                 AbstractUserModel<T> mySocialModel = CreateSocialUserModel(myUser);
                 myModel.Set(theService.GetMessagesForUser(mySocialModel).ToList<InboxMessage<T>>());
-                if (myModel.Get().Count<InboxMessage<T>>() == 0) {
-                    ViewData[ERROR_MESSAGE_VIEWDATA] = NormalMessage(NO_MESSAGES);
-                }
             } catch (Exception e) {
                 LogError(e, INBOX_LOAD_ERROR);
                 ViewData[ERROR_MESSAGE_VIEWDATA] = ErrorMessage(INBOX_LOAD_ERROR);
