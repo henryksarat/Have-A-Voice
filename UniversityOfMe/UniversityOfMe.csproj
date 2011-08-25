@@ -467,6 +467,7 @@
     <Content Include="Views\University\Main.aspx" />
     <Content Include="Views\University\Professors.ascx" />
     <Content Include="Views\UserPrivacySetting\Edit.aspx" />
+    <Content Include="Views\UserStatus\List.aspx" />
     <Content Include="Views\User\Create.aspx" />
     <Content Include="Views\User\Edit.aspx" />
     <Content Include="Web.config">

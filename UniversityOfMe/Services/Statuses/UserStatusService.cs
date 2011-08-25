@@ -51,8 +51,8 @@ namespace UniversityOfMe.Services.Status {
             return theUserStatusRepository.GetLatestUserStatusForUser(aUserInfo.Details);
         }
 
-        public IEnumerable<UserStatus> GetLatestUserStatusesWithinUniversity(string aUniversityId) {
-            return theUserStatusRepository.GetLatestUserStatuses(aUniversityId, 10);
+        public IEnumerable<UserStatus> GetLatestUserStatusesWithinUniversity(string aUniversityId, int aLimit) {
+            return theUserStatusRepository.GetLatestUserStatuses(aUniversityId, aLimit);
         }
 
         private bool ValidStatus(string aStatus) {

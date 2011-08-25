@@ -13,29 +13,33 @@
 	<div class="eight last"> 
         <% Html.RenderPartial("Message"); %>
         <% Html.RenderPartial("Validation"); %>
-        
-        <div style="width:100%" class="create-feature-form create">
-            <% using (Html.BeginForm("Create", "UserStatus", FormMethod.Post)) { %>
-                <div class="padding-col" style="padding-left: 100px">
-                    <div>
-                        <label for="UserStatus">What are you doing?</label> 
-			            <%= Html.TextBox("UserStatus")%>
-                        <%= Html.ValidationMessage("UserStatus", "*", new { @class = "req" })%>
-                        <input type="submit" name="submit" class="btn site ml20" value="Share" /> 
+        <% if (FeatureHelper.IsFeatureEnabled(Model.User, Features.SetStatusWidget)) { %> 
+            <div style="width:100%" class="create-feature-form create">
+                <% using (Html.BeginForm("Create", "UserStatus", FormMethod.Post)) { %>
+                    <div class="right wp100 pr10">
+                        <%= Html.ActionLink("Hide", "DisableFeature", "Profile", new { feature = Features.SetStatusWidget }, new { @class = "disable-feature pr10" })%>
                     </div>
-                    <% if (Model.Get().HasCurrentStatus) { %>
+                    <div class="padding-status-col" style="padding-left: 100px">
                         <div>
-                            <div class="valign-top" style="display:inline">
-                                <label for="UserStatus">Current Status</label> 
-                            </div>
-                            <div style="text-align: left; width: 400px; display:inline-block">
-                                <%= Model.Get().CurrentStatus.Status %>    
-                            </div>
+                            <label for="UserStatus">What are you doing?</label> 
+			                <%= Html.TextBox("UserStatus")%>
+                            <%= Html.ValidationMessage("UserStatus", "*", new { @class = "req" })%>
+                            <input type="submit" name="submit" class="btn site ml20" value="Share" /> 
                         </div>
-                    <% } %>
-                </div>
-            <% } %>
-        </div>
+                        <% if (Model.Get().HasCurrentStatus) { %>
+                            <div>
+                                <div class="valign-top" style="display:inline">
+                                    <label for="UserStatus">Current Status</label> 
+                                </div>
+                                <div style="text-align: left; width: 400px; display:inline-block">
+                                    <%= Model.Get().CurrentStatus.Status %>    
+                                </div>
+                            </div>
+                        <% } %>
+                    </div>
+                <% } %>
+            </div>
+        <% } %>
 
 		<div class="form"> 
             <% int myWidgetNumberDisplayed = 0; %>

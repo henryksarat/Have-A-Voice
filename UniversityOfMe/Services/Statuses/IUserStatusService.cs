@@ -10,6 +10,6 @@ namespace UniversityOfMe.Services.Status {
         bool CreateUserStatus(UserInformationModel<User> aUserInfo, string aStatus);
         void DeleteUserStatus(UserInformationModel<User> aUserInfo, int aStatusId);
         UserStatus GetLatestUserStatusForUser(UserInformationModel<User> aUserInfo);
-        IEnumerable<UserStatus> GetLatestUserStatusesWithinUniversity(string aUniversityId);
+        IEnumerable<UserStatus> GetLatestUserStatusesWithinUniversity(string aUniversityId, int aLimit);
     }
 }

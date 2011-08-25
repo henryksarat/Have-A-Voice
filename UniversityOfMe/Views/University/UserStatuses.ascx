@@ -20,4 +20,4 @@
     <% } %>
 </ul> 
 
-<%= Html.ActionLink("View All Latest", "List", "Club", null, new { @class="view-all" })%>
+<%= Html.ActionLink("View All Latest", "List", "UserStatus", null, new { @class="view-all" })%>

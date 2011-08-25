@@ -153,7 +153,7 @@
             <% if (Model.HasUserStatuses) { %>
                 <div class="profile-form">
 			        <div class="banner full"> 
-				        WHAT <%= Model.User.Gender.Equals(Social.Generic.Constants.Gender.MALE) ? "HE'S" : "SHE'S"%> DOING
+				        WHAT'S <%= Model.User.Gender.Equals(Social.Generic.Constants.Gender.MALE) ? "HE" : "SHE"%> DOING
 			        </div>            
                     <div class="padding-col">
                         <% foreach (UserStatus myUserStatus in Model.UserStatuses) { %>

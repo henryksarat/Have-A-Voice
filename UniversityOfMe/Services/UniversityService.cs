@@ -92,7 +92,7 @@ namespace UniversityOfMe.Services {
             IEnumerable<TextBook> myTextBooks = theTextBookService.GetTextBooksForUniversity(aUniversityId);
             IEnumerable<Club> myOrganizations = theClubService.GetClubs(aUserInformation, aUniversityId);
             IEnumerable<GeneralPosting> myGeneralPostings = theGeneralPostingService.GetGeneralPostingsForUniversity(aUniversityId);
-            IEnumerable<UserStatus> myUserStatuses = theUserStatusService.GetLatestUserStatusesWithinUniversity(aUniversityId);
+            IEnumerable<UserStatus> myUserStatuses = theUserStatusService.GetLatestUserStatusesWithinUniversity(aUniversityId, 5);
             UserStatus myUserStatus = theUserStatusService.GetLatestUserStatusForUser(aUserInformation);
 
             return new UniversityView() {
