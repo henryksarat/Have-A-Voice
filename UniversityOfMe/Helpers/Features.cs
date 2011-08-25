@@ -7,6 +7,8 @@ namespace UniversityOfMe.Helpers {
         EventWidget,
         TextbookWidget,
         OrganizationWidget,
-        GeneralPostingsWidget
+        GeneralPostingsWidget,
+        StatusWidget,
+        SetStatusWidget
     }
 }

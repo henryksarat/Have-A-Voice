@@ -150,106 +150,131 @@
 		</div> 
  
         <% if (myAllowedToView) { %>
-		    <div class="create clearfix"> 
-			<div class="banner full mt50"> 
-				BOARD
-			</div> 
-            <% if (!myViewingOwn) { %>
-                <% using (Html.BeginForm("Create", "Board", FormMethod.Post)) { %>
-                    <%= Html.Hidden("SourceUserId", Model.User.Id)%>
+            <% if (Model.HasUserStatuses) { %>
+                <div class="profile-form">
+			        <div class="banner full"> 
+				        WHAT <%= Model.User.Gender.Equals(Social.Generic.Constants.Gender.MALE) ? "HE'S" : "SHE'S"%> DOING
+			        </div>            
+                    <div class="padding-col">
+                        <% foreach (UserStatus myUserStatus in Model.UserStatuses) { %>
+                            <div class="small">
+                                <%= NameHelper.FullName(myUserStatus.User) + " is " + myUserStatus.Status + " at " + LocalDateHelper.ToLocalTime(myUserStatus.DateTimeStamp)%>
+                                <% if (UserStatusHelper.IsAllowedToDelete(myLoggedInUser, myUserStatus)) {  %>
+                                    <%= Html.ActionLink("Delete", "Delete", "UserStatus", new { id = myUserStatus.Id, sourceController = "Profile", sourceAction = "Show", sourceId = Model.User.Id }, new { @class = "profiledelete" })%>
+                                <% } %>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            <% } %>
 
-                    <%: Html.TextArea("BoardMessage", null, 3, 0, new { @class = "full" })%>
-                    <%: Html.ValidationMessage("BoardMessage", "*")%>
+            <div class="profile-form">
+		        <div class="create clearfix"> 
+			        <div class="banner full mt50"> 
+				        BOARD
+			        </div> 
+                    <% if (!myViewingOwn) { %>
+                        <% using (Html.BeginForm("Create", "Board", FormMethod.Post)) { %>
+                            <%= Html.Hidden("SourceUserId", Model.User.Id)%>
+
+                            <%: Html.TextArea("BoardMessage", null, 3, 0, new { @class = "full" })%>
+                            <%: Html.ValidationMessage("BoardMessage", "*")%>
 								
-			    <div class="frgt mt13"> 
-				    <input type="submit" class="frgt btn site" name="post" value="Post" /> 
-			    </div> 
-	            <% } %>
-            <% } %>
-		</div> 
+			            <div class="frgt mt13"> 
+				            <input type="submit" class="frgt btn site" name="post" value="Post" /> 
+			            </div> 
+	                    <% } %>
+                    <% } %>
+		        </div> 
         
-            <% IEnumerable<Board> myAllBoards = Model.Boards.Where(b => !b.Deleted).OrderByDescending(b => b.DateTimeStamp);  %>
-            <% foreach (Board myBoard in myAllBoards.Take<Board>(5)) { %>
-		        <div class="board"> 
-			    <div class="prfl clearfix"> 
-				    <div class="pCol"> 
-					    <img src="<%= PhotoHelper.ProfilePicture(myBoard.PostedByUser) %>" class="profile big" /> 
-				    </div> 
-				    <div class="cCol"> 
-					    <div class="red bld"> 
-						    <div class="frgt"> 
-							    <span class="gray delete nrm"> 
-								    <%= LocalDateHelper.ToLocalTime(myBoard.DateTimeStamp, "{0:MMMM dd, yyyy h:mm tt}")%>
-							    </span> 
-						    </div> 
-						    <%= NameHelper.FullName(myBoard.PostedByUser)%> 
-                            <% if (BoardHelper.IsAllowedToDelete(myLoggedInUser, myBoard)) {  %>
-                                <%= Html.ActionLink("Delete", "Delete", "Board", new { sourceId = Model.User.Id, boardId = myBoard.Id, sourceController = "Profile", sourceAction = "Show" }, new { @class = "small nrm" })%>
-                            <% } %>
-					    </div> 
-					    <%= myBoard.Message%>
-					    <div class="create clearfix"> 
-                            <% using (Html.BeginForm("Create", "BoardReply", FormMethod.Post)) { %>
-                                    <%= Html.Hidden("BoardId", myBoard.Id)%>
-                                    <%= Html.Hidden("SourceId", Model.User.Id)%>
-                                    <%= Html.Hidden("SiteSection", SiteSection.Profile)%>
+                <div class="padding-col">
+                    <% IEnumerable<Board> myAllBoards = Model.Boards.Where(b => !b.Deleted).OrderByDescending(b => b.DateTimeStamp);  %>
+                    <% foreach (Board myBoard in myAllBoards.Take<Board>(5)) { %>
+		                <div class="board"> 
+			            <div class="prfl clearfix"> 
+				            <div class="pCol"> 
+					            <img src="<%= PhotoHelper.ProfilePicture(myBoard.PostedByUser) %>" class="profile big" /> 
+				            </div> 
+				            <div class="cCol"> 
+					            <div class="red bld"> 
+						            <div class="frgt"> 
+							            <span class="gray delete nrm"> 
+								            <%= LocalDateHelper.ToLocalTime(myBoard.DateTimeStamp, "{0:MMMM dd, yyyy h:mm tt}")%>
+							            </span> 
+						            </div> 
+						            <%= NameHelper.FullName(myBoard.PostedByUser)%> 
+                                    <% if (BoardHelper.IsAllowedToDelete(myLoggedInUser, myBoard)) {  %>
+                                        <%= Html.ActionLink("Delete", "Delete", "Board", new { sourceId = Model.User.Id, boardId = myBoard.Id, sourceController = "Profile", sourceAction = "Show" }, new { @class = "small nrm" })%>
+                                    <% } %>
+					            </div> 
+					            <%= myBoard.Message%>
+					            <div class="create clearfix"> 
+                                    <% using (Html.BeginForm("Create", "BoardReply", FormMethod.Post)) { %>
+                                            <%= Html.Hidden("BoardId", myBoard.Id)%>
+                                            <%= Html.Hidden("SourceId", Model.User.Id)%>
+                                            <%= Html.Hidden("SiteSection", SiteSection.Profile)%>
 
-                                    <%= Html.TextArea("BoardReply", null, 2, 0, new { @class = "full" })%>
-                                    <%= Html.ValidationMessage("BoardReply", "*")%>
+                                            <%= Html.TextArea("BoardReply", null, 2, 0, new { @class = "full" })%>
+                                            <%= Html.ValidationMessage("BoardReply", "*")%>
 
-						    <div class="frgt mt13"> 
-							    <input type="submit" class="frgt btn site" name="post" value="Reply" /> 
-						    </div> 
-	                        <% } %>
-					    </div> 
-				    </div>							
-			    </div> 
+						            <div class="frgt mt13"> 
+							            <input type="submit" class="frgt btn site" name="post" value="Reply" /> 
+						            </div> 
+	                                <% } %>
+					            </div> 
+				            </div>							
+			            </div> 
                 
-                <% foreach (BoardReply myReply in myBoard.BoardReplies.Where(br => !br.Deleted).OrderByDescending(br => br.DateTimeStamp)) { %>						
-			    <div class="prfl reply clearfix"> 
-				    <div class="pCol"> 
-					    <img src="<%= PhotoHelper.ProfilePicture(myReply.User) %>" class="profile med" /> 
-				    </div> 
-				    <div class="cCol"> 
-					    <div class="red bld"> 
-						    <div class="frgt"> 
-							    <span class="gray small nrm"> 
-								    <!-- <a href="#" class="">Edit</a> 
-								    |
-								    <a href="#" class="mr20">Remove</a> -->
-								    <%= LocalDateHelper.ToLocalTime(myReply.DateTimeStamp, "{0:MMMM dd, yyyy h:mm tt}")%>
-							    </span> 
-						    </div> 
-						    <%= NameHelper.FullName(myReply.User)%>
-                            <% if (BoardReplyHelper.IsAllowedToDelete(myLoggedInUser, myReply)) {  %>
-                                <%= Html.ActionLink("Delete", "Delete", "BoardReply", new { sourceId = Model.User.Id, boardReplyId = myReply.Id, sourceController = "Profile", sourceAction = "Show" }, new { @class = "small nrm" })%>
-                            <% } %>
-					    </div> 
-					    <%= myReply.Message%>
-				    </div> 
-			    </div> 
-                <% } %>
-		    </div> 
-            <% } %>
+                        <% foreach (BoardReply myReply in myBoard.BoardReplies.Where(br => !br.Deleted).OrderByDescending(br => br.DateTimeStamp)) { %>						
+			            <div class="prfl reply clearfix"> 
+				            <div class="pCol"> 
+					            <img src="<%= PhotoHelper.ProfilePicture(myReply.User) %>" class="profile med" /> 
+				            </div> 
+				            <div class="cCol"> 
+					            <div class="red bld"> 
+						            <div class="frgt"> 
+							            <span class="gray small nrm"> 
+								            <!-- <a href="#" class="">Edit</a> 
+								            |
+								            <a href="#" class="mr20">Remove</a> -->
+								            <%= LocalDateHelper.ToLocalTime(myReply.DateTimeStamp, "{0:MMMM dd, yyyy h:mm tt}")%>
+							            </span> 
+						            </div> 
+						            <%= NameHelper.FullName(myReply.User)%>
+                                    <% if (BoardReplyHelper.IsAllowedToDelete(myLoggedInUser, myReply)) {  %>
+                                        <%= Html.ActionLink("Delete", "Delete", "BoardReply", new { sourceId = Model.User.Id, boardReplyId = myReply.Id, sourceController = "Profile", sourceAction = "Show" }, new { @class = "small nrm" })%>
+                                    <% } %>
+					            </div> 
+					            <%= myReply.Message%>
+				            </div> 
+			            </div> 
+                        <% } %>
+		            </div> 
+                    <% } %>
 
-		    <div class="viewall mb50"> 
-		        <% if(!Model.ShowAllBoards) { %>
-                    <a href="<%= URLHelper.ProfileUrlForAllBoards(Model.User, Model.ShowAllPhotoAlbums) %>">View entire board</a> 
-                <% } %>
-		    </div> 
-					
-		    <div class="banner full"> 
-			PHOTOS
-		</div> 
-            <% foreach (PhotoAlbum myAlbum in Model.PhotoAlbums) { %>
-		        <div class="album"> 
-			    <a href="<%= URLHelper.PhotoAlbumDetailsUrl(myAlbum) %>"> 
-				    <img src="<%= PhotoHelper.PhotoAlbumCover(myAlbum) %>" alt="photo" /> 
-				    <br /> 
-				    <%= myAlbum.Name%>
-			    </a> 
-		    </div> 
-            <% } %>
+		            <div class="viewall"> 
+		                <% if(!Model.ShowAllBoards) { %>
+                            <a href="<%= URLHelper.ProfileUrlForAllBoards(Model.User, Model.ShowAllPhotoAlbums) %>">View entire board</a> 
+                        <% } %>
+		            </div> 
+                </div>
+			</div>
+            <div class="profile-form">
+		        <div class="banner full mt50"> 
+			        PHOTOS
+		        </div> 
+                <div class="padding-col">
+                    <% foreach (PhotoAlbum myAlbum in Model.PhotoAlbums) { %>
+		                <div class="album"> 
+			            <a href="<%= URLHelper.PhotoAlbumDetailsUrl(myAlbum) %>"> 
+				            <img src="<%= PhotoHelper.PhotoAlbumCover(myAlbum) %>" alt="photo" /> 
+				            <br /> 
+				            <%= myAlbum.Name%>
+			            </a> 
+		            </div> 
+                    <% } %>
+                </div>
+            </div>
         <% } else { %>
             <div class="center small bold">
                 The user's privacy settings disallow you from viewing their profile.

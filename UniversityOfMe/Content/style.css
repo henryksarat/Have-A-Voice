@@ -323,6 +323,7 @@ ul.friend-list li:nth-child(3n+2) { margin-left: 1%; margin-right: 1%; }
 /*** BANNER BUTTONS ***/
 span.album { padding: 2px 0px 2px 28px; background:url(images/photo.png) no-repeat center left; text-transform: uppercase; }
 span.album span.user { color: #bcbcbc; text-transform: none; font-size: 11px; }
+span.bubble { padding: 2px 0px 2px 28px; background:url(images/statusbubble.png) no-repeat center left; text-transform: uppercase; }
 span.edit { padding: 2px 0px 2px 28px; background:url(images/wrench.png) no-repeat center left; text-transform: uppercase; }
 span.mine { padding: 2px 0px 2px 28px; background:url(images/self.png) no-repeat center left; text-transform: uppercase; }
 span.class { padding: 2px 0px 2px 28px; background:url(images/case.png) no-repeat center left; text-transform: uppercase; }
@@ -362,7 +363,7 @@ img.profile.fll { max-width: 320px; max-height: 320px; }
 
 
 /*** PHOTO ***/
-div.photo { border: 1px solid #a5a5a5; padding: 2px; float: left; margin: 0px 8% 8% 0px; }
+div.photo { border: 1px solid #a5a5a5; padding: 2px; display: inline-block; margin: 0px 8% 8% 0px; }
 div.photo:nth-child(6n) { margin-right: 0px; }
 div.photo img { border: 1px solid #dbd8d7; max-width: 128px; max-height: 128px; }
 
@@ -393,6 +394,7 @@ div.prof-info ul { color: #767676; margin-top: 10px; }
 div.prof-info ul li { height: 16px; padding-left: 22px; margin-top: 7px; margin-bottom: 7px; }
 div.prof-info ul li.book { background:url(images/book.png) no-repeat center left; }
 div.prof-info ul li.class { background:url(images/case.png) no-repeat center left; }
+div.prof-info ul li.event { background:url(images/event.png) no-repeat center left; }
 div.prof-info ul li span.sell { color: #ff8c00; }
 
 
@@ -452,6 +454,8 @@ table.listing label { width: 200px; text-transform: uppercase; font-weight: bold
 div.listing { color: #6a6a6a; }
 div.col { float: left; min-width: 30%; max-width: 50%; }
 div.col label { width: 200px; text-transform: uppercase; font-weight: bold; color: #2b2b2b; display: block; }
+a.listinglink, a.listinglink:link, a.listinglink:visited { text-decoration: underline; color: #6a6a6a; }
+a.listinglink:hover { text-decoration: none }
 
 
 /*** SEARCH ***/
@@ -606,8 +610,8 @@ span.professor { padding: 2px 0px 2px 28px; background:url(images/person.png) no
 .pr150 { padding-right: 150px; }
 
 
-a.itemlinked, a.itemlinked:link, a.itemlinked:visited { color: Black; }
-a.itemlinked:hover { text-decoration: underline; }
+a.itemlinked, a.itemlinked:link, a.itemlinked:visited { color: Black; text-decoration: underline; }
+a.itemlinked:hover { text-decoration: none; }
 
 a.edit-item, a.edit-item:link, a.edit-item:visited { color: #3E7C97; font-size: 13px; line-height: 18px; font-weight: normal; }
 a.edit-item:hover { text-decoration: underline; }
@@ -667,7 +671,7 @@ span.board { padding: 2px 0px 2px 28px; background:url(images/board.png) no-repe
 .form-normal { padding: 25px 30% 34px 30%; color: #676767; }
 .form-normal label { color: #000; font-size: 12px; float: left; width: 116px; cursor: pointer; }
 .form-normal span.empty-indent { color: #000; font-size: 12px; float: left; width: 116px; cursor: pointer; }
-.form-normal input[type=text], .form-normal input[type=password], .form-normal input[type=email] { border: 1px solid #971e21; background: #fff; height: 28px; min-width: 160px; max-width: 274px; outline: none; width: 100%; }
+.form-normal input[type=text], .form-normal input[type=password], .form-normal input[type=email] { border: 1px solid #971e21; background: #fff; height: 28px; min-width: 160px; max-width: 300; outline: none; width: 100%; }
 .form-normal select { border: 1px solid #971e21; background: #fff; height: 28px; outline: none; }
 .form-normal div.input { margin-bottom: 23px; }
 
@@ -708,11 +712,35 @@ div.twoColCreateMessage div.rCol { float: left; width: 65%; padding: 10px 10px 1
 .create-feature-form { border-top: 6px solid #971e21; background: url("images/30-gray.png") repeat; /* #dfdfd8; */ color: #676767; }
 .create-feature-form label { color: #000; font-size: 12px; float: left; width: 150px; cursor: pointer; }
 .create-feature-form .textarea { border: 1px solid #971e21; background: #fff; height: 150px; min-width: 160px; max-width: 300px; outline: none; width: 100%; }
-.create-feature-form input[type=text], .create-feature-form input[type=file] { border: 1px solid #971e21; background: #fff; height: 28px; min-width: 160px; max-width: 300px; outline: none; width: 100%; }
+.create-feature-form input[type=text], .create-feature-form input[type=file], .create-feature-form input[type=password] { border: 1px solid #971e21; background: #fff; height: 28px; min-width: 160px; max-width: 300px; outline: none; width: 100%; }
 .create-feature-form select { border: 1px solid #971e21; background: #fff; height: 28px; outline: none; vertical-align: top; }
 .create-feature-form div.field-holder { width: 500px; margin-bottom: 10px }
 .create-feature-form div.field-holder-extra { vertical-align:top; width: 600px; margin-bottom: 10px }
+.create-feature-form span.empty-label { color: #000; font-size: 12px; float: left; width: 150px; }
+
 
 .create-feature-form div.padding-col { padding: 25px 25px 25px 25px; }
 .create-feature-form div.throw-right { text-align: right; }
 .create-feature-form .button-padding { margin-right:49px }
+
+/*** Professor Review ***/
+.professor-review-form { background: url("images/30-gray.png") repeat; /* #dfdfd8; */ color: #676767; }
+.professor-review-form label { color: #000; font-size: 12px; float: left; width: 150px; cursor: pointer; }
+.professor-review-form .textarea { border: 1px solid #971e21; background: #fff; height: 150px; min-width: 160px; max-width: 300px; outline: none; width: 100%; }
+.professor-review-form input[type=text] { border: 1px solid #971e21; background: #fff; height: 28px; min-width: 160px; max-width: 300px; outline: none; width: 100%; }
+.professor-review-form select { border: 1px solid #971e21; background: #fff; height: 28px; outline: none; vertical-align: top; }
+.professor-review-form checkbox { border: 1px solid #971e21; background: #fff; height: 28px; outline: none; vertical-align: top; }
+.professor-review-form div.field-holder { width: 500px; margin-bottom: 10px }
+.professor-review-form div.padding-col { padding: 25px 25px 25px 25px; }
+
+
+/*** Profile ***/
+.profile-form { background: url("images/30-gray.png") repeat; /* #dfdfd8; */ color: #676767; }
+.profile-form div.padding-col { padding: 0px 10px 10px 25px; }
+
+
+a.feedlink, a.feedlink:link, a.feedlink:visited { text-decoration: underline; font-weight: bold; color: #999999; }
+a.feedlink:hover { font-weight: bold; text-decoration: none }
+
+a.profiledelete, a.profiledelete:link, a.profiledelete:visited { text-decoration: none; color: #3e7c97; }
+a.profiledelete:hover { text-decoration: underline }

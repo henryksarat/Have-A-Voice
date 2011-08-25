@@ -41,6 +41,12 @@ namespace UniversityOfMe {
             );
 
             routes.MapRoute(
+                "DefaultUserStatus", // Route name
+                "UserStatus/{action}/{id}", // URL with parameters
+                new { controller = "UserStatus", action = "Delete", id = UrlParameter.Optional } // Parameter defaults
+            );
+
+            routes.MapRoute(
                 "DefaultMessage", // Route name
                 "Message/{action}/{id}", // URL with parameters
                 new { controller = "Message", action = "Inbox", id = UrlParameter.Optional } // Parameter defaults

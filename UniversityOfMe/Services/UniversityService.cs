@@ -14,6 +14,7 @@ using UniversityOfMe.Services.GeneralPostings;
 using UniversityOfMe.Services.Notifications;
 using UniversityOfMe.Services.Professors;
 using UniversityOfMe.Services.TextBooks;
+using UniversityOfMe.Services.Status;
 
 namespace UniversityOfMe.Services {
     public class UniversityService : IUniversityService {
@@ -22,6 +23,7 @@ namespace UniversityOfMe.Services {
         private IEventService theEventService;
         private ITextBookService theTextBookService;
         private IClubService theClubService;
+        private IUserStatusService theUserStatusService;
         private IGeneralPostingService theGeneralPostingService;
         private INotificationService theNotificationService;
         private IUniversityRepository theUniversityRepository;
@@ -34,6 +36,7 @@ namespace UniversityOfMe.Services {
                    new ClubService(aValidationDictionary), 
                    new GeneralPostingService(aValidationDictionary), 
                    new NotificationService(),
+                   new UserStatusService(aValidationDictionary),
                    new EntityUniversityRepository()) { }
 
         public UniversityService(IProfessorService aProfessorService, 
@@ -43,6 +46,7 @@ namespace UniversityOfMe.Services {
                                  IClubService aClubService, 
                                  IGeneralPostingService aGeneralPostingService, 
                                  INotificationService aNotificationService,
+                                 IUserStatusService aUserStatusRepo,
                                  IUniversityRepository aUniversityRepository) {
             theProfessorService = aProfessorService;
             theClassService = aClassService;
@@ -52,6 +56,7 @@ namespace UniversityOfMe.Services {
             theGeneralPostingService = aGeneralPostingService;
             theNotificationService = aNotificationService;
             theUniversityRepository = aUniversityRepository;
+            theUserStatusService = aUserStatusRepo;
         }
 
         public void AddUserToUniversity(User aUser) {
@@ -87,6 +92,8 @@ namespace UniversityOfMe.Services {
             IEnumerable<TextBook> myTextBooks = theTextBookService.GetTextBooksForUniversity(aUniversityId);
             IEnumerable<Club> myOrganizations = theClubService.GetClubs(aUserInformation, aUniversityId);
             IEnumerable<GeneralPosting> myGeneralPostings = theGeneralPostingService.GetGeneralPostingsForUniversity(aUniversityId);
+            IEnumerable<UserStatus> myUserStatuses = theUserStatusService.GetLatestUserStatusesWithinUniversity(aUniversityId);
+            UserStatus myUserStatus = theUserStatusService.GetLatestUserStatusForUser(aUserInformation);
 
             return new UniversityView() {
                 University = myUniversity,
@@ -95,7 +102,9 @@ namespace UniversityOfMe.Services {
                 Events = myEvents,
                 TextBooks = myTextBooks,
                 Organizations = myOrganizations,
-                GeneralPostings = myGeneralPostings
+                GeneralPostings = myGeneralPostings,
+                UserStatuses = myUserStatuses,
+                CurrentStatus = myUserStatus
             };
         }
 

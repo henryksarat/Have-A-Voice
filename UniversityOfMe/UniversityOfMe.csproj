@@ -76,6 +76,7 @@
     <Compile Include="Controllers\Notification\NotificationController.cs" />
     <Compile Include="Controllers\Site\HomeController.cs" />
     <Compile Include="Controllers\Site\SiteController.cs" />
+    <Compile Include="Controllers\Users\UserStatusController.cs" />
     <Compile Include="Controllers\Users\ProfileController.cs" />
     <Compile Include="Controllers\Users\UserPrivacySettingController.cs" />
     <Compile Include="CustomAuthentication\AdminMemberProvider .cs">
@@ -134,6 +135,7 @@
     <Compile Include="Helpers\Functionality\BoardReplyHelper.cs" />
     <Compile Include="Helpers\Functionality\ClassBoardHelper.cs" />
     <Compile Include="Helpers\Functionality\ClassBoardReplyHelper.cs" />
+    <Compile Include="Helpers\Functionality\UserStatusHelper.cs" />
     <Compile Include="Helpers\LocalDateHelper.cs" />
     <Compile Include="Helpers\EmailHelper.cs" />
     <Compile Include="Helpers\FeatureHelper.cs" />
@@ -247,6 +249,8 @@
     <Compile Include="Repositories\Search\ISearchRepository.cs" />
     <Compile Include="Repositories\SendItems\EntitySendItemsRepository.cs" />
     <Compile Include="Repositories\SendItems\ISendItemsRepository.cs" />
+    <Compile Include="Repositories\Status\EntityStatusRepository.cs" />
+    <Compile Include="Repositories\Status\IStatusRepository.cs" />
     <Compile Include="Repositories\TextBooks\ITextBookRepository.cs" />
     <Compile Include="Repositories\Professors\EntityProfessorRepository.cs" />
     <Compile Include="Repositories\Professors\IProfessorReviewRepository.cs" />
@@ -291,6 +295,8 @@
     <Compile Include="Services\Search\SearchService.cs" />
     <Compile Include="Services\SendItems\ISendItemsService.cs" />
     <Compile Include="Services\SendItems\SendItemsService.cs" />
+    <Compile Include="Services\Statuses\UserStatusService.cs" />
+    <Compile Include="Services\Statuses\IUserStatusService.cs" />
     <Compile Include="Services\TextBooks\TextBookService.cs" />
     <Compile Include="Services\TextBooks\ITextBookService.cs" />
     <Compile Include="Services\UniversityService.cs" />
@@ -453,6 +459,7 @@
     <Content Include="Views\TextBook\Create.aspx" />
     <Content Include="Views\TextBook\Details.aspx" />
     <Content Include="Views\University\Classes.ascx" />
+    <Content Include="Views\University\UserStatuses.ascx" />
     <Content Include="Views\University\GeneralPostings.ascx" />
     <Content Include="Views\University\Organizations.ascx" />
     <Content Include="Views\University\Textbooks.ascx" />

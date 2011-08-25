@@ -23,12 +23,16 @@
 
 	<div class="eight last"> 
         <% Html.RenderPartial("Message"); %>
-        <% Html.RenderPartial("Validation"); %>
 
         <div class="edit-user-form">
 		<div class="banner title black full small"> 
 			<span class="edit">EDIT YOUR ACCOUNT</span> 
         </div>
+
+        <div style="padding-top: 25px">
+            <% Html.RenderPartial("Validation"); %>
+        </div>
+
         <div class="twoColEditUser clearfix">
             <div class="lCol">     
                 <div>

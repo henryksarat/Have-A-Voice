@@ -65,6 +65,14 @@ namespace UniversityOfMe.Services.Users {
                 myPhotoAlbumCount = aUser.PhotoAlbums.OrderByDescending(b => b.Name).Count<PhotoAlbum>();
             }
 
+            IEnumerable<UserStatus> myUserStatuses = new List<UserStatus>();
+            if (aUser != null) {
+                myUserStatuses = aUser.UserStatuses
+                    .Where<UserStatus>(us => !us.Deleted)
+                    .OrderByDescending(us => us.DateTimeStamp)
+                    .Take<UserStatus>(5);
+            }
+
             return new ProfileModel() {
                 User = aUser,
                 Boards = myBoards,
@@ -72,7 +80,8 @@ namespace UniversityOfMe.Services.Users {
                 ShowAllBoards = aShowAllBoards,
                 PhotoAlbums = myPhotoAlbums,
                 PhotoAlbumCount = myPhotoAlbumCount,
-                ShowAllPhotoAlbums = aShowAllAlbums
+                ShowAllPhotoAlbums = aShowAllAlbums,
+                UserStatuses = myUserStatuses
             };
         }
     }
