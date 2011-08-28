@@ -798,3 +798,12 @@ background: -moz-linear-gradient(top, #55d1f0 0%, #02a1ac); background: -moz-lin
 .wordpress { width: 16px; height: 16px; background: url("/Content/images/ico-w.png") no-repeat center center; display: inline-block; text-indent: -9999; outline: none; margin-left: 7px; font-size: 0px; position: relative; top: -12px; }
 
 a.main-page-header, a.main-page-header:link, a.main-page-header:visited { color: #6ec4d7; font-size: 14pt; font-weight: bold; line-height: 1.05; text-transform: uppercase; }
+a.a.main-page-header:hover { text-decoration: underline; }
+a.main-page-blog, a.main-page-blog:link, a.main-page-blog:visited { color: #6ec4d7; font-size: 12pt; font-weight: bold; }
+a.main-page-blog:hover { text-decoration: underline; }
+a.main-page-blog-read-more, a.main-page-blog-read-more:link, a.main-page-blog-read-more:visited { color: #6ec4d7; font-size: 10pt; font-weight: bold; }
+a.main-page-blog-read-more:hover { text-decoration: underline; }
+.blog-header { color: #747474; font-size: 12pt; font-weight: bold; }
+.inner-blog { margin-bottom: 20px; margin-top: 5px }
+.outer-blog { font-size: 12px; margin-top: 10px }
+.blog-read-more { font-size: 12px; margin-top: 10px }

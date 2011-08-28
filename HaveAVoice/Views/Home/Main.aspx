@@ -175,6 +175,17 @@
                             <% } %>
 						</div>
 					</div>
+                    <div>
+                        <div class="blog-header" style="padding-top:20px">
+                            From Our Blog
+                        </div>
+                        <div class="outer-blog">
+                            <%= BlogReader.GetBlog() %>
+                        </div>
+                        <div class="right blog-read-more">
+                            Read more at <a class="main-page-blog-read-more" href="http://www.haveavoiceblog.com">our blog</a>.
+                        </div>
+                    </div>
 				</div>
 			</div>
 		</div>

@@ -104,6 +104,7 @@
     <Compile Include="CustomAuthentication\AdminRoleProvider.cs" />
     <Compile Include="Helpers\Authority\AuthorityClassification.cs" />
     <Compile Include="Helpers\Authority\AuthorityPosition.cs" />
+    <Compile Include="Helpers\BlogReader.cs" />
     <Compile Include="Helpers\Constants\GroupConstants.cs" />
     <Compile Include="Helpers\Enums\FeedItem.cs" />
     <Compile Include="Helpers\FeedType.cs" />
