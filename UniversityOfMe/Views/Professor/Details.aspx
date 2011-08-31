@@ -42,7 +42,7 @@
 			<img src="<%= PhotoHelper.ProfessorPhoto(Model.Get().Professor) %>" alt="Prof. <%= Model.Get().ProfessorName %>" />
 
 		    <div id="submitPhoto">
-			    <% using (Html.BeginForm("SuggestProfessorPicture", "Professor", FormMethod.Post, FormMethod.Post, new { enctype = "multipart/form-data", @class = "create btint-6" })) {%>
+			    <% using (Html.BeginForm("SuggestProfessorPicture", "Professor", FormMethod.Post, new { enctype = "multipart/form-data", @class = "create btint-6" })) {%>
                     <%= Html.Hidden("ProfessorId", Model.Get().Professor.Id)%>
                     <%= Html.Hidden("FirstName", Model.Get().Professor.FirstName)%>
                     <%= Html.Hidden("LastName", Model.Get().Professor.LastName)%>

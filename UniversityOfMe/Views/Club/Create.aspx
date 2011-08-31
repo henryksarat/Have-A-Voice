@@ -20,7 +20,7 @@
             <% Html.RenderPartial("Validation"); %>
 
             <div class="padding-col">
-                <% using (Html.BeginForm("Create", "Club", FormMethod.Post, FormMethod.Post, new { enctype = "multipart/form-data", @class = "create btint-6" })) {%>
+                <% using (Html.BeginForm("Create", "Club", FormMethod.Post, new { enctype = "multipart/form-data", @class = "create btint-6" })) {%>
 			        <div class="field-holder">
                         <label for="Name">Name</label> 
 			            <%= Html.TextBox("Name")%>

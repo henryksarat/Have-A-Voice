@@ -320,8 +320,6 @@
     <Compile Include="Models\View\RoleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ClubPhotos\chessteam_1017192034.jpg" />
-    <Content Include="ClubPhotos\no_photo.png" />
     <Content Include="Content\css\ui-lightness\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
     <Content Include="Content\css\ui-lightness\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
     <Content Include="Content\css\ui-lightness\images\ui-bg_flat_10_000000_40x100.png" />
@@ -504,8 +502,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\Wrappers\" />
-    <Folder Include="ProfessorPhotos\" />
-    <Folder Include="TextBookPhotos\" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Models\UniversityOfMeDBModel.edmx">

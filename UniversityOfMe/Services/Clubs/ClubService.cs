@@ -20,6 +20,8 @@ using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories.Clubs;
 using UniversityOfMe.Repositories.UserRepos;
 using UniversityOfMe.Services.Professors;
+using UniversityOfMe.Helpers.AWS;
+using UniversityOfMe.Helpers.Configuration;
 
 namespace UniversityOfMe.Services.Clubs {
     public class ClubService : IClubService {
@@ -131,9 +133,9 @@ namespace UniversityOfMe.Services.Clubs {
             if (aClubViewModel.ClubImage != null) {
                 string myOldClubImage = myClub.Picture;
 
-                UpdateClubPhoto(aClubViewModel.Name, aClubViewModel.ClubImage, myClub);
+                UpdateClubPhoto(aClubViewModel.Name.GetHashCode().ToString(), aClubViewModel.ClubImage, myClub);
                 if (!string.IsNullOrEmpty(myOldClubImage)) {
-                    SocialPhotoHelper.PhysicallyDeletePhoto(HttpContext.Current.Server.MapPath(PhotoHelper.ClubPhoto(myOldClubImage)));
+                    AWSPhotoHelper.PhysicallyDeletePhoto(AWSHelper.GetClient(), SiteConfiguration.OrganizationPhotosBucket(), myOldClubImage);
                 }
             }
 
@@ -283,7 +285,11 @@ namespace UniversityOfMe.Services.Clubs {
             string myImageName = string.Empty;
 
             try {
-                myImageName = SocialPhotoHelper.TakeImageAndResizeAndUpload(ClubConstants.CLUB_PHOTO_PATH, aName.Replace(" ", ""), aClubImage, ClubConstants.CLUB_MAX_SIZE);
+                myImageName = AWSPhotoHelper.TakeImageAndResizeAndUpload(aClubImage, 
+                    AWSHelper.GetClient(),
+                    SiteConfiguration.OrganizationPhotosBucket(),
+                    aName,
+                    ClubConstants.CLUB_MAX_SIZE);
             } catch (Exception myException) {
                 throw new PhotoException("Error while resizing and uploading the club photo. ", myException);
             }
@@ -291,7 +297,7 @@ namespace UniversityOfMe.Services.Clubs {
                 myClub.Picture = myImageName;
                 theClubRepository.UpdateClub(myClub);
             } catch (Exception myException) {
-                SocialPhotoHelper.PhysicallyDeletePhoto(HttpContext.Current.Server.MapPath(ClubConstants.CLUB_PHOTO_PATH + myImageName));
+                AWSPhotoHelper.PhysicallyDeletePhoto(AWSHelper.GetClient(), SiteConfiguration.OrganizationPhotosBucket(), myImageName);
                 throw new CustomException("Error while updating the club to the new club photo.", myException);
             }
         }

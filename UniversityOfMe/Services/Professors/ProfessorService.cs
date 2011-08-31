@@ -11,6 +11,8 @@ using Social.Photo.Helpers;
 using UniversityOfMe.Helpers.Constants;
 using System;
 using Social.Photo.Exceptions;
+using UniversityOfMe.Helpers.AWS;
+using UniversityOfMe.Helpers.Configuration;
 
 namespace UniversityOfMe.Services.Professors {
     public class ProfessorService : IProfessorService {
@@ -38,10 +40,10 @@ namespace UniversityOfMe.Services.Professors {
 
             if (aProfessorImage != null) {
                 try {
-                    myProfessorImage = SocialPhotoHelper.TakeImageAndResizeAndUpload(
-                        ProfessorConstants.PROFESSOR_PHOTO_PATH,
+                    myProfessorImage = AWSPhotoHelper.TakeImageAndResizeAndUpload(aProfessorImage,
+                        AWSHelper.GetClient(),
+                        SiteConfiguration.ProfessorPhotosBucket(),
                         aUniversityId + "_" + aFirstName.Trim().Replace(" ", "") + "_" + aLastName.Trim().Replace(" ", ""),
-                        aProfessorImage,
                         ProfessorConstants.PROFESSOR_MAX_SIZE);
                 } catch (Exception myException) {
                     throw new PhotoException("Unable to upload the professor image.", myException);
@@ -66,11 +68,11 @@ namespace UniversityOfMe.Services.Professors {
             string myProfessorImage = string.Empty;
 
             try {
-                myProfessorImage = SocialPhotoHelper.TakeImageAndResizeAndUpload(
-                    ProfessorConstants.PROFESSOR_PHOTO_PATH,
-                    "Suggested_" + aProfessorId,
-                    aProfessorImage,
-                    ProfessorConstants.PROFESSOR_MAX_SIZE);
+                myProfessorImage = AWSPhotoHelper.TakeImageAndResizeAndUpload(aProfessorImage,
+                        AWSHelper.GetClient(),
+                        SiteConfiguration.ProfessorPhotosBucket(),
+                        "Suggested_" + aProfessorId,
+                        ProfessorConstants.PROFESSOR_MAX_SIZE);
             } catch (Exception myException) {
                 throw new PhotoException("Unable to upload the professor image.", myException);
             }
@@ -78,7 +80,7 @@ namespace UniversityOfMe.Services.Professors {
             try {
                 theProfessorRepository.CreateProfessorSuggestedPicture(aSuggestingUser.Details, aProfessorId, myProfessorImage);
             } catch (Exception myException) {
-                SocialPhotoHelper.PhysicallyDeletePhoto(HttpContext.Current.Server.MapPath(PhotoHelper.ConstructProfessorUrl(myProfessorImage)));
+                AWSPhotoHelper.PhysicallyDeletePhoto(AWSHelper.GetClient(), SiteConfiguration.ProfessorPhotosBucket(), myProfessorImage);
                 throw new Exception("Unable to create the professor suggested picture database entry so we removed the image.", myException);
             }
 

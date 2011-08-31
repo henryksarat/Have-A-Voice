@@ -18,6 +18,8 @@ using Social.Generic.Constants;
 using System.Web;
 using Social.Generic.Exceptions;
 using UniversityOfMe.Helpers;
+using UniversityOfMe.Helpers.AWS;
+using UniversityOfMe.Helpers.Configuration;
 
 namespace UniversityOfMe.Services.TextBooks {
     public class TextBookService : ITextBookService {
@@ -42,10 +44,10 @@ namespace UniversityOfMe.Services.TextBooks {
 
             if (aCreateTextBookModel.BookImage != null) {
                 try {
-                    myBookImageName = SocialPhotoHelper.TakeImageAndResizeAndUpload(
-                        TextBookConstants.TEXTBOOK_PHOTO_PATH, 
+                    myBookImageName = AWSPhotoHelper.TakeImageAndResizeAndUpload(aCreateTextBookModel.BookImage,
+                        AWSHelper.GetClient(),
+                        SiteConfiguration.TextbookPhotosBucket(),
                         aCreateTextBookModel.BookTitle.GetHashCode().ToString(),
-                        aCreateTextBookModel.BookImage,
                         TextBookConstants.BOOK_MAX_SIZE);
                 } catch (Exception myException) {
                     throw new PhotoException("Unable to upload the textbook image.", myException);
@@ -84,7 +86,7 @@ namespace UniversityOfMe.Services.TextBooks {
             }
 
             if (!string.IsNullOrEmpty(myTextBook.BookPicture)) {
-                SocialPhotoHelper.PhysicallyDeletePhoto(HttpContext.Current.Server.MapPath(PhotoHelper.TextBookPhoto(myTextBook.BookPicture)));
+                AWSPhotoHelper.PhysicallyDeletePhoto(AWSHelper.GetClient(), SiteConfiguration.TextbookPhotosBucket(), myTextBook.BookPicture);
             }
 
             theTextBookRepo.DeleteTextBook(myTextBook.Id);
@@ -111,7 +113,7 @@ namespace UniversityOfMe.Services.TextBooks {
                 UpdateTextBookPhoto(aTextBookViewModel.TextBookId.ToString(), aTextBookViewModel.BookImage, myTextBook);
 
                 if (!string.IsNullOrEmpty(myOldTextBookImage)) {
-                    SocialPhotoHelper.PhysicallyDeletePhoto(HttpContext.Current.Server.MapPath(PhotoHelper.TextBookPhoto(myOldTextBookImage)));
+                    AWSPhotoHelper.PhysicallyDeletePhoto(AWSHelper.GetClient(), SiteConfiguration.TextbookPhotosBucket(), myOldTextBookImage);
                 }
             }
 
@@ -206,11 +208,15 @@ namespace UniversityOfMe.Services.TextBooks {
             return theValidationDictionary.isValid;
         }
 
-        private void UpdateTextBookPhoto(string aName, HttpPostedFileBase aClubImage, TextBook aTextBook) {
+        private void UpdateTextBookPhoto(string anId, HttpPostedFileBase aTextBookImage, TextBook aTextBook) {
             string myImageName = string.Empty;
 
             try {
-                myImageName = SocialPhotoHelper.TakeImageAndResizeAndUpload(TextBookConstants.TEXTBOOK_PHOTO_PATH, aName.Replace(" ", ""), aClubImage, TextBookConstants.BOOK_MAX_SIZE);
+                myImageName = AWSPhotoHelper.TakeImageAndResizeAndUpload(aTextBookImage,
+                        AWSHelper.GetClient(),
+                        SiteConfiguration.TextbookPhotosBucket(),
+                        anId,
+                        TextBookConstants.BOOK_MAX_SIZE);
             } catch (Exception myException) {
                 throw new PhotoException("Error while resizing and uploading the textbook photo. ", myException);
             }
@@ -218,7 +224,7 @@ namespace UniversityOfMe.Services.TextBooks {
                 aTextBook.BookPicture = myImageName;
                 theTextBookRepo.UpdateTextBook(aTextBook);
             } catch (Exception myException) {
-                SocialPhotoHelper.PhysicallyDeletePhoto(HttpContext.Current.Server.MapPath(TextBookConstants.TEXTBOOK_PHOTO_PATH + myImageName));
+                AWSPhotoHelper.PhysicallyDeletePhoto(AWSHelper.GetClient(), SiteConfiguration.TextbookPhotosBucket(), myImageName);
                 throw new CustomException("Error while updating the textbook to the new textbook photo.", myException);
             }
         }

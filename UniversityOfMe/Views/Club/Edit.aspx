@@ -20,7 +20,7 @@
             <% Html.RenderPartial("Validation"); %>
 
             <div class="padding-col">
-                <% using (Html.BeginForm("Edit", "Club", FormMethod.Post, FormMethod.Post, new { enctype = "multipart/form-data", @class = "create btint-6" })) {%>
+                <% using (Html.BeginForm("Edit", "Club", FormMethod.Post, new { enctype = "multipart/form-data", @class = "create btint-6" })) {%>
                     <%= Html.Hidden("ClubId", Model.Get().ClubId) %>
 			    
                     <div class="field-holder">

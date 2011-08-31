@@ -24,7 +24,7 @@ namespace UniversityOfMe.Controllers.Clubs {
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
-        public ActionResult Main(string universityId) {
+        public ActionResult Main(string universityId) {           
             if (IsLoggedIn()) {
                 return RedirectToProfile();
             }

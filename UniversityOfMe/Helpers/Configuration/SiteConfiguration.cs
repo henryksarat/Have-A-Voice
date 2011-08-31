@@ -20,6 +20,10 @@
             return GetKey("OrganizationPhotosBucket");
         }
 
+        public static string TextbookPhotosBucket() {
+            return GetKey("TextbookPhotosBucket");
+        }
+
         private static string GetKey(string aKey) {
             string myValue = string.Empty;
             System.Configuration.Configuration rootWebConfig1 =
