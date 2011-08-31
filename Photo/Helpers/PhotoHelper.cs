@@ -7,6 +7,7 @@ using System.Web;
 using Social.Generic.Constants;
 
 namespace Social.Photo.Helpers {
+    /*
     public static class SocialPhotoHelper {
         public static string ConstructUrl(string anImageName) {
             return Constants.PHOTO_LOCATION_FROM_VIEW + anImageName;
@@ -82,5 +83,5 @@ namespace Social.Photo.Helpers {
 
             return myBitmap;
         }
-    }
+    }*/
 }

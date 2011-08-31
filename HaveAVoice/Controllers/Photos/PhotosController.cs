@@ -16,9 +16,14 @@ using Social.BaseWebsite.Models;
 using Social.Generic.Models;
 using Social.Generic.Services;
 using Social.Users.Services;
+using HaveAVoice.Helpers.AWS;
+using HaveAVoice.Helpers.Configuration;
 
 namespace HaveAVoice.Controllers.Users.Photos {
     public class PhotosController : AbstractPhotosController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline, PhotoAlbum, Photo, Friend> {
+        private const int PHOTO_MAX_SIZE = 840;
+        private const int MAX_SIZE_PROFILE = 120;
+
         public PhotosController() : 
             base(new BaseService<User>(new HAVBaseRepository()),
                   UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()), new GetUserStrategy()),
@@ -31,8 +36,8 @@ namespace HaveAVoice.Controllers.Users.Photos {
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        new public ActionResult Create(int albumId, HttpPostedFileBase imageFile) {
-            return base.Create(albumId, imageFile);
+        public ActionResult Create(int albumId, HttpPostedFileBase imageFile) {
+            return base.Create(albumId, imageFile, AWSHelper.GetClient(), SiteConfiguration.UserPhotosBucket(), PHOTO_MAX_SIZE);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
@@ -41,13 +46,13 @@ namespace HaveAVoice.Controllers.Users.Photos {
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        new public ActionResult SetProfilePicture(int id) {
-            return base.SetProfilePicture(id);
+        public ActionResult SetProfilePicture(int id) {
+            return base.SetProfilePicture(id, AWSHelper.GetClient(), SiteConfiguration.UserPhotosBucket(), MAX_SIZE_PROFILE);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        new public ActionResult Delete(int id, int albumId) {
-            return base.Delete(id, albumId);
+        public ActionResult Delete(int id, int albumId) {
+            return base.Delete(id, AWSHelper.GetClient(), SiteConfiguration.UserPhotosBucket(), albumId);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

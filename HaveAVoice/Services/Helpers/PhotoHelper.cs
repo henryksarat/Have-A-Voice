@@ -6,6 +6,7 @@ using HaveAVoice.Services.UserFeatures;
 using Social.Friend.Services;
 using Social.Generic.Constants;
 using Social.Photo.Services;
+using HaveAVoice.Helpers.Constants;
 
 namespace HaveAVoice.Services.Helpers {
     public class PhotoHelper {
@@ -30,7 +31,7 @@ namespace HaveAVoice.Services.Helpers {
         }
 
         public static string ConstructUrl(string anImageName) {
-            return Social.Photo.Helpers.SocialPhotoHelper.ConstructUrl(anImageName);
+            return PhotoConstants.PHOTO_BASE_URL + anImageName;
         }
 
         public static string RetrievePhotoAlbumCoverUrl(PhotoAlbum anAlbum) {

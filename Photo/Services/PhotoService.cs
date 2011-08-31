@@ -38,10 +38,10 @@ namespace HaveAVoice.Services.UserFeatures {
             throw new NotFriendException();
         }
 
-        public void DeletePhoto(AbstractUserModel<T> aUserDeleting, int aPhotoId) {
+        public void DeletePhoto(AbstractUserModel<T> aUserDeleting, AmazonS3 anAmazonS3Client, string aBucketName, int aPhotoId) {
             AbstractPhotoModel<V> myPhoto = GetPhoto(aUserDeleting, aPhotoId);
             if (myPhoto.UploadedByUserId == aUserDeleting.Id) {
-                SocialPhotoHelper.PhysicallyDeletePhoto(HttpContext.Current.Server.MapPath(SocialPhotoHelper.ConstructUrl(myPhoto.ImageName)));
+                AWSPhotoHelper.PhysicallyDeletePhoto(anAmazonS3Client, aBucketName, myPhoto.ImageName);
 
                 thePhotoRepo.DeletePhoto(aPhotoId);
             } else {
@@ -56,29 +56,6 @@ namespace HaveAVoice.Services.UserFeatures {
             }
 
             throw new NotFriendException();
-        }
-
-        public void SetToProfilePicture(AbstractUserModel<T> aUser, int aPhotoId) {
-            AbstractPhotoModel<V> myCurrentProfile = thePhotoRepo.GetAbstractProfilePicture(aUser.Id);
-            if (myCurrentProfile != null) {
-                if (myCurrentProfile.UploadedByUserId == aUser.Id) {
-                    thePhotoRepo.DeletePhoto(myCurrentProfile.Id);
-                    SocialPhotoHelper.PhysicallyDeletePhoto(HttpContext.Current.Server.MapPath(SocialPhotoHelper.ConstructUrl(myCurrentProfile.ImageName)));
-                } else {
-                    throw new CustomException(ErrorKeys.PERMISSION_DENIED);
-                }
-            }
-
-            AbstractPhotoModel<V> myNewProfilePhoto = thePhotoRepo.GetAbstractPhoto(aPhotoId);
-
-            if (myNewProfilePhoto.UploadedByUserId == aUser.Id) {
-                string[] myNewProfileSplit = myNewProfilePhoto.ImageName.Split('.');
-                string myNewProfilePictureImageName = myNewProfileSplit[0] + "-profile." + myNewProfileSplit[1];
-                SocialPhotoHelper.ResizeImageAndUpload(Constants.PHOTO_LOCATION_FROM_VIEW, myNewProfilePhoto.ImageName, myNewProfilePictureImageName, 120);
-                thePhotoRepo.AddReferenceToImage(aUser.Model, myNewProfilePhoto.PhotoAlbumId, myNewProfilePictureImageName, true, aPhotoId);
-            } else {
-                throw new CustomException(ErrorKeys.PERMISSION_DENIED);
-            }
         }
 
         public void SetToProfilePicture(AbstractUserModel<T> aUser, int aPhotoId, AmazonS3 anAmazonS3Client, string aBucketName, int aMaxSize) {
@@ -112,16 +89,6 @@ namespace HaveAVoice.Services.UserFeatures {
             return default(V);
         }
 
-        public V UploadImageWithDatabaseReference(AbstractUserModel<T> aUserToUploadFor, int anAlbumId, HttpPostedFileBase aImageFile) {
-            AbstractPhotoAlbumModel<U, V> myAlbum = thePhotoAlbumRepo.GetAbstractPhotoAlbum(anAlbumId);
-            if (myAlbum.CreatedByUserId == aUserToUploadFor.Id) {
-                string myImageName = UploadImage(aUserToUploadFor, aImageFile);
-                return thePhotoRepo.AddReferenceToImage(aUserToUploadFor.Model, anAlbumId, myImageName, false);
-            } else {
-                throw new CustomException(UNAUTHORIZED_UPLOAD);
-            }
-         }
-
         public V UploadImageWithDatabaseReference(AbstractUserModel<T> aUserToUploadFor, int anAlbumId, 
             HttpPostedFileBase aImageFile, AmazonS3 aAmazonS3Client, string aBucketName, int aMaxSize) {
             AbstractPhotoAlbumModel<U, V> myAlbum = thePhotoAlbumRepo.GetAbstractPhotoAlbum(anAlbumId);
@@ -143,13 +110,6 @@ namespace HaveAVoice.Services.UserFeatures {
             }
         }
 
-        private string UploadImage(AbstractUserModel<T> aUserToUploadFor, HttpPostedFileBase aImageFile) {
-            if (aImageFile == null || !PhotoValidation.IsValidImageFile(aImageFile.FileName)) {
-                throw new CustomException("Please specify a proper image file that ends in .gif, .jpg, or .jpeg.");
-            }
-            return SocialPhotoHelper.TakeImageAndResizeAndUpload(Constants.PHOTO_LOCATION_FROM_VIEW, aUserToUploadFor.Id.ToString(), aImageFile, MAX_SIZE);
-        }
-        
         private string UploadImage(AbstractUserModel<T> aUserToUploadFor, HttpPostedFileBase aImageFile, AmazonS3 anAmazonS3Client, string aBucketName, int aMaxSize) {
             if (aImageFile == null || !PhotoValidation.IsValidImageFile(aImageFile.FileName)) {
                 throw new CustomException("Please specify a proper image file that ends in .gif, .jpg, or .jpeg.");

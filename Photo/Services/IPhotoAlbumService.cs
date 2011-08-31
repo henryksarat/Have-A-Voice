@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Amazon.S3;
 using Social.Generic.Models;
 
 namespace Social.Photo.Services {
@@ -12,7 +13,7 @@ namespace Social.Photo.Services {
         U GetPhotoAlbum(AbstractUserModel<T> aUserModel, int anAlbumId);
         U GetPhotoAlbumForEdit(AbstractUserModel<T> aUserModel, int anAlbumId);
         bool EditPhotoAlbum(AbstractUserModel<T> aUserEditingModel, int anAlbumId, string aName, string aDescription);
-        void DeletePhotoAlbum(AbstractUserModel<T> aUserDeletingModel, int anAlbumId);
+        void DeletePhotoAlbum(AbstractUserModel<T> aUserDeletingModel, AmazonS3 anAmazonS3Client, string aBucketName, int anAlbumId);
         AbstractPhotoAlbumModel<U, V> GetProfilePictureAlbumForUser(T aUsersPhotoAlbum);
     }
 }

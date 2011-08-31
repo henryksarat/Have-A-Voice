@@ -12,6 +12,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Web;
 using System.Linq;
+using Amazon.S3;
 
 namespace UniversityOfMe.Services.Photos {
     public class UofMePhotoService : PhotoService<User, PhotoAlbum, Photo, Friend>, IUofMePhotoService {
@@ -25,8 +26,8 @@ namespace UniversityOfMe.Services.Photos {
             thePhotoRepo = aPhotoRepo;
         }
 
-        new public Photo UploadImageWithDatabaseReference(AbstractUserModel<User> aUserToUploadFor, int anAlbumId, HttpPostedFileBase aImageFile) {
-            Photo myUploadedPhoto = base.UploadImageWithDatabaseReference(aUserToUploadFor, anAlbumId, aImageFile);
+        new public Photo UploadImageWithDatabaseReference(AbstractUserModel<User> aUserToUploadFor, int anAlbumId, HttpPostedFileBase aImageFile, AmazonS3 aAmazonS3Client, string aBucketName, int aMaxSize) {
+            Photo myUploadedPhoto = base.UploadImageWithDatabaseReference(aUserToUploadFor, anAlbumId, aImageFile, aAmazonS3Client, aBucketName, aMaxSize);
             if (!thePhotoRepo.HasAlbumCoverAlready(myUploadedPhoto.PhotoAlbumId)) {
                 thePhotoRepo.SetPhotoAsAlbumCover(myUploadedPhoto.Id);
             }

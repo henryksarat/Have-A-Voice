@@ -64,24 +64,6 @@ namespace BaseWebsite.Controllers.Photos {
 
         protected abstract ILoggedInModel<B> CreateLoggedInWrapperModel(T aUser);
 
-        protected ActionResult Create(int albumId, HttpPostedFileBase imageFile) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            UserInformationModel<T> myUser = GetUserInformatonModel();
-
-            try {
-                thePhotoService.UploadImageWithDatabaseReference(CreateSocialUserModel(myUser.Details), albumId, imageFile);
-                TempData["Message"] += SuccessMessage(UPLOAD_SUCCESS);
-            } catch (CustomException myException) {
-                TempData["Message"] += NormalMessage(myException.Message);
-            } catch (Exception myException) {
-                TempData["Message"] += ErrorMessage(UPLOAD_ERROR);
-                LogError(myException, UPLOAD_ERROR);
-            }
-            return RedirectToAction(PHOTO_ALBUM_DETAILS, PHOTO_ALBUM_CONTROLLER, new { id = albumId });
-        }
-
         protected ActionResult Create(int albumId, HttpPostedFileBase imageFile, AmazonS3 anAmazonS3Client, string aBucketName, int aMaxSize) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
@@ -117,23 +99,6 @@ namespace BaseWebsite.Controllers.Photos {
             return View(DISPLAY_VIEW, myModel);
         }
 
-        protected ActionResult SetProfilePicture(int id) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-            T myUser = GetUserInformaton();
-            try {
-                thePhotoService.SetToProfilePicture(CreateSocialUserModel(GetUserInformaton()), id);
-                TempData["Message"] += SuccessMessage("Profile picture changed!");
-                return RedirectToProfile();
-            } catch (CustomException myException) {
-                return SendToErrorPage(myException.Message);
-            } catch (Exception e) {
-                TempData["Message"] += ErrorMessage(SET_PROFILE_PICTURE_ERRROR);
-                return RedirectToAction(DISPLAY_VIEW, new { id = id });
-            }
-        }
-
         protected ActionResult SetProfilePicture(int id, AmazonS3 anAmazonS3Client, string aBucketName, int aMaxSize) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
@@ -151,13 +116,13 @@ namespace BaseWebsite.Controllers.Photos {
             }
         }
 
-        protected ActionResult Delete(int id, int anAlbumId) {
+        protected ActionResult Delete(int id, AmazonS3 anAmazonS3Client, string aBucketName, int anAlbumId) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
             T myUser = GetUserInformaton();
             try {
-                thePhotoService.DeletePhoto(CreateSocialUserModel(myUser), id);
+                thePhotoService.DeletePhoto(CreateSocialUserModel(myUser), anAmazonS3Client, aBucketName, id);
                 TempData["Message"] += SuccessMessage(DELETE_SUCCESS);
                 return RedirectToAction(PHOTO_ALBUM_DETAILS, PHOTO_ALBUM_CONTROLLER, new { id = anAlbumId });
             } catch(CustomException e) {

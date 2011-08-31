@@ -19,6 +19,7 @@ using Social.User.Repositories;
 using Social.User.Services;
 using Social.Users.Services;
 using Social.Validation;
+using Amazon.S3;
 
 namespace BaseWebsite.Controllers.Photos {
     public abstract class AbstractPhotoAlbumController<T, U, V, W, X, Y, Z, A, B, C>  : BaseController<T, U, V, W, X, Y, Z> {
@@ -92,13 +93,13 @@ namespace BaseWebsite.Controllers.Photos {
             return RedirectToAction("Create");
         }
 
-        protected ActionResult Delete(int id) {
+        protected ActionResult Delete(int id, AmazonS3 anAmazonS3Client, string aBucketName) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
             UserInformationModel<T> myUser = GetUserInformatonModel();
             try {
-                thePhotoAlbumService.DeletePhotoAlbum(CreateSocialUserModel(myUser.Details), id);
+                thePhotoAlbumService.DeletePhotoAlbum(CreateSocialUserModel(myUser.Details), anAmazonS3Client, aBucketName, id);
                 TempData["Message"] += SuccessMessage(DELETE_SUCCESS);
             } catch (CustomException e) {
                 return SendToErrorPage(e.Message);

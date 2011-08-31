@@ -112,6 +112,7 @@
     <Compile Include="Helpers\BlogReader.cs" />
     <Compile Include="Helpers\Configuration\SiteConfiguration.cs" />
     <Compile Include="Helpers\Constants\GroupConstants.cs" />
+    <Compile Include="Helpers\Constants\PhotoConstants.cs" />
     <Compile Include="Helpers\Enums\FeedItem.cs" />
     <Compile Include="Helpers\FeedType.cs" />
     <Compile Include="Helpers\Groups\GroupHelper.cs" />
