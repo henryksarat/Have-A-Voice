@@ -10,17 +10,17 @@ using UniversityOfMe.Helpers.Constants;
 namespace UniversityOfMe.Helpers {
     public class PhotoHelper {
         public static string ProfilePicture(User aUser) {
-            string myProfileUrl = Social.Generic.Constants.Constants.NO_PROFILE_PICTURE_URL;
+            string myProfileUrl = PhotoConstants.NO_PROFILE_PICTURE;
 
             Photo myProfilePicture = (from u in aUser.Photos where u.ProfilePicture == true select u).FirstOrDefault<Photo>();
             if (myProfilePicture != null) {
-                myProfileUrl = Social.Generic.Constants.Constants.PHOTO_LOCATION_FROM_VIEW + myProfilePicture.ImageName;
+                myProfileUrl = PhotoConstants.PHOTO_BASE_URL + myProfilePicture.ImageName;
             } else {
                 IPhotoService<User, PhotoAlbum, Photo, Friend> myPhotoService = new PhotoService<User, PhotoAlbum, Photo, Friend>(new FriendService<User, Friend>(new EntityFriendRepository()), new EntityPhotoAlbumRepository(), new EntityPhotoRepository());
                 Photo myPhoto = myPhotoService.GetProfilePicture(aUser.Id);
 
                 if (myPhoto != null) {
-                    myProfileUrl = Social.Generic.Constants.Constants.PHOTO_LOCATION_FROM_VIEW + myPhoto.ImageName;
+                    myProfileUrl = PhotoConstants.PHOTO_BASE_URL + myPhoto.ImageName;
                 }
             }
 
@@ -34,9 +34,9 @@ namespace UniversityOfMe.Helpers {
                 string myOriginalImageName = (from p in aUser.Photos
                                               where p.Id == myProfilePicture.OriginalPhotoId
                                               select p.ImageName).FirstOrDefault<string>();
-                return Social.Generic.Constants.Constants.PHOTO_LOCATION_FROM_VIEW + myOriginalImageName;
+                return PhotoConstants.PHOTO_BASE_URL + myOriginalImageName;
             } else {
-                return Social.Generic.Constants.Constants.NO_PROFILE_PICTURE_URL;
+                return PhotoConstants.NO_PROFILE_PICTURE;
             }
         }
 
@@ -69,11 +69,11 @@ namespace UniversityOfMe.Helpers {
         }
 
         public static string AnonymousProfilePicture() {
-            return Social.Generic.Constants.Constants.ANONYMOUS_PICTURE_URL;
+            return PhotoConstants.NO_PROFILE_PICTURE;
         }
 
         public static string ConstructUrl(string anImageName) {
-            return Social.Photo.Helpers.SocialPhotoHelper.ConstructUrl(anImageName);
+            return PhotoConstants.PHOTO_BASE_URL + anImageName;
         }
 
         public static string TextBookPhoto(TextBook aTextBook) {

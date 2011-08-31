@@ -1033,6 +1033,7 @@
           <Property Name="NewEmailHash" Type="varchar" MaxLength="100" />
           <Property Name="RelationshipStatus" Type="varchar" MaxLength="20" />
           <Property Name="ActivationCodeUsed" Type="bit" />
+          <Property Name="Job" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="UserStatuses">
           <Key>
@@ -2910,6 +2911,7 @@
           <NavigationProperty Name="UserBadges" Relationship="UniversityOfMeModel.FK_UserBadges_Users" FromRole="User" ToRole="UserBadge" />
           <Property Type="Boolean" Name="ActivationCodeUsed" />
           <NavigationProperty Name="UserStatuses" Relationship="UniversityOfMeModel.FK_Statuses_Users" FromRole="User" ToRole="UserStatus" />
+          <Property Type="String" Name="Job" MaxLength="200" FixedLength="false" Unicode="false" />
           </EntityType>
         <Association Name="FK_UserPrivacySettings_Users">
           <End Type="UniversityOfMeModel.User" Role="User" Multiplicity="1" />
@@ -4752,6 +4754,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="UniversityOfMeModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Job" ColumnName="Job" />
                 <ScalarProperty Name="ActivationCodeUsed" ColumnName="ActivationCodeUsed" />
                 <ScalarProperty Name="RelationshipStatus" ColumnName="RelationshipStatus" />
                 <ScalarProperty Name="NewEmailHash" ColumnName="NewEmailHash" />
@@ -5401,7 +5404,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="UniversityOfMeDBModel" ZoomLevel="75">
+      <Diagram Name="UniversityOfMeDBModel" ZoomLevel="33">
         <EntityTypeShape EntityType="UniversityOfMeModel.RolePermission" Width="1.5" PointX="5.25" PointY="10.75" Height="1.9802864583333335" IsExpanded="true" />
         <EntityTypeShape EntityType="UniversityOfMeModel.Role" Width="1.5" PointX="3" PointY="10.25" Height="2.7494921874999996" IsExpanded="true" />
         <EntityTypeShape EntityType="UniversityOfMeModel.UserPrivacySetting" Width="1.5" PointX="5.25" PointY="4.875" Height="1.9802864583333326" IsExpanded="true" />

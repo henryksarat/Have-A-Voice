@@ -32,6 +32,9 @@ namespace UniversityOfMe.Models.View {
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string ProfilePictureURL { get; set; }
 
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string Job { get; set; }
+
         public IEnumerable<SelectListItem> States { get; set; }
 
         public IEnumerable<SelectListItem> RelationshipStatu { get; set; }

@@ -9,7 +9,10 @@ namespace Social.Validation {
 
         public static bool IsValidImageFile(string anImageFile) {
             return !String.IsNullOrEmpty(anImageFile)
-                && (anImageFile.ToUpper().EndsWith(".JPG") || anImageFile.ToUpper().EndsWith(".JPEG") || anImageFile.ToUpper().EndsWith(".GIF"));
+                && (anImageFile.ToUpper().EndsWith(".JPG")
+                || anImageFile.ToUpper().EndsWith(".JPEG")
+                || anImageFile.ToUpper().EndsWith(".PNG") 
+                || anImageFile.ToUpper().EndsWith(".GIF"));
         }
     }
 }

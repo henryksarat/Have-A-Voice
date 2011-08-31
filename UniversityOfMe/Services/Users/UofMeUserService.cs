@@ -74,17 +74,18 @@ namespace UniversityOfMe.Services.Users {
             }
 
             User myOriginalUser = theUserRetrievalService.GetUser(aUser.Id);
-            myOriginalUser.NewEmail = aUser.NewEmail;
+            myOriginalUser.NewEmail = aUser.NewEmail.Trim();
             myOriginalUser.Password = aHashedPassword;
-            myOriginalUser.FirstName = aUser.FirstName;
-            myOriginalUser.LastName = aUser.LastName;
+            myOriginalUser.FirstName = aUser.FirstName.Trim();
+            myOriginalUser.LastName = aUser.LastName.Trim();
             myOriginalUser.DateOfBirth = aUser.DateOfBirth;
-            myOriginalUser.City = aUser.City;
-            myOriginalUser.State = aUser.State == Constants.SELECT ? string.Empty : aUser.State;
+            myOriginalUser.City = aUser.City.Trim();
+            myOriginalUser.State = aUser.State == Constants.SELECT ? null : aUser.State;
             myOriginalUser.Zip = aUser.Zip;
-            myOriginalUser.Website = aUser.Website;
-            myOriginalUser.Gender = aUser.Gender;
-            myOriginalUser.AboutMe = aUser.AboutMe;
+            myOriginalUser.Website = aUser.Website.Trim();
+            myOriginalUser.Gender = aUser.Gender.Trim();
+            myOriginalUser.AboutMe = aUser.AboutMe.Trim();
+            myOriginalUser.Job = aUser.Job.Trim();
             myOriginalUser.RelationshipStatus = (aUser.RelationshipStatus == Constants.SELECT ? null :aUser.RelationshipStatus);
 
             if (!string.IsNullOrEmpty(aUser.ShortUrl)) {
@@ -143,7 +144,8 @@ namespace UniversityOfMe.Services.Users {
                 States = myStates,
                 Genders = myGenders,
                 RelationshipStatu = myRelationships,
-                ProfilePictureURL = PhotoHelper.ProfilePicture(myUser)
+                ProfilePictureURL = PhotoHelper.ProfilePicture(myUser),
+                Job = myUser.Job
             };
         }
 
@@ -160,6 +162,10 @@ namespace UniversityOfMe.Services.Users {
 
             if (aUser.Gender.Equals(Constants.SELECT)) {
                 theValidationDictionary.AddError("Gender", Constants.SELECT, "Gender is required.");
+            }
+
+            if (!VarCharValidation.Valid100Length(aUser.Job.Trim())) {
+                theValidationDictionary.AddError("Job", aUser.Job.Trim(), "Job can only be a maximum of 100 characters.");
             }
 
             if (!string.IsNullOrEmpty(aUser.ShortUrl)) {

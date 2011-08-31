@@ -17,9 +17,13 @@ using UniversityOfMe.Repositories;
 using UniversityOfMe.Services.Photos;
 using UniversityOfMe.UserInformation;
 using System;
+using UniversityOfMe.Helpers.AWS;
+using UniversityOfMe.Helpers.Configuration;
 
 namespace UniversityOfMe.Controllers.Photos {
     public class PhotoController : AbstractPhotosController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline, PhotoAlbum, Photo, Friend> {
+        private const int MAX_SIZE = 840;
+        private const int MAX_SIZE_PROFILE = 120;
         private IUofMePhotoService thePhotoService;
         
         public PhotoController() : this(new UofMePhotoService()) { }
@@ -36,7 +40,7 @@ namespace UniversityOfMe.Controllers.Photos {
         
         [AcceptVerbs(HttpVerbs.Post)]
         new public ActionResult Create(int albumId, HttpPostedFileBase imageFile) {
-            return base.Create(albumId, imageFile);
+            return base.Create(albumId, imageFile, AWSHelper.GetClient(), SiteConfiguration.UserPhotosBucket(), MAX_SIZE);
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
@@ -59,7 +63,7 @@ namespace UniversityOfMe.Controllers.Photos {
 
         [AcceptVerbs(HttpVerbs.Get)]
         new public ActionResult SetProfilePicture(int id) {
-            return base.SetProfilePicture(id);
+            return base.SetProfilePicture(id, AWSHelper.GetClient(), SiteConfiguration.UserPhotosBucket(), MAX_SIZE_PROFILE);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

@@ -126,6 +126,10 @@
 	                <%= Html.DropDownList("RelationshipStatus", Model.Get().RelationshipStatu)%>
 	            </div>
                 <div class="field-holder">
+                    <label for="Job">Job</label>
+	                <%= Html.TextBox("Job", Model.Get().Job)%>
+	            </div>
+                <div class="field-holder">
                     <label for="Website">Website</label>
 	                <%= Html.TextBox("Website", Model.Get().Website)%>
 	            </div>

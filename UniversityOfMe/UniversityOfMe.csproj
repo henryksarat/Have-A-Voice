@@ -34,6 +34,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AWSSDK, Version=1.3.11.1, Culture=neutral, PublicKeyToken=cd2d24cd2bace800, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files\AWS SDK for .NET\bin\AWSSDK.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -120,12 +124,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AWS\AWSHelper.cs" />
     <Compile Include="Helpers\Badges\BadgeAction.cs" />
     <Compile Include="Helpers\Badges\BadgeName.cs" />
     <Compile Include="Helpers\Badges\BadgeSection.cs" />
     <Compile Include="Helpers\ClassHelper.cs" />
     <Compile Include="Helpers\ClassViewType.cs" />
+    <Compile Include="Helpers\Configuration\SiteConfiguration.cs" />
     <Compile Include="Helpers\Constants\ClubConstants.cs" />
+    <Compile Include="Helpers\Constants\PhotoConstants.cs" />
     <Compile Include="Helpers\Constants\ProfessorConstants.cs" />
     <Compile Include="Helpers\Constants\SearchConstants.cs" />
     <Compile Include="Helpers\Constants\TextBookConstants.cs" />
@@ -399,8 +406,6 @@
     <Content Include="Content\style.css" />
     <Content Include="Global.asax" />
     <Content Include="favicon.ico" />
-    <Content Include="Photos\nophotos.jpg" />
-    <Content Include="Photos\no_profile_picture.jpg" />
     <Content Include="Views\Admin\Index.aspx" />
     <Content Include="Views\Authentication\ChangeEmail.aspx" />
     <Content Include="Views\Authentication\Login.aspx" />

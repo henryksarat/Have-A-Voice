@@ -34,6 +34,11 @@
     <Reference Include="Accessibility">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="AWSSDK, Version=1.3.11.1, Culture=neutral, PublicKeyToken=cd2d24cd2bace800, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files\AWS SDK for .NET\bin\AWSSDK.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -47,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\PhotoException.cs" />
+    <Compile Include="Helpers\AWSPhotoHelper.cs" />
     <Compile Include="Helpers\PhotoHelper.cs" />
     <Compile Include="Services\PhotoAlbumService.cs" />
     <Compile Include="Services\IPhotoAlbumService.cs" />

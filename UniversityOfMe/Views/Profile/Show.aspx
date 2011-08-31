@@ -116,8 +116,29 @@
 			<p><label>Name:</label><%=NameHelper.FullName(Model.User) %></p> 
 			<p><label>University:</label><%= UniversityHelper.GetMainUniversity(Model.User).UniversityName %></p> 
             <% if (myAllowedToView) { %>    
+
                 <p><label>Birthdate:</label><%= String.Format("{0:dd MMM yyyy}", Model.User.DateOfBirth) %></p> 
 			    <p><label>Relationship:</label><%= Model.User.RelationshipStatu != null ? Model.User.RelationshipStatu.DisplayName : "NA" %></p> 
+                
+                <% if (!string.IsNullOrEmpty(Model.User.Job)) { %>
+                    <p><label>Job:</label><%= Model.User.Job%></p> 
+                <% } %>
+
+                 <% if (!string.IsNullOrEmpty(Model.User.City) && !string.IsNullOrEmpty(Model.User.State)) { %>
+                    <p><label>Location:</label><%= Model.User.City + ", " + Model.User.State %> </p> 
+                <% } else if (!string.IsNullOrEmpty(Model.User.City)) { %>
+                    <p><label>Location:</label><%= Model.User.City %> </p> 
+                <% } else if (!string.IsNullOrEmpty(Model.User.State)) { %>
+                    <p><label>Location:</label><%= Model.User.State %> </p> 
+                <% } %>
+
+                <% if (!string.IsNullOrEmpty(Model.User.Website)) { %>
+                    <p><label>Website:</label><%= Model.User.Website%> </p> 
+                <% } %>
+
+                 <% if (!string.IsNullOrEmpty(Model.User.AboutMe)) { %>
+                    <p><label>About Me:</label><%= Model.User.AboutMe %> </p> 
+                <% } %>
             <% } %>
 			
 			<ul> 
@@ -178,7 +199,7 @@
                             <%= Html.Hidden("SourceUserId", Model.User.Id)%>
 
                             <%: Html.TextArea("BoardMessage", null, 3, 0, new { @class = "full" })%>
-                            <%: Html.ValidationMessage("BoardMessage", "*")%>
+                            <%: Html.ValidationMessage("BoardMessage", "*", new { @class = "req" })%>
 								
 			            <div class="frgt mt13"> 
 				            <input type="submit" class="frgt btn site" name="post" value="Post" /> 
@@ -217,7 +238,7 @@
                                             <%= Html.Hidden("SiteSection", SiteSection.Profile)%>
 
                                             <%= Html.TextArea("BoardReply", null, 2, 0, new { @class = "full" })%>
-                                            <%= Html.ValidationMessage("BoardReply", "*")%>
+                                            <%= Html.ValidationMessage("BoardReply", "*", new { @class = "req" })%>
 
 						            <div class="frgt mt13"> 
 							            <input type="submit" class="frgt btn site" name="post" value="Reply" /> 

@@ -15154,6 +15154,30 @@ namespace UniversityOfMe.Models
         private Nullable<global::System.Boolean> _ActivationCodeUsed;
         partial void OnActivationCodeUsedChanging(Nullable<global::System.Boolean> value);
         partial void OnActivationCodeUsedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Job
+        {
+            get
+            {
+                return _Job;
+            }
+            set
+            {
+                OnJobChanging(value);
+                ReportPropertyChanging("Job");
+                _Job = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Job");
+                OnJobChanged();
+            }
+        }
+        private global::System.String _Job;
+        partial void OnJobChanging(global::System.String value);
+        partial void OnJobChanged();
 
         #endregion
     

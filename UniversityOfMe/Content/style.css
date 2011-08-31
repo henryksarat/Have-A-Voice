@@ -443,7 +443,7 @@ div.twoCol>div>ul li span { padding-left: 0px; }
 .create {}
 .create label { display: block; text-transform: uppercase; font-weight: bold; }
 .create input.half, .create textarea.half { width: 50%; }
-.create input.full, .create textarea.full { width: 100%; }
+.create input.full, .create textarea.full { width: 95%; }
 .create label.post { color: #717171; font-size: 12px; font-weight: normal; text-transform: none; margin-right: 10px; display: inline; width: auto; float: left; }
 
 

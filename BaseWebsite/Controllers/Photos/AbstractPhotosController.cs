@@ -13,6 +13,7 @@ using Social.Generic.Services;
 using Social.Photo.Repositories;
 using Social.Photo.Services;
 using Social.Users.Services;
+using Amazon.S3;
 
 namespace BaseWebsite.Controllers.Photos {
     //T = User
@@ -81,6 +82,24 @@ namespace BaseWebsite.Controllers.Photos {
             return RedirectToAction(PHOTO_ALBUM_DETAILS, PHOTO_ALBUM_CONTROLLER, new { id = albumId });
         }
 
+        protected ActionResult Create(int albumId, HttpPostedFileBase imageFile, AmazonS3 anAmazonS3Client, string aBucketName, int aMaxSize) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            UserInformationModel<T> myUser = GetUserInformatonModel();
+
+            try {
+                thePhotoService.UploadImageWithDatabaseReference(CreateSocialUserModel(myUser.Details), albumId, imageFile, anAmazonS3Client, aBucketName, aMaxSize);
+                TempData["Message"] += SuccessMessage(UPLOAD_SUCCESS);
+            } catch (CustomException myException) {
+                TempData["Message"] += NormalMessage(myException.Message);
+            } catch (Exception myException) {
+                TempData["Message"] += ErrorMessage(UPLOAD_ERROR);
+                LogError(myException, UPLOAD_ERROR);
+            }
+            return RedirectToAction(PHOTO_ALBUM_DETAILS, PHOTO_ALBUM_CONTROLLER, new { id = albumId });
+        }
+
         protected ActionResult Display(int id) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
@@ -105,6 +124,23 @@ namespace BaseWebsite.Controllers.Photos {
             T myUser = GetUserInformaton();
             try {
                 thePhotoService.SetToProfilePicture(CreateSocialUserModel(GetUserInformaton()), id);
+                TempData["Message"] += SuccessMessage("Profile picture changed!");
+                return RedirectToProfile();
+            } catch (CustomException myException) {
+                return SendToErrorPage(myException.Message);
+            } catch (Exception e) {
+                TempData["Message"] += ErrorMessage(SET_PROFILE_PICTURE_ERRROR);
+                return RedirectToAction(DISPLAY_VIEW, new { id = id });
+            }
+        }
+
+        protected ActionResult SetProfilePicture(int id, AmazonS3 anAmazonS3Client, string aBucketName, int aMaxSize) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            T myUser = GetUserInformaton();
+            try {
+                thePhotoService.SetToProfilePicture(CreateSocialUserModel(GetUserInformaton()), id, anAmazonS3Client, aBucketName, aMaxSize);
                 TempData["Message"] += SuccessMessage("Profile picture changed!");
                 return RedirectToProfile();
             } catch (CustomException myException) {
