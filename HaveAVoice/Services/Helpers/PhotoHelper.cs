@@ -1,28 +1,27 @@
 ﻿using System.Linq;
 using HaveAVoice.Helpers;
+using HaveAVoice.Helpers.Constants;
 using HaveAVoice.Models;
 using HaveAVoice.Repositories.UserFeatures;
 using HaveAVoice.Services.UserFeatures;
 using Social.Friend.Services;
-using Social.Generic.Constants;
 using Social.Photo.Services;
-using HaveAVoice.Helpers.Constants;
 
 namespace HaveAVoice.Services.Helpers {
     public class PhotoHelper {
         public static string ProfilePicture(User aUser) {
-            string myProfileUrl = Constants.NO_PROFILE_PICTURE_URL;
+            string myProfileUrl = PhotoConstants.NO_PROFILE_PICTURE;
 
             if(!aUser.Equals(ProfileHelper.GetAnonymousProfile())) {
                 Photo myProfilePicture = (from u in aUser.Photos where u.ProfilePicture == true select u).FirstOrDefault<Photo>();
                 if (myProfilePicture != null) {
-                    myProfileUrl = Constants.PHOTO_LOCATION_FROM_VIEW + myProfilePicture.ImageName;
+                    myProfileUrl = PhotoConstants.PHOTO_BASE_URL + myProfilePicture.ImageName;
                 } else {
                     IPhotoService<User, PhotoAlbum, Photo, Friend> myPhotoService = new PhotoService<User, PhotoAlbum, Photo, Friend>(new FriendService<User, Friend>(new EntityHAVFriendRepository()), new EntityHAVPhotoAlbumRepository(), new EntityHAVPhotoRepository());
                     Photo myPhoto = myPhotoService.GetProfilePicture(aUser.Id);
 
                     if (myPhoto != null) {
-                        myProfileUrl = Constants.PHOTO_LOCATION_FROM_VIEW + myPhoto.ImageName;
+                        myProfileUrl = PhotoConstants.PHOTO_BASE_URL + myPhoto.ImageName;
                     }
                 }
             }

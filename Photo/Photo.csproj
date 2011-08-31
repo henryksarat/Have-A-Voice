@@ -52,7 +52,6 @@
   <ItemGroup>
     <Compile Include="Exceptions\PhotoException.cs" />
     <Compile Include="Helpers\AWSPhotoHelper.cs" />
-    <Compile Include="Helpers\PhotoHelper.cs" />
     <Compile Include="Services\PhotoAlbumService.cs" />
     <Compile Include="Services\IPhotoAlbumService.cs" />
     <Compile Include="Services\PhotoService.cs" />
