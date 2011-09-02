@@ -187,6 +187,11 @@
     <Compile Include="Models\Binders\RoleModelBinder.cs" />
     <Compile Include="Models\Binders\UpdatePrivacySettingsModelBinder.cs" />
     <Compile Include="Models\Binders\UpdateFeaturesModelBinder.cs" />
+    <Compile Include="Models\EmailAutomation.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EmailAutomation.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\SocialModels\SocialBoardModel.cs" />
     <Compile Include="Models\SocialModels\SocialBoardReplyModel.cs" />
     <Compile Include="Models\SocialModels\SocialMessageModel.cs" />
@@ -245,6 +250,8 @@
     <Compile Include="Repositories\Clubs\IClubRepository.cs" />
     <Compile Include="Repositories\Dating\DatingRepository.cs" />
     <Compile Include="Repositories\Dating\IDatingRepository.cs" />
+    <Compile Include="Repositories\Email\EntityEmailRepository.cs" />
+    <Compile Include="Repositories\Email\IEmailRepository.cs" />
     <Compile Include="Repositories\Events\EntityEventRepository.cs" />
     <Compile Include="Repositories\Events\IEventRepository.cs" />
     <Compile Include="Repositories\Friends\EntityFriendRepository.cs" />
@@ -327,6 +334,10 @@
     <Compile Include="Models\View\RoleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\AutomatedEmail.mdf" />
+    <Content Include="App_Data\AutomatedEmail_log.ldf">
+      <DependentUpon>AutomatedEmail.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\css\ui-lightness\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
     <Content Include="Content\css\ui-lightness\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
     <Content Include="Content\css\ui-lightness\images\ui-bg_flat_10_000000_40x100.png" />
@@ -508,7 +519,6 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Models\Wrappers\" />
   </ItemGroup>
   <ItemGroup>
@@ -566,6 +576,12 @@
       <Project>{0ED79C23-BE34-47C6-9768-5835729FB57E}</Project>
       <Name>ViewHelpers</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Models\EmailAutomation.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EmailAutomation.Designer.cs</LastGenOutput>
+    </EntityDeploy>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
