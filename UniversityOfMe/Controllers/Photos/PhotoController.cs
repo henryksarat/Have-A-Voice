@@ -68,7 +68,7 @@ namespace UniversityOfMe.Controllers.Photos {
 
         [AcceptVerbs(HttpVerbs.Get)]
         new public ActionResult Delete(int id, int albumId) {
-            return base.Delete(id, albumId);
+            return base.Delete(id, AWSHelper.GetClient(), SiteConfiguration.UserPhotosBucket(), albumId);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

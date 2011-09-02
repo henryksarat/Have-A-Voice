@@ -18,6 +18,8 @@ using UniversityOfMe.Repositories.Friends;
 using UniversityOfMe.Repositories.Photos;
 using UniversityOfMe.Repositories.UserRepos;
 using UniversityOfMe.UserInformation;
+using UniversityOfMe.Helpers.Configuration;
+using UniversityOfMe.Helpers.AWS;
 
 namespace UniversityOfMe.Controllers.Photos {
     public class PhotoAlbumController : AbstractPhotoAlbumController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline, PhotoAlbum, Photo, Friend> {
@@ -58,7 +60,7 @@ namespace UniversityOfMe.Controllers.Photos {
 
         [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
         new public ActionResult Delete(int id) {
-            return base.Delete(id);
+            return base.Delete(id, AWSHelper.GetClient(), SiteConfiguration.UserPhotosBucket());
         }
 
         [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]

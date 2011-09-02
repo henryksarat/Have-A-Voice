@@ -7,6 +7,7 @@ using Social.Generic.Exceptions;
 using Social.Generic.Models;
 using Social.Photo.Repositories;
 using Social.Validation;
+using Amazon.S3;
 
 namespace Social.Photo.Services {
     //T = User
@@ -83,12 +84,12 @@ namespace Social.Photo.Services {
             throw new CustomException(ErrorKeys.PERMISSION_DENIED);
         }
 
-        public void DeletePhotoAlbum(AbstractUserModel<T> aUserDeletingModel, int anAlbumId) {
+        public void DeletePhotoAlbum(AbstractUserModel<T> aUserDeletingModel, AmazonS3 anAmazonS3Client, string aBucketName, int anAlbumId) {
             AbstractPhotoAlbumModel<U, V> myAlbum = thePhotoAlbumRepo.GetAbstractPhotoAlbum(anAlbumId);
 
             if (myAlbum.CreatedByUserId == aUserDeletingModel.Id) {
                 foreach (AbstractPhotoModel<V> myPhoto in myAlbum.Photos) {
-                    thePhotoService.DeletePhoto(aUserDeletingModel, myPhoto.Id);
+                    thePhotoService.DeletePhoto(aUserDeletingModel, anAmazonS3Client, aBucketName, myPhoto.Id);
                 }
 
                 thePhotoAlbumRepo.Delete(anAlbumId);

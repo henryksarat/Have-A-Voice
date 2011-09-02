@@ -17,6 +17,8 @@ using Social.Generic.ActionFilters;
 using Social.Generic.Models;
 using Social.Generic.Services;
 using Social.Users.Services;
+using HaveAVoice.Helpers.Configuration;
+using HaveAVoice.Helpers.AWS;
 
 namespace HaveAVoice.Controllers.Users.Photos {
     public class PhotoAlbumController : AbstractPhotoAlbumController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline, PhotoAlbum, Photo, Friend> {
@@ -50,8 +52,8 @@ namespace HaveAVoice.Controllers.Users.Photos {
         }
 
         [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
-        new public ActionResult Delete(int id) {
-            return base.Delete(id);
+        public ActionResult Delete(int id) {
+            return base.Delete(id, AWSHelper.GetClient(), SiteConfiguration.UserPhotosBucket());
         }
 
         [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]

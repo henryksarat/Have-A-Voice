@@ -34,6 +34,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AWSSDK, Version=1.3.11.1, Culture=neutral, PublicKeyToken=cd2d24cd2bace800, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\AWSSDK.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\bin\Newtonsoft.Json.dll</HintPath>
@@ -104,8 +108,11 @@
     <Compile Include="CustomAuthentication\AdminRoleProvider.cs" />
     <Compile Include="Helpers\Authority\AuthorityClassification.cs" />
     <Compile Include="Helpers\Authority\AuthorityPosition.cs" />
+    <Compile Include="Helpers\AWS\AWSHelper.cs" />
     <Compile Include="Helpers\BlogReader.cs" />
+    <Compile Include="Helpers\Configuration\SiteConfiguration.cs" />
     <Compile Include="Helpers\Constants\GroupConstants.cs" />
+    <Compile Include="Helpers\Constants\PhotoConstants.cs" />
     <Compile Include="Helpers\Enums\FeedItem.cs" />
     <Compile Include="Helpers\FeedType.cs" />
     <Compile Include="Helpers\Groups\GroupHelper.cs" />
@@ -413,7 +420,6 @@
     <Content Include="Content\tempjquery.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Photos\no_profile_picture.jpg" />
     <Content Include="Views\Admin\Index.aspx" />
     <Content Include="Views\Authentication\Login.aspx" />
     <Content Include="Views\AuthorityVerification\Create.aspx" />
