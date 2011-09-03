@@ -743,6 +743,8 @@ div.twoColCreateMessage div.rCol { float: left; width: 65%; padding: 10px 10px 1
 /*** Page ***/
 .normal-page { background: url("images/30-gray.png") repeat; /* #dfdfd8; */ color: #676767; }
 .normal-page div.padding-col { padding: 25px 25px 25px 25px; }
+.normal-page .heading { font-weight: bold; font-size: x-large; margin-bottom: 15px; }
+.normal-page .sub-heading { font-weight: bold }
 
 a.feedlink, a.feedlink:link, a.feedlink:visited { text-decoration: underline; font-weight: bold; color: #999999; }
 a.feedlink:hover { font-weight: bold; text-decoration: none }

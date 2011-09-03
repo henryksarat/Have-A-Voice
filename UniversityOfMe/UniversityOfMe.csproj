@@ -478,7 +478,9 @@
     <Content Include="Views\Shared\LeftNavigation.ascx" />
     <Content Include="Views\Shared\Validation.ascx" />
     <Content Include="Views\Site\About.aspx" />
+    <Content Include="Views\Site\Privacy.aspx" />
     <Content Include="Views\Site\Main.aspx" />
+    <Content Include="Views\Site\Terms.aspx" />
     <Content Include="Views\TextBook\Edit.aspx" />
     <Content Include="Views\TextBook\Create.aspx" />
     <Content Include="Views\TextBook\Details.aspx" />

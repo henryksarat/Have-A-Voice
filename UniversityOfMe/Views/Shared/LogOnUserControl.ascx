@@ -11,12 +11,12 @@
 		</div> 
 		<div class="s-row"> 
 			<div class="input"> 
-                <%: Html.TextBox("Email")%>
-                <%: Html.ValidationMessage("Email", "*")%>
+                <%: Html.TextBox("LoginEmail")%>
+                <%: Html.ValidationMessage("LoginEmail", "*")%>
 			</div> 
 			<div class="input"> 
-                <%: Html.Password("Password") %>
-                <%: Html.ValidationMessage("Password", "*")%>
+                <%: Html.Password("LoginPassword")%>
+                <%: Html.ValidationMessage("LoginPassword", "*")%>
 			</div> 
 			<div class="input half"> 
 				<input type="submit" name="submit" class="btn" value="Login" /> 

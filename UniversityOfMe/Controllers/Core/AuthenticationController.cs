@@ -66,8 +66,8 @@ namespace UniversityOfMe.Controllers.Core {
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        new public ActionResult Login(string email, string password, bool rememberMe) {
-            return base.Login(email, password, rememberMe);
+        new public ActionResult Login(string loginEmail, string loginPassword, bool rememberMe) {
+            return base.Login(loginEmail, loginPassword, rememberMe);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

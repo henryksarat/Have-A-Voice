@@ -23,13 +23,15 @@ namespace UniversityOfMe.Controllers.Clubs {
         }
 
         public ActionResult About() {
-            if (IsLoggedIn()) {
-
-            }
-
-            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
-            
             return View("About");
+        }
+
+        public ActionResult Terms() {
+            return View("Terms");
+        }
+
+        public ActionResult Privacy() {
+            return View("Privacy");
         }
     }
 }

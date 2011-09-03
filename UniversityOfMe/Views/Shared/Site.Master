@@ -51,7 +51,7 @@
 					</div> 
 					<div class="six last right"> 
 						<nav> 
-							<a href="#">Home</a> | <a href="#">About</a> | <a href="#">Terms &amp; Conditions</a> | <a href="#">Advertising</a> | <a href="#">Careers</a> | <a href="#">Privacy</a> | <a href="#">Help</a> 
+							<a href="#">Home</a> | <a href="#">About</a> | <a href="/Site/Terms">Terms &amp; Conditions</a> | <a href="#">Advertising</a> | <a href="#">Careers</a> | <a href="/Site/Privacy">Privacy</a> | <a href="#">Help</a> 
 						</nav> 
 					</div> 
 				</div> 
