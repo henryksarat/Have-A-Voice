@@ -6,9 +6,6 @@ using UniversityOfMe.Models;
 
 namespace UniversityOfMe.Repositories.Email {
     public interface IEmailRepository {
-        void AddEmailJob(string aFromEmail, string aToEmail, string aSubject, string aBody);
-        IEnumerable<EmailJob> GetEmailJobsToBeSent();
-        void MarkEmailPresentToTrue(int anId);
-        void MarkEmailPostsentToTrue(int anId);
+        void AddEmailJob(string anEmailDescription, string aFromEmail, string aToEmail, string aSubject, string aBody);
     }
 }

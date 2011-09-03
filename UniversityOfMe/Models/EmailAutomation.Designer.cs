@@ -114,6 +114,7 @@ namespace UniversityOfMe.Models
         /// Create a new EmailJob object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="emailDescription">Initial value of the EmailDescription property.</param>
         /// <param name="fromEmail">Initial value of the FromEmail property.</param>
         /// <param name="toEmail">Initial value of the ToEmail property.</param>
         /// <param name="subject">Initial value of the Subject property.</param>
@@ -121,10 +122,11 @@ namespace UniversityOfMe.Models
         /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
         /// <param name="presentSent">Initial value of the PresentSent property.</param>
         /// <param name="postsentSent">Initial value of the PostsentSent property.</param>
-        public static EmailJob CreateEmailJob(global::System.Int32 id, global::System.String fromEmail, global::System.String toEmail, global::System.String subject, global::System.String body, global::System.DateTime dateTimeStamp, global::System.Boolean presentSent, global::System.Boolean postsentSent)
+        public static EmailJob CreateEmailJob(global::System.Int32 id, global::System.String emailDescription, global::System.String fromEmail, global::System.String toEmail, global::System.String subject, global::System.String body, global::System.DateTime dateTimeStamp, global::System.Boolean presentSent, global::System.Boolean postsentSent)
         {
             EmailJob emailJob = new EmailJob();
             emailJob.Id = id;
+            emailJob.EmailDescription = emailDescription;
             emailJob.FromEmail = fromEmail;
             emailJob.ToEmail = toEmail;
             emailJob.Subject = subject;
@@ -164,6 +166,30 @@ namespace UniversityOfMe.Models
         private global::System.Int32 _Id;
         partial void OnIdChanging(global::System.Int32 value);
         partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String EmailDescription
+        {
+            get
+            {
+                return _EmailDescription;
+            }
+            set
+            {
+                OnEmailDescriptionChanging(value);
+                ReportPropertyChanging("EmailDescription");
+                _EmailDescription = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("EmailDescription");
+                OnEmailDescriptionChanged();
+            }
+        }
+        private global::System.String _EmailDescription;
+        partial void OnEmailDescriptionChanging(global::System.String value);
+        partial void OnEmailDescriptionChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

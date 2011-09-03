@@ -66,12 +66,6 @@
 			        <%= Html.Label("Gender:") %>
                     <%= Html.DropDownList("Gender", Model.Genders)%>
 		        </div> 
-
-		        <div class="input"> 
-			        <%= Html.Label("UofMe Url:") %>
-			        univeristyof.me/ <input type="shorturl" name="ShortUrl" id="ShortUrl" /> 
-		        </div> 
-
 		        <div class="input"> 
 			        <span class="empty-indent">&nbsp;</span>
                     <%= Html.CheckBox("Agreement") %>

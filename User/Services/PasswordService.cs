@@ -94,7 +94,7 @@ namespace Social.User.Services {
             string myForgotPasswordLink = "<a href=\"" + myUrl + "\">" + myUrl + "</a>";
 
             try {
-                theEmailService.SendEmail(anEmail, FORGOT_PASSWORD_TITLE, FORGOT_PASSWORD_BODY + myForgotPasswordLink);
+                theEmailService.SendEmail("FORGOT PASSWORD", anEmail, FORGOT_PASSWORD_TITLE, FORGOT_PASSWORD_BODY + myForgotPasswordLink);
             } catch (Exception e) {
                 throw new EmailException("Couldn't send email.", e);
             }

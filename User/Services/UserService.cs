@@ -86,7 +86,7 @@ namespace Social.User.Services {
             string myUrl = aBaseUrl + "/Authentication/ActivateAccount/" + aUser.ActivationCode;
 
             try {
-                theEmailService.SendEmail(aUser.Email, anActivationSubject, anActivationBody + myUrl);
+                theEmailService.SendEmail("CONFIRM ACCOUNT", aUser.Email, anActivationSubject, anActivationBody + myUrl);
             } catch (Exception e) {
                 throw new EmailException(e.Message, e);
             }

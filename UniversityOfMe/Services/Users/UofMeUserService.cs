@@ -102,7 +102,7 @@ namespace UniversityOfMe.Services.Users {
                 string myUrl = UOMConstants.BASE_URL + "/Authentication/ChangeEmail/" + myOriginalUser.NewEmailHash;
                 IEmail myEmail = new SocialEmail();
                 try {
-                    myEmail.SendEmail(aUser.NewEmail, CHANGE_EMAIL_SUBJECT, CHANGE_EMAIL_BODY + myUrl);
+                    myEmail.SendEmail("CHANGE EMAIL", aUser.NewEmail, CHANGE_EMAIL_SUBJECT, CHANGE_EMAIL_BODY + myUrl);
                 } catch (Exception myException) {
                     throw new CustomException("An error occurred while trying to send out the email to confirm you changing your email. " +
                                               "However, all your other changes have been saved. Please try changing your email again.", myException);

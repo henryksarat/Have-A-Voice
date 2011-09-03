@@ -9,7 +9,7 @@ namespace Social.Email {
         private const string FROM_EMAIL = "haveavoice.accounts@haveavoice.com";
         private const string PASSWORD = "zztop06T";
        
-        public void SendEmail(string aToEmail, string aSubject, string aBody) {
+        public void SendEmail(string anEmailDescription, string aToEmail, string aSubject, string aBody) {
             MailMessage myMailMessage = new MailMessage(FROM_EMAIL, aToEmail, aSubject, aBody);
             myMailMessage.IsBodyHtml = true;
             SmtpClient mySmtpClient = new SmtpClient(MAILSERVER, 25);

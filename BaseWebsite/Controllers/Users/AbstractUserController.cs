@@ -37,9 +37,18 @@ namespace BaseWebsite.Controllers.Users {
                                       IAuthenticationService<T, U, V, W, X, Y> anAuthService, 
                                       IWhoIsOnlineService<T, Z> aWhoIsOnlineService,
                                       IUserRepository<T, U, W> aUserRegistrationRepo)
+            : this(aBaseService, aUserInformation, anAuthService, aWhoIsOnlineService, aUserRegistrationRepo, new SocialEmail()) {
+        }
+
+        public AbstractUserController(IBaseService<T> aBaseService,
+                              IUserInformation<T, Z> aUserInformation,
+                              IAuthenticationService<T, U, V, W, X, Y> anAuthService,
+                              IWhoIsOnlineService<T, Z> aWhoIsOnlineService,
+                              IUserRepository<T, U, W> aUserRegistrationRepo,
+                              IEmail anEmailService)
             : base(aBaseService, aUserInformation, anAuthService, aWhoIsOnlineService) {
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
-            theRegistrationService = new UserService<T, U, W>(theValidationDictionary, aUserRegistrationRepo, new SocialEmail());
+            theRegistrationService = new UserService<T, U, W>(theValidationDictionary, aUserRegistrationRepo, anEmailService);
         }
 
         protected ActionResult Index() {

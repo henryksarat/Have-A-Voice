@@ -740,6 +740,9 @@ div.twoColCreateMessage div.rCol { float: left; width: 65%; padding: 10px 10px 1
 .profile-form { background: url("images/30-gray.png") repeat; /* #dfdfd8; */ color: #676767; }
 .profile-form div.padding-col { padding: 0px 10px 10px 25px; }
 
+/*** Page ***/
+.normal-page { background: url("images/30-gray.png") repeat; /* #dfdfd8; */ color: #676767; }
+.normal-page div.padding-col { padding: 25px 25px 25px 25px; }
 
 a.feedlink, a.feedlink:link, a.feedlink:visited { text-decoration: underline; font-weight: bold; color: #999999; }
 a.feedlink:hover { font-weight: bold; text-decoration: none }

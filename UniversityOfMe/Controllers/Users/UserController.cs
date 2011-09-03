@@ -21,6 +21,7 @@ using UniversityOfMe.Repositories.UserRepos;
 using UniversityOfMe.Services.Users;
 using UniversityOfMe.UserInformation;
 using Social.Generic.Exceptions;
+using UniversityOfMe.Services.Email;
 
 namespace UniversityOfMe.Controllers.Users {
     public class UserController : AbstractUserController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
@@ -38,7 +39,8 @@ namespace UniversityOfMe.Controllers.Users {
                     UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()),
                     InstanceHelper.CreateAuthencationService(), 
                     new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()),
-                    new EntityUserRepository()) {
+                    new EntityUserRepository(),
+                    new EmailService()) {
             UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()));
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
             theUserService = new UofMeUserService(theValidationDictionary);

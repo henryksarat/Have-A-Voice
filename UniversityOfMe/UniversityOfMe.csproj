@@ -297,6 +297,7 @@
     <Compile Include="Services\Clubs\IClubService.cs" />
     <Compile Include="Services\Clubs\ClubService.cs" />
     <Compile Include="Services\Dating\DatingService.cs" />
+    <Compile Include="Services\Email\EmailService.cs" />
     <Compile Include="Services\Events\EventService.cs" />
     <Compile Include="Services\Events\IEventService.cs" />
     <Compile Include="Services\GeneralPostings\GeneralPostingService.cs" />

@@ -41,8 +41,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewHelpers", "ViewHelpers\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomatedEmail", "AutomatedEmail\AutomatedEmail.csproj", "{2374AB94-5187-40B4-A140-781937D63177}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AutomatedEmailInstaller", "AutomatedEmailInstaller\AutomatedEmailInstaller.vdproj", "{DC98F2E9-DFF5-43BC-B2CD-2A9D057EC380}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -253,12 +251,6 @@ Global
 		{2374AB94-5187-40B4-A140-781937D63177}.Release|Mixed Platforms.Build.0 = Release|x86
 		{2374AB94-5187-40B4-A140-781937D63177}.Release|x86.ActiveCfg = Release|x86
 		{2374AB94-5187-40B4-A140-781937D63177}.Release|x86.Build.0 = Release|x86
-		{DC98F2E9-DFF5-43BC-B2CD-2A9D057EC380}.Debug|Any CPU.ActiveCfg = Debug
-		{DC98F2E9-DFF5-43BC-B2CD-2A9D057EC380}.Debug|Mixed Platforms.ActiveCfg = Debug
-		{DC98F2E9-DFF5-43BC-B2CD-2A9D057EC380}.Debug|x86.ActiveCfg = Debug
-		{DC98F2E9-DFF5-43BC-B2CD-2A9D057EC380}.Release|Any CPU.ActiveCfg = Release
-		{DC98F2E9-DFF5-43BC-B2CD-2A9D057EC380}.Release|Mixed Platforms.ActiveCfg = Release
-		{DC98F2E9-DFF5-43BC-B2CD-2A9D057EC380}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

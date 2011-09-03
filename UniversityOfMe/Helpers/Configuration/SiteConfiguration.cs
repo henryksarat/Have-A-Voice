@@ -24,6 +24,10 @@
             return GetKey("TextbookPhotosBucket");
         }
 
+        public static string NewAccountsEmail() {
+            return GetKey("NewAccountsEmail");
+        }
+
         private static string GetKey(string aKey) {
             string myValue = string.Empty;
             System.Configuration.Configuration rootWebConfig1 =
