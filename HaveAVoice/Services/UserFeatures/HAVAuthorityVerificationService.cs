@@ -154,7 +154,7 @@ namespace HaveAVoice.Services.UserFeatures {
                 .ToString();
             myUrl = "<a href=\"" + myUrl + "\">" + myUrl + "</a>";
             try {
-                theEmailService.SendEmail(anEmail, TOKEN_SUBJECT, TOKEN_BODY + myUrl);
+                theEmailService.SendEmail("SEND AUTHORITY TOKEN", anEmail, TOKEN_SUBJECT, TOKEN_BODY + myUrl);
             } catch (Exception e) {
                 throw new EmailException("Couldn't send aEmail.", e);
             }

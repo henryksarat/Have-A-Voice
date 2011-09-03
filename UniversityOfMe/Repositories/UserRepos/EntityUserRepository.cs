@@ -98,6 +98,12 @@ namespace UniversityOfMe.Repositories.UserRepos {
 
         }
 
+        public IEnumerable<User> GetRegisteredUsers() {
+            return (from ur in theEntities.UserRoles
+                    where ur.Role.DefaultRole == true
+                    select ur.User);
+        }
+
         public void RemoveUserFromRole(User myUser, Role myRole) {
             UserRole userRole = (from ur in theEntities.UserRoles
                                  where ur.User.Id == myUser.Id

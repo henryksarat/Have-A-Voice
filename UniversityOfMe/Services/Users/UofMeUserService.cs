@@ -116,6 +116,10 @@ namespace UniversityOfMe.Services.Users {
             return theUserRepository.GetNewestUsersFromUniversity(aRequestingUser, aUniversityId, aLimit);
         }
 
+        public int GetNumberOfRegisteredUsers() {
+            return theUserRepository.GetRegisteredUsers().Count<User>();
+        }
+
         public EditUserModel GetUserForEdit(User aUser) {
             int myUserId = aUser.Id;
             User myUser = theUserRetrievalService.GetUser(myUserId);

@@ -72,7 +72,11 @@
                     sharing them on Facebook, Twitter, and Google+.  If you see an issue you believe in, a petition you want to 
                     sign, or a group you are passionate about, you can spread it among the three largest social media sites instantly.
                 </div>
-                <br /><br /><br /><br />
+                <br /><br />
+                <a href="http://www.chicagoinnovationawards.com">
+                    <img src="http://www.chicagoinnovationawards.com/wp-content/uploads/2011/08/2011-Nominee.jpg" />
+                </a>
+                <br /><br />
 				<div class="clear">&nbsp;</div>
 			</div>
 			<div class="clear">&nbsp;</div>

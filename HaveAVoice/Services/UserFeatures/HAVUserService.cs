@@ -186,17 +186,6 @@ namespace HaveAVoice.Services.UserFeatures {
             theAuthorityVerificationService.UpdateUserRegionSpecifics(aUserInfo, myToUpdateOrAdd, myToDelete);
         }
 
-        private void SendActivationCode(User aUser) {
-            string myUrl = HAVConstants.BASE_URL + "/Authentication/ActivateAccount/" + aUser.ActivationCode;
-            myUrl = "<a href=\"" + myUrl + "\">" + myUrl + "</a>";
-
-            try {
-                theEmailService.SendEmail(aUser.Email, ACTIVATION_SUBJECT, ACTIVATION_BODY + myUrl);
-            } catch (Exception e) {
-                throw new EmailException("Couldn't send aEmail.", e);
-            }
-        }
-
         #region Validation"
 
         private bool ValidateToken(string anEmail, string aToken, string anAuthorityType, string anAuthorityPosition) {

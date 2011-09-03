@@ -57,6 +57,7 @@ namespace UniversityOfMe.Controllers.Users {
                 return RedirectToProfile();
             }
             return View("Create", new CreateUserModel() {
+                RegisteredUserCount = theUserService.GetNumberOfRegisteredUsers(),
                 Genders = new SelectList(Constants.GENDERS, Constants.SELECT)
             });
         }

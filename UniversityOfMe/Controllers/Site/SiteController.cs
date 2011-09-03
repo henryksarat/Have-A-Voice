@@ -4,10 +4,14 @@ using Social.Generic.Constants;
 using Social.Generic.Models;
 using UniversityOfMe.Models;
 using UniversityOfMe.Models.View;
+using UniversityOfMe.Services.Users;
 
 namespace UniversityOfMe.Controllers.Clubs {
     public class SiteController : UOFMeBaseController {
+        private IUofMeUserService theUserService;
+
         public SiteController() {
+            theUserService = new UofMeUserService(null);
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
@@ -15,9 +19,9 @@ namespace UniversityOfMe.Controllers.Clubs {
             if (IsLoggedIn()) {
                 return RedirectToProfile();
             }
-
            
             return View("Main", new CreateUserModel() {
+                RegisteredUserCount = theUserService.GetNumberOfRegisteredUsers(),
                 Genders = new SelectList(Constants.GENDERS, Constants.SELECT)
             });
         }

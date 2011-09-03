@@ -24,55 +24,60 @@
 	        </div>  
                 <% Html.RenderPartial("Message"); %>
                 <% Html.RenderPartial("Validation"); %>
+
                 <div class="padding-col">
-                    <% using (Html.BeginForm("Create", "User", FormMethod.Post)) { %>
-		                <div class="field-holder">
-			                <%= Html.Label("First Name:") %>
-                            <%= Html.TextBox("FirstName") %>
-                            <%= Html.ValidationMessage("FirstName", "*", new { @class = "req" })%>
-		                </div> 
+                    <% if(Model.RegisteredUserCount <= 100) { %>
+                        <% using (Html.BeginForm("Create", "User", FormMethod.Post)) { %>
+		                    <div class="field-holder">
+			                    <%= Html.Label("First Name:") %>
+                                <%= Html.TextBox("FirstName") %>
+                                <%= Html.ValidationMessage("FirstName", "*", new { @class = "req" })%>
+		                    </div> 
 
-		                <div class="field-holder">
-			                <%= Html.Label("Last Name:") %>
-                            <%= Html.TextBox("LastName") %>
-                            <%= Html.ValidationMessage("LastName", "*", new { @class = "req" })%>
-		                </div> 
+		                    <div class="field-holder">
+			                    <%= Html.Label("Last Name:") %>
+                                <%= Html.TextBox("LastName") %>
+                                <%= Html.ValidationMessage("LastName", "*", new { @class = "req" })%>
+		                    </div> 
 						
-		                <div class="field-holder">
-			                <%= Html.Label("Email:") %>
-                            <%= Html.TextBox("Email") %>
-                            <%= Html.ValidationMessage("Email", "*", new { @class = "req" })%>
+		                    <div class="field-holder">
+			                    <%= Html.Label("Email:") %>
+                                <%= Html.TextBox("Email") %>
+                                <%= Html.ValidationMessage("Email", "*", new { @class = "req" })%>
                     
-		                </div> 
+		                    </div> 
 						
-		                <div class="field-holder">
-			                <%= Html.Label("Password:") %>
-                            <%= Html.Password("Password")%>
-                            <%= Html.ValidationMessage("Password", "*", new { @class = "req" })%>
-		                </div> 
+		                    <div class="field-holder">
+			                    <%= Html.Label("Password:") %>
+                                <%= Html.Password("Password")%>
+                                <%= Html.ValidationMessage("Password", "*", new { @class = "req" })%>
+		                    </div> 
 						
-		                <div class="field-holder">
-			                <%= Html.Label("Date Of Birth:") %>
-                            <%= Html.TextBox("DateOfBirth", Model.getDateOfBirthFormatted())%>
-                            <%= Html.ValidationMessage("DateOfBirth", "*", new { @class = "req" })%>
-		                </div> 
+		                    <div class="field-holder">
+			                    <%= Html.Label("Date Of Birth:") %>
+                                <%= Html.TextBox("DateOfBirth", Model.getDateOfBirthFormatted())%>
+                                <%= Html.ValidationMessage("DateOfBirth", "*", new { @class = "req" })%>
+		                    </div> 
 						
-		                <div class="field-holder">
-			                <%= Html.Label("Gender:") %>
-                            <%= Html.DropDownList("Gender", Model.Genders)%>
-                            <%= Html.ValidationMessage("Gender", "*", new { @class = "req" })%>
-		                </div> 
+		                    <div class="field-holder">
+			                    <%= Html.Label("Gender:") %>
+                                <%= Html.DropDownList("Gender", Model.Genders)%>
+                                <%= Html.ValidationMessage("Gender", "*", new { @class = "req" })%>
+		                    </div> 
 
-		                <div class="field-holder">
-                            <span class="empty-label">&nbsp;</span>
-                            <%= Html.CheckBox("Agreement") %>
-			                I agree with the <a href="/Site/Terms" target="_blank">Terms of Use</a>.
-                            <%= Html.ValidationMessage("Agreement", "*", new { @class = "req" })%>
-		                </div> 
+		                    <div class="field-holder">
+                                <span class="empty-label">&nbsp;</span>
+                                <%= Html.CheckBox("Agreement") %>
+			                    I agree with the <a href="/Site/Terms" target="_blank">Terms of Use</a>.
+                                <%= Html.ValidationMessage("Agreement", "*", new { @class = "req" })%>
+		                    </div> 
 
-			            <div class="input"> 
-				            <input type="submit" name="submit" class="btn" value="Register" /> 
-			            </div> 
+			                <div class="input"> 
+				                <input type="submit" name="submit" class="btn" value="Register" /> 
+			                </div> 
+                        <% } %>
+                    <% } else { %>
+                            Sorry but we've reached the maximum amount of users for now. We will be raising the threshold shortly so come back soon!
                     <% } %>
             </div>
         </div> 

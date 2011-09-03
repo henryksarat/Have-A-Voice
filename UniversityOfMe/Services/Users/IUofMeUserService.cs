@@ -9,5 +9,6 @@ namespace UniversityOfMe.Services.Users {
         bool EditUser(EditUserModel aUserToEdit, string aHashedPassword);
         IEnumerable<User> GetNewestUsers(User aRequestingUser, string aUniversityId, int aLimit);
         EditUserModel GetUserForEdit(User aUser);
+        int GetNumberOfRegisteredUsers();
     }
 }
