@@ -1028,6 +1028,22 @@ namespace UniversityOfMe.Models
             }
         }
         private ObjectSet<UserStatus> _UserStatuses;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ContactUs> ContactUs
+        {
+            get
+            {
+                if ((_ContactUs == null))
+                {
+                    _ContactUs = base.CreateObjectSet<ContactUs>("ContactUs");
+                }
+                return _ContactUs;
+            }
+        }
+        private ObjectSet<ContactUs> _ContactUs;
 
         #endregion
         #region AddTo Methods
@@ -1462,6 +1478,14 @@ namespace UniversityOfMe.Models
         public void AddToUserStatuses(UserStatus userStatus)
         {
             base.AddObject("UserStatuses", userStatus);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ContactUs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToContactUs(ContactUs contactUs)
+        {
+            base.AddObject("ContactUs", contactUs);
         }
 
         #endregion
@@ -6958,6 +6982,165 @@ namespace UniversityOfMe.Models
         }
 
         #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="ContactUs")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ContactUs : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new ContactUs object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="inquiryType">Initial value of the InquiryType property.</param>
+        /// <param name="inquiry">Initial value of the Inquiry property.</param>
+        /// <param name="email">Initial value of the Email property.</param>
+        /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
+        public static ContactUs CreateContactUs(global::System.Int32 id, global::System.String inquiryType, global::System.String inquiry, global::System.String email, global::System.DateTime dateTimeStamp)
+        {
+            ContactUs contactUs = new ContactUs();
+            contactUs.Id = id;
+            contactUs.InquiryType = inquiryType;
+            contactUs.Inquiry = inquiry;
+            contactUs.Email = email;
+            contactUs.DateTimeStamp = dateTimeStamp;
+            return contactUs;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String InquiryType
+        {
+            get
+            {
+                return _InquiryType;
+            }
+            set
+            {
+                OnInquiryTypeChanging(value);
+                ReportPropertyChanging("InquiryType");
+                _InquiryType = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("InquiryType");
+                OnInquiryTypeChanged();
+            }
+        }
+        private global::System.String _InquiryType;
+        partial void OnInquiryTypeChanging(global::System.String value);
+        partial void OnInquiryTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Inquiry
+        {
+            get
+            {
+                return _Inquiry;
+            }
+            set
+            {
+                OnInquiryChanging(value);
+                ReportPropertyChanging("Inquiry");
+                _Inquiry = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Inquiry");
+                OnInquiryChanged();
+            }
+        }
+        private global::System.String _Inquiry;
+        partial void OnInquiryChanging(global::System.String value);
+        partial void OnInquiryChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Email
+        {
+            get
+            {
+                return _Email;
+            }
+            set
+            {
+                OnEmailChanging(value);
+                ReportPropertyChanging("Email");
+                _Email = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Email");
+                OnEmailChanged();
+            }
+        }
+        private global::System.String _Email;
+        partial void OnEmailChanging(global::System.String value);
+        partial void OnEmailChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateTimeStamp
+        {
+            get
+            {
+                return _DateTimeStamp;
+            }
+            set
+            {
+                OnDateTimeStampChanging(value);
+                ReportPropertyChanging("DateTimeStamp");
+                _DateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateTimeStamp");
+                OnDateTimeStampChanged();
+            }
+        }
+        private global::System.DateTime _DateTimeStamp;
+        partial void OnDateTimeStampChanging(global::System.DateTime value);
+        partial void OnDateTimeStampChanged();
+
+        #endregion
+    
     }
     
     /// <summary>

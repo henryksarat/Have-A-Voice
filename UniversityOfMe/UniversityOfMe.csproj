@@ -248,6 +248,7 @@
     <Compile Include="Repositories\Classes\IClassRepository.cs" />
     <Compile Include="Repositories\Clubs\EntityClubRepository.cs" />
     <Compile Include="Repositories\Clubs\IClubRepository.cs" />
+    <Compile Include="Repositories\Site\EntityContactUsRepository.cs" />
     <Compile Include="Repositories\Dating\DatingRepository.cs" />
     <Compile Include="Repositories\Dating\IDatingRepository.cs" />
     <Compile Include="Repositories\Email\EntityEmailRepository.cs" />
@@ -478,6 +479,7 @@
     <Content Include="Views\Shared\LeftNavigation.ascx" />
     <Content Include="Views\Shared\Validation.ascx" />
     <Content Include="Views\Site\About.aspx" />
+    <Content Include="Views\Site\ContactUs.aspx" />
     <Content Include="Views\Site\Privacy.aspx" />
     <Content Include="Views\Site\Main.aspx" />
     <Content Include="Views\Site\Terms.aspx" />
@@ -566,6 +568,10 @@
     <ProjectReference Include="..\Photo\Photo.csproj">
       <Project>{552FC1DE-F722-4ADF-B887-1AB0C2B6DEE0}</Project>
       <Name>Photo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Site\Site.csproj">
+      <Project>{603D670F-6710-46C5-8A0B-CC2FC20F76CD}</Project>
+      <Name>Site</Name>
     </ProjectReference>
     <ProjectReference Include="..\User\User.csproj">
       <Project>{1765CF75-9243-4BA7-8399-3D30614C6006}</Project>

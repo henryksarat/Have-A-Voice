@@ -742,6 +742,9 @@ div.twoColCreateMessage div.rCol { float: left; width: 65%; padding: 10px 10px 1
 
 /*** Page ***/
 .normal-page { background: url("images/30-gray.png") repeat; /* #dfdfd8; */ color: #676767; }
+.normal-page .textarea { border: 1px solid #971e21; background: #fff; height: 150px; min-width: 160px; max-width: 300px; outline: none; width: 100%; }
+.normal-page input[type=text] { border: 1px solid #971e21; background: #fff; height: 28px; min-width: 160px; max-width: 300px; outline: none; width: 100%; }
+.normal-page div.field-holder { width: 500px; margin-bottom: 10px }
 .normal-page div.padding-col { padding: 25px 25px 25px 25px; }
 .normal-page .heading { font-weight: bold; font-size: x-large; margin-bottom: 15px; }
 .normal-page .sub-heading { font-weight: bold }
@@ -751,3 +754,6 @@ a.feedlink:hover { font-weight: bold; text-decoration: none }
 
 a.profiledelete, a.profiledelete:link, a.profiledelete:visited { text-decoration: none; color: #3e7c97; }
 a.profiledelete:hover { text-decoration: underline }
+
+.twitter { width: 16px; height: 16px; background: url("/Content/images/ico-t.png") no-repeat center center; display: inline-block; text-indent: -9999; outline: none; margin-left: 10px; font-size: 0px; top: -12px; }
+.facebook { width: 16px; height: 16px; background: url("/Content/images/ico-f.png") no-repeat center center; display: inline-block; text-indent: -9999; outline: none; margin-left: 7px; font-size: 0px; top: -12px; }

@@ -36,5 +36,13 @@ namespace UniversityOfMe.Helpers {
         public const int PENDING = 2;
 
         public const string URL_PREPEND = "";
+
+        public static List<string> INQUIRY_TYPES = new List<string>() {
+            "Select",
+            "Feedback",
+            "Bug Report",
+            "Privacy",
+            "Investment"
+        };
     }
 }
