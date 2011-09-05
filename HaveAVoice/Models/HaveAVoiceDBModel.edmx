@@ -17,6 +17,7 @@
           <EntitySet Name="BoardReply" EntityType="HaveAVoice.Models.Store.BoardReply" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="BoardViewedStates" EntityType="HaveAVoice.Models.Store.BoardViewedStates" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ContactUs" EntityType="HaveAVoice.Models.Store.ContactUs" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="EmailJobs" EntityType="HaveAVoice.Models.Store.EmailJobs" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ErrorLog" EntityType="HaveAVoice.Models.Store.ErrorLog" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Events" EntityType="HaveAVoice.Models.Store.Events" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Fans" EntityType="HaveAVoice.Models.Store.Fans" store:Type="Tables" Schema="dbo" />
@@ -581,6 +582,21 @@
           <Property Name="Email" Type="varchar" Nullable="false" MaxLength="100" />
           <Property Name="DateTimeStamp" Type="smalldatetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="EmailJobs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EmailDescription" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="FromEmail" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="ToEmail" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Subject" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Body" Type="text" Nullable="false" />
+          <Property Name="DateTimeStamp" Type="smalldatetime" Nullable="false" />
+          <Property Name="PresentSent" Type="bit" Nullable="false" />
+          <Property Name="PostsentSent" Type="bit" Nullable="false" />
+          <Property Name="DateTimeStampSent" Type="smalldatetime" />
+        </EntityType>
         <EntityType Name="ErrorLog">
           <Key>
             <PropertyRef Name="Id" />
@@ -976,7 +992,7 @@
           <Property Name="State" Type="char" Nullable="false" MaxLength="2" />
           <Property Name="ZipCode" Type="int" Nullable="false" />
           <Property Name="AlgorithmSpecificInformation" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="AlgorithmText" Type="varchar" MaxLength="5" />
+          <Property Name="AlgorithmText" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Replys">
           <Key>
@@ -1089,8 +1105,8 @@
           <Property Name="UserPositionId" Type="varchar" MaxLength="50" />
           <Property Name="UserPositionExtraInfo" Type="varchar" MaxLength="50" />
           <Property Name="ActivationCodeUsed" Type="bit" />
-          <Property Name="Username" Type="varchar" MaxLength="20" />
-          <Property Name="UseUsername" Type="bit" />
+          <Property Name="Username" Type="varchar" MaxLength="15" />
+          <Property Name="UseUsername" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="WhoIsOnline">
           <Key>
@@ -2849,6 +2865,7 @@
             <End Role="User" EntitySet="Users" />
             <End Role="UserRegionSpecific" EntitySet="UserRegionSpecifics" />
           </AssociationSet>
+          <EntitySet Name="EmailJobs" EntityType="HaveAVoice.Models.EmailJob" />
           </EntityContainer>
         <EntityType Name="AuditBoard">
           <Key>
@@ -4879,6 +4896,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="EmailJob">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="EmailDescription" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="FromEmail" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ToEmail" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Subject" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Body" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="DateTimeStamp" Nullable="false" />
+          <Property Type="Boolean" Name="PresentSent" Nullable="false" />
+          <Property Type="Boolean" Name="PostsentSent" Nullable="false" />
+          <Property Type="DateTime" Name="DateTimeStampSent" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5580,6 +5612,22 @@
               <MappingFragment StoreEntitySet="UserRegionSpecifics">
                 <ScalarProperty Name="RegionSpecificId" ColumnName="RegionSpecificId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmailJobs">
+            <EntityTypeMapping TypeName="HaveAVoice.Models.EmailJob">
+              <MappingFragment StoreEntitySet="EmailJobs">
+                <ScalarProperty Name="DateTimeStampSent" ColumnName="DateTimeStampSent" />
+                <ScalarProperty Name="PostsentSent" ColumnName="PostsentSent" />
+                <ScalarProperty Name="PresentSent" ColumnName="PresentSent" />
+                <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="ToEmail" ColumnName="ToEmail" />
+                <ScalarProperty Name="FromEmail" ColumnName="FromEmail" />
+                <ScalarProperty Name="EmailDescription" ColumnName="EmailDescription" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -7221,6 +7269,7 @@
           <ConnectorPoint PointX="16.593747999999998" PointY="64" />
           <ConnectorPoint PointX="16.593747999999998" PointY="64.125" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="HaveAVoice.Models.EmailJob" Width="1.5" PointX="0.75" PointY="0.75" Height="2.9417936197916674" />
         </Diagram>
     </Diagrams>
   </Designer>

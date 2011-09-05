@@ -13,6 +13,7 @@ using Social.Generic.Exceptions;
 using System;
 using System.Text.RegularExpressions;
 using System.Linq;
+using UniversityOfMe.Services.Email;
 
 namespace UniversityOfMe.Services.Users {
     public class UofMeUserService : UserService<User, Role, UserRole>, IUofMeUserService {
@@ -25,7 +26,7 @@ namespace UniversityOfMe.Services.Users {
         private IUofMeUserRepository theUserRepository;
 
         public UofMeUserService(IValidationDictionary aValidationDictionary)
-            : this(aValidationDictionary, new UofMeUserRetrievalService(), new EntityUserRepository(), new SocialEmail()) { }
+            : this(aValidationDictionary, new UofMeUserRetrievalService(), new EntityUserRepository(), new EmailService()) { }
 
         public UofMeUserService(IValidationDictionary aValidationDictionary, IUofMeUserRetrievalService aUserRetrievalService, IUofMeUserRepository aUserRepo, IEmail anEmail)
             : base(aValidationDictionary, aUserRepo, anEmail) {
@@ -100,7 +101,7 @@ namespace UniversityOfMe.Services.Users {
 
             if (!string.IsNullOrEmpty(aUser.NewEmail)) {
                 string myUrl = UOMConstants.BASE_URL + "/Authentication/ChangeEmail/" + myOriginalUser.NewEmailHash;
-                IEmail myEmail = new SocialEmail();
+                IEmail myEmail = new EmailService();
                 try {
                     myEmail.SendEmail("CHANGE EMAIL", aUser.NewEmail, CHANGE_EMAIL_SUBJECT, CHANGE_EMAIL_BODY + myUrl);
                 } catch (Exception myException) {

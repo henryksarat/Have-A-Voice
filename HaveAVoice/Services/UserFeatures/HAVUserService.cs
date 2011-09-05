@@ -18,6 +18,7 @@ using Social.Generic;
 using Social.Generic.Models;
 using HaveAVoice.Helpers.Authority;
 using System.Text.RegularExpressions;
+using HaveAVoice.Services.Email;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVUserService : IHAVUserService {
@@ -34,7 +35,7 @@ namespace HaveAVoice.Services.UserFeatures {
 
         public HAVUserService(IValidationDictionary theValidationDictionary)
             : this(theValidationDictionary, new UserRetrievalService<User>(new EntityHAVUserRetrievalRepository()), new HAVAuthorityVerificationService(theValidationDictionary), new HAVAuthenticationService(), 
-                    new EntityHAVUserRepository(), new SocialEmail()) { }
+                    new EntityHAVUserRepository(), new EmailService()) { }
 
         public HAVUserService(IValidationDictionary aValidationDictionary, IUserRetrievalService<User> aUserRetrievalService,
                                          IHAVAuthorityVerificationService anAuthorityVerificationService, IHAVAuthenticationService anAuthService,

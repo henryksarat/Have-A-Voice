@@ -17,6 +17,7 @@ using System.Linq;
 using Social.Generic;
 using HaveAVoice.Helpers.Authority;
 using System.Collections;
+using HaveAVoice.Services.Email;
 
 namespace HaveAVoice.Services.UserFeatures {
     public class HAVAuthorityVerificationService : IHAVAuthorityVerificationService {
@@ -29,7 +30,7 @@ namespace HaveAVoice.Services.UserFeatures {
         private IEmail theEmailService;
 
         public HAVAuthorityVerificationService(IValidationDictionary aValidationDictionary) 
-            : this(aValidationDictionary, new SocialEmail(), new EntityHAVAuthorityVerificationRepository()) { }
+            : this(aValidationDictionary, new EmailService(), new EntityHAVAuthorityVerificationRepository()) { }
 
         public HAVAuthorityVerificationService(IValidationDictionary aValidationDictionary, IEmail anEmailService, IHAVAuthorityVerificationRepository anAuthorityService) {
                 theValidationDictionary = aValidationDictionary;

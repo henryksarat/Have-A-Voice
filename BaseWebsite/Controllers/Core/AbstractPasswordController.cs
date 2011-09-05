@@ -32,12 +32,13 @@ namespace BaseWebsite.Controllers.Core {
                                           IAuthenticationService<T, U, V, W, X, Y> anAuthService,
                                           IWhoIsOnlineService<T, Z> aWhoIsOnlineService,
                                           IUserRetrievalRepository<T> aUserRetrievalRepo,
-                                          IPasswordRepository<T> aPasswordRepo) :
+                                          IPasswordRepository<T> aPasswordRepo,
+                                          IEmail anEmailService) :
             base(aBaseService, aUserInformation, anAuthService, aWhoIsOnlineService) {
             IValidationDictionary myValidationDictionary = new ModelStateWrapper(this.ModelState);
             IUserRetrievalService<T> myUserRetrievalService = new UserRetrievalService<T>(aUserRetrievalRepo);
-            thePasswordService = new PasswordService<T>(myValidationDictionary, 
-                                                           new SocialEmail(),
+            thePasswordService = new PasswordService<T>(myValidationDictionary,
+                                                           anEmailService,
                                                            myUserRetrievalService, 
                                                            aPasswordRepo);
         }

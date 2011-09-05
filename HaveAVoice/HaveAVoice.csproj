@@ -221,6 +221,8 @@
     <Compile Include="Models\Wrappers\IssueReplyWrapper.cs" />
     <Compile Include="Models\Wrappers\IssueWrapper.cs" />
     <Compile Include="Repositories\AdminFeatures\EntityHAVPermissionRepository.cs" />
+    <Compile Include="Repositories\Email\EntityEmailRepository.cs" />
+    <Compile Include="Repositories\Email\IEmailRepository.cs" />
     <Compile Include="Repositories\Groups\EntityGroupRepository.cs" />
     <Compile Include="Repositories\Groups\IGroupRepository.cs" />
     <Compile Include="Repositories\Issues\EntityHAVIssueReplyCommentRepository.cs" />
@@ -250,6 +252,7 @@
     <Compile Include="Repositories\UserFeatures\EntityHAVUserRetrievalRepository.cs" />
     <Compile Include="Repositories\UserFeatures\EntityHAVWhoIsOnlineRepository.cs" />
     <Compile Include="Repositories\UserFeatures\IHAVAuthorityVerificationRepository.cs" />
+    <Compile Include="Services\Email\EmailService.cs" />
     <Compile Include="Services\Questions\IProfileQuestionService.cs" />
     <Compile Include="Services\Questions\ProfileQuestionService.cs" />
     <Compile Include="Services\Groups\GroupService.cs" />

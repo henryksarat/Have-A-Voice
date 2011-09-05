@@ -15,6 +15,7 @@ using Social.Generic.Models;
 using Social.Generic.Services;
 using Social.Users.Services;
 using Social.Generic.ActionFilters;
+using HaveAVoice.Services.Email;
 
 namespace HaveAVoice.Controllers.Core {
     public class PasswordController : AbstractPasswordController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
@@ -24,7 +25,8 @@ namespace HaveAVoice.Controllers.Core {
                    new HAVAuthenticationService(), 
                    new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()),
                    new EntityHAVUserRetrievalRepository(),
-                   new EntityHAVPasswordRepository()) {
+                   new EntityHAVPasswordRepository(),
+                   new EmailService()) {
             HAVUserInformationFactory.SetInstance(GetUserInformationInstance());
         }
 

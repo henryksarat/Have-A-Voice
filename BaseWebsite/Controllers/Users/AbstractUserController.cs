@@ -32,14 +32,6 @@ namespace BaseWebsite.Controllers.Users {
         private IUserService<T, U, W> theRegistrationService;
         private IValidationDictionary theValidationDictionary;
 
-        public AbstractUserController(IBaseService<T> aBaseService, 
-                                      IUserInformation<T, Z> aUserInformation, 
-                                      IAuthenticationService<T, U, V, W, X, Y> anAuthService, 
-                                      IWhoIsOnlineService<T, Z> aWhoIsOnlineService,
-                                      IUserRepository<T, U, W> aUserRegistrationRepo)
-            : this(aBaseService, aUserInformation, anAuthService, aWhoIsOnlineService, aUserRegistrationRepo, new SocialEmail()) {
-        }
-
         public AbstractUserController(IBaseService<T> aBaseService,
                               IUserInformation<T, Z> aUserInformation,
                               IAuthenticationService<T, U, V, W, X, Y> anAuthService,
