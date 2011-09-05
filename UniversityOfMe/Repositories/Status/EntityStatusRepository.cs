@@ -33,10 +33,10 @@ namespace UniversityOfMe.Repositories.Status {
                     select us).OrderByDescending(us2 => us2.DateTimeStamp).FirstOrDefault<UserStatus>();
         }
 
-        public IEnumerable<UserStatus> GetLatestUserStatuses(string aUniversityId, int aLimit) {
+        public IEnumerable<UserStatus> GetLatestUserStatuses(string aUniversityId) {
             return (from us in theEntities.UserStatuses
                     where us.UniversityId == aUniversityId
-                    select us).OrderByDescending(us2 => us2.DateTimeStamp).Take<UserStatus>(aLimit);
+                    select us).OrderByDescending(us2 => us2.DateTimeStamp);
         }
     }
 }

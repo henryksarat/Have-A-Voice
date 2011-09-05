@@ -143,6 +143,7 @@
     <Compile Include="Helpers\Constants\ProfessorConstants.cs" />
     <Compile Include="Helpers\Constants\SearchConstants.cs" />
     <Compile Include="Helpers\Constants\TextBookConstants.cs" />
+    <Compile Include="Helpers\Email\EmailType.cs" />
     <Compile Include="Helpers\FeedType.cs" />
     <Compile Include="Helpers\Format\MoneyFormatHelper.cs" />
     <Compile Include="Helpers\Functionality\BoardHelper.cs" />
@@ -187,11 +188,6 @@
     <Compile Include="Models\Binders\RoleModelBinder.cs" />
     <Compile Include="Models\Binders\UpdatePrivacySettingsModelBinder.cs" />
     <Compile Include="Models\Binders\UpdateFeaturesModelBinder.cs" />
-    <Compile Include="Models\EmailAutomation.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EmailAutomation.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\SocialModels\SocialBoardModel.cs" />
     <Compile Include="Models\SocialModels\SocialBoardReplyModel.cs" />
     <Compile Include="Models\SocialModels\SocialMessageModel.cs" />
@@ -585,12 +581,6 @@
       <Project>{0ED79C23-BE34-47C6-9768-5835729FB57E}</Project>
       <Name>ViewHelpers</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="Models\EmailAutomation.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>EmailAutomation.Designer.cs</LastGenOutput>
-    </EntityDeploy>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

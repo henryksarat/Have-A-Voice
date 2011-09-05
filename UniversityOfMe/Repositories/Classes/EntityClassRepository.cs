@@ -4,6 +4,10 @@ using System.Linq;
 using UniversityOfMe.Models;
 using UniversityOfMe.Repositories.Helpers;
 using UniversityOfMe.Helpers.Badges;
+using UniversityOfMe.Helpers;
+using UniversityOfMe.Helpers.Email;
+using UniversityOfMe.Helpers.Configuration;
+using System.Web.Mvc;
 
 namespace UniversityOfMe.Repositories.Classes {
     public class EntityClassRepository : IClassRepository {
@@ -47,6 +51,8 @@ namespace UniversityOfMe.Repositories.Classes {
             UpdateBoardViewedStateWithoutSave(aPostedByUser, aClassBoardId, myDateTime);
 
             VerifyAuthorOfBoardHasViewStateWithoutSave(aPostedByUser, aClassBoardId, myBoard, myDateTime);
+
+            AddEmailJobForClassBoardCreatorWithoutSave(myBoard);
 
             BadgeHelper.AddNecessaryBadgesAndPoints(theEntities, aPostedByUser.Id, BadgeAction.ANSWER_QUESTION, BadgeSection.CLASS, aClassBoardId);
 
@@ -177,6 +183,30 @@ namespace UniversityOfMe.Repositories.Classes {
             theEntities.SaveChanges();
         }
 
+        private void AddEmailJobForClassBoardCreatorWithoutSave(ClassBoard aBoard) {
+            Class myClass = aBoard.Class;
+            string myToEmail = aBoard.PostedByUser.Email;
+            string myFromEmail = SiteConfiguration.NotificationsEmail();
+
+            var myClassUrl = new TagBuilder("a");
+            myClassUrl.MergeAttribute("href", URLHelper.BuildClassBoardUrl(aBoard));
+            myClassUrl.InnerHtml = myClass.ClassCode;
+
+            var myClassBoardUrl = new TagBuilder("a");
+            myClassUrl.MergeAttribute("href", URLHelper.BuildClassBoardUrl(aBoard));
+            myClassUrl.InnerHtml = "Click here to go to your post";
+
+            string mySubject = "UofMe: New reply to your class question in " + myClass.ClassCode;
+
+            string myBody = "Hey!, <br /><br /> Someone posted a reply to your question in " + myClassUrl.ToString()
+                + ". " + myClassBoardUrl.ToString() + " or copy and paste this into your browser: " + URLHelper.BuildClassBoardUrl(aBoard)
+                + "<br /><br />-UniversityOf.Me";
+
+            EmailJob myEmailJob = EmailJob.CreateEmailJob(0, EmailType.REPLY_TO_QUESTION.ToString(), myFromEmail, 
+                myToEmail, mySubject, myBody, DateTime.UtcNow, false, false);
+            theEntities.AddToEmailJobs(myEmailJob);
+        }
+
         private IEnumerable<ClassEnrollment> GetClassEnrollments(int aClassId) {
             return (from ce in theEntities.ClassEnrollments
                     where ce.ClassId == aClassId
@@ -234,12 +264,24 @@ namespace UniversityOfMe.Repositories.Classes {
         private void UpdateClassEnrollmentsForNewBoardPostWithoutSave(User aPostedByUser, int aClassId, ClassBoard myBoard) {
             IEnumerable<ClassEnrollment> myEnrollments = GetClassEnrollments(aClassId);
             DateTime myCurrentDateTime = DateTime.UtcNow;
+            
+            Class myClass = myBoard.Class;
+            string mySubject = "UofMe: New question posted to the class " + myBoard.Class.ClassCode;
+            string myBody = "Hey, <br /><br /> Someone posted a question to the class board for the class <a href=\""
+                + URLHelper.BuildClassBoardUrl(myBoard) + "\"> " + myClass.ClassCode + "</a>. <a href=\""
+                + URLHelper.BuildClassBoardUrl(myBoard) + "\">Click here to go to the class</a> or copy and paste this link into your browser: "
+                + URLHelper.BuildClassBoardUrl(myBoard)
+                + "<br /><br />-UniversityOf.Me";
 
             foreach (ClassEnrollment myClassEnrollment in myEnrollments) {
                 if (aPostedByUser.Id == myClassEnrollment.UserId) {
                     myClassEnrollment.BoardViewed = true;
                 } else {
                     myClassEnrollment.BoardViewed = false;
+                    EmailJob myEmailJob =
+                        EmailJob.CreateEmailJob(0, EmailType.QUESTION_POSTED_TO_CLASS.ToString(), SiteConfiguration.NotificationsEmail(),
+                            myClassEnrollment.User.Email, mySubject, myBody, DateTime.UtcNow, false, false);
+                    theEntities.AddToEmailJobs(myEmailJob);
                 }
                 myClassEnrollment.LastBoardPost = myCurrentDateTime;
                 myClassEnrollment.LastClassBoardId = myBoard.Id;

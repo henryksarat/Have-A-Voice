@@ -10,6 +10,7 @@ namespace Social.Generic.Helpers {
         Display_Profile_To_Everyone,
         
         //U of Me only
-        Display_Class_Enrollment
+        Display_Class_Enrollment,
+        Display_Status_To_University
     }
 }

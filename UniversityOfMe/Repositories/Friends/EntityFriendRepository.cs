@@ -5,6 +5,10 @@ using UniversityOfMe.Models;
 using UniversityOfMe.Repositories.Helpers;
 using UniversityOfMe.Helpers.Badges;
 using System;
+using UniversityOfMe.Helpers.Configuration;
+using System.Web.Mvc;
+using UniversityOfMe.Helpers;
+using UniversityOfMe.Helpers.Email;
 
 namespace UniversityOfMe.Repositories.Friends {
     public class EntityFriendRepository : IFriendRepository<User, Friend> {
@@ -13,6 +17,9 @@ namespace UniversityOfMe.Repositories.Friends {
         public void AddFriend(User aUser, int aSourceUserId) {
             Friend myFriend = Friend.CreateFriend(0, aUser.Id, aSourceUserId, false);
             theEntities.Friends.AddObject(myFriend);
+
+            AddEmailJobForNewFriendRequestWithoutSave(aUser, aSourceUserId);
+
             theEntities.SaveChanges();
         }
 
@@ -107,6 +114,31 @@ namespace UniversityOfMe.Repositories.Friends {
                     where f.Id == aFriendId
                     && f.SourceUserId == aSourceUserId
                     select f).FirstOrDefault<Friend>();
+        }
+
+        private void AddEmailJobForNewFriendRequestWithoutSave(User aUserAdding, int aSourceUserId) {
+            User mySourceUser = GetUser(aSourceUserId);
+            string myToEmail = mySourceUser.Email;
+            string myFromEmail = SiteConfiguration.NotificationsEmail();
+
+            var myLink = new TagBuilder("a");
+            myLink.MergeAttribute("href", "http://www.universityof.me");
+            myLink.InnerHtml = "universityof.me";
+
+            string mySubject = "UofMe: New friend request!";
+
+            string myBody = "Hey!, <br /><br /> " + NameHelper.FullName(aUserAdding) + " has sent you a friend request. Login to "
+                + myLink.ToString() + " to accept them.";
+
+            EmailJob myEmailJob = EmailJob.CreateEmailJob(0, EmailType.FRIEND_REQUEST.ToString(), myFromEmail,
+                myToEmail, mySubject, myBody, DateTime.UtcNow, false, false);
+            theEntities.AddToEmailJobs(myEmailJob);
+        }
+
+        private User GetUser(int aUserId) {
+            return (from u in theEntities.Users
+                    where u.Id == aUserId
+                    select u).FirstOrDefault<User>();
         }
     }
 }

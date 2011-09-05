@@ -51,8 +51,11 @@ namespace UniversityOfMe.Services.Status {
             return theUserStatusRepository.GetLatestUserStatusForUser(aUserInfo.Details);
         }
 
-        public IEnumerable<UserStatus> GetLatestUserStatusesWithinUniversity(string aUniversityId, int aLimit) {
-            return theUserStatusRepository.GetLatestUserStatuses(aUniversityId, aLimit);
+        public IEnumerable<UserStatus> GetLatestUserStatusesWithinUniversity(UserInformationModel<User> aUser,string aUniversityId, int aLimit) {
+            return theUserStatusRepository
+                .GetLatestUserStatuses(aUniversityId)
+                .Where(s => PrivacyHelper.PrivacyAllows(s.User, SocialPrivacySetting.Display_Status_To_University) || FriendHelper.IsFriend(aUser.Details, s.User))
+                .Take(aLimit); ;
         }
 
         private bool ValidStatus(string aStatus) {

@@ -10,6 +10,6 @@ namespace UniversityOfMe.Repositories.Status {
         UserStatus GetUserStatus(int aStatusId);
         void DeleteUserStatus(int aStatusId);
         UserStatus GetLatestUserStatusForUser(User aUser);
-        IEnumerable<UserStatus> GetLatestUserStatuses(string aUniversityId, int aLimit);
+        IEnumerable<UserStatus> GetLatestUserStatuses(string aUniversityId);
     }
 }

@@ -7,6 +7,10 @@ using Social.User.Repositories;
 using UniversityOfMe.Models;
 using UniversityOfMe.Models.SocialModels;
 using UniversityOfMe.Repositories.UserRepos;
+using System.Web.Mvc;
+using UniversityOfMe.Helpers.Configuration;
+using UniversityOfMe.Helpers;
+using UniversityOfMe.Helpers.Email;
 
 namespace UniversityOfMe.Repositories.Boards {
     public class EntityBoardRepository : IBoardRepository<User, Board, BoardReply> {
@@ -22,6 +26,9 @@ namespace UniversityOfMe.Repositories.Boards {
             IUserRepository<User, Role, UserRole> myUserRepository = new EntityUserRepository();
             Board myBoard = Board.CreateBoard(0, aSourceUserId, aPostedByUser.Id, aMessage, DateTime.UtcNow, false);
             theEntities.AddToBoards(myBoard);
+
+            AddEmailJobForNewBoardPostWithoutSave(aPostedByUser, aSourceUserId);
+
             theEntities.SaveChanges();
 
             return myBoard;
@@ -127,6 +134,25 @@ namespace UniversityOfMe.Repositories.Boards {
         public User GetSourceUserForBoard(int aBoardId) {
             int myUserId = FindAbstractBoardByBoardId(aBoardId).OwnerUserId;
             return GetUser(myUserId);
+        }
+
+        private void AddEmailJobForNewBoardPostWithoutSave(User aPostedByUser, int aSourceUserId) {
+            User mySourceUser = GetUser(aSourceUserId);
+            string myToEmail = mySourceUser.Email;
+            string myFromEmail = SiteConfiguration.NotificationsEmail();
+
+            var myLink = new TagBuilder("a");
+            myLink.MergeAttribute("href", URLHelper.ProfileUrl(mySourceUser));
+            myLink.InnerHtml = "Click here to go to your profile page";
+
+            string mySubject = "UofMe: Someone posted to your profile board!";
+
+            string myBody = "Hey!, <br /><br /> " + NameHelper.FullName(aPostedByUser) + " has posted to your board. "
+                + myLink.ToString() + ". Or copy and paste this URL into your browser: " + NameHelper.FullName(aPostedByUser);
+
+            EmailJob myEmailJob = EmailJob.CreateEmailJob(0, EmailType.BOARD_POST.ToString(), myFromEmail,
+                myToEmail, mySubject, myBody, DateTime.UtcNow, false, false);
+            theEntities.AddToEmailJobs(myEmailJob);
         }
 
         private void UpdateCurrentBoardViewedStateAndAddIfNecessaryWithoutSave(User aPostingUser, int aBoardId) {

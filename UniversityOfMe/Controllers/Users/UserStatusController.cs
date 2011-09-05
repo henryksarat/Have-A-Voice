@@ -84,7 +84,7 @@ namespace UniversityOfMe.Controllers.Profile {
                 UserInformationModel<User> myUserInfo = GetUserInformatonModel();
                 string myUniversity = UniversityHelper.GetMainUniversity(myUserInfo.Details).Id;
                 LoggedInListModel<UserStatus> myLoggedInModel = new LoggedInListModel<UserStatus>(myUserInfo.Details);
-                IEnumerable<UserStatus> myUserStatuses = theUserStatusService.GetLatestUserStatusesWithinUniversity(myUniversity, 30);
+                IEnumerable<UserStatus> myUserStatuses = theUserStatusService.GetLatestUserStatusesWithinUniversity(myUserInfo, myUniversity, 30);
                 myLoggedInModel.Set(myUserStatuses);
 
                 return View("List", myLoggedInModel);

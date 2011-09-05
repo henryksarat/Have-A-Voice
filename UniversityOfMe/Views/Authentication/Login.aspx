@@ -7,24 +7,24 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="twelve"> 
+        <% Html.RenderPartial("Message"); %>
         <div class="create-feature-form create">
 	        <div class="banner black full small red-top"> 
 		        LOGIN
 	        </div> 
 	        <p class="p20">
-                    <% Html.RenderPartial("Message"); %>
                     <% Html.RenderPartial("Validation"); %>
 		            <% using (Html.BeginForm("Login", "Authentication", FormMethod.Post, new { @class = "form-normal" })) { %>
                         <div class="input">
-                            <%: Html.Label("Email") %>
-                            <%: Html.TextBox("Email")%>
-                            <%: Html.ValidationMessage("Email", "*")%>
+                            <%: Html.Label("LoginEmail") %>
+                            <%: Html.TextBox("LoginEmail")%>
+                            <%: Html.ValidationMessage("LoginEmail", "*")%>
                         </div>
             
                         <div class="input">
-                            <%: Html.Label("Password") %>
-                            <%: Html.Password("Password") %>
-                            <%: Html.ValidationMessage("Password", "*")%>
+                            <%: Html.Label("LoginPassword") %>
+                            <%: Html.Password("LoginPassword")%>
+                            <%: Html.ValidationMessage("LoginPassword", "*")%>
                         </div>
 
 		                <div class="input">

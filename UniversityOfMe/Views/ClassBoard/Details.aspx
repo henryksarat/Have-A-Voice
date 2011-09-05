@@ -20,15 +20,17 @@
         <% Html.RenderPartial("Message"); %>
         <% Html.RenderPartial("Validation"); %>
 
-		<div class="create"> 
+		<div class="create professor-review-form"> 
 			<div class="banner black full red-top small"> 
 				<span class="board">Class Discussion Post in <%= Model.Get().Class.ClassTitle %> ( <a class="header-linked" href="<%= URLHelper.BuildClassDiscussionUrl(Model.Get().Class) %>"><%= Model.Get().Class.ClassCode %></a> )</span> 
 			</div> 
 
-		    <div class="board"> 
+		    <div class="board padding-col"> 
 			    <div class="prfl clearfix"> 
 				    <div class="pCol"> 
-					    <img src="<%= PhotoHelper.ProfilePicture(Model.Get().PostedByUser) %>" class="profile big" /> 
+                        <a href="<%= URLHelper.ProfileUrl(Model.Get().PostedByUser) %>">
+					        <img src="<%= PhotoHelper.ProfilePicture(Model.Get().PostedByUser) %>" class="profile big" /> 
+                        </a>
 				    </div> 
 				    <div class="cCol"> 
 					    <div class="red bld"> 
@@ -62,7 +64,9 @@
                 <% foreach (ClassBoardReply myReply in Model.Get().ClassBoardReplies.Where(r => !r.Deleted).OrderByDescending(r => r.DateTimeStamp)) { %>						
 			    <div class="prfl reply clearfix"> 
 				    <div class="pCol"> 
-					    <img src="<%= PhotoHelper.ProfilePicture(myReply.PostedByUser) %>" class="profile med" /> 
+                        <a href="<%= URLHelper.ProfileUrl(myReply.PostedByUser) %>">
+					        <img src="<%= PhotoHelper.ProfilePicture(myReply.PostedByUser) %>" class="profile med" /> 
+                        </a>
 				    </div> 
 				    <div class="cCol"> 
 					    <div class="red bld"> 

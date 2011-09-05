@@ -14,11 +14,11 @@
     <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
 	<div class="eight last"> 
+        <% Html.RenderPartial("Message"); %>
         <div class="create-feature-form">
 		    <div class="banner title black full small"> 
 			    <span class="edit">EDIT YOUR PRIVACY SETTINGS</span> 
             </div>
-            <% Html.RenderPartial("Message"); %>
             <% Html.RenderPartial("Validation"); %>
 
             <div class="padding-col">
