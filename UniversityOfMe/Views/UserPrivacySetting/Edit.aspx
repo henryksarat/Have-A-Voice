@@ -6,7 +6,7 @@
 <%@ Import Namespace="Social.BaseWebsite.Models" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	<%= UOMConstants.TITLE %> - Edit Privacy Settings
+	Edit Privacy Settings
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">

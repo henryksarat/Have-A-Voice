@@ -5,7 +5,7 @@
 <%@ Import Namespace="Social.Messaging.Models" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Inbox
+	Send a Message
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -14,11 +14,11 @@
 	    
         <div class="eight last"> 
             <% Html.RenderPartial("Message"); %>
-            <% Html.RenderPartial("Validation"); %>
             <div class="create-message-form">
     		    <div class="banner title black full small"> 
-			        <span>Compose Message</span> 
+			        <span>COMPOSE MESSAGE</span> 
 		        </div> 
+                <% Html.RenderPartial("Validation"); %>
 	        <% using (Html.BeginForm()) {%>
                 <%= Html.Hidden("ToUserId", Model.Get().SendToUser.Id) %>
                 <div class="twoColEditUser clearfix">

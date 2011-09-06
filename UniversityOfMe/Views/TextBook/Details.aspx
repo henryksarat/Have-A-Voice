@@ -6,7 +6,7 @@
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	<%= UOMConstants.TITLE %> - <%= Model.Get().BookTitle %>
+	Textbook | <%= Model.Get().BookTitle %>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">

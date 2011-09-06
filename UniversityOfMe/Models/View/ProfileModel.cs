@@ -18,5 +18,7 @@ namespace UniversityOfMe.Models.View {
         public IEnumerable<PhotoAlbum> PhotoAlbums { get; set; }
         public int PhotoAlbumCount { get; set; }
         public bool ShowAllPhotoAlbums { get; set; }
+        public int FriendCount { get; set; }
+        public IEnumerable<User> FriendToShow { get; set; }
     }
 }

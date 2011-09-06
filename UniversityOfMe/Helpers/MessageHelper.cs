@@ -3,7 +3,7 @@
 namespace UniversityOfMe.Helpers {
     public class MessageHelper {
         public static string NormalMessage(string aMessage) {
-            return BuildMessage("msg clearfix", "Normal Message!", aMessage);
+            return BuildMessage("msg clearfix", "Information!", aMessage);
         }
 
         public static string SuccessMessage(string aMessage) {

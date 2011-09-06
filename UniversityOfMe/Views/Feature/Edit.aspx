@@ -5,7 +5,7 @@
 <%@ Import Namespace="Social.Generic" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	<%= UOMConstants.TITLE %> - Edit Privacy Settings
+	Customize Site Features
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">

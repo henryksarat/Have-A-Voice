@@ -9,7 +9,7 @@
 <%@ Import Namespace="UniversityOfMe.Helpers.Functionality" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	University of Me - <%= Model.Get().Title %> at <%= Model.University.UniversityName %>
+	<%= Model.Get().Title %> at <%= Model.University.UniversityName %>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">

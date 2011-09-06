@@ -7,7 +7,7 @@
 <%@ Import Namespace="UniversityOfMe.UserInformation" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	<%= UOMConstants.TITLE %> - <%= Model.Get().ClassTitle %>
+	<%= Model.Get().ClassCode %> (<%= Model.Get().ClassTitle %>)
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">

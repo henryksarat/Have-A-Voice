@@ -15,6 +15,7 @@ using UniversityOfMe.Services.UserFeatures;
 using UniversityOfMe.UserInformation;
 using Social.Generic.Constants;
 using UniversityOfMe.Services.Users;
+using Social.Friend.Services;
 
 namespace UniversityOfMe.Controllers.Profile {
     public class ProfileController : UOFMeBaseController {
@@ -30,7 +31,7 @@ namespace UniversityOfMe.Controllers.Profile {
         
         public ProfileController() {
             UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()));
-            theUserRetrievalService = new UofMeUserRetrievalService(new EntityUserRetrievalRepository());
+            theUserRetrievalService = new UofMeUserRetrievalService();
             theFeatureService = new FeatureService();
         }
 

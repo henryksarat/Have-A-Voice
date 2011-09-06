@@ -15,9 +15,14 @@ using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories;
 using UniversityOfMe.Repositories.Friends;
 using UniversityOfMe.UserInformation;
+using UniversityOfMe.Services.Users;
+using System;
+using Social.Generic.ActionFilters;
 
 namespace UniversityOfMe.Controllers.Users {
     public class FriendController : AbstractFriendController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline, Friend> {
+        private IUofMeUserRetrievalService theUserRetrievalService;
+        private const string FRIENDS_ERROR = "Unable to get the list of friends.";
 
         public FriendController()
             : base(new BaseService<User>(new EntityBaseRepository()), 
@@ -26,6 +31,7 @@ namespace UniversityOfMe.Controllers.Users {
                    new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()),
                    new EntityFriendRepository()) {
             UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()));
+            theUserRetrievalService = new UofMeUserRetrievalService();
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
@@ -38,9 +44,49 @@ namespace UniversityOfMe.Controllers.Users {
             return base.Delete(id);
         }
 
+        [ExportModelStateToTempData]
         [AcceptVerbs(HttpVerbs.Get)]
         new public ActionResult List() {
-            return base.List();
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            UserInformationModel<User> myUserInfo = GetUserInformatonModel();
+            LoggedInWrapperModel<FriendListModel> myLoggedIn = new LoggedInWrapperModel<FriendListModel>(myUserInfo.Details);
+            try {
+                FriendListModel myFriendListModel = new FriendListModel() {
+                    Friends = GetFriendService().FindFriendsForUser(myUserInfo.Details.Id),
+                    User = theUserRetrievalService.GetUser(myUserInfo.Details.Id)
+                };
+
+                myLoggedIn.Set(myFriendListModel);
+                return View("List", myLoggedIn);
+            } catch (Exception e) {
+                LogError(e, FRIENDS_ERROR);
+                ViewData["Message"] = ErrorMessage(FRIENDS_ERROR);
+                return RedirectToHomePage();
+            }
+        }
+
+        [ExportModelStateToTempData]
+        public ActionResult ListForUser(int id) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            UserInformationModel<User> myUserInfo = GetUserInformatonModel();
+            LoggedInWrapperModel<FriendListModel> myLoggedIn = new LoggedInWrapperModel<FriendListModel>(myUserInfo.Details);
+            try {
+                FriendListModel myFriendListModel = new FriendListModel() {
+                    Friends = GetFriendService().FindFriendsForUser(id),
+                    User = theUserRetrievalService.GetUser(id)
+                };               
+                
+                myLoggedIn.Set(myFriendListModel);
+                return View("List", myLoggedIn);
+            } catch (Exception e) {
+                LogError(e, FRIENDS_ERROR);
+                ViewData["Message"] = ErrorMessage(FRIENDS_ERROR);
+                return RedirectToAction("Show", "Profile", new { id = id });
+            }
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

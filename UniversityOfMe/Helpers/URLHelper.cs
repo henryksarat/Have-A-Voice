@@ -106,6 +106,10 @@ namespace UniversityOfMe.Helpers {
             return "/Photo/Display/" + aPhoto.Id;
         }
 
+        public static string FriendListUrl(int aUserId) {
+            return "/Friend/ListForUser/" + aUserId;
+        }
+
         public static string AddFriendUrl(User aUserToAdd) {
             return "/Friend/Add/" + aUserToAdd.Id;
         }

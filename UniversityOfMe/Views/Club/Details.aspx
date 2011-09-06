@@ -6,7 +6,7 @@
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	University Of Me - <%= Model.Get().Name %> at <%= Model.University.UniversityName %>
+	<%= Model.Get().Name %> at <%= Model.University.UniversityName %>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">

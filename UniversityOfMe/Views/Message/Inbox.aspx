@@ -5,7 +5,7 @@
 <%@ Import Namespace="Social.ViewHelpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	<%= UOMConstants.TITLE %> - Message Inbox
+	Message | Inbox
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -77,6 +77,11 @@
 					    </li> 
                     <% } %>
                 </ul> 
+                <% if (Model.Get().Count() == 0) { %>
+                    <div class="center small bold">
+                        Your inbox is empty.
+                    </div>
+                <% } %>
             </fieldset>
 	    </div> 
     <%} %>

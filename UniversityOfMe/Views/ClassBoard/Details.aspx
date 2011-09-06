@@ -8,7 +8,7 @@
 <%@ Import Namespace="Social.Generic.Models" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	UniversityOf.Me - <%=NameHelper.FullName(Model.User) %>'s Profile
+	Class Discussion for <%= Model.Get().Class.ClassTitle %> (<%= Model.Get().Class.ClassCode %>)
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">

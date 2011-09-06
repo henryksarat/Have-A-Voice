@@ -5,17 +5,23 @@ using UniversityOfMe.Models;
 using UniversityOfMe.Repositories.UserRepos;
 using UniversityOfMe.Models.View;
 using System.Linq;
+using Social.Friend.Services;
+using UniversityOfMe.Repositories.Friends;
+using Social.Friend.Repositories;
+using System;
 
 namespace UniversityOfMe.Services.Users {
     public class UofMeUserRetrievalService : UserRetrievalService<User>, IUofMeUserRetrievalService {
         private IUofMeUserRetrievalRepository theUserRetrievalRepository;
+        private IFriendService<User, Friend> theFriendService;
 
         public UofMeUserRetrievalService()
-            : this(new EntityUserRetrievalRepository()) { }
+            : this(new EntityUserRetrievalRepository(), new FriendService<User, Friend>(new EntityFriendRepository())) { }
 
-        public UofMeUserRetrievalService(IUofMeUserRetrievalRepository aUserRetrievalRepository)
+        public UofMeUserRetrievalService(IUofMeUserRetrievalRepository aUserRetrievalRepository, IFriendService<User, Friend> aFriendService)
             : base(aUserRetrievalRepository) {
             theUserRetrievalRepository = aUserRetrievalRepository;
+            theFriendService = aFriendService;
         }
 
         public IEnumerable<User> GetAllFemaleUsers() {
@@ -73,6 +79,15 @@ namespace UniversityOfMe.Services.Users {
                     .Take<UserStatus>(5);
             }
 
+            IEnumerable<Friend> myFriends = theFriendService.FindFriendsForUser(aUser.Id);
+            int myFriendCount = myFriends.Count<Friend>();
+            Random myRandom = new Random();
+            IEnumerable<User> myRandomFriends = myFriends
+                .OrderBy<Friend, int>(f => myRandom.Next())
+                .Take<Friend>(4)
+                .Select(f => f.FriendedUser)
+                .ToList<User>();
+
             return new ProfileModel() {
                 User = aUser,
                 Boards = myBoards,
@@ -81,7 +96,9 @@ namespace UniversityOfMe.Services.Users {
                 PhotoAlbums = myPhotoAlbums,
                 PhotoAlbumCount = myPhotoAlbumCount,
                 ShowAllPhotoAlbums = aShowAllAlbums,
-                UserStatuses = myUserStatuses
+                UserStatuses = myUserStatuses,
+                FriendCount = myFriendCount,
+                FriendToShow = myRandomFriends
             };
         }
     }

@@ -45,7 +45,7 @@ namespace UniversityOfMe.Services.Dating {
             }
 
             Random myRandom = new Random();
-            myPossibleCandidates = myPossibleCandidates.OrderBy<User, int>(u => myRandom.Next()).ToList<User>(); ;
+            myPossibleCandidates = myPossibleCandidates.OrderBy<User, int>(u => myRandom.Next()).ToList<User>();
 
             return myPossibleCandidates.FirstOrDefault<User>();
         }

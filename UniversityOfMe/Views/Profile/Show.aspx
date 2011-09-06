@@ -9,7 +9,7 @@
 <%@ Import Namespace="Social.Generic.Helpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	UniversityOf.Me - <%=NameHelper.FullName(Model.User) %>'s Profile
+	<%=NameHelper.FullName(Model.User) %>'s Profile
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -116,7 +116,6 @@
 			<p><label>Name:</label><%=NameHelper.FullName(Model.User) %></p> 
 			<p><label>University:</label><%= UniversityHelper.GetMainUniversity(Model.User).UniversityName %></p> 
             <% if (myAllowedToView) { %>    
-
                 <p><label>Birthdate:</label><%= String.Format("{0:dd MMM yyyy}", Model.User.DateOfBirth) %></p> 
 			    <p><label>Relationship:</label><%= Model.User.RelationshipStatu != null ? Model.User.RelationshipStatu.DisplayName : "NA" %></p> 
                 
@@ -139,6 +138,22 @@
                  <% if (!string.IsNullOrEmpty(Model.User.AboutMe)) { %>
                     <p><label>About Me:</label><%= Model.User.AboutMe %> </p> 
                 <% } %>
+
+                <div style="margin-left: 25px">
+                    <a class="feedlink" href="<%= URLHelper.FriendListUrl(Model.User.Id) %>">Total Friends: <%= Model.FriendCount %></a>
+                    <div>
+                        <% foreach(User myFriend in Model.FriendToShow) { %>
+                            <div style="display:inline-block; margin-left: 15px; width: 100px; text-align: center">
+                                <a class="feedlink" href="<%= URLHelper.ProfileUrl(myFriend) %>">
+                                    <%= NameHelper.FullName(myFriend) %><br />
+                                </a>
+                                <a href="<%= URLHelper.ProfileUrl(myFriend) %>">
+                                    <img src="<%= PhotoHelper.ProfilePicture(myFriend) %>" title="<%= NameHelper.FullName(myFriend) %>" class="profile med" />
+                                </a>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
             <% } %>
 			
 			<ul> 
