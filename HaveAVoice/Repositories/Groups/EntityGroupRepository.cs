@@ -4,6 +4,8 @@ using System.Linq;
 using HaveAVoice.Helpers;
 using HaveAVoice.Models;
 using HaveAVoice.Helpers.Constants;
+using HaveAVoice.Helpers.Email;
+using HaveAVoice.Helpers.Configuration;
 
 namespace HaveAVoice.Repositories.Groups {
     public class EntityGroupRepository : IGroupRepository {
@@ -62,6 +64,11 @@ namespace HaveAVoice.Repositories.Groups {
             myGroupMember.Approved = HAVConstants.APPROVED;
             myGroupMember.ApprovedByUserId = anAdminUser.Id;
             myGroupMember.ApprovedDateTimeStamp = DateTime.UtcNow;
+
+            Group myGroup = GetGroup(myGroupMember.GroupId);
+
+            CreateEmailJobForAcceptingMemberIntoGroupWithoutSave(myGroup, myGroupMember.MemberUser);
+
             theEntities.SaveChanges();
         }
 
@@ -415,6 +422,14 @@ namespace HaveAVoice.Repositories.Groups {
 
         public void MemberRequestToJoinGroup(User aRequestingUser, int aGroupId, string aTitle) {
             GroupMember myGroupMember = GroupMember.CreateGroupMember(0, aRequestingUser.Id, aGroupId, aTitle, false, HAVConstants.PENDING, DateTime.UtcNow, false, false, false, false);
+
+            IEnumerable<User> myAdminsOfGroup = GetAdminsOfGroup(aGroupId);
+            Group myGroup = GetGroup(aGroupId);
+
+            foreach (User myAdminUser in myAdminsOfGroup) {
+                CreateEmailJobForRequestingMemberToJoinGroupForAdminWithoutSave(myGroup, aRequestingUser, myAdminUser);
+            }
+
             theEntities.AddToGroupMembers(myGroupMember);
             theEntities.SaveChanges();
         }
@@ -426,6 +441,7 @@ namespace HaveAVoice.Repositories.Groups {
             IEnumerable<GroupMember> myClubMembers = GetGroupMembers(aGroupId);
 
             DateTime myCurrentTime = DateTime.UtcNow;
+            Group myGroup = GetGroup(aGroupId);
 
             foreach (GroupMember myClubMember in myClubMembers) {
                 if (myClubMember.MemberUserId == aPostingUser.Id) {
@@ -433,6 +449,7 @@ namespace HaveAVoice.Repositories.Groups {
                 } else {
                     myClubMember.BoardViewed = false;
                     myClubMember.LastBoardPost = myCurrentTime;
+                    CreateEmailJobForGroupBoardPostForUserWithoutSave(myGroup, myClubMember.MemberUser.Email);
                 }
             }
 
@@ -490,6 +507,44 @@ namespace HaveAVoice.Repositories.Groups {
 
             theEntities.SaveChanges();
 
+        }
+
+        private void CreateEmailJobForGroupBoardPostForUserWithoutSave(Group aGroup, string aToEmail) {
+            string mySubject = EmailContent.GroupBoardSubject(aGroup);
+            string myBody = EmailContent.GroupBoardBody(aGroup);
+
+            EmailJob myEmailJob =
+                EmailJob.CreateEmailJob(0, EmailType.BOARD_POST_TO_GROUP.ToString(), SiteConfiguration.NotificationsEmail(),
+                aToEmail, mySubject, myBody, DateTime.UtcNow, false, false);
+            theEntities.AddToEmailJobs(myEmailJob);
+        }
+
+        private void CreateEmailJobForRequestingMemberToJoinGroupForAdminWithoutSave(Group aGroup, User aMemberJoining, User anAdmin) {
+            string mySubject = EmailContent.NewGroupMemberSubject(aGroup);
+            string myBody = EmailContent.NewGroupMemberBody(aMemberJoining, aGroup);
+
+            EmailJob myEmailJob =
+                EmailJob.CreateEmailJob(0, EmailType.MEMBER_REQUEST_JOIN_GROUP.ToString(), SiteConfiguration.NotificationsEmail(),
+                anAdmin.Email, mySubject, myBody, DateTime.UtcNow, false, false);
+            theEntities.AddToEmailJobs(myEmailJob);
+        }
+
+        private void CreateEmailJobForAcceptingMemberIntoGroupWithoutSave(Group aGroup, User aUser) {
+            string mySubject = EmailContent.AcceptedIntoGroupSubject(aGroup);
+            string myBody = EmailContent.AcceptedIntoGroupBody(aGroup);
+
+            EmailJob myEmailJob =
+                EmailJob.CreateEmailJob(0, EmailType.ACCEPTED_INTO_GROUP.ToString(), SiteConfiguration.NotificationsEmail(),
+                aUser.Email, mySubject, myBody, DateTime.UtcNow, false, false);
+            theEntities.AddToEmailJobs(myEmailJob);
+        }
+
+        private IEnumerable<User> GetAdminsOfGroup(int aGroupId) {
+            return (from g in theEntities.Groups
+                    join gm in theEntities.GroupMembers on g.Id equals gm.GroupId
+                    where g.Id == aGroupId
+                    && gm.Administrator
+                    select gm.MemberUser);
         }
 
         private Group GetGroup(int aGroupId) {

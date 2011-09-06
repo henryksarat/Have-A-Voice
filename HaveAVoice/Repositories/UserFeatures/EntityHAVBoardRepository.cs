@@ -6,6 +6,10 @@ using HaveAVoice.Models.SocialWrappers;
 using Social.Board.Repositories;
 using Social.Generic.Models;
 using Social.User.Repositories;
+using System.Web.Mvc;
+using HaveAVoice.Helpers;
+using HaveAVoice.Helpers.Email;
+using HaveAVoice.Helpers.Configuration;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVBoardRepository : IBoardRepository<User, Board, BoardReply> {
@@ -21,6 +25,9 @@ namespace HaveAVoice.Repositories.UserFeatures {
             IUserRepository<User, Role, UserRole> myUserRepository = new EntityHAVUserRepository();
             Board myBoard = Board.CreateBoard(0, aSourceUserId, aPostedByUser.Id, aMessage, DateTime.UtcNow, false);
             theEntities.AddToBoards(myBoard);
+
+            AddEmailJobForNewBoardPostWithoutSave(aPostedByUser, aSourceUserId);
+
             theEntities.SaveChanges();
 
             return myBoard;
@@ -146,6 +153,18 @@ namespace HaveAVoice.Repositories.UserFeatures {
             if (!myHasViewedState) {
                 AddUserToBoardViewedStateWithoutSave(aPostingUser.Id, aBoardId, true);
             }
+        }
+
+        private void AddEmailJobForNewBoardPostWithoutSave(User aPostedByUser, int aSourceUserId) {
+            User mySourceUser = GetUser(aSourceUserId);
+            string myToEmail = mySourceUser.Email;
+            string myFromEmail = SiteConfiguration.NotificationsEmail();
+            string mySubject = EmailContent.NewBoardPostSubject();
+            string myBody = EmailContent.NewBoardPostBody(aPostedByUser, mySourceUser);
+
+            EmailJob myEmailJob = EmailJob.CreateEmailJob(0, EmailType.BOARD_POST_TO_PROFILE.ToString(), myFromEmail,
+                myToEmail, mySubject, myBody, DateTime.UtcNow, false, false);
+            theEntities.AddToEmailJobs(myEmailJob);
         }
 
         private void AddUserToBoardViewedStateWithoutSave(int aUserId, int aBoardId, bool aViewedState) {

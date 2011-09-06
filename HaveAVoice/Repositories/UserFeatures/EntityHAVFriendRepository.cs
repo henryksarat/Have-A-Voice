@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using HaveAVoice.Models;
 using Social.Friend.Repositories;
+using HaveAVoice.Helpers.Configuration;
+using HaveAVoice.Helpers.Email;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVFriendRepository : IFriendRepository<User, Friend> {
@@ -12,6 +14,9 @@ namespace HaveAVoice.Repositories.UserFeatures {
         public void AddFriend(User aUser, int aSourceUserId) {
             Friend myFriend = Friend.CreateFriend(0, aUser.Id, aSourceUserId, false);
             theEntities.Friends.AddObject(myFriend);
+
+            AddEmailJobForNewFriendRequestWithoutSave(aUser, aSourceUserId);
+
             theEntities.SaveChanges();
         }
 
@@ -83,11 +88,29 @@ namespace HaveAVoice.Repositories.UserFeatures {
             theEntities.SaveChanges();
         }
 
+        private void AddEmailJobForNewFriendRequestWithoutSave(User aUserAdding, int aSourceUserId) {
+            User mySourceUser = GetUser(aSourceUserId);
+            string myToEmail = mySourceUser.Email;
+            string myFromEmail = SiteConfiguration.NotificationsEmail();
+            string mySubject = EmailContent.FriendRequestSubject();
+            string myBody = EmailContent.FriendRequestBody(aUserAdding);
+
+            EmailJob myEmailJob = EmailJob.CreateEmailJob(0, EmailType.FRIEND_REQUEST.ToString(), myFromEmail,
+                myToEmail, mySubject, myBody, DateTime.UtcNow, false, false);
+            theEntities.AddToEmailJobs(myEmailJob);
+        }
+
         private IEnumerable<Friend> GetFriendRecords(User aUser, int aSourceUserId) {
             return (from f in theEntities.Friends
                     where (f.FriendUserId == aUser.Id && f.SourceUserId == aSourceUserId)
                     || (f.FriendUserId == aSourceUserId && f.SourceUserId == aUser.Id)
                     select f).ToList<Friend>();
+        }
+
+        private User GetUser(int aUserId) {
+            return (from u in theEntities.Users
+                    where u.Id == aUserId
+                    select u).FirstOrDefault<User>();
         }
 
         private Friend FindFriend(int aFriendId) {

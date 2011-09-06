@@ -16,6 +16,10 @@
             return GetKey("NewAccountsEmail");
         }
 
+        public static string NotificationsEmail() {
+            return GetKey("NotificationsEmail");
+        }
+
         private static string GetKey(string aKey) {
             string myValue = string.Empty;
             System.Configuration.Configuration rootWebConfig1 =

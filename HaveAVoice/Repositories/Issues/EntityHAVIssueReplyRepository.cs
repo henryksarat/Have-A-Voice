@@ -7,6 +7,8 @@ using HaveAVoice.Helpers.Enums;
 using HaveAVoice.Models.View;
 using HaveAVoice.Repositories.Issues.Helpers;
 using HaveAVoice.Helpers;
+using HaveAVoice.Helpers.Email;
+using HaveAVoice.Helpers.Configuration;
 
 namespace HaveAVoice.Repositories.Issues {
     public class EntityHAVIssueReplyRepository : IHAVIssueReplyRepository {
@@ -14,17 +16,15 @@ namespace HaveAVoice.Repositories.Issues {
 
         public IssueReply CreateIssueReply(int aUserId, string aUserCity, string aUserState, int aUserZipCode, int anIssueId, string aReply, bool anAnonymous, int aDisposition, string aFirstName, string aLastName) {
             IssueReply myIssueReply = IssueReply.CreateIssueReply(0, anIssueId, aUserId, aReply, aUserCity, aUserState, aUserZipCode, aDisposition, anAnonymous, DateTime.UtcNow, false);
-            if (aUserId == HAVConstants.PRIVATE_USER_ID) {
-                myIssueReply.TempFirstName = aFirstName;
-                myIssueReply.TempLastName = aLastName;
-            }
+            
+            Issue myIssue = GetIssue(anIssueId);
 
             theEntities.AddToIssueReplys(myIssueReply);
             theEntities.SaveChanges();
 
-            if (aUserId != HAVConstants.PRIVATE_USER_ID) {
-                IssueReplyViewedHelper.CreateIssueReplyViewedState(theEntities, aUserId, myIssueReply.Id, true);
-            }
+            CreateEmailJobForAuthorOfIssueWithoutSave(myIssue);
+
+            IssueReplyViewedHelper.CreateIssueReplyViewedState(theEntities, aUserId, myIssueReply.Id, true);
 
             return myIssueReply;
         }
@@ -135,6 +135,22 @@ namespace HaveAVoice.Repositories.Issues {
             theEntities.AddToAuditIssueReplys(myAudit);
             theEntities.ApplyCurrentValues(anOriginal.EntityKey.EntitySetName, anOriginal);
             theEntities.SaveChanges();
+        }
+
+        private Issue GetIssue(int anIssueId) {
+            return (from i in theEntities.Issues
+                    where i.Id == anIssueId
+                    select i).FirstOrDefault<Issue>();
+        }
+
+        private void CreateEmailJobForAuthorOfIssueWithoutSave(Issue anIssue) {
+            string mySubject = EmailContent.NewReplySubject(anIssue);
+            string myBody = EmailContent.NewReplyBody(anIssue);
+
+            EmailJob myEmailJob = 
+                EmailJob.CreateEmailJob(0, EmailType.REPLY_TO_ISSUE.ToString(), SiteConfiguration.NotificationsEmail(), 
+                anIssue.User.Email, mySubject, myBody, DateTime.UtcNow, false, false);
+            theEntities.AddToEmailJobs(myEmailJob);
         }
     }
 }
