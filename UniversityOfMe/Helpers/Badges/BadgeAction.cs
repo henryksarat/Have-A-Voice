@@ -11,7 +11,7 @@ namespace UniversityOfMe.Helpers.Badges {
         POSTED_REVIEW,
         CREATED,
         ATTENDED,
-        SENT_BEER,
+        BEER_SENT,
         JOINED
     }
 }

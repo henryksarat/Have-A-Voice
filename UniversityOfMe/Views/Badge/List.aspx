@@ -22,11 +22,11 @@
 			</div> 
 		</div> 
 		
-        <ul id="list" class="friend-list clearfix"> 
+        <ul id="list" class="badge-list clearfix"> 
             <% foreach (Badge myBadge in Model.Get()) { %>
 			    <li> 
 				    <div> 
-					    <%= myBadge.Name %>
+                        <img src="/Content/images/badges/<%= myBadge.Image %>" />
 				    </div> 
 			    </li> 
             <% } %>

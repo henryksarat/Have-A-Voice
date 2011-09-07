@@ -2,6 +2,8 @@
 using UniversityOfMe.Models;
 using System.Collections.Generic;
 using System;
+using UniversityOfMe.Repositories.Helpers;
+using UniversityOfMe.Helpers.Badges;
 
 namespace UniversityOfMe.Repositories.SendItems {
     public class EntitySendItemsRepository : ISendItemsRepository {
@@ -10,6 +12,9 @@ namespace UniversityOfMe.Repositories.SendItems {
         public void SendItemToUser(int aToUserId, User aFromUser, int anItemEnumeration) {
             SendItem mySendItem = SendItem.CreateSendItem(0, aToUserId, aFromUser.Id, anItemEnumeration, DateTime.UtcNow, false);
             theEntities.AddToSendItems(mySendItem);
+            theEntities.SaveChanges();
+
+            BadgeHelper.AddNecessaryBadgesAndPoints(theEntities, aFromUser.Id, BadgeAction.BEER_SENT, BadgeSection.ITEM, mySendItem.Id);
             theEntities.SaveChanges();
         }
 
