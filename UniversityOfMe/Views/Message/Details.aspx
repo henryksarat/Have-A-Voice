@@ -46,7 +46,7 @@
 			        <%= Model.Get().Body %>
 		        </p>
 
-                <% foreach(MessageReply myReply in Model.Get().MessageReplies.OrderByDescending(m => m.DateTimeStamp)) { %>
+                <% foreach(MessageReply myReply in Model.Get().MessageReplies.OrderBy(m => m.DateTimeStamp)) { %>
 		            <div class="review clearfix">
 			            <div class="flft w60 mr22">
                             <a href="<%= URLHelper.ProfileUrl(myReply.User) %>">

@@ -32,6 +32,7 @@ namespace Social.Generic.Models {
         public bool RepliedTo { get; set; }
 
         public U FromUser { get; set; }
+        public U ToUser { get; set; }
 
         public abstract T FromModel();
     }

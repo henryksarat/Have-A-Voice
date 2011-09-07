@@ -65,6 +65,7 @@ namespace UniversityOfMe.Services.Notifications {
 
             foreach (SendItem mySendItem in aSendItems) {
                 myNotificationModel.Add(new NotificationModel() {
+                    Id = mySendItem.Id,
                     NotificationType = NotificationType.SentItems,
                     SendItem = SendItemOptions.BEER,
                     WhoSent = mySendItem.FromUser,

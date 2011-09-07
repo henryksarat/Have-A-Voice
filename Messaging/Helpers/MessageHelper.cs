@@ -21,8 +21,8 @@ namespace Social.Messaging.Helpers {
                     orderby (latestReply != null ? latestReply.DateTimeStamp : m.DateTimeStamp) descending
                     select new InboxMessage<T> {
                         MessageId = m.Id,
-                        Subject = m.Subject, 
-                        FromUser = m.FromUser,
+                        Subject = m.Subject,
+                        FromUser = aUser.Id == m.FromUserId ? m.ToUser : m.FromUser,
                         LastReply = (latestReply == null ? m.Body : latestReply.Body),
                         Viewed = (m.ToUserId == aUser.Id ? m.ToViewed : m.FromViewed),
                         DateTimeStamp = (latestReply == null ? m.DateTimeStamp : latestReply.DateTimeStamp),

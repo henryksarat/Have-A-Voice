@@ -9,11 +9,15 @@ using UniversityOfMe.Models;
 using UniversityOfMe.Repositories;
 using UniversityOfMe.Services.SendItems;
 using UniversityOfMe.UserInformation;
+using Social.Generic.Models;
 
 namespace UniversityOfMe.Controllers.SendItems {
     public class SendItemsController : UOFMeBaseController {
         private const string SENT_ITEM_SUCCESS = "Sent the user a ";
         private const string SEND_ITEM_ERROR = "Unable to send to the user. Please try again.";
+
+        private const string ITEM_MARKED_AS_SEEN = "The item that was sent has been marked as seen.";
+        private const string ITEM_MARKED_AS_SEEN_ERROR = "Error marking the item as seen.";
 
         private ISendItemsService theSendItemsService;
 
@@ -38,5 +42,24 @@ namespace UniversityOfMe.Controllers.SendItems {
 
             return RedirectToAction("Show", "Profile", new { id = id });
         }
+
+        [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
+        public ActionResult MarkAsSeen(int id) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+
+            try {
+                UserInformationModel<User> myUserInfo = GetUserInformatonModel();
+                theSendItemsService.MarkItemAsSeen(myUserInfo, id);
+                TempData["Message"] += MessageHelper.SuccessMessage(ITEM_MARKED_AS_SEEN);
+            } catch (Exception myException) {
+                LogError(myException, ITEM_MARKED_AS_SEEN_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(ITEM_MARKED_AS_SEEN_ERROR);
+            }
+
+            return RedirectToProfile();
+        }
+
     }
 }

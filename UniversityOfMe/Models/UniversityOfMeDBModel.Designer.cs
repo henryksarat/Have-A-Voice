@@ -13796,7 +13796,8 @@ namespace UniversityOfMe.Models
         /// <param name="fromUserId">Initial value of the FromUserId property.</param>
         /// <param name="item">Initial value of the Item property.</param>
         /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
-        public static SendItem CreateSendItem(global::System.Int32 id, global::System.Int32 toUserId, global::System.Int32 fromUserId, global::System.Int32 item, global::System.DateTime dateTimeStamp)
+        /// <param name="seen">Initial value of the Seen property.</param>
+        public static SendItem CreateSendItem(global::System.Int32 id, global::System.Int32 toUserId, global::System.Int32 fromUserId, global::System.Int32 item, global::System.DateTime dateTimeStamp, global::System.Boolean seen)
         {
             SendItem sendItem = new SendItem();
             sendItem.Id = id;
@@ -13804,6 +13805,7 @@ namespace UniversityOfMe.Models
             sendItem.FromUserId = fromUserId;
             sendItem.Item = item;
             sendItem.DateTimeStamp = dateTimeStamp;
+            sendItem.Seen = seen;
             return sendItem;
         }
 
@@ -13932,6 +13934,30 @@ namespace UniversityOfMe.Models
         private global::System.DateTime _DateTimeStamp;
         partial void OnDateTimeStampChanging(global::System.DateTime value);
         partial void OnDateTimeStampChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Seen
+        {
+            get
+            {
+                return _Seen;
+            }
+            set
+            {
+                OnSeenChanging(value);
+                ReportPropertyChanging("Seen");
+                _Seen = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Seen");
+                OnSeenChanged();
+            }
+        }
+        private global::System.Boolean _Seen;
+        partial void OnSeenChanging(global::System.Boolean value);
+        partial void OnSeenChanged();
 
         #endregion
     

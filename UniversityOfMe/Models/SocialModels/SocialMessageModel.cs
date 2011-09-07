@@ -34,6 +34,7 @@ namespace UniversityOfMe.Models.SocialModels {
             if (anExternal.ToUser != null) {
                 ToUserFullName = NameHelper.FullName(anExternal.ToUser);
                 ToUserProfilePictureUrl = PhotoHelper.ProfilePicture(anExternal.ToUser);
+                ToUser = anExternal.ToUser;
             }
         }
     }

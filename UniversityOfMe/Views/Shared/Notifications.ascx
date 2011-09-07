@@ -8,7 +8,11 @@
         <% if(myNotificationModel.NotificationType == NotificationType.SentItems) %>
 			<% if (myNotificationModel.SendItem == SendItemOptions.BEER) { %>
                 <li class="beer"> 
-				    <a href="/<%= myNotificationModel.WhoSent.ShortUrl %>"><%= NameHelper.FullName(myNotificationModel.WhoSent) %></a> sent you a beer
+				    <a href="/<%= myNotificationModel.WhoSent.ShortUrl %>">
+                        <%= NameHelper.FullName(myNotificationModel.WhoSent) %></a> sent you a beer 
+                        <a class="disable-feature" href="<%= URLHelper.MarkSentItemAsSeen(myNotificationModel.Id) %>">
+                            Hide
+                        </a>
 				    <span class="time"><%= LocalDateHelper.ToLocalTime(myNotificationModel.DateTimeSent)%></span> 
 			    </li> 
             <% } else { %>

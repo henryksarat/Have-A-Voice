@@ -6,6 +6,7 @@ using UniversityOfMe.Helpers;
 
 namespace UniversityOfMe.Models.View {
     public class NotificationModel {
+        public int Id { get; set; }
         public NotificationType NotificationType { get; set; }
         public Class Class { get; set; }
         public ClassBoard ClassBoard { get; set; }

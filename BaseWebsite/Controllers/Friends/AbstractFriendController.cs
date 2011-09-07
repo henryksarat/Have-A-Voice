@@ -170,5 +170,9 @@ namespace BaseWebsite.Controllers.Friends {
 
             return RedirectToAction("Pending");
         }
+
+        protected IFriendService<T, A> GetFriendService() {
+            return theFriendService;
+        }
     }
 }

@@ -70,6 +70,10 @@ namespace UniversityOfMe.Helpers {
             return "/Club/Activate?clubId=" + aClub.Id;
         }
 
+        public static string MarkSentItemAsSeen(int anId) {
+            return "/SendItems/MarkAsSeen/" + anId;
+        }
+
         public static string MessageUrl(int aMessageId) {
             return "/Message/Details/" + aMessageId;
         }

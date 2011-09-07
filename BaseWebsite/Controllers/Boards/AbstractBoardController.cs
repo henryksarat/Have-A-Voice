@@ -27,10 +27,12 @@ namespace BaseWebsite.Controllers.Boards {
         private static string DELETE_BOARD_ERROR = "Unable to delete the board message. Please try again.";
 
         private IBoardService<T, A, B> theService;
+        private IValidationDictionary theValidationDictionary;
 
         public AbstractBoardController(IBaseService<T> aBaseService, IUserInformation<T, Z> aUserInformation, IAuthenticationService<T, U, V, W, X, Y> anAuthService,
                                        IWhoIsOnlineService<T, Z> aWhoIsOnlineService, IBoardRepository<T, A, B> aBoardRepo) : base(aBaseService, aUserInformation, anAuthService, aWhoIsOnlineService) {
-            theService = new BoardService<T, A, B>(new ModelStateWrapper(this.ModelState), aBoardRepo);
+            theValidationDictionary = new ModelStateWrapper(this.ModelState);
+            theService = new BoardService<T, A, B>(theValidationDictionary, aBoardRepo);
         }
 
         protected abstract ILoggedInModel<A> CreateLoggedInWrapperModel(T aUser);
@@ -87,16 +89,13 @@ namespace BaseWebsite.Controllers.Boards {
                 bool myBoardResult = theService.PostToBoard(myPostingUser, sourceUserId, boardMessage);
                 if (myBoardResult) {
                     TempData["Message"] += SuccessMessage(POST_BOARD_SUCCESS);
-                } else {
-                    TempData["Message"] += ErrorMessage(POST_BOARD_ERROR);
-                    TempData["BoardMessage"] = boardMessage;
                 }
             } catch(PermissionDenied) {
                 TempData["Message"] += WarningMessage(ErrorKeys.PERMISSION_DENIED);
             } catch (Exception myException) {
                 LogError(myException, POST_BOARD_ERROR);
                 TempData["Message"] += ErrorMessage(POST_BOARD_ERROR);
-                TempData["BoardMessage"] = boardMessage;
+                theValidationDictionary.ForceModleStateExport();
             }
 
             return RedirectToAction("Show", "Profile", new { id = sourceUserId });

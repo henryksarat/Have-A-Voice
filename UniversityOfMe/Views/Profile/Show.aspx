@@ -9,7 +9,7 @@
 <%@ Import Namespace="Social.Generic.Helpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	<%=NameHelper.FullName(Model.User) %>'s Profile
+	Profile | <%=NameHelper.FullName(Model.User) %>'s
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -168,7 +168,6 @@
 				
 	<div class="eight last"> 
         <% Html.RenderPartial("Message"); %>
-        <% Html.RenderPartial("Validation"); %>
 		<div class="banner black full red-top small"> 
 			<span class="mine"><%=NameHelper.FullName(Model.User) %></span> 
             <% if (!myViewingOwn) { %>
@@ -184,6 +183,8 @@
 			    </div> 
             <% } %>
 		</div> 
+
+        <% Html.RenderPartial("Validation"); %>
  
         <% if (myAllowedToView) { %>
             <% if (Model.HasUserStatuses) { %>
@@ -209,6 +210,7 @@
 			        <div class="banner full mt50"> 
 				        BOARD
 			        </div> 
+                <div class="padding-col">
                     <% if (!myViewingOwn) { %>
                         <% using (Html.BeginForm("Create", "Board", FormMethod.Post)) { %>
                             <%= Html.Hidden("SourceUserId", Model.User.Id)%>
@@ -221,9 +223,7 @@
 			            </div> 
 	                    <% } %>
                     <% } %>
-		        </div> 
-        
-                <div class="padding-col">
+                
                     <% IEnumerable<Board> myAllBoards = Model.Boards.Where(b => !b.Deleted).OrderByDescending(b => b.DateTimeStamp);  %>
                     <% foreach (Board myBoard in myAllBoards.Take<Board>(5)) { %>
 		                <div class="board"> 
