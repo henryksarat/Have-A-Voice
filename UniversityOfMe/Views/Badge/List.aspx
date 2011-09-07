@@ -27,6 +27,7 @@
 			    <li> 
 				    <div> 
                         <img src="/Content/images/badges/<%= myBadge.Image %>" />
+                        <%= myBadge.Description %>
 				    </div> 
 			    </li> 
             <% } %>

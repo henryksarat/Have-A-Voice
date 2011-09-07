@@ -56,6 +56,7 @@ namespace UniversityOfMe.Repositories.Notifications {
         public IEnumerable<SendItem> GetSendItemsForUser(User aUser) {
             return (from s in theEntities.SendItems
                     where s.ToUserId == aUser.Id
+                    && !s.Seen
                     select s).OrderByDescending(s => s.DateTimeStamp).ToList<SendItem>();
         }
 

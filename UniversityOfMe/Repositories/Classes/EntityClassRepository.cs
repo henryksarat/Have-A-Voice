@@ -54,7 +54,13 @@ namespace UniversityOfMe.Repositories.Classes {
 
             AddEmailJobForClassBoardCreatorWithoutSave(myBoard);
 
-            BadgeHelper.AddNecessaryBadgesAndPoints(theEntities, aPostedByUser.Id, BadgeAction.ANSWER_QUESTION, BadgeSection.CLASS, aClassBoardId);
+
+            IEnumerable<ClassBoardReply> myBoardRepliesByUser = GetRepliesToBoardFromUser(aPostedByUser, aClassBoardId);
+
+            if (myBoardRepliesByUser.Count<ClassBoardReply>() == 0) {
+                //Only add to the badge if they havn't replied yet
+                BadgeHelper.AddNecessaryBadgesAndPoints(theEntities, aPostedByUser.Id, BadgeAction.POSTED_ANSWER, BadgeSection.CLASS, aClassBoardId);
+            }
 
             theEntities.SaveChanges();
         }
@@ -237,6 +243,13 @@ namespace UniversityOfMe.Repositories.Classes {
                     where r.UserId == aUser.Id
                     && r.ClassBoardId == aClassBoardId
                     && !r.Deleted
+                    select r);
+        }
+
+        private IEnumerable<ClassBoardReply> GetRepliesToBoardFromUser(User aPersonAnswered, int aClassBoardId) {
+            return (from r in theEntities.ClassBoardReplies
+                    where r.Id == aClassBoardId
+                    && r.UserId == aPersonAnswered.Id
                     select r);
         }
 
