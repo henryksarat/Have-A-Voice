@@ -11,6 +11,7 @@
     <% Html.RenderPartial("LeftNavigation", Model.LeftNavigation); %>
 
 	<div class="eight last"> 
+        <% Html.RenderPartial("Message"); %>
         <div class="create-feature-form"> 
 		    <div class="banner black full red-top small"> 
 			    <span class="mine"><%= NameHelper.FullName(Model.User) %> - ALBUMS</span> 
@@ -19,7 +20,6 @@
 			    </div> 
 		    </div> 
 
-            <% Html.RenderPartial("Message"); %>
             <% Html.RenderPartial("Validation"); %>
 
             <div class="padding-col">

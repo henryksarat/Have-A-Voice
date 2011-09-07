@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInListModel<Badge>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInWrapperModel<SomethingListWithUser<Badge>>>" %>
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
 <%@ Import Namespace="UniversityOfMe.Models" %>
 <%@ Import Namespace="UniversityOfMe.Helpers" %>
@@ -16,14 +16,14 @@
         <% Html.RenderPartial("Validation"); %>
 
 		<div class="banner black full red-top"> 
-			BADGES
+			<%= NameHelper.FullName(Model.Get().TargetUser) %>'s BADGES
 			<div id="header" class="buttons"> 
 				<div class="clearfix"></div> 
 			</div> 
 		</div> 
 		
         <ul id="list" class="badge-list clearfix"> 
-            <% foreach (Badge myBadge in Model.Get()) { %>
+            <% foreach (Badge myBadge in Model.Get().ListedItems) { %>
 			    <li> 
 				    <div> 
                         <img src="/Content/images/badges/<%= myBadge.Image %>" />

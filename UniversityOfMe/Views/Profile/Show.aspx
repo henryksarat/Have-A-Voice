@@ -139,9 +139,9 @@
                     <p><label>About Me:</label><%= Model.User.AboutMe %> </p> 
                 <% } %>
 
-                <div style="margin-left: 25px">
+                <div>
                     <a class="feedlink" href="<%= URLHelper.FriendListUrl(Model.User.Id) %>">Total Friends: <%= Model.FriendCount %></a>
-                    <div>
+                    <div class="wp100 center">
                         <% foreach(User myFriend in Model.FriendToShow) { %>
                             <div style="display:inline-block; margin-left: 15px; width: 100px; text-align: center">
                                 <a class="feedlink" href="<%= URLHelper.ProfileUrl(myFriend) %>">
@@ -154,8 +154,16 @@
                         <% } %>
                     </div>
                 </div>
+                <div style="width:100%;">
+                    <span class="left">
+                        <a class="feedlink" href="<%= URLHelper.BadgeListUrl(Model.User.Id) %>">Latest badge (View all):</a>
+                    </span>
+                    <div class="wp100 center">
+                        <img src="<%= URLHelper.BadgeUrl(Model.LatestBadge.Image) %>" />
+                    </div>
+                </div>
             <% } %>
-			
+			<div class="gray bold">Latest Activity:</div>
 			<ul> 
                 <% foreach (UserFeedModel myFeedModel in UserFeed.GetUserFeed(Model.User, 10)) { %>
 				    <li class="<%= myFeedModel.CssClass %>"> 

@@ -1,11 +1,11 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInWrapperModel<FriendListModel>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInWrapperModel<SomethingListWithUser<Friend>>>" %>
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
 <%@ Import Namespace="UniversityOfMe.Models" %>
 <%@ Import Namespace="UniversityOfMe.Helpers" %>
 <%@ Import Namespace="Social.ViewHelpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	<%= NameHelper.FullName(Model.Get().User) %>'s Friends
+	<%= NameHelper.FullName(Model.Get().TargetUser) %>'s Friends
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -59,14 +59,14 @@
         <% Html.RenderPartial("Validation"); %>
 
 		<div class="banner black full red-top"> 
-			<%= NameHelper.FullName(Model.Get().User) %>'s FRIENDS
+			<%= NameHelper.FullName(Model.Get().TargetUser) %>'s FRIENDS
 			<div id="header" class="buttons"> 
 				<div class="clearfix"></div> 
 			</div> 
 		</div> 
 		
         <ul id="list" class="friend-list clearfix"> 
-            <% foreach (Friend myFriend in Model.Get().Friends) { %>
+            <% foreach (Friend myFriend in Model.Get().ListedItems) { %>
 			    <li> 
 				    <div id="<%= myFriend.FriendedUser.FirstName %>"> 
 					    <a href="<%= URLHelper.ProfileUrl(myFriend.FriendedUser) %>"><img src="<%= PhotoHelper.ProfilePicture(myFriend.FriendedUser) %>" class="profile lrg flft mr9" /></a>

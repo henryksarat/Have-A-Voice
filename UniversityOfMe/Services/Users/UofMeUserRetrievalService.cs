@@ -88,6 +88,13 @@ namespace UniversityOfMe.Services.Users {
                 .Select(f => f.FriendedUser)
                 .ToList<User>();
 
+            Badge myLatestBadge = aUser
+                .UserBadges
+                .Where(b => b.Received)
+                .OrderByDescending(b => b.DateTimeStamp)
+                .FirstOrDefault<UserBadge>()
+                .Badge;
+
             return new ProfileModel() {
                 User = aUser,
                 Boards = myBoards,
@@ -98,7 +105,8 @@ namespace UniversityOfMe.Services.Users {
                 ShowAllPhotoAlbums = aShowAllAlbums,
                 UserStatuses = myUserStatuses,
                 FriendCount = myFriendCount,
-                FriendToShow = myRandomFriends
+                FriendToShow = myRandomFriends,
+                LatestBadge = myLatestBadge
             };
         }
     }

@@ -14,19 +14,22 @@ using Social.Generic.Models;
 using UniversityOfMe.Models.View;
 using System;
 using UniversityOfMe.Services.Badges;
+using UniversityOfMe.Services.Users;
 
 namespace UniversityOfMe.Controllers.Badges {
     public class BadgeController : UOFMeBaseController {
         private const string BADGES_RETRIEVAL_ERROR = "An error occurred while getting your badges.";
 
+        private IUofMeUserRetrievalService theUserRetrievalService;
         private IBadgeService theBadgeService;
 
         public BadgeController() {
             UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()));
             theBadgeService = new BadgeService();
+            theUserRetrievalService = new UofMeUserRetrievalService();
         }
 
-        [AcceptVerbs(HttpVerbs.Get)]
+        [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
         public ActionResult List() {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
@@ -35,8 +38,37 @@ namespace UniversityOfMe.Controllers.Badges {
             try {
                 UserInformationModel<User> myUserInformation = GetUserInformatonModel();
                 IEnumerable<Badge> myBadges = theBadgeService.GetBadgesForUser(myUserInformation.Details);
-                LoggedInListModel<Badge> myLoggedInModel = new LoggedInListModel<Badge>(myUserInformation.Details);
-                myLoggedInModel.Set(myBadges);
+                LoggedInWrapperModel<SomethingListWithUser<Badge>> myLoggedInModel = new LoggedInWrapperModel<SomethingListWithUser<Badge>>(myUserInformation.Details);
+                SomethingListWithUser<Badge> myListedBadges = new SomethingListWithUser<Badge>() {
+                    ListedItems = myBadges,
+                    TargetUser = myUserInformation.Details
+                };
+                myLoggedInModel.Set(myListedBadges);
+                return View("List", myLoggedInModel);
+            } catch (Exception myException) {
+                LogError(myException, BADGES_RETRIEVAL_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(BADGES_RETRIEVAL_ERROR);
+            }
+
+            return RedirectToProfile();
+        }
+
+        [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
+        public ActionResult ListBadgesForUser(int userId) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+
+            try {
+                UserInformationModel<User> myUserInformation = GetUserInformatonModel();
+                User myUser = theUserRetrievalService.GetUser(userId);
+                IEnumerable<Badge> myBadges = theBadgeService.GetBadgesForUser(myUser);
+                LoggedInWrapperModel<SomethingListWithUser<Badge>> myLoggedInModel = new LoggedInWrapperModel<SomethingListWithUser<Badge>>(myUserInformation.Details);
+                SomethingListWithUser<Badge> myListedBadges = new SomethingListWithUser<Badge>() {
+                    ListedItems = myBadges,
+                    TargetUser = myUserInformation.Details
+                };
+                myLoggedInModel.Set(myListedBadges);
                 return View("List", myLoggedInModel);
             } catch (Exception myException) {
                 LogError(myException, BADGES_RETRIEVAL_ERROR);

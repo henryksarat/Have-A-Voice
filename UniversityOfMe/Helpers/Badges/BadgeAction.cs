@@ -6,12 +6,12 @@ using System.Web;
 namespace UniversityOfMe.Helpers.Badges {
     public enum BadgeAction {
         ADD_FRIEND,
-        ASK_QUESTION,
-        ANSWER_QUESTION,
+        POSTED_QUESTION,
+        POSTED_ANSWER,
         POSTED_REVIEW,
-        CREATED,
         ATTENDED,
         BEER_SENT,
-        JOINED
+        JOINED,
+        CREATED
     }
 }

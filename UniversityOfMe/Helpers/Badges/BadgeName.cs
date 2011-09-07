@@ -1,18 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace UniversityOfMe.Helpers.Badges {
+﻿namespace UniversityOfMe.Helpers.Badges {
     public enum BadgeName {
         ONE_FRIEND,
         TEN_FRIENDS,
+        ONEHUNDRED_FRIENDS,
+        ONETHOUSAND_FRIENDS,
         ONE_BEER,
         TWENTYFIVE_BEER,
+        ONEHUNDRED_BEER,
+        ONETHOUSAND_BEER,
         ONE_CLASSREVIEW,
         FIVE_CLASSREVIEW,
         TEN_CLASSREVIEW,
-        ONE_EVENT,
-        TEN_EVENT
+        TWENTYFIVE_CLASSREVIEW,
+        ONE_EVENT, 
+        TEN_EVENT,
+        TWENTYFIVE_EVENT,
+        FIFTY_EVENT,
+        ONE_ORGANIZATIONJOINED,
+        FIVE_ORGANIZATIONJOINED,
+        TEN_ORGANIZATIONJOINED,
+        TWENTYFIVE_ORGANIZATIONJOINED,
+        ONE_QUESTIONPOSTED,
+        TWENTY_QUESTIONPOSTED,
+        FIFTY_QUESTIONPOSTED,
+        ONEHUNDRED_QUESTIONPOSTED,
+        ONE_QUESTIONANSWERED,
+        TWENTY_QUESTIONANSWERED,
+        FIFTY_QUESTIONANSWERED,
+        ONEHUNDRED_QUESTIONANSWERED,
+        ONE_PROFESSORREVIEW,
+        FIVE_PROFESSORREVIEW,
+        TEN_PROFESSORREVIEW,
+        TWENTYFIVE_PROFESSORREVIEW,
+        ONE_EVENTCREATED,
+        FIVE_EVENTCREATED,
+        TWENTYFIVE_EVENTCREATED,
+        FIFTY_EVENTCREATED
     }
 }

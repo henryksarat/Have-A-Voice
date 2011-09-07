@@ -51,11 +51,11 @@ namespace UniversityOfMe.Controllers.Users {
                 return RedirectToLogin();
             }
             UserInformationModel<User> myUserInfo = GetUserInformatonModel();
-            LoggedInWrapperModel<FriendListModel> myLoggedIn = new LoggedInWrapperModel<FriendListModel>(myUserInfo.Details);
+            LoggedInWrapperModel<SomethingListWithUser<Friend>> myLoggedIn = new LoggedInWrapperModel<SomethingListWithUser<Friend>>(myUserInfo.Details);
             try {
-                FriendListModel myFriendListModel = new FriendListModel() {
-                    Friends = GetFriendService().FindFriendsForUser(myUserInfo.Details.Id),
-                    User = theUserRetrievalService.GetUser(myUserInfo.Details.Id)
+                SomethingListWithUser<Friend> myFriendListModel = new SomethingListWithUser<Friend>() {
+                    ListedItems = GetFriendService().FindFriendsForUser(myUserInfo.Details.Id),
+                    TargetUser = theUserRetrievalService.GetUser(myUserInfo.Details.Id)
                 };
 
                 myLoggedIn.Set(myFriendListModel);
@@ -73,11 +73,11 @@ namespace UniversityOfMe.Controllers.Users {
                 return RedirectToLogin();
             }
             UserInformationModel<User> myUserInfo = GetUserInformatonModel();
-            LoggedInWrapperModel<FriendListModel> myLoggedIn = new LoggedInWrapperModel<FriendListModel>(myUserInfo.Details);
+            LoggedInWrapperModel<SomethingListWithUser<Friend>> myLoggedIn = new LoggedInWrapperModel<SomethingListWithUser<Friend>>(myUserInfo.Details);
             try {
-                FriendListModel myFriendListModel = new FriendListModel() {
-                    Friends = GetFriendService().FindFriendsForUser(id),
-                    User = theUserRetrievalService.GetUser(id)
+                SomethingListWithUser<Friend> myFriendListModel = new SomethingListWithUser<Friend>() {
+                    ListedItems = GetFriendService().FindFriendsForUser(id),
+                    TargetUser = theUserRetrievalService.GetUser(id)
                 };               
                 
                 myLoggedIn.Set(myFriendListModel);

@@ -20,5 +20,6 @@ namespace UniversityOfMe.Models.View {
         public bool ShowAllPhotoAlbums { get; set; }
         public int FriendCount { get; set; }
         public IEnumerable<User> FriendToShow { get; set; }
+        public Badge LatestBadge { get; set; }
     }
 }

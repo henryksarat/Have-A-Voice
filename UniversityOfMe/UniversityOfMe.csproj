@@ -206,7 +206,6 @@
       <DependentUpon>UniversityOfMeDBModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\View\ClubAdminFeed.cs" />
-    <Compile Include="Models\View\FriendListModel.cs" />
     <Compile Include="Models\View\ProfileModel.cs" />
     <Compile Include="Models\View\Search\ClassSearchResult.cs" />
     <Compile Include="Models\View\Search\OrganizationSearchResult.cs" />
@@ -217,6 +216,7 @@
     <Compile Include="Models\View\Search\UserSearchResult.cs" />
     <Compile Include="Models\View\Search\ProfessorSearchResult.cs" />
     <Compile Include="Models\View\Search\ISearchResult.cs" />
+    <Compile Include="Models\View\SomethingListWithUser.cs" />
     <Compile Include="Models\View\UserFeedModel.cs" />
     <Compile Include="Models\View\EditUserModel.cs" />
     <Compile Include="Models\View\EventViewModel.cs" />
@@ -336,6 +336,10 @@
     <Content Include="App_Data\AutomatedEmail.mdf" />
     <Content Include="App_Data\AutomatedEmail_log.ldf">
       <DependentUpon>AutomatedEmail.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\UniversityOfMe.mdf" />
+    <Content Include="App_Data\UniversityOfMe_log.ldf">
+      <DependentUpon>UniversityOfMe.mdf</DependentUpon>
     </Content>
     <Content Include="Content\css\ui-lightness\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
     <Content Include="Content\css\ui-lightness\images\ui-bg_diagonals-thick_20_666666_40x40.png" />

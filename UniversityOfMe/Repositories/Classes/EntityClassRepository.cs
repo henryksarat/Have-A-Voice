@@ -17,7 +17,7 @@ namespace UniversityOfMe.Repositories.Classes {
             ClassBoard myBoard = ClassBoard.CreateClassBoard(0, aClassId, aPostedByUser.Id, aReply, DateTime.UtcNow, false);
             theEntities.AddToClassBoards(myBoard);
 
-            BadgeHelper.AddNecessaryBadgesAndPoints(theEntities, aPostedByUser.Id, BadgeAction.ASK_QUESTION, BadgeSection.CLASS, aClassId);
+            BadgeHelper.AddNecessaryBadgesAndPoints(theEntities, aPostedByUser.Id, BadgeAction.POSTED_QUESTION, BadgeSection.CLASS, aClassId);
 
             theEntities.SaveChanges();
 
