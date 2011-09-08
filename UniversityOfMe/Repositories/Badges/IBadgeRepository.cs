@@ -7,5 +7,7 @@ using UniversityOfMe.Models;
 namespace UniversityOfMe.Repositories.Badges {
     public interface IBadgeRepository {
         IEnumerable<Badge> GetBadgesForUser(User aUser);
+        UserBadge GetLatestUnseenBadgeForUser(User aUser);
+        void MarkUserBadgeAsSeen(User aUser, int aUserBadgeId);
     }
 }

@@ -57,7 +57,6 @@
 
 <div class="four"> 
 	<div class="banner full mb72"> 
-
 		<div class="search clearfix"> 
 			<input id="search" type="text" class="inpt" value="type in your query and hit enter" /> 
 			<div class="select"> 
@@ -92,7 +91,7 @@
 		</div> 
 		<span class="corner"></span> 
 	</div> 
- 
+
 	<div class="banner title"> 
 		NEW NOTIFICATIONS
 	</div> 
@@ -152,4 +151,22 @@
         <a href="<%= URLHelper.ProfileUrl(myNewestMember) %>"><img src="<%= PhotoHelper.ProfilePicture(myNewestMember) %>" title="<%= NameHelper.FullName(myNewestMember) %>" /></a>
     <% } %>
 	</div> 
+    <% if(Model.LatestUserBadge != null) { %>
+        <div>
+            <div class="banner title"> 
+                LATEST EARNED BADGE
+                <span class="frgt">
+                    <a class="leftnavlink" href="<%= URLHelper.BadgeHideUrl(Model.LatestUserBadge.Id) %>">Hide</a> 
+                    | 
+                    <a class="leftnavlink" href="<%= URLHelper.BadgeListUrl() %>">View All</a>
+                </span>
+            </div> 
+            <div class="box center"> 
+            
+                    <img src="<%= URLHelper.BadgeUrl(Model.LatestUserBadge.Badge.Image) %>" /><br />
+                    <%= Model.LatestUserBadge.Badge.Description %>
+            
+            </div>
+        </div>
+    <% } %>
 </div> 

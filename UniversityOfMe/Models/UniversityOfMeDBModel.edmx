@@ -478,7 +478,7 @@
           <Key>
             <PropertyRef Name="Name" />
           </Key>
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="Description" Type="text" Nullable="false" />
           <Property Name="Image" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="OneHitPoints" Type="int" Nullable="false" />
@@ -1010,10 +1010,11 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="BadgeName" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="BadgeName" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="DateTimeStamp" Type="smalldatetime" Nullable="false" />
           <Property Name="CurrentPoints" Type="int" Nullable="false" />
           <Property Name="Received" Type="bit" Nullable="false" />
+          <Property Name="Seen" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="UserPrivacySettings">
           <Key>
@@ -4676,6 +4677,7 @@
           <Property Type="Int32" Name="CurrentPoints" Nullable="false" />
           <NavigationProperty Name="Badge" Relationship="UniversityOfMeModel.FK_UserBadges_Badges" FromRole="UserBadge" ToRole="Badge" />
           <Property Type="Boolean" Name="Received" Nullable="false" />
+          <Property Type="Boolean" Name="Seen" Nullable="false" />
         </EntityType>
         <Association Name="FK_UserBadges_Users">
           <End Type="UniversityOfMeModel.User" Role="User" Multiplicity="1" />
@@ -5406,6 +5408,7 @@
           <EntitySetMapping Name="UserBadges">
             <EntityTypeMapping TypeName="UniversityOfMeModel.UserBadge">
               <MappingFragment StoreEntitySet="UserBadges">
+                <ScalarProperty Name="Seen" ColumnName="Seen" />
                 <ScalarProperty Name="Received" ColumnName="Received" />
                 <ScalarProperty Name="CurrentPoints" ColumnName="CurrentPoints" />
                 <ScalarProperty Name="DateTimeStamp" ColumnName="DateTimeStamp" />
@@ -5488,7 +5491,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="UniversityOfMeDBModel" ZoomLevel="100">
+      <Diagram Name="UniversityOfMeDBModel" ZoomLevel="35">
         <EntityTypeShape EntityType="UniversityOfMeModel.RolePermission" Width="1.5" PointX="5.25" PointY="10.75" Height="1.9802864583333335" IsExpanded="true" />
         <EntityTypeShape EntityType="UniversityOfMeModel.Role" Width="1.5" PointX="3" PointY="10.25" Height="2.7494921874999996" IsExpanded="true" />
         <EntityTypeShape EntityType="UniversityOfMeModel.UserPrivacySetting" Width="1.5" PointX="5.25" PointY="4.875" Height="1.9802864583333326" IsExpanded="true" />

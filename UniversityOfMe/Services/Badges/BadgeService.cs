@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UniversityOfMe.Models;
 using UniversityOfMe.Repositories.Badges;
+using Social.Generic.Models;
 
 namespace UniversityOfMe.Services.Badges {
     public class BadgeService : IBadgeService {
@@ -15,6 +16,14 @@ namespace UniversityOfMe.Services.Badges {
 
         public IEnumerable<Badge> GetBadgesForUser(User aUser) {
             return theBadgeRepository.GetBadgesForUser(aUser);
+        }
+
+        public UserBadge GetLatestUnseenBadgeForUser(User aUser) {
+            return theBadgeRepository.GetLatestUnseenBadgeForUser(aUser);
+        }
+
+        public void MarkBadgeAsSeen(UserInformationModel<User> aUserInfo, int aUserBadgeId) {
+            theBadgeRepository.MarkUserBadgeAsSeen(aUserInfo.Details, aUserBadgeId);
         }
     }
 }

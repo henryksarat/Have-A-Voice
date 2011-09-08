@@ -71,5 +71,13 @@ namespace UniversityOfMe.Repositories.Notifications {
                     && cm.Approved == UOMConstants.PENDING
                     select cm).ToList<ClubMember>();
         }
+
+
+        public UserBadge GetLatestBadgeEarnedAndNotSeen(User aUser) {
+            return (from ub in theEntities.UserBadges
+                    where ub.UserId == aUser.Id
+                    && !ub.Seen
+                    select ub).FirstOrDefault<UserBadge>();
+        }
     }
 }

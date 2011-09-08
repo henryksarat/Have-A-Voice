@@ -11,5 +11,6 @@ namespace UniversityOfMe.Repositories.Notifications {
         IEnumerable<GeneralPostingViewState> GetGeneralPostingsNotViewed(User aUser);
         IEnumerable<SendItem> GetSendItemsForUser(User aUser);
         IEnumerable<ClubMember> GetPendingClubMembersOfAdminedClubs(User aUser);
+        UserBadge GetLatestBadgeEarnedAndNotSeen(User aUser);
     }
 }

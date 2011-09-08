@@ -78,6 +78,11 @@
 			    </li> 
             <% } %>
 		</ul> 
+        <% if (Model.Get().ListedItems.Count() == 0) { %>
+            <div class="center small bold">
+                You have no friends in your list yet.. lame.
+            </div>
+        <% } %>
 	</div>
 
     

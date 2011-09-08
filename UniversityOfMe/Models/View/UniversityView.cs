@@ -15,5 +15,6 @@ namespace UniversityOfMe.Models.View {
             } 
         }
         public UserStatus CurrentStatus { get; set; }
+        public UserBadge LatestUserBadge { get; set; }
     }
 }

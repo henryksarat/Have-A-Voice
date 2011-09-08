@@ -154,15 +154,18 @@
                         <% } %>
                     </div>
                 </div>
-                <div style="width:100%;">
-                    <span class="left">
-                        <a class="feedlink" href="<%= URLHelper.BadgeListUrl(Model.User.Id) %>">Latest badge earned (View all):</a>
-                    </span>
-                    <div class="wp100 center">
-                        <img src="<%= URLHelper.BadgeUrl(Model.LatestBadge.Image) %>" /><br />
-                        <%= Model.LatestBadge.Description %>
+
+                <% if (Model.LatestBadge != null) { %>
+                    <div style="width:100%;">
+                        <span class="left">
+                            <a class="feedlink" href="<%= URLHelper.BadgeListUrl(Model.User.Id) %>">Latest badge earned (View all):</a>
+                        </span>
+                        <div class="wp100 center">
+                            <img src="<%= URLHelper.BadgeUrl(Model.LatestBadge.Image) %>" /><br />
+                            <%= Model.LatestBadge.Description%>
+                        </div>
                     </div>
-                </div>
+                <% } %>
             <% } %>
 			<div class="gray bold">Latest Activity:</div>
 			<ul> 

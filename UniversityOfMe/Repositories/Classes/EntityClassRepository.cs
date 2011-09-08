@@ -54,7 +54,6 @@ namespace UniversityOfMe.Repositories.Classes {
 
             AddEmailJobForClassBoardCreatorWithoutSave(myBoard);
 
-
             IEnumerable<ClassBoardReply> myBoardRepliesByUser = GetRepliesToBoardFromUser(aPostedByUser, aClassBoardId);
 
             if (myBoardRepliesByUser.Count<ClassBoardReply>() == 0) {
@@ -193,20 +192,8 @@ namespace UniversityOfMe.Repositories.Classes {
             Class myClass = aBoard.Class;
             string myToEmail = aBoard.PostedByUser.Email;
             string myFromEmail = SiteConfiguration.NotificationsEmail();
-
-            var myClassUrl = new TagBuilder("a");
-            myClassUrl.MergeAttribute("href", URLHelper.BuildClassBoardUrl(aBoard));
-            myClassUrl.InnerHtml = myClass.ClassCode;
-
-            var myClassBoardUrl = new TagBuilder("a");
-            myClassUrl.MergeAttribute("href", URLHelper.BuildClassBoardUrl(aBoard));
-            myClassUrl.InnerHtml = "Click here to go to your post";
-
-            string mySubject = "UofMe: New reply to your class question in " + myClass.ClassCode;
-
-            string myBody = "Hey!, <br /><br /> Someone posted a reply to your question in " + myClassUrl.ToString()
-                + ". " + myClassBoardUrl.ToString() + " or copy and paste this into your browser: " + URLHelper.BuildClassBoardUrl(aBoard)
-                + "<br /><br />-UniversityOf.Me";
+            string mySubject = EmailContent.ClassBoardReplySubject(myClass); ;
+            string myBody = EmailContent.ClassBoardReplyBody(myClass, aBoard);
 
             EmailJob myEmailJob = EmailJob.CreateEmailJob(0, EmailType.REPLY_TO_QUESTION.ToString(), myFromEmail, 
                 myToEmail, mySubject, myBody, DateTime.UtcNow, false, false);

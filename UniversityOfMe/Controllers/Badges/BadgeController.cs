@@ -19,6 +19,7 @@ using UniversityOfMe.Services.Users;
 namespace UniversityOfMe.Controllers.Badges {
     public class BadgeController : UOFMeBaseController {
         private const string BADGES_RETRIEVAL_ERROR = "An error occurred while getting your badges.";
+        private const string HIDE_BADGE_ERROR = "Unable to hide the badge. Please try again later.";
 
         private IUofMeUserRetrievalService theUserRetrievalService;
         private IBadgeService theBadgeService;
@@ -73,6 +74,23 @@ namespace UniversityOfMe.Controllers.Badges {
             } catch (Exception myException) {
                 LogError(myException, BADGES_RETRIEVAL_ERROR);
                 TempData["Message"] += MessageHelper.ErrorMessage(BADGES_RETRIEVAL_ERROR);
+            }
+
+            return RedirectToProfile();
+        }
+
+        [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
+        public ActionResult Hide(int id) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+
+            try {
+                UserInformationModel<User> myUserInformation = GetUserInformatonModel();
+                theBadgeService.MarkBadgeAsSeen(myUserInformation, id);
+            } catch (Exception myException) {
+                LogError(myException, HIDE_BADGE_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(HIDE_BADGE_ERROR);
             }
 
             return RedirectToProfile();

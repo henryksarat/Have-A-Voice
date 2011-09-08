@@ -32,6 +32,11 @@
 				    </div> 
 			    </li> 
             <% } %>
+            <% if(Model.Get().Count() == 0) { %>
+                <div class="center small bold">
+                    You have no pending friend requests.
+                </div>
+            <% } %>
 		</ul> 
         </div>
 </asp:Content>

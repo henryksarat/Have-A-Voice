@@ -78,12 +78,20 @@ namespace UniversityOfMe.Helpers {
             return "/Message/Details/" + aMessageId;
         }
 
+        public static string BadgeHideUrl(int aUserBadgeId) {
+            return "/Badge/Hide?id=" + aUserBadgeId;
+        }
+
         public static string BadgeUrl(string aBadgeImage) {
             return "/Content/images/badges/" + aBadgeImage;
         }
 
         public static string BadgeListUrl(int anUserId) {
             return "/Badge/ListBadgesForUser?userId=" + anUserId;
+        }
+
+        public static string BadgeListUrl() {
+            return "/Badge/List";
         }
 
         public static string BuildGeneralPostingsUrl(GeneralPosting aGeneralPosting) {

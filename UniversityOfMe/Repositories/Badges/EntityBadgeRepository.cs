@@ -14,5 +14,25 @@ namespace UniversityOfMe.Repositories.Badges {
                     && ub.Received
                     select ub.Badge);
         }
+
+        public UserBadge GetLatestUnseenBadgeForUser(User aUser) {
+            return (from ub in theEntities.UserBadges
+                    where ub.UserId == aUser.Id
+                    && !ub.Seen
+                    select ub).FirstOrDefault<UserBadge>();
+        }
+
+        public void MarkUserBadgeAsSeen(User aUser, int aUserBadgeId) {
+            UserBadge myUserBadge = (from ub in theEntities.UserBadges
+                         where ub.Id == aUserBadgeId &&
+                         ub.UserId == aUser.Id
+                         select ub).FirstOrDefault<UserBadge>();
+
+            if(myUserBadge != null) {
+                myUserBadge.Seen = true;
+                theEntities.ApplyCurrentValues(myUserBadge.EntityKey.EntitySetName, myUserBadge);
+                theEntities.SaveChanges();
+            }
+        }
     }
 }

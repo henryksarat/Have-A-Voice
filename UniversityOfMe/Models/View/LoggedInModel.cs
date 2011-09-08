@@ -6,6 +6,7 @@ using UniversityOfMe.Helpers;
 using UniversityOfMe.Services.Dating;
 using UniversityOfMe.Services.Notifications;
 using UniversityOfMe.Services.Users;
+using UniversityOfMe.Services.Badges;
 
 namespace UniversityOfMe.Models.View {
     public class LoggedInModel {
@@ -16,9 +17,11 @@ namespace UniversityOfMe.Models.View {
             INotificationService myNotificationService = new NotificationService();
             IUofMeUserService myUserService = new UofMeUserService(new ModelStateWrapper(null));
             IDatingService myDatingService = new DatingService();
+            IBadgeService myBadgeService = new BadgeService();
 
             IEnumerable<NotificationModel> myNotifications = myNotificationService.GetNotificationsForUser(aUser, 5);
             IEnumerable<User> myNewestUsers = myUserService.GetNewestUsers(aUser, UniversityHelper.GetMainUniversityId(aUser), 10);
+            UserBadge myUserBadge = myBadgeService.GetLatestUnseenBadgeForUser(aUser);
 
             University = UniversityHelper.GetMainUniversity(aUser);
 
@@ -27,7 +30,8 @@ namespace UniversityOfMe.Models.View {
                 NewestUsersInUniversity = myNewestUsers,
                 Notifications = myNotifications,
                 DatingMember = myDatingService.GetDatingMember(aUser),
-                DatingMatchMember = myDatingService.UserDatingMatch(aUser)
+                DatingMatchMember = myDatingService.UserDatingMatch(aUser),
+                LatestUserBadge = myUserBadge
             };
         }
 

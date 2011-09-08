@@ -120,15 +120,8 @@ namespace UniversityOfMe.Repositories.Friends {
             User mySourceUser = GetUser(aSourceUserId);
             string myToEmail = mySourceUser.Email;
             string myFromEmail = SiteConfiguration.NotificationsEmail();
-
-            var myLink = new TagBuilder("a");
-            myLink.MergeAttribute("href", "http://www.universityof.me");
-            myLink.InnerHtml = "universityof.me";
-
-            string mySubject = "UofMe: New friend request!";
-
-            string myBody = "Hey!, <br /><br /> " + NameHelper.FullName(aUserAdding) + " has sent you a friend request. Login to "
-                + myLink.ToString() + " to accept them.";
+            string mySubject = EmailContent.FriendRequestSubject();
+            string myBody = EmailContent.FriendRequestBody(aUserAdding);
 
             EmailJob myEmailJob = EmailJob.CreateEmailJob(0, EmailType.FRIEND_REQUEST.ToString(), myFromEmail,
                 myToEmail, mySubject, myBody, DateTime.UtcNow, false, false);

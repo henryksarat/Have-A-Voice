@@ -19,5 +19,6 @@ namespace UniversityOfMe.Models.View {
         public SendItemOptions SendItem { get; set; }
         public User WhoSent { get; set; }
         public DateTime DateTimeSent { get; set; }
+        public Badge Badge { get; set; }
     }
 }

@@ -30,7 +30,7 @@ namespace UniversityOfMe.Repositories.Helpers {
                 anEntities.ApplyCurrentValues(myFirstIncompleteBadge.EntityKey.EntitySetName, myFirstIncompleteBadge);
             } else if (myMissingBadgesFromSection.Count<Badge>() > 0) {
                 Badge myBadge = myMissingBadgesFromSection.FirstOrDefault<Badge>();
-                UserBadge myUserBadge = UserBadge.CreateUserBadge(0, aSourceUserId, myBadge.Name, DateTime.UtcNow, myBadge.OneHitPoints, false);
+                UserBadge myUserBadge = UserBadge.CreateUserBadge(0, aSourceUserId, myBadge.Name, DateTime.UtcNow, myBadge.OneHitPoints, false, false);
                 if (myUserBadge.CurrentPoints >= myBadge.TotalPoints) {
                     myUserBadge.Received = true;
                 }

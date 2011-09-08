@@ -17177,7 +17177,8 @@ namespace UniversityOfMe.Models
         /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
         /// <param name="currentPoints">Initial value of the CurrentPoints property.</param>
         /// <param name="received">Initial value of the Received property.</param>
-        public static UserBadge CreateUserBadge(global::System.Int32 id, global::System.Int32 userId, global::System.String badgeName, global::System.DateTime dateTimeStamp, global::System.Int32 currentPoints, global::System.Boolean received)
+        /// <param name="seen">Initial value of the Seen property.</param>
+        public static UserBadge CreateUserBadge(global::System.Int32 id, global::System.Int32 userId, global::System.String badgeName, global::System.DateTime dateTimeStamp, global::System.Int32 currentPoints, global::System.Boolean received, global::System.Boolean seen)
         {
             UserBadge userBadge = new UserBadge();
             userBadge.Id = id;
@@ -17186,6 +17187,7 @@ namespace UniversityOfMe.Models
             userBadge.DateTimeStamp = dateTimeStamp;
             userBadge.CurrentPoints = currentPoints;
             userBadge.Received = received;
+            userBadge.Seen = seen;
             return userBadge;
         }
 
@@ -17338,6 +17340,30 @@ namespace UniversityOfMe.Models
         private global::System.Boolean _Received;
         partial void OnReceivedChanging(global::System.Boolean value);
         partial void OnReceivedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Seen
+        {
+            get
+            {
+                return _Seen;
+            }
+            set
+            {
+                OnSeenChanging(value);
+                ReportPropertyChanging("Seen");
+                _Seen = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Seen");
+                OnSeenChanged();
+            }
+        }
+        private global::System.Boolean _Seen;
+        partial void OnSeenChanging(global::System.Boolean value);
+        partial void OnSeenChanged();
 
         #endregion
     

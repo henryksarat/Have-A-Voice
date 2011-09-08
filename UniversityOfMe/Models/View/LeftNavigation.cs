@@ -15,5 +15,6 @@ namespace UniversityOfMe.Models.View {
         public bool HasDatingMember() {
             return DatingMember != null;
         }
+        public UserBadge LatestUserBadge { get; set; }
     }
 }

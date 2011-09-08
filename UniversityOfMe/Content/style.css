@@ -759,5 +759,8 @@ a.feedlink:hover { font-weight: bold; text-decoration: none }
 a.profiledelete, a.profiledelete:link, a.profiledelete:visited { text-decoration: none; color: #3e7c97; }
 a.profiledelete:hover { text-decoration: underline }
 
+a.leftnavlink, a.leftnavlink:link, a.leftnavlink:visited { text-decoration: underline; color:White; }
+a.leftnavlink:hover { text-decoration: none }
+
 .twitter { width: 16px; height: 16px; background: url("/Content/images/ico-t.png") no-repeat center center; display: inline-block; text-indent: -9999; outline: none; margin-left: 10px; font-size: 0px; top: -12px; }
 .facebook { width: 16px; height: 16px; background: url("/Content/images/ico-f.png") no-repeat center center; display: inline-block; text-indent: -9999; outline: none; margin-left: 7px; font-size: 0px; top: -12px; }

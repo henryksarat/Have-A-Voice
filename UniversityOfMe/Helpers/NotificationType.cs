@@ -8,6 +8,7 @@
         ClassBoard,
         GeneralPosting,
         Event,
-        ClassBoardReply
+        ClassBoardReply,
+        LatestUserBadge
     }
 }

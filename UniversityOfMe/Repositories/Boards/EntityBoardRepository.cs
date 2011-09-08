@@ -140,15 +140,8 @@ namespace UniversityOfMe.Repositories.Boards {
             User mySourceUser = GetUser(aSourceUserId);
             string myToEmail = mySourceUser.Email;
             string myFromEmail = SiteConfiguration.NotificationsEmail();
-
-            var myLink = new TagBuilder("a");
-            myLink.MergeAttribute("href", URLHelper.ProfileUrl(mySourceUser));
-            myLink.InnerHtml = "Click here to go to your profile page";
-
-            string mySubject = "UofMe: Someone posted to your profile board!";
-
-            string myBody = "Hey!, <br /><br /> " + NameHelper.FullName(aPostedByUser) + " has posted to your board. "
-                + myLink.ToString() + ". Or copy and paste this URL into your browser: " + NameHelper.FullName(aPostedByUser);
+            string mySubject = EmailContent.NewBoardSubject();
+            string myBody = EmailContent.NewBoardBody(aPostedByUser, mySourceUser);
 
             EmailJob myEmailJob = EmailJob.CreateEmailJob(0, EmailType.BOARD_POST.ToString(), myFromEmail,
                 myToEmail, mySubject, myBody, DateTime.UtcNow, false, false);

@@ -143,6 +143,7 @@
     <Compile Include="Helpers\Constants\ProfessorConstants.cs" />
     <Compile Include="Helpers\Constants\SearchConstants.cs" />
     <Compile Include="Helpers\Constants\TextBookConstants.cs" />
+    <Compile Include="Helpers\Email\EmailContent.cs" />
     <Compile Include="Helpers\Email\EmailType.cs" />
     <Compile Include="Helpers\FeedType.cs" />
     <Compile Include="Helpers\Format\MoneyFormatHelper.cs" />
