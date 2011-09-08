@@ -7,5 +7,6 @@ using UniversityOfMe.Models;
 namespace UniversityOfMe.Repositories.Professors {
     public interface IProfessorReviewRepository {
         void CreateProfessorReview(User aCreatingUser, ProfessorReview aProfessorReview);
+        ProfessorReview GetProfessorReview(User aUserReviewing, int aProfessorId);
     }
 }

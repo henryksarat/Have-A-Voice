@@ -66,7 +66,7 @@ namespace UniversityOfMe.Services.Classes {
             if (!ValidClassReview(aReviewingUser.Details, aClassId, aRating, aReview)) {
                 return false;
             }
-
+            
             theClassRepository.CreateReview(aReviewingUser.Details, aClassId, int.Parse(aRating), aReview, anAnonymnous);
 
             return true;
@@ -105,7 +105,7 @@ namespace UniversityOfMe.Services.Classes {
 
         public Class GetClass(UserInformationModel<User> aViewingUser, string aClassUrlString, ClassViewType aClassViewType) {
             string[] mySplitClass = URLHelper.FromUrlFriendly(aClassUrlString);
-
+            
             Class myClass = theClassRepository.GetClass(mySplitClass[0], mySplitClass[1], int.Parse(mySplitClass[2]));
             if (aClassViewType == ClassViewType.Discussion) {
                 theClassRepository.MarkClassBoardAsViewed(aViewingUser.Details, myClass.Id);
@@ -150,6 +150,11 @@ namespace UniversityOfMe.Services.Classes {
             theClassRepository.RemoveFromClassEnrollment(aStudentToRemove.Details, aClassId);
         }
 
+        private bool HasReviewedClass(User aReviwer, int aClassId) {
+            ClassReview myReview = theClassRepository.GetClassReview(aReviwer, aClassId);
+            return myReview != null;
+        }
+
         private bool ValidClass(CreateClassModel aCreateClassModel) {
             if (string.IsNullOrEmpty(aCreateClassModel.UniversityId) || aCreateClassModel.UniversityId.Equals(Constants.SELECT)) {
                 theValidationDictionary.AddError("UniversityId", aCreateClassModel.UniversityId, "A university is required.");
@@ -170,6 +175,10 @@ namespace UniversityOfMe.Services.Classes {
 
             if (string.IsNullOrEmpty(aCreateClassModel.ClassTitle)) {
                 theValidationDictionary.AddError("ClassTitle", aCreateClassModel.ClassTitle, "A class title must be provided.");
+            }
+
+            if (IsClassExists(URLHelper.ToUrlFriendly(aCreateClassModel.ClassCode + " " + aCreateClassModel.AcademicTermId + " " + aCreateClassModel.Year.ToString()))) {
+                theValidationDictionary.AddError("Class", string.Empty, "That class already exists for that academic term and year. Please find it and post in there.");
             }
 
             return theValidationDictionary.isValid;

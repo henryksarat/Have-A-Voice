@@ -19,7 +19,7 @@ using Social.Generic.ActionFilters;
 
 namespace UniversityOfMe.Controllers.Core {
     public class AuthenticationController : AbstractAuthenticationController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
-        private const string ACCOUNT_ACTIVATED_BODY = "You may now login and access have a voice!";
+        private const string ACCOUNT_ACTIVATED_BODY = "You may now login and access Unviersity of Me!";
         private const string CHANGE_EMAIL_ERROR = "An error occurred while trying to change your email. Please try again.";
         private const string CHANGE_EMAIL_SUCCESS = "Your email has been changed! You can now login with it.";
 
@@ -72,7 +72,7 @@ namespace UniversityOfMe.Controllers.Core {
 
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult ActivateAccount(string id) {
-            return base.ActivateAccount(id, ACCOUNT_ACTIVATED_BODY);
+            return base.ActivateAccount(id, ACCOUNT_ACTIVATED_BODY, new UserActivationStrategy());
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

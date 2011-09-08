@@ -19,7 +19,9 @@ namespace UniversityOfMe.Repositories.Badges {
             return (from ub in theEntities.UserBadges
                     where ub.UserId == aUser.Id
                     && !ub.Seen
-                    select ub).FirstOrDefault<UserBadge>();
+                    select ub)
+                    .OrderByDescending(ub => ub.DateTimeStamp)
+                    .FirstOrDefault<UserBadge>();
         }
 
         public void MarkUserBadgeAsSeen(User aUser, int aUserBadgeId) {

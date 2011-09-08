@@ -11,6 +11,7 @@ namespace UniversityOfMe.Helpers {
         Textbook,
         Club,
         ClassEnrollment,
-        Event
+        Event,
+        OrganizationEnrollment
     }
 }

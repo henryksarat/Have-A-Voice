@@ -2921,10 +2921,10 @@
           <NavigationProperty Name="ClassReviews" Relationship="UniversityOfMeModel.FK_ClassReviews_Users" FromRole="User" ToRole="ClassReview" />
           <NavigationProperty Name="GeneralPostingReplies" Relationship="UniversityOfMeModel.FK_GeneralPostingReplies_Users" FromRole="User" ToRole="GeneralPostingReply" />
           <NavigationProperty Name="Clubs_1" Relationship="UniversityOfMeModel.FK_Clubs_DeactivatedByUser" FromRole="User" ToRole="Club" />
-          <NavigationProperty Name="ClubMembers" Relationship="UniversityOfMeModel.FK_ClubMembers_DeniedByUser" FromRole="User" ToRole="ClubMember" />
-          <NavigationProperty Name="ClubMembers1" Relationship="UniversityOfMeModel.FK_ClubMembers_Users_ApprovedByUser" FromRole="User" ToRole="ClubMember" />
-          <NavigationProperty Name="ClubMembers2" Relationship="UniversityOfMeModel.FK_ClubMembers_Users_ClubMemeber" FromRole="User" ToRole="ClubMember" />
-          <NavigationProperty Name="ClubMembers3" Relationship="UniversityOfMeModel.FK_ClubMembers_Users_DeletedByUser" FromRole="User" ToRole="ClubMember" />
+          <NavigationProperty Name="ClubMembersDenied" Relationship="UniversityOfMeModel.FK_ClubMembers_DeniedByUser" FromRole="User" ToRole="ClubMember" />
+          <NavigationProperty Name="ClubMembersApproved" Relationship="UniversityOfMeModel.FK_ClubMembers_Users_ApprovedByUser" FromRole="User" ToRole="ClubMember" />
+          <NavigationProperty Name="ClubMembers" Relationship="UniversityOfMeModel.FK_ClubMembers_Users_ClubMemeber" FromRole="User" ToRole="ClubMember" />
+          <NavigationProperty Name="ClubMembersDeleted" Relationship="UniversityOfMeModel.FK_ClubMembers_Users_DeletedByUser" FromRole="User" ToRole="ClubMember" />
           <NavigationProperty Name="FeaturesEnableds" Relationship="UniversityOfMeModel.FK_FeaturesEnabled_Users" FromRole="User" ToRole="FeaturesEnabled" />
           <NavigationProperty Name="Clubs1" Relationship="UniversityOfMeModel.FK_Clubs_LastEditedByUser" FromRole="User" ToRole="Club" />
           <Property Type="String" Name="RelationshipStatus" MaxLength="20" FixedLength="false" Unicode="false" />
@@ -5491,7 +5491,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="UniversityOfMeDBModel" ZoomLevel="35">
+      <Diagram Name="UniversityOfMeDBModel" ZoomLevel="75">
         <EntityTypeShape EntityType="UniversityOfMeModel.RolePermission" Width="1.5" PointX="5.25" PointY="10.75" Height="1.9802864583333335" IsExpanded="true" />
         <EntityTypeShape EntityType="UniversityOfMeModel.Role" Width="1.5" PointX="3" PointY="10.25" Height="2.7494921874999996" IsExpanded="true" />
         <EntityTypeShape EntityType="UniversityOfMeModel.UserPrivacySetting" Width="1.5" PointX="5.25" PointY="4.875" Height="1.9802864583333326" IsExpanded="true" />

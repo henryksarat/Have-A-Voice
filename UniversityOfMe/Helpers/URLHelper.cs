@@ -66,6 +66,10 @@ namespace UniversityOfMe.Helpers {
             return "/Club/Deactivate?clubId=" + aClub.Id;
         }
 
+        public static string BuildOrganizationUrl(Club aClub) {
+            return "/" + aClub.UniversityId + "/Club/Details/" + aClub.Id;
+        }
+
         public static string BuildOrganizationSetAsActive(Club aClub) {
             return "/Club/Activate?clubId=" + aClub.Id;
         }

@@ -186,6 +186,7 @@
     <Compile Include="Helpers\UOMConstants.cs" />
     <Compile Include="Helpers\UOMErrorKeys.cs" />
     <Compile Include="Helpers\URLHelper.cs" />
+    <Compile Include="Helpers\UserActivationStrategy.cs" />
     <Compile Include="Models\Binders\RoleModelBinder.cs" />
     <Compile Include="Models\Binders\UpdatePrivacySettingsModelBinder.cs" />
     <Compile Include="Models\Binders\UpdateFeaturesModelBinder.cs" />

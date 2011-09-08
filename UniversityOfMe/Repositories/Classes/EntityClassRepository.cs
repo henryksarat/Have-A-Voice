@@ -133,7 +133,8 @@ namespace UniversityOfMe.Repositories.Classes {
                     select c).FirstOrDefault<Class>();
         }
 
-        public Class GetClass(string aClassCode, string anAcademicTermId, int aYear) {
+        public Class 
+            GetClass(string aClassCode, string anAcademicTermId, int aYear) {
             return (from c in theEntities.Classes
                     where c.ClassCode == aClassCode
                     && c.AcademicTermId == anAcademicTermId

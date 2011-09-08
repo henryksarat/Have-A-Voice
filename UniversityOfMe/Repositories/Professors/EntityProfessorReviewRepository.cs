@@ -20,5 +20,13 @@ namespace UniversityOfMe.Repositories.Professors {
             theEntities.AddToProfessorReviews(aProfessorReview);
             theEntities.SaveChanges();
         }
+
+
+        public ProfessorReview GetProfessorReview(User aUserReviewing, int aProfessorId) {
+            return (from r in theEntities.ProfessorReviews
+                    where r.UserId == aUserReviewing.Id
+                    && r.ProfessorId == aProfessorId
+                    select r).FirstOrDefault<ProfessorReview>();
+        }
     }
 }

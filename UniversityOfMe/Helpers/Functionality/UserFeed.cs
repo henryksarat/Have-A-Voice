@@ -65,6 +65,16 @@ namespace UniversityOfMe.Helpers.Functionality {
                                 FeedType = FeedType.Event,
                                 DateTimeStamp = (DateTime)e.Event.StartDate
                             });
+            myFeed.AddRange(from cm in aUser.ClubMembers
+                            where cm.ClubMemberUserId == aUser.Id
+                            && !cm.Deleted
+                            && cm.Approved == UOMConstants.APPROVED
+                            select new UserFeedModel() {
+                                FeedString = myFullName + " is in the organization <a class=\"feedlink\" href=\"" + URLHelper.BuildOrganizationUrl(cm.Club) + "\">" + cm.Club.Name + "</a>",
+                                CssClass = "organization",
+                                FeedType = FeedType.OrganizationEnrollment,
+                                DateTimeStamp = cm.ApprovedDateTimeStamp != null ? (DateTime)cm.ApprovedDateTimeStamp : (DateTime)cm.DateTimeStamp
+                            });
 
             return myFeed.OrderByDescending(f => f.DateTimeStamp).Take(aLimit);
         }

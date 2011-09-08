@@ -16502,7 +16502,7 @@ namespace UniversityOfMe.Models
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClubMembers_DeniedByUser", "ClubMember")]
-        public EntityCollection<ClubMember> ClubMembers
+        public EntityCollection<ClubMember> ClubMembersDenied
         {
             get
             {
@@ -16524,7 +16524,7 @@ namespace UniversityOfMe.Models
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClubMembers_Users_ApprovedByUser", "ClubMember")]
-        public EntityCollection<ClubMember> ClubMembers1
+        public EntityCollection<ClubMember> ClubMembersApproved
         {
             get
             {
@@ -16546,7 +16546,7 @@ namespace UniversityOfMe.Models
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClubMembers_Users_ClubMemeber", "ClubMember")]
-        public EntityCollection<ClubMember> ClubMembers2
+        public EntityCollection<ClubMember> ClubMembers
         {
             get
             {
@@ -16568,7 +16568,7 @@ namespace UniversityOfMe.Models
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClubMembers_Users_DeletedByUser", "ClubMember")]
-        public EntityCollection<ClubMember> ClubMembers3
+        public EntityCollection<ClubMember> ClubMembersDeleted
         {
             get
             {

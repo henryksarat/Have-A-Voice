@@ -169,10 +169,16 @@
             <% } %>
 			<div class="gray bold">Latest Activity:</div>
 			<ul> 
+                <% bool myHasActivity = false; %>
                 <% foreach (UserFeedModel myFeedModel in UserFeed.GetUserFeed(Model.User, 10)) { %>
 				    <li class="<%= myFeedModel.CssClass %>"> 
 					    <%= myFeedModel.FeedString %>
+                        <% myHasActivity = true; %>
 				    </li> 
+                <% } %>
+
+                <% if (!myHasActivity) { %>
+                    They have no activity.
                 <% } %>
 			</ul> 
 		</div> 
@@ -235,9 +241,10 @@
 			            </div> 
 	                    <% } %>
                     <% } %>
-                
+                    <% bool myHasBoardActivity = false; %>                
                     <% IEnumerable<Board> myAllBoards = Model.Boards.Where(b => !b.Deleted).OrderByDescending(b => b.DateTimeStamp);  %>
                     <% foreach (Board myBoard in myAllBoards.Take<Board>(5)) { %>
+                        <% myHasBoardActivity = true; %>
 		                <div class="board"> 
 			            <div class="prfl clearfix"> 
 				            <div class="pCol"> 
@@ -320,27 +327,42 @@
                         <% } %>
 		            </div> 
                     <% } %>
+                    <% if(!myHasBoardActivity) { %>
+                        <div class="center small bold">
+                            The user has no postings to their board.
+                        </div>
+                    <% } %>
 
-		            <div class="viewall"> 
+                    <div class="viewall"> 
 		                <% if(!Model.ShowAllBoards) { %>
                             <a href="<%= URLHelper.ProfileUrlForAllBoards(Model.User, Model.ShowAllPhotoAlbums) %>">View entire board</a> 
                         <% } %>
 		            </div> 
                 </div>
-			</div>
+            </div>
+        </div>
+                
+			
             <div class="profile-form">
 		        <div class="banner full mt50"> 
 			        PHOTOS
 		        </div> 
                 <div class="padding-col">
+                    <% bool myHasPhotos = false; %>
                     <% foreach (PhotoAlbum myAlbum in Model.PhotoAlbums) { %>
 		                <div class="album"> 
 			            <a href="<%= URLHelper.PhotoAlbumDetailsUrl(myAlbum) %>"> 
 				            <img src="<%= PhotoHelper.PhotoAlbumCover(myAlbum) %>" alt="photo" /> 
 				            <br /> 
 				            <%= myAlbum.Name%>
+                            <% myHasPhotos = true;%>
 			            </a> 
 		            </div> 
+                    <% } %>
+                    <% if (!myHasPhotos) { %>
+                        <div class="center small bold">
+                            The user has no photos.
+                        </div>
                     <% } %>
                 </div>
             </div>
@@ -350,5 +372,4 @@
             </div>
         <% } %>
 	</div> 
-</div> 
 </asp:Content>

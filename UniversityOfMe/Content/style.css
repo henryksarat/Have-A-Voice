@@ -397,6 +397,7 @@ div.prof-info label { font-weight: bold; display: inline-block; width: 95px; col
 div.prof-info ul { color: #767676; margin-top: 10px; }
 div.prof-info ul li { height: 16px; padding-left: 22px; margin-top: 7px; margin-bottom: 7px; }
 div.prof-info ul li.book { background:url(images/book.png) no-repeat center left; }
+div.prof-info ul li.organization { background:url(images/organization.png) no-repeat center left; }
 div.prof-info ul li.class { background:url(images/case.png) no-repeat center left; }
 div.prof-info ul li.event { background:url(images/event.png) no-repeat center left; }
 div.prof-info ul li span.sell { color: #ff8c00; }

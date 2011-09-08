@@ -14,7 +14,7 @@
 <ul> 
     <% foreach (Club myClub in Model.Take<Club>(5)) { %>
         <li>
-            <a class="itemlinked" href="/<%= myClub.UniversityId %>/Club/Details/<%= myClub.Id %>"><%= myClub.Name %></a></span> - <span class="gold"><%= myClub.ClubTypeDetails.DisplayName %>
+            <a class="itemlinked" href="<%= URLHelper.BuildOrganizationUrl(myClub) %>"><%= myClub.Name %></a> - <span class="gold"><%= myClub.ClubTypeDetails.DisplayName %>
         </li>                         
     <% } %>
 </ul> 

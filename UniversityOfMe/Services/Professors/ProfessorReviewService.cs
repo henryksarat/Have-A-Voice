@@ -17,7 +17,7 @@ namespace UniversityOfMe.Services.Professors {
         }
 
         public bool CreateProfessorReview(UserInformationModel<User> aReviewingUser, ProfessorReview aProfessorReview) {
-            if (!ValidateProfessorReview(aProfessorReview)) {
+            if (!ValidateProfessorReview(aReviewingUser.Details, aProfessorReview)) {
                 return false;
             }
 
@@ -26,7 +26,7 @@ namespace UniversityOfMe.Services.Professors {
             return true;
         }
 
-        private bool ValidateProfessorReview(ProfessorReview aProfessorReview) {
+        private bool ValidateProfessorReview(User aReviewingUser, ProfessorReview aProfessorReview) {
             if (string.IsNullOrEmpty(aProfessorReview.Review)) {
                 theValidationDictionary.AddError("Review", aProfessorReview.Review, "Review is required.");
             }
