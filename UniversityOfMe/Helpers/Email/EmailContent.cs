@@ -13,15 +13,15 @@ namespace UniversityOfMe.Helpers.Email {
 
         public static string ClassBoardReplyBody(Class aClass, ClassBoard aBoard) {
             var myClassUrl = new TagBuilder("a");
-            myClassUrl.MergeAttribute("href", URLHelper.BuildClassBoardUrl(aBoard));
+            myClassUrl.MergeAttribute("href", LinkIt(URLHelper.BuildClassBoardUrl(aBoard)));
             myClassUrl.InnerHtml = aClass.ClassCode;
 
             var myClassBoardUrl = new TagBuilder("a");
-            myClassUrl.MergeAttribute("href", URLHelper.BuildClassBoardUrl(aBoard));
+            myClassUrl.MergeAttribute("href", LinkIt(URLHelper.BuildClassBoardUrl(aBoard)));
             myClassUrl.InnerHtml = "Click here to go to your post";
 
             string myBody = "Hey!, <br /><br /> Someone posted a reply to your question in " + myClassUrl.ToString()
-                + ". " + myClassBoardUrl.ToString() + " or copy and paste this into your browser: " + URLHelper.BuildClassBoardUrl(aBoard)
+                + ". " + myClassBoardUrl.ToString() + " or copy and paste this into your browser: " + LinkIt(URLHelper.BuildClassBoardUrl(aBoard))
                 + "<br /><br />-UniversityOf.Me";
 
             return myBody;
@@ -50,13 +50,17 @@ namespace UniversityOfMe.Helpers.Email {
 
         public static string NewBoardBody(User aPostedByUser, User aSourceUser) {
             var myLink = new TagBuilder("a");
-            myLink.MergeAttribute("href", URLHelper.ProfileUrl(aSourceUser));
+            myLink.MergeAttribute("href", LinkIt(URLHelper.ProfileUrl(aSourceUser)));
             myLink.InnerHtml = "Click here to go to your profile page";
 
             string myBody = "Hey!, <br /><br /> " + NameHelper.FullName(aPostedByUser) + " has posted to your board. "
-                + myLink.ToString() + ". Or copy and paste this URL into your browser: " + NameHelper.FullName(aPostedByUser);
+                + myLink.ToString() + ". Or copy and paste this URL into your browser: " + LinkIt(URLHelper.ProfileUrl(aSourceUser));
 
             return myBody;
+        }
+
+        private static string LinkIt(string aLink) {
+            return "www.universityof.me" + aLink;
         }
     }
 }

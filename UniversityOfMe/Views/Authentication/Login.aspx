@@ -16,13 +16,13 @@
                     <% Html.RenderPartial("Validation"); %>
 		            <% using (Html.BeginForm("Login", "Authentication", FormMethod.Post, new { @class = "form-normal" })) { %>
                         <div class="input">
-                            <%: Html.Label("LoginEmail") %>
+                            <%: Html.Label("Email") %>
                             <%: Html.TextBox("LoginEmail")%>
                             <%: Html.ValidationMessage("LoginEmail", "*")%>
                         </div>
             
                         <div class="input">
-                            <%: Html.Label("LoginPassword") %>
+                            <%: Html.Label("Password") %>
                             <%: Html.Password("LoginPassword")%>
                             <%: Html.ValidationMessage("LoginPassword", "*")%>
                         </div>

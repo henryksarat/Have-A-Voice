@@ -19,7 +19,7 @@
 			        <span>COMPOSE MESSAGE</span> 
 		        </div> 
                 <% Html.RenderPartial("Validation"); %>
-	        <% using (Html.BeginForm()) {%>
+	        <% using (Html.BeginForm("Create", "Message", FormMethod.Post)) {%>
                 <%= Html.Hidden("ToUserId", Model.Get().SendToUser.Id) %>
                 <div class="twoColEditUser clearfix">
                     <div class="lCol center">  

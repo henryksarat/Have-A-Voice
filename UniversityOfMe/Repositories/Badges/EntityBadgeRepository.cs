@@ -18,6 +18,7 @@ namespace UniversityOfMe.Repositories.Badges {
         public UserBadge GetLatestUnseenBadgeForUser(User aUser) {
             return (from ub in theEntities.UserBadges
                     where ub.UserId == aUser.Id
+                    && ub.Received
                     && !ub.Seen
                     select ub)
                     .OrderByDescending(ub => ub.DateTimeStamp)
