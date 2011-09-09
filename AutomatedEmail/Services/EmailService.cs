@@ -31,11 +31,13 @@ namespace AutomatedEmail.Services {
                     mySendTo.Add(myEmailJob.ToEmail);
 
                     Content mySubject = new Content(myEmailJob.Subject);
-                    Body myBody = new Body(new Content(myEmailJob.Body));
+                    Body myBody = new Body();
+                    myBody.Html = new Content(myEmailJob.Body);
 
                     myRequest.Destination = new Destination(mySendTo);
                     myRequest.Message = new Message(mySubject, myBody);
                     myRequest.Source = myEmailJob.FromEmail;
+
 
                     //Change flag with the send in between so we can track if shit happened
                     theEmailRepo.MarkEmailPresentToTrue(myEmailJob.Id);

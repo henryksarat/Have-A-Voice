@@ -89,7 +89,7 @@ namespace BaseWebsite.Controllers {
         
         protected bool IsLoggedIn() {
             if (!HttpContext.User.Identity.IsAuthenticated) {
-
+                
                 T myUser = default(T);
 
                 try {

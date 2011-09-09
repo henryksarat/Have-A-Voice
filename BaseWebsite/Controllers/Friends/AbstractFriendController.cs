@@ -127,9 +127,6 @@ namespace BaseWebsite.Controllers.Friends {
             ILoggedInListModel<A> myModel = CreateLoggedInListModel(myUser);
             try {
                 myModel.Set(theFriendService.FindPendingFriendsForUser(UserId()));
-                if (myModel.Get().Count<A>() == 0) {
-                    TempData["Message"] += NormalMessage(NO_FRIEND_REQUESTS);
-                }
                 ForceUserInformationRefresh();
             } catch (Exception e) {
                 LogError(e, ErrorKeys.ERROR_MESSAGE);

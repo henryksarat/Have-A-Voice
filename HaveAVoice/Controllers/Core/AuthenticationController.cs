@@ -40,7 +40,7 @@ namespace HaveAVoice.Controllers.Core {
 
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult ActivateAccount(string id) {
-            return base.ActivateAccount(id, ACCOUNT_ACTIVATED_BODY);
+            return base.ActivateAccount(id, ACCOUNT_ACTIVATED_BODY, new UserActivationStrategy());
         }
 
         [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]

@@ -5,6 +5,7 @@ using Social.Authentication.Helpers;
 namespace Social.Authentication.Services {
     public interface IAuthenticationService<T, U, V, W, X, Y> {
         void ActivateNewUser(string activationCode);
+        void ActivateNewUser(string activationCode, IUserActivationStrategy<T, X> aUserActivationStrategy);
         UserInformationModel<T> RefreshUserInformationModel(string anEmail, string aPassword, IProfilePictureStrategy<T> aProfilePictureStrategy);
         UserInformationModel<T> AuthenticateUser(string anEmail, string aPassword, IProfilePictureStrategy<T> aProfilePictureStrategy);
         UserInformationModel<T> AuthenticateUser(int anId, IProfilePictureStrategy<T> aProfilePictureStrategy);

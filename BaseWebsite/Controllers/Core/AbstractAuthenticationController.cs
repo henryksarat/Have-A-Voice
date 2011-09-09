@@ -95,6 +95,26 @@ namespace BaseWebsite.Controllers.Core {
             return SendToErrorPage(myError);
         }
 
+        protected ActionResult ActivateAccount(string id, string anAccountActivationBody, IUserActivationStrategy<T, X> aUserActivationStrategy) {
+            if (IsLoggedIn()) {
+                return RedirectToProfile();
+            }
+            string myError;
+            try {
+                theAuthService.ActivateNewUser(id, aUserActivationStrategy);
+                return SendToResultPage(AuthenticationKeys.ACCOUNT_ACTIVATED_TITLE, anAccountActivationBody);
+            } catch (NullUserException) {
+                myError = AuthenticationKeys.INVALID_ACTIVATION_CODE;
+            } catch (NullRoleException e) {
+                LogError(e, AuthenticationKeys.SPECIFIC_ROLE_ERROR);
+                myError = AuthenticationKeys.OUR_ERROR;
+            } catch (Exception e) {
+                LogError(e, AuthenticationKeys.ACTIVATION_ERROR);
+                myError = AuthenticationKeys.ACTIVATION_ERROR;
+            }
+            return SendToErrorPage(myError);
+        }
+
         protected ActionResult LogOut() {
             UserInformationModel<T> myUserInformation = GetUserInformatonModel();
             if (myUserInformation != null) {

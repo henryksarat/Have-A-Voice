@@ -106,12 +106,16 @@ namespace Social.Authentication.Services {
         }
 
         public void ActivateNewUser(string activationCode) {
+            ActivateNewUser(activationCode, new DefaultUserActivationStrategy());
+        }
+
+        public void ActivateNewUser(string activationCode, IUserActivationStrategy<T, X> aUserActivationStrategy) {
             AbstractRoleModel<U> myDefaultRole = theRoleRepo.GetAbstractDefaultRole();
             if (myDefaultRole == null) {
                 throw new NullReferenceException("There is no default role.");
             }
 
-            ActivateUser(activationCode, myDefaultRole.Id, myDefaultRole.Name, new DefaultUserActivationStrategy());
+            ActivateUser(activationCode, myDefaultRole.Id, myDefaultRole.Name, aUserActivationStrategy);
         }
 
         public T ReadRememberMeCredentials() {

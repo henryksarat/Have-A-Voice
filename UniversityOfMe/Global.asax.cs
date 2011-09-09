@@ -83,6 +83,12 @@ namespace UniversityOfMe {
             );
 
             routes.MapRoute(
+                "DefaultPassword", // Route name
+                "Password/{action}/{id}", // URL with parameters
+                new { controller = "Password", action = "Request", id = UrlParameter.Optional } // Parameter defaults
+            );
+
+            routes.MapRoute(
                 "DefaultFeature", // Route name
                 "Feature/{action}/{id}", // URL with parameters
                 new { controller = "Feature", action = "List", id = UrlParameter.Optional } // Parameter defaults

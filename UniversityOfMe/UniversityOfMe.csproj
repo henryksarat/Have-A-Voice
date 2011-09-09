@@ -82,6 +82,7 @@
   <ItemGroup>
     <Compile Include="Controllers\Badges\BadgeController.cs" />
     <Compile Include="Controllers\Classes\ClassBoardReplyController.cs" />
+    <Compile Include="Controllers\Core\PasswordController.cs" />
     <Compile Include="Controllers\Search\SearchController.cs" />
     <Compile Include="Controllers\Site\FeatureController.cs" />
     <Compile Include="Controllers\Notification\NotificationController.cs" />
@@ -247,6 +248,7 @@
     <Compile Include="Repositories\Classes\IClassRepository.cs" />
     <Compile Include="Repositories\Clubs\EntityClubRepository.cs" />
     <Compile Include="Repositories\Clubs\IClubRepository.cs" />
+    <Compile Include="Repositories\Password\EntityPasswordRepository.cs" />
     <Compile Include="Repositories\Site\EntityContactUsRepository.cs" />
     <Compile Include="Repositories\Dating\DatingRepository.cs" />
     <Compile Include="Repositories\Dating\IDatingRepository.cs" />
@@ -500,6 +502,8 @@
     <Content Include="Views\Message\Details.aspx" />
     <Content Include="Views\Message\Inbox.aspx" />
     <Content Include="Views\Notification\List.aspx" />
+    <Content Include="Views\Password\Process.aspx" />
+    <Content Include="Views\Password\Request.aspx" />
     <Content Include="Views\Permission\Create.aspx" />
     <Content Include="Views\Permission\Delete.aspx" />
     <Content Include="Views\Permission\Edit.aspx" />

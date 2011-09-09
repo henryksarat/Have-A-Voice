@@ -8,9 +8,6 @@ using Social.Validation;
 
 namespace Social.User.Services {
     public class PasswordService<T> : IPasswordService<T> {
-        private const string FORGOT_PASSWORD_TITLE = "have a voice | forgot password";
-        private const string FORGOT_PASSWORD_BODY = "Hello! <br/ ><br/ > To continue with the forgot password process and change your password please click the following link: <br/ >";
-
         public const double FORGOT_PASSWORD_MAX_DAYS = 15;
 
         private IValidationDictionary theValidationDictionary;
@@ -26,7 +23,7 @@ namespace Social.User.Services {
             thePasswordRepository = aPasswordRepo;
         }
 
-        public bool ForgotPasswordRequest(string aBaseUrl, string anEmail) {
+        public bool ForgotPasswordRequest(string aBaseUrl, string anEmail, string aSubject, string aBody) {
             T myUser = theUserRetrievalService.GetUser(anEmail);
 
             if (myUser == null) {
@@ -38,7 +35,7 @@ namespace Social.User.Services {
                 System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(anEmail + DateTime.UtcNow.ToString(), "SHA1");
             thePasswordRepository.UpdateUserForgotPasswordHash(anEmail, myForgotPasswordHash);
 
-            SendForgotPasswordCode(aBaseUrl, anEmail, myForgotPasswordHash);
+            SendForgotPasswordCode(aBaseUrl, anEmail, myForgotPasswordHash, aSubject, aBody);
 
             return true;
         }
@@ -89,12 +86,12 @@ namespace Social.User.Services {
             theValidationDictionary.AddError("Email", anEmail, "That is not an email we recognize.");
         }
 
-        private void SendForgotPasswordCode(string aBaseUrl, string anEmail, string aPasswordHash) {
+        private void SendForgotPasswordCode(string aBaseUrl, string anEmail, string aPasswordHash, string aSubject, string aBody) {
             string myUrl = aBaseUrl + "/Password/Process/" + aPasswordHash;
             string myForgotPasswordLink = "<a href=\"" + myUrl + "\">" + myUrl + "</a>";
 
             try {
-                theEmailService.SendEmail("FORGOT PASSWORD", anEmail, FORGOT_PASSWORD_TITLE, FORGOT_PASSWORD_BODY + myForgotPasswordLink);
+                theEmailService.SendEmail("FORGOT PASSWORD", anEmail, aSubject, aBody + myForgotPasswordLink);
             } catch (Exception e) {
                 throw new EmailException("Couldn't send email.", e);
             }

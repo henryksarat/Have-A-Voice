@@ -1,36 +1,36 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using BaseWebsite.Controllers.Core;
-using HaveAVoice.Controllers.Helpers;
-using HaveAVoice.Helpers;
-using HaveAVoice.Helpers.UserInformation;
-using HaveAVoice.Models;
-using HaveAVoice.Models.SocialWrappers;
-using HaveAVoice.Repositories;
-using HaveAVoice.Repositories.UserFeatures;
-using HaveAVoice.Services.UserFeatures;
 using Social.Authentication;
 using Social.Authentication.Helpers;
+using Social.Generic.ActionFilters;
 using Social.Generic.Models;
 using Social.Generic.Services;
 using Social.Users.Services;
-using Social.Generic.ActionFilters;
-using HaveAVoice.Services.Email;
+using UniversityOfMe.Controllers.Helpers;
+using UniversityOfMe.Models;
+using UniversityOfMe.Repositories;
+using UniversityOfMe.Repositories.Password;
+using UniversityOfMe.Repositories.UserRepos;
+using UniversityOfMe.Services.Email;
+using UniversityOfMe.UserInformation;
+using UniversityOfMe.Helpers;
+using UniversityOfMe.Models.SocialModels;
 
-namespace HaveAVoice.Controllers.Core {
+namespace UniversityOfMe.Controllers.Core {
     public class PasswordController : AbstractPasswordController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
-        private const string FORGOT_PASSWORD_TITLE = "have a voice | forgot password";
+        private const string FORGOT_PASSWORD_TITLE = "UniversityOf.Me | forgot password";
         private const string FORGOT_PASSWORD_BODY = "Hello! <br/ ><br/ > To continue with the forgot password process and change your password please click the following link or copy and paste it into your browser: <br/ >";
 
         public PasswordController()
-            : base(new BaseService<User>(new HAVBaseRepository()),
-                   UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()), new GetUserStrategy()),
-                   new HAVAuthenticationService(), 
-                   new WhoIsOnlineService<User, WhoIsOnline>(new EntityHAVWhoIsOnlineRepository()),
-                   new EntityHAVUserRetrievalRepository(),
-                   new EntityHAVPasswordRepository(),
+            : base(new BaseService<User>(new EntityBaseRepository()),
+                   UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()),
+                   InstanceHelper.CreateAuthencationService(), 
+                   new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()),
+                   new EntityUserRetrievalRepository(),
+                   new EntityPasswordRepository(),
                    new EmailService()) {
-            HAVUserInformationFactory.SetInstance(GetUserInformationInstance());
+            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()));
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
@@ -40,7 +40,7 @@ namespace HaveAVoice.Controllers.Core {
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
         public ActionResult Request(string email) {
-            return base.Request(HAVConstants.BASE_URL, email, FORGOT_PASSWORD_TITLE, FORGOT_PASSWORD_BODY);
+            return base.Request(UOMConstants.BASE_URL, email, FORGOT_PASSWORD_TITLE, FORGOT_PASSWORD_BODY);
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]

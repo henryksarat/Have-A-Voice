@@ -47,9 +47,9 @@ namespace BaseWebsite.Controllers.Core {
             return View(REQUEST_VIEW);
         }
 
-        new protected ActionResult Request(string aBaseUrl, string anEmail) {
+        new protected ActionResult Request(string aBaseUrl, string anEmail, string aSubject, string aBody) {
             try {
-                if (thePasswordService.ForgotPasswordRequest(aBaseUrl, anEmail)) {
+                if (thePasswordService.ForgotPasswordRequest(aBaseUrl, anEmail, aSubject, aBody)) {
                     return SendToResultPage(EMAIL_SENT);
                 }
             } catch (EmailException e) {

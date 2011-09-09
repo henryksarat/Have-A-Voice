@@ -27,7 +27,7 @@
                 <%= Html.CheckBox("RememberMe") %> Keep me logged in
 			</div> 
 			<div class="input right"> 
-				<a href="#">Forgot your password?</a> 
+				<a href="/Password/Request">Forgot your password?</a> 
 			</div> 
 		</div> 
 	</div> 
