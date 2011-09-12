@@ -15,11 +15,11 @@ namespace HaveAVoice.Helpers.Email {
 
         public static string NewReplyBody(Issue anIssue) {           
             var myLink = new TagBuilder("a");
-            myLink.MergeAttribute("href", LinkHelper.IssueUrl(anIssue.Title));
+            myLink.MergeAttribute("href", HAVConstants.BASE_URL + LinkHelper.IssueUrl(anIssue.Title));
             myLink.InnerHtml = "Click here to go to your issue";
 
             string myBody = "Hey!, <br /><br /> Someone posted a reply to your issue on:  " + anIssue.Title + ". "
-                + myLink.ToString() + " or copy and paste this into your browser: " + LinkHelper.IssueUrl(anIssue.Title)
+                + myLink.ToString() + " or copy and paste this into your browser: " + HAVConstants.BASE_URL + LinkHelper.IssueUrl(anIssue.Title)
                 + "<br /><br />-Have A Voice team";
 
             return myBody;
@@ -31,12 +31,12 @@ namespace HaveAVoice.Helpers.Email {
 
         public static string NewBoardPostBody(User aPostedByUser, User aSourceUserId) {
             var myLink = new TagBuilder("a");
-            myLink.MergeAttribute("href", LinkHelper.Profile(aSourceUserId));
+            myLink.MergeAttribute("href", HAVConstants.BASE_URL + LinkHelper.Profile(aSourceUserId));
             myLink.InnerHtml = "Click here to go to your profile page";
 
 
             string myBody = "Hey!, <br /><br /> " + NameHelper.FullName(aPostedByUser) + " has posted to your board. "
-                + myLink.ToString() + " or copy and paste this URL into your browser: " + LinkHelper.Profile(aSourceUserId)
+                + myLink.ToString() + " or copy and paste this URL into your browser: " + HAVConstants.BASE_URL + LinkHelper.Profile(aSourceUserId)
                 + "<br /><br />-Have A Voice team";
 
             return myBody;
@@ -48,11 +48,11 @@ namespace HaveAVoice.Helpers.Email {
 
         public static string GroupBoardBody(Group aGroup) {
             var myLink = new TagBuilder("a");
-            myLink.MergeAttribute("href", LinkHelper.GroupUrl(aGroup));
+            myLink.MergeAttribute("href", HAVConstants.BASE_URL + LinkHelper.GroupUrl(aGroup));
             myLink.InnerHtml = "Click here to go to the group";
 
             string myBody = "Hey!, <br /><br /> There is a new post to the baord " + aGroup.Name + ". "
-                + myLink.ToString() + " or copy and paste this URL into your browser: " + LinkHelper.GroupUrl(aGroup)
+                + myLink.ToString() + " or copy and paste this URL into your browser: " + HAVConstants.BASE_URL + LinkHelper.GroupUrl(aGroup)
                 + "<br /><br />-Have A Voice team";
 
             return myBody;
@@ -64,12 +64,12 @@ namespace HaveAVoice.Helpers.Email {
 
         public static string NewGroupMemberBody(User aMemberJoining, Group aGroup) {
             var myLink = new TagBuilder("a");
-            myLink.MergeAttribute("href", LinkHelper.GroupUrl(aGroup));
+            myLink.MergeAttribute("href", HAVConstants.BASE_URL + LinkHelper.GroupUrl(aGroup));
             myLink.InnerHtml = "Click here to go to the group";
 
             string myBody = "Hey!, <br /><br />  " + NameHelper.FullName(aMemberJoining)
                 + " wants to join the group " + aGroup.Name + ". You are an admin so you should either approve or deny their membership. "
-                + myLink.ToString() + " or copy and paste this URL into your browser: " + LinkHelper.GroupUrl(aGroup)
+                + myLink.ToString() + " or copy and paste this URL into your browser: " + HAVConstants.BASE_URL + LinkHelper.GroupUrl(aGroup)
                 + "<br /><br />-Have A Voice team";
 
             return myBody;
@@ -81,11 +81,11 @@ namespace HaveAVoice.Helpers.Email {
 
         public static string AcceptedIntoGroupBody(Group aGroup) {
             var myLink = new TagBuilder("a");
-            myLink.MergeAttribute("href", LinkHelper.GroupUrl(aGroup));
+            myLink.MergeAttribute("href", HAVConstants.BASE_URL + LinkHelper.GroupUrl(aGroup));
             myLink.InnerHtml = "Click here to go to the group";
 
-            string myBody = "Hey!, <br /><br />  You have been accepted into the group " + aGroup.Name
-                + myLink.ToString() + " or copy and paste this URL into your browser: " + LinkHelper.GroupUrl(aGroup)
+            string myBody = "Hey!, <br /><br />  You have been accepted into the group " + aGroup.Name + ". "
+                + myLink.ToString() + " or copy and paste this URL into your browser: " + HAVConstants.BASE_URL + LinkHelper.GroupUrl(aGroup)
                 + "<br /><br />-Have A Voice team";
 
             return myBody;

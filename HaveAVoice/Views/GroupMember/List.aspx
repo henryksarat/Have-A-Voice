@@ -56,7 +56,7 @@
                         </a>
     			        <div class="clear">&nbsp;</div>
     		        </div>
-                    <% if (GroupHelper.IsAdmin(myUserInfo, myGroupMember.GroupId)) { %>
+                    <% if (GroupHelper.IsAdmin(myUserInfo, myGroupMember.GroupId) && myUserInfo.UserId != myGroupMember.MemberUserId) { %>
     		            <div class="col-2 center">
     			            <%= Html.ActionLink("Edit", "Details", "GroupMember", new { groupMemberId = myGroupMember.Id, groupId = myGroupMember.GroupId }, new { @class = "button" })%>
     			            <div class="clear">&nbsp;</div>
