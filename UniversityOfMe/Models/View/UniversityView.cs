@@ -10,6 +10,7 @@ namespace UniversityOfMe.Models.View {
         public IEnumerable<TextBook> TextBooks { get; set; }
         public IEnumerable<Club> Organizations { get; set; }
         public IEnumerable<GeneralPosting> GeneralPostings { get; set; }
+        public IEnumerable<AnonymousFlirt> AnonymousFlirts { get; set; }
         public bool HasCurrentStatus { get {
                 return CurrentStatus != null;   
             } 

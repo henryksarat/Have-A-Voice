@@ -190,6 +190,7 @@
 			<span class="mine"><%=NameHelper.FullName(Model.User) %></span> 
             <% if (!myViewingOwn) { %>
 			    <div class="buttons"> 
+                    <%= Html.ActionLink("Anonymously Flirt", "CreateWithTaggedUser", "Flirt", new { taggedUserId = Model.User.Id }, new { @class = "flirt mr10" })%>
                     <% if (FriendHelper.IsFriend(Model.User, myLoggedInUser.Details)) { %>
                         <%= Html.ActionLink("Remove from friends", "Delete", "Friend", new { id = Model.User.Id }, new { @class = "defriend mr10" })%>
                     <% } %>

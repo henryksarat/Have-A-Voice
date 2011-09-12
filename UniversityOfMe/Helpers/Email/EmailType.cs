@@ -8,6 +8,8 @@ namespace UniversityOfMe.Helpers.Email {
         QUESTION_POSTED_TO_CLASS,
         REPLY_TO_QUESTION,
         FRIEND_REQUEST,
-        BOARD_POST
+        BOARD_POST,
+        NEW_MESSAGE,
+        FLIRT
     }
 }

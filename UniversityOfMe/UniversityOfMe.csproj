@@ -83,6 +83,7 @@
     <Compile Include="Controllers\Badges\BadgeController.cs" />
     <Compile Include="Controllers\Classes\ClassBoardReplyController.cs" />
     <Compile Include="Controllers\Core\PasswordController.cs" />
+    <Compile Include="Controllers\Dating\FlirtController.cs" />
     <Compile Include="Controllers\Search\SearchController.cs" />
     <Compile Include="Controllers\Site\FeatureController.cs" />
     <Compile Include="Controllers\Notification\NotificationController.cs" />
@@ -209,6 +210,7 @@
       <DependentUpon>UniversityOfMeDBModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\View\ClubAdminFeed.cs" />
+    <Compile Include="Models\View\FlirtModel.cs" />
     <Compile Include="Models\View\ProfileModel.cs" />
     <Compile Include="Models\View\Search\ClassSearchResult.cs" />
     <Compile Include="Models\View\Search\OrganizationSearchResult.cs" />
@@ -248,6 +250,8 @@
     <Compile Include="Repositories\Classes\IClassRepository.cs" />
     <Compile Include="Repositories\Clubs\EntityClubRepository.cs" />
     <Compile Include="Repositories\Clubs\IClubRepository.cs" />
+    <Compile Include="Repositories\Dating\FlirtingRepository.cs" />
+    <Compile Include="Repositories\Dating\IFlirtingRepository.cs" />
     <Compile Include="Repositories\Password\EntityPasswordRepository.cs" />
     <Compile Include="Repositories\Site\EntityContactUsRepository.cs" />
     <Compile Include="Repositories\Dating\DatingRepository.cs" />
@@ -298,6 +302,8 @@
     <Compile Include="Services\Classes\ClassService.cs" />
     <Compile Include="Services\Clubs\IClubService.cs" />
     <Compile Include="Services\Clubs\ClubService.cs" />
+    <Compile Include="Services\Dating\FlirtingService.cs" />
+    <Compile Include="Services\Dating\IFlirtingService.cs" />
     <Compile Include="Services\Dating\DatingService.cs" />
     <Compile Include="Services\Email\EmailService.cs" />
     <Compile Include="Services\Events\EventService.cs" />
@@ -415,6 +421,7 @@
     <Content Include="Content\images\defriend.png" />
     <Content Include="Content\images\eagle.png" />
     <Content Include="Content\images\event.png" />
+    <Content Include="Content\images\flirt.png" />
     <Content Include="Content\images\friend.png" />
     <Content Include="Content\images\ico-f.png" />
     <Content Include="Content\images\ico-t.png" />
@@ -493,6 +500,8 @@
     <Content Include="Views\Event\Details.aspx" />
     <Content Include="Views\Event\Edit.aspx" />
     <Content Include="Views\Feature\Edit.aspx" />
+    <Content Include="Views\Flirt\Create.aspx" />
+    <Content Include="Views\Flirt\List.aspx" />
     <Content Include="Views\Friend\Pending.aspx" />
     <Content Include="Views\Friend\List.aspx" />
     <Content Include="Views\GeneralPosting\Create.aspx" />
@@ -539,6 +548,7 @@
     <Content Include="Views\TextBook\Create.aspx" />
     <Content Include="Views\TextBook\Details.aspx" />
     <Content Include="Views\University\Classes.ascx" />
+    <Content Include="Views\University\Flirts.ascx" />
     <Content Include="Views\University\UserStatuses.ascx" />
     <Content Include="Views\University\GeneralPostings.ascx" />
     <Content Include="Views\University\Organizations.ascx" />

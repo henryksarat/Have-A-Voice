@@ -6,6 +6,10 @@ using UniversityOfMe.Models;
 
 namespace UniversityOfMe.Helpers {
     public static class URLHelper {
+        public static string AnonymousFlirtUrl(string aUniversityId) {
+            return "/" + aUniversityId + "/Flirt/List";
+        }
+
         public static string ToUrlFriendly(string aValue) {
             return aValue.Replace(' ', '_');
         }

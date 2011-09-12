@@ -105,5 +105,20 @@ namespace HaveAVoice.Helpers.Email {
 
             return myBody;
         }
+
+        public static string NewMessageSubject() {
+            return "Have A Voice: Someone sent you a private message";
+        }
+
+        public static string NewMessageBody(User aUserSending) {
+            var myLink = new TagBuilder("a");
+            myLink.MergeAttribute("href", "http://www.haveavoice.com");
+            myLink.InnerHtml = "haveavoice.com";
+
+            string myBody = "Hey!, <br /><br /> " + NameHelper.FullName(aUserSending) + " has sent you a private message. Login to "
+                + myLink.ToString() + " to read it. <br /><br />-Have A Voice team";
+
+            return myBody;
+        }
     }
 }

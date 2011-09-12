@@ -114,6 +114,8 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserBadges_Badges", "Badge", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Badge), "UserBadge", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserBadge), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserStatuses_Universities", "University", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.University), "UserStatus", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserStatus), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Statuses_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "UserStatus", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserStatus), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_AnonymousFlirts_Universities", "University", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.University), "AnonymousFlirt", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.AnonymousFlirt), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_AnonymousFlirts_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "AnonymousFlirt", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.AnonymousFlirt), true)]
 
 #endregion
 
@@ -1060,6 +1062,22 @@ namespace UniversityOfMe.Models
             }
         }
         private ObjectSet<EmailJob> _EmailJobs;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<AnonymousFlirt> AnonymousFlirts
+        {
+            get
+            {
+                if ((_AnonymousFlirts == null))
+                {
+                    _AnonymousFlirts = base.CreateObjectSet<AnonymousFlirt>("AnonymousFlirts");
+                }
+                return _AnonymousFlirts;
+            }
+        }
+        private ObjectSet<AnonymousFlirt> _AnonymousFlirts;
 
         #endregion
         #region AddTo Methods
@@ -1511,6 +1529,14 @@ namespace UniversityOfMe.Models
         {
             base.AddObject("EmailJobs", emailJob);
         }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the AnonymousFlirts EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToAnonymousFlirts(AnonymousFlirt anonymousFlirt)
+        {
+            base.AddObject("AnonymousFlirts", anonymousFlirt);
+        }
 
         #endregion
     }
@@ -1641,6 +1667,448 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProfessorReview>("UniversityOfMeModel.FK_ProfessorReviews_AcademicTerm", "ProfessorReview", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="AnonymousFlirt")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class AnonymousFlirt : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new AnonymousFlirt object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="universityId">Initial value of the UniversityId property.</param>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="gender">Initial value of the Gender property.</param>
+        /// <param name="hairColor">Initial value of the HairColor property.</param>
+        /// <param name="adjetive">Initial value of the Adjetive property.</param>
+        /// <param name="somethingDelicious">Initial value of the SomethingDelicious property.</param>
+        /// <param name="animal">Initial value of the Animal property.</param>
+        /// <param name="post">Initial value of the Post property.</param>
+        /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
+        /// <param name="seen">Initial value of the Seen property.</param>
+        public static AnonymousFlirt CreateAnonymousFlirt(global::System.Int32 id, global::System.String universityId, global::System.Int32 userId, global::System.String gender, global::System.String hairColor, global::System.String adjetive, global::System.String somethingDelicious, global::System.String animal, global::System.String post, global::System.DateTime dateTimeStamp, global::System.Boolean seen)
+        {
+            AnonymousFlirt anonymousFlirt = new AnonymousFlirt();
+            anonymousFlirt.Id = id;
+            anonymousFlirt.UniversityId = universityId;
+            anonymousFlirt.UserId = userId;
+            anonymousFlirt.Gender = gender;
+            anonymousFlirt.HairColor = hairColor;
+            anonymousFlirt.Adjetive = adjetive;
+            anonymousFlirt.SomethingDelicious = somethingDelicious;
+            anonymousFlirt.Animal = animal;
+            anonymousFlirt.Post = post;
+            anonymousFlirt.DateTimeStamp = dateTimeStamp;
+            anonymousFlirt.Seen = seen;
+            return anonymousFlirt;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String UniversityId
+        {
+            get
+            {
+                return _UniversityId;
+            }
+            set
+            {
+                OnUniversityIdChanging(value);
+                ReportPropertyChanging("UniversityId");
+                _UniversityId = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("UniversityId");
+                OnUniversityIdChanged();
+            }
+        }
+        private global::System.String _UniversityId;
+        partial void OnUniversityIdChanging(global::System.String value);
+        partial void OnUniversityIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
+            }
+        }
+        private global::System.Int32 _UserId;
+        partial void OnUserIdChanging(global::System.Int32 value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> TaggedUserId
+        {
+            get
+            {
+                return _TaggedUserId;
+            }
+            set
+            {
+                OnTaggedUserIdChanging(value);
+                ReportPropertyChanging("TaggedUserId");
+                _TaggedUserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TaggedUserId");
+                OnTaggedUserIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _TaggedUserId;
+        partial void OnTaggedUserIdChanging(Nullable<global::System.Int32> value);
+        partial void OnTaggedUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Gender
+        {
+            get
+            {
+                return _Gender;
+            }
+            set
+            {
+                OnGenderChanging(value);
+                ReportPropertyChanging("Gender");
+                _Gender = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Gender");
+                OnGenderChanged();
+            }
+        }
+        private global::System.String _Gender;
+        partial void OnGenderChanging(global::System.String value);
+        partial void OnGenderChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String HairColor
+        {
+            get
+            {
+                return _HairColor;
+            }
+            set
+            {
+                OnHairColorChanging(value);
+                ReportPropertyChanging("HairColor");
+                _HairColor = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("HairColor");
+                OnHairColorChanged();
+            }
+        }
+        private global::System.String _HairColor;
+        partial void OnHairColorChanging(global::System.String value);
+        partial void OnHairColorChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Adjetive
+        {
+            get
+            {
+                return _Adjetive;
+            }
+            set
+            {
+                OnAdjetiveChanging(value);
+                ReportPropertyChanging("Adjetive");
+                _Adjetive = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Adjetive");
+                OnAdjetiveChanged();
+            }
+        }
+        private global::System.String _Adjetive;
+        partial void OnAdjetiveChanging(global::System.String value);
+        partial void OnAdjetiveChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String SomethingDelicious
+        {
+            get
+            {
+                return _SomethingDelicious;
+            }
+            set
+            {
+                OnSomethingDeliciousChanging(value);
+                ReportPropertyChanging("SomethingDelicious");
+                _SomethingDelicious = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("SomethingDelicious");
+                OnSomethingDeliciousChanged();
+            }
+        }
+        private global::System.String _SomethingDelicious;
+        partial void OnSomethingDeliciousChanging(global::System.String value);
+        partial void OnSomethingDeliciousChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Animal
+        {
+            get
+            {
+                return _Animal;
+            }
+            set
+            {
+                OnAnimalChanging(value);
+                ReportPropertyChanging("Animal");
+                _Animal = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Animal");
+                OnAnimalChanged();
+            }
+        }
+        private global::System.String _Animal;
+        partial void OnAnimalChanging(global::System.String value);
+        partial void OnAnimalChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Post
+        {
+            get
+            {
+                return _Post;
+            }
+            set
+            {
+                OnPostChanging(value);
+                ReportPropertyChanging("Post");
+                _Post = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Post");
+                OnPostChanged();
+            }
+        }
+        private global::System.String _Post;
+        partial void OnPostChanging(global::System.String value);
+        partial void OnPostChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateTimeStamp
+        {
+            get
+            {
+                return _DateTimeStamp;
+            }
+            set
+            {
+                OnDateTimeStampChanging(value);
+                ReportPropertyChanging("DateTimeStamp");
+                _DateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateTimeStamp");
+                OnDateTimeStampChanged();
+            }
+        }
+        private global::System.DateTime _DateTimeStamp;
+        partial void OnDateTimeStampChanging(global::System.DateTime value);
+        partial void OnDateTimeStampChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Seen
+        {
+            get
+            {
+                return _Seen;
+            }
+            set
+            {
+                OnSeenChanging(value);
+                ReportPropertyChanging("Seen");
+                _Seen = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Seen");
+                OnSeenChanged();
+            }
+        }
+        private global::System.Boolean _Seen;
+        partial void OnSeenChanging(global::System.Boolean value);
+        partial void OnSeenChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Location
+        {
+            get
+            {
+                return _Location;
+            }
+            set
+            {
+                OnLocationChanging(value);
+                ReportPropertyChanging("Location");
+                _Location = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Location");
+                OnLocationChanged();
+            }
+        }
+        private global::System.String _Location;
+        partial void OnLocationChanging(global::System.String value);
+        partial void OnLocationChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_AnonymousFlirts_Universities", "University")]
+        public University University
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<University>("UniversityOfMeModel.FK_AnonymousFlirts_Universities", "University").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<University>("UniversityOfMeModel.FK_AnonymousFlirts_Universities", "University").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<University> UniversityReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<University>("UniversityOfMeModel.FK_AnonymousFlirts_Universities", "University");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<University>("UniversityOfMeModel.FK_AnonymousFlirts_Universities", "University", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_AnonymousFlirts_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_AnonymousFlirts_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_AnonymousFlirts_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_AnonymousFlirts_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_AnonymousFlirts_Users", "User", value);
                 }
             }
         }
@@ -14858,6 +15326,28 @@ namespace UniversityOfMe.Models
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_AnonymousFlirts_Universities", "AnonymousFlirt")]
+        public EntityCollection<AnonymousFlirt> AnonymousFlirts
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AnonymousFlirt>("UniversityOfMeModel.FK_AnonymousFlirts_Universities", "AnonymousFlirt");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AnonymousFlirt>("UniversityOfMeModel.FK_AnonymousFlirts_Universities", "AnonymousFlirt", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -16925,6 +17415,28 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserStatus>("UniversityOfMeModel.FK_Statuses_Users", "UserStatus", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_AnonymousFlirts_Users", "AnonymousFlirt")]
+        public EntityCollection<AnonymousFlirt> AnonymousFlirts
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AnonymousFlirt>("UniversityOfMeModel.FK_AnonymousFlirts_Users", "AnonymousFlirt");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AnonymousFlirt>("UniversityOfMeModel.FK_AnonymousFlirts_Users", "AnonymousFlirt", value);
                 }
             }
         }

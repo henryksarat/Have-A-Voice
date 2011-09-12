@@ -6,6 +6,8 @@ using Social.Messaging.Repositories;
 using UniversityOfMe.Models;
 using UniversityOfMe.Models.SocialModels;
 using UniversityOfMe.Models.SocialWrappers;
+using UniversityOfMe.Helpers.Email;
+using UniversityOfMe.Helpers.Configuration;
 
 namespace UniversityOfMe.Repositories.Messaging {
     public class EntityMessageRepository : IMessageRepository<User, Message, MessageReply> {
@@ -30,7 +32,13 @@ namespace UniversityOfMe.Repositories.Messaging {
             messageToCreate.FromUserId = fromUserId;
             messageToCreate.DateTimeStamp = DateTime.UtcNow;
 
+            User mySendingUser = GetUser(fromUserId);
+            User myToUser = GetUser(messageToCreate.ToUserId);
+
             theEntities.AddToMessages(messageToCreate);
+            
+            AddEmailJobForNewMessageWithoutSave(myToUser, mySendingUser);
+
             theEntities.SaveChanges();
 
             return messageToCreate;
@@ -38,7 +46,13 @@ namespace UniversityOfMe.Repositories.Messaging {
 
         public Message CreateMessage(int aFromUserId, int aToUserId, string aSubject, string aBody) {
             Message myMessage = Message.CreateMessage(0, aToUserId, aFromUserId, aSubject, aBody, DateTime.UtcNow, false, false, false, false, false);
+            
+            User mySendingUser = GetUser(aFromUserId);
+            User myToUser = GetUser(aToUserId);
+            
             theEntities.AddToMessages(myMessage);
+
+            AddEmailJobForNewMessageWithoutSave(myToUser, mySendingUser);
             theEntities.SaveChanges();
             return myMessage;
         }
@@ -138,10 +152,26 @@ namespace UniversityOfMe.Repositories.Messaging {
             return message;
         }
 
+        private void AddEmailJobForNewMessageWithoutSave(User aToUser, User aSendingUser) {
+            string myFromEmail = SiteConfiguration.NotificationsEmail();
+            string mySubject = EmailContent.NewMessageSubject();
+            string myBody = EmailContent.NewMessageBody(aSendingUser);
+
+            EmailJob myEmailJob = EmailJob.CreateEmailJob(0, EmailType.NEW_MESSAGE.ToString(), myFromEmail,
+                aToUser.Email, mySubject, myBody, DateTime.UtcNow, false, false);
+            theEntities.AddToEmailJobs(myEmailJob);
+        }
+
         private Message GetMessage(int aMessageId) {
             return (from m in theEntities.Messages.Include("FromUser").Include("MessageReplies.User")
                     where m.Id == aMessageId
                     select m).FirstOrDefault<Message>();
+        }
+
+        private User GetUser(int aUserId) {
+            return (from u in theEntities.Users
+                    where u.Id == aUserId
+                    select u).FirstOrDefault<User>();
         }
     }
 }

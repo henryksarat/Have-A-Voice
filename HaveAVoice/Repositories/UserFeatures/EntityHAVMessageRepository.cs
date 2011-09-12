@@ -8,6 +8,8 @@ using HaveAVoice.Models;
 using Social.Messaging.Repositories;
 using Social.Generic.Models;
 using HaveAVoice.Models.SocialWrappers;
+using HaveAVoice.Helpers.Configuration;
+using HaveAVoice.Helpers.Email;
 
 namespace HaveAVoice.Repositories.UserFeatures {
     public class EntityHAVMessageRepository : IMessageRepository<User, Message, Reply> {
@@ -32,7 +34,13 @@ namespace HaveAVoice.Repositories.UserFeatures {
             messageToCreate.FromUserId = fromUserId;
             messageToCreate.DateTimeStamp = DateTime.UtcNow;
 
+            User mySendingUser = GetUser(fromUserId);
+            User myToUser = GetUser(messageToCreate.ToUserId);
+
             theEntities.AddToMessages(messageToCreate);
+
+            AddEmailJobForNewMessageWithoutSave(myToUser, mySendingUser);
+
             theEntities.SaveChanges();
 
             return messageToCreate;
@@ -140,10 +148,26 @@ namespace HaveAVoice.Repositories.UserFeatures {
             return message;
         }
 
+        private void AddEmailJobForNewMessageWithoutSave(User aToUser, User aSendingUser) {
+            string myFromEmail = SiteConfiguration.NotificationsEmail();
+            string mySubject = EmailContent.NewMessageSubject();
+            string myBody = EmailContent.NewMessageBody(aSendingUser);
+
+            EmailJob myEmailJob = EmailJob.CreateEmailJob(0, EmailType.NEW_MESSAGE.ToString(), myFromEmail,
+                aToUser.Email, mySubject, myBody, DateTime.UtcNow, false, false);
+            theEntities.AddToEmailJobs(myEmailJob);
+        }
+
         private Message GetMessage(int aMessageId) {
             return (from m in theEntities.Messages.Include("FromUser").Include("Replys.User")
                     where m.Id == aMessageId
                     select m).FirstOrDefault<Message>();
+        }
+
+        private User GetUser(int aUserId) {
+            return (from u in theEntities.Users
+                    where u.Id == aUserId
+                    select u).FirstOrDefault<User>();
         }
     }
 }

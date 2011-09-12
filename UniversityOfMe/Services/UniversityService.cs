@@ -15,10 +15,12 @@ using UniversityOfMe.Services.Notifications;
 using UniversityOfMe.Services.Professors;
 using UniversityOfMe.Services.TextBooks;
 using UniversityOfMe.Services.Status;
+using UniversityOfMe.Services.Dating;
 
 namespace UniversityOfMe.Services {
     public class UniversityService : IUniversityService {
         private IProfessorService theProfessorService;
+        private IFlirtingService theFlirtingService;
         private IClassService theClassService;
         private IEventService theEventService;
         private ITextBookService theTextBookService;
@@ -37,6 +39,7 @@ namespace UniversityOfMe.Services {
                    new GeneralPostingService(aValidationDictionary), 
                    new NotificationService(),
                    new UserStatusService(aValidationDictionary),
+                   new FlirtingService(aValidationDictionary),
                    new EntityUniversityRepository()) { }
 
         public UniversityService(IProfessorService aProfessorService, 
@@ -47,6 +50,7 @@ namespace UniversityOfMe.Services {
                                  IGeneralPostingService aGeneralPostingService, 
                                  INotificationService aNotificationService,
                                  IUserStatusService aUserStatusRepo,
+                                 IFlirtingService aFlirtingService,
                                  IUniversityRepository aUniversityRepository) {
             theProfessorService = aProfessorService;
             theClassService = aClassService;
@@ -56,6 +60,7 @@ namespace UniversityOfMe.Services {
             theGeneralPostingService = aGeneralPostingService;
             theNotificationService = aNotificationService;
             theUniversityRepository = aUniversityRepository;
+            theFlirtingService = aFlirtingService;
             theUserStatusService = aUserStatusRepo;
         }
 
@@ -93,6 +98,7 @@ namespace UniversityOfMe.Services {
             IEnumerable<Club> myOrganizations = theClubService.GetClubs(aUserInformation, aUniversityId);
             IEnumerable<GeneralPosting> myGeneralPostings = theGeneralPostingService.GetGeneralPostingsForUniversity(aUniversityId);
             IEnumerable<UserStatus> myUserStatuses = theUserStatusService.GetLatestUserStatusesWithinUniversity(aUserInformation, aUniversityId, 5);
+            IEnumerable<AnonymousFlirt> myAnonymousFlirt = theFlirtingService.GetFlirtsWithinUniversity(aUniversityId, 5);
             UserStatus myUserStatus = theUserStatusService.GetLatestUserStatusForUser(aUserInformation);
 
             return new UniversityView() {
@@ -104,7 +110,8 @@ namespace UniversityOfMe.Services {
                 Organizations = myOrganizations,
                 GeneralPostings = myGeneralPostings,
                 UserStatuses = myUserStatuses,
-                CurrentStatus = myUserStatus
+                CurrentStatus = myUserStatus,
+                AnonymousFlirts = myAnonymousFlirt
             };
         }
 

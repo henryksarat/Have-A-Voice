@@ -6,6 +6,7 @@ namespace HaveAVoice.Helpers.Email {
         BOARD_POST_TO_GROUP,
         MEMBER_REQUEST_JOIN_GROUP,
         ACCEPTED_INTO_GROUP,
-        FRIEND_REQUEST
+        FRIEND_REQUEST,
+        NEW_MESSAGE
     }
 }

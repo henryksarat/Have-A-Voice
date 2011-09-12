@@ -45,7 +45,7 @@
             <% int myWidgetNumberDisplayed = 0; %>
             <% bool myNeedOutDiv = true; %>
 
-            <% for(int i = 0; i < 7; i++) { %>
+            <% for(int i = 0; i < 8; i++) { %>
                 <% if (myWidgetNumberDisplayed == 0 && myNeedOutDiv) { %>
 			        <div class="twoCol clearfix">
                     <% myNeedOutDiv = false; %>
@@ -61,7 +61,18 @@
                             <% myWidgetNumberDisplayed++; %>
                             </div>
                         <% } %>
-                    <% } else if(i == 1) { %>	
+                        <% } else if(i == 1) { %>	
+                            <% if (FeatureHelper.IsFeatureEnabled(Model.User, Features.FlirtWidget)) { %> 
+                                <% if (myWidgetNumberDisplayed == 0) { %>
+                                        <div class="lCol">     
+                                <% } else if(myWidgetNumberDisplayed == 1) { %>
+                                        <div class="rCol"> 
+                                <% } %>
+                                <% Html.RenderPartial("Flirts", Model.Get().AnonymousFlirts); %>
+                                <% myWidgetNumberDisplayed++; %>
+                                </div>
+                            <% } %>
+                        <% } else if(i == 2) { %>	
                         <% if (FeatureHelper.IsFeatureEnabled(Model.User, Features.ProfessorWidget)) { %> 
                             <% if (myWidgetNumberDisplayed == 0) { %>
                                     <div class="lCol">     
@@ -72,7 +83,7 @@
                             <% myWidgetNumberDisplayed++; %>
                             </div>
                         <% } %>
-                    <% } else if(i == 2) { %>				    
+                    <% } else if(i == 3) { %>				    
                         <% if (FeatureHelper.IsFeatureEnabled(Model.User, Features.ClassWidget)) { %> 
                             <% if (myWidgetNumberDisplayed == 0) { %>
                                     <div class="lCol">     
@@ -83,7 +94,7 @@
                             <% myWidgetNumberDisplayed++; %>
                             </div>
                         <% } %>
-                    <% } else if(i == 3) { %>				    
+                    <% } else if(i == 4) { %>				    
                         <% if (FeatureHelper.IsFeatureEnabled(Model.User, Features.EventWidget)) { %> 
                             <% if (myWidgetNumberDisplayed == 0) { %>
                                     <div class="lCol">     
@@ -94,7 +105,7 @@
                             <% myWidgetNumberDisplayed++; %>
                             </div>
                         <% } %>
-                    <% } else if(i == 4) { %>				    
+                    <% } else if(i == 5) { %>				    
                         <% if (FeatureHelper.IsFeatureEnabled(Model.User, Features.TextbookWidget)) { %> 
                             <% if (myWidgetNumberDisplayed == 0) { %>
                                     <div class="lCol">     
@@ -105,7 +116,7 @@
                             <% myWidgetNumberDisplayed++; %>
                             </div>
                         <% } %>
-                    <% } else if(i == 5) { %>				    
+                    <% } else if(i == 6) { %>				    
                         <% if (FeatureHelper.IsFeatureEnabled(Model.User, Features.OrganizationWidget)) { %> 
                             <% if (myWidgetNumberDisplayed == 0) { %>
                                     <div class="lCol">     
@@ -116,7 +127,7 @@
                             <% myWidgetNumberDisplayed++; %>
                             </div>
                         <% } %>
-                    <% } else if (i == 6) { %>				    
+                    <% } else if (i == 7) { %>				    
                         <% if (FeatureHelper.IsFeatureEnabled(Model.User, Features.GeneralPostingsWidget)) { %> 
                             <% if (myWidgetNumberDisplayed == 0) { %>
                                     <div class="lCol">     

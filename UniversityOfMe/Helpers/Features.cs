@@ -9,6 +9,7 @@ namespace UniversityOfMe.Helpers {
         OrganizationWidget,
         GeneralPostingsWidget,
         StatusWidget,
-        SetStatusWidget
+        SetStatusWidget,
+        FlirtWidget
     }
 }

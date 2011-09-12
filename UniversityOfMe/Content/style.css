@@ -181,6 +181,8 @@ footer a:hover { text-decoration: underline; }
 
 /*** TEXT COLOR ****/
 .red { color: #971e21; }
+.blu { color: #1919e5; }
+.green { color: #09e714; }
 .gold { color: #ab9075; }
 .gray { color: #999999; }
 .black { color: #2a2a2a; }
@@ -333,6 +335,7 @@ span.mine { padding: 2px 0px 2px 28px; background:url(images/self.png) no-repeat
 span.class { padding: 2px 0px 2px 28px; background:url(images/case.png) no-repeat center left; text-transform: uppercase; }
 span.club { padding: 2px 0px 2px 28px; background:url(images/organization.png) no-repeat center left; text-transform: uppercase; }
 span.event { padding: 2px 0px 2px 28px; background:url(images/event.png) no-repeat center left; text-transform: uppercase; }
+span.flirt { padding: 2px 0px 2px 28px; background:url(images/flirt.png) no-repeat center left; text-transform: uppercase; }
 span.prof { padding: 2px 0px 2px 28px; background:url(images/person.png) no-repeat center left; text-transform: uppercase; }
 span.post { padding: 2px 0px 2px 28px; background:url(images/paper.png) no-repeat center left; text-transform: uppercase; }
 span.post span.user { color: #bcbcbc; text-transform: none; font-size: 11px; }
@@ -353,6 +356,7 @@ a.defriend, a.defriend:link, a.defriend:visited { padding: 2px 0px 2px 26px; bac
 .banner a.beer, .banner a.beer:link, .banner a.beer:visited { padding: 2px 0px 2px 26px; background:url(images/beer.png) no-repeat center left; text-decoration: underline; color: #fff; text-indent: 0; width: auto; }
 a.pm, a.pm:link, a.pm:visited { padding: 2px 0px 2px 26px; background:url(images/read-mail.png) no-repeat center left; text-decoration: underline; color: #fff; }
 a.addfriend, a.addfriend:link, a.addfriend:visited { padding: 2px 0px 2px 26px; background:url(images/addfriend.png) no-repeat center left; text-decoration: underline; color: #fff; }
+a.flirt, a.flirt:link, a.flirt:visited { padding: 2px 0px 2px 26px; background:url(images/flirt.png) no-repeat center left; text-decoration: underline; color: #fff; }
 
 a.edit.sm, a.edit.sm:link, a.edit.sm:visited { padding: 0px; width: 20px; height: 20px; background:url(images/wrench.png) no-repeat top left; text-decoration: none; text-indent: -9999px; display: inline-block; }
 a.trash.sm, a.trash.sm:link, a.trash.sm:visited { padding: 0px; width: 20px; height: 20px; background:url(images/trash.png) no-repeat top left; text-decoration: none; text-indent: -9999px; display: inline-block; }
@@ -420,6 +424,7 @@ div.prof-info ul li span.sell { color: #ff8c00; }
 .form ul.full li span.book { background:url(images/book.png) no-repeat left center; }
 .form ul.full li span.organization { background:url(images/organization.png) no-repeat left center; }
 .form ul.full li span.general { background:url(images/paper.png) no-repeat left center; }
+.form ul.full li span.flirt { background:url(images/flirt.png) no-repeat left center; }
 
 .form ul.full li>ul { width: 100%; font-size: 13px }
 .form ul.full li>ul li { list-style: square; list-style-position: inside; color: #dbdbdb; border-top: 1px solid #fff; border-bottom: 1px solid #dbdbdb; float: none; width: 90%; line-height: 1.2; padding: 10px 0px; }
@@ -435,6 +440,7 @@ div.twoCol>div>span { padding-left: 32px; }
 div.twoCol span.professor { background:url(images/person.png) no-repeat left center; }
 div.twoCol span.class { background:url(images/case.png) no-repeat left center; }
 div.twoCol span.event { background:url(images/event.png) no-repeat left center; }
+div.twoCol span.flirt { background:url(images/flirt.png) no-repeat left center; }
 div.twoCol span.book { background:url(images/book.png) no-repeat left center; }
 div.twoCol span.organization { background:url(images/organization.png) no-repeat left center; }
 div.twoCol span.general { background:url(images/paper.png) no-repeat left center; }
@@ -480,6 +486,7 @@ ul.filter li a.friend { background:url(images/all.png) no-repeat center left; }
 ul.filter li a.prof { background:url(images/person.png) no-repeat center left; }
 ul.filter li a.class { background:url(images/case.png) no-repeat center left; }
 ul.filter li a.event { background:url(images/event.png) no-repeat center left; }
+ul.filter li a.flirt { background:url(images/flirt.png) no-repeat center left; }
 ul.filter li a.book { background:url(images/book.png) no-repeat center left; }
 ul.filter li a.org { background:url(images/organization.png) no-repeat center left; }
 ul.filter li a.post { background:url(images/paper.png) no-repeat center left; }

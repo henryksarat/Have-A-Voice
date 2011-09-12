@@ -5,7 +5,7 @@
 <%@ Import Namespace="System.Collections.Generic" %>
 
 <div class="wp90">
-    <span class="normal bold class">Latest Class Rating</span>
+    <span class="normal bold class">Latest Class Discussions</span>
     <span class="frgt">
         <%= Html.ActionLink("Hide", "DisableFeature", "Profile", new { feature = Features.ClassWidget }, new { @class = "disable-feature" })%>
     </span>
