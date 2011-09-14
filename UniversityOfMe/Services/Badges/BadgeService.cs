@@ -14,6 +14,10 @@ namespace UniversityOfMe.Services.Badges {
             theBadgeRepository = aBadgeRepo;
         }
 
+        public Badge GetBadgeByName(string aBadgeName) {
+            return theBadgeRepository.GetBadgeByName(aBadgeName);
+        }
+
         public IEnumerable<Badge> GetBadgesForUser(User aUser) {
             return theBadgeRepository.GetBadgesForUser(aUser);
         }

@@ -8,6 +8,12 @@ namespace UniversityOfMe.Repositories.Badges {
     public class EntityBadgeRepository : IBadgeRepository {
         private UniversityOfMeEntities theEntities = new UniversityOfMeEntities();
 
+        public Badge GetBadgeByName(string aBadgeName) {
+            return (from b in theEntities.Badges
+                    where b.Name == aBadgeName
+                    select b).FirstOrDefault<Badge>();
+        }
+
         public IEnumerable<Badge> GetBadgesForUser(User aUser) {
             return (from ub in theEntities.UserBadges
                     where ub.UserId == aUser.Id

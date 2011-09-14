@@ -22,7 +22,11 @@ namespace UniversityOfMe.Models.View {
             IEnumerable<NotificationModel> myNotifications = myNotificationService.GetNotificationsForUser(aUser, 5);
             IEnumerable<User> myNewestUsers = myUserService.GetNewestUsers(aUser, UniversityHelper.GetMainUniversityId(aUser), 10);
             UserBadge myUserBadge = myBadgeService.GetLatestUnseenBadgeForUser(aUser);
-
+            Badge myBadge = null;
+            
+            if(myUserBadge !=null) {
+                myBadge = myBadgeService.GetBadgeByName(myUserBadge.BadgeName);
+            }
             University = UniversityHelper.GetMainUniversity(aUser);
 
             LeftNavigation = new LeftNavigation() {
@@ -31,7 +35,8 @@ namespace UniversityOfMe.Models.View {
                 Notifications = myNotifications,
                 DatingMember = myDatingService.GetDatingMember(aUser),
                 DatingMatchMember = myDatingService.UserDatingMatch(aUser),
-                LatestUserBadge = myUserBadge
+                LatestUserBadge = myUserBadge,
+                Badge = myBadge
             };
         }
 

@@ -163,8 +163,8 @@
             </div> 
             <div class="box center"> 
             
-                    <img src="<%= URLHelper.BadgeUrl(Model.LatestUserBadge.Badge.Image) %>" /><br />
-                    <%= Model.LatestUserBadge.Badge.Description %>
+                    <img src="<%= URLHelper.BadgeUrl(Model.Badge.Image) %>" /><br />
+                    <%= Model.Badge.Description %>
             
             </div>
         </div>
