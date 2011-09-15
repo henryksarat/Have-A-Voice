@@ -14,11 +14,8 @@
 <ul> 
     <% foreach (TextBook myTextBook in Model.Take<TextBook>(5)) { %>
         <li>
-			<a class="itemlinked" href="/<%= myTextBook.UniversityId %>/TextBook/Details/<%= myTextBook.Id %>"><%= myTextBook.BookTitle %></a>
+			<a class="itemlinked" href="/<%= myTextBook.UniversityId %>/TextBook/Details/<%= myTextBook.Id %>"><%= TextShortener.Shorten(myTextBook.BookTitle, 40) %></a>
 			<span class="darkgray">( <%= myTextBook.ClassCode %>)</span> 
-			<div class="rating"> 
-                <a href="<%= URLHelper.BuildTextbookUrl(myTextBook) %>" class="sell">"Sell"</a> 
-			</div> 
         </li>
     <% } %>
 </ul> 

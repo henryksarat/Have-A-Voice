@@ -70,7 +70,7 @@
 					<label for="host">HOSTED BY:</label> 
 				</td> 
 				<td> 
-					<a href="#" class="teal"><%= NameHelper.FullName(Model.Get().User) %></a> 
+					<a href="<%= URLHelper.ProfileUrl(Model.Get().User) %>" class="teal"><%= NameHelper.FullName(Model.Get().User) %></a> 
 				</td> 
 			</tr> 
 			<tr> 

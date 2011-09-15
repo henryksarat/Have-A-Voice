@@ -1,7 +1,15 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<UniversityOfMe.Models.View.CreateUserModel>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Social Networking Only For College Students
+	College Social Networking, Dating, Textbook, Class
+</asp:Content>
+
+<asp:Content ID="Content3" ContentPlaceHolderID="MetaDescriptionHolder" runat="server">
+	University of Me | Campus Dating, Flirting, Buy/Sell Textbooks, Class Help, Professor Reviews, University Events
+</asp:Content>
+
+<asp:Content ID="Content4" ContentPlaceHolderID="MetaKeywordsHolder" runat="server">
+	College Only Social Networking, Buy Textbooks, Sell Textbooks, Professor Reviews, Class Help, College Events, College Dating, Anonymous Flirting
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -19,18 +27,16 @@
 
     <div class="six"> 
 	    <div class="banner red bold"> 
-		    University of Me helps connect University of Chicago students
+            <div class="seo">
+                <h1>College only social networking - dating, flirting, buy and sell textbooks, class help, professor reviews</h1>
+            </div>
 		    <span class="special-corner"></span> 
-	    </div> 
-	    <div class="banner red mt-11 bold"> 
-		    to what's important.
-		    <span class="corner"></span> 
 	    </div> 
 					
 	    <div class="clearfix"></div> 
 					
 	    <p class="pt20"> 
-	    Welcome to the beta of University Of Me. The beta will only be open to a small batch of University of Chicago, it's first come first serve.
+	    Welcome to the beta of University Of Me. The beta will only be open to a small batch of University of Chicago students, it's first come first serve.
         However, we will be increasing the threshold periodically.
         <br /><br /> 
         UofMe is social networking only for university students, which means no spam bots, no parents, and 

@@ -14,7 +14,7 @@
 <ul> 
     <% foreach (Event myEvent in Model.Take<Event>(5)) { %>
 		<li> 
-			<a class="itemlinked" href="<%= URLHelper.EventUrl(myEvent) %>"><%= myEvent.Title %></a>
+			<a class="itemlinked" href="<%= URLHelper.EventUrl(myEvent) %>"><%= TextShortener.Shorten(myEvent.Title, 25) %></a>
 			<div class="rating darkgray"> 
 				<%= LocalDateHelper.ToLocalTime(myEvent.StartDate) %>
 			</div> 

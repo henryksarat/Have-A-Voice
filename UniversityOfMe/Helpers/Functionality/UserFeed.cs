@@ -18,7 +18,7 @@ namespace UniversityOfMe.Helpers.Functionality {
             myFeed.AddRange(from t in aUser.TextBooks
                             where t.Active
                             select new UserFeedModel() {
-                                FeedString = myFullName + " is <span class=\"sell\">Selling</span> the book <a class=\"feedlink\" href=\"" + URLHelper.BuildTextbookUrl(t) + "\">" + t.BookTitle + "</a>",
+                                FeedString = TextShortener.Shorten(myFullName, 7) + " is <span class=\"sell\">Selling</span> the book <a class=\"feedlink\" href=\"" + URLHelper.BuildTextbookUrl(t) + "\">" + TextShortener.Shorten(t.BookTitle, 15) + "</a>",
                                 CssClass = "book",
                                 FeedType = FeedType.Textbook,
                                 DateTimeStamp = t.DateTimeStamp
@@ -27,7 +27,7 @@ namespace UniversityOfMe.Helpers.Functionality {
                             where ce.UserId == aUser.Id
                             && PrivacyHelper.PrivacyAllows(ce.User, SocialPrivacySetting.Display_Class_Enrollment)
                             select new UserFeedModel() {
-                                FeedString = myFullName + " is attending <a class=\"feedlink\" href=\"" + URLHelper.BuildClassDiscussionUrl(ce.Class) + "\">" + ce.Class.ClassCode + "</a>",
+                                FeedString = TextShortener.Shorten(myFullName, 7) + " is attending <a class=\"feedlink\" href=\"" + URLHelper.BuildClassDiscussionUrl(ce.Class) + "\">" + ce.Class.ClassCode + "</a>",
                                 CssClass = "class",
                                 FeedType = FeedType.ClassEnrollment,
                                 DateTimeStamp = ce.DateTimeStamp
@@ -39,7 +39,7 @@ namespace UniversityOfMe.Helpers.Functionality {
                             && (e.EntireSchool || myIsFriend)
                             && e.EditedDateTimeStamp == null
                             select new UserFeedModel() {
-                                FeedString = myFullName + " created the event <a class=\"feedlink\" href=\"" + URLHelper.EventUrl(e) + "\">" + e.Title + "</a>",
+                                FeedString = TextShortener.Shorten(myFullName, 7) + " created the event <a class=\"feedlink\" href=\"" + URLHelper.EventUrl(e) + "\">" + TextShortener.Shorten(e.Title, 15) + "</a>",
                                 CssClass = "event",
                                 FeedType = FeedType.Event,
                                 DateTimeStamp = e.CreatedDateTimeStamp
@@ -51,7 +51,7 @@ namespace UniversityOfMe.Helpers.Functionality {
                             && (e.EntireSchool || myIsFriend)
                             && e.EditedDateTimeStamp != null
                             select new UserFeedModel() {
-                                FeedString = myFullName + " updated the event <a class=\"feedlink\" href=\"" + URLHelper.EventUrl(e) + "\">" + e.Title + "</a>",
+                                FeedString = TextShortener.Shorten(myFullName, 7) + " updated the event <a class=\"feedlink\" href=\"" + URLHelper.EventUrl(e) + "\">" + TextShortener.Shorten(e.Title, 15) + "</a>",
                                 CssClass = "event",
                                 FeedType = FeedType.Event,
                                 DateTimeStamp = (DateTime)e.EditedDateTimeStamp
@@ -60,7 +60,7 @@ namespace UniversityOfMe.Helpers.Functionality {
                             where e.UserId == aUser.Id
                             && e.Event.EndDate >= DateTime.UtcNow
                             select new UserFeedModel() {
-                                FeedString = myFullName + " is attending the event <a class=\"feedlink\" href=\"" + URLHelper.EventUrl(e.Event) + "\">" + e.Event.Title + "</a>",
+                                FeedString = TextShortener.Shorten(myFullName, 7) + " is attending the event <a class=\"feedlink\" href=\"" + URLHelper.EventUrl(e.Event) + "\">" + TextShortener.Shorten(e.Event.Title, 15) + "</a>",
                                 CssClass = "event",
                                 FeedType = FeedType.Event,
                                 DateTimeStamp = (DateTime)e.Event.StartDate
@@ -70,7 +70,7 @@ namespace UniversityOfMe.Helpers.Functionality {
                             && !cm.Deleted
                             && cm.Approved == UOMConstants.APPROVED
                             select new UserFeedModel() {
-                                FeedString = myFullName + " is in the organization <a class=\"feedlink\" href=\"" + URLHelper.BuildOrganizationUrl(cm.Club) + "\">" + cm.Club.Name + "</a>",
+                                FeedString = TextShortener.Shorten(myFullName, 7) + " is in the organization <a class=\"feedlink\" href=\"" + URLHelper.BuildOrganizationUrl(cm.Club) + "\">" + TextShortener.Shorten(cm.Club.Name, 15) + "</a>",
                                 CssClass = "organization",
                                 FeedType = FeedType.OrganizationEnrollment,
                                 DateTimeStamp = cm.ApprovedDateTimeStamp != null ? (DateTime)cm.ApprovedDateTimeStamp : (DateTime)cm.DateTimeStamp
