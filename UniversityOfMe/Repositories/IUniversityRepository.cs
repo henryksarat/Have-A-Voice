@@ -9,5 +9,6 @@ namespace UniversityOfMe.Repositories {
         IEnumerable<University> Universities();
         IEnumerable<string> UniversityEmails(string aUniversityId);
         IEnumerable<string> ValidEmails();
+        IEnumerable<University> ValidUniversities();
     }
 }

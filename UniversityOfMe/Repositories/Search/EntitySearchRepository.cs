@@ -85,10 +85,89 @@ namespace UniversityOfMe.Repositories.Search {
                     select t);
         }
 
+        /// <summary>
+        /// Split this off becuase it's used to GET ALL for the search results
+        /// I did this originally so all pages will be crawled
+        /// </summary>
+        /// 
+        public IEnumerable<Class> GetClassByTitle(string aTitle) {
+            return (from c in theEntities.Classes
+                    where c.ClassTitle.Contains(aTitle)
+                    select c);
+        }
+
+        public IEnumerable<Class> GetClassByClassCode(string aClassCode) {
+            return (from c in theEntities.Classes
+                    where c.ClassCode.Contains(aClassCode)
+                    select c);
+        }
+
+        public IEnumerable<Event> GetEventByTitle(string aTitle) {
+            return (from e in theEntities.Events
+                    where e.Title.Contains(aTitle)
+                    && !e.Deleted
+                    && e.StartDate > DateTime.UtcNow
+                    select e);
+        }
+
+        public IEnumerable<Event> GetEventByInformation(string anInformation) {
+            return (from e in theEntities.Events
+                    where e.Information.Contains(anInformation)
+                    && !e.Deleted
+                    && e.StartDate > DateTime.UtcNow
+                    select e);
+        }
+
+        public IEnumerable<GeneralPosting> GetGeneralPostingByTitle(string aTitle) {
+            return (from p in theEntities.GeneralPostings
+                    where p.Title.Contains(aTitle)
+                    select p);
+        }
+
+        public IEnumerable<GeneralPosting> GetGeneralPostingByBody(string aBody) {
+            return (from p in theEntities.GeneralPostings
+                    where p.Body.Contains(aBody)
+                    select p);
+        }
+
+        public IEnumerable<Club> GetOrganizationByName(string aName) {
+            return (from o in theEntities.Clubs
+                    where o.Name.Contains(aName)
+                    && o.Active
+                    select o);
+        }
+
+        public IEnumerable<Professor> GetProfessorByName(string aName) {
+            return (from p in theEntities.Professors
+                    where (p.FirstName + " " + p.LastName).Contains(aName)
+                    select p);
+        }
+
+        public IEnumerable<TextBook> GetTextBookByTitle(string aTitle) {
+            return (from t in theEntities.TextBooks
+                    where t.BookTitle.Contains(aTitle)
+                    && t.Active
+                    select t);
+        }
+
+        public IEnumerable<TextBook> GetTextBookByClassCode(string aClassCode) {
+            return (from t in theEntities.TextBooks
+                    where t.ClassCode.Contains(aClassCode)
+                    && t.Active
+                    select t);
+        }
+
+
         public IEnumerable<User> GetUserByName(int aUserId, string aName) {
             return (from u in theEntities.Users
                     where (u.FirstName + " " + u.LastName).Contains(aName)
                     && u.Id != aUserId
+                    select u);
+        }
+
+        public IEnumerable<User> GetUserByName(string aName) {
+            return (from u in theEntities.Users
+                    where (u.FirstName + " " + u.LastName).Contains(aName)
                     select u);
         }
     }

@@ -1,0 +1,10 @@
+http://universityof.me/
+http://universityof.me/User/Create
+http://universityof.me/UChicago/Flirt/List
+http://universityof.me/Search/Textbook?page=1
+http://universityof.me/Search/Event?page=1
+http://universityof.me/Search/Class?page=1
+http://universityof.me/Search/Professor?page=1
+http://universityof.me/Search/Organization?page=1
+http://universityof.me/henryk.sarat
+http://universityof.me/UChicago/Club/Details/UofMe-Team

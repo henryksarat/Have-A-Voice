@@ -92,11 +92,37 @@ namespace UniversityOfMe.Repositories.Clubs {
         }
 
         public Club GetClub(User aUser, int aClubId) {
-            return (from c in theEntities.Clubs
-                    join cm in theEntities.ClubMembers on c.Id equals cm.ClubId
-                    where c.Id == aClubId
-                    && (c.Active || (cm.ClubMemberUserId == aUser.Id && cm.Administrator))
-                    select c).FirstOrDefault<Club>();
+            if (aUser != null) {
+                return (from c in theEntities.Clubs
+                        join cm in theEntities.ClubMembers on c.Id equals cm.ClubId
+                        where c.Id == aClubId
+                        && (c.Active || (cm.ClubMemberUserId == aUser.Id && cm.Administrator))
+                        select c).FirstOrDefault<Club>();
+            } else {
+                return (from c in theEntities.Clubs
+                        join cm in theEntities.ClubMembers on c.Id equals cm.ClubId
+                        where c.Id == aClubId
+                        && c.Active
+                        select c).FirstOrDefault<Club>();
+            }
+        }
+
+        public Club GetClub(User aUser, string aUniversityId, string aName) {
+            if (aUser != null) {
+                return (from c in theEntities.Clubs
+                        join cm in theEntities.ClubMembers on c.Id equals cm.ClubId
+                        where c.Name == aName
+                        && c.UniversityId == aUniversityId
+                        && (c.Active || (cm.ClubMemberUserId == aUser.Id && cm.Administrator))
+                        select c).FirstOrDefault<Club>();
+            } else {
+                return (from c in theEntities.Clubs
+                        join cm in theEntities.ClubMembers on c.Id equals cm.ClubId
+                        where c.Name == aName
+                        && c.UniversityId == aUniversityId
+                        && c.Active
+                        select c).FirstOrDefault<Club>();
+            }
         }
 
         public IEnumerable<ClubBoard> GetClubBoardPostings(int aClubId) {

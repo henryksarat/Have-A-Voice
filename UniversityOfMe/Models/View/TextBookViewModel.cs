@@ -26,6 +26,12 @@ namespace UniversityOfMe.Models.View {
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string ClassCode { get; set; }
 
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string BookAuthor { get; set; }
+
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string ISBN { get; set; }
+
         public string Edition { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
@@ -48,6 +54,8 @@ namespace UniversityOfMe.Models.View {
             Price = aTextBook.Price.ToString();
             Details = aTextBook.Details;
             TextBookImageUrl = PhotoHelper.TextBookPhoto(aTextBook);
+            BookAuthor = aTextBook.BookAuthor;
+            ISBN = aTextBook.ISBN;
         }
     }
 }

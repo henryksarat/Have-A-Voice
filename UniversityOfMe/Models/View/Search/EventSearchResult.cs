@@ -32,8 +32,8 @@ namespace UniversityOfMe.Models.View.Search {
 
             var myAttending = new TagBuilder("a");
             var myAttendingText = new TagBuilder("a");
-            if (UserInformationModel.UserId != theEvent.UserId) {
-                if (EventHelper.IsAttending(UserInformationModel.Details, theEvent)) {
+            if (UserInformationModel == null || UserInformationModel.UserId != theEvent.UserId) {
+                if (UserInformationModel != null && EventHelper.IsAttending(UserInformationModel.Details, theEvent)) {
                     myAttending.AddCssClass("remove");
                     myAttending.MergeAttribute("href", URLHelper.BuildEventUnAttendUrl(theEvent));
                     myAttendingText.MergeAttribute("href", URLHelper.BuildEventUnAttendUrl(theEvent));
@@ -65,6 +65,8 @@ namespace UniversityOfMe.Models.View.Search {
 
             myEventDiv.InnerHtml += myActionsDiv.ToString();
             myEventDiv.InnerHtml += myTitleSpan.ToString();
+            myEventDiv.InnerHtml += "<br />";
+            myEventDiv.InnerHtml += theEvent.University.UniversityName;
             myEventDiv.InnerHtml += "<br />";
             myEventDiv.InnerHtml += TextShortener.Shorten(theEvent.Information, 50);
             myEventDiv.InnerHtml += "<br />";

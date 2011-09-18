@@ -15,6 +15,7 @@ namespace UniversityOfMe.Repositories.Clubs {
         void DeleteUserFromClub(User aDeletingUser, int aFormerMemberUserId, int aClubId);
         void DenyClubMember(User anAdminUser, int aClubMemberId);
         Club GetClub(User aUser, int aClubId);
+        Club GetClub(User aUser, string aUniversityId, string aName);
         IEnumerable<ClubType> GetClubTypes();
         IEnumerable<ClubBoard> GetClubBoardPostings(int aClubId);
         ClubMember GetClubMember(int aClubMemberId);

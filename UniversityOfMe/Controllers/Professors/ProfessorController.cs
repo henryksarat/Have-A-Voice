@@ -88,23 +88,18 @@ namespace UniversityOfMe.Controllers.Professors {
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult Details(string universityId, string id) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
             try {
-                User myUser = GetUserInformatonModel().Details;
+                UserInformationModel<User> myUserInfo = GetUserInformatonModel();
+                User myUser = myUserInfo == null ? null : myUserInfo.Details;
 
-                if (!UniversityHelper.IsFromUniversity(myUser, universityId)) {
-                    return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
-                }
-                bool myExists = theProfessorService.IsProfessorExists(universityId, id);
+                bool myExists = theProfessorService.IsProfessorExists(universityId, URLHelper.FromUrlFriendlyToNormalString(id));
 
                 if (!myExists) {
                     TempData["Message"] += MessageHelper.WarningMessage(PROFESSOR_DOESNT_EXIST);
                     return RedirectToAction("Create", "Professor");
                 }
 
-                Professor myProfessor = theProfessorService.GetProfessor(GetUserInformatonModel(), universityId, id);
+                Professor myProfessor = theProfessorService.GetProfessor(universityId, id);
 
                 if (myProfessor.ProfessorReviews.Count() == 0) {
                     ViewData["Message"] = MessageHelper.NormalMessage(NO_PROFESSOR_REVIEWS);
@@ -118,7 +113,9 @@ namespace UniversityOfMe.Controllers.Professors {
                     Professor = myProfessor,
                     ProfessorName = myProfessor.FirstName + " " + myProfessor.LastName,
                     AcademicTerms = new SelectList(myAcademicTerms, "Value", "Key"),
-                    Years = new SelectList(UOMConstants.ACADEMIC_YEARS, DateTime.UtcNow.Year)
+                    Years = new SelectList(UOMConstants.ACADEMIC_YEARS, DateTime.UtcNow.Year),
+                    University = myProfessor.University,
+                    UniversityId = myProfessor.UniversityId
                 };
 
                 myLoggedIn.Set(myProfessorReview);

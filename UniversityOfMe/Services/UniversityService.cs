@@ -89,6 +89,10 @@ namespace UniversityOfMe.Services {
             return myDictionary;
         }
 
+        public University GetUniversityById(string aUniversityId) {
+            return theUniversityRepository.GetUniversity(aUniversityId);
+        }
+
         public UniversityView GetUniversityProfile(UserInformationModel<User> aUserInformation, string aUniversityId) {
             University myUniversity = theUniversityRepository.GetUniversity(aUniversityId);
             IEnumerable<Professor> myProfessors = theProfessorService.GetProfessorsForUniversity(aUniversityId);
@@ -113,6 +117,10 @@ namespace UniversityOfMe.Services {
                 CurrentStatus = myUserStatus,
                 AnonymousFlirts = myAnonymousFlirt
             };
+        }
+
+        public IEnumerable<University> GetValidUniversities() {
+            return theUniversityRepository.ValidUniversities();
         }
 
         public bool IsValidUniversityEmailAddress(string anEmailAddress) {

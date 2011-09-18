@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using UniversityOfMe.Models.View.Search;
+﻿using Social.Generic.Models;
 using UniversityOfMe.Helpers.Search;
-using Social.Generic.Models;
 using UniversityOfMe.Models;
+using UniversityOfMe.Models.View.Search;
 
 namespace UniversityOfMe.Services.Search {
     public interface ISearchService {

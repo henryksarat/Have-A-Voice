@@ -6,7 +6,15 @@
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	<%= Model.Get().Name %> at <%= Model.University.UniversityName %>
+	<%= Model.Get().Name %> at <%= Model.Get().University.UniversityName %>
+</asp:Content>
+
+<asp:Content ID="Content3" ContentPlaceHolderID="MetaDescriptionHolder" runat="server">
+	<%= UniversityOfMe.Helpers.MetaHelper.MetaDescription(Model.Get().Name + " at " + Model.Get().University.UniversityName)%>
+</asp:Content>
+
+<asp:Content ID="Content4" ContentPlaceHolderID="MetaKeywordsHolder" runat="server">
+	<%= UniversityOfMe.Helpers.MetaHelper.MetaKeywords(Model.Get().Name + ", " + Model.Get().University.UniversityName)%>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -28,7 +36,7 @@
 			<span class="club"><%= Model.Get().Name %></span> 
 		    <div class="buttons"> 
 			    <div class="flft mr26"> 
-                    <% User myUser = UserInformationFactory.GetUserInformation().Details; %>
+                    <% User myUser = UserInformationFactory.GetUserInformation() != null ? UserInformationFactory.GetUserInformation().Details : null; %>
                     <% if (ClubHelper.IsAdmin(myUser, Model.Get().Id) && Model.Get().Active) { %>
                         <%= Html.ActionLink("Edit", "Edit", "Club", new { id = Model.Get().Id }, new { @class = "edit mr22" })%>                
                         <%= Html.ActionLink("Set club as inactive", "Deactivate", "Club", new { clubId = Model.Get().Id }, new { @class = "remove" })%>
@@ -47,11 +55,11 @@
 					
 		<table border="0" cellpadding="0" cellspacing="0" class="listing mb32"> 
 			<tr> 
-				<td rowspan="4" class="valign-top"> 
+				<td rowspan="5" class="valign-top"> 
 					<img src="<%= PhotoHelper.ClubPhoto(Model.Get()) %>" class="club" /> 
 				</td> 
 				<td> 
-					<label for="memcount">Num. of Members:</label> 
+					<label for="memcount">Num. of Members</label> 
 				</td> 
 				<td> 
 					<%= Model.Get().ClubMembers.Where(cm => cm.Approved == UOMConstants.APPROVED).Count<ClubMember>()%>
@@ -59,7 +67,15 @@
 			</tr> 
 			<tr> 
 				<td style="vertical-align:top;"> 
-					<label for="desc">CLUB TYPE:</label> 
+					<label for="desc">UNIVERSITY</label> 
+				</td> 
+				<td style="vertical-align:top;"> 
+					<%= Model.Get().University.UniversityName %>
+				</td> 
+			</tr> 
+			<tr> 
+				<td style="vertical-align:top;"> 
+					<label for="desc">CLUB TYPE</label> 
 				</td> 
 				<td style="vertical-align:top;"> 
 					<%= Model.Get().ClubTypeDetails.DisplayName %>
@@ -67,7 +83,7 @@
 			</tr> 
 			<tr> 
 				<td style="vertical-align:top;"> 
-					<label for="desc">DESCRIPTION:</label> 
+					<label for="desc">DESCRIPTION</label> 
 				</td> 
 				<td style="vertical-align:top;"> 
 					<%= Model.Get().Description %>

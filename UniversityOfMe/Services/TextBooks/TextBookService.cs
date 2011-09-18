@@ -58,11 +58,13 @@ namespace UniversityOfMe.Services.TextBooks {
                 aCreateTextBookModel.UniversityId, 
                 aCreateTextBookModel.TextBookCondition,
                 aCreateTextBookModel.BookTitle, 
+                aCreateTextBookModel.BookAuthor,
                 myBookImageName, 
-                aCreateTextBookModel.ClassCode, 
+                aCreateTextBookModel.ClassCode,
                 aCreateTextBookModel.Edition == null ? 0 : int.Parse(aCreateTextBookModel.Edition),
                 double.Parse(aCreateTextBookModel.Price),
-                string.IsNullOrEmpty(aCreateTextBookModel.Details) ? null : aCreateTextBookModel.Details);
+                string.IsNullOrEmpty(aCreateTextBookModel.Details) ? null : aCreateTextBookModel.Details,
+                aCreateTextBookModel.ISBN);
 
             return true;
         }
@@ -103,7 +105,9 @@ namespace UniversityOfMe.Services.TextBooks {
             myTextBook.TextBookConditionId = aTextBookViewModel.TextBookCondition;
             myTextBook.Details = aTextBookViewModel.Details;
             myTextBook.Price = double.Parse(aTextBookViewModel.Price);
-            myTextBook.ClassCode = aTextBookViewModel.ClassCode;
+            myTextBook.ClassCode = string.IsNullOrEmpty(aTextBookViewModel.ClassCode) ? null : aTextBookViewModel.ClassCode;
+            myTextBook.BookAuthor = aTextBookViewModel.BookAuthor;
+            myTextBook.ISBN = string.IsNullOrEmpty(aTextBookViewModel.ISBN) ? null : aTextBookViewModel.ISBN;
 
             theTextBookRepo.UpdateTextBook(myTextBook);
 
@@ -178,13 +182,13 @@ namespace UniversityOfMe.Services.TextBooks {
             if (string.IsNullOrEmpty(aCreateTextBoook.UniversityId)) {
                 theValidationDictionary.AddError("UniversityId", aCreateTextBoook.UniversityId, "A university must be present.");
             }
-            
+
             if (string.IsNullOrEmpty(aCreateTextBoook.BookTitle)) {
                 theValidationDictionary.AddError("BookTitle", aCreateTextBoook.BookTitle, "You must specify a book title.");
             }
 
-            if (string.IsNullOrEmpty(aCreateTextBoook.ClassCode)) {
-                theValidationDictionary.AddError("ClassCode", aCreateTextBoook.ClassCode, "You must specify which class the textbook the class was/will be used in.");
+            if (string.IsNullOrEmpty(aCreateTextBoook.BookAuthor)) {
+                theValidationDictionary.AddError("BookAuthor", aCreateTextBoook.BookAuthor, "You must specify the book author(s).");
             }
 
             double myNum;

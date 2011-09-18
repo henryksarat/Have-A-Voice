@@ -61,5 +61,12 @@ namespace UniversityOfMe.Helpers {
 
             return aValidationDictionary.isValid;
         }
+
+        public static IEnumerable<University> ValidUniversities() {
+            IUniversityService theUniversityService = new UniversityService(null);
+            IEnumerable<University> myUniversities = theUniversityService.GetValidUniversities();
+
+            return myUniversities;
+        }
     }
 }

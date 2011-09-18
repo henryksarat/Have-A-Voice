@@ -9,7 +9,15 @@
 <%@ Import Namespace="Social.Generic.Helpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Profile | <%=NameHelper.FullName(Model.User) %>'s
+	<%=NameHelper.FullName(Model.User) %> | Profile
+</asp:Content>
+
+<asp:Content ID="Content3" ContentPlaceHolderID="MetaDescriptionHolder" runat="server">
+	<%= UniversityOfMe.Helpers.MetaHelper.MetaDescription(NameHelper.FullName(Model.User) + "'s Profile") %>
+</asp:Content>
+
+<asp:Content ID="Content4" ContentPlaceHolderID="MetaKeywordsHolder" runat="server">
+	<%= UniversityOfMe.Helpers.MetaHelper.MetaKeywords(NameHelper.FullName(Model.User) + ", " + UniversityHelper.GetMainUniversity(Model.User).UniversityName) %>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">

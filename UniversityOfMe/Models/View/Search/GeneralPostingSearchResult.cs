@@ -33,11 +33,13 @@ namespace UniversityOfMe.Models.View.Search {
 
             var myAuthorSpan = new TagBuilder("span");
             myAuthorSpan.AddCssClass("tiny");
-            myAuthorSpan.InnerHtml += "By " + NameHelper.FullName(theGeneralPosting.User) + " on " + LocalDateHelper.ToLocalTime(theGeneralPosting.DateTimeStamp);
+            myAuthorSpan.InnerHtml += " By " + NameHelper.FullName(theGeneralPosting.User) + " on " + LocalDateHelper.ToLocalTime(theGeneralPosting.DateTimeStamp);
 
             myGeneralPostingDiv.InnerHtml += myActionsDiv.ToString();
             myGeneralPostingDiv.InnerHtml += myTitleSpan.ToString();
             myGeneralPostingDiv.InnerHtml += myAuthorSpan.ToString();
+            myGeneralPostingDiv.InnerHtml += "<br />";
+            myGeneralPostingDiv.InnerHtml += "University: " + theGeneralPosting.University.UniversityName;
             myGeneralPostingDiv.InnerHtml += "<br />";
             myGeneralPostingDiv.InnerHtml += TextShortener.Shorten(theGeneralPosting.Body, 50);
 

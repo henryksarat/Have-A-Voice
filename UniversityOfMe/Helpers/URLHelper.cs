@@ -11,15 +11,19 @@ namespace UniversityOfMe.Helpers {
         }
 
         public static string ToUrlFriendly(string aValue) {
-            return aValue.Replace(' ', '_');
+            return aValue.Replace(' ', '-');
         }
 
         public static string[] FromUrlFriendly(string aValue) {
-            return aValue.Replace('_', ' ').Split(' ');
+            return aValue.Replace('-', ' ').Split(' ');
+        }
+
+        public static string FromUrlFriendlyToNormalString(string aValue) {
+            return aValue.Replace('-', ' ');
         }
 
         public static string BuildClassReviewUrl(Class aClass) {
-            return "/" + aClass.UniversityId + "/Class/Details/" + String.Join("_", aClass.ClassCode, aClass.AcademicTermId, aClass.Year) + "?classViewType=" + ClassViewType.Review;
+            return "/" + aClass.UniversityId + "/Class/Details/" + ToUrlFriendly(aClass.ClassCode + " " + aClass.AcademicTermId + " " + aClass.Year) + "?classViewType=" + ClassViewType.Review;
         }
 
         public static string BuildClassBoardUrl(ClassBoard aClassBoard) {
@@ -27,7 +31,7 @@ namespace UniversityOfMe.Helpers {
         }
 
         public static string BuildClassDiscussionUrl(Class aClass) {
-            return "/" + aClass.UniversityId + "/Class/Details/" + String.Join("_", aClass.ClassCode, aClass.AcademicTermId, aClass.Year) + "?classViewType=" + ClassViewType.Discussion;
+            return "/" + aClass.UniversityId + "/Class/Details/" + ToUrlFriendly(aClass.ClassCode + " " + aClass.AcademicTermId + " " + aClass.Year) + "?classViewType=" + ClassViewType.Discussion;
         }
 
         public static string BuildProfessorUrl(Professor aProfessor) {
@@ -51,7 +55,7 @@ namespace UniversityOfMe.Helpers {
         }
 
         public static string BuildClubUrl(Club aClub) {
-            return "/" + aClub.UniversityId + "/Club/Details/" + aClub.Id;
+            return "/" + aClub.UniversityId + "/Club/Details/" + URLHelper.ToUrlFriendly(aClub.Name);
         }
 
         public static string BuildOrganizationCancelRequestToJoin(Club aClub) {
@@ -71,7 +75,7 @@ namespace UniversityOfMe.Helpers {
         }
 
         public static string BuildOrganizationUrl(Club aClub) {
-            return "/" + aClub.UniversityId + "/Club/Details/" + aClub.Id;
+            return "/" + aClub.UniversityId + "/Club/Details/" + URLHelper.ToUrlFriendly(aClub.Name);
         }
 
         public static string BuildOrganizationSetAsActive(Club aClub) {

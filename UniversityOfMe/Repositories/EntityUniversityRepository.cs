@@ -45,5 +45,11 @@ namespace UniversityOfMe.Repositories {
             return (from u in theEntities.UniversityEmails
                     select u.Email).ToList<string>();
         }
+
+
+        public IEnumerable<University> ValidUniversities() {
+            return (from u in theEntities.Universities
+                    select u);
+        }
     }
 }

@@ -15,6 +15,8 @@ namespace UniversityOfMe.Models.View {
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string UniversityId { get; set; }
 
+        public University University { get; set; }
+
         public IEnumerable<SelectListItem> AcademicTerms { get; set; }
         
         [DisplayFormat(ConvertEmptyStringToNull = false)]

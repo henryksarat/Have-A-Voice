@@ -32,6 +32,14 @@
             return GetKey("NotificationsEmail");
         }
 
+        public static int ResultsPerPage() {
+            return int.Parse(GetKey("ResultsPerPage"));
+        }
+
+        public static int PagesPadding() {
+            return int.Parse(GetKey("PagesPadding"));
+        }
+
         public static string[] FlirtAdjectives() {
             return GetKey("FlirtAdjectives").Split(',');
         }

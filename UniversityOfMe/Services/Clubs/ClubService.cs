@@ -67,7 +67,7 @@ namespace UniversityOfMe.Services.Clubs {
         }
 
         public bool CreateClub(UserInformationModel<User> aUser, ClubViewModel aCreateClubModel) {
-            if (!ValidClub(aCreateClubModel, true)) {
+            if (!ValidClub(aUser, aCreateClubModel, true)) {
                 return false;
             }
 
@@ -111,12 +111,28 @@ namespace UniversityOfMe.Services.Clubs {
         }
 
         public Club GetClub(UserInformationModel<User> aUser, int aClubId) {
-            theClubRepository.MarkClubBoardAsViewed(aUser.Details, aClubId);
-            return theClubRepository.GetClub(aUser.Details, aClubId);
+            if (aUser != null) {
+                theClubRepository.MarkClubBoardAsViewed(aUser.Details, aClubId);
+                return theClubRepository.GetClub(aUser.Details, aClubId);
+            } else {
+                return theClubRepository.GetClub(null, aClubId);
+            }
+        }
+
+        public Club GetClub(UserInformationModel<User> aUser, string aUniversityId, string aName) {
+            string myClubName = URLHelper.FromUrlFriendlyToNormalString(aName);
+            
+            if (aUser != null) {
+                Club myClub = theClubRepository.GetClub(aUser.Details, aUniversityId, myClubName);
+                theClubRepository.MarkClubBoardAsViewed(aUser.Details, myClub.Id);
+                return myClub;
+            } else {
+                return theClubRepository.GetClub(null, aUniversityId, myClubName);
+            }
         }
 
         public bool EditClub(UserInformationModel<User> aUserEditing, ClubViewModel aClubViewModel) {
-            if (!ValidClub(aClubViewModel, false)) {
+            if (!ValidClub(aUserEditing, aClubViewModel, false)) {
                 return false;
             }
 
@@ -302,13 +318,15 @@ namespace UniversityOfMe.Services.Clubs {
             }
         }
         
-        private bool ValidClub(ClubViewModel aCreateClubModel, bool aIsCreating) {
+        private bool ValidClub(UserInformationModel<User> aUser, ClubViewModel aCreateClubModel, bool aIsCreating) {
             if (aIsCreating) {
                 ValidTitle(aCreateClubModel.Title);
             }
 
             if (string.IsNullOrEmpty(aCreateClubModel.Name)) {
                 theValidationDictionary.AddError("Name", aCreateClubModel.Name, "A club name is required.");
+            } else if (theClubRepository.GetClub(aUser.Details, aCreateClubModel.UniversityId, aCreateClubModel.Name) != null && aIsCreating) {
+                theValidationDictionary.AddError("Name", aCreateClubModel.Name, "A club with that name already exists.");
             }
 
             if (string.IsNullOrEmpty(aCreateClubModel.Description)) {

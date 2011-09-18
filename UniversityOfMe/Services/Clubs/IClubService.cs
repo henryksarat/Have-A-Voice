@@ -15,6 +15,7 @@ namespace UniversityOfMe.Services.Professors {
         bool DeactivateClub(UserInformationModel<User> aUser, int aClubId);
         bool EditClub(UserInformationModel<User> aUserEditing, ClubViewModel myClubViewModel);
         Club GetClub(UserInformationModel<User> aUser, int aClubId);
+        Club GetClub(UserInformationModel<User> aUser, string aUniversityId, string aName);
         Club GetClubForEdit(UserInformationModel<User> aUser, int aClubId);
         IEnumerable<ClubBoard> GetClubBoardPostings(int aClubId);
         ClubMember GetClubMember(UserInformationModel<User> aUser, int aClubMemberId);

@@ -100,12 +100,13 @@ namespace UniversityOfMe.Controllers.Clubs {
             } catch(PhotoException myException) {
                 LogError(myException, TEXTBOOK_IMAGE_UPLOAD_ERROR);
                 TempData["Message"] += MessageHelper.ErrorMessage(TEXTBOOK_IMAGE_UPLOAD_ERROR);
-                theValidation.ForceModleStateExport();
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
                 TempData["Message"] += MessageHelper.ErrorMessage(ErrorKeys.ERROR_MESSAGE);
-                theValidation.ForceModleStateExport();
+                
             }
+
+            theValidation.ForceModleStateExport();
 
             return RedirectToAction("Create");
         }
@@ -134,18 +135,12 @@ namespace UniversityOfMe.Controllers.Clubs {
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult Details(int id) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-
             try {
                 TextBook myTextBook = theTextBookService.GetTextBook(id);
-                
-                if (!UniversityHelper.IsFromUniversity(GetUserInformatonModel().Details, myTextBook.UniversityId)) {
-                    return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
-                }
+                UserInformationModel<User> myUserInfo = GetUserInformatonModel();
+                User myUser = myUserInfo == null ? null : myUserInfo.Details;
 
-                LoggedInWrapperModel<TextBook> myLoggedIn = new LoggedInWrapperModel<TextBook>(GetUserInformatonModel().Details);
+                LoggedInWrapperModel<TextBook> myLoggedIn = new LoggedInWrapperModel<TextBook>(myUser);
                 myLoggedIn.Set(myTextBook);
 
                 return View("Details", myLoggedIn);

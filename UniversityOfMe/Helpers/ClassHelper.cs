@@ -8,11 +8,14 @@ using Social.Generic.Models;
 namespace UniversityOfMe.Helpers {
     public static class ClassHelper {
         public static bool IsEnrolled(UserInformationModel<User> aUser, Class aClass) {
-            ClassEnrollment myEnrollment = (from ce in aClass.ClassEnrollments
-                                            where ce.UserId == aUser.Details.Id
-                                            select ce).FirstOrDefault<ClassEnrollment>();
-
-            return myEnrollment == null ? false : true;
+            if (aUser != null) {
+                ClassEnrollment myEnrollment = (from ce in aClass.ClassEnrollments
+                                                where ce.UserId == aUser.Details.Id
+                                                select ce).FirstOrDefault<ClassEnrollment>();
+                return myEnrollment == null ? false : true;
+            } else {
+                return false;
+            }
         }
     }
 }

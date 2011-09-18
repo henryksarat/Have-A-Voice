@@ -16,6 +16,7 @@ using UniversityOfMe.Repositories;
 using UniversityOfMe.Services;
 using UniversityOfMe.Services.Classes;
 using UniversityOfMe.UserInformation;
+using Social.Generic.Models;
 
 namespace UniversityOfMe.Controllers.Classes {
     public class ClassController : UOFMeBaseController {
@@ -117,10 +118,10 @@ namespace UniversityOfMe.Controllers.Classes {
         
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult Details(string universityId, string id, ClassViewType classViewType) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
             try {
+                UserInformationModel<User> myUserInfo = GetUserInformatonModel();
+                User myUser = myUserInfo == null ? null : myUserInfo.Details;
+
                 bool myExists = theClassService.IsClassExists(id);
 
                 if (!myExists) {
@@ -128,8 +129,8 @@ namespace UniversityOfMe.Controllers.Classes {
                     return RedirectToAction("Create", "Class");
                 }
 
-                Class myClass = theClassService.GetClass(GetUserInformatonModel(), id, classViewType);
-                LoggedInWrapperModel<Class> myLoggedInModel = new LoggedInWrapperModel<Class>(GetUserInformatonModel().Details);
+                Class myClass = theClassService.GetClass(myUserInfo, id, classViewType);
+                LoggedInWrapperModel<Class> myLoggedInModel = new LoggedInWrapperModel<Class>(myUser);
                 myLoggedInModel.Set(myClass);
 
                 ViewData["ClassViewType"] = classViewType;

@@ -12,6 +12,8 @@ namespace UniversityOfMe.Services {
         IDictionary<string, string> CreateAllUniversitiesDictionaryEntry();
         IDictionary<string, string> CreateAcademicTermsDictionaryEntry();
         UniversityView GetUniversityProfile(UserInformationModel<User> aUserInformation, string aUniversityId);
+        University GetUniversityById(string aUniversityId);
+        IEnumerable<University> GetValidUniversities();
         bool IsValidUniversityEmailAddress(string anEmail);
         IEnumerable<string> ValidEmails();
         bool IsFromUniversity(User aUser, string aUniversityId);

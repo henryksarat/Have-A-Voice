@@ -17,5 +17,6 @@ namespace UniversityOfMe.Models.View {
         }
         public UserBadge LatestUserBadge { get; set; }
         public Badge Badge { get; set; }
+        public bool IsLoggedIn { get; set; }
     }
 }

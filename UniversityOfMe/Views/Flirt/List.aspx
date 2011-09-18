@@ -4,8 +4,7 @@
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	<% Social.Generic.Models.UserInformationModel<User> myUserInfo = UniversityOfMe.UserInformation.UserInformationFactory.GetUserInformation(); %>
-    Anonymous Flirts Sent Within the <%= UniversityHelper.GetMainUniversity(myUserInfo.Details).UniversityName %>
+    Anonymous Flirts Sent In <%= Model.University.UniversityName %>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -16,7 +15,7 @@
         <% Html.RenderPartial("Message"); %>
         <div class="create-feature-form">
 		    <div class="banner black full"> 
-			    Anonymous Flirts Sent Within the <%= UniversityHelper.GetMainUniversity(myUserInfo.Details).UniversityName %>
+			    <span class="flirt">Anonymous Flirts Sent In <%= Model.University.UniversityName %></span>
 		    </div> 
             <div class="padding-col">
                 <ul> 

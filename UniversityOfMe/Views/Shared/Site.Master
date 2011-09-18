@@ -5,8 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /><%= "| University Of Me " %></title>
-    <meta name="description" content="<asp:ContentPlaceHolder id="MetaDescriptionHolder" runat="server"></asp:ContentPlaceHolder>" />
-    <meta name="keywords" content="<asp:ContentPlaceHolder ID="MetaKeywordsHolder" runat="server"></asp:ContentPlaceHolder>" />
+    <asp:ContentPlaceHolder id="MetaDescriptionHolder" runat="server"></asp:ContentPlaceHolder>
+    <asp:ContentPlaceHolder ID="MetaKeywordsHolder" runat="server"></asp:ContentPlaceHolder>
     <link href="/Content/style.css" rel="stylesheet" type="text/css" />
     <link href="/Content/jquery.ui.stars.css" rel="stylesheet" type="text/css" />
     <link href="/Content/jquery.ui.stars.min.css" rel="stylesheet" type="text/css" />

@@ -6,8 +6,8 @@ using UniversityOfMe.Models;
 namespace UniversityOfMe.Helpers.Functionality {
     public static class ClassBoardHelper {
         public static bool IsAllowedToDelete(UserInformationModel<User> aCurrentUser, ClassBoard aBoardMessage) {
-            return aCurrentUser.Details.Id == aBoardMessage.UserId 
-                || PermissionHelper<User>.AllowedToPerformAction(aCurrentUser, SocialPermission.Delete_Any_Class_Board);
+            return aCurrentUser != null && (aCurrentUser.Details.Id == aBoardMessage.UserId 
+                || PermissionHelper<User>.AllowedToPerformAction(aCurrentUser, SocialPermission.Delete_Any_Class_Board));
         }
     }
 }

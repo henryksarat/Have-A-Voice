@@ -1,15 +1,16 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<UniversityOfMe.Models.View.CreateUserModel>" %>
+<%@ Import Namespace="UniversityOfMe.Helpers.Search" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	College Social Networking, Dating, Textbook, Class
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="MetaDescriptionHolder" runat="server">
-	University of Me | Campus Dating, Flirting, Buy/Sell Textbooks, Class Help, Professor Reviews, University Events
+	<%= UniversityOfMe.Helpers.MetaHelper.MetaDescription() %>
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="MetaKeywordsHolder" runat="server">
-	College Only Social Networking, Buy Textbooks, Sell Textbooks, Professor Reviews, Class Help, College Events, College Dating, Anonymous Flirting
+	<%= UniversityOfMe.Helpers.MetaHelper.MetaKeywords() %>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -39,9 +40,17 @@
 	    Welcome to the beta of University Of Me. The beta will only be open to a small batch of University of Chicago students, it's first come first serve.
         However, we will be increasing the threshold periodically.
         <br /><br /> 
-        UofMe is social networking only for university students, which means no spam bots, no parents, and 
-        no randoms. UofMe brings the unviersity life full circle with campus dating, on-campus textbook bartering, university wide events, 
-        class discussions (no more listservs!), class reviews, profossor reviews, photo sharing, club interaction, and more! 
+
+        UofMe is social networking only for university students, which means no spam bots, no parents, and <%= SearchFilter.Textbook.ToString() %>
+        no randoms. UofMe brings the unviersity life full circle with campus dating, 
+        <a class="itemlinked" href="/UChicago/Flirt/List">anonymous flirting</a>,
+        <a class="itemlinked" href="/Search/<%= SearchFilter.Textbook.ToString() %>?page=1">on-campus textbook bartering</a>, 
+        <a class="itemlinked" href="/Search/<%= SearchFilter.Event.ToString() %>?page=1">university wide events</a>, 
+        <a class="itemlinked" href="/Search/<%= SearchFilter.Class.ToString() %>?page=1">class discussions</a> (no more listservs!), 
+        <a class="itemlinked" href="/Search/<%= SearchFilter.Class.ToString() %>?page=1">class reviews</a>, 
+        <a class="itemlinked" href="/Search/<%= SearchFilter.Professor.ToString() %>?page=1">profossor reviews</a>, photo sharing, 
+        <a class="itemlinked" href="/Search/<%= SearchFilter.Organization.ToString() %>?page=1">club interaction</a>,
+        and more! 
         This website will be built with the students in mind, so if you have an idea for a new feature let us know!
         <br /><br />
         <script src="http://widgets.twimg.com/j/2/widget.js"></script>

@@ -47,7 +47,17 @@
                     <div class="field-holder">
 			            <label for="BookTitle" class="mt13">Class Code</label> 
 			            <%= Html.TextBox("ClassCode", Model.Get().ClassCode, new { @class = "quarter" })%>
-                        <%= Html.ValidationMessage("ClassCode", "*", new { @class = "req" })%>
+                    </div>
+
+                    <div class="field-holder">
+			            <label for="ClassCode">Book Authors</label> 
+			            <%= Html.TextBox("BookAuthor", string.Empty, new { @class = "quarter" })%>
+                        <%= Html.ValidationMessage("BookAuthor", "*", new { @class = "req" })%>
+                    </div>
+
+                    <div class="field-holder">
+			            <label for="ClassCode">ISBN</label> 
+			            <%= Html.TextBox("ISBN", string.Empty, new { @class = "quarter" })%>
                     </div>
 
                     <div class="field-holder">
@@ -64,7 +74,7 @@
 
                     <div class="field-holder">
 			            <label for="Details">Details</label> 
-                        <%= Html.TextArea("Information", Model.Get().Details, new { @class = "textarea" }) %>
+                        <%= Html.TextArea("Details", Model.Get().Details, new { @class = "textarea" })%>
                         <%= Html.ValidationMessage("Details", "*", new { @class = "req" })%>
                     </div>
 

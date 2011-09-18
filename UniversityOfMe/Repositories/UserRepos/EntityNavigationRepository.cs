@@ -12,6 +12,7 @@ namespace UniversityOfMe.Repositories.UserFeatures {
             return (from m in theEntities.Messages
                     where m.ToUserId == aRequestingUser.Id
                     && m.ToViewed == false
+                    && !m.ToDeleted 
                     select m).Count<Message>();
         }
 

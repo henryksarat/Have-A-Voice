@@ -7,7 +7,30 @@
 <%@ Import Namespace="UniversityOfMe.UserInformation" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	<%= Model.Get().ClassCode %> (<%= Model.Get().ClassTitle %>)
+    <% ClassViewType myViewType = (ClassViewType)ViewData["ClassViewType"]; %>
+    <% if (myViewType == ClassViewType.Review) { %>
+	    Class Review | <%= Model.Get().ClassCode%> | <%= Model.Get().ClassTitle%> | <%= Model.Get().University.UniversityName%>
+    <% } else { %>
+        Class Discussion | <%= Model.Get().ClassCode%> | <%= Model.Get().ClassTitle%> | <%= Model.Get().University.UniversityName%>
+    <% } %>
+</asp:Content>
+
+<asp:Content ID="Content3" ContentPlaceHolderID="MetaDescriptionHolder" runat="server">
+    <% ClassViewType myViewType = (ClassViewType)ViewData["ClassViewType"]; %>
+    <% if (myViewType == ClassViewType.Review) { %>
+        <%= UniversityOfMe.Helpers.MetaHelper.MetaDescription("Class Review for " + Model.Get().ClassTitle + "(" + Model.Get().ClassCode + ") at " + Model.Get().University.UniversityName) %>
+    <% } else { %>
+        <%= UniversityOfMe.Helpers.MetaHelper.MetaDescription("Class Discussion for " + Model.Get().ClassTitle + "(" + Model.Get().ClassCode + ") at " + Model.Get().University.UniversityName) %>
+    <% } %>
+</asp:Content>
+
+<asp:Content ID="Content4" ContentPlaceHolderID="MetaKeywordsHolder" runat="server">
+    <% ClassViewType myViewType = (ClassViewType)ViewData["ClassViewType"]; %>
+    <% if (myViewType == ClassViewType.Review) { %>
+        <%= UniversityOfMe.Helpers.MetaHelper.MetaKeywords("Class Review, " + Model.Get().ClassCode + ", " + Model.Get().ClassTitle + ", " + Model.Get().University.UniversityName)%>
+    <% } else { %>
+        <%= UniversityOfMe.Helpers.MetaHelper.MetaKeywords("Class Discussion, " + Model.Get().ClassCode + ", " + Model.Get().ClassTitle + ", " + Model.Get().University.UniversityName)%>
+    <% } %>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -129,33 +152,33 @@
 					
 	    <div id="review"> 
             <% if (myViewType == ClassViewType.Review) { %>
-                <% using (Html.BeginForm("Create", "ClassReview")) {%>
-                    <%= Html.Hidden("ClassId", Model.Get().Id)%>
-		            <div class="create"> 
-                        <%= Html.TextArea("Review", string.Empty, 6, 0, new { @class = "full" })%>
-                        <%= Html.ValidationMessage("Review", "*")%>
+                <% if (myUserInfo != null) { %>
+                    <% using (Html.BeginForm("Create", "ClassReview")) {%>
+                        <%= Html.Hidden("ClassId", Model.Get().Id)%>
+		                <div class="create"> 
+                            <%= Html.TextArea("Review", string.Empty, 6, 0, new { @class = "full" })%>
+                            <%= Html.ValidationMessage("Review", "*")%>
 							
-			            <div class="frgt mt13"> 
-				            <input type="submit" class="frgt btn site" name="post" value="Post Review" /> 
-				            <div class="rating mr17"> 
-	                            <div id="stars-wrapper1">
-		                            <input type="radio" name="rating" value="1" title="Very poor" />
-		                            <input type="radio" name="rating" value="2" title="Poor" />
-		                            <input type="radio" name="rating" value="3" title="Not that bad" />
-		                            <input type="radio" name="rating" value="4" title="Fair" />
-		                            <input type="radio" name="rating" value="5" title="Average" />
-	                            </div>
+			                <div class="frgt mt13"> 
+				                <input type="submit" class="frgt btn site" name="post" value="Post Review" /> 
+				                <div class="rating mr17"> 
+	                                <div id="stars-wrapper1">
+		                                <input type="radio" name="rating" value="1" title="Very poor" />
+		                                <input type="radio" name="rating" value="2" title="Poor" />
+		                                <input type="radio" name="rating" value="3" title="Not that bad" />
+		                                <input type="radio" name="rating" value="4" title="Fair" />
+		                                <input type="radio" name="rating" value="5" title="Average" />
+	                                </div>
 
-                                <%= Html.ValidationMessage("Rating", "*")%>
-				            </div> 
+                                    <%= Html.ValidationMessage("Rating", "*")%>
+				                </div> 
 
-                            
-
-                            <%= Html.CheckBox("Anonymous", false, new { @class = "frgt pt3 mr20" })%>
-                            <label class="post" for="Anonymous">Post as anonymous</label> 
-			            </div> 
-			            <div class="clearfix"></div> 
-		            </div> 
+                                <%= Html.CheckBox("Anonymous", false, new { @class = "frgt pt3 mr20" })%>
+                                <label class="post" for="Anonymous">Post as anonymous</label> 
+			                </div> 
+			                <div class="clearfix"></div> 
+		                </div> 
+                    <% } %>
                 <% } %>
             <% } else if (myViewType == ClassViewType.Discussion) { %>
                 <% if(ClassHelper.IsEnrolled(UserInformationFactory.GetUserInformation(), Model.Get())) { %>

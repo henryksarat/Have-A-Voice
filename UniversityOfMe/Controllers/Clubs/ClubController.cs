@@ -148,19 +148,34 @@ namespace UniversityOfMe.Controllers.Clubs {
 
             return RedirectToAction("List", "Club");
         }
+        
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
+        public ActionResult DetailsWithId(int id) {
+            try {
+                UserInformationModel<User> myUserInfo = GetUserInformatonModel();
+                User myUser = myUserInfo == null ? null : myUserInfo.Details;
+
+                Club myClub = theClubService.GetClub(myUserInfo, id);
+
+                LoggedInWrapperModel<Club> myLoggedIn = new LoggedInWrapperModel<Club>(myUser);
+                myLoggedIn.Set(myClub);
+
+                return View("Details", myLoggedIn);
+            } catch (Exception myException) {
+                LogError(myException, GET_CLUB_ERROR);
+                return SendToResultPage(GET_CLUB_ERROR);
+            }
+        }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
-        public ActionResult Details(int id) {
+        public ActionResult Details(string universityId, string id) {
             try {
-                UserInformationModel<User> myUser = GetUserInformatonModel();
+                UserInformationModel<User> myUserInfo = GetUserInformatonModel();
+                User myUser = myUserInfo == null ? null : myUserInfo.Details;
 
-                Club myClub = theClubService.GetClub(myUser, id);
+                Club myClub = theClubService.GetClub(myUserInfo, universityId, id);
 
-                if (!UniversityHelper.IsFromUniversity(myUser.Details, myClub.UniversityId)) {
-                    return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
-                }
-
-                LoggedInWrapperModel<Club> myLoggedIn = new LoggedInWrapperModel<Club>(myUser.Details);
+                LoggedInWrapperModel<Club> myLoggedIn = new LoggedInWrapperModel<Club>(myUser);
                 myLoggedIn.Set(myClub);
 
                 return View("Details", myLoggedIn);

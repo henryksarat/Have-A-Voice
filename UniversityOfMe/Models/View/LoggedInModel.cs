@@ -14,32 +14,37 @@ namespace UniversityOfMe.Models.View {
         public University University { get; set; }
 
         public LoggedInModel(User aUser) {
-            INotificationService myNotificationService = new NotificationService();
-            IUofMeUserService myUserService = new UofMeUserService(new ModelStateWrapper(null));
-            IDatingService myDatingService = new DatingService();
-            IBadgeService myBadgeService = new BadgeService();
+            if (aUser != null) {
+                INotificationService myNotificationService = new NotificationService();
+                IUofMeUserService myUserService = new UofMeUserService(new ModelStateWrapper(null));
+                IDatingService myDatingService = new DatingService();
+                IBadgeService myBadgeService = new BadgeService();
 
-            IEnumerable<NotificationModel> myNotifications = myNotificationService.GetNotificationsForUser(aUser, 5);
-            IEnumerable<User> myNewestUsers = myUserService.GetNewestUsers(aUser, UniversityHelper.GetMainUniversityId(aUser), 10);
-            UserBadge myUserBadge = myBadgeService.GetLatestUnseenBadgeForUser(aUser);
-            Badge myBadge = null;
-            
-            if(myUserBadge !=null) {
-                myBadge = myBadgeService.GetBadgeByName(myUserBadge.BadgeName);
+                IEnumerable<NotificationModel> myNotifications = myNotificationService.GetNotificationsForUser(aUser, 5);
+                IEnumerable<User> myNewestUsers = myUserService.GetNewestUsers(aUser, UniversityHelper.GetMainUniversityId(aUser), 10);
+                UserBadge myUserBadge = myBadgeService.GetLatestUnseenBadgeForUser(aUser);
+                Badge myBadge = null;
+
+                if (myUserBadge != null) {
+                    myBadge = myBadgeService.GetBadgeByName(myUserBadge.BadgeName);
+                }
+                University = UniversityHelper.GetMainUniversity(aUser);
+
+                LeftNavigation = new LeftNavigation() {
+                    User = aUser,
+                    NewestUsersInUniversity = myNewestUsers,
+                    Notifications = myNotifications,
+                    DatingMember = myDatingService.GetDatingMember(aUser),
+                    DatingMatchMember = myDatingService.UserDatingMatch(aUser),
+                    LatestUserBadge = myUserBadge,
+                    Badge = myBadge,
+                    IsLoggedIn = true
+                };
+            } else {
+                LeftNavigation = new LeftNavigation() {
+                    IsLoggedIn = false
+                };
             }
-            University = UniversityHelper.GetMainUniversity(aUser);
-
-            LeftNavigation = new LeftNavigation() {
-                User = aUser,
-                NewestUsersInUniversity = myNewestUsers,
-                Notifications = myNotifications,
-                DatingMember = myDatingService.GetDatingMember(aUser),
-                DatingMatchMember = myDatingService.UserDatingMatch(aUser),
-                LatestUserBadge = myUserBadge,
-                Badge = myBadge
-            };
         }
-
-
     }
 }

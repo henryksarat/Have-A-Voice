@@ -12,17 +12,17 @@ namespace UniversityOfMe.Helpers.Functionality {
     public class ClubHelper {
         public static bool IsAdmin(User aUser, int aClubId) {
             IClubService myClubService = new ClubService(new ModelStateWrapper(new ModelStateDictionary()));
-            return myClubService.IsAdmin(aUser, aClubId);
+            return aUser != null && myClubService.IsAdmin(aUser, aClubId);
         }
 
         public static bool IsPending(User aUser, int aClubId) {
             IClubService myClubService = new ClubService(new ModelStateWrapper(new ModelStateDictionary()));
-            return myClubService.IsPendingApproval(aUser.Id, aClubId);
+            return aUser != null && myClubService.IsPendingApproval(aUser.Id, aClubId);
         }
 
         public static bool IsMember(User aUser, int aClubId) {
             IClubService myClubService = new ClubService(new ModelStateWrapper(new ModelStateDictionary()));
-            return myClubService.IsApartOfClub(aUser.Id, aClubId);
+            return aUser != null && myClubService.IsApartOfClub(aUser.Id, aClubId);
         }
 
         public static IEnumerable<ClubAdminFeed> GetAdminFeed(Club aClub, int aLimit) {

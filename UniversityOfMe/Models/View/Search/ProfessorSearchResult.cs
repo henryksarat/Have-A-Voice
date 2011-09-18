@@ -31,18 +31,26 @@ namespace UniversityOfMe.Models.View.Search {
 
             myActionsDiv.InnerHtml += myRatingDiv.ToString();
 
-            var myTitleSpan = new TagBuilder("span");
-            myTitleSpan.AddCssClass("title");
+            var myDescriptionDiv = new TagBuilder("div");
+
+            var myTitleSpan = new TagBuilder("div");
+            myTitleSpan.MergeAttribute("style", "font-weight:bold");
 
             var myNameLinked = new TagBuilder("a");
             myNameLinked.AddCssClass("itemlinked");
             myNameLinked.MergeAttribute("href", URLHelper.BuildProfessorUrl(theProfessor));
-            myNameLinked.InnerHtml += "Prof. " + theProfessor.FirstName + " " + theProfessor.LastName;
+            myNameLinked.InnerHtml += "Professor " + theProfessor.FirstName + " " + theProfessor.LastName;
 
             myTitleSpan.InnerHtml += myNameLinked.ToString();
-            
+
+            var myUnviersityDiv = new TagBuilder("div");
+            myUnviersityDiv.InnerHtml = theProfessor.University.UniversityName;
+
+            myDescriptionDiv.InnerHtml += myTitleSpan.ToString();
+            myDescriptionDiv.InnerHtml += myUnviersityDiv.ToString();
+
             myProfessorDiv.InnerHtml += myActionsDiv.ToString();
-            myProfessorDiv.InnerHtml += myTitleSpan.ToString();
+            myProfessorDiv.InnerHtml += myDescriptionDiv;
 
             return myProfessorDiv.ToString();
         }

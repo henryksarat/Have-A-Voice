@@ -31,10 +31,10 @@ namespace UniversityOfMe.Models.View.Search {
 
             myActionsDiv.InnerHtml += mySendMessage.ToString();
             myActionsDiv.InnerHtml += "<br />";
-            if(FriendHelper.IsPendingFriendRequest(UserInformationModel.Details, theUser)) {
+            if (UserInformationModel != null && FriendHelper.IsPendingFriendRequest(UserInformationModel.Details, theUser)) {
                 myActionsDiv.InnerHtml += "Pending Friend Request";
                 myActionsDiv.InnerHtml += "<br />";
-            } else if (!FriendHelper.IsFriend(UserInformationModel.Details, theUser)) {
+            } else if (UserInformationModel == null || !FriendHelper.IsFriend(UserInformationModel.Details, theUser)) {
                 var myAddFriend = new TagBuilder("a");
                 myAddFriend.AddCssClass("addfriend");
                 myAddFriend.MergeAttribute("href", URLHelper.AddFriendUrl(theUser));

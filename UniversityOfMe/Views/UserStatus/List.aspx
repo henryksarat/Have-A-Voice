@@ -14,7 +14,7 @@
     <div class="eight last"> 
         <div class="create-feature-form">
 		    <div class="banner black full"> 
-			    University Wide Statuses
+			    <span class="bubble">University Wide Statuses</span>
 		    </div> 
             <div class="padding-col">
                 <% Html.RenderPartial("Message"); %>

@@ -87,9 +87,7 @@ namespace UniversityOfMe.Services.Professors {
             return true;
         }
 
-        public Professor GetProfessor(UserInformationModel<User> aViewingUser, string aUniversityId, string aProfessorName) {
-            bool myIsFromUniversity = UniversityHelper.IsFromUniversity(aViewingUser.Details, aUniversityId);
-
+        public Professor GetProfessor(string aUniversityId, string aProfessorName) {
             string[] mySplitName = URLHelper.FromUrlFriendly(aProfessorName);
 
             if (mySplitName.Length != 2) {
@@ -98,10 +96,8 @@ namespace UniversityOfMe.Services.Professors {
             string myFirstname = mySplitName[0];
             string myLastname = mySplitName[1];
 
-            if (myIsFromUniversity) {
-                return theProfessorRepository.GetProfessor(aUniversityId, myFirstname, myLastname);
-            }
-            throw new CustomException(UOMErrorKeys.NOT_FROM_UNVIERSITY);
+
+            return theProfessorRepository.GetProfessor(aUniversityId, myFirstname, myLastname);
         }
 
         public bool IsProfessorExists(string aUniversityId, string aFullname) {

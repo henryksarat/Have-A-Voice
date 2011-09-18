@@ -66,7 +66,7 @@ namespace UniversityOfMe.Models.View.Search {
             myClassDiv.InnerHtml += myActionsDiv.ToString();
             myClassDiv.InnerHtml += myTitleSpan.ToString();
             myClassDiv.InnerHtml += "<br />";
-            myClassDiv.InnerHtml += theClass.ClassTitle;
+            myClassDiv.InnerHtml += theClass.ClassCode;
             myClassDiv.InnerHtml += "<br />";
             myClassDiv.InnerHtml += theClass.AcademicTerm.DisplayName + " " + theClass.Year;
 

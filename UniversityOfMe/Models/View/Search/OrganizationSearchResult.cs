@@ -21,19 +21,19 @@ namespace UniversityOfMe.Models.View.Search {
             myActionsDiv.AddCssClass("actions");
 
             var myClubAction = new TagBuilder("a");
-            if (ClubHelper.IsAdmin(UserInformationModel.Details, theOrganization.Id)) {
+            if (UserInformationModel != null && ClubHelper.IsAdmin(UserInformationModel.Details, theOrganization.Id)) {
                 myClubAction.AddCssClass("remove");
                 myClubAction.MergeAttribute("href", URLHelper.BuildOrganizationSetAsActive(theOrganization));
                 myClubAction.InnerHtml += "Set Club As Inactive";
-            } else if (ClubHelper.IsAdmin(UserInformationModel.Details, theOrganization.Id) && !theOrganization.Active) {
+            } else if (UserInformationModel != null && ClubHelper.IsAdmin(UserInformationModel.Details, theOrganization.Id) && !theOrganization.Active) {
                 myClubAction.AddCssClass("add");
                 myClubAction.MergeAttribute("href", URLHelper.BuildOrganizationSetAsActive(theOrganization));
                 myClubAction.InnerHtml += "Set Club As Active";
-            } else if (ClubHelper.IsPending(UserInformationModel.Details, theOrganization.Id)) {
+            } else if (UserInformationModel != null && ClubHelper.IsPending(UserInformationModel.Details, theOrganization.Id)) {
                 myClubAction.AddCssClass("remove");
                 myClubAction.MergeAttribute("href", URLHelper.BuildOrganizationCancelRequestToJoin(theOrganization));
                 myClubAction.InnerHtml += "Cancel My Request to Join";
-            } else if (ClubHelper.IsMember(UserInformationModel.Details, theOrganization.Id)) {
+            } else if (UserInformationModel != null && ClubHelper.IsMember(UserInformationModel.Details, theOrganization.Id)) {
                 myClubAction.AddCssClass("remove");
                 myClubAction.MergeAttribute("href", URLHelper.BuildOrganizationQuitOrganization(theOrganization));
                 myClubAction.InnerHtml += "Quit Organization";

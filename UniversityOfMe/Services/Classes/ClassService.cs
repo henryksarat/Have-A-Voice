@@ -108,7 +108,9 @@ namespace UniversityOfMe.Services.Classes {
             
             Class myClass = theClassRepository.GetClass(mySplitClass[0], mySplitClass[1], int.Parse(mySplitClass[2]));
             if (aClassViewType == ClassViewType.Discussion) {
-                theClassRepository.MarkClassBoardAsViewed(aViewingUser.Details, myClass.Id);
+                if (aViewingUser != null) {
+                    theClassRepository.MarkClassBoardAsViewed(aViewingUser.Details, myClass.Id);
+                }
             }
             return myClass;
         }

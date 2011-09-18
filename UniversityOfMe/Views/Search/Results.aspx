@@ -2,12 +2,13 @@
 <%@ Import Namespace="UniversityOfMe.UserInformation" %>
 <%@ Import Namespace="UniversityOfMe.Models" %>
 <%@ Import Namespace="UniversityOfMe.Helpers" %>
-<%@ Import Namespace="UniversityOfMe.Helpers.Search" %>
 <%@ Import Namespace="UniversityOfMe.Helpers.Constants" %>
+<%@ Import Namespace="UniversityOfMe.Helpers.Search" %>
+<%@ Import Namespace="UniversityOfMe.Helpers.Configuration" %>
 <%@ Import Namespace="UniversityOfMe.Models.View.Search" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Search Results
+	<%= Model.SearchType.ToString() %> Search Results
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -95,7 +96,7 @@
                 <%= Html.ActionLink("Textbook Search Results", "Textbook", "Search", new { searchString = mySearchString, page = 1 }, new { @class = "book" })%>
 			</li> 
 			<li class="<%= Model.SearchType == SearchFilter.Organization ? "active" : "" %>"> 
-                <%= Html.ActionLink("Organization Search Results", "Textbook", "Search", new { searchString = mySearchString, page = 1 }, new { @class = "org" })%>
+                <%= Html.ActionLink("Club Search Results", "Organization", "Search", new { searchString = mySearchString, page = 1 }, new { @class = "org" })%>
 			</li> 
 			<li class="<%= Model.SearchType == SearchFilter.GeneralPosting ? "active" : "" %>"> 
                 <%= Html.ActionLink("General Posting Search Results", "GeneralPosting", "Search", new { searchString = Model.SearchString, page = 1 }, new { @class = "post" })%>
@@ -106,7 +107,7 @@
 				
 <div class="eight last"> 
 	<div class="banner title black full red-top small clearfix"> 
-		<span>SEARCH RESULTS</span> 
+		<span><%= Model.SearchType.ToString().ToUpper() %> SEARCH RESULTS</span> 
 		<div class="frgt max-w240 clearfix"> 
 			<div class="search clearfix"> 
 				<input id="search" type="text" class="inpt w227" value="<%= string.IsNullOrEmpty(Model.SearchString) ? SearchConstants.DEFAULT_SEARCH_TEXT : Model.SearchString %>" /> 
@@ -171,8 +172,8 @@
                     <a href="<%= mySearchUrl + (Model.CurrentPage - 1) %>">&laquo; Previous</a>
                 </li> 
             <% } %>
-            <% int myLowerBound = Model.CurrentPage - SearchConstants.PAGES_PADDING < 1 ? 1 : Model.CurrentPage - SearchConstants.PAGES_PADDING; %>
-            <% int myUpperBound = Model.CurrentPage + SearchConstants.PAGES_PADDING > Model.TotalPages ? Model.TotalPages : Model.CurrentPage + SearchConstants.PAGES_PADDING; %>
+            <% int myLowerBound = Model.CurrentPage - SiteConfiguration.PagesPadding() < 1 ? 1 : Model.CurrentPage - SiteConfiguration.PagesPadding(); %>
+            <% int myUpperBound = Model.CurrentPage + SiteConfiguration.PagesPadding() > Model.TotalPages ? Model.TotalPages : Model.CurrentPage + SiteConfiguration.PagesPadding(); %>
             <% for (int myCounter = myLowerBound; myCounter <= myUpperBound; myCounter++) { %>
                 <% if (myCounter == Model.CurrentPage) { %>
                     <li class="active"><%= myCounter %></li> 

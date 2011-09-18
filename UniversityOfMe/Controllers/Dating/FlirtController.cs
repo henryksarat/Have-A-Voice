@@ -14,6 +14,7 @@ using UniversityOfMe.Models.View;
 using Social.Generic.Models;
 using Social.Validation;
 using System.Collections.Generic;
+using UniversityOfMe.Services;
 
 namespace UniversityOfMe.Controllers.Dating {
     public class FlirtController : UOFMeBaseController {
@@ -21,12 +22,14 @@ namespace UniversityOfMe.Controllers.Dating {
         private const string ANONYMOUS_FLIRT_SEND_ERROR = "Anonymous flirt has not been sent. Please try again.";
 
         IFlirtingService theFlirtingService;
+        IUniversityService theUniversityService;
         IValidationDictionary theValidationDictionary;
 
         public FlirtController() {
             UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()));
             theValidationDictionary = new ModelStateWrapper(this.ModelState);
             theFlirtingService = new FlirtingService(theValidationDictionary);
+            theUniversityService = new UniversityService(theValidationDictionary);
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
@@ -95,13 +98,15 @@ namespace UniversityOfMe.Controllers.Dating {
         }
 
         [AcceptVerbs(HttpVerbs.Get), ExportModelStateToTempData]
-        public ActionResult List() {
+        public ActionResult List(string universityId) {
             try {
                 UserInformationModel<User> myUserInfo = GetUserInformatonModel();
-                string myUniversity = UniversityHelper.GetMainUniversity(myUserInfo.Details).Id;
-                LoggedInListModel<AnonymousFlirt> myLoggedInModel = new LoggedInListModel<AnonymousFlirt>(myUserInfo.Details);
-                IEnumerable<AnonymousFlirt> myUserStatuses = theFlirtingService.GetFlirtsWithinUniversity(myUniversity, 25);
+                User myUser = myUserInfo == null ? null : myUserInfo.Details;
+                
+                LoggedInListModel<AnonymousFlirt> myLoggedInModel = new LoggedInListModel<AnonymousFlirt>(myUser);
+                IEnumerable<AnonymousFlirt> myUserStatuses = theFlirtingService.GetFlirtsWithinUniversity(universityId, 25);
                 myLoggedInModel.Set(myUserStatuses);
+                myLoggedInModel.University = theUniversityService.GetUniversityById(universityId);
 
                 return View("List", myLoggedInModel);
             } catch (Exception e) {
