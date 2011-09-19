@@ -122,7 +122,7 @@
 	        <div class="banner title"> 
 		        UOFME RANDOM DATING
 		        <div id="datingtooltip" class="buttons"> 
-			            <a href="#" class="question" title="A dating match is made only if the person says yes too, if they say no they never know.">What is this?</a> 
+			            <a href="#" class="question" title="A dating match is made only if the person says yes too, if they say no they never know you said yes.">What is this?</a> 
 			        <%= Html.ActionLink("Disable", "DisableFeature", "Profile", new { feature = Features.DatingAsked }, new { @class = "deny" })%>
 		        </div> 
 	        </div> 
