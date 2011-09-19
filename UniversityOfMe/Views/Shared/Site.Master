@@ -53,7 +53,9 @@
 					</div> 
 					<div class="six last right"> 
 						<nav> 
-							<a href="#">Home</a> 
+							<a href="www.universityof.me">Home</a> 
+                            | 
+							<a href="http://universityofme.wordpress.com/">Blog</a> 
                             | 
                             <a href="/Site/Terms">Terms &amp; Conditions</a> 
                             | 
@@ -64,6 +66,7 @@
                             <a href="#">About</a> 
 						    <a href="http://www.twitter.com/uofme" class="twitter">Twitter</a>
 						    <a href="http://www.facebook.com/uofme" class="facebook">Facebook</a>
+                            <a href="http://www.universityofme.wordpress.com" class="wordpress">Blog</a>
 						</nav> 
 					</div> 
 				</div> 

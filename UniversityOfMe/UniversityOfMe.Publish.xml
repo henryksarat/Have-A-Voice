@@ -1,52 +1,62 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <publishData>
   <publishProfile publishUrl="ftp://107.20.179.49:/" deleteExistingFiles="True" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FTP" replaceMatchingFiles="False" userName="hsarat" savePWD="True" userPWD="AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAApw+sHRUUE0+zIHY/gaX8AwAAAAACAAAAAAAQZgAAAAEAACAAAAAqR5jcoE2Nh8qbG/vLICqkmjV6f5AEBCOpX2ikvRTj8gAAAAAOgAAAAAIAACAAAAB96Mpi4R+lW0wufhUiMBv0TK7DhrbNaeafzbClgnBhiCAAAACr7oVkKUbyC7NKXKy951R/ah8QSq4I5x2X30dkYR5kaUAAAABX1pmTLg3gHoPkqpXuC42bDQy7KPfMSXU3K4+t6KAXZF309GRGxfHVKBTiO2W7uvLdvLfokEg8b1JtvxANP+zA" SelectedForPublish="True">
+    <file relUrl="Content/images/badges/friends1.png" publishTime="09/07/2011 18:32:03" />
     <file relUrl="Views/Photo/Display.aspx" publishTime="06/28/2011 20:02:49" />
     <file relUrl="Scripts/MicrosoftAjax.js" publishTime="05/31/2011 11:52:34" />
+    <file relUrl="Content/images/badges/classreview10.png" publishTime="09/07/2011 18:32:02" />
+    <file relUrl="Content/images/red-star.png" publishTime="07/01/2011 15:54:06" />
     <file relUrl="Content/css/ui-lightness/jquery-ui-1.8.13.custom.css" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="Views/University/Organizations.ascx" publishTime="08/20/2011 12:42:45" />
-    <file relUrl="Views/Friend/List.aspx" publishTime="07/13/2011 20:37:48" />
+    <file relUrl="Content/images/msg-icon-err.png" publishTime="06/28/2011 20:02:49" />
+    <file relUrl="Content/images/badges/beersent1.png" publishTime="09/07/2011 18:32:02" />
+    <file relUrl="Views/University/Organizations.ascx" publishTime="09/07/2011 22:51:54" />
+    <file relUrl="Content/images/badges/professorreview1.png" publishTime="09/07/2011 18:32:03" />
+    <file relUrl="Views/Friend/List.aspx" publishTime="09/07/2011 19:33:53" />
+    <file relUrl="Content/images/badges/friends100.png" publishTime="09/07/2011 18:32:03" />
     <file relUrl="Content/images/tooltip/black.png" publishTime="06/28/2011 20:02:49" />
     <file relUrl="Content/js/jquery-ui-1.8.13.custom.min.js" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="bin/Validation.dll" publishTime="09/01/2011 11:10:12" />
-    <file relUrl="Content/images/new-mail.png" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="bin/Photo.dll" publishTime="09/01/2011 11:10:14" />
-    <file relUrl="Content/images/arrow-down-gray.png" publishTime="05/31/2011 11:52:33" />
+    <file relUrl="bin/Validation.dll" publishTime="09/07/2011 22:21:51" />
+    <file relUrl="bin/Photo.dll" publishTime="09/07/2011 22:21:53" />
     <file relUrl="Content/css/ui-lightness/images/ui-icons_ffd27a_256x240.png" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Content/images/minilogo.png" publishTime="06/28/2011 20:02:49" />
     <file relUrl="Views/Home/Main.aspx" publishTime="09/01/2011 11:05:49" />
     <file relUrl="Content/images/all.png" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="bin/Generic.dll" publishTime="09/01/2011 11:10:11" />
+    <file relUrl="Views/Profile/Show.aspx" publishTime="09/07/2011 21:56:41" />
+    <file relUrl="bin/Generic.dll" publishTime="09/07/2011 22:21:49" />
     <file relUrl="Content/images/star-empty.png" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Views/Web.config" publishTime="05/31/2011 11:52:34" />
-    <file relUrl="Content/images/bubble.png" publishTime="05/31/2011 11:52:33" />
+    <file relUrl="App_Data/AutomatedEmail_log.ldf" publishTime="09/04/2011 18:46:51" />
+    <file relUrl="Views/Professor/Create.aspx" publishTime="09/06/2011 00:24:10" />
     <file relUrl="Content/css/ui-lightness/images/ui-bg_gloss-wave_35_f6a828_500x100.png" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Scripts/jquery.validate.js" publishTime="05/31/2011 11:52:34" />
-    <file relUrl="bin/Messaging.pdb" publishTime="09/01/2011 11:10:16" />
-    <file relUrl="Views/Badge/List.aspx" publishTime="08/18/2011 22:44:03" />
+    <file relUrl="bin/Messaging.pdb" publishTime="09/07/2011 22:21:54" />
+    <file relUrl="Views/Badge/List.aspx" publishTime="09/07/2011 18:32:03" />
+    <file relUrl="Content/images/badges/eventcreated25.png" publishTime="09/07/2011 18:32:03" />
     <file relUrl="bin/System.Web.Abstractions.dll" publishTime="03/18/2010 19:31:26" />
     <file relUrl="Content/images/tooltip/white.png" publishTime="06/28/2011 20:02:49" />
     <file relUrl="Content/images/tooltip/white_big.png" publishTime="06/28/2011 20:02:49" />
-    <file relUrl="Views/User/Edit.aspx" publishTime="08/25/2011 17:14:27" />
+    <file relUrl="Views/User/Edit.aspx" publishTime="09/06/2011 00:32:13" />
+    <file relUrl="Content/images/badges/beersent100.png" publishTime="09/07/2011 18:32:02" />
     <file relUrl="Content/css/ui-lightness/images/ui-icons_ffffff_256x240.png" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="Views/ProfessorReview/Create.aspx" publishTime="05/31/2011 11:52:34" />
-    <file relUrl="bin/Board.dll" publishTime="09/01/2011 11:10:15" />
+    <file relUrl="Views/ProfessorReview/Create.aspx" publishTime="09/06/2011 00:25:03" />
+    <file relUrl="bin/Board.dll" publishTime="09/07/2011 22:21:54" />
+    <file relUrl="Content/images/badges/friends10.png" publishTime="09/07/2011 18:32:03" />
     <file relUrl="Content/images/star-red.png" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="bin/UniversityOfMe.dll" publishTime="09/01/2011 11:10:52" />
-    <file relUrl="Views/GeneralPosting/Create.aspx" publishTime="08/22/2011 20:47:57" />
-    <file relUrl="bin/BaseWebsite.pdb" publishTime="09/01/2011 11:10:16" />
-    <file relUrl="Views/Message/Details.aspx" publishTime="06/28/2011 20:02:49" />
+    <file relUrl="bin/UniversityOfMe.dll" publishTime="09/07/2011 23:39:13" />
+    <file relUrl="Views/GeneralPosting/Create.aspx" publishTime="09/06/2011 00:18:05" />
+    <file relUrl="Content/images/addfriend.png" publishTime="06/28/2011 20:02:49" />
+    <file relUrl="Content/images/badges/question100.png" publishTime="09/07/2011 18:32:03" />
+    <file relUrl="bin/BaseWebsite.pdb" publishTime="09/07/2011 22:39:06" />
+    <file relUrl="Content/images/ico-t.png" publishTime="07/31/2011 14:52:29" />
     <file relUrl="Content/images/self.png" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Content/jquery.ui.stars.css" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="Content/images/star-half.png" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="Views/Event/Create.aspx" publishTime="08/22/2011 20:47:41" />
-    <file relUrl="Content/images/logo.png" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="Views/Role/Index.aspx" publishTime="06/28/2011 20:02:49" />
-    <file relUrl="bin/Friend.dll" publishTime="09/01/2011 11:10:13" />
-    <file relUrl="Views/Message/Create.aspx" publishTime="08/23/2011 21:16:58" />
+    <file relUrl="Views/Event/Create.aspx" publishTime="09/06/2011 00:16:47" />
+    <file relUrl="Views/Role/Index.aspx" publishTime="09/06/2011 00:26:17" />
+    <file relUrl="bin/Friend.dll" publishTime="09/07/2011 22:21:52" />
+    <file relUrl="Views/Message/Create.aspx" publishTime="09/06/2011 17:13:28" />
     <file relUrl="Scripts/jquery.validate.min.js" publishTime="05/31/2011 11:52:34" />
-    <file relUrl="Content/images/trash.png" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="Views/Permission/Delete.aspx" publishTime="05/31/2011 11:52:34" />
+    <file relUrl="Views/Permission/Delete.aspx" publishTime="09/06/2011 00:21:10" />
+    <file relUrl="Content/images/badges/organizationjoined1.png" publishTime="09/07/2011 18:32:03" />
     <file relUrl="Content/images/tooltip/black_big.png" publishTime="06/28/2011 20:02:49" />
     <file relUrl="Content/jquery.ui.stars.gif" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Content/images/tooltip/black_arrow.png" publishTime="06/28/2011 20:02:49" />
@@ -54,157 +64,200 @@
     <file relUrl="Content/images/mail.png" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Content/images/tooltip/white_arrow.png" publishTime="06/28/2011 20:02:49" />
     <file relUrl="Content/css/ui-lightness/images/ui-icons_222222_256x240.png" publishTime="05/31/2011 11:52:33" />
+    <file relUrl="Content/images/badges/eventcreated1.png" publishTime="09/07/2011 18:32:02" />
     <file relUrl="Scripts/MicrosoftMvcAjax.debug.js" publishTime="05/31/2011 11:52:34" />
     <file relUrl="bin/Recaptcha.pdb" publishTime="12/14/2010 17:19:48" />
-    <file relUrl="Views/Club/Create.aspx" publishTime="08/30/2011 23:54:06" />
+    <file relUrl="Views/Club/Create.aspx" publishTime="09/06/2011 00:14:06" />
     <file relUrl="Content/images/30-gray.png" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Views/Role/SwitchUserRoles.aspx" publishTime="06/28/2011 20:02:49" />
-    <file relUrl="Views/Shared/LogOnUserControl.ascx" publishTime="05/31/2011 11:52:34" />
-    <file relUrl="Views/ClubMember/List.aspx" publishTime="06/28/2011 20:02:49" />
-    <file relUrl="Views/Authentication/Login.aspx" publishTime="08/23/2011 20:08:14" />
-    <file relUrl="Views/Shared/Notifications.ascx" publishTime="07/13/2011 16:23:54" />
-    <file relUrl="Content/style.css" publishTime="08/25/2011 18:11:18" />
-    <file relUrl="bin/Site.dll" publishTime="09/01/2011 11:10:13" />
+    <file relUrl="Views/Shared/LogOnUserControl.ascx" publishTime="09/02/2011 20:29:29" />
+    <file relUrl="Views/ClubMember/List.aspx" publishTime="09/06/2011 00:16:38" />
+    <file relUrl="Content/images/badges/eventcreated10.png" publishTime="09/07/2011 18:32:03" />
+    <file relUrl="Views/Authentication/Login.aspx" publishTime="09/06/2011 00:08:04" />
+    <file relUrl="Content/images/badges/beersent1000.png" publishTime="09/07/2011 18:32:02" />
+    <file relUrl="Views/Shared/Notifications.ascx" publishTime="09/06/2011 22:46:36" />
+    <file relUrl="Content/style.css" publishTime="09/07/2011 23:10:48" />
+    <file relUrl="bin/Site.dll" publishTime="09/07/2011 22:21:52" />
+    <file relUrl="Content/images/badges/answer20.png" publishTime="09/07/2011 18:32:02" />
     <file relUrl="Scripts/MicrosoftMvcAjax.js" publishTime="05/31/2011 11:52:34" />
-    <file relUrl="Views/Site/Main.aspx" publishTime="08/21/2011 14:32:54" />
-    <file relUrl="Views/Role/Delete.aspx" publishTime="06/28/2011 20:02:49" />
+    <file relUrl="Views/Site/Main.aspx" publishTime="09/06/2011 00:28:30" />
+    <file relUrl="Views/Role/Edit.aspx" publishTime="09/06/2011 00:26:10" />
     <file relUrl="Content/images/cancel.png" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Content/images/event.png" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Content/images/question.png" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="Views/Role/Edit.aspx" publishTime="06/28/2011 20:02:49" />
-    <file relUrl="Views/Event/Details.aspx" publishTime="06/28/2011 20:02:49" />
-    <file relUrl="Views/Permission/Index.aspx" publishTime="05/31/2011 11:52:34" />
-    <file relUrl="bin/Email.pdb" publishTime="09/01/2011 11:10:11" />
+    <file relUrl="bin/Messaging.dll" publishTime="09/07/2011 22:21:54" />
+    <file relUrl="Views/Event/Details.aspx" publishTime="09/06/2011 00:17:02" />
+    <file relUrl="Views/Permission/Index.aspx" publishTime="09/06/2011 00:21:35" />
+    <file relUrl="bin/Email.pdb" publishTime="09/07/2011 22:21:49" />
     <file relUrl="Views/University/GeneralPostings.ascx" publishTime="08/20/2011 12:42:00" />
-    <file relUrl="Views/Event/Edit.aspx" publishTime="08/22/2011 20:47:50" />
+    <file relUrl="Views/Event/Edit.aspx" publishTime="09/06/2011 00:17:11" />
+    <file relUrl="Views/University/Main.aspx" publishTime="09/07/2011 19:46:13" />
     <file relUrl="Content/images/plus.png" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Content/images/arrow-down.png" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Global.asax" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="Views/Feature/Edit.aspx" publishTime="08/24/2011 16:28:19" />
-    <file relUrl="Views/User/Create.aspx" publishTime="05/31/2011 11:52:34" />
-    <file relUrl="bin/User.dll" publishTime="09/01/2011 11:10:13" />
+    <file relUrl="Content/images/badges/classreview25.png" publishTime="09/07/2011 18:32:02" />
+    <file relUrl="Views/Feature/Edit.aspx" publishTime="09/06/2011 00:17:34" />
+    <file relUrl="Views/User/Create.aspx" publishTime="09/06/2011 00:32:05" />
+    <file relUrl="bin/Recaptcha.dll" publishTime="12/14/2010 17:19:48" />
+    <file relUrl="bin/User.dll" publishTime="09/07/2011 22:21:51" />
     <file relUrl="Scripts/MicrosoftMvcValidation.js" publishTime="05/31/2011 11:52:34" />
-    <file relUrl="Web.config" publishTime="09/01/2011 11:14:16" />
+    <file relUrl="Views/University/UserStatuses.ascx" publishTime="08/24/2011 23:04:48" />
+    <file relUrl="Web.config" publishTime="09/07/2011 23:36:16" />
     <file relUrl="Views/University/Textbooks.ascx" publishTime="08/20/2011 12:31:34" />
-    <file relUrl="Views/Authentication/ChangeEmail.aspx" publishTime="05/31/2011 11:52:34" />
-    <file relUrl="Views/PhotoAlbum/Details.aspx" publishTime="08/23/2011 20:19:07" />
+    <file relUrl="Views/Authentication/ChangeEmail.aspx" publishTime="09/06/2011 00:07:56" />
+    <file relUrl="Content/images/badges/question50.png" publishTime="09/07/2011 18:32:03" />
+    <file relUrl="Views/PhotoAlbum/Details.aspx" publishTime="09/06/2011 00:22:56" />
     <file relUrl="Content/css/ui-lightness/images/ui-bg_highlight-soft_75_ffe45c_1x100.png" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="bin/ViewHelpers.dll" publishTime="09/01/2011 11:10:12" />
+    <file relUrl="bin/ViewHelpers.dll" publishTime="09/07/2011 22:21:50" />
+    <file relUrl="Content/images/badges/professorreview25.png" publishTime="09/07/2011 18:32:03" />
     <file relUrl="bin/System.Web.Mvc.dll" publishTime="02/17/2010 07:24:14" />
-    <file relUrl="bin/Admin.pdb" publishTime="09/01/2011 11:10:14" />
+    <file relUrl="Views/Shared/LeftNavigation.ascx" publishTime="09/07/2011 20:12:05" />
+    <file relUrl="bin/Admin.pdb" publishTime="09/07/2011 22:21:52" />
     <file relUrl="Content/images/book.png" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="Views/Class/ViewAllMembers.aspx" publishTime="05/31/2011 11:52:34" />
-    <file relUrl="Views/Permission/Edit.aspx" publishTime="05/31/2011 11:52:34" />
-    <file relUrl="Views/GeneralPosting/Details.aspx" publishTime="06/28/2011 20:02:49" />
-    <file relUrl="Views/Professor/Details.aspx" publishTime="08/30/2011 23:18:47" />
+    <file relUrl="Views/Class/ViewAllMembers.aspx" publishTime="09/06/2011 00:11:24" />
+    <file relUrl="Views/Permission/Edit.aspx" publishTime="09/06/2011 00:21:19" />
+    <file relUrl="Views/GeneralPosting/Details.aspx" publishTime="09/06/2011 00:18:43" />
+    <file relUrl="Content/images/bg.png" publishTime="05/31/2011 11:52:33" />
+    <file relUrl="Content/images/ico-f.png" publishTime="07/31/2011 14:52:29" />
     <file relUrl="Content/images/buy.png" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Content/css/ui-lightness/images/ui-bg_highlight-soft_100_eeeeee_1x100.png" publishTime="05/31/2011 11:52:33" />
+    <file relUrl="Views/University/Professors.ascx" publishTime="08/20/2011 12:29:17" />
     <file relUrl="Content/css/ui-lightness/images/ui-bg_diagonals-thick_18_b81900_40x40.png" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="Views/ClassBoard/Details.aspx" publishTime="07/01/2011 15:54:06" />
-    <file relUrl="Views/Permission/Create.aspx" publishTime="05/31/2011 11:52:34" />
+    <file relUrl="Views/ClassBoard/Details.aspx" publishTime="09/06/2011 00:12:48" />
+    <file relUrl="Views/Permission/Create.aspx" publishTime="09/06/2011 00:20:55" />
+    <file relUrl="App_Data/UniversityOfMe_log.ldf" publishTime="09/07/2011 23:36:11" />
     <file relUrl="Content/images/arrow-red.png" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Content/images/readmessage.png" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Content/css/ui-lightness/images/ui-bg_flat_10_000000_40x100.png" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="Views/Message/Inbox.aspx" publishTime="08/22/2011 20:42:26" />
-    <file relUrl="Views/PhotoAlbum/Create.aspx" publishTime="08/22/2011 21:04:24" />
-    <file relUrl="bin/Board.pdb" publishTime="09/01/2011 11:10:15" />
-    <file relUrl="Views/Shared/Validation.ascx" publishTime="08/21/2011 16:58:22" />
+    <file relUrl="bin/System.Web.Routing.dll" publishTime="03/18/2010 19:31:26" />
+    <file relUrl="Content/images/check.png" publishTime="06/28/2011 20:02:49" />
+    <file relUrl="Views/Role/Delete.aspx" publishTime="09/06/2011 00:25:49" />
+    <file relUrl="Views/Message/Inbox.aspx" publishTime="09/06/2011 23:05:10" />
+    <file relUrl="Views/PhotoAlbum/Create.aspx" publishTime="09/06/2011 00:22:25" />
+    <file relUrl="bin/Board.pdb" publishTime="09/07/2011 22:21:54" />
     <file relUrl="Content/images/search.png" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Content/images/sell.png" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="Views/Shared/Result.aspx" publishTime="05/31/2011 11:52:34" />
+    <file relUrl="Views/Shared/Result.aspx" publishTime="09/02/2011 19:43:19" />
     <file relUrl="Content/images/msg-icon-sccss.png" publishTime="06/28/2011 20:02:49" />
-    <file relUrl="bin/Photo.pdb" publishTime="09/01/2011 11:10:14" />
-    <file relUrl="Views/TextBook/Create.aspx" publishTime="08/23/2011 21:16:44" />
-    <file relUrl="bin/Validation.pdb" publishTime="09/01/2011 11:10:12" />
+    <file relUrl="bin/Photo.pdb" publishTime="09/07/2011 22:21:53" />
+    <file relUrl="Content/images/defriend.png" publishTime="06/28/2011 20:02:49" />
+    <file relUrl="Views/TextBook/Create.aspx" publishTime="09/06/2011 00:29:00" />
+    <file relUrl="bin/Validation.pdb" publishTime="09/07/2011 22:21:51" />
     <file relUrl="Content/images/msg-icon-warn.png" publishTime="06/28/2011 20:02:49" />
-    <file relUrl="Views/Class/Details.aspx" publishTime="07/01/2011 15:54:06" />
+    <file relUrl="Content/images/badges/beersent25.png" publishTime="09/07/2011 18:32:02" />
+    <file relUrl="Views/Class/Details.aspx" publishTime="09/06/2011 00:09:29" />
     <file relUrl="Scripts/MicrosoftMvcValidation.debug.js" publishTime="05/31/2011 11:52:34" />
     <file relUrl="Content/images/personwhite.png" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="Content/jquery.ui.stars.min.js" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="Views/Search/Results.aspx" publishTime="07/12/2011 21:04:20" />
+    <file relUrl="bin/AWSSDK.dll" publishTime="09/01/2011 19:06:39" />
+    <file relUrl="Content/images/star-full.png" publishTime="05/31/2011 11:52:33" />
     <file relUrl="favicon.ico" publishTime="08/25/2011 16:52:40" />
     <file relUrl="Content/css/ui-lightness/images/ui-icons_ef8c08_256x240.png" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Content/images/unreadmessage.png" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Scripts/jquery.validate-vsdoc.js" publishTime="05/31/2011 11:52:34" />
-    <file relUrl="Views/TextBook/Edit.aspx" publishTime="08/22/2011 20:48:27" />
+    <file relUrl="Content/images/badges/answer50.png" publishTime="09/07/2011 18:32:02" />
+    <file relUrl="Views/TextBook/Edit.aspx" publishTime="09/06/2011 00:30:03" />
     <file relUrl="Content/jquery-1.4.2.min.js" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Views/Shared/Message.ascx" publishTime="07/13/2011 20:23:44" />
     <file relUrl="Scripts/jquery-1.4.1.js" publishTime="05/31/2011 11:52:34" />
-    <file relUrl="Views/Friend/Pending.aspx" publishTime="07/13/2011 20:37:38" />
-    <file relUrl="Content/images/paper.png" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="bin/Generic.pdb" publishTime="09/01/2011 11:10:11" />
+    <file relUrl="Views/ClassEnrollment/List.aspx" publishTime="09/06/2011 00:13:10" />
+    <file relUrl="bin/Generic.pdb" publishTime="09/07/2011 22:21:49" />
     <file relUrl="Content/images/remove.png" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="Content/images/bg.png" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="Views/TextBook/Details.aspx" publishTime="08/23/2011 21:25:56" />
-    <file relUrl="bin/Messaging.dll" publishTime="09/01/2011 11:10:16" />
+    <file relUrl="Content/images/photo.png" publishTime="05/31/2011 11:52:33" />
+    <file relUrl="Views/Search/Results.aspx" publishTime="09/06/2011 00:26:31" />
+    <file relUrl="Content/images/badges/friends1000.png" publishTime="09/07/2011 18:32:03" />
+    <file relUrl="Content/images/logo.png" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Content/jquery.ui.stars.min.css" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="bin/Authentication.pdb" publishTime="09/01/2011 11:10:15" />
+    <file relUrl="bin/Authentication.pdb" publishTime="09/07/2011 22:39:04" />
     <file relUrl="Content/css/ui-lightness/images/ui-bg_glass_100_f6f6f6_1x400.png" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Content/images/read-mail.png" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Content/images/wrench.png" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="Views/Notification/List.aspx" publishTime="08/22/2011 20:46:45" />
+    <file relUrl="Views/Notification/List.aspx" publishTime="09/06/2011 00:20:37" />
     <file relUrl="Content/images/star-green.png" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Content/images/tooltip/white_arrow_big.png" publishTime="06/28/2011 20:02:49" />
-    <file relUrl="Views/Role/Create.aspx" publishTime="06/28/2011 20:02:49" />
-    <file relUrl="Content/jquery.ui.stars.js" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="bin/BaseWebsite.dll" publishTime="09/01/2011 11:10:16" />
-    <file relUrl="bin/User.pdb" publishTime="09/01/2011 11:10:13" />
+    <file relUrl="Views/Role/Create.aspx" publishTime="09/06/2011 00:25:29" />
+    <file relUrl="Views/Club/Edit.aspx" publishTime="09/06/2011 00:14:41" />
+    <file relUrl="bin/BaseWebsite.dll" publishTime="09/07/2011 22:39:06" />
+    <file relUrl="bin/User.pdb" publishTime="09/07/2011 22:21:51" />
     <file relUrl="Content/images/close.png" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Content/js/jquery.tools.min.js" publishTime="06/28/2011 20:02:49" />
     <file relUrl="Content/images/organization.png" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Content/jquery-ui-1.7.2.custom.css" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="Views/Club/Details.aspx" publishTime="06/28/2011 20:02:49" />
+    <file relUrl="Content/images/badges/classreview1.png" publishTime="09/07/2011 18:32:02" />
+    <file relUrl="Views/Club/Details.aspx" publishTime="09/06/2011 00:14:28" />
     <file relUrl="Content/images/tooltip/black_arrow_big.png" publishTime="06/28/2011 20:02:49" />
-    <file relUrl="bin/Friend.pdb" publishTime="09/01/2011 11:10:13" />
-    <file relUrl="bin/ViewHelpers.pdb" publishTime="09/01/2011 11:10:12" />
+    <file relUrl="bin/Friend.pdb" publishTime="09/07/2011 22:21:52" />
+    <file relUrl="bin/ViewHelpers.pdb" publishTime="09/07/2011 22:21:50" />
+    <file relUrl="Content/images/badges/event1.png" publishTime="09/07/2011 18:32:02" />
+    <file relUrl="Content/images/board.png" publishTime="06/28/2011 20:02:49" />
+    <file relUrl="Views/Site/Terms.aspx" publishTime="09/06/2011 00:28:48" />
     <file relUrl="Scripts/jquery-1.4.1.min.js" publishTime="05/31/2011 11:52:34" />
     <file relUrl="Content/css/ui-lightness/images/ui-bg_glass_65_ffffff_1x400.png" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Scripts/jquery-1.4.1-vsdoc.js" publishTime="05/31/2011 11:52:34" />
+    <file relUrl="Content/images/badges/question20.png" publishTime="09/07/2011 18:32:03" />
     <file relUrl="Content/css/ui-lightness/images/ui-bg_diagonals-thick_20_666666_40x40.png" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="Views/ClassEnrollment/List.aspx" publishTime="06/28/2011 20:02:49" />
+    <file relUrl="Views/Shared/Validation.ascx" publishTime="08/21/2011 16:58:22" />
+    <file relUrl="Content/images/mag-shadow.png" publishTime="07/01/2011 15:54:06" />
     <file relUrl="Content/images/eagle.png" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="bin/Site.pdb" publishTime="09/01/2011 11:10:13" />
-    <file relUrl="Views/UserPrivacySetting/Edit.aspx" publishTime="08/22/2011 20:59:30" />
-    <file relUrl="Views/Profile/Show.aspx" publishTime="08/25/2011 18:11:23" />
-    <file relUrl="Views/PhotoAlbum/List.aspx" publishTime="08/22/2011 21:14:02" />
+    <file relUrl="App_Data/UniversityOfMe.mdf" publishTime="09/07/2011 23:36:11" />
+    <file relUrl="bin/Site.pdb" publishTime="09/07/2011 22:21:51" />
+    <file relUrl="Content/images/badges/organizationjoined125.png" publishTime="09/07/2011 18:32:03" />
+    <file relUrl="Views/UserPrivacySetting/Edit.aspx" publishTime="09/06/2011 00:32:18" />
+    <file relUrl="Views/Friend/Pending.aspx" publishTime="09/07/2011 19:35:13" />
+    <file relUrl="Views/PhotoAlbum/List.aspx" publishTime="09/07/2011 13:38:35" />
+    <file relUrl="Content/images/badges/event50.png" publishTime="09/07/2011 18:32:02" />
+    <file relUrl="Content/images/badges/question1.png" publishTime="09/07/2011 18:32:03" />
     <file relUrl="Scripts/MicrosoftAjax.debug.js" publishTime="05/31/2011 11:52:34" />
-    <file relUrl="bin/UniversityOfMe.pdb" publishTime="09/01/2011 11:10:51" />
-    <file relUrl="Views/ClubMember/Details.aspx" publishTime="06/28/2011 20:02:49" />
-    <file relUrl="Views/Board/Details.aspx" publishTime="08/25/2011 16:47:03" />
-    <file relUrl="Views/Class/Create.aspx" publishTime="08/22/2011 20:47:18" />
+    <file relUrl="Content/images/badges/event25.png" publishTime="09/07/2011 18:32:02" />
+    <file relUrl="bin/UniversityOfMe.pdb" publishTime="09/07/2011 23:39:13" />
+    <file relUrl="Views/ClubMember/Details.aspx" publishTime="09/06/2011 00:15:32" />
+    <file relUrl="Views/Board/Details.aspx" publishTime="09/06/2011 00:08:38" />
+    <file relUrl="Views/Class/Create.aspx" publishTime="09/06/2011 00:13:56" />
     <file relUrl="Content/images/friend.png" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="bin/Email.dll" publishTime="09/01/2011 11:10:11" />
+    <file relUrl="bin/Email.dll" publishTime="09/07/2011 22:21:49" />
+    <file relUrl="Content/images/badges/classreview5.png" publishTime="09/07/2011 18:32:02" />
     <file relUrl="Views/Shared/Error.aspx" publishTime="05/31/2011 11:52:34" />
     <file relUrl="Content/images/arrow-green.png" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="Views/Site/About.aspx" publishTime="06/28/2011 20:02:49" />
+    <file relUrl="Content/images/badges/organizationjoined5.png" publishTime="09/07/2011 18:32:03" />
+    <file relUrl="Views/Site/About.aspx" publishTime="09/06/2011 00:26:44" />
+    <file relUrl="Content/images/badges/event10.png" publishTime="09/07/2011 18:32:02" />
     <file relUrl="Content/images/msg-icon-nrm.png" publishTime="06/28/2011 20:02:49" />
     <file relUrl="Content/images/read.png" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="Views/UserStatus/List.aspx" publishTime="08/24/2011 23:30:42" />
-    <file relUrl="Views/Shared/LeftNavigation.ascx" publishTime="08/22/2011 10:33:31" />
+    <file relUrl="Views/UserStatus/List.aspx" publishTime="09/06/2011 00:32:53" />
+    <file relUrl="Views/Professor/Details.aspx" publishTime="09/06/2011 00:24:50" />
     <file relUrl="Content/jquery-ui-1.7.2.custom.min.js" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Content/css/ui-lightness/images/ui-icons_228ef1_256x240.png" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="bin/System.Web.Routing.dll" publishTime="03/18/2010 19:31:26" />
-    <file relUrl="Content/images/star-full.png" publishTime="05/31/2011 11:52:33" />
+    <file relUrl="Content/images/arrow-down-gray.png" publishTime="05/31/2011 11:52:33" />
+    <file relUrl="Views/Site/ContactUs.aspx" publishTime="09/06/2011 00:26:52" />
+    <file relUrl="Views/Message/Details.aspx" publishTime="09/06/2011 23:03:37" />
     <file relUrl="Content/js/jquery-1.5.1.min.js" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Views/University/Events.ascx" publishTime="08/20/2011 12:31:03" />
-    <file relUrl="Views/Club/Edit.aspx" publishTime="08/30/2011 23:17:49" />
-    <file relUrl="Content/images/msg-icon-err.png" publishTime="06/28/2011 20:02:49" />
+    <file relUrl="App_Data/AutomatedEmail.mdf" publishTime="09/04/2011 18:46:51" />
+    <file relUrl="Views/Site/Privacy.aspx" publishTime="09/06/2011 00:28:40" />
+    <file relUrl="Content/jquery.ui.stars.js" publishTime="05/31/2011 11:52:33" />
+    <file relUrl="Content/images/badges/answer1.png" publishTime="09/07/2011 18:32:02" />
+    <file relUrl="Content/images/badges/organizationjoined10.png" publishTime="09/07/2011 18:32:03" />
+    <file relUrl="Content/images/bubble.png" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Content/css/ui-lightness/images/ui-bg_glass_100_fdf5ce_1x400.png" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="bin/Recaptcha.dll" publishTime="12/14/2010 17:19:48" />
-    <file relUrl="Content/images/photo.png" publishTime="05/31/2011 11:52:33" />
-    <file relUrl="bin/Admin.dll" publishTime="09/01/2011 11:10:14" />
-    <file relUrl="Views/Professor/Create.aspx" publishTime="08/30/2011 23:17:09" />
-    <file relUrl="Views/University/UserStatuses.ascx" publishTime="08/24/2011 23:04:48" />
-    <file relUrl="Views/PhotoAlbum/Edit.aspx" publishTime="08/22/2011 21:07:41" />
+    <file relUrl="Content/images/star-half.png" publishTime="05/31/2011 11:52:33" />
+    <file relUrl="Content/images/badges/answer100.png" publishTime="09/07/2011 18:32:02" />
+    <file relUrl="Content/jquery.ui.stars.min.js" publishTime="05/31/2011 11:52:33" />
+    <file relUrl="Content/images/statusbubble.png" publishTime="08/24/2011 16:01:32" />
+    <file relUrl="bin/Admin.dll" publishTime="09/07/2011 22:21:52" />
+    <file relUrl="Content/images/new-mail.png" publishTime="05/31/2011 11:52:33" />
+    <file relUrl="Content/images/badges/professorreview10.png" publishTime="09/07/2011 18:32:03" />
+    <file relUrl="Content/images/paper.png" publishTime="05/31/2011 11:52:33" />
+    <file relUrl="Views/PhotoAlbum/Edit.aspx" publishTime="09/06/2011 00:23:38" />
     <file relUrl="Views/University/Classes.ascx" publishTime="08/20/2011 12:30:38" />
-    <file relUrl="Views/Admin/Index.aspx" publishTime="05/31/2011 11:52:34" />
+    <file relUrl="Views/Admin/Index.aspx" publishTime="09/06/2011 00:07:40" />
     <file relUrl="Content/images/case.png" publishTime="05/31/2011 11:52:33" />
     <file relUrl="Views/Shared/NavigationUserControl.ascx" publishTime="08/18/2011 22:39:55" />
-    <file relUrl="Views/University/Main.aspx" publishTime="08/24/2011 20:11:52" />
-    <file relUrl="bin/Authentication.dll" publishTime="09/01/2011 11:10:15" />
-    <file relUrl="Views/Shared/Site.Master" publishTime="08/19/2011 16:37:23" />
+    <file relUrl="Content/images/trash.png" publishTime="05/31/2011 11:52:33" />
+    <file relUrl="Content/images/reply.png" publishTime="06/28/2011 20:02:49" />
+    <file relUrl="bin/Authentication.dll" publishTime="09/07/2011 22:39:04" />
+    <file relUrl="Views/Shared/Site.Master" publishTime="09/07/2011 18:32:03" />
+    <file relUrl="Content/images/badges/professorreview5.png" publishTime="09/07/2011 18:32:03" />
     <file relUrl="bin/System.Web.Mvc.xml" publishTime="02/17/2010 07:22:24" />
-    <file relUrl="Views/University/Professors.ascx" publishTime="08/20/2011 12:29:17" />
+    <file relUrl="Views/TextBook/Details.aspx" publishTime="09/06/2011 00:29:22" />
     <file relUrl="Content/images/beer.png" publishTime="05/31/2011 11:52:33" />
   </publishProfile>
 </publishData>
