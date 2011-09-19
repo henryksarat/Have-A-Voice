@@ -426,6 +426,7 @@
     <Content Include="Content\images\friend.png" />
     <Content Include="Content\images\ico-f.png" />
     <Content Include="Content\images\ico-t.png" />
+    <Content Include="Content\images\ico-tum.png" />
     <Content Include="Content\images\ico-w.png" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\mag-shadow.png" />

@@ -772,6 +772,6 @@ a.leftnavlink:hover { text-decoration: none }
 
 .twitter { width: 16px; height: 16px; background: url("/Content/images/ico-t.png") no-repeat center center; display: inline-block; text-indent: -9999; outline: none; margin-left: 10px; font-size: 0px; top: -12px; }
 .facebook { width: 16px; height: 16px; background: url("/Content/images/ico-f.png") no-repeat center center; display: inline-block; text-indent: -9999; outline: none; margin-left: 7px; font-size: 0px; top: -12px; }
-.wordpress { width: 16px; height: 16px; background: url("/Content/images/ico-w.png") no-repeat center center; display: inline-block; text-indent: -9999; outline: none; margin-left: 7px; font-size: 0px; top: -12px; }
+.tumblr { width: 16px; height: 16px; background: url("/Content/images/ico-tum.png") no-repeat center center; display: inline-block; text-indent: -9999; outline: none; margin-left: 7px; font-size: 0px; top: -12px; }
 
 div.seo h1 { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; letter-spacing: 0px}
