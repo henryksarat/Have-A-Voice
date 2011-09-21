@@ -5,5 +5,6 @@ namespace Social.User.Services {
     public interface IUserService<T, U, V> {
         bool CreateUser(AbstractUserModel<T> aUserToCreate, bool aCaptchaValid, bool anAgreement, string anIpAddress, 
                         string aBaseUrl, string anActivationSubject, string anActivationBody, IRegistrationStrategy<T> aRegistrationStrategy);
+        bool SendConfirmationEmail(string anEmail, string aBaseUrl, string anActivationSubject, string anActivationBody);
     }
 }

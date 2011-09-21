@@ -10,6 +10,7 @@ namespace Social.User.Repositories {
         void DeleteUser(T userToDelete);
         void DeleteUserWhoHasNotUsedActivationCode(string email);
         T DeleteUserFromRole(int userId, int roleId);
+        AbstractUserModel<T> GetUserNotActivated(string anEmail);
         bool EmailRegistered(string email);
         bool EmailRegisteredButNotActiated(string email);
         void RemoveUserFromRole(T aUser, U aRole);

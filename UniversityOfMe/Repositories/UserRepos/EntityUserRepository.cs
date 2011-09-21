@@ -88,6 +88,17 @@ namespace UniversityOfMe.Repositories.UserRepos {
                     select r);
         }
 
+        public AbstractUserModel<User> GetUserNotActivated(string anEmail) {
+            Role myNotConfirmedRole = GetNotConfirmedRole();
+
+            return SocialUserModel.Create(
+                    (from u in theEntities.Users
+                     join ur in theEntities.UserRoles on u.Id equals ur.UserId
+                     where u.Email == anEmail
+                     && ur.RoleId == myNotConfirmedRole.Id
+                     select u).FirstOrDefault<User>());
+        }
+
         public IEnumerable<User> GetNewestUsersFromUniversity(User aRequestingUser, string aUniversity, int aLimit) {
             Role myRole = GetDefaultRole();
             
@@ -204,6 +215,12 @@ namespace UniversityOfMe.Repositories.UserRepos {
             return (from c in theEntities.Roles
                     where c.DefaultRole == true
                     select c).FirstOrDefault();
+        }
+
+        private Role GetNotConfirmedRole() {
+            return (from r in theEntities.Roles
+                    where r.Name.Equals("Not Confirmed")
+                    select r).FirstOrDefault<Role>();
         }
     }
 }

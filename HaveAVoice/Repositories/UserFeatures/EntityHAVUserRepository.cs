@@ -84,6 +84,17 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     select c).Count() != 0 ? true : false;
         }
 
+        public AbstractUserModel<User> GetUserNotActivated(string anEmail) {
+            Role myNotConfirmedRole = GetNotConfirmedRole();
+
+            return SocialUserModel.Create(
+                    (from u in theEntities.Users
+                     join ur in theEntities.UserRoles on u.Id equals ur.UserId
+                     where u.Email == anEmail
+                     && ur.RoleId == myNotConfirmedRole.Id
+                     select u).FirstOrDefault<User>());
+        }
+
         public bool IsUserNameTaken(string aUsername) {
             return (from u in theEntities.Users
                     where u.Username == aUsername
@@ -169,6 +180,12 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     where c.Email == anEmail
                     && (c.ActivationCodeUsed == null || c.ActivationCodeUsed == false)
                     select c).FirstOrDefault();
+        }
+
+        private Role GetNotConfirmedRole() {
+            return (from r in theEntities.Roles
+                    where r.Name.Equals("Not Confirmed")
+                    select r).FirstOrDefault<Role>();
         }
     }
 }

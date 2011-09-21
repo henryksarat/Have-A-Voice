@@ -90,7 +90,7 @@
     <div class="six last"> 
             <% if(Model.RegisteredUserCount <= 100) { %>
                 <% using (Html.BeginForm("Create", "User", FormMethod.Post, new {@class="form"})) { %>
-		            <div class="big mb32 red">Create an account</div> 
+		            <div class="big mb32 red">Create an account</div>
 		            <div class="input"> 
 			            <%= Html.Label("First Name:") %>
                         <%= Html.TextBox("FirstName") %>
@@ -129,6 +129,10 @@
 
 			        <div class="input"> 
 				        <input type="submit" name="submit" class="btn" value="Register" /> 
+			        </div> 
+
+			        <div class="input"> 
+                        <%= Html.ActionLink("Click here to resend your activation email.", "Activation", "User", new { message = "2" }, new { @class = "itemlinked" })%>
 			        </div> 
                 <% } %>
             <% } else { %>

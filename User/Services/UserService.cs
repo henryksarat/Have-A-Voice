@@ -7,6 +7,7 @@ using Social.Generic.Models;
 using Social.User.Helpers;
 using Social.User.Repositories;
 using Social.Validation;
+using Social.Generic.Exceptions;
 
 namespace Social.User.Services {
     public class UserService<T, U, V> : IUserService<T, U, V> {
@@ -65,6 +66,15 @@ namespace Social.User.Services {
             return true;
         }
 
+        public bool SendConfirmationEmail(string anEmail, string aBaseUrl, string anActivationSubject, string anActivationBody) {
+            AbstractUserModel<T> myUser = theUserRepo.GetUserNotActivated(anEmail);
+            if (myUser == null) {
+                theValidationDictionary.AddError("Email", anEmail, "That email is either already activated and can be used to login or has never been registered.");
+                return false;
+            }
+            SendActivationCode(myUser, aBaseUrl, anActivationSubject, anActivationBody);
+            return true;
+        }
 
         private AbstractUserModel<T> CompleteAddingFieldsToUser(AbstractUserModel<T> aUserToCreate, string aIpAddress) {
             aUserToCreate.Password = HashHelper.DoHash(aUserToCreate.Password);
@@ -121,7 +131,7 @@ namespace Social.User.Services {
             } else if (theUserRepo.EmailRegistered(aUser.Email.Trim())) {
                 theValidationDictionary.AddError("Email", aUser.Email.Trim(), "Someone already registered with that email. Please try another one.");
             } else if (theUserRepo.EmailRegisteredButNotActiated(aUser.Email.Trim())) {
-                theUserRepo.DeleteUserWhoHasNotUsedActivationCode(aUser.Email.Trim());
+                throw new CustomException();
             }
 
             return ValidateUser(aUser);

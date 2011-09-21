@@ -62,6 +62,21 @@ namespace UniversityOfMe.Controllers.Users {
             });
         }
 
+        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
+        public ActionResult Activation(string message) {
+            return View("Activation", new StringModel(message));
+        }
+
+        [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
+        public ActionResult Activation(string email, string message) {
+            bool myResult = theUserService.SendConfirmationEmail(email, UOMConstants.BASE_URL, UOMConstants.ACTIVATION_SUBJECT, UOMConstants.ACTIVATION_BODY);
+            if (myResult) {
+                return SendToResultPage("A activation email has been sent to " + email);
+            }
+
+            return RedirectToAction("Activation", "User", new { message = message });
+        }
+
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Create(CreateUserModel aUserToCreate, bool agreement) {
             ActionResult myActionResult = base.Create(aUserToCreate, true, agreement,

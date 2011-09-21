@@ -12,6 +12,7 @@ using Social.User.Repositories;
 using Social.User.Services;
 using Social.Users.Services;
 using Social.Validation;
+using Social.Generic.Exceptions;
 
 namespace BaseWebsite.Controllers.Users {
     //T = User
@@ -65,6 +66,8 @@ namespace BaseWebsite.Controllers.Users {
                 if (myResult) {
                     return SendToResultPage(CREATE_ACCOUNT_TITLE, CREATE_ACCOUNT_SUCCESS);
                 }
+            } catch(CustomException e) {
+                return RedirectToAction("Activation", "User", new { message = "1" });
             } catch (EmailException e) {
                 LogError(e, EMAIL_ERROR);
                 return SendToResultPage("User account created! You can login and start posting!");

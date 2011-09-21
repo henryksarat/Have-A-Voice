@@ -564,6 +564,7 @@
     <Content Include="Views\UserStatus\List.aspx" />
     <Content Include="Views\User\Create.aspx" />
     <Content Include="Views\User\Edit.aspx" />
+    <Content Include="Views\User\Activation.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
