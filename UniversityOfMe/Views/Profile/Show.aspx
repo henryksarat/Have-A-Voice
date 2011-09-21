@@ -13,7 +13,7 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="MetaDescriptionHolder" runat="server">
-	<%= UniversityOfMe.Helpers.MetaHelper.MetaDescription(NameHelper.FullName(Model.User) + "'s Profile") %>
+	<%= UniversityOfMe.Helpers.MetaHelper.MetaDescription("Profile of " + NameHelper.FullName(Model.User)) %>
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="MetaKeywordsHolder" runat="server">

@@ -4,6 +4,14 @@
 	Forget Password Request
 </asp:Content>
 
+<asp:Content ID="Content3" ContentPlaceHolderID="MetaDescriptionHolder" runat="server">
+	<%= UniversityOfMe.Helpers.MetaHelper.MetaDescription("Enter your new password for your account.")%>
+</asp:Content>
+
+<asp:Content ID="Content4" ContentPlaceHolderID="MetaKeywordsHolder" runat="server">
+	<%= UniversityOfMe.Helpers.MetaHelper.MetaKeywords("Process password")%>
+</asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="twelve"> 

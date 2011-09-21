@@ -89,11 +89,15 @@ namespace UniversityOfMe.Repositories.UserRepos {
         }
 
         public IEnumerable<User> GetNewestUsersFromUniversity(User aRequestingUser, string aUniversity, int aLimit) {
+            Role myRole = GetDefaultRole();
+            
             return (from u in theEntities.Users
                     join uu in theEntities.UserUniversities on u.Id equals uu.UserId
                     join ue in theEntities.UniversityEmails on uu.UniversityEmailId equals ue.Email
+                    join ur in theEntities.UserRoles on u.Id equals ur.UserId
                     where ue.UniversityId == aUniversity
                     && u.Id != aRequestingUser.Id
+                    && ur.RoleId == myRole.Id
                     select u).Take<User>(aLimit).ToList<User>();
 
         }
@@ -193,6 +197,12 @@ namespace UniversityOfMe.Repositories.UserRepos {
             return (from c in theEntities.Users
                     where c.Email == anEmail
                     && (c.ActivationCodeUsed == null || c.ActivationCodeUsed == false)
+                    select c).FirstOrDefault();
+        }
+
+        private Role GetDefaultRole() {
+            return (from c in theEntities.Roles
+                    where c.DefaultRole == true
                     select c).FirstOrDefault();
         }
     }

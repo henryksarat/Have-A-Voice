@@ -4,8 +4,17 @@
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    Anonymous Flirts Sent In <%= Model.University.UniversityName %>
+    Anonymous Flirts Sent Within <%= Model.University.UniversityName %>
 </asp:Content>
+
+<asp:Content ID="Content4" ContentPlaceHolderID="MetaDescriptionHolder" runat="server">
+	<%= UniversityOfMe.Helpers.MetaHelper.MetaDescription("See the flirts sent by students at " + Model.University.UniversityName) %>
+</asp:Content>
+
+<asp:Content ID="Content3" ContentPlaceHolderID="MetaKeywordsHolder" runat="server">
+	<%= UniversityOfMe.Helpers.MetaHelper.MetaKeywords("Anonymous flirts " + Model.University.UniversityName)%>
+</asp:Content>
+
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <% Social.Generic.Models.UserInformationModel<User> myUserInfo = UniversityOfMe.UserInformation.UserInformationFactory.GetUserInformation(); %>
@@ -15,7 +24,7 @@
         <% Html.RenderPartial("Message"); %>
         <div class="create-feature-form">
 		    <div class="banner black full"> 
-			    <span class="flirt">Anonymous Flirts Sent In <%= Model.University.UniversityName %></span>
+			    <span class="flirt">Anonymous Flirts Sent Within <%= Model.University.UniversityName %></span>
 		    </div> 
             <div class="padding-col">
                 <ul> 

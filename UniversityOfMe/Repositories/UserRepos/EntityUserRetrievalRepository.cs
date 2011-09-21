@@ -59,9 +59,19 @@ namespace UniversityOfMe.Repositories.UserRepos {
 
 
         public IEnumerable<User> GetUsersWithGender(string aGender) {
+            Role myRole = GetDefaultRole();
+
             return (from u in theEntities.Users
+                    join ur in theEntities.UserRoles on u.Id equals ur.UserId
                     where u.Gender == aGender
+                    && ur.RoleId == myRole.Id
                     select u).ToList<User>();
+        }
+
+        private Role GetDefaultRole() {
+            return (from c in theEntities.Roles
+                    where c.DefaultRole == true
+                    select c).FirstOrDefault();
         }
     }
 }

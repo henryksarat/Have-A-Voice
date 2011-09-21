@@ -8,7 +8,15 @@
 <%@ Import Namespace="UniversityOfMe.Models.View.Search" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	<%= Model.SearchType.ToString() %> Search Results
+	<%= Model.SearchType.Equals(SearchFilter.Organization) ? "Organization and Club " : Model.SearchType.ToString() %> Search Results
+</asp:Content>
+
+<asp:Content ID="Content3" ContentPlaceHolderID="MetaDescriptionHolder" runat="server">
+	<%= UniversityOfMe.Helpers.MetaHelper.MetaDescription("Displaying all " + (Model.SearchType.Equals(SearchFilter.Organization) ? "Organization and Club " : Model.SearchType.ToString()) + "s") %>
+</asp:Content>
+
+<asp:Content ID="Content4" ContentPlaceHolderID="MetaKeywordsHolder" runat="server">
+	<%= UniversityOfMe.Helpers.MetaHelper.MetaKeywords((Model.SearchType.Equals(SearchFilter.Organization) ? "Organization and Club " : Model.SearchType.ToString()))%>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -164,7 +172,7 @@
 	</div> 
 	<div class="pagination"> 
 		<ul> 
-            <% string mySearchUrl = "/Search/All?searchString=" + Model.SearchString + "&page="; %>
+            <% string mySearchUrl = "/Search/" + Model.SearchType.ToString() + "?searchString=" + Model.SearchString + "&page="; %>
             <% if (Model.CurrentPage == 1) { %>
 			    <li class="prev-off">&laquo; Previous</li> 
             <% } else { %>

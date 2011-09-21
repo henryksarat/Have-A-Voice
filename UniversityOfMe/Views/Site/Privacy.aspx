@@ -18,7 +18,7 @@
         <div class="padding-col">
             <div class="heading">Privacy Settings</div>
             <div class="sub-heading">What personal information we store</div>
-            Once a user registers an account with Have a Voice, all of the information entered is stored in a secure database. This information includes first name, last name, email, date of birth, and gender. Personal information is only used for display purposes and authentication. Personal information can be changed at any time.
+            Once a user registers an account with Univeristy of Me, all of the information entered is stored in a secure database. This information includes first name, last name, email, date of birth, and gender. Personal information is only used for display purposes and authentication. Personal information can be changed at any time.
             <br /><br />
             <div class="sub-heading">Passwords</div>
             Passwords are not stored in plaintext, but instead they are hashed to an unreadable string before being stored. Passwords can be changed at any time.

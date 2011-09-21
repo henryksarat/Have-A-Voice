@@ -4,6 +4,14 @@
 	Create an Account
 </asp:Content>
 
+<asp:Content ID="Content3" ContentPlaceHolderID="MetaDescriptionHolder" runat="server">
+	<%= UniversityOfMe.Helpers.MetaHelper.MetaDescription("Create a new account.") %>
+</asp:Content>
+
+<asp:Content ID="Content4" ContentPlaceHolderID="MetaKeywordsHolder" runat="server">
+	<%= UniversityOfMe.Helpers.MetaHelper.MetaKeywords("Create a University of Me Account, Create a UniversityOf.Me Account") %>
+</asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 	<script type="text/javascript" language="javascript">
 	    $(function () {

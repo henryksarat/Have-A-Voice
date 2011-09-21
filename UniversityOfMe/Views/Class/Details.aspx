@@ -18,9 +18,9 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="MetaDescriptionHolder" runat="server">
     <% ClassViewType myViewType = (ClassViewType)ViewData["ClassViewType"]; %>
     <% if (myViewType == ClassViewType.Review) { %>
-        <%= UniversityOfMe.Helpers.MetaHelper.MetaDescription("Class Review for " + Model.Get().ClassTitle + "(" + Model.Get().ClassCode + ") at " + Model.Get().University.UniversityName) %>
+        <%= UniversityOfMe.Helpers.MetaHelper.MetaDescription("Class Review for " + Model.Get().ClassTitle + " (" + Model.Get().ClassCode + ") at " + Model.Get().University.UniversityName) %>
     <% } else { %>
-        <%= UniversityOfMe.Helpers.MetaHelper.MetaDescription("Class Discussion for " + Model.Get().ClassTitle + "(" + Model.Get().ClassCode + ") at " + Model.Get().University.UniversityName) %>
+        <%= UniversityOfMe.Helpers.MetaHelper.MetaDescription("Class Discussion for " + Model.Get().ClassTitle + " (" + Model.Get().ClassCode + ") at " + Model.Get().University.UniversityName) %>
     <% } %>
 </asp:Content>
 
