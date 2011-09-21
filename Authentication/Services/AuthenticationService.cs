@@ -145,6 +145,11 @@ namespace Social.Authentication.Services {
                 throw new NullRoleException("There is no \"Not confirmed\" role");
             }
 
+            bool myIsActivated = theUserRetrievalService.IsUserActivated(myUser.Email);
+            if (myIsActivated) {
+                throw new CustomException("That email as already been activated. You can go ahead and login.");
+            }
+
             List<int> myUsers = new List<int>();
             myUsers.Add(myUser.Id);
             theRoleRepo.MoveUsersToRoleForActivation(myUsers, myNotConfirmedRole.Id, aRoleToMoveToId);

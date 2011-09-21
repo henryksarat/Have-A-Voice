@@ -111,6 +111,8 @@ namespace BaseWebsite.Controllers.Core {
             } catch (NullRoleException e) {
                 LogError(e, AuthenticationKeys.SPECIFIC_ROLE_ERROR);
                 myError = AuthenticationKeys.OUR_ERROR;
+            } catch(CustomException e) {
+                myError = e.Message;
             } catch (Exception e) {
                 LogError(e, AuthenticationKeys.ACTIVATION_ERROR);
                 myError = AuthenticationKeys.ACTIVATION_ERROR;

@@ -61,7 +61,7 @@
                 type: 'profile',
                 rpp: 4,
                 interval: 30000,
-                width: 550,
+                width: 450,
                 height: 500,
                 theme: {
                     shell: {
@@ -124,7 +124,7 @@
 		            <div class="input"> 
 			            <span class="empty-indent">&nbsp;</span>
                         <%= Html.CheckBox("Agreement") %>
-			            I agree with the <a href="/Site/Terms" target="_blank">Terms of Use</a>.
+			            I agree with the <a class="itemlinked" href="/Site/Terms" target="_blank">Terms of Use</a>.
 		            </div> 
 
 			        <div class="input"> 

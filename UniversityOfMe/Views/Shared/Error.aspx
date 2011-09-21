@@ -5,9 +5,9 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
-    <div class="error-msg">
-    	<%= Model.Value %>
-    </div>
-    
+    <div class="normal-page">
+        <div class="padding-col">
+	        <%= Model.Value %>
+        </div>
+    </div>   
 </asp:Content>
