@@ -37,5 +37,9 @@ namespace Social.User.Services {
         public AbstractUserModel<T> GetAbstractUser(int aUserId) {
             return theUserRetrievalRepo.GetAbstractUser(aUserId);
         }
+
+        public bool IsUserActivated(string anEmail) {
+            return theUserRetrievalRepo.GetUserNotActivated(anEmail) == null ? true : false;
+        }
     }
 }

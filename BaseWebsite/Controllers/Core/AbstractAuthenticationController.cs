@@ -12,6 +12,7 @@ using Social.Generic.Services;
 using Social.User.Exceptions;
 using Social.Users.Services;
 using Social.Validation;
+using Social.Generic.Exceptions;
 
 namespace BaseWebsite.Controllers.Core {
     //T = User
@@ -54,6 +55,8 @@ namespace BaseWebsite.Controllers.Core {
             UserInformationModel<T> userModel = null;
             try {
                 userModel = theAuthService.AuthenticateUser(email, password, ProfilePictureStrategy());
+            } catch(NotActivatedException e) {
+                return RedirectToAction("Activation", "User", new { message = 3 });
             } catch (Exception e) {
                 LogError(e, AuthenticationKeys.AUTHENTICAITON_ERROR);
                 ViewData["Message"] = ErrorMessage(AuthenticationKeys.AUTHENTICAITON_ERROR);

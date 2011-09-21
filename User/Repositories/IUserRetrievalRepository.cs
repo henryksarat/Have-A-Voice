@@ -10,5 +10,6 @@ namespace Social.User.Repositories {
         T GetUser(string anEmail, string aPassword);
         T GetUser(string anEmail);
         IEnumerable<T> GetUsersByNameContains(string aNamePortion);
+        AbstractUserModel<T> GetUserNotActivated(string anEmail);
     }
 }

@@ -5,6 +5,7 @@ using Social.Generic.Helpers;
 using Social.Generic.Models;
 using Social.User.Repositories;
 using Social.Validation;
+using Social.Generic.Exceptions;
 
 namespace Social.User.Services {
     public class PasswordService<T> : IPasswordService<T> {
@@ -24,6 +25,11 @@ namespace Social.User.Services {
         }
 
         public bool ForgotPasswordRequest(string aBaseUrl, string anEmail, string aSubject, string aBody) {
+            bool myActivated = theUserRetrievalService.IsUserActivated(anEmail);
+            if (!myActivated) {
+                throw new NotActivatedException();
+            }
+
             T myUser = theUserRetrievalService.GetUser(anEmail);
 
             if (myUser == null) {

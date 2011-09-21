@@ -73,5 +73,11 @@ namespace UniversityOfMe.Repositories.UserRepos {
                     where c.DefaultRole == true
                     select c).FirstOrDefault();
         }
+
+
+        public AbstractUserModel<User> GetUserNotActivated(string anEmail) {
+            IUofMeUserRepository myUserRepo = new EntityUserRepository();
+            return myUserRepo.GetUserNotActivated(anEmail);
+        }
     }
 }

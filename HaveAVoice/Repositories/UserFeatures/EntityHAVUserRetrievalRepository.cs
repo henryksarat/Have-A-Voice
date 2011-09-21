@@ -49,5 +49,10 @@ namespace HaveAVoice.Repositories.UserFeatures {
                     || u.LastName.Contains(aNamePortion)
                     select u);
         }
+
+        public AbstractUserModel<User> GetUserNotActivated(string anEmail) {
+            IHAVUserRepository myUserRepo = new EntityHAVUserRepository();
+            return myUserRepo.GetUserNotActivated(anEmail);
+        }
     }
 }

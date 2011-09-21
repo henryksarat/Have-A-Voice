@@ -23,9 +23,11 @@
                 <% Html.RenderPartial("Validation"); %>
                 <div style="margin-left:20%; margin-right: 20%">
                     <% if(Model.Value.Equals("1")) { %>
-                        It appears that email is already registered but not activated. Enter your email address and we will resend your activation email so you can confirm your account. 
+                        It appears that email is already registered but not activated. Enter your email address and we will resend your activation email so you can activate your account. 
                     <% } else if (Model.Value.Equals("2")) { %>
-                        Enter your email address and we will resend your activation email so you can confirm your account. 
+                        Enter your email address and we will resend your activation email so you can activate your account. 
+                    <% } else if (Model.Value.Equals("3")) { %>
+                        It appears that the account wasn't activated. Enter your email address and we will resend your activation email so you can activate your account.
                     <% } %>
                 </div>
 		        <% using (Html.BeginForm("Activation", "User", FormMethod.Post, new { @class = "form-normal" })) { %>

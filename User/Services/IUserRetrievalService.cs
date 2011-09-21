@@ -10,5 +10,6 @@ namespace Social.User.Services {
         AbstractUserModel<T> GetAbstractUser(string anEmail, string aPassword);
         T GetUser(string anEmail);
         IEnumerable<T> GetUsersByNameSearch(string aNamePortion);
+        bool IsUserActivated(string anEmail);
     }
 }

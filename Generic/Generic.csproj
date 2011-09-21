@@ -54,6 +54,7 @@
     <Compile Include="ActionFilters\RequiredRouteValueAttribute.cs" />
     <Compile Include="Constants\AuthenticationKeys.cs" />
     <Compile Include="Constants\Constants.cs" />
+    <Compile Include="Exceptions\NotActivatedException.cs" />
     <Compile Include="Exceptions\CustomException.cs" />
     <Compile Include="Constants\ErrorKeys.cs" />
     <Compile Include="Constants\Gender.cs" />

@@ -14,6 +14,7 @@ using Social.User.Helpers;
 using Social.User.Models;
 using Social.User.Repositories;
 using Social.User.Services;
+using Social.Generic.Exceptions;
 
 namespace Social.Authentication.Services {
     public class AuthenticationService<T, U, V, W, X, Y> : IAuthenticationService<T, U, V, W, X, Y> {
@@ -65,7 +66,7 @@ namespace Social.Authentication.Services {
                                   select p).Count() > 0 ? true : false;
 
             if (!myIsConfirmed) {
-                return null;
+                throw new NotActivatedException();
             }
 
             IEnumerable<AbstractPrivacySettingModel<X>> myPrivacySettings = thePrivacySettingsService.GetAbstractPrivacySettingsForUser(myUser);

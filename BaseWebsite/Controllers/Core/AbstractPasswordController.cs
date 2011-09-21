@@ -12,6 +12,7 @@ using Social.User.Repositories;
 using Social.User.Services;
 using Social.Users.Services;
 using Social.Validation;
+using Social.Generic.Exceptions;
 
 namespace BaseWebsite.Controllers.Core {
     public abstract class AbstractPasswordController<T, U, V, W, X, Y, Z> : BaseController<T, U, V, W, X, Y, Z> {
@@ -52,6 +53,8 @@ namespace BaseWebsite.Controllers.Core {
                 if (thePasswordService.ForgotPasswordRequest(aBaseUrl, anEmail, aSubject, aBody)) {
                     return SendToResultPage(EMAIL_SENT);
                 }
+            } catch (NotActivatedException e) {
+                return RedirectToAction("Activation", "User", new { message = 3 });
             } catch (EmailException e) {
                 LogError(e, EMAIL_ERROR);
                 ViewData[ERROR_MESSAGE_VIEWDATA] = ErrorMessage(ErrorKeys.ERROR_MESSAGE);
