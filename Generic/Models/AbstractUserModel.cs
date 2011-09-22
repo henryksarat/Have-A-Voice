@@ -16,7 +16,7 @@ namespace Social.Generic.Models {
         public string City { get; set; }
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string State { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
         public DateTime LastLogin { get; set; }
         public DateTime RegistrationDate { get; set; }
         [DisplayFormat(ConvertEmptyStringToNull = false)]

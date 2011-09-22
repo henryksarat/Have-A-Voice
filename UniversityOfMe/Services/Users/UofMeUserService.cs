@@ -156,7 +156,6 @@ namespace UniversityOfMe.Services.Users {
 
         private bool ValidateEditedUser(EditUserModel aUser, string aOriginalEmail) {
             ValidEmail(aUser.NewEmail, aOriginalEmail);
-            DateOfBirthValidation.ValidDateOfBirth(theValidationDictionary, aUser.DateOfBirth);
 
             if (aUser.FirstName.Trim().Length == 0) {
                 theValidationDictionary.AddError("FirstName", aUser.FirstName.Trim(), "First name is required.");

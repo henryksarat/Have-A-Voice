@@ -113,11 +113,6 @@
 		            </div> 
 						
 		            <div class="input"> 
-			            <%: Html.Label("Date Of Birth:") %>
-                        <%: Html.TextBox("DateOfBirth", Model.getDateOfBirthFormatted())%>
-		            </div> 
-						
-		            <div class="input"> 
 			            <%= Html.Label("Gender:") %>
                         <%= Html.DropDownList("Gender", Model.Genders)%>
 		            </div> 

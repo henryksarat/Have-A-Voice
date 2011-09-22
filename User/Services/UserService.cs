@@ -150,12 +150,6 @@ namespace Social.User.Services {
             if (!EmailValidation.IsValidEmail(aUser.Email)) {
                 theValidationDictionary.AddError("Email", aUser.Email, INVALID_EMAIL);
             }
-            if (aUser.DateOfBirth.Year == 1) {
-                theValidationDictionary.AddError("DateOfBirth", aUser.DateOfBirth.ToString("MM-dd-yyyy"), "Date of Birth required.");
-            }
-            if (aUser.DateOfBirth > DateTime.Today.AddYears(-18)) {
-                theValidationDictionary.AddError("DateOfBirth", aUser.DateOfBirth.ToString("MM-dd-yyyy"), "You must be at least 18 years old.");
-            }
 
             return theValidationDictionary.isValid;
         }

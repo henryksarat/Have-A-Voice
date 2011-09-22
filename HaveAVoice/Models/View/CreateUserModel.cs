@@ -18,7 +18,11 @@ namespace HaveAVoice.Models.View {
         public string Zip { get; set; }
 
         public String getDateOfBirthFormatted() {
-            return DateOfBirth.ToString("MM-dd-yyyy");
+            if (DateOfBirth.HasValue) {
+                return DateOfBirth.Value.ToString("MM-dd-yyyy");
+            } else {
+                return string.Empty;
+            }
         }
 
         public override User CreateNewModel() {
@@ -28,7 +32,7 @@ namespace HaveAVoice.Models.View {
             int myParsedZip = 0;
             int.TryParse(Zip, out myParsedZip);
             return User.CreateUser(0, Email, Password, FirstName, LastName, City,
-                                   State, DateOfBirth, myTempDateFiller, myTempDateFiller,
+                                   State, myTempDateFiller, myTempDateFiller,
                                    myTempIp, myParsedZip, Gender, false);
         }
     }

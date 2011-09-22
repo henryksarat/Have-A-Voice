@@ -26,7 +26,9 @@
             <% } %>
 			<div class="sub-nav"> 
 				<a href="/Friend/List">All Friends</a> 
-				<a href="/Friend/Pending">Pending Friend Requests</a> 
+                <% if (myFriendRequestCount != 0) { %>
+				    <a href="/Friend/Pending">Friend Requests</a> 
+                <% } %>
 			</div> 
 		</li> 
 		<li> 

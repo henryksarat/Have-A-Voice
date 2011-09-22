@@ -16,7 +16,11 @@ namespace UniversityOfMe.Models.View {
             : base(aUser) { }
 
         public string getDateOfBirthFormatted() {
-            return DateOfBirth.ToString("MM-dd-yyyy");
+            if (DateOfBirth.HasValue) {
+                return DateOfBirth.Value.ToString("MM-dd-yyyy");
+            } else {
+                return string.Empty;
+            }
         }
     }
 }

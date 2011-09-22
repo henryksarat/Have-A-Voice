@@ -110,7 +110,7 @@
 	            </div>
                 <div class="field-holder">
                     <label for="DateOfBirth">Date of Birth</label>
-	                <%= Html.TextBox("DateOfBirth", String.Format("{0:g}", Model.Get().DateOfBirth)) %>
+	                <%= Html.TextBox("DateOfBirth", Model.Get().getDateOfBirthFormatted()) %>
 		            <%= Html.ValidationMessage("DateOfBirth", "*", new { @class = "req" })%>
 	            </div>
                 <div class="field-holder">

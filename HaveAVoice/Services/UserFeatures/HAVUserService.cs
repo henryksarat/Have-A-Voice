@@ -229,8 +229,6 @@ namespace HaveAVoice.Services.UserFeatures {
         private bool ValidateEditedUser(EditUserModel aUser, string aOriginalEmail) {
             ValidEmail(aUser.Email, aOriginalEmail);
 
-            DateOfBirthValidation.ValidDateOfBirth(theValidationDictionary, aUser.DateOfBirth);
-
             if (aUser.FirstName.Trim().Length == 0) {
                 theValidationDictionary.AddError("FirstName", aUser.FirstName.Trim(), "First name is required.");
             }
@@ -278,8 +276,6 @@ namespace HaveAVoice.Services.UserFeatures {
         }
 
         private bool ValidateUser(User aUser) {
-            DateOfBirthValidation.ValidDateOfBirth(theValidationDictionary, aUser.DateOfBirth);
-
             if (aUser.FirstName.Trim().Length == 0) {
                 theValidationDictionary.AddError("FirstName", aUser.FirstName.Trim(), "First name is required.");
             }

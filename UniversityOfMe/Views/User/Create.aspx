@@ -62,12 +62,6 @@
 		                    </div> 
 						
 		                    <div class="field-holder">
-			                    <%= Html.Label("Date Of Birth:") %>
-                                <%= Html.TextBox("DateOfBirth", Model.getDateOfBirthFormatted())%>
-                                <%= Html.ValidationMessage("DateOfBirth", "*", new { @class = "req" })%>
-		                    </div> 
-						
-		                    <div class="field-holder">
 			                    <%= Html.Label("Gender:") %>
                                 <%= Html.DropDownList("Gender", Model.Genders)%>
                                 <%= Html.ValidationMessage("Gender", "*", new { @class = "req" })%>

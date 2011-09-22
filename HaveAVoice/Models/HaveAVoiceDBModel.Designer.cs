@@ -15407,14 +15407,13 @@ namespace HaveAVoice.Models
         /// <param name="lastName">Initial value of the LastName property.</param>
         /// <param name="city">Initial value of the City property.</param>
         /// <param name="state">Initial value of the State property.</param>
-        /// <param name="dateOfBirth">Initial value of the DateOfBirth property.</param>
         /// <param name="lastLogin">Initial value of the LastLogin property.</param>
         /// <param name="registrationDate">Initial value of the RegistrationDate property.</param>
         /// <param name="registrationIp">Initial value of the RegistrationIp property.</param>
         /// <param name="zip">Initial value of the Zip property.</param>
         /// <param name="gender">Initial value of the Gender property.</param>
         /// <param name="useUsername">Initial value of the UseUsername property.</param>
-        public static User CreateUser(global::System.Int32 id, global::System.String email, global::System.String password, global::System.String firstName, global::System.String lastName, global::System.String city, global::System.String state, global::System.DateTime dateOfBirth, global::System.DateTime lastLogin, global::System.DateTime registrationDate, global::System.String registrationIp, global::System.Int32 zip, global::System.String gender, global::System.Boolean useUsername)
+        public static User CreateUser(global::System.Int32 id, global::System.String email, global::System.String password, global::System.String firstName, global::System.String lastName, global::System.String city, global::System.String state, global::System.DateTime lastLogin, global::System.DateTime registrationDate, global::System.String registrationIp, global::System.Int32 zip, global::System.String gender, global::System.Boolean useUsername)
         {
             User user = new User();
             user.Id = id;
@@ -15424,7 +15423,6 @@ namespace HaveAVoice.Models
             user.LastName = lastName;
             user.City = city;
             user.State = state;
-            user.DateOfBirth = dateOfBirth;
             user.LastLogin = lastLogin;
             user.RegistrationDate = registrationDate;
             user.RegistrationIp = registrationIp;
@@ -15635,9 +15633,9 @@ namespace HaveAVoice.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.DateTime DateOfBirth
+        public Nullable<global::System.DateTime> DateOfBirth
         {
             get
             {
@@ -15652,8 +15650,8 @@ namespace HaveAVoice.Models
                 OnDateOfBirthChanged();
             }
         }
-        private global::System.DateTime _DateOfBirth;
-        partial void OnDateOfBirthChanging(global::System.DateTime value);
+        private Nullable<global::System.DateTime> _DateOfBirth;
+        partial void OnDateOfBirthChanging(Nullable<global::System.DateTime> value);
         partial void OnDateOfBirthChanged();
     
         /// <summary>

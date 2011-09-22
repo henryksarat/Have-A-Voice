@@ -30,7 +30,7 @@ namespace HaveAVoice.Models.View {
             int.TryParse(Zip, out myParsedZip);
 
             return User.CreateUser(0, Email, Password, FirstName, LastName, City, 
-                State, DateOfBirth, myTempDateFiller, myTempDateFiller,
+                State, myTempDateFiller, myTempDateFiller,
                 myTempIp, myParsedZip, Gender, false);
         }
     }

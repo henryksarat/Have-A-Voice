@@ -9,6 +9,7 @@ using UniversityOfMe.Models.SocialModels;
 using UniversityOfMe.Repositories.AdminRepos;
 using UniversityOfMe.Helpers;
 using System;
+using Social.Generic.Constants;
 
 namespace UniversityOfMe.Repositories.UserRepos {
     public class EntityUserRepository : IUofMeUserRepository {
@@ -100,7 +101,7 @@ namespace UniversityOfMe.Repositories.UserRepos {
         }
 
         public IEnumerable<User> GetNewestUsersFromUniversity(User aRequestingUser, string aUniversity, int aLimit) {
-            Role myRole = GetDefaultRole();
+            Role myNotConfirmed = GetNotConfirmedRole();
             
             return (from u in theEntities.Users
                     join uu in theEntities.UserUniversities on u.Id equals uu.UserId
@@ -108,7 +109,7 @@ namespace UniversityOfMe.Repositories.UserRepos {
                     join ur in theEntities.UserRoles on u.Id equals ur.UserId
                     where ue.UniversityId == aUniversity
                     && u.Id != aRequestingUser.Id
-                    && ur.RoleId == myRole.Id
+                    && ur.RoleId != myNotConfirmed.Id
                     select u).Take<User>(aLimit).ToList<User>();
 
         }
@@ -211,15 +212,10 @@ namespace UniversityOfMe.Repositories.UserRepos {
                     select c).FirstOrDefault();
         }
 
-        private Role GetDefaultRole() {
-            return (from c in theEntities.Roles
-                    where c.DefaultRole == true
-                    select c).FirstOrDefault();
-        }
 
         private Role GetNotConfirmedRole() {
             return (from r in theEntities.Roles
-                    where r.Name.Equals("Not Confirmed")
+                    where r.Name.Equals(Constants.NOT_CONFIRMED_USER_ROLE)
                     select r).FirstOrDefault<Role>();
         }
     }

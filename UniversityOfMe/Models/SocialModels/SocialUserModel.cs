@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Social.Generic.Models;
+using System;
 
 namespace UniversityOfMe.Models.SocialModels {
     public class SocialUserModel : AbstractUserModel<User> {
@@ -14,7 +15,7 @@ namespace UniversityOfMe.Models.SocialModels {
 
         public override User CreateNewModel() {
             User myUser = User.CreateUser(Id, Email, Password, FirstName, LastName, 
-                Gender, DateOfBirth, LastLogin, RegistrationDate, RegistrationIp);
+                Gender, LastLogin, RegistrationDate, RegistrationIp);
             myUser.City = City;
             myUser.State = State;
             myUser.Website = Website;
@@ -24,6 +25,10 @@ namespace UniversityOfMe.Models.SocialModels {
             myUser.ActivationCode = ActivationCode;
             myUser.ForgotPasswordHash = ForgotPasswordHash;
             myUser.ForgotPasswordHashDateTimeStamp = ForgotPasswordHashDateTimeStamp;
+            if (DateOfBirth.HasValue && DateOfBirth.Value.Year != DateTime.Today.Year && DateOfBirth.Value.Year != (DateTime.Today.Year - 1)
+                && DateOfBirth.Value.Year != (DateTime.Today.Year + 1) && DateOfBirth.Value.Year != 1) {
+                myUser.DateOfBirth = DateOfBirth;
+            }
             return myUser;
         }
 

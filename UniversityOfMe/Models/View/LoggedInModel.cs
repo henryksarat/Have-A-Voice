@@ -21,7 +21,7 @@ namespace UniversityOfMe.Models.View {
                 IBadgeService myBadgeService = new BadgeService();
 
                 IEnumerable<NotificationModel> myNotifications = myNotificationService.GetNotificationsForUser(aUser, 5);
-                IEnumerable<User> myNewestUsers = myUserService.GetNewestUsers(aUser, UniversityHelper.GetMainUniversityId(aUser), 10);
+                IEnumerable<User> myNewestUsers = myUserService.GetNewestUsers(aUser, UniversityHelper.GetMainUniversityId(aUser), 12);
                 UserBadge myUserBadge = myBadgeService.GetLatestUnseenBadgeForUser(aUser);
                 Badge myBadge = null;
 

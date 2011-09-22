@@ -1090,7 +1090,7 @@
           <Property Name="City" Type="varchar" Nullable="false" MaxLength="100" />
           <Property Name="State" Type="char" Nullable="false" MaxLength="2" />
           <Property Name="Zip" Type="int" Nullable="false" />
-          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" />
           <Property Name="LastLogin" Type="datetime" Nullable="false" />
           <Property Name="RegistrationDate" Type="datetime" Nullable="false" />
           <Property Name="RegistrationIp" Type="varchar" Nullable="false" MaxLength="20" />
@@ -3162,7 +3162,7 @@
           <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="City" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="State" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Type="DateTime" Name="DateOfBirth" Nullable="false" />
+          <Property Type="DateTime" Name="DateOfBirth" />
           <Property Type="DateTime" Name="LastLogin" Nullable="false" />
           <Property Type="DateTime" Name="RegistrationDate" Nullable="false" />
           <Property Type="String" Name="RegistrationIp" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />

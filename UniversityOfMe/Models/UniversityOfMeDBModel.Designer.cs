@@ -15563,11 +15563,10 @@ namespace UniversityOfMe.Models
         /// <param name="firstName">Initial value of the FirstName property.</param>
         /// <param name="lastName">Initial value of the LastName property.</param>
         /// <param name="gender">Initial value of the Gender property.</param>
-        /// <param name="dateOfBirth">Initial value of the DateOfBirth property.</param>
         /// <param name="lastLogin">Initial value of the LastLogin property.</param>
         /// <param name="registrationDate">Initial value of the RegistrationDate property.</param>
         /// <param name="registrationIp">Initial value of the RegistrationIp property.</param>
-        public static User CreateUser(global::System.Int32 id, global::System.String email, global::System.String password, global::System.String firstName, global::System.String lastName, global::System.String gender, global::System.DateTime dateOfBirth, global::System.DateTime lastLogin, global::System.DateTime registrationDate, global::System.String registrationIp)
+        public static User CreateUser(global::System.Int32 id, global::System.String email, global::System.String password, global::System.String firstName, global::System.String lastName, global::System.String gender, global::System.DateTime lastLogin, global::System.DateTime registrationDate, global::System.String registrationIp)
         {
             User user = new User();
             user.Id = id;
@@ -15576,7 +15575,6 @@ namespace UniversityOfMe.Models
             user.FirstName = firstName;
             user.LastName = lastName;
             user.Gender = gender;
-            user.DateOfBirth = dateOfBirth;
             user.LastLogin = lastLogin;
             user.RegistrationDate = registrationDate;
             user.RegistrationIp = registrationIp;
@@ -15832,9 +15830,9 @@ namespace UniversityOfMe.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.DateTime DateOfBirth
+        public Nullable<global::System.DateTime> DateOfBirth
         {
             get
             {
@@ -15849,8 +15847,8 @@ namespace UniversityOfMe.Models
                 OnDateOfBirthChanged();
             }
         }
-        private global::System.DateTime _DateOfBirth;
-        partial void OnDateOfBirthChanging(global::System.DateTime value);
+        private Nullable<global::System.DateTime> _DateOfBirth;
+        partial void OnDateOfBirthChanging(Nullable<global::System.DateTime> value);
         partial void OnDateOfBirthChanged();
     
         /// <summary>

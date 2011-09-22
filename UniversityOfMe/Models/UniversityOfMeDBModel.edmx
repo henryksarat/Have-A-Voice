@@ -1075,7 +1075,7 @@
           <Property Name="City" Type="varchar" MaxLength="100" />
           <Property Name="State" Type="char" MaxLength="2" />
           <Property Name="Zip" Type="int" />
-          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" />
           <Property Name="LastLogin" Type="datetime" Nullable="false" />
           <Property Name="RegistrationDate" Type="datetime" Nullable="false" />
           <Property Name="RegistrationIp" Type="varchar" Nullable="false" MaxLength="20" />
@@ -2933,7 +2933,7 @@
           <Property Type="String" Name="City" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="State" MaxLength="2" FixedLength="true" Unicode="false" />
           <Property Type="Int32" Name="Zip" />
-          <Property Type="DateTime" Name="DateOfBirth" Nullable="false" />
+          <Property Type="DateTime" Name="DateOfBirth" />
           <Property Type="DateTime" Name="LastLogin" Nullable="false" />
           <Property Type="DateTime" Name="RegistrationDate" Nullable="false" />
           <Property Type="String" Name="RegistrationIp" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
@@ -5622,7 +5622,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="UniversityOfMeDBModel" ZoomLevel="100">
+      <Diagram Name="UniversityOfMeDBModel" ZoomLevel="66">
         <EntityTypeShape EntityType="UniversityOfMeModel.RolePermission" Width="1.5" PointX="5.25" PointY="10.75" Height="1.9802864583333335" IsExpanded="true" />
         <EntityTypeShape EntityType="UniversityOfMeModel.Role" Width="1.5" PointX="3" PointY="10.25" Height="2.7494921874999996" IsExpanded="true" />
         <EntityTypeShape EntityType="UniversityOfMeModel.UserPrivacySetting" Width="1.5" PointX="5.25" PointY="4.875" Height="1.9802864583333326" IsExpanded="true" />

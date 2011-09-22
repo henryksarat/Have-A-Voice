@@ -124,7 +124,10 @@
 			<p><label>Name:</label><%=NameHelper.FullName(Model.User) %></p> 
 			<p><label>University:</label><%= UniversityHelper.GetMainUniversity(Model.User).UniversityName %></p> 
             <% if (myAllowedToView) { %>    
-                <p><label>Birthdate:</label><%= String.Format("{0:dd MMM yyyy}", Model.User.DateOfBirth) %></p> 
+                <% if(Model.User.DateOfBirth != null) { %>
+                    <p><label>Birthdate:</label><%= String.Format("{0:dd MMM yyyy}", Model.User.DateOfBirth) %></p> 
+                <% } %>
+
 			    <p><label>Relationship:</label><%= Model.User.RelationshipStatu != null ? Model.User.RelationshipStatu.DisplayName : "NA" %></p> 
                 
                 <% if (!string.IsNullOrEmpty(Model.User.Job)) { %>
