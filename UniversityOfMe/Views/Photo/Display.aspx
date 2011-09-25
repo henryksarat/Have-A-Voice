@@ -16,12 +16,15 @@
         <% Html.RenderPartial("Validation"); %>
         <% Html.RenderPartial("Message"); %>
 		<div class="banner black full red-top small">
-			<span class="album">SAMPLE ALBUM <span class="user">by Anca Foster</span></span>
-			<div class="buttons">
+			<span class="album"><%= Model.Get().Photo.PhotoAlbum.Name %> <span class="user">by <%= NameHelper.FullName(Model.Get().Photo.User) %></span></span>
+			<% UserInformationModel<User> myUserInfo = UserInformationFactory.GetUserInformation(); %>
+            <% if (myUserInfo != null && myUserInfo.UserId == Model.Get().Photo.User.Id) { %>
+            <div class="buttons">
                 <%= Html.ActionLink("Delete", "Delete", "Photo", new { id = Model.Get().Photo.Id, albumId = Model.Get().Photo.PhotoAlbumId }, new { @class = "remove mr17" })%>
 	            <%= Html.ActionLink("Set as Profile Picture", "SetProfilePicture", "Photo", new { id = Model.Get().Photo.Id }, new { @class = "profile mr22" })%>
                 <%= Html.ActionLink("Set as Album Cover", "SetAlbumCover", "Photo", new { id = Model.Get().Photo.Id }, new { @class = "create" })%>
 			</div>
+            <% } %>
 		</div>
 		<div class="image">
             <% if (Model.Get().PreviousPhoto != null) { %>

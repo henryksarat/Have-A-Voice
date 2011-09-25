@@ -28,6 +28,8 @@ namespace UniversityOfMe.Helpers {
 
         public const string NOT_APART_OF_UNIVERSITY = "You are not apart of this university.";
 
+        public const string DEFAULT_PROFILE_PHOTO_ALBUM = "Profile Pictures";
+
         public const string UNVIERSITY_MAIN_CONTROLLER = "University";
         public const string UNVIERSITY_MAIN_VIEW = "Main";
 

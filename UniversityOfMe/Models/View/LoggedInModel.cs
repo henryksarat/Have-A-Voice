@@ -7,6 +7,8 @@ using UniversityOfMe.Services.Dating;
 using UniversityOfMe.Services.Notifications;
 using UniversityOfMe.Services.Users;
 using UniversityOfMe.Services.Badges;
+using Social.Photo.Services;
+using UniversityOfMe.Services.Photos;
 
 namespace UniversityOfMe.Models.View {
     public class LoggedInModel {
@@ -19,7 +21,9 @@ namespace UniversityOfMe.Models.View {
                 IUofMeUserService myUserService = new UofMeUserService(new ModelStateWrapper(null));
                 IDatingService myDatingService = new DatingService();
                 IBadgeService myBadgeService = new BadgeService();
+                IUofMePhotoService myPhotoService = new UofMePhotoService();
 
+                bool myHasProfilePicture = myPhotoService.HasProfilePhoto(aUser);
                 IEnumerable<NotificationModel> myNotifications = myNotificationService.GetNotificationsForUser(aUser, 5);
                 IEnumerable<User> myNewestUsers = myUserService.GetNewestUsers(aUser, UniversityHelper.GetMainUniversityId(aUser), 12);
                 UserBadge myUserBadge = myBadgeService.GetLatestUnseenBadgeForUser(aUser);
@@ -32,6 +36,7 @@ namespace UniversityOfMe.Models.View {
 
                 LeftNavigation = new LeftNavigation() {
                     User = aUser,
+                    HasProfilePicture = myHasProfilePicture,
                     NewestUsersInUniversity = myNewestUsers,
                     Notifications = myNotifications,
                     DatingMember = myDatingService.GetDatingMember(aUser),

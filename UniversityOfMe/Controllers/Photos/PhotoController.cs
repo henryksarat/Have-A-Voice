@@ -19,12 +19,17 @@ using UniversityOfMe.UserInformation;
 using System;
 using UniversityOfMe.Helpers.AWS;
 using UniversityOfMe.Helpers.Configuration;
+using Social.Generic.Exceptions;
 
 namespace UniversityOfMe.Controllers.Photos {
     public class PhotoController : AbstractPhotosController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline, PhotoAlbum, Photo, Friend> {
         private const int MAX_SIZE = 840;
         private const int MAX_SIZE_PROFILE = 120;
         private IUofMePhotoService thePhotoService;
+
+        private const string PROFILE_UPLOAD_SUCCESS = "Your profile picture has been uploaded and set!";
+
+        private const string PROFILE_UPLOAD_ERROR = "Error uploading your profile picture. Please try again.";
         
         public PhotoController() : this(new UofMePhotoService()) { }
         
@@ -41,6 +46,25 @@ namespace UniversityOfMe.Controllers.Photos {
         [AcceptVerbs(HttpVerbs.Post)]
         new public ActionResult Create(int albumId, HttpPostedFileBase imageFile) {
             return base.Create(albumId, imageFile, AWSHelper.GetClient(), SiteConfiguration.UserPhotosBucket(), MAX_SIZE);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
+        public ActionResult CreateProfilePicture(HttpPostedFileBase profileFile) {
+            if (!IsLoggedIn()) {
+                return RedirectToLogin();
+            }
+            try {
+                UserInformationModel<User> myUserInfo = GetUserInformatonModel();
+                thePhotoService.UploadProfilePicture(myUserInfo, profileFile, AWSHelper.GetClient(), SiteConfiguration.UserPhotosBucket(), MAX_SIZE);
+                TempData["Message"] += MessageHelper.SuccessMessage(PROFILE_UPLOAD_SUCCESS);
+            } catch (CustomException e) {
+                TempData["Message"] += MessageHelper.ErrorMessage(e.Message);
+            } catch (Exception e) {
+                LogError(e, PROFILE_UPLOAD_ERROR);
+                TempData["Message"] += MessageHelper.ErrorMessage(PROFILE_UPLOAD_ERROR);
+            }
+
+            return RedirectToHomePage();
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]

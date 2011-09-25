@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.Linq;
 using Amazon.S3;
+using UniversityOfMe.Helpers;
 
 namespace UniversityOfMe.Services.Photos {
     public class UofMePhotoService : PhotoService<User, PhotoAlbum, Photo, Friend>, IUofMePhotoService {
@@ -24,6 +25,11 @@ namespace UniversityOfMe.Services.Photos {
         public UofMePhotoService(IFriendService<User, Friend> aFriendService, IPhotoAlbumRepository<User, PhotoAlbum, Photo> aPhotoAlbumRepo, IUofMePhotoRepository aPhotoRepo)
             : base(aFriendService, aPhotoAlbumRepo, aPhotoRepo) {
             thePhotoRepo = aPhotoRepo;
+        }
+
+        public bool HasProfilePhoto(User aUser) {
+            Photo myPhoto = thePhotoRepo.GetProfilePicture(aUser);
+            return myPhoto != null ? true : false;
         }
 
         new public Photo UploadImageWithDatabaseReference(AbstractUserModel<User> aUserToUploadFor, int anAlbumId, HttpPostedFileBase aImageFile, AmazonS3 aAmazonS3Client, string aBucketName, int aMaxSize) {
@@ -59,6 +65,18 @@ namespace UniversityOfMe.Services.Photos {
                 PreviousPhoto = myPreviousPhoto
             };
                         
+        }
+
+        //Throws custom exception if it's not a jpg, gif, or png image
+        public void UploadProfilePicture(UserInformationModel<User> aUser, HttpPostedFileBase anImageFile, AmazonS3 anAmazonS3Client, string aBucketName, int aMaxSize) {
+            PhotoAlbum myPhotoAlbum = thePhotoRepo.GetDefaultPhotoAlbumForProfilePictures(aUser.Details, UOMConstants.DEFAULT_PROFILE_PHOTO_ALBUM);
+            
+            if (myPhotoAlbum == null) {
+                myPhotoAlbum = GetPhotoAlbumRepo().Create(aUser.Details, UOMConstants.DEFAULT_PROFILE_PHOTO_ALBUM, string.Empty);
+            }
+            
+            Photo myPhoto = UploadImageWithDatabaseReference(SocialUserModel.Create(aUser.Details), myPhotoAlbum.Id, anImageFile, anAmazonS3Client, aBucketName, aMaxSize);
+            SetToProfilePicture(SocialUserModel.Create(aUser.Details), myPhoto.Id, anAmazonS3Client, aBucketName, aMaxSize);
         }
     }
 }

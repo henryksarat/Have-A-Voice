@@ -7,6 +7,7 @@ namespace UniversityOfMe.Models.View {
         public IEnumerable<User> NewestUsersInUniversity { get; set; }
         public User DatingMember { get; set; }
         public DatingLog DatingMatchMember { get; set; }
+        public bool HasProfilePicture { get; set; }
 
         public bool HasDatingMatch() {
             return DatingMatchMember != null;

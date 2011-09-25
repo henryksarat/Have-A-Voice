@@ -81,6 +81,10 @@ namespace HaveAVoice.Services.UserFeatures {
             }
         }
 
+        public IPhotoAlbumRepository<T, U, V> GetPhotoAlbumRepo() {
+            return thePhotoAlbumRepo;
+        }
+
         public V GetProfilePicture(int aUserId) {
             AbstractPhotoModel<V> myAbstractPhoto = thePhotoRepo.GetAbstractProfilePicture(aUserId);
             if (myAbstractPhoto != null) {

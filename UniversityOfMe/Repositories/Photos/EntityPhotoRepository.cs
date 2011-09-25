@@ -44,6 +44,13 @@ namespace UniversityOfMe.Repositories.Photos {
             return SocialPhotoModel.Create(GetPhoto(aPhotoId));
         }
 
+        public PhotoAlbum GetDefaultPhotoAlbumForProfilePictures(User aUser, string aDefaultName) {
+            return (from a in theEntities.PhotoAlbums
+                    where a.CreatedByUserId == aUser.Id
+                    && a.Name.Equals(aDefaultName)
+                    select a).FirstOrDefault<PhotoAlbum>();
+        }
+
         public IEnumerable<Photo> GetOtherPhotosInPhotosAlbum(Photo aPhoto) {
             return (from p in theEntities.Photos
                     where p.PhotoAlbumId == aPhoto.PhotoAlbumId
@@ -61,6 +68,13 @@ namespace UniversityOfMe.Repositories.Photos {
 
         public AbstractPhotoModel<Photo> GetAbstractProfilePicture(int aUserId) {
             return SocialPhotoModel.Create(GetProfilePicture(aUserId));
+        }
+
+        public Photo GetProfilePicture(User aUser) {
+            return (from p in theEntities.Photos
+                    where p.UploadedByUserId == aUser.Id
+                    && p.ProfilePicture
+                    select p).FirstOrDefault<Photo>();
         }
 
         public bool HasAlbumCoverAlready(int anAlbumId) {
