@@ -42,13 +42,6 @@
 				
 				return false;
 			});
-	        $('#DateOfBirth').datepicker({
-	        	yearRange: '1900:2011',
-                changeMonth: true,
-                changeYear: true,
-                dateFormat: "mm-dd-yy",
-                yearRange: '1900:2011'
-            });
 		});
 	</script>
     
@@ -142,20 +135,6 @@
 		    				<%= Html.ValidationMessage("Password", "*") %>
 	    				</span>
 	    			</div>
-					<div class="clear">&nbsp;</div>
-					<div class="spacer-10">&nbsp;</div>
-					
-					<div class="col-4 m-rgt right">
-						<label for="DateOfBirth">Date of Birth:</label>
-					</div>
-					<div class="col-4">
-						<%= Html.TextBox("DateOfBirth", Model.getDateOfBirthFormatted())%>
-					</div>
-					<div class="col-14 m-lft">
-						<span class="req">
-							<%= Html.ValidationMessage("DateOfBirth", "*") %>
-						</span>
-					</div>
 					<div class="clear">&nbsp;</div>
 					<div class="spacer-10">&nbsp;</div>
 					

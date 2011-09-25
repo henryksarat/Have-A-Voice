@@ -34,6 +34,7 @@ namespace Social.Generic.Models {
         public string ForgotPasswordHash { get; set; }
         public DateTime? ForgotPasswordHashDateTimeStamp { get; set; }
         public int? Zip { get; set; }
+        public string StringZip { get; set; }
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Gender { get; set; }
         [DisplayFormat(ConvertEmptyStringToNull = false)]

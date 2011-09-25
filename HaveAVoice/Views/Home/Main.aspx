@@ -15,17 +15,6 @@
         <script type="text/javascript" src="/Content/js/jquery-1.5.1.min.js"></script>
         <script type="text/javascript" src="/Content/js/jquery-ui-1.8.14.custom.min.js"></script>
 	</head>
-    	<script type="text/javascript" language="javascript">
-    	    $(function () {
-    	        $('#DateOfBirth').datepicker({
-    	            yearRange: '1900:2011',
-    	            changeMonth: true,
-    	            changeYear: true,
-    	            dateFormat: "mm-dd-yy",
-    	            yearRange: '1900:2011'
-    	        });
-    	    });
-	</script>
     <% bool myIsLoggedin = HAVUserInformationFactory.IsLoggedIn(); %>
     <% string myLogoDivStyle = myIsLoggedin ? "lcol-logged-in" : "lcol";  %>
 	<body>
@@ -146,10 +135,6 @@
 							    <div class="inpt">
 								    <label for="gender">Gender:</label>
                                     <%= Html.DropDownList("Gender", Model.Genders) %>
-							    </div>
-							    <div class="inpt">
-								    <label for="bdate">Birthday Date:</label>
-								    <%= Html.TextBox("DateOfBirth", Model.getDateOfBirthFormatted(), new { @class = "txt" })%>
 							    </div>
 							    <div class="inpt">
 								    <label for="state">State:</label>
