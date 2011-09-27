@@ -51,7 +51,7 @@ namespace UniversityOfMe.Services.Professors {
             }
 
 
-            theProfessorRepository.CreateProfessor(aCreatingUser.Details, aUniversityId, aFirstName, aLastName, myProfessorImage);
+            theProfessorRepository.CreateProfessor(aCreatingUser.Details, aUniversityId, aFirstName.Trim(), aLastName.Trim(), myProfessorImage);
             return true;
         }
 

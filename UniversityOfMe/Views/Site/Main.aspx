@@ -1,8 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<UniversityOfMe.Models.View.CreateUserModel>" %>
 <%@ Import Namespace="UniversityOfMe.Helpers.Search" %>
+<%@ Import Namespace="UniversityOfMe.Helpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	College Social Networking, Dating, Textbook, Class
+	College Only Social Networking, Class Help, Professor Reviews, Dating
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="MetaDescriptionHolder" runat="server">
@@ -14,22 +15,10 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-	<script type="text/javascript" language="javascript">
-	    $(function () {
-	        $('#DateOfBirth').datepicker({
-	            yearRange: '1900:2011',
-	            changeMonth: true,
-	            changeYear: true,
-	            dateFormat: "mm-dd-yy",
-	            yearRange: '1900:2011'
-	        });
-	    });
-	</script>
-
     <div class="six"> 
 	    <div class="banner red bold"> 
             <div class="seo">
-                <h1>College only social networking - dating, flirting, buy and sell textbooks, class help, professor reviews</h1>
+                <h1>College only social networking - class help, professor reviews, buy and sell textbooks, dating, flirting</h1>
             </div>
 		    <span class="special-corner"></span> 
 	    </div> 
@@ -42,14 +31,15 @@
         <br /><br /> 
 
         University of Me is social networking only for
-        <a class="itemlinked" href="/Search/<%= SearchFilter.User.ToString() %>?page=1">university students</a>, which means no spam bots, no parents, and
-        no randoms. UofMe brings the university life full circle with campus dating, 
-        <a class="itemlinked" href="/UChicago/Flirt/List">anonymous flirting</a>,
-        <a class="itemlinked" href="/Search/<%= SearchFilter.Textbook.ToString() %>?page=1">on-campus textbook bartering</a>, 
-        <a class="itemlinked" href="/Search/<%= SearchFilter.Event.ToString() %>?page=1">university wide events</a>, 
+        <a class="itemlinked" href="/Search/<%= SearchFilter.User.ToString() %>?page=1">university students</a>, which means no spam bots and no parents.
+        UofMe brings the university life full circle with
         <a class="itemlinked" href="/Search/<%= SearchFilter.Class.ToString() %>?page=1">class discussions</a> (no more listservs!), 
         <a class="itemlinked" href="/Search/<%= SearchFilter.Class.ToString() %>?page=1">class reviews</a>, 
         <a class="itemlinked" href="/Search/<%= SearchFilter.Professor.ToString() %>?page=1">professor reviews</a>, photo sharing, 
+        campus dating, 
+        <a class="itemlinked" href="/UChicago/Flirt/List">anonymous flirting</a>,
+        <a class="itemlinked" href="/Search/<%= SearchFilter.Textbook.ToString() %>?page=1">on-campus textbook bartering</a>, 
+        <a class="itemlinked" href="/Search/<%= SearchFilter.Event.ToString() %>?page=1">university wide events</a>, 
         <a class="itemlinked" href="/Search/<%= SearchFilter.Organization.ToString() %>?page=1">club interaction</a>,
         and more! 
         This website will be built with the students in mind, so if you have an idea for a new feature let us know!
@@ -135,6 +125,15 @@
                     Sorry but we've reached the maximum amount of users for now. We will be raising the threshold shortly so come back soon!
                 </div>
             <% } %>
-
+            <br />
+            <div class="normal-page" style="padding-top:10px; padding-left:10px; padding-right:10px; padding-bottom:10px">
+                <div class="big red">From our blog</div>
+                <div class="outer-blog">
+                    <%= BlogReader.GetBlog() %>
+                </div>
+                <div class="right blog-read-more">
+                    Read more at <a class="main-page-blog-read-more" href="http://blog.universityof.me">our blog</a>.
+                </div>
+            </div>
     </div>
 </asp:Content>

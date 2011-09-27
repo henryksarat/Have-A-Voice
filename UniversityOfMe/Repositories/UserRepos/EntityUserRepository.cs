@@ -100,7 +100,7 @@ namespace UniversityOfMe.Repositories.UserRepos {
                      select u).FirstOrDefault<User>());
         }
 
-        public IEnumerable<User> GetNewestUsersFromUniversity(User aRequestingUser, string aUniversity, int aLimit) {
+        public IEnumerable<User> GetNewestUsersFromUniversity(User aRequestingUser, string aUniversity) {
             Role myNotConfirmed = GetNotConfirmedRole();
             
             return (from u in theEntities.Users
@@ -110,7 +110,7 @@ namespace UniversityOfMe.Repositories.UserRepos {
                     where ue.UniversityId == aUniversity
                     && u.Id != aRequestingUser.Id
                     && ur.RoleId != myNotConfirmed.Id
-                    select u).Take<User>(aLimit).ToList<User>();
+                    select u).ToList<User>();
 
         }
 

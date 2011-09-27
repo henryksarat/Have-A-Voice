@@ -137,6 +137,7 @@
     <Compile Include="Helpers\Badges\BadgeAction.cs" />
     <Compile Include="Helpers\Badges\BadgeName.cs" />
     <Compile Include="Helpers\Badges\BadgeSection.cs" />
+    <Compile Include="Helpers\BlogReader.cs" />
     <Compile Include="Helpers\ClassHelper.cs" />
     <Compile Include="Helpers\ClassViewType.cs" />
     <Compile Include="Helpers\Configuration\SiteConfiguration.cs" />

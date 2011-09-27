@@ -1,4 +1,10 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl" %>
+<script type="text/javascript" language="javascript">
+    $(function () {
+        $('#LoginEmail').focus();
+    });
+</script>
+
 <% using (Html.BeginForm("Login", "Authentication", FormMethod.Post)) { %>
 	<div class="login"> 
 		<div class="s-row"> 

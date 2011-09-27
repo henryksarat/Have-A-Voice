@@ -203,12 +203,12 @@
 			    <div class="buttons"> 
                     <%= Html.ActionLink("Anonymously Flirt", "CreateWithTaggedUser", "Flirt", new { taggedUserId = Model.User.Id }, new { @class = "flirt mr10" })%>
                     <% if (FriendHelper.IsFriend(Model.User, myLoggedInUser.Details)) { %>
-                        <%= Html.ActionLink("Remove from friends", "Delete", "Friend", new { id = Model.User.Id }, new { @class = "defriend mr10" })%>
+                        <%= Html.ActionLink("Defriend", "Delete", "Friend", new { id = Model.User.Id }, new { @class = "defriend mr10" })%>
                     <% } %>
                     <%= Html.ActionLink("Send beer", "SendItem", "SendItems", new { id = Model.User.Id, sendItem = SendItemOptions.BEER }, new { @class = "beer mr10" })%>
                     <%= Html.ActionLink("Send PM", "Create", "Message", new { id = Model.User.Id }, new { @class = "pm mr10" })%>				
                     <% if (!FriendHelper.IsFriend(Model.User, myLoggedInUser.Details)) { %>
-                        <%= Html.ActionLink("Add as friend", "Add", "Friend", new { id = Model.User.Id }, new { @class = "addfriend" })%>
+                        <%= Html.ActionLink("Friend", "Add", "Friend", new { id = Model.User.Id }, new { @class = "addfriend" })%>
                     <% } %>
 			    </div> 
             <% } %>
@@ -223,7 +223,7 @@
 				        WHAT'S <%= Model.User.Gender.Equals(Social.Generic.Constants.Gender.MALE) ? "HE" : "SHE"%> DOING
 			        </div>            
                     <div class="padding-col">
-                        <% foreach (UserStatus myUserStatus in Model.UserStatuses) { %>
+                        <% foreach (UserStatus myUserStatus in Model.UserStatuses.Take(4)) { %>
                             <div class="small">
                                 <%= NameHelper.FullName(myUserStatus.User) + " is " + myUserStatus.Status + " at " + LocalDateHelper.ToLocalTime(myUserStatus.DateTimeStamp)%>
                                 <% if (UserStatusHelper.IsAllowedToDelete(myLoggedInUser, myUserStatus)) {  %>

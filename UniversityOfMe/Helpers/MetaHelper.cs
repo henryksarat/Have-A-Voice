@@ -3,7 +3,7 @@ using System.Web.Mvc;
 namespace UniversityOfMe.Helpers {
     public class MetaHelper {
         public const string DEFAULT_START = "University of Me | ";
-        public const string DEFAULT_DESCRIPTION = "University of Me | Campus Dating, Flirting, Buy/Sell Textbooks, Class Help, Professor Reviews, University Events";
+        public const string DEFAULT_DESCRIPTION = "University of Me | Class Help, Class Reviews, Campus Dating, Buy/Sell Textbooks, Flirting, Professor Reviews, University Events";
         public const string DEFAULT_KEYWORDS = "College Only Social Networking, Buy Textbooks, Sell Textbooks, Professor Reviews, Class Help, College Events, College Dating, Anonymous Flirting";
 
         public static string MetaDescription(string aDescription) {

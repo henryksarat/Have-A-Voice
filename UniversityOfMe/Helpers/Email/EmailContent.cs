@@ -103,7 +103,7 @@ namespace UniversityOfMe.Helpers.Email {
         }
 
         private static string LinkIt(string aLink) {
-            return "www.universityof.me" + aLink;
+            return "http://www.universityof.me" + aLink;
         }
     }
 }

@@ -56,8 +56,8 @@ namespace UniversityOfMe.Services.Classes {
             }
 
             Class myClass= theClassRepository.CreateClass(aCreatedByUser.Details, aCreateClassModel.UniversityId, 
-                                                          aCreateClassModel.AcademicTermId, aCreateClassModel.ClassCode.ToUpper(), 
-                                                          aCreateClassModel.ClassTitle, aCreateClassModel.Year, aCreateClassModel.Details);
+                                                          aCreateClassModel.AcademicTermId, aCreateClassModel.ClassCode.Trim().ToUpper(), 
+                                                          aCreateClassModel.ClassTitle.Trim(), aCreateClassModel.Year, aCreateClassModel.Details);
 
             return myClass;
         }

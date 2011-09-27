@@ -775,3 +775,11 @@ a.leftnavlink:hover { text-decoration: none }
 .tumblr { width: 16px; height: 16px; background: url("/Content/images/ico-tum.png") no-repeat center center; display: inline-block; text-indent: -9999; outline: none; margin-left: 7px; font-size: 0px; top: -12px; }
 
 div.seo h1 { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; letter-spacing: 0px}
+
+a.main-page-blog, a.main-page-blog:link, a.main-page-blog:visited { color: #971e20; font-size: 12pt; font-weight: bold; }
+a.main-page-blog:hover { text-decoration: underline; }
+a.main-page-blog-read-more, a.main-page-blog-read-more:link, a.main-page-blog-read-more:visited { color: #971e20; font-size: 10pt; font-weight: bold; }
+a.main-page-blog-read-more:hover { text-decoration: underline; }
+.inner-blog { margin-bottom: 10px; margin-top: -10px }
+.outer-blog { font-size: 12px; margin-top: 10px }
+.blog-read-more { font-size: 12px; margin-top: 10px }

@@ -114,7 +114,10 @@ namespace UniversityOfMe.Services.Users {
         }
 
         public IEnumerable<User> GetNewestUsers(User aRequestingUser, string aUniversityId, int aLimit) {
-            return theUserRepository.GetNewestUsersFromUniversity(aRequestingUser, aUniversityId, aLimit);
+            IEnumerable<User> myUsers = theUserRepository.GetNewestUsersFromUniversity(aRequestingUser, aUniversityId);
+            Random myRandom = new Random();
+            myUsers = myUsers.OrderBy<User, int>(u => myRandom.Next()).ToList<User>();
+            return myUsers.Take(aLimit);
         }
 
         public int GetNumberOfRegisteredUsers() {
