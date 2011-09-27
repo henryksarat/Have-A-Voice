@@ -5,7 +5,7 @@
 <%@ Import Namespace="UniversityOfMe.Models" %>
 
 <% User myUser = UserInformationFactory.GetUserInformation().Details; %>
-<div class="banner red"> 
+<div class="banner red" style="min-width:500px"> 
 	<div class="profile"> 
 		<a href="<%= URLHelper.ProfileUrl(myUser) %>"><img src="<%= PhotoHelper.ProfilePicture(myUser) %>" alt="<%= NameHelper.FullName(myUser) %>" title="<%= NameHelper.FullName(myUser) %>" class="profile sm" /></a> 
 		Welcome <%= myUser.FirstName %>, <a href="/Authentication/LogOut">Logout</a> 
