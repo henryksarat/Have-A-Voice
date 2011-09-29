@@ -78,7 +78,7 @@
 					<label for="desc">INFORMATION:</label> 
 				</td> 
 				<td> 
-					<%= Model.Get().Information %>
+					<%= PresentationHelper.ReplaceCarriageReturnWithBR(Model.Get().Information) %>
 				</td> 
 			</tr> 
 		</table> 

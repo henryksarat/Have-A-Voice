@@ -171,6 +171,7 @@
     <Compile Include="Helpers\NavigationCountHelper.cs" />
     <Compile Include="Helpers\NotificationType.cs" />
     <Compile Include="Helpers\PhotoHelper.cs" />
+    <Compile Include="Helpers\PresentationHelper.cs" />
     <Compile Include="Helpers\PrivacyHelper.cs" />
     <Compile Include="Helpers\Privacy\PrivacyStrategyImpl.cs" />
     <Compile Include="Helpers\ProfilePictureStrategy.cs" />

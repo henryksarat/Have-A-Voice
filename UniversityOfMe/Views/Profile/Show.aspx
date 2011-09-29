@@ -118,7 +118,7 @@
 		<span class="corner"></span> 
 		</div> 
         <div class="imagedisplay">
-    		<img src="<%= PhotoHelper.OriginalProfilePicture(Model.User) %>" class="mt34 mb15" alt="Anca Foster" /> 
+    		<img src="<%= PhotoHelper.OriginalProfilePicture(Model.User) %>" class="mt34 mb15" alt="<%= NameHelper.FullName(Model.User) %>" /> 
         </div>  
 		<div class="prof-info"> 
 			<p><label>Name:</label><%=NameHelper.FullName(Model.User) %></p> 
