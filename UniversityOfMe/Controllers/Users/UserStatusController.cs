@@ -42,11 +42,11 @@ namespace UniversityOfMe.Controllers.Profile {
         }
 
         [AcceptVerbs(HttpVerbs.Post), ExportModelStateToTempData]
-        public ActionResult Create(string userStatus) {
+        public ActionResult Create(string userStatus, bool everyone) {
             try {
                 UserInformationModel<User> myUserInfo = GetUserInformatonModel();
 
-                bool myResult = theUserStatusService.CreateUserStatus(myUserInfo, userStatus);
+                bool myResult = theUserStatusService.CreateUserStatus(myUserInfo, userStatus, everyone);
 
                 if (myResult) {
                     TempData["Message"] += SuccessMessage(CREATE_SUCCESS);

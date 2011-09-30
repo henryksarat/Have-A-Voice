@@ -7,7 +7,7 @@ using System;
 
 namespace UniversityOfMe.Services.Status {
     public interface IUserStatusService {
-        bool CreateUserStatus(UserInformationModel<User> aUserInfo, string aStatus);
+        bool CreateUserStatus(UserInformationModel<User> aUserInfo, string aStatus, bool aEveryone);
         void DeleteUserStatus(UserInformationModel<User> aUserInfo, int aStatusId);
         UserStatus GetLatestUserStatusForUser(UserInformationModel<User> aUserInfo);
         IEnumerable<UserStatus> GetLatestUserStatusesWithinUniversity(UserInformationModel<User> aUser, string aUniversityId, int aLimit);

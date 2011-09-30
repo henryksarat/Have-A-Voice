@@ -109,13 +109,13 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserActions_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "UserAction", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserAction), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserBadges_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "UserBadge", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserBadge), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserBadges_Badges", "Badge", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Badge), "UserBadge", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserBadge), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserStatuses_Universities", "University", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.University), "UserStatus", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserStatus), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Statuses_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "UserStatus", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserStatus), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_AnonymousFlirts_Universities", "University", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.University), "AnonymousFlirt", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.AnonymousFlirt), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_AnonymousFlirts_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "AnonymousFlirt", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.AnonymousFlirt), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_TextBooks_TextBookConditions", "TextBookCondition", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.TextBookCondition), "TextBook", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.TextBook), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_TextBooks_Universities", "University", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.University), "TextBook", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.TextBook), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_TextBooks_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "TextBook", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.TextBook), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserStatuses_Universities", "University", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.University), "UserStatus", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserStatus), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Statuses_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "UserStatus", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserStatus), true)]
 
 #endregion
 
@@ -1002,22 +1002,6 @@ namespace UniversityOfMe.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<UserStatus> UserStatuses
-        {
-            get
-            {
-                if ((_UserStatuses == null))
-                {
-                    _UserStatuses = base.CreateObjectSet<UserStatus>("UserStatuses");
-                }
-                return _UserStatuses;
-            }
-        }
-        private ObjectSet<UserStatus> _UserStatuses;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<ContactUs> ContactUs
         {
             get
@@ -1078,6 +1062,22 @@ namespace UniversityOfMe.Models
             }
         }
         private ObjectSet<TextBook> _TextBooks;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<UserStatus> UserStatuses
+        {
+            get
+            {
+                if ((_UserStatuses == null))
+                {
+                    _UserStatuses = base.CreateObjectSet<UserStatus>("UserStatuses");
+                }
+                return _UserStatuses;
+            }
+        }
+        private ObjectSet<UserStatus> _UserStatuses;
 
         #endregion
         #region AddTo Methods
@@ -1499,14 +1499,6 @@ namespace UniversityOfMe.Models
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the UserStatuses EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToUserStatuses(UserStatus userStatus)
-        {
-            base.AddObject("UserStatuses", userStatus);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the ContactUs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToContactUs(ContactUs contactUs)
@@ -1536,6 +1528,14 @@ namespace UniversityOfMe.Models
         public void AddToTextBooks(TextBook textBook)
         {
             base.AddObject("TextBooks", textBook);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the UserStatuses EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToUserStatuses(UserStatus userStatus)
+        {
+            base.AddObject("UserStatuses", userStatus);
         }
 
         #endregion
@@ -15337,28 +15337,6 @@ namespace UniversityOfMe.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_UserStatuses_Universities", "UserStatus")]
-        public EntityCollection<UserStatus> UserStatuses
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserStatus>("UniversityOfMeModel.FK_UserStatuses_Universities", "UserStatus");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserStatus>("UniversityOfMeModel.FK_UserStatuses_Universities", "UserStatus", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_AnonymousFlirts_Universities", "AnonymousFlirt")]
         public EntityCollection<AnonymousFlirt> AnonymousFlirts
         {
@@ -15393,6 +15371,28 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TextBook>("UniversityOfMeModel.FK_TextBooks_Universities", "TextBook", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_UserStatuses_Universities", "UserStatus")]
+        public EntityCollection<UserStatus> UserStatuses
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserStatus>("UniversityOfMeModel.FK_UserStatuses_Universities", "UserStatus");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserStatus>("UniversityOfMeModel.FK_UserStatuses_Universities", "UserStatus", value);
                 }
             }
         }
@@ -17427,28 +17427,6 @@ namespace UniversityOfMe.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Statuses_Users", "UserStatus")]
-        public EntityCollection<UserStatus> UserStatuses
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserStatus>("UniversityOfMeModel.FK_Statuses_Users", "UserStatus");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserStatus>("UniversityOfMeModel.FK_Statuses_Users", "UserStatus", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_AnonymousFlirts_Users", "AnonymousFlirt")]
         public EntityCollection<AnonymousFlirt> AnonymousFlirts
         {
@@ -17483,6 +17461,28 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TextBook>("UniversityOfMeModel.FK_TextBooks_Users", "TextBook", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Statuses_Users", "UserStatus")]
+        public EntityCollection<UserStatus> UserStatuses
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserStatus>("UniversityOfMeModel.FK_Statuses_Users", "UserStatus");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserStatus>("UniversityOfMeModel.FK_Statuses_Users", "UserStatus", value);
                 }
             }
         }
@@ -18395,15 +18395,17 @@ namespace UniversityOfMe.Models
         /// <param name="userId">Initial value of the UserId property.</param>
         /// <param name="universityId">Initial value of the UniversityId property.</param>
         /// <param name="status">Initial value of the Status property.</param>
+        /// <param name="everyone">Initial value of the Everyone property.</param>
         /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
         /// <param name="deleted">Initial value of the Deleted property.</param>
-        public static UserStatus CreateUserStatus(global::System.Int32 id, global::System.Int32 userId, global::System.String universityId, global::System.String status, global::System.DateTime dateTimeStamp, global::System.Boolean deleted)
+        public static UserStatus CreateUserStatus(global::System.Int32 id, global::System.Int32 userId, global::System.String universityId, global::System.String status, global::System.Boolean everyone, global::System.DateTime dateTimeStamp, global::System.Boolean deleted)
         {
             UserStatus userStatus = new UserStatus();
             userStatus.Id = id;
             userStatus.UserId = userId;
             userStatus.UniversityId = universityId;
             userStatus.Status = status;
+            userStatus.Everyone = everyone;
             userStatus.DateTimeStamp = dateTimeStamp;
             userStatus.Deleted = deleted;
             return userStatus;
@@ -18510,6 +18512,30 @@ namespace UniversityOfMe.Models
         private global::System.String _Status;
         partial void OnStatusChanging(global::System.String value);
         partial void OnStatusChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Everyone
+        {
+            get
+            {
+                return _Everyone;
+            }
+            set
+            {
+                OnEveryoneChanging(value);
+                ReportPropertyChanging("Everyone");
+                _Everyone = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Everyone");
+                OnEveryoneChanged();
+            }
+        }
+        private global::System.Boolean _Everyone;
+        partial void OnEveryoneChanging(global::System.Boolean value);
+        partial void OnEveryoneChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

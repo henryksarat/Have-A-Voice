@@ -19,23 +19,42 @@
                     <div class="right wp100 pr10">
                         <%= Html.ActionLink("Hide", "DisableFeature", "Profile", new { feature = Features.SetStatusWidget }, new { @class = "disable-feature pr10" })%>
                     </div>
-                    <div class="padding-status-col" style="padding-left: 100px">
+                    <div class="padding-status-col" style="text-align:center">
                         <div>
-                            <label for="UserStatus">What are you doing?</label> 
-			                <%= Html.TextBox("UserStatus")%>
-                            <%= Html.ValidationMessage("UserStatus", "*", new { @class = "req" })%>
-                            <input type="submit" name="submit" class="btn site ml20" value="Share" /> 
+                            <table border="3" style="width:80%; margin-left:10%; margin-right:10%; border-bottom-color:Black; border-bottom-width:thick">
+                                <tr>
+                                    <td style="width:150px; vertical-align:middle">
+                                        <div>
+                                            <label for="UserStatus">What are you doing?</label> 
+                                        </div>
+                                    </td>
+                                    <td style="vertical-align:middle">
+                                        <%= Html.TextBox("UserStatus")%>
+                                        <%= Html.ValidationMessage("UserStatus", "*", new { @class = "req" })%>
+                                    </td>
+                                    <td>
+                                        <input type="submit" name="submit" class="btn site ml20" value="Share" /> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:150px"></td>
+                                    <td style="text-align: left"><%= Html.CheckBox("Everyone") %> Display to entire university</td>
+                                    <td></td>
+                                </tr>
+
+                                <% if (Model.Get().HasCurrentStatus) { %>
+                                        <tr>
+                                            <td style="vertical-align:top">
+                                                <label for="UserStatus">Current Status</label> 
+                                            </td>
+                                            <td colspan="2" style="vertical-align:top; text-align: left">
+                                                <%= Model.Get().CurrentStatus.Status %>    
+                                            </td>
+                                        </tr>
+                                <% } %>
+
+                            </table>
                         </div>
-                        <% if (Model.Get().HasCurrentStatus) { %>
-                            <div>
-                                <div class="valign-top" style="display:inline">
-                                    <label for="UserStatus">Current Status</label> 
-                                </div>
-                                <div style="text-align: left; width: 400px; display:inline-block">
-                                    <%= Model.Get().CurrentStatus.Status %>    
-                                </div>
-                            </div>
-                        <% } %>
                     </div>
                 <% } %>
             </div>

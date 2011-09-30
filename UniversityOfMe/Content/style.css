@@ -740,11 +740,11 @@ div.twoColCreateMessage div.rCol { float: left; width: 65%; padding: 10px 10px 1
 /*** Professor Review ***/
 .professor-review-form { background: url("images/30-gray.png") repeat; /* #dfdfd8; */ color: #676767; }
 .professor-review-form label { color: #000; font-size: 12px; float: left; width: 150px; cursor: pointer; }
-.professor-review-form .textarea { border: 1px solid #971e21; background: #fff; height: 150px; min-width: 160px; max-width: 300px; outline: none; width: 100%; }
-.professor-review-form input[type=text] { border: 1px solid #971e21; background: #fff; height: 28px; min-width: 160px; max-width: 300px; outline: none; width: 100%; }
+.professor-review-form .textarea { border: 1px solid #971e21; background: #fff; height: 150px; min-width: 160px; outline: none; width: 60%; }
+.professor-review-form input[type=text] { border: 1px solid #971e21; background: #fff; height: 28px; min-width: 160px; outline: none; width: 60%; }
 .professor-review-form select { border: 1px solid #971e21; background: #fff; height: 28px; outline: none; vertical-align: top; }
 .professor-review-form checkbox { border: 1px solid #971e21; background: #fff; height: 28px; outline: none; vertical-align: top; }
-.professor-review-form div.field-holder { width: 500px; margin-bottom: 10px }
+.professor-review-form div.field-holder { width: 100%; margin-bottom: 10px }
 .professor-review-form div.padding-col { padding: 25px 25px 25px 25px; }
 
 

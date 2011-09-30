@@ -9,8 +9,8 @@ namespace UniversityOfMe.Repositories.Status {
     public class EntityUserStatusRepository : IUserStatusRepository {
         private UniversityOfMeEntities theEntities = new UniversityOfMeEntities();
 
-        public void CreateUserStatus(User aUser, University aCurrentUniversity, string aStatus) {
-            UserStatus myUserStatus = UserStatus.CreateUserStatus(0, aUser.Id, aCurrentUniversity.Id, aStatus, DateTime.UtcNow, false);
+        public void CreateUserStatus(User aUser, University aCurrentUniversity, string aStatus, bool anEveryone) {
+            UserStatus myUserStatus = UserStatus.CreateUserStatus(0, aUser.Id, aCurrentUniversity.Id, aStatus, anEveryone, DateTime.UtcNow, false);
             theEntities.AddToUserStatuses(myUserStatus);
             theEntities.SaveChanges();
         }
