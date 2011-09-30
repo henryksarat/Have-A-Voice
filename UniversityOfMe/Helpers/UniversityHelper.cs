@@ -34,7 +34,13 @@ namespace UniversityOfMe.Helpers {
 
         public static University GetMainUniversity(User aUser) {
             foreach (UserUniversity myUserUniversity in aUser.UserUniversities) {
-                return myUserUniversity.UniversityEmail.University;
+                try {
+                    return myUserUniversity.UniversityEmail.University;
+                } catch (Exception) {
+                    string myUniversityId = myUserUniversity.UniversityEmail.UniversityId;
+                    IUniversityService myUniService = new UniversityService(null);
+                    return myUniService.GetUniversityById(myUniversityId);
+                }
             }
 
             return null;
