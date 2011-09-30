@@ -15133,11 +15133,13 @@ namespace UniversityOfMe.Models
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="universityName">Initial value of the UniversityName property.</param>
-        public static University CreateUniversity(global::System.String id, global::System.String universityName)
+        /// <param name="image">Initial value of the Image property.</param>
+        public static University CreateUniversity(global::System.String id, global::System.String universityName, global::System.String image)
         {
             University university = new University();
             university.Id = id;
             university.UniversityName = universityName;
+            university.Image = image;
             return university;
         }
 
@@ -15194,6 +15196,30 @@ namespace UniversityOfMe.Models
         private global::System.String _UniversityName;
         partial void OnUniversityNameChanging(global::System.String value);
         partial void OnUniversityNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Image
+        {
+            get
+            {
+                return _Image;
+            }
+            set
+            {
+                OnImageChanging(value);
+                ReportPropertyChanging("Image");
+                _Image = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Image");
+                OnImageChanged();
+            }
+        }
+        private global::System.String _Image;
+        partial void OnImageChanging(global::System.String value);
+        partial void OnImageChanged();
 
         #endregion
     

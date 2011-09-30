@@ -6,6 +6,9 @@
 
 <script>
     $(document).ready(function () {
+        var myBg = <%= "'" + UniversityHelper.GetMainUniversity(Model.User).Image + "'" %>;
+        var myBgStyle = 'url(/Content/images/' + myBg + ')';
+        $('body').css('background-image', myBgStyle);
         $("#submitPhoto").hide();
         $('#addphoto').click(function () {
             $("#newphotos").show();

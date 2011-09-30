@@ -55,7 +55,7 @@ img { height: auto; }
 
 /**** Site Styles ****/
 html { height: 100%; }
-body { background: url("images/eagle.png") no-repeat bottom left fixed; }
+body { background: no-repeat bottom left fixed; background-repeat:no-repeat; background-position:bottom left; }
 
 /*** HEADER ***/
 header { padding: 36px 0px 23px 0px; border-bottom: 1px solid #c3c3c3; margin-bottom: 39px; }
