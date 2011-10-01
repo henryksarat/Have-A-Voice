@@ -136,7 +136,7 @@
                             </div>
                         <% } %>
                     <% } else if(i == 6) { %>				    
-                        <% if (!true) { %> 
+                        <% if (FeatureHelper.IsFeatureEnabled(Model.User, Features.OrganizationWidget)) { %> 
                             <% if (myWidgetNumberDisplayed == 0) { %>
                                     <div class="lCol">     
                             <% } else if(myWidgetNumberDisplayed == 1) { %>
@@ -171,5 +171,7 @@
             <% } %>
           </div>
     </div>
+
+    <%= UniversityOfMe.Helpers.Scraper.UChicago.DoScrape() %>
 </asp:Content>
 

@@ -177,6 +177,7 @@
     <Compile Include="Helpers\ProfilePictureStrategy.cs" />
     <Compile Include="Helpers\RegexHelper.cs" />
     <Compile Include="Helpers\RegistrationStrategy.cs" />
+    <Compile Include="Helpers\Scraper\UChicago.cs" />
     <Compile Include="Helpers\Search\OrderBy.cs" />
     <Compile Include="Helpers\Search\SearchBy.cs" />
     <Compile Include="Helpers\Search\SearchFilter.cs" />

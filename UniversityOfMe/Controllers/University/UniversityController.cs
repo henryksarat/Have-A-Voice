@@ -11,6 +11,7 @@ using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories;
 using UniversityOfMe.Services;
 using UniversityOfMe.UserInformation;
+using UniversityOfMe.Helpers.Scraper;
 
 namespace UniversityOfMe.Controllers.Clubs {
  
