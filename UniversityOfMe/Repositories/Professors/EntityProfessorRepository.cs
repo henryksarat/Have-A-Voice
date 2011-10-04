@@ -41,6 +41,12 @@ namespace UniversityOfMe.Repositories.Professors {
                     select p).FirstOrDefault<Professor>();
         }
 
+        public IEnumerable<Professor> GetProfessorsAssociatedWithClass(int aClassId) {
+            return (from p in theEntities.ClassProfessors
+                    where p.ClassId == aClassId
+                    select p.Professor);
+        }
+
         public IEnumerable<ProfessorReview> GetProfessorReviewsByUnversityAndName(string aUniversityId, string aProfessorName) {
             return (from pr in theEntities.ProfessorReviews
                     join p in theEntities.Professors on pr.ProfessorId equals p.Id

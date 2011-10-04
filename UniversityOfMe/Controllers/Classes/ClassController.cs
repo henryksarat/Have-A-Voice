@@ -42,7 +42,7 @@ namespace UniversityOfMe.Controllers.Classes {
         public ActionResult List(string universityId) {
             return RedirectToAction("Class", "Search", new { searchString = string.Empty, page = 1 });
         }
-
+        /*
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult Create(string universityId) {
             if (!IsLoggedIn()) {
@@ -93,7 +93,8 @@ namespace UniversityOfMe.Controllers.Classes {
 
             return RedirectToAction("Create");
         }
-
+        */
+        
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult DetailsWithClassId(string universityId, int classId, ClassViewType classViewType) {
             if (!IsLoggedIn()) {
@@ -104,8 +105,8 @@ namespace UniversityOfMe.Controllers.Classes {
             }
 
             try {
-                Class myClass = theClassService.GetClass(GetUserInformatonModel(), classId, classViewType);
-                LoggedInWrapperModel<Class> myLoggedInModel = new LoggedInWrapperModel<Class>(GetUserInformatonModel().Details);
+                ClassDetailsModel myClass = theClassService.GetClass(GetUserInformatonModel(), classId, classViewType);
+                LoggedInWrapperModel<ClassDetailsModel> myLoggedInModel = new LoggedInWrapperModel<ClassDetailsModel>(GetUserInformatonModel().Details);
                 myLoggedInModel.Set(myClass);
 
                 ViewData["ClassViewType"] = classViewType;
@@ -129,8 +130,8 @@ namespace UniversityOfMe.Controllers.Classes {
                     return RedirectToAction("Create", "Class");
                 }
 
-                Class myClass = theClassService.GetClass(myUserInfo, id, classViewType);
-                LoggedInWrapperModel<Class> myLoggedInModel = new LoggedInWrapperModel<Class>(myUser);
+                ClassDetailsModel myClass = theClassService.GetClass(myUserInfo, id, classViewType);
+                LoggedInWrapperModel<ClassDetailsModel> myLoggedInModel = new LoggedInWrapperModel<ClassDetailsModel>(myUser);
                 myLoggedInModel.Set(myClass);
 
                 ViewData["ClassViewType"] = classViewType;

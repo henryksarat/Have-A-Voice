@@ -12,18 +12,21 @@ using System.Linq;
 using Social.Generic.Helpers;
 using Social.Admin.Helpers;
 using Social.Admin.Exceptions;
+using UniversityOfMe.Services.Professors;
 
 namespace UniversityOfMe.Services.Classes {
     public class ClassService : IClassService {
         private IValidationDictionary theValidationDictionary;
         private IClassRepository theClassRepository;
+        private IProfessorService theProfessorService;
 
         public ClassService(IValidationDictionary aValidationDictionary)
-            : this(aValidationDictionary, new EntityClassRepository()) { }
+            : this(aValidationDictionary, new ProfessorService(aValidationDictionary), new EntityClassRepository()) { }
 
-        public ClassService(IValidationDictionary aValidationDictionary, IClassRepository aClassRepo) {
+        public ClassService(IValidationDictionary aValidationDictionary, IProfessorService aProfessorService, IClassRepository aClassRepo) {
             theValidationDictionary = aValidationDictionary;
             theClassRepository = aClassRepo;
+            theProfessorService = aProfessorService;
         }
 
         public bool AddToClassBoard(UserInformationModel<User> aPostedByUser, int aClassId, string aClassBoard) {
@@ -50,6 +53,7 @@ namespace UniversityOfMe.Services.Classes {
             theClassRepository.AddToClassEnrollment(aStudentToEnroll.Details, aClassId);
         }
 
+        /*
         public Class CreateClass(UserInformationModel<User> aCreatedByUser, CreateClassModel aCreateClassModel) {
             if (!ValidClass(aCreateClassModel)) {
                 return null;
@@ -60,7 +64,7 @@ namespace UniversityOfMe.Services.Classes {
                                                           aCreateClassModel.ClassTitle.Trim(), aCreateClassModel.Year, aCreateClassModel.Details);
 
             return myClass;
-        }
+        }*/
 
         public bool CreateClassReview(UserInformationModel<User> aReviewingUser, int aClassId, string aRating, string aReview, bool anAnonymnous) {
             if (!ValidClassReview(aReviewingUser.Details, aClassId, aRating, aReview)) {
@@ -96,23 +100,36 @@ namespace UniversityOfMe.Services.Classes {
             }
         }
 
-        public Class GetClass(UserInformationModel<User> aViewingUser, int aClassId, ClassViewType aClassViewType) {
+        public ClassDetailsModel GetClass(UserInformationModel<User> aViewingUser, int aClassId, ClassViewType aClassViewType) {
             if (aClassViewType == ClassViewType.Discussion) {
                 theClassRepository.MarkClassBoardAsViewed(aViewingUser.Details, aClassId);
             }
-            return theClassRepository.GetClass(aClassId);
+            Class myClass = theClassRepository.GetClass(aClassId);
+
+            IEnumerable<Professor> myProfessors = theProfessorService.GetProfessorsAssociatedWithClass(myClass.Id);
+
+            return new ClassDetailsModel() {
+                Class = myClass,
+                Professors = myProfessors
+            };
         }
 
-        public Class GetClass(UserInformationModel<User> aViewingUser, string aClassUrlString, ClassViewType aClassViewType) {
+        public ClassDetailsModel GetClass(UserInformationModel<User> aViewingUser, string aClassUrlString, ClassViewType aClassViewType) {
             string[] mySplitClass = URLHelper.FromUrlFriendly(aClassUrlString);
-            
-            Class myClass = theClassRepository.GetClass(mySplitClass[0], mySplitClass[1], int.Parse(mySplitClass[2]));
+
+            Class myClass = theClassRepository.GetClass(mySplitClass[0], mySplitClass[1], mySplitClass[2], mySplitClass[3], int.Parse(mySplitClass[4]));
             if (aClassViewType == ClassViewType.Discussion) {
                 if (aViewingUser != null) {
                     theClassRepository.MarkClassBoardAsViewed(aViewingUser.Details, myClass.Id);
                 }
             }
-            return myClass;
+
+            IEnumerable<Professor> myProfessors = theProfessorService.GetProfessorsAssociatedWithClass(myClass.Id);
+
+            return new ClassDetailsModel() {
+                Class = myClass,
+                Professors = myProfessors
+            };
         }
 
         public ClassBoard GetClassBoard(UserInformationModel<User> aViewingUser, int aClassBoardId) {
@@ -132,6 +149,10 @@ namespace UniversityOfMe.Services.Classes {
             return theClassRepository.GetClassesForUniversity(aUniversityId);
         }
 
+        public IEnumerable<Class> GetClassesStudentIsEnrolledIn(UserInformationModel<User> aUser,string aUniversityId) {
+            return theClassRepository.GetClassesEnrolledIn(aUser.Details, aUniversityId);
+        }
+
         public IEnumerable<ClassEnrollment> GetEnrolledInClass(int aClassId) {
             return theClassRepository.GetEnrolledInClass(aClassId)
                 .Where(ce => PrivacyHelper.PrivacyAllows(ce.User, SocialPrivacySetting.Display_Class_Enrollment));  
@@ -140,11 +161,11 @@ namespace UniversityOfMe.Services.Classes {
         public bool IsClassExists(string aClassUrlString) {
             string[] mySplitClass = URLHelper.FromUrlFriendly(aClassUrlString);
 
-            if (mySplitClass.Length != 3) {
+            if (mySplitClass.Length != 5) {
                 return false;
             }
 
-            Class myClass = theClassRepository.GetClass(mySplitClass[0], mySplitClass[1], int.Parse(mySplitClass[2]));
+            Class myClass = theClassRepository.GetClass(mySplitClass[0], mySplitClass[1], mySplitClass[2], mySplitClass[3], int.Parse(mySplitClass[4]));
             return myClass == null ? false : true;
         }
 

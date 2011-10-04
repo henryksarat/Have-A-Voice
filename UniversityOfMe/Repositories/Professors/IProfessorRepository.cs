@@ -10,6 +10,7 @@ namespace UniversityOfMe.Repositories.Professors {
         void CreateProfessorSuggestedPicture(User aSuggestingUser, int aProfessorId, string aProfessorImage);
         Professor GetProfessor(int aProfessorId);
         Professor GetProfessor(string aUniversityId, string aFirstname, string aLastname);
+        IEnumerable<Professor> GetProfessorsAssociatedWithClass(int aClassId);
         IEnumerable<Professor> GetProfessorsByUniversity(string aUniversityId);
     }
 }

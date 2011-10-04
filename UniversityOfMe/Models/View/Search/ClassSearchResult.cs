@@ -57,16 +57,36 @@ namespace UniversityOfMe.Models.View.Search {
             var myNameLinked = new TagBuilder("a");
             myNameLinked.AddCssClass("itemlinked");
             myNameLinked.MergeAttribute("href", URLHelper.BuildClassDiscussionUrl(theClass));
-            myNameLinked.InnerHtml += theClass.ClassCode;
+            myNameLinked.InnerHtml += ClassHelper.CreateClassString(theClass);
 
             myTitleSpan.InnerHtml += myNameLinked.ToString();
 
             var myBreak = new TagBuilder("br");
+            string myProfessorsUrl = string.Empty;
+
+            foreach (ClassProfessor myClassProfessor in theClass.ClassProfessors) {
+                Professor myProfessor = myClassProfessor.Professor;
+                string myProfessorUrl = URLHelper.BuildProfessorUrl(myProfessor);
+
+                if (!string.IsNullOrEmpty(myProfessorsUrl)) {
+                    myProfessorsUrl += ", ";
+                }
+
+                var myUrl = new TagBuilder("a");
+                myUrl.AddCssClass("itemlinked");
+                myUrl.MergeAttribute("href", myProfessorUrl);
+                myUrl.InnerHtml = myProfessor.FirstName + " " + myProfessor.LastName;
+
+                myProfessorsUrl = myUrl.ToString();
+            }
+
 
             myClassDiv.InnerHtml += myActionsDiv.ToString();
             myClassDiv.InnerHtml += myTitleSpan.ToString();
             myClassDiv.InnerHtml += "<br />";
-            myClassDiv.InnerHtml += theClass.ClassCode;
+            myClassDiv.InnerHtml += theClass.Title;
+            myClassDiv.InnerHtml += "<br />";
+            myClassDiv.InnerHtml += myProfessorsUrl.ToString();
             myClassDiv.InnerHtml += "<br />";
             myClassDiv.InnerHtml += theClass.AcademicTerm.DisplayName + " " + theClass.Year;
 

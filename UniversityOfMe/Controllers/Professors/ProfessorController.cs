@@ -92,7 +92,7 @@ namespace UniversityOfMe.Controllers.Professors {
                 UserInformationModel<User> myUserInfo = GetUserInformatonModel();
                 User myUser = myUserInfo == null ? null : myUserInfo.Details;
 
-                bool myExists = theProfessorService.IsProfessorExists(universityId, URLHelper.FromUrlFriendlyToNormalString(id));
+                bool myExists = theProfessorService.IsProfessorExists(universityId, id);
 
                 if (!myExists) {
                     TempData["Message"] += MessageHelper.WarningMessage(PROFESSOR_DOESNT_EXIST);

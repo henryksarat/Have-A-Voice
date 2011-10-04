@@ -8,7 +8,7 @@
 <%@ Import Namespace="Social.Generic.Models" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Class Discussion for <%= Model.Get().Class.ClassTitle %> (<%= Model.Get().Class.ClassCode %>)
+	Class Discussion for <%= Model.Get().Class.Title %> (<%= ClassHelper.CreateClassString(Model.Get().Class)%>)
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -22,7 +22,7 @@
 
 		<div class="create professor-review-form"> 
 			<div class="banner black full red-top small"> 
-				<span class="board">Class Discussion Post in <%= Model.Get().Class.ClassTitle %> ( <a class="header-linked" href="<%= URLHelper.BuildClassDiscussionUrl(Model.Get().Class) %>"><%= Model.Get().Class.ClassCode %></a> )</span> 
+				<span class="board">Class Discussion Post in <%= Model.Get().Class.Title %> ( <a class="header-linked" href="<%= URLHelper.BuildClassDiscussionUrl(Model.Get().Class) %>"><%= ClassHelper.CreateClassString(Model.Get().Class)%></a> )</span> 
 			</div> 
 
 		    <div class="board padding-col"> 

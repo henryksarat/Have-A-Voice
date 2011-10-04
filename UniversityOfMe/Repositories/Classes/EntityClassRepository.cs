@@ -64,13 +64,14 @@ namespace UniversityOfMe.Repositories.Classes {
             theEntities.SaveChanges();
         }
 
+        /*
         public Class CreateClass(User aCreatedByUser, string aUniversityId, string anAcademicTermId, string aClassCode, string aClassTitle, int aYear, string aDetails) {
             Class myClass = Class.CreateClass(0, aUniversityId, aCreatedByUser.Id, anAcademicTermId, aClassCode, aClassTitle, aYear, DateTime.UtcNow);
             myClass.Details = aDetails;
             theEntities.AddToClasses(myClass);
             theEntities.SaveChanges();
             return myClass;
-        }
+        }*/
 
         public void CreateReview(User aReviewingUser, int aClassId, int aRating, string aReview, bool anAnonymnous) {
             ClassReview myReview = ClassReview.CreateClassReview(0, aClassId, aReviewingUser.Id, aRating, aReview, anAnonymnous, DateTime.UtcNow);
@@ -133,12 +134,13 @@ namespace UniversityOfMe.Repositories.Classes {
                     select c).FirstOrDefault<Class>();
         }
 
-        public Class 
-            GetClass(string aClassCode, string anAcademicTermId, int aYear) {
+        public Class GetClass(string aSubject, string aCourse, string aSection, string anAcademicTermId, int aYear) {
             return (from c in theEntities.Classes
-                    where c.ClassCode == aClassCode
+                    where c.Subject == aSubject
                     && c.AcademicTermId == anAcademicTermId
                     && c.Year == aYear
+                    && c.Section == aSection
+                    && c.Course == aCourse
                     select c).FirstOrDefault<Class>();
         }
 
@@ -146,6 +148,13 @@ namespace UniversityOfMe.Repositories.Classes {
             return (from c in theEntities.ClassEnrollments
                     where c.UserId == aUser.Id && c.ClassId == aClassId
                     select c).FirstOrDefault<ClassEnrollment>();
+        }
+
+        public IEnumerable<Class> GetClassesEnrolledIn(User aUser, string aUniversityId) {
+            return (from c in theEntities.Classes
+                    join ce in theEntities.ClassEnrollments on c.Id equals ce.ClassId
+                    where ce.UserId == aUser.Id
+                    select c);
         }
 
         public IEnumerable<Class> GetClassesForUniversity(string aUniversityId) {
@@ -267,9 +276,9 @@ namespace UniversityOfMe.Repositories.Classes {
             DateTime myCurrentDateTime = DateTime.UtcNow;
             
             Class myClass = myBoard.Class;
-            string mySubject = "UofMe: New question posted to the class " + myBoard.Class.ClassCode;
+            string mySubject = "UofMe: New question posted to the class " + myBoard.Class.Subject + myBoard.Class.Course + "-" + myBoard.Class.Section;
             string myBody = "Hey, <br /><br /> Someone posted a question to the class board for the class <a href=\""
-                + URLHelper.BuildClassBoardUrl(myBoard) + "\"> " + myClass.ClassCode + "</a>. <a href=\""
+                + URLHelper.BuildClassBoardUrl(myBoard) + "\"> " + myBoard.Class.Subject + myBoard.Class.Course + "-" + myBoard.Class.Section + "</a>. <a href=\""
                 + URLHelper.BuildClassBoardUrl(myBoard) + "\">Click here to go to the class</a> or copy and paste this link into your browser: "
                 + URLHelper.BuildClassBoardUrl(myBoard)
                 + "<br /><br />-UniversityOf.Me";

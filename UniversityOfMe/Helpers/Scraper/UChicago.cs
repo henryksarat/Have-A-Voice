@@ -5,11 +5,15 @@ using System.Web;
 using System.Net;
 using System.IO;
 using System.Text;
+using UniversityOfMe.Repositories.Scraper;
+using UniversityOfMe.Models;
+using UniversityOfMe.UserInformation;
 
 namespace UniversityOfMe.Helpers.Scraper {
     public static class UChicago {
         public static string DoScrape() {
             List<ClassStructure> myClassStructures = new List<ClassStructure>();
+            List<string> myProfessors = new List<string>();
 
             string myEverything = GetWebPageHtml("http://timeschedules.uchicago.edu/");
 
@@ -50,7 +54,7 @@ namespace UniversityOfMe.Helpers.Scraper {
                         myChildExtractedSafetyZone = myChildExtractedSafetyZone.Remove(0, mySlashIndex + 1);
 
                         int myHyphenIndex = myChildExtractedSafetyZone.IndexOf('-');
-                        myClassStructure.Course = int.Parse(myChildExtractedSafetyZone.Substring(0, myHyphenIndex));
+                        myClassStructure.Course = myChildExtractedSafetyZone.Substring(0, myHyphenIndex);
                         myChildExtractedSafetyZone = myChildExtractedSafetyZone.Remove(0, myHyphenIndex + 1);
 
                         int myNewlIneIndex = myChildExtractedSafetyZone.IndexOf("</span>");
@@ -72,6 +76,9 @@ namespace UniversityOfMe.Helpers.Scraper {
                                 myClassStructure.Title = myChildPage.Substring(myCourseTitleIndexStartForEnd + 5, (myFirstSpan - myCourseTitleIndexStartForEnd - 5)).Trim();
                             } else if (i == 2) {
                                 myClassStructure.Instructor = myChildPage.Substring(myCourseTitleIndexStartForEnd + 5, (myFirstSpan - myCourseTitleIndexStartForEnd - 5)).Trim();
+                                if (!myProfessors.Contains(myClassStructure.Instructor)) {
+                                    myProfessors.Add(myClassStructure.Instructor);
+                                }
                             } else if (i == 3) {
                                 myClassStructure.Time = myChildPage.Substring(myCourseTitleIndexStartForEnd + 5, (myFirstSpan - myCourseTitleIndexStartForEnd - 5)).Trim();
                             } else if (i == 7) {
@@ -95,6 +102,44 @@ namespace UniversityOfMe.Helpers.Scraper {
                 myCurrentDtIndex = myEverything.IndexOf("<dt>");
             }
 
+            IScraperRepository myScraperRepo = new EntityScraperRepository();
+            int myUserId = UserInformationFactory.GetUserInformation().Details.Id;
+
+            foreach (ClassStructure myClassS in myClassStructures) {
+                List<Professor> myLocalProfs = new List<Professor>();
+                string[] myProfessorSplit = myClassS.Instructor.Replace("&#39;", "'").Split(';').Select(p => p.Trim()).ToArray();
+                foreach (string mySingleProf in myProfessorSplit) {
+                    int myFirstSpace = mySingleProf.LastIndexOf(' ');
+
+                    string myFirstName = "UNKNOWN";
+                    string myLastName = "PROFESSOR";
+
+                    if (!string.IsNullOrEmpty(mySingleProf)) {
+                        myFirstName = mySingleProf.Substring(myFirstSpace, mySingleProf.Length - myFirstSpace).Trim();
+                        myLastName = mySingleProf.Substring(0, myFirstSpace + 1).Trim();
+                    }
+
+                    Professor myProf = null;
+                    if (myScraperRepo.ProfessorExists("UChicago", myFirstName, myLastName)) {
+                        myProf = myScraperRepo.GetProfessor("UChicago", myFirstName, myLastName);
+                    } else {
+                        myProf = myScraperRepo.CreateProfessor("UChicago", myUserId, myFirstName, myLastName);
+                    }
+
+                    myLocalProfs.Add(myProf);
+                }
+
+                Class myClass = null;
+                if (myScraperRepo.ClassExists("UChicago", "FALL", myClassS.Subject.Trim(), myClassS.Course.Trim(), myClassS.Section.Trim())) {
+                    myClass = myScraperRepo.GetClass("UChicago", "FALL", myClassS.Subject.Trim(), myClassS.Course.Trim(), myClassS.Section.Trim());
+                } else {
+                    myClass = myScraperRepo.CreateClass("UChicago", myUserId, "FALL", myClassS.Subject.Trim(), myClassS.Course.Trim(), myClassS.Section.Trim(), myClassS.Title.Trim(), 2011, string.Empty);
+                }
+
+                foreach (Professor myLocalProf in myLocalProfs) {
+                    myScraperRepo.CreateClassProfessor(myLocalProf.Id, myClass.Id);
+                }
+            }
 
             return myClassStructures.ToString();
         }
@@ -139,7 +184,7 @@ namespace UniversityOfMe.Helpers.Scraper {
 
         private class ClassStructure {
             public string Subject { get; set; }
-            public int Course { get; set; }
+            public string Course { get; set; }
             public string Section { get; set; }
             public string Title { get; set; }
             public string Instructor { get; set; }

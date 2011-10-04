@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInWrapperModel<Class>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInWrapperModel<ClassDetailsModel>>" %>
 <%@ Import Namespace="UniversityOfMe.Helpers" %>
 <%@ Import Namespace="Social.Generic.Models" %>
 <%@ Import Namespace="UniversityOfMe.Helpers.Functionality" %>
@@ -9,27 +9,27 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     <% ClassViewType myViewType = (ClassViewType)ViewData["ClassViewType"]; %>
     <% if (myViewType == ClassViewType.Review) { %>
-	    Class Review | <%= Model.Get().ClassCode%> | <%= Model.Get().ClassTitle%> | <%= Model.Get().University.UniversityName%>
+	    Class Review | <%= ClassHelper.CreateClassString(Model.Get().Class) %> | <%= Model.Get().Class.Title%> | <%= Model.Get().Class.University.UniversityName%>
     <% } else { %>
-        Class Discussion | <%= Model.Get().ClassCode%> | <%= Model.Get().ClassTitle%> | <%= Model.Get().University.UniversityName%>
+        Class Discussion | <%= ClassHelper.CreateClassString(Model.Get().Class)%> | <%= Model.Get().Class.Title%> | <%= Model.Get().Class.University.UniversityName%>
     <% } %>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="MetaDescriptionHolder" runat="server">
     <% ClassViewType myViewType = (ClassViewType)ViewData["ClassViewType"]; %>
     <% if (myViewType == ClassViewType.Review) { %>
-        <%= UniversityOfMe.Helpers.MetaHelper.MetaDescription("Class Review for " + Model.Get().ClassTitle + " (" + Model.Get().ClassCode + ") at " + Model.Get().University.UniversityName) %>
+        <%= UniversityOfMe.Helpers.MetaHelper.MetaDescription("Class Review for " + Model.Get().Class.Title + " (" + ClassHelper.CreateClassString(Model.Get().Class) + ") at " + Model.Get().Class.University.UniversityName)%>
     <% } else { %>
-        <%= UniversityOfMe.Helpers.MetaHelper.MetaDescription("Class Discussion for " + Model.Get().ClassTitle + " (" + Model.Get().ClassCode + ") at " + Model.Get().University.UniversityName) %>
+        <%= UniversityOfMe.Helpers.MetaHelper.MetaDescription("Class Discussion for " + Model.Get().Class.Title + " (" + ClassHelper.CreateClassString(Model.Get().Class) + ") at " + Model.Get().Class.University.UniversityName)%>
     <% } %>
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="MetaKeywordsHolder" runat="server">
     <% ClassViewType myViewType = (ClassViewType)ViewData["ClassViewType"]; %>
     <% if (myViewType == ClassViewType.Review) { %>
-        <%= UniversityOfMe.Helpers.MetaHelper.MetaKeywords("Class Review, " + Model.Get().ClassCode + ", " + Model.Get().ClassTitle + ", " + Model.Get().University.UniversityName)%>
+        <%= UniversityOfMe.Helpers.MetaHelper.MetaKeywords("Class Review, " + ClassHelper.CreateClassString(Model.Get().Class) + ", " + Model.Get().Class.Title + ", " + Model.Get().Class.University.UniversityName)%>
     <% } else { %>
-        <%= UniversityOfMe.Helpers.MetaHelper.MetaKeywords("Class Discussion, " + Model.Get().ClassCode + ", " + Model.Get().ClassTitle + ", " + Model.Get().University.UniversityName)%>
+        <%= UniversityOfMe.Helpers.MetaHelper.MetaKeywords("Class Discussion, " + ClassHelper.CreateClassString(Model.Get().Class) + ", " + Model.Get().Class.Title + ", " + Model.Get().Class.University.UniversityName)%>
     <% } %>
 </asp:Content>
 
@@ -37,7 +37,7 @@
 <script type="text/javascript" language="javascript">
     $(document).ready(function () {
         $("#stars-wrapper1").stars();
-        <% foreach (ClassReview myReview in Model.Get().ClassReviews.OrderByDescending(b => b.Id)) { %>
+        <% foreach (ClassReview myReview in Model.Get().Class.ClassReviews.OrderByDescending(b => b.Id)) { %>
             $("#Div<%= myReview.Id %>").stars({
                 disabled: true
             });
@@ -53,18 +53,18 @@
         <% Html.RenderPartial("Message"); %>
         <% Html.RenderPartial("Validation"); %>
 	    <div class="banner black full red-top small"> 
-		    <span class="class">CLASS <%= Model.Get().ClassCode %></span> 
+		    <span class="class">CLASS <%= ClassHelper.CreateClassString(Model.Get().Class)%></span> 
 		    <div class="buttons"> 
 			    <div class="flft mr26"> 
-                    <% if(ClassHelper.IsEnrolled(UniversityOfMe.UserInformation.UserInformationFactory.GetUserInformation(), Model.Get())) { %>
-                        <%= Html.ActionLink("Remove me from this class", "Delete", "ClassEnrollment", new { classId = Model.Get().Id, classViewType = myViewType }, new { @class = "unroll" })%>
+                    <% if (ClassHelper.IsEnrolled(UniversityOfMe.UserInformation.UserInformationFactory.GetUserInformation(), Model.Get().Class)) { %>
+                        <%= Html.ActionLink("Remove me from this class", "Delete", "ClassEnrollment", new { classId = Model.Get().Class.Id, classViewType = myViewType }, new { @class = "unroll" })%>
                     <% } else { %>
-                        <%= Html.ActionLink("I'm enrolled in this class", "Create", "ClassEnrollment", new { classId = Model.Get().Id, classViewType = myViewType }, new { @class = "enroll" })%>
+                        <%= Html.ActionLink("I'm enrolled in this class", "Create", "ClassEnrollment", new { classId = Model.Get().Class.Id, classViewType = myViewType }, new { @class = "enroll" })%>
                     <% } %> 
 			    </div> 
 			    <div class="rating"> 
-                    <% int myTotalRatings = Model.Get().ClassReviews.Count; %>
-				    <%= StarHelper.AveragedFiveStarImages(Model.Get().ClassReviews.Sum(r => r.Rating), Model.Get().ClassReviews.Count)  %>
+                    <% int myTotalRatings = Model.Get().Class.ClassReviews.Count; %>
+				    <%= StarHelper.AveragedFiveStarImages(Model.Get().Class.ClassReviews.Sum(r => r.Rating), Model.Get().Class.ClassReviews.Count)%>
 				    (<%= myTotalRatings %> ratings)
 			    </div> 
 		    </div> 
@@ -73,10 +73,10 @@
 	    <table border="0" cellpadding="0" cellspacing="0" class="listing mb32"> 
 		    <tr> 
 			    <td> 
-				    <label for="code">CLASS CODE:</label> 
+				    <label for="code">CLASS:</label> 
 			    </td> 
 			    <td> 
-				    <%= Model.Get().ClassCode %>
+				    <%= ClassHelper.CreateClassString(Model.Get().Class)%>
 			    </td> 
 		    </tr> 
 		    <tr> 
@@ -84,7 +84,23 @@
 				    <label for="title">CLASS TITLE:</label> 
 			    </td> 
 			    <td> 
-				    <%= Model.Get().ClassTitle %>
+				    <%= Model.Get().Class.Title%>
+			    </td> 
+		    </tr> 
+		    <tr> 
+			    <td> 
+				    <label for="title"><%= Model.Get().Professors.Count() > 0 ? "INSTRUCTORS" : "INSTRUCTOR" %></label> 
+			    </td> 
+			    <td> 
+                    <% string myProfessorDisplay = string.Empty; %>
+				    <% foreach(Professor myProfessor in Model.Get().Professors) { %>
+                        <% if(!string.IsNullOrEmpty(myProfessorDisplay)) { %>
+                            <% myProfessorDisplay += ", "; %>
+                        <% } %>
+                        <% myProfessorDisplay = "<a class=\"itemlinked\" href=\"" + URLHelper.BuildProfessorUrl(myProfessor) + "\">" + myProfessor.FirstName + " " + myProfessor.LastName + "</a>"; %>
+                    <% } %>
+
+                    <%= myProfessorDisplay %>
 			    </td> 
 		    </tr> 
 		    <tr> 
@@ -92,7 +108,7 @@
 				    <label for="year">YEAR:</label> 
 			    </td> 
 			    <td> 
-				    <%= Model.Get().Year %>
+				    <%= Model.Get().Class.Year%>
 			    </td> 
 		    </tr> 
 		    <tr> 
@@ -100,15 +116,7 @@
 				    <label for="academic">ACADEMIC TERM:</label> 
 			    </td> 
 			    <td> 
-				    <%= Model.Get().AcademicTerm.DisplayName %>
-			    </td> 
-		    </tr> 
-		    <tr> 
-			    <td> 
-				    <label for="desc">DESCRIPTION:</label> 
-			    </td> 
-			    <td> 
-				    <%= Model.Get().Details %>
+				    <%= Model.Get().Class.AcademicTerm.DisplayName%>
 			    </td> 
 		    </tr> 
 	    </table> 
@@ -119,11 +127,11 @@
 	    <div class="box sm group"> 
             <% bool myAtLeastOneStudent = false; %>
 		    <ul class="members"> 
-                <% foreach (ClassEnrollment myEnrollment in Model.Get().ClassEnrollments) { %>
+                <% foreach (ClassEnrollment myEnrollment in Model.Get().Class.ClassEnrollments) { %>
 			        <% if (PrivacyHelper.PrivacyAllows(myEnrollment.User, Social.Generic.Helpers.SocialPrivacySetting.Display_Class_Enrollment)) { %>
                         <% myAtLeastOneStudent = true; %>
                         <li> 
-				            <a href="/<%= Model.Get().User.ShortUrl %>"><img src="<%= PhotoHelper.ProfilePicture(myEnrollment.User) %>" class="profile med flft mr9" /></a>
+				            <a href="/<%= Model.Get().Class.User.ShortUrl %>"><img src="<%= PhotoHelper.ProfilePicture(myEnrollment.User) %>" class="profile med flft mr9" /></a>
 				            <span class="name"><%= NameHelper.FullName(myEnrollment.User)%></span> 
 				            Student
 			            </li>
@@ -134,7 +142,7 @@
                 <% } %>
  		    </ul> 
             <% if (myAtLeastOneStudent) { %>
-		        <%= Html.ActionLink("View all members", "List", "ClassEnrollment", new { id = Model.Get().Id }, new { @class = "viewall" })%>
+		        <%= Html.ActionLink("View all members", "List", "ClassEnrollment", new { id = Model.Get().Class.Id }, new { @class = "viewall" })%>
             <% } %>
 		    <div class="clearfix"></div> 
 	    </div> 
@@ -142,10 +150,10 @@
 	    <div class="tabs"> 
 		    <ul> 
 			    <li class="<%= myViewType == ClassViewType.Discussion ? "active" : ""  %>"> 
-                    <a href="<%= URLHelper.BuildClassDiscussionUrl(Model.Get()) %>">Class Board</a> 
+                    <a href="<%= URLHelper.BuildClassDiscussionUrl(Model.Get().Class) %>">Class Board</a> 
 			    </li> 
 			    <li class="<%= myViewType == ClassViewType.Review ? "active" : ""  %>"> 
-				    <a href="<%= URLHelper.BuildClassReviewUrl(Model.Get()) %>">Class Review</a> 
+				    <a href="<%= URLHelper.BuildClassReviewUrl(Model.Get().Class) %>">Class Review</a> 
 			    </li> 
 		    </ul> 
 	    </div> 
@@ -154,7 +162,7 @@
             <% if (myViewType == ClassViewType.Review) { %>
                 <% if (myUserInfo != null) { %>
                     <% using (Html.BeginForm("Create", "ClassReview")) {%>
-                        <%= Html.Hidden("ClassId", Model.Get().Id)%>
+                        <%= Html.Hidden("ClassId", Model.Get().Class.Id)%>
 		                <div class="create"> 
                             <%= Html.TextArea("Review", string.Empty, 6, 0, new { @class = "full" })%>
                             <%= Html.ValidationMessage("Review", "*")%>
@@ -181,9 +189,9 @@
                     <% } %>
                 <% } %>
             <% } else if (myViewType == ClassViewType.Discussion) { %>
-                <% if(ClassHelper.IsEnrolled(UserInformationFactory.GetUserInformation(), Model.Get())) { %>
+                <% if (ClassHelper.IsEnrolled(UserInformationFactory.GetUserInformation(), Model.Get().Class)) { %>
                     <% using (Html.BeginForm("Create", "ClassBoard")) {%>
-                        <%= Html.Hidden("ClassId", Model.Get().Id) %>
+                        <%= Html.Hidden("ClassId", Model.Get().Class.Id)%>
 		                <div class="create"> 
                             <%= Html.TextArea("BoardMessage", string.Empty, 6, 0, new { @class = "full" })%>
                             <%= Html.ValidationMessage("BoardMessage", "*")%>
@@ -203,10 +211,10 @@
 		    <div class="review"> 
 			    <table border="0" cellpadding="0" cellspacing="0"> 
                     <% if (myViewType == ClassViewType.Review) { %>
-                        <% if (Model.Get().ClassReviews.Count == 0) { %>
+                        <% if (Model.Get().Class.ClassReviews.Count == 0) { %>
                             There are no reviews
                         <% } %>
-                        <% foreach (ClassReview myReview in Model.Get().ClassReviews.OrderByDescending(b => b.Id)) { %>
+                        <% foreach (ClassReview myReview in Model.Get().Class.ClassReviews.OrderByDescending(b => b.Id)) { %>
             	            <tr> 
 					            <td class="avatar"> 
                                     <% if (!myReview.Anonymous) { %>
@@ -229,10 +237,10 @@
 				            </tr> 
                         <% } %>
                     <% } else if (myViewType == ClassViewType.Discussion) { %>
-                        <% if (Model.Get().ClassBoards.Where(b => !b.Deleted).Count<ClassBoard>() == 0) { %>
+                        <% if (Model.Get().Class.ClassBoards.Where(b => !b.Deleted).Count<ClassBoard>() == 0) { %>
                             There are no postings made to the board
                         <% } %>
-                        <% foreach (ClassBoard myBoard in Model.Get().ClassBoards.Where(b => !b.Deleted).OrderByDescending(b => b.Id)) { %>
+                        <% foreach (ClassBoard myBoard in Model.Get().Class.ClassBoards.Where(b => !b.Deleted).OrderByDescending(b => b.Id)) { %>
             	            <tr> 
 					            <td class="avatar"> 
 						            <a href="/<%= myBoard.PostedByUser.ShortUrl %>"><img src="<%= PhotoHelper.ProfilePicture(myBoard.PostedByUser) %>" class="profile big mr22" /></a>
@@ -242,7 +250,7 @@
                                         <a class="edit-item" href="<%= URLHelper.BuildClassBoardUrl(myBoard) %>"><%= "View Details (" + myBoard.ClassBoardReplies.Where(r => !r.Deleted).Count<ClassBoardReply>() + " replies)" %></a>
                                         <% if(ClassBoardHelper.IsAllowedToDelete(myUserInfo, myBoard)) { %>
                                             <span class="nrm small gray">|</span>
-                                            <%= Html.ActionLink("Delete", "Delete", "ClassBoard", new { classId = Model.Get().Id, classBoardId = myBoard.Id, source = SiteSection.Class }, new { @class = "edit-item" })%> 
+                                            <%= Html.ActionLink("Delete", "Delete", "ClassBoard", new { classId = Model.Get().Class.Id, classBoardId = myBoard.Id, source = SiteSection.Class }, new { @class = "edit-item" })%> 
                                         <% } %>
 							            <div class="rating"> 
 								            <span class="gray small nrm"><%= LocalDateHelper.ToLocalTime(myBoard.DateTimeStamp)%></span> 

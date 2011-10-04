@@ -10,14 +10,14 @@ namespace UniversityOfMe.Repositories.Search {
 
         public IEnumerable<Class> GetClassByTitle(string aUniversityId, string aTitle) {
             return (from c in theEntities.Classes
-                    where c.ClassTitle.Contains(aTitle)
+                    where c.Title.Contains(aTitle)
                     && c.UniversityId == aUniversityId
                     select c);
         }
 
         public IEnumerable<Class> GetClassByClassCode(string aUniversityId, string aClassCode) {
             return (from c in theEntities.Classes
-                    where c.ClassCode.Contains(aClassCode)
+                    where (c.Subject + c.Course + "-" + c.Section).Contains(aClassCode)
                     && c.UniversityId == aUniversityId
                     select c);
         }
@@ -92,13 +92,13 @@ namespace UniversityOfMe.Repositories.Search {
         /// 
         public IEnumerable<Class> GetClassByTitle(string aTitle) {
             return (from c in theEntities.Classes
-                    where c.ClassTitle.Contains(aTitle)
+                    where c.Title.Contains(aTitle)
                     select c);
         }
 
         public IEnumerable<Class> GetClassByClassCode(string aClassCode) {
             return (from c in theEntities.Classes
-                    where c.ClassCode.Contains(aClassCode)
+                    where c.Course.Contains(aClassCode)
                     select c);
         }
 

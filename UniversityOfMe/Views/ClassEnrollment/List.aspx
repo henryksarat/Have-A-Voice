@@ -5,7 +5,7 @@
 <%@ Import Namespace="Social.ViewHelpers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	<%= Model.Get().First<ClassEnrollment>().Class.ClassCode %> Members
+	<%= ClassHelper.CreateClassString(Model.Get().First<ClassEnrollment>().Class) %> Members
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -16,7 +16,7 @@
         <% Html.RenderPartial("Validation"); %>
 
 		<div class="banner black full red-top"> 
-			<%= Model.Get().First<ClassEnrollment>().Class.ClassCode %> Members
+			<%= ClassHelper.CreateClassString(Model.Get().First<ClassEnrollment>().Class) %> Members
 		</div> 
 		
         <ul id="list" class="friend-list clearfix"> 

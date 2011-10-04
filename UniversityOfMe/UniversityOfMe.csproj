@@ -213,6 +213,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UniversityOfMeDBModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\View\ClassDetailsModel.cs" />
     <Compile Include="Models\View\ClubAdminFeed.cs" />
     <Compile Include="Models\View\FlirtModel.cs" />
     <Compile Include="Models\View\ProfileModel.cs" />
@@ -257,6 +258,8 @@
     <Compile Include="Repositories\Dating\FlirtingRepository.cs" />
     <Compile Include="Repositories\Dating\IFlirtingRepository.cs" />
     <Compile Include="Repositories\Password\EntityPasswordRepository.cs" />
+    <Compile Include="Repositories\Scraper\EntityScraperRepository.cs" />
+    <Compile Include="Repositories\Scraper\IScraperRepository.cs" />
     <Compile Include="Repositories\Site\EntityContactUsRepository.cs" />
     <Compile Include="Repositories\Dating\DatingRepository.cs" />
     <Compile Include="Repositories\Dating\IDatingRepository.cs" />

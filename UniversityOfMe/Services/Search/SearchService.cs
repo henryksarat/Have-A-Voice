@@ -135,9 +135,9 @@ namespace UniversityOfMe.Services.Search {
             }
 
             if (anOrderBy == OrderBy.Title) {
-                myClasses = myClasses.OrderBy(r => r.ClassTitle);
+                myClasses = myClasses.OrderBy(r => r.Title);
             } else if (anOrderBy == OrderBy.ClassCode) {
-                myClasses = myClasses.OrderBy(r => r.ClassCode);
+                myClasses = myClasses.OrderBy(r => r.Subject + r.Course + r.Section);
             } else if (anOrderBy == OrderBy.LatestPost) {
                 myClasses = myClasses.OrderByDescending(
                     r => r.ClassBoards

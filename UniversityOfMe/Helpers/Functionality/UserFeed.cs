@@ -27,7 +27,7 @@ namespace UniversityOfMe.Helpers.Functionality {
                             where ce.UserId == aUser.Id
                             && PrivacyHelper.PrivacyAllows(ce.User, SocialPrivacySetting.Display_Class_Enrollment)
                             select new UserFeedModel() {
-                                FeedString = TextShortener.Shorten(myFullName, 7) + " is attending <a class=\"feedlink\" href=\"" + URLHelper.BuildClassDiscussionUrl(ce.Class) + "\">" + ce.Class.ClassCode + "</a>",
+                                FeedString = TextShortener.Shorten(myFullName, 7) + " is attending <a class=\"feedlink\" href=\"" + URLHelper.BuildClassDiscussionUrl(ce.Class) + "\">" + ce.Class.Subject + ce.Class.Course + "</a>",
                                 CssClass = "class",
                                 FeedType = FeedType.ClassEnrollment,
                                 DateTimeStamp = ce.DateTimeStamp

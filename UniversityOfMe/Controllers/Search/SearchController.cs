@@ -48,7 +48,7 @@ namespace UniversityOfMe.Controllers.Site {
         public ActionResult Class(string searchString, int page) {
             UserInformationModel<User> myUserInformation = GetUserInformatonModel();
             searchString = MassageSearchString(searchString);
-            SearchResultsModel mySearchResults = theSearchService.GetClassSearchResults(myUserInformation, searchString, page, SearchBy.Title, OrderBy.Title);
+            SearchResultsModel mySearchResults = theSearchService.GetClassSearchResults(myUserInformation, searchString, page, SearchBy.ClassCode, OrderBy.ClassCode);
             return View("Results", mySearchResults);
         }
 

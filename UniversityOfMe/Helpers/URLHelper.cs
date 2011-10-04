@@ -23,7 +23,7 @@ namespace UniversityOfMe.Helpers {
         }
 
         public static string BuildClassReviewUrl(Class aClass) {
-            return "/" + aClass.UniversityId + "/Class/Details/" + ToUrlFriendly(aClass.ClassCode + " " + aClass.AcademicTermId + " " + aClass.Year) + "?classViewType=" + ClassViewType.Review;
+            return "/" + aClass.UniversityId + "/Class/Details/" + ToUrlFriendly(aClass.Subject + " " + aClass.Course + " " + aClass.Section + " " + aClass.AcademicTermId + " " + aClass.Year) + "?classViewType=" + ClassViewType.Review;
         }
 
         public static string BuildClassBoardUrl(ClassBoard aClassBoard) {
@@ -31,7 +31,7 @@ namespace UniversityOfMe.Helpers {
         }
 
         public static string BuildClassDiscussionUrl(Class aClass) {
-            return "/" + aClass.UniversityId + "/Class/Details/" + ToUrlFriendly(aClass.ClassCode + " " + aClass.AcademicTermId + " " + aClass.Year) + "?classViewType=" + ClassViewType.Discussion;
+            return "/" + aClass.UniversityId + "/Class/Details/" + ToUrlFriendly(aClass.Subject + " " + aClass.Course + " " + aClass.Section + " " + aClass.AcademicTermId + " " + aClass.Year) + "?classViewType=" + ClassViewType.Discussion;
         }
 
         public static string BuildProfessorUrl(Professor aProfessor) {
@@ -160,6 +160,10 @@ namespace UniversityOfMe.Helpers {
 
         public static string SendItemUrl(User aUser, SendItemOptions anItem) {
             return "/SendItems/SendItem/" + aUser.Id + "?sendItem=" + anItem;
+        }
+
+        public static string SearchAllClasses() {
+            return "/Search/Class?searchString=&page=1";
         }
     }
 }

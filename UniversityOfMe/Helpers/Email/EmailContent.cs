@@ -4,13 +4,13 @@ using UniversityOfMe.Models;
 namespace UniversityOfMe.Helpers.Email {
     public class EmailContent {
         public static string ClassBoardReplySubject(Class aClass) {
-            return "UofMe: New reply to your class question in " + aClass.ClassCode;
+            return "UofMe: New reply to your class question in " + aClass.Course;
         }
 
         public static string ClassBoardReplyBody(Class aClass, ClassBoard aBoard) {
             var myClassUrl = new TagBuilder("a");
             myClassUrl.MergeAttribute("href", LinkIt(URLHelper.BuildClassBoardUrl(aBoard)));
-            myClassUrl.InnerHtml = aClass.ClassCode;
+            myClassUrl.InnerHtml = aClass.Course;
 
             var myClassBoardUrl = new TagBuilder("a");
             myClassUrl.MergeAttribute("href", LinkIt(URLHelper.BuildClassBoardUrl(aBoard)));

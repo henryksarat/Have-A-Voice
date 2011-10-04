@@ -27,6 +27,10 @@ namespace UniversityOfMe.Services.Professors {
             theProfessorRepository = aProfessorRepo;
         }
 
+        public IEnumerable<Professor> GetProfessorsAssociatedWithClass(int aClassId) {
+            return theProfessorRepository.GetProfessorsAssociatedWithClass(aClassId);
+        }
+
         public IEnumerable<Professor> GetProfessorsForUniversity(string aUniversityId) {
             return theProfessorRepository.GetProfessorsByUniversity(aUniversityId);
         }
@@ -88,7 +92,8 @@ namespace UniversityOfMe.Services.Professors {
         }
 
         public Professor GetProfessor(string aUniversityId, string aProfessorName) {
-            string[] mySplitName = URLHelper.FromUrlFriendly(aProfessorName);
+            string myName = URLHelper.FromUrlFriendlyToNormalString(aProfessorName);
+            string[] mySplitName = SplitIpProfessorName(myName);
 
             if (mySplitName.Length != 2) {
                 throw new CustomException("The professors name doesn't have a first and last name.");
@@ -101,7 +106,8 @@ namespace UniversityOfMe.Services.Professors {
         }
 
         public bool IsProfessorExists(string aUniversityId, string aFullname) {
-            string[] mySplitName = URLHelper.FromUrlFriendly(aFullname);
+            string myName = URLHelper.FromUrlFriendlyToNormalString(aFullname);
+            string[] mySplitName = SplitIpProfessorName(myName);
 
             if (mySplitName.Length != 2) {
                 return false;
@@ -153,5 +159,12 @@ namespace UniversityOfMe.Services.Professors {
             return theValidationDictionary.isValid;
         }
 
+        private string[] SplitIpProfessorName(string aProfessorName) {
+            int myLastPeriod = aProfessorName.IndexOf(' ');
+            string[] myName = new string[2];
+            myName[0] = aProfessorName.Substring(0, myLastPeriod).Trim();
+            myName[1] = aProfessorName.Substring(myLastPeriod + 1, aProfessorName.Length - myLastPeriod-1);
+            return myName;
+        }
     }
 }

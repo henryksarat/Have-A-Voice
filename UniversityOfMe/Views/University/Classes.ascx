@@ -5,7 +5,7 @@
 <%@ Import Namespace="System.Collections.Generic" %>
 
 <div class="wp90">
-    <span class="normal bold class">Latest Class Discussions</span>
+    <span class="normal bold class">Classes you are in</span>
     <span class="frgt">
         <%= Html.ActionLink("Hide", "DisableFeature", "Profile", new { feature = Features.ClassWidget }, new { @class = "disable-feature" })%>
     </span>
@@ -24,15 +24,14 @@
                 <% } %>
 				<p class="pt7 lightgray">Board Posts: <%= myClass.ClassBoards.Where(c => !c.Deleted).Count<ClassBoard>() %></p> 
             </div> 
-			<a class="itemlinked" href="<%= URLHelper.BuildClassDiscussionUrl(myClass) %>"><%= myClass.ClassCode %></a><br /> 
-			<span class="gray"><%= TextShortener.Shorten(myClass.ClassTitle, 20) %></span><br /> 
-			<span class="gold"><%= myClass.AcademicTerm.DisplayName %> <%= myClass.Year %></span> 
-                    
+			<a class="itemlinked" href="<%= URLHelper.BuildClassDiscussionUrl(myClass) %>"><%= ClassHelper.CreateClassString(myClass) %></a><br /> 
+			<span class="gray"><%= TextShortener.Shorten(myClass.Title, 20) %></span><br /> 
+			<span class="gold"><%= myClass.AcademicTerm.DisplayName %> <%= myClass.Year %></span>                     
         </li>
     <% } %>
 </ul> 
 <div class="flft mr9">
     <%= Html.ActionLink("+", "Create", "Class", null, new { @class="add-new-cross" })%>
 </div>
-<%= Html.ActionLink("Create New", "Create", "Class", null, new { @class="add-new" })%>
+<a class="add-new" href="<%= URLHelper.SearchAllClasses() %>">Search Classes to Enroll In</a>
 <%= Html.ActionLink("View All", "List", "Class", null, new { @class="view-all" })%>

@@ -16,6 +16,7 @@ using UniversityOfMe.Services.Professors;
 using UniversityOfMe.Services.TextBooks;
 using UniversityOfMe.Services.Status;
 using UniversityOfMe.Services.Dating;
+using System;
 
 namespace UniversityOfMe.Services {
     public class UniversityService : IUniversityService {
@@ -96,7 +97,7 @@ namespace UniversityOfMe.Services {
         public UniversityView GetUniversityProfile(UserInformationModel<User> aUserInformation, string aUniversityId) {
             University myUniversity = theUniversityRepository.GetUniversity(aUniversityId);
             IEnumerable<Professor> myProfessors = theProfessorService.GetProfessorsForUniversity(aUniversityId);
-            IEnumerable<Class> myClasses = theClassService.GetClassesForUniversity(aUniversityId);
+            IEnumerable<Class> myClasses = theClassService.GetClassesStudentIsEnrolledIn(aUserInformation, aUniversityId);
             IEnumerable<Event> myEvents = theEventService.GetEventsForUniversity(aUserInformation.Details, aUniversityId);
             IEnumerable<TextBook> myTextBooks = theTextBookService.GetTextBooksForUniversity(aUniversityId);
             IEnumerable<Club> myOrganizations = theClubService.GetClubs(aUserInformation, aUniversityId);
@@ -104,6 +105,14 @@ namespace UniversityOfMe.Services {
             IEnumerable<UserStatus> myUserStatuses = theUserStatusService.GetLatestUserStatusesWithinUniversity(aUserInformation, aUniversityId, 5);
             IEnumerable<AnonymousFlirt> myAnonymousFlirt = theFlirtingService.GetFlirtsWithinUniversity(aUniversityId, 5);
             UserStatus myUserStatus = theUserStatusService.GetLatestUserStatusForUser(aUserInformation);
+
+            myClasses = myClasses.OrderByDescending(c => 
+                                                    c.ClassBoards.Count > 0
+                                                        ? c.ClassBoards.OrderByDescending(
+                                                            cb => cb.ClassBoardReplies.Count > 0
+                                                                ? cb.ClassBoardReplies.OrderByDescending(cbr => cbr.DateTimeStamp).FirstOrDefault<ClassBoardReply>().DateTimeStamp
+                                                                : cb.DateTimeStamp).FirstOrDefault<ClassBoard>().DateTimeStamp
+                                                        : new DateTime(1987, 05, 03));
 
             return new UniversityView() {
                 University = myUniversity,

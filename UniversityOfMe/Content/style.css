@@ -498,7 +498,7 @@ div.search.result { background: #fcfcfb; padding: 15px 22px; border: 0px none tr
 
 div.search.result .res { border-bottom: 1px solid #dbdbdb; padding: 20px 19px 22px 12px; line-height: 1.5; }
 div.search.result .res .res-con { padding-left: 37px; color: #6d6d6d; font-size: 12px; font-weight: normal; }
-div.search.result .res .res-con a, div.search.result .res .res-con a:link, div.search.result .res .res-con a:visited { color: #6d6d6d; text-decoration: none; }
+div.search.result .res .res-con a, div.search.result .res .res-con a:link, div.search.result .res .res-con a:visited { color: #6d6d6d; }
 div.search.result .res .res-con a:hover { text-decoration: underline; }
 div.search.result .res .res-con .actions { float: right; text-align: right; }
 div.search.result .res .res-con .actions .rating { float: none; }
