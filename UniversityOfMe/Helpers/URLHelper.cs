@@ -165,5 +165,13 @@ namespace UniversityOfMe.Helpers {
         public static string SearchAllClasses() {
             return "/Search/Class?searchString=&page=1";
         }
+
+        public static string SearchTextbooks(string aClassSubject, string aClassCourse) {
+            return "/Search/TextbookAdvanced?searchString=" + aClassSubject + aClassCourse + "&page=1&searchBy=ClassCode&orderBy=LowestPrice";
+        }
+
+        public static string CreateTextBook(string aUnviersityId, string aClassSubject, string aClassCourse) {
+            return "/" + aUnviersityId + "/Textbook/Create?classSubject=" + aClassSubject + "&classCourse=" + aClassCourse;
+        }
     }
 }

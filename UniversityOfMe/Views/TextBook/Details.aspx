@@ -99,7 +99,7 @@
 					<label for="class">Class Used For</label>
 				</div>
 				<div class="col">
-					<%= string.IsNullOrEmpty(Model.Get().ClassCode) ? "N/A" : Model.Get().ClassCode%>
+					<%= string.IsNullOrEmpty(Model.Get().ClassCourse) ? "N/A" : Model.Get().ClassSubject + Model.Get().ClassCourse%>
 				</div>
 							
 				<div class="clearfix"></div>

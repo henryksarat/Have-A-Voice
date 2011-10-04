@@ -47,13 +47,19 @@ namespace UniversityOfMe.Models.View.Search {
 
             myTitleSpan.InnerHtml += myNameLinked.ToString();
 
+            string myAssociatedClass = "None";
+
+            if (!string.IsNullOrEmpty(theTextBook.ClassSubject) && !string.IsNullOrEmpty(theTextBook.ClassCourse)) {
+                myAssociatedClass = theTextBook.ClassSubject + theTextBook.ClassCourse;
+            }
+
             myBookDescriptionDiv.InnerHtml += myTitleSpan.ToString();
             myBookDescriptionDiv.InnerHtml += "<br />";
             myBookDescriptionDiv.InnerHtml += "Condition: " + theTextBook.TextBookCondition.Display;
             myBookDescriptionDiv.InnerHtml += "<br />";
-            myBookDescriptionDiv.InnerHtml += "Associated Class: " + theTextBook.ClassCode;
+            myBookDescriptionDiv.InnerHtml += "Associated Class: " + myAssociatedClass;
             myBookDescriptionDiv.InnerHtml += "<br />";
-            myBookDescriptionDiv.InnerHtml += "Edition: " + theTextBook.Edition;
+            myBookDescriptionDiv.InnerHtml += theTextBook.Edition != 0 ? "Edition: " + theTextBook.Edition + "<br />" : string.Empty;
             myBookDescriptionDiv.InnerHtml += "Asking Price: " + MoneyFormatHelper.Format(theTextBook.Price);
             myBookDescriptionDiv.InnerHtml += "<br />";
             myBookDescriptionDiv.InnerHtml += TextShortener.Shorten(theTextBook.Details, 50);

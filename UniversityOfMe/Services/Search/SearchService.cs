@@ -328,7 +328,7 @@ namespace UniversityOfMe.Services.Search {
             if (anOrderBy == OrderBy.Title) {
                 myTextBooks = myTextBooks.OrderBy(r => r.BookTitle);
             } else if (anOrderBy == OrderBy.ClassCode) {
-                myTextBooks = myTextBooks.OrderBy(r => r.ClassCode);
+                myTextBooks = myTextBooks.OrderBy(r => r.ClassSubject + r.ClassCourse);
             } else if (anOrderBy == OrderBy.LowestPrice) {
                 myTextBooks = myTextBooks.OrderBy(r => r.Price);
             } else if (anOrderBy == OrderBy.HighestPrice) {

@@ -153,7 +153,13 @@
                     <a href="<%= URLHelper.BuildClassDiscussionUrl(Model.Get().Class) %>">Class Board</a> 
 			    </li> 
 			    <li class="<%= myViewType == ClassViewType.Review ? "active" : ""  %>"> 
-				    <a href="<%= URLHelper.BuildClassReviewUrl(Model.Get().Class) %>">Class Review</a> 
+				    <a href="<%= URLHelper.BuildClassReviewUrl(Model.Get().Class) %>">Class Reviews</a> 
+			    </li> 
+			    <li>
+				    <a href="<%= URLHelper.SearchTextbooks(Model.Get().Class.Subject, Model.Get().Class.Course) %>">Search Textbooks</a> 
+			    </li> 
+			    <li> 
+				    <a href="<%= URLHelper.CreateTextBook(Model.Get().Class.UniversityId, Model.Get().Class.Subject, Model.Get().Class.Course) %>">Sell your Textbook</a> 
 			    </li> 
 		    </ul> 
 	    </div> 

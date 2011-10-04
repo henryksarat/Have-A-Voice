@@ -79,7 +79,7 @@ namespace UniversityOfMe.Repositories.Search {
 
         public IEnumerable<TextBook> GetTextBookByClassCode(string aUniversityId, string aClassCode) {
             return (from t in theEntities.TextBooks
-                    where t.ClassCode.Contains(aClassCode)
+                    where (t.ClassSubject + t.ClassCourse).Contains(aClassCode)
                     && t.Active
                     && t.UniversityId == aUniversityId
                     select t);
@@ -152,7 +152,7 @@ namespace UniversityOfMe.Repositories.Search {
 
         public IEnumerable<TextBook> GetTextBookByClassCode(string aClassCode) {
             return (from t in theEntities.TextBooks
-                    where t.ClassCode.Contains(aClassCode)
+                    where (t.ClassSubject + t.ClassCourse).Contains(aClassCode)
                     && t.Active
                     select t);
         }

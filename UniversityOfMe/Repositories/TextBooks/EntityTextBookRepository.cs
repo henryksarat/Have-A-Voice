@@ -9,13 +9,18 @@ namespace UniversityOfMe.Repositories.TextBooks {
         private UniversityOfMeEntities theEntities = new UniversityOfMeEntities();
 
         public void CreateTextbook(User aCreatingUser, string aUniversityId, string aTextBookCondition, string aBookTitle, string aBookAuthor, 
-                                   string aBookImage, string aClassCode, int anEdition, double anAskingPrice, string aDetails, string anISBN) {
+                                   string aBookImage, string aClassSubject, string aClassCourse, int anEdition, double anAskingPrice, string aDetails, string anISBN) {
             TextBook myTextBook = TextBook.CreateTextBook(0, aCreatingUser.Id, aUniversityId, aTextBookCondition, aBookTitle, aBookAuthor, 
                 anEdition, anAskingPrice, DateTime.UtcNow, true);
             myTextBook.BookPicture = aBookImage;
             myTextBook.Details = aDetails;
             myTextBook.ISBN = anISBN;
-            myTextBook.ClassCode = aClassCode;
+            if (!string.IsNullOrEmpty(aClassSubject)) {
+                myTextBook.ClassSubject = aClassSubject;
+            }
+            if (!string.IsNullOrEmpty(aClassCourse)) {
+                myTextBook.ClassCourse = aClassCourse;
+            }
             theEntities.AddToTextBooks(myTextBook);
             theEntities.SaveChanges();
         }

@@ -59,8 +59,9 @@ namespace UniversityOfMe.Services.TextBooks {
                 aCreateTextBookModel.TextBookCondition,
                 aCreateTextBookModel.BookTitle, 
                 aCreateTextBookModel.BookAuthor,
-                myBookImageName, 
-                aCreateTextBookModel.ClassCode,
+                myBookImageName,
+                aCreateTextBookModel.ClassSubject,
+                aCreateTextBookModel.ClassCourse,
                 aCreateTextBookModel.Edition == null ? 0 : int.Parse(aCreateTextBookModel.Edition),
                 double.Parse(aCreateTextBookModel.Price),
                 string.IsNullOrEmpty(aCreateTextBookModel.Details) ? null : aCreateTextBookModel.Details,
@@ -105,7 +106,8 @@ namespace UniversityOfMe.Services.TextBooks {
             myTextBook.TextBookConditionId = aTextBookViewModel.TextBookCondition;
             myTextBook.Details = aTextBookViewModel.Details;
             myTextBook.Price = double.Parse(aTextBookViewModel.Price);
-            myTextBook.ClassCode = string.IsNullOrEmpty(aTextBookViewModel.ClassCode) ? null : aTextBookViewModel.ClassCode;
+            myTextBook.ClassSubject = string.IsNullOrEmpty(aTextBookViewModel.ClassSubject) ? null : aTextBookViewModel.ClassSubject;
+            myTextBook.ClassCourse = string.IsNullOrEmpty(aTextBookViewModel.ClassCourse) ? null : aTextBookViewModel.ClassCourse;
             myTextBook.BookAuthor = aTextBookViewModel.BookAuthor;
             myTextBook.ISBN = string.IsNullOrEmpty(aTextBookViewModel.ISBN) ? null : aTextBookViewModel.ISBN;
 
@@ -163,7 +165,7 @@ namespace UniversityOfMe.Services.TextBooks {
                                select t);
             } else if (aSeachOption.Equals(TextbookSearch.CLASS_CODE)) {
                 myTextBooks = (from t in myTextBooks
-                               where t.ClassCode.Contains(aSearchString)
+                               where (t.ClassSubject + t.ClassCourse).Contains(aSearchString)
                                select t);
             }
 
@@ -207,6 +209,15 @@ namespace UniversityOfMe.Services.TextBooks {
 
             if (aCreateTextBoook.BookImage != null && !PhotoValidation.IsValidImageFile(aCreateTextBoook.BookImage.FileName)) {
                 theValidationDictionary.AddError("BookImage", aCreateTextBoook.BookImage.FileName, PhotoValidation.INVALID_IMAGE);
+            }
+
+            if (!string.IsNullOrEmpty(aCreateTextBoook.ClassSubject) || !string.IsNullOrEmpty(aCreateTextBoook.ClassCourse)) {
+                if (string.IsNullOrEmpty(aCreateTextBoook.ClassSubject)) {
+                    theValidationDictionary.AddError("ClassSubject", string.Empty, "If you want to tag this book to a class you must give the Class Subject. Example: CIS");
+                }
+                if (string.IsNullOrEmpty(aCreateTextBoook.ClassCourse)) {
+                    theValidationDictionary.AddError("ClassCourse", string.Empty, "If you want to tag this book to a class you must give the Class Course Number. Example: 556707");
+                }
             }
 
             return theValidationDictionary.isValid;

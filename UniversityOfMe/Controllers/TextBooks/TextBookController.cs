@@ -50,7 +50,7 @@ namespace UniversityOfMe.Controllers.Clubs {
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
-        public ActionResult Create(string universityId) {
+        public ActionResult Create(string universityId, string classSubject, string classCourse) {
             if (!IsLoggedIn()) {
                 return RedirectToLogin();
             }
@@ -72,7 +72,9 @@ namespace UniversityOfMe.Controllers.Clubs {
                 LoggedInWrapperModel<TextBookViewModel> myLoggedIn = new LoggedInWrapperModel<TextBookViewModel>(GetUserInformatonModel().Details);
                 TextBookViewModel myCreateTextbookModel = new TextBookViewModel() {
                     UniversityId = universityId,
-                    TextBookConditions = new SelectList(myBookConditionTypes, "Value", "Key")
+                    TextBookConditions = new SelectList(myBookConditionTypes, "Value", "Key"),
+                    ClassSubject = classSubject,
+                    ClassCourse = classCourse
                 };
                 myLoggedIn.Set(myCreateTextbookModel);
                 return View("Create", myLoggedIn);

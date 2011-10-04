@@ -45,8 +45,15 @@
                     </div>
 
                     <div class="field-holder">
-			            <label for="BookTitle" class="mt13">Class Code</label> 
-			            <%= Html.TextBox("ClassCode", Model.Get().ClassCode, new { @class = "quarter" })%>
+			            <label for="BookTitle" class="mt13">Class Section</label> 
+			            <%= Html.TextBox("ClassCode", Model.Get().ClassSubject, new { @class = "quarter" })%>
+                        <%= Html.ValidationMessage("ClassSubject", "*", new { @class = "req" })%>
+                    </div>
+
+                    <div class="field-holder">
+			            <label for="BookTitle" class="mt13">Class Course</label> 
+			            <%= Html.TextBox("ClassCode", Model.Get().ClassCourse, new { @class = "quarter" })%>
+                        <%= Html.ValidationMessage("ClassCode", "*", new { @class = "req" })%>
                     </div>
 
                     <div class="field-holder">

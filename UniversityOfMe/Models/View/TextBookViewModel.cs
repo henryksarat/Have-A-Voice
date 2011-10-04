@@ -24,7 +24,10 @@ namespace UniversityOfMe.Models.View {
         public HttpPostedFileBase BookImage { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
-        public string ClassCode { get; set; }
+        public string ClassSubject { get; set; }
+
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string ClassCourse { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string BookAuthor { get; set; }
@@ -49,7 +52,8 @@ namespace UniversityOfMe.Models.View {
             UniversityId = aTextBook.UniversityId;
             TextBookId = aTextBook.Id;
             BookTitle = aTextBook.BookTitle;
-            ClassCode = aTextBook.ClassCode;
+            ClassSubject = aTextBook.ClassSubject;
+            ClassCourse = aTextBook.ClassCourse;
             Edition = aTextBook.Edition.ToString();
             Price = aTextBook.Price.ToString();
             Details = aTextBook.Details;

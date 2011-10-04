@@ -6,8 +6,8 @@ using UniversityOfMe.Models;
 
 namespace UniversityOfMe.Repositories.Textbooks {
     public interface ITextBookRepository {
-        void CreateTextbook(User aCreatingUser, string aUniversityId, string aTextBookCondition, string aBookTitle, 
-            string aBookAuthor, string aBookImage, string aClassCode, int anEdition, double aPrice, string aDetails, string aISBN);
+        void CreateTextbook(User aCreatingUser, string aUniversityId, string aTextBookCondition, string aBookTitle,
+            string aBookAuthor, string aBookImage, string aClassSubject, string aClassCourse, int anEdition, double aPrice, string aDetails, string aISBN);
         void DeleteTextBook(int aTextBookId);
         TextBook GetTextBook(int aTextBookId);
         IEnumerable<TextBook> GetTextBooksForUniversity(string aUniversityId);

@@ -40,8 +40,15 @@
                         </div>
 
                         <div class="field-holder">
-			                <label for="ClassCode">Class Code</label> 
-			                <%= Html.TextBox("ClassCode", string.Empty, new { @class = "quarter" })%>
+			                <label for="ClassSubject">Class Subject</label> 
+			                <%= Html.TextBox("ClassSubject", string.Empty, new { @class = "quarter" })%>
+                            <%= Html.ValidationMessage("ClassSubject", "*", new { @class = "req" })%>
+                        </div>
+
+                        <div class="field-holder">
+			                <label for="ClassCourse">Class Course</label> 
+			                <%= Html.TextBox("ClassCourse", string.Empty, new { @class = "quarter" })%>
+                            <%= Html.ValidationMessage("ClassCourse", "*", new { @class = "req" })%>
                         </div>
 
                         <div class="field-holder">

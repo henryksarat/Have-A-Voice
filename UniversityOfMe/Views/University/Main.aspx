@@ -169,9 +169,7 @@
             <% if (myWidgetNumberDisplayed != 0) { %>
                 </div>
             <% } %>
-          </div>
-
-          <%= UniversityOfMe.Helpers.Scraper.UChicago.DoScrape() %>
-    </div
+          </div>         
+    </div>
 </asp:Content>
 

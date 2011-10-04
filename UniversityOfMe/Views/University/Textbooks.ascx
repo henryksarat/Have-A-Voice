@@ -15,7 +15,7 @@
     <% foreach (TextBook myTextBook in Model.Take<TextBook>(5)) { %>
         <li>
 			<a class="itemlinked" href="/<%= myTextBook.UniversityId %>/TextBook/Details/<%= myTextBook.Id %>"><%= TextShortener.Shorten(myTextBook.BookTitle, 40) %></a>
-			<span class="darkgray"> <%= string.IsNullOrEmpty(myTextBook.ClassCode) ? string.Empty : "(" + myTextBook.ClassCode + ")" %></span> 
+			<span class="darkgray"> <%= string.IsNullOrEmpty(myTextBook.ClassSubject + myTextBook.ClassCourse) ? string.Empty : "(" + myTextBook.ClassSubject + myTextBook.ClassCourse + ")"%></span> 
         </li>
     <% } %>
 </ul> 
