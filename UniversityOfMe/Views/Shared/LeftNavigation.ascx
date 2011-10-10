@@ -28,8 +28,12 @@
                 return true;
             }
         });
+        var myAlreadyCleared = 0;
         $("#search").click(function () {
-            $("#search").val("");
+            if(myAlreadyCleared == 0) {
+                $("#search").val("");
+                myAlreadyCleared = 1;
+            }
         });
     });
 
@@ -65,45 +69,39 @@
 </script> 
 
 <div class="four"> 
-    <% if(Model.IsLoggedIn) { %>
+    <% if (Model.IsLoggedIn) { %>
 	    <div class="banner full mb72"> 
         
 		    <div class="search clearfix"> 
-			    <input id="search" type="text" class="inpt" value="type in your query and hit enter" /> 
+			    <input id="search" type="text" class="inpt" value="type something and hit enter" /> 
 			    <div class="select"> 
 				    <a href="#" class="search">Search</a> 
 				    <ul class="options"> 
-					    <li id="<%= SearchFilter.All %>" class="active-filter"> 
+					    <li id="<%= SearchFilter.ALL %>" class="active-filter"> 
 						    <a href="#" class="all">All</a> 
 					    </li> 
-					    <li id="<%= SearchFilter.User %>"> 
-						    <a href="#" class="people"><%= SearchFilter.User.ToString() %></a> 
+					    <li id="<%= SearchFilter.USER %>"> 
+						    <a href="#" class="people"><%= SearchFilter.USER.ToString()%></a> 
 					    </li> 
-					    <li id="<%= SearchFilter.Professor %>"> 
-						    <a href="#" class="professor"><%= SearchFilter.Professor.ToString() %></a> 
-					    </li> 
-					    <li id="<%= SearchFilter.Class %>"> 
-						    <a href="#" class="case"><%= SearchFilter.Class.ToString() %></a> 
-					    </li> 
-					    <li  id="<%= SearchFilter.Event %>"> 
-						    <a href="#" class="cal"><%= SearchFilter.Event.ToString() %></a> 
-					    </li> 
-					    <li id="<%= SearchFilter.Textbook %>"> 
-						    <a href="#" class="text"><%= SearchFilter.Textbook.ToString() %></a> 
-					    </li> 
-					    <li id="<%= SearchFilter.GeneralPosting %>"> 
-						    <a href="#" class="paper"><%= SearchFilter.GeneralPosting.ToString() %></a> 
-					    </li> 
-					    <li id="<%= SearchFilter.Organization %>"> 
-						    <a href="#" class="org"><%= SearchFilter.Organization.ToString() %></a> 
-					    </li> 
+					    <li id="<%= SearchFilter.TEXTBOOK %>"> 
+						    <a href="#" class="text"><%= SearchFilter.TEXTBOOK.ToString()%></a> 
+                        </li>
+					    <li id="<%= SearchFilter.APARTMENT %>"> 
+						    <a href="#" class="apartment"><%= SearchFilter.APARTMENT.ToString()%></a> 
+                        </li>
+					    <li id="<%= SearchFilter.VIDEOGAME %>"> 
+						    <a href="#" class="videogame"><%= SearchFilter.VIDEOGAME.ToString()%></a> 
+                        </li>
+					    <li id="<%= SearchFilter.GROUPON %>"> 
+						    <a href="#" class="groupon"><%= SearchFilter.GROUPON.ToString()%></a> 
+                        </li>
 				    </ul> 
 			    </div>
 		    </div> 
 		    <span class="corner"></span> 
 	    </div> 
 
-        <% if(!Model.HasProfilePicture) { %>
+        <% if (!Model.HasProfilePicture) { %>
             <div class="banner title"> 
 		        U of Me PRO TIP
 	        </div> 
@@ -121,85 +119,6 @@
                 </div>
 	        </div> 
         <% } %>
-
-	    <div class="banner title"> 
-		    NEW NOTIFICATIONS
-	    </div> 
-	    <div class="box"> 
-            <% Html.RenderPartial("Notifications", Model.Notifications); %>
-            <div>
-                &nbsp;
-                <%= Html.ActionLink("View all notifications", "List", "Notification", null, new { @class = "viewall" })%>
-            </div>
-	    </div> 
-				
-        <% if(Model.HasDatingMatch()) { %>	
-	        <div class="match"> 
-                <%= Html.ActionLink("Close", "MarkAsSeen", "Dating", new { datingLogId = Model.DatingMatchMember.Id }, new { @class = "close" })%>
-                <a href="<%= URLHelper.ProfileUrl(Model.DatingMatchMember.AskedUser) %>"><img src="<%= PhotoHelper.ProfilePicture(Model.DatingMatchMember.AskedUser) %>" alt="<%= NameHelper.FullName(Model.DatingMatchMember.AskedUser) %>" title="<%= NameHelper.FullName(Model.DatingMatchMember.AskedUser) %>" class="profile med" /></a>
-		        You got a dating match with<br /> 
-		        <span class="normal mr14"><%= NameHelper.FullName(Model.DatingMatchMember.AskedUser) %></span> 
-            
-                <%= Html.ActionLink("Message", "Create", "Message", new { id = Model.DatingMatchMember.AskedUserId }, new { @class = "mail mr9" })%>
-                <%= Html.ActionLink("Send beer", "SendItem", "SendItems", new { id = Model.DatingMatchMember.AskedUserId, sendItem = SendItemOptions.BEER }, new { @class = "beer" })%>
-		        <span class="arrow"></span> 
-	        </div> 
-        <% } %>
-        <% if (Model.HasDatingMember()) { %>	
-            <% if(FeatureHelper.IsFeatureEnabled(Model.User, Features.DatingAsked)) { %> 
-	            <div class="banner title"> 
-		            U of ME RANDOM DATING
-		            <div id="datingtooltip" class="buttons"> 
-			                <a href="#" class="question" title="A dating match is made only if the person says yes too, if they say no they never know you said yes.">What is this?</a> 
-			            <%= Html.ActionLink("Disable", "DisableFeature", "Profile", new { feature = Features.DatingAsked }, new { @class = "deny" })%>
-		            </div> 
-	            </div> 
-
-	            <div class="box date"> 
-                    <% if (Model.HasDatingMember()) { %>	
-                        <a href="<%= URLHelper.ProfileUrl(Model.DatingMember) %>"><img src="<%= PhotoHelper.ProfilePicture(Model.DatingMember) %>" alt="<%= NameHelper.FullName(Model.DatingMember) %>" title="<%= NameHelper.FullName(Model.DatingMember) %>" class="profile sm" /></a>
-		                Would you date <%= NameHelper.FullName(Model.DatingMember)%> ?
-		                <div class="mt6 center"> 
-                            <% using (Html.BeginForm("Create", "Dating", FormMethod.Post)) {%>
-                                <%= Html.Hidden("SourceUserId", Model.DatingMember.Id) %>
-			                    <span><button name="response" class="btn blue" value="true">Yes</button></span>
-          
-			                    <span class="ml10"><button name="response" class="btn blue" value="false">No</button></span>
-                            <% } %>
-		                </div> 
-                    <% } else { %>
-                        There are currently no members to ask you about
-                    <% } %>
-	            </div> 
-            <% } %>
-        <% } %>
-					
-	    <div class="banner title"> 
-		    NEWEST MEMBERS
-	    </div> 
-	    <div class="box member"> 
-        <% foreach (User myNewestMember in Model.NewestUsersInUniversity) { %>
-            <a href="<%= URLHelper.ProfileUrl(myNewestMember) %>"><img src="<%= PhotoHelper.ProfilePicture(myNewestMember) %>" title="<%= NameHelper.FullName(myNewestMember) %>" /></a>
-        <% } %>
-	    </div> 
-        <% if(Model.LatestUserBadge != null) { %>
-            <div>
-                <div class="banner title"> 
-                    LATEST EARNED BADGE
-                    <span class="frgt">
-                        <a class="leftnavlink" href="<%= URLHelper.BadgeHideUrl(Model.LatestUserBadge.Id) %>">Hide</a> 
-                        | 
-                        <a class="leftnavlink" href="<%= URLHelper.BadgeListUrl() %>">View All</a>
-                    </span>
-                </div> 
-                <div class="box center"> 
-            
-                        <img src="<%= URLHelper.BadgeUrl(Model.Badge.Image) %>" /><br />
-                        <%= Model.Badge.Description %>
-            
-                </div>
-            </div>
-        <% } %>
     <% } else { %>
 	    <div class="banner title"> 
 		    REGISTER AN ACCOUNT
@@ -210,9 +129,22 @@
             <% IEnumerable<University> myUniversities = UniversityHelper.ValidUniversities(); %>
             <% foreach (University myUniversity in myUniversities) { %>
                 <div style="margin-top:-5px">
-                    <%= myUniversity.UniversityName %>
+                    <%= myUniversity.UniversityName%>
                 </div>
             <% } %>
 	    </div> 
     <% } %>
+
+    <div class="banner title"> 
+		Marketplace Catagories
+	</div> 
+	<div class="box"> 
+        <div>
+            <a class="itemlinked" href="<%= URLHelper.SearchTextbooks() %>">Textbooks</a><br />
+            <% foreach (ItemType myItemType in Model.ItemTypes) { %>
+                <a class="itemlinked" href="<%= URLHelper.SearchMarketplace(myItemType) %>"><%= myItemType.DisplayName %>s</a>
+                <br />
+            <% } %>
+        </div>
+	</div> 
 </div> 

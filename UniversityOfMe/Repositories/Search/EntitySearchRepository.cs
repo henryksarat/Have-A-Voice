@@ -98,7 +98,7 @@ namespace UniversityOfMe.Repositories.Search {
 
         public IEnumerable<Class> GetClassByClassCode(string aClassCode) {
             return (from c in theEntities.Classes
-                    where c.Course.Contains(aClassCode)
+                    where (c.Subject + c.Course + "-" + c.Section).Contains(aClassCode)
                     select c);
         }
 

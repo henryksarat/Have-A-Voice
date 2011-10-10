@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<LoggedInWrapperModel<TextBookViewModel>>" %>
 <%@ Import Namespace="UniversityOfMe.Models" %>
+<%@ Import Namespace="UniversityOfMe.Helpers" %>
 <%@ Import Namespace="UniversityOfMe.Models.View" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
@@ -22,6 +23,14 @@
 
                 <div class="padding-col">
                     <% using (Html.BeginForm("Create", "TextBook", FormMethod.Post, FormMethod.Post, new { enctype = "multipart/form-data", @class = "create btint-6" })) {%>
+
+                        <% if(string.IsNullOrEmpty(Model.Get().ClassSubject) || string.IsNullOrEmpty(Model.Get().ClassCourse)) { %>
+                            <div class="field-holder">
+                                <span class="empty-label">&nbsp;</span>
+                                <a class="itemlinked" href="<%= URLHelper.SearchAllClasses() %>">Click here to select a class to tag your textbook to</a>
+                            </div>
+                        <% } %>
+
                         <div class="field-holder">
 			                <label for="BookTitle">Book Title</label> 
 			                <%= Html.TextBox("BookTitle", string.Empty, new { @class = "quarter" })%>

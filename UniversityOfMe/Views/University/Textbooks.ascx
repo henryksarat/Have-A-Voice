@@ -5,14 +5,11 @@
 <%@ Import Namespace="System.Collections.Generic" %>
 
 <div class="wp90">
-    <span class="normal bold book">Buy Textbooks</span> 
-    <span class="frgt">
-        <%= Html.ActionLink("Hide", "DisableFeature", "Profile", new { feature = Features.TextbookWidget }, new { @class = "disable-feature" })%>
-    </span>
+    <span class="normal bold book">Latest Textbooks</span> 
 </div>
 
 <ul> 
-    <% foreach (TextBook myTextBook in Model.Take<TextBook>(5)) { %>
+    <% foreach (TextBook myTextBook in Model.Take<TextBook>(25)) { %>
         <li>
 			<a class="itemlinked" href="/<%= myTextBook.UniversityId %>/TextBook/Details/<%= myTextBook.Id %>"><%= TextShortener.Shorten(myTextBook.BookTitle, 40) %></a>
 			<span class="darkgray"> <%= string.IsNullOrEmpty(myTextBook.ClassSubject + myTextBook.ClassCourse) ? string.Empty : "(" + myTextBook.ClassSubject + myTextBook.ClassCourse + ")"%></span> 
@@ -22,5 +19,6 @@
 <div class="flft mr9">
     <%= Html.ActionLink("+", "Create", "TextBook", null, new { @class="add-new-cross" })%>
 </div>
-<%= Html.ActionLink("Create New", "Create", "TextBook", null, new { @class="add-new" })%>
-<%= Html.ActionLink("View All", "List", "TextBook", null, new { @class="view-all" })%>
+<%= Html.ActionLink("Sell Book", "Create", "TextBook", null, new { @class="add-new" })%>
+<%= Html.ActionLink("Search By Class", "List", "TextBook", null, new { @class="view-all" })%>
+<%= Html.ActionLink("Search By Title", "List", "TextBook", null, new { @class="view-all" })%>

@@ -18,11 +18,15 @@ using UniversityOfMe.Repositories.Site;
 using Social.Authentication.Helpers;
 using UniversityOfMe.Models.SocialModels;
 using Social.Validation;
+using UniversityOfMe.Services.Marketplace;
+using UniversityOfMe.Services.TextBooks;
 
 namespace UniversityOfMe.Controllers.Clubs {
     public class SiteController : AbstractSiteController<User, Role, Permission, UserRole, PrivacySetting, RolePermission, WhoIsOnline> {
         private IUofMeUserService theUserService;
         private IValidationDictionary theValidationDictionary;
+        private IMarketplaceService theMarketplaceService;
+        private ITextBookService theTextBookService;
 
         public SiteController() :
             base(new BaseService<User>(new EntityBaseRepository()),
@@ -33,6 +37,8 @@ namespace UniversityOfMe.Controllers.Clubs {
            UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()));
            theValidationDictionary = new ModelStateWrapper(this.ModelState);
            theUserService = new UofMeUserService(theValidationDictionary);
+           theMarketplaceService = new MarketplaceService(theValidationDictionary);
+           theTextBookService = new TextBookService(theValidationDictionary);
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
@@ -43,7 +49,9 @@ namespace UniversityOfMe.Controllers.Clubs {
            
             return View("Main", new CreateUserModel() {
                 RegisteredUserCount = theUserService.GetNumberOfRegisteredUsers(),
-                Genders = new SelectList(Constants.GENDERS, Constants.SELECT)
+                Genders = new SelectList(Constants.GENDERS, Constants.SELECT),
+                NewestItem = theMarketplaceService.GetNewestMarketplaceItem(),
+                NewestTextbook = theTextBookService.GetNewestTextBook()
             });
         }
 

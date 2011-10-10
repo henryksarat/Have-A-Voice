@@ -86,8 +86,22 @@ namespace UniversityOfMe.Helpers {
             return TextBookPhoto(aPhoto);
         }
 
+        public static string ItemSellingPhoto(MarketplaceItem anItemSelling) {
+            string aPhoto = anItemSelling.ImageName;
+
+            if (string.IsNullOrEmpty(aPhoto)) {
+                aPhoto = "no_item_image.jpg";
+            }
+
+            return ItemSellingPhoto(aPhoto);
+        }
+
         public static string TextBookPhoto(string aTextBookPhoto) {
             return TextBookConstants.TEXTBOOK_PHOTO_PATH + aTextBookPhoto;
+        }
+
+        public static string ItemSellingPhoto(string anItemSellingPhoto) {
+            return MarketplaceConstants.MARKETPLACE_PHOTO_PATH + anItemSellingPhoto;
         }
         
         public static string ConstructProfessorUrl(Professor aProfessor) {

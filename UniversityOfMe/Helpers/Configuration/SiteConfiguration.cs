@@ -24,6 +24,10 @@
             return GetKey("TextbookPhotosBucket");
         }
 
+        public static string MarketplacePhotosBucket() {
+            return GetKey("MarketplacePhotosBucket");
+        }
+
         public static string NewAccountsEmail() {
             return GetKey("NewAccountsEmail");
         }

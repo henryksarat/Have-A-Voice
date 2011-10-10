@@ -7,62 +7,26 @@ using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
 using UniversityOfMe.Models.View;
 using UniversityOfMe.Repositories;
-using UniversityOfMe.Services.Classes;
-using UniversityOfMe.Services.Clubs;
-using UniversityOfMe.Services.Events;
-using UniversityOfMe.Services.GeneralPostings;
-using UniversityOfMe.Services.Notifications;
-using UniversityOfMe.Services.Professors;
+using UniversityOfMe.Services.Marketplace;
 using UniversityOfMe.Services.TextBooks;
-using UniversityOfMe.Services.Status;
-using UniversityOfMe.Services.Dating;
-using System;
 
 namespace UniversityOfMe.Services {
     public class UniversityService : IUniversityService {
-        private IProfessorService theProfessorService;
-        private IFlirtingService theFlirtingService;
-        private IClassService theClassService;
-        private IEventService theEventService;
         private ITextBookService theTextBookService;
-        private IClubService theClubService;
-        private IUserStatusService theUserStatusService;
-        private IGeneralPostingService theGeneralPostingService;
-        private INotificationService theNotificationService;
+        private IMarketplaceService theMarketplaceService;
         private IUniversityRepository theUniversityRepository;
 
         public UniversityService(IValidationDictionary aValidationDictionary) 
-            : this(new ProfessorService(aValidationDictionary), 
-                   new ClassService(aValidationDictionary), 
-                   new EventService(aValidationDictionary), 
-                   new TextBookService(aValidationDictionary), 
-                   new ClubService(aValidationDictionary), 
-                   new GeneralPostingService(aValidationDictionary), 
-                   new NotificationService(),
-                   new UserStatusService(aValidationDictionary),
-                   new FlirtingService(aValidationDictionary),
+            : this(new TextBookService(aValidationDictionary), 
+                   new MarketplaceService(aValidationDictionary),
                    new EntityUniversityRepository()) { }
 
-        public UniversityService(IProfessorService aProfessorService, 
-                                 IClassService aClassService, 
-                                 IEventService anEventService, 
-                                 ITextBookService aTextBookService, 
-                                 IClubService aClubService, 
-                                 IGeneralPostingService aGeneralPostingService, 
-                                 INotificationService aNotificationService,
-                                 IUserStatusService aUserStatusRepo,
-                                 IFlirtingService aFlirtingService,
+        public UniversityService(ITextBookService aTextBookService, 
+                                 IMarketplaceService aMarketplaceService,
                                  IUniversityRepository aUniversityRepository) {
-            theProfessorService = aProfessorService;
-            theClassService = aClassService;
-            theEventService = anEventService;
             theTextBookService = aTextBookService;
-            theClubService = aClubService;
-            theGeneralPostingService = aGeneralPostingService;
-            theNotificationService = aNotificationService;
+            theMarketplaceService = aMarketplaceService;
             theUniversityRepository = aUniversityRepository;
-            theFlirtingService = aFlirtingService;
-            theUserStatusService = aUserStatusRepo;
         }
 
         public void AddUserToUniversity(User aUser) {
@@ -96,35 +60,13 @@ namespace UniversityOfMe.Services {
 
         public UniversityView GetUniversityProfile(UserInformationModel<User> aUserInformation, string aUniversityId) {
             University myUniversity = theUniversityRepository.GetUniversity(aUniversityId);
-            IEnumerable<Professor> myProfessors = theProfessorService.GetProfessorsForUniversity(aUniversityId);
-            IEnumerable<Class> myClasses = theClassService.GetClassesStudentIsEnrolledIn(aUserInformation, aUniversityId);
-            IEnumerable<Event> myEvents = theEventService.GetEventsForUniversity(aUserInformation.Details, aUniversityId);
             IEnumerable<TextBook> myTextBooks = theTextBookService.GetTextBooksForUniversity(aUniversityId);
-            IEnumerable<Club> myOrganizations = theClubService.GetClubs(aUserInformation, aUniversityId);
-            IEnumerable<GeneralPosting> myGeneralPostings = theGeneralPostingService.GetGeneralPostingsForUniversity(aUniversityId);
-            IEnumerable<UserStatus> myUserStatuses = theUserStatusService.GetLatestUserStatusesWithinUniversity(aUserInformation, aUniversityId, 5);
-            IEnumerable<AnonymousFlirt> myAnonymousFlirt = theFlirtingService.GetFlirtsWithinUniversity(aUniversityId, 5);
-            UserStatus myUserStatus = theUserStatusService.GetLatestUserStatusForUser(aUserInformation);
-
-            myClasses = myClasses.OrderByDescending(c => 
-                                                    c.ClassBoards.Count > 0
-                                                        ? c.ClassBoards.OrderByDescending(
-                                                            cb => cb.ClassBoardReplies.Count > 0
-                                                                ? cb.ClassBoardReplies.OrderByDescending(cbr => cbr.DateTimeStamp).FirstOrDefault<ClassBoardReply>().DateTimeStamp
-                                                                : cb.DateTimeStamp).FirstOrDefault<ClassBoard>().DateTimeStamp
-                                                        : new DateTime(1987, 05, 03));
+            IEnumerable<MarketplaceItem> myMarketplaceItems = theMarketplaceService.GetAllLatestItemsSellingInUniversity(aUniversityId);
 
             return new UniversityView() {
                 University = myUniversity,
-                Professors = myProfessors,
-                Classes = myClasses,
-                Events = myEvents,
                 TextBooks = myTextBooks,
-                Organizations = myOrganizations,
-                GeneralPostings = myGeneralPostings,
-                UserStatuses = myUserStatuses,
-                CurrentStatus = myUserStatus,
-                AnonymousFlirts = myAnonymousFlirt
+                MarketplaceItems = myMarketplaceItems
             };
         }
 

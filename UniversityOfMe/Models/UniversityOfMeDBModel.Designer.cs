@@ -107,17 +107,19 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_AnonymousFlirts_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "AnonymousFlirt", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.AnonymousFlirt), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_UserStatuses_Universities", "University", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.University), "UserStatus", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserStatus), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Statuses_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "UserStatus", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.UserStatus), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassProfessors_Professors", "Professor", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Professor), "ClassProfessor", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassProfessor), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_TextBooks_TextBookConditions", "TextBookCondition", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.TextBookCondition), "TextBook", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.TextBook), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_TextBooks_Universities", "University", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.University), "TextBook", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.TextBook), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_TextBooks_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "TextBook", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.TextBook), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ItemsSelling_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "MarketplaceItem", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.MarketplaceItem), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ItemsSelling_ItemType", "ItemType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.ItemType), "MarketplaceItem", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.MarketplaceItem), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Classes_AcademicTerm", "AcademicTerm", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.AcademicTerm), "Class", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Class), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassBoards_Classes", "Class", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Class), "ClassBoard", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassBoard), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassEnrollments_Classes", "Class", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Class), "ClassEnrollment", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassEnrollment), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Classes_Universities", "University", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.University), "Class", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Class), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Classes_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "Class", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Class), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassReviews_Classes", "Class", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Class), "ClassReview", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassReview), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassProfessors_Classes", "Class", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Class), "ClassProfessor", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassProfessor), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassProfessors_Professors", "Professor", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Professor), "ClassProfessor", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassProfessor), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_TextBooks_TextBookConditions", "TextBookCondition", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.TextBookCondition), "TextBook", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.TextBook), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_TextBooks_Universities", "University", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.University), "TextBook", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.TextBook), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_TextBooks_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "TextBook", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.TextBook), true)]
+[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassReviews_Classes", "Class", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Class), "ClassReview", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassReview), true)]
 
 #endregion
 
@@ -1052,22 +1054,6 @@ namespace UniversityOfMe.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<Class> Classes
-        {
-            get
-            {
-                if ((_Classes == null))
-                {
-                    _Classes = base.CreateObjectSet<Class>("Classes");
-                }
-                return _Classes;
-            }
-        }
-        private ObjectSet<Class> _Classes;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<ClassProfessor> ClassProfessors
         {
             get
@@ -1096,6 +1082,54 @@ namespace UniversityOfMe.Models
             }
         }
         private ObjectSet<TextBook> _TextBooks;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<MarketplaceItem> MarketplaceItems
+        {
+            get
+            {
+                if ((_MarketplaceItems == null))
+                {
+                    _MarketplaceItems = base.CreateObjectSet<MarketplaceItem>("MarketplaceItems");
+                }
+                return _MarketplaceItems;
+            }
+        }
+        private ObjectSet<MarketplaceItem> _MarketplaceItems;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ItemType> ItemTypes
+        {
+            get
+            {
+                if ((_ItemTypes == null))
+                {
+                    _ItemTypes = base.CreateObjectSet<ItemType>("ItemTypes");
+                }
+                return _ItemTypes;
+            }
+        }
+        private ObjectSet<ItemType> _ItemTypes;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Class> Classes
+        {
+            get
+            {
+                if ((_Classes == null))
+                {
+                    _Classes = base.CreateObjectSet<Class>("Classes");
+                }
+                return _Classes;
+            }
+        }
+        private ObjectSet<Class> _Classes;
 
         #endregion
         #region AddTo Methods
@@ -1541,14 +1575,6 @@ namespace UniversityOfMe.Models
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the Classes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToClasses(Class @class)
-        {
-            base.AddObject("Classes", @class);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the ClassProfessors EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToClassProfessors(ClassProfessor classProfessor)
@@ -1562,6 +1588,30 @@ namespace UniversityOfMe.Models
         public void AddToTextBooks(TextBook textBook)
         {
             base.AddObject("TextBooks", textBook);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the MarketplaceItems EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToMarketplaceItems(MarketplaceItem marketplaceItem)
+        {
+            base.AddObject("MarketplaceItems", marketplaceItem);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ItemTypes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToItemTypes(ItemType itemType)
+        {
+            base.AddObject("ItemTypes", itemType);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Classes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToClasses(Class @class)
+        {
+            base.AddObject("Classes", @class);
         }
 
         #endregion
@@ -4355,28 +4405,6 @@ namespace UniversityOfMe.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClassReviews_Classes", "ClassReview")]
-        public EntityCollection<ClassReview> ClassReviews
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ClassReview>("UniversityOfMeModel.FK_ClassReviews_Classes", "ClassReview");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClassReview>("UniversityOfMeModel.FK_ClassReviews_Classes", "ClassReview", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClassProfessors_Classes", "ClassProfessor")]
         public EntityCollection<ClassProfessor> ClassProfessors
         {
@@ -4389,6 +4417,28 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClassProfessor>("UniversityOfMeModel.FK_ClassProfessors_Classes", "ClassProfessor", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClassReviews_Classes", "ClassReview")]
+        public EntityCollection<ClassReview> ClassReviews
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ClassReview>("UniversityOfMeModel.FK_ClassReviews_Classes", "ClassReview");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClassReview>("UniversityOfMeModel.FK_ClassReviews_Classes", "ClassReview", value);
                 }
             }
         }
@@ -5837,44 +5887,6 @@ namespace UniversityOfMe.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClassProfessors_Classes", "Class")]
-        public Class Class
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Class>("UniversityOfMeModel.FK_ClassProfessors_Classes", "Class").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Class>("UniversityOfMeModel.FK_ClassProfessors_Classes", "Class").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Class> ClassReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Class>("UniversityOfMeModel.FK_ClassProfessors_Classes", "Class");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Class>("UniversityOfMeModel.FK_ClassProfessors_Classes", "Class", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClassProfessors_Professors", "Professor")]
         public Professor Professor
         {
@@ -5903,6 +5915,44 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Professor>("UniversityOfMeModel.FK_ClassProfessors_Professors", "Professor", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ClassProfessors_Classes", "Class")]
+        public Class Class
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Class>("UniversityOfMeModel.FK_ClassProfessors_Classes", "Class").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Class>("UniversityOfMeModel.FK_ClassProfessors_Classes", "Class").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Class> ClassReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Class>("UniversityOfMeModel.FK_ClassProfessors_Classes", "Class");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Class>("UniversityOfMeModel.FK_ClassProfessors_Classes", "Class", value);
                 }
             }
         }
@@ -11051,6 +11101,530 @@ namespace UniversityOfMe.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="ItemType")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ItemType : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new ItemType object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="displayName">Initial value of the DisplayName property.</param>
+        public static ItemType CreateItemType(global::System.String id, global::System.String displayName)
+        {
+            ItemType itemType = new ItemType();
+            itemType.Id = id;
+            itemType.DisplayName = displayName;
+            return itemType;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.String _Id;
+        partial void OnIdChanging(global::System.String value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String DisplayName
+        {
+            get
+            {
+                return _DisplayName;
+            }
+            set
+            {
+                OnDisplayNameChanging(value);
+                ReportPropertyChanging("DisplayName");
+                _DisplayName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("DisplayName");
+                OnDisplayNameChanged();
+            }
+        }
+        private global::System.String _DisplayName;
+        partial void OnDisplayNameChanging(global::System.String value);
+        partial void OnDisplayNameChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ItemsSelling_ItemType", "MarketplaceItem")]
+        public EntityCollection<MarketplaceItem> MarketplaceItems
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<MarketplaceItem>("UniversityOfMeModel.FK_ItemsSelling_ItemType", "MarketplaceItem");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<MarketplaceItem>("UniversityOfMeModel.FK_ItemsSelling_ItemType", "MarketplaceItem", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="MarketplaceItem")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class MarketplaceItem : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new MarketplaceItem object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="universityId">Initial value of the UniversityId property.</param>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="itemTypeId">Initial value of the ItemTypeId property.</param>
+        /// <param name="title">Initial value of the Title property.</param>
+        /// <param name="description">Initial value of the Description property.</param>
+        /// <param name="price">Initial value of the Price property.</param>
+        /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
+        /// <param name="expireListing">Initial value of the ExpireListing property.</param>
+        /// <param name="sold">Initial value of the Sold property.</param>
+        /// <param name="deleted">Initial value of the Deleted property.</param>
+        public static MarketplaceItem CreateMarketplaceItem(global::System.Int32 id, global::System.String universityId, global::System.Int32 userId, global::System.String itemTypeId, global::System.String title, global::System.String description, global::System.Double price, global::System.DateTime dateTimeStamp, global::System.DateTime expireListing, global::System.Boolean sold, global::System.Boolean deleted)
+        {
+            MarketplaceItem marketplaceItem = new MarketplaceItem();
+            marketplaceItem.Id = id;
+            marketplaceItem.UniversityId = universityId;
+            marketplaceItem.UserId = userId;
+            marketplaceItem.ItemTypeId = itemTypeId;
+            marketplaceItem.Title = title;
+            marketplaceItem.Description = description;
+            marketplaceItem.Price = price;
+            marketplaceItem.DateTimeStamp = dateTimeStamp;
+            marketplaceItem.ExpireListing = expireListing;
+            marketplaceItem.Sold = sold;
+            marketplaceItem.Deleted = deleted;
+            return marketplaceItem;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String UniversityId
+        {
+            get
+            {
+                return _UniversityId;
+            }
+            set
+            {
+                OnUniversityIdChanging(value);
+                ReportPropertyChanging("UniversityId");
+                _UniversityId = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("UniversityId");
+                OnUniversityIdChanged();
+            }
+        }
+        private global::System.String _UniversityId;
+        partial void OnUniversityIdChanging(global::System.String value);
+        partial void OnUniversityIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
+            }
+        }
+        private global::System.Int32 _UserId;
+        partial void OnUserIdChanging(global::System.Int32 value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ItemTypeId
+        {
+            get
+            {
+                return _ItemTypeId;
+            }
+            set
+            {
+                OnItemTypeIdChanging(value);
+                ReportPropertyChanging("ItemTypeId");
+                _ItemTypeId = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ItemTypeId");
+                OnItemTypeIdChanged();
+            }
+        }
+        private global::System.String _ItemTypeId;
+        partial void OnItemTypeIdChanging(global::System.String value);
+        partial void OnItemTypeIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Title
+        {
+            get
+            {
+                return _Title;
+            }
+            set
+            {
+                OnTitleChanging(value);
+                ReportPropertyChanging("Title");
+                _Title = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Title");
+                OnTitleChanged();
+            }
+        }
+        private global::System.String _Title;
+        partial void OnTitleChanging(global::System.String value);
+        partial void OnTitleChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Description
+        {
+            get
+            {
+                return _Description;
+            }
+            set
+            {
+                OnDescriptionChanging(value);
+                ReportPropertyChanging("Description");
+                _Description = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Description");
+                OnDescriptionChanged();
+            }
+        }
+        private global::System.String _Description;
+        partial void OnDescriptionChanging(global::System.String value);
+        partial void OnDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Double Price
+        {
+            get
+            {
+                return _Price;
+            }
+            set
+            {
+                OnPriceChanging(value);
+                ReportPropertyChanging("Price");
+                _Price = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Price");
+                OnPriceChanged();
+            }
+        }
+        private global::System.Double _Price;
+        partial void OnPriceChanging(global::System.Double value);
+        partial void OnPriceChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ImageName
+        {
+            get
+            {
+                return _ImageName;
+            }
+            set
+            {
+                OnImageNameChanging(value);
+                ReportPropertyChanging("ImageName");
+                _ImageName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ImageName");
+                OnImageNameChanged();
+            }
+        }
+        private global::System.String _ImageName;
+        partial void OnImageNameChanging(global::System.String value);
+        partial void OnImageNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime DateTimeStamp
+        {
+            get
+            {
+                return _DateTimeStamp;
+            }
+            set
+            {
+                OnDateTimeStampChanging(value);
+                ReportPropertyChanging("DateTimeStamp");
+                _DateTimeStamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateTimeStamp");
+                OnDateTimeStampChanged();
+            }
+        }
+        private global::System.DateTime _DateTimeStamp;
+        partial void OnDateTimeStampChanging(global::System.DateTime value);
+        partial void OnDateTimeStampChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime ExpireListing
+        {
+            get
+            {
+                return _ExpireListing;
+            }
+            set
+            {
+                OnExpireListingChanging(value);
+                ReportPropertyChanging("ExpireListing");
+                _ExpireListing = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ExpireListing");
+                OnExpireListingChanged();
+            }
+        }
+        private global::System.DateTime _ExpireListing;
+        partial void OnExpireListingChanging(global::System.DateTime value);
+        partial void OnExpireListingChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Sold
+        {
+            get
+            {
+                return _Sold;
+            }
+            set
+            {
+                OnSoldChanging(value);
+                ReportPropertyChanging("Sold");
+                _Sold = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Sold");
+                OnSoldChanged();
+            }
+        }
+        private global::System.Boolean _Sold;
+        partial void OnSoldChanging(global::System.Boolean value);
+        partial void OnSoldChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Deleted
+        {
+            get
+            {
+                return _Deleted;
+            }
+            set
+            {
+                OnDeletedChanging(value);
+                ReportPropertyChanging("Deleted");
+                _Deleted = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Deleted");
+                OnDeletedChanged();
+            }
+        }
+        private global::System.Boolean _Deleted;
+        partial void OnDeletedChanging(global::System.Boolean value);
+        partial void OnDeletedChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ItemsSelling_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_ItemsSelling_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_ItemsSelling_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UniversityOfMeModel.FK_ItemsSelling_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UniversityOfMeModel.FK_ItemsSelling_Users", "User", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ItemsSelling_ItemType", "ItemType")]
+        public ItemType ItemType
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ItemType>("UniversityOfMeModel.FK_ItemsSelling_ItemType", "ItemType").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ItemType>("UniversityOfMeModel.FK_ItemsSelling_ItemType", "ItemType").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<ItemType> ItemTypeReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ItemType>("UniversityOfMeModel.FK_ItemsSelling_ItemType", "ItemType");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ItemType>("UniversityOfMeModel.FK_ItemsSelling_ItemType", "ItemType", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="UniversityOfMeModel", Name="Message")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -15717,28 +16291,6 @@ namespace UniversityOfMe.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Classes_Universities", "Class")]
-        public EntityCollection<Class> Classes
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Class>("UniversityOfMeModel.FK_Classes_Universities", "Class");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Class>("UniversityOfMeModel.FK_Classes_Universities", "Class", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_TextBooks_Universities", "TextBook")]
         public EntityCollection<TextBook> TextBooks
         {
@@ -15751,6 +16303,28 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TextBook>("UniversityOfMeModel.FK_TextBooks_Universities", "TextBook", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Classes_Universities", "Class")]
+        public EntityCollection<Class> Classes
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Class>("UniversityOfMeModel.FK_Classes_Universities", "Class");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Class>("UniversityOfMeModel.FK_Classes_Universities", "Class", value);
                 }
             }
         }
@@ -17807,28 +18381,6 @@ namespace UniversityOfMe.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Classes_Users", "Class")]
-        public EntityCollection<Class> Classes
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Class>("UniversityOfMeModel.FK_Classes_Users", "Class");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Class>("UniversityOfMeModel.FK_Classes_Users", "Class", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_TextBooks_Users", "TextBook")]
         public EntityCollection<TextBook> TextBooks
         {
@@ -17841,6 +18393,50 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TextBook>("UniversityOfMeModel.FK_TextBooks_Users", "TextBook", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_ItemsSelling_Users", "MarketplaceItem")]
+        public EntityCollection<MarketplaceItem> MarketplaceItems
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<MarketplaceItem>("UniversityOfMeModel.FK_ItemsSelling_Users", "MarketplaceItem");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<MarketplaceItem>("UniversityOfMeModel.FK_ItemsSelling_Users", "MarketplaceItem", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Classes_Users", "Class")]
+        public EntityCollection<Class> Classes
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Class>("UniversityOfMeModel.FK_Classes_Users", "Class");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Class>("UniversityOfMeModel.FK_Classes_Users", "Class", value);
                 }
             }
         }

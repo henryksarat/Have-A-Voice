@@ -10,6 +10,7 @@ namespace UniversityOfMe.Services.TextBooks {
         IDictionary<string, string> CreateTextBookConditionsDictionaryEntry();
         void DeleteTextBook(UserInformationModel<User> aDeletingUser, int aTextBookId);
         bool EditTextBook(UserInformationModel<User> aUserInfo, TextBookViewModel aTextBookViewModel);
+        TextBook GetNewestTextBook();
         TextBook GetTextBook(int aTextBookId);
         TextBook GetTextBookForEdit(UserInformationModel<User> aUser, int aTextBookId);
         IEnumerable<TextBook> GetTextBooksForUniversity(string aUniversityId);

@@ -237,8 +237,12 @@ div.search div.select a.professor, div.search div.select a.professor:link, div.s
 div.search div.select a.case, div.search div.select a.case:link, div.search div.select a.case:visited { display: inline-block; text-indent: -9999px; background:url(images/case.png) no-repeat center center; width: 24px; height: 20px; }
 div.search div.select a.cal, div.search div.select a.cal:link, div.search div.select a.cal:visited { display: inline-block; text-indent: -9999px; background:url(images/event.png) no-repeat center center; width: 24px; height: 20px; }
 div.search div.select a.text, div.search div.select a.text:link, div.search div.select a.text:visited { display: inline-block; text-indent: -9999px; background:url(images/book.png) no-repeat center center; width: 24px; height: 20px; }
+div.search div.select a.cart, div.search div.select a.cart:link, div.search div.select a.cart:visited { display: inline-block; text-indent: -9999px; background:url(images/cart.png) no-repeat center center; width: 24px; height: 20px; }
 div.search div.select a.paper, div.search div.select a.paper:link, div.search div.select a.paper:link { display: inline-block; text-indent: -9999px; background:url(images/paper.png) no-repeat center center; width: 24px; height: 20px; }
 div.search div.select a.org, div.search div.select a.org:link, div.search div.select a.org:visited { display: inline-block; text-indent: -9999px; background:url(images/organization.png) no-repeat center center; width: 24px; height: 20px; }
+div.search div.select a.apartment, div.search div.select a.apartment:link, div.search div.select a.apartment:visited { display: inline-block; text-indent: -9999px; background:url(images/house.png) no-repeat center center; width: 24px; height: 20px; }
+div.search div.select a.videogame, div.search div.select a.videogame:link, div.search div.select a.videogame:visited { display: inline-block; text-indent: -9999px; background:url(images/videogame.png) no-repeat center center; width: 24px; height: 20px; }
+div.search div.select a.groupon, div.search div.select a.groupon:link, div.search div.select a.groupon:visited { display: inline-block; text-indent: -9999px; background:url(images/groupon.png) no-repeat center center; width: 24px; height: 20px; }
 
 /*** TABS ***/
 div.tabs { border-bottom: 4px solid #3e7c97; }
@@ -340,6 +344,7 @@ span.prof { padding: 2px 0px 2px 28px; background:url(images/person.png) no-repe
 span.post { padding: 2px 0px 2px 28px; background:url(images/paper.png) no-repeat center left; text-transform: uppercase; }
 span.post span.user { color: #bcbcbc; text-transform: none; font-size: 11px; }
 span.book { padding: 2px 0px 2px 28px; background:url(images/book.png) no-repeat center left; text-transform: uppercase; }
+span.cart { padding: 2px 0px 2px 28px; background:url(images/cart.png) no-repeat center left; text-transform: uppercase; }
 
 span.reply { padding-left: 25px; background:url(images/reply.png) no-repeat center left; font-size: 14px; display: block; margin-bottom: 7px; font-size: 14px; color: #6f6f6f; }
 
@@ -422,6 +427,7 @@ div.prof-info ul li span.sell { color: #ff8c00; }
 .form ul.full li span.class { background:url(images/case.png) no-repeat left center; }
 .form ul.full li span.event { background:url(images/event.png) no-repeat left center; }
 .form ul.full li span.book { background:url(images/book.png) no-repeat left center; }
+.form ul.full li span.cart { background:url(images/cart.png) no-repeat left center; }
 .form ul.full li span.organization { background:url(images/organization.png) no-repeat left center; }
 .form ul.full li span.general { background:url(images/paper.png) no-repeat left center; }
 .form ul.full li span.flirt { background:url(images/flirt.png) no-repeat left center; }
@@ -442,6 +448,7 @@ div.twoCol span.class { background:url(images/case.png) no-repeat left center; }
 div.twoCol span.event { background:url(images/event.png) no-repeat left center; }
 div.twoCol span.flirt { background:url(images/flirt.png) no-repeat left center; }
 div.twoCol span.book { background:url(images/book.png) no-repeat left center; }
+div.twoCol span.cart { background:url(images/cart.png) no-repeat left center; }
 div.twoCol span.organization { background:url(images/organization.png) no-repeat left center; }
 div.twoCol span.general { background:url(images/paper.png) no-repeat left center; }
 
@@ -488,6 +495,10 @@ ul.filter li a.class { background:url(images/case.png) no-repeat center left; }
 ul.filter li a.event { background:url(images/event.png) no-repeat center left; }
 ul.filter li a.flirt { background:url(images/flirt.png) no-repeat center left; }
 ul.filter li a.book { background:url(images/book.png) no-repeat center left; }
+ul.filter li a.cart { background:url(images/cart.png) no-repeat center left; }
+ul.filter li a.apartment { background:url(images/house.png) no-repeat center left; }
+ul.filter li a.videogame { background:url(images/videogame.png) no-repeat center left; }
+ul.filter li a.groupon { background:url(images/groupon.png) no-repeat center left; }
 ul.filter li a.org { background:url(images/organization.png) no-repeat center left; }
 ul.filter li a.post { background:url(images/paper.png) no-repeat center left; }
 
@@ -514,6 +525,9 @@ div.search.result .res .res-con.post { background:url(images/paper.png) no-repea
 div.search.result .res .res-con.person { background:url(images/person.png) no-repeat top left; }
 div.search.result .res .res-con.professor { background:url(images/person.png) no-repeat top left; }
 div.search.result .res .res-con.textbook { background:url(images/book.png) no-repeat top left; }
+div.search.result .res .res-con.cart { background:url(images/cart.png) no-repeat top left; }
+div.search.result .res .res-con.apartment { background:url(images/house.png) no-repeat top left; }
+div.search.result .res .res-con.videogame { background:url(images/videogame.png) no-repeat top left; }
 
 
 /*** MAIL ***/
@@ -783,3 +797,8 @@ a.main-page-blog-read-more:hover { text-decoration: underline; }
 .inner-blog { margin-bottom: 10px; margin-top: -10px }
 .outer-blog { font-size: 12px; margin-top: 10px }
 .blog-read-more { font-size: 12px; margin-top: 10px }
+
+.videogame-icon { background:url(images/videogame.png) no-repeat center center; width: 30px; height: 30px; }
+.textbook-icon { background:url(images/book.png) no-repeat center center; width: 30px; height: 30px; }
+.apartment-icon { background:url(images/house.png) no-repeat center center; width: 30px; height: 30px; }
+.groupon-icon { background:url(images/groupon.png) no-repeat center center; width: 30px; height: 30px; }

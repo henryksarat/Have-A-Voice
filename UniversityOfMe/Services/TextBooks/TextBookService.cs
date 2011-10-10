@@ -243,5 +243,10 @@ namespace UniversityOfMe.Services.TextBooks {
                 throw new CustomException("Error while updating the textbook to the new textbook photo.", myException);
             }
         }
+
+
+        public TextBook GetNewestTextBook() {
+            return theTextBookRepo.GetNewestTextBook();
+        }
     }
 }

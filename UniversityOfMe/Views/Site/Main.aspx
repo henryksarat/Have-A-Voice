@@ -1,9 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<UniversityOfMe.Models.View.CreateUserModel>" %>
 <%@ Import Namespace="UniversityOfMe.Helpers.Search" %>
 <%@ Import Namespace="UniversityOfMe.Helpers" %>
+<%@ Import Namespace="UniversityOfMe.Helpers.Format" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	College Only Social Networking, Class Help, Professor Reviews, Dating
+	University Only Marketplace, Buy Sell Textbooks, No Fees, No Shipping
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="MetaDescriptionHolder" runat="server">
@@ -18,32 +19,47 @@
     <div class="six"> 
 	    <div class="banner red bold"> 
             <div class="seo">
-                <h1>College only social networking - class help, professor reviews, buy and sell textbooks, dating, flirting</h1>
+                <h1>Free Social Marketplace only for University Students</h1>
             </div>
 		    <span class="special-corner"></span> 
 	    </div> 
 					
 	    <div class="clearfix"></div> 
-					
 	    <p class="pt20"> 
-	    Welcome to the beta of University Of Me. The beta will only be open to a small batch of University of Chicago students, it's first come first serve.
-        However, we will be increasing the threshold periodically.
-        <br /><br /> 
-
-        University of Me is social networking only for
-        <a class="itemlinked" href="/Search/<%= SearchFilter.User.ToString() %>?page=1">university students</a>, which means no spam bots and no parents.
-        UofMe brings the university life full circle with
-        <a class="itemlinked" href="/Search/<%= SearchFilter.Class.ToString() %>?page=1">class discussions</a> (no more listservs!), 
-        <a class="itemlinked" href="/Search/<%= SearchFilter.Class.ToString() %>?page=1">class reviews</a>, 
-        <a class="itemlinked" href="/Search/<%= SearchFilter.Professor.ToString() %>?page=1">professor reviews</a>, photo sharing, 
-        campus dating, 
-        <a class="itemlinked" href="/UChicago/Flirt/List">anonymous flirting</a>,
-        <a class="itemlinked" href="/Search/<%= SearchFilter.Textbook.ToString() %>?page=1">on-campus textbook bartering</a>, 
-        <a class="itemlinked" href="/Search/<%= SearchFilter.Event.ToString() %>?page=1">university wide events</a>, 
-        <a class="itemlinked" href="/Search/<%= SearchFilter.Organization.ToString() %>?page=1">club interaction</a>,
-        and more! 
-        This website will be built with the students in mind, so if you have an idea for a new feature let us know!
+	    Benefits of using University of Me:
+        <br />
+        -Sell anything in your dorm or apartment.<br />
+        -No listing fees or shipping, all items are sold on campus!<br />
+        -Tag a <a class="itemlinked" href="/Search/<%= SearchFilter.TEXTBOOK.ToString() %>?page=1">textbook</a> to a real <a class="itemlinked" href="/Search/<%= SearchFilter.CLASS.ToString() %>?page=1">class</a> within your school. <br />
+        -Easily search for <a class="itemlinked" href="/Search/<%= SearchFilter.TEXTBOOK.ToString() %>?page=1">textbooks</a> tagged to a class.<br />
+        -<a class="itemlinked" href="/Search/<%= SearchFilter.ALL.ToString() %>?page=1">Easily find items other students in your university are selling.</a><br />
+        -Know that you are safe when using University of Me because a <span style="font-style:italic">university email is required</span>.<br />
+        -See what items your friends are selling.<br />
+        -Your email is never publicly posted so you are free from spambots.
+        
         <br /><br />
+        <div style="vertical-align:top">
+            <% if(Model.NewestItem != null) { %>
+                <div style="width:250px; display: inline-block; vertical-align:top">
+                    <span class="<%= Model.NewestItem.ItemTypeId.ToLower() %>-icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span style="font-weight:bold">Latest item</span><br />
+                    <%= Model.NewestItem.Title %> @ <span style="font-style:italic"><%= Model.NewestItem.UniversityId %></span> for <%= MoneyFormatHelper.Format(Model.NewestItem.Price) %><br />
+                    <img style="width:100px; height:100px" src="<%= PhotoHelper.ItemSellingPhoto(Model.NewestItem.ImageName) %>" /><br />
+                    <%= string.IsNullOrEmpty(Model.NewestItem.Description) ? string.Empty : Model.NewestItem.Description %>
+                </div>
+            <% } %>
+
+            <% if(Model.NewestTextbook != null) { %>
+                <div style="width:250px; display: inline-block;vertical-align:top">
+                    <span class="textbook-icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-weight:bold">Latest textbook</span><br />
+                    <%= Model.NewestTextbook.BookTitle %> @ <span style="font-style:italic"><%= Model.NewestTextbook.UniversityId %></span> for <%= MoneyFormatHelper.Format(Model.NewestTextbook.Price) %><br />
+                    <%= string.IsNullOrEmpty(Model.NewestTextbook.ClassSubject) ? string.Empty : "Used in: " + Model.NewestTextbook.ClassSubject + Model.NewestTextbook.ClassCourse + "<br />" %>
+                    <img style="width:100px; height:100px" src="<%= PhotoHelper.TextBookPhoto(Model.NewestTextbook.BookPicture) %>" /><br />
+                    <%= string.IsNullOrEmpty(Model.NewestTextbook.Details) ? string.Empty : Model.NewestTextbook.Details%>
+                </div>
+            <% } %>
+        </div>
+        <br />
         <script src="http://widgets.twimg.com/j/2/widget.js"></script>
         <script>
             new TWTR.Widget({

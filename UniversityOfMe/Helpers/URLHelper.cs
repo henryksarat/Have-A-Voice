@@ -166,12 +166,24 @@ namespace UniversityOfMe.Helpers {
             return "/Search/Class?searchString=&page=1";
         }
 
+        public static string SearchTextbooks() {
+            return "/Search/TextbookAdvanced?searchString=&page=1&searchBy=ClassCode&orderBy=LowestPrice";
+        }
+
         public static string SearchTextbooks(string aClassSubject, string aClassCourse) {
             return "/Search/TextbookAdvanced?searchString=" + aClassSubject + aClassCourse + "&page=1&searchBy=ClassCode&orderBy=LowestPrice";
         }
 
+        public static string SearchMarketplace(ItemType anItemType) {
+            return "/Search/Marketplace?page=1&itemType=" + anItemType.Id + "";
+        }
+
         public static string CreateTextBook(string aUnviersityId, string aClassSubject, string aClassCourse) {
             return "/" + aUnviersityId + "/Textbook/Create?classSubject=" + aClassSubject + "&classCourse=" + aClassCourse;
+        }
+
+        public static string ItemDetails(MarketplaceItem anItem) {
+            return "/MarketplaceItem/Details/" + anItem.Id;
         }
     }
 }

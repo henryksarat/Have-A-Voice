@@ -12,6 +12,7 @@ namespace UniversityOfMe.Repositories.Textbooks {
         TextBook GetTextBook(int aTextBookId);
         IEnumerable<TextBook> GetTextBooksForUniversity(string aUniversityId);
         IEnumerable<TextBookCondition> GetTextBookConditions();
+        TextBook GetNewestTextBook();
         void MarkTextBookAsNonActive(int aTextBookId);
         void UpdateTextBook(TextBook aTextBook);
     }

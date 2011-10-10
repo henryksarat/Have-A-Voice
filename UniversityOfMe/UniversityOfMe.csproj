@@ -84,6 +84,7 @@
     <Compile Include="Controllers\Classes\ClassBoardReplyController.cs" />
     <Compile Include="Controllers\Core\PasswordController.cs" />
     <Compile Include="Controllers\Dating\FlirtController.cs" />
+    <Compile Include="Controllers\Marketplace\MarketplaceController.cs" />
     <Compile Include="Controllers\Search\SearchController.cs" />
     <Compile Include="Controllers\Site\FeatureController.cs" />
     <Compile Include="Controllers\Notification\NotificationController.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="Helpers\ClassViewType.cs" />
     <Compile Include="Helpers\Configuration\SiteConfiguration.cs" />
     <Compile Include="Helpers\Constants\ClubConstants.cs" />
+    <Compile Include="Helpers\Constants\MarketplaceConstants.cs" />
     <Compile Include="Helpers\Constants\PhotoConstants.cs" />
     <Compile Include="Helpers\Constants\ProfessorConstants.cs" />
     <Compile Include="Helpers\Constants\SearchConstants.cs" />
@@ -215,9 +217,11 @@
     </Compile>
     <Compile Include="Models\View\ClassDetailsModel.cs" />
     <Compile Include="Models\View\ClubAdminFeed.cs" />
+    <Compile Include="Models\View\ItemViewModel.cs" />
     <Compile Include="Models\View\FlirtModel.cs" />
     <Compile Include="Models\View\ProfileModel.cs" />
     <Compile Include="Models\View\Search\ClassSearchResult.cs" />
+    <Compile Include="Models\View\Search\ItemSearchResult.cs" />
     <Compile Include="Models\View\Search\OrganizationSearchResult.cs" />
     <Compile Include="Models\View\Search\SearchResultsModel.cs" />
     <Compile Include="Models\View\Search\TextBookSearchResult.cs" />
@@ -257,6 +261,8 @@
     <Compile Include="Repositories\Clubs\IClubRepository.cs" />
     <Compile Include="Repositories\Dating\FlirtingRepository.cs" />
     <Compile Include="Repositories\Dating\IFlirtingRepository.cs" />
+    <Compile Include="Repositories\Marketplace\EntityMarketplaceRepository.cs" />
+    <Compile Include="Repositories\Marketplace\IMarketplaceRepository.cs" />
     <Compile Include="Repositories\Password\EntityPasswordRepository.cs" />
     <Compile Include="Repositories\Scraper\EntityScraperRepository.cs" />
     <Compile Include="Repositories\Scraper\IScraperRepository.cs" />
@@ -318,6 +324,8 @@
     <Compile Include="Services\GeneralPostings\GeneralPostingService.cs" />
     <Compile Include="Services\GeneralPostings\IGeneralPostingService.cs" />
     <Compile Include="Services\IUniversityService.cs" />
+    <Compile Include="Services\Marketplace\IMarketplaceService.cs" />
+    <Compile Include="Services\Marketplace\MarketplaceService.cs" />
     <Compile Include="Services\Notifications\INotificationService.cs" />
     <Compile Include="Services\Notifications\NotificationService.cs" />
     <Compile Include="Services\Photos\IPhotoCommentService.cs" />
@@ -506,6 +514,9 @@
     <Content Include="Views\Club\Edit.aspx" />
     <Content Include="Views\Club\Create.aspx" />
     <Content Include="Views\Club\Details.aspx" />
+    <Content Include="Views\Marketplace\Create.aspx" />
+    <Content Include="Views\Marketplace\Details.aspx" />
+    <Content Include="Views\Marketplace\Edit.aspx" />
     <Content Include="Views\Event\Create.aspx" />
     <Content Include="Views\Event\Details.aspx" />
     <Content Include="Views\Event\Edit.aspx" />
@@ -558,6 +569,7 @@
     <Content Include="Views\TextBook\Create.aspx" />
     <Content Include="Views\TextBook\Details.aspx" />
     <Content Include="Views\University\Classes.ascx" />
+    <Content Include="Views\University\OtherStuff.ascx" />
     <Content Include="Views\University\Flirts.ascx" />
     <Content Include="Views\University\UserStatuses.ascx" />
     <Content Include="Views\University\GeneralPostings.ascx" />

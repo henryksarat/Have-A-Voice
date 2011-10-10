@@ -60,5 +60,12 @@ namespace UniversityOfMe.Repositories.TextBooks {
             theEntities.ApplyCurrentValues(aTextBook.EntityKey.EntitySetName, aTextBook);
             theEntities.SaveChanges();
         }
+
+        public TextBook GetNewestTextBook() {
+            return (from t in theEntities.TextBooks
+                    where t.Active
+                    orderby t.DateTimeStamp
+                    select t).FirstOrDefault<TextBook>();
+        }
     }
 }

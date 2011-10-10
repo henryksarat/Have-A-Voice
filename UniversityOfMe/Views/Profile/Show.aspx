@@ -88,30 +88,24 @@
 			<div class="select"> 
 				<a href="#" class="search">Search</a> 
 				<ul class="options"> 
-					<li id="<%= SearchFilter.All %>" class="active-filter"> 
+					<li id="<%= SearchFilter.ALL %>" class="active-filter"> 
 						<a href="#" class="all">All</a> 
 					</li> 
-					<li id="<%= SearchFilter.User %>"> 
-						<a href="#" class="people"><%= SearchFilter.User.ToString() %></a> 
+					<li id="<%= SearchFilter.USER %>"> 
+						<a href="#" class="people"><%= SearchFilter.USER.ToString() %></a> 
 					</li> 
-					<li id="<%= SearchFilter.Professor %>"> 
-						<a href="#" class="professor"><%= SearchFilter.Professor.ToString() %></a> 
+					<li id="<%= SearchFilter.TEXTBOOK %>"> 
+						<a href="#" class="text"><%= SearchFilter.TEXTBOOK.ToString() %></a> 
 					</li> 
-					<li id="<%= SearchFilter.Class %>"> 
-						<a href="#" class="case"><%= SearchFilter.Class.ToString() %></a> 
-					</li> 
-					<li  id="<%= SearchFilter.Event %>"> 
-						<a href="#" class="cal"><%= SearchFilter.Event.ToString() %></a> 
-					</li> 
-					<li id="<%= SearchFilter.Textbook %>"> 
-						<a href="#" class="text"><%= SearchFilter.Textbook.ToString() %></a> 
-					</li> 
-					<li id="<%= SearchFilter.GeneralPosting %>"> 
-						<a href="#" class="paper"><%= SearchFilter.GeneralPosting.ToString() %></a> 
-					</li> 
-					<li id="<%= SearchFilter.Organization %>"> 
-						<a href="#" class="org"><%= SearchFilter.Organization.ToString() %></a> 
-					</li> 
+					<li id="<%= SearchFilter.APARTMENT %>"> 
+						<a href="#" class="apartment"><%= SearchFilter.APARTMENT.ToString()%></a> 
+                    </li>
+					<li id="<%= SearchFilter.VIDEOGAME %>"> 
+						<a href="#" class="videogame"><%= SearchFilter.VIDEOGAME.ToString()%></a> 
+                    </li>
+					<li id="<%= SearchFilter.GROUPON %>"> 
+						<a href="#" class="groupon"><%= SearchFilter.GROUPON.ToString()%></a> 
+                    </li>
 				</ul> 
 			</div>
 		</div> 
@@ -165,18 +159,6 @@
                         <% } %>
                     </div>
                 </div>
-
-                <% if (Model.LatestBadge != null) { %>
-                    <div style="width:100%;">
-                        <span class="left">
-                            <a class="feedlink" href="<%= URLHelper.BadgeListUrl(Model.User.Id) %>">Latest badge earned (View all):</a>
-                        </span>
-                        <div class="wp100 center">
-                            <img src="<%= URLHelper.BadgeUrl(Model.LatestBadge.Image) %>" /><br />
-                            <%= Model.LatestBadge.Description%>
-                        </div>
-                    </div>
-                <% } %>
             <% } %>
 			<div class="gray bold">Latest Activity:</div>
 			<ul> 

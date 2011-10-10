@@ -9,6 +9,7 @@
         Name,
         LowestPrice,
         HighestPrice,
-        ClosestStartDate
+        ClosestStartDate,
+        Newest
     }
 }

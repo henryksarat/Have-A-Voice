@@ -59,34 +59,6 @@ namespace UniversityOfMe.Controllers.Site {
             return View("Results", mySearchResults);
         }
 
-        public ActionResult Event(string searchString, int page) {
-            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
-            searchString = MassageSearchString(searchString);
-            SearchResultsModel mySearchResults = theSearchService.GetEventSearchResults(myUserInformation, searchString, page, SearchBy.Title, OrderBy.ClosestStartDate);
-            return View("Results", mySearchResults);
-        }
-
-        public ActionResult EventAdvanced(string searchString, int page, SearchBy searchBy, OrderBy orderBy) {
-            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
-            searchString = MassageSearchString(searchString);
-            SearchResultsModel mySearchResults = theSearchService.GetEventSearchResults(myUserInformation, searchString, page, searchBy, orderBy);
-            return View("Results", mySearchResults);
-        }
-
-        public ActionResult GeneralPosting(string searchString, int page) {
-            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
-            searchString = MassageSearchString(searchString);
-            SearchResultsModel mySearchResults = theSearchService.GetGeneralPostingSearchResults(myUserInformation, searchString, page, SearchBy.Title, OrderBy.LatestPost);
-            return View("Results", mySearchResults);
-        }
-
-        public ActionResult GeneralPostingAdvanced(string searchString, int page, SearchBy searchBy, OrderBy orderBy) {
-            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
-            searchString = MassageSearchString(searchString);
-            SearchResultsModel mySearchResults = theSearchService.GetGeneralPostingSearchResults(myUserInformation, searchString, page, searchBy, orderBy);
-            return View("Results", mySearchResults);
-        }
-
         public ActionResult User(string searchString, int page) {
             UserInformationModel<User> myUserInformation = GetUserInformatonModel();
             searchString = MassageSearchString(searchString);
@@ -101,34 +73,6 @@ namespace UniversityOfMe.Controllers.Site {
             return View("Results", mySearchResults);
         }
 
-        public ActionResult Organization(string searchString, int page) {
-            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
-            searchString = MassageSearchString(searchString);
-            SearchResultsModel mySearchResults = theSearchService.GetOrganizationSearchResults(myUserInformation, searchString, page, SearchBy.Name, OrderBy.Name);
-            return View("Results", mySearchResults);
-        }
-
-        public ActionResult OrganizationAdvanced(string searchString, int page, SearchBy searchBy, OrderBy orderBy) {
-            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
-            searchString = MassageSearchString(searchString);
-            SearchResultsModel mySearchResults = theSearchService.GetOrganizationSearchResults(myUserInformation, searchString, page, searchBy, orderBy);
-            return View("Results", mySearchResults);
-        }
-
-        public ActionResult Professor(string searchString, int page) {
-            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
-            searchString = MassageSearchString(searchString);
-            SearchResultsModel mySearchResults = theSearchService.GetProfessorSearchResults(myUserInformation, searchString, page, SearchBy.Name, OrderBy.Name);
-            return View("Results", mySearchResults);
-        }
-
-        public ActionResult ProfessorAdvanced(string searchString, int page, SearchBy searchBy, OrderBy orderBy) {
-            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
-            searchString = MassageSearchString(searchString);
-            SearchResultsModel mySearchResults = theSearchService.GetProfessorSearchResults(myUserInformation, searchString, page, searchBy, orderBy);
-            return View("Results", mySearchResults);
-        }
-
         public ActionResult Textbook(string searchString, int page) {
             UserInformationModel<User> myUserInformation = GetUserInformatonModel();
             searchString = MassageSearchString(searchString);
@@ -140,6 +84,13 @@ namespace UniversityOfMe.Controllers.Site {
             UserInformationModel<User> myUserInformation = GetUserInformatonModel();
             searchString = MassageSearchString(searchString);
             SearchResultsModel mySearchResults = theSearchService.GetTextBookSearchResults(myUserInformation, searchString, page, searchBy, orderBy);
+            return View("Results", mySearchResults);
+        }
+
+        public ActionResult Marketplace(string searchString, int page, string itemType) {
+            UserInformationModel<User> myUserInformation = GetUserInformatonModel();
+            searchString = MassageSearchString(searchString);
+            SearchResultsModel mySearchResults = theSearchService.MarketplaceSearchResults(myUserInformation, searchString, page, SearchBy.Title, OrderBy.Newest, itemType);
             return View("Results", mySearchResults);
         }
 
