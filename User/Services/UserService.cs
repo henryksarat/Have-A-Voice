@@ -144,9 +144,6 @@ namespace Social.User.Services {
             if (aUser.LastName.Trim().Length == 0) {
                 theValidationDictionary.AddError("LastName", aUser.LastName.Trim(), "Last name is required.");
             }
-            if (aUser.Gender.Equals(Constants.SELECT) || aUser.Gender.Trim().Length == 0) {
-                theValidationDictionary.AddError("Gender", Constants.SELECT, "Gender is required.");
-            }
             if (!EmailValidation.IsValidEmail(aUser.Email)) {
                 theValidationDictionary.AddError("Email", aUser.Email, INVALID_EMAIL);
             }

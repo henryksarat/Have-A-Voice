@@ -70,5 +70,53 @@ namespace UniversityOfMe.Models.View.Search {
 
             return myTextBookDiv.ToString();
         }
+
+
+        public string CreateFrontPageResult() {
+            var myTextBookDiv = new TagBuilder("div");
+            myTextBookDiv.AddCssClass("res-con textbook clearfix");
+
+            var myImage = new TagBuilder("img");
+            myImage.MergeAttribute("src", PhotoHelper.TextBookPhoto(theTextBook));
+
+            var myBookDescriptionDiv = new TagBuilder("div");
+            myBookDescriptionDiv.AddCssClass("flft");
+
+            var myTitleSpan = new TagBuilder("span");
+            myTitleSpan.AddCssClass("title");
+
+            var myNameLinked = new TagBuilder("a");
+            myNameLinked.AddCssClass("itemlinked");
+            myNameLinked.MergeAttribute("href", URLHelper.BuildTextbookUrl(theTextBook));
+            myNameLinked.InnerHtml += theTextBook.BookTitle;
+
+            myTitleSpan.InnerHtml += myNameLinked.ToString();
+
+            string myAssociatedClass = "None";
+
+            if (!string.IsNullOrEmpty(theTextBook.ClassSubject) && !string.IsNullOrEmpty(theTextBook.ClassCourse)) {
+                myAssociatedClass = theTextBook.ClassSubject + theTextBook.ClassCourse;
+            }
+
+            myBookDescriptionDiv.InnerHtml += myTitleSpan.ToString();
+            myBookDescriptionDiv.InnerHtml += "<br />";
+            myBookDescriptionDiv.InnerHtml += "Condition: " + theTextBook.TextBookCondition.Display;
+            myBookDescriptionDiv.InnerHtml += "<br />";
+            myBookDescriptionDiv.InnerHtml += "Associated Class: " + myAssociatedClass;
+            myBookDescriptionDiv.InnerHtml += "<br />";
+            myBookDescriptionDiv.InnerHtml += theTextBook.Edition != 0 ? "Edition: " + theTextBook.Edition + "<br />" : string.Empty;
+            myBookDescriptionDiv.InnerHtml += "Asking Price: " + MoneyFormatHelper.Format(theTextBook.Price);
+            myBookDescriptionDiv.InnerHtml += "<br />";
+            myBookDescriptionDiv.InnerHtml += TextShortener.Shorten(theTextBook.Details, 50);
+
+            myTextBookDiv.InnerHtml += myImage.ToString();
+            myTextBookDiv.InnerHtml += myBookDescriptionDiv.ToString();
+
+            return myTextBookDiv.ToString();
+        }
+
+        public System.DateTime GetDateTime() {
+            return theTextBook.DateTimeStamp;
+        }
     }
 }

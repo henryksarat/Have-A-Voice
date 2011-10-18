@@ -61,5 +61,45 @@ namespace UniversityOfMe.Models.View.Search {
 
             return myItemDiv.ToString();
         }
+
+
+        public System.DateTime GetDateTime() {
+            return theItem.DateTimeStamp;
+        }
+
+
+        public string CreateFrontPageResult() {
+            var myItemDiv = new TagBuilder("div");
+            myItemDiv.AddCssClass("res-con " + theItem.ItemTypeId.ToLower() + " clearfix");
+
+            var myImage = new TagBuilder("img");
+            myImage.MergeAttribute("src", PhotoHelper.ItemSellingPhoto(theItem));
+
+            var myItemDescriptionDiv = new TagBuilder("div");
+            myItemDescriptionDiv.AddCssClass("flft");
+
+            var myTitleSpan = new TagBuilder("span");
+            myTitleSpan.AddCssClass("title");
+
+            var myNameLinked = new TagBuilder("a");
+            myNameLinked.AddCssClass("itemlinked");
+            myNameLinked.MergeAttribute("href", URLHelper.ItemDetails(theItem));
+            myNameLinked.InnerHtml += theItem.Title;
+
+            myTitleSpan.InnerHtml += myNameLinked.ToString();
+
+            myItemDescriptionDiv.InnerHtml += myTitleSpan.ToString();
+            myItemDescriptionDiv.InnerHtml += "<br />";
+            myItemDescriptionDiv.InnerHtml += "Type: " + theItem.ItemTypeId;
+            myItemDescriptionDiv.InnerHtml += "<br />";
+            myItemDescriptionDiv.InnerHtml += "Asking Price: " + MoneyFormatHelper.Format(theItem.Price);
+            myItemDescriptionDiv.InnerHtml += "<br />";
+            myItemDescriptionDiv.InnerHtml += TextShortener.Shorten(theItem.Description, 50);
+
+            myItemDiv.InnerHtml += myImage.ToString();
+            myItemDiv.InnerHtml += myItemDescriptionDiv.ToString();
+
+            return myItemDiv.ToString();
+        }
     }
 }

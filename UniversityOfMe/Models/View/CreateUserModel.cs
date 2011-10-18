@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System;
+using UniversityOfMe.Models.View.Search;
 
 namespace UniversityOfMe.Models.View {
     public class CreateUserModel : SocialUserModel {
@@ -9,6 +10,7 @@ namespace UniversityOfMe.Models.View {
         public int RegisteredUserCount { get; set; }
         public MarketplaceItem NewestItem { get; set; }
         public TextBook NewestTextbook { get; set; }
+        public SearchResultsModel LatestResults { get; set; }
 
         public CreateUserModel() {
             DateOfBirth = DateTime.UtcNow;

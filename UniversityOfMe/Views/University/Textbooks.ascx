@@ -19,6 +19,7 @@
 <div class="flft mr9">
     <%= Html.ActionLink("+", "Create", "TextBook", null, new { @class="add-new-cross" })%>
 </div>
+
 <%= Html.ActionLink("Sell Book", "Create", "TextBook", null, new { @class="add-new" })%>
-<%= Html.ActionLink("Search By Class", "List", "TextBook", null, new { @class="view-all" })%>
-<%= Html.ActionLink("Search By Title", "List", "TextBook", null, new { @class="view-all" })%>
+<a class="view-all" href="<%= URLHelper.SearchTextbooksByClass() %>">Search By Class</a>
+<a class="view-all" href="<%= URLHelper.SearchTextbooksByTitle() %>">Search By Title</a>

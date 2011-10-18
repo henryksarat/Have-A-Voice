@@ -29,7 +29,10 @@ namespace UniversityOfMe.Models.View {
 
                 };
             } else {
+                IMarketplaceService myMarketplaceService = new MarketplaceService(new ModelStateWrapper(null));
+
                 LeftNavigation = new LeftNavigation() {
+                    ItemTypes = myMarketplaceService.GetItemTypes(),
                     IsLoggedIn = false
                 };
             }

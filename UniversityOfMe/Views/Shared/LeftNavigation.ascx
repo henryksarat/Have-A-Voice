@@ -6,7 +6,7 @@
 
 <script>
     $(document).ready(function () {
-        var myBg = <%= "'" + UniversityHelper.GetMainUniversity(Model.User).Image + "'" %>;
+        var myBg = <%= "'" + Model.BackgroundImage + "'" %>;
         var myBgStyle = 'url(/Content/images/' + myBg + ')';
         $('body').css('background-image', myBgStyle);
         $("#submitPhoto").hide();
@@ -140,7 +140,7 @@
 	</div> 
 	<div class="box"> 
         <div>
-            <a class="itemlinked" href="<%= URLHelper.SearchTextbooks() %>">Textbooks</a><br />
+            <a class="itemlinked" href="<%= URLHelper.SearchTextbooksByClass() %>">Textbooks</a><br />
             <% foreach (ItemType myItemType in Model.ItemTypes) { %>
                 <a class="itemlinked" href="<%= URLHelper.SearchMarketplace(myItemType) %>"><%= myItemType.DisplayName %>s</a>
                 <br />

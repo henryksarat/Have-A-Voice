@@ -55,6 +55,8 @@ namespace UniversityOfMe.Services.Search {
                 UserInformationModel = aUserInformation
             }));
 
+            mySearchResult = mySearchResult.OrderByDescending(i => i.GetDateTime()).ToList();
+
             int myTotalResults = myItems.Count<MarketplaceItem>() + myTextBooks.Count<TextBook>();
             SearchResultsModel myModel = 
                 BuildSearchResultsModel(mySearchResult, SearchFilter.ALL, aPage, 

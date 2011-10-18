@@ -66,7 +66,7 @@ namespace UniversityOfMe.Helpers {
                     }
                 }
             } catch (Exception) {
-                myHtml = "I'm sorry, currently we are unable to grab our blog. Please visit <a class=\"main-page-blog-read-more\" href=\"http://www.haveavoiceblog.com\">www.haveavoiceblog.com</a>.";
+                myHtml = "I'm sorry, currently we are unable to grab our blog. Please visit <a class=\"main-page-blog-read-more\" href=\"http://blog.universityof.me\">blog.universityof.me</a>.";
             }
 
             return myHtml;

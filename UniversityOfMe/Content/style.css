@@ -243,6 +243,15 @@ div.search div.select a.org, div.search div.select a.org:link, div.search div.se
 div.search div.select a.apartment, div.search div.select a.apartment:link, div.search div.select a.apartment:visited { display: inline-block; text-indent: -9999px; background:url(images/house.png) no-repeat center center; width: 24px; height: 20px; }
 div.search div.select a.videogame, div.search div.select a.videogame:link, div.search div.select a.videogame:visited { display: inline-block; text-indent: -9999px; background:url(images/videogame.png) no-repeat center center; width: 24px; height: 20px; }
 div.search div.select a.groupon, div.search div.select a.groupon:link, div.search div.select a.groupon:visited { display: inline-block; text-indent: -9999px; background:url(images/groupon.png) no-repeat center center; width: 24px; height: 20px; }
+div.search div.select a.furniture, div.search div.select a.furniture:link, div.search div.select a.furniture:visited { display: inline-block; text-indent: -9999px; background:url(images/furniture.png) no-repeat center center; width: 24px; height: 20px; }
+div.search div.select a.free, div.search div.select a.free:link, div.search div.select a.free:visited { display: inline-block; text-indent: -9999px; background:url(images/free.png) no-repeat center center; width: 24px; height: 20px; }
+div.search div.select a.services, div.search div.select a.services:link, div.search div.select a.services:visited { display: inline-block; text-indent: -9999px; background:url(images/services.png) no-repeat center center; width: 24px; height: 20px; }
+div.search div.select a.work, div.search div.select a.work:link, div.search div.select a.work:visited { display: inline-block; text-indent: -9999px; background:url(images/work.png) no-repeat center center; width: 24px; height: 20px; }
+div.search div.select a.car, div.search div.select a.car:link, div.search div.select a.car:visited { display: inline-block; text-indent: -9999px; background:url(images/car.png) no-repeat center center; width: 24px; height: 20px; }
+div.search div.select a.electronic, div.search div.select a.electronic:link, div.search div.select a.electronic:visited { display: inline-block; text-indent: -9999px; background:url(images/electronics.png) no-repeat center center; width: 24px; height: 20px; }
+div.search div.select a.roomate, div.search div.select a.roomate:link, div.search div.select a.roomate:visited { display: inline-block; text-indent: -9999px; background:url(images/roomate.png) no-repeat center center; width: 24px; height: 20px; }
+div.search div.select a.wanted, div.search div.select a.wanted:link, div.search div.select a.wanted:visited { display: inline-block; text-indent: -9999px; background:url(images/wanted.png) no-repeat center center; width: 24px; height: 20px; }
+div.search div.select a.miscellaneous, div.search div.select a.miscellaneous:link, div.search div.select a.miscellaneous:visited { display: inline-block; text-indent: -9999px; background:url(images/miscellaneous.png) no-repeat center center; width: 24px; height: 20px; }
 
 /*** TABS ***/
 div.tabs { border-bottom: 4px solid #3e7c97; }
@@ -501,6 +510,16 @@ ul.filter li a.videogame { background:url(images/videogame.png) no-repeat center
 ul.filter li a.groupon { background:url(images/groupon.png) no-repeat center left; }
 ul.filter li a.org { background:url(images/organization.png) no-repeat center left; }
 ul.filter li a.post { background:url(images/paper.png) no-repeat center left; }
+ul.filter li a.furniture { background:url(images/furniture.png) no-repeat center left; }
+ul.filter li a.free { background:url(images/free.png) no-repeat center left; }
+ul.filter li a.services { background:url(images/services.png) no-repeat center left; }
+ul.filter li a.work { background:url(images/work.png) no-repeat center left; }
+ul.filter li a.car { background:url(images/car.png) no-repeat center left; }
+ul.filter li a.electronic { background:url(images/electronics.png) no-repeat center left; }
+ul.filter li a.roomate { background:url(images/roomate.png) no-repeat center left; }
+ul.filter li a.wanted { background:url(images/wanted.png) no-repeat center left; }
+ul.filter li a.miscellaneous { background:url(images/miscellaneous.png) no-repeat center left; }
+
 
 div.filter { margin-bottom: 0px; }
 div.filter .input { text-align: right; }
@@ -508,7 +527,7 @@ div.filter .input { text-align: right; }
 div.search.result { background: #fcfcfb; padding: 15px 22px; border: 0px none transparent; }
 
 div.search.result .res { border-bottom: 1px solid #dbdbdb; padding: 20px 19px 22px 12px; line-height: 1.5; }
-div.search.result .res .res-con { padding-left: 37px; color: #6d6d6d; font-size: 12px; font-weight: normal; }
+div.search.result .res .res-con { padding-left: 30px; color: #6d6d6d; font-size: 12px; font-weight: normal; }
 div.search.result .res .res-con a, div.search.result .res .res-con a:link, div.search.result .res .res-con a:visited { color: #6d6d6d; }
 div.search.result .res .res-con a:hover { text-decoration: underline; }
 div.search.result .res .res-con .actions { float: right; text-align: right; }
@@ -528,6 +547,18 @@ div.search.result .res .res-con.textbook { background:url(images/book.png) no-re
 div.search.result .res .res-con.cart { background:url(images/cart.png) no-repeat top left; }
 div.search.result .res .res-con.apartment { background:url(images/house.png) no-repeat top left; }
 div.search.result .res .res-con.videogame { background:url(images/videogame.png) no-repeat top left; }
+div.search.result .res .res-con.groupon { background:url(images/groupon.png) no-repeat top left; }
+div.search.result .res .res-con.car { background:url(images/car.png) no-repeat top left; }
+div.search.result .res .res-con.electronic { background:url(images/electronics.png) no-repeat top left; }
+div.search.result .res .res-con.free { background:url(images/free.png) no-repeat top left; }
+div.search.result .res .res-con.furniture { background:url(images/furniture.png) no-repeat top left; }
+div.search.result .res .res-con.miscellaneous { background:url(images/miscellaneous.png) no-repeat top left; }
+div.search.result .res .res-con.service { background:url(images/service.png) no-repeat top left; }
+div.search.result .res .res-con.roomate { background:url(images/roomate.png) no-repeat top left; }
+div.search.result .res .res-con.wanted { background:url(images/wanted.png) no-repeat top left; }
+div.search.result .res .res-con.work { background:url(images/work.png) no-repeat top left; }
+
+
 
 
 /*** MAIL ***/
@@ -802,3 +833,12 @@ a.main-page-blog-read-more:hover { text-decoration: underline; }
 .textbook-icon { background:url(images/book.png) no-repeat center center; width: 30px; height: 30px; }
 .apartment-icon { background:url(images/house.png) no-repeat center center; width: 30px; height: 30px; }
 .groupon-icon { background:url(images/groupon.png) no-repeat center center; width: 30px; height: 30px; }
+.furniture-icon { background:url(images/furniture.png) no-repeat center center; width: 30px; height: 30px; }
+.free-icon { background:url(images/free.png) no-repeat center center; width: 30px; height: 30px; }
+.service-icon { background:url(images/services.png) no-repeat center center; width: 30px; height: 30px; }
+.work-icon { background:url(images/work.png) no-repeat center center; width: 30px; height: 30px; }
+.car-icon { background:url(images/car.png) no-repeat center center; width: 30px; height: 30px; }
+.electronic-icon { background:url(images/electronics.png) no-repeat center center; width: 30px; height: 30px; }
+.roomate-icon { background:url(images/roomate.png) no-repeat center center; width: 30px; height: 30px; }
+.wanted-icon { background:url(images/wanted.png) no-repeat center center; width: 30px; height: 30px; }
+.miscellaneous-icon { background:url(images/miscellaneous.png) no-repeat center center; width: 30px; height: 30px; }

@@ -3,6 +3,7 @@ using Social.Generic.Models;
 
 namespace HaveAVoice.Models.SocialWrappers {
     public class SocialUserModel : AbstractUserModel<User> {
+        public string OriginalStringZip { get; set; }
         public string Zip { get; set; }
 
         public static SocialUserModel Create(User anExternal) {

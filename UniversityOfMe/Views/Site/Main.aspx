@@ -2,6 +2,7 @@
 <%@ Import Namespace="UniversityOfMe.Helpers.Search" %>
 <%@ Import Namespace="UniversityOfMe.Helpers" %>
 <%@ Import Namespace="UniversityOfMe.Helpers.Format" %>
+<%@ Import Namespace="System.Linq" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	University Only Marketplace, Buy Sell Textbooks, No Fees, No Shipping
@@ -38,29 +39,101 @@
         -Your email is never publicly posted so you are free from spambots.
         
         <br /><br />
-        <div style="vertical-align:top">
-            <% if(Model.NewestItem != null) { %>
-                <div style="width:250px; display: inline-block; vertical-align:top">
-                    <span class="<%= Model.NewestItem.ItemTypeId.ToLower() %>-icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    <span style="font-weight:bold">Latest item</span><br />
-                    <%= Model.NewestItem.Title %> @ <span style="font-style:italic"><%= Model.NewestItem.UniversityId %></span> for <%= MoneyFormatHelper.Format(Model.NewestItem.Price) %><br />
-                    <img style="width:100px; height:100px" src="<%= PhotoHelper.ItemSellingPhoto(Model.NewestItem.ImageName) %>" /><br />
-                    <%= string.IsNullOrEmpty(Model.NewestItem.Description) ? string.Empty : Model.NewestItem.Description %>
-                </div>
-            <% } %>
+        <% if (false) { %>
+            <div style="vertical-align:top">
+                <% if (Model.NewestItem != null) { %>
+                    <div style="width:250px; display: inline-block; vertical-align:top">
+                        <span class="<%= Model.NewestItem.ItemTypeId.ToLower() %>-icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <span style="font-weight:bold">Latest item</span><br />
+                        <%= Model.NewestItem.Title%> @ <span style="font-style:italic"><%= Model.NewestItem.UniversityId%></span> for <%= MoneyFormatHelper.Format(Model.NewestItem.Price)%><br />
+                        <img style="width:100px; height:100px" src="<%= PhotoHelper.ItemSellingPhoto(Model.NewestItem.ImageName) %>" /><br />
+                        <%= string.IsNullOrEmpty(Model.NewestItem.Description) ? string.Empty : Model.NewestItem.Description%>
+                    </div>
+                <% } %>
 
-            <% if(Model.NewestTextbook != null) { %>
-                <div style="width:250px; display: inline-block;vertical-align:top">
-                    <span class="textbook-icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-weight:bold">Latest textbook</span><br />
-                    <%= Model.NewestTextbook.BookTitle %> @ <span style="font-style:italic"><%= Model.NewestTextbook.UniversityId %></span> for <%= MoneyFormatHelper.Format(Model.NewestTextbook.Price) %><br />
-                    <%= string.IsNullOrEmpty(Model.NewestTextbook.ClassSubject) ? string.Empty : "Used in: " + Model.NewestTextbook.ClassSubject + Model.NewestTextbook.ClassCourse + "<br />" %>
-                    <img style="width:100px; height:100px" src="<%= PhotoHelper.TextBookPhoto(Model.NewestTextbook.BookPicture) %>" /><br />
-                    <%= string.IsNullOrEmpty(Model.NewestTextbook.Details) ? string.Empty : Model.NewestTextbook.Details%>
+                <% if (Model.NewestTextbook != null) { %>
+                    <div style="width:250px; display: inline-block;vertical-align:top">
+                        <span class="textbook-icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-weight:bold">Latest textbook</span><br />
+                        <%= Model.NewestTextbook.BookTitle%> @ <span style="font-style:italic"><%= Model.NewestTextbook.UniversityId%></span> for <%= MoneyFormatHelper.Format(Model.NewestTextbook.Price)%><br />
+                        <%= string.IsNullOrEmpty(Model.NewestTextbook.ClassSubject) ? string.Empty : "Used in: " + Model.NewestTextbook.ClassSubject + Model.NewestTextbook.ClassCourse + "<br />"%>
+                        <img style="width:100px; height:100px" src="<%= PhotoHelper.TextBookPhoto(Model.NewestTextbook.BookPicture) %>" /><br />
+                        <%= string.IsNullOrEmpty(Model.NewestTextbook.Details) ? string.Empty : Model.NewestTextbook.Details%>
+                    </div>
+                <% } %>
+            </div>
+        <% } %>
+
+        <div class="normal-page" style="padding-top:10px; padding-left:10px; padding-right:10px; padding-bottom:10px">
+            <div>
+                <div style="display:inline-block" class="big red">Latest Items Selling at UChicago</div>
+                <a style="font-size:small" class="itemlinked" href="/Search/<%= SearchFilter.ALL.ToString() %>?page=1">Search More</a>
+            </div>
+            <div class="search result"> 
+                <% foreach (UniversityOfMe.Models.View.Search.ISearchResult mySearchResult in Model.LatestResults.SearchResults.Take(5)) { %>
+                    <div class="res"> 
+                        <%= mySearchResult.CreateFrontPageResult() %>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+	    </p> 
+    </div> 
+    <div class="six last"> 
+            <% if(Model.RegisteredUserCount <= 100) { %>
+                <% using (Html.BeginForm("Create", "User", FormMethod.Post, new {@class="form"})) { %>
+		            <div class="big mb32 red">Create an account</div>
+		            <div class="input"> 
+			            <%= Html.Label("First Name:") %>
+                        <%= Html.TextBox("FirstName") %>
+		            </div> 
+
+		            <div class="input"> 
+			            <%= Html.Label("Last Name:") %>
+                        <%= Html.TextBox("LastName") %>
+		            </div> 
+						
+		            <div class="input"> 
+			            <%= Html.Label("Email:") %>
+                        <%= Html.TextBox("Email") %>
+                    
+		            </div> 
+						
+		            <div class="input"> 
+			            <%= Html.Label("Password:") %>
+                        <%= Html.Password("Password")%>
+		            </div> 
+						
+		            <div class="input"> 
+			            <span class="empty-indent">&nbsp;</span>
+                        <%= Html.CheckBox("Agreement") %>
+			            I agree with the <a class="itemlinked" href="/Site/Terms" target="_blank">Terms of Use</a>.
+		            </div> 
+
+			        <div class="input"> 
+				        <input type="submit" name="submit" class="btn" value="Register" /> 
+			        </div> 
+
+			        <div class="input"> 
+                        <%= Html.ActionLink("Click here to resend your activation email.", "Activation", "User", new { message = "2" }, new { @class = "itemlinked" })%>
+			        </div> 
+                <% } %>
+            <% } else { %>
+                <div class="form">
+                    Sorry but we've reached the maximum amount of users for now. We will be raising the threshold shortly so come back soon!
                 </div>
             <% } %>
-        </div>
-        <br />
-        <script src="http://widgets.twimg.com/j/2/widget.js"></script>
+            <br />
+            <div class="normal-page" style="padding-top:10px; padding-left:10px; padding-right:10px; padding-bottom:10px">
+                <div class="big red">From our blog</div>
+                <div class="outer-blog">
+                    <%= BlogReader.GetBlog() %>
+                </div>
+                <div class="right blog-read-more">
+                    Read more at <a class="main-page-blog-read-more" href="http://blog.universityof.me">our blog</a>.
+                </div>
+            </div>
+            <div style="margin-top: 20px">
+                    <script src="http://widgets.twimg.com/j/2/widget.js"></script>
         <script>
             new TWTR.Widget({
                 version: 2,
@@ -91,65 +164,6 @@
                 }
             }).render().setUser('uofme').start();
         </script>
-	    </p> 
-    </div> 
-    <div class="six last"> 
-            <% if(Model.RegisteredUserCount <= 100) { %>
-                <% using (Html.BeginForm("Create", "User", FormMethod.Post, new {@class="form"})) { %>
-		            <div class="big mb32 red">Create an account</div>
-		            <div class="input"> 
-			            <%= Html.Label("First Name:") %>
-                        <%= Html.TextBox("FirstName") %>
-		            </div> 
-
-		            <div class="input"> 
-			            <%= Html.Label("Last Name:") %>
-                        <%= Html.TextBox("LastName") %>
-		            </div> 
-						
-		            <div class="input"> 
-			            <%= Html.Label("Email:") %>
-                        <%= Html.TextBox("Email") %>
-                    
-		            </div> 
-						
-		            <div class="input"> 
-			            <%= Html.Label("Password:") %>
-                        <%= Html.Password("Password")%>
-		            </div> 
-						
-		            <div class="input"> 
-			            <%= Html.Label("Gender:") %>
-                        <%= Html.DropDownList("Gender", Model.Genders)%>
-		            </div> 
-		            <div class="input"> 
-			            <span class="empty-indent">&nbsp;</span>
-                        <%= Html.CheckBox("Agreement") %>
-			            I agree with the <a class="itemlinked" href="/Site/Terms" target="_blank">Terms of Use</a>.
-		            </div> 
-
-			        <div class="input"> 
-				        <input type="submit" name="submit" class="btn" value="Register" /> 
-			        </div> 
-
-			        <div class="input"> 
-                        <%= Html.ActionLink("Click here to resend your activation email.", "Activation", "User", new { message = "2" }, new { @class = "itemlinked" })%>
-			        </div> 
-                <% } %>
-            <% } else { %>
-                <div class="form">
-                    Sorry but we've reached the maximum amount of users for now. We will be raising the threshold shortly so come back soon!
-                </div>
-            <% } %>
-            <br />
-            <div class="normal-page" style="padding-top:10px; padding-left:10px; padding-right:10px; padding-bottom:10px">
-                <div class="big red">From our blog</div>
-                <div class="outer-blog">
-                    <%= BlogReader.GetBlog() %>
-                </div>
-                <div class="right blog-read-more">
-                    Read more at <a class="main-page-blog-read-more" href="http://blog.universityof.me">our blog</a>.
-                </div>
             </div>
     </div>
 </asp:Content>

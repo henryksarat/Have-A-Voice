@@ -630,7 +630,7 @@
           <Property Name="Subject" Type="varchar" Nullable="false" MaxLength="10" />
           <Property Name="Course" Type="varchar" Nullable="false" MaxLength="10" />
           <Property Name="Section" Type="varchar" Nullable="false" MaxLength="5" />
-          <Property Name="Title" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Title" Type="varchar" Nullable="false" MaxLength="150" />
           <Property Name="Year" Type="int" Nullable="false" />
           <Property Name="Details" Type="text" />
           <Property Name="DateTimeStamp" Type="smalldatetime" Nullable="false" />
@@ -1126,7 +1126,7 @@
           <Property Name="FirstName" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="MiddleName" Type="varchar" MaxLength="100" />
           <Property Name="LastName" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="Gender" Type="varchar" Nullable="false" MaxLength="6" />
+          <Property Name="Gender" Type="varchar" MaxLength="6" />
           <Property Name="City" Type="varchar" MaxLength="100" />
           <Property Name="State" Type="char" MaxLength="2" />
           <Property Name="Zip" Type="int" />
@@ -3056,7 +3056,7 @@
           <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="MiddleName" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Gender" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Gender" MaxLength="6" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="City" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="State" MaxLength="2" FixedLength="true" Unicode="false" />
           <Property Type="Int32" Name="Zip" />

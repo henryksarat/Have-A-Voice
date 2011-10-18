@@ -15,10 +15,11 @@ namespace UniversityOfMe.Models.SocialModels {
 
         public override User CreateNewModel() {
             User myUser = User.CreateUser(Id, Email, Password, FirstName, LastName, 
-                Gender, LastLogin, RegistrationDate, RegistrationIp);
+                LastLogin, RegistrationDate, RegistrationIp);
             myUser.City = City;
             myUser.State = State;
             myUser.Website = Website;
+            myUser.Gender = Gender;
             myUser.AboutMe = AboutMe;
             myUser.CookieHash = CookieHash;
             myUser.CookieCreationDate = CookieHashCreationDate;

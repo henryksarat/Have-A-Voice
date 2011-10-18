@@ -28,7 +28,9 @@ namespace HaveAVoice.Helpers {
             if (aUser.City.Trim().Length == 0) {
                 aValidationDictionary.AddError("City", aUser.City.Trim(), "City is required.");
             }
-            if (aUser.Zip.ToString().Trim().Length != 5) {
+            if (!(aUser.Zip.ToString().Trim().Length == 3 
+                && aUser.StringZip.Trim().Length == 5) && !(aUser.Zip.ToString().Trim().Length == 4 && aUser.StringZip.Trim().Length == 5) 
+                && aUser.Zip.ToString().Trim().Length != 5) {
                 aValidationDictionary.AddError("Zip", aUser.Zip.ToString(), "The zip code must be 5 digits.");
             }
             return aValidationDictionary.isValid;

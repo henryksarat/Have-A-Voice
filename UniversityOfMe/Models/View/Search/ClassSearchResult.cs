@@ -32,5 +32,15 @@ namespace UniversityOfMe.Models.View.Search {
             
             return myClassDiv.ToString();
         }
+
+
+        public System.DateTime GetDateTime() {
+            throw new System.NotImplementedException();
+        }
+
+
+        public string CreateFrontPageResult() {
+            throw new System.NotImplementedException();
+        }
     }
 }

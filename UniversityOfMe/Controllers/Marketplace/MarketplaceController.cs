@@ -34,11 +34,13 @@ namespace UniversityOfMe.Controllers.Marketplace {
 
         IValidationDictionary theValidation;
         IMarketplaceService theMarketplaceService;
+        IUniversityRepository theUniversityRepo;
 
         public MarketplaceController() {
             UserInformationFactory.SetInstance(UserInformation<User, WhoIsOnline>.Instance(new HttpContextWrapper(System.Web.HttpContext.Current), new WhoIsOnlineService<User, WhoIsOnline>(new EntityWhoIsOnlineRepository()), new GetUserStrategy()));
             theValidation = new ModelStateWrapper(this.ModelState);
             theMarketplaceService = new MarketplaceService(theValidation);
+            theUniversityRepo = new EntityUniversityRepository();
         }
 
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
@@ -112,6 +114,7 @@ namespace UniversityOfMe.Controllers.Marketplace {
 
                 LoggedInWrapperModel<MarketplaceItem> myLoggedIn = new LoggedInWrapperModel<MarketplaceItem>(myUser);
                 myLoggedIn.Set(myItem);
+                myLoggedIn.LeftNavigation.BackgroundImage = theUniversityRepo.GetUniversity(myItem.UniversityId).Image;
 
                 return View("Details", myLoggedIn);
             } catch (Exception myException) {

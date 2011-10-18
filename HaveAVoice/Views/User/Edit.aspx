@@ -207,7 +207,14 @@
 					<label>Zip:</label>
 				</div>
 				<div class="push-1 col-6">
-	                <%= Html.TextBox("Zip", Model.UserInformation.Zip) %>
+                    <% string myZipCode = Model.UserInformation.Zip.ToString(); %>
+                    <% if(myZipCode.Length == 4) { %>
+                        <% myZipCode = "0" + myZipCode; %>
+                    <% } %>
+                    <% if(myZipCode.Length == 3) { %>
+                        <% myZipCode = "00" + myZipCode; %>
+                    <% } %>
+	                <%= Html.TextBox("Zip", myZipCode)%>
 	                <span class="req">
 		                <%= Html.ValidationMessage("Zip", "*") %>
 	                </span>

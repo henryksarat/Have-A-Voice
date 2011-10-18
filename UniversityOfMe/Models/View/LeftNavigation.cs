@@ -6,5 +6,6 @@ namespace UniversityOfMe.Models.View {
         public IEnumerable<ItemType> ItemTypes { get; set; }
         public bool HasProfilePicture { get; set; }
         public bool IsLoggedIn { get; set; }
+        public string BackgroundImage { get; set; }
     }
 }

@@ -37,8 +37,25 @@
 			</div>
 		</div>
 
-        <% Html.RenderPartial("Validation"); %>
-					
+        
+        <div style="margin-bottom:10px; vertical-align: top">
+            <div style="display:inline-block; vertical-align: top">
+                <a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-via="uofme">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+            </div>
+            <div style="display:inline-block; vertical-align: top">
+                <div id="fb-root"></div>
+                <script>                    (function (d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (d.getElementById(id)) { return; }
+                        js = d.createElement(s); js.id = id;
+                        js.src = "//connect.facebook.net/en_US/all.js#appId=236494866400848&xfbml=1";
+                        fjs.parentNode.insertBefore(js, fjs);
+                    } (document, 'script', 'facebook-jssdk'));</script>
+
+                <div class="fb-like" data-send="true" data-layout="button_count" data-width="50" data-show-faces="false"></div>
+            </div>
+        </div>
+        			
 		<div class="flft max-w207 mr21 center clearfix">
 			<img src="<%= PhotoHelper.ItemSellingPhoto(Model.Get()) %>" alt="Textbook Cover" />
 		</div>

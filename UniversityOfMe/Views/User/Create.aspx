@@ -60,12 +60,6 @@
                                 <%= Html.Password("Password")%>
                                 <%= Html.ValidationMessage("Password", "*", new { @class = "req" })%>
 		                    </div> 
-						
-		                    <div class="field-holder">
-			                    <%= Html.Label("Gender:") %>
-                                <%= Html.DropDownList("Gender", Model.Genders)%>
-                                <%= Html.ValidationMessage("Gender", "*", new { @class = "req" })%>
-		                    </div> 
 
 		                    <div class="field-holder">
                                 <span class="empty-label">&nbsp;</span>

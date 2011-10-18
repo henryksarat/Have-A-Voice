@@ -87,30 +87,57 @@
 		<ul class="filter"> 
             <% string mySearchString = string.IsNullOrEmpty(Model.SearchString) ? string.Empty : Model.SearchString; %>
 			<li class="<%= Model.SearchType == SearchFilter.ALL ? "active" : "" %>"> 
-                <%= Html.ActionLink("All Latest Marketplace Listings", "All", "Search", new { searchString = mySearchString, page = 1 }, new { @class = "all" })%>
+                <%= Html.ActionLink("Latest Marketplace Listings", "All", "Search", new { searchString = mySearchString, page = 1 }, new { @class = "all" })%>
 			</li> 
-			<li class="<%= Model.SearchType == SearchFilter.CLASS ? "active" : "" %>"> 
-				<%= Html.ActionLink("Class Search Results", "Class", "Search", new { searchString = mySearchString, page = 1 }, new { @class = "class" })%>
-			</li> 
+    		<li class="<%= Model.SearchType == SearchFilter.CLASS ? "active" : "" %>"> 
+                <%= Html.ActionLink("Current Classes", "Class", "Search", new { searchString = mySearchString, page = 1 }, new { @class = "class" })%>
+			</li>
 			<li class="<%= Model.SearchType == SearchFilter.TEXTBOOK ? "active" : "" %>"> 
                 <%= Html.ActionLink("Textbook Listings", "Textbook", "Search", new { searchString = mySearchString, page = 1 }, new { @class = "book" })%>
 			</li>
 			<li class="<%= Model.SearchType == SearchFilter.APARTMENT ? "active" : "" %>">
                 <%= Html.ActionLink("Apartment Listings", "Marketplace", "Search", new { searchString = mySearchString, page = 1, itemType = SearchFilter.APARTMENT.ToString() }, new { @class = "apartment" })%>
 			</li> 
-			<li class="<%= Model.SearchType == SearchFilter.VIDEOGAME ? "active" : "" %>">
-                <%= Html.ActionLink("Videogame Listings", "Marketplace", "Search", new { searchString = mySearchString, page = 1, itemType = SearchFilter.VIDEOGAME.ToString() }, new { @class = "videogame" })%>
-			</li> 
+			<li class="<%= Model.SearchType == SearchFilter.CAR ? "active" : "" %>">
+                <%= Html.ActionLink("Car Listings", "Marketplace", "Search", new { searchString = mySearchString, page = 1, itemType = SearchFilter.CAR.ToString() }, new { @class = "car" })%>
+			</li>
+			<li class="<%= Model.SearchType == SearchFilter.ELECTRONIC ? "active" : "" %>">
+                <%= Html.ActionLink("Electronic Listings", "Marketplace", "Search", new { searchString = mySearchString, page = 1, itemType = SearchFilter.ELECTRONIC.ToString() }, new { @class = "electronic" })%>
+			</li>
+			<li class="<%= Model.SearchType == SearchFilter.FREE ? "active" : "" %>">
+                <%= Html.ActionLink("Free Listings", "Marketplace", "Search", new { searchString = mySearchString, page = 1, itemType = SearchFilter.FREE.ToString() }, new { @class = "free" })%>
+			</li>
+			<li class="<%= Model.SearchType == SearchFilter.FURNITURE ? "active" : "" %>">
+                <%= Html.ActionLink("Furniture Listings", "Marketplace", "Search", new { searchString = mySearchString, page = 1, itemType = SearchFilter.FURNITURE.ToString() }, new { @class = "furniture" })%>
+			</li>
 			<li class="<%= Model.SearchType == SearchFilter.GROUPON ? "active" : "" %>">
                 <%= Html.ActionLink("Groupon Listings", "Marketplace", "Search", new { searchString = mySearchString, page = 1, itemType = SearchFilter.GROUPON.ToString() }, new { @class = "groupon" })%>
+			</li>  
+			<li class="<%= Model.SearchType == SearchFilter.MISCELLANEOUS ? "active" : "" %>">
+                <%= Html.ActionLink("Miscellaneous Listings", "Marketplace", "Search", new { searchString = mySearchString, page = 1, itemType = SearchFilter.MISCELLANEOUS.ToString() }, new { @class = "miscellaneous" })%>
+			</li>  
+			<li class="<%= Model.SearchType == SearchFilter.SERVICE ? "active" : "" %>">
+                <%= Html.ActionLink("Service Listings", "Marketplace", "Search", new { searchString = mySearchString, page = 1, itemType = SearchFilter.SERVICE.ToString() }, new { @class = "services" })%>
+			</li>    
+			<li class="<%= Model.SearchType == SearchFilter.ROOMATE ? "active" : "" %>">
+                <%= Html.ActionLink("Roomate Listings", "Marketplace", "Search", new { searchString = mySearchString, page = 1, itemType = SearchFilter.ROOMATE.ToString() }, new { @class = "roomate" })%>
 			</li> 
+			<li class="<%= Model.SearchType == SearchFilter.VIDEOGAME ? "active" : "" %>">
+                <%= Html.ActionLink("Videogame Listings", "Marketplace", "Search", new { searchString = mySearchString, page = 1, itemType = SearchFilter.VIDEOGAME.ToString() }, new { @class = "videogame" })%>
+			</li>
+    		<li class="<%= Model.SearchType == SearchFilter.WANTED ? "active" : "" %>">
+                <%= Html.ActionLink("Wanted Listings", "Marketplace", "Search", new { searchString = mySearchString, page = 1, itemType = SearchFilter.WANTED.ToString() }, new { @class = "wanted" })%>
+			</li>
+			<li class="<%= Model.SearchType == SearchFilter.WORK ? "active" : "" %>">
+                <%= Html.ActionLink("Work Listings", "Marketplace", "Search", new { searchString = mySearchString, page = 1, itemType = SearchFilter.WORK.ToString() }, new { @class = "work" })%>
+			</li>
 		</ul> 
 	</div> 
 </div> 
 				
 <div class="eight last"> 
 	<div class="banner title black full red-top small clearfix"> 
-		<span><%= Model.SearchType.ToString().ToUpper() %> SEARCH RESULTS</span> 
+		<span><%= Model.SearchType.ToString().ToUpper().Equals("ALL") ? "LATEST MARKETPLACE " : Model.SearchType.ToString().ToUpper()%> LISTINGS</span> 
 		<div class="frgt max-w240 clearfix"> 
 			<div class="search clearfix"> 
 				<input id="search" type="text" class="inpt w227" value="<%= string.IsNullOrEmpty(Model.SearchString) ? SearchConstants.DEFAULT_SEARCH_TEXT : Model.SearchString %>" /> 
@@ -120,20 +147,47 @@
             		    <li id="<%= SearchFilter.ALL %>" class="<%= Model.SearchType == SearchFilter.ALL ? "active-filter" : "" %>"> 
 						    <a href="#" class="all">All</a> 
 					    </li> 
-            		    <li id="<%= SearchFilter.CLASS %>" class="<%= Model.SearchType == SearchFilter.CLASS ? "active-filter" : "" %>"> 
-						    <a href="#" class="all">All</a> 
-					    </li> 
 					    <li id="<%= SearchFilter.TEXTBOOK %>" class="<%= Model.SearchType == SearchFilter.TEXTBOOK ? "active-filter" : "" %>"> 
-						    <a href="#" class="text">Book</a> 
+						    <a href="#" class="book">Book</a> 
+					    </li> 
+            		    <li id="CLASS" class="<%= Model.SearchType == SearchFilter.CLASS ? "active-filter" : "" %>"> 
+						    <a href="#" class="class">Class</a> 
 					    </li> 
             		    <li id="<%= SearchFilter.APARTMENT %>" class="<%= Model.SearchType == SearchFilter.APARTMENT ? "active-filter" : "" %>"> 
-						    <a href="#" class="all">Apartment</a> 
+						    <a href="#" class="apartment">Apartment</a> 
 					    </li> 
-            		    <li id="<%= SearchFilter.VIDEOGAME %>" class="<%= Model.SearchType == SearchFilter.VIDEOGAME ? "active-filter" : "" %>"> 
-						    <a href="#" class="all">Videogame</a> 
+            		    <li id="<%= SearchFilter.CAR %>" class="<%= Model.SearchType == SearchFilter.CAR ? "active-filter" : "" %>"> 
+						    <a href="#" class="car">Car</a> 
+					    </li> 
+            		    <li id="<%= SearchFilter.ELECTRONIC %>" class="<%= Model.SearchType == SearchFilter.ELECTRONIC ? "active-filter" : "" %>"> 
+						    <a href="#" class="electronic">Electronic</a> 
+					    </li> 
+            		    <li id="<%= SearchFilter.FREE %>" class="<%= Model.SearchType == SearchFilter.FREE ? "active-filter" : "" %>"> 
+						    <a href="#" class="free">Free</a> 
+					    </li> 
+            		    <li id="<%= SearchFilter.FURNITURE %>" class="<%= Model.SearchType == SearchFilter.FURNITURE ? "active-filter" : "" %>"> 
+						    <a href="#" class="furniture">Furniture</a> 
 					    </li> 
             		    <li id="<%= SearchFilter.GROUPON %>" class="<%= Model.SearchType == SearchFilter.GROUPON ? "active-filter" : "" %>"> 
-						    <a href="#" class="all">Groupon</a> 
+						    <a href="#" class="groupon">Groupon</a> 
+					    </li> 
+              		    <li id="<%= Model.SearchType == SearchFilter.MISCELLANEOUS %>" class="<%= Model.SearchType == SearchFilter.MISCELLANEOUS ? "active-filter" : "" %>"> 
+						    <a href="#" class="roomate">Miscellaneous</a> 
+					    </li> 
+            		    <li id="<%= SearchFilter.ROOMATE %>" class="<%= Model.SearchType == SearchFilter.ROOMATE ? "active-filter" : "" %>"> 
+						    <a href="#" class="roomate">Roomate</a> 
+					    </li> 
+            		    <li id="<%= SearchFilter.SERVICE %>" class="<%= Model.SearchType == SearchFilter.SERVICE ? "active-filter" : "" %>"> 
+						    <a href="#" class="services">Service</a> 
+					    </li> 
+            		    <li id="<%= SearchFilter.VIDEOGAME %>" class="<%= Model.SearchType == SearchFilter.VIDEOGAME ? "active-filter" : "" %>"> 
+						    <a href="#" class="videogame">Videogame</a> 
+					    </li>
+            		    <li id="<%= SearchFilter.WANTED %>" class="<%= Model.SearchType == SearchFilter.WANTED ? "active-filter" : "" %>"> 
+						    <a href="#" class="wanted">Wanted</a> 
+					    </li> 
+            		    <li id="<%= SearchFilter.WORK %>" class="<%= Model.SearchType == SearchFilter.WORK ? "active-filter" : "" %>"> 
+						    <a href="#" class="work">Work</a> 
 					    </li> 
 					</ul> 
 				</div> 

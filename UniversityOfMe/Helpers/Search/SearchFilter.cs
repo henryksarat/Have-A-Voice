@@ -6,6 +6,15 @@
         TEXTBOOK,
         APARTMENT,
         VIDEOGAME,
-        GROUPON
+        GROUPON,
+        FURNITURE,
+        FREE,
+        SERVICE,
+        WORK,
+        CAR,
+        ELECTRONIC,
+        ROOMATE,
+        WANTED,
+        MISCELLANEOUS
     }
 }

@@ -132,8 +132,7 @@ namespace UniversityOfMe.Repositories.Marketplace {
                     where !i.Sold
                     && !i.Deleted
                     && i.ExpireListing >= DateTime.Now
-                    orderby i.DateTimeStamp
-                    select i).FirstOrDefault<MarketplaceItem>();
+                    select i).OrderByDescending(i2 => i2.DateTimeStamp).FirstOrDefault<MarketplaceItem>();
         }
     }
 }
