@@ -16,16 +16,6 @@
 				    <span class="time"><%= LocalDateHelper.ToLocalTime(myNotificationModel.DateTimeSent)%></span> 
 			    </li> 
             <% } %>
-        <% } else if(myNotificationModel.NotificationType == NotificationType.Club) { %>
-			<li class="organization"> 
-				<a href="<%= URLHelper.ProfileUrl(myNotificationModel.ClubMemberUser) %>"><%= NameHelper.FullName(myNotificationModel.ClubMemberUser) %></a> wants to join <a href="<%= URLHelper.BuildClubUrl(myNotificationModel.Club) %>"><%= myNotificationModel.Club.Name %> </a> 
-				<span class="time"><%= LocalDateHelper.ToLocalTime(myNotificationModel.DateTimeSent)%></span> 
-			</li> 
-        <% } else if(myNotificationModel.NotificationType == NotificationType.ClubBoard) { %>
-			<li class="organization"> 
-				New club board post in the <a href="<%= URLHelper.BuildClubUrl(myNotificationModel.Club) %>"><%= myNotificationModel.Club.Name %> </a> .
-				<span class="time"><%= LocalDateHelper.ToLocalTime(myNotificationModel.DateTimeSent)%></span> 
-			</li> 
         <% } else if(myNotificationModel.NotificationType == NotificationType.ClassBoard) { %>
 
         <% } else if (myNotificationModel.NotificationType == NotificationType.None) { %>

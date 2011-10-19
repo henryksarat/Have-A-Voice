@@ -34,10 +34,6 @@ namespace UniversityOfMe.Helpers {
             return "/" + aClass.UniversityId + "/Class/Details/" + ToUrlFriendly(aClass.Subject + " " + aClass.Course);
         }
 
-        public static string BuildProfessorUrl(Professor aProfessor) {
-            return "/" + aProfessor.UniversityId + "/Professor/Details/" + ToUrlFriendly(aProfessor.FirstName + " " + aProfessor.LastName);
-        }
-
         public static string BuildTextbookUrl(TextBook aTextbook) {
             return "/" + aTextbook.UniversityId + "/TextBook/Details/" + aTextbook.Id;
         }
@@ -52,34 +48,6 @@ namespace UniversityOfMe.Helpers {
 
         public static string BuildEventUnAttendUrl(Event anEvent) {
             return "/Event/Unattend/" + anEvent.Id;
-        }
-
-        public static string BuildClubUrl(Club aClub) {
-            return "/" + aClub.UniversityId + "/Club/Details/" + URLHelper.ToUrlFriendly(aClub.Name);
-        }
-
-        public static string BuildOrganizationCancelRequestToJoin(Club aClub) {
-            return "/ClubMember/Cancel?clubId=" + aClub.Id + "&universityId=" + aClub.UniversityId;
-        }
-
-        public static string BuildOrganizationQuitOrganization(Club aClub) {
-            return "/ClubMember/Remove?clubId=" + aClub.Id + "&universityId=" + aClub.UniversityId;
-        }
-
-        public static string BuildOrganizationRequestToJoin(Club aClub) {
-            return "/ClubMember/RequestToJoin?clubId=" + aClub.Id +"&universityId=" + aClub.UniversityId;
-        }
-
-        public static string BuildOrganizationSetAsInactive(Club aClub) {
-            return "/Club/Deactivate?clubId=" + aClub.Id;
-        }
-
-        public static string BuildOrganizationUrl(Club aClub) {
-            return "/" + aClub.UniversityId + "/Club/Details/" + URLHelper.ToUrlFriendly(aClub.Name);
-        }
-
-        public static string BuildOrganizationSetAsActive(Club aClub) {
-            return "/Club/Activate?clubId=" + aClub.Id;
         }
 
         public static string MarkSentItemAsSeen(int anId) {

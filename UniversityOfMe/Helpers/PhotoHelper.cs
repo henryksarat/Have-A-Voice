@@ -44,30 +44,6 @@ namespace UniversityOfMe.Helpers {
             return ClubConstants.CLUB_PHOTO_PATH + aClubImageName;
         }
 
-        public static string ClubPhoto(Club aClub) {
-            string aPhoto = aClub.Picture;
-
-            if (string.IsNullOrEmpty(aPhoto)) {
-                aPhoto = "no_photo.png";
-            }
-
-            return ClubPhoto(aPhoto);
-        }
-
-        public static string ProfessorPhoto(Professor aProfessor) {
-            string aPhoto = aProfessor.ProfessorImage;
-
-            if (aProfessor.ProfessorSuggestedPhotoId != null) {
-                aPhoto = aProfessor.ProfessorSuggestedPhoto.ImageName;
-            }
-
-            if (string.IsNullOrEmpty(aPhoto)) {
-                aPhoto = "no_professor_photo.jpg";
-            }
-
-            return ProfessorConstants.PROFESSOR_PHOTO_PATH + aPhoto;
-        }
-
         public static string AnonymousProfilePicture() {
             return PhotoConstants.NO_PROFILE_PICTURE;
         }
@@ -102,16 +78,6 @@ namespace UniversityOfMe.Helpers {
 
         public static string ItemSellingPhoto(string anItemSellingPhoto) {
             return MarketplaceConstants.MARKETPLACE_PHOTO_PATH + anItemSellingPhoto;
-        }
-        
-        public static string ConstructProfessorUrl(Professor aProfessor) {
-            string myProfessorImage = ConstructProfessorUrl(ProfessorConstants.NO_PROFESOR_IMAGE);
-            if (aProfessor.ProfessorSuggestedPhotoId != null) {
-                myProfessorImage = ConstructProfessorUrl(aProfessor.ProfessorSuggestedPhoto.ImageName);
-            } else if (!string.IsNullOrEmpty(aProfessor.ProfessorImage)) {
-                myProfessorImage = ConstructProfessorUrl(aProfessor.ProfessorImage);
-            }
-            return myProfessorImage;
         }
 
         public static string ConstructProfessorUrl(string anImageName) {

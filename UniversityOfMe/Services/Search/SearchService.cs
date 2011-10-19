@@ -1,7 +1,6 @@
 ﻿using Social.Generic.Models;
 using Social.Validation;
 using UniversityOfMe.Models;
-using UniversityOfMe.Repositories.Professors;
 using UniversityOfMe.Repositories.Notifications;
 using System.Collections.Generic;
 using UniversityOfMe.Models.View;

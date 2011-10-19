@@ -54,21 +54,6 @@ namespace UniversityOfMe.Repositories.Search {
                     select p);
         }
 
-        public IEnumerable<Club> GetOrganizationByName(string aUniversityId, string aName) {
-            return (from o in theEntities.Clubs
-                    where o.Name.Contains(aName)
-                    && o.Active
-                    && o.UniversityId == aUniversityId
-                    select o);
-        }
-
-        public IEnumerable<Professor> GetProfessorByName(string aUniversityId, string aName) {
-            return (from p in theEntities.Professors
-                    where (p.FirstName + " " + p.LastName).Contains(aName)
-                    && p.UniversityId == aUniversityId
-                    select p);
-        }
-
         public IEnumerable<TextBook> GetTextBookByTitle(string aUniversityId, string aTitle) {
             return (from t in theEntities.TextBooks
                     where t.BookTitle.Contains(aTitle)
@@ -127,19 +112,6 @@ namespace UniversityOfMe.Repositories.Search {
         public IEnumerable<GeneralPosting> GetGeneralPostingByBody(string aBody) {
             return (from p in theEntities.GeneralPostings
                     where p.Body.Contains(aBody)
-                    select p);
-        }
-
-        public IEnumerable<Club> GetOrganizationByName(string aName) {
-            return (from o in theEntities.Clubs
-                    where o.Name.Contains(aName)
-                    && o.Active
-                    select o);
-        }
-
-        public IEnumerable<Professor> GetProfessorByName(string aName) {
-            return (from p in theEntities.Professors
-                    where (p.FirstName + " " + p.LastName).Contains(aName)
                     select p);
         }
 

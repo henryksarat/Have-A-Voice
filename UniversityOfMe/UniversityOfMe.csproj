@@ -104,9 +104,6 @@
     <Compile Include="Controllers\Boards\BoardController.cs" />
     <Compile Include="Controllers\Boards\BoardReplyController.cs" />
     <Compile Include="Controllers\Classes\ClassController.cs" />
-    <Compile Include="Controllers\Clubs\ClubBoardController.cs" />
-    <Compile Include="Controllers\Clubs\ClubController.cs" />
-    <Compile Include="Controllers\Clubs\ClubMemberController.cs" />
     <Compile Include="Controllers\Core\AuthenticationController.cs" />
     <Compile Include="Controllers\Dating\DatingController.cs" />
     <Compile Include="Controllers\Events\EventBoardController.cs" />
@@ -118,8 +115,6 @@
     <Compile Include="Controllers\Photos\PhotoAlbumController.cs" />
     <Compile Include="Controllers\Photos\PhotoCommentController.cs" />
     <Compile Include="Controllers\Photos\PhotoController.cs" />
-    <Compile Include="Controllers\Professors\ProfessorReviewController.cs" />
-    <Compile Include="Controllers\Professors\ProfessorController.cs" />
     <Compile Include="Controllers\SendItems\SendItemsController.cs" />
     <Compile Include="Controllers\Users\FriendController.cs" />
     <Compile Include="Controllers\University\UniversityController.cs" />
@@ -159,7 +154,6 @@
     <Compile Include="Helpers\FeatureHelper.cs" />
     <Compile Include="Helpers\Features.cs" />
     <Compile Include="Helpers\FriendHelper.cs" />
-    <Compile Include="Helpers\Functionality\ClubHelper.cs" />
     <Compile Include="Helpers\Functionality\EventHelper.cs" />
     <Compile Include="Helpers\Functionality\GeneralPostingHelper.cs" />
     <Compile Include="Helpers\Functionality\UserFeed.cs" />
@@ -212,7 +206,6 @@
       <DependentUpon>UniversityOfMeDBModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\View\ClassDetailsModel.cs" />
-    <Compile Include="Models\View\ClubAdminFeed.cs" />
     <Compile Include="Models\View\ItemViewModel.cs" />
     <Compile Include="Models\View\FlirtModel.cs" />
     <Compile Include="Models\View\ProfileModel.cs" />
@@ -228,8 +221,6 @@
     <Compile Include="Models\View\EventViewModel.cs" />
     <Compile Include="Models\View\CreateClassModel.cs" />
     <Compile Include="Models\View\TextBookViewModel.cs" />
-    <Compile Include="Models\View\ClubViewModel.cs" />
-    <Compile Include="Models\View\CreateProfessorReviewModel.cs" />
     <Compile Include="Models\View\CreateUserModel.cs" />
     <Compile Include="Models\View\LeftNavigation.cs" />
     <Compile Include="Models\View\LoggedInListModel.cs" />
@@ -249,8 +240,6 @@
     <Compile Include="Repositories\Boards\IBoardRepository.cs" />
     <Compile Include="Repositories\Classes\EntityClassRepository.cs" />
     <Compile Include="Repositories\Classes\IClassRepository.cs" />
-    <Compile Include="Repositories\Clubs\EntityClubRepository.cs" />
-    <Compile Include="Repositories\Clubs\IClubRepository.cs" />
     <Compile Include="Repositories\Dating\FlirtingRepository.cs" />
     <Compile Include="Repositories\Dating\IFlirtingRepository.cs" />
     <Compile Include="Repositories\Marketplace\EntityMarketplaceRepository.cs" />
@@ -275,8 +264,6 @@
     <Compile Include="Repositories\Photos\EntityPhotoAlbumRepository.cs" />
     <Compile Include="Repositories\Photos\EntityPhotoRepository.cs" />
     <Compile Include="Repositories\Photos\IUofMePhotoRepository.cs" />
-    <Compile Include="Repositories\Professors\EntityProfessorReviewRepository.cs" />
-    <Compile Include="Repositories\Professors\IProfessorRepository.cs" />
     <Compile Include="Repositories\Search\EntitySearchRepository.cs" />
     <Compile Include="Repositories\Search\ISearchRepository.cs" />
     <Compile Include="Repositories\SendItems\EntitySendItemsRepository.cs" />
@@ -284,8 +271,6 @@
     <Compile Include="Repositories\Status\EntityStatusRepository.cs" />
     <Compile Include="Repositories\Status\IStatusRepository.cs" />
     <Compile Include="Repositories\TextBooks\ITextBookRepository.cs" />
-    <Compile Include="Repositories\Professors\EntityProfessorRepository.cs" />
-    <Compile Include="Repositories\Professors\IProfessorReviewRepository.cs" />
     <Compile Include="Repositories\TextBooks\EntityTextBookRepository.cs" />
     <Compile Include="Repositories\UserRepos\EntityFeatureRepository.cs" />
     <Compile Include="Repositories\UserRepos\IFeatureRepository.cs" />
@@ -305,8 +290,6 @@
     <Compile Include="Services\Badges\IBadgeService.cs" />
     <Compile Include="Services\Classes\IClassService.cs" />
     <Compile Include="Services\Classes\ClassService.cs" />
-    <Compile Include="Services\Clubs\IClubService.cs" />
-    <Compile Include="Services\Clubs\ClubService.cs" />
     <Compile Include="Services\Dating\FlirtingService.cs" />
     <Compile Include="Services\Dating\IFlirtingService.cs" />
     <Compile Include="Services\Dating\DatingService.cs" />
@@ -324,10 +307,6 @@
     <Compile Include="Services\Photos\IUofMePhotoService.cs" />
     <Compile Include="Services\Photos\PhotoCommentService.cs" />
     <Compile Include="Services\Photos\UofMePhotoService.cs" />
-    <Compile Include="Services\Professors\ProfessorReviewService.cs" />
-    <Compile Include="Services\Professors\IProfessorReviewService.cs" />
-    <Compile Include="Services\Professors\ProfessorService.cs" />
-    <Compile Include="Services\Professors\IProfessorService.cs" />
     <Compile Include="Services\Search\ISearchService.cs" />
     <Compile Include="Services\Search\SearchService.cs" />
     <Compile Include="Services\SendItems\ISendItemsService.cs" />
@@ -507,11 +486,6 @@
     <Content Include="Views\Badge\List.aspx" />
     <Content Include="Views\Board\Details.aspx" />
     <Content Include="Views\Class\Create.aspx" />
-    <Content Include="Views\ClubMember\Details.aspx" />
-    <Content Include="Views\ClubMember\List.aspx" />
-    <Content Include="Views\Club\Edit.aspx" />
-    <Content Include="Views\Club\Create.aspx" />
-    <Content Include="Views\Club\Details.aspx" />
     <Content Include="Views\Marketplace\Create.aspx" />
     <Content Include="Views\Marketplace\Details.aspx" />
     <Content Include="Views\Marketplace\Edit.aspx" />
@@ -541,9 +515,6 @@
     <Content Include="Views\PhotoAlbum\Edit.aspx" />
     <Content Include="Views\PhotoAlbum\List.aspx" />
     <Content Include="Views\Photo\Display.aspx" />
-    <Content Include="Views\ProfessorReview\Create.aspx" />
-    <Content Include="Views\Professor\Create.aspx" />
-    <Content Include="Views\Professor\Details.aspx" />
     <Content Include="Views\Profile\Show.aspx" />
     <Content Include="Views\Role\Create.aspx" />
     <Content Include="Views\Role\Delete.aspx" />
@@ -570,11 +541,9 @@
     <Content Include="Views\University\Flirts.ascx" />
     <Content Include="Views\University\UserStatuses.ascx" />
     <Content Include="Views\University\GeneralPostings.ascx" />
-    <Content Include="Views\University\Organizations.ascx" />
     <Content Include="Views\University\Textbooks.ascx" />
     <Content Include="Views\University\Events.ascx" />
     <Content Include="Views\University\Main.aspx" />
-    <Content Include="Views\University\Professors.ascx" />
     <Content Include="Views\UserPrivacySetting\Edit.aspx" />
     <Content Include="Views\UserStatus\List.aspx" />
     <Content Include="Views\User\Create.aspx" />

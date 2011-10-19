@@ -9,8 +9,6 @@ namespace UniversityOfMe.Repositories.Search {
         IEnumerable<Event> GetEventByInformation(string aUniversityId, string anInformation);
         IEnumerable<GeneralPosting> GetGeneralPostingByTitle(string aUniversityId, string aTitle);
         IEnumerable<GeneralPosting> GetGeneralPostingByBody(string aUniversityId, string aBody);
-        IEnumerable<Club> GetOrganizationByName(string aUniversityId, string aName);
-        IEnumerable<Professor> GetProfessorByName(string aUniversityId, string aName);
         IEnumerable<TextBook> GetTextBookByTitle(string aUniversityId, string aTitle);
         IEnumerable<TextBook> GetTextBookByClassCode(string aUniversityId, string aClassCode);
 
@@ -20,8 +18,6 @@ namespace UniversityOfMe.Repositories.Search {
         IEnumerable<Event> GetEventByInformation(string anInformation);
         IEnumerable<GeneralPosting> GetGeneralPostingByTitle(string aTitle);
         IEnumerable<GeneralPosting> GetGeneralPostingByBody(string aBody);
-        IEnumerable<Club> GetOrganizationByName(string aName);
-        IEnumerable<Professor> GetProfessorByName(string aName);
         IEnumerable<TextBook> GetTextBookByTitle(string aTitle);
         IEnumerable<TextBook> GetTextBookByClassCode(string aClassCode);
 

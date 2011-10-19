@@ -1,7 +1,6 @@
 ﻿using Social.Generic.Models;
 using Social.Validation;
 using UniversityOfMe.Models;
-using UniversityOfMe.Repositories.Professors;
 using UniversityOfMe.Repositories.Notifications;
 using System.Collections.Generic;
 using UniversityOfMe.Models.View;
@@ -31,9 +30,7 @@ namespace UniversityOfMe.Services.Notifications {
             IEnumerable<ClassBoardViewState> myClassBoardViewStates = theNotificationRepository.GetClassBoardsWithNewReplies(aUser);
 
             List<NotificationModel> myNotifications = ConvertToNotificationModel(mySentItems);
-            myNotifications.AddRange(ConvertToNotificationModel(myPendingClubMembers));
             myNotifications.AddRange(ConvertToNotificationModel(aUser, myBoardViewedStates));
-            myNotifications.AddRange(ConvertToNotificationModelForNotViewedBoard(myClubMembersNotViewedBoard));
             myNotifications.AddRange(ConvertToNotificationModel(myClassEnrollmentsNotViewedBoard));
             myNotifications.AddRange(ConvertToNotificationModel(myGeneralPostingViewStates));
             myNotifications.AddRange(ConvertToNotificationModel(myEventAttendences));
@@ -70,21 +67,6 @@ namespace UniversityOfMe.Services.Notifications {
                     SendItem = SendItemOptions.BEER,
                     WhoSent = mySendItem.FromUser,
                     DateTimeSent = mySendItem.DateTimeStamp
-                });
-            }
-
-            return myNotificationModel;
-        }
-
-        private List<NotificationModel> ConvertToNotificationModel(IEnumerable<ClubMember> aClubMembers) {
-            List<NotificationModel> myNotificationModel = new List<NotificationModel>();
-
-            foreach (ClubMember myClubMember in aClubMembers) {
-                myNotificationModel.Add(new NotificationModel() {
-                    NotificationType = NotificationType.Club,
-                    Club = myClubMember.Club,
-                    ClubMemberUser = myClubMember.ClubMemberUser,
-                    DateTimeSent = myClubMember.DateTimeStamp
                 });
             }
 
@@ -162,20 +144,6 @@ namespace UniversityOfMe.Services.Notifications {
                     ClassBoard = myClassBoard,
                     IsMine = myClassBoard.UserId == aUser.Id,
                     DateTimeSent = (DateTime)myViewState.DateTimeStamp
-                });
-            }
-
-            return myNotificationModel;
-        }
-
-        private List<NotificationModel> ConvertToNotificationModelForNotViewedBoard(IEnumerable<ClubMember> aClubMembers) {
-            List<NotificationModel> myNotificationModel = new List<NotificationModel>();
-
-            foreach (ClubMember myClubMember in aClubMembers) {
-                myNotificationModel.Add(new NotificationModel() {
-                    NotificationType = NotificationType.ClubBoard,
-                    Club = myClubMember.Club,
-                    DateTimeSent = (DateTime)myClubMember.LastBoardPost
                 });
             }
 

@@ -106,38 +106,11 @@ namespace UniversityOfMe.Helpers.Scraper {
             int myUserId = UserInformationFactory.GetUserInformation().Details.Id;
 
             foreach (ClassStructure myClassS in myClassStructures) {
-                List<Professor> myLocalProfs = new List<Professor>();
-                string[] myProfessorSplit = myClassS.Instructor.Replace("&#39;", "'").Split(';').Select(p => p.Trim()).ToArray();
-                foreach (string mySingleProf in myProfessorSplit) {
-                    int myFirstSpace = mySingleProf.LastIndexOf(' ');
-
-                    string myFirstName = "UNKNOWN";
-                    string myLastName = "PROFESSOR";
-
-                    if (!string.IsNullOrEmpty(mySingleProf)) {
-                        myFirstName = mySingleProf.Substring(myFirstSpace, mySingleProf.Length - myFirstSpace).Trim();
-                        myLastName = mySingleProf.Substring(0, myFirstSpace + 1).Trim();
-                    }
-
-                    Professor myProf = null;
-                    if (myScraperRepo.ProfessorExists("UChicago", myFirstName, myLastName)) {
-                        myProf = myScraperRepo.GetProfessor("UChicago", myFirstName, myLastName);
-                    } else {
-                        myProf = myScraperRepo.CreateProfessor("UChicago", myUserId, myFirstName, myLastName);
-                    }
-
-                    myLocalProfs.Add(myProf);
-                }
-
                 Class myClass = null;
                 if (myScraperRepo.ClassExists("UChicago", myClassS.Subject.Trim(), myClassS.Course.Trim())) {
                     myClass = myScraperRepo.GetClass("UChicago", myClassS.Subject.Trim(), myClassS.Course.Trim());
                 } else {
                     myClass = myScraperRepo.CreateClass("UChicago", myUserId, myClassS.Subject.Trim(), myClassS.Course.Trim(), myClassS.Title.Trim());
-                }
-
-                foreach (Professor myLocalProf in myLocalProfs) {
-                    myScraperRepo.CreateClassProfessor(myLocalProf.Id, myClass.Id);
                 }
             }
 

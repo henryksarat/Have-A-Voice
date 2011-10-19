@@ -12,21 +12,18 @@ using System.Linq;
 using Social.Generic.Helpers;
 using Social.Admin.Helpers;
 using Social.Admin.Exceptions;
-using UniversityOfMe.Services.Professors;
 
 namespace UniversityOfMe.Services.Classes {
     public class ClassService : IClassService {
         private IValidationDictionary theValidationDictionary;
         private IClassRepository theClassRepository;
-        private IProfessorService theProfessorService;
 
         public ClassService(IValidationDictionary aValidationDictionary)
-            : this(aValidationDictionary, new ProfessorService(aValidationDictionary), new EntityClassRepository()) { }
+            : this(aValidationDictionary, new EntityClassRepository()) { }
 
-        public ClassService(IValidationDictionary aValidationDictionary, IProfessorService aProfessorService, IClassRepository aClassRepo) {
+        public ClassService(IValidationDictionary aValidationDictionary, IClassRepository aClassRepo) {
             theValidationDictionary = aValidationDictionary;
             theClassRepository = aClassRepo;
-            theProfessorService = aProfessorService;
         }
 
         public Class CreateClass(UserInformationModel<User> aCreatedByUser, CreateClassModel aCreateClassModel) {
@@ -45,11 +42,8 @@ namespace UniversityOfMe.Services.Classes {
         public ClassDetailsModel GetClass(UserInformationModel<User> aViewingUser, int aClassId, ClassViewType aClassViewType) {
             Class myClass = theClassRepository.GetClass(aClassId);
 
-            IEnumerable<Professor> myProfessors = new List<Professor>();
-
             return new ClassDetailsModel() {
-                Class = myClass,
-                Professors = myProfessors
+                Class = myClass
             };
         }
 
