@@ -81,7 +81,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\Badges\BadgeController.cs" />
-    <Compile Include="Controllers\Classes\ClassBoardReplyController.cs" />
     <Compile Include="Controllers\Core\PasswordController.cs" />
     <Compile Include="Controllers\Dating\FlirtController.cs" />
     <Compile Include="Controllers\Marketplace\MarketplaceController.cs" />
@@ -105,9 +104,6 @@
     <Compile Include="Controllers\Boards\BoardController.cs" />
     <Compile Include="Controllers\Boards\BoardReplyController.cs" />
     <Compile Include="Controllers\Classes\ClassController.cs" />
-    <Compile Include="Controllers\Classes\ClassBoardController.cs" />
-    <Compile Include="Controllers\Classes\ClassReviewController.cs" />
-    <Compile Include="Controllers\Classes\ClassEnrollmentController.cs" />
     <Compile Include="Controllers\Clubs\ClubBoardController.cs" />
     <Compile Include="Controllers\Clubs\ClubController.cs" />
     <Compile Include="Controllers\Clubs\ClubMemberController.cs" />
@@ -510,11 +506,7 @@
     <Content Include="Views\Authentication\Login.aspx" />
     <Content Include="Views\Badge\List.aspx" />
     <Content Include="Views\Board\Details.aspx" />
-    <Content Include="Views\ClassBoard\Details.aspx" />
-    <Content Include="Views\ClassEnrollment\List.aspx" />
-    <Content Include="Views\Class\ViewAllMembers.aspx" />
     <Content Include="Views\Class\Create.aspx" />
-    <Content Include="Views\Class\Details.aspx" />
     <Content Include="Views\ClubMember\Details.aspx" />
     <Content Include="Views\ClubMember\List.aspx" />
     <Content Include="Views\Club\Edit.aspx" />
@@ -574,7 +566,6 @@
     <Content Include="Views\TextBook\Edit.aspx" />
     <Content Include="Views\TextBook\Create.aspx" />
     <Content Include="Views\TextBook\Details.aspx" />
-    <Content Include="Views\University\Classes.ascx" />
     <Content Include="Views\University\OtherStuff.ascx" />
     <Content Include="Views\University\Flirts.ascx" />
     <Content Include="Views\University\UserStatuses.ascx" />

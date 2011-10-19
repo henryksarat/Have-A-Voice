@@ -27,5 +27,7 @@ namespace UniversityOfMe.Repositories.Search {
 
         IEnumerable<User> GetUserByName(int aUserId, string aName);
         IEnumerable<User> GetUserByName(string aName);
+
+        IEnumerable<University> GetUniversities();
     }
 }

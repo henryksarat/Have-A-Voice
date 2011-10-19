@@ -144,6 +144,7 @@ namespace UniversityOfMe.Controllers.Clubs {
 
                 LoggedInWrapperModel<TextBook> myLoggedIn = new LoggedInWrapperModel<TextBook>(myUser);
                 myLoggedIn.Set(myTextBook);
+                //myLoggedIn.LeftNavigation.BackgroundImage = myTextBook.University.Image;
 
                 return View("Details", myLoggedIn);
             } catch (Exception myException) {

@@ -8,6 +8,7 @@
     $(document).ready(function () {
         var myBg = <%= "'" + Model.BackgroundImage + "'" %>;
         var myBgStyle = 'url(/Content/images/' + myBg + ')';
+
         $('body').css('background-image', myBgStyle);
         $("#submitPhoto").hide();
         $('#addphoto').click(function () {

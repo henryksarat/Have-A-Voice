@@ -23,7 +23,7 @@ namespace UniversityOfMe.Helpers {
         }
 
         public static string BuildClassReviewUrl(Class aClass) {
-            return "/" + aClass.UniversityId + "/Class/Details/" + ToUrlFriendly(aClass.Subject + " " + aClass.Course + " " + aClass.Section + " " + aClass.AcademicTermId + " " + aClass.Year) + "?classViewType=" + ClassViewType.Review;
+            return "/" + aClass.UniversityId + "/Class/Details/" + ToUrlFriendly(aClass.Subject + " " + aClass.Course);
         }
 
         public static string BuildClassBoardUrl(ClassBoard aClassBoard) {
@@ -31,7 +31,7 @@ namespace UniversityOfMe.Helpers {
         }
 
         public static string BuildClassDiscussionUrl(Class aClass) {
-            return "/" + aClass.UniversityId + "/Class/Details/" + ToUrlFriendly(aClass.Subject + " " + aClass.Course + " " + aClass.Section + " " + aClass.AcademicTermId + " " + aClass.Year) + "?classViewType=" + ClassViewType.Discussion;
+            return "/" + aClass.UniversityId + "/Class/Details/" + ToUrlFriendly(aClass.Subject + " " + aClass.Course);
         }
 
         public static string BuildProfessorUrl(Professor aProfessor) {

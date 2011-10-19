@@ -42,7 +42,7 @@ namespace UniversityOfMe.Controllers.Classes {
         public ActionResult List(string universityId) {
             return RedirectToAction("Class", "Search", new { searchString = string.Empty, page = 1 });
         }
-        /*
+        
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult Create(string universityId) {
             if (!IsLoggedIn()) {
@@ -80,10 +80,8 @@ namespace UniversityOfMe.Controllers.Classes {
             }
             try {
                 Class myResult = theClassService.CreateClass(GetUserInformatonModel(), aClass);
-
                 if (myResult != null) {
-                    string[] myUrlPieces = new string[]{ myResult.ClassCode, myResult.AcademicTermId, myResult.Year.ToString() };
-                    return RedirectToAction("Details", new { id = URLHelper.ToUrlFriendly(string.Join(" ", myUrlPieces)), classViewType = ClassViewType.Discussion });
+                    TempData["Message"] = SuccessMessage("Class added! You can now tag books to it!");
                 }
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
@@ -93,7 +91,6 @@ namespace UniversityOfMe.Controllers.Classes {
 
             return RedirectToAction("Create");
         }
-        */
         
         [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
         public ActionResult DetailsWithClassId(string universityId, int classId, ClassViewType classViewType) {
@@ -114,56 +111,6 @@ namespace UniversityOfMe.Controllers.Classes {
             } catch (Exception myException) {
                 LogError(myException, ErrorKeys.ERROR_MESSAGE);
                 return SendToResultPage(ErrorKeys.ERROR_MESSAGE);
-            }
-        }
-        
-        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
-        public ActionResult Details(string universityId, string id, ClassViewType classViewType) {
-            try {
-                UserInformationModel<User> myUserInfo = GetUserInformatonModel();
-                User myUser = myUserInfo == null ? null : myUserInfo.Details;
-
-                bool myExists = theClassService.IsClassExists(id);
-
-                if (!myExists) {
-                    TempData["Message"] += MessageHelper.WarningMessage(CLASS_DOESNT_EXIST);
-                    return RedirectToAction("Create", "Class");
-                }
-
-                ClassDetailsModel myClass = theClassService.GetClass(myUserInfo, id, classViewType);
-                LoggedInWrapperModel<ClassDetailsModel> myLoggedInModel = new LoggedInWrapperModel<ClassDetailsModel>(myUser);
-                myLoggedInModel.Set(myClass);
-
-                ViewData["ClassViewType"] = classViewType;
-                return View("Details", myLoggedInModel);
-            } catch (Exception myException) {
-                LogError(myException, CLASS_DETAILS_ERROR);
-                return SendToResultPage(CLASS_DETAILS_ERROR);
-            }
-        }
-
-        [AcceptVerbs(HttpVerbs.Get), ImportModelStateFromTempData]
-        public ActionResult ViewAllMembers(string universityId, int id) {
-            if (!IsLoggedIn()) {
-                return RedirectToLogin();
-            }
-
-            User myUser = GetUserInformatonModel().Details;
-
-            if (!UniversityHelper.IsFromUniversity(myUser, universityId)) {
-                return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
-            }
-
-            try {
-                IEnumerable<ClassEnrollment> myClassEnrollments = theClassService.GetEnrolledInClass(id);
-                LoggedInListModel<ClassEnrollment> myLogedInModel = new LoggedInListModel<ClassEnrollment>(myUser);
-                myLogedInModel.Set(myClassEnrollments);
-
-                return View("ViewAllMembers", myLogedInModel);
-            } catch (Exception myException) {
-                LogError(myException, ErrorKeys.ERROR_MESSAGE);
-                TempData["Message"] += MessageHelper.ErrorMessage(VIEW_ALL_MEMBERS_ERROR);
-                return RedirectToAction("Details", new { id = id });
             }
         }
     }

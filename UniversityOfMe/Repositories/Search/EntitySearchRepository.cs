@@ -17,7 +17,7 @@ namespace UniversityOfMe.Repositories.Search {
 
         public IEnumerable<Class> GetClassByClassCode(string aUniversityId, string aClassCode) {
             return (from c in theEntities.Classes
-                    where (c.Subject + c.Course + "-" + c.Section).Contains(aClassCode)
+                    where (c.Subject + c.Course).Contains(aClassCode)
                     && c.UniversityId == aUniversityId
                     select c);
         }
@@ -98,7 +98,7 @@ namespace UniversityOfMe.Repositories.Search {
 
         public IEnumerable<Class> GetClassByClassCode(string aClassCode) {
             return (from c in theEntities.Classes
-                    where (c.Subject + c.Course + "-" + c.Section).Contains(aClassCode)
+                    where (c.Subject + c.Course).Contains(aClassCode)
                     select c);
         }
 
@@ -168,6 +168,12 @@ namespace UniversityOfMe.Repositories.Search {
         public IEnumerable<User> GetUserByName(string aName) {
             return (from u in theEntities.Users
                     where (u.FirstName + " " + u.LastName).Contains(aName)
+                    select u);
+        }
+
+
+        public IEnumerable<University> GetUniversities() {
+            return (from u in theEntities.Universities
                     select u);
         }
     }

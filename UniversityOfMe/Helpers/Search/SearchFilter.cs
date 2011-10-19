@@ -15,6 +15,7 @@
         ELECTRONIC,
         ROOMATE,
         WANTED,
-        MISCELLANEOUS
+        MISCELLANEOUS,
+        TUTOR
     }
 }

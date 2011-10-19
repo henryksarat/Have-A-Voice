@@ -37,8 +37,10 @@ namespace UniversityOfMe.Services.Search {
             IEnumerable<TextBook> myTextBooks = new List<TextBook>();
             IEnumerable<MarketplaceItem> myItems = new List<MarketplaceItem>();
 
+            string myUniversityId = "All";
+
             if (aUserInformation != null) {
-                string myUniversityId = UniversityHelper.GetMainUniversity(aUserInformation.Details).Id;
+                myUniversityId = UniversityHelper.GetMainUniversity(aUserInformation.Details).Id;
                 myTextBooks = theSearchRepository.GetTextBookByTitle(myUniversityId, aSearchString);
                 myItems = theMarketplaceSerivce.GetLatestItemsSellingInUniversityByTitle(myUniversityId, aSearchString);
             } else {
@@ -58,9 +60,43 @@ namespace UniversityOfMe.Services.Search {
             mySearchResult = mySearchResult.OrderByDescending(i => i.GetDateTime()).ToList();
 
             int myTotalResults = myItems.Count<MarketplaceItem>() + myTextBooks.Count<TextBook>();
-            SearchResultsModel myModel = 
-                BuildSearchResultsModel(mySearchResult, SearchFilter.ALL, aPage, 
-                                        aSearchString, myTotalResults, SearchByForAll(), 
+            SearchResultsModel myModel =
+                BuildSearchResultsModel(myUniversityId, mySearchResult, SearchFilter.ALL, aPage,
+                                        aSearchString, myTotalResults, SearchByForAll(),
+                                        SearchBy.None, OrderByForAll(), OrderBy.None);
+            return myModel;
+        }
+
+        public SearchResultsModel GetAllSearchResults(UserInformationModel<User> aUserInformation, string aSearchString, int aPage, string aUniversityId) {
+            IEnumerable<TextBook> myTextBooks = new List<TextBook>();
+            IEnumerable<MarketplaceItem> myItems = new List<MarketplaceItem>();
+
+            string myUniversityId = "All";
+
+            if (!aUniversityId.Equals("All")) {
+                myUniversityId = aUniversityId;
+                myTextBooks = theSearchRepository.GetTextBookByTitle(myUniversityId, aSearchString);
+                myItems = theMarketplaceSerivce.GetLatestItemsSellingInUniversityByTitle(myUniversityId, aSearchString);
+            } else {
+                myTextBooks = theSearchRepository.GetTextBookByTitle(aSearchString);
+                myItems = theMarketplaceSerivce.GetLatestItemsSellingByTitleForAllUniversitiesAndTypes(aSearchString);
+            }
+
+            List<ISearchResult> mySearchResult = new List<ISearchResult>();
+
+            mySearchResult.AddRange(myTextBooks.Select(r => new TextBookSearchResult(r) {
+                UserInformationModel = aUserInformation
+            }));
+            mySearchResult.AddRange(myItems.Select(r => new ItemSearchResult(r) {
+                UserInformationModel = aUserInformation
+            }));
+
+            mySearchResult = mySearchResult.OrderByDescending(i => i.GetDateTime()).ToList();
+
+            int myTotalResults = myItems.Count<MarketplaceItem>() + myTextBooks.Count<TextBook>();
+            SearchResultsModel myModel =
+                BuildSearchResultsModel(myUniversityId, mySearchResult, SearchFilter.ALL, aPage,
+                                        aSearchString, myTotalResults, SearchByForAll(),
                                         SearchBy.None, OrderByForAll(), OrderBy.None);
             return myModel;
         }
@@ -69,9 +105,10 @@ namespace UniversityOfMe.Services.Search {
         public SearchResultsModel GetClassSearchResults(UserInformationModel<User> aUserInformation, string aSearchString, 
                                                         int aPage, SearchBy aSearchBy, OrderBy anOrderBy) {
             IEnumerable<Class> myClasses = new List<Class>();
+            string myUniversityId = "All";
 
             if (aUserInformation != null) {
-                string myUniversityId = UniversityHelper.GetMainUniversity(aUserInformation.Details).Id;
+                myUniversityId = UniversityHelper.GetMainUniversity(aUserInformation.Details).Id;
                 if (aSearchBy == SearchBy.Title) {
                     myClasses = theSearchRepository.GetClassByTitle(myUniversityId, aSearchString);
                 } else if (aSearchBy == SearchBy.ClassCode) {
@@ -88,7 +125,7 @@ namespace UniversityOfMe.Services.Search {
             if (anOrderBy == OrderBy.Title) {
                 myClasses = myClasses.OrderBy(r => r.Title);
             } else if (anOrderBy == OrderBy.ClassCode) {
-                myClasses = myClasses.OrderBy(r => r.Subject + r.Course + r.Section);
+                myClasses = myClasses.OrderBy(r => r.Subject + r.Course);
             } else if (anOrderBy == OrderBy.LatestPost) {
                 myClasses = myClasses.OrderByDescending(
                     r => r.ClassBoards
@@ -110,7 +147,58 @@ namespace UniversityOfMe.Services.Search {
             int myTotalResults = myClasses.Count<Class>();
 
             SearchResultsModel myModel = 
-                BuildSearchResultsModel(mySearchResult, SearchFilter.CLASS, aPage, aSearchString, 
+                BuildSearchResultsModel(myUniversityId, mySearchResult, SearchFilter.CLASS, aPage, aSearchString, 
+                                        myTotalResults, SearchByForClass(), aSearchBy,
+                                        OrderByForClass(), anOrderBy);
+            return myModel;
+        }
+
+        public SearchResultsModel GetClassSearchResults(UserInformationModel<User> aUserInformation, string aSearchString,
+                                                        int aPage, SearchBy aSearchBy, OrderBy anOrderBy, string aUniversityId) {
+            IEnumerable<Class> myClasses = new List<Class>();
+            string myUniversityId = "All";
+
+            if (!aUniversityId.Equals("All")) {
+                myUniversityId = aUniversityId;
+                if (aSearchBy == SearchBy.Title) {
+                    myClasses = theSearchRepository.GetClassByTitle(myUniversityId, aSearchString);
+                } else if (aSearchBy == SearchBy.ClassCode) {
+                    myClasses = theSearchRepository.GetClassByClassCode(myUniversityId, aSearchString);
+                }
+            } else {
+                if (aSearchBy == SearchBy.Title) {
+                    myClasses = theSearchRepository.GetClassByTitle(aSearchString);
+                } else if (aSearchBy == SearchBy.ClassCode) {
+                    myClasses = theSearchRepository.GetClassByClassCode(aSearchString);
+                }
+            }
+
+            if (anOrderBy == OrderBy.Title) {
+                myClasses = myClasses.OrderBy(r => r.Title);
+            } else if (anOrderBy == OrderBy.ClassCode) {
+                myClasses = myClasses.OrderBy(r => r.Subject + r.Course);
+            } else if (anOrderBy == OrderBy.LatestPost) {
+                myClasses = myClasses.OrderByDescending(
+                    r => r.ClassBoards
+                        .Where(r2 => !r2.Deleted)
+                        .OrderByDescending(r2 => r2.DateTimeStamp)
+                        .FirstOrDefault<ClassBoard>() != null ?
+                        r.ClassBoards
+                        .Where(r2 => !r2.Deleted)
+                        .OrderByDescending(r2 => r2.DateTimeStamp)
+                        .FirstOrDefault<ClassBoard>().DateTimeStamp :
+                        OLD_DATE
+                    );
+            }
+
+            List<ISearchResult> mySearchResult = new List<ISearchResult>();
+
+            mySearchResult.AddRange(myClasses.Select(r => new ClassSearchResult(r)));
+
+            int myTotalResults = myClasses.Count<Class>();
+
+            SearchResultsModel myModel =
+                BuildSearchResultsModel(myUniversityId, mySearchResult, SearchFilter.CLASS, aPage, aSearchString,
                                         myTotalResults, SearchByForClass(), aSearchBy,
                                         OrderByForClass(), anOrderBy);
             return myModel;
@@ -118,8 +206,10 @@ namespace UniversityOfMe.Services.Search {
 
         public SearchResultsModel MarketplaceSearchResults(UserInformationModel<User> aUserInformation, string aSearchString, int aPage, SearchBy aSearchBy, OrderBy anOrderBy, string anItemType) {
             IEnumerable<MarketplaceItem> myItems = new List<MarketplaceItem>();
+            string myUniversityId = "All";
+
             if (aUserInformation != null) {
-                string myUniversityId = UniversityHelper.GetMainUniversity(aUserInformation.Details).Id;
+                myUniversityId = UniversityHelper.GetMainUniversity(aUserInformation.Details).Id;
                 if (aSearchBy == SearchBy.Title) {
                     myItems = theMarketplaceSerivce.GetLatestItemsSellingInUniversityByItemAndTitle(myUniversityId, anItemType, aSearchString);
                 }
@@ -148,17 +238,59 @@ namespace UniversityOfMe.Services.Search {
             int myTotalResults = myItems.Count();
 
             SearchResultsModel myModel =
-                BuildSearchResultsModel(mySearchResult, (SearchFilter)Enum.Parse(typeof(SearchFilter), anItemType), aPage,
+                BuildSearchResultsModel(myUniversityId, mySearchResult, (SearchFilter)Enum.Parse(typeof(SearchFilter), anItemType), aPage,
                                         aSearchString, myTotalResults, SearchByForItems(),
                                         aSearchBy, OrderByForItems(), anOrderBy);
             return myModel;
         }
 
-        public SearchResultsModel GetTextBookSearchResults(UserInformationModel<User> aUserInformation, string aSearchString, 
+        public SearchResultsModel MarketplaceSearchResults(UserInformationModel<User> aUserInformation, string aSearchString, int aPage, SearchBy aSearchBy, OrderBy anOrderBy, string anItemType, string aUniversityId) {
+            IEnumerable<MarketplaceItem> myItems = new List<MarketplaceItem>();
+            string myUniversityId = "All";
+
+            if (!aUniversityId.Equals("All")) {
+                myUniversityId = aUniversityId;
+                if (aSearchBy == SearchBy.Title) {
+                    myItems = theMarketplaceSerivce.GetLatestItemsSellingInUniversityByItemAndTitle(myUniversityId, anItemType, aSearchString);
+                }
+            } else {
+                if (aSearchBy == SearchBy.Title) {
+                    myItems = theMarketplaceSerivce.GetLatestItemsSellingByTypeAndTitleForAnyUniversity(anItemType, aSearchString);
+                }
+            }
+
+            if (anOrderBy == OrderBy.Title) {
+                myItems = myItems.OrderBy(r => r.Title);
+            } else if (anOrderBy == OrderBy.LowestPrice) {
+                myItems = myItems.OrderBy(r => r.Price);
+            } else if (anOrderBy == OrderBy.HighestPrice) {
+                myItems = myItems.OrderByDescending(r => r.Price);
+            } else if (anOrderBy == OrderBy.Newest) {
+                myItems = myItems.OrderBy(r => r.DateTimeStamp);
+            }
+
+            List<ISearchResult> mySearchResult = new List<ISearchResult>();
+
+            mySearchResult.AddRange(myItems.Select(r => new ItemSearchResult(r) {
+                UserInformationModel = aUserInformation
+            }));
+
+            int myTotalResults = myItems.Count();
+
+            SearchResultsModel myModel =
+                BuildSearchResultsModel(myUniversityId, mySearchResult, (SearchFilter)Enum.Parse(typeof(SearchFilter), anItemType), aPage,
+                                        aSearchString, myTotalResults, SearchByForItems(),
+                                        aSearchBy, OrderByForItems(), anOrderBy);
+            return myModel;
+        }
+
+        public SearchResultsModel GetTextBookSearchResults(UserInformationModel<User> aUserInformation, string aSearchString,
                                                            int aPage, SearchBy aSearchBy, OrderBy anOrderBy) {
             IEnumerable<TextBook> myTextBooks = new List<TextBook>();
+            string myUniversityId = "All";
+
             if (aUserInformation != null) {
-                string myUniversityId = UniversityHelper.GetMainUniversity(aUserInformation.Details).Id;
+                myUniversityId = UniversityHelper.GetMainUniversity(aUserInformation.Details).Id;
                 if (aSearchBy == SearchBy.Title) {
                     myTextBooks = theSearchRepository.GetTextBookByTitle(myUniversityId, aSearchString);
                 } else if (aSearchBy == SearchBy.ClassCode) {
@@ -190,9 +322,54 @@ namespace UniversityOfMe.Services.Search {
 
             int myTotalResults = myTextBooks.Count<TextBook>();
 
-            SearchResultsModel myModel = 
-                BuildSearchResultsModel(mySearchResult, SearchFilter.TEXTBOOK, aPage, 
-                                        aSearchString, myTotalResults, SearchByForTextbook(), 
+            SearchResultsModel myModel =
+                BuildSearchResultsModel(myUniversityId, mySearchResult, SearchFilter.TEXTBOOK, aPage,
+                                        aSearchString, myTotalResults, SearchByForTextbook(),
+                                        aSearchBy, OrderByForTextbook(), anOrderBy);
+            return myModel;
+        }
+
+        public SearchResultsModel GetTextBookSearchResults(UserInformationModel<User> aUserInformation, string aSearchString,
+                                                   int aPage, SearchBy aSearchBy, OrderBy anOrderBy, string aUniversityId) {
+            IEnumerable<TextBook> myTextBooks = new List<TextBook>();
+            string myUniversityId = "All";
+
+            if (!aUniversityId.Equals("All")) {
+                myUniversityId = aUniversityId;
+                if (aSearchBy == SearchBy.Title) {
+                    myTextBooks = theSearchRepository.GetTextBookByTitle(myUniversityId, aSearchString);
+                } else if (aSearchBy == SearchBy.ClassCode) {
+                    myTextBooks = theSearchRepository.GetTextBookByClassCode(myUniversityId, aSearchString);
+                }
+            } else {
+                if (aSearchBy == SearchBy.Title) {
+                    myTextBooks = theSearchRepository.GetTextBookByTitle(aSearchString);
+                } else if (aSearchBy == SearchBy.ClassCode) {
+                    myTextBooks = theSearchRepository.GetTextBookByClassCode(aSearchString);
+                }
+            }
+
+            if (anOrderBy == OrderBy.Title) {
+                myTextBooks = myTextBooks.OrderBy(r => r.BookTitle);
+            } else if (anOrderBy == OrderBy.ClassCode) {
+                myTextBooks = myTextBooks.OrderBy(r => r.ClassSubject + r.ClassCourse);
+            } else if (anOrderBy == OrderBy.LowestPrice) {
+                myTextBooks = myTextBooks.OrderBy(r => r.Price);
+            } else if (anOrderBy == OrderBy.HighestPrice) {
+                myTextBooks = myTextBooks.OrderByDescending(r => r.Price);
+            }
+
+            List<ISearchResult> mySearchResult = new List<ISearchResult>();
+
+            mySearchResult.AddRange(myTextBooks.Select(r => new TextBookSearchResult(r) {
+                UserInformationModel = aUserInformation
+            }));
+
+            int myTotalResults = myTextBooks.Count<TextBook>();
+
+            SearchResultsModel myModel =
+                BuildSearchResultsModel(myUniversityId, mySearchResult, SearchFilter.TEXTBOOK, aPage,
+                                        aSearchString, myTotalResults, SearchByForTextbook(),
                                         aSearchBy, OrderByForTextbook(), anOrderBy);
             return myModel;
         }
@@ -222,15 +399,47 @@ namespace UniversityOfMe.Services.Search {
             int myTotalResults = myUsers.Count<User>();
 
             SearchResultsModel myModel =
-                BuildSearchResultsModel(mySearchResult, SearchFilter.USER, aPage,
+                BuildSearchResultsModel("All", mySearchResult, SearchFilter.USER, aPage,
                                         aSearchString, myTotalResults, SearchByForPeople(),
                                         aSearchBy, OrderByForPeople(), anOrderBy);
             return myModel;
         }
 
-        private SearchResultsModel BuildSearchResultsModel(List<ISearchResult> aResults, Helpers.Search.SearchFilter aSearchType,
+        public SearchResultsModel GetUserSearchResults(UserInformationModel<User> aUserInformation, string aSearchString,
+                                                 int aPage, SearchBy aSearchBy, OrderBy anOrderBy, string aUniversityId) {
+            IEnumerable<User> myUsers = new List<User>();
+
+            if (aSearchBy == SearchBy.Name) {
+                if (aUserInformation == null) {
+                    myUsers = theSearchRepository.GetUserByName(aSearchString);
+                } else {
+                    myUsers = theSearchRepository.GetUserByName(aUserInformation.UserId, aSearchString);
+                }
+            }
+
+            if (anOrderBy == OrderBy.Name) {
+                myUsers = myUsers.OrderBy(r => r.FirstName + " " + r.LastName);
+            }
+
+            List<ISearchResult> mySearchResult = new List<ISearchResult>();
+
+            mySearchResult.AddRange(myUsers.Select(r => new UserSearchResult(r) {
+                UserInformationModel = aUserInformation
+            }));
+
+            int myTotalResults = myUsers.Count<User>();
+
+            SearchResultsModel myModel =
+                BuildSearchResultsModel("All", mySearchResult, SearchFilter.USER, aPage,
+                                        aSearchString, myTotalResults, SearchByForPeople(),
+                                        aSearchBy, OrderByForPeople(), anOrderBy);
+            return myModel;
+        }
+
+        private SearchResultsModel BuildSearchResultsModel(string aUniversityId, List<ISearchResult> aResults, Helpers.Search.SearchFilter aSearchType,
                         int aPage, string aSearchString, int aTotalResults, IDictionary<string, string> aSearchByOptions,
-                        SearchBy aSearchBySelected, IDictionary<string, string> anOrderByOptions, OrderBy anOrderBySelected) {
+                        SearchBy aSearchBySelected, IDictionary<string, string> anOrderByOptions, 
+                        OrderBy anOrderBySelected) {
 
                             int myToGet = (aPage - 1) * SiteConfiguration.ResultsPerPage() + SiteConfiguration.ResultsPerPage() > aResults.Count
                                 ? aTotalResults % SiteConfiguration.ResultsPerPage()
@@ -244,7 +453,9 @@ namespace UniversityOfMe.Services.Search {
                 TotalResults = aTotalResults,
                 SearchString = aSearchString,
                 SearchByOptions = new SelectList(aSearchByOptions, "Value", "Key", aSearchBySelected),
-                OrderByOptions = new SelectList(anOrderByOptions, "Value", "Key", anOrderBySelected)
+                OrderByOptions = new SelectList(anOrderByOptions, "Value", "Key", anOrderBySelected),
+                UniversityOptions = new SelectList(UniversityOptions(), "Value", "Key", aUniversityId)
+                
             };
         }
 
@@ -308,6 +519,15 @@ namespace UniversityOfMe.Services.Search {
             IDictionary<string, string> mySearchByOptionsDictionary = new Dictionary<string, string>();
             mySearchByOptionsDictionary.Add(SearchBy.Name.ToString(), SearchBy.Name.ToString());
             return mySearchByOptionsDictionary;
+        }
+
+        private IDictionary<string, string> UniversityOptions() {
+            IDictionary<string, string> myUniversities = new Dictionary<string, string>();
+            myUniversities.Add("All", "All");
+            foreach (University myUniversity in theSearchRepository.GetUniversities()) {
+                myUniversities.Add(myUniversity.UniversityName, myUniversity.Id);
+            }
+            return myUniversities;
         }
 
         private IDictionary<string, string> OrderByForPeople() {

@@ -38,6 +38,10 @@
                             <%= Html.ValidationMessage("Title", "*", new { @class = "req" })%>
                         </div>
                         <div class="field-holder">
+			                <label for="BookTitle">List In</label> 
+			                <%= Model.University.UniversityName %>
+                        </div>
+                        <div class="field-holder">
 			                <label for="Item Type">Item Type Condition</label> 
                             <%= Html.DropDownListFor(model => model.Get().ItemType, Model.Get().ItemTypes)%>
                             <%= Html.ValidationMessageFor(model => model.Get().ItemType, "*", new { @class = "req" })%>

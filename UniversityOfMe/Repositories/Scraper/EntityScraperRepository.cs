@@ -32,30 +32,26 @@ namespace UniversityOfMe.Repositories.Scraper {
                     select p).FirstOrDefault<Professor>();
         }
 
-        public bool ClassExists(string aUniversityId, string anAcademicTerm, string aSubject, string aCourse, string aSection) {
+        public bool ClassExists(string aUniversityId, string aSubject, string aCourse) {
             return (from c in theEntities.Classes
                     where c.UniversityId == aUniversityId
-                    && c.AcademicTermId == anAcademicTerm
                     && c.Subject == aSubject
                     && c.Course == aCourse
-                    && c.Section == aSection
                     select c).Count() > 0 ? true : false;
         }
 
-        public Class CreateClass(string aUniversityId, int aCreatedById, string anAcademicTerm, string aSubject, string aCourse, string aSection, string aTitle, int aYear, string aDetails) {
-            Class myClass = Class.CreateClass(0, aUniversityId, aCreatedById, anAcademicTerm, aSubject, aCourse, aSection, aTitle, aYear, DateTime.UtcNow);
+        public Class CreateClass(string aUniversityId, int aCreatedById, string aSubject, string aCourse, string aTitle) {
+            Class myClass = Class.CreateClass(0, aUniversityId, aCreatedById, aSubject, aCourse, aTitle, DateTime.UtcNow);
             theEntities.AddToClasses(myClass);
             theEntities.SaveChanges();
             return myClass;
         }
 
-        public Class GetClass(string aUniversityId, string anAcademicTerm, string aSubject, string aCourse, string aSection) {
+        public Class GetClass(string aUniversityId, string aSubject, string aCourse) {
             return (from c in theEntities.Classes
                     where c.UniversityId == aUniversityId
-                    && c.AcademicTermId == anAcademicTerm
                     && c.Subject == aSubject
                     && c.Course == aCourse
-                    && c.Section == aSection
                     select c).FirstOrDefault<Class>();
         }
 

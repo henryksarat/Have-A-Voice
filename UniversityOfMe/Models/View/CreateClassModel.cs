@@ -16,7 +16,10 @@ namespace UniversityOfMe.Models.View {
         public string UniversityId { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
-        public string ClassCode { get; set; }
+        public string ClassSubject { get; set; }
+
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string ClassCourse { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string ClassTitle { get; set; }

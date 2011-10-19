@@ -252,6 +252,7 @@ div.search div.select a.electronic, div.search div.select a.electronic:link, div
 div.search div.select a.roomate, div.search div.select a.roomate:link, div.search div.select a.roomate:visited { display: inline-block; text-indent: -9999px; background:url(images/roomate.png) no-repeat center center; width: 24px; height: 20px; }
 div.search div.select a.wanted, div.search div.select a.wanted:link, div.search div.select a.wanted:visited { display: inline-block; text-indent: -9999px; background:url(images/wanted.png) no-repeat center center; width: 24px; height: 20px; }
 div.search div.select a.miscellaneous, div.search div.select a.miscellaneous:link, div.search div.select a.miscellaneous:visited { display: inline-block; text-indent: -9999px; background:url(images/miscellaneous.png) no-repeat center center; width: 24px; height: 20px; }
+div.search div.select a.tutor, div.search div.select a.tutor:link, div.search div.select a.tutor:visited { display: inline-block; text-indent: -9999px; background:url(images/tutor.png) no-repeat center center; width: 24px; height: 20px; }
 
 /*** TABS ***/
 div.tabs { border-bottom: 4px solid #3e7c97; }
@@ -519,6 +520,7 @@ ul.filter li a.electronic { background:url(images/electronics.png) no-repeat cen
 ul.filter li a.roomate { background:url(images/roomate.png) no-repeat center left; }
 ul.filter li a.wanted { background:url(images/wanted.png) no-repeat center left; }
 ul.filter li a.miscellaneous { background:url(images/miscellaneous.png) no-repeat center left; }
+ul.filter li a.tutor { background:url(images/tutor.png) no-repeat center left; }
 
 
 div.filter { margin-bottom: 0px; }
@@ -557,7 +559,7 @@ div.search.result .res .res-con.service { background:url(images/service.png) no-
 div.search.result .res .res-con.roomate { background:url(images/roomate.png) no-repeat top left; }
 div.search.result .res .res-con.wanted { background:url(images/wanted.png) no-repeat top left; }
 div.search.result .res .res-con.work { background:url(images/work.png) no-repeat top left; }
-
+div.search.result .res .res-con.tutor { background:url(images/tutor.png) no-repeat top left; }
 
 
 
@@ -842,3 +844,4 @@ a.main-page-blog-read-more:hover { text-decoration: underline; }
 .roomate-icon { background:url(images/roomate.png) no-repeat center center; width: 30px; height: 30px; }
 .wanted-icon { background:url(images/wanted.png) no-repeat center center; width: 30px; height: 30px; }
 .miscellaneous-icon { background:url(images/miscellaneous.png) no-repeat center center; width: 30px; height: 30px; }
+.tutor-icon { background:url(images/tutor.png) no-repeat center center; width: 30px; height: 30px; }

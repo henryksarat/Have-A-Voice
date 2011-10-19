@@ -16,5 +16,6 @@ namespace UniversityOfMe.Models.View.Search {
         public string SearchString { get; set; }
         public IEnumerable<SelectListItem> SearchByOptions { get; set; }
         public IEnumerable<SelectListItem> OrderByOptions { get; set; }
+        public IEnumerable<SelectListItem> UniversityOptions { get; set; }
     }
 }

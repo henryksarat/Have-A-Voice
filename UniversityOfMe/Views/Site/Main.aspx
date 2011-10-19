@@ -30,13 +30,15 @@
 	    Benefits of using University of Me:
         <br />
         -Sell anything in your dorm or apartment.<br />
+        -Safely sell or buy tutoring or lessons from other university students and alumni.<br />
         -No listing fees or shipping, all items are sold on campus!<br />
         -Tag a <a class="itemlinked" href="/Search/<%= SearchFilter.TEXTBOOK.ToString() %>?page=1">textbook</a> to a real <a class="itemlinked" href="/Search/<%= SearchFilter.CLASS.ToString() %>?page=1">class</a> within your school. <br />
         -Easily search for <a class="itemlinked" href="/Search/<%= SearchFilter.TEXTBOOK.ToString() %>?page=1">textbooks</a> tagged to a class.<br />
         -<a class="itemlinked" href="/Search/<%= SearchFilter.ALL.ToString() %>?page=1">Easily find items other students in your university are selling.</a><br />
         -Know that you are safe when using University of Me because a <span style="font-style:italic">university email is required</span>.<br />
         -See what items your friends are selling.<br />
-        -Your email is never publicly posted so you are free from spambots.
+        -Your email is never publicly posted so you are free from spambots.<br />
+        -We are currently only open to students from the following universities: <span style="font-weight:bold">University of Chicago</span>, <span style="font-weight:bold">DePaul University</span>, <span style="font-weight:bold">Loyola University Chicago</span>, and <span style="font-weight:bold">Northwestern University</span>
         
         <br /><br />
         <% if (false) { %>
@@ -65,7 +67,7 @@
 
         <div class="normal-page" style="padding-top:10px; padding-left:10px; padding-right:10px; padding-bottom:10px">
             <div>
-                <div style="display:inline-block" class="big red">Latest Items Selling at UChicago</div>
+                <div style="display:inline-block" class="big red">Latest Items Selling in the Marketplace</div>
                 <a style="font-size:small" class="itemlinked" href="/Search/<%= SearchFilter.ALL.ToString() %>?page=1">Search More</a>
             </div>
             <div class="search result"> 

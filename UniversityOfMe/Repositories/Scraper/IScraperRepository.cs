@@ -10,13 +10,12 @@ namespace UniversityOfMe.Repositories.Scraper {
         Professor CreateProfessor(string aUniversityId, int aCreatedById, string aFirstName, string aLastName);
         Professor GetProfessor(string aUniversityId, string aFirstname, string aLastName);
 
-        bool ClassExists(string aUniversityId, string anAcademicTerm, string aSubject,
-                         string aCourse, string aSection);
-        Class CreateClass(string aUniversityId, int aCreatedById, string anAcademicTerm,
-                         string aSubject, string aCourse, string aSection, string aTitle,
-                         int aYear, string aDetails);
-        Class GetClass(string aUniversityId, string anAcademicTerm, string aSubject,
-                       string aCourse, string aSection);
+        bool ClassExists(string aUniversityId, string aSubject,
+                         string aCourse);
+        Class CreateClass(string aUniversityId, int aCreatedById,
+                         string aSubject, string aCourse, string aTitle);
+        Class GetClass(string aUniversityId, string aSubject,
+                       string aCourse);
 
 
         void CreateClassProfessor(int aProfessorId, int aClassId);

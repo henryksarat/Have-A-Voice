@@ -130,10 +130,10 @@ namespace UniversityOfMe.Helpers.Scraper {
                 }
 
                 Class myClass = null;
-                if (myScraperRepo.ClassExists("UChicago", "FALL", myClassS.Subject.Trim(), myClassS.Course.Trim(), myClassS.Section.Trim())) {
-                    myClass = myScraperRepo.GetClass("UChicago", "FALL", myClassS.Subject.Trim(), myClassS.Course.Trim(), myClassS.Section.Trim());
+                if (myScraperRepo.ClassExists("UChicago", myClassS.Subject.Trim(), myClassS.Course.Trim())) {
+                    myClass = myScraperRepo.GetClass("UChicago", myClassS.Subject.Trim(), myClassS.Course.Trim());
                 } else {
-                    myClass = myScraperRepo.CreateClass("UChicago", myUserId, "FALL", myClassS.Subject.Trim(), myClassS.Course.Trim(), myClassS.Section.Trim(), myClassS.Title.Trim(), 2011, string.Empty);
+                    myClass = myScraperRepo.CreateClass("UChicago", myUserId, myClassS.Subject.Trim(), myClassS.Course.Trim(), myClassS.Title.Trim());
                 }
 
                 foreach (Professor myLocalProf in myLocalProfs) {

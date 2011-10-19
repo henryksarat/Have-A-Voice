@@ -113,7 +113,6 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_TextBooks_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "TextBook", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.TextBook), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ItemsSelling_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.User), "MarketplaceItem", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.MarketplaceItem), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ItemsSelling_ItemType", "ItemType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.ItemType), "MarketplaceItem", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.MarketplaceItem), true)]
-[assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Classes_AcademicTerm", "AcademicTerm", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.AcademicTerm), "Class", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Class), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassBoards_Classes", "Class", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Class), "ClassBoard", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassBoard), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_ClassEnrollments_Classes", "Class", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.Class), "ClassEnrollment", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.ClassEnrollment), true)]
 [assembly: EdmRelationshipAttribute("UniversityOfMeModel", "FK_Classes_Universities", "University", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UniversityOfMe.Models.University), "Class", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UniversityOfMe.Models.Class), true)]
@@ -1721,28 +1720,6 @@ namespace UniversityOfMe.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProfessorReview>("UniversityOfMeModel.FK_ProfessorReviews_AcademicTerm", "ProfessorReview", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Classes_AcademicTerm", "Class")]
-        public EntityCollection<Class> Classes
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Class>("UniversityOfMeModel.FK_Classes_AcademicTerm", "Class");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Class>("UniversityOfMeModel.FK_Classes_AcademicTerm", "Class", value);
                 }
             }
         }
@@ -3944,25 +3921,19 @@ namespace UniversityOfMe.Models
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="universityId">Initial value of the UniversityId property.</param>
         /// <param name="createdByUserId">Initial value of the CreatedByUserId property.</param>
-        /// <param name="academicTermId">Initial value of the AcademicTermId property.</param>
         /// <param name="subject">Initial value of the Subject property.</param>
         /// <param name="course">Initial value of the Course property.</param>
-        /// <param name="section">Initial value of the Section property.</param>
         /// <param name="title">Initial value of the Title property.</param>
-        /// <param name="year">Initial value of the Year property.</param>
         /// <param name="dateTimeStamp">Initial value of the DateTimeStamp property.</param>
-        public static Class CreateClass(global::System.Int32 id, global::System.String universityId, global::System.Int32 createdByUserId, global::System.String academicTermId, global::System.String subject, global::System.String course, global::System.String section, global::System.String title, global::System.Int32 year, global::System.DateTime dateTimeStamp)
+        public static Class CreateClass(global::System.Int32 id, global::System.String universityId, global::System.Int32 createdByUserId, global::System.String subject, global::System.String course, global::System.String title, global::System.DateTime dateTimeStamp)
         {
             Class @class = new Class();
             @class.Id = id;
             @class.UniversityId = universityId;
             @class.CreatedByUserId = createdByUserId;
-            @class.AcademicTermId = academicTermId;
             @class.Subject = subject;
             @class.Course = course;
-            @class.Section = section;
             @class.Title = title;
-            @class.Year = year;
             @class.DateTimeStamp = dateTimeStamp;
             return @class;
         }
@@ -4050,30 +4021,6 @@ namespace UniversityOfMe.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String AcademicTermId
-        {
-            get
-            {
-                return _AcademicTermId;
-            }
-            set
-            {
-                OnAcademicTermIdChanging(value);
-                ReportPropertyChanging("AcademicTermId");
-                _AcademicTermId = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("AcademicTermId");
-                OnAcademicTermIdChanged();
-            }
-        }
-        private global::System.String _AcademicTermId;
-        partial void OnAcademicTermIdChanging(global::System.String value);
-        partial void OnAcademicTermIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
         public global::System.String Subject
         {
             get
@@ -4122,30 +4069,6 @@ namespace UniversityOfMe.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String Section
-        {
-            get
-            {
-                return _Section;
-            }
-            set
-            {
-                OnSectionChanging(value);
-                ReportPropertyChanging("Section");
-                _Section = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Section");
-                OnSectionChanged();
-            }
-        }
-        private global::System.String _Section;
-        partial void OnSectionChanging(global::System.String value);
-        partial void OnSectionChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
         public global::System.String Title
         {
             get
@@ -4164,54 +4087,6 @@ namespace UniversityOfMe.Models
         private global::System.String _Title;
         partial void OnTitleChanging(global::System.String value);
         partial void OnTitleChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 Year
-        {
-            get
-            {
-                return _Year;
-            }
-            set
-            {
-                OnYearChanging(value);
-                ReportPropertyChanging("Year");
-                _Year = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Year");
-                OnYearChanged();
-            }
-        }
-        private global::System.Int32 _Year;
-        partial void OnYearChanging(global::System.Int32 value);
-        partial void OnYearChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String Details
-        {
-            get
-            {
-                return _Details;
-            }
-            set
-            {
-                OnDetailsChanging(value);
-                ReportPropertyChanging("Details");
-                _Details = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Details");
-                OnDetailsChanged();
-            }
-        }
-        private global::System.String _Details;
-        partial void OnDetailsChanging(global::System.String value);
-        partial void OnDetailsChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -4240,44 +4115,6 @@ namespace UniversityOfMe.Models
         #endregion
     
         #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("UniversityOfMeModel", "FK_Classes_AcademicTerm", "AcademicTerm")]
-        public AcademicTerm AcademicTerm
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<AcademicTerm>("UniversityOfMeModel.FK_Classes_AcademicTerm", "AcademicTerm").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<AcademicTerm>("UniversityOfMeModel.FK_Classes_AcademicTerm", "AcademicTerm").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<AcademicTerm> AcademicTermReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<AcademicTerm>("UniversityOfMeModel.FK_Classes_AcademicTerm", "AcademicTerm");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<AcademicTerm>("UniversityOfMeModel.FK_Classes_AcademicTerm", "AcademicTerm", value);
-                }
-            }
-        }
     
         /// <summary>
         /// No Metadata Documentation available.

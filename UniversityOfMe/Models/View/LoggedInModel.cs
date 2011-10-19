@@ -25,8 +25,7 @@ namespace UniversityOfMe.Models.View {
                     User = aUser,
                     ItemTypes = myMarketplaceService.GetItemTypes(),
                     HasProfilePicture = myHasProfilePicture,
-                    IsLoggedIn = true,
-
+                    IsLoggedIn = true
                 };
             } else {
                 IMarketplaceService myMarketplaceService = new MarketplaceService(new ModelStateWrapper(null));

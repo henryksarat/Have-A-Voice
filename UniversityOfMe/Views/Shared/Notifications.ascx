@@ -27,23 +27,13 @@
 				<span class="time"><%= LocalDateHelper.ToLocalTime(myNotificationModel.DateTimeSent)%></span> 
 			</li> 
         <% } else if(myNotificationModel.NotificationType == NotificationType.ClassBoard) { %>
-			<li class="class"> 
-				New post in your enrolled class <a href="<%= URLHelper.BuildClassDiscussionUrl(myNotificationModel.Class) %>"><%= myNotificationModel.Class.Subject + myNotificationModel.Class.Course + "-" + myNotificationModel.Class.Section %> </a> 
-				<span class="time"><%= LocalDateHelper.ToLocalTime(myNotificationModel.DateTimeSent)%></span> 
-			</li> 
+
         <% } else if (myNotificationModel.NotificationType == NotificationType.None) { %>
 			<li class="minilogo"> 
                 You have no notifications.
 			</li> 
         <% } else if (myNotificationModel.NotificationType == NotificationType.ClassBoardReply) { %>
-			<li class="class"> 
-                <% if (myNotificationModel.IsMine) { %>
-                    Reply to your class discussion post in <a href="<%= URLHelper.BuildClassBoardUrl(myNotificationModel.ClassBoard) %>"><%= myNotificationModel.Class.Subject + myNotificationModel.Class.Course + "-" + myNotificationModel.Class.Section %></a>.
-                <% } else { %>
-                    Reply to a class discussion in <a href="<%= URLHelper.BuildClassBoardUrl(myNotificationModel.ClassBoard) %>"><%= myNotificationModel.Class.Subject + myNotificationModel.Class.Course + "-" + myNotificationModel.Class.Section %></a>.
-                <% } %>
-				<span class="time"><%= LocalDateHelper.ToLocalTime(myNotificationModel.DateTimeSent)%></span>
-			</li>             
+
         <% } else if (myNotificationModel.NotificationType == NotificationType.Board) { %>
 			<li class="board"> 
                 <% if (myNotificationModel.IsMine) { %>

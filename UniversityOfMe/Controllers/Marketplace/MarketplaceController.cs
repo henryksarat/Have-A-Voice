@@ -114,7 +114,7 @@ namespace UniversityOfMe.Controllers.Marketplace {
 
                 LoggedInWrapperModel<MarketplaceItem> myLoggedIn = new LoggedInWrapperModel<MarketplaceItem>(myUser);
                 myLoggedIn.Set(myItem);
-                myLoggedIn.LeftNavigation.BackgroundImage = theUniversityRepo.GetUniversity(myItem.UniversityId).Image;
+                //myLoggedIn.LeftNavigation.BackgroundImage = theUniversityRepo.GetUniversity(myItem.UniversityId).Image;
 
                 return View("Details", myLoggedIn);
             } catch (Exception myException) {

@@ -20,24 +20,33 @@ using Social.Generic.Exceptions;
 using UniversityOfMe.Helpers;
 using UniversityOfMe.Helpers.AWS;
 using UniversityOfMe.Helpers.Configuration;
+using UniversityOfMe.Repositories.Classes;
 
 namespace UniversityOfMe.Services.TextBooks {
     public class TextBookService : ITextBookService {
         private IValidationDictionary theValidationDictionary;
         private ITextBookRepository theTextBookRepo;
+        private IClassRepository theClassRepo;
 
         public TextBookService(IValidationDictionary aValidationDictionary)
-            : this(aValidationDictionary, new EntityTextBookRepository()) { }
+            : this(aValidationDictionary, new EntityTextBookRepository(), new EntityClassRepository()) { }
 
-        public TextBookService(IValidationDictionary aValidationDictionary, ITextBookRepository aTextBookRepo) {
+        public TextBookService(IValidationDictionary aValidationDictionary, ITextBookRepository aTextBookRepo, IClassRepository aClassRepo) {
             theValidationDictionary = aValidationDictionary;
             theTextBookRepo = aTextBookRepo;
+            theClassRepo = aClassRepo;
         }
 
 
         public bool CreateTextBook(UserInformationModel<User> aCreatingUser, TextBookViewModel aCreateTextBookModel) {
             if (!ValidTextBook(aCreateTextBookModel)) {
                 return false;
+            }
+
+            Class myClass = theClassRepo.GetClass(aCreateTextBookModel.UniversityId, aCreateTextBookModel.ClassSubject, aCreateTextBookModel.ClassCourse);
+
+            if(myClass == null) {
+                theClassRepo.CreateClass(aCreatingUser.Details, aCreateTextBookModel.UniversityId, aCreateTextBookModel.ClassSubject, aCreateTextBookModel.ClassCourse, "No title");
             }
 
             string myBookImageName = string.Empty;

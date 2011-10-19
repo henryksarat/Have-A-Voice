@@ -32,10 +32,16 @@
                         <% } %>
 
                         <div class="field-holder">
+			                <label for="BookTitle">List in</label> 
+			                <%= Model.University.UniversityName %>
+                        </div>
+
+                        <div class="field-holder">
 			                <label for="BookTitle">Book Title</label> 
 			                <%= Html.TextBox("BookTitle", string.Empty, new { @class = "quarter" })%>
                             <%= Html.ValidationMessage("BookTitle", "*", new { @class = "req" })%>
                         </div>
+
                         <div class="field-holder">
 			                <label for="TextBookCondition">Book Condition</label> 
                             <%= Html.DropDownListFor(model => model.Get().TextBookCondition, Model.Get().TextBookConditions)%>

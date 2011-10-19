@@ -49,6 +49,8 @@ namespace UniversityOfMe.Models.View.Search {
 
             myItemDescriptionDiv.InnerHtml += myTitleSpan.ToString();
             myItemDescriptionDiv.InnerHtml += "<br />";
+            myItemDescriptionDiv.InnerHtml += "University: " + theItem.UniversityId;
+            myItemDescriptionDiv.InnerHtml += "<br />";
             myItemDescriptionDiv.InnerHtml += "Type: " + theItem.ItemTypeId;
             myItemDescriptionDiv.InnerHtml += "<br />";
             myItemDescriptionDiv.InnerHtml += "Asking Price: " + MoneyFormatHelper.Format(theItem.Price);
@@ -89,6 +91,8 @@ namespace UniversityOfMe.Models.View.Search {
             myTitleSpan.InnerHtml += myNameLinked.ToString();
 
             myItemDescriptionDiv.InnerHtml += myTitleSpan.ToString();
+            myItemDescriptionDiv.InnerHtml += "<br />";
+            myItemDescriptionDiv.InnerHtml += "University: " + theItem.UniversityId;
             myItemDescriptionDiv.InnerHtml += "<br />";
             myItemDescriptionDiv.InnerHtml += "Type: " + theItem.ItemTypeId;
             myItemDescriptionDiv.InnerHtml += "<br />";

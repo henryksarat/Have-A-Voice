@@ -55,6 +55,8 @@ namespace UniversityOfMe.Models.View.Search {
 
             myBookDescriptionDiv.InnerHtml += myTitleSpan.ToString();
             myBookDescriptionDiv.InnerHtml += "<br />";
+            myBookDescriptionDiv.InnerHtml += "University: " + theTextBook.UniversityId;
+            myBookDescriptionDiv.InnerHtml += "<br />";
             myBookDescriptionDiv.InnerHtml += "Condition: " + theTextBook.TextBookCondition.Display;
             myBookDescriptionDiv.InnerHtml += "<br />";
             myBookDescriptionDiv.InnerHtml += "Associated Class: " + myAssociatedClass;
@@ -99,6 +101,8 @@ namespace UniversityOfMe.Models.View.Search {
             }
 
             myBookDescriptionDiv.InnerHtml += myTitleSpan.ToString();
+            myBookDescriptionDiv.InnerHtml += "<br />";
+            myBookDescriptionDiv.InnerHtml += "University: " + theTextBook.UniversityId;
             myBookDescriptionDiv.InnerHtml += "<br />";
             myBookDescriptionDiv.InnerHtml += "Condition: " + theTextBook.TextBookCondition.Display;
             myBookDescriptionDiv.InnerHtml += "<br />";
