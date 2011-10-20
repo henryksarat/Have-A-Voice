@@ -7,22 +7,6 @@ namespace UniversityOfMe.Helpers.Email {
             return "UofMe: New reply to your class question in " + aClass.Course;
         }
 
-        public static string ClassBoardReplyBody(Class aClass, ClassBoard aBoard) {
-            var myClassUrl = new TagBuilder("a");
-            myClassUrl.MergeAttribute("href", LinkIt(URLHelper.BuildClassBoardUrl(aBoard)));
-            myClassUrl.InnerHtml = aClass.Course;
-
-            var myClassBoardUrl = new TagBuilder("a");
-            myClassUrl.MergeAttribute("href", LinkIt(URLHelper.BuildClassBoardUrl(aBoard)));
-            myClassUrl.InnerHtml = "Click here to go to your post";
-
-            string myBody = "Hey! <br /><br /> Someone posted a reply to your question in " + myClassUrl.ToString()
-                + ". " + myClassBoardUrl.ToString() + " or copy and paste this into your browser: " + LinkIt(URLHelper.BuildClassBoardUrl(aBoard))
-                + "<br /><br />-UniversityOf.Me Team";
-
-            return myBody;
-        }
-
         public static string FriendRequestSubject() {
             return "UofMe: New friend request!";
         }

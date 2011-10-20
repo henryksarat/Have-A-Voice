@@ -7,11 +7,6 @@ using System.Web;
 
 namespace UniversityOfMe.Models.View {
     public class CreateClassModel {
-        public IEnumerable<SelectListItem> AcademicTerms { get; set; }
-
-        [DisplayFormat(ConvertEmptyStringToNull = false)]
-        public string AcademicTermId { get; set; }
-
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string UniversityId { get; set; }
 

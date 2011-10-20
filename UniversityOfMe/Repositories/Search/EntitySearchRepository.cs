@@ -22,38 +22,6 @@ namespace UniversityOfMe.Repositories.Search {
                     select c);
         }
 
-        public IEnumerable<Event> GetEventByTitle(string aUniversityId, string aTitle) {
-            return (from e in theEntities.Events
-                    where e.Title.Contains(aTitle)
-                    && !e.Deleted
-                    && e.StartDate > DateTime.UtcNow
-                    && e.UniversityId == aUniversityId
-                    select e);
-        }
-
-        public IEnumerable<Event> GetEventByInformation(string aUniversityId, string anInformation) {
-            return (from e in theEntities.Events
-                    where e.Information.Contains(anInformation)
-                    && !e.Deleted
-                    && e.StartDate > DateTime.UtcNow
-                    && e.UniversityId == aUniversityId
-                    select e);
-        }
-
-        public IEnumerable<GeneralPosting> GetGeneralPostingByTitle(string aUniversityId, string aTitle) {
-            return (from p in theEntities.GeneralPostings
-                    where p.Title.Contains(aTitle)
-                    && p.UniversityId == aUniversityId
-                    select p);
-        }
-
-        public IEnumerable<GeneralPosting> GetGeneralPostingByBody(string aUniversityId, string aBody) {
-            return (from p in theEntities.GeneralPostings
-                    where p.Body.Contains(aBody)
-                    && p.UniversityId == aUniversityId
-                    select p);
-        }
-
         public IEnumerable<TextBook> GetTextBookByTitle(string aUniversityId, string aTitle) {
             return (from t in theEntities.TextBooks
                     where t.BookTitle.Contains(aTitle)
@@ -85,34 +53,6 @@ namespace UniversityOfMe.Repositories.Search {
             return (from c in theEntities.Classes
                     where (c.Subject + c.Course).Contains(aClassCode)
                     select c);
-        }
-
-        public IEnumerable<Event> GetEventByTitle(string aTitle) {
-            return (from e in theEntities.Events
-                    where e.Title.Contains(aTitle)
-                    && !e.Deleted
-                    && e.StartDate > DateTime.UtcNow
-                    select e);
-        }
-
-        public IEnumerable<Event> GetEventByInformation(string anInformation) {
-            return (from e in theEntities.Events
-                    where e.Information.Contains(anInformation)
-                    && !e.Deleted
-                    && e.StartDate > DateTime.UtcNow
-                    select e);
-        }
-
-        public IEnumerable<GeneralPosting> GetGeneralPostingByTitle(string aTitle) {
-            return (from p in theEntities.GeneralPostings
-                    where p.Title.Contains(aTitle)
-                    select p);
-        }
-
-        public IEnumerable<GeneralPosting> GetGeneralPostingByBody(string aBody) {
-            return (from p in theEntities.GeneralPostings
-                    where p.Body.Contains(aBody)
-                    select p);
         }
 
         public IEnumerable<TextBook> GetTextBookByTitle(string aTitle) {

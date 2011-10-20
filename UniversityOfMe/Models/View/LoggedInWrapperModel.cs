@@ -6,7 +6,6 @@ using UniversityOfMe.Services.Notifications;
 using Social.Validation;
 using UniversityOfMe.Services.Users;
 using UniversityOfMe.Helpers;
-using UniversityOfMe.Services.Dating;
 using System;
 
 namespace UniversityOfMe.Models.View {

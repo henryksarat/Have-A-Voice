@@ -10,7 +10,6 @@ namespace UniversityOfMe.Services {
     public interface IUniversityService {
         void AddUserToUniversity(User aUser);
         IDictionary<string, string> CreateAllUniversitiesDictionaryEntry();
-        IDictionary<string, string> CreateAcademicTermsDictionaryEntry();
         UniversityView GetUniversityProfile(UserInformationModel<User> aUserInformation, string aUniversityId);
         University GetUniversityById(string aUniversityId);
         IEnumerable<University> GetValidUniversities();

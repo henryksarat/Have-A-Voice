@@ -12,8 +12,5 @@ namespace UniversityOfMe.Repositories.Scraper {
                          string aSubject, string aCourse, string aTitle);
         Class GetClass(string aUniversityId, string aSubject,
                        string aCourse);
-
-
-        void CreateClassProfessor(int aProfessorId, int aClassId);
     }
 }

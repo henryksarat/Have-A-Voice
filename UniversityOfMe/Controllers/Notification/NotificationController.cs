@@ -7,7 +7,6 @@ using Social.Generic.Constants;
 using Social.Users.Services;
 using UniversityOfMe.Models;
 using UniversityOfMe.Repositories;
-using UniversityOfMe.Services.Dating;
 using UniversityOfMe.UserInformation;
 using UniversityOfMe.Helpers;
 using UniversityOfMe.Services.Notifications;

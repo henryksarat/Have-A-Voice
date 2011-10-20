@@ -36,17 +36,6 @@
                 <% } %>
 				<span class="time"><%= LocalDateHelper.ToLocalTime(myNotificationModel.DateTimeSent)%></span> 
 			</li> 
-        <% } else if(myNotificationModel.NotificationType == NotificationType.Event) { %>
-			<li class="event"> 
-				New post in the event <a href="<%= URLHelper.EventUrl(myNotificationModel.Event) %>"><%= TextShortener.Shorten(myNotificationModel.Event.Title, 20) %> </a> 
-				<span class="time"><%= LocalDateHelper.ToLocalTime(myNotificationModel.DateTimeSent)%></span> 
-			</li> 
-        <% } else if (myNotificationModel.NotificationType == NotificationType.GeneralPosting) { %>
-			<li class="posting"> 
-                New reply in the general posting <a href="<%= URLHelper.BuildGeneralPostingsUrl(myNotificationModel.GeneralPosting) %>"><%= TextShortener.Shorten(myNotificationModel.GeneralPosting.Title, 20) %></a>.
-
-				<span class="time"><%= LocalDateHelper.ToLocalTime(myNotificationModel.DateTimeSent)%></span> 
-			</li> 
         <% } %>
     <% } %>
 </ul> 

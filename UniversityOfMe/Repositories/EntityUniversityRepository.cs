@@ -13,11 +13,6 @@ namespace UniversityOfMe.Repositories {
             theEntities.SaveChanges();
         }
 
-        public IEnumerable<AcademicTerm> GetAcademicTerms() {
-            return (from a in theEntities.AcademicTerms
-                    select a).ToList<AcademicTerm>();
-        }
-
         public University GetUniversity(string aUniversityId) {
             return (from u in theEntities.Universities
                     where u.Id == aUniversityId

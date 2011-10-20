@@ -125,18 +125,6 @@ namespace UniversityOfMe.Services.Search {
                 myClasses = myClasses.OrderBy(r => r.Title);
             } else if (anOrderBy == OrderBy.ClassCode) {
                 myClasses = myClasses.OrderBy(r => r.Subject + r.Course);
-            } else if (anOrderBy == OrderBy.LatestPost) {
-                myClasses = myClasses.OrderByDescending(
-                    r => r.ClassBoards
-                        .Where(r2=> !r2.Deleted)
-                        .OrderByDescending(r2 => r2.DateTimeStamp)
-                        .FirstOrDefault<ClassBoard>() != null ? 
-                        r.ClassBoards
-                        .Where(r2=> !r2.Deleted)
-                        .OrderByDescending(r2 => r2.DateTimeStamp)
-                        .FirstOrDefault<ClassBoard>().DateTimeStamp :
-                        OLD_DATE
-                    );
             }
 
             List<ISearchResult> mySearchResult = new List<ISearchResult>();
@@ -176,18 +164,6 @@ namespace UniversityOfMe.Services.Search {
                 myClasses = myClasses.OrderBy(r => r.Title);
             } else if (anOrderBy == OrderBy.ClassCode) {
                 myClasses = myClasses.OrderBy(r => r.Subject + r.Course);
-            } else if (anOrderBy == OrderBy.LatestPost) {
-                myClasses = myClasses.OrderByDescending(
-                    r => r.ClassBoards
-                        .Where(r2 => !r2.Deleted)
-                        .OrderByDescending(r2 => r2.DateTimeStamp)
-                        .FirstOrDefault<ClassBoard>() != null ?
-                        r.ClassBoards
-                        .Where(r2 => !r2.Deleted)
-                        .OrderByDescending(r2 => r2.DateTimeStamp)
-                        .FirstOrDefault<ClassBoard>().DateTimeStamp :
-                        OLD_DATE
-                    );
             }
 
             List<ISearchResult> mySearchResult = new List<ISearchResult>();
@@ -479,38 +455,6 @@ namespace UniversityOfMe.Services.Search {
             IDictionary<string, string> myOrderByOptionsDictionary = new Dictionary<string, string>();
             myOrderByOptionsDictionary.Add(OrderBy.Title.ToString(), OrderBy.Title.ToString());
             myOrderByOptionsDictionary.Add("Class Code", OrderBy.ClassCode.ToString());
-            myOrderByOptionsDictionary.Add("Latest Discussion Post", OrderBy.LatestPost.ToString());
-            return myOrderByOptionsDictionary;
-        }
-
-        private IDictionary<string, string> SearchByForEvent() {
-            IDictionary<string, string> mySearchByOptionsDictionary = new Dictionary<string, string>();
-            mySearchByOptionsDictionary.Add(SearchBy.Title.ToString(), SearchBy.Title.ToString());
-            mySearchByOptionsDictionary.Add(SearchBy.Description.ToString(), SearchBy.Description.ToString());
-            return mySearchByOptionsDictionary;
-        }
-
-        private IDictionary<string, string> OrderByForEvent() {
-            IDictionary<string, string> myOrderByOptionsDictionary = new Dictionary<string, string>();
-            myOrderByOptionsDictionary.Add("Closest Start Date", OrderBy.ClosestStartDate.ToString());
-            myOrderByOptionsDictionary.Add(OrderBy.Title.ToString(), OrderBy.Title.ToString());
-            myOrderByOptionsDictionary.Add("Latest Discussion Post", OrderBy.LatestPost.ToString());
-            myOrderByOptionsDictionary.Add("Higest Attending Members", OrderBy.HighestAttendingMembers.ToString());
-            myOrderByOptionsDictionary.Add("Lowest Attending Members", OrderBy.LowestAttendingMembers.ToString());
-            return myOrderByOptionsDictionary;
-        }
-
-        private IDictionary<string, string> SearchByForGeneralPosting() {
-            IDictionary<string, string> mySearchByOptionsDictionary = new Dictionary<string, string>();
-            mySearchByOptionsDictionary.Add(SearchBy.Title.ToString(), SearchBy.Title.ToString());
-            mySearchByOptionsDictionary.Add(SearchBy.Body.ToString(), SearchBy.Body.ToString());
-            return mySearchByOptionsDictionary;
-        }
-
-        private IDictionary<string, string> OrderByForGeneralPosting() {
-            IDictionary<string, string> myOrderByOptionsDictionary = new Dictionary<string, string>();
-            myOrderByOptionsDictionary.Add("Latest Post", OrderBy.LatestPost.ToString());
-            myOrderByOptionsDictionary.Add(OrderBy.Title.ToString(), OrderBy.Title.ToString());
             return myOrderByOptionsDictionary;
         }
 

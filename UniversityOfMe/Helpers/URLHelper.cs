@@ -26,28 +26,12 @@ namespace UniversityOfMe.Helpers {
             return "/" + aClass.UniversityId + "/Class/Details/" + ToUrlFriendly(aClass.Subject + " " + aClass.Course);
         }
 
-        public static string BuildClassBoardUrl(ClassBoard aClassBoard) {
-            return "/" + aClassBoard.Class.UniversityId + "/ClassBoard/Details?classId=" + aClassBoard.ClassId + "&classBoardId=" + aClassBoard.Id;
-        }
-
         public static string BuildClassDiscussionUrl(Class aClass) {
             return "/" + aClass.UniversityId + "/Class/Details/" + ToUrlFriendly(aClass.Subject + " " + aClass.Course);
         }
 
         public static string BuildTextbookUrl(TextBook aTextbook) {
             return "/" + aTextbook.UniversityId + "/TextBook/Details/" + aTextbook.Id;
-        }
-
-        public static string EventUrl(Event anEvent) {
-            return "/" + anEvent.UniversityId + "/Event/Details/" + anEvent.Id;
-        }
-
-        public static string BuildEventAttendUrl(Event anEvent) {
-            return "/Event/Attend/" + anEvent.Id;
-        }
-
-        public static string BuildEventUnAttendUrl(Event anEvent) {
-            return "/Event/Unattend/" + anEvent.Id;
         }
 
         public static string MarkSentItemAsSeen(int anId) {
@@ -72,10 +56,6 @@ namespace UniversityOfMe.Helpers {
 
         public static string BadgeListUrl() {
             return "/Badge/List";
-        }
-
-        public static string BuildGeneralPostingsUrl(GeneralPosting aGeneralPosting) {
-            return "/" + aGeneralPosting.UniversityId + "/GeneralPosting/Details/" + aGeneralPosting.Id;
         }
 
         public static string ProfileUrl(User aUser) {

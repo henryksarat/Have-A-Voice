@@ -10,7 +10,6 @@ using Social.Validation;
 using UniversityOfMe.Helpers;
 using UniversityOfMe.Models;
 using UniversityOfMe.Models.View;
-using UniversityOfMe.Repositories.Events;
 using UniversityOfMe.Repositories.Status;
 
 namespace UniversityOfMe.Services.Status {

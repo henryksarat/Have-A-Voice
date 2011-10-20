@@ -21,20 +21,10 @@ namespace UniversityOfMe.Services.Notifications {
 
         public IEnumerable<NotificationModel> GetNotificationsForUser(User aUser, int aLimit) {
             IEnumerable<SendItem> mySentItems = GetSendItemsForUser(aUser);
-            IEnumerable<ClubMember> myPendingClubMembers = GetPendingClubMembersOfAdminedClubs(aUser);
             IEnumerable<BoardViewedState> myBoardViewedStates = theNotificationRepository.GetBoardViewedStates(aUser);
-            IEnumerable<ClubMember> myClubMembersNotViewedBoard = theNotificationRepository.GetClubMembersNotViewedBoared(aUser);
-            IEnumerable<ClassEnrollment> myClassEnrollmentsNotViewedBoard = theNotificationRepository.GetClassEnrollmentsNotViewedBoard(aUser);
-            IEnumerable<GeneralPostingViewState> myGeneralPostingViewStates = theNotificationRepository.GetGeneralPostingsNotViewed(aUser);
-            IEnumerable<EventAttendence> myEventAttendences = theNotificationRepository.GetEventsWithNewBoardPosts(aUser);
-            IEnumerable<ClassBoardViewState> myClassBoardViewStates = theNotificationRepository.GetClassBoardsWithNewReplies(aUser);
 
             List<NotificationModel> myNotifications = ConvertToNotificationModel(mySentItems);
             myNotifications.AddRange(ConvertToNotificationModel(aUser, myBoardViewedStates));
-            myNotifications.AddRange(ConvertToNotificationModel(myClassEnrollmentsNotViewedBoard));
-            myNotifications.AddRange(ConvertToNotificationModel(myGeneralPostingViewStates));
-            myNotifications.AddRange(ConvertToNotificationModel(myEventAttendences));
-            myNotifications.AddRange(ConvertToNotificationModel(aUser, myClassBoardViewStates));
 
             if (myNotifications.Count == 0) {
                 myNotifications.Add(NoNotifications());
@@ -45,10 +35,6 @@ namespace UniversityOfMe.Services.Notifications {
 
         private IEnumerable<SendItem> GetSendItemsForUser(User aUser) {
             return theNotificationRepository.GetSendItemsForUser(aUser);
-        }
-
-        private IEnumerable<ClubMember> GetPendingClubMembersOfAdminedClubs(User aUser) {
-            return theNotificationRepository.GetPendingClubMembersOfAdminedClubs(aUser);
         }
 
         private NotificationModel NoNotifications() {
@@ -84,66 +70,6 @@ namespace UniversityOfMe.Services.Notifications {
                     Board = myBoardViewedState.Board,
                     IsMine = myBoard.OwnerUserId == anOwnerUser.Id,
                     DateTimeSent = myBoardViewedState.DateTimeStamp
-                });
-            }
-
-            return myNotificationModel;
-        }
-
-        private List<NotificationModel> ConvertToNotificationModel(IEnumerable<ClassEnrollment> aClassEnrollments) {
-            List<NotificationModel> myNotificationModel = new List<NotificationModel>();
-
-            foreach (ClassEnrollment myClassEnrollment in aClassEnrollments) {
-                myNotificationModel.Add(new NotificationModel() {
-                    NotificationType = NotificationType.ClassBoard,
-                    Class = myClassEnrollment.Class,
-                    DateTimeSent = myClassEnrollment.DateTimeStamp
-                });
-            }
-
-            return myNotificationModel;
-        }
-
-        private List<NotificationModel> ConvertToNotificationModel(IEnumerable<GeneralPostingViewState> aViewStates) {
-            List<NotificationModel> myNotificationModel = new List<NotificationModel>();
-
-            foreach (GeneralPostingViewState myViewState in aViewStates) {
-                myNotificationModel.Add(new NotificationModel() {
-                    NotificationType = NotificationType.GeneralPosting,
-                    GeneralPosting = myViewState.GeneralPosting,
-                    IsMine = myViewState.GeneralPosting.UserId == myViewState.UserId,
-                    DateTimeSent = myViewState.DateTimeStamp
-                });
-            }
-
-            return myNotificationModel;
-        }
-
-        private List<NotificationModel> ConvertToNotificationModel(IEnumerable<EventAttendence> aEventAttendences) {
-            List<NotificationModel> myNotificationModel = new List<NotificationModel>();
-
-            foreach (EventAttendence myEventAttendence in aEventAttendences) {
-                myNotificationModel.Add(new NotificationModel() {
-                    NotificationType = NotificationType.Event,
-                    Event = myEventAttendence.Event,
-                    DateTimeSent = (DateTime)myEventAttendence.LastBoardPost
-                });
-            }
-
-            return myNotificationModel;
-        }
-
-        private List<NotificationModel> ConvertToNotificationModel(User aUser, IEnumerable<ClassBoardViewState> aClassBoardViewState) {
-            List<NotificationModel> myNotificationModel = new List<NotificationModel>();
-
-            foreach (ClassBoardViewState myViewState in aClassBoardViewState) {
-                ClassBoard myClassBoard = myViewState.ClassBoard;
-
-                myNotificationModel.Add(new NotificationModel() {
-                    NotificationType = NotificationType.ClassBoardReply,
-                    ClassBoard = myClassBoard,
-                    IsMine = myClassBoard.UserId == aUser.Id,
-                    DateTimeSent = (DateTime)myViewState.DateTimeStamp
                 });
             }
 

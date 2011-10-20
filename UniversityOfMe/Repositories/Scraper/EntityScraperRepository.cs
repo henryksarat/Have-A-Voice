@@ -30,11 +30,5 @@ namespace UniversityOfMe.Repositories.Scraper {
                     && c.Course == aCourse
                     select c).FirstOrDefault<Class>();
         }
-
-        public void CreateClassProfessor(int aProfessorId, int aClassId) {
-            ClassProfessor myClassProfessor = ClassProfessor.CreateClassProfessor(0, aClassId, aProfessorId);
-            theEntities.AddToClassProfessors(myClassProfessor);
-            theEntities.SaveChanges();
-        }
     }
 }

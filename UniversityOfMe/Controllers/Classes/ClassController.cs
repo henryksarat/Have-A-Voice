@@ -55,12 +55,8 @@ namespace UniversityOfMe.Controllers.Classes {
                     return SendToResultPage(UOMConstants.NOT_APART_OF_UNIVERSITY);
                 }
 
-                IDictionary<string, string> myAcademicTerms = DictionaryHelper.DictionaryWithSelect();
-                myAcademicTerms = theUniversityService.CreateAcademicTermsDictionaryEntry();
-
                 CreateClassModel myClassModel = new CreateClassModel() {
-                    AcademicTerms = new SelectList(myAcademicTerms, "Value", "Key"),
-                    Years = new SelectList(UOMConstants.ACADEMIC_YEARS, DateTime.UtcNow.Year)
+
                 };
 
                 LoggedInWrapperModel<CreateClassModel> myLoggedIn = new LoggedInWrapperModel<CreateClassModel>(myUser);

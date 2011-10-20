@@ -5,19 +5,11 @@ namespace UniversityOfMe.Repositories.Search {
     public interface ISearchRepository {
         IEnumerable<Class> GetClassByTitle(string aUniversityId, string aTitle);
         IEnumerable<Class> GetClassByClassCode(string aUniversityId, string aClassCode);
-        IEnumerable<Event> GetEventByTitle(string aUniversityId, string aTitle);
-        IEnumerable<Event> GetEventByInformation(string aUniversityId, string anInformation);
-        IEnumerable<GeneralPosting> GetGeneralPostingByTitle(string aUniversityId, string aTitle);
-        IEnumerable<GeneralPosting> GetGeneralPostingByBody(string aUniversityId, string aBody);
         IEnumerable<TextBook> GetTextBookByTitle(string aUniversityId, string aTitle);
         IEnumerable<TextBook> GetTextBookByClassCode(string aUniversityId, string aClassCode);
 
         IEnumerable<Class> GetClassByTitle(string aTitle);
         IEnumerable<Class> GetClassByClassCode(string aClassCode);
-        IEnumerable<Event> GetEventByTitle(string aTitle);
-        IEnumerable<Event> GetEventByInformation(string anInformation);
-        IEnumerable<GeneralPosting> GetGeneralPostingByTitle(string aTitle);
-        IEnumerable<GeneralPosting> GetGeneralPostingByBody(string aBody);
         IEnumerable<TextBook> GetTextBookByTitle(string aTitle);
         IEnumerable<TextBook> GetTextBookByClassCode(string aClassCode);
 

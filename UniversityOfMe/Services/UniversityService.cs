@@ -44,16 +44,6 @@ namespace UniversityOfMe.Services {
             return myDictionary;
         }
 
-        public IDictionary<string, string> CreateAcademicTermsDictionaryEntry() {
-            IEnumerable<AcademicTerm> myAcademicTerms = theUniversityRepository.GetAcademicTerms();
-            IDictionary<string, string> myDictionary = new Dictionary<string, string>();
-            myDictionary.Add(Constants.SELECT, Constants.SELECT);
-            foreach (AcademicTerm myAcademicTerm in myAcademicTerms) {
-                myDictionary.Add(myAcademicTerm.DisplayName, myAcademicTerm.Id);
-            }
-            return myDictionary;
-        }
-
         public University GetUniversityById(string aUniversityId) {
             return theUniversityRepository.GetUniversity(aUniversityId);
         }
