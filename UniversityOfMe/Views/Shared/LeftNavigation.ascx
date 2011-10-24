@@ -141,7 +141,13 @@
 	</div> 
 	<div class="box"> 
         <div>
-            <a class="itemlinked" href="<%= URLHelper.SearchTextbooksByClass() %>">Textbooks</a><br />
+            <% if (Model.IsLoggedIn) { %>
+                <a class="itemlinked" href="<%= URLHelper.SearchEntireMarketplace(UniversityHelper.GetMainUniversity(Model.User).Id) %>">Entire School Marketplace</a><br />
+                <a class="itemlinked" href="<%= URLHelper.SearchTextbooksByClass(UniversityHelper.GetMainUniversity(Model.User).Id) %>">Textbooks</a><br />
+            <% } else { %>
+                <a class="itemlinked" href="<%= URLHelper.SearchEntireMarketplace() %>">Entire School Marketplace</a><br />
+                <a class="itemlinked" href="<%= URLHelper.SearchTextbooksByClass() %>">Textbooks</a><br />
+            <% } %>
             <% foreach (ItemType myItemType in Model.ItemTypes) { %>
                 <a class="itemlinked" href="<%= URLHelper.SearchMarketplace(myItemType) %>"><%= myItemType.DisplayName %>s</a>
                 <br />

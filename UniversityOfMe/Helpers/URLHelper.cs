@@ -115,7 +115,11 @@ namespace UniversityOfMe.Helpers {
         }
 
         public static string SearchTextbooksByClass() {
-            return "/Search/TextbookAdvanced?searchString=&page=1&searchBy=ClassCode&orderBy=LowestPrice";
+            return SearchTextbooksByClass("All");
+        }
+
+        public static string SearchTextbooksByClass(string aUniversityId) {
+            return "/Search/TextbookAdvanced?searchString=&page=1&searchBy=ClassCode&orderBy=LowestPrice&universityId=" + aUniversityId;
         }
 
         public static string SearchTextbooksByTitle() {
@@ -128,6 +132,14 @@ namespace UniversityOfMe.Helpers {
 
         public static string SearchMarketplace(ItemType anItemType) {
             return "/Search/Marketplace?page=1&itemType=" + anItemType.Id + "";
+        }
+
+        public static string SearchEntireMarketplace() {
+            return "/Search/All?page=1";
+        }
+
+        public static string SearchEntireMarketplace(string aUniversityId) {
+            return "/Search/All?page=1&universityId=" + aUniversityId;
         }
 
         public static string CreateTextBook(string aUnviersityId, string aClassSubject, string aClassCourse) {

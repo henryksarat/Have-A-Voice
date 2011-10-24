@@ -7,11 +7,11 @@
 <%@ Import Namespace="Social.Generic.Models" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Buy <%= Model.Get().ItemTypeId %> | <%= Model.Get().Title %>
+	<%= Model.Get().ItemTypeId %> | <%= Model.Get().Title %>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="MetaDescriptionHolder" runat="server">
-	<%= UniversityOfMe.Helpers.MetaHelper.MetaDescription("Buy the " + Model.Get().ItemTypeId + ": " + Model.Get().Title) %>
+	<%= UniversityOfMe.Helpers.MetaHelper.MetaDescription(Model.Get().ItemTypeId + ": " + Model.Get().Title) %>
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="MetaKeywordsHolder" runat="server">
